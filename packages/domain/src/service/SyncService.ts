@@ -85,9 +85,12 @@ export class SyncService {
 
     s.docs = docs.map((doc) => new Doc(doc))
 
-    s.docsMap = s.docs.reduce((acc, doc) => {
-      return { ...acc, [doc.id]: doc }
-    }, {} as Record<string, Doc>)
+    s.docsMap = s.docs.reduce(
+      (acc, doc) => {
+        return { ...acc, [doc.id]: doc }
+      },
+      {} as Record<string, Doc>,
+    )
 
     return s
   }
@@ -290,7 +293,10 @@ export class SyncService {
     const now = Date.now()
     const ONE_MINUTE = 60 * 1000
 
-    if (now - this.space.commit.timestamp < ONE_MINUTE * 2) {
+    if (
+      this.space.commit.timestamp &&
+      now - this.space.commit.timestamp < ONE_MINUTE * 2
+    ) {
       console.log('=========less than 2 minute')
       return false
     }
