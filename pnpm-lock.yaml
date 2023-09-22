@@ -9,34 +9,34 @@ importers:
   .:
     devDependencies:
       '@commitlint/cli':
-        specifier: ^17.6.5
+        specifier: ^17.7.1
         version: 17.7.1
       '@commitlint/config-conventional':
-        specifier: ^17.6.5
+        specifier: ^17.7.0
         version: 17.7.0
       '@ianvs/prettier-plugin-sort-imports':
         specifier: 4.1.0
-        version: 4.1.0(prettier@2.8.8)
+        version: 4.1.0(prettier@3.0.3)
       '@turbo/gen':
-        specifier: ^1.10.1
+        specifier: ^1.10.14
         version: 1.10.14(@types/node@20.6.3)(typescript@5.2.2)
       eslint:
-        specifier: ^8.41.0
+        specifier: ^8.49.0
         version: 8.49.0
       eslint-config-custom:
         specifier: workspace:*
         version: link:packages/eslint-config-custom
       husky:
-        specifier: ^8.0.0
+        specifier: ^8.0.3
         version: 8.0.3
       lint-staged:
-        specifier: ^13.2.2
+        specifier: ^13.3.0
         version: 13.3.0
       prettier:
-        specifier: ^2.8.8
-        version: 2.8.8
+        specifier: ^3.0.3
+        version: 3.0.3
       turbo:
-        specifier: ^1.10.2
+        specifier: ^1.10.14
         version: 1.10.14
 
   apps/extension:
@@ -4755,26 +4755,6 @@ packages:
 
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
-
-  /@ianvs/prettier-plugin-sort-imports@4.1.0(prettier@2.8.8):
-    resolution: {integrity: sha512-IAXeTLU24k6mRPa6mFbW1qZJ/j0m3OeH44wyijWyr+YqqdNtBnfHxAntOAATS9iDfrT01NesKGsdzqnXdDQa/A==}
-    peerDependencies:
-      '@vue/compiler-sfc': '>=3.0.0'
-      prettier: 2 || 3
-    peerDependenciesMeta:
-      '@vue/compiler-sfc':
-        optional: true
-    dependencies:
-      '@babel/core': 7.22.20
-      '@babel/generator': 7.22.15
-      '@babel/parser': 7.22.16
-      '@babel/traverse': 7.22.20
-      '@babel/types': 7.22.19
-      prettier: 2.8.8
-      semver: 7.5.4
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
 
   /@ianvs/prettier-plugin-sort-imports@4.1.0(prettier@3.0.3):
     resolution: {integrity: sha512-IAXeTLU24k6mRPa6mFbW1qZJ/j0m3OeH44wyijWyr+YqqdNtBnfHxAntOAATS9iDfrT01NesKGsdzqnXdDQa/A==}
