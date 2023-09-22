@@ -1,0 +1,23 @@
+{
+  "name": "@penx/db",
+  "version": "0.1.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "build": "pnpm with-env prisma generate",
+    "db:generate": "pnpm with-env prisma generate",
+    "db:push": "pnpm with-env prisma db push --skip-generate",
+    "dev": "pnpm with-env prisma studio --port 5556",
+    "with-env": "dotenv -e ../../.env --"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.2.0",
+    "prisma": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "dotenv-cli": "^7.2.1",
+    "typescript": "^5.1.3"
+  }
+}

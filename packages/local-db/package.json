@@ -1,0 +1,23 @@
+{
+  "name": "@penx/local-db",
+  "version": "0.1.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@penx/constants": "workspace:*",
+    "dexie": "^3.2.4",
+    "nanoid": "^4.0.2",
+    "pouchdb": "^8.0.1"
+  },
+  "devDependencies": {
+    "@penx/eslint-config": "workspace:*",
+    "eslint": "^8.42.0",
+    "typescript": "^5.1.3"
+  }
+}

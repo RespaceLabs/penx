@@ -1,0 +1,38 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env", "**/.env.production", "**/.env.*local"],
+  "globalEnv": [
+    "NEXT_PUBLIC_NEXTAUTH_URL",
+    "NEXTAUTH_SECRET",
+    "NEXT_PUBLIC_ROOT_DOMAIN",
+    "NODE_ENV",
+    "VERCEL_URL",
+    "NEXT_PUBLIC_GOOGLE_CLIENT_ID",
+    "NEXT_PUBLIC_GOOGLE_CLIENT_SECRET",
+    "NEXT_PUBLIC_GITHUB_CLIENT_ID",
+    "NEXT_PUBLIC_GITHUB_CLIENT_SECRET",
+    "NEXT_PUBLIC_GITHUB_APP_NAME",
+    "GITHUB_PRIVATE_KEY",
+    "GITHUB_APP_ID",
+    "DATABASE_URL",
+    "CI",
+    "SKIP_ENV_VALIDATION",
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_BUCKET",
+    "SUPABASE_KEY"
+  ],
+  "remoteCache": {
+    "signature": true
+  },
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "lint": {},
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

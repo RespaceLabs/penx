@@ -1,0 +1,36 @@
+{
+  "name": "ink",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "build:web": "turbo run build --filter=web...",
+    "build:packages": "turbo run build --filter=./packages/*",
+    "dev": "turbo run dev",
+    "clean": "git clean -xdf node_modules",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "echo",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
+    "@ianvs/prettier-plugin-sort-imports": "4.1.0",
+    "@turbo/gen": "^1.10.1",
+    "eslint": "^8.41.0",
+    "eslint-config-custom": "workspace:*",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "turbo": "^1.10.2"
+  },
+  "packageManager": "pnpm@8.7.6"
+}

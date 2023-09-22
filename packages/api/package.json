@@ -1,0 +1,41 @@
+{
+  "name": "@penx/api",
+  "version": "0.1.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@octokit/auth-app": "^6.0.0",
+    "@octokit/oauth-app": "^6.0.0",
+    "@penx/catalogue": "workspace:*",
+    "@penx/constants": "workspace:*",
+    "@penx/db": "workspace:*",
+    "@penx/editor-shared": "workspace:*",
+    "@penx/editor-types": "workspace:*",
+    "@penx/serializer": "workspace:*",
+    "@penx/shared": "workspace:*",
+    "@trpc/client": "^10.36.0",
+    "@trpc/next": "^10.36.0",
+    "@trpc/server": "^10.36.0",
+    "date-fns": "^2.30.0",
+    "mitt": "^3.0.0",
+    "nanoid": "^4.0.2",
+    "next-auth": "^4.22.1",
+    "octokit": "^3.1.0",
+    "query-string": "^8.1.0",
+    "slate": "0.94.1",
+    "superjson": "1.9.1",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@octokit/openapi-types": "^18.0.0",
+    "@penx/eslint-config": "workspace:*",
+    "eslint": "^8.42.0",
+    "typescript": "^5.1.3"
+  }
+}

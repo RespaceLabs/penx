@@ -1,0 +1,5 @@
+export * from './DocService'
+export * from '../SpaceService'
+export * from './Catalogue'
+export * from './ChangeService'
+export * from './SyncService'
