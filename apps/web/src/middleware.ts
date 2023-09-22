@@ -25,13 +25,13 @@ export async function middleware(req: NextRequest) {
     hostname.replace(ROOT_DOMAIN, '').length > 0 &&
     hostname.replace(ROOT_DOMAIN, '') !== 'www.'
 
-  if (isSubdomain) {
-    return NextResponse.rewrite(new URL(`/${hostname}${path}`, req.url))
-  }
+  // if (isSubdomain) {
+  //   return NextResponse.rewrite(new URL(`/${hostname}${path}`, req.url))
+  // }
 
-  if (session && path === '/login') {
-    return NextResponse.redirect(new URL('/', req.url))
-  }
+  // if (session && path === '/login') {
+  //   return NextResponse.redirect(new URL('/', req.url))
+  // }
 
   // if (
   //   (path.startsWith('/spaces') || path.startsWith('/new-space')) &&
