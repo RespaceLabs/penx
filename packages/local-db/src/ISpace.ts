@@ -42,7 +42,7 @@ export interface ISpace {
     [key: string]: Record<string, any>
   }
 
-  commitTree?: string
+  commitTree?: any
 
   commitSha?: string
 

@@ -31,7 +31,7 @@ export class ChangeService {
       [id]: { type: ChangeType.ADD },
     }
 
-    await db.space.update(this.spaceId, {
+    await db.updateSpace(this.spaceId, {
       changes: newChanges,
     })
 
@@ -48,7 +48,7 @@ export class ChangeService {
         },
       }
 
-      await db.space.update(this.spaceId, {
+      await db.updateSpace(this.spaceId, {
         changes: newChanges,
       })
 
@@ -71,7 +71,7 @@ export class ChangeService {
       [id]: item,
     }
 
-    await db.space.update(this.spaceId, {
+    await db.updateSpace(this.spaceId, {
       changes: newChanges,
     })
 
@@ -79,16 +79,19 @@ export class ChangeService {
   }
 
   async deleteMany(ids: string[]) {
-    const newChanges = ids.reduce<ISpace['changes']>((acc, id) => {
-      if (this.isAdded(id)) {
-        delete this.changes[id]
-        return acc
-      } else {
-        return { ...acc, [id]: { type: ChangeType.DELETE } }
-      }
-    }, this.space.changes as ISpace['changes'])
+    const newChanges = ids.reduce<ISpace['changes']>(
+      (acc, id) => {
+        if (this.isAdded(id)) {
+          delete this.changes[id]
+          return acc
+        } else {
+          return { ...acc, [id]: { type: ChangeType.DELETE } }
+        }
+      },
+      this.space.changes as ISpace['changes'],
+    )
 
-    await db.space.update(this.spaceId, {
+    await db.updateSpace(this.spaceId, {
       changes: newChanges,
     })
 

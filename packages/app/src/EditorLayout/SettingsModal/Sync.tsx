@@ -33,9 +33,7 @@ export const Sync = () => {
     const settings = produce(activeSpace.settings, (draft) => {
       draft.sync = values
     })
-    db.space.update(activeSpace.id, {
-      settings,
-    })
+    db.updateDoc(activeSpace.id, { settings })
   }, [values])
 
   console.log('values:', values)

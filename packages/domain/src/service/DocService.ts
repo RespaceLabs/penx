@@ -5,7 +5,10 @@ import { Catalogue } from './Catalogue'
 import { ChangeService } from './ChangeService'
 
 export class DocService {
-  constructor(public raw: IDoc, public catalogue: Catalogue) {}
+  constructor(
+    public raw: IDoc,
+    public catalogue: Catalogue,
+  ) {}
 
   get inited() {
     return !!this.raw
@@ -29,12 +32,12 @@ export class DocService {
 
       const newContent = JSON.stringify(content)
 
-      await db.doc.update(doc.id, {
+      await db.updateDoc(doc.id, {
         title,
         content: newContent,
       })
 
-      const space = await db.space.get(doc.spaceId)
+      const space = await db.getSpace(doc.spaceId)
       const changeService = new ChangeService(space!)
       await changeService.update(doc.id, this.raw.content, newContent)
 
@@ -49,7 +52,8 @@ export class DocService {
 
   setTitle = async (title: string) => {
     store.setDoc({ ...this.raw, title })
-    await db.doc.update(this.spaceId, {
+
+    await db.updateDoc(this.spaceId, {
       title,
     })
   }

@@ -69,6 +69,18 @@ export class PenxDB extends Dexie {
     })
   }
 
+  listSpaces = () => {
+    return this.space.toArray()
+  }
+
+  getSpace = (spaceId: string) => {
+    return this.space.get(spaceId)
+  }
+
+  updateSpace = (spaceId: string, space: Partial<ISpace>) => {
+    return this.space.update(spaceId, space)
+  }
+
   selectDoc = async (spaceId: string, docId: string) => {
     return this.transaction('rw', this.space, this.doc, async () => {
       await this.space.update(spaceId, {
@@ -80,13 +92,26 @@ export class PenxDB extends Dexie {
       return doc
     })
   }
+
+  createDoc(doc: IDoc) {
+    return this.doc.add(doc)
+  }
+
+  getDoc = (docId: string) => {
+    return this.doc.get(docId)
+  }
+
+  updateDoc = (docId: string, doc: Partial<IDoc>) => {
+    return this.doc.update(docId, doc)
+  }
+
+  queryDocByIds = (docIds: string[]) => {
+    return db.doc.where('id').anyOf(docIds).toArray()
+  }
+
+  deleteDocByIds = (docIds: string[]) => {
+    return db.doc.where('id').anyOf(docIds).delete()
+  }
 }
 
 export const db = new PenxDB()
-
-// db.space.hook('creating', (primKey, obj, transaction) => {
-//   db.space.update(primKey, {
-//     createdAt: new Date(),
-//     updatedAt: new Date(),
-//   })
-// })

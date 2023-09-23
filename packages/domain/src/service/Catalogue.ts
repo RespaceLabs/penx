@@ -31,18 +31,21 @@ export class Catalogue {
     return this.tree.flatten(CatalogueNodeType.DOC)
   }
 
-  constructor(public space: ISpace, public tree: CatalogueTree) {
+  constructor(
+    public space: ISpace,
+    public tree: CatalogueTree,
+  ) {
     this.changeService = new ChangeService(this.space)
   }
 
   private async updateCatalogueToDB() {
-    await db.space.update(this.spaceId, {
+    await db.updateSpace(this.spaceId, {
       catalogue: this.tree.toJSON(),
     })
   }
 
   private async reloadSpaceStore() {
-    const spaces = await db.space.toArray()
+    const spaces = await db.listSpaces()
     store.setSpaces(spaces)
     return spaces
   }
@@ -79,7 +82,7 @@ export class Catalogue {
     const node = this.tree.addNode({ name, id, type }, parentId)
 
     if (node.isGroup) {
-      await db.space.update(this.spaceId, {
+      await db.updateSpace(this.spaceId, {
         catalogue: this.tree.toJSON(),
       })
 
@@ -89,7 +92,7 @@ export class Catalogue {
     }
 
     //  is Doc
-    await db.space.update(this.spaceId, {
+    await db.updateSpace(this.spaceId, {
       activeDocId: id,
       catalogue: this.tree.toJSON(),
     })
@@ -103,7 +106,7 @@ export class Catalogue {
       updatedAt: new Date(),
     }
 
-    await db.doc.add(newDoc)
+    await db.createDoc(newDoc)
 
     await this.changeService.add(id)
 
@@ -125,19 +128,19 @@ export class Catalogue {
         .map((i) => i.id)
     }
 
-    await db.doc.where('id').anyOf(ids).delete()
+    await db.deleteDocByIds(ids)
 
     await this.changeService.deleteMany(ids)
 
-    await db.space.update(this.spaceId, {
+    await db.updateSpace(this.spaceId, {
       catalogue: this.tree.toJSON(),
       activeDocId: this.tree.firstDocNodeId,
     })
 
     // reload spaces
     const [doc, spaces] = await Promise.all([
-      db.doc.get(this.tree.firstDocNodeId),
-      db.space.toArray(),
+      db.getDoc(this.tree.firstDocNodeId),
+      db.listSpaces(),
     ])
 
     store.setSpaces(spaces)

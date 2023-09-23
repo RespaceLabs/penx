@@ -9,7 +9,7 @@ const CommandList = styled(Command.List)
 const CommandItem = styled(Command.Item)
 
 export function CommandPanel() {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
   const catalogue = useCatalogue()
   const filteredItems = catalogue.docNodes.filter((i) =>

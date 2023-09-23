@@ -14,7 +14,7 @@ export async function startPollingPull() {
 
 async function sync() {
   // TODO: don't use toArray()
-  const spaces = await db.space.toArray()
+  const spaces = await db.listSpaces()
   const space = spaces.find((s) => s.isActive)!
   const syncService = await SyncService.init(space!)
 

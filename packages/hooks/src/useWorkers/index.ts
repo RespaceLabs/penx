@@ -22,7 +22,7 @@ export function useWorkers() {
       if (event.data === WorkerEvents.PUSH_SUCCEEDED) {
         store.setSyncStatus(SyncStatus.NORMAL)
 
-        const spaces = await db.space.toArray()
+        const spaces = await db.listSpaces()
         store.setSpaces(spaces)
       }
 
@@ -38,11 +38,12 @@ export function useWorkers() {
       if (event.data === WorkerEvents.PULL_SUCCEEDED) {
         store.setSyncStatus(SyncStatus.NORMAL)
 
-        const spaces = await db.space.toArray()
+        const spaces = await db.listSpaces()
         store.setSpaces(spaces)
 
         const activeSpace = spaces.find((space) => space.isActive)
-        const doc = await db.doc.get(activeSpace?.activeDocId!)
+
+        const doc = await db.getDoc(activeSpace?.activeDocId!)
 
         store.setDoc(null as any)
 

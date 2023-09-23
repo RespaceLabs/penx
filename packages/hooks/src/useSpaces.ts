@@ -8,7 +8,7 @@ export function useQuerySpaces() {
   const setSpaces = useSetAtom(spacesAtom)
 
   useEffect(() => {
-    db.space.toArray().then((spaces) => {
+    db.listSpaces().then((spaces) => {
       setSpaces(spaces)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps

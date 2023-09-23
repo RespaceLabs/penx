@@ -81,7 +81,7 @@ export class SyncService {
 
     const changedIds = s.space.getChangedDocIds()
 
-    const docs = await db.doc.where('id').anyOf(changedIds).toArray()
+    const docs = await db.queryDocByIds(changedIds)
 
     s.docs = docs.map((doc) => new Doc(doc))
 
@@ -225,12 +225,12 @@ export class SyncService {
     if (spaceRes.data.content) {
       const space: ISpace = JSON.parse(atob(spaceRes.data.content))
       const { commitDate, commitTree, commitSha, ...rest } = space
-      await db.space.update(this.space.id, rest)
+      await db.updateSpace(this.space.id, rest)
     }
   }
 
   private async reloadSpaceStore() {
-    const spaces = await db.space.toArray()
+    const spaces = await db.listSpaces()
     store.setSpaces(spaces)
     return spaces
   }
@@ -279,7 +279,7 @@ export class SyncService {
 
     const commitTree = await this.getDocsTreeInfo()
 
-    await db.space.update(this.space.id, {
+    await db.updateSpace(this.space.id, {
       commitTree,
       commitSha: commitData.sha,
       commitDate: new Date(commitData.committer.date),
@@ -335,16 +335,16 @@ export class SyncService {
       )
 
       const name: string = docRes.data.name
-      const doc = await db.doc.get(name.replace(/\.json$/, ''))
+      const doc = await db.getDoc(name.replace(/\.json$/, ''))
       const json: IDoc = JSON.parse(decodeBase64(docRes.data.content))
 
       if (doc) {
-        await db.doc.update(doc.id, {
+        await db.updateDoc(doc.id, {
           ...json,
           content: JSON.stringify(json.content),
         })
       } else {
-        await db.doc.add({
+        await db.createDoc({
           ...json,
           content: JSON.stringify(json.content),
         })
@@ -355,7 +355,7 @@ export class SyncService {
 
     const commitTree = await this.getDocsTreeInfo()
 
-    await db.space.update(this.space.id, {
+    await db.updateSpace(this.space.id, {
       commitTree,
       commitSha: this.commitSha,
       commitDate: new Date(this.commitDate!),
@@ -363,7 +363,7 @@ export class SyncService {
     })
 
     await this.reloadSpaceStore()
-    const activeDoc = await db.doc.get(this.space.activeDocId!)
+    const activeDoc = await db.getDoc(this.space.activeDocId!)
     this.updateDocAtom(activeDoc!)
   }
 }

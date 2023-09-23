@@ -15,7 +15,7 @@ export class SpaceService {
   }
 
   loadSpaces = async () => {
-    const spaces = await db.space.toArray()
+    const spaces = await db.listSpaces()
     store.setSpaces(spaces)
   }
 }

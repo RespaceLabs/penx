@@ -9,6 +9,7 @@
         "name": "next"
       }
     ],
+    "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "strictNullChecks": true,
     "paths": {

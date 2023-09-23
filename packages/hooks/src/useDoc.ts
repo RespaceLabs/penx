@@ -7,8 +7,9 @@ import { useCatalogue } from './useCatalogue'
 
 export function useInitDoc(docId: string) {
   const [_, setDoc] = useAtom(docAtom)
+
   useEffect(() => {
-    db.doc.get({ id: docId }).then((doc) => {
+    db.getDoc(docId).then((doc) => {
       if (doc) setDoc(doc)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
