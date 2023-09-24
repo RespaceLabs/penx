@@ -1,88 +1,43 @@
-import React from 'react'
-import { Database } from '@penx/indexeddb'
+import React, { useEffect, useState } from 'react'
+import { Box } from '@fower/react'
+import { Button, Textarea } from 'uikit'
+import { db } from '@penx/local-db'
+import { IPlugin } from '@penx/local-db/src/IPlugin'
 
-interface Users {
-  id?: string
-  username: string
-  password: string
+function PluginItem({ plugin }: { plugin: IPlugin }) {
+  const [code, setCode] = useState(plugin.code || '')
+  return (
+    <Box>
+      <Box>{plugin.manifest.name}</Box>
+      <Textarea value={code} onChange={(e) => setCode(e.target.value)} />
+      <Button
+        onClick={() => {
+          db.updatePlugin(plugin.id, { code })
+        }}
+      >
+        Update
+      </Button>
+    </Box>
+  )
 }
-
-enum Priority {
-  LOW = 'LOW',
-  MEDIUM = 'MEDIUM',
-  HIGH = 'HIGH',
-}
-
-interface ToDos {
-  id?: string
-  userId: number
-  title: string
-  description: string
-  done: boolean
-  priority: Priority
-}
-
-const database = new Database({
-  version: 1,
-  name: 'Todo-list',
-  tables: [
-    {
-      name: 'users',
-      primaryKey: {
-        name: 'id',
-        autoIncrement: true,
-        unique: true,
-      },
-      indexes: {
-        username: {
-          unique: false,
-        },
-      },
-      timestamps: true,
-    },
-    {
-      name: 'todos',
-      primaryKey: {
-        name: 'id',
-        autoIncrement: true,
-        unique: true,
-      },
-      indexes: {
-        userId: {
-          unique: true,
-        },
-      },
-      timestamps: true,
-    },
-  ],
-})
-
-;(async () => {
-  console.log('gogo.........')
-
-  await database.connect()
-  const users = database.useModel<Users>('users')
-  const user = await users.insert({
-    id: Date.now().toString(),
-    username: 'admin',
-    password: 'admin',
-  })
-  const todos = database.useModel<ToDos>('todos')
-  await todos.insert({
-    id: Date.now().toString(),
-    userId: user.id,
-    title: 'Todo 1',
-    description: 'Description 1',
-    done: false,
-    priority: Priority.LOW,
-  })
-})()
 
 const PageEditor = () => {
+  const [plugins, setPlugins] = useState<IPlugin[]>([])
+  useEffect(() => {
+    db.listPlugins().then((plugins) => {
+      setPlugins(plugins)
+      console.log('plugins:', plugins)
+    })
+  }, [])
   return (
-    <div>
+    <Box p10>
       <div>Test</div>
-    </div>
+      <Box>
+        {plugins.map((plugin) => (
+          <PluginItem key={plugin.id} plugin={plugin}></PluginItem>
+        ))}
+      </Box>
+    </Box>
   )
 }
 

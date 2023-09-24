@@ -1,0 +1,20 @@
+{
+  "name": "@penx/plugin-typings",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc"
+  },
+  "repository": {},
+  "keywords": [
+    "penx",
+    "plugin",
+    "typings"
+  ],
+  "author": "Penx",
+  "bugs": {},
+  "devDependencies": {
+    "typescript": "^5.1.3"
+  }
+}

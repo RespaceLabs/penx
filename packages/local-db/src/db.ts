@@ -238,8 +238,8 @@ class DB {
     return this.plugin.selectByPk(pluginId)
   }
 
-  updatePlugin = (pluginId: string, doc: Partial<IDoc>) => {
-    return this.plugin.updateByPk(pluginId, doc)
+  updatePlugin = (pluginId: string, plugin: Partial<IPlugin>) => {
+    return this.plugin.updateByPk(pluginId, plugin)
   }
 
   listPlugins = () => {

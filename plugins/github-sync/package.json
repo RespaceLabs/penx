@@ -1,0 +1,24 @@
+{
+  "name": "github-sync",
+  "version": "0.0.0",
+  "description": "",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build-fast": "tsup src/index.ts --format cjs,esm",
+    "build": "pnpm run build-fast -- --dts-resolve",
+    "dev": "tsup src/index.ts --watch --format cjs,esm"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0",
+    "@penx/plugin-typings": "*",
+    "typescript": "^5.2.2"
+  }
+}

@@ -37,6 +37,7 @@ class MyDocument extends Document {
             dangerouslySetInnerHTML={{ __html: getCssString() }}
           />
           <link rel="icon" href="/favicon.ico" />
+          <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js"></script>
         </Head>
         <body>
           <Main />

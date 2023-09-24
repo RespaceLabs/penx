@@ -6,7 +6,6 @@ import { ActivityBar } from '../ActivityBar/ActivityBar'
 import { DocContent } from '../doc/DocContent'
 import { CommandPanel } from '../Palette'
 import { Sidebar } from '../Sidebar/Sidebar'
-import { Count } from './Count'
 import { SyncPopover } from './SyncPopover'
 
 function WidthDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {

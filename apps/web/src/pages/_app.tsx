@@ -25,7 +25,6 @@ initFower()
 
 if (!isServer) {
   db.database.connect().then(() => {
-    console.log('gogo...')
     db.init()
   })
 }

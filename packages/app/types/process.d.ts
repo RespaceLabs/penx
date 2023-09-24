@@ -14,3 +14,13 @@ declare namespace NodeJS {
     AUTH0_SECRET: string
   }
 }
+
+interface Window {
+  penx: {
+    registerCommand(command: any): void
+    registerComponent(type: string, component: any): void
+    executeCommand(id: string): void
+    createSettings(schema: any[]): void
+    notify(message: string, options?: any): any
+  }
+}
