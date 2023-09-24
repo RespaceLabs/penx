@@ -1,3 +1,7 @@
+export const IS_DB_OPENED = '__IS_DB_OPENED__'
+
+export const isServer = typeof window === 'undefined'
+
 export enum SyncScope {
   CURRENT_DOC,
   ALL_CHANGES,

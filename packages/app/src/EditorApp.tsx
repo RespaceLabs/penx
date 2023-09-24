@@ -1,7 +1,6 @@
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { Provider } from 'jotai'
 import { useWorkers } from '@penx/hooks'
-import { db } from '@penx/local-db'
 import { JotaiNexus, store } from '@penx/store'
 import { ClientOnly } from './components/ClientOnly'
 import { EditorLayout } from './EditorLayout/EditorLayout'
@@ -9,17 +8,26 @@ import { EditorLayout } from './EditorLayout/EditorLayout'
 export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
   useWorkers()
 
-  const [connected, setConnected] = useState(false)
-
-  // TODO:
   useEffect(() => {
-    db.database.connect().then(() => {
-      setConnected(true)
-      db.init()
-    })
-  }, [])
+    try {
+      const codeString = `
+      const openRequest = window.indexedDB.open('myDatabase22', 1)
+    `
 
-  if (!connected) return null
+      const script = document.createElement('script')
+      script.textContent = `
+
+      try {
+        ${codeString}
+      } catch (error) {
+        console.log('helooooooooooooo:', error)  
+      }
+      `
+      document.body.appendChild(script)
+    } catch (error) {
+      console.log('e99----xxx:', error)
+    }
+  }, [])
 
   return (
     <ClientOnly>

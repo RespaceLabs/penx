@@ -2,6 +2,7 @@ export type ConfigType<T = TableType> = {
   version: number
   name: string
   tables: T[]
+  indexedDB?: IDBFactory
 }
 export type TimeStampsType = {
   createdAt: number

@@ -14,3 +14,7 @@ declare namespace NodeJS {
     AUTH0_SECRET: string
   }
 }
+
+interface Window {
+  __IS_DB_OPENED__: boolean
+}

@@ -15,13 +15,19 @@ import { db } from '@penx/local-db'
 import { isServer } from '~/common/utils'
 import '../styles/globals.css'
 import '../styles/command.scss'
-import { ClientOnly } from '~/components/ClientOnly'
+import { IS_DB_OPENED } from '@penx/constants'
 
 // import 'prismjs/themes/prism.css'
 // import 'prismjs/themes/prism.css'
 // import 'prismjs/themes/prism-twilight.css'
 
 initFower()
+
+if (!isServer) {
+  db.database.connect().then(() => {
+    db.init()
+  })
+}
 
 interface Props<T> extends AppProps<T> {
   Component: AppProps<T>['Component'] & {
@@ -34,14 +40,27 @@ function MyApp({ Component, pageProps }: Props<any>) {
   useLinguiInit(pageProps.translation)
   const Layout = Component.Layout ? Component.Layout : Fragment
 
+  const [connected, setConnected] = useState(false)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      console.log(window[IS_DB_OPENED])
+      if (window[IS_DB_OPENED]) {
+        setConnected(true)
+        clearInterval(id)
+      }
+    }, 10)
+    return () => clearInterval(id)
+  }, [])
+
+  if (!connected) return null
+
   return (
     <SessionProvider session={pageProps.session} refetchInterval={0}>
       <I18nProvider i18n={i18n}>
         <EasyModalProvider>
           <Layout>
-            <ClientOnly>
-              <Component {...pageProps} />
-            </ClientOnly>
+            <Component {...pageProps} />
           </Layout>
           <ToastContainer position="bottom-right" />
         </EasyModalProvider>
