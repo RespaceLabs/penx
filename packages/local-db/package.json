@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@penx/constants": "workspace:*",
-    "dexie": "^3.2.4",
+    "@penx/indexeddb": "workspace:*",
     "nanoid": "^4.0.2",
     "pouchdb": "^8.0.1"
   },

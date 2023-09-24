@@ -194,12 +194,6 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
-      dexie:
-        specifier: ^3.2.4
-        version: 3.2.4
-      dexie-react-hooks:
-        specifier: ^1.1.6
-        version: 1.1.6(@types/react@18.2.22)(dexie@3.2.4)(react@18.2.0)
       easy-modal:
         specifier: workspace:*
         version: link:../../packages/easy-modal
@@ -932,12 +926,6 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
-      dexie:
-        specifier: ^3.2.4
-        version: 3.2.4
-      dexie-react-hooks:
-        specifier: ^1.1.6
-        version: 1.1.6(@types/react@18.2.22)(dexie@3.2.4)(react@18.2.0)
       easy-modal:
         specifier: workspace:*
         version: link:../easy-modal
@@ -1242,9 +1230,6 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../store
-      dexie-react-hooks:
-        specifier: ^1.1.6
-        version: 1.1.6(@types/react@18.2.22)(dexie@3.2.4)(react@18.2.0)
       diff-match-patch:
         specifier: ^1.0.5
         version: 1.0.5
@@ -1860,48 +1845,14 @@ importers:
         specifier: ^5.1.3
         version: 5.2.2
 
-  packages/indexeddb-promise:
-    dependencies:
-      class-transformer:
-        specifier: ^0.5.1
-        version: 0.5.1
-      joi:
-        specifier: ^17.5.0
-        version: 17.5.0
-      reflect-metadata:
-        specifier: ^0.1.13
-        version: 0.1.13
-    devDependencies:
-      '@types/react':
-        specifier: ^18.2.22
-        version: 18.2.22
-      '@types/react-dom':
-        specifier: ^18.2.7
-        version: 18.2.7
-      eslint:
-        specifier: ^8.42.0
-        version: 8.49.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
-      typescript:
-        specifier: ^5.1.3
-        version: 5.2.2
-
   packages/local-db:
     dependencies:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
-      dexie:
-        specifier: ^3.2.4
-        version: 3.2.4
+      '@penx/indexeddb':
+        specifier: workspace:*
+        version: link:../indexeddb
       nanoid:
         specifier: ^4.0.2
         version: 4.0.2

@@ -24,8 +24,11 @@ export function useSpaces() {
   }, [spaces])
 
   const catalogueTree = useMemo(() => {
-    ;(window as any).__space = activeSpace
     return CatalogueTree.fromJSON(activeSpace?.catalogue)
+  }, [activeSpace])
+
+  useEffect(() => {
+    ;(window as any).__space = activeSpace
   }, [activeSpace])
 
   return {

@@ -1,117 +1,156 @@
-import Dexie, { Table } from 'dexie'
+import { Database } from '@penx/indexeddb'
 import { getNewDoc } from './getNewDoc'
 import { getNewSpace } from './getNewSpace'
 import { IDoc } from './IDoc'
 import { ISpace } from './ISpace'
 
-export class PenxDB extends Dexie {
-  space!: Table<ISpace, string>
-  doc!: Table<IDoc, string>
-  constructor() {
-    super('PenxDB')
-    this.version(1).stores({
-      // Primary key and indexed props
-      space: 'id, name',
-      doc: 'id, spaceId',
-    })
+const database = new Database({
+  version: 1,
+  name: 'PenxDB',
+  tables: [
+    {
+      name: 'space',
+      primaryKey: {
+        name: 'id',
+        autoIncrement: false,
+        unique: true,
+      },
+      indexes: {
+        name: {
+          unique: false,
+        },
+      },
+      timestamps: true,
+    },
+    {
+      name: 'doc',
+      primaryKey: {
+        name: 'id',
+        autoIncrement: false,
+        unique: true,
+      },
+      indexes: {
+        spaceId: {
+          unique: false,
+        },
+      },
+      timestamps: true,
+    },
+  ],
+})
+
+class DB {
+  database = database
+
+  get space() {
+    return database.useModel<ISpace>('space')
+  }
+
+  get doc() {
+    return database.useModel<IDoc>('doc')
   }
 
   init = async () => {
-    const count = await this.space.count()
+    const count = (await this.space.selectAll()).length
     if (count === 0) {
       await this.createSpace('First Space')
     }
-    const space = await this.space.toCollection().first()
+    // const space = await this.space.toCollection().first()
+    const space = (await this.space.selectAll())[0]
     return space!
   }
 
   createSpace = async (name: string) => {
-    return this.transaction('rw', this.space, this.doc, async () => {
-      const newSpace = getNewSpace(name)
-      const spaceId = newSpace.id
+    const newSpace = getNewSpace(name)
+    const spaceId = newSpace.id
 
-      await this.space.add(newSpace)
+    await this.space.insert(newSpace)
 
-      const doc = getNewDoc(spaceId)
+    const doc = getNewDoc(spaceId)
 
-      await this.doc.add(doc)
+    await this.doc.insert(doc)
 
-      await this.space.where('id').notEqual(spaceId).modify({
+    const spaces = await this.listSpaces()
+
+    for (const space of spaces) {
+      await this.space.updateByPk(space.id, {
         isActive: false,
       })
+    }
 
-      await this.space.update(spaceId, {
-        isActive: true,
-        activeDocId: doc.id,
-        catalogue: [
-          {
-            id: doc.id,
-            isFolded: false,
-            name: doc.title,
-            type: 0,
-          },
-        ],
-      })
-
-      const space = await this.space.get(spaceId)!
-      return space
+    await this.space.updateByPk(spaceId, {
+      isActive: true,
+      activeDocId: doc.id,
+      catalogue: [
+        {
+          id: doc.id,
+          isFolded: false,
+          name: doc.title,
+          type: 0,
+        },
+      ],
     })
+
+    const space = await this.space.selectByPk(spaceId)!
+    return space
   }
 
   selectSpace = async (spaceId: string) => {
-    await this.space.where('id').notEqual(spaceId).modify({
-      isActive: false,
-    })
+    const spaces = await this.listSpaces()
 
-    await this.space.update(spaceId, {
+    for (const space of spaces) {
+      await this.space.updateByPk(space.id, {
+        isActive: false,
+      })
+    }
+
+    await this.space.updateByPk(spaceId, {
       isActive: true,
-      updatedAt: new Date(),
     })
   }
 
   listSpaces = () => {
-    return this.space.toArray()
+    return this.space.selectAll()
   }
 
   getSpace = (spaceId: string) => {
-    return this.space.get(spaceId)
+    return this.space.selectByPk(spaceId)
   }
 
   updateSpace = (spaceId: string, space: Partial<ISpace>) => {
-    return this.space.update(spaceId, space)
+    return this.space.updateByPk(spaceId, space)
   }
 
   selectDoc = async (spaceId: string, docId: string) => {
-    return this.transaction('rw', this.space, this.doc, async () => {
-      await this.space.update(spaceId, {
-        activeDocId: docId,
-        updatedAt: new Date(),
-      })
-
-      const doc = await this.doc.get(docId)
-      return doc
+    await this.space.updateByPk(spaceId, {
+      activeDocId: docId,
     })
+
+    const doc = await this.doc.selectByPk(docId)
+    return doc
   }
 
   createDoc(doc: IDoc) {
-    return this.doc.add(doc)
+    return this.doc.insert(doc)
   }
 
   getDoc = (docId: string) => {
-    return this.doc.get(docId)
+    return this.doc.selectByPk(docId)
   }
 
   updateDoc = (docId: string, doc: Partial<IDoc>) => {
-    return this.doc.update(docId, doc)
+    return this.doc.updateByPk(docId, doc)
   }
 
   queryDocByIds = (docIds: string[]) => {
-    return db.doc.where('id').anyOf(docIds).toArray()
+    const promises = docIds.map((id) => this.space.selectByPk(id))
+    return Promise.all(promises)
   }
 
   deleteDocByIds = (docIds: string[]) => {
-    return db.doc.where('id').anyOf(docIds).delete()
+    const promises = docIds.map((id) => this.space.deleteByPk(id))
+    return Promise.all(promises)
   }
 }
 
-export const db = new PenxDB()
+export const db = new DB()

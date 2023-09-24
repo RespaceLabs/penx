@@ -2,7 +2,7 @@ import React from 'react'
 import { Database } from '@penx/indexeddb'
 
 interface Users {
-  id?: number
+  id?: string
   username: string
   password: string
 }
@@ -14,7 +14,7 @@ enum Priority {
 }
 
 interface ToDos {
-  id?: number
+  id?: string
   userId: number
   title: string
   description: string
@@ -63,19 +63,13 @@ const database = new Database({
   await database.connect()
   const users = database.useModel<Users>('users')
   const user = await users.insert({
+    id: Date.now().toString(),
     username: 'admin',
     password: 'admin',
   })
   const todos = database.useModel<ToDos>('todos')
   await todos.insert({
-    userId: user.id,
-    title: 'Todo 1',
-    description: 'Description 1',
-    done: false,
-    priority: Priority.LOW,
-  })
-
-  await todos.insert({
+    id: Date.now().toString(),
     userId: user.id,
     title: 'Todo 1',
     description: 'Description 1',

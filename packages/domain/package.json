@@ -23,7 +23,6 @@
     "@penx/local-db": "workspace:*",
     "@penx/serializer": "workspace:^",
     "@penx/store": "workspace:*",
-    "dexie-react-hooks": "^1.1.6",
     "diff-match-patch": "^1.0.5",
     "immer": "^10.0.2",
     "jotai": "^2.4.2",

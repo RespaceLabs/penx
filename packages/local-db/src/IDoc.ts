@@ -7,7 +7,7 @@ export interface IDoc {
 
   content: string
 
-  createdAt: Date
+  createdAt: number
 
-  updatedAt: Date
+  updatedAt: number
 }

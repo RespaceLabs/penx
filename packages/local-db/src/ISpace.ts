@@ -48,7 +48,7 @@ export interface ISpace {
 
   commitDate?: Date
 
-  createdAt: Date
+  createdAt: number
 
-  updatedAt: Date
+  updatedAt: number
 }

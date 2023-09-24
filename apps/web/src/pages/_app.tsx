@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { Analytics } from '@vercel/analytics/react'
@@ -15,16 +15,13 @@ import { db } from '@penx/local-db'
 import { isServer } from '~/common/utils'
 import '../styles/globals.css'
 import '../styles/command.scss'
+import { ClientOnly } from '~/components/ClientOnly'
 
 // import 'prismjs/themes/prism.css'
 // import 'prismjs/themes/prism.css'
 // import 'prismjs/themes/prism-twilight.css'
 
 initFower()
-
-if (!isServer) {
-  db.init()
-}
 
 interface Props<T> extends AppProps<T> {
   Component: AppProps<T>['Component'] & {
@@ -42,7 +39,9 @@ function MyApp({ Component, pageProps }: Props<any>) {
       <I18nProvider i18n={i18n}>
         <EasyModalProvider>
           <Layout>
-            <Component {...pageProps} />
+            <ClientOnly>
+              <Component {...pageProps} />
+            </ClientOnly>
           </Layout>
           <ToastContainer position="bottom-right" />
         </EasyModalProvider>
