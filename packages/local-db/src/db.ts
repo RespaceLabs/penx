@@ -1,8 +1,10 @@
+import { nanoid } from 'nanoid'
 import { IS_DB_OPENED, isServer } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import { getNewDoc } from './getNewDoc'
 import { getNewSpace } from './getNewSpace'
 import { IDoc } from './IDoc'
+import { IPlugin } from './IPlugin'
 import { ISpace } from './ISpace'
 
 if (!isServer) {
@@ -66,6 +68,20 @@ const database = new Database({
       },
       timestamps: true,
     },
+    {
+      name: 'plugin',
+      primaryKey: {
+        name: 'id',
+        autoIncrement: false,
+        unique: true,
+      },
+      indexes: {
+        spaceId: {
+          unique: false,
+        },
+      },
+      timestamps: true,
+    },
   ],
 })
 
@@ -80,13 +96,19 @@ class DB {
     return database.useModel<IDoc>('doc')
   }
 
+  get plugin() {
+    return database.useModel<IPlugin>('plugin')
+  }
+
   init = async () => {
     const count = (await this.space.selectAll()).length
     if (count === 0) {
-      await this.createSpace('First Space')
+      const space = await this.createSpace('First Space')
+      await this.initPlugins(space.id)
     }
     // const space = await this.space.toCollection().first()
     const space = (await this.space.selectAll())[0]
+
     return space!
   }
 
@@ -123,6 +145,32 @@ class DB {
 
     const space = await this.space.selectByPk(spaceId)!
     return space
+  }
+
+  initPlugins = async (spaceId: string) => {
+    await this.createPlugin({
+      id: nanoid(),
+      spaceId,
+      code: '',
+      manifest: {
+        id: 'plugin-1',
+        name: 'plugin-1',
+        version: '0.0.1',
+        description: '',
+      },
+    })
+
+    await this.createPlugin({
+      id: nanoid(),
+      spaceId,
+      code: '',
+      manifest: {
+        id: 'plugin-2',
+        name: 'plugin-2',
+        version: '0.0.1',
+        description: '',
+      },
+    })
   }
 
   selectSpace = async (spaceId: string) => {
@@ -180,6 +228,22 @@ class DB {
   deleteDocByIds = (docIds: string[]) => {
     const promises = docIds.map((id) => this.space.deleteByPk(id))
     return Promise.all(promises)
+  }
+
+  createPlugin(plugin: IPlugin) {
+    return this.plugin.insert(plugin)
+  }
+
+  getPlugin = (pluginId: string) => {
+    return this.plugin.selectByPk(pluginId)
+  }
+
+  updatePlugin = (pluginId: string, doc: Partial<IDoc>) => {
+    return this.plugin.updateByPk(pluginId, doc)
+  }
+
+  listPlugins = () => {
+    return this.plugin.selectAll()
   }
 }
 
