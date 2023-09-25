@@ -1,4 +1,4 @@
-import { getAtomIds, getCssString } from '@fower/react'
+import { Box, getAtomIds, getCssString } from '@fower/react'
 import { getCookie, setCookie } from 'cookies-next'
 import Document, {
   DocumentContext,
@@ -37,7 +37,6 @@ class MyDocument extends Document {
             dangerouslySetInnerHTML={{ __html: getCssString() }}
           />
           <link rel="icon" href="/favicon.ico" />
-          <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js"></script>
         </Head>
         <body>
           <Main />

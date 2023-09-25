@@ -13,7 +13,6 @@ export function StorageEstimateView() {
       .estimate()
       .then((estimate) => {
         setLoading(false)
-        const usedBytes = estimate.usage!
 
         let usedSpace: string
         let availableSpace: string
@@ -21,9 +20,13 @@ export function StorageEstimateView() {
 
         if (usage < mb) {
           usedSpace = `${(usage / kb).toFixed(2)} KB`
-          availableSpace = `${((quota - usage) / kb).toFixed(2)} KB`
         } else {
           usedSpace = `${(usage / mb).toFixed(2)} MB`
+        }
+
+        if (quota < mb) {
+          availableSpace = `${((quota - usage) / kb).toFixed(2)} KB`
+        } else {
           availableSpace = `${((quota - usage) / mb).toFixed(2)} MB`
         }
 
@@ -37,7 +40,7 @@ export function StorageEstimateView() {
   if (loading) return null
 
   return (
-    <Box>
+    <Box gray400>
       {used} / {available}
     </Box>
   )

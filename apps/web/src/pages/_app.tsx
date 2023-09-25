@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment } from 'react'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { Analytics } from '@vercel/analytics/react'
@@ -11,23 +11,14 @@ import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
 import { useLinguiInit } from '../utils'
 import '@penx/local-db'
-import { db } from '@penx/local-db'
-import { isServer } from '~/common/utils'
 import '../styles/globals.css'
 import '../styles/command.scss'
-import { IS_DB_OPENED } from '@penx/constants'
 
 // import 'prismjs/themes/prism.css'
 // import 'prismjs/themes/prism.css'
 // import 'prismjs/themes/prism-twilight.css'
 
 initFower()
-
-if (!isServer) {
-  db.database.connect().then(() => {
-    db.init()
-  })
-}
 
 interface Props<T> extends AppProps<T> {
   Component: AppProps<T>['Component'] & {
@@ -39,21 +30,6 @@ interface Props<T> extends AppProps<T> {
 function MyApp({ Component, pageProps }: Props<any>) {
   useLinguiInit(pageProps.translation)
   const Layout = Component.Layout ? Component.Layout : Fragment
-
-  const [connected, setConnected] = useState(false)
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      console.log('is DB OPEN:', window[IS_DB_OPENED])
-      if (window[IS_DB_OPENED]) {
-        setConnected(true)
-        clearInterval(id)
-      }
-    }, 10)
-    return () => clearInterval(id)
-  }, [])
-
-  if (!connected) return null
 
   return (
     <SessionProvider session={pageProps.session} refetchInterval={0}>

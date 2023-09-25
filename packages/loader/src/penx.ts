@@ -3,8 +3,10 @@ import { PluginContext } from '@penx/plugin-typings'
 import { commandsAtom, pluginStoreAtom, store } from '@penx/store'
 
 export const penx: PluginContext = {
+  pluginId: undefined,
+
   registerCommand(command: any) {
-    console.log('name.....:', command)
+    // console.log('name.....:', command)
     const commands = store.get(commandsAtom)
   },
   executeCommand(id) {

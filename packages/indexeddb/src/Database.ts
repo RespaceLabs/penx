@@ -89,7 +89,7 @@ export class Database {
     // }
   }
 
-  public connect(): Promise<IDBDatabase> {
+  public async connect(): Promise<IDBDatabase> {
     return new Promise((resolve, reject) => {
       if (
         !window ||
@@ -112,7 +112,7 @@ export class Database {
           this.__connection.close()
         }
 
-        return resolve(this.__connection)
+        resolve(this.__connection)
       }
 
       request.onblocked = () => {
@@ -122,12 +122,13 @@ export class Database {
         )
       }
 
-      request.onupgradeneeded = (event) =>
+      request.onupgradeneeded = (event) => {
         Database.onUpgradeNeeded(
           request.result,
           this.config as ConfigType,
           event.oldVersion,
         )
+      }
     })
   }
 

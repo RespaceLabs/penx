@@ -153,7 +153,6 @@ class DB {
       spaceId,
       code: `
 function activate(ctx) {
-  console.log("gogo.....xx:", ctx);
   ctx.createSettings([]);
   ctx.registerCommand("hello-world", () => {
   });
@@ -175,7 +174,6 @@ export {
       spaceId,
       code: `
 function activate(ctx) {
-  console.log("gogo.....xx:", ctx);
   ctx.createSettings([]);
   ctx.registerCommand("hello-world", () => {
   });

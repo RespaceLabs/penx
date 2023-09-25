@@ -17,8 +17,6 @@ export type PluginStore = Record<
   }
 >
 
-export const countAtom = atom(0)
-
 export const docAtom = atom(null as any as IDoc)
 
 export const spacesAtom = atom<ISpace[]>([])
@@ -36,16 +34,16 @@ export const commandsAtom = atom<Command[]>([
 export const pluginStoreAtom = atom<PluginStore>({})
 
 export const store = Object.assign(createStore(), {
-  setSpaces: (spaces: ISpace[]) => {
-    store.set(spacesAtom, spaces)
+  setSpaces: (state: ISpace[]) => {
+    store.set(spacesAtom, state)
   },
 
-  setDoc: (doc: IDoc) => {
-    store.set(docAtom, doc)
+  setDoc: (state: IDoc) => {
+    store.set(docAtom, state)
   },
 
-  setSyncStatus: (status: SyncStatus) => {
-    store.set(syncStatusAtom, status)
+  setSyncStatus: (state: SyncStatus) => {
+    store.set(syncStatusAtom, state)
   },
 
   setCommands: (state: Command[]) => {
