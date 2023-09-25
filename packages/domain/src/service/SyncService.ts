@@ -153,10 +153,7 @@ export class SyncService {
   }
 
   async createTreeForNewDir() {
-    const docsRaw = await db.doc
-      .where('spaceId')
-      .equals(this.space.id)
-      .toArray()
+    const docsRaw = await db.listDocsBySpaceId(this.space.id)
 
     return docsRaw
       .map((doc) => new Doc(doc))

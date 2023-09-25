@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }: Props<any>) {
 
   useEffect(() => {
     const id = setInterval(() => {
-      console.log(window[IS_DB_OPENED])
+      console.log('is DB OPEN:', window[IS_DB_OPENED])
       if (window[IS_DB_OPENED]) {
         setConnected(true)
         clearInterval(id)

@@ -17,6 +17,19 @@ export default class Model<DataType extends Optional<TimeStampsType>> {
     private readonly tableClass: Function = null as any,
   ) {}
 
+  async count(): Promise<number> {
+    return new Promise((resolve, reject) => {
+      const transaction = this.db.transaction(this.table.name, 'readonly')
+      const objectStore = transaction.objectStore(this.table.name)
+      const request = objectStore.count()
+      request.onerror = () =>
+        reject(request.error || 'Unable to retrieve data from the model')
+      request.onsuccess = (event) => {
+        resolve((event.target as any).result)
+      }
+    })
+  }
+
   /**
    * @description This method is used to insert data into the table.
    */

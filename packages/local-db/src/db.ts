@@ -101,7 +101,7 @@ class DB {
   }
 
   init = async () => {
-    const count = (await this.space.selectAll()).length
+    const count = await this.space.count()
     if (count === 0) {
       const space = await this.createSpace('First Space')
       await this.initPlugins(space.id)
@@ -144,14 +144,24 @@ class DB {
     })
 
     const space = await this.space.selectByPk(spaceId)!
-    return space
+    return space as ISpace
   }
 
   initPlugins = async (spaceId: string) => {
     await this.createPlugin({
       id: nanoid(),
       spaceId,
-      code: '',
+      code: `
+function activate(ctx) {
+  console.log("gogo.....xx:", ctx);
+  ctx.createSettings([]);
+  ctx.registerCommand("hello-world", () => {
+  });
+}
+export {
+  activate
+};
+      `,
       manifest: {
         id: 'plugin-1',
         name: 'plugin-1',
@@ -163,7 +173,17 @@ class DB {
     await this.createPlugin({
       id: nanoid(),
       spaceId,
-      code: '',
+      code: `
+function activate(ctx) {
+  console.log("gogo.....xx:", ctx);
+  ctx.createSettings([]);
+  ctx.registerCommand("hello-world", () => {
+  });
+}
+export {
+  activate
+};
+      `,
       manifest: {
         id: 'plugin-2',
         name: 'plugin-2',
@@ -192,7 +212,7 @@ class DB {
   }
 
   getSpace = (spaceId: string) => {
-    return this.space.selectByPk(spaceId)
+    return this.space.selectByPk(spaceId) as any as Promise<ISpace>
   }
 
   updateSpace = (spaceId: string, space: Partial<ISpace>) => {
@@ -208,7 +228,7 @@ class DB {
     return doc
   }
 
-  createDoc(doc: IDoc) {
+  createDoc(doc: Partial<IDoc>) {
     return this.doc.insert(doc)
   }
 
@@ -220,9 +240,15 @@ class DB {
     return this.doc.updateByPk(docId, doc)
   }
 
+  // TODO: should use cursor
+  listDocsBySpaceId = async (spaceId: string) => {
+    const docs = (await this.doc.selectAll()) as IDoc[]
+    return docs.filter((d) => d.spaceId === spaceId)
+  }
+
   queryDocByIds = (docIds: string[]) => {
     const promises = docIds.map((id) => this.space.selectByPk(id))
-    return Promise.all(promises)
+    return Promise.all(promises) as any as Promise<IDoc[]>
   }
 
   deleteDocByIds = (docIds: string[]) => {

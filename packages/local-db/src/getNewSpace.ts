@@ -23,7 +23,7 @@ export function getNewSpace(name: string): ISpace {
 
       [SettingsType.HOTKEYS]: {},
     },
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
   }
 }

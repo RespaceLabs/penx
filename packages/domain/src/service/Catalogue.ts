@@ -97,13 +97,13 @@ export class Catalogue {
       catalogue: this.tree.toJSON(),
     })
 
-    const newDoc = {
+    const newDoc: IDoc = {
       id,
       spaceId: this.spaceId,
       title: node.name,
       content: JSON.stringify(initialValue),
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
     }
 
     await db.createDoc(newDoc)
