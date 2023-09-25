@@ -27,7 +27,7 @@ export const RenameCatalogueInput = memo(
   }) {
     const catalogue = useCatalogue()
     const [name, setName] = useState(node.name)
-    const { setTitle } = useDoc()
+    const { setTitleState: setTitle } = useDoc()
     const [type, setType] = useState(RenameType.Name)
 
     async function updateName() {

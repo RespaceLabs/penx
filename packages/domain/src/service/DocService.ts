@@ -50,11 +50,7 @@ export class DocService {
     this.debouncedUpdateDoc(content, title)
   }
 
-  setTitle = async (title: string) => {
+  setTitleState = async (title: string) => {
     store.setDoc({ ...this.raw, title })
-
-    await db.updateDoc(this.spaceId, {
-      title,
-    })
   }
 }

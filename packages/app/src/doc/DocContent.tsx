@@ -67,7 +67,7 @@ export function DocContent() {
                   }
                 }}
                 onChange={(e) => {
-                  doc.setTitle(e.target.value)
+                  doc.setTitleState(e.target.value)
                   doc.updateDoc(editor.children, e.target.value)
                 }}
               />
