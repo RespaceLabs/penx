@@ -1,39 +1,10 @@
 import { nanoid } from 'nanoid'
-import { IS_DB_OPENED, isServer } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import { getNewDoc } from './getNewDoc'
 import { getNewSpace } from './getNewSpace'
 import { IDoc } from './IDoc'
 import { IPlugin } from './IPlugin'
 import { ISpace } from './ISpace'
-
-if (!isServer) {
-  Object.defineProperty(window, IS_DB_OPENED, {
-    value: false,
-    writable: true,
-    configurable: true,
-    enumerable: true,
-  })
-  const originalOpen = indexedDB.open
-  indexedDB.open = function (name, version) {
-    if (window.__IS_DB_OPENED__) {
-      // throw new Error(`IndexedDB is already opened ${name}`)
-      return {} as any // TODO:
-    }
-
-    const result = originalOpen.call(indexedDB, name, version)
-
-    window[IS_DB_OPENED] = true
-
-    Object.defineProperty(window, IS_DB_OPENED, {
-      value: true,
-      writable: false,
-      configurable: false,
-      enumerable: true,
-    })
-    return result
-  }
-}
 
 const database = new Database({
   version: 1,
@@ -245,7 +216,7 @@ export {
   }
 
   queryDocByIds = (docIds: string[]) => {
-    const promises = docIds.map((id) => this.space.selectByPk(id))
+    const promises = docIds.map((id) => this.doc.selectByPk(id))
     return Promise.all(promises) as any as Promise<IDoc[]>
   }
 

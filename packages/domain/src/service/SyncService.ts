@@ -82,6 +82,9 @@ export class SyncService {
     const changedIds = s.space.getChangedDocIds()
 
     const docs = await db.queryDocByIds(changedIds)
+    console.log('docs:', docs)
+
+    console.log('docs:', docs)
 
     s.docs = docs.map((doc) => new Doc(doc))
 

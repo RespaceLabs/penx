@@ -1,4 +1,5 @@
 interface Window {
+  __IS_DB_OPENED__: boolean
   penx: {
     pluginId?: string
     registerCommand(command: any): void

@@ -1733,6 +1733,9 @@ importers:
       '@penx/domain':
         specifier: workspace:*
         version: link:../domain
+      '@penx/loader':
+        specifier: workspace:*
+        version: link:../loader
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
@@ -1883,6 +1886,9 @@ importers:
       mitt:
         specifier: ^3.0.0
         version: 3.0.1
+      stook:
+        specifier: ^1.17.0
+        version: 1.17.0
     devDependencies:
       '@types/react':
         specifier: ^18.2.22

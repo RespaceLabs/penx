@@ -1,20 +1,15 @@
-import { useEffect, useState } from 'react'
-import { appLoader } from './AppLoader'
+import { mutate, useStore } from 'stook'
+
+const key = 'LoaderStatus'
 
 export const useLoaderStatus = () => {
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  useEffect(() => {
-    function handler() {
-      setIsLoaded(true)
-    }
-    appLoader.emitter.on('loaded', handler)
-    return () => {
-      appLoader.emitter.off('loaded', handler)
-    }
-  }, [])
+  const [isLoaded] = useStore(key, false)
 
   return {
     isLoaded,
   }
+}
+
+export function mutateLoaderStatus(isLoaded: boolean) {
+  mutate(key, isLoaded)
 }

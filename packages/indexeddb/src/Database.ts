@@ -83,26 +83,19 @@ export class Database {
     this.tables = this.config.tables?.map((table) => table.name)
     this.databaseName = this.config.name
     this.databaseVersion = this.config.version
-
-    // if (typeof window !== 'undefined' && window.indexedDB) {
-    //   this.connect()
-    // }
   }
 
   public async connect(): Promise<IDBDatabase> {
     return new Promise((resolve, reject) => {
-      if (
-        !window ||
-        !('indexedDB' in window) ||
-        !('open' in window.indexedDB)
-      ) {
-        return reject('Unsupported environment')
-      }
+      // if (
+      //   !window ||
+      //   !('indexedDB' in window) ||
+      //   !('open' in window.indexedDB)
+      // ) {
+      //   return reject('Unsupported environment')
+      // }
 
-      const request = window.indexedDB.open(
-        this.databaseName,
-        this.databaseVersion,
-      )
+      const request = indexedDB.open(this.databaseName, this.databaseVersion)
       request.onerror = () => reject(request.error)
       request.onsuccess = () => {
         this.__connection = request.result
@@ -164,7 +157,7 @@ export class Database {
 
   public static async removeDatabase(name: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      const request = window.indexedDB.deleteDatabase(name)
+      const request = indexedDB.deleteDatabase(name)
       request.onblocked = () => {
         reject(
           `[${name}]: Couldn't remove database, database is blocked. Close all connections and try again.`,

@@ -1,7 +1,6 @@
 import { FC, PropsWithChildren, useEffect } from 'react'
 import { Provider } from 'jotai'
 import { isServer } from '@penx/constants'
-import { useWorkers } from '@penx/hooks'
 import { appLoader, useLoaderStatus } from '@penx/loader'
 import { JotaiNexus, store } from '@penx/store'
 import { ClientOnly } from './components/ClientOnly'
@@ -12,8 +11,6 @@ if (!isServer) {
 }
 
 export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
-  useWorkers()
-
   const { isLoaded } = useLoaderStatus()
 
   useEffect(() => {

@@ -3,17 +3,11 @@ import { toast } from 'uikit'
 import { SyncStatus, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { store } from '@penx/store'
-import { useSpaces } from '../useSpaces'
 
 export function useWorkers() {
   const workerRef = useRef<Worker>()
-  const { activeSpace } = useSpaces()
 
   useEffect(() => {
-    if (!activeSpace?.settings.sync.githubToken) {
-      return
-    }
-
     workerRef.current = new Worker(new URL('./worker.ts', import.meta.url), {
       type: 'module',
     })

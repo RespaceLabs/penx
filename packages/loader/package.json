@@ -18,11 +18,12 @@
   "dependencies": {
     "@penx/constants": "workspace:*",
     "@penx/local-db": "workspace:*",
+    "@penx/plugin-typings": "*",
     "@penx/storage-estimate": "workspace:*",
     "@penx/store": "workspace:*",
-    "@penx/plugin-typings": "*",
     "immer": "^10.0.2",
     "jotai": "^2.4.2",
-    "mitt": "^3.0.0"
+    "mitt": "^3.0.0",
+    "stook": "^1.17.0"
   }
 }

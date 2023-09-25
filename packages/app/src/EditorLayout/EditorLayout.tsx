@@ -1,7 +1,13 @@
 import { FC, PropsWithChildren } from 'react'
 import { Box } from '@fower/react'
 import { EditorProvider } from '@penx/editor'
-import { useDoc, useInitDoc, useQuerySpaces, useSpaces } from '@penx/hooks'
+import {
+  useDoc,
+  useInitDoc,
+  useQuerySpaces,
+  useSpaces,
+  useWorkers,
+} from '@penx/hooks'
 import { ActivityBar } from '../ActivityBar/ActivityBar'
 import { DocContent } from '../doc/DocContent'
 import { CommandPanel } from '../Palette'
@@ -11,6 +17,7 @@ import { StatusBar } from '../StatusBar/StatusBar'
 function WidthDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
   const doc = useDoc()
   useInitDoc(docId)
+  useWorkers()
 
   if (!doc.inited) return null
 
@@ -19,6 +26,7 @@ function WidthDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
 
 export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   useQuerySpaces()
+
   const { spaces, activeSpace } = useSpaces()
 
   if (!spaces?.length) return null
