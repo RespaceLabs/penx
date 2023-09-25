@@ -4,7 +4,13 @@ import { CurrentSpace } from '../EditorLayout/CurrentSpace'
 
 export const Sidebar = () => {
   return (
-    <Box column borderRight borderGray100 flex-1>
+    <Box
+      column
+      borderRight
+      borderGray100
+      flex-1
+      display={['none', 'none', 'flex']}
+    >
       <CurrentSpace />
       <Box flex-1 gray600 px3>
         <CatalogueBox />

@@ -12,22 +12,26 @@ class AppLoader {
 
   // TODO: handle error, need retry
   async init() {
-    const t0 = Date.now()
-    window.penx = penx as any
+    try {
+      const t0 = Date.now()
+      window.penx = penx as any
 
-    await db.database.connect()
-    const t1 = Date.now()
-    await db.init()
+      await db.database.connect()
+      const t1 = Date.now()
+      await db.init()
 
-    const t2 = Date.now()
-    const pluginLoader = new PluginLoader()
-    await pluginLoader.init()
+      const t2 = Date.now()
+      const pluginLoader = new PluginLoader()
+      await pluginLoader.init()
 
-    const t3 = Date.now()
+      const t3 = Date.now()
 
-    console.log('appLoader time t3-t0', t3 - t0)
+      console.log('appLoader time t3-t0', t3 - t0)
 
-    this.emitter.emit('loaded', true)
+      this.emitter.emit('loaded', true)
+    } catch (error) {
+      console.log('loader error', error)
+    }
   }
 }
 

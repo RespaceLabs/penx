@@ -27,11 +27,11 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
     <EditorProvider space={activeSpace}>
       <CommandPanel />
       <Box h-100vh toLeft black textSM>
-        <Box w-320 toLeft b>
+        <Box w={[48, 48, 320]} toLeft b>
           <ActivityBar />
           <Sidebar />
         </Box>
-        <Box flex-1 h-100vh relative>
+        <Box flex-1 h-100vh relative px={[16, 16, 16, 0]}>
           <Box overflowYAuto h={'calc(100vh - 24px)'} relative>
             <WidthDoc docId={activeSpace.activeDocId!}></WidthDoc>
           </Box>
