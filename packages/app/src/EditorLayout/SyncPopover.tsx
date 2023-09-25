@@ -40,8 +40,8 @@ export const SyncPopover: FC<Props> = () => {
   return (
     <Popover placement="top-start">
       <PopoverTrigger asChild>
-        <Box gap2 toCenterY absolute left2 top2>
-          <Box toCenterY gap1 bgZinc100 rounded cursorPointer h-24 px2>
+        <Box gapX2 toCenterY h-100p>
+          <Box toCenterY gap1 rounded cursorPointer px2>
             {isSyncing && (
               <>
                 <ArrowPathOutline size={16} animateSpin={isSyncing} />

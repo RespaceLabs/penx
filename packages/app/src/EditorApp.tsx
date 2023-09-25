@@ -4,33 +4,35 @@ import { isServer } from '@penx/constants'
 import { useWorkers } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { sleep } from '@penx/shared'
+import * as storageEstimate from '@penx/storage-estimate'
 import { JotaiNexus, store } from '@penx/store'
 import { ClientOnly } from './components/ClientOnly'
 import { EditorLayout } from './EditorLayout/EditorLayout'
 import { penx } from './penx'
 
+const builtins = [
+  { id: 'storage-estimate', activate: storageEstimate.activate },
+]
+
 if (!isServer) {
+  window.penx = penx as any
+
   window.onload = async () => {
+    for (const plugin of builtins) {
+      const ctx = Object.create(window.penx, {
+        pluginId: {
+          writable: false,
+          configurable: false,
+          value: plugin.id,
+        },
+      })
+      plugin.activate(ctx)
+    }
+
     await sleep(10)
     const count = await db.doc.count()
     const spaceCount = await db.space.count()
     console.log('count:', count, 'spaceCount:', spaceCount)
-
-    navigator.storage
-      .estimate()
-      .then((estimate) => {
-        const usedBytes = estimate.usage!
-        const availableBytes = estimate.quota!
-
-        const usedMB = usedBytes / (1024 * 1024)
-        const availableMB = availableBytes / (1024 * 1024)
-
-        console.log('used:', usedMB, 'MB')
-        console.log('available:', availableMB, 'MB')
-      })
-      .catch((error) => {
-        //
-      })
 
     const plugins = await db.listPlugins()
     console.log('init plugin===========:', plugins)
@@ -47,15 +49,19 @@ if (!isServer) {
       // `)
       const script = document.createElement('script')
       script.type = 'module'
+
       script.innerHTML = `
         ${item.code}
-        activate(Object.create(penx, {
+        
+        const ctx = Object.create(window.penx, {
           pluginId: {
               writable: false,
               configurable: false,
               value: "${item.manifest.id}"
             }
-        }))
+        })
+
+        activate(ctx)
       `
       document.body.appendChild(script)
     }

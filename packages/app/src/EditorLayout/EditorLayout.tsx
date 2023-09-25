@@ -6,7 +6,7 @@ import { ActivityBar } from '../ActivityBar/ActivityBar'
 import { DocContent } from '../doc/DocContent'
 import { CommandPanel } from '../Palette'
 import { Sidebar } from '../Sidebar/Sidebar'
-import { SyncPopover } from './SyncPopover'
+import { StatusBar } from '../StatusBar/StatusBar'
 
 function WidthDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
   const doc = useDoc()
@@ -31,9 +31,12 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
           <ActivityBar />
           <Sidebar />
         </Box>
-        <Box flex-1 overflowYAuto h-100vh relative>
-          <SyncPopover />
-          <WidthDoc docId={activeSpace.activeDocId!}></WidthDoc>
+        <Box flex-1 h-100vh relative>
+          <Box overflowYAuto h={'calc(100vh - 24px)'} relative>
+            <WidthDoc docId={activeSpace.activeDocId!}></WidthDoc>
+          </Box>
+
+          <StatusBar></StatusBar>
         </Box>
       </Box>
     </EditorProvider>

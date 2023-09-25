@@ -32,6 +32,8 @@ const config = {
     '@penx/serializer',
     '@penx/store',
     '@penx/cmdk',
+    '@penx/indexeddb',
+    '@penx/storage-estimate',
     'uikit',
     'slate-lists',
     'easy-modal',

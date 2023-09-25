@@ -1,5 +1,6 @@
+import { produce } from 'immer'
 import { PluginContext } from '@penx/plugin-typings'
-import { commandsAtom, store } from '@penx/store'
+import { commandsAtom, pluginStoreAtom, store } from '@penx/store'
 
 export const penx: PluginContext = {
   registerCommand(command: any) {
@@ -13,8 +14,21 @@ export const penx: PluginContext = {
   createSettings(schema: any[]) {
     console.log('createSettings')
   },
-  registerComponent(type, component) {
-    //
+  registerComponent({ at, component }) {
+    const pluginStore = store.get(pluginStoreAtom)
+    const newStore = produce(pluginStore, (draft) => {
+      if (!draft[this.pluginId!]) {
+        draft[this.pluginId!] = {} as any
+      }
+
+      if (!draft[this.pluginId!].components?.length) {
+        draft[this.pluginId!] = {} as any
+        draft[this.pluginId!].components = []
+      }
+
+      draft[this.pluginId!].components.push({ at, component })
+    })
+    store.setPluginStore(newStore)
   },
   notify() {
     //

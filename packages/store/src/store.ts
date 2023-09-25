@@ -7,6 +7,15 @@ export type Command = {
   name: string
   handler: () => void
 }
+export type PluginStore = Record<
+  string,
+  {
+    components: Array<{
+      at: string
+      component: any
+    }>
+  }
+>
 
 export const countAtom = atom(0)
 
@@ -24,6 +33,8 @@ export const commandsAtom = atom<Command[]>([
   },
 ])
 
+export const pluginStoreAtom = atom<PluginStore>({})
+
 export const store = Object.assign(createStore(), {
   setSpaces: (spaces: ISpace[]) => {
     store.set(spacesAtom, spaces)
@@ -35,5 +46,13 @@ export const store = Object.assign(createStore(), {
 
   setSyncStatus: (status: SyncStatus) => {
     store.set(syncStatusAtom, status)
+  },
+
+  setCommands: (state: Command[]) => {
+    store.set(commandsAtom, state)
+  },
+
+  setPluginStore: (state: PluginStore) => {
+    store.set(pluginStoreAtom, state)
   },
 })
