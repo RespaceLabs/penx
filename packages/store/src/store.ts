@@ -4,7 +4,8 @@ import { IDoc, ISpace } from '@penx/local-db'
 
 export type Command = {
   id: string
-  name: string
+  title: string
+  pluginId?: string
   handler: () => void
 }
 export type PluginStore = Record<
@@ -26,8 +27,17 @@ export const syncStatusAtom = atom<SyncStatus>(SyncStatus.NORMAL)
 export const commandsAtom = atom<Command[]>([
   {
     id: 'foo',
-    name: 'foo',
-    handler: () => {},
+    title: 'foo',
+    handler: () => {
+      console.log('fooo')
+    },
+  },
+  {
+    id: 'bar',
+    title: 'bar',
+    handler: () => {
+      console.log('bar')
+    },
   },
 ])
 

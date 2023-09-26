@@ -11,8 +11,7 @@ import {
   PopoverTrigger,
 } from 'uikit'
 import { CatalogueNodeType } from '@penx/catalogue'
-import { useCatalogue, useSpaces } from '@penx/hooks'
-import { db } from '@penx/local-db'
+import { useCatalogue } from '@penx/hooks'
 
 const initialValue = [
   {

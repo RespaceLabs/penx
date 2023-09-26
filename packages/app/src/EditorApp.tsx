@@ -23,8 +23,6 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
       })
   }, [])
 
-  console.log('isLoaded:', isLoaded)
-
   if (!isLoaded) {
     return null
   }

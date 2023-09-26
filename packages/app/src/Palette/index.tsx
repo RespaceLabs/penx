@@ -2,15 +2,18 @@ import { useEffect, useState } from 'react'
 import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
 import { useCatalogue } from '@penx/hooks'
+import { CommandList } from './CommandList'
+import { DocList } from './DocList'
 
 const CommandDialog = styled(Command.Dialog)
 const CommandInput = styled(Command.Input)
-const CommandList = styled(Command.List)
-const CommandItem = styled(Command.Item)
+const StyledCommandList = styled(Command.List)
+const StyledCommandItem = styled(Command.Item)
 
 export function CommandPanel() {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
+
   const catalogue = useCatalogue()
   const filteredItems = catalogue.docNodes.filter((i) =>
     i.name.toLowerCase().includes(search.toLowerCase()),
@@ -28,6 +31,9 @@ export function CommandPanel() {
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
   }, [])
+
+  const close = () => setOpen(false)
+  const isCommand = search.startsWith('>')
 
   return (
     <CommandDialog
@@ -84,7 +90,7 @@ export function CommandPanel() {
         }}
       />
 
-      <CommandList
+      <StyledCommandList
         maxH-400
         px2
         overflowAuto
@@ -95,33 +101,10 @@ export function CommandPanel() {
           overscrollBehavior: 'contain',
         }}
       >
-        {!filteredItems.length && (
-          <Command.Empty>No results found.</Command.Empty>
-        )}
+        {!isCommand && <DocList q={search} close={close} />}
 
-        {filteredItems.map((node) => (
-          <CommandItem
-            key={node.id}
-            h10
-            cursorPointer
-            toCenterY
-            px2
-            transitionCommon
-            roundedLG
-            value={node.id}
-            onSelect={() => {
-              setOpen(false)
-              catalogue.selectNode(node)
-            }}
-            onClick={() => {
-              catalogue.selectNode(node)
-            }}
-          >
-            {node.name}
-          </CommandItem>
-        ))}
-      </CommandList>
-      <Box>GOGO</Box>
+        {isCommand && <CommandList q={search} close={close} />}
+      </StyledCommandList>
     </CommandDialog>
   )
 }
