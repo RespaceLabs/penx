@@ -8,16 +8,10 @@ import { DocList } from './DocList'
 const CommandDialog = styled(Command.Dialog)
 const CommandInput = styled(Command.Input)
 const StyledCommandList = styled(Command.List)
-const StyledCommandItem = styled(Command.Item)
 
 export function CommandPanel() {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
-
-  const catalogue = useCatalogue()
-  const filteredItems = catalogue.docNodes.filter((i) =>
-    i.name.toLowerCase().includes(search.toLowerCase()),
-  )
 
   // Toggle the menu when ⌘K is pressed
   useEffect(() => {
@@ -56,15 +50,13 @@ export function CommandPanel() {
       onValueChange={(value) => {
         console.log(value)
       }}
-      // onEscapeKeyDown={() => {
-      //   //
-      // }}
+      onEscapeKeyDown={() => {
+        //
+      }}
       onKeyUp={(e) => {
         // Escape goes to previous page
         // Backspace goes to previous page when search is empty
         if (e.key === 'Escape' || e.key === 'Backspace') {
-          console.log('esc...')
-
           e.preventDefault()
         }
       }}
@@ -85,8 +77,8 @@ export function CommandPanel() {
         value={search}
         onValueChange={setSearch}
         onBlur={() => {
-          // setSearch('')
-          // setOpen(false)
+          setSearch('')
+          setOpen(false)
         }}
       />
 
@@ -105,6 +97,7 @@ export function CommandPanel() {
 
         {isCommand && <CommandList q={search} close={close} />}
       </StyledCommandList>
+      <Box h8></Box>
     </CommandDialog>
   )
 }

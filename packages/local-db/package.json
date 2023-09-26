@@ -12,8 +12,7 @@
   "dependencies": {
     "@penx/constants": "workspace:*",
     "@penx/indexeddb": "workspace:*",
-    "nanoid": "^4.0.2",
-    "pouchdb": "^8.0.1"
+    "nanoid": "^4.0.2"
   },
   "devDependencies": {
     "@penx/eslint-config": "workspace:*",

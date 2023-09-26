@@ -21,12 +21,16 @@ export function CommandList({ q, close }: Props) {
     )
   })
 
+  if (!filteredItems.length) {
+    return (
+      <Box textSM toCenter h-64>
+        No results found.
+      </Box>
+    )
+  }
+
   return (
     <>
-      {!filteredItems.length && (
-        <Command.Empty>No results found.</Command.Empty>
-      )}
-
       {filteredItems.map((item, i) => (
         <CommandItem
           key={item.id}

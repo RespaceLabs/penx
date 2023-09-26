@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { toast } from 'uikit'
 import { SyncStatus, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
-import { store } from '@penx/store'
+import { docAtom, spacesAtom, store, syncStatusAtom } from '@penx/store'
 
 export function useWorkers() {
   const workerRef = useRef<Worker>()
@@ -16,45 +16,45 @@ export function useWorkers() {
       console.log(`WebWorker Response => ${event.data}`)
 
       if (event.data === WorkerEvents.START_PUSH) {
-        store.setSyncStatus(SyncStatus.PUSHING)
+        store.set(syncStatusAtom, SyncStatus.PUSHING)
       }
 
       if (event.data === WorkerEvents.PUSH_SUCCEEDED) {
-        store.setSyncStatus(SyncStatus.NORMAL)
+        store.set(syncStatusAtom, SyncStatus.NORMAL)
 
         const spaces = await db.listSpaces()
-        store.setSpaces(spaces)
+        store.set(spacesAtom, spaces)
       }
 
       if (event.data === WorkerEvents.PUSH_FAILED) {
-        store.setSyncStatus(SyncStatus.PUSH_FAILED)
+        store.set(syncStatusAtom, SyncStatus.PUSH_FAILED)
         toast.error('Push failed')
       }
 
       if (event.data === WorkerEvents.START_PULL) {
-        store.setSyncStatus(SyncStatus.PULLING)
+        store.set(syncStatusAtom, SyncStatus.PULLING)
       }
 
       if (event.data === WorkerEvents.PULL_SUCCEEDED) {
-        store.setSyncStatus(SyncStatus.NORMAL)
+        store.set(syncStatusAtom, SyncStatus.NORMAL)
 
         const spaces = await db.listSpaces()
-        store.setSpaces(spaces)
+        store.set(spacesAtom, spaces)
 
         const activeSpace = spaces.find((space) => space.isActive)
 
         const doc = await db.getDoc(activeSpace?.activeDocId!)
 
-        store.setDoc(null as any)
+        store.set(docAtom, null as any)
 
         // for rerender editor
         setTimeout(() => {
-          store.setDoc(doc!)
+          store.set(docAtom, doc!)
         }, 0)
       }
 
       if (event.data === WorkerEvents.PULL_FAILED) {
-        store.setSyncStatus(SyncStatus.PULL_FAILED)
+        store.set(syncStatusAtom, SyncStatus.PULL_FAILED)
         toast.error('Pull failed')
       }
     }

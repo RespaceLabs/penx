@@ -1,13 +1,24 @@
 import { FC, PropsWithChildren, useEffect } from 'react'
 import { Provider } from 'jotai'
+import { CatalogueNodeType, CatalogueTree } from '@penx/catalogue'
 import { isServer } from '@penx/constants'
+import { Catalogue } from '@penx/domain'
+import { emitter } from '@penx/event'
 import { appLoader, useLoaderStatus } from '@penx/loader'
-import { JotaiNexus, store } from '@penx/store'
+import { JotaiNexus, spacesAtom, store } from '@penx/store'
 import { ClientOnly } from './components/ClientOnly'
 import { EditorLayout } from './EditorLayout/EditorLayout'
 
 if (!isServer) {
   appLoader.init()
+
+  emitter.on('ADD_DOCUMENT', () => {
+    const spaces = store.get(spacesAtom)
+    const activeSpace = spaces.find((space) => space.isActive)!
+    const catalogueTree = CatalogueTree.fromJSON(activeSpace?.catalogue)
+    const catalogue = new Catalogue(activeSpace, catalogueTree)
+    catalogue.addNode(CatalogueNodeType.DOC)
+  })
 }
 
 export const EditorApp: FC<PropsWithChildren> = ({ children }) => {

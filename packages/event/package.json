@@ -1,5 +1,5 @@
 {
-  "name": "@penx/constants",
+  "name": "@penx/event",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -7,10 +7,15 @@
     "lint": "eslint \"**/*.ts*\""
   },
   "devDependencies": {
-    "@types/node": "^20.7.0",
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
     "eslint": "^8.42.0",
     "eslint-config-custom": "workspace:*",
+    "react": "^18.2.0",
     "tsconfig": "workspace:*",
     "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "mitt": "^3.0.0"
   }
 }

@@ -5,7 +5,7 @@ import {
   CatalogueTree,
 } from '@penx/catalogue'
 import { db, IDoc, ISpace } from '@penx/local-db'
-import { store } from '@penx/store'
+import { docAtom, spacesAtom, store } from '@penx/store'
 import { ChangeService } from './ChangeService'
 
 const initialValue = [
@@ -46,7 +46,7 @@ export class Catalogue {
 
   private async reloadSpaceStore() {
     const spaces = await db.listSpaces()
-    store.setSpaces(spaces)
+    store.set(spacesAtom, spaces)
     return spaces
   }
 
@@ -143,7 +143,7 @@ export class Catalogue {
       db.listSpaces(),
     ])
 
-    store.setSpaces(spaces)
+    store.set(spacesAtom, spaces)
 
     if (doc) {
       this.updateDocAtom(doc!)
@@ -161,11 +161,11 @@ export class Catalogue {
   }
 
   private updateDocAtom(doc: IDoc) {
-    store.setDoc(null as any)
+    store.set(docAtom, null as any)
 
     // for rerender editor
     setTimeout(() => {
-      store.setDoc(doc!)
+      store.set(docAtom, doc!)
     }, 0)
   }
 }

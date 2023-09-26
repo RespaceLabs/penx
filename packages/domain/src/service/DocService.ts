@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { db, IDoc } from '@penx/local-db'
-import { store } from '@penx/store'
+import { docAtom, store } from '@penx/store'
 import { Catalogue } from './Catalogue'
 import { ChangeService } from './ChangeService'
 
@@ -51,6 +51,6 @@ export class DocService {
   }
 
   setTitleState = async (title: string) => {
-    store.setDoc({ ...this.raw, title })
+    store.set(docAtom, { ...this.raw, title })
   }
 }

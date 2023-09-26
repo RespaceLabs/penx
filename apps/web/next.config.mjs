@@ -34,6 +34,7 @@ const config = {
     '@penx/cmdk',
     '@penx/indexeddb',
     '@penx/storage-estimate',
+    '@penx/event',
     'uikit',
     'slate-lists',
     'easy-modal',

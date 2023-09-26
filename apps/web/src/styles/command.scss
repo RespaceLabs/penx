@@ -158,14 +158,4 @@
     background: var(--gray5);
     margin: 4px 0;
   }
-
-  [cmdk-empty] {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 64px;
-    white-space: pre-wrap;
-    color: var(--gray11);
-  }
 }

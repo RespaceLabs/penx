@@ -73,6 +73,7 @@
     "@penx/storage-estimate": "workspace:*",
     "@penx/serializer": "workspace:*",
     "@penx/shared": "workspace:*",
+    "@penx/event": "workspace:*",
     "@penx/store": "workspace:*",
     "@prisma/nextjs-monorepo-workaround-plugin": "^5.1.1",
     "@radix-ui/react-dialog": "^1.0.4",

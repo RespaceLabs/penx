@@ -30,7 +30,7 @@ export const penx: PluginContext = {
 
       draft[this.pluginId!].components.push({ at, component })
     })
-    store.setPluginStore(newStore)
+    store.set(pluginStoreAtom, newStore)
   },
   notify() {
     //

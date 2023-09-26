@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { db } from '@penx/local-db'
-import { store } from '@penx/store'
+import { docAtom, spacesAtom, store } from '@penx/store'
 
 export class SpaceService {
   createSpace = async (name: string) => {
@@ -16,17 +16,17 @@ export class SpaceService {
     const docs = await db.listDocsBySpaceId(id)
 
     if (docs.length) {
-      store.setDoc(null as any)
+      store.set(docAtom, null as any)
 
       // for rerender editor
       setTimeout(() => {
-        store.setDoc(docs[0])
+        store.set(docAtom, docs[0])
       }, 0)
     }
   }
 
   loadSpaces = async () => {
     const spaces = await db.listSpaces()
-    store.setSpaces(spaces)
+    store.set(spacesAtom, spaces)
   }
 }

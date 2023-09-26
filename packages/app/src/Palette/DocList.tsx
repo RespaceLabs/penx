@@ -1,4 +1,4 @@
-import { styled } from '@fower/react'
+import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
 import { useCatalogue } from '@penx/hooks'
 
@@ -15,12 +15,16 @@ export function DocList({ q, close }: Props) {
     i.name.toLowerCase().includes(q.toLowerCase()),
   )
 
+  if (!filteredItems.length) {
+    return (
+      <Box textSM toCenter h-64>
+        No results found.
+      </Box>
+    )
+  }
+
   return (
     <>
-      {!filteredItems.length && (
-        <Command.Empty>No results found.</Command.Empty>
-      )}
-
       {filteredItems.map((node) => (
         <CommandItem
           key={node.id}

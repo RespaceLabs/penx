@@ -1,9 +1,7 @@
 import React, { FC, PropsWithChildren, useEffect } from 'react'
 import { DocumentOutline, LinkOutline, UserGroupOutline } from '@bone-ui/icons'
 import { Box } from '@fower/react'
-import { nanoid } from 'nanoid'
 import {
-  Menu,
   MenuItem,
   Popover,
   PopoverClose,
@@ -12,14 +10,6 @@ import {
 } from 'uikit'
 import { CatalogueNodeType } from '@penx/catalogue'
 import { useCatalogue } from '@penx/hooks'
-
-const initialValue = [
-  {
-    type: 'p',
-    id: nanoid(),
-    children: [{ text: '' }],
-  },
-]
 
 interface Props {
   parentId?: string

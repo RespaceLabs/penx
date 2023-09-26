@@ -1,5 +1,6 @@
 import { atom, createStore } from 'jotai'
 import { SyncStatus } from '@penx/constants'
+import { emitter } from '@penx/event'
 import { IDoc, ISpace } from '@penx/local-db'
 
 export type Command = {
@@ -8,6 +9,7 @@ export type Command = {
   pluginId?: string
   handler: () => void
 }
+
 export type PluginStore = Record<
   string,
   {
@@ -17,6 +19,8 @@ export type PluginStore = Record<
     }>
   }
 >
+
+export const store = createStore()
 
 export const docAtom = atom(null as any as IDoc)
 
@@ -39,28 +43,19 @@ export const commandsAtom = atom<Command[]>([
       console.log('bar')
     },
   },
+  {
+    id: 'add-document',
+    title: 'Add document',
+    handler: () => {
+      emitter.emit('ADD_DOCUMENT')
+    },
+  },
 ])
 
 export const pluginStoreAtom = atom<PluginStore>({})
 
-export const store = Object.assign(createStore(), {
-  setSpaces: (state: ISpace[]) => {
-    store.set(spacesAtom, state)
-  },
-
-  setDoc: (state: IDoc) => {
-    store.set(docAtom, state)
-  },
-
-  setSyncStatus: (state: SyncStatus) => {
-    store.set(syncStatusAtom, state)
-  },
-
-  setCommands: (state: Command[]) => {
-    store.set(commandsAtom, state)
-  },
-
-  setPluginStore: (state: PluginStore) => {
-    store.set(pluginStoreAtom, state)
-  },
-})
+////
+// store.sub(spacesAtom, () => {
+//   console.log('spacesAtom:', spacesAtom.toString())
+//   console.log('change.... space:', store.get(spacesAtom))
+// })

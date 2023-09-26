@@ -1,4 +1,5 @@
 import mitt from 'mitt'
+import { isProd } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { penx } from './penx'
 import { PluginLoader } from './PluginLoader'
@@ -14,8 +15,10 @@ class AppLoader {
 
   // TODO: handle error, need retry
   async init() {
-    // TODO: need improvement
-    protectDB()
+    if (isProd) {
+      protectDB()
+    }
+
     try {
       const t0 = Date.now()
       window.penx = penx as any
@@ -33,6 +36,7 @@ class AppLoader {
       console.log('appLoader loaded time t3-t0', t3 - t0)
 
       this.emitter.emit('loaded', true)
+
       mutateLoaderStatus(true)
     } catch (error) {
       console.log('loader error', error)

@@ -1,6 +1,6 @@
 import { Octokit } from 'octokit'
 import { ChangeType, db, IDoc, ISpace } from '@penx/local-db'
-import { store } from '@penx/store'
+import { docAtom, spacesAtom, store } from '@penx/store'
 import { Doc, Space } from '../entity'
 
 interface SharedParams {
@@ -228,16 +228,16 @@ export class SyncService {
 
   private async reloadSpaceStore() {
     const spaces = await db.listSpaces()
-    store.setSpaces(spaces)
+    store.set(spacesAtom, spaces)
     return spaces
   }
 
   private updateDocAtom(doc: IDoc) {
-    store.setDoc(null as any)
+    store.set(docAtom, null as any)
 
     // for rerender editor
     setTimeout(() => {
-      store.setDoc(doc!)
+      store.set(docAtom, doc!)
     }, 0)
   }
 

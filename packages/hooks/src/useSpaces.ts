@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import { useAtom, useSetAtom } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { CatalogueTree } from '@penx/catalogue'
 import { db } from '@penx/local-db'
 import { spacesAtom } from '@penx/store'
@@ -11,12 +11,11 @@ export function useQuerySpaces() {
     db.listSpaces().then((spaces) => {
       setSpaces(spaces)
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [setSpaces])
 }
 
 export function useSpaces() {
-  const [spaces] = useAtom(spacesAtom)
+  const spaces = useAtomValue(spacesAtom)
 
   const activeSpace = useMemo(() => {
     const space = spaces.find((item) => item.isActive)
