@@ -70,7 +70,6 @@
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/plugin-typings": "*",
-    "@penx/storage-estimate": "workspace:*",
     "@penx/serializer": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/event": "workspace:*",

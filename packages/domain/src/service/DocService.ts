@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { db, IDoc } from '@penx/local-db'
+import { slateToMarkdown } from '@penx/serializer'
 import { docAtom, store } from '@penx/store'
 import { Catalogue } from './Catalogue'
 import { ChangeService } from './ChangeService'
@@ -26,6 +27,10 @@ export class DocService {
     return JSON.parse(this.raw?.content || '[]')
   }
 
+  get markdownContent() {
+    return slateToMarkdown(this.content)
+  }
+
   private debouncedUpdateDoc = _.debounce(
     async (content: any, title: string) => {
       const { raw: doc, catalogue } = this
@@ -42,6 +47,12 @@ export class DocService {
       await changeService.update(doc.id, this.raw.content, newContent)
 
       await catalogue.updateNodeName(doc.id, title)
+
+      store.set(docAtom, {
+        ...doc,
+        title,
+        content: newContent,
+      })
     },
     50,
   )

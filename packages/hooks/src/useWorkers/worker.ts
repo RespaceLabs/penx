@@ -6,7 +6,7 @@ import { startPollingPush } from './pollingPush'
 self.addEventListener('message', async (event) => {
   await db.database.connect()
   if (event.data === WorkerEvents.START_POLLING) {
-    startPollingPush()
-    startPollingPull()
+    // startPollingPush()
+    // startPollingPull()
   }
 })

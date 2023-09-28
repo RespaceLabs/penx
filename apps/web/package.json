@@ -45,7 +45,6 @@
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/indexeddb": "workspace:*",
-    "@penx/storage-estimate": "workspace:*",
     "@penx/serializer": "workspace:*",
     "@penx/shared": "workspace:*",
     "@prisma/nextjs-monorepo-workaround-plugin": "^5.1.1",

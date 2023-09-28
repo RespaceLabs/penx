@@ -438,9 +438,6 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
-      '@penx/storage-estimate':
-        specifier: workspace:*
-        version: link:../../plugins/storage-estimate
       '@prisma/nextjs-monorepo-workaround-plugin':
         specifier: ^5.1.1
         version: 5.3.1
@@ -881,9 +878,6 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../shared
-      '@penx/storage-estimate':
-        specifier: workspace:*
-        version: link:../../plugins/storage-estimate
       '@penx/store':
         specifier: workspace:*
         version: link:../store
@@ -1911,6 +1905,9 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../store
+      '@penx/word-count':
+        specifier: workspace:*
+        version: link:../../plugins/word-count
       immer:
         specifier: ^10.0.2
         version: 10.0.2
@@ -2217,6 +2214,46 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
+      '@penx/local-db':
+        specifier: workspace:*
+        version: link:../../packages/local-db
+      '@penx/plugin-typings':
+        specifier: '*'
+        version: link:../../packages/plugin-typings
+    devDependencies:
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.22
+      '@types/react-dom':
+        specifier: ^18.2.7
+        version: 18.2.7
+      eslint:
+        specifier: ^8.42.0
+        version: 8.49.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
+      typescript:
+        specifier: ^5.1.3
+        version: 5.2.2
+
+  plugins/word-count:
+    dependencies:
+      '@fower/react':
+        specifier: ^1.86.0
+        version: 1.86.0
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      '@penx/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db

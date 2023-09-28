@@ -30,22 +30,16 @@ export const syncStatusAtom = atom<SyncStatus>(SyncStatus.NORMAL)
 
 export const commandsAtom = atom<Command[]>([
   {
-    id: 'foo',
-    title: 'foo',
-    handler: () => {
-      console.log('fooo')
-    },
-  },
-  {
-    id: 'bar',
-    title: 'bar',
-    handler: () => {
-      console.log('bar')
-    },
-  },
-  {
     id: 'add-document',
     title: 'Add document',
+    handler: () => {
+      emitter.emit('ADD_DOCUMENT')
+    },
+  },
+
+  {
+    id: 'export-to-markdown',
+    title: 'export to markdown',
     handler: () => {
       emitter.emit('ADD_DOCUMENT')
     },
