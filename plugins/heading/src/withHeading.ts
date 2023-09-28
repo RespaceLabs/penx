@@ -1,21 +1,21 @@
-import { Editor } from 'slate'
-import { ElementType } from '@penx/editor-shared'
+import { Editor, Element } from 'slate'
 
-export const withCheckList = (editor: Editor) => {
+export const withHeading = (editor: Editor) => {
   const { apply } = editor
   editor.apply = (operation) => {
     if (operation.type === 'split_node') {
       const { properties } = operation
 
-      properties.type
-
-      if (properties.type === ElementType.check_list_item) {
+      if (
+        ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(
+          (properties as Element).type,
+        )
+      ) {
         return apply({
           ...operation,
           properties: {
             ...properties,
-            type: ElementType.check_list_item,
-            checked: false,
+            type: 'p',
           },
         })
       }

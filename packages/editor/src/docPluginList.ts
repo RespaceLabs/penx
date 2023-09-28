@@ -5,7 +5,7 @@ import checkList from './plugins/check-list'
 import code from './plugins/code'
 import divider from './plugins/divider'
 import frontMatter from './plugins/front-matter'
-import heading from './plugins/heading'
+// import heading from './plugins/heading'
 import image from './plugins/image'
 import internalLink from './plugins/internal-link'
 import link from './plugins/link'
@@ -19,7 +19,7 @@ export const docPluginList = [
   link(),
   image(),
   divider(),
-  heading(),
+  // heading(),
   // blockquote(),
   code(),
   paragraph(),

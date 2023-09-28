@@ -1,4 +1,5 @@
 import * as blockquote from '@penx/blockquote'
+import * as heading from '@penx/heading'
 import { db } from '@penx/local-db'
 import * as storageEstimate from '@penx/storage-estimate'
 import * as wordCount from '@penx/word-count'
@@ -7,6 +8,7 @@ const builtins = [
   { id: 'storage-estimate', activate: storageEstimate.activate },
   { id: 'word-count', activate: wordCount.activate },
   { id: 'blockquote', activate: blockquote.activate },
+  { id: 'heading', activate: heading.activate },
 ]
 
 export class PluginLoader {
