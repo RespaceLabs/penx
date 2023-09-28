@@ -9,6 +9,7 @@ export const penx: PluginContext = {
     // console.log('name.....:', command)
     const commands = store.get(commandsAtom)
   },
+
   executeCommand(id) {
     //
   },
@@ -16,6 +17,7 @@ export const penx: PluginContext = {
   createSettings(schema: any[]) {
     console.log('createSettings')
   },
+
   registerComponent({ at, component }) {
     const pluginStore = store.get(pluginStoreAtom)
     const newStore = produce(pluginStore, (draft) => {
@@ -29,6 +31,17 @@ export const penx: PluginContext = {
       }
 
       draft[this.pluginId!].components.push({ at, component })
+    })
+    store.set(pluginStoreAtom, newStore)
+  },
+
+  registerBlock(options) {
+    const pluginStore = store.get(pluginStoreAtom)
+    const newStore = produce(pluginStore, (draft) => {
+      if (!draft[this.pluginId!]) {
+        draft[this.pluginId!] = {} as any
+      }
+      draft[this.pluginId!].block = options
     })
     store.set(pluginStoreAtom, newStore)
   },

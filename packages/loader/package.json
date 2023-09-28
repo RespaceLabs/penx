@@ -21,6 +21,7 @@
     "@penx/plugin-typings": "*",
     "@penx/storage-estimate": "workspace:*",
     "@penx/word-count": "workspace:*",
+    "@penx/blockquote": "workspace:*",
     "@penx/store": "workspace:*",
     "immer": "^10.0.2",
     "jotai": "^2.4.2",

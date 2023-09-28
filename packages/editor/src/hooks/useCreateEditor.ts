@@ -1,10 +1,14 @@
 import { ElementType, useMemo, useRef } from 'react'
+import { useAtomValue } from 'jotai'
 import { createEditor, Editor } from 'slate'
 import { withHistory } from 'slate-history'
 import { withReact } from 'slate-react'
 import { EditorPlugin, PluginElement } from '@penx/editor-types'
+import { pluginStoreAtom } from '@penx/store'
 
 export function useCreateEditor(plugins: EditorPlugin[] = []): Editor {
+  const pluginStore = useAtomValue(pluginStoreAtom)
+
   const editorRef = useRef<Editor>()
   const pluginList = useMemo(() => {
     // builtin plugins
@@ -13,6 +17,25 @@ export function useCreateEditor(plugins: EditorPlugin[] = []): Editor {
     let inlineTypes: ElementType[] = []
     let voidTypes: ElementType[] = []
     let elementMaps: Record<string, PluginElement> = {}
+
+    // penx plugins
+    for (const name of Object.keys(pluginStore)) {
+      const plugin = pluginStore[name]
+      const { elements = [] } = plugin.block || {}
+      if (plugin?.block?.with) withFns.push(plugin.block.with)
+
+      for (const ele of elements) {
+        // get inline types
+        if (isBooleanTrue(ele.isInline))
+          inlineTypes.push(ele.type as ElementType)
+
+        // get void types
+        if (isBooleanTrue(ele.isVoid)) voidTypes.push(ele.type as ElementType)
+
+        // set element maps
+        elementMaps[ele.type] = ele
+      }
+    }
 
     // user plugin
     for (const plugin of plugins) {
@@ -66,7 +89,7 @@ export function useCreateEditor(plugins: EditorPlugin[] = []): Editor {
     })
 
     return withFns
-  }, [plugins])
+  }, [plugins, pluginStore])
 
   if (!editorRef.current) {
     editorRef.current = pluginList.reduce<any>(

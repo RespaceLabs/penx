@@ -1,7 +1,6 @@
 import autoNodeId from './plugins/auto-node-id'
 import autoformat from './plugins/autoformat'
 import blockSelector from './plugins/block-selector'
-import blockquote from './plugins/blockquote'
 import checkList from './plugins/check-list'
 import code from './plugins/code'
 import divider from './plugins/divider'
@@ -21,7 +20,7 @@ export const docPluginList = [
   image(),
   divider(),
   heading(),
-  blockquote(),
+  // blockquote(),
   code(),
   paragraph(),
   blockSelector(),

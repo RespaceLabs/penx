@@ -36,6 +36,7 @@ const config = {
     '@penx/event',
     '@penx/storage-estimate',
     '@penx/word-count',
+    '@penx/blockquote',
     'uikit',
     'slate-lists',
     'easy-modal',

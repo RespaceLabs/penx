@@ -1,7 +1,14 @@
 import { atom, createStore } from 'jotai'
 import { SyncStatus } from '@penx/constants'
 import { emitter } from '@penx/event'
+// import { emitter } from '@'
 import { IDoc, ISpace } from '@penx/local-db'
+import {
+  RegisterBlockOptions,
+  RegisterComponentOptions,
+} from '@penx/plugin-typings'
+
+type pluginId = string
 
 export type Command = {
   id: string
@@ -11,12 +18,10 @@ export type Command = {
 }
 
 export type PluginStore = Record<
-  string,
+  pluginId,
   {
-    components: Array<{
-      at: string
-      component: any
-    }>
+    components: Array<RegisterComponentOptions>
+    block: RegisterBlockOptions
   }
 >
 
