@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
-import { ElementType } from '@penx/editor-shared'
-import { ElementProps, ListElement } from '@penx/editor-types'
+import { ElementProps } from '@penx/plugin-typings'
+import { ElementType, ListElement } from '../custom-types'
 
 export const List = ({
   attributes,

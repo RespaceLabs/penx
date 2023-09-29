@@ -3,6 +3,7 @@ import * as blockquote from '@penx/blockquote'
 import * as checkList from '@penx/check-list'
 import * as divider from '@penx/divider'
 import * as heading from '@penx/heading'
+import * as list from '@penx/list'
 import { db } from '@penx/local-db'
 import * as storageEstimate from '@penx/storage-estimate'
 import * as wordCount from '@penx/word-count'
@@ -15,6 +16,7 @@ const builtins = [
   { id: 'divider', activate: divider.activate },
   { id: 'check-list', activate: checkList.activate },
   { id: 'auto-format', activate: autoFormat.activate },
+  { id: 'list', activate: list.activate },
 ]
 
 export class PluginLoader {

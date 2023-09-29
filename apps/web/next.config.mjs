@@ -40,6 +40,7 @@ const config = {
     '@penx/divider',
     '@penx/check-list',
     '@penx/auto-format',
+    '@penx/list',
     'uikit',
     'slate-lists',
     'easy-modal',

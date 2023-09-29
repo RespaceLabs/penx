@@ -1,9 +1,10 @@
 import { Box } from '@fower/react'
-import { Node, Path } from 'slate'
-import { useSlate, useSlateStatic } from 'slate-react'
+import { Element, Node, Path } from 'slate'
+import { useSlateStatic } from 'slate-react'
 import { findNodePath } from '@penx/editor-queries'
 import { ElementType } from '@penx/editor-shared'
-import { ElementProps, ListItemElement } from '@penx/editor-types'
+import { ElementProps } from '@penx/plugin-typings'
+import { ListItemElement } from '../custom-types'
 
 export const ListItem = ({
   attributes,
@@ -13,10 +14,10 @@ export const ListItem = ({
 }: ElementProps<ListItemElement>) => {
   const editor = useSlateStatic()
   const path = findNodePath(editor, element)!
-  const parentNode = Node.parent(editor, path)
+  const parentNode = Node.parent(editor, path) as Element
 
   const nodes = Path.ancestors(path).filter((p) => {
-    const node = Node.get(editor, p)
+    const node = Node.get(editor, p) as Element
     return [ElementType.ul, ElementType.ol].includes(node.type as ElementType)
   })
 

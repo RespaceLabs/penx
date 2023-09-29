@@ -21,47 +21,6 @@ export interface ParagraphElement extends BaseCustomElement {
   type: ElementType.p
 }
 
-export interface H1Element extends BaseCustomElement {
-  type: ElementType.h1
-}
-
-export interface H2Element extends BaseCustomElement {
-  type: ElementType.h2
-}
-
-export interface H3Element extends BaseCustomElement {
-  type: ElementType.h3
-}
-
-export interface H4Element extends BaseCustomElement {
-  type: ElementType.h4
-}
-
-export interface H5Element extends BaseCustomElement {
-  type: ElementType.h5
-}
-
-export interface H6Element extends BaseCustomElement {
-  type: ElementType.h6
-}
-
-export interface ListElement extends BaseCustomElement {
-  type: ElementType.ul | ElementType.ol
-}
-
-export interface OrderedListElement extends BaseCustomElement {
-  type: ElementType.ol
-  children: ListItemElement[]
-}
-
-export interface ListItemElement extends BaseCustomElement {
-  type: ElementType.li
-}
-
-export interface ListContentElement extends BaseCustomElement {
-  type: ElementType.lic
-}
-
 export interface LinkElement extends BaseCustomElement {
   type: ElementType.link
   url: string
@@ -82,15 +41,6 @@ export interface TableRowElement extends BaseCustomElement {
 
 export interface TableCellElement extends BaseCustomElement {
   type: ElementType.td
-}
-
-export interface BlockQuoteElement extends BaseCustomElement {
-  type: ElementType.blockquote
-}
-
-export interface CheckListItemElement extends BaseCustomElement {
-  type: ElementType.check_list_item
-  checked: boolean
 }
 
 export interface CodeBlockElement extends BaseCustomElement {
@@ -162,26 +112,9 @@ export interface AtomicPropsInputElement extends BaseCustomElement {
   type: ElementType.atomic_props_input
 }
 
-export interface DocListElement extends BaseCustomElement {
-  type: ElementType.doc_list
-}
-
-export interface DocContentElement extends BaseCustomElement {
-  type: ElementType.doc_content
-}
-
-export interface SimpleSpaceHeaderElement extends BaseCustomElement {
-  type: ElementType.simple_space_header
-  width?: number | string
-}
-
 export interface ContainerElement extends BaseCustomElement {
   type: ElementType.container
   width?: number | string
-}
-
-export interface PreviousNextElement extends BaseCustomElement {
-  type: ElementType.previous_next
 }
 
 export interface TableElement extends BaseCustomElement {
@@ -199,28 +132,12 @@ export interface TableCellElement extends BaseCustomElement {
   type: ElementType.td
 }
 
-export interface DividerElement extends BaseCustomElement {
-  type: ElementType.hr
-}
-
 export type CustomElement =
   | ParagraphElement
-  | H1Element
-  | H2Element
-  | H3Element
-  | H4Element
-  | H5Element
-  | H6Element
-  | OrderedListElement
-  | ListElement
-  | ListItemElement
-  | ListContentElement
   | LinkElement
   | TableElement
   | TableRowElement
   | TableCellElement
-  | BlockQuoteElement
-  | CheckListItemElement
   | CodeBlockElement
   | CodeLineElement
   | FrontMatterBlockElement
@@ -231,12 +148,7 @@ export type CustomElement =
   | BlockSelectorElement
   | AtomicPropsElement
   | AtomicPropsInputElement
-  | DocListElement
-  | DocContentElement
-  | SimpleSpaceHeaderElement
   | ContainerElement
-  | PreviousNextElement
-  | DividerElement
   | InternalLinkSelectorElement
   | InternalLinkContentElement
 

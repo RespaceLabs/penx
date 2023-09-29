@@ -1,6 +1,6 @@
 import { Element, Node } from 'slate'
 import { ListType, withLists } from 'slate-lists'
-import { ElementType } from '@penx/editor-shared'
+import { ElementType } from '../custom-types'
 
 export const withListsPlugin = withLists({
   isConvertibleToListTextNode(node: Node) {
@@ -34,9 +34,9 @@ export const withListsPlugin = withLists({
     return { children: [{ text: '' }], ...props, type: nodeType }
   },
   createListItemNode(props: Partial<Element> = {}) {
-    return { children: [{ text: '' }], ...props, type: ElementType.li }
+    return { children: [{ text: '' }], ...props, type: ElementType.li } as any
   },
   createListItemTextNode(props: Partial<Element> = {}) {
-    return { children: [{ text: '' }], ...props, type: ElementType.lic }
+    return { children: [{ text: '' }], ...props, type: ElementType.lic } as any
   },
 })

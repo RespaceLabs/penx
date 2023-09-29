@@ -1,12 +1,12 @@
-import { ElementType } from '@penx/editor-shared'
-import { EditorPlugin } from '@penx/editor-types'
+import { PluginContext } from '@penx/plugin-typings'
+import { ElementType } from '../custom-types'
 import { List } from './List'
 import { ListItem } from './ListItem'
 import { ListItemContent } from './ListItemContent'
 import { withListsPlugin } from './withListsPlugin'
 
-export default function list(): EditorPlugin {
-  return {
+export function activate(ctx: PluginContext) {
+  ctx.registerBlock({
     with: withListsPlugin,
     elements: [
       {
@@ -31,5 +31,5 @@ export default function list(): EditorPlugin {
         component: ListItemContent,
       },
     ],
-  }
+  })
 }
