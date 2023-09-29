@@ -68,7 +68,7 @@
     "dexie-react-hooks": "^1.1.6",
     "easy-modal": "workspace:*",
     "emoji-mart": "^5.5.2",
-    "emoji-picker-react": "^4.4.10",
+    "emoji-picker-react": "^4.5.2",
     "framer-motion": "^10.12.16",
     "immer": "^10.0.2",
     "is-hotkey": "^0.2.0",

@@ -1,5 +1,5 @@
 import autoNodeId from './plugins/auto-node-id'
-import autoformat from './plugins/autoformat'
+// import autoformat from './plugins/autoformat'
 import blockSelector from './plugins/block-selector'
 import code from './plugins/code'
 import frontMatter from './plugins/front-matter'
@@ -17,7 +17,7 @@ export const docPluginList = [
   code(),
   paragraph(),
   blockSelector(),
-  autoformat(),
+  // autoformat(),
   list(),
   table(),
   frontMatter(),

@@ -39,6 +39,7 @@ const config = {
     '@penx/blockquote',
     '@penx/divider',
     '@penx/check-list',
+    '@penx/auto-format',
     'uikit',
     'slate-lists',
     'easy-modal',

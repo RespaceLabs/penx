@@ -2,8 +2,8 @@ import castArray from 'lodash/castArray'
 import { Editor, Point, Range, Transforms } from 'slate'
 import { getText } from '@penx/editor-queries'
 import { removeMark } from '@penx/editor-transforms'
-import { getMatchRange } from '../../utils'
-import { getMatchPoints } from '../../utils/getMatchPoints'
+import { getMatchPoints } from '../getMatchPoints'
+import { getMatchRange } from '../getMatchRange'
 import { AutoformatMarkRule } from '../types'
 
 export interface AutoformatMarkOptions extends AutoformatMarkRule {

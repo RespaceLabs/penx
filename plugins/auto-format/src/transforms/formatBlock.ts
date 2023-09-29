@@ -8,7 +8,7 @@ import {
 } from '@penx/editor-queries'
 import { ElementType, genId } from '@penx/editor-shared'
 import { setNodes } from '@penx/editor-transforms'
-import { getMatchRange } from '../../utils/getMatchRange'
+import { getMatchRange } from '../getMatchRange'
 import { AutoformatBlockRule } from '../types'
 
 export interface AutoformatBlockOptions extends AutoformatBlockRule {

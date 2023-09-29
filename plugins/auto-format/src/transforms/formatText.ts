@@ -1,7 +1,7 @@
 import castArray from 'lodash/castArray'
 import { Editor, Point, Range, Transforms } from 'slate'
-import { getMatchPoints } from '../../utils/getMatchPoints'
-import { getMatchRange } from '../../utils/getMatchRange'
+import { getMatchPoints } from '../getMatchPoints'
+import { getMatchRange } from '../getMatchRange'
 import { AutoformatTextRule } from '../types'
 
 export interface AutoformatTextOptions extends AutoformatTextRule {

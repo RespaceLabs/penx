@@ -1,3 +1,4 @@
+import * as autoFormat from '@penx/auto-format'
 import * as blockquote from '@penx/blockquote'
 import * as checkList from '@penx/check-list'
 import * as divider from '@penx/divider'
@@ -13,6 +14,7 @@ const builtins = [
   { id: 'heading', activate: heading.activate },
   { id: 'divider', activate: divider.activate },
   { id: 'check-list', activate: checkList.activate },
+  { id: 'auto-format', activate: autoFormat.activate },
 ]
 
 export class PluginLoader {

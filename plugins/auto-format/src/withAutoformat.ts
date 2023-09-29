@@ -4,7 +4,6 @@ import {
   getPreviousBlockById,
   isCollapsed,
 } from '@penx/editor-queries'
-import { ElementType } from '@penx/editor-shared'
 import { rules } from './rules'
 import { formatBlock } from './transforms/formatBlock'
 import { formatMark } from './transforms/formatMark'
@@ -21,10 +20,7 @@ export const withAutoformat = (editor: Editor) => {
     if (!isCollapsed(editor.selection)) return insertText(text)
 
     const match = Editor.above(editor, {
-      match: (n) =>
-        [ElementType.code_block, ElementType.front_matter_block].includes(
-          n.type,
-        ),
+      match: (n: any) => ['code_block', 'front_matter_block'].includes(n.type),
     })
 
     if (match?.[0]) {
@@ -68,18 +64,18 @@ export const withAutoformat = (editor: Editor) => {
           Point.equals(selection.anchor, start)
 
         const isGeneral = [
-          ElementType.p,
-          ElementType.lic,
-          ElementType.code_line,
-          ElementType.front_matter_line,
-        ].includes(block.type as ElementType)
+          'p',
+          'lic',
+          'code_line',
+          'front_matter_line',
+        ].includes((block as Element).type)
 
         if (isStartOfBlock) {
           const { id } = getCurrentNode(editor)!
 
           // for fist line block
           if (
-            block.type == ElementType.p &&
+            block.type == 'p' &&
             editor.children.length > 1 &&
             editor.children[0] === block
           ) {
@@ -97,12 +93,12 @@ export const withAutoformat = (editor: Editor) => {
 
             const [prevNode, prevPath] = nodeEntry
 
-            if (prevNode?.type === ElementType.table) {
+            if ((prevNode as Element)?.type === 'table') {
               Transforms.select(editor, Editor.end(editor, prevPath))
               return
             }
           } else {
-            const newProperties: Partial<Element> = { type: ElementType.p }
+            const newProperties: Partial<Element> = { type: 'p' } as any
             Transforms.setNodes(editor, newProperties)
             return
           }

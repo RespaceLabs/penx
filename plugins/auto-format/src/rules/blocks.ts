@@ -1,75 +1,74 @@
-import { ElementType } from '@penx/editor-shared'
 import { insertNodes, setNodes } from '@penx/editor-transforms'
-import { insertEmptyCodeBlock } from '../../code/insertEmptyCodeBlock'
+// import { insertEmptyCodeBlock } from '../../code/insertEmptyCodeBlock'
 import { clearBlockFormat } from '../autoformatUtils'
 import { AutoformatRule } from '../types'
 
 export const blocks: AutoformatRule[] = [
   {
     mode: 'block',
-    type: ElementType.h1,
+    type: 'h1',
     match: '# ',
     preFormat: clearBlockFormat,
   },
   {
     mode: 'block',
-    type: ElementType.h2,
+    type: 'h2',
     match: '## ',
     preFormat: clearBlockFormat,
   },
   {
     mode: 'block',
-    type: ElementType.h3,
+    type: 'h3',
     match: '### ',
     preFormat: clearBlockFormat,
   },
   {
     mode: 'block',
-    type: ElementType.h4,
+    type: 'h4',
     match: '#### ',
     preFormat: clearBlockFormat,
   },
   {
     mode: 'block',
-    type: ElementType.h5,
+    type: 'h5',
     match: '##### ',
     preFormat: clearBlockFormat,
   },
   {
     mode: 'block',
-    type: ElementType.h6,
+    type: 'h6',
     match: '###### ',
     preFormat: clearBlockFormat,
   },
   {
     mode: 'block',
-    type: ElementType.blockquote,
+    type: 'blockquote',
     match: '> ',
     preFormat: clearBlockFormat,
   },
   {
     mode: 'block',
-    type: ElementType.hr,
+    type: 'hr',
     match: ['---', '—-'],
     preFormat: clearBlockFormat,
     format: (editor) => {
-      setNodes(editor, { type: ElementType.hr })
+      setNodes(editor, { type: 'hr' })
       insertNodes(editor, {
-        type: ElementType.p,
+        type: 'p',
         children: [{ text: '' }],
-      })
+      } as any)
     },
   },
-  {
-    mode: 'block',
-    type: ElementType.code_block,
-    match: '```',
-    triggerAtBlockStart: false,
-    preFormat: clearBlockFormat, // TODO: 可以不要
-    format: (editor) => {
-      insertEmptyCodeBlock(editor, {
-        insertNodesOptions: { select: true },
-      })
-    },
-  },
+  // {
+  //   mode: 'block',
+  //   type: 'code_block',
+  //   match: '```',
+  //   triggerAtBlockStart: false,
+  //   preFormat: clearBlockFormat,
+  //   format: (editor) => {
+  //     insertEmptyCodeBlock(editor, {
+  //       insertNodesOptions: { select: true },
+  //     })
+  //   },
+  // },
 ]
