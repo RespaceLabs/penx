@@ -37,6 +37,7 @@ const config = {
     '@penx/storage-estimate',
     '@penx/word-count',
     '@penx/blockquote',
+    '@penx/divider',
     'uikit',
     'slate-lists',
     'easy-modal',

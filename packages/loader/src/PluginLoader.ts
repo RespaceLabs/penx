@@ -1,4 +1,5 @@
 import * as blockquote from '@penx/blockquote'
+import * as divider from '@penx/divider'
 import * as heading from '@penx/heading'
 import { db } from '@penx/local-db'
 import * as storageEstimate from '@penx/storage-estimate'
@@ -9,6 +10,7 @@ const builtins = [
   { id: 'word-count', activate: wordCount.activate },
   { id: 'blockquote', activate: blockquote.activate },
   { id: 'heading', activate: heading.activate },
+  { id: 'divider', activate: divider.activate },
 ]
 
 export class PluginLoader {

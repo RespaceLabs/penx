@@ -3,7 +3,6 @@ import autoformat from './plugins/autoformat'
 import blockSelector from './plugins/block-selector'
 import checkList from './plugins/check-list'
 import code from './plugins/code'
-import divider from './plugins/divider'
 import frontMatter from './plugins/front-matter'
 import image from './plugins/image'
 import internalLink from './plugins/internal-link'
@@ -16,7 +15,6 @@ export const docPluginList = [
   autoNodeId(),
   link(),
   image(),
-  divider(),
   code(),
   paragraph(),
   blockSelector(),

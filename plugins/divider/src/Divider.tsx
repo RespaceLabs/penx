@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { useFocused, useSelected } from 'slate-react'
-import { ElementProps } from '@penx/editor-types'
+import { ElementProps } from '@penx/plugin-typings'
 
 export const Divider = ({ attributes, children }: ElementProps) => {
   const selected = useSelected()
