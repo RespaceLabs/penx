@@ -40,6 +40,7 @@ const config = {
     '@penx/divider',
     '@penx/check-list',
     '@penx/auto-format',
+    '@penx/auto-node-id',
     '@penx/list',
     'uikit',
     'slate-lists',

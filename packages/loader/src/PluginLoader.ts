@@ -1,4 +1,5 @@
 import * as autoFormat from '@penx/auto-format'
+import * as autoNodeId from '@penx/auto-node-id'
 import * as blockquote from '@penx/blockquote'
 import * as checkList from '@penx/check-list'
 import * as divider from '@penx/divider'
@@ -17,6 +18,7 @@ const builtins = [
   { id: 'check-list', activate: checkList.activate },
   { id: 'auto-format', activate: autoFormat.activate },
   { id: 'list', activate: list.activate },
+  { id: 'auto-node-id', activate: autoNodeId.activate },
 ]
 
 export class PluginLoader {

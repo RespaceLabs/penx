@@ -10,7 +10,7 @@ function setNodeId(node: Element) {
   if (node?.children?.length) node.children.forEach((n) => setNodeId(n as any))
 }
 
-const filterNode = (nodeEntry: NodeEntry<Node>) => {
+const filterNode = (nodeEntry: NodeEntry<Element>) => {
   return nodeEntry[0]?.type !== undefined
 }
 
@@ -29,7 +29,7 @@ function resetAllSelected(editor: Editor) {
 export function withAutoNodeId(editor: Editor) {
   const { apply, elementMaps } = editor
 
-  const query = {
+  const query: any = {
     filter: filterNode,
     exclude: [],
   }
@@ -54,7 +54,7 @@ export function withAutoNodeId(editor: Editor) {
       resetAllSelected(editor)
 
       if (queryNode([node, []], query)) {
-        const { type } = operation.properties
+        const { type } = operation.properties as Element
         const el = editor.elementMaps[type]
         const node = {
           ...operation.properties,

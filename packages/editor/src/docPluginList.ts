@@ -1,4 +1,3 @@
-import autoNodeId from './plugins/auto-node-id'
 import blockSelector from './plugins/block-selector'
 import code from './plugins/code'
 import frontMatter from './plugins/front-matter'
@@ -9,7 +8,6 @@ import paragraph from './plugins/paragraph'
 import table from './plugins/table'
 
 export const docPluginList = [
-  autoNodeId(),
   link(),
   image(),
   code(),
