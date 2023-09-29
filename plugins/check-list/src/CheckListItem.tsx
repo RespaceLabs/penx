@@ -1,8 +1,9 @@
 import { Box } from '@fower/react'
 import { Element, Transforms } from 'slate'
-import { ReactEditor, useSlate, useSlateStatic } from 'slate-react'
+import { ReactEditor, useSlateStatic } from 'slate-react'
 import { Checkbox } from 'uikit'
-import { CheckListItemElement, ElementProps } from '@penx/editor-types'
+import { ElementProps } from '@penx/plugin-typings'
+import { CheckListItemElement } from '../custom-types'
 
 export const CheckListItem = ({
   attributes,

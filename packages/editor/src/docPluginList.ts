@@ -1,7 +1,6 @@
 import autoNodeId from './plugins/auto-node-id'
 import autoformat from './plugins/autoformat'
 import blockSelector from './plugins/block-selector'
-import checkList from './plugins/check-list'
 import code from './plugins/code'
 import frontMatter from './plugins/front-matter'
 import image from './plugins/image'
@@ -18,7 +17,6 @@ export const docPluginList = [
   code(),
   paragraph(),
   blockSelector(),
-  checkList(),
   autoformat(),
   list(),
   table(),

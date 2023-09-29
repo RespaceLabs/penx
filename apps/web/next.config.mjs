@@ -38,6 +38,7 @@ const config = {
     '@penx/word-count',
     '@penx/blockquote',
     '@penx/divider',
+    '@penx/check-list',
     'uikit',
     'slate-lists',
     'easy-modal',

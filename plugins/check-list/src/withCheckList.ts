@@ -1,5 +1,6 @@
-import { Editor } from 'slate'
-import { ElementType } from '@penx/editor-shared'
+import { Editor, Element } from 'slate'
+
+const check_list_item = 'check_list_item'
 
 export const withCheckList = (editor: Editor) => {
   const { apply } = editor
@@ -7,14 +8,12 @@ export const withCheckList = (editor: Editor) => {
     if (operation.type === 'split_node') {
       const { properties } = operation
 
-      properties.type
-
-      if (properties.type === ElementType.check_list_item) {
+      if ((properties as Element).type === check_list_item) {
         return apply({
           ...operation,
           properties: {
             ...properties,
-            type: ElementType.check_list_item,
+            type: check_list_item,
             checked: false,
           },
         })

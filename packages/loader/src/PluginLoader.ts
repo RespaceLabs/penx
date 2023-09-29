@@ -1,4 +1,5 @@
 import * as blockquote from '@penx/blockquote'
+import * as checkList from '@penx/check-list'
 import * as divider from '@penx/divider'
 import * as heading from '@penx/heading'
 import { db } from '@penx/local-db'
@@ -11,6 +12,7 @@ const builtins = [
   { id: 'blockquote', activate: blockquote.activate },
   { id: 'heading', activate: heading.activate },
   { id: 'divider', activate: divider.activate },
+  { id: 'check-list', activate: checkList.activate },
 ]
 
 export class PluginLoader {
