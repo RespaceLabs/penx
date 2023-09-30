@@ -43,6 +43,8 @@ const config = {
     '@penx/auto-node-id',
     '@penx/paragraph',
     '@penx/list',
+    '@penx/image',
+    '@penx/link',
     'uikit',
     'slate-lists',
     'easy-modal',

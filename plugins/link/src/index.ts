@@ -1,10 +1,10 @@
-import { ElementType } from '@penx/editor-shared'
-import { EditorPlugin } from '@penx/editor-types'
+import { PluginContext } from '@penx/plugin-typings'
+import { ElementType } from '../custom-types'
 import { Link } from './Link'
 import { withLink } from './withLink'
 
-export default function link(): EditorPlugin {
-  return {
+export function activate(ctx: PluginContext) {
+  ctx.registerBlock({
     with: withLink,
     elements: [
       {
@@ -14,5 +14,5 @@ export default function link(): EditorPlugin {
         component: Link,
       },
     ],
-  }
+  })
 }

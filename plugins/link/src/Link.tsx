@@ -11,10 +11,11 @@ import { Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { Input, Popover, PopoverContent, PopoverTrigger, toast } from 'uikit'
 import { findNodePath } from '@penx/editor-queries'
-import { ElementProps, LinkElement } from '@penx/editor-types'
 import { IconCopy } from '@penx/icons'
+import { ElementProps } from '@penx/plugin-typings'
 import { useCopyToClipboard } from '@penx/shared'
-import { useLinkIsOpen } from '../../stores/linkIsOpen.store'
+import { LinkElement } from '../custom-types'
+import { useLinkIsOpen } from './linkIsOpen.store'
 
 type Props = ElementProps<LinkElement>
 

@@ -55,7 +55,7 @@ export const Image = ({
       { url },
       {
         mode: 'lowest',
-        match: (n: Element) => n.id === element.id,
+        match: (n) => n.id === element.id,
       },
     )
   }

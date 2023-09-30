@@ -9,8 +9,8 @@ import {
   Transforms,
 } from 'slate'
 import { findNode, isCollapsed } from '@penx/editor-queries'
-import { ElementType } from '@penx/editor-shared'
 import { isUrl } from '@penx/editor-shared/src/isUrl'
+import { ElementType } from '../custom-types'
 
 export const withLink = (editor: Editor) => {
   const { insertData, insertText, normalizeNode } = editor
