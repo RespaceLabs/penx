@@ -34,9 +34,6 @@ export enum ElementType {
 
   code_inline = 'code_inline',
 
-  front_matter_block = 'front_matter_block',
-  front_matter_line = 'front_matter_line',
-
   code_block = 'code_block',
   code_line = 'code_line',
 

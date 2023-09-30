@@ -26,10 +26,7 @@ export const SetNodeToDecorations = () => {
       at: [],
       mode: 'highest',
       match: (n) =>
-        Element.isElement(n) &&
-        [ElementType.code_block, ElementType.front_matter_block].includes(
-          n.type,
-        ),
+        Element.isElement(n) && [ElementType.code_block].includes(n.type),
     }),
   )
 

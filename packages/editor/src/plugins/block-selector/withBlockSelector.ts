@@ -20,10 +20,7 @@ export const withBlockSelector = (editor: Editor) => {
 
     // in codeblock
     const match = Editor.above(editor, {
-      match: (n) =>
-        [ElementType.code_block, ElementType.front_matter_block].includes(
-          n.type,
-        ),
+      match: (n) => [ElementType.code_block].includes(n.type),
     })
 
     if (match?.[0]) {
@@ -70,7 +67,7 @@ export const withBlockSelector = (editor: Editor) => {
  * @returns
  */
 function shouldOpen(editor: Editor): string | false {
-  const excludeKeys = [ElementType.code_line, ElementType.front_matter_line]
+  const excludeKeys = [ElementType.code_line]
   const nodeEntry = getBlockAbove(editor)
 
   if (nodeEntry && !excludeKeys.includes(nodeEntry[0].type as any)) {

@@ -80,15 +80,6 @@ export function slateToMarkdown(nodes: CustomElement[]) {
       continue
     }
 
-    if (node.type === ElementType.front_matter_block) {
-      output.push('---')
-      for (const item of node.children || []) {
-        output.push(Node.string(item))
-      }
-      output.push('---' + '\n')
-      continue
-    }
-
     if (node.type === ElementType.code_block) {
       const meta: string[] = [node.language]
       if (node.showLineNumbers) meta.push('showLineNumbers')

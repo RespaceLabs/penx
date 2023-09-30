@@ -51,18 +51,6 @@ export interface CodeLineElement extends BaseCustomElement {
   type: ElementType.code_line
 }
 
-export interface FrontMatterBlockElement extends BaseCustomElement {
-  type: ElementType.front_matter_block
-  language: string
-  children: FrontMatterLineElement[]
-}
-
-export interface FrontMatterLineElement extends BaseCustomElement {
-  hint?: string
-  isHinted?: boolean
-  type: ElementType.front_matter_line
-}
-
 export interface ImageElement extends BaseCustomElement {
   type: ElementType.img
   url: string

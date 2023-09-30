@@ -1,6 +1,6 @@
 import { Editor, Element, Node, Transforms } from 'slate'
-import { ElementType } from '@penx/editor-shared'
 import { insertNodes } from '@penx/editor-transforms'
+import { ElementType } from '../custom-types'
 
 const trigger = '[['
 
@@ -19,12 +19,9 @@ export const withInternalLink = (editor: Editor) => {
       return customInsertText(text)
     }
 
-    // in codeblock or front_matter_block
+    // in codeblock
     const match = Editor.above(editor, {
-      match: (n) =>
-        [ElementType.code_block, ElementType.front_matter_block].includes(
-          n.type,
-        ),
+      match: (n: any) => [ElementType.code_block].includes(n.type),
     })
 
     if (match?.[0]) {

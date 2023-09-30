@@ -20,7 +20,7 @@ export const withAutoformat = (editor: Editor) => {
     if (!isCollapsed(editor.selection)) return insertText(text)
 
     const match = Editor.above(editor, {
-      match: (n: any) => ['code_block', 'front_matter_block'].includes(n.type),
+      match: (n: any) => ['code_block'].includes(n.type),
     })
 
     if (match?.[0]) {
@@ -63,12 +63,9 @@ export const withAutoformat = (editor: Editor) => {
           Element.isElement(block) &&
           Point.equals(selection.anchor, start)
 
-        const isGeneral = [
-          'p',
-          'lic',
-          'code_line',
-          'front_matter_line',
-        ].includes((block as Element).type)
+        const isGeneral = ['p', 'lic', 'code_line'].includes(
+          (block as any).type,
+        )
 
         if (isStartOfBlock) {
           const { id } = getCurrentNode(editor)!

@@ -18,8 +18,7 @@ const types = [
   ElementType.code_block,
   ElementType.img,
   ElementType.table,
-  ElementType.front_matter_block,
-  'internal_link_selector',
+  // 'internal_link_selector',
 ]
 
 interface Props {

@@ -38,10 +38,7 @@ export function usePlaceholder(
 
     // in codeblock or front matter
     const match = Editor.above(editor, {
-      match: (n) =>
-        [ElementType.code_block, ElementType.front_matter_block].includes(
-          n.type,
-        ),
+      match: (n) => [ElementType.code_block].includes(n.type),
     })
 
     if (match?.[0]) {

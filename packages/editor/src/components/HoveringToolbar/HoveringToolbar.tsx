@@ -66,10 +66,7 @@ const HoveringToolbar = () => {
     try {
       const n1 = Node.parent(editor, selection.anchor.path)
       const n2 = Node.parent(editor, selection.focus.path)
-      if (
-        [n1.type, n2.type].includes(ElementType.code_line) ||
-        [n1.type, n2.type].includes(ElementType.front_matter_line)
-      ) {
+      if ([n1.type, n2.type].includes(ElementType.code_line)) {
         el.style.display = 'none'
       }
     } catch (error) {}

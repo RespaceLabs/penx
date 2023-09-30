@@ -7,9 +7,7 @@ export const useDecorate = (editor: Editor) => {
     ([node]: NodeEntry) => {
       if (
         Element.isElement(node) &&
-        [ElementType.code_line, ElementType.front_matter_line].includes(
-          node.type,
-        )
+        [ElementType.code_line].includes(node.type)
       ) {
         const ranges = editor.nodeToDecorations.get(node) || []
         return ranges

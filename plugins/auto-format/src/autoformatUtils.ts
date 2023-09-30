@@ -10,13 +10,11 @@ export const format = (editor: Editor, customFormatting: any) => {
   if (editor.selection) {
     const parentEntry = getParent(editor, editor.selection)
     if (!parentEntry) return
-    const [node] = parentEntry
+    const [node] = parentEntry as any
     if (
-      Element.isElement(node) &&
+      Element.isElement(node as Element) &&
       node.type !== 'code_block' &&
-      node.type !== 'code_line' &&
-      node.type !== 'front_matter_block' &&
-      node.type !== 'front_matter_line'
+      node.type !== 'code_line'
     ) {
       customFormatting()
     }
