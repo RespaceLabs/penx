@@ -21,11 +21,6 @@ export interface ParagraphElement extends BaseCustomElement {
   type: ElementType.p
 }
 
-export interface LinkElement extends BaseCustomElement {
-  type: ElementType.link
-  url: string
-}
-
 export interface TableElement extends BaseCustomElement {
   type: ElementType.table
   colWidths: number[] // table col widths
@@ -93,17 +88,6 @@ export interface BlockSelectorElement extends BaseCustomElement {
   trigger: string
 }
 
-export interface InternalLinkSelectorElement extends BaseCustomElement {
-  type: ElementType.internal_link_selector
-  trigger: string
-}
-
-export interface InternalLinkContentElement extends BaseCustomElement {
-  type: ElementType.internal_link_content
-  linkName: string
-  linkId: string
-}
-
 export interface AtomicPropsElement extends BaseCustomElement {
   type: ElementType.atomic_props
 }
@@ -134,7 +118,6 @@ export interface TableCellElement extends BaseCustomElement {
 
 export type CustomElement =
   | ParagraphElement
-  | LinkElement
   | TableElement
   | TableRowElement
   | TableCellElement
@@ -149,8 +132,6 @@ export type CustomElement =
   | AtomicPropsElement
   | AtomicPropsInputElement
   | ContainerElement
-  | InternalLinkSelectorElement
-  | InternalLinkContentElement
 
 type CustomText = {
   text: string

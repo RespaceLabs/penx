@@ -1,11 +1,11 @@
-import { ElementType } from '@penx/editor-shared'
-import { EditorPlugin } from '@penx/editor-types'
+import { PluginContext } from '@penx/plugin-typings'
+import { ElementType } from '../custom-types'
 import { InternalLinkContent } from './InternalLinkContent'
 import { InternalLinkSelector } from './InternalLinkSelector'
 import { withInternalLink } from './withInternalLink'
 
-export default function internalLink(): EditorPlugin {
-  return {
+export function activate(ctx: PluginContext) {
+  ctx.registerBlock({
     with: withInternalLink,
     elements: [
       {
@@ -20,5 +20,5 @@ export default function internalLink(): EditorPlugin {
         component: InternalLinkContent,
       },
     ],
-  }
+  })
 }

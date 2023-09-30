@@ -32,6 +32,7 @@
     "@penx/code-block": "workspace:*",
     "@penx/image": "workspace:*",
     "@penx/link": "workspace:*",
+    "@penx/internal-link": "workspace:*",
     "@penx/store": "workspace:*",
     "immer": "^10.0.2",
     "jotai": "^2.4.2",

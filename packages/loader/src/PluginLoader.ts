@@ -6,6 +6,7 @@ import * as codeBlock from '@penx/code-block'
 import * as divider from '@penx/divider'
 import * as heading from '@penx/heading'
 import * as image from '@penx/image'
+import * as internalLink from '@penx/internal-link'
 import * as link from '@penx/link'
 import * as list from '@penx/list'
 import { db } from '@penx/local-db'
@@ -27,6 +28,7 @@ const builtins = [
   { id: 'code-block', activate: codeBlock.activate },
   { id: 'image', activate: image.activate },
   { id: 'link', activate: link.activate },
+  { id: 'internal-link', activate: internalLink.activate },
 ]
 
 export class PluginLoader {

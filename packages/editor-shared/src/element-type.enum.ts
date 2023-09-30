@@ -59,7 +59,4 @@ export enum ElementType {
   simple_space_header = 'simple_space_header',
 
   previous_next = 'previous_next',
-
-  internal_link_selector = 'internal_link_selector',
-  internal_link_content = 'internal_link_content',
 }

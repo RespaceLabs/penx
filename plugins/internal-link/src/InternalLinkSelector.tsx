@@ -15,7 +15,8 @@ import { Box } from '@fower/react'
 import { Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { findNodePath, getCurrentNode } from '@penx/editor-queries'
-import { ElementProps, InternalLinkSelectorElement } from '@penx/editor-types'
+import { ElementProps } from '@penx/plugin-typings'
+import { InternalLinkSelectorElement } from '../custom-types'
 import { InternalLinkSelectorContent } from './InternalLinkSelectorContent'
 
 export const InternalLinkSelector = ({

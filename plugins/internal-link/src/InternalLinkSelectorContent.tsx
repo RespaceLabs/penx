@@ -7,11 +7,10 @@ import {
   CatalogueTree,
 } from '@penx/catalogue'
 import { getCurrentPath } from '@penx/editor-queries'
-import { ElementType } from '@penx/editor-shared'
 import { selectEditor } from '@penx/editor-transforms'
-import { useEditorContext } from '../../components/EditorProvider'
-import { useKeyDownList } from '../../hooks/useKeyDownList'
+import { ElementType } from '../custom-types'
 import { InternalLinkSelectorItem } from './InternalLinkSelectorItem'
+import { useKeyDownList } from './useKeyDownList'
 
 interface Props {
   close: any
@@ -20,8 +19,8 @@ interface Props {
 }
 
 export const InternalLinkSelectorContent = ({ close, element }: Props) => {
+  const space = {} as any
   const editor = useSlateStatic()
-  const { space } = useEditorContext()
   const catalogue = CatalogueTree.fromJSON(space?.catalogue)
   const path = getCurrentPath(editor)!
   const nodes = catalogue.flatten(CatalogueNodeType.DOC)
