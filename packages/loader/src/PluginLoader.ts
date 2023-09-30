@@ -5,6 +5,7 @@ import * as checkList from '@penx/check-list'
 import * as codeBlock from '@penx/code-block'
 import * as divider from '@penx/divider'
 import * as heading from '@penx/heading'
+import * as image from '@penx/image'
 import * as list from '@penx/list'
 import { db } from '@penx/local-db'
 import * as paragraph from '@penx/paragraph'
@@ -23,6 +24,7 @@ const builtins = [
   { id: 'autoNodeId', activate: autoNodeId.activate },
   { id: 'paragraph', activate: paragraph.activate },
   { id: 'code-block', activate: codeBlock.activate },
+  { id: 'image', activate: image.activate },
 ]
 
 export class PluginLoader {

@@ -30,6 +30,7 @@
     "@penx/auto-node-id": "workspace:*",
     "@penx/paragraph": "workspace:*",
     "@penx/code-block": "workspace:*",
+    "@penx/image": "workspace:*",
     "@penx/store": "workspace:*",
     "immer": "^10.0.2",
     "jotai": "^2.4.2",

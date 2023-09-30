@@ -19,7 +19,7 @@ importers:
         version: 4.1.0(prettier@3.0.3)
       '@turbo/gen':
         specifier: ^1.10.14
-        version: 1.10.14(@types/node@20.7.0)(typescript@5.2.2)
+        version: 1.10.14(@types/node@20.7.2)(typescript@5.2.2)
       eslint:
         specifier: ^8.49.0
         version: 8.49.0
@@ -1917,6 +1917,9 @@ importers:
       '@penx/heading':
         specifier: workspace:*
         version: link:../../plugins/heading
+      '@penx/image':
+        specifier: workspace:*
+        version: link:../../plugins/image
       '@penx/list':
         specifier: workspace:*
         version: link:../../plugins/list
@@ -2675,6 +2678,103 @@ importers:
         specifier: ^1.17.0
         version: 1.17.0
     devDependencies:
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.22
+      '@types/react-dom':
+        specifier: ^18.2.7
+        version: 18.2.7
+      eslint:
+        specifier: ^8.42.0
+        version: 8.49.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
+      typescript:
+        specifier: ^5.1.3
+        version: 5.2.2
+
+  plugins/image:
+    dependencies:
+      '@bone-ui/iconify':
+        specifier: ^0.37.0
+        version: 0.37.0
+      '@bone-ui/icons':
+        specifier: ^0.37.0
+        version: 0.37.0
+      '@bone-ui/utils':
+        specifier: ^0.37.0
+        version: 0.37.0
+      '@fower/react':
+        specifier: ^1.86.0
+        version: 1.86.0
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      '@penx/editor-queries':
+        specifier: workspace:*
+        version: link:../../packages/editor-queries
+      '@penx/editor-shared':
+        specifier: workspace:*
+        version: link:../../packages/editor-shared
+      '@penx/editor-transforms':
+        specifier: workspace:*
+        version: link:../../packages/editor-transforms
+      '@penx/editor-types':
+        specifier: workspace:*
+        version: link:../../packages/editor-types
+      '@penx/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
+      '@penx/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
+      '@penx/local-db':
+        specifier: workspace:*
+        version: link:../../packages/local-db
+      '@penx/plugin-typings':
+        specifier: '*'
+        version: link:../../packages/plugin-typings
+      '@penx/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+      bone-ui:
+        specifier: ^0.37.0
+        version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
+      prismjs:
+        specifier: ^1.29.0
+        version: 1.29.0
+      re-resizable:
+        specifier: ^6.9.9
+        version: 6.9.11(react-dom@18.2.0)(react@18.2.0)
+      slate:
+        specifier: 0.94.1
+        version: 0.94.1
+      slate-history:
+        specifier: 0.93.0
+        version: 0.93.0(slate@0.94.1)
+      slate-lists:
+        specifier: workspace:*
+        version: link:../../packages/slate-lists
+      slate-react:
+        specifier: ^0.98.3
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+      uikit:
+        specifier: workspace:*
+        version: link:../../packages/uikit
+    devDependencies:
+      '@types/node':
+        specifier: ^20.7.2
+        version: 20.7.2
+      '@types/prismjs':
+        specifier: ^1.26.0
+        version: 1.26.0
       '@types/react':
         specifier: ^18.2.22
         version: 18.2.22
@@ -4536,7 +4636,7 @@ packages:
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
       resolve-from: 5.0.0
-      ts-node: 10.9.1(@types/node@20.7.0)(typescript@5.2.2)
+      ts-node: 10.9.1(@types/node@20.7.2)(typescript@5.2.2)
       typescript: 5.2.2
     transitivePeerDependencies:
       - '@swc/core'
@@ -5533,7 +5633,7 @@ packages:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 20.7.0
+      '@types/node': 20.7.2
       '@types/yargs': 17.0.24
       chalk: 4.1.2
     dev: true
@@ -9029,7 +9129,7 @@ packages:
   /@tsconfig/node16@1.0.4:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
-  /@turbo/gen@1.10.14(@types/node@20.7.0)(typescript@5.2.2):
+  /@turbo/gen@1.10.14(@types/node@20.7.2)(typescript@5.2.2):
     resolution: {integrity: sha512-g7ecPx0GCCTpnbH53blBGNk6pP4LhcWiTtR0kEprGkXpiHqjYDpOydz4JFoz9IC+Hj1Z28/+M7T/GfwJAjf0FQ==}
     hasBin: true
     dependencies:
@@ -9041,7 +9141,7 @@ packages:
       minimatch: 9.0.3
       node-plop: 0.26.3
       proxy-agent: 6.3.1
-      ts-node: 10.9.1(@types/node@20.7.0)(typescript@5.2.2)
+      ts-node: 10.9.1(@types/node@20.7.2)(typescript@5.2.2)
       update-check: 1.5.4
       validate-npm-package-name: 5.0.0
     transitivePeerDependencies:
@@ -9130,7 +9230,7 @@ packages:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 20.7.0
+      '@types/node': 20.7.2
 
   /@types/har-format@1.2.13:
     resolution: {integrity: sha512-PwBsCBD3lDODn4xpje3Y1di0aDJp4Ww7aSfMRVw6ysnxD4I7Wmq2mBkSKaDtN403hqH5sp6c9xQUvFYY3+lkBg==}
@@ -9176,7 +9276,7 @@ packages:
   /@types/jsonwebtoken@9.0.3:
     resolution: {integrity: sha512-b0jGiOgHtZ2jqdPgPnP6WLCXZk1T8p06A/vPGzUvxpFGgKMbjXJDjC5m52ErqBnIuWZFgGoIJyRdeG5AyreJjA==}
     dependencies:
-      '@types/node': 20.7.0
+      '@types/node': 20.7.2
 
   /@types/linkify-it@3.0.3:
     resolution: {integrity: sha512-pTjcqY9E4nOI55Wgpz7eiI8+LzdYnw3qxXCfHyBDdPbYvbyLgWLJGh8EdPvqawwMK1Uo1794AUkkR38Fr0g+2g==}
@@ -9221,6 +9321,10 @@ packages:
 
   /@types/node@20.7.0:
     resolution: {integrity: sha512-zI22/pJW2wUZOVyguFaUL1HABdmSVxpXrzIqkjsHmyUjNhPoWM1CKfvVuXfetHhIok4RY573cqS0mZ1SJEnoTg==}
+    dev: true
+
+  /@types/node@20.7.2:
+    resolution: {integrity: sha512-RcdC3hOBOauLP+r/kRt27NrByYtDjsXyAuSbR87O6xpsvi763WI+5fbSIvYJrXnt9w4RuxhV6eAXfIs7aaf/FQ==}
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -9255,7 +9359,7 @@ packages:
   /@types/resolve@1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
-      '@types/node': 20.7.0
+      '@types/node': 20.7.2
     dev: false
 
   /@types/scheduler@0.16.3:
@@ -9272,7 +9376,7 @@ packages:
   /@types/through@0.0.31:
     resolution: {integrity: sha512-LpKpmb7FGevYgXnBXYs6HWnmiFyVG07Pt1cnbgM1IhEacITTiUaBXXvOR3Y50ksaJWGSfhbEvQFivQEFGCC55w==}
     dependencies:
-      '@types/node': 20.7.0
+      '@types/node': 20.7.2
     dev: true
 
   /@types/tinycolor2@1.4.4:
@@ -9294,13 +9398,13 @@ packages:
   /@types/websocket@1.0.6:
     resolution: {integrity: sha512-JXkliwz93B2cMWOI1ukElQBPN88vMg3CruvW4KVSKpflt3NyNCJImnhIuB/f97rG7kakqRJGFiwkA895Kn02Dg==}
     dependencies:
-      '@types/node': 20.7.0
+      '@types/node': 20.7.2
     dev: false
 
   /@types/ws@8.5.5:
     resolution: {integrity: sha512-lwhs8hktwxSjf9UaZ9tG5M03PGogvFaH8gUgLNbN9HKIg0dvv6q+gkSuJ8HN4/VbyxkuLzCjlN7GquQ0gUJfIg==}
     dependencies:
-      '@types/node': 20.7.0
+      '@types/node': 20.7.2
     dev: true
 
   /@types/yargs-parser@21.0.0:
@@ -10780,7 +10884,7 @@ packages:
     dependencies:
       '@types/node': 20.4.7
       cosmiconfig: 8.3.6(typescript@5.2.2)
-      ts-node: 10.9.1(@types/node@20.7.0)(typescript@5.2.2)
+      ts-node: 10.9.1(@types/node@20.7.2)(typescript@5.2.2)
       typescript: 5.2.2
     dev: true
 
@@ -13675,7 +13779,7 @@ packages:
     resolution: {integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.7.0
+      '@types/node': 20.7.2
       merge-stream: 2.0.0
       supports-color: 7.2.0
     dev: false
@@ -13684,7 +13788,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.7.0
+      '@types/node': 20.7.2
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -15555,7 +15659,7 @@ packages:
         optional: true
     dependencies:
       lilconfig: 2.1.0
-      ts-node: 10.9.1(@types/node@20.7.0)(typescript@5.2.2)
+      ts-node: 10.9.1(@types/node@20.7.2)(typescript@5.2.2)
       yaml: 2.3.2
 
   /postcss-value-parser@4.2.0:
@@ -17181,7 +17285,7 @@ packages:
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  /ts-node@10.9.1(@types/node@20.7.0)(typescript@5.2.2):
+  /ts-node@10.9.1(@types/node@20.7.2)(typescript@5.2.2):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -17200,7 +17304,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.7.0
+      '@types/node': 20.7.2
       acorn: 8.10.0
       acorn-walk: 8.2.0
       arg: 4.1.3
