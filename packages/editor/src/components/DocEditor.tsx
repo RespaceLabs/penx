@@ -36,7 +36,6 @@ import { useDecorate } from '../hooks/useDecorate'
 import { useOnCompositionEvent } from '../hooks/useOnCompositionEvent'
 import { useOnDOMBeforeInput } from '../hooks/useOnDOMBeforeInput'
 import { useOnKeyDown } from '../hooks/useOnKeyDown'
-import { FrontMatterHintPopover } from '../plugins/front-matter/ui/FrontMatterHintPopover'
 import ClickablePadding from './ClickablePadding'
 import { DragOverlayContent } from './DragOverlayContent'
 import { ElementContent } from './ElementContent'
@@ -137,8 +136,6 @@ export function DocEditor({ content, plugins, onChange, renderPrefix }: Props) {
     [editor.children],
   )
 
-  const node = getCurrentNode(editor)
-
   return (
     <Slate
       editor={editor}
@@ -149,8 +146,6 @@ export function DocEditor({ content, plugins, onChange, renderPrefix }: Props) {
     >
       {renderPrefix?.(editor)}
       <HoveringToolbar />
-
-      {node && <FrontMatterHintPopover />}
 
       <SetNodeToDecorations />
       <DndContext

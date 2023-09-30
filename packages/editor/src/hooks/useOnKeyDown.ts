@@ -14,7 +14,7 @@ export function useOnKeyDown(editor: Editor) {
           [
             ElementType.block_selector,
             ElementType.mention_input,
-            ElementType.internal_link_selector,
+            'internal_link_selector',
           ].includes(n.type),
       }),
     [editor],
@@ -30,11 +30,6 @@ export function useOnKeyDown(editor: Editor) {
           keyDownEmitter.emit('ArrowUp')
         }
 
-        if (document.querySelector('.front-matter-hint-open')) {
-          e.preventDefault()
-          keyDownEmitter.emit('ArrowUp')
-        }
-
         break
       case 'ArrowDown':
         if (somePopoverNode()) {
@@ -42,18 +37,8 @@ export function useOnKeyDown(editor: Editor) {
           keyDownEmitter.emit('ArrowDown')
         }
 
-        if (document.querySelector('.front-matter-hint-open')) {
-          e.preventDefault()
-          keyDownEmitter.emit('ArrowDown')
-        }
-
         break
       case 'Tab':
-        if (document.querySelector('.front-matter-hint-open')) {
-          e.preventDefault()
-          keyDownEmitter.emit('Tab')
-        }
-
         return
       case 'Enter':
         if (somePopoverNode()) {
@@ -61,10 +46,6 @@ export function useOnKeyDown(editor: Editor) {
           keyDownEmitter.emit('Enter')
         }
 
-        if (document.querySelector('.front-matter-hint-open')) {
-          e.preventDefault()
-          keyDownEmitter.emit('Enter')
-        }
         break
     }
   }

@@ -28,7 +28,7 @@ const builtins = [
   { id: 'code-block', activate: codeBlock.activate },
   { id: 'image', activate: image.activate },
   { id: 'link', activate: link.activate },
-  { id: 'internal-link', activate: internalLink.activate },
+  // { id: 'internal-link', activate: internalLink.activate },
 ]
 
 export class PluginLoader {
