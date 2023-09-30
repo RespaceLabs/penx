@@ -185,3 +185,16 @@ model InvitationToken {
     createdAt DateTime? @default(now())
     updatedAt DateTime? @updatedAt
 }
+
+model Plugin {
+    id          String   @id @default(cuid())
+    name        String
+    author      String
+    description String?
+    repo        String?
+    version     String
+    downloads   Int?
+    updated     String?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
