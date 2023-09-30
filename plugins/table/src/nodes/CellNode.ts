@@ -1,16 +1,16 @@
-import { produce } from 'immer'
 import { Editor, Node, Path, Transforms } from 'slate'
 import { findNodePath } from '@penx/editor-queries'
 import {
   TableCellElement,
   TableElement,
   TableRowElement,
-} from '@penx/editor-types'
-import { getEmptyCellNode } from '../getEmptyCellNode'
-import { getEmptyRowNode } from '../getEmptyRowNode'
+} from '../../custom-types'
 
 export class CellNode {
-  constructor(private editor: Editor, private element: TableCellElement) {}
+  constructor(
+    private editor: Editor,
+    private element: TableCellElement,
+  ) {}
 
   get path() {
     return findNodePath(this.editor, this.element) || []

@@ -1,4 +1,4 @@
-import { TableElement } from '@penx/editor-types'
+import { TableElement } from '../../../custom-types'
 import { DraglineItem } from './DraglineItem'
 
 export const DraglineList = ({ element }: { element: TableElement }) => {

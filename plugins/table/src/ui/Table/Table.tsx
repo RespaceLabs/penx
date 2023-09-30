@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { PlusOutline, PlusSolid } from '@bone-ui/icons'
 import {
   closestCenter,
   DndContext,
@@ -23,7 +22,7 @@ import { Transforms } from 'slate'
 import { useSlate, useSlateStatic } from 'slate-react'
 import { findNode, findNodePath } from '@penx/editor-queries'
 import { ElementProps, TableElement } from '@penx/editor-types'
-import { useActiveElement } from '../../../../stores/activeElement.store'
+import { useActiveElement } from '../../activeElement.store'
 import { AddColumnBar } from './AddColumnBar'
 import { AddRowBar } from './AddRowBar'
 import { DraglineList } from './DraglineList'

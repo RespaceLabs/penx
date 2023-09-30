@@ -12,6 +12,7 @@ import * as list from '@penx/list'
 import { db } from '@penx/local-db'
 import * as paragraph from '@penx/paragraph'
 import * as storageEstimate from '@penx/storage-estimate'
+import * as table from '@penx/table'
 import * as wordCount from '@penx/word-count'
 
 const builtins = [
@@ -29,6 +30,7 @@ const builtins = [
   { id: 'image', activate: image.activate },
   { id: 'link', activate: link.activate },
   // { id: 'internal-link', activate: internalLink.activate },
+  { id: 'table', activate: table.activate },
 ]
 
 export class PluginLoader {

@@ -1,11 +1,17 @@
 import { EllipsisHorizontalOutline } from '@bone-ui/icons'
-import { Menu, MenuItem } from '@bone-ui/menu'
 import { Box } from '@fower/react'
 import { Element, Transforms } from 'slate'
 import { ReactEditor, useSelected, useSlate, useSlateStatic } from 'slate-react'
-import { Popover, PopoverContent, PopoverTrigger, Switch } from 'uikit'
+import {
+  Menu,
+  MenuItem,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Switch,
+} from 'uikit'
 import { findNodePath } from '@penx/editor-queries'
-import { TableElement } from '@penx/editor-types'
+import { TableElement } from '../../../custom-types'
 
 export const TableOptions = ({ element }: { element: TableElement }) => {
   const editor = useSlateStatic()

@@ -46,6 +46,7 @@ const config = {
     '@penx/image',
     '@penx/link',
     '@penx/internal-link',
+    '@penx/table',
     'uikit',
     'slate-lists',
     'easy-modal',

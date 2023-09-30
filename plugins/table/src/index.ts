@@ -1,14 +1,15 @@
 import { TableCellsOutline } from '@bone-ui/icons'
 import { ElementType } from '@penx/editor-shared'
 import { EditorPlugin } from '@penx/editor-types'
+import { PluginContext } from '@penx/plugin-typings'
 import { getEmptyTableNode } from './getEmptyTableNode'
 import { Table } from './ui/Table/Table'
 import { TableCell } from './ui/TableCell'
 import { TableRow } from './ui/TableRow'
 import { withTable } from './withTable'
 
-export default function table(): EditorPlugin {
-  return {
+export function activate(ctx: PluginContext) {
+  ctx.registerBlock({
     with: withTable,
     elements: [
       {
@@ -28,5 +29,5 @@ export default function table(): EditorPlugin {
         component: TableCell,
       },
     ],
-  }
+  })
 }

@@ -1,12 +1,15 @@
 import { produce } from 'immer'
 import { Editor, Path, Transforms } from 'slate'
 import { findNodePath } from '@penx/editor-queries'
-import { TableCellElement, TableElement } from '@penx/editor-types'
+import { TableCellElement, TableElement } from '../../custom-types'
 import { getEmptyCellNode } from '../getEmptyCellNode'
 import { getEmptyRowNode } from '../getEmptyRowNode'
 
 export class TableNode {
-  constructor(private editor: Editor, private element: TableElement) {}
+  constructor(
+    private editor: Editor,
+    private element: TableElement,
+  ) {}
 
   get firstRowElement() {
     return this.element.children[0]
