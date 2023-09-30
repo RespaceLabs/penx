@@ -1,8 +1,8 @@
 import { Editor, Path } from 'slate'
 import { isBlockAboveEmpty, isExpanded } from '@penx/editor-queries'
-import { ElementType } from '@penx/editor-shared'
 import { insertNodes } from '@penx/editor-transforms'
 import { InsertNodesOptions } from '@penx/editor-types'
+import { ElementType } from '../custom-types'
 import { insertCodeBlock } from './insertCodeBlock'
 
 export interface CodeBlockInsertOptions {

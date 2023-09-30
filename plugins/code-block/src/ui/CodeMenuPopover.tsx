@@ -15,7 +15,7 @@ import {
   Switch,
 } from 'uikit'
 import { findNodePath } from '@penx/editor-queries'
-import { CodeBlockElement } from '@penx/editor-types'
+import { CodeBlockElement } from '../../custom-types'
 import { CodeBlockStatus, useCodeBlockContext } from './CodeBlockProvider'
 
 interface Props {

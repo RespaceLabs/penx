@@ -1,9 +1,9 @@
 import { Box } from '@fower/react'
 import { Node } from 'slate'
 import { Button, toast } from 'uikit'
-import { CodeBlockElement } from '@penx/editor-types'
 import { IconCopy } from '@penx/icons'
 import { useCopyToClipboard } from '@penx/shared'
+import { CodeBlockElement } from '../../custom-types'
 import { CodeBlockStatus, useCodeBlockContext } from './CodeBlockProvider'
 import { CodeLangSelect } from './CodeLangSelect'
 import { CodeMenuPopover } from './CodeMenuPopover'
@@ -18,7 +18,7 @@ interface Props {
 
 export const CodeBlockHeader = ({ element }: Props) => {
   const { highlightingLines, title } = element
-  const code = serialize(element.children)
+  const code = serialize(element.children as Node[])
   const { copy } = useCopyToClipboard()
   const { status, setStatus } = useCodeBlockContext()
 

@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'uikit'
-import { CodeBlockElement } from '@penx/editor-types'
+import { CodeBlockElement } from '../../custom-types'
 import { langs } from '../langs'
 
 export const CodeLangSelect = ({ element }: { element: CodeBlockElement }) => {

@@ -45,6 +45,8 @@ export interface BlockElement {
   icon?: any
 
   placeholder?: string
+
+  defaultValue?: Element
 }
 
 export interface ElementProps<E = Element>

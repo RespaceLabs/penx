@@ -45,6 +45,7 @@ export const TableCell = ({
   const colIndex = rowElement.children.findIndex(
     (child) => child.id === element.id,
   )
+
   const { rowSortable } = useRowSortable(rowElement.id)
 
   const x = useMotionValue(colWidths[colIndex] - 2)

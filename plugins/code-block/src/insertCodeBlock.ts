@@ -4,9 +4,9 @@ import {
   isSelectionAtBlockStart,
   someNode,
 } from '@penx/editor-queries'
-import { ElementType } from '@penx/editor-shared'
 import { setNodes, wrapNodes } from '@penx/editor-transforms'
 import { InsertNodesOptions } from '@penx/editor-types'
+import { ElementType } from '../custom-types'
 
 /**
  * Insert a code block: set the node to code line and wrap it with a code block.
