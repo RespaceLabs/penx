@@ -41,6 +41,7 @@ const config = {
     '@penx/check-list',
     '@penx/auto-format',
     '@penx/auto-node-id',
+    '@penx/paragraph',
     '@penx/list',
     'uikit',
     'slate-lists',

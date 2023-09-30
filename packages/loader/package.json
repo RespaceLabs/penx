@@ -28,6 +28,7 @@
     "@penx/auto-format": "workspace:*",
     "@penx/list": "workspace:*",
     "@penx/auto-node-id": "workspace:*",
+    "@penx/paragraph": "workspace:*",
     "@penx/store": "workspace:*",
     "immer": "^10.0.2",
     "jotai": "^2.4.2",

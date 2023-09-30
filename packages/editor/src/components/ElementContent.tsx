@@ -2,8 +2,8 @@ import { memo } from 'react'
 import isEqual from 'react-fast-compare'
 import { useSlateStatic } from 'slate-react'
 import { ElementProps } from '@penx/editor-types'
+import { Paragraph } from '@penx/paragraph'
 import { usePlaceholder } from '../hooks/usePlaceholder'
-import { Paragraph } from '../plugins/paragraph/Paragraph'
 
 interface ElementContentProps extends ElementProps {
   children: React.ReactNode

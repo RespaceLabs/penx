@@ -6,6 +6,7 @@ import * as divider from '@penx/divider'
 import * as heading from '@penx/heading'
 import * as list from '@penx/list'
 import { db } from '@penx/local-db'
+import * as paragraph from '@penx/paragraph'
 import * as storageEstimate from '@penx/storage-estimate'
 import * as wordCount from '@penx/word-count'
 
@@ -18,7 +19,7 @@ const builtins = [
   { id: 'check-list', activate: checkList.activate },
   { id: 'auto-format', activate: autoFormat.activate },
   { id: 'list', activate: list.activate },
-  { id: 'auto-node-id', activate: autoNodeId.activate },
+  { id: 'paragraph', activate: paragraph.activate },
 ]
 
 export class PluginLoader {

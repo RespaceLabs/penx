@@ -9,8 +9,8 @@ import {
 } from 'slate-react'
 import { getAtomicProps } from '@penx/editor-shared/src/getAtomicProps'
 import { EditorPlugin, ElementProps } from '@penx/editor-types'
+import { Paragraph } from '@penx/paragraph'
 import { useCreateEditor } from '../hooks/useCreateEditor'
-import { Paragraph } from '../plugins/paragraph/Paragraph'
 
 function EditorElement(props: ElementProps) {
   const editor = useSlateStatic()

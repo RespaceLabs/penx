@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { ElementProps } from '@penx/editor-types'
+import { ElementProps } from '@penx/plugin-typings'
 
 export const Paragraph = ({
   attributes,
