@@ -1,5 +1,6 @@
 import * as autoFormat from '@penx/auto-format'
 import * as autoNodeId from '@penx/auto-node-id'
+import * as blockSelector from '@penx/block-selector'
 import * as blockquote from '@penx/blockquote'
 import * as checkList from '@penx/check-list'
 import * as codeBlock from '@penx/code-block'
@@ -31,6 +32,7 @@ const builtins = [
   { id: 'link', activate: link.activate },
   // { id: 'internal-link', activate: internalLink.activate },
   { id: 'table', activate: table.activate },
+  { id: 'block-selector', activate: blockSelector.activate },
 ]
 
 export class PluginLoader {

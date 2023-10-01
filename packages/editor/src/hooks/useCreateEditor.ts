@@ -4,6 +4,7 @@ import { createEditor, Editor } from 'slate'
 import { withHistory } from 'slate-history'
 import { withReact } from 'slate-react'
 import { EditorPlugin, PluginElement } from '@penx/editor-types'
+import { OnKeyDown } from '@penx/plugin-typings'
 import { pluginStoreAtom } from '@penx/store'
 
 export function useCreateEditor(plugins: EditorPlugin[] = []): Editor {
@@ -14,6 +15,8 @@ export function useCreateEditor(plugins: EditorPlugin[] = []): Editor {
     // builtin plugins
     const withFns: ((editor: Editor) => Editor)[] = [withHistory, withReact]
 
+    const onKeyDownFns: OnKeyDown[] = []
+
     let inlineTypes: ElementType[] = []
     let voidTypes: ElementType[] = []
     let elementMaps: Record<string, PluginElement> = {}
@@ -21,8 +24,13 @@ export function useCreateEditor(plugins: EditorPlugin[] = []): Editor {
     // penx plugins
     for (const name of Object.keys(pluginStore)) {
       const plugin = pluginStore[name]
-      const { elements = [] } = plugin.block || {}
-      if (plugin?.block?.with) withFns.push(plugin.block.with)
+      if (!plugin.block) continue
+      const { elements = [] } = plugin.block
+      if (plugin.block?.with) withFns.push(plugin.block.with)
+
+      if (plugin.block.handlers?.onKeyDown) {
+        onKeyDownFns.push(plugin.block.handlers.onKeyDown)
+      }
 
       for (const ele of elements) {
         // get inline types
@@ -34,35 +42,6 @@ export function useCreateEditor(plugins: EditorPlugin[] = []): Editor {
 
         // set element maps
         elementMaps[ele.type] = ele
-      }
-    }
-
-    // user plugin
-    for (const plugin of plugins) {
-      const { elements = [] } = plugin
-      if (plugin.with) withFns.push(plugin.with)
-
-      for (const ele of elements) {
-        let defaultConfig: Record<string, any> = {}
-        const { configSchema } = ele
-        // get inline types
-        if (isBooleanTrue(ele.isInline))
-          inlineTypes.push(ele.type as ElementType)
-
-        // get void types
-        if (isBooleanTrue(ele.isVoid)) voidTypes.push(ele.type as ElementType)
-
-        if (Array.isArray(configSchema)) {
-          for (const item of configSchema) {
-            defaultConfig[item.name] = item.defaultValue
-          }
-        }
-
-        // set element maps
-        elementMaps[ele.type] = {
-          ...ele,
-          defaultConfig: ele.defaultConfig || defaultConfig,
-        }
       }
     }
 
@@ -84,12 +63,13 @@ export function useCreateEditor(plugins: EditorPlugin[] = []): Editor {
       }
 
       editor.elementMaps = elementMaps
+      editor.onKeyDownFns = onKeyDownFns
 
       return editor
     })
 
     return withFns
-  }, [plugins, pluginStore])
+  }, [pluginStore])
 
   if (!editorRef.current) {
     editorRef.current = pluginList.reduce<any>(

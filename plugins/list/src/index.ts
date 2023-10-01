@@ -3,11 +3,15 @@ import { ElementType } from '../custom-types'
 import { List } from './List'
 import { ListItem } from './ListItem'
 import { ListItemContent } from './ListItemContent'
+import { onKeyDown } from './onKeyDown'
 import { withListsPlugin } from './withListsPlugin'
 
 export function activate(ctx: PluginContext) {
   ctx.registerBlock({
     with: withListsPlugin,
+    handlers: {
+      onKeyDown: onKeyDown,
+    },
     elements: [
       {
         name: 'Unordered List',

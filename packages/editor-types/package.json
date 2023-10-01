@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@penx/editor-shared": "workspace:^",
+    "@penx/plugin-typings": "workspace:^",
     "lodash": "^4.17.21",
     "slate": "0.94.1",
     "slate-history": "0.93.0",

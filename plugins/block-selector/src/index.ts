@@ -1,11 +1,15 @@
-import { ElementType } from '@penx/editor-shared'
-import { EditorPlugin } from '@penx/editor-types'
+import { PluginContext } from '@penx/plugin-typings'
+import { ElementType } from '../custom-types'
 import { BlockSelector } from './BlockSelector'
+import { onKeyDown } from './onKeyDown'
 import { withBlockSelector } from './withBlockSelector'
 
-export default function blockSelector(): EditorPlugin {
-  return {
+export function activate(ctx: PluginContext) {
+  ctx.registerBlock({
     with: withBlockSelector,
+    handlers: {
+      onKeyDown: onKeyDown,
+    },
     elements: [
       {
         isInline: true,
@@ -13,5 +17,5 @@ export default function blockSelector(): EditorPlugin {
         component: BlockSelector,
       },
     ],
-  }
+  })
 }

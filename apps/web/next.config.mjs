@@ -47,6 +47,7 @@ const config = {
     '@penx/link',
     '@penx/internal-link',
     '@penx/table',
+    '@penx/block-selector',
     'uikit',
     'slate-lists',
     'easy-modal',

@@ -34,6 +34,7 @@
     "@penx/link": "workspace:*",
     "@penx/table": "workspace:*",
     "@penx/internal-link": "workspace:*",
+    "@penx/block-selector": "workspace:*",
     "@penx/store": "workspace:*",
     "immer": "^10.0.2",
     "jotai": "^2.4.2",

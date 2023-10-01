@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
+import { KeyboardEvent, ReactNode, useCallback, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
   closestCenter,
@@ -19,7 +19,7 @@ import {
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable'
 import { css } from '@fower/react'
-import { Descendant, Editor, Transforms } from 'slate'
+import { Descendant, Editor, Element, Transforms } from 'slate'
 import { withListsReact } from 'slate-lists'
 import {
   Editable,
@@ -29,13 +29,11 @@ import {
   useSlate,
 } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
-import { getCurrentNode } from '@penx/editor-queries'
 import { EditorPlugin } from '@penx/editor-types'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 import { useDecorate } from '../hooks/useDecorate'
 import { useOnCompositionEvent } from '../hooks/useOnCompositionEvent'
 import { useOnDOMBeforeInput } from '../hooks/useOnDOMBeforeInput'
-import { useOnKeyDown } from '../hooks/useOnKeyDown'
 import ClickablePadding from './ClickablePadding'
 import { DragOverlayContent } from './DragOverlayContent'
 import { ElementContent } from './ElementContent'
@@ -61,7 +59,6 @@ interface Props {
 export function DocEditor({ content, plugins, onChange, renderPrefix }: Props) {
   const editor = withListsReact(useCreateEditor(plugins))
 
-  const onKeyDown = useOnKeyDown(editor)
   const decorate = useDecorate(editor)
   const onDOMBeforeInput = useOnDOMBeforeInput(editor)
   const onOnCompositionEvent = useOnCompositionEvent(editor)
@@ -94,7 +91,7 @@ export function DocEditor({ content, plugins, onChange, renderPrefix }: Props) {
     if (overId !== activeId && overIndex !== -1) {
       Transforms.moveNodes(editor, {
         at: [],
-        match: (node) => node.id === activeId,
+        match: (node: any) => node.id === activeId,
         to: [overIndex],
       })
     }
@@ -108,13 +105,13 @@ export function DocEditor({ content, plugins, onChange, renderPrefix }: Props) {
 
   const renderElement = useCallback(
     (props: RenderElementProps) => {
-      const { element } = props
+      const element = props.element as Element
       const isTopLevel =
         ReactEditor.findPath(editor, props.element).length === 1
 
       const attr = {
         ...props.attributes,
-        'data-slate-type': element.type,
+        // 'data-slate-type': element.type,
       }
 
       return isTopLevel ? (
@@ -132,9 +129,15 @@ export function DocEditor({ content, plugins, onChange, renderPrefix }: Props) {
   )
 
   const items: string[] = useMemo(
-    () => editor.children.map((element) => element.id!),
+    () => editor.children.map((element: any) => element.id!),
     [editor.children],
   )
+
+  const keyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    for (const fn of editor.onKeyDownFns) {
+      fn(editor, e)
+    }
+  }
 
   return (
     <Slate
@@ -164,7 +167,7 @@ export function DocEditor({ content, plugins, onChange, renderPrefix }: Props) {
             decorate={decorate as any} //
             onCompositionUpdate={onOnCompositionEvent}
             onCompositionEnd={onOnCompositionEvent}
-            onKeyDown={onKeyDown}
+            onKeyDown={keyDown}
             onDOMBeforeInput={onDOMBeforeInput}
           />
         </SortableContext>

@@ -45,6 +45,7 @@
     "@penx/icons": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",
+    "@penx/plugin-typings": "workspace:*",
     "bone-ui": "^0.37.0",
     "date-fns": "^2.30.0",
     "framer-motion": "^10.12.16",

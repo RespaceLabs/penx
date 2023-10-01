@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, KeyboardEvent, useCallback } from 'react'
 import { Editor, Element } from 'slate'
 import { RenderElementProps } from 'slate-react'
 
@@ -25,9 +25,16 @@ export interface RegisterComponentOptions {
 
 export interface RegisterBlockOptions {
   with?: (editor: Editor) => Editor
-  handlers?: any
+  handlers?: {
+    onKeyDown: OnKeyDown
+  }
   elements?: BlockElement[]
 }
+
+export type OnKeyDown = (
+  editor: Editor,
+  e: KeyboardEvent<HTMLDivElement>,
+) => boolean | void
 
 export interface BlockElement {
   type: string
