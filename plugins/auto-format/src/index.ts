@@ -1,8 +1,8 @@
 import { PluginContext } from '@penx/plugin-typings'
-import { withAutoformat } from './withAutoformat'
+import { marks } from './marks'
 
 export function activate(ctx: PluginContext) {
   ctx.registerBlock({
-    with: withAutoformat,
+    autoformatRules: [...marks],
   })
 }

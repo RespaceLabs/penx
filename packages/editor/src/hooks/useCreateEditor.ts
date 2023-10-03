@@ -1,80 +1,28 @@
-import { ElementType, useMemo, useRef } from 'react'
-import { useAtomValue } from 'jotai'
+import { useRef } from 'react'
+import { withAutoformat } from '@udecode/plate-autoformat'
 import { createEditor, Editor } from 'slate'
 import { withHistory } from 'slate-history'
 import { withReact } from 'slate-react'
-import { BlockElement, OnKeyDown } from '@penx/plugin-typings'
-import { pluginStoreAtom } from '@penx/store'
+import { usePluginStore } from '@penx/hooks'
 
 export function useCreateEditor(): Editor {
-  const pluginStore = useAtomValue(pluginStoreAtom)
-
+  const { pluginStore } = usePluginStore()
   const editorRef = useRef<Editor>()
-  const pluginList = useMemo(() => {
-    // builtin plugins
-    const withFns: ((editor: Editor) => Editor)[] = [withHistory, withReact]
+  const { rules } = pluginStore
 
-    const onKeyDownFns: OnKeyDown[] = []
-
-    let inlineTypes: ElementType[] = []
-    let voidTypes: ElementType[] = []
-    let elementMaps: Record<string, BlockElement> = {}
-
-    // penx plugins
-    for (const name of Object.keys(pluginStore)) {
-      const plugin = pluginStore[name]
-      if (!plugin.block) continue
-      const { elements = [] } = plugin.block
-      if (plugin.block?.with) withFns.push(plugin.block.with)
-
-      if (plugin.block.handlers?.onKeyDown) {
-        onKeyDownFns.push(plugin.block.handlers.onKeyDown)
-      }
-
-      for (const ele of elements) {
-        // get inline types
-        if (isBooleanTrue(ele.isInline))
-          inlineTypes.push(ele.type as ElementType)
-
-        // get void types
-        if (isBooleanTrue(ele.isVoid)) voidTypes.push(ele.type as ElementType)
-
-        // set element maps
-        elementMaps[ele.type] = ele
-      }
-    }
-
-    /**
-     * handle isInline and isVoid
-     */
-    withFns.push((editor) => {
-      const { isInline } = editor
-      editor.isInline = (element) => {
-        return inlineTypes.includes(element.type as any)
-          ? true
-          : isInline(element)
-      }
-
-      editor.isVoid = (element) => {
-        return voidTypes.includes(element.type as any)
-          ? true
-          : isInline(element)
-      }
-
-      editor.elementMaps = elementMaps
-      editor.onKeyDownFns = onKeyDownFns
-
-      return editor
-    })
-
-    return withFns
-  }, [pluginStore])
+  const withFns = [withHistory, withReact, ...pluginStore.withFns]
 
   if (!editorRef.current) {
-    editorRef.current = pluginList.reduce<any>(
+    const editor = withFns.reduce<any>(
       (wrappedEditor, plugin) => plugin(wrappedEditor),
       createEditor(),
     )
+
+    // handle autoformat
+    editorRef.current = withAutoformat(editor, {
+      key: 'AUTO_FORMAT',
+      options: { rules },
+    } as any)
   }
 
   /**
@@ -87,8 +35,4 @@ export function useCreateEditor(): Editor {
   // if (editorRef.current) storeEditor(editorRef.current)
 
   return editorRef.current as Editor
-}
-
-function isBooleanTrue(value: any): value is true {
-  return typeof value === 'boolean' && value === true
 }

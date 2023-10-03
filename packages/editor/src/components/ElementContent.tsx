@@ -1,8 +1,8 @@
 import { memo } from 'react'
 import isEqual from 'react-fast-compare'
 import { useSlateStatic } from 'slate-react'
-import { ElementProps } from '@penx/editor-types'
 import { Paragraph } from '@penx/paragraph'
+import { ElementProps } from '@penx/plugin-typings'
 import { usePlaceholder } from '../hooks/usePlaceholder'
 
 interface ElementContentProps extends ElementProps {
@@ -13,7 +13,7 @@ export const ElementContent = memo(
   function ElementContent(props: ElementContentProps) {
     const { element, attributes } = props
     const editor = useSlateStatic()
-    const { type, id = '' } = element
+    const { type } = element
     const { component: Element = Paragraph, placeholder } =
       editor.elementMaps[type] || {}
 

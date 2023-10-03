@@ -21,6 +21,7 @@
     "@penx/constants": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
+    "@penx/editor-transforms": "workspace:*",
     "@penx/plugin-typings": "*",
     "uikit": "workspace:*",
     "slate": "0.94.1",

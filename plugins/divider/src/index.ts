@@ -1,3 +1,4 @@
+import { setNodes } from '@penx/editor-transforms'
 import { insertEmptyParagraph } from '@penx/paragraph'
 import { PluginContext } from '@penx/plugin-typings'
 import { ElementType } from '../custom-types'
@@ -15,6 +16,17 @@ export function activate(ctx: PluginContext) {
           afterInvokeCommand(editor) {
             insertEmptyParagraph(editor)
           },
+        },
+      },
+    ],
+    autoformatRules: [
+      {
+        mode: 'block',
+        type: ElementType.hr,
+        match: '---',
+        format: (editor) => {
+          setNodes(editor, { type: ElementType.hr })
+          insertEmptyParagraph(editor)
         },
       },
     ],

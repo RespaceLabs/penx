@@ -25,11 +25,12 @@
     "@penx/editor-transforms": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
-    "slate-lists": "workspace:*",
     "@penx/plugin-typings": "*",
+    "@udecode/plate-autoformat": "^24.3.6",
     "lodash": "^4.17.21",
     "slate": "0.94.1",
     "slate-history": "0.93.0",
+    "slate-lists": "workspace:*",
     "slate-react": "^0.98.3"
   }
 }

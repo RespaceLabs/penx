@@ -19,6 +19,7 @@ import {
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable'
 import { css } from '@fower/react'
+import { onKeyDownAutoformat } from '@udecode/plate-autoformat'
 import { Descendant, Editor, Element, Transforms } from 'slate'
 import { withListsReact } from 'slate-lists'
 import {
@@ -29,6 +30,7 @@ import {
   useSlate,
 } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
+import { usePluginStore } from '@penx/hooks'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 import { useDecorate } from '../hooks/useDecorate'
 import { useOnCompositionEvent } from '../hooks/useOnCompositionEvent'
@@ -56,13 +58,14 @@ interface Props {
 
 export function DocEditor({ content, onChange, renderPrefix }: Props) {
   const editor = withListsReact(useCreateEditor())
+  const { pluginStore } = usePluginStore()
 
   const decorate = useDecorate(editor)
   const onDOMBeforeInput = useOnDOMBeforeInput(editor)
   const onOnCompositionEvent = useOnCompositionEvent(editor)
 
   const [activeId, setActiveId] = useState<string | null>(null)
-  const activeElement = editor.children.find((x) => x.id === activeId)
+  const activeElement = editor.children.find((x: any) => x.id === activeId)
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -104,8 +107,7 @@ export function DocEditor({ content, onChange, renderPrefix }: Props) {
   const renderElement = useCallback(
     (props: RenderElementProps) => {
       const element = props.element as Element
-      const isTopLevel =
-        ReactEditor.findPath(editor, props.element).length === 1
+      const isTopLevel = ReactEditor.findPath(editor, element).length === 1
 
       const attr = {
         ...props.attributes,
@@ -132,6 +134,14 @@ export function DocEditor({ content, onChange, renderPrefix }: Props) {
   )
 
   const keyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    // form auto format
+    onKeyDownAutoformat(
+      editor as any,
+      {
+        options: { rules: pluginStore.rules },
+      } as any,
+    )(e)
+
     for (const fn of editor.onKeyDownFns) {
       fn(editor, e)
     }

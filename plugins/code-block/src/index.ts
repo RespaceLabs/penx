@@ -6,6 +6,7 @@ import './init-prism'
 import { Element, Node } from 'slate'
 import { CodeBlockElement, CodeLineElement, ElementType } from '../custom-types'
 import { IconCode } from './IconCode'
+import { insertEmptyCodeBlock } from './insertEmptyCodeBlock'
 
 export function activate(ctx: PluginContext) {
   ctx.registerBlock({
@@ -23,6 +24,19 @@ export function activate(ctx: PluginContext) {
       {
         type: ElementType.code_line,
         component: CodeLine,
+      },
+    ],
+    autoformatRules: [
+      {
+        mode: 'block',
+        type: ElementType.code_block,
+        match: '```',
+        triggerAtBlockStart: false,
+        format: (editor) => {
+          insertEmptyCodeBlock(editor, {
+            insertNodesOptions: { select: true },
+          })
+        },
       },
     ],
   })

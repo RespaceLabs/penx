@@ -1,4 +1,5 @@
 import { FC, KeyboardEvent, useCallback } from 'react'
+import { AutoformatRule } from '@udecode/plate-autoformat'
 import { Editor, Element } from 'slate'
 import { RenderElementProps } from 'slate-react'
 
@@ -29,6 +30,9 @@ export interface RegisterBlockOptions {
     onKeyDown: OnKeyDown
   }
   elements?: BlockElement[]
+
+  // TODO: handle any
+  autoformatRules?: AutoformatRule<any, any>[]
 }
 
 export type OnKeyDown = (
@@ -54,6 +58,7 @@ export interface BlockElement {
    */
   slashCommand?: {
     name: string
+    description?: string
     icon?: any
     defaultNode?: Element
     afterInvokeCommand?: (editor: Editor) => void

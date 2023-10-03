@@ -1,5 +1,5 @@
-import { MarkType } from '@penx/editor-shared'
-import { AutoformatRule } from '../types'
+import { AutoformatRule } from '@udecode/plate-autoformat'
+import { MarkType } from './mark-type.enum'
 
 export const marks: AutoformatRule[] = [
   {

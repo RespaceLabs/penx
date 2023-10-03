@@ -33,6 +33,8 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
   const selectType = useCallback(
     (elementType: any) => {
       const elementInfo = editor.elementMaps[elementType]
+      console.log('elementInfo:', elementInfo)
+
       if (!elementInfo) return // TODO
       close()
 
@@ -88,7 +90,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
             match: (n) =>
               Element.isElement(n) &&
               Editor.isBlock(editor, n) &&
-              isBlockSelector(editor, n),
+              !isBlockSelector(n),
           },
         )
 

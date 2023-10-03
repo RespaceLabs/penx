@@ -28,13 +28,13 @@ export interface UnorderedListElement {
 export interface OrderedListElement {
   id: string
   type: ElementType.ol
-  children: ListItemElement[]
+  children: any[]
 }
 
 export interface ListItemElement {
   id: string
   type: ElementType.li
-  children: ListContentElement[]
+  children: any[]
 }
 
 export interface ListContentElement {

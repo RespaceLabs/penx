@@ -13,5 +13,12 @@ export function activate(ctx: PluginContext) {
         },
       },
     ],
+    autoformatRules: [
+      {
+        mode: 'block',
+        type: ElementType.blockquote,
+        match: '> ',
+      },
+    ],
   })
 }

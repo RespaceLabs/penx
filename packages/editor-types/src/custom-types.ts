@@ -6,6 +6,7 @@ import { BlockElement, OnKeyDown } from '@penx/plugin-typings'
 export type CustomEditor = BaseEditor &
   ReactEditor &
   HistoryEditor & {
+    type: any
     children: Element[]
     elementMaps: Record<string, BlockElement>
     onKeyDownFns: OnKeyDown[]
@@ -42,6 +43,9 @@ declare module 'slate' {
       type?: string
       id?: string
       selected?: boolean
+    }
+    Element: {
+      type: any
     }
     Text: CustomText
   }

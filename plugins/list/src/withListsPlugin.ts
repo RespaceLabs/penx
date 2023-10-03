@@ -1,8 +1,8 @@
 import { Element, Node } from 'slate'
-import { ListType, withLists } from 'slate-lists'
+import { ListsSchema, ListType, withLists } from 'slate-lists'
 import { ElementType } from '../custom-types'
 
-export const withListsPlugin = withLists({
+export const listSchema: ListsSchema = {
   isConvertibleToListTextNode(node: Node) {
     return Element.isElementType(node, ElementType.p)
   },
@@ -39,4 +39,6 @@ export const withListsPlugin = withLists({
   createListItemTextNode(props: Partial<Element> = {}) {
     return { children: [{ text: '' }], ...props, type: ElementType.lic } as any
   },
-})
+}
+
+export const withListsPlugin = withLists(listSchema)

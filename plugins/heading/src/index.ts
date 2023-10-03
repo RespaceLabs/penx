@@ -1,5 +1,6 @@
 import { Element, Node } from 'slate'
 import { PluginContext } from '@penx/plugin-typings'
+import { ElementType } from '../custom-types'
 import { Heading } from './Heading'
 import { IconH1 } from './icons/IconH1'
 import { IconH2 } from './icons/IconH2'
@@ -20,6 +21,38 @@ export function activate(ctx: PluginContext) {
         icon: icons[index],
       },
     })),
+    autoformatRules: [
+      {
+        mode: 'block',
+        type: ElementType.h1,
+        match: '# ',
+      },
+      {
+        mode: 'block',
+        type: ElementType.h2,
+        match: '## ',
+      },
+      {
+        mode: 'block',
+        type: ElementType.h3,
+        match: '### ',
+      },
+      {
+        mode: 'block',
+        type: ElementType.h4,
+        match: '#### ',
+      },
+      {
+        mode: 'block',
+        type: ElementType.h5,
+        match: '##### ',
+      },
+      {
+        mode: 'block',
+        type: ElementType.h6,
+        match: '###### ',
+      },
+    ],
   })
 }
 
