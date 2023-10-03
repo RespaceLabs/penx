@@ -2469,9 +2469,15 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@penx/store':
+        specifier: workspace:*
+        version: link:../../packages/store
       bone-ui:
         specifier: ^0.37.0
         version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
+      jotai:
+        specifier: ^2.4.2
+        version: 2.4.2(@types/react@18.2.22)(react@18.2.0)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -2539,6 +2545,15 @@ importers:
       '@penx/plugin-typings':
         specifier: '*'
         version: link:../../packages/plugin-typings
+      slate:
+        specifier: 0.94.1
+        version: 0.94.1
+      slate-history:
+        specifier: 0.93.0
+        version: 0.93.0(slate@0.94.1)
+      slate-react:
+        specifier: ^0.98.3
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -2722,6 +2737,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      '@penx/paragraph':
+        specifier: workspace:*
+        version: link:../paragraph
       '@penx/plugin-typings':
         specifier: '*'
         version: link:../../packages/plugin-typings

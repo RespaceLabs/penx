@@ -13,10 +13,12 @@ export function activate(ctx: PluginContext) {
     with: withHeading,
     elements: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].map((item, index) => ({
       type: item,
-      name: `Heading ${index + 1}`,
-      icon: icons[index],
       component: Heading,
       placeholder: `Heading ${index + 1}`,
+      slashCommand: {
+        name: `Heading ${index + 1}`,
+        icon: icons[index],
+      },
     })),
   })
 }

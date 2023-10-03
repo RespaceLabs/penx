@@ -1,12 +1,12 @@
 import { Box } from '@fower/react'
 import { ElementProps } from '@penx/plugin-typings'
-import { BlockQuoteElement } from './types'
+import { BlockquoteElement } from '../custom-types'
 
 export const Blockquote = ({
   attributes,
   children,
   nodeProps,
-}: ElementProps<BlockQuoteElement>) => {
+}: ElementProps<BlockquoteElement>) => {
   return (
     <Box
       as="blockquote"

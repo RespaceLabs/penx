@@ -1,6 +1,7 @@
 import { PluginContext } from '@penx/plugin-typings'
 import { ElementType } from '../custom-types'
 import { BlockSelector } from './BlockSelector'
+import { isBlockSelector } from './isBlockSelector'
 import { onKeyDown } from './onKeyDown'
 import { withBlockSelector } from './withBlockSelector'
 
@@ -19,3 +20,5 @@ export function activate(ctx: PluginContext) {
     ],
   })
 }
+
+export { isBlockSelector }

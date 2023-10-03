@@ -1,4 +1,5 @@
 import { PluginContext } from '@penx/plugin-typings'
+import { ElementType } from '../custom-types'
 import { CheckListItem } from './CheckListItem'
 import { withCheckList } from './withCheckList'
 
@@ -7,9 +8,11 @@ export function activate(ctx: PluginContext) {
     with: withCheckList,
     elements: [
       {
-        name: 'Check List',
-        type: 'check_list_item',
+        type: ElementType.check_list_item,
         component: CheckListItem,
+        slashCommand: {
+          name: 'Check List',
+        },
       },
     ],
   })

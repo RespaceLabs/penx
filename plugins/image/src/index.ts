@@ -7,11 +7,13 @@ export function activate(ctx: PluginContext) {
   ctx.registerBlock({
     elements: [
       {
-        name: 'Image',
-        icon: PhotoOutline,
         isVoid: true,
         type: ElementType.img,
         component: Image,
+        slashCommand: {
+          name: 'Image',
+          icon: PhotoOutline,
+        },
       },
     ],
   })

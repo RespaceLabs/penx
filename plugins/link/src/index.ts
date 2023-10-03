@@ -9,9 +9,11 @@ export function activate(ctx: PluginContext) {
     elements: [
       {
         isInline: true,
-        name: 'Link',
         type: ElementType.link,
         component: Link,
+        slashCommand: {
+          name: 'Link',
+        },
       },
     ],
   })

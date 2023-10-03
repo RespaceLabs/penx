@@ -14,17 +14,18 @@ export function activate(ctx: PluginContext) {
     },
     elements: [
       {
-        name: 'Unordered List',
-        // showInPanel: true,
         type: ElementType.ul,
         component: List,
+        slashCommand: {
+          name: 'Unordered List',
+        },
       },
       {
-        name: 'Ordered List',
-        // icon: IconBulletedList,
-        // showInPanel: true,
         type: ElementType.ol,
         component: List,
+        slashCommand: {
+          name: 'Ordered List',
+        },
       },
       {
         type: ElementType.li,

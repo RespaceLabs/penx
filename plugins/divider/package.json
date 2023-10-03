@@ -21,6 +21,7 @@
     "@penx/constants": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
+    "@penx/paragraph": "workspace:*",
     "@penx/plugin-typings": "*",
     "slate": "0.94.1",
     "slate-history": "0.93.0",

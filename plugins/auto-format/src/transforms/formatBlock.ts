@@ -88,7 +88,6 @@ export const formatBlock = (editor: Editor, opt: AutoformatBlockOptions) => {
         {
           type,
           id: genId(), // auto id
-          ...(editor.elementMaps?.[type]?.defaultConfig || {}),
         },
         {
           match: (n) => {

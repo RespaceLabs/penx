@@ -20,6 +20,9 @@
     "@penx/constants": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
-    "@penx/plugin-typings": "*"
+    "@penx/plugin-typings": "*",
+    "slate": "0.94.1",
+    "slate-history": "0.93.0",
+    "slate-react": "^0.98.3"
   }
 }

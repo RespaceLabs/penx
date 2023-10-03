@@ -18,12 +18,14 @@ export function activate(ctx: PluginContext) {
     with: withTable,
     elements: [
       {
-        name: 'Table',
-        icon: TableCellsOutline,
         shouldNested: true,
-        defaultValue: getEmptyTableNode(),
         type: ElementType.table,
         component: Table,
+        slashCommand: {
+          name: 'Table',
+          icon: TableCellsOutline,
+          defaultNode: getEmptyTableNode(),
+        },
       },
       {
         type: ElementType.tr,

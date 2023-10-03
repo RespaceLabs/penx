@@ -41,19 +41,23 @@ export interface BlockElement {
 
   component: FC<ElementProps<any>>
 
-  name?: string
-
   isInline?: boolean
 
   isVoid?: boolean
 
   shouldNested?: boolean
 
-  icon?: any
-
   placeholder?: string
 
-  defaultValue?: Element
+  /**
+   * should be shown in slash command list
+   */
+  slashCommand?: {
+    name: string
+    icon?: any
+    defaultNode?: Element
+    afterInvokeCommand?: (editor: Editor) => void
+  }
 }
 
 export interface ElementProps<E = Element>

@@ -2,18 +2,18 @@ import { BaseEditor } from 'slate'
 import { ReactEditor } from 'slate-react'
 
 export enum ElementType {
-  check_list_item = 'check_list_item',
+  blockquote = 'blockquote',
 }
 
 export type CustomEditor = BaseEditor & ReactEditor
 
-export interface CheckListItemElement {
-  id: string
-  type: ElementType.check_list_item
-  checked: boolean
+export interface BlockquoteElement {
+  id?: string
+  type: ElementType.blockquote
+  children?: any[]
 }
 
-export type CustomElement = CheckListItemElement
+export type CustomElement = BlockquoteElement
 
 declare module 'slate' {
   interface CustomTypes {

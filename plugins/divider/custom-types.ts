@@ -3,8 +3,12 @@ import { ReactEditor } from 'slate-react'
 
 export type CustomEditor = BaseEditor & ReactEditor
 
+export enum ElementType {
+  hr = 'hr',
+}
+
 export interface DividerElement {
-  type: 'h1'
+  type: ElementType.hr
   id: string
 }
 

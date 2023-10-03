@@ -12,11 +12,13 @@ export function activate(ctx: PluginContext) {
     with: withCode,
     elements: [
       {
-        name: 'Code Block',
-        icon: IconCode,
         shouldNested: true,
         type: ElementType.code_block,
         component: CodeBlock,
+        slashCommand: {
+          name: 'Code Block',
+          icon: IconCode,
+        },
       },
       {
         type: ElementType.code_line,

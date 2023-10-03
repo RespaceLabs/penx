@@ -12,6 +12,9 @@ export function activate(ctx: PluginContext) {
         isInline: true,
         type: ElementType.internal_link_selector,
         component: InternalLinkSelector,
+        slashCommand: {
+          name: 'Internal Link',
+        },
       },
       {
         isInline: true,

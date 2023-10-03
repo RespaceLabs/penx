@@ -1,5 +1,6 @@
 import { BaseEditor, BaseElement } from 'slate'
 import { ReactEditor } from 'slate-react'
+import { BlockElement } from '@penx/plugin-typings'
 
 export enum ElementType {
   code_block = 'code_block',
@@ -10,7 +11,7 @@ export type CustomEditor = BaseEditor &
   ReactEditor & {
     id?: string
     type?: string
-    elementMaps: Record<string, any>
+    elementMaps: Record<string, BlockElement>
   }
 
 export interface BlockSelectorElement extends BaseElement {

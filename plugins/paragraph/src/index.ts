@@ -10,11 +10,13 @@ export function activate(ctx: PluginContext) {
   ctx.registerBlock({
     elements: [
       {
-        name: 'Text',
-        icon: IconText,
-        type: 'p',
+        type: ElementType.p,
         component: Paragraph,
         placeholder: "Type '/' to browse options",
+        slashCommand: {
+          name: 'Text',
+          icon: IconText,
+        },
       },
     ],
   })
