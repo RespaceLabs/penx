@@ -1,3 +1,4 @@
+import { Element, Node } from 'slate'
 import { PluginContext } from '@penx/plugin-typings'
 import { Heading } from './Heading'
 import { IconH1 } from './icons/IconH1'
@@ -18,4 +19,13 @@ export function activate(ctx: PluginContext) {
       placeholder: `Heading ${index + 1}`,
     })),
   })
+}
+
+export function isHeading(
+  node: Node,
+  headingType?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6',
+) {
+  const type = (node as Element).type
+  if (!headingType) return type === headingType
+  return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(type)
 }

@@ -6,6 +6,7 @@ export enum ElementType {
   tr = 'tr',
   td = 'td',
   th = 'th',
+  p = 'p',
 }
 
 export interface BaseCustomElement extends BaseElement {
@@ -27,6 +28,7 @@ export interface TableRowElement extends BaseCustomElement {
 
 export interface TableCellElement extends BaseCustomElement {
   type: ElementType.td
+  children: any[]
 }
 
 export type CustomEditor = BaseEditor &

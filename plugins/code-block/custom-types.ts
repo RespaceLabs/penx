@@ -1,4 +1,4 @@
-import { BaseEditor, Descendant, Text } from 'slate'
+import { BaseEditor, Descendant, Element, Range, Text } from 'slate'
 import { ReactEditor } from 'slate-react'
 
 export enum ElementType {
@@ -7,7 +7,10 @@ export enum ElementType {
   p = 'p',
 }
 
-export type CustomEditor = BaseEditor & ReactEditor
+export type CustomEditor = BaseEditor &
+  ReactEditor & {
+    nodeToDecorations: Map<Element, Range[]>
+  }
 
 export interface ParagraphElement {
   id?: string

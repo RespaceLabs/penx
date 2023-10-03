@@ -1,5 +1,5 @@
 import { Editor, Element, Point, Range } from 'slate'
-import { ElementType } from '@penx/editor-shared'
+import { ElementType } from '../custom-types'
 
 export const withTable = (editor: Editor) => {
   const { deleteBackward, deleteForward, insertBreak } = editor

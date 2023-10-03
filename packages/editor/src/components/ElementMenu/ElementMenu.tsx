@@ -1,26 +1,20 @@
 import { FC, memo } from 'react'
 import { Box } from '@fower/react'
-import { Path } from 'slate'
-import { ElementType } from '@penx/editor-shared'
+import { Node, Path } from 'slate'
+import { isHeading } from '@penx/heading'
 import { isEqual } from '../../common/utils'
 import { DragMenu } from './DragMenu'
 
 interface Props {
-  id: string
-  type: ElementType
+  element: Node
   path: Path
   listeners: any
 }
 
 export const ElementMenu: FC<Props> = memo(
-  function ElementMenu({ id = '', type, path, listeners }) {
+  function ElementMenu({ element, path, listeners }) {
+    const { id = '', type } = element
     const width = 80
-    const isHeading = [
-      ElementType.h1,
-      ElementType.h2,
-      ElementType.h3,
-      ElementType.h4,
-    ].includes(type)
     return (
       <Box
         contentEditable={false}
@@ -29,13 +23,13 @@ export const ElementMenu: FC<Props> = memo(
         absolute
         left={-width - 6}
         w={width}
-        h={isHeading ? '2em' : 'calc(1.5em + 8px)'}
+        h={isHeading(element) ? '2em' : 'calc(1.5em + 8px)'}
         textBase
-        text3XL={type === ElementType.h1}
-        text2XL={type === ElementType.h2}
-        textXL={type === ElementType.h3}
-        textLG={type === ElementType.h4}
-        textSM={type === ElementType.h6}
+        text3XL={isHeading(element, 'h1')}
+        text2XL={isHeading(element, 'h2')}
+        textXL={isHeading(element, 'h3')}
+        textLG={isHeading(element, 'h4')}
+        textSM={isHeading(element, 'h6')}
       >
         <DragMenu id={id} type={type} path={path} listeners={listeners} />
       </Box>
@@ -43,8 +37,8 @@ export const ElementMenu: FC<Props> = memo(
   },
   (prev, next) => {
     const equal =
-      prev.id === next.id &&
-      prev.type === next.type &&
+      prev.element.id === next.element.id &&
+      prev.element.type === next.element.type &&
       isEqual(prev.path, next.path)
     return equal
   },

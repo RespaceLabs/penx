@@ -4,10 +4,8 @@ import { ReactEditor } from 'slate-react'
 import { Input } from 'uikit'
 import { DocEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
-import { ElementType } from '@penx/editor-shared'
-import { docPluginList } from '@penx/editor/src/docPluginList'
 import { useDoc } from '@penx/hooks'
-import { IDoc } from '@penx/local-db'
+import { insertEmptyParagraph } from '@penx/paragraph'
 import { docToMarkdown } from '@penx/shared'
 
 export function DocContent() {
@@ -15,14 +13,7 @@ export function DocContent() {
   const { title } = doc
 
   function handleEnterKeyInTitle(editor: Editor) {
-    Transforms.insertNodes(
-      editor,
-      {
-        type: ElementType.p,
-        children: [{ text: '' }],
-      },
-      { at: [0] },
-    )
+    insertEmptyParagraph(editor, { at: [0] })
 
     ReactEditor.focus(editor)
     Transforms.select(editor, Editor.start(editor, [0]))
@@ -42,7 +33,6 @@ export function DocContent() {
     <Box>
       <Box mx-auto maxW-800>
         <DocEditor
-          plugins={docPluginList}
           content={doc.content}
           onChange={(value, editor) => {
             if (isAstChange(editor)) {

@@ -869,6 +869,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
+      '@penx/paragraph':
+        specifier: workspace:*
+        version: link:../../plugins/paragraph
       '@penx/plugin-typings':
         specifier: '*'
         version: link:../plugin-typings
@@ -1370,6 +1373,9 @@ importers:
       '@penx/catalogue':
         specifier: workspace:*
         version: link:../catalogue
+      '@penx/code-block':
+        specifier: workspace:*
+        version: link:../../plugins/code-block
       '@penx/editor-queries':
         specifier: workspace:*
         version: link:../editor-queries
@@ -1382,6 +1388,9 @@ importers:
       '@penx/editor-types':
         specifier: workspace:*
         version: link:../editor-types
+      '@penx/heading':
+        specifier: workspace:*
+        version: link:../../plugins/heading
       '@penx/icons':
         specifier: workspace:*
         version: link:../icons
@@ -1400,6 +1409,9 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../store
+      '@penx/table':
+        specifier: workspace:*
+        version: link:../../plugins/table
       bone-ui:
         specifier: ^0.37.0
         version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
@@ -3333,6 +3345,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      '@penx/paragraph':
+        specifier: workspace:*
+        version: link:../paragraph
       '@penx/plugin-typings':
         specifier: '*'
         version: link:../../packages/plugin-typings

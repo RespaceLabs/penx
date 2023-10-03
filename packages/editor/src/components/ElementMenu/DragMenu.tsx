@@ -8,14 +8,13 @@ import {
 import { MenuItem } from '@bone-ui/menu'
 import { Box } from '@fower/react'
 import { Path, Transforms } from 'slate'
-import { useSlate, useSlateStatic } from 'slate-react'
+import { useSlateStatic } from 'slate-react'
 import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
-import { ElementType } from '@penx/editor-shared'
 import { IconDrag } from '@penx/icons'
 
 interface Props {
   id: string
-  type: ElementType
+  type: any
   path: Path
   listeners: any
 }

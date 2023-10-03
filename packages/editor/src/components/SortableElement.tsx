@@ -12,7 +12,7 @@ interface Props extends RenderElementProps {
 
 export const SortableElement = (props: Props) => {
   const { attributes, element, children, renderElement } = props
-  const { type, id = '' } = element
+  const { id = '' } = element
   const editor = useSlateStatic()
   const at = findNodePath(editor, element)!
 
@@ -63,12 +63,7 @@ export const SortableElement = (props: Props) => {
       }}
       css={getActiveStyle()}
     >
-      <ElementMenu
-        id={id}
-        type={type as any}
-        path={at}
-        listeners={sortable.listeners}
-      />
+      <ElementMenu element={element} path={at} listeners={sortable.listeners} />
       {renderElement({ attributes, element, children })}
     </Box>
   )

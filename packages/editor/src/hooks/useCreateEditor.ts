@@ -3,11 +3,10 @@ import { useAtomValue } from 'jotai'
 import { createEditor, Editor } from 'slate'
 import { withHistory } from 'slate-history'
 import { withReact } from 'slate-react'
-import { EditorPlugin, PluginElement } from '@penx/editor-types'
-import { OnKeyDown } from '@penx/plugin-typings'
+import { BlockElement, OnKeyDown } from '@penx/plugin-typings'
 import { pluginStoreAtom } from '@penx/store'
 
-export function useCreateEditor(plugins: EditorPlugin[] = []): Editor {
+export function useCreateEditor(): Editor {
   const pluginStore = useAtomValue(pluginStoreAtom)
 
   const editorRef = useRef<Editor>()
@@ -19,7 +18,7 @@ export function useCreateEditor(plugins: EditorPlugin[] = []): Editor {
 
     let inlineTypes: ElementType[] = []
     let voidTypes: ElementType[] = []
-    let elementMaps: Record<string, PluginElement> = {}
+    let elementMaps: Record<string, BlockElement> = {}
 
     // penx plugins
     for (const name of Object.keys(pluginStore)) {

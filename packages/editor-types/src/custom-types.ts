@@ -1,8 +1,6 @@
-import { FC } from 'react'
-import { BaseEditor, BaseElement, Editor, Element } from 'slate'
+import { BaseEditor, Element, Range } from 'slate'
 import { HistoryEditor } from 'slate-history'
-import { ReactEditor, RenderElementProps } from 'slate-react'
-import { ElementType } from '@penx/editor-shared'
+import { ReactEditor } from 'slate-react'
 import { BlockElement, OnKeyDown } from '@penx/plugin-typings'
 
 export type CustomEditor = BaseEditor &

@@ -3,7 +3,8 @@ import { CodeBlock } from './ui/CodeBlock'
 import { CodeLine } from './ui/CodeLine'
 import { withCode } from './withCode'
 import './init-prism'
-import { ElementType } from '../custom-types'
+import { Element, Node } from 'slate'
+import { CodeBlockElement, CodeLineElement, ElementType } from '../custom-types'
 import { IconCode } from './IconCode'
 
 export function activate(ctx: PluginContext) {
@@ -23,4 +24,12 @@ export function activate(ctx: PluginContext) {
       },
     ],
   })
+}
+
+export function isCodeBlock(node: Node): node is CodeBlockElement {
+  return (node as Element).type === ElementType.code_block
+}
+
+export function isCodeLine(node: Node): node is CodeLineElement {
+  return (node as Element).type === ElementType.code_line
 }

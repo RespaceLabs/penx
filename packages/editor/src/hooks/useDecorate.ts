@@ -1,14 +1,11 @@
 import { useCallback } from 'react'
 import { Editor, Element, NodeEntry } from 'slate'
-import { ElementType } from '@penx/editor-shared'
+import { isCodeLine } from '@penx/code-block'
 
 export const useDecorate = (editor: Editor) => {
   return useCallback(
     ([node]: NodeEntry) => {
-      if (
-        Element.isElement(node) &&
-        [ElementType.code_line].includes(node.type)
-      ) {
+      if (Element.isElement(node) && isCodeLine(node)) {
         const ranges = editor.nodeToDecorations.get(node) || []
         return ranges
       }

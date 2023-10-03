@@ -3,7 +3,6 @@ import { Box } from '@fower/react'
 import { Element } from 'slate'
 import { withListsReact } from 'slate-lists'
 import { Editable, Slate } from 'slate-react'
-import { docPluginList } from '../docPluginList'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 import { ElementContent } from './ElementContent'
 
@@ -12,7 +11,7 @@ interface Props {
 }
 
 export const DragOverlayContent = ({ element }: Props) => {
-  const editor = withListsReact(useCreateEditor(docPluginList))
+  const editor = withListsReact(useCreateEditor())
   const [value] = useState([JSON.parse(JSON.stringify(element))])
 
   useEffect(() => {

@@ -3,9 +3,13 @@ import { ReactEditor } from 'slate-react'
 
 export type CustomEditor = BaseEditor & ReactEditor
 
+export enum ElementType {
+  p = 'p',
+}
+
 export interface ParagraphElement {
-  id: string
-  type: 'p'
+  id?: string
+  type: ElementType.p
 }
 
 export type CustomElement = ParagraphElement

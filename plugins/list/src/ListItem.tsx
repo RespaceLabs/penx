@@ -2,9 +2,8 @@ import { Box } from '@fower/react'
 import { Element, Node, Path } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { findNodePath } from '@penx/editor-queries'
-import { ElementType } from '@penx/editor-shared'
 import { ElementProps } from '@penx/plugin-typings'
-import { ListItemElement } from '../custom-types'
+import { ElementType, ListItemElement } from '../custom-types'
 
 export const ListItem = ({
   attributes,

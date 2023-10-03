@@ -1,5 +1,5 @@
 import { Element } from 'slate'
-import { ElementType } from '@penx/editor-shared'
+import { ElementType } from '../custom-types'
 import { getEmptyRowNode } from './getEmptyRowNode'
 
 export function getEmptyTableNode(rowCount = 3, columnCount = 3): Element {

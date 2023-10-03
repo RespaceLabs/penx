@@ -1,5 +1,5 @@
 import { Element } from 'slate'
-import { ElementType } from '@penx/editor-shared'
+import { ElementType } from '../custom-types'
 import { getEmptyCellNode } from './getEmptyCellNode'
 
 /**

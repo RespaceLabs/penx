@@ -29,7 +29,6 @@ import {
   useSlate,
 } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
-import { EditorPlugin } from '@penx/editor-types'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 import { useDecorate } from '../hooks/useDecorate'
 import { useOnCompositionEvent } from '../hooks/useOnCompositionEvent'
@@ -52,12 +51,11 @@ interface Props {
   content: any[]
   renderPrefix?: (editor: Editor) => ReactNode
   editableProps?: EditableProps
-  plugins?: EditorPlugin[]
   onChange?: (value: Descendant[], editor: Editor) => void
 }
 
-export function DocEditor({ content, plugins, onChange, renderPrefix }: Props) {
-  const editor = withListsReact(useCreateEditor(plugins))
+export function DocEditor({ content, onChange, renderPrefix }: Props) {
+  const editor = withListsReact(useCreateEditor())
 
   const decorate = useDecorate(editor)
   const onDOMBeforeInput = useOnDOMBeforeInput(editor)

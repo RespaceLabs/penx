@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { css } from '@fower/react'
 import { Editor, Element } from 'slate'
-import { useSelected, useSlate, useSlateStatic } from 'slate-react'
+import { useSelected, useSlateStatic } from 'slate-react'
 import { isCollapsed } from '@penx/editor-queries'
-import { ElementType } from '@penx/editor-shared'
+import { isTable, isTableCell } from '@penx/table'
 import { useCompositionData } from './useCompositionData'
 
 /**
@@ -30,15 +30,13 @@ export function usePlaceholder(
     // in table, don't show placeholder
     const [cell] = Editor.nodes(editor, {
       match: (n) =>
-        !Editor.isEditor(n) &&
-        Element.isElement(n) &&
-        n.type === ElementType.td,
+        !Editor.isEditor(n) && Element.isElement(n) && isTableCell(n),
     })
     if (cell) return false
 
-    // in codeblock or front matter
+    // in codeblock
     const match = Editor.above(editor, {
-      match: (n) => [ElementType.code_block].includes(n.type),
+      match: (n) => isTable(n),
     })
 
     if (match?.[0]) {

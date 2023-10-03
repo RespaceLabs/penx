@@ -1,7 +1,7 @@
 import { Editor, Element } from 'slate'
 import { useSlate } from 'slate-react'
-import { ElementType } from '@penx/editor-shared'
 import '@penx/editor-types'
+import { isCodeBlock } from '@penx/code-block'
 import { getChildNodeToDecorations } from '../utils/getChildNodeToDecorations'
 
 const mergeMaps = <K, V>(...maps: Map<K, V>[]) => {
@@ -25,8 +25,7 @@ export const SetNodeToDecorations = () => {
     Editor.nodes(editor, {
       at: [],
       mode: 'highest',
-      match: (n) =>
-        Element.isElement(n) && [ElementType.code_block].includes(n.type),
+      match: (n) => Element.isElement(n) && isCodeBlock(n),
     }),
   )
 

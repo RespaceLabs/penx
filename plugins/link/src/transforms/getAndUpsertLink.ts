@@ -1,7 +1,7 @@
 import { Editor } from 'slate'
 import { getAbove, isCollapsed } from '@penx/editor-queries'
-import { ElementType } from '@penx/editor-shared'
 import { unwrapNodes } from '@penx/editor-transforms'
+import { ElementType } from '../../custom-types'
 import { LinkPlugin } from '../types'
 import { upsertLinkAtSelection } from './upsertLinkAtSelection'
 
@@ -31,7 +31,7 @@ export const getAndUpsertLink = async (
       editor.selection &&
       unwrapNodes(editor, {
         at: editor.selection,
-        match: { type: ElementType.link },
+        match: { type: ElementType.link } as any,
       })
 
     return

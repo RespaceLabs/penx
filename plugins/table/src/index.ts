@@ -1,7 +1,12 @@
 import { TableCellsOutline } from '@bone-ui/icons'
-import { ElementType } from '@penx/editor-shared'
-import { EditorPlugin } from '@penx/editor-types'
+import { Element, Node } from 'slate'
 import { PluginContext } from '@penx/plugin-typings'
+import {
+  ElementType,
+  TableCellElement,
+  TableElement,
+  TableRowElement,
+} from '../custom-types'
 import { getEmptyTableNode } from './getEmptyTableNode'
 import { Table } from './ui/Table/Table'
 import { TableCell } from './ui/TableCell'
@@ -30,4 +35,16 @@ export function activate(ctx: PluginContext) {
       },
     ],
   })
+}
+
+export function isTable(node: Node): node is TableElement {
+  return (node as Element).type === ElementType.table
+}
+
+export function isTableRow(node: Node): node is TableRowElement {
+  return (node as Element).type === ElementType.tr
+}
+
+export function isTableCell(node: Node): node is TableCellElement {
+  return (node as Element).type === ElementType.td
 }
