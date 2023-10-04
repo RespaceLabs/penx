@@ -5,7 +5,6 @@ export const Paragraph = ({
   attributes,
   children,
   nodeProps,
-  atomicProps,
 }: ElementProps) => {
   return (
     <Box
@@ -16,7 +15,6 @@ export const Paragraph = ({
       relative
       {...attributes}
       {...nodeProps}
-      {...atomicProps}
     >
       {children}
     </Box>

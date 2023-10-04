@@ -1,6 +1,6 @@
 import Prism from 'prismjs'
 import { Node, NodeEntry } from 'slate'
-import { CodeBlockElement } from '@penx/editor-types'
+import { CodeBlockElement } from '../types'
 import { normalizeTokens } from './normalize-tokens'
 
 export const getChildNodeToDecorations = ([

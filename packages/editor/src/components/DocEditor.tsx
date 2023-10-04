@@ -22,14 +22,10 @@ import { css } from '@fower/react'
 import { onKeyDownAutoformat } from '@udecode/plate-autoformat'
 import { Descendant, Editor, Element, Transforms } from 'slate'
 import { withListsReact } from 'slate-lists'
-import {
-  Editable,
-  ReactEditor,
-  RenderElementProps,
-  Slate,
-  useSlate,
-} from 'slate-react'
+import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
+import { SetNodeToDecorations } from '@penx/code-block'
+import { Leaf } from '@penx/editor-leaf'
 import { usePluginStore } from '@penx/hooks'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 import { useDecorate } from '../hooks/useDecorate'
@@ -39,8 +35,6 @@ import ClickablePadding from './ClickablePadding'
 import { DragOverlayContent } from './DragOverlayContent'
 import { ElementContent } from './ElementContent'
 import HoveringToolbar from './HoveringToolbar/HoveringToolbar'
-import { Leaf } from './Leaf'
-import { SetNodeToDecorations } from './SetNodeToDecorations'
 import { SortableElement } from './SortableElement'
 
 const measuring: MeasuringConfiguration = {
@@ -57,7 +51,7 @@ interface Props {
 }
 
 export function DocEditor({ content, onChange, renderPrefix }: Props) {
-  const editor = withListsReact(useCreateEditor())
+  const editor = useCreateEditor()
   const { pluginStore } = usePluginStore()
 
   const decorate = useDecorate(editor)
@@ -87,7 +81,7 @@ export function DocEditor({ content, onChange, renderPrefix }: Props) {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const overId = event.over?.id
-    const overIndex = editor.children.findIndex((x) => x.id === overId)
+    const overIndex = editor.children.findIndex((x: any) => x.id === overId)
 
     if (overId !== activeId && overIndex !== -1) {
       Transforms.moveNodes(editor, {
@@ -107,7 +101,8 @@ export function DocEditor({ content, onChange, renderPrefix }: Props) {
   const renderElement = useCallback(
     (props: RenderElementProps) => {
       const element = props.element as Element
-      const isTopLevel = ReactEditor.findPath(editor, element).length === 1
+      const isTopLevel =
+        ReactEditor.findPath(editor as any, element as any).length === 1
 
       const attr = {
         ...props.attributes,
@@ -142,14 +137,14 @@ export function DocEditor({ content, onChange, renderPrefix }: Props) {
       } as any,
     )(e)
 
-    for (const fn of editor.onKeyDownFns) {
+    for (const fn of (editor as any).onKeyDownFns) {
       fn(editor, e)
     }
   }
 
   return (
     <Slate
-      editor={editor}
+      editor={editor as any}
       initialValue={content}
       onChange={(value) => {
         onChange?.(value, editor)

@@ -5,4 +5,4 @@ export const setNodes = <T extends Node = Node>(
   editor: Editor,
   props: Partial<T>,
   options?: SetNodesOptions,
-) => Transforms.setNodes<T>(editor, props, options as any)
+) => Transforms.setNodes<T>(editor, props, options)

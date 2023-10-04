@@ -1,9 +1,9 @@
 import { produce } from 'immer'
 import { Editor, Path, Transforms } from 'slate'
 import { findNodePath } from '@penx/editor-queries'
-import { TableCellElement, TableElement } from '../../custom-types'
 import { getEmptyCellNode } from '../getEmptyCellNode'
 import { getEmptyRowNode } from '../getEmptyRowNode'
+import { TableCellElement, TableElement } from '../types'
 
 export class TableNode {
   constructor(

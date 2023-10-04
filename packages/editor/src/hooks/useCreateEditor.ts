@@ -1,16 +1,113 @@
 import { useRef } from 'react'
 import { withAutoformat } from '@udecode/plate-autoformat'
-import { createEditor, Editor } from 'slate'
+import { createEditor, Editor, Element, Point, Range, Transforms } from 'slate'
 import { withHistory } from 'slate-history'
+import { withListsReact } from 'slate-lists'
 import { withReact } from 'slate-react'
+import {
+  getCurrentNode,
+  getPreviousBlockById,
+  isCollapsed,
+} from '@penx/editor-queries'
 import { usePluginStore } from '@penx/hooks'
+import {
+  getEmptyParagraph,
+  isParagraph,
+  ParagraphElement,
+} from '@penx/paragraph'
+import { isTable } from '@penx/table'
 
-export function useCreateEditor(): Editor {
+export function useCreateEditor() {
   const { pluginStore } = usePluginStore()
   const editorRef = useRef<Editor>()
-  const { rules } = pluginStore
+  const { rules, inlineTypes, voidTypes, elementMaps, onKeyDownFns } =
+    pluginStore
 
-  const withFns = [withHistory, withReact, ...pluginStore.withFns]
+  const withFns: ((editor: Editor) => any)[] = [
+    withHistory,
+    withReact,
+    withListsReact as any,
+    ...pluginStore.withFns,
+  ]
+
+  /**
+   * handle isInline and isVoid
+   * TODO: handle
+   */
+  withFns.push((editor) => {
+    const { isInline, deleteBackward } = editor
+    editor.isInline = (element: any) => {
+      return inlineTypes.includes(element.type) ? true : isInline(element)
+    }
+
+    editor.isVoid = (element: any) => {
+      return voidTypes.includes(element.type) ? true : isInline(element)
+    }
+
+    // handle deleteBackward
+    editor.deleteBackward = (...args) => {
+      const { selection } = editor
+
+      if (!isCollapsed(selection)) return deleteBackward(...args)
+
+      if (selection && Range.isCollapsed(selection)) {
+        const match = Editor.above(editor, {
+          match: (n) => Editor.isBlock(editor, n as Element),
+        })
+
+        if (match) {
+          const [block, path] = match as any
+          const start = Editor.start(editor, path)
+
+          const isStartOfBlock =
+            !Editor.isEditor(block) &&
+            Element.isElement(block) &&
+            Point.equals(selection.anchor, start)
+
+          const isGeneral = ['p', 'lic', 'code_line'].includes(block.type)
+
+          if (isStartOfBlock) {
+            const { id } = getCurrentNode(editor)! as any
+
+            // for fist line block
+            if (
+              isParagraph(block) &&
+              editor.children.length > 1 &&
+              editor.children[0] === block
+            ) {
+              Transforms.removeNodes(editor, { at: path })
+              return
+            }
+
+            if (isGeneral) {
+              const nodeEntry = getPreviousBlockById(editor, id!)!
+
+              if (!nodeEntry) {
+                deleteBackward(...args) // TODO:
+                return
+              }
+
+              const [prevNode, prevPath] = nodeEntry
+
+              if (isTable(prevNode)) {
+                Transforms.select(editor, Editor.end(editor, prevPath))
+                return
+              }
+            } else {
+              Transforms.setNodes(editor, getEmptyParagraph())
+              return
+            }
+          }
+        }
+
+        deleteBackward(...args)
+      }
+    }
+    ;(editor as any).elementMaps = elementMaps
+    ;(editor as any).onKeyDownFns = onKeyDownFns
+
+    return editor
+  })
 
   if (!editorRef.current) {
     const editor = withFns.reduce<any>(
@@ -34,5 +131,5 @@ export function useCreateEditor(): Editor {
 
   // if (editorRef.current) storeEditor(editorRef.current)
 
-  return editorRef.current as Editor
+  return editorRef.current!
 }

@@ -1,6 +1,6 @@
 import { PluginContext } from '@penx/plugin-typings'
-import { ElementType } from '../custom-types'
 import { Blockquote } from './BlockQuote'
+import { ElementType } from './types'
 
 export function activate(ctx: PluginContext) {
   ctx.registerBlock({

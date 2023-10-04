@@ -8,12 +8,15 @@ import {
   Range,
   Transforms,
 } from 'slate'
+import { ReactEditor } from 'slate-react'
 import { findNode, isCollapsed } from '@penx/editor-queries'
 import { isUrl } from '@penx/editor-shared/src/isUrl'
-import { ElementType } from '../custom-types'
+import { isLinkElement } from './isLinkElement'
+import { ElementType, LinkElement } from './types'
 
 export const withLink = (editor: Editor) => {
-  const { insertData, insertText, normalizeNode } = editor
+  const { insertData, insertText, normalizeNode } = editor as Editor &
+    ReactEditor
 
   editor.insertText = (text) => {
     if (!editor.selection || !isCollapsed(editor.selection)) {
@@ -24,8 +27,7 @@ export const withLink = (editor: Editor) => {
 
     insertText(text)
   }
-
-  editor.insertData = (data: DataTransfer) => {
+  ;(editor as ReactEditor).insertData = (data: DataTransfer) => {
     const text = data.getData('text/plain')
 
     if (text) {
@@ -40,11 +42,11 @@ export const withLink = (editor: Editor) => {
 
       if (isUrl(text)) {
         // If the text is an url, insert it as a link
-        return Transforms.insertNodes(editor, {
+        return Transforms.insertNodes<LinkElement>(editor, {
           type: ElementType.link,
           url: text,
           children: [{ text }],
-        })
+        } as LinkElement)
       }
     }
 
@@ -57,7 +59,7 @@ export const withLink = (editor: Editor) => {
   editor.normalizeNode = ([node, path]) => {
     if (
       Element.isElement(node) &&
-      node.type === ElementType.link &&
+      isLinkElement(node) &&
       Node.string(node) === ''
     ) {
       Transforms.removeNodes(editor, { at: path })

@@ -5,6 +5,7 @@ import { Box } from '@fower/react'
 import { Node } from 'slate'
 import { convertToValidHtmlId } from '@penx/catalogue'
 import { ElementProps } from '@penx/plugin-typings'
+import { HeadingElement } from './types'
 import { getToc, mutateToc } from './useToc'
 
 export const Heading = ({
@@ -12,8 +13,7 @@ export const Heading = ({
   element,
   children,
   nodeProps,
-  atomicProps,
-}: ElementProps) => {
+}: ElementProps<HeadingElement>) => {
   const { type } = element
 
   const title = Node.string(element)
@@ -49,7 +49,6 @@ export const Heading = ({
       mb0
       {...attributes}
       {...nodeProps}
-      {...atomicProps}
       ref={mergeRefs([ref, attributes.ref])}
     >
       {children}

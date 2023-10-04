@@ -2,6 +2,7 @@ import { Editor, Element, Node, Transforms } from 'slate'
 import { getBlockAbove, getText } from '@penx/editor-queries'
 import { insertNodes } from '@penx/editor-transforms'
 import { ElementType } from '../custom-types'
+import { isBlockSelector } from './isBlockSelector'
 
 /**
  * close or open block selector popover
@@ -20,7 +21,7 @@ export const withBlockSelector = (editor: Editor) => {
 
     // in codeblock
     const match = Editor.above(editor, {
-      match: (n) => [ElementType.code_block].includes(n.type),
+      match: (n: any) => [ElementType.code_block].includes(n.type),
     })
 
     if (match?.[0]) {
@@ -48,7 +49,7 @@ export const withBlockSelector = (editor: Editor) => {
   editor.normalizeNode = ([node, path]) => {
     if (
       Element.isElement(node) &&
-      node.type === ElementType.block_selector &&
+      isBlockSelector(node) &&
       Node.string(node) === ''
     ) {
       Transforms.removeNodes(editor, { at: path })

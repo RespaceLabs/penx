@@ -8,18 +8,27 @@ export class PluginStore {
 
   withFns: ((editor: Editor) => Editor)[] = []
 
+  elementMaps: Record<string, BlockElement> = {}
+  onKeyDownFns: OnKeyDown[] = []
+
+  inlineTypes: string[] = []
+  voidTypes: string[] = []
+
   constructor(private store: PluginStoreJSON) {
     this.init()
   }
 
   private init() {
     // builtin plugins
-    const { store, withFns, rules } = this
-
-    let inlineTypes: string[] = []
-    let voidTypes: string[] = []
-    let elementMaps: Record<string, BlockElement> = {}
-    let onKeyDownFns: OnKeyDown[] = []
+    const {
+      store,
+      withFns,
+      rules,
+      elementMaps,
+      onKeyDownFns,
+      inlineTypes,
+      voidTypes,
+    } = this
 
     // penx plugins
     for (const name of Object.keys(store)) {
@@ -47,25 +56,6 @@ export class PluginStore {
         elementMaps[ele.type] = ele
       }
     }
-
-    /**
-     * handle isInline and isVoid
-     */
-    withFns.push((editor) => {
-      const { isInline } = editor
-      editor.isInline = (element) => {
-        return inlineTypes.includes(element.type) ? true : isInline(element)
-      }
-
-      editor.isVoid = (element) => {
-        return voidTypes.includes(element.type) ? true : isInline(element)
-      }
-
-      editor.elementMaps = elementMaps
-      editor.onKeyDownFns = onKeyDownFns
-
-      return editor
-    })
 
     return { withFns, rules }
   }

@@ -1,9 +1,9 @@
 import { memo } from 'react'
 import isEqual from 'react-fast-compare'
 import { useSlate, useSlateStatic } from 'slate-react'
-import { ElementProps } from '@penx/editor-types'
+import { Paragraph } from '@penx/paragraph'
+import { ElementProps } from '@penx/plugin-typings'
 import { usePlaceholder } from '../hooks/usePlaceholder'
-import { Paragraph } from '../plugins/paragraph/Paragraph'
 
 function EditorElement(props: ElementProps) {
   const editor = useSlateStatic()

@@ -6,14 +6,15 @@ import { isEqual } from '../../common/utils'
 import { DragMenu } from './DragMenu'
 
 interface Props {
-  element: Node
+  // element: Node
+  element: any
   path: Path
   listeners: any
 }
 
 export const ElementMenu: FC<Props> = memo(
   function ElementMenu({ element, path, listeners }) {
-    const { id = '', type } = element
+    const { id = '', type } = element as any
     const width = 80
     return (
       <Box
@@ -40,6 +41,7 @@ export const ElementMenu: FC<Props> = memo(
       prev.element.id === next.element.id &&
       prev.element.type === next.element.type &&
       isEqual(prev.path, next.path)
+
     return equal
   },
 )

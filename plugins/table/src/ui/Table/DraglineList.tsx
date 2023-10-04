@@ -1,4 +1,4 @@
-import { TableElement } from '../../../custom-types'
+import { TableElement } from '../../types'
 import { DraglineItem } from './DraglineItem'
 
 export const DraglineList = ({ element }: { element: TableElement }) => {

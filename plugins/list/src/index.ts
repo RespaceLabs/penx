@@ -3,11 +3,11 @@ import { Editor, Element, Transforms } from 'slate'
 import { ListsEditor, ListType } from 'slate-lists'
 import { unwrapList } from 'slate-lists/src/transformations'
 import { PluginContext } from '@penx/plugin-typings'
-import { ElementType } from '../custom-types'
 import { List } from './List'
 import { ListItem } from './ListItem'
 import { ListItemContent } from './ListItemContent'
 import { onKeyDown } from './onKeyDown'
+import { ElementType } from './types'
 import { listSchema, withListsPlugin } from './withListsPlugin'
 
 const preFormat: AutoformatBlockRule['preFormat'] = (editor: any) =>
@@ -35,7 +35,7 @@ function formatListNode(editor: Editor, type: ListType) {
 
 export function activate(ctx: PluginContext) {
   ctx.registerBlock({
-    with: withListsPlugin,
+    with: withListsPlugin as any,
     handlers: {
       onKeyDown: onKeyDown,
     },

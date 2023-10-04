@@ -1,10 +1,6 @@
 import { Editor, Node, Path, Transforms } from 'slate'
 import { findNodePath } from '@penx/editor-queries'
-import {
-  TableCellElement,
-  TableElement,
-  TableRowElement,
-} from '../../custom-types'
+import { TableCellElement, TableElement, TableRowElement } from '../types'
 
 export class CellNode {
   constructor(

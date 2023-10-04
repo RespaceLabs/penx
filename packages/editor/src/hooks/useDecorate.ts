@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { Editor, Element, NodeEntry } from 'slate'
 import { isCodeLine } from '@penx/code-block'
 
-export const useDecorate = (editor: Editor) => {
+export const useDecorate = (editor: any) => {
   return useCallback(
     ([node]: NodeEntry) => {
       if (Element.isElement(node) && isCodeLine(node)) {

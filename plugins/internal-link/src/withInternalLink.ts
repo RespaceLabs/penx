@@ -1,6 +1,7 @@
 import { Editor, Element, Node, Transforms } from 'slate'
 import { insertNodes } from '@penx/editor-transforms'
-import { ElementType } from '../custom-types'
+import { isInternalLinkSelectorElement } from './isInternalLinkSelectorElement'
+import { ElementType } from './types'
 
 const trigger = '[['
 
@@ -47,7 +48,7 @@ export const withInternalLink = (editor: Editor) => {
   editor.normalizeNode = ([node, path]) => {
     if (
       Element.isElement(node) &&
-      node.type === ElementType.internal_link_selector &&
+      isInternalLinkSelectorElement(node) &&
       Node.string(node) === ''
     ) {
       Transforms.removeNodes(editor, { at: path })

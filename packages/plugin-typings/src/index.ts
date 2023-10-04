@@ -72,7 +72,6 @@ export interface ElementProps<E = Element>
     'data-slate-id'?: string
     onClick?: any
   }
-  atomicProps?: any
   nodeProps?: {
     style?: any
     css?: any

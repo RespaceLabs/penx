@@ -4,6 +4,7 @@ import {
   setConfig,
   setTheme,
 } from '@fower/react'
+import { db } from '@penx/local-db'
 
 export function initFower() {
   injectGlobalStyle({

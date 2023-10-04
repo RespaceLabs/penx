@@ -1,7 +1,7 @@
 import { PhotoOutline } from '@bone-ui/icons'
 import { PluginContext } from '@penx/plugin-typings'
-import { ElementType } from '../custom-types'
 import { Image } from './Image'
+import { ElementType } from './types'
 
 export function activate(ctx: PluginContext) {
   ctx.registerBlock({

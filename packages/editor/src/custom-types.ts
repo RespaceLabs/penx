@@ -1,20 +1,20 @@
 import { BaseEditor } from 'slate'
+import { HistoryEditor } from 'slate-history'
 import { ReactEditor } from 'slate-react'
 
 export type CustomEditor = BaseEditor &
-  ReactEditor & {
-    id?: string
-    type?: string
-    elementMaps: Record<string, any>
+  ReactEditor &
+  HistoryEditor & {
+    elementMaps: any
+    onKeyDownFns: any
   }
 
 declare module 'slate' {
   interface CustomTypes {
     Editor: CustomEditor
-
     Element: {
+      type?: any
       id?: string
-      type?: string
     }
   }
 }

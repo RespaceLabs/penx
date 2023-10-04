@@ -11,7 +11,7 @@ export function isListItemContainingText(
   node: Node,
 ): boolean {
   if (Element.isElement(node) && schema.isListItemNode(node)) {
-    return node.children.some((node) => {
+    return node.children!.some((node) => {
       return (
         Element.isElement(node) &&
         schema.isListItemTextNode(node) &&

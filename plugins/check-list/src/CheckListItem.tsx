@@ -3,7 +3,7 @@ import { Element, Transforms } from 'slate'
 import { ReactEditor, useSlateStatic } from 'slate-react'
 import { Checkbox } from 'uikit'
 import { ElementProps } from '@penx/plugin-typings'
-import { CheckListItemElement } from '../custom-types'
+import { CheckListItemElement } from './types'
 
 export const CheckListItem = ({
   attributes,
@@ -21,11 +21,14 @@ export const CheckListItem = ({
         mr2
         checked={checked || false}
         onChange={(event) => {
-          const path = ReactEditor.findPath(editor, element)
-          const newProperties: Partial<Element> = {
-            checked: event.target.checked,
-          }
-          Transforms.setNodes(editor, newProperties, { at: path })
+          const path = ReactEditor.findPath(editor as any, element as any)
+          Transforms.setNodes(
+            editor,
+            { checked: event.target.checked } as CheckListItemElement,
+            {
+              at: path,
+            },
+          )
         }}
       />
       <Box

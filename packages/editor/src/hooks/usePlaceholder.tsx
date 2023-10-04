@@ -13,7 +13,7 @@ import { useCompositionData } from './useCompositionData'
  * @returns className
  */
 export function usePlaceholder(
-  element: Element,
+  element: any,
   placeholder = "Type '/' to browse options",
 ) {
   const { compositionData } = useCompositionData(element.id)

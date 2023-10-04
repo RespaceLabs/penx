@@ -14,7 +14,7 @@ export const getPreviousBlockById = (
 ): NodeEntry<Node> | undefined => {
   const entry = findNode(editor, { match: { id } })
   if (entry) {
-    const prevEntry = Editor.previous<Node>(editor, { at: entry[1] })
+    const prevEntry = Editor.previous<Node>(editor, { at: entry[1] }) as any
     if (
       prevEntry &&
       prevEntry[0].id &&
@@ -29,7 +29,7 @@ export const getPreviousBlockById = (
       mode: 'highest',
       reverse: true,
       match: (_n) => {
-        const n = _n as Node
+        const n = _n as any
 
         // filter nodes that are not blocks and without id.
         if (!Editor.isBlock(editor, n as any) || !n.id) return false
@@ -54,7 +54,7 @@ export const getPreviousBlockById = (
     ...Editor.nodes(editor, {
       mode: 'highest',
       match: (_n) => {
-        const n = _n as Node
+        const n = _n as any
 
         return (
           Editor.isBlock(editor, n as any) &&

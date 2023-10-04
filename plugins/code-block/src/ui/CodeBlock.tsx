@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { ElementProps } from '@penx/plugin-typings'
-import { CodeBlockElement } from '../../custom-types'
+import { CodeBlockElement } from '../types'
 import { CodeBlockHeader } from './CodeBlockHeader'
 import { CodeBlockProvider } from './CodeBlockProvider'
 

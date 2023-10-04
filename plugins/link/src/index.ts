@@ -1,6 +1,6 @@
 import { PluginContext } from '@penx/plugin-typings'
-import { ElementType } from '../custom-types'
 import { Link } from './Link'
+import { ElementType } from './types'
 import { withLink } from './withLink'
 
 export function activate(ctx: PluginContext) {
@@ -18,3 +18,5 @@ export function activate(ctx: PluginContext) {
     ],
   })
 }
+
+export * from './isLinkElement'

@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react'
 import { Box } from '@fower/react'
 import { RenderLeafProps } from 'slate-react'
+import { CustomText } from './types'
 
 export const Leaf = (p: RenderLeafProps) => {
-  let { attributes, children, leaf } = p
-  const { text, selected, ...rest } = leaf
+  let { attributes, children } = p
+  const leaf = p.leaf as CustomText
+  const { text, ...rest } = leaf
   const className = Object.keys(rest).join(' ')
 
   const sharedProps = {

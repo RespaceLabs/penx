@@ -1,5 +1,4 @@
-import { BaseEditor } from 'slate'
-import { ReactEditor } from 'slate-react'
+import { BaseElement } from 'slate'
 
 export enum ElementType {
   code_block = 'code_block',
@@ -8,19 +7,17 @@ export enum ElementType {
   internal_link_content = 'internal_link_content',
 }
 
-export interface InternalLinkSelectorElement {
+export interface InternalLinkSelectorElement extends BaseElement {
   id?: string
   type: ElementType.internal_link_selector
   trigger: string
-  children?: any[]
 }
 
-export interface InternalLinkContentElement {
+export interface InternalLinkContentElement extends BaseElement {
   id?: string
   type: ElementType.internal_link_content
   linkName: string
   linkId: string
-  children?: any[]
 }
 
 export interface CodeBlockElement {
@@ -37,22 +34,4 @@ export interface CodeLineElement {
   id?: string
   type: ElementType.code_line
   children: Record<string, any>[]
-}
-
-export type CustomEditor = BaseEditor &
-  ReactEditor & {
-    id?: string
-  }
-
-export type CustomElement =
-  | InternalLinkSelectorElement
-  | InternalLinkContentElement
-  | CodeBlockElement
-  | CodeLineElement
-
-declare module 'slate' {
-  interface CustomTypes {
-    Editor: CustomEditor
-    Element: CustomElement
-  }
 }

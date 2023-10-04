@@ -1,51 +1,31 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Editor, Transforms } from 'slate'
-import {
-  Editable,
-  RenderElementProps,
-  Slate,
-  useSlate,
-  useSlateStatic,
-} from 'slate-react'
-import { getAtomicProps } from '@penx/editor-shared/src/getAtomicProps'
-import { EditorPlugin, ElementProps } from '@penx/editor-types'
+import { Editable, RenderElementProps, Slate } from 'slate-react'
+import { usePluginStore } from '@penx/hooks'
 import { Paragraph } from '@penx/paragraph'
+import { ElementProps } from '@penx/plugin-typings'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 
 function EditorElement(props: ElementProps) {
-  const editor = useSlateStatic()
+  const { pluginStore } = usePluginStore()
   const { element } = props
-  const { type } = element
-  const { component: Element = Paragraph, placeholder } =
-    editor.elementMaps[type] || {}
+  const { type } = element as any
+
+  const { component: Element = Paragraph } = pluginStore.elementMaps[type] || {}
 
   return <Element {...props} />
 }
 
 interface Props {
   content: any[]
-  plugins?: EditorPlugin[]
 }
 
-export function ReadOnlyEditor({ content, plugins = [] }: Props) {
-  const editor = useCreateEditor(plugins)
+export function ReadOnlyEditor({ content }: Props) {
+  const editor = useCreateEditor()
 
-  const renderElement = useCallback(
-    (p: RenderElementProps) => {
-      const { element } = p
-      const attr = {
-        ...p.attributes,
-        'data-slate-type': element.type,
-      }
-
-      const atomicProps = getAtomicProps(element?.css)
-
-      return (
-        <EditorElement {...p} attributes={attr} atomicProps={atomicProps} />
-      )
-    },
-    [editor],
-  )
+  const renderElement = useCallback((p: RenderElementProps) => {
+    return <EditorElement {...p} />
+  }, [])
   useEffect(() => {
     // Delete all entries leaving 1 empty node
     Transforms.delete(editor, {
@@ -62,10 +42,10 @@ export function ReadOnlyEditor({ content, plugins = [] }: Props) {
 
     // Insert array of children nodes
     Transforms.insertNodes(editor, content)
-  }, [content])
+  }, [content, editor])
 
   return (
-    <Slate editor={editor} initialValue={content}>
+    <Slate editor={editor as any} initialValue={content}>
       <Editable readOnly renderElement={renderElement} />
     </Slate>
   )

@@ -21,13 +21,13 @@ export function moveListItemsToAnotherList(
     Element.isElement(targetListNode) &&
     schema.isListNode(sourceListNode) &&
     schema.isListNode(targetListNode) &&
-    sourceListNode.children.length > 0
+    sourceListNode.children!.length > 0
   ) {
     // Sanity check.
-    for (let i = 0; i < sourceListNode.children.length; ++i) {
+    for (let i = 0; i < sourceListNode.children!.length; ++i) {
       Transforms.moveNodes(editor, {
         at: [...sourceListPath, 0],
-        to: [...targetListPath, targetListNode.children.length + i],
+        to: [...targetListPath, targetListNode.children!.length + i],
       })
     }
 

@@ -42,7 +42,7 @@ export const FormatButton: FC<Props> = ({ format }) => {
           // reset link
           Transforms.unwrapNodes(editor, {
             at: editor.selection,
-            match: (n) => n.type === format,
+            match: (n: any) => n.type === format,
           })
 
           const id = genId()
@@ -54,7 +54,7 @@ export const FormatButton: FC<Props> = ({ format }) => {
               type: ElementType.link,
               url: '',
               children: [],
-            },
+            } as any,
             { at: editor.selection, split: true },
           )
 

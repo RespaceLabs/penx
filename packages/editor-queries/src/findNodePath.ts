@@ -1,14 +1,11 @@
-import { Node, Path } from 'slate'
+import { Editor, Node, Path } from 'slate'
 import { ReactEditor } from 'slate-react'
 
 /**
  * @see {@link ReactEditor.findPath}
  */
-export const findNodePath = (
-  editor: ReactEditor,
-  node: Node,
-): Path | undefined => {
+export const findNodePath = (editor: Editor, node: Node): Path | undefined => {
   try {
-    return ReactEditor.findPath(editor, node)
+    return ReactEditor.findPath(editor as any, node)
   } catch (e) {}
 }

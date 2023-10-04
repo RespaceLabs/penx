@@ -11,13 +11,13 @@ import {
   Switch,
 } from 'uikit'
 import { findNodePath } from '@penx/editor-queries'
-import { TableElement } from '../../../custom-types'
+import { TableElement } from '../../types'
 
 export const TableOptions = ({ element }: { element: TableElement }) => {
   const editor = useSlateStatic()
   const selected = useSelected()
   const { isHeaderColumn = false, isHeaderRow = false } = element
-  const path = ReactEditor.findPath(editor, element)
+  const path = ReactEditor.findPath(editor as any, element)
   function removeTable() {
     const tablePath = findNodePath(editor, element)
     Transforms.removeNodes(editor, { at: tablePath })
@@ -54,7 +54,7 @@ export const TableOptions = ({ element }: { element: TableElement }) => {
             toBetween
             checked={isHeaderColumn}
             onChange={(e) => {
-              Transforms.setNodes(
+              Transforms.setNodes<TableElement>(
                 editor,
                 { isHeaderColumn: e.target.checked },
                 { at: path },
@@ -73,7 +73,7 @@ export const TableOptions = ({ element }: { element: TableElement }) => {
             toBetween
             checked={isHeaderRow}
             onChange={(e) => {
-              Transforms.setNodes(
+              Transforms.setNodes<TableElement>(
                 editor,
                 { isHeaderRow: e.target.checked },
                 { at: path },

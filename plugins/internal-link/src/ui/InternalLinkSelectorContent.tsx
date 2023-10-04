@@ -8,9 +8,9 @@ import {
 } from '@penx/catalogue'
 import { getCurrentPath } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
-import { ElementType } from '../custom-types'
+import { ElementType, InternalLinkContentElement } from '../types'
+import { useKeyDownList } from '../useKeyDownList'
 import { InternalLinkSelectorItem } from './InternalLinkSelectorItem'
-import { useKeyDownList } from './useKeyDownList'
 
 interface Props {
   close: any
@@ -42,12 +42,12 @@ export const InternalLinkSelectorContent = ({ close, element }: Props) => {
 
   const selectType = (node: CatalogueNodeJSON) => {
     Transforms.removeNodes(editor, { at: path.slice(0, -1) })
-    Transforms.insertNodes(editor, {
+    Transforms.insertNodes<InternalLinkContentElement>(editor, {
       type: ElementType.internal_link_content,
       linkId: node.id,
       linkName: node.name,
       children: [{ text: '' }],
-    })
+    } as InternalLinkContentElement)
     focusToEnd()
     close()
   }

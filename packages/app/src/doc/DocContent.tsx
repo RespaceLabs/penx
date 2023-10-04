@@ -15,7 +15,7 @@ export function DocContent() {
   function handleEnterKeyInTitle(editor: Editor) {
     insertEmptyParagraph(editor, { at: [0] })
 
-    ReactEditor.focus(editor)
+    ReactEditor.focus(editor as any)
     Transforms.select(editor, Editor.start(editor, [0]))
   }
 
