@@ -1,7 +1,7 @@
 import { Editor, Element, Transforms } from 'slate'
 import { isCollapsed } from '@penx/editor-queries'
 import { insertNodes, unwrapNodes } from '@penx/editor-transforms'
-import { ElementType } from '../../custom-types'
+import { ElementType, LinkElement } from '../types'
 import { wrapLink } from './wrapLink'
 
 /**
@@ -27,7 +27,7 @@ export const upsertLinkAtSelection = (
   const type = ElementType.link
 
   if (!wrap && isCollapsed(editor.selection)) {
-    return insertNodes<Element>(editor, {
+    return insertNodes<LinkElement>(editor, {
       type,
       url,
       children: [{ text: url }],

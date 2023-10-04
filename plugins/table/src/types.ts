@@ -1,5 +1,4 @@
-import { BaseEditor, BaseElement } from 'slate'
-import { ReactEditor } from 'slate-react'
+import { BaseElement } from 'slate'
 
 export enum ElementType {
   table = 'table',
@@ -28,19 +27,4 @@ export interface TableRowElement extends BaseCustomElement {
 
 export interface TableCellElement extends BaseCustomElement {
   type: ElementType.td
-  children: any[]
-}
-
-export type CustomEditor = BaseEditor &
-  ReactEditor & {
-    id?: string
-  }
-
-export type CustomElement = TableElement | TableRowElement | TableCellElement
-
-declare module 'slate' {
-  interface CustomTypes {
-    Editor: CustomEditor
-    Element: CustomElement
-  }
 }

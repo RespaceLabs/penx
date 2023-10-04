@@ -1,4 +1,5 @@
 import {
+  Descendant,
   Editor,
   Element,
   Location,
@@ -52,9 +53,9 @@ export const mergeNodes = (
     if (match == null) {
       if (Path.isPath(at)) {
         const [parent] = Editor.parent(editor, at)
-        match = (n) => parent.children.includes(n as any)
+        match = (n) => parent.children!.includes(n as Descendant)
       } else {
-        match = (n) => Editor.isBlock(editor, n as any)
+        match = (n) => Editor.isBlock(editor, n as Element)
       }
     }
 
@@ -119,7 +120,7 @@ export const mergeNodes = (
       properties = rest as Partial<Text>
     } else if (Element.isElement(node) && Element.isElement(prevNode)) {
       const { children, ...rest } = node
-      position = prevNode.children.length
+      position = prevNode.children!.length
       properties = rest as Partial<Element>
     } else {
       throw new Error(

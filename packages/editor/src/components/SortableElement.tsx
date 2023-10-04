@@ -12,7 +12,7 @@ interface Props extends RenderElementProps {
 
 export const SortableElement = (props: Props) => {
   const { attributes, element, children, renderElement } = props
-  const { id = '' } = element
+  const { id = '' } = element as any
   const editor = useSlateStatic()
   const at = findNodePath(editor, element)!
 
@@ -21,7 +21,7 @@ export const SortableElement = (props: Props) => {
   const { over, active } = sortable
 
   const items = useMemo(
-    () => editor.children.map((n) => n.id),
+    () => editor.children.map((n: any) => n.id),
     [editor.children],
   )
 

@@ -2,15 +2,42 @@ import { useRef } from 'react'
 import { withAutoformat } from '@udecode/plate-autoformat'
 import { createEditor, Editor } from 'slate'
 import { withHistory } from 'slate-history'
+import { withListsReact } from 'slate-lists'
 import { withReact } from 'slate-react'
 import { usePluginStore } from '@penx/hooks'
 
-export function useCreateEditor(): Editor {
+export function useCreateEditor() {
   const { pluginStore } = usePluginStore()
   const editorRef = useRef<Editor>()
-  const { rules } = pluginStore
+  const { rules, inlineTypes, voidTypes, elementMaps, onKeyDownFns } =
+    pluginStore
 
-  const withFns = [withHistory, withReact, ...pluginStore.withFns]
+  const withFns: ((editor: Editor) => any)[] = [
+    withHistory,
+    withReact,
+    withListsReact as any,
+    ...pluginStore.withFns,
+  ]
+
+  /**
+   * handle isInline and isVoid
+   * TODO: handle
+   */
+  withFns.push((editor: any) => {
+    const { isInline } = editor
+    editor.isInline = (element: any) => {
+      return inlineTypes.includes(element.type) ? true : isInline(element)
+    }
+
+    editor.isVoid = (element: any) => {
+      return voidTypes.includes(element.type) ? true : isInline(element)
+    }
+
+    editor.elementMaps = elementMaps
+    editor.onKeyDownFns = onKeyDownFns
+
+    return editor
+  })
 
   if (!editorRef.current) {
     const editor = withFns.reduce<any>(
@@ -34,5 +61,5 @@ export function useCreateEditor(): Editor {
 
   // if (editorRef.current) storeEditor(editorRef.current)
 
-  return editorRef.current as Editor
+  return editorRef.current!
 }

@@ -18,7 +18,7 @@ export const queryNode = <T extends Node>(
   if (allow) {
     const allows = castArray(allow)
 
-    if (allows.length && !allows.includes(entry[0].type!)) {
+    if (allows.length && !allows.includes((entry[0] as any).type!)) {
       return false
     }
   }
@@ -26,7 +26,7 @@ export const queryNode = <T extends Node>(
   if (exclude) {
     const excludes = castArray(exclude)
 
-    if (excludes.length && excludes.includes(entry[0].type!)) {
+    if (excludes.length && excludes.includes((entry[0] as any).type!)) {
       return false
     }
   }

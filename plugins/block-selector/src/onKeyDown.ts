@@ -1,13 +1,14 @@
 import { someNode } from '@penx/editor-queries'
 import { OnKeyDown } from '@penx/plugin-typings'
 import { ElementType } from '../custom-types'
+import { isBlockSelector } from './isBlockSelector'
 import { keyDownEmitter } from './keyDownEmitter'
 
 export const onKeyDown: OnKeyDown = (editor, e) => {
   // if block selector popover is open
   const somePopoverNode = () =>
     someNode(editor, {
-      match: (n) => [ElementType.block_selector].includes(n.type),
+      match: (n) => isBlockSelector(n),
     })
 
   switch (e.key) {

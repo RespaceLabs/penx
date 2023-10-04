@@ -6,6 +6,8 @@ import { getLastNode } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
 import { insertEmptyParagraph, isParagraph } from '@penx/paragraph'
 
+// import { getLastNode} from '@udecode/plate-common'
+
 const ClickablePadding = () => {
   const editor = useSlateStatic()
 

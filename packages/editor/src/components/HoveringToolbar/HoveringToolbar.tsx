@@ -3,6 +3,7 @@ import { Box } from '@fower/react'
 import { Portal } from 'bone-ui'
 import { Editor, Node, Range } from 'slate'
 import { ReactEditor, useSlate } from 'slate-react'
+import { isCodeLine } from '@penx/code-block'
 import { ElementType, MarkType } from '@penx/editor-shared'
 import { FormatButton } from './FormatButton'
 
@@ -54,7 +55,7 @@ const HoveringToolbar = () => {
 
     if (
       !selection ||
-      !ReactEditor.isFocused(editor) ||
+      !ReactEditor.isFocused(editor as any) ||
       Range.isCollapsed(selection) ||
       Editor.string(editor, selection) === ''
     ) {
@@ -66,7 +67,7 @@ const HoveringToolbar = () => {
     try {
       const n1 = Node.parent(editor, selection.anchor.path)
       const n2 = Node.parent(editor, selection.focus.path)
-      if ([n1.type, n2.type].includes(ElementType.code_line)) {
+      if (isCodeLine(n1) || isCodeLine(n2)) {
         el.style.display = 'none'
       }
     } catch (error) {}

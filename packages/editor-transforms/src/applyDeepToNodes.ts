@@ -37,7 +37,7 @@ export const applyDeepToNodes = ({
 
   if (!isAncestor(node)) return
 
-  node.children.forEach((child: TDescendant) => {
+  node.children?.forEach((child: TDescendant) => {
     applyDeepToNodes({ node: child, source, apply, query })
   })
 }

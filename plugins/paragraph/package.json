@@ -22,7 +22,6 @@
     "@penx/constants": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-shared": "workspace:*",
-    "@penx/editor-types": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/plugin-typings": "*",

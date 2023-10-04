@@ -1,13 +1,12 @@
 import { Editor } from 'slate'
 import { getAbove, isCollapsed } from '@penx/editor-queries'
 import { unwrapNodes } from '@penx/editor-transforms'
-import { ElementType } from '../../custom-types'
-import { LinkPlugin } from '../types'
+import { ElementType, GetLinkUrl } from '../types'
 import { upsertLinkAtSelection } from './upsertLinkAtSelection'
 
 export const getAndUpsertLink = async (
   editor: Editor,
-  getLinkUrl?: LinkPlugin['getLinkUrl'],
+  getLinkUrl?: GetLinkUrl,
 ) => {
   const type = ElementType.link
   let prevUrl = ''

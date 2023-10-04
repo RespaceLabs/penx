@@ -1,6 +1,7 @@
 import { Element, Node } from 'slate'
 import { getState, mutate, useStore } from 'stook'
 import { convertToValidHtmlId } from '@penx/catalogue'
+import { HeadingElement } from './types'
 
 interface Heading {
   type: string
@@ -10,7 +11,7 @@ interface Heading {
   inView: boolean
 }
 
-export const generateTOC = (nodes: Element[]) => {
+export const generateTOC = (nodes: HeadingElement[]) => {
   const headings: Heading[] = []
   nodes.forEach((node) => {
     if (['h1', 'h2', 'h3', 'h4'].includes(node.type)) {

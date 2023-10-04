@@ -21,8 +21,9 @@ import { Box } from '@fower/react'
 import { Transforms } from 'slate'
 import { useSlate, useSlateStatic } from 'slate-react'
 import { findNode, findNodePath } from '@penx/editor-queries'
-import { ElementProps, TableElement } from '@penx/editor-types'
+import { ElementProps } from '@penx/plugin-typings'
 import { useActiveElement } from '../../activeElement.store'
+import { TableElement } from '../../types'
 import { AddColumnBar } from './AddColumnBar'
 import { AddRowBar } from './AddRowBar'
 import { DraglineList } from './DraglineList'
@@ -73,7 +74,7 @@ export const Table = ({
     if (over && activeId !== over.id) {
       const overNodeEntry = findNode(editor, {
         at: tablePath,
-        match: (n) => n.id === over.id,
+        match: (n: any) => n.id === over.id,
       })!
 
       if (!overNodeEntry) return
@@ -86,7 +87,7 @@ export const Table = ({
       Transforms.moveNodes(editor, {
         at: tablePath,
         to: overNodeEntry[1],
-        match: (n) => n.id === activeId,
+        match: (n: any) => n.id === activeId,
       })
     }
     setActiveId(null)

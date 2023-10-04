@@ -15,9 +15,9 @@ export const getNextSiblingNodes = (
 
   const siblings: Descendant[] = []
 
-  if (leafIndex + 1 < ancestor.children.length) {
-    for (let i = leafIndex + 1; i < ancestor.children.length; i++) {
-      siblings.push(ancestor.children[i])
+  if (leafIndex + 1 < ancestor.children!.length) {
+    for (let i = leafIndex + 1; i < ancestor.children!.length; i++) {
+      siblings.push(ancestor.children![i])
     }
   }
 

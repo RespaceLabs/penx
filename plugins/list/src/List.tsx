@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { ElementProps } from '@penx/plugin-typings'
-import { ElementType, ListElement } from '../custom-types'
+import { ElementType, ListElement } from './types'
 
 export const List = ({
   attributes,

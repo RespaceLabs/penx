@@ -1,24 +1,20 @@
 import { mergeRefs } from '@bone-ui/utils'
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  useSortable,
-} from '@dnd-kit/sortable'
+import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'
 import { Node } from 'slate'
-import { useSlate, useSlateStatic } from 'slate-react'
+import { useSlateStatic } from 'slate-react'
 import { useStore } from 'stook'
 import { findNodePath } from '@penx/editor-queries'
-import { ElementProps } from '@penx/editor-types'
+import { ElementProps } from '@penx/plugin-typings'
 import { rowSortableKey } from '../rowSortable.store'
+import { TableRowElement } from '../types'
 
 function always() {
   return true
 }
 
-export const TableRow = (props: ElementProps) => {
+export const TableRow = (props: ElementProps<TableRowElement>) => {
   const id = props.element.id!
   const editor = useSlateStatic()
 
@@ -49,8 +45,8 @@ export const TableRow = (props: ElementProps) => {
     if (props.element.id !== over.id) return {}
     if (over.id === active.id) return {}
     const { children } = Node.parent(editor, path)
-    const activeIndex = children.findIndex((n) => n.id === active.id)
-    const overIndex = children.findIndex((n) => n.id === over.id)
+    const activeIndex = children.findIndex((n: any) => n.id === active.id)
+    const overIndex = children.findIndex((n: any) => n.id === over.id)
     const isAfter = overIndex > activeIndex
     const style = {
       left: 0,

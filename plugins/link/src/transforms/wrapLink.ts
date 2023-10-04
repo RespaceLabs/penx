@@ -1,6 +1,6 @@
 import { Editor, Location } from 'slate'
 import { wrapNodes } from '@penx/editor-transforms'
-import { ElementType } from '../../custom-types'
+import { ElementType } from '../types'
 
 /**
  * Wrap selected nodes with a link and collapse at the end.

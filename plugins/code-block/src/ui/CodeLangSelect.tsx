@@ -11,8 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'uikit'
-import { CodeBlockElement } from '../../custom-types'
 import { langs } from '../langs'
+import { CodeBlockElement } from '../types'
 
 export const CodeLangSelect = ({ element }: { element: CodeBlockElement }) => {
   const editor = useSlateStatic()
@@ -28,8 +28,12 @@ export const CodeLangSelect = ({ element }: { element: CodeBlockElement }) => {
   function selectLang(value: string) {
     setLang(value)
     setQ('')
-    const path = ReactEditor.findPath(editor, element)
-    Transforms.setNodes(editor, { language: value }, { at: path })
+    const path = ReactEditor.findPath(editor as any, element as any)
+    Transforms.setNodes<CodeBlockElement>(
+      editor,
+      { language: value },
+      { at: path },
+    )
   }
 
   return (

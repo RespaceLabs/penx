@@ -13,7 +13,7 @@ import {
 import { Input, Popover, PopoverContent, PopoverTrigger, toast } from 'uikit'
 import { setNodes } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/plugin-typings'
-import { ImageElement } from '../custom-types'
+import { ImageElement } from './types'
 import { UploadButton } from './UploadButton'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string
@@ -34,12 +34,12 @@ export const Image = ({
 
   const setNodeWidth = useCallback(
     (w: number) => {
-      const path = ReactEditor.findPath(editor, element)
+      const path = ReactEditor.findPath(editor as any, element as any)
       if (w === nodeWidth) {
         // Focus the node if not resized
         Transforms.select(editor, path)
       } else {
-        setNodes(editor, { width: w }, { at: path })
+        setNodes<ImageElement>(editor, { width: w }, { at: path })
       }
     },
     [editor, element, nodeWidth],
@@ -50,12 +50,12 @@ export const Image = ({
   }, [nodeWidth])
 
   function setImageUrl(url: string) {
-    setNodes(
+    setNodes<ImageElement>(
       editor,
       { url },
       {
         mode: 'lowest',
-        match: (n) => n.id === element.id,
+        match: (n: any) => n.id === element.id,
       },
     )
   }

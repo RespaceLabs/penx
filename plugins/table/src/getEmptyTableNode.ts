@@ -1,6 +1,6 @@
 import { Element } from 'slate'
-import { ElementType } from '../custom-types'
 import { getEmptyRowNode } from './getEmptyRowNode'
+import { ElementType } from './types'
 
 export function getEmptyTableNode(rowCount = 3, columnCount = 3): Element {
   return {

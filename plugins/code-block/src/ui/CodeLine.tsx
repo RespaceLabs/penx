@@ -3,11 +3,8 @@ import { Transforms } from 'slate'
 import { useSlate, useSlateStatic } from 'slate-react'
 import { Checkbox } from 'uikit'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
-import {
-  CodeBlockElement,
-  CodeLineElement,
-  ElementProps,
-} from '@penx/editor-types'
+import { ElementProps } from '@penx/plugin-typings'
+import { CodeBlockElement, CodeLineElement } from '../types'
 import { CodeBlockStatus, useCodeBlockContext } from './CodeBlockProvider'
 
 export const CodeLine = ({
@@ -32,7 +29,7 @@ export const CodeLine = ({
       lines = highlightingLines.filter((i) => i !== index)
     }
 
-    Transforms.setNodes(
+    Transforms.setNodes<CodeBlockElement>(
       editor,
       { highlightingLines: lines.sort() },
       {

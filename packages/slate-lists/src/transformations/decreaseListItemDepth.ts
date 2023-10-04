@@ -24,8 +24,8 @@ export function decreaseListItemDepth(
   const [parentListNode, parentListPath] = parentList
   const parentListItem = getParentListItem(editor, schema, listItemPath)
   const listItemIndex = listItemPath[listItemPath.length - 1]
-  const previousSiblings = parentListNode.children.slice(0, listItemIndex)
-  const nextSiblings = parentListNode.children.slice(listItemIndex + 1)
+  const previousSiblings = parentListNode.children!.slice(0, listItemIndex)
+  const nextSiblings = parentListNode.children!.slice(listItemIndex + 1)
 
   Editor.withoutNormalizing(editor, () => {
     // We have to move all subsequent sibling "list-items" into a new "list" that will be

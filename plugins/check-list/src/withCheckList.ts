@@ -1,6 +1,5 @@
 import { Editor, Element } from 'slate'
-
-const check_list_item = 'check_list_item'
+import { CheckListItemElement, ElementType } from './types'
 
 export const withCheckList = (editor: Editor) => {
   const { apply } = editor
@@ -8,14 +7,17 @@ export const withCheckList = (editor: Editor) => {
     if (operation.type === 'split_node') {
       const { properties } = operation
 
-      if ((properties as Element).type === check_list_item) {
+      if (
+        (properties as CheckListItemElement).type ===
+        ElementType.check_list_item
+      ) {
         return apply({
           ...operation,
           properties: {
             ...properties,
-            type: check_list_item,
+            type: ElementType.check_list_item,
             checked: false,
-          },
+          } as CheckListItemElement,
         })
       }
     }

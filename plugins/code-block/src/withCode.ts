@@ -9,7 +9,7 @@ import { MarkType } from '@penx/editor-shared'
 function isEndOfInlineCode(editor: Editor) {
   const focus = getCurrentFocus(editor)
   const path = getCurrentPath(editor)
-  const textNode = getNodeByPath(editor, path!) as Text
+  const textNode = getNodeByPath(editor, path!) as any
   if (textNode?.code && focus && path) {
     return Editor.isEnd(editor, focus, path)
   }

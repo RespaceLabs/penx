@@ -1,5 +1,6 @@
 import { Editor, Element, Point, Range } from 'slate'
-import { ElementType } from '../custom-types'
+import { isTableCell } from './guard'
+import { ElementType } from './types'
 
 export const withTable = (editor: Editor) => {
   const { deleteBackward, deleteForward, insertBreak } = editor
@@ -10,9 +11,7 @@ export const withTable = (editor: Editor) => {
     if (selection && Range.isCollapsed(selection)) {
       const [cell] = Editor.nodes(editor, {
         match: (n) =>
-          !Editor.isEditor(n) &&
-          Element.isElement(n) &&
-          n.type === ElementType.td,
+          !Editor.isEditor(n) && Element.isElement(n) && isTableCell(n),
       })
 
       if (cell) {
@@ -35,9 +34,7 @@ export const withTable = (editor: Editor) => {
     if (selection && Range.isCollapsed(selection)) {
       const [cell] = Editor.nodes(editor, {
         match: (n) =>
-          !Editor.isEditor(n) &&
-          Element.isElement(n) &&
-          n.type === ElementType.td,
+          !Editor.isEditor(n) && Element.isElement(n) && isTableCell(n),
       })
 
       if (cell) {

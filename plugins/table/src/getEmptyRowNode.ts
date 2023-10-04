@@ -1,6 +1,6 @@
 import { Element } from 'slate'
-import { ElementType } from '../custom-types'
 import { getEmptyCellNode } from './getEmptyCellNode'
+import { ElementType } from './types'
 
 /**
  * Get empty table row node

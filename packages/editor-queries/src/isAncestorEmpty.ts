@@ -5,4 +5,4 @@ import { Ancestor, Editor, Node } from 'slate'
  */
 export const isAncestorEmpty = (editor: Editor, node: Ancestor) =>
   !Node.string(node) &&
-  !node.children.some((n) => Editor.isInline(editor, n as any))
+  !node.children?.some((n) => Editor.isInline(editor, n as any))

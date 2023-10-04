@@ -3,7 +3,8 @@ import { Element, Node, Path } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { findNodePath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/plugin-typings'
-import { ElementType, ListItemElement } from '../custom-types'
+import { isListElement, isOrderedListElement } from './guard'
+import { ListItemElement } from './types'
 
 export const ListItem = ({
   attributes,
@@ -17,11 +18,11 @@ export const ListItem = ({
 
   const nodes = Path.ancestors(path).filter((p) => {
     const node = Node.get(editor, p) as Element
-    return [ElementType.ul, ElementType.ol].includes(node.type as ElementType)
+    return isListElement(node)
   })
 
   const level = nodes.length % 3
-  const isOrdered = parentNode.type === ElementType.ol
+  const isOrdered = isOrderedListElement(parentNode)
 
   return (
     <Box

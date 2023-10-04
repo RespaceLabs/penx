@@ -1,7 +1,7 @@
 import { PluginContext } from '@penx/plugin-typings'
-import { ElementType } from '../custom-types'
-import { InternalLinkContent } from './InternalLinkContent'
-import { InternalLinkSelector } from './InternalLinkSelector'
+import { ElementType } from './types'
+import { InternalLinkContent } from './ui/InternalLinkContent'
+import { InternalLinkSelector } from './ui/InternalLinkSelector'
 import { withInternalLink } from './withInternalLink'
 
 export function activate(ctx: PluginContext) {
@@ -25,3 +25,5 @@ export function activate(ctx: PluginContext) {
     ],
   })
 }
+
+export * from './isInternalLinkSelectorElement'

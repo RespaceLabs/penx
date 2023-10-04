@@ -62,7 +62,7 @@ export function increaseListItemDepth(
       schema.isListNode(previousListItemChildList)
     ) {
       const index = previousListItemHasChildList
-        ? previousListItemChildList.children.length
+        ? previousListItemChildList.children!.length
         : 0
 
       Transforms.moveNodes(editor, {

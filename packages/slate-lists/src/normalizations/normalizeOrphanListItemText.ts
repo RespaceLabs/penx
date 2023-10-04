@@ -18,7 +18,7 @@ export function normalizeOrphanListItemText(
 ): boolean {
   if (isElementOrEditor(node) && !schema.isListItemNode(node)) {
     // We look for "list-item-text" nodes that are NOT under a "list-item" node
-    for (const [index, child] of node.children.entries()) {
+    for (const [index, child] of node.children!.entries()) {
       if (Element.isElement(child) && schema.isListItemTextNode(child)) {
         if (isContainingTextNodes(child)) {
           Transforms.setNodes(

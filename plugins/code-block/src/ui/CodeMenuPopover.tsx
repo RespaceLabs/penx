@@ -15,7 +15,7 @@ import {
   Switch,
 } from 'uikit'
 import { findNodePath } from '@penx/editor-queries'
-import { CodeBlockElement } from '../../custom-types'
+import { CodeBlockElement } from '../types'
 import { CodeBlockStatus, useCodeBlockContext } from './CodeBlockProvider'
 
 interface Props {
@@ -61,7 +61,7 @@ export const CodeMenuPopover: FC<Props> = ({ element }) => {
               toBetween
               checked={showLineNumbers}
               onChange={(e) => {
-                Transforms.setNodes(
+                Transforms.setNodes<CodeBlockElement>(
                   editor,
                   { showLineNumbers: e.target.checked },
                   { at: path },
@@ -79,7 +79,7 @@ export const CodeMenuPopover: FC<Props> = ({ element }) => {
               placeholder="/src/index.ts"
               value={title}
               onChange={(e) => {
-                Transforms.setNodes(
+                Transforms.setNodes<CodeBlockElement>(
                   editor,
                   { title: e.target.value },
                   { at: path },

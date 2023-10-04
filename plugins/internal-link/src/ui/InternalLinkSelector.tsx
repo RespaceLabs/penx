@@ -16,7 +16,7 @@ import { Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { findNodePath, getCurrentNode } from '@penx/editor-queries'
 import { ElementProps } from '@penx/plugin-typings'
-import { InternalLinkSelectorElement } from '../custom-types'
+import { InternalLinkSelectorElement } from '../types'
 import { InternalLinkSelectorContent } from './InternalLinkSelectorContent'
 
 export const InternalLinkSelector = ({

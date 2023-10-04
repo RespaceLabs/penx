@@ -1,8 +1,8 @@
 import { Editor } from 'slate'
 import { setNodes } from '@penx/editor-transforms'
 import { PluginContext } from '@penx/plugin-typings'
-import { ElementType } from '../custom-types'
 import { CheckListItem } from './CheckListItem'
+import { CheckListItemElement, ElementType } from './types'
 import { withCheckList } from './withCheckList'
 
 export function activate(ctx: PluginContext) {
@@ -30,7 +30,10 @@ export function activate(ctx: PluginContext) {
         format: (editor) => {
           setNodes(
             editor,
-            { type: ElementType.check_list_item, checked: true },
+            {
+              type: ElementType.check_list_item,
+              checked: true,
+            } as CheckListItemElement,
             { match: (n: any) => Editor.isBlock(editor, n) },
           )
         },

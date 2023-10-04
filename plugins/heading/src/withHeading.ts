@@ -1,4 +1,5 @@
 import { Editor, Element } from 'slate'
+import { HeadingElement } from './types'
 
 export const withHeading = (editor: Editor) => {
   const { apply } = editor
@@ -8,7 +9,7 @@ export const withHeading = (editor: Editor) => {
 
       if (
         ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(
-          (properties as Element).type,
+          (properties as HeadingElement).type,
         )
       ) {
         return apply({
@@ -16,7 +17,7 @@ export const withHeading = (editor: Editor) => {
           properties: {
             ...properties,
             type: 'p',
-          },
+          } as any,
         })
       }
     }

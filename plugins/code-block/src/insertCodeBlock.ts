@@ -5,20 +5,16 @@ import {
   someNode,
 } from '@penx/editor-queries'
 import { setNodes, wrapNodes } from '@penx/editor-transforms'
-import { InsertNodesOptions } from '@penx/editor-types'
-import { ElementType } from '../custom-types'
+import { CodeBlockElement, CodeLineElement, ElementType } from './types'
 
 /**
  * Insert a code block: set the node to code line and wrap it with a code block.
  * If the cursor is not at the block start, insert break before.
  */
-export const insertCodeBlock = (
-  editor: Editor,
-  insertNodesOptions: Omit<InsertNodesOptions, 'match'> = {},
-) => {
+export const insertCodeBlock = (editor: Editor) => {
   if (!editor.selection || isExpanded(editor.selection)) return
 
-  const matchCodeElements = (node: Element) =>
+  const matchCodeElements = (node: CodeBlockElement | CodeLineElement) =>
     node.type === ElementType.code_block || node.type === ElementType.code_line
 
   if (someNode(editor, { match: matchCodeElements })) {
@@ -29,22 +25,14 @@ export const insertCodeBlock = (
     editor.insertBreak()
   }
 
-  setNodes(
-    editor,
-    {
-      type: ElementType.code_line,
-      children: [{ text: '' }],
-    },
-    insertNodesOptions,
-  )
+  setNodes(editor, {
+    type: ElementType.code_line,
+    children: [{ text: '' }],
+  })
 
-  wrapNodes(
-    editor,
-    {
-      language: 'js', // TODO:
-      type: ElementType.code_block,
-      children: [],
-    },
-    insertNodesOptions,
-  )
+  wrapNodes(editor, {
+    language: 'js', // TODO:
+    type: ElementType.code_block,
+    children: [],
+  } as any)
 }

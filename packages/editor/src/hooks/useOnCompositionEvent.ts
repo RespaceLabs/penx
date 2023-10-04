@@ -5,7 +5,7 @@ import { mutateCompositionData } from './useCompositionData'
 
 export function useOnCompositionEvent(editor: Editor) {
   return (e: CompositionEvent<HTMLDivElement>) => {
-    const currentNode = getCurrentNode(editor)!
+    const currentNode = getCurrentNode(editor)! as any
     mutateCompositionData(currentNode.id, e.data)
   }
 }

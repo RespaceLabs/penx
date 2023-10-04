@@ -6,7 +6,7 @@ const getLastChild = (node: Node, level: number): Descendant => {
 
   const { children } = node
 
-  const lastNode = children[children.length - 1]
+  const lastNode = children?.[children.length - 1]
 
   return getLastChild(lastNode, level - 1)
 }

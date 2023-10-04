@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { ElementProps } from '@penx/plugin-typings'
-import { BlockquoteElement } from '../custom-types'
+import { BlockquoteElement } from './types'
 
 export const Blockquote = ({
   attributes,

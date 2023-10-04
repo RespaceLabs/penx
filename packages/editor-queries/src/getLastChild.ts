@@ -8,7 +8,7 @@ export const getLastChild = (
 ): NodeEntry<Descendant> | null => {
   const [node, path] = nodeEntry
 
-  if (!node.children.length) return null
+  if (!node.children?.length) return null
 
   return [
     node.children[node.children.length - 1],

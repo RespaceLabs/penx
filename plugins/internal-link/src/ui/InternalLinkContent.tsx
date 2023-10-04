@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { Tooltip, TooltipContent, TooltipTrigger } from 'uikit'
 import { ElementProps } from '@penx/plugin-typings'
-import { InternalLinkContentElement } from '../custom-types'
+import { InternalLinkContentElement } from '../types'
 
 export const InternalLinkContent = ({
   element,

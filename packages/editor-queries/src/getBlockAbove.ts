@@ -9,7 +9,7 @@ export const getBlockAbove = <T extends Ancestor = Ancestor>(
   editor: Editor,
   options: EditorAboveOptions<T> = {},
 ) =>
-  getAbove<T>(editor, {
+  getAbove(editor, {
     ...options,
     block: true,
   })

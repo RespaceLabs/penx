@@ -1,10 +1,10 @@
 import { Element, Node } from 'slate'
 import { PluginContext } from '@penx/plugin-typings'
-import { ElementType } from '../custom-types'
 import { getEmptyParagraph } from './getEmptyParagraph'
 import { IconText } from './IconText'
 import { insertEmptyParagraph } from './insertEmptyParagraph'
 import { Paragraph } from './Paragraph'
+import { ElementType, ParagraphElement } from './types'
 
 export function activate(ctx: PluginContext) {
   ctx.registerBlock({
@@ -23,7 +23,9 @@ export function activate(ctx: PluginContext) {
 }
 
 export function isParagraph(node: Node) {
-  return (node as Element).type === ElementType.p
+  return (node as ParagraphElement).type === ElementType.p
 }
+
+export * from './types'
 
 export { Paragraph, insertEmptyParagraph, getEmptyParagraph }

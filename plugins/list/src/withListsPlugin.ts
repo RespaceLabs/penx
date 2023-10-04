@@ -1,6 +1,6 @@
 import { Element, Node } from 'slate'
 import { ListsSchema, ListType, withLists } from 'slate-lists'
-import { ElementType } from '../custom-types'
+import { ElementType } from './types'
 
 export const listSchema: ListsSchema = {
   isConvertibleToListTextNode(node: Node) {

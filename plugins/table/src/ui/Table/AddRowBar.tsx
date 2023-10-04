@@ -1,8 +1,8 @@
 import { PlusOutline } from '@bone-ui/icons'
 import { Box } from '@fower/react'
 import { useSlate, useSlateStatic } from 'slate-react'
-import { TableElement } from '../../../custom-types'
 import { TableNode } from '../../nodes/TableNode'
+import { TableElement } from '../../types'
 
 interface Props {
   element: TableElement

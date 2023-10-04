@@ -1,13 +1,10 @@
-import { Editor, Path } from 'slate'
+import { Editor, Node, Path, Transforms } from 'slate'
 import { isBlockAboveEmpty, isExpanded } from '@penx/editor-queries'
-import { insertNodes } from '@penx/editor-transforms'
-import { InsertNodesOptions } from '@penx/editor-types'
-import { ElementType } from '../custom-types'
+import { getEmptyParagraph } from '@penx/paragraph'
 import { insertCodeBlock } from './insertCodeBlock'
 
 export interface CodeBlockInsertOptions {
   level?: number
-  insertNodesOptions?: Omit<InsertNodesOptions, 'match'>
 }
 
 /**
@@ -16,7 +13,7 @@ export interface CodeBlockInsertOptions {
  */
 export const insertEmptyCodeBlock = (
   editor: Editor,
-  { insertNodesOptions, level = 0 }: CodeBlockInsertOptions,
+  { level = 0 }: CodeBlockInsertOptions,
 ) => {
   if (!editor.selection) return
 
@@ -24,14 +21,10 @@ export const insertEmptyCodeBlock = (
     const selectionPath = Editor.path(editor, editor.selection)
     const insertPath = Path.next(selectionPath.slice(0, level + 1))
 
-    insertNodes(
-      editor,
-      { type: ElementType.p, children: [{ text: '' }] },
-      {
-        at: insertPath,
-        select: true,
-      },
-    )
+    Transforms.insertNodes(editor, getEmptyParagraph() as Node, {
+      at: insertPath,
+      select: true,
+    })
   }
-  insertCodeBlock(editor, insertNodesOptions)
+  insertCodeBlock(editor)
 }

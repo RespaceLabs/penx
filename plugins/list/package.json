@@ -23,7 +23,6 @@
     "@penx/local-db": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-shared": "workspace:*",
-    "@penx/editor-types": "workspace:*",
     "@penx/plugin-typings": "*",
     "@udecode/plate-autoformat": "^24.3.6",
     "slate-lists": "workspace:*",

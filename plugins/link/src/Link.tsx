@@ -14,8 +14,8 @@ import { findNodePath } from '@penx/editor-queries'
 import { IconCopy } from '@penx/icons'
 import { ElementProps } from '@penx/plugin-typings'
 import { useCopyToClipboard } from '@penx/shared'
-import { LinkElement } from '../custom-types'
 import { useLinkIsOpen } from './linkIsOpen.store'
+import { LinkElement } from './types'
 
 type Props = ElementProps<LinkElement>
 
@@ -85,7 +85,11 @@ export const Link = ({ attributes, element, children, nodeProps }: Props) => {
                 onKeyDown={(e) => {
                   e.stopPropagation()
                   if (e.key === 'Enter') {
-                    Transforms.setNodes(editor, { url }, { at: path })
+                    Transforms.setNodes<LinkElement>(
+                      editor,
+                      { url },
+                      { at: path },
+                    )
                     close()
                   }
                 }}
@@ -113,7 +117,7 @@ export const Link = ({ attributes, element, children, nodeProps }: Props) => {
                   onClick={() => {
                     Transforms.unwrapNodes(editor, {
                       at: [],
-                      match: (n) => n.id === element.id,
+                      match: (n: any) => n.id === element.id,
                     })
                   }}
                 />
@@ -128,7 +132,11 @@ export const Link = ({ attributes, element, children, nodeProps }: Props) => {
                   bgGray100--hover
                   cursorPointer
                   onClick={() => {
-                    Transforms.setNodes(editor, { url }, { at: path })
+                    Transforms.setNodes<LinkElement>(
+                      editor,
+                      { url },
+                      { at: path },
+                    )
                     setOpen(false)
                   }}
                 >

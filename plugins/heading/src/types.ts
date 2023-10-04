@@ -1,5 +1,4 @@
-import { BaseEditor, BaseElement, Editor, Element } from 'slate'
-import { ReactEditor } from 'slate-react'
+import { BaseElement } from 'slate'
 
 export enum ElementType {
   h1 = 'h1',
@@ -10,9 +9,7 @@ export enum ElementType {
   h6 = 'h6',
 }
 
-export type CustomEditor = BaseEditor & ReactEditor
-
-interface BaseCustomElement {
+interface BaseCustomElement extends BaseElement {
   id: string
 }
 
@@ -40,26 +37,10 @@ export interface H6Element extends BaseCustomElement {
   type: ElementType.h6
 }
 
-export type CustomElement =
+export type HeadingElement =
   | H1Element
   | H2Element
   | H3Element
   | H4Element
   | H5Element
   | H6Element
-
-type CustomText = {
-  text: string
-}
-
-declare module 'slate' {
-  interface CustomTypes {
-    Editor: CustomEditor & {
-      type?: string
-      id?: string
-      selected?: boolean
-    }
-    Element: CustomElement
-    Text: CustomText
-  }
-}
