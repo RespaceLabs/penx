@@ -19,7 +19,8 @@
     "SKIP_ENV_VALIDATION",
     "NEXT_PUBLIC_SUPABASE_URL",
     "NEXT_PUBLIC_SUPABASE_BUCKET",
-    "SUPABASE_KEY"
+    "SUPABASE_KEY",
+    "PORT"
   ],
   "remoteCache": {
     "signature": true

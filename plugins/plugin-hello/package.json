@@ -1,10 +1,7 @@
 {
-  "name": "github-sync",
+  "name": "plugin-hello",
   "version": "0.0.0",
   "description": "",
-  "publishConfig": {
-    "access": "public"
-  },
   "files": [
     "dist"
   ],
@@ -14,11 +11,19 @@
   "scripts": {
     "build-fast": "tsup src/index.ts --format cjs,esm",
     "build": "pnpm run build-fast -- --dts-resolve",
-    "dev": "tsup src/index.ts --watch --format cjs,esm"
+    "dev": "tsup src/index.ts --watch --format cjs,esm",
+    "serve": "tsx server.ts"
   },
   "devDependencies": {
-    "tsup": "^7.2.0",
     "@penx/plugin-typings": "*",
+    "@types/express": "^4.17.18",
+    "@types/node": "^20.8.2",
+    "express": "^4.18.2",
+    "tsup": "^7.2.0",
+    "tsx": "^3.13.0",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "fs-jetpack": "^5.1.0"
   }
 }
