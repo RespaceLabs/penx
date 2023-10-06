@@ -6,12 +6,10 @@ import { EasyModalProvider } from 'easy-modal'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
-import { toast, ToastContainer } from 'uikit'
-import { shareEmitter, ShareEvent } from '@penx/app/src/AppEmitter'
-import { encryptString } from '@penx/app/src/encryption'
+import { ToastContainer } from 'uikit'
 import { isServer } from '@penx/constants'
-import { copy } from '@penx/shared'
-import { api, trpc } from '~/utils/api'
+import { initSharing } from '~/common/handleSharing'
+import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
 import { useLinguiInit } from '../utils'
 import '@penx/local-db'
@@ -32,33 +30,7 @@ interface Props<T> extends AppProps<T> {
 }
 
 if (!isServer) {
-  shareEmitter.on('onShare', (data) => {
-    handleSharing(data)
-  })
-}
-
-const handleSharing = async (data: ShareEvent) => {
-  try {
-    const sharedDocById = await trpc.sharedDoc.byId.query({ id: data.id })
-    if (!sharedDocById) {
-      await trpc.sharedDoc.create.mutate({
-        id: data.id,
-        title: data.title,
-        content: encryptString(data.content),
-        // content: data.content
-      })
-    }
-
-    const isCoped = await copy(`${window.location.origin}/share?id=${data.id}`)
-    if (isCoped) {
-      toast.info('Copy sharing link successfully')
-    } else {
-      throw new Error('Copy failed')
-    }
-  } catch (error) {
-    toast.error('Failed to generate sharing link')
-    console.log('error:', error)
-  }
+  initSharing()
 }
 
 function MyApp({ Component, pageProps }: Props<any>) {

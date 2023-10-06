@@ -12,4 +12,4 @@ type Events = {
   onShare: ShareEvent
 }
 
-export const shareEmitter = mitt<Events>()
+export const appEmitter = mitt<Events>()

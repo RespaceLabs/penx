@@ -12,10 +12,12 @@ import {
   PopoverClose,
   PopoverContent,
   PopoverTrigger,
+  toast,
 } from 'uikit'
 import { CatalogueNode } from '@penx/catalogue'
-import { useCatalogue, useDoc } from '@penx/hooks'
-import { shareEmitter } from '../../AppEmitter'
+import { useCatalogue } from '@penx/hooks'
+import { db } from '@penx/local-db'
+import { appEmitter } from '../../AppEmitter'
 
 interface Props {
   node: CatalogueNode
@@ -27,10 +29,14 @@ export const CatalogueMenuPopover: FC<PropsWithChildren<Props>> = ({
   setIsRenaming,
 }) => {
   const catalogue = useCatalogue()
-  const { raw } = useDoc()
 
-  const onShare = async () => {
-    shareEmitter.emit('onShare', raw)
+  const onShare = async (node: CatalogueNode) => {
+    const doc = await db.getDoc(node.id)
+    if (doc) {
+      appEmitter.emit('onShare', doc)
+    } else {
+      toast.error('Failed to generate sharing link')
+    }
   }
 
   return (
@@ -72,7 +78,7 @@ export const CatalogueMenuPopover: FC<PropsWithChildren<Props>> = ({
           </PopoverClose>
 
           <PopoverClose asChild>
-            <MenuItem gap2 onClick={onShare}>
+            <MenuItem gap2 onClick={() => onShare(node)}>
               <TrashOutline size={18} />
               <Box>Share</Box>
             </MenuItem>
