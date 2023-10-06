@@ -14,7 +14,8 @@ import {
   PopoverTrigger,
 } from 'uikit'
 import { CatalogueNode } from '@penx/catalogue'
-import { useCatalogue } from '@penx/hooks'
+import { useCatalogue, useDoc } from '@penx/hooks'
+import { shareEmitter } from '../../AppEmitter'
 
 interface Props {
   node: CatalogueNode
@@ -26,6 +27,12 @@ export const CatalogueMenuPopover: FC<PropsWithChildren<Props>> = ({
   setIsRenaming,
 }) => {
   const catalogue = useCatalogue()
+  const { raw } = useDoc()
+
+  const onShare = async () => {
+    shareEmitter.emit('onShare', raw)
+  }
+
   return (
     <Popover placement="right-start">
       <PopoverTrigger asChild>
@@ -61,6 +68,13 @@ export const CatalogueMenuPopover: FC<PropsWithChildren<Props>> = ({
             >
               <TrashOutline size={18} />
               <Box>Delete</Box>
+            </MenuItem>
+          </PopoverClose>
+
+          <PopoverClose asChild>
+            <MenuItem gap2 onClick={onShare}>
+              <TrashOutline size={18} />
+              <Box>Share</Box>
             </MenuItem>
           </PopoverClose>
         </Box>
