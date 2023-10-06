@@ -60,6 +60,8 @@
     "@penx/catalogue": "workspace:*",
     "@penx/cmdk": "workspace:*",
     "@penx/constants": "workspace:*",
+    "@penx/trpc-client": "workspace:*",
+    "@penx/api": "workspace:*",
     "@penx/db": "workspace:*",
     "@penx/domain": "workspace:*",
     "@penx/editor": "workspace:*",

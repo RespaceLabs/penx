@@ -49,6 +49,7 @@ const config = {
     '@penx/table',
     '@penx/block-selector',
     '@penx/editor-leaf',
+    '@penx/trpc-client',
     'uikit',
     'slate-lists',
     'easy-modal',
