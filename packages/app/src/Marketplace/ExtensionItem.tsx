@@ -5,22 +5,18 @@ import { useSpaces } from '@penx/hooks'
 import { db } from '@penx/local-db'
 
 interface ExtensionItemProps {
-  extension: RouterOutputs['extension']['all'][0]
+  extension: RouterOutputs['extension']['all']['0']
 }
 export function ExtensionItem({ extension }: ExtensionItemProps) {
-  console.log('extension:', extension)
-
   const { activeSpace } = useSpaces()
 
   async function install() {
     await db.installExtension({
       spaceId: activeSpace.id,
       code: extension.code,
-      manifest: {
-        id: extension.uniqueId,
-        name: extension.name,
-        version: extension.version,
-      },
+      slug: extension.uniqueId,
+      name: extension.name,
+      version: extension.version,
     })
 
     toast.success(`Extension ${extension.name} installed`)

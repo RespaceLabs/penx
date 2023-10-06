@@ -5,14 +5,15 @@ export interface IExtension {
 
   code: string
 
-  manifest: {
-    id: string
-    name: string
-    version: string
-    description?: string
-    author?: string
-    [key: string]: any
-  }
+  slug: string
+
+  name: string
+
+  version: string
+
+  description?: string
+
+  author?: string
 
   createdAt: number
   updatedAt: number

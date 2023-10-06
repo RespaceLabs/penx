@@ -97,6 +97,12 @@ class DB {
     return this.space.selectByPk(spaceId) as any as Promise<ISpace>
   }
 
+  getActiveSpace = async () => {
+    const spaces = await this.listSpaces()
+    const space = spaces.find((space) => space.isActive)
+    return space!
+  }
+
   updateSpace = (spaceId: string, space: Partial<ISpace>) => {
     return this.space.updateByPk(spaceId, space)
   }
@@ -151,6 +157,21 @@ class DB {
   }
 
   installExtension = async (extension: Partial<IExtension>) => {
+    const list = await this.extension.select({
+      where: {
+        spaceId: extension.spaceId!,
+        slug: extension.slug!,
+      },
+    })
+
+    if (list?.length) {
+      const ext = list[0]!
+      return this.extension.updateByPk(ext.id, {
+        ...ext,
+        ...extension,
+      })
+    }
+
     return this.extension.insert({
       id: nanoid(),
       ...extension,

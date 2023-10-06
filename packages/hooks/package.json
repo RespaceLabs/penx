@@ -18,15 +18,16 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.2.0",
-    "@penx/local-db": "workspace:*",
     "@penx/catalogue": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/domain": "workspace:*",
+    "@penx/local-db": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",
-    "uikit": "workspace:*",
     "jotai": "^2.4.2",
+    "ky": "^1.0.1",
     "react-hook-form": "^7.44.3",
+    "uikit": "workspace:*",
     "use-debounce": "^9.0.4",
     "zod": "^3.21.4"
   }

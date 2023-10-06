@@ -78,7 +78,7 @@ export class PluginLoader {
           pluginId: {
               writable: false,
               configurable: false,
-              value: "${item.manifest.id}"
+              value: "${item.slug}"
             }
         })
 

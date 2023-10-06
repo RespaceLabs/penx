@@ -1,7 +1,6 @@
 import { WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
-import { startPollingPull } from './pollingPull'
-import { startPollingPush } from './pollingPush'
+import { updateExtension } from './updateExtension'
 
 self.addEventListener('message', async (event) => {
   await db.database.connect()
@@ -9,4 +8,6 @@ self.addEventListener('message', async (event) => {
     // startPollingPush()
     // startPollingPull()
   }
+
+  updateExtension()
 })

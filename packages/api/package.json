@@ -23,6 +23,7 @@
     "@trpc/next": "^10.36.0",
     "@trpc/server": "^10.36.0",
     "date-fns": "^2.30.0",
+    "ioredis": "^5.3.2",
     "mitt": "^3.0.0",
     "nanoid": "^4.0.2",
     "next-auth": "^4.22.1",

@@ -5,7 +5,7 @@ export function activate(ctx: PluginContext) {
     id: 'hello-world',
     name: 'Hello World',
     handler: () => {
-      console.log('hello world...')
+      console.log('ai....')
     },
   })
 }

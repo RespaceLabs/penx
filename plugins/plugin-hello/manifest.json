@@ -2,5 +2,6 @@
   "name": "Hello",
   "id": "hello",
   "version": "1.0.0",
-  "main": "dist/index.mjs"
+  "description": "This is a demo Extension",
+  "main": "dist/main.mjs"
 }

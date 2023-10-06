@@ -5,44 +5,35 @@ import ky from 'ky'
 import { Button } from 'uikit'
 import { api } from '~/utils/api'
 
-type Manifest = {
+type Extension = {
   name: string
   id: string
   version: string
   main: string
+  code: string
 }
 
 export const PluginDevelop = () => {
-  const { isLoading, data: manifest } = useQuery<any, any, Manifest>(
+  const { isLoading, data: extension } = useQuery<any, any, Extension>(
     ['manifest'],
-    () => ky.get('http://localhost:5001/manifest.json').json(),
+    () => ky.get('http://localhost:5001/extension').json(),
   )
-
-  const { isLoading: isLoadingCode, data: code } = useQuery<any, any, string>(
-    ['code'],
-    () => ky.get('http://localhost:5001/code').text(),
-  )
-
-  const { data: spaces } = api.space.all.useQuery()
-  console.log('spaces:', spaces)
 
   const { mutate } = api.extension.publishExtension.useMutation()
 
-  if (isLoading || isLoadingCode) return null
-
-  // console.log('data: ', manifest, 'code: ', code)
+  if (isLoading) return null
 
   return (
     <Box>
-      <pre>{JSON.stringify(manifest, null, 2)}</pre>
+      <pre>{JSON.stringify(extension, null, 2)}</pre>
       <Button
         mt4
         onClick={() => {
           mutate({
-            uniqueId: manifest!.id,
-            name: manifest!.name,
-            version: manifest!.version,
-            code: code!,
+            uniqueId: extension!.id,
+            name: extension!.name,
+            version: extension!.version,
+            code: extension?.code!,
           })
         }}
       >

@@ -9,10 +9,8 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build-fast": "tsup src/index.ts --format esm",
-    "build": "pnpm run build-fast -- --dts-resolve",
-    "dev": "tsup src/index.ts --watch --format esm",
-    "serve": "tsx server.ts"
+    "dev": "tsx watch dev.ts",
+    "build": "tsup main.ts --format esm"
   },
   "devDependencies": {
     "@penx/plugin-typings": "*",
