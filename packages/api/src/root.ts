@@ -1,5 +1,6 @@
 import { authRouter } from './router/auth'
 import { docRouter } from './router/doc'
+import { extensionRouter } from './router/extension'
 import { githubRouter } from './router/github'
 import { memberRouter } from './router/member'
 import { pageRouter } from './router/page'
@@ -19,6 +20,7 @@ export const appRouter = createTRPCRouter({
   theme: themeRouter,
   github: githubRouter,
   sharedDoc: SharedDocRouter,
+  extension: extensionRouter,
 })
 
 // export type definition of API

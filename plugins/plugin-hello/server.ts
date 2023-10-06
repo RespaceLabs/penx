@@ -1,10 +1,12 @@
 import { join } from 'path'
+import cors from 'cors'
 import express, { Express, Request, Response } from 'express'
 import jetpack from 'fs-jetpack'
 
-const app: Express = express()
-
 const port = process.env.PORT || 5001
+
+const app: Express = express()
+app.use(cors())
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server')

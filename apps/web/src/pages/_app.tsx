@@ -1,6 +1,13 @@
 import { Fragment } from 'react'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
+import {
+  QueryClient,
+  QueryClientProvider,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
 import { EasyModalProvider } from 'easy-modal'
 import { Session } from 'next-auth'
@@ -28,6 +35,7 @@ interface Props<T> extends AppProps<T> {
     session: Session
   }
 }
+const queryClient = new QueryClient()
 
 if (!isServer) {
   initSharing()
@@ -38,17 +46,19 @@ function MyApp({ Component, pageProps }: Props<any>) {
   const Layout = Component.Layout ? Component.Layout : Fragment
 
   return (
-    <SessionProvider session={pageProps.session} refetchInterval={0}>
-      <I18nProvider i18n={i18n}>
-        <EasyModalProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          <ToastContainer position="bottom-right" />
-        </EasyModalProvider>
-      </I18nProvider>
-      {/* <Analytics /> */}
-    </SessionProvider>
+    <QueryClientProvider client={queryClient}>
+      <SessionProvider session={pageProps.session} refetchInterval={0}>
+        <I18nProvider i18n={i18n}>
+          <EasyModalProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            <ToastContainer position="bottom-right" />
+          </EasyModalProvider>
+        </I18nProvider>
+        {/* <Analytics /> */}
+      </SessionProvider>
+    </QueryClientProvider>
   )
 }
 
