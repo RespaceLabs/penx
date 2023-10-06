@@ -2,58 +2,16 @@ import { nanoid } from 'nanoid'
 import { Database } from '@penx/indexeddb'
 import { getNewDoc } from './getNewDoc'
 import { getNewSpace } from './getNewSpace'
-import { IDoc } from './IDoc'
-import { IPlugin } from './IPlugin'
-import { ISpace } from './ISpace'
+import { IDoc } from './interfaces/IDoc'
+import { IExtension } from './interfaces/IExtension'
+import { ISpace } from './interfaces/ISpace'
+import { tableSchema } from './table-schema'
 
 const database = new Database({
   version: 1,
   name: 'PenxDB',
   // indexedDB: isServer ? undefined : window.indexedDB,
-  tables: [
-    {
-      name: 'space',
-      primaryKey: {
-        name: 'id',
-        autoIncrement: false,
-        unique: true,
-      },
-      indexes: {
-        name: {
-          unique: false,
-        },
-      },
-      timestamps: true,
-    },
-    {
-      name: 'doc',
-      primaryKey: {
-        name: 'id',
-        autoIncrement: false,
-        unique: true,
-      },
-      indexes: {
-        spaceId: {
-          unique: false,
-        },
-      },
-      timestamps: true,
-    },
-    {
-      name: 'plugin',
-      primaryKey: {
-        name: 'id',
-        autoIncrement: false,
-        unique: true,
-      },
-      indexes: {
-        spaceId: {
-          unique: false,
-        },
-      },
-      timestamps: true,
-    },
-  ],
+  tables: tableSchema,
 })
 
 class DB {
@@ -67,15 +25,14 @@ class DB {
     return database.useModel<IDoc>('doc')
   }
 
-  get plugin() {
-    return database.useModel<IPlugin>('plugin')
+  get extension() {
+    return database.useModel<IExtension>('extension')
   }
 
   init = async () => {
     const count = await this.space.count()
     if (count === 0) {
       const space = await this.createSpace('First Space')
-      await this.initPlugins(space.id)
     }
     // const space = await this.space.toCollection().first()
     const space = (await this.space.selectAll())[0]
@@ -116,50 +73,6 @@ class DB {
 
     const space = await this.space.selectByPk(spaceId)!
     return space as ISpace
-  }
-
-  initPlugins = async (spaceId: string) => {
-    await this.createPlugin({
-      id: nanoid(),
-      spaceId,
-      code: `
-function activate(ctx) {
-  ctx.createSettings([]);
-  ctx.registerCommand("hello-world", () => {
-  });
-}
-export {
-  activate
-};
-      `,
-      manifest: {
-        id: 'plugin-1',
-        name: 'plugin-1',
-        version: '0.0.1',
-        description: '',
-      },
-    })
-
-    await this.createPlugin({
-      id: nanoid(),
-      spaceId,
-      code: `
-function activate(ctx) {
-  ctx.createSettings([]);
-  ctx.registerCommand("hello-world", () => {
-  });
-}
-export {
-  activate
-};
-      `,
-      manifest: {
-        id: 'plugin-2',
-        name: 'plugin-2',
-        version: '0.0.1',
-        description: '',
-      },
-    })
   }
 
   selectSpace = async (spaceId: string) => {
@@ -225,20 +138,27 @@ export {
     return Promise.all(promises)
   }
 
-  createPlugin(plugin: IPlugin) {
-    return this.plugin.insert(plugin)
+  createExtension(extension: IExtension) {
+    return this.extension.insert(extension)
   }
 
-  getPlugin = (pluginId: string) => {
-    return this.plugin.selectByPk(pluginId)
+  getExtension = (extensionId: string) => {
+    return this.extension.selectByPk(extensionId)
   }
 
-  updatePlugin = (pluginId: string, plugin: Partial<IPlugin>) => {
-    return this.plugin.updateByPk(pluginId, plugin)
+  updateExtension = (extensionId: string, plugin: Partial<IExtension>) => {
+    return this.extension.updateByPk(extensionId, plugin)
   }
 
-  listPlugins = () => {
-    return this.plugin.selectAll()
+  installExtension = async (extension: Partial<IExtension>) => {
+    return this.extension.insert({
+      id: nanoid(),
+      ...extension,
+    })
+  }
+
+  listExtensions = () => {
+    return this.extension.selectAll()
   }
 }
 

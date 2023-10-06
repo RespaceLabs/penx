@@ -1,4 +1,4 @@
-export interface IPlugin {
+export interface IExtension {
   id: string
 
   spaceId: string
@@ -9,7 +9,11 @@ export interface IPlugin {
     id: string
     name: string
     version: string
-    description: string
+    description?: string
+    author?: string
     [key: string]: any
   }
+
+  createdAt: number
+  updatedAt: number
 }

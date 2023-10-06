@@ -1,3 +1,4 @@
-export * from './IDoc'
-export * from './ISpace'
+export * from './interfaces/IDoc'
+export * from './interfaces/ISpace'
+export * from './interfaces/IExtension'
 export * from './db'

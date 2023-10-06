@@ -9,9 +9,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build-fast": "tsup src/index.ts --format cjs,esm",
+    "build-fast": "tsup src/index.ts --format esm",
     "build": "pnpm run build-fast -- --dts-resolve",
-    "dev": "tsup src/index.ts --watch --format cjs,esm",
+    "dev": "tsup src/index.ts --watch --format esm",
     "serve": "tsx server.ts"
   },
   "devDependencies": {

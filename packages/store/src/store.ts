@@ -12,7 +12,7 @@ type pluginId = string
 
 export type Command = {
   id: string
-  title: string
+  name: string
   pluginId?: string
   handler: () => void
 }
@@ -36,7 +36,7 @@ export const syncStatusAtom = atom<SyncStatus>(SyncStatus.NORMAL)
 export const commandsAtom = atom<Command[]>([
   {
     id: 'add-document',
-    title: 'Add document',
+    name: 'Add document',
     handler: () => {
       emitter.emit('ADD_DOCUMENT')
     },
@@ -44,7 +44,7 @@ export const commandsAtom = atom<Command[]>([
 
   {
     id: 'export-to-markdown',
-    title: 'export to markdown',
+    name: 'export to markdown',
     handler: () => {
       emitter.emit('ADD_DOCUMENT')
     },

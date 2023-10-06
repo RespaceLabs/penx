@@ -4,10 +4,12 @@ export type ConfigType<T = TableType> = {
   tables: T[]
   indexedDB?: IDBFactory
 }
+
 export type TimeStampsType = {
   createdAt: number
   updatedAt: number
 }
+
 export type TableType = {
   name: string
   primaryKey: {
@@ -26,10 +28,13 @@ export type TableType = {
   }[]
   timestamps?: boolean
 }
+
 export type OptionsWhereAsCallback<I> = (list: I[]) => Partial<I>[]
+
 export type OptionsWhereAsObject<T extends keyof any = any> = {
   [key in T]: IDBValidKey | IDBKeyRange
 }
+
 export type OptionsType<I, T extends keyof any = any> = {
   where?: OptionsWhereAsObject<T> | OptionsWhereAsCallback<I>
   limit?: number

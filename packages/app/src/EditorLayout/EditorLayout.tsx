@@ -1,13 +1,16 @@
-import { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren, useEffect } from 'react'
 import { Box } from '@fower/react'
 import { EditorProvider } from '@penx/editor'
 import {
+  useCommands,
   useDoc,
   useInitDoc,
   useQuerySpaces,
   useSpaces,
   useWorkers,
 } from '@penx/hooks'
+import { appLoader } from '@penx/loader'
+import { PluginLoader } from '@penx/loader/src/PluginLoader'
 import { ActivityBar } from '../ActivityBar/ActivityBar'
 import { DocContent } from '../doc/DocContent'
 import { CommandPanel } from '../Palette'
@@ -26,6 +29,8 @@ function WidthDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
 
 export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   useQuerySpaces()
+  const { commands } = useCommands()
+  console.log('commands Hahah:', commands)
 
   const { spaces, activeSpace } = useSpaces()
 

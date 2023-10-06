@@ -95,7 +95,9 @@ export function CommandPanel() {
       >
         {!isCommand && <DocList q={search} close={close} />}
 
-        {isCommand && <CommandList q={search} close={close} />}
+        {isCommand && (
+          <CommandList q={search} close={close} setSearch={setSearch} />
+        )}
       </StyledCommandList>
       <Box h8></Box>
     </CommandDialog>

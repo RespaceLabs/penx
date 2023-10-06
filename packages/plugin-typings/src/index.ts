@@ -1,4 +1,4 @@
-import { FC, KeyboardEvent, useCallback } from 'react'
+import { FC, KeyboardEvent } from 'react'
 import { AutoformatRule } from '@udecode/plate-autoformat'
 import { Editor, Element } from 'slate'
 import { RenderElementProps } from 'slate-react'
@@ -6,7 +6,7 @@ import { RenderElementProps } from 'slate-react'
 export interface PluginContext {
   pluginId?: string
 
-  registerCommand(name: string, callback: () => void): void
+  registerCommand(options: RegisterCommandOptions): void
 
   executeCommand(id: string): void
 
@@ -17,6 +17,12 @@ export interface PluginContext {
   createSettings(schema: any[]): void
 
   notify(message: string, options?: any): any
+}
+
+export interface RegisterCommandOptions {
+  id: string
+  name: string
+  handler: () => void
 }
 
 export interface RegisterComponentOptions {

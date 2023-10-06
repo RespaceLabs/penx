@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { IDoc } from './IDoc'
+import { IDoc } from './interfaces/IDoc'
 
 const EDITOR_CONTENT = [
   {

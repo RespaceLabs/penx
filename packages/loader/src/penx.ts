@@ -5,9 +5,12 @@ import { commandsAtom, pluginStoreAtom, store } from '@penx/store'
 export const penx: PluginContext = {
   pluginId: undefined,
 
-  registerCommand(command: any) {
-    // console.log('name.....:', command)
+  registerCommand(options) {
+    console.log('name.....:', options)
     const commands = store.get(commandsAtom)
+    console.log('commands:', commands)
+
+    store.set(commandsAtom, [...commands, options])
   },
 
   executeCommand(id) {

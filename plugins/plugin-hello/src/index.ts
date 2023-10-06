@@ -1,7 +1,11 @@
 import { PluginContext } from '@penx/plugin-typings'
 
 export function activate(ctx: PluginContext) {
-  ctx.registerCommand('hello-world', () => {
-    console.log('hello world...')
+  ctx.registerCommand({
+    id: 'hello-world',
+    name: 'Hello World',
+    handler: () => {
+      console.log('hello world...')
+    },
   })
 }

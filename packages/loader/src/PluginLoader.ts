@@ -55,8 +55,9 @@ export class PluginLoader {
   }
 
   async initThirdPartyPlugins() {
-    const plugins = await db.listPlugins()
-    for (const item of plugins) {
+    const extensions = await db.listExtensions()
+
+    for (const item of extensions) {
       // eval(`
       // ${item.code}
       //   activate(Object.create(penx, {
