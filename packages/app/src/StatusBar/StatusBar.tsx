@@ -1,10 +1,10 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
-import { PluginStore, pluginStoreAtom } from '@penx/store'
+import { ExtensionStore, extensionStoreAtom } from '@penx/store'
 import { SyncPopover } from '../EditorLayout/SyncPopover'
 
-function getStatusBarComponents(pluginStore: PluginStore): any[] {
-  const values = Object.values(pluginStore)
+function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
+  const values = Object.values(extensionStore)
   if (!values.length) return []
   return values.reduce((acc, { components = [] }) => {
     const matched = components
@@ -15,8 +15,8 @@ function getStatusBarComponents(pluginStore: PluginStore): any[] {
 }
 
 export const StatusBar = () => {
-  const [pluginStore] = useAtom(pluginStoreAtom)
-  const components = getStatusBarComponents(pluginStore)
+  const [extensionStore] = useAtom(extensionStoreAtom)
+  const components = getStatusBarComponents(extensionStore)
 
   return (
     <Box w-100p h-24 sticky bottom0 toCenterY toBetween px2 bgWhite textXS gap2>

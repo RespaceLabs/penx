@@ -1,0 +1,33 @@
+{
+  "name": "@penx/heading",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint \"**/*.ts*\""
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
+    "eslint": "^8.42.0",
+    "eslint-config-custom": "workspace:*",
+    "react": "^18.2.0",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "@bone-ui/iconify": "^0.37.0",
+    "@bone-ui/utils": "^0.37.0",
+    "@fower/react": "^1.86.0",
+    "@penx/catalogue": "workspace:*",
+    "@penx/constants": "workspace:*",
+    "@penx/hooks": "workspace:*",
+    "@penx/local-db": "workspace:*",
+    "@penx/extension-typings": "*",
+    "react-intersection-observer": "^9.5.2",
+    "slate": "0.94.1",
+    "slate-history": "0.93.0",
+    "slate-react": "^0.98.3",
+    "stook": "^1.17.0"
+  }
+}

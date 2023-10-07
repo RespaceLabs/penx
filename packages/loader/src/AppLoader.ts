@@ -1,8 +1,8 @@
 import mitt from 'mitt'
 import { isProd } from '@penx/constants'
 import { db } from '@penx/local-db'
+import { ExtensionLoader } from './ExtensionLoader'
 import { penx } from './penx'
-import { PluginLoader } from './PluginLoader'
 import { protectDB } from './protectDB'
 import { mutateLoaderStatus } from './useLoaderStatus'
 
@@ -28,7 +28,7 @@ class AppLoader {
       await db.init()
 
       const t2 = Date.now()
-      const pluginLoader = new PluginLoader()
+      const pluginLoader = new ExtensionLoader()
       await pluginLoader.init()
 
       const t3 = Date.now()

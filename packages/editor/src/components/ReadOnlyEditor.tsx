@@ -1,17 +1,18 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Editor, Transforms } from 'slate'
 import { Editable, RenderElementProps, Slate } from 'slate-react'
-import { usePluginStore } from '@penx/hooks'
+import { ElementProps } from '@penx/extension-typings'
+import { useExtensionStore } from '@penx/hooks'
 import { Paragraph } from '@penx/paragraph'
-import { ElementProps } from '@penx/plugin-typings'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 
 function EditorElement(props: ElementProps) {
-  const { pluginStore } = usePluginStore()
+  const { extensionStore } = useExtensionStore()
   const { element } = props
   const { type } = element as any
 
-  const { component: Element = Paragraph } = pluginStore.elementMaps[type] || {}
+  const { component: Element = Paragraph } =
+    extensionStore.elementMaps[type] || {}
 
   return <Element {...props} />
 }

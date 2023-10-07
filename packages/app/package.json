@@ -72,7 +72,7 @@
     "@penx/loader": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/paragraph": "workspace:*",
-    "@penx/plugin-typings": "*",
+    "@penx/extension-typings": "*",
     "@penx/serializer": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",

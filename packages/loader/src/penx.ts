@@ -1,8 +1,8 @@
 import { produce } from 'immer'
-import { PluginContext } from '@penx/plugin-typings'
-import { commandsAtom, pluginStoreAtom, store } from '@penx/store'
+import { ExtensionContext } from '@penx/extension-typings'
+import { commandsAtom, extensionStoreAtom, store } from '@penx/store'
 
-export const penx: PluginContext = {
+export const penx: ExtensionContext = {
   pluginId: undefined,
 
   registerCommand(options) {
@@ -22,8 +22,8 @@ export const penx: PluginContext = {
   },
 
   registerComponent({ at, component }) {
-    const pluginStore = store.get(pluginStoreAtom)
-    const newStore = produce(pluginStore, (draft) => {
+    const extensionStore = store.get(extensionStoreAtom)
+    const newStore = produce(extensionStore, (draft) => {
       if (!draft[this.pluginId!]) {
         draft[this.pluginId!] = {} as any
       }
@@ -35,18 +35,18 @@ export const penx: PluginContext = {
 
       draft[this.pluginId!].components.push({ at, component })
     })
-    store.set(pluginStoreAtom, newStore)
+    store.set(extensionStoreAtom, newStore)
   },
 
   registerBlock(options) {
-    const pluginStore = store.get(pluginStoreAtom)
-    const newStore = produce(pluginStore, (draft) => {
+    const extensionStore = store.get(extensionStoreAtom)
+    const newStore = produce(extensionStore, (draft) => {
       if (!draft[this.pluginId!]) {
         draft[this.pluginId!] = {} as any
       }
       draft[this.pluginId!].block = options
     })
-    store.set(pluginStoreAtom, newStore)
+    store.set(extensionStoreAtom, newStore)
   },
   notify() {
     //

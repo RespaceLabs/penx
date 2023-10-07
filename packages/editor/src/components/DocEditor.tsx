@@ -26,7 +26,7 @@ import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
 import { SetNodeToDecorations } from '@penx/code-block'
 import { Leaf } from '@penx/editor-leaf'
-import { usePluginStore } from '@penx/hooks'
+import { useExtensionStore } from '@penx/hooks'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 import { useDecorate } from '../hooks/useDecorate'
 import { useOnCompositionEvent } from '../hooks/useOnCompositionEvent'
@@ -52,7 +52,7 @@ interface Props {
 
 export function DocEditor({ content, onChange, renderPrefix }: Props) {
   const editor = useCreateEditor()
-  const { pluginStore } = usePluginStore()
+  const { extensionStore } = useExtensionStore()
 
   const decorate = useDecorate(editor)
   const onDOMBeforeInput = useOnDOMBeforeInput(editor)
@@ -133,7 +133,7 @@ export function DocEditor({ content, onChange, renderPrefix }: Props) {
     onKeyDownAutoformat(
       editor as any,
       {
-        options: { rules: pluginStore.rules },
+        options: { rules: extensionStore.rules },
       } as any,
     )(e)
 

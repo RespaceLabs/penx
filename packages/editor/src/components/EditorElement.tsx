@@ -1,8 +1,8 @@
 import { memo } from 'react'
 import isEqual from 'react-fast-compare'
 import { useSlate, useSlateStatic } from 'slate-react'
+import { ElementProps } from '@penx/extension-typings'
 import { Paragraph } from '@penx/paragraph'
-import { ElementProps } from '@penx/plugin-typings'
 import { usePlaceholder } from '../hooks/usePlaceholder'
 
 function EditorElement(props: ElementProps) {

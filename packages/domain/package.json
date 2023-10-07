@@ -21,7 +21,7 @@
     "@hookform/resolvers": "^3.2.0",
     "@penx/catalogue": "workspace:*",
     "@penx/local-db": "workspace:*",
-    "@penx/plugin-typings": "*",
+    "@penx/extension-typings": "*",
     "@penx/serializer": "workspace:^",
     "@penx/store": "workspace:*",
     "@udecode/plate-autoformat": "^24.3.6",

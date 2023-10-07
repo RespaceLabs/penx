@@ -18,7 +18,7 @@
   "dependencies": {
     "@penx/constants": "workspace:*",
     "@penx/local-db": "workspace:*",
-    "@penx/plugin-typings": "*",
+    "@penx/extension-typings": "*",
     "@penx/storage-estimate": "workspace:*",
     "@penx/word-count": "workspace:*",
     "@penx/blockquote": "workspace:*",

@@ -18,7 +18,7 @@
   "dependencies": {
     "@penx/local-db": "workspace:*",
     "@penx/constants": "workspace:*",
-    "@penx/plugin-typings": "workspace:*",
+    "@penx/extension-typings": "*",
     "@penx/event": "workspace:*",
     "jotai": "^2.4.2"
   }

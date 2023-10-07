@@ -47,7 +47,7 @@
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/paragraph": "workspace:*",
-    "@penx/plugin-typings": "workspace:*",
+    "@penx/extension-typings": "*",
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/table": "workspace:*",
