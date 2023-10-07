@@ -11,6 +11,7 @@ type Extension = {
   version: string
   main: string
   code: string
+  description: string
 }
 
 export const ExtensionDevelop = () => {
@@ -34,6 +35,7 @@ export const ExtensionDevelop = () => {
             name: extension!.name,
             version: extension!.version,
             code: extension?.code!,
+            description: extension?.description!,
           })
         }}
       >

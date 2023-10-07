@@ -14,7 +14,14 @@ export const devServer = {
     app.use(cors())
 
     app.get('/', (req: Request, res: Response) => {
-      res.send('Express + TypeScript Server...')
+      const url = 'http://localhost:3000?key=extension-development'
+      res.send(`
+      <div style="padding: 20%">
+        <h1>Penx extension</h1>
+        <div style="padding: 0 0 20px 0">Click the link to start develop a extension:</div>
+        <a href="${url}" target="_blank">${url}</a>
+      </div>
+      `)
     })
 
     app.get('/manifest.json', (req: Request, res: Response) => {
@@ -57,7 +64,7 @@ export const devServer = {
 
     function getExtensionData() {
       const manifest = jetpack.read('./manifest.json', 'json')
-      const code = jetpack.read(join(__dirname, manifest.main), 'utf8')
+      const code = jetpack.read(join(process.cwd(), manifest.main), 'utf8')
       return { ...manifest, code }
     }
   },

@@ -6,6 +6,7 @@ type Manifest = {
   version: string
   main: string
   code: string
+  description: string
 }
 
 export async function updateExtension() {
@@ -26,6 +27,7 @@ export async function updateExtension() {
         code: extension.code,
         slug: extension.id,
         name: extension.name,
+        description: extension.description!,
         version: extension.version,
       })
     }

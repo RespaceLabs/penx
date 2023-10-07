@@ -1,20 +1,16 @@
 import { Box } from '@fower/react'
-import { useQuery } from '@tanstack/react-query'
-import { trpc } from '@penx/trpc-client'
-import { ExtensionItem } from './ExtensionItem'
+import { ExtensionDetail } from './ExtensionDetail'
+import { useQueryExtensions } from './hooks/useInstalledExtension'
+import { MarketplaceSidebar } from './MarketplaceSidebar'
 
 export function Marketplace() {
-  const { data, isLoading } = useQuery(['marketplace'], () =>
-    trpc.extension.all.query(),
-  )
-
-  if (isLoading || !data) return null
+  const { isLoading } = useQueryExtensions()
+  if (isLoading) return null
 
   return (
-    <Box>
-      {data.map((extension) => (
-        <ExtensionItem key={extension.id} extension={extension} />
-      ))}
+    <Box toLeft flex-1>
+      <MarketplaceSidebar />
+      <ExtensionDetail />
     </Box>
   )
 }

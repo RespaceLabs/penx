@@ -18,7 +18,7 @@ export const MarketplaceModal = () => {
           <IconDiscord gray500 />
         </Button>
       </ModalTrigger>
-      <ModalContent w={[1000]} toLeft p6 h-800>
+      <ModalContent w={[1000]} toLeft p0 h-800 flex-1>
         <ModalCloseButton />
         <Marketplace />
       </ModalContent>

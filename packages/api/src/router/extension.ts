@@ -30,11 +30,10 @@ export const extensionRouter = createTRPCRouter({
         name: z.string(),
         version: z.string(),
         code: z.string(),
+        description: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      console.log('input.............:', input)
-
       await ctx.prisma.extension.create({ data: input })
 
       const extensions = await ctx.prisma.extension.findMany({

@@ -178,8 +178,8 @@ class DB {
     })
   }
 
-  listExtensions = () => {
-    return this.extension.selectAll()
+  listExtensions = async () => {
+    return (await this.extension.selectAll()) as IExtension[]
   }
 }
 

@@ -5,7 +5,7 @@ export function activate(ctx: ExtensionContext) {
     id: 'hello-world',
     name: 'Hello World',
     handler: () => {
-      console.log('ai....')
+      console.log('ai....hello')
     },
   })
 }
