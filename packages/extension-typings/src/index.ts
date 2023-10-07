@@ -86,3 +86,17 @@ export interface ElementProps<E = Element>
     flex?: string | number
   }
 }
+
+export interface Manifest {
+  name: string
+
+  id: string
+
+  version: string
+
+  main: string
+
+  code: string
+
+  description: string
+}

@@ -5,6 +5,7 @@ import type { ISpace } from '@penx/local-db'
 import { Logo } from '../components/Logo'
 import { CreateSpaceModal } from '../EditorLayout/CreateSpaceModal'
 import { SettingsModal } from '../EditorLayout/SettingsModal/SettingsModal'
+import { ExtensionBuilderModalModal } from '../ExtensionBuilder/ExtensionBuilderModalModal'
 import { MarketplaceModal } from '../Marketplace/MarketplaceModal'
 
 function SpaceItem({
@@ -53,6 +54,7 @@ export const ActivityBar = () => {
         </Box>
       </Box>
 
+      <ExtensionBuilderModalModal />
       <MarketplaceModal />
       <SettingsModal />
     </Box>

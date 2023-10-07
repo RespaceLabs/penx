@@ -1,3 +1,4 @@
+import { TRPCError } from '@trpc/server'
 import Redis from 'ioredis'
 import { z } from 'zod'
 import { Extension } from '@penx/db'
@@ -31,9 +32,22 @@ export const extensionRouter = createTRPCRouter({
         version: z.string(),
         code: z.string(),
         description: z.string(),
+        readme: z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const { version, uniqueId } = input
+      const extension = await ctx.prisma.extension.findFirst({
+        where: { version, uniqueId },
+      })
+
+      if (extension) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: `Extension version ${version} is existed`,
+        })
+      }
+
       await ctx.prisma.extension.create({ data: input })
 
       const extensions = await ctx.prisma.extension.findMany({

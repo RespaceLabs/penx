@@ -1,5 +1,6 @@
 import EventEmitter from 'events'
 import { join } from 'path'
+import chokidar from 'chokidar'
 import cors from 'cors'
 import express, { Express, Request, Response } from 'express'
 import jetpack from 'fs-jetpack'
@@ -62,15 +63,21 @@ export const devServer = {
       console.log(`⚡️[server]: Server is running at http://localhost:${port}`)
     })
 
-    function getExtensionData() {
-      const manifest = jetpack.read('./manifest.json', 'json')
-      const code = jetpack.read(join(process.cwd(), manifest.main), 'utf8')
-      return { ...manifest, code }
-    }
+    const manifestPath = join(process.cwd(), 'manifest.json')
+    chokidar.watch(manifestPath).on('change', (event) => {
+      eventEmitter.emit(BUILD_SUCCESS)
+    })
   },
 
   handleBuildSuccess() {
     console.log('Build success~')
     eventEmitter.emit(BUILD_SUCCESS)
   },
+}
+
+function getExtensionData() {
+  const manifestPath = join(process.cwd(), 'manifest.json')
+  const manifest = jetpack.read(manifestPath, 'json')
+  const code = jetpack.read(join(process.cwd(), manifest.main), 'utf8')
+  return { ...manifest, code }
 }

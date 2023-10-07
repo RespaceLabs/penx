@@ -3063,6 +3063,9 @@ importers:
       '@types/node':
         specifier: ^20.8.2
         version: 20.8.2
+      chokidar:
+        specifier: ^3.5.3
+        version: 3.5.3
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -3128,6 +3131,9 @@ importers:
       '@penx/domain':
         specifier: workspace:*
         version: link:../domain
+      '@penx/extension-typings':
+        specifier: '*'
+        version: link:../extension-typings
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db

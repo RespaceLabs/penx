@@ -1,13 +1,5 @@
+import { Manifest } from '@penx/extension-typings'
 import { db } from '@penx/local-db'
-
-type Manifest = {
-  name: string
-  id: string
-  version: string
-  main: string
-  code: string
-  description: string
-}
 
 export async function updateExtension() {
   const eventSource = new EventSource('http://localhost:5001/extension-sse')
