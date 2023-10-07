@@ -4,6 +4,7 @@ import { emitter } from '@penx/event'
 import {
   RegisterBlockOptions,
   RegisterComponentOptions,
+  SettingsSchema,
 } from '@penx/extension-typings'
 import { IDoc, ISpace } from '@penx/local-db'
 
@@ -21,6 +22,7 @@ export type ExtensionStore = Record<
   {
     components: Array<RegisterComponentOptions>
     block: RegisterBlockOptions
+    settingsSchema: SettingsSchema
   }
 >
 

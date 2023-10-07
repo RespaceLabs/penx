@@ -6,4 +6,19 @@ export function activate(ctx: ExtensionContext) {
     at: 'status_bar',
     component: SyncPopover,
   })
+
+  ctx.defineSettings([
+    {
+      label: 'GitHub Token',
+      name: 'githubToken',
+      component: 'Input',
+      description: 'Your GitHub token',
+    },
+    {
+      label: 'Repository',
+      name: 'repo',
+      component: 'Input',
+      description: 'GitHub Repository to sync',
+    },
+  ])
 }

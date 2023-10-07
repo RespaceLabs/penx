@@ -14,7 +14,7 @@ export interface ExtensionContext {
 
   registerBlock(options: RegisterBlockOptions): void
 
-  createSettings(schema: any[]): void
+  defineSettings(schema: SettingsSchema): void
 
   notify(message: string, options?: any): any
 }
@@ -40,6 +40,22 @@ export interface RegisterBlockOptions {
   // TODO: handle any
   autoformatRules?: AutoformatRule<any, any>[]
 }
+
+export type SettingsSchemaItem = {
+  label: string
+  description?: string
+  name: string
+  component:
+    | 'Input'
+    | 'NumberInput'
+    | 'Select'
+    | 'Checkbox'
+    | 'Switch'
+    | 'Textarea'
+  placeholder?: string
+}
+
+export type SettingsSchema = SettingsSchemaItem[]
 
 export type OnKeyDown = (
   editor: Editor,

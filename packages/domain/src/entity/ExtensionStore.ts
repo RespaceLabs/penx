@@ -9,12 +9,14 @@ export class ExtensionStore {
   withFns: ((editor: Editor) => Editor)[] = []
 
   elementMaps: Record<string, BlockElement> = {}
+
   onKeyDownFns: OnKeyDown[] = []
 
   inlineTypes: string[] = []
+
   voidTypes: string[] = []
 
-  constructor(private store: ExtensionStoreJSON) {
+  constructor(public store: ExtensionStoreJSON) {
     this.init()
   }
 

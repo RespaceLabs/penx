@@ -8,6 +8,15 @@ import { insertEmptyCodeBlock } from './insertEmptyCodeBlock'
 import { ElementType } from './types'
 
 export function activate(ctx: ExtensionContext) {
+  ctx.defineSettings([
+    {
+      label: 'Show Lines Numbers',
+      name: 'showLineNumbers',
+      component: 'Checkbox',
+      description: '',
+    },
+  ])
+
   ctx.registerBlock({
     with: withCode,
     elements: [

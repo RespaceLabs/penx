@@ -6,10 +6,7 @@ export const penx: ExtensionContext = {
   pluginId: undefined,
 
   registerCommand(options) {
-    console.log('name.....:', options)
     const commands = store.get(commandsAtom)
-    console.log('commands:', commands)
-
     store.set(commandsAtom, [...commands, options])
   },
 
@@ -17,8 +14,13 @@ export const penx: ExtensionContext = {
     //
   },
 
-  createSettings(schema: any[]) {
-    console.log('createSettings')
+  defineSettings(schema) {
+    const extensionStore = store.get(extensionStoreAtom)
+    const newStore = produce(extensionStore, (draft) => {
+      if (!draft[this.pluginId!]) draft[this.pluginId!] = {} as any
+      draft[this.pluginId!].settingsSchema = schema
+    })
+    store.set(extensionStoreAtom, newStore)
   },
 
   registerComponent({ at, component }) {
@@ -41,9 +43,8 @@ export const penx: ExtensionContext = {
   registerBlock(options) {
     const extensionStore = store.get(extensionStoreAtom)
     const newStore = produce(extensionStore, (draft) => {
-      if (!draft[this.pluginId!]) {
-        draft[this.pluginId!] = {} as any
-      }
+      if (!draft[this.pluginId!]) draft[this.pluginId!] = {} as any
+
       draft[this.pluginId!].block = options
     })
     store.set(extensionStoreAtom, newStore)

@@ -9,6 +9,7 @@ import { Box, FowerHTMLProps, styled } from '@fower/react'
 import { Avatar, AvatarFallback, useModalContext } from 'uikit'
 import { SettingsType } from '@penx/constants'
 import { useSpaces } from '@penx/hooks'
+import { ExtensionList } from './ExtensionList'
 
 const Title = styled('div', ['gray400', 'mb4', 'textXS', 'uppercase'])
 
@@ -83,22 +84,7 @@ export const SettingsSidebar = () => {
         </Box>
       </Box>
 
-      <Box py4>
-        <Title>Plugin</Title>
-        <Box column gap2>
-          <SidebarItem type={'a'}>
-            <Box>Heading</Box>
-          </SidebarItem>
-
-          <SidebarItem type={'b'}>
-            <Box>Calendar</Box>
-          </SidebarItem>
-
-          <SidebarItem type={'c'}>
-            <Box>Agenda</Box>
-          </SidebarItem>
-        </Box>
-      </Box>
+      <ExtensionList />
     </Box>
   )
 }

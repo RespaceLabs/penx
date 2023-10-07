@@ -17,21 +17,69 @@ import * as table from '@penx/table'
 import * as wordCount from '@penx/word-count'
 
 export const extensionList = [
-  { id: 'github-sync', activate: githubSync.activate },
-  { id: 'storage-estimate', activate: storageEstimate.activate },
-  { id: 'word-count', activate: wordCount.activate },
-  { id: 'blockquote', activate: blockquote.activate },
-  { id: 'heading', activate: heading.activate },
-  { id: 'divider', activate: divider.activate },
-  { id: 'check-list', activate: checkList.activate },
-  { id: 'auto-format', activate: autoFormat.activate },
-  { id: 'list', activate: list.activate },
-  { id: 'autoNodeId', activate: autoNodeId.activate },
-  { id: 'paragraph', activate: paragraph.activate },
-  { id: 'code-block', activate: codeBlock.activate },
-  { id: 'image', activate: image.activate },
-  { id: 'link', activate: link.activate },
+  {
+    id: 'github-sync',
+    activate: githubSync.activate,
+  },
+  {
+    id: 'storage-estimate',
+    activate: storageEstimate.activate,
+  },
+  {
+    id: 'word-count',
+    activate: wordCount.activate,
+  },
+  {
+    id: 'blockquote',
+    activate: blockquote.activate,
+  },
+  {
+    id: 'heading',
+    activate: heading.activate,
+  },
+  {
+    id: 'divider',
+    activate: divider.activate,
+  },
+  {
+    id: 'check-list',
+    activate: checkList.activate,
+  },
+  {
+    id: 'auto-format',
+    activate: autoFormat.activate,
+  },
+  {
+    id: 'list',
+    activate: list.activate,
+  },
+  {
+    id: 'autoNodeId',
+    activate: autoNodeId.activate,
+  },
+  {
+    id: 'paragraph',
+    activate: paragraph.activate,
+  },
+  {
+    id: 'code-block',
+    activate: codeBlock.activate,
+  },
+  {
+    id: 'image',
+    activate: image.activate,
+  },
+  {
+    id: 'link',
+    activate: link.activate,
+  },
   // { id: 'internal-link', activate: internalLink.activate },
-  { id: 'table', activate: table.activate },
-  { id: 'block-selector', activate: blockSelector.activate },
+  {
+    id: 'table',
+    activate: table.activate,
+  },
+  {
+    id: 'block-selector',
+    activate: blockSelector.activate,
+  },
 ]

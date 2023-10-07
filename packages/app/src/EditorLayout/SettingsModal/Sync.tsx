@@ -27,17 +27,6 @@ export const Sync = () => {
     },
   })
 
-  const values = watch()
-
-  useEffect(() => {
-    const settings = produce(activeSpace.settings, (draft) => {
-      draft.sync = values
-    })
-    db.updateSpace(activeSpace.id, { settings })
-  }, [values])
-
-  console.log('values:', values)
-
   const onSubmit: SubmitHandler<Values> = async (data) => {
     //
   }
