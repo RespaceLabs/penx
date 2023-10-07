@@ -1,7 +1,7 @@
 import { ExtensionContext } from '@penx/extension-typings'
 
 export default function activate(ctx: ExtensionContext) {
-  console.log('helo')
+  console.log('solid...')
   // ctx.registerBlock({
 
   // })

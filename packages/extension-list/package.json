@@ -1,5 +1,5 @@
 {
-  "name": "@penx/loader",
+  "name": "@penx/extension-list",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -16,7 +16,6 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
-    "@penx/constants": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/extension-typings": "*",
     "@penx/storage-estimate": "workspace:*",
@@ -34,12 +33,6 @@
     "@penx/link": "workspace:*",
     "@penx/table": "workspace:*",
     "@penx/internal-link": "workspace:*",
-    "@penx/block-selector": "workspace:*",
-    "@penx/extension-list": "workspace:*",
-    "@penx/store": "workspace:*",
-    "immer": "^10.0.2",
-    "jotai": "^2.4.2",
-    "mitt": "^3.0.0",
-    "stook": "^1.17.0"
+    "@penx/block-selector": "workspace:*"
   }
 }

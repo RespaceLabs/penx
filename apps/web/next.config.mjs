@@ -50,6 +50,7 @@ const config = {
     '@penx/block-selector',
     '@penx/editor-leaf',
     '@penx/trpc-client',
+    '@penx/extension-list',
     'uikit',
     'slate-lists',
     'easy-modal',

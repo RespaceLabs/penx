@@ -3083,6 +3083,85 @@ importers:
         specifier: ^5.1.3
         version: 5.2.2
 
+  packages/extension-list:
+    dependencies:
+      '@penx/auto-format':
+        specifier: workspace:*
+        version: link:../../extensions/auto-format
+      '@penx/auto-node-id':
+        specifier: workspace:*
+        version: link:../../extensions/auto-node-id
+      '@penx/block-selector':
+        specifier: workspace:*
+        version: link:../../extensions/block-selector
+      '@penx/blockquote':
+        specifier: workspace:*
+        version: link:../../extensions/blockquote
+      '@penx/check-list':
+        specifier: workspace:*
+        version: link:../../extensions/check-list
+      '@penx/code-block':
+        specifier: workspace:*
+        version: link:../../extensions/code-block
+      '@penx/divider':
+        specifier: workspace:*
+        version: link:../../extensions/divider
+      '@penx/extension-typings':
+        specifier: '*'
+        version: link:../extension-typings
+      '@penx/heading':
+        specifier: workspace:*
+        version: link:../../extensions/heading
+      '@penx/image':
+        specifier: workspace:*
+        version: link:../../extensions/image
+      '@penx/internal-link':
+        specifier: workspace:*
+        version: link:../../extensions/internal-link
+      '@penx/link':
+        specifier: workspace:*
+        version: link:../../extensions/link
+      '@penx/list':
+        specifier: workspace:*
+        version: link:../../extensions/list
+      '@penx/local-db':
+        specifier: workspace:*
+        version: link:../local-db
+      '@penx/paragraph':
+        specifier: workspace:*
+        version: link:../../extensions/paragraph
+      '@penx/storage-estimate':
+        specifier: workspace:*
+        version: link:../../extensions/storage-estimate
+      '@penx/table':
+        specifier: workspace:*
+        version: link:../../extensions/table
+      '@penx/word-count':
+        specifier: workspace:*
+        version: link:../../extensions/word-count
+    devDependencies:
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.22
+      '@types/react-dom':
+        specifier: ^18.2.7
+        version: 18.2.7
+      eslint:
+        specifier: ^8.42.0
+        version: 8.49.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.1.3
+        version: 5.2.2
+
   packages/extension-typings:
     dependencies:
       '@udecode/plate-autoformat':
@@ -3284,6 +3363,9 @@ importers:
       '@penx/divider':
         specifier: workspace:*
         version: link:../../extensions/divider
+      '@penx/extension-list':
+        specifier: workspace:*
+        version: link:../extension-list
       '@penx/extension-typings':
         specifier: '*'
         version: link:../extension-typings
@@ -3713,6 +3795,27 @@ importers:
         version: 5.2.2
 
   penx-extension-samples/theme-sample:
+    devDependencies:
+      '@penx/extension-dev-server':
+        specifier: '*'
+        version: link:../../packages/extension-dev-server
+      '@penx/extension-typings':
+        specifier: '*'
+        version: link:../../packages/extension-typings
+      '@types/node':
+        specifier: ^20.8.2
+        version: 20.8.2
+      tsup:
+        specifier: ^7.2.0
+        version: 7.2.0(ts-node@10.9.1)(typescript@5.2.2)
+      tsx:
+        specifier: ^3.13.0
+        version: 3.13.0
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+
+  penx-extension-samples/use-solid:
     devDependencies:
       '@penx/extension-dev-server':
         specifier: '*'
