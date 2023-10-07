@@ -7,6 +7,8 @@ import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'uikit'
+import { isServer } from '@penx/constants'
+import { initSharing } from '~/common/handleSharing'
 import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
 import { useLinguiInit } from '../utils'
@@ -25,6 +27,10 @@ interface Props<T> extends AppProps<T> {
     Layout: any
     session: Session
   }
+}
+
+if (!isServer) {
+  initSharing()
 }
 
 function MyApp({ Component, pageProps }: Props<any>) {
