@@ -5,6 +5,7 @@ import * as blockquote from '@penx/blockquote'
 import * as checkList from '@penx/check-list'
 import * as codeBlock from '@penx/code-block'
 import * as divider from '@penx/divider'
+import * as githubSync from '@penx/github-sync'
 import * as heading from '@penx/heading'
 import * as image from '@penx/image'
 import * as internalLink from '@penx/internal-link'
@@ -16,6 +17,7 @@ import * as table from '@penx/table'
 import * as wordCount from '@penx/word-count'
 
 export const extensionList = [
+  { id: 'github-sync', activate: githubSync.activate },
   { id: 'storage-estimate', activate: storageEstimate.activate },
   { id: 'word-count', activate: wordCount.activate },
   { id: 'blockquote', activate: blockquote.activate },

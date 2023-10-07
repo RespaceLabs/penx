@@ -19,6 +19,7 @@
     "@penx/local-db": "workspace:*",
     "@penx/extension-typings": "*",
     "@penx/storage-estimate": "workspace:*",
+    "@penx/github-sync": "workspace:*",
     "@penx/word-count": "workspace:*",
     "@penx/blockquote": "workspace:*",
     "@penx/heading": "workspace:*",

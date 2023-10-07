@@ -1,12 +1,11 @@
 import { FC, memo } from 'react'
 import { Box } from '@fower/react'
-import { Node, Path } from 'slate'
+import { Path } from 'slate'
 import { isHeading } from '@penx/heading'
 import { isEqual } from '../../common/utils'
 import { DragMenu } from './DragMenu'
 
 interface Props {
-  // element: Node
   element: any
   path: Path
   listeners: any
@@ -16,6 +15,7 @@ export const ElementMenu: FC<Props> = memo(
   function ElementMenu({ element, path, listeners }) {
     const { id = '', type } = element as any
     const width = 80
+
     return (
       <Box
         contentEditable={false}

@@ -1,4 +1,4 @@
-import { Element, Node } from 'slate'
+import { Node } from 'slate'
 import { ExtensionContext } from '@penx/extension-typings'
 import { Heading } from './Heading'
 import { IconH1 } from './icons/IconH1'
@@ -61,6 +61,9 @@ export function isHeading(
   headingType?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6',
 ) {
   const type = (node as HeadingElement).type
-  if (!headingType) return type === headingType
-  return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(type)
+  if (!headingType) {
+    return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(type)
+  }
+
+  return type === headingType
 }

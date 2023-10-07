@@ -1,4 +1,3 @@
-import { Transforms } from 'slate'
 import { setNodes } from '@penx/editor-transforms'
 import { ExtensionContext } from '@penx/extension-typings'
 import { insertEmptyParagraph } from '@penx/paragraph'
