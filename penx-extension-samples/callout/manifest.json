@@ -1,0 +1,7 @@
+{
+  "name": "Callout",
+  "id": "callout",
+  "version": "1.0.0",
+  "description": "This is a callout demo",
+  "main": "dist/main.mjs"
+}

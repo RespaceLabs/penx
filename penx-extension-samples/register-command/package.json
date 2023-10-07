@@ -1,0 +1,23 @@
+{
+  "name": "register-command",
+  "version": "0.0.0",
+  "description": "",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "tsx watch dev.ts",
+    "build": "tsup main.ts --format esm"
+  },
+  "devDependencies": {
+    "@penx/extension-typings": "*",
+    "@penx/extension-dev-server": "*",
+    "@types/node": "^20.8.2",
+    "tsup": "^7.2.0",
+    "tsx": "^3.13.0",
+    "typescript": "^5.2.2"
+  }
+}

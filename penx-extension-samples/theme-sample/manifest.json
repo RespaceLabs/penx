@@ -1,0 +1,7 @@
+{
+  "name": "Theme sample",
+  "id": "theme-sample",
+  "version": "1.0.0",
+  "description": "This is a theme-sample demo",
+  "main": "dist/main.mjs"
+}
