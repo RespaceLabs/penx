@@ -31,7 +31,7 @@ export const DragMenu: FC<Props> = ({ id = '', path, listeners }) => {
           transitionCommon
           bgGray100--hover
           py-2
-          // opacity-0
+          opacity-0
           opacity-100--$editorElement--hover
           {...listeners}
         >

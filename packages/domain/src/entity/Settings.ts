@@ -1,14 +1,16 @@
 import { ChangeType, ISpace } from '@penx/local-db'
 
 export class Settings {
+  syncExtensionId = 'github-sync'
+
   constructor(private raw = {} as ISpace['settings']) {}
 
   get githubToken() {
-    return this.raw?.sync?.githubToken || ''
+    return this.raw?.extensions?.[this.syncExtensionId]?.githubToken || ''
   }
 
   get repo() {
-    return this.raw?.sync?.repo || ''
+    return this.raw?.extensions?.[this.syncExtensionId]?.repo || ''
   }
 
   get repoOwner() {

@@ -75,6 +75,8 @@ export class SyncService {
 
     s.setSharedParams()
 
+    console.log('s.space.settings.githubToken,:', s.space.settings.githubToken)
+
     s.app = new Octokit({
       auth: s.space.settings.githubToken,
     })

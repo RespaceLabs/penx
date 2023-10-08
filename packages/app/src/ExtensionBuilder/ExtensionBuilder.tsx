@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Box } from '@fower/react'
+import ky from 'ky'
 import { Button, toast } from 'uikit'
 import { Manifest } from '@penx/extension-typings'
 import { useSpaces } from '@penx/hooks'
@@ -9,19 +10,25 @@ import { trpc } from '@penx/trpc-client'
 export function ExtensionBuilder() {
   const { activeSpace } = useSpaces()
   const [value, setValue] = useState<Manifest>()
+  async function sse() {
+    try {
+      await ky('http://localhost:5001/extension').json()
+      const eventSource = new EventSource('http://localhost:5001/extension-sse')
+
+      eventSource.onmessage = async (event) => {
+        const data = event.data
+        const extension: Manifest = JSON.parse(data)
+        setValue(extension)
+      }
+
+      eventSource.onerror = (error) => {
+        console.error('SSE error:', error)
+      }
+    } catch (error) {}
+  }
 
   useEffect(() => {
-    const eventSource = new EventSource('http://localhost:5001/extension-sse')
-
-    eventSource.onmessage = async (event) => {
-      const data = event.data
-      const extension: Manifest = JSON.parse(data)
-      setValue(extension)
-    }
-
-    eventSource.onerror = (error) => {
-      console.error('SSE error:', error)
-    }
+    sse()
   }, [])
 
   if (!value) return null
