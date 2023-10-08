@@ -1,5 +1,5 @@
-import type { AutoformatRule } from '@udecode/plate-autoformat'
 import { Editor } from 'slate'
+import type { AutoformatRule } from '@penx/autoformat'
 import { BlockElement, OnKeyDown } from '@penx/extension-typings'
 import { ExtensionStore as ExtensionStoreJSON } from '@penx/store'
 

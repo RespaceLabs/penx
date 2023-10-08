@@ -19,11 +19,11 @@ import {
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable'
 import { css } from '@fower/react'
-import { onKeyDownAutoformat } from '@udecode/plate-autoformat'
 import { Descendant, Editor, Element, Transforms } from 'slate'
 import { withListsReact } from 'slate-lists'
 import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
+import { onKeyDownAutoformat } from '@penx/autoformat'
 import { SetNodeToDecorations } from '@penx/code-block'
 import { Leaf } from '@penx/editor-leaf'
 import { useExtensionStore } from '@penx/hooks'

@@ -1,9 +1,9 @@
 import { useRef } from 'react'
-import { withAutoformat } from '@udecode/plate-autoformat'
 import { createEditor, Editor, Element, Point, Range, Transforms } from 'slate'
 import { withHistory } from 'slate-history'
 import { withListsReact } from 'slate-lists'
 import { withReact } from 'slate-react'
+import { withAutoformat } from '@penx/autoformat'
 import {
   getCurrentNode,
   getPreviousBlockById,
@@ -69,7 +69,7 @@ export function useCreateEditor() {
           if (isStartOfBlock) {
             const { id } = getCurrentNode(editor)! as any
 
-            // for fist line block
+            // for first line block
             if (
               isParagraph(block) &&
               editor.children.length > 1 &&
@@ -118,7 +118,18 @@ export function useCreateEditor() {
     // handle autoformat
     editorRef.current = withAutoformat(editor, {
       key: 'AUTO_FORMAT',
-      options: { rules },
+      options: {
+        rules,
+        shouldIgnore(editor: Editor) {
+          // TODO: should improve
+          const match = Editor.above(editor, {
+            match: (n: any) => ['code_block'].includes(n.type),
+          })
+
+          if (match?.[0]) return true
+          return false
+        },
+      },
     } as any)
   }
 

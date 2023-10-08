@@ -1,7 +1,7 @@
-import { AutoformatBlockRule } from '@udecode/plate-autoformat'
 import { Editor, Element, Transforms } from 'slate'
 import { ListsEditor, ListType } from 'slate-lists'
 import { unwrapList } from 'slate-lists/src/transformations'
+import { AutoformatBlockRule } from '@penx/autoformat'
 import { ExtensionContext } from '@penx/extension-typings'
 import { List } from './List'
 import { ListItem } from './ListItem'

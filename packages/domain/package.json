@@ -24,7 +24,7 @@
     "@penx/extension-typings": "*",
     "@penx/serializer": "workspace:^",
     "@penx/store": "workspace:*",
-    "@udecode/plate-autoformat": "^24.3.6",
+    "@penx/autoformat": "workspace:*",
     "diff-match-patch": "^1.0.5",
     "immer": "^10.0.2",
     "jotai": "^2.4.2",

@@ -1,7 +1,7 @@
 import { FC, KeyboardEvent } from 'react'
-import { AutoformatRule } from '@udecode/plate-autoformat'
 import { Editor, Element } from 'slate'
 import { RenderElementProps } from 'slate-react'
+import { AutoformatRule } from '@penx/autoformat'
 
 export interface ExtensionContext {
   pluginId?: string

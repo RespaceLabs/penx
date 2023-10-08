@@ -24,7 +24,7 @@
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-shared": "workspace:*",
     "@penx/extension-typings": "*",
-    "@udecode/plate-autoformat": "^24.3.6",
+    "@penx/autoformat": "workspace:*",
     "slate-lists": "workspace:*",
     "uikit": "workspace:*",
     "slate": "0.94.1",

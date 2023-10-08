@@ -1,4 +1,4 @@
-import { AutoformatRule } from '@udecode/plate-autoformat'
+import { AutoformatRule } from '@penx/autoformat'
 import { MarkType } from './mark-type.enum'
 
 export const marks: AutoformatRule[] = [

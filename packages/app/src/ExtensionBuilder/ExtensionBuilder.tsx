@@ -10,7 +10,7 @@ import { trpc } from '@penx/trpc-client'
 export function ExtensionBuilder() {
   const { activeSpace } = useSpaces()
   const [value, setValue] = useState<Manifest>()
-  async function sse() {
+  async function runSSE() {
     try {
       await ky('http://localhost:5001/extension').json()
       const eventSource = new EventSource('http://localhost:5001/extension-sse')
@@ -28,7 +28,7 @@ export function ExtensionBuilder() {
   }
 
   useEffect(() => {
-    sse()
+    runSSE()
   }, [])
 
   if (!value) return null

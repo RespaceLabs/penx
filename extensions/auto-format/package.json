@@ -26,7 +26,7 @@
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/extension-typings": "*",
-    "@udecode/plate-autoformat": "^24.3.6",
+    "@penx/autoformat": "workspace:*",
     "lodash": "^4.17.21",
     "slate": "0.94.1",
     "slate-history": "0.93.0",
