@@ -1,19 +1,16 @@
 import { BaseElement } from 'slate'
 
-export enum ElementType {
-  table = 'table',
-  tr = 'tr',
-  td = 'td',
-  th = 'th',
-  p = 'p',
-}
+export const ELEMENT_TABLE = 'table'
+export const ELEMENT_TR = 'tr'
+export const ELEMENT_TD = 'td'
+export const ELEMENT_TH = 'th'
 
 export interface BaseCustomElement extends BaseElement {
   id?: string
 }
 
 export interface TableElement extends BaseCustomElement {
-  type: ElementType.table
+  type: typeof ELEMENT_TABLE
   colWidths: number[] // table col widths
   isHeaderRow: boolean
   isHeaderColumn: boolean
@@ -21,10 +18,10 @@ export interface TableElement extends BaseCustomElement {
 }
 
 export interface TableRowElement extends BaseCustomElement {
-  type: ElementType.tr
+  type: typeof ELEMENT_TR
   children: TableCellElement[]
 }
 
 export interface TableCellElement extends BaseCustomElement {
-  type: ElementType.td
+  type: typeof ELEMENT_TD
 }

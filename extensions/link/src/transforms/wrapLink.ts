@@ -1,6 +1,6 @@
 import { Editor, Location } from 'slate'
 import { wrapNodes } from '@penx/editor-transforms'
-import { ElementType } from '../types'
+import { ELEMENT_LINK } from '../types'
 
 /**
  * Wrap selected nodes with a link and collapse at the end.
@@ -12,7 +12,7 @@ export const wrapLink = <T = {}>(
   wrapNodes(
     editor,
     {
-      type: ElementType.link,
+      type: ELEMENT_LINK,
       url,
       children: [],
     },

@@ -8,7 +8,10 @@ import {
 } from '@penx/catalogue'
 import { getCurrentPath } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
-import { ElementType, InternalLinkContentElement } from '../types'
+import {
+  ELEMENT_INTERNAL_LINK_CONTENT,
+  InternalLinkContentElement,
+} from '../types'
 import { useKeyDownList } from '../useKeyDownList'
 import { InternalLinkSelectorItem } from './InternalLinkSelectorItem'
 
@@ -43,7 +46,7 @@ export const InternalLinkSelectorContent = ({ close, element }: Props) => {
   const selectType = (node: CatalogueNodeJSON) => {
     Transforms.removeNodes(editor, { at: path.slice(0, -1) })
     Transforms.insertNodes<InternalLinkContentElement>(editor, {
-      type: ElementType.internal_link_content,
+      type: ELEMENT_INTERNAL_LINK_CONTENT,
       linkId: node.id,
       linkName: node.name,
       children: [{ text: '' }],

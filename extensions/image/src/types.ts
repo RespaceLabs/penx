@@ -1,12 +1,10 @@
 import { BaseElement } from 'slate'
 
-export enum ElementType {
-  img = 'img',
-}
+export const ELEMENT_IMG = 'img'
 
 export interface ImageElement extends BaseElement {
   id?: string
-  type: ElementType.img
+  type: typeof ELEMENT_IMG
   url: string
   width: number // image width
 }

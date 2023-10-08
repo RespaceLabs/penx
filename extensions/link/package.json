@@ -27,10 +27,10 @@
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-shared": "workspace:*",
     "@penx/editor-transforms": "workspace:*",
+    "@penx/extension-typings": "*",
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
-    "@penx/extension-typings": "*",
     "@penx/shared": "workspace:*",
     "bone-ui": "^0.37.0",
     "lodash": "^4.17.21",
@@ -38,6 +38,7 @@
     "slate-history": "0.93.0",
     "slate-lists": "workspace:*",
     "slate-react": "^0.98.3",
+    "stook": "^1.17.0",
     "uikit": "workspace:*"
   }
 }

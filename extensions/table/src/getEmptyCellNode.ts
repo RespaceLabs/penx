@@ -1,6 +1,6 @@
 import { Element } from 'slate'
 import { getEmptyParagraph } from '@penx/paragraph'
-import { ElementType } from './types'
+import { ELEMENT_TD, ELEMENT_TH } from './types'
 
 /**
  * get empty cell node
@@ -9,7 +9,7 @@ import { ElementType } from './types'
  */
 export function getEmptyCellNode(isHeader = false): Element {
   return {
-    type: isHeader ? ElementType.th : ElementType.td,
+    type: isHeader ? ELEMENT_TH : ELEMENT_TD,
     children: [getEmptyParagraph()],
   } as Element
 }

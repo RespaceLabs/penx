@@ -1,5 +1,8 @@
 import { ExtensionContext } from '@penx/extension-typings'
-import { ElementType } from './types'
+import {
+  ELEMENT_INTERNAL_LINK_CONTENT,
+  ELEMENT_INTERNAL_LINK_SELECTOR,
+} from './types'
 import { InternalLinkContent } from './ui/InternalLinkContent'
 import { InternalLinkSelector } from './ui/InternalLinkSelector'
 import { withInternalLink } from './withInternalLink'
@@ -10,7 +13,7 @@ export function activate(ctx: ExtensionContext) {
     elements: [
       {
         isInline: true,
-        type: ElementType.internal_link_selector,
+        type: ELEMENT_INTERNAL_LINK_SELECTOR,
         component: InternalLinkSelector,
         slashCommand: {
           name: 'Internal Link',
@@ -19,7 +22,7 @@ export function activate(ctx: ExtensionContext) {
       {
         isInline: true,
         isVoid: true,
-        type: ElementType.internal_link_content,
+        type: ELEMENT_INTERNAL_LINK_CONTENT,
         component: InternalLinkContent,
       },
     ],

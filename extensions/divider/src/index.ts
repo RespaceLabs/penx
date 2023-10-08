@@ -2,14 +2,14 @@ import { setNodes } from '@penx/editor-transforms'
 import { ExtensionContext } from '@penx/extension-typings'
 import { insertEmptyParagraph } from '@penx/paragraph'
 import { Divider } from './Divider'
-import { DividerElement, ElementType } from './types'
+import { DividerElement, ELEMENT_HR } from './types'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     elements: [
       {
         isVoid: true,
-        type: ElementType.hr,
+        type: ELEMENT_HR,
         component: Divider,
         slashCommand: {
           name: 'Divider',
@@ -22,10 +22,10 @@ export function activate(ctx: ExtensionContext) {
     autoformatRules: [
       {
         mode: 'block',
-        type: ElementType.hr,
+        type: ELEMENT_HR,
         match: '---',
         format: (editor) => {
-          setNodes<DividerElement>(editor, { type: ElementType.hr })
+          setNodes<DividerElement>(editor, { type: ELEMENT_HR })
           insertEmptyParagraph(editor)
         },
       },

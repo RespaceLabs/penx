@@ -16,7 +16,8 @@ import { Transforms } from 'slate'
 import { useSlate, useSlateStatic } from 'slate-react'
 import { findNodePath, getCurrentNode } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
-import { BlockSelectorElement } from '../custom-types'
+import { ELEMENT_BLOCK_SELECTOR } from '../constants'
+import { BlockSelectorElement } from '../types'
 import { BlockSelectorContent } from './BlockSelectorContent'
 
 export const BlockSelector = ({

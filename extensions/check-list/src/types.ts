@@ -1,11 +1,8 @@
 import { BaseElement } from 'slate'
-
-export enum ElementType {
-  check_list_item = 'check_list_item',
-}
+import { ELEMENT_CHECK_LIST_ITEM } from './constants'
 
 export interface CheckListItemElement extends BaseElement {
   id: string
-  type: ElementType.check_list_item
+  type: typeof ELEMENT_CHECK_LIST_ITEM
   checked: boolean
 }

@@ -1,8 +1,8 @@
 import { ExtensionContext } from '@penx/extension-typings'
-import { ElementType } from '../custom-types'
-import { BlockSelector } from './BlockSelector'
+import { ELEMENT_BLOCK_SELECTOR } from './constants'
 import { isBlockSelector } from './isBlockSelector'
 import { onKeyDown } from './onKeyDown'
+import { BlockSelector } from './ui/BlockSelector'
 import { withBlockSelector } from './withBlockSelector'
 
 export function activate(ctx: ExtensionContext) {
@@ -14,11 +14,13 @@ export function activate(ctx: ExtensionContext) {
     elements: [
       {
         isInline: true,
-        type: ElementType.block_selector,
+        type: ELEMENT_BLOCK_SELECTOR,
         component: BlockSelector,
       },
     ],
   })
 }
+
+export * from './constants'
 
 export { isBlockSelector }

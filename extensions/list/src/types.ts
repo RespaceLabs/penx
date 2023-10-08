@@ -1,37 +1,34 @@
 import { BaseElement } from 'slate'
 
-export enum ElementType {
-  ul = 'unordered-list', // unordered list
-  ol = 'ordered-list', // ordered list
-  li = 'list-item', // list item
-  lic = 'list-item-text', // list item content
-  p = 'p', // list item content
-}
+export const ELEMENT_UL = 'unordered-list'
+export const ELEMENT_OL = 'ordered-list'
+export const ELEMENT_LI = 'list-item'
+export const ELEMENT_LIC = 'list-item-text'
 
 export interface ListElement extends BaseElement {
   id: string
-  type: ElementType.ul | ElementType.ol
+  type: typeof ELEMENT_UL | typeof ELEMENT_OL
 }
 
 export interface UnorderedListElement extends BaseElement {
   id: string
-  type: ElementType.ol
+  type: typeof ELEMENT_UL
   children: ListItemElement[]
 }
 
 export interface OrderedListElement extends BaseElement {
   id: string
-  type: ElementType.ol
+  type: typeof ELEMENT_OL
   children: any[]
 }
 
 export interface ListItemElement extends BaseElement {
   id: string
-  type: ElementType.li
+  type: typeof ELEMENT_LI
   children: any[]
 }
 
 export interface ListContentElement extends BaseElement {
   id: string
-  type: ElementType.lic
+  type: typeof ELEMENT_LIC
 }

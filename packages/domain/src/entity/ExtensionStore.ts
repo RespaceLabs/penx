@@ -1,12 +1,12 @@
 import { Editor } from 'slate'
 import type { AutoformatRule } from '@penx/autoformat'
-import { BlockElement, OnKeyDown } from '@penx/extension-typings'
+import { BlockElement, OnKeyDown, PenxEditor } from '@penx/extension-typings'
 import { ExtensionStore as ExtensionStoreJSON } from '@penx/store'
 
 export class ExtensionStore {
   rules: AutoformatRule[] = []
 
-  withFns: ((editor: Editor) => Editor)[] = []
+  withFns: ((editor: PenxEditor) => Editor)[] = []
 
   elementMaps: Record<string, BlockElement> = {}
 

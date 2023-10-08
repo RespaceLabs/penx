@@ -1,7 +1,10 @@
 import { FC, KeyboardEvent } from 'react'
 import { Editor, Element } from 'slate'
-import { RenderElementProps } from 'slate-react'
+import { HistoryEditor } from 'slate-history'
+import { ReactEditor, RenderElementProps } from 'slate-react'
 import { AutoformatRule } from '@penx/autoformat'
+
+export type PenxEditor = Editor & HistoryEditor & ReactEditor
 
 export interface ExtensionContext {
   pluginId?: string
@@ -31,7 +34,7 @@ export interface RegisterComponentOptions {
 }
 
 export interface RegisterBlockOptions {
-  with?: (editor: Editor) => Editor
+  with?: (editor: PenxEditor) => Editor
   handlers?: {
     onKeyDown: OnKeyDown
   }

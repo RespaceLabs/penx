@@ -7,6 +7,7 @@
     "lint": "eslint \"**/*.ts*\""
   },
   "devDependencies": {
+    "@types/markdown-it": "^13.0.1",
     "@types/prismjs": "^1.26.0",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
@@ -32,6 +33,7 @@
     "@penx/paragraph": "workspace:*",
     "@penx/shared": "workspace:*",
     "@udecode/plate-common": "^24.4.0",
+    "markdown-it": "^13.0.1",
     "prismjs": "^1.29.0",
     "slate": "0.94.1",
     "slate-history": "0.93.0",

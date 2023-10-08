@@ -1,6 +1,6 @@
 import { ExtensionContext } from '@penx/extension-typings'
 import { Link } from './Link'
-import { ElementType } from './types'
+import { ELEMENT_LINK } from './types'
 import { withLink } from './withLink'
 
 export function activate(ctx: ExtensionContext) {
@@ -9,7 +9,7 @@ export function activate(ctx: ExtensionContext) {
     elements: [
       {
         isInline: true,
-        type: ElementType.link,
+        type: ELEMENT_LINK,
         component: Link,
         slashCommand: {
           name: 'Link',

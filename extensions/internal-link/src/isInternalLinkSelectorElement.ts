@@ -1,7 +1,10 @@
-import { ElementType, InternalLinkSelectorElement } from './types'
+import {
+  ELEMENT_INTERNAL_LINK_SELECTOR,
+  InternalLinkSelectorElement,
+} from './types'
 
 export function isInternalLinkSelectorElement(
   node: any,
 ): node is InternalLinkSelectorElement {
-  return node.type === ElementType.internal_link_selector
+  return node.type === ELEMENT_INTERNAL_LINK_SELECTOR
 }

@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { ElementProps } from '@penx/extension-typings'
-import { ElementType, ListElement } from './types'
+import { ELEMENT_UL, ListElement } from './types'
 
 export const List = ({
   attributes,
@@ -8,7 +8,7 @@ export const List = ({
   children,
   nodeProps,
 }: ElementProps<ListElement>) => {
-  const type = element.type === ElementType.ul ? 'ul' : 'ol'
+  const type = element.type === ELEMENT_UL ? 'ul' : 'ol'
 
   return (
     <Box as={type} {...attributes} m0 pl6 {...nodeProps}>

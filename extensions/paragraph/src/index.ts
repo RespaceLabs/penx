@@ -1,16 +1,16 @@
-import { Element, Node } from 'slate'
+import { Node } from 'slate'
 import { ExtensionContext } from '@penx/extension-typings'
 import { getEmptyParagraph } from './getEmptyParagraph'
 import { IconText } from './IconText'
 import { insertEmptyParagraph } from './insertEmptyParagraph'
 import { Paragraph } from './Paragraph'
-import { ElementType, ParagraphElement } from './types'
+import { ELEMENT_P, ParagraphElement } from './types'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     elements: [
       {
-        type: ElementType.p,
+        type: ELEMENT_P,
         component: Paragraph,
         placeholder: "Type '/' to browse options",
         slashCommand: {
@@ -23,7 +23,7 @@ export function activate(ctx: ExtensionContext) {
 }
 
 export function isParagraph(node: Node) {
-  return (node as ParagraphElement).type === ElementType.p
+  return (node as ParagraphElement).type === ELEMENT_P
 }
 
 export * from './types'

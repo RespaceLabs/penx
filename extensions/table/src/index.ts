@@ -2,12 +2,7 @@ import { TableCellsOutline } from '@bone-ui/icons'
 import { Element, Node } from 'slate'
 import { ExtensionContext } from '@penx/extension-typings'
 import { getEmptyTableNode } from './getEmptyTableNode'
-import {
-  ElementType,
-  TableCellElement,
-  TableElement,
-  TableRowElement,
-} from './types'
+import { ELEMENT_TABLE, ELEMENT_TD, ELEMENT_TR } from './types'
 import { Table } from './ui/Table/Table'
 import { TableCell } from './ui/TableCell'
 import { TableRow } from './ui/TableRow'
@@ -19,7 +14,7 @@ export function activate(ctx: ExtensionContext) {
     elements: [
       {
         shouldNested: true,
-        type: ElementType.table,
+        type: ELEMENT_TABLE,
         component: Table,
         slashCommand: {
           name: 'Table',
@@ -28,11 +23,11 @@ export function activate(ctx: ExtensionContext) {
         },
       },
       {
-        type: ElementType.tr,
+        type: ELEMENT_TR,
         component: TableRow,
       },
       {
-        type: ElementType.td,
+        type: ELEMENT_TD,
         component: TableCell,
       },
     ],

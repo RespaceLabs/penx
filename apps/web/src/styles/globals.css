@@ -31,6 +31,10 @@ html {
   scroll-padding-top: 120px; /* height of your navbar */
 }
 
+::marker {
+  font-size: 16px;
+}
+
 /**
  * prism.js default theme for JavaScript, CSS and HTML
  * Based on dabblet (http://dabblet.com)

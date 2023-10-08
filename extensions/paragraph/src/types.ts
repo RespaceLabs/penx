@@ -1,10 +1,8 @@
 import { BaseElement } from 'slate'
 
-export enum ElementType {
-  p = 'p',
-}
+export const ELEMENT_P = 'p'
 
 export interface ParagraphElement extends BaseElement {
   id?: string
-  type: ElementType.p
+  type: typeof ELEMENT_P
 }

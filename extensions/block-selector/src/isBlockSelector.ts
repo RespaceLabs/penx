@@ -1,6 +1,6 @@
-import { Element, Node } from 'slate'
-import { BlockSelectorElement, ElementType } from '../custom-types'
+import { ELEMENT_BLOCK_SELECTOR } from './constants'
+import { BlockSelectorElement } from './types'
 
 export function isBlockSelector(node: any): node is BlockSelectorElement {
-  return node.type === ElementType.block_selector
+  return node.type === ELEMENT_BLOCK_SELECTOR
 }

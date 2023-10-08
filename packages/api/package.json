@@ -19,6 +19,7 @@
     "@penx/editor-types": "workspace:*",
     "@penx/serializer": "workspace:*",
     "@penx/shared": "workspace:*",
+    "@prisma/client": "^5.2.0",
     "@trpc/client": "^10.36.0",
     "@trpc/next": "^10.36.0",
     "@trpc/server": "^10.36.0",

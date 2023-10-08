@@ -4,7 +4,15 @@ import { Heading } from './Heading'
 import { IconH1 } from './icons/IconH1'
 import { IconH2 } from './icons/IconH2'
 import { IconH3 } from './icons/IconH3'
-import { ElementType, HeadingElement } from './types'
+import {
+  ELEMENT_H1,
+  ELEMENT_H2,
+  ELEMENT_H3,
+  ELEMENT_H4,
+  ELEMENT_H5,
+  ELEMENT_H6,
+  HeadingElement,
+} from './types'
 import { withHeading } from './withHeading'
 
 const icons = [IconH1, IconH2, IconH3, IconH3, IconH3, IconH3]
@@ -24,32 +32,32 @@ export function activate(ctx: ExtensionContext) {
     autoformatRules: [
       {
         mode: 'block',
-        type: ElementType.h1,
+        type: ELEMENT_H1,
         match: '# ',
       },
       {
         mode: 'block',
-        type: ElementType.h2,
+        type: ELEMENT_H2,
         match: '## ',
       },
       {
         mode: 'block',
-        type: ElementType.h3,
+        type: ELEMENT_H3,
         match: '### ',
       },
       {
         mode: 'block',
-        type: ElementType.h4,
+        type: ELEMENT_H4,
         match: '#### ',
       },
       {
         mode: 'block',
-        type: ElementType.h5,
+        type: ELEMENT_H5,
         match: '##### ',
       },
       {
         mode: 'block',
-        type: ElementType.h6,
+        type: ELEMENT_H6,
         match: '###### ',
       },
     ],

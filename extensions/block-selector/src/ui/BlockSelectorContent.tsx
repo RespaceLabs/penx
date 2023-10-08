@@ -4,9 +4,9 @@ import { Editor, Element, Node, Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { selectEditor } from '@penx/editor-transforms'
 import { useExtensionStore } from '@penx/hooks'
+import { isBlockSelector } from '../isBlockSelector'
+import { useKeyDownList } from '../useKeyDownList'
 import { BlockSelectorItem } from './BlockSelectorItem'
-import { isBlockSelector } from './isBlockSelector'
-import { useKeyDownList } from './useKeyDownList'
 
 interface Props {
   close: any

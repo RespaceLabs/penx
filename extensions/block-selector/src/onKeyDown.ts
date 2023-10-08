@@ -1,6 +1,5 @@
 import { someNode } from '@penx/editor-queries'
 import { OnKeyDown } from '@penx/extension-typings'
-import { ElementType } from '../custom-types'
 import { isBlockSelector } from './isBlockSelector'
 import { keyDownEmitter } from './keyDownEmitter'
 

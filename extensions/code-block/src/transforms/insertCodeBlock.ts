@@ -5,7 +5,9 @@ import {
   someNode,
 } from '@penx/editor-queries'
 import { setNodes, wrapNodes } from '@penx/editor-transforms'
-import { CodeBlockElement, CodeLineElement, ElementType } from './types'
+import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from '../constants'
+import { isCodeBlock, isCodeLine } from '../guard'
+import { CodeBlockElement, CodeLineElement } from '../types'
 
 /**
  * Insert a code block: set the node to code line and wrap it with a code block.
@@ -15,7 +17,7 @@ export const insertCodeBlock = (editor: Editor) => {
   if (!editor.selection || isExpanded(editor.selection)) return
 
   const matchCodeElements = (node: CodeBlockElement | CodeLineElement) =>
-    node.type === ElementType.code_block || node.type === ElementType.code_line
+    isCodeBlock(node) || isCodeLine(node)
 
   if (someNode(editor, { match: matchCodeElements })) {
     return
@@ -26,13 +28,13 @@ export const insertCodeBlock = (editor: Editor) => {
   }
 
   setNodes(editor, {
-    type: ElementType.code_line,
+    type: ELEMENT_CODE_LINE,
     children: [{ text: '' }],
   })
 
   wrapNodes(editor, {
     language: 'js', // TODO:
-    type: ElementType.code_block,
+    type: ELEMENT_CODE_BLOCK,
     children: [],
   } as any)
 }

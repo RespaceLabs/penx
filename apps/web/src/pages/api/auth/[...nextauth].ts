@@ -3,7 +3,7 @@ import NextAuth from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-import { prisma, User } from '@penx/db'
+import { prisma } from '@penx/db'
 
 export default NextAuth({
   // Configure one or more authentication providers

@@ -1,14 +1,14 @@
 import { PhotoOutline } from '@bone-ui/icons'
 import { ExtensionContext } from '@penx/extension-typings'
 import { Image } from './Image'
-import { ElementType } from './types'
+import { ELEMENT_IMG } from './types'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     elements: [
       {
         isVoid: true,
-        type: ElementType.img,
+        type: ELEMENT_IMG,
         component: Image,
         slashCommand: {
           name: 'Image',

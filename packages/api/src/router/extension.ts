@@ -1,7 +1,7 @@
+import { Extension } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import Redis from 'ioredis'
 import { z } from 'zod'
-import { Extension } from '@penx/db'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
 const client = new Redis(

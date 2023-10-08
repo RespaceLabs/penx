@@ -1,10 +1,8 @@
 import { BaseElement } from 'slate'
 
-export enum ElementType {
-  hr = 'hr',
-}
+export const ELEMENT_HR = 'hr'
 
 export interface DividerElement extends BaseElement {
-  type: ElementType.hr
+  type: typeof ELEMENT_HR
   id: string
 }

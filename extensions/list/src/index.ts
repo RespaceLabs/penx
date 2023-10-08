@@ -7,7 +7,7 @@ import { List } from './List'
 import { ListItem } from './ListItem'
 import { ListItemContent } from './ListItemContent'
 import { onKeyDown } from './onKeyDown'
-import { ElementType } from './types'
+import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_OL, ELEMENT_UL } from './types'
 import { listSchema, withListsPlugin } from './withListsPlugin'
 
 const preFormat: AutoformatBlockRule['preFormat'] = (editor: any) =>
@@ -41,25 +41,25 @@ export function activate(ctx: ExtensionContext) {
     },
     elements: [
       {
-        type: ElementType.ul,
+        type: ELEMENT_UL,
         component: List,
         slashCommand: {
           name: 'Unordered List',
         },
       },
       {
-        type: ElementType.ol,
+        type: ELEMENT_OL,
         component: List,
         slashCommand: {
           name: 'Ordered List',
         },
       },
       {
-        type: ElementType.li,
+        type: ELEMENT_LI,
         component: ListItem,
       },
       {
-        type: ElementType.lic,
+        type: ELEMENT_LIC,
         component: ListItemContent,
       },
     ],

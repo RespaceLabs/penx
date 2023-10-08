@@ -3,9 +3,9 @@ import { CodeBlock } from './ui/CodeBlock'
 import { CodeLine } from './ui/CodeLine'
 import { withCode } from './withCode'
 import './init-prism'
+import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from './constants'
 import { IconCode } from './IconCode'
-import { insertEmptyCodeBlock } from './insertEmptyCodeBlock'
-import { ElementType } from './types'
+import { insertEmptyCodeBlock } from './transforms/insertEmptyCodeBlock'
 
 export function activate(ctx: ExtensionContext) {
   ctx.defineSettings([
@@ -22,7 +22,7 @@ export function activate(ctx: ExtensionContext) {
     elements: [
       {
         shouldNested: true,
-        type: ElementType.code_block,
+        type: ELEMENT_CODE_BLOCK,
         component: CodeBlock,
         slashCommand: {
           name: 'Code Block',
@@ -30,14 +30,14 @@ export function activate(ctx: ExtensionContext) {
         },
       },
       {
-        type: ElementType.code_line,
+        type: ELEMENT_CODE_LINE,
         component: CodeLine,
       },
     ],
     autoformatRules: [
       {
         mode: 'block',
-        type: ElementType.code_block,
+        type: ELEMENT_CODE_BLOCK,
         match: '```',
         triggerAtBlockStart: false,
         format: (editor) => {

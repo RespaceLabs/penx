@@ -1,18 +1,20 @@
 import {
-  ElementType,
+  ELEMENT_TABLE,
+  ELEMENT_TD,
+  ELEMENT_TR,
   TableCellElement,
   TableElement,
   TableRowElement,
 } from './types'
 
 export function isTable(node: any): node is TableElement {
-  return node?.type === ElementType.table
+  return node?.type === ELEMENT_TABLE
 }
 
 export function isTableRow(node: any): node is TableRowElement {
-  return node.type === ElementType.tr
+  return node.type === ELEMENT_TR
 }
 
 export function isTableCell(node: any): node is TableCellElement {
-  return node.type === ElementType.td
+  return node.type === ELEMENT_TD
 }

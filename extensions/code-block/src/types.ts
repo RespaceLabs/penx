@@ -1,14 +1,9 @@
 import { BaseElement } from 'slate'
-
-export enum ElementType {
-  code_block = 'code_block',
-  code_line = 'code_line',
-  p = 'p',
-}
+import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from './constants'
 
 export interface CodeBlockElement extends BaseElement {
   id?: string
-  type: ElementType.code_block
+  type: typeof ELEMENT_CODE_BLOCK
   language: string
   highlightingLines?: number[]
   showLineNumbers?: boolean
@@ -17,5 +12,5 @@ export interface CodeBlockElement extends BaseElement {
 
 export interface CodeLineElement extends BaseElement {
   id?: string
-  type: ElementType.code_line
+  type: typeof ELEMENT_CODE_LINE
 }

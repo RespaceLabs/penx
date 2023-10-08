@@ -1,6 +1,5 @@
 import { Editor, Element, Point, Range } from 'slate'
 import { isTableCell } from './guard'
-import { ElementType } from './types'
 
 export const withTable = (editor: Editor) => {
   const { deleteBackward, deleteForward, insertBreak } = editor

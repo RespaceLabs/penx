@@ -1,40 +1,38 @@
 import { BaseElement } from 'slate'
 
-export enum ElementType {
-  h1 = 'h1',
-  h2 = 'h2',
-  h3 = 'h3',
-  h4 = 'h4',
-  h5 = 'h5',
-  h6 = 'h6',
-}
+export const ELEMENT_H1 = 'h1'
+export const ELEMENT_H2 = 'h2'
+export const ELEMENT_H3 = 'h3'
+export const ELEMENT_H4 = 'h4'
+export const ELEMENT_H5 = 'h5'
+export const ELEMENT_H6 = 'h6'
 
 interface BaseCustomElement extends BaseElement {
   id: string
 }
 
 export interface H1Element extends BaseCustomElement {
-  type: ElementType.h1
+  type: typeof ELEMENT_H1
 }
 
 export interface H2Element extends BaseCustomElement {
-  type: ElementType.h2
+  type: typeof ELEMENT_H2
 }
 
 export interface H3Element extends BaseCustomElement {
-  type: ElementType.h3
+  type: typeof ELEMENT_H3
 }
 
 export interface H4Element extends BaseCustomElement {
-  type: ElementType.h4
+  type: typeof ELEMENT_H4
 }
 
 export interface H5Element extends BaseCustomElement {
-  type: ElementType.h5
+  type: typeof ELEMENT_H5
 }
 
 export interface H6Element extends BaseCustomElement {
-  type: ElementType.h6
+  type: typeof ELEMENT_H6
 }
 
 export type HeadingElement =

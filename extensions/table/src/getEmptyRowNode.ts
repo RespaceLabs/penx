@@ -1,6 +1,6 @@
 import { Element } from 'slate'
 import { getEmptyCellNode } from './getEmptyCellNode'
-import { ElementType } from './types'
+import { ELEMENT_TR } from './types'
 
 /**
  * Get empty table row node
@@ -10,7 +10,7 @@ import { ElementType } from './types'
  */
 export function getEmptyRowNode(colCount: number, isHeader = false): Element {
   return {
-    type: ElementType.tr,
+    type: ELEMENT_TR,
     children: Array(colCount)
       .fill(colCount)
       .map(() => getEmptyCellNode(isHeader)),

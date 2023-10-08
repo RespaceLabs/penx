@@ -1,7 +1,8 @@
 import { Editor, Element, Node, Transforms } from 'slate'
+import { isCodeBlock } from '@penx/code-block'
 import { insertNodes } from '@penx/editor-transforms'
 import { isInternalLinkSelectorElement } from './isInternalLinkSelectorElement'
-import { ElementType } from './types'
+import { ELEMENT_INTERNAL_LINK_SELECTOR } from './types'
 
 const trigger = '[['
 
@@ -22,7 +23,7 @@ export const withInternalLink = (editor: Editor) => {
 
     // in codeblock
     const match = Editor.above(editor, {
-      match: (n: any) => [ElementType.code_block].includes(n.type),
+      match: (n) => isCodeBlock(n),
     })
 
     if (match?.[0]) {
@@ -32,7 +33,7 @@ export const withInternalLink = (editor: Editor) => {
     if (text?.length === 1 && prevText + text == trigger) {
       Editor.deleteBackward(editor)
       insertNodes(editor, {
-        type: ElementType.internal_link_selector,
+        type: ELEMENT_INTERNAL_LINK_SELECTOR,
         children: [{ text: '[[' }],
         trigger,
       })

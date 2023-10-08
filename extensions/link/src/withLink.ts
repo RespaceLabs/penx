@@ -12,9 +12,9 @@ import { ReactEditor } from 'slate-react'
 import { findNode, isCollapsed } from '@penx/editor-queries'
 import { isUrl } from '@penx/editor-shared/src/isUrl'
 import { isLinkElement } from './isLinkElement'
-import { ElementType, LinkElement } from './types'
+import { ELEMENT_LINK, LinkElement } from './types'
 
-export const withLink = (editor: Editor) => {
+export const withLink = (editor: Editor & ReactEditor) => {
   const { insertData, insertText, normalizeNode } = editor as Editor &
     ReactEditor
 
@@ -27,12 +27,15 @@ export const withLink = (editor: Editor) => {
 
     insertText(text)
   }
-  ;(editor as ReactEditor).insertData = (data: DataTransfer) => {
+
+  editor.insertData = (data: DataTransfer) => {
     const text = data.getData('text/plain')
+
+    console.log('text:', text)
 
     if (text) {
       const linkNodeEntry = findNode(editor, {
-        match: { type: ElementType.link },
+        match: { type: ELEMENT_LINK },
       })
 
       // If the cursor is inside a link, just insert the text
@@ -43,7 +46,7 @@ export const withLink = (editor: Editor) => {
       if (isUrl(text)) {
         // If the text is an url, insert it as a link
         return Transforms.insertNodes<LinkElement>(editor, {
-          type: ElementType.link,
+          type: ELEMENT_LINK,
           url: text,
           children: [{ text }],
         } as LinkElement)
@@ -85,7 +88,7 @@ function insertTextEndOfLink(
   const { selection } = editor
   const { focus } = selection as Range
 
-  const linkNodeEntry = findNode(editor, { match: { type: ElementType.link } })
+  const linkNodeEntry = findNode(editor, { match: { type: ELEMENT_LINK } })
 
   if (linkNodeEntry) {
     const [, linkPath] = linkNodeEntry

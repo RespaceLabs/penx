@@ -1,5 +1,7 @@
 import { getNodeString, TElement } from '@udecode/plate-common'
+import MarkdownIt from 'markdown-it'
 import { Editor } from 'slate'
+import { ReactEditor } from 'slate-react'
 import {
   findNode,
   getCurrentFocus,
@@ -7,7 +9,7 @@ import {
   getNodeByPath,
 } from '@penx/editor-queries'
 import { MarkType } from '@penx/editor-shared'
-import { ElementType } from './types'
+import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from './constants'
 
 function isEndOfInlineCode(editor: Editor) {
   const focus = getCurrentFocus(editor)
@@ -25,25 +27,45 @@ function extractCodeLinesFromCodeBlock(node: TElement) {
 
 function convertNodeToCodeLine(node: TElement): TElement {
   return {
-    type: ElementType.code_line,
+    type: ELEMENT_CODE_LINE,
     children: [{ text: getNodeString(node) }],
   }
 }
 
-export const withCode = (editor: Editor) => {
-  const { deleteBackward, apply, insertText, insertFragment } = editor
+export const withCode = (editor: Editor & ReactEditor) => {
+  const { deleteBackward, apply, insertText, insertFragment, insertData } =
+    editor
 
   editor.deleteBackward = (unit) => {
     deleteBackward(unit)
   }
 
   editor.insertText = (text) => {
+    console.log('insertText.........:', text)
+
     if (text === ' ' && isEndOfInlineCode(editor)) {
       Editor.removeMark(editor, MarkType.code)
       insertText(text)
       return
     }
     return insertText(text)
+  }
+
+  editor.insertData = (data) => {
+    const text = data.getData('text/plain')
+
+    console.log('insertData data.........:', data, text)
+
+    // const html = data.getData('text/html')
+
+    // if (html) {
+    //   const parsed = new DOMParser().parseFromString(html, 'text/html')
+    //   const fragment = deserialize(parsed.body)
+    //   Transforms.insertFragment(editor, fragment)
+    //   return
+    // }
+
+    insertData(data)
   }
 
   editor.apply = (operation) => {
@@ -59,7 +81,7 @@ export const withCode = (editor: Editor) => {
 
   editor.insertFragment = (fragment) => {
     const inCodeLine = findNode(editor, {
-      match: { type: ElementType.code_line },
+      match: { type: ELEMENT_CODE_LINE },
     })
 
     if (!inCodeLine) {
@@ -69,7 +91,7 @@ export const withCode = (editor: Editor) => {
       fragment.flatMap((node) => {
         const element = node as TElement
 
-        return element.type === ElementType.code_block
+        return element.type === ELEMENT_CODE_BLOCK
           ? extractCodeLinesFromCodeBlock(element)
           : convertNodeToCodeLine(element)
       }),

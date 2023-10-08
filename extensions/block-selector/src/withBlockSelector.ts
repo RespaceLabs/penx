@@ -1,7 +1,8 @@
 import { Editor, Element, Node, Transforms } from 'slate'
+import { isCodeBlock, isCodeLine } from '@penx/code-block'
 import { getBlockAbove, getText } from '@penx/editor-queries'
 import { insertNodes } from '@penx/editor-transforms'
-import { ElementType } from '../custom-types'
+import { ELEMENT_BLOCK_SELECTOR } from './constants'
 import { isBlockSelector } from './isBlockSelector'
 
 /**
@@ -21,7 +22,7 @@ export const withBlockSelector = (editor: Editor) => {
 
     // in codeblock
     const match = Editor.above(editor, {
-      match: (n: any) => [ElementType.code_block].includes(n.type),
+      match: (n) => isCodeBlock(n),
     })
 
     if (match?.[0]) {
@@ -32,7 +33,7 @@ export const withBlockSelector = (editor: Editor) => {
 
     if (id) {
       insertNodes(editor, {
-        type: ElementType.block_selector,
+        type: ELEMENT_BLOCK_SELECTOR,
         children: [{ text: trigger }],
         trigger,
       })
@@ -68,10 +69,9 @@ export const withBlockSelector = (editor: Editor) => {
  * @returns
  */
 function shouldOpen(editor: Editor): string | false {
-  const excludeKeys = [ElementType.code_line]
   const nodeEntry = getBlockAbove(editor)
 
-  if (nodeEntry && !excludeKeys.includes(nodeEntry[0].type as any)) {
+  if (nodeEntry && !isCodeLine(nodeEntry[0].type)) {
     if (getText(editor, nodeEntry[1]) === '') {
       return nodeEntry[0].id!
     }

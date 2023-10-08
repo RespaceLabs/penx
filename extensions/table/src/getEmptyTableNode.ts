@@ -1,10 +1,10 @@
 import { Element } from 'slate'
 import { getEmptyRowNode } from './getEmptyRowNode'
-import { ElementType } from './types'
+import { ELEMENT_TABLE } from './types'
 
 export function getEmptyTableNode(rowCount = 3, columnCount = 3): Element {
   return {
-    type: ElementType.table,
+    type: ELEMENT_TABLE,
     colWidths: Array(columnCount).fill(120),
     children: Array(rowCount)
       .fill({})
