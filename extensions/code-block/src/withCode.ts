@@ -1,10 +1,13 @@
-import { Editor, Text } from 'slate'
+import { getNodeString, TElement } from '@udecode/plate-common'
+import { Editor } from 'slate'
 import {
+  findNode,
   getCurrentFocus,
   getCurrentPath,
   getNodeByPath,
 } from '@penx/editor-queries'
 import { MarkType } from '@penx/editor-shared'
+import { ElementType } from './types'
 
 function isEndOfInlineCode(editor: Editor) {
   const focus = getCurrentFocus(editor)
@@ -16,8 +19,19 @@ function isEndOfInlineCode(editor: Editor) {
   return false
 }
 
+function extractCodeLinesFromCodeBlock(node: TElement) {
+  return node.children as TElement[]
+}
+
+function convertNodeToCodeLine(node: TElement): TElement {
+  return {
+    type: ElementType.code_line,
+    children: [{ text: getNodeString(node) }],
+  }
+}
+
 export const withCode = (editor: Editor) => {
-  const { deleteBackward, apply, insertText } = editor
+  const { deleteBackward, apply, insertText, insertFragment } = editor
 
   editor.deleteBackward = (unit) => {
     deleteBackward(unit)
@@ -42,6 +56,27 @@ export const withCode = (editor: Editor) => {
 
     return apply(operation)
   }
+
+  editor.insertFragment = (fragment) => {
+    const inCodeLine = findNode(editor, {
+      match: { type: ElementType.code_line },
+    })
+
+    if (!inCodeLine) {
+      return insertFragment(fragment)
+    }
+    return insertFragment(
+      fragment.flatMap((node) => {
+        const element = node as TElement
+
+        return element.type === ElementType.code_block
+          ? extractCodeLinesFromCodeBlock(element)
+          : convertNodeToCodeLine(element)
+      }),
+    )
+  }
+
+  // editor.normalizeNode = normalizeCodeBlock(editor)
 
   return editor
 }

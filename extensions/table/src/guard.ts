@@ -6,7 +6,7 @@ import {
 } from './types'
 
 export function isTable(node: any): node is TableElement {
-  return node.type === ElementType.table
+  return node?.type === ElementType.table
 }
 
 export function isTableRow(node: any): node is TableRowElement {
