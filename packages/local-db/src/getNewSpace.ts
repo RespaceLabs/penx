@@ -22,6 +22,8 @@ export function getNewSpace(name: string): ISpace {
       [SettingsType.PREFERENCES]: {},
 
       [SettingsType.HOTKEYS]: {},
+
+      [SettingsType.EXTENSIONS]: {},
     },
     createdAt: Date.now(),
     updatedAt: Date.now(),

@@ -19,6 +19,7 @@ export const SettingsContent = () => {
         return (
           <ExtensionSettingsForm
             key={key}
+            extensionId={key}
             schema={extensionStore.store[data].settingsSchema}
           />
         )

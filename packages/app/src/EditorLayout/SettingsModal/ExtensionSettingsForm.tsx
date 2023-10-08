@@ -4,42 +4,37 @@ import { Box } from '@fower/react'
 import { produce } from 'immer'
 import { Checkbox, Input } from 'uikit'
 import { SettingsSchema } from '@penx/extension-typings'
+import { useSpaces } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { FormField } from './FormField'
 
 interface Props {
   schema: SettingsSchema
+  extensionId: string
 }
 
-export const ExtensionSettingsForm = ({ schema }: Props) => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    control,
-    formState: { errors },
-    reset,
-  } = useForm<any>({
-    // defaultValues: {},
+export const ExtensionSettingsForm = ({ schema, extensionId }: Props) => {
+  const { activeSpace } = useSpaces()
+
+  const { handleSubmit, watch, control } = useForm<any>({
+    defaultValues: activeSpace.settings?.extensions?.[extensionId] || {},
   })
 
   const values = watch()
 
   useEffect(() => {
-    // const settings = produce(activeSpace.settings, (draft) => {
-    //   draft.sync = values
-    // })
-    // db.updateSpace(activeSpace.id, { settings })
-  }, [values])
+    const settings = produce(activeSpace.settings, (draft) => {
+      if (!draft.extensions) draft.extensions = {}
+      if (!draft.extensions?.[extensionId]) {
+        draft.extensions[extensionId] = {}
+      }
+      draft.extensions[extensionId] = values
+    })
 
-  console.log('values:', values)
-
-  useEffect(() => {
-    reset()
-  }, [reset])
+    db.updateSpace(activeSpace.id, { settings })
+  }, [values, activeSpace, extensionId])
 
   const onSubmit: SubmitHandler<any> = async (data) => {
-    //
     console.log('data:', data)
   }
 

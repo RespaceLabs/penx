@@ -39,6 +39,7 @@ export interface ISpace {
     [SettingsType.APPEARANCE]: Record<string, any>
     [SettingsType.HOTKEYS]: Record<string, any>
     [SettingsType.PREFERENCES]: Record<string, any>
+    [SettingsType.EXTENSIONS]: Record<string, any>
     [key: string]: Record<string, any>
   }
 

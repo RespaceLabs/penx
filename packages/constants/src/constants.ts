@@ -44,4 +44,5 @@ export enum SettingsType {
   PREFERENCES = 'preferences',
   HOTKEYS = 'hotkeys',
   ABOUT = 'about',
+  EXTENSIONS = 'extensions',
 }
