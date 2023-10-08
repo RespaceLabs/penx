@@ -1,0 +1,23 @@
+{
+  "name": "PenX",
+  "short_name": "PenX",
+  "description": "PenX in a progressive web app (PWA)",
+  "icons": [
+    {
+      "src": "/images/blobby-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/blobby-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#1d2020",
+  "orientation": "portrait",
+  "display": "standalone",
+  "scope": "/pages/",
+  "theme_color": "#1d2020"
+}

@@ -35,4 +35,6 @@ yarn-error.log*
 
 src/locales/**/*.js
 
-src/generated.ts
+# Generated via next-pwa
+**/public/workbox**
+**/public/sw**

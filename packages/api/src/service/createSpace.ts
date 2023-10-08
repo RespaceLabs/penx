@@ -22,7 +22,7 @@ export type CreateUserInput = z.infer<typeof CreateUserInput>
 export function createSpace(input: CreateUserInput) {
   const { userId } = input
   return prisma.$transaction(
-    async (tx) => {
+    async (tx: any) => {
       const space = await tx.space.create({
         data: { subdomain: nanoid(), ...input },
       })

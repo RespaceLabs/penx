@@ -46,19 +46,26 @@ function MyApp({ Component, pageProps }: Props<any>) {
   const Layout = Component.Layout ? Component.Layout : Fragment
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <SessionProvider session={pageProps.session} refetchInterval={0}>
-        <I18nProvider i18n={i18n}>
-          <EasyModalProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <ToastContainer position="bottom-right" />
-          </EasyModalProvider>
-        </I18nProvider>
-        {/* <Analytics /> */}
-      </SessionProvider>
-    </QueryClientProvider>
+    <>
+      <meta
+        name="viewport"
+        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+      />
+
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider session={pageProps.session} refetchInterval={0}>
+          <I18nProvider i18n={i18n}>
+            <EasyModalProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+              <ToastContainer position="bottom-right" />
+            </EasyModalProvider>
+          </I18nProvider>
+          {/* <Analytics /> */}
+        </SessionProvider>
+      </QueryClientProvider>
+    </>
   )
 }
 
