@@ -879,6 +879,9 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
+      '@udecode/plate-common':
+        specifier: ^24.4.0
+        version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
       bone-ui:
         specifier: ^0.37.0
         version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)

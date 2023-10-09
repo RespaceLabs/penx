@@ -41,31 +41,12 @@ export const withCode = (editor: Editor & ReactEditor) => {
   }
 
   editor.insertText = (text) => {
-    console.log('insertText.........:', text)
-
     if (text === ' ' && isEndOfInlineCode(editor)) {
       Editor.removeMark(editor, MarkType.code)
       insertText(text)
       return
     }
     return insertText(text)
-  }
-
-  editor.insertData = (data) => {
-    const text = data.getData('text/plain')
-
-    console.log('insertData data.........:', data, text)
-
-    // const html = data.getData('text/html')
-
-    // if (html) {
-    //   const parsed = new DOMParser().parseFromString(html, 'text/html')
-    //   const fragment = deserialize(parsed.body)
-    //   Transforms.insertFragment(editor, fragment)
-    //   return
-    // }
-
-    insertData(data)
   }
 
   editor.apply = (operation) => {

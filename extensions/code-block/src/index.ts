@@ -6,6 +6,7 @@ import './init-prism'
 import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from './constants'
 import { IconCode } from './IconCode'
 import { insertEmptyCodeBlock } from './transforms/insertEmptyCodeBlock'
+import { CodeBlockElement, CodeLineElement } from './types'
 
 export function activate(ctx: ExtensionContext) {
   ctx.defineSettings([
@@ -27,6 +28,16 @@ export function activate(ctx: ExtensionContext) {
         slashCommand: {
           name: 'Code Block',
           icon: IconCode,
+          defaultNode: {
+            type: ELEMENT_CODE_BLOCK,
+            language: 'js',
+            children: [
+              {
+                type: ELEMENT_CODE_LINE,
+                children: [{ text: '' }],
+              } as CodeLineElement,
+            ],
+          } as CodeBlockElement,
         },
       },
       {

@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { Box } from '@fower/react'
+import { insertNode, TElement } from '@udecode/plate-common'
 import { Editor, Element, Node, Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { selectEditor } from '@penx/editor-transforms'
@@ -61,7 +62,6 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
         Transforms.insertNodes(
           editor,
           {
-            selected: true,
             ...elementInfo.slashCommand?.defaultNode,
           } as any,
           { at },
@@ -79,16 +79,19 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
         Transforms.insertNodes(editor, {
           type: elementType,
           children: [{ text: '' }],
-        } as any)
+        } as TElement)
+
+        if (elementInfo?.slashCommand?.afterInvokeCommand) {
+          elementInfo.slashCommand.afterInvokeCommand(editor)
+        }
       } else {
         // p,h1,h2,h3,h4...
         Transforms.setNodes(
           editor,
           {
             type: elementType,
-            selected: true,
             ...elementInfo.slashCommand?.defaultNode,
-          } as any,
+          } as TElement,
           {
             // mode: 'lowest',
             match: (n) =>
