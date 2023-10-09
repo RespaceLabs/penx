@@ -12,13 +12,8 @@ import { CreateSpaceForm } from './CreateSpaceForm'
 
 export const CreateSpaceModal = () => {
   return (
-    <Modal>
+    <Modal name="CREATE_SPACE_MODAL">
       <ModalOverlay />
-      <ModalTrigger>
-        <Button variant="ghost" isSquare roundedFull>
-          <PlusOutline />
-        </Button>
-      </ModalTrigger>
       <ModalContent w={[520]} px8 py20>
         <ModalCloseButton />
         <Box column textCenter gapy4>

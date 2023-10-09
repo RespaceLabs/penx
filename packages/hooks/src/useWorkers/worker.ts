@@ -9,5 +9,5 @@ self.addEventListener('message', async (event) => {
     // startPollingPull()
   }
 
-  updateExtension()
+  // updateExtension()
 })

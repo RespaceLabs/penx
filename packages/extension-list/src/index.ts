@@ -21,10 +21,10 @@ export const extensionList = [
     id: 'github-sync',
     activate: githubSync.activate,
   },
-  {
-    id: 'storage-estimate',
-    activate: storageEstimate.activate,
-  },
+  // {
+  //   id: 'storage-estimate',
+  //   activate: storageEstimate.activate,
+  // },
   {
     id: 'word-count',
     activate: wordCount.activate,

@@ -3,6 +3,7 @@ import {
   autoUpdate,
   flip,
   offset,
+  OffsetOptions,
   Placement,
   shift,
   useClick,
@@ -23,6 +24,8 @@ export interface PopoverOptions {
 
   placement?: Placement
 
+  offset?: OffsetOptions
+
   portal?: boolean
 
   modal?: boolean
@@ -30,6 +33,8 @@ export interface PopoverOptions {
   isOpen?: boolean
 
   onOpenChange?: (open: boolean) => void
+
+  autoClose?: boolean
 
   showMask?: boolean
 
@@ -43,6 +48,7 @@ export interface PopoverOptions {
 export function usePopover({
   initialOpened = false,
   placement = 'bottom',
+  offset: offsetProp = { mainAxis: 4 },
   modal = true,
   portal = true,
   isOpen: controlledOpen,
@@ -67,14 +73,18 @@ export function usePopover({
     open: isOpen,
     onOpenChange: setOpen,
     whileElementsMounted: autoUpdate,
-    middleware: [offset(5), flip(), shift()],
+    middleware: [offset(offsetProp), flip(), shift()],
   })
 
   const context = data.context
 
   const click = useClick(context, {
-    // enabled: controlledOpen == null,
+    enabled: controlledOpen == null,
   })
+
+  // const hover = useHover(context, {
+  //   enabled: controlledOpen == null,
+  // })
 
   const dismiss = useDismiss(context)
 

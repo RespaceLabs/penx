@@ -88,13 +88,12 @@ export const CatalogueItem = forwardRef<HTMLDivElement, CatalogueItemProps>(
               <CatalogueIconPopover node={item} />
             </Box>
           )}
-
           {item.isGroup && <AnimateArrow isOpen={!item.isFolded} />}
-
           <Box textSM fontMedium>
             {item.name}
           </Box>
         </Box>
+
         <Box toCenterY gap1 opacity-0 opacity-100--$catalogueItem--hover>
           <CatalogueMenuPopover node={item} setIsRenaming={setIsRenaming} />
 

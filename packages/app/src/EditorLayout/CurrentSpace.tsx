@@ -5,6 +5,8 @@ import { EasyModal } from 'easy-modal'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {
+  Avatar,
+  AvatarFallback,
   Menu,
   MenuItem,
   Popover,
@@ -13,32 +15,40 @@ import {
   PopoverTrigger,
 } from 'uikit'
 import { useSpaces } from '@penx/hooks'
+import { CreateSpaceModal } from './CreateSpaceModal'
+import { SpaceList } from './SpaceList'
 
 export const CurrentSpace = () => {
   const { activeSpace } = useSpaces()
 
   return (
-    <Box px4 toCenterY h-48 borderBottom borderBottomGray100 toBetween>
-      <Box textXL fontBold>
-        {activeSpace?.name}
-      </Box>
-      {/* <Popover>
+    <>
+      <CreateSpaceModal />
+      <Popover offset={{ crossAxis: 10 }}>
         <PopoverTrigger asChild>
-          <Cog6ToothOutline gray500 />
+          <Box
+            textXL
+            fontBold
+            toCenterY
+            gap2
+            bgZinc200--hover
+            px2
+            py4
+            cursorPointer
+            rounded2XL
+            mx4
+            my2
+          >
+            <Avatar>
+              <AvatarFallback>{activeSpace?.name}</AvatarFallback>
+            </Avatar>
+            <Box>{activeSpace?.name}</Box>
+          </Box>
         </PopoverTrigger>
-        <PopoverContent w-200>
-          <PopoverClose asChild>
-            <MenuItem
-              onClick={() => {
-                close()
-                EasyModal.show(DeleteSpaceModal, spaceId)
-              }}
-            >
-              Delete
-            </MenuItem>
-          </PopoverClose>
+        <PopoverContent w-300>
+          <SpaceList />
         </PopoverContent>
-      </Popover> */}
-    </Box>
+      </Popover>
+    </>
   )
 }

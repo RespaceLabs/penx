@@ -9,13 +9,14 @@ import {
   useSpaces,
   useWorkers,
 } from '@penx/hooks'
-import { ActivityBar } from '../ActivityBar/ActivityBar'
 import { DocContent } from '../doc/DocContent'
 import { CommandPanel } from '../Palette'
 import { Sidebar } from '../Sidebar/Sidebar'
 import { StatusBar } from '../StatusBar/StatusBar'
+import { CommandDrawer } from './CommandDrawer'
+import { DrawerSidebar } from './SidebarDrawer'
 
-function WidthDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
+function WithDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
   const doc = useDoc()
   useInitDoc(docId)
   useWorkers()
@@ -35,15 +36,35 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <EditorProvider space={activeSpace}>
+      <Box
+        h-48
+        sticky
+        top0
+        toCenterY
+        toBetween
+        px2
+        display={['inline-flex', 'inline-flex', 'none']}
+        w-100p
+        bgWhite
+        zIndex-10
+      >
+        <DrawerSidebar />
+        <CommandDrawer />
+      </Box>
+
       <CommandPanel />
       <Box h-100vh toLeft black textSM>
-        <Box w={[48, 48, 320]} toLeft b>
-          <ActivityBar />
+        <Box w={[0, 0, 300]} toLeft>
           <Sidebar />
         </Box>
-        <Box flex-1 h-100vh relative px={[16, 16, 16, 0]}>
-          <Box overflowYAuto h={'calc(100vh - 24px)'} relative>
-            <WidthDoc docId={activeSpace.activeDocId!}></WidthDoc>
+        <Box flex-1 h-100vh relative>
+          <Box
+            overflowYAuto
+            h={['calc(100vh - 48px)', '100vh']}
+            relative
+            px={[16, 16, 16, 0]}
+          >
+            <WithDoc docId={activeSpace.activeDocId!}></WithDoc>
           </Box>
 
           <StatusBar></StatusBar>

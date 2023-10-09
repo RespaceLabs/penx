@@ -1,17 +1,21 @@
 import { ReactNode } from 'react'
 import { FowerHTMLProps } from '@fower/react'
 
-export interface DrawerState {
+export interface DrawerState<T = any> {
   isOpen: boolean
+  data: T
 }
 
-export interface DrawerContext {
-  state: DrawerState
+export interface DrawerContext<T = any> {
+  state: DrawerState<T>
 
   setState: any
 
-  open(): void
+  open(data?: T): void
+
   close(): void
+
+  setData(data: T): void
 }
 
 export interface DrawerRenderProps {
@@ -20,7 +24,11 @@ export interface DrawerRenderProps {
   close(): void
 }
 
+export type DrawerName = string | number | Symbol
+
 export interface DrawerOwnProps {
+  name?: DrawerName
+
   isLazy?: boolean
 
   isOpen?: boolean

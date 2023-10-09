@@ -24,8 +24,8 @@ export const ElementMenu: FC<Props> = memo(
         absolute
         left={-width - 6}
         w={width}
-        h={isHeading(element) ? '2em' : 'calc(1.5em + 8px)'}
         textBase
+        h={isHeading(element) ? '2em' : 'calc(1.5em + 8px)'}
         text3XL={isHeading(element, 'h1')}
         text2XL={isHeading(element, 'h2')}
         textXL={isHeading(element, 'h3')}

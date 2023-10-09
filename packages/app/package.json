@@ -134,6 +134,7 @@
     "uikit": "workspace:*",
     "use-debounce": "^9.0.4",
     "uuid": "^9.0.0",
+    "vaul": "^0.7.0",
     "zod": "^3.21.4"
   }
 }

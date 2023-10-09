@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { css } from '@fower/react'
 import { Editor, Element } from 'slate'
 import { useSelected, useSlateStatic } from 'slate-react'
+import { isCodeBlock } from '@penx/code-block'
 import { isCollapsed } from '@penx/editor-queries'
 import { isTable, isTableCell } from '@penx/table'
 import { useCompositionData } from './useCompositionData'
@@ -36,7 +37,7 @@ export function usePlaceholder(
 
     // in codeblock
     const match = Editor.above(editor, {
-      match: (n) => isTable(n),
+      match: (n) => isTable(n) || isCodeBlock(n),
     })
 
     if (match?.[0]) {
@@ -63,5 +64,5 @@ export function usePlaceholder(
       }),
     [isShow, placeholder],
   )
-  return className
+  return { className, isShow }
 }

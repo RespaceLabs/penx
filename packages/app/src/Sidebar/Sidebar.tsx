@@ -10,6 +10,7 @@ export const Sidebar = () => {
       borderGray100
       flex-1
       display={['none', 'none', 'flex']}
+      bgZinc100
     >
       <CurrentSpace />
       <Box flex-1 gray600 px3>

@@ -1,12 +1,16 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useMemo, useState } from 'react'
 import { Portal } from '@bone-ui/portal'
 import { forwardRef } from '@bone-ui/utils'
 import { Box } from '@fower/react'
 import { AnimatePresence } from 'framer-motion'
 import { DrawerProvider } from './drawerContext'
+import { emitter, Events } from './emitter'
 import { DrawerContext, DrawerProps, DrawerState } from './types'
 
-export const Drawer: FC<DrawerProps> = forwardRef((props: DrawerProps, ref) => {
+export const Drawer: FC<DrawerProps> = forwardRef(function Drawer(
+  props: DrawerProps,
+  ref,
+) {
   const {
     children,
     isLazy,
@@ -18,26 +22,51 @@ export const Drawer: FC<DrawerProps> = forwardRef((props: DrawerProps, ref) => {
     ...rest
   } = props
 
-  const [state, setState] = useState({ isOpen: isOpenProp } as DrawerState)
+  const [state, setState] = useState<DrawerState>({
+    isOpen: !!isOpenProp,
+    data: undefined,
+  })
 
-  const ctxValue: DrawerContext = {
-    state,
-    setState,
-    open() {
-      setState((prev) => ({
-        ...prev,
-        isOpen: true,
-      }))
-      onOpen?.()
-    },
-    close() {
-      setState((prev) => ({
-        ...prev,
-        isOpen: false,
-      }))
-      onClose?.()
-    },
-  }
+  const ctxValue: DrawerContext = useMemo(
+    () => ({
+      state,
+      setState,
+      open(data) {
+        setState((prev) => ({ ...prev, isOpen: true, data }))
+        onOpen?.()
+      },
+      close() {
+        setState((prev) => ({ ...prev, isOpen: false }))
+        onClose?.()
+      },
+
+      setData(data) {
+        setState((prev) => ({ ...prev, data }))
+      },
+    }),
+    [],
+  )
+
+  useEffect(() => {
+    function handleOpen(e: Events['open']) {
+      if (e.name === props.name) {
+        ctxValue.open(e.data)
+      }
+    }
+
+    function handleClose(e: Events['open']) {
+      if (e.name === props.name) {
+        ctxValue.close()
+      }
+    }
+
+    emitter.on('open', handleOpen)
+    emitter.on('close', handleClose)
+    return () => {
+      emitter.off('open', handleOpen)
+      emitter.off('close', handleClose)
+    }
+  }, [props.name, ctxValue])
 
   useEffect(() => {
     setState((prev) => ({
