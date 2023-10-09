@@ -1,7 +1,7 @@
-import { TrashOutline } from '@bone-ui/icons'
-import { Box, CSSObject } from '@fower/react'
-import { motion, useMotionValue, useTransform } from 'framer-motion'
-import { useSlate, useSlateStatic } from 'slate-react'
+import { Box } from '@fower/react'
+import { useMotionValue, useTransform } from 'framer-motion'
+import { Trash2 } from 'lucide-react'
+import { useSlateStatic } from 'slate-react'
 import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { ElementProps } from '@penx/extension-typings'
 import { CellNode } from '../nodes/CellNode'
@@ -118,11 +118,7 @@ export const TableCell = ({
           <PopoverContent p3 toCenterY spaceX1>
             <IconInsertLeft onClick={() => addColumn()} />
             <IconInsertRight onClick={() => addColumn(true)} />
-            <TrashOutline
-              size={20}
-              cursorPointer
-              onClick={() => removeColumn()}
-            />
+            <Trash2 size={20} onClick={() => removeColumn()} />
           </PopoverContent>
         </Popover>
       </Box>
@@ -155,7 +151,7 @@ export const TableCell = ({
           <PopoverContent p3 toCenterY selectNone>
             <IconInsertTop onClick={() => addRow()} />
             <IconInsertBottom onClick={() => addRow(true)} />
-            <TrashOutline size={20} cursorPointer onClick={() => removeRow()} />
+            <Trash2 size={20} onClick={() => removeRow()} />
           </PopoverContent>
         </Popover>
       )}

@@ -1,6 +1,6 @@
-import React, { FC, PropsWithChildren, useEffect } from 'react'
-import { DocumentOutline, LinkOutline, UserGroupOutline } from '@bone-ui/icons'
+import React, { FC, PropsWithChildren } from 'react'
 import { Box } from '@fower/react'
+import { FileText, Folder, Link } from 'lucide-react'
 import {
   MenuItem,
   Popover,
@@ -32,7 +32,7 @@ export const NewDocPopover: FC<PropsWithChildren<Props>> = ({
                 await catalogue.addNode(CatalogueNodeType.DOC, parentId)
               }}
             >
-              <DocumentOutline size={18} />
+              <FileText size={18} />
               <Box>Create Doc</Box>
             </MenuItem>
           </PopoverClose>
@@ -44,14 +44,14 @@ export const NewDocPopover: FC<PropsWithChildren<Props>> = ({
                 catalogue.addNode(CatalogueNodeType.GROUP, parentId)
               }}
             >
-              <UserGroupOutline size={18} />
+              <Folder size={18} />
               <Box>New Group</Box>
             </MenuItem>
           </PopoverClose>
 
           <PopoverClose asChild>
             <MenuItem gap2>
-              <LinkOutline size={18} />
+              <Link size={18} />
               <Box>Add Link</Box>
             </MenuItem>
           </PopoverClose>

@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@bone-ui/iconify": "^0.37.0",
-    "@bone-ui/icons": "^0.37.0",
     "@bone-ui/utils": "^0.37.0",
     "@fower/react": "^1.86.0",
     "@penx/constants": "workspace:*",
@@ -33,6 +32,7 @@
     "@penx/paragraph": "workspace:*",
     "@penx/shared": "workspace:*",
     "@udecode/plate-common": "^24.4.0",
+    "lucide-react": "^0.284.0",
     "markdown-it": "^13.0.1",
     "prismjs": "^1.29.0",
     "slate": "0.94.1",

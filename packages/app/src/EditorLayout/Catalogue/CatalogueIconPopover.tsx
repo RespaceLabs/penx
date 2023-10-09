@@ -1,5 +1,4 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react'
-import { DocumentOutline, DocumentTextOutline } from '@bone-ui/icons'
 import { Box } from '@fower/react'
 import EmojiPicker, { Emoji, EmojiStyle } from 'emoji-picker-react'
 import { Popover, PopoverContent, PopoverTrigger } from 'uikit'

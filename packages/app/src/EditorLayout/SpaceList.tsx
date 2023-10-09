@@ -1,5 +1,5 @@
-import { PlusOutline } from '@bone-ui/icons'
 import { Box } from '@fower/react'
+import { Plus } from 'lucide-react'
 import {
   Avatar,
   AvatarFallback,
@@ -63,7 +63,7 @@ export const SpaceList = () => {
                 modalController.open('CREATE_SPACE_MODAL')
               }}
             >
-              <PlusOutline />
+              <Plus />
               <Box>New Space</Box>
             </Button>
           </PopoverClose>

@@ -1,11 +1,5 @@
-import {
-  AdjustmentsHorizontalOutline,
-  ArrowPathOutline,
-  EyeOutline,
-  InformationCircleOutline,
-  TvOutline,
-} from '@bone-ui/icons'
 import { Box, FowerHTMLProps, styled } from '@fower/react'
+import { Eye, Info, Option, SlidersHorizontal } from 'lucide-react'
 import { Avatar, AvatarFallback, useModalContext } from 'uikit'
 import { SettingsType } from '@penx/constants'
 import { useSpaces } from '@penx/hooks'
@@ -57,28 +51,23 @@ export const SettingsSidebar = () => {
       <Box py4>
         <Title>Space</Title>
         <Box column gap-1>
-          <SidebarItem type={SettingsType.SYNC}>
-            <ArrowPathOutline size={20} />
-            <Box>Sync</Box>
-          </SidebarItem>
-
           <SidebarItem type={SettingsType.APPEARANCE}>
-            <EyeOutline size={20} />
+            <Eye size={20} />
             <Box>Appearance</Box>
           </SidebarItem>
 
           <SidebarItem type={SettingsType.PREFERENCES}>
-            <AdjustmentsHorizontalOutline size={20} />
+            <SlidersHorizontal size={20} />
             <Box>Preferences</Box>
           </SidebarItem>
 
           <SidebarItem type={SettingsType.HOTKEYS}>
-            <TvOutline size={20} />
+            <Option size={20} />
             <Box>Hotkeys</Box>
           </SidebarItem>
 
           <SidebarItem type={SettingsType.ABOUT}>
-            <InformationCircleOutline size={20} />
+            <Info size={20} />
             <Box>About</Box>
           </SidebarItem>
         </Box>

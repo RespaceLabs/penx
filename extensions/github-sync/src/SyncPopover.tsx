@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { ArrowPathOutline } from '@bone-ui/icons'
-import { Box } from '@fower/react'
+import { Box, css } from '@fower/react'
+import { RefreshCcw } from 'lucide-react'
 import { Divider, Dot, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { SyncStatus } from '@penx/constants'
 import { SyncService } from '@penx/domain'
@@ -43,7 +43,9 @@ export const SyncPopover: FC<Props> = () => {
           <Box toCenterY gap1 rounded cursorPointer px2>
             {isSyncing && (
               <>
-                <ArrowPathOutline size={16} animateSpin={isSyncing} />
+                <Box animateSpin={isSyncing} inlineFlex>
+                  <RefreshCcw size={16} />
+                </Box>
                 <Box gray400>{isPulling ? 'Pulling' : 'Pushing'}</Box>
               </>
             )}

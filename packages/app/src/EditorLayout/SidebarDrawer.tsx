@@ -1,5 +1,5 @@
 import { Box, styled } from '@fower/react'
-import { Menu, TerminalIcon } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
 import { CatalogueBox } from './Catalogue/CatalogueBox'

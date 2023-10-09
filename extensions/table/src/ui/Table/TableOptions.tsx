@@ -1,5 +1,5 @@
-import { EllipsisHorizontalOutline } from '@bone-ui/icons'
 import { Box } from '@fower/react'
+import { MoreHorizontal } from 'lucide-react'
 import { Element, Transforms } from 'slate'
 import { ReactEditor, useSelected, useSlate, useSlateStatic } from 'slate-react'
 import {
@@ -41,7 +41,7 @@ export const TableOptions = ({ element }: { element: TableElement }) => {
           transitionAll
           shadow="0 0 0 1px rgba(0,0,0,.08),0px 1px 1px rgba(0,0,0,.02),0px 4px 8px -4px rgba(0,0,0,.04),0px 16px 24px -8px rgba(0,0,0,.06)"
         >
-          <EllipsisHorizontalOutline />
+          <MoreHorizontal />
         </Box>
       </PopoverTrigger>
       <PopoverContent w-240>

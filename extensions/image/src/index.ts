@@ -1,4 +1,4 @@
-import { PhotoOutline } from '@bone-ui/icons'
+import { ImageIcon } from 'lucide-react'
 import { ExtensionContext } from '@penx/extension-typings'
 import { Image } from './Image'
 import { ELEMENT_IMG } from './types'
@@ -9,10 +9,10 @@ export function activate(ctx: ExtensionContext) {
       {
         isVoid: true,
         type: ELEMENT_IMG,
-        component: Image,
+        component: ImageIcon,
         slashCommand: {
           name: 'Image',
-          icon: PhotoOutline,
+          icon: Image,
         },
       },
     ],

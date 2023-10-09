@@ -1,12 +1,11 @@
-import React, { FC, PropsWithChildren } from 'react'
-import { CodeBracketSolid, EllipsisHorizontalOutline } from '@bone-ui/icons'
+import React, { FC } from 'react'
 import { Box } from '@fower/react'
+import { Code, MoreHorizontal } from 'lucide-react'
 import { Transforms } from 'slate'
-import { useSlate, useSlateStatic } from 'slate-react'
+import { useSlateStatic } from 'slate-react'
 import {
   Divider,
   Input,
-  Menu,
   MenuItem,
   Popover,
   PopoverClose,
@@ -30,14 +29,7 @@ export const CodeMenuPopover: FC<Props> = ({ element }) => {
   return (
     <Popover placement="bottom">
       <PopoverTrigger asChild>
-        <EllipsisHorizontalOutline
-          p0--i
-          square6
-          cursorPointer
-          rounded
-          bgGray200--hover
-          stroke-2
-        />
+        <MoreHorizontal size={24} />
       </PopoverTrigger>
       <PopoverContent w-260 textSM>
         <Box>
@@ -48,7 +40,7 @@ export const CodeMenuPopover: FC<Props> = ({ element }) => {
                 setStatus(CodeBlockStatus.HIGHLIGHT_SETTING)
               }}
             >
-              <CodeBracketSolid size={18} />
+              <Code size={18} />
               <Box>Highlighting Lines Settings</Box>
             </MenuItem>
           </PopoverClose>

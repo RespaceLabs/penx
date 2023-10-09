@@ -1,5 +1,5 @@
-import { PencilOutline, PencilSolid } from '@bone-ui/icons'
 import { Box, FowerHTMLProps } from '@fower/react'
+import { Pen } from 'lucide-react'
 import { StyledLink } from './StyledLink'
 
 interface Props extends FowerHTMLProps<'div'> {
@@ -20,7 +20,7 @@ export const Logo = ({
     <>
       <Box square7 toCenter relative>
         {/* <PencilOutline/> */}
-        <PencilSolid />
+        <Pen />
         <Box absolute w={size * 0.9} h={2} bgBlack roundedFull rotate-45 />
       </Box>
       {showText && (

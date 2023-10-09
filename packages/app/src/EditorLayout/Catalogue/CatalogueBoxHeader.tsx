@@ -1,5 +1,5 @@
-import { PlusOutline } from '@bone-ui/icons'
 import { Box } from '@fower/react'
+import { Plus } from 'lucide-react'
 import { Button } from 'uikit'
 import { NewDocPopover } from './NewDocPopover'
 
@@ -17,7 +17,7 @@ export const CatalogueBoxHeader = () => {
           isSquare
           roundedFull
         >
-          <PlusOutline />
+          <Plus />
         </Button>
       </NewDocPopover>
     </Box>

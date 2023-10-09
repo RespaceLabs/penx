@@ -24,7 +24,6 @@
   "dependencies": {
     "@bone-ui/checkbox": "^0.37.0",
     "@bone-ui/iconify": "^0.37.0",
-    "@bone-ui/icons": "^0.37.0",
     "@bone-ui/menu": "^0.37.0",
     "@bone-ui/select": "^0.37.0",
     "@bone-ui/tag": "^0.37.0",
@@ -60,6 +59,7 @@
     "is-hotkey": "^0.2.0",
     "jotai": "^2.4.2",
     "lodash": "^4.17.21",
+    "lucide-react": "^0.284.0",
     "mitt": "^3.0.0",
     "nanoid": "^4.0.2",
     "next": "13.3.1",

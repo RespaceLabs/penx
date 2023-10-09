@@ -1,8 +1,8 @@
 import { CSSProperties, forwardRef, useState } from 'react'
-import { PlusSmallOutline } from '@bone-ui/icons'
 import { mergeRefs } from '@bone-ui/utils'
 import { useSortable } from '@dnd-kit/sortable'
 import { Box, CSSObject, FowerHTMLProps } from '@fower/react'
+import { Plus } from 'lucide-react'
 import { Dot } from 'uikit'
 import { CatalogueNode } from '@penx/catalogue'
 import { ChangeService } from '@penx/domain'
@@ -99,13 +99,7 @@ export const CatalogueItem = forwardRef<HTMLDivElement, CatalogueItemProps>(
 
           {item.isGroup && (
             <NewDocPopover parentId={item.id}>
-              <PlusSmallOutline
-                square5
-                stroke-2
-                cursorPointer
-                rounded
-                bgGray200--hover
-              />
+              <Plus size={20} />
             </NewDocPopover>
           )}
         </Box>

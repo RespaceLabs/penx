@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { LinkOutline } from '@bone-ui/icons'
 import { Box } from '@fower/react'
+import { Link } from 'lucide-react'
 import { Transforms } from 'slate'
 import { useSlate } from 'slate-react'
 import { ElementType, genId, MarkType } from '@penx/editor-shared'
@@ -12,7 +12,7 @@ const formatMap: Record<string, any> = {
   [MarkType.italic]: 'I',
   [MarkType.underline]: 'U',
   [MarkType.strike_through]: 'S',
-  [ElementType.link]: <LinkOutline size={14} />,
+  [ElementType.link]: <Link size={14} />,
 }
 
 interface Props {

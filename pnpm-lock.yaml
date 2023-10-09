@@ -47,9 +47,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/icons':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/menu':
         specifier: ^0.37.0
         version: 0.37.0
@@ -339,9 +336,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/icons':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/menu':
         specifier: ^0.37.0
         version: 0.37.0
@@ -531,6 +525,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       markdown-it:
         specifier: ^13.0.1
         version: 13.0.1
@@ -840,9 +837,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/icons':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/utils':
         specifier: ^0.37.0
         version: 0.37.0
@@ -1062,9 +1056,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/icons':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/utils':
         specifier: ^0.37.0
         version: 0.37.0
@@ -1104,6 +1095,9 @@ importers:
       '@udecode/plate-common':
         specifier: ^24.4.0
         version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       markdown-it:
         specifier: ^13.0.1
         version: 13.0.1
@@ -1214,9 +1208,6 @@ importers:
 
   extensions/github-sync:
     dependencies:
-      '@bone-ui/icons':
-        specifier: '*'
-        version: 0.37.0
       '@fower/react':
         specifier: ^1.86.0
         version: 1.86.0
@@ -1238,6 +1229,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       uikit:
         specifier: workspace:*
         version: link:../../packages/uikit
@@ -1333,9 +1327,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/icons':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/utils':
         specifier: ^0.37.0
         version: 0.37.0
@@ -1372,6 +1363,9 @@ importers:
       bone-ui:
         specifier: ^0.37.0
         version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
@@ -1425,9 +1419,6 @@ importers:
   extensions/internal-link:
     dependencies:
       '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/icons':
         specifier: ^0.37.0
         version: 0.37.0
       '@bone-ui/utils':
@@ -1536,9 +1527,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/icons':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/utils':
         specifier: ^0.37.0
         version: 0.37.0
@@ -1581,6 +1569,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       slate:
         specifier: 0.94.1
         version: 0.94.1
@@ -1801,9 +1792,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/icons':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/utils':
         specifier: ^0.37.0
         version: 0.37.0
@@ -1864,6 +1852,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
@@ -2045,9 +2036,6 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/icons':
         specifier: ^0.37.0
         version: 0.37.0
       '@bone-ui/menu':
@@ -2684,9 +2672,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/icons':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/menu':
         specifier: ^0.37.0
         version: 0.37.0
@@ -2792,6 +2777,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
@@ -3813,9 +3801,6 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/icons':
         specifier: ^0.37.0
         version: 0.37.0
       '@bone-ui/motion-configs':
@@ -5321,14 +5306,6 @@ packages:
     resolution: {integrity: sha512-rSFBAjKym7ZXWy0HaXRNFg8LGgJFyo3jc/ZNXBf1juwHANjQ4YPkY9Phad6YlxRaXZOfhP6bXdSZRVG8aE2i/A==}
     engines: {node: '>=10'}
     dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/icons@0.37.0:
-    resolution: {integrity: sha512-p67TOK6o4/Ec44sHqNTwx8SYeI+pTxbsDC1WlQVCI6K/QzpJMO7/8D6Spb7cDj5Cj9dh0tfobSsYqzhBwWiQPQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/iconify': 0.37.0
       '@bone-ui/utils': 0.37.0
     dev: false
 

@@ -1,6 +1,6 @@
 import React, { FC, PropsWithChildren } from 'react'
-import { EllipsisHorizontalOutline, UserGroupOutline } from '@bone-ui/icons'
 import { Box } from '@fower/react'
+import { MoreHorizontal } from 'lucide-react'
 import {
   Avatar,
   AvatarFallback,
@@ -30,7 +30,7 @@ export const DocSettingsPopover: FC<PropsWithChildren<Props>> = () => {
     <Popover placement="bottom-end">
       <PopoverTrigger asChild>
         <Box square9 roundedFull toCenter bgGray200--hover cursorPointer>
-          <EllipsisHorizontalOutline p0--i square6 stroke-2 />
+          <MoreHorizontal size={24} />
         </Box>
       </PopoverTrigger>
 

@@ -16,7 +16,6 @@
   "dependencies": {
     "@bone-ui/checkbox": "^0.37.0",
     "@bone-ui/iconify": "^0.37.0",
-    "@bone-ui/icons": "^0.37.0",
     "@bone-ui/menu": "^0.37.0",
     "@bone-ui/select": "^0.37.0",
     "@bone-ui/tag": "^0.37.0",

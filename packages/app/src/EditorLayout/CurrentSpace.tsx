@@ -1,4 +1,3 @@
-import { Cog6ToothOutline, CogSolid } from '@bone-ui/icons'
 import { Box } from '@fower/react'
 import { t, Trans } from '@lingui/macro'
 import { EasyModal } from 'easy-modal'

@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@bone-ui/iconify": "^0.37.0",
-    "@bone-ui/icons": "^0.37.0",
     "@bone-ui/utils": "^0.37.0",
     "@floating-ui/react": "^0.25.4",
     "@fower/react": "^1.86.0",

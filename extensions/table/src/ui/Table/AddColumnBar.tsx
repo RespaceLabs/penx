@@ -1,6 +1,6 @@
-import { PlusOutline } from '@bone-ui/icons'
 import { Box } from '@fower/react'
-import { useSlate, useSlateStatic } from 'slate-react'
+import { Plus } from 'lucide-react'
+import { useSlateStatic } from 'slate-react'
 import { TableNode } from '../../nodes/TableNode'
 import { TableElement } from '../../types'
 
@@ -31,7 +31,7 @@ export const AddColumnBar = ({ element }: Props) => {
       cursorPointer
       onClick={addColumn}
     >
-      <PlusOutline size={16} gray500 />
+      <Plus size={16} />
     </Box>
   )
 }

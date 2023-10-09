@@ -1,5 +1,5 @@
-import { MoonOutline, SunOutline } from '@bone-ui/icons'
 import { Box } from '@fower/react'
+import { Moon, Sun } from 'lucide-react'
 import { useMode } from './useMode'
 
 export const ModeToggle = () => {
@@ -23,8 +23,8 @@ export const ModeToggle = () => {
       cursorPointer
       toCenter
     >
-      {mode === 'dark' && <MoonOutline square5 white--dark />}
-      {mode !== 'dark' && <SunOutline square5 gray600 />}
+      {mode === 'dark' && <Moon size={20} />}
+      {mode !== 'dark' && <Sun size={20} />}
     </Box>
   )
 }

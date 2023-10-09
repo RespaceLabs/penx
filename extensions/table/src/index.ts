@@ -1,5 +1,3 @@
-import { TableCellsOutline } from '@bone-ui/icons'
-import { Element, Node } from 'slate'
 import { ExtensionContext } from '@penx/extension-typings'
 import { getEmptyTableNode } from './getEmptyTableNode'
 import { ELEMENT_TABLE, ELEMENT_TD, ELEMENT_TR } from './types'
@@ -18,7 +16,7 @@ export function activate(ctx: ExtensionContext) {
         component: Table,
         slashCommand: {
           name: 'Table',
-          icon: TableCellsOutline,
+          icon: Table,
           defaultNode: getEmptyTableNode(),
         },
       },

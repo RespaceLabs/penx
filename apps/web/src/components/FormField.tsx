@@ -1,7 +1,5 @@
 import React, { forwardRef, ReactNode } from 'react'
-import { InformationCircleSolid } from '@bone-ui/icons'
 import { Box, FowerHTMLProps } from '@fower/react'
-import { HoverCard, HoverCardContent, HoverCardTrigger } from 'uikit'
 
 export interface FormFieldProps extends FowerHTMLProps<'div'> {
   showLabel?: boolean
@@ -49,21 +47,12 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
                 {label}
               </Box>
             )}
-
-            {description && (
-              <HoverCard>
-                <HoverCardTrigger>
-                  <InformationCircleSolid gray600 cursorPointer size={20} />
-                </HoverCardTrigger>
-                <HoverCardContent>{description}</HoverCardContent>
-              </HoverCard>
-            )}
           </Box>
         )}
 
-        {!!help && (
+        {!!description && (
           <Box textBase mb4 gray500>
-            {help}
+            {description}
           </Box>
         )}
         <Box className="bone-form-field-control" column flex-1 relative>

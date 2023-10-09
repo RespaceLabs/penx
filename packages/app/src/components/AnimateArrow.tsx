@@ -1,9 +1,9 @@
 import React, { FC, ReactNode } from 'react'
-import { ChevronRightOutline } from '@bone-ui/icons'
 import { forwardRef } from '@bone-ui/utils'
 import { css } from '@fower/react'
 import type { FowerHTMLProps } from '@fower/react'
 import { motion, Variant } from 'framer-motion'
+import { ChevronRight } from 'lucide-react'
 
 export interface SelectIconProps extends Omit<FowerHTMLProps<'div'>, 'rotate'> {
   isOpen: boolean
@@ -20,9 +20,7 @@ export const AnimateArrow: FC<SelectIconProps> = forwardRef(
       closed: { rotate: 0, transition: { duration } },
     }
 
-    let childrenElement: ReactNode = (
-      <ChevronRightOutline size={14} stroke="2" />
-    )
+    let childrenElement: ReactNode = <ChevronRight size={14} stroke="2" />
 
     if (children) {
       childrenElement = children

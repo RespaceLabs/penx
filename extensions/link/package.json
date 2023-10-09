@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@bone-ui/iconify": "^0.37.0",
-    "@bone-ui/icons": "^0.37.0",
     "@bone-ui/utils": "^0.37.0",
     "@floating-ui/react": "^0.25.4",
     "@fower/react": "^1.86.0",
@@ -34,6 +33,7 @@
     "@penx/shared": "workspace:*",
     "bone-ui": "^0.37.0",
     "lodash": "^4.17.21",
+    "lucide-react": "^0.284.0",
     "slate": "0.94.1",
     "slate-history": "0.93.0",
     "slate-lists": "workspace:*",

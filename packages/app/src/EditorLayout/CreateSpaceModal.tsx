@@ -1,4 +1,3 @@
-import { PlusOutline } from '@bone-ui/icons'
 import { Box } from '@fower/react'
 import {
   Button,

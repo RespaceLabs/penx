@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import { PhotoOutline } from '@bone-ui/icons'
 import { Box, css } from '@fower/react'
 import { Tab, Tabs } from 'bone-ui'
+import { ImageIcon } from 'lucide-react'
 import { Resizable } from 're-resizable'
 import { Transforms } from 'slate'
 import {
@@ -120,7 +120,7 @@ export const Image = ({
       <Popover initialOpened>
         <PopoverTrigger>
           <Box p4 cursorPointer toCenterY gray400 spaceX2>
-            <PhotoOutline />
+            <ImageIcon />
             <Box>Add an image{children}</Box>
           </Box>
         </PopoverTrigger>

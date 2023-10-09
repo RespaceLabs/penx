@@ -1,12 +1,7 @@
 import { useState } from 'react'
-import {
-  CheckOutline,
-  GlobeAltOutline,
-  LinkOutline,
-  TrashOutline,
-} from '@bone-ui/icons'
 import { FloatingDelayGroup } from '@floating-ui/react'
 import { Box } from '@fower/react'
+import { Check, Globe, Trash2 } from 'lucide-react'
 import { Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { Input, Popover, PopoverContent, PopoverTrigger, toast } from 'uikit'
@@ -60,8 +55,7 @@ export const Link = ({ attributes, element, children, nodeProps }: Props) => {
               bgWhite
               w-400
             >
-              <GlobeAltOutline
-                size={24}
+              <Box
                 gray500
                 cursorPointer
                 bgGray100--hover
@@ -71,7 +65,9 @@ export const Link = ({ attributes, element, children, nodeProps }: Props) => {
                 onClick={() => {
                   window.open(element.url, '_blank')
                 }}
-              />
+              >
+                <Globe size={24} />
+              </Box>
               <Input
                 placeholder="Type a link"
                 ring-0--focus
@@ -107,13 +103,8 @@ export const Link = ({ attributes, element, children, nodeProps }: Props) => {
                     toast.success('Link copied to clipboard')
                   }}
                 />
-                <TrashOutline
+                <Trash2
                   size={24}
-                  gray500
-                  cursorPointer
-                  bgGray100--hover
-                  rounded
-                  p1
                   onClick={() => {
                     Transforms.unwrapNodes(editor, {
                       at: [],
@@ -140,7 +131,7 @@ export const Link = ({ attributes, element, children, nodeProps }: Props) => {
                     setOpen(false)
                   }}
                 >
-                  <CheckOutline gray600 />
+                  <Check />
                 </Box>
               </Box>
             </Box>

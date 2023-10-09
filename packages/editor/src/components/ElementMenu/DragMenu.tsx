@@ -1,12 +1,7 @@
 import { FC } from 'react'
-import {
-  DocumentDuplicateOutline,
-  HashtagOutline,
-  PlusOutline,
-  TrashOutline,
-} from '@bone-ui/icons'
 import { MenuItem } from '@bone-ui/menu'
 import { Box } from '@fower/react'
+import { Copy, Hash, Plus, Trash2 } from 'lucide-react'
 import { Path, Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
@@ -39,19 +34,17 @@ export const DragMenu: FC<Props> = ({ id = '', path, listeners }) => {
         </Box>
       </PopoverTrigger>
       <PopoverContent>
-        <MenuItem icon={<DocumentDuplicateOutline size={18} />}>
-          Duplicate
-        </MenuItem>
-        <MenuItem icon={<HashtagOutline size={18} />}>Copy link</MenuItem>
+        <MenuItem icon={<Copy size={18} />}>Duplicate</MenuItem>
+        <MenuItem icon={<Hash size={18} />}>Copy link</MenuItem>
         <MenuItem
-          icon={<TrashOutline size={18} />}
+          icon={<Trash2 size={18} />}
           onClick={() => {
             Transforms.removeNodes(editor, { at: path })
           }}
         >
           Delete
         </MenuItem>
-        <MenuItem icon={<PlusOutline size={18} />}>Add to below</MenuItem>
+        <MenuItem icon={<Plus size={18} />}>Add to below</MenuItem>
       </PopoverContent>
     </Popover>
   )

@@ -18,12 +18,12 @@
   "dependencies": {
     "@fower/react": "^1.86.0",
     "@penx/constants": "workspace:*",
-    "@penx/local-db": "workspace:*",
-    "@penx/extension-typings": "*",
-    "uikit": "workspace:*",
-    "@bone-ui/icons": "*",
     "@penx/domain": "workspace:*",
+    "@penx/extension-typings": "*",
     "@penx/hooks": "workspace:*",
-    "@penx/icons": "workspace:*"
+    "@penx/icons": "workspace:*",
+    "@penx/local-db": "workspace:*",
+    "lucide-react": "^0.284.0",
+    "uikit": "workspace:*"
   }
 }

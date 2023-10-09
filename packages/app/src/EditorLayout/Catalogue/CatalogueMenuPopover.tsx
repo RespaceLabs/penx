@@ -1,12 +1,7 @@
 import { FC, PropsWithChildren } from 'react'
-import {
-  EllipsisHorizontalOutline,
-  TrashOutline,
-  UserGroupOutline,
-} from '@bone-ui/icons'
 import { Box } from '@fower/react'
+import { FolderEdit, MoreHorizontal, Share2, Trash } from 'lucide-react'
 import {
-  Menu,
   MenuItem,
   Popover,
   PopoverClose,
@@ -42,14 +37,9 @@ export const CatalogueMenuPopover: FC<PropsWithChildren<Props>> = ({
   return (
     <Popover placement="right-start">
       <PopoverTrigger asChild>
-        <EllipsisHorizontalOutline
-          p0--i
-          square5
-          cursorPointer
-          rounded
-          bgGray200--hover
-          stroke-2
-        />
+        <Box p0--i square5 cursorPointer rounded bgGray200--hover stroke-2>
+          <MoreHorizontal />
+        </Box>
       </PopoverTrigger>
       <PopoverContent w-200 textSM>
         <Box>
@@ -60,7 +50,7 @@ export const CatalogueMenuPopover: FC<PropsWithChildren<Props>> = ({
                 setIsRenaming(true)
               }}
             >
-              <UserGroupOutline size={18} />
+              <FolderEdit size={18} />
               <Box>Rename</Box>
             </MenuItem>
           </PopoverClose>
@@ -72,14 +62,14 @@ export const CatalogueMenuPopover: FC<PropsWithChildren<Props>> = ({
                 await catalogue.deleteNode(node)
               }}
             >
-              <TrashOutline size={18} />
+              <Trash size={18} />
               <Box>Delete</Box>
             </MenuItem>
           </PopoverClose>
 
           <PopoverClose asChild>
             <MenuItem gap2 onClick={() => onShare(node)}>
-              <TrashOutline size={18} />
+              <Share2 size={18} />
               <Box>Share</Box>
             </MenuItem>
           </PopoverClose>
