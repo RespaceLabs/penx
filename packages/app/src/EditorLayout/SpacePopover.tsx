@@ -17,7 +17,7 @@ import { useSpaces } from '@penx/hooks'
 import { CreateSpaceModal } from './CreateSpaceModal'
 import { SpaceList } from './SpaceList'
 
-export const CurrentSpace = () => {
+export const SpacePopover = () => {
   const { activeSpace } = useSpaces()
 
   return (

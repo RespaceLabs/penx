@@ -1,7 +1,7 @@
+import { CaseSensitive } from 'lucide-react'
 import { Node } from 'slate'
 import { ExtensionContext } from '@penx/extension-typings'
 import { getEmptyParagraph } from './getEmptyParagraph'
-import { IconText } from './IconText'
 import { insertEmptyParagraph } from './insertEmptyParagraph'
 import { Paragraph } from './Paragraph'
 import { ELEMENT_P, ParagraphElement } from './types'
@@ -15,7 +15,7 @@ export function activate(ctx: ExtensionContext) {
         placeholder: "Type '/' to browse options",
         slashCommand: {
           name: 'Text',
-          icon: IconText,
+          icon: CaseSensitive,
         },
       },
     ],

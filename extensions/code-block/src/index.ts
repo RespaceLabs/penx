@@ -3,8 +3,8 @@ import { CodeBlock } from './ui/CodeBlock'
 import { CodeLine } from './ui/CodeLine'
 import { withCode } from './withCode'
 import './init-prism'
+import { CodeIcon } from 'lucide-react'
 import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from './constants'
-import { IconCode } from './IconCode'
 import { insertEmptyCodeBlock } from './transforms/insertEmptyCodeBlock'
 import { CodeBlockElement, CodeLineElement } from './types'
 
@@ -27,7 +27,7 @@ export function activate(ctx: ExtensionContext) {
         component: CodeBlock,
         slashCommand: {
           name: 'Code Block',
-          icon: IconCode,
+          icon: CodeIcon,
           defaultNode: {
             type: ELEMENT_CODE_BLOCK,
             language: 'js',

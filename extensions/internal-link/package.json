@@ -33,7 +33,6 @@
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/shared": "workspace:*",
-    "bone-ui": "^0.37.0",
     "lodash": "^4.17.21",
     "mitt": "^3.0.0",
     "react-intersection-observer": "^9.5.2",

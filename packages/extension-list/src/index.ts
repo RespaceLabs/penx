@@ -18,6 +18,11 @@ import * as wordCount from '@penx/word-count'
 
 export const extensionList = [
   {
+    id: 'paragraph',
+    activate: paragraph.activate,
+  },
+
+  {
     id: 'github-sync',
     activate: githubSync.activate,
   },
@@ -30,12 +35,13 @@ export const extensionList = [
     activate: wordCount.activate,
   },
   {
-    id: 'blockquote',
-    activate: blockquote.activate,
-  },
-  {
     id: 'heading',
     activate: heading.activate,
+  },
+
+  {
+    id: 'blockquote',
+    activate: blockquote.activate,
   },
   {
     id: 'divider',
@@ -56,10 +62,6 @@ export const extensionList = [
   {
     id: 'autoNodeId',
     activate: autoNodeId.activate,
-  },
-  {
-    id: 'paragraph',
-    activate: paragraph.activate,
   },
   {
     id: 'code-block',

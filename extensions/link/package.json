@@ -31,7 +31,6 @@
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/shared": "workspace:*",
-    "bone-ui": "^0.37.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.284.0",
     "slate": "0.94.1",

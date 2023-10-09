@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Box, css } from '@fower/react'
-import { Tab, Tabs } from 'bone-ui'
 import { ImageIcon } from 'lucide-react'
 import { Resizable } from 're-resizable'
 import { Transforms } from 'slate'
@@ -10,7 +9,15 @@ import {
   useSelected,
   useSlateStatic,
 } from 'slate-react'
-import { Input, Popover, PopoverContent, PopoverTrigger, toast } from 'uikit'
+import {
+  Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Tab,
+  Tabs,
+  toast,
+} from 'uikit'
 import { setNodes } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/extension-typings'
 import { ImageElement } from './types'

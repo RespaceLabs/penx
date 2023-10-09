@@ -35,7 +35,6 @@
     "@penx/local-db": "workspace:*",
     "@penx/paragraph": "workspace:*",
     "@penx/shared": "workspace:*",
-    "bone-ui": "^0.37.0",
     "framer-motion": "^10.12.16",
     "immer": "^10.0.2",
     "lodash": "^4.17.21",

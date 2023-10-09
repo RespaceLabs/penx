@@ -34,7 +34,6 @@
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",
     "@udecode/plate-common": "^24.4.0",
-    "bone-ui": "^0.37.0",
     "jotai": "^2.4.2",
     "lodash": "^4.17.21",
     "mitt": "^3.0.0",

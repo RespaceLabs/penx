@@ -1,3 +1,4 @@
+import { Quote } from 'lucide-react'
 import { ExtensionContext } from '@penx/extension-typings'
 import { Blockquote } from './BlockQuote'
 import { ELEMENT_BLOCKQUOTE } from './constants'
@@ -12,6 +13,7 @@ export function activate(ctx: ExtensionContext) {
         component: Blockquote,
         slashCommand: {
           name: 'Blockquote',
+          icon: Quote,
         },
       },
     ],

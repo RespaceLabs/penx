@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { forwardRef } from '@bone-ui/utils'
 import { Box, FowerHTMLProps } from '@fower/react'
-import { XOutline } from './XOutline'
+import { X } from 'lucide-react'
 
 type Size = 'sm' | 'md' | 'lg' | number
 
@@ -31,7 +31,7 @@ export const CloseButton: FC<CloseButtonProps> = forwardRef(
         {...sizeStyle}
         {...(rest as any)}
       >
-        <XOutline opacity-80 square={sizeStyle.square * 0.7} />
+        <X size={sizeStyle.square * 0.7} />
       </Box>
     )
   },

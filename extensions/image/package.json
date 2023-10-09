@@ -30,7 +30,6 @@
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/shared": "workspace:*",
-    "bone-ui": "^0.37.0",
     "lucide-react": "^0.284.0",
     "prismjs": "^1.29.0",
     "re-resizable": "^6.9.9",

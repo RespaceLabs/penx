@@ -29,6 +29,7 @@
     "@fower/react": "^1.86.0",
     "@fower/utils": "^1.86.0",
     "framer-motion": "^10.12.16",
+    "lucide-react": "^0.284.0",
     "mitt": "^3.0.0",
     "react-remove-scroll": "^2.5.6",
     "sonner": "^0.6.2"

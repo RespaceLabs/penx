@@ -47,15 +47,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/menu':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/select':
-        specifier: ^0.37.0
-        version: 0.37.0(react-dom@18.2.0)(react@18.2.0)
-      '@bone-ui/tag':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/utils':
         specifier: ^0.37.0
         version: 0.37.0
@@ -170,9 +161,6 @@ importers:
       '@vercel/analytics':
         specifier: ^1.0.2
         version: 1.0.2
-      bone-ui:
-        specifier: ^0.37.0
-        version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -336,15 +324,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/menu':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/select':
-        specifier: ^0.37.0
-        version: 0.37.0(react-dom@18.2.0)(react@18.2.0)
-      '@bone-ui/tag':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/utils':
         specifier: ^0.37.0
         version: 0.37.0
@@ -468,9 +447,6 @@ importers:
       '@vercel/analytics':
         specifier: ^1.0.2
         version: 1.0.2
-      bone-ui:
-        specifier: ^0.37.0
-        version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -882,9 +858,6 @@ importers:
       '@udecode/plate-common':
         specifier: ^24.4.0
         version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
-      bone-ui:
-        specifier: ^0.37.0
-        version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
       jotai:
         specifier: ^2.4.2
         version: 2.4.2(@types/react@18.2.22)(react@18.2.0)
@@ -961,6 +934,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       slate:
         specifier: 0.94.1
         version: 0.94.1
@@ -1366,9 +1342,6 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
-      bone-ui:
-        specifier: ^0.37.0
-        version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
       lucide-react:
         specifier: ^0.284.0
         version: 0.284.0(react@18.2.0)
@@ -1469,9 +1442,6 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
-      bone-ui:
-        specifier: ^0.37.0
-        version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1569,9 +1539,6 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
-      bone-ui:
-        specifier: ^0.37.0
-        version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1721,6 +1688,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       slate:
         specifier: 0.94.1
         version: 0.94.1
@@ -1846,9 +1816,6 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
-      bone-ui:
-        specifier: ^0.37.0
-        version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
       framer-motion:
         specifier: ^10.12.16
         version: 10.12.16(react-dom@18.2.0)(react@18.2.0)
@@ -2044,15 +2011,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/menu':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/select':
-        specifier: ^0.37.0
-        version: 0.37.0(react-dom@18.2.0)(react@18.2.0)
-      '@bone-ui/tag':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/utils':
         specifier: ^0.37.0
         version: 0.37.0
@@ -2197,9 +2155,6 @@ importers:
       '@vercel/analytics':
         specifier: ^1.0.2
         version: 1.0.2
-      bone-ui:
-        specifier: ^0.37.0
-        version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -2678,15 +2633,6 @@ importers:
       '@bone-ui/iconify':
         specifier: ^0.37.0
         version: 0.37.0
-      '@bone-ui/menu':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/select':
-        specifier: ^0.37.0
-        version: 0.37.0(react-dom@18.2.0)(react@18.2.0)
-      '@bone-ui/tag':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@bone-ui/utils':
         specifier: ^0.37.0
         version: 0.37.0
@@ -2762,9 +2708,6 @@ importers:
       '@udecode/plate-common':
         specifier: ^24.3.6
         version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
-      bone-ui:
-        specifier: ^0.37.0
-        version: 0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -3839,6 +3782,9 @@ importers:
       framer-motion:
         specifier: ^10.12.16
         version: 10.12.16(react-dom@18.2.0)(react@18.2.0)
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
@@ -5178,67 +5124,8 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
-  /@bone-ui/alert@0.37.0:
-    resolution: {integrity: sha512-bm5id5dt1nRnZ9t89zS2QYGJ9F11TxApppzMxi5cAj7MikjFjSDK8Z51kVOvZC78RDaJ7VuQso7TCIPadmKYzg==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/iconify': 0.37.0
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/avatar@0.37.0:
-    resolution: {integrity: sha512-BPRcCOxRSaSP/Dr4JxJH/wj+tt2dn346yNgRAF805BvXKS0ICV64S/2Z1JjsLgfQvy0xts9exnUk06XkESTEtw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/hooks': 0.37.0
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/back-top@0.37.0:
-    resolution: {integrity: sha512-wHKO6Zv/7W2f3WnrEFiO47ciOOaxnj31AZLnqPG24yAgPjNZYQEuRpnmjyVSPZp1Fykl1y1Oe9nuTbiSxUb7Nw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/iconify': 0.37.0
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/badge@0.37.0:
-    resolution: {integrity: sha512-Am9kOyzRwlG1vhhyomIj+O8MOLK2EITzB7C+6aY1717z8Wl1cOP5euWalPYs8WLs64Mrrv2diZ01xzoUEVBJgg==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/breadcrumb@0.37.0:
-    resolution: {integrity: sha512-nokYIdHuAED3F5ud/pVin/pFlq7gvUwhCxz9f1y67RV6GemQuSezolKiT4sAJSU8I2sD45/wMnv1iDDtnhL65g==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/button@0.37.0:
-    resolution: {integrity: sha512-67eghnbhArIuGnEJtghpmMuvkQP3VnS9qiS8/SNSkIsOihvFkYiS3AkUBb+6FFGukWhzWBi4TchtFn8kW/Np0g==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/spinner': 0.37.0
-    dev: false
-
-  /@bone-ui/card@0.37.0:
-    resolution: {integrity: sha512-x7nTf3ET3Kf2TUjjDxEVyTm0fA0moBpjHIgAmUGpoqgfwqUFUXSpi6W8wcQlZq91+ankQeAQ4lc0TXwh0BDb3Q==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
   /@bone-ui/checkbox@0.37.0:
     resolution: {integrity: sha512-atE0KjX+rC4uJ8+biYsd17gJrxekuUbHA3qVAbDb2HTYbwdTgbHEnpFQyGjmXMiaylxlzUuvzYEINUwmZ6XqyQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/circular-progress@0.37.0:
-    resolution: {integrity: sha512-ncMb59WZdgASb3+zUE8WSrXrG9/EiIWvpIOIELJ5EO7x3xB2Nt+84vM6/An0/A00mXuR0r2fNp0WL2PKGmg7rA==}
     engines: {node: '>=10'}
     dependencies:
       '@bone-ui/utils': 0.37.0
@@ -5249,55 +5136,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       '@bone-ui/iconify': 0.37.0
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/divider@0.37.0:
-    resolution: {integrity: sha512-WAjy6ZA6kZlSe1pfmUew7gBnx8OQFI8QNB94VNslftXgTtU0gLc4kY3cdFdRfhNGUplpKm5brFJCmROpeuew8w==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/dot@0.37.0:
-    resolution: {integrity: sha512-zGczhPt93FItDFmw7i5O69TC3MFhbKnQ56iVfgEBWaFJZCDLXkGn918kZ4E4/zpNYOBPweTjPj1tH2dUUk9MRQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/drawer@0.37.0(@types/react@18.2.22)(react@18.2.0):
-    resolution: {integrity: sha512-eTq2BLtJ+JlzSuZOZ5/Irv01enLLqcrUkH59C1E+dIGqDXNhjH90Yz6+JKWimU6/bnOBIW4WDvPmFk03nsWF8Q==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/close-button': 0.37.0
-      '@bone-ui/motion-configs': 0.37.0
-      '@bone-ui/portal': 0.37.0
-      '@bone-ui/utils': 0.37.0
-      react-remove-scroll: 2.5.6(@types/react@18.2.22)(react@18.2.0)
-    transitivePeerDependencies:
-      - '@types/react'
-      - react
-    dev: false
-
-  /@bone-ui/dropdown-menu@0.37.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-NhOzdzKE/RkaGFCbMZe22WhMdnqdEjO1pVKGCO1sRKi8uA/khmiSWYsuXHgL6c8g28F8KDGZEsk0Vz649BNBSw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/button': 0.37.0
-      '@bone-ui/divider': 0.37.0
-      '@bone-ui/menu': 0.37.0
-      '@bone-ui/popover': 0.37.0(react-dom@18.2.0)(react@18.2.0)
-      '@bone-ui/utils': 0.37.0
-    transitivePeerDependencies:
-      - react
-      - react-dom
-    dev: false
-
-  /@bone-ui/form-field@0.37.0:
-    resolution: {integrity: sha512-oqMMSh4FyIFsSfzHBLwrjbJCY5SrWYlmrKETfuYa/xKtcJ2Fx74Y1qTIvy4+cJsG0iHzXNeSU0ANN4OCGpCyNg==}
-    engines: {node: '>=10'}
-    dependencies:
       '@bone-ui/utils': 0.37.0
     dev: false
 
@@ -5315,34 +5153,6 @@ packages:
       '@bone-ui/utils': 0.37.0
     dev: false
 
-  /@bone-ui/input@0.37.0:
-    resolution: {integrity: sha512-NbXZuaHgsF6Fawj3K7JIIPyBH89YKm245NfEgflx6XM7zs7EZoYa3GjfVva+1i8zRVmBnS3wdNrMyrzO7W909A==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/menu@0.37.0:
-    resolution: {integrity: sha512-ofRJ+19MDQrTeeYAOOM45FuMf6OQfR1KwFNPWnrmvIktGIMEPlg3RG/IfBzT9FNKIfVqHn/t3xp2vjoCcRtW+g==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/modal@0.37.0(@types/react@18.2.22)(react@18.2.0):
-    resolution: {integrity: sha512-3GzOffLB9dHnHLolydb8l7OUFNquRlrGdz8Ausgt7pv6IkJ0uCd7ALVO/zLZIy3DTdkoUzqUeLBe0e9dVizTIw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/close-button': 0.37.0
-      '@bone-ui/motion-configs': 0.37.0
-      '@bone-ui/portal': 0.37.0
-      '@bone-ui/utils': 0.37.0
-      react-remove-scroll: 2.5.6(@types/react@18.2.22)(react@18.2.0)
-    transitivePeerDependencies:
-      - '@types/react'
-      - react
-    dev: false
-
   /@bone-ui/motion-configs@0.37.0:
     resolution: {integrity: sha512-IsuMPRlmKXODrkHCSQeE5YOVJLw6xg4thRyJK6lg7+T75GJpfbUgAu1ZOrNLSzOGDLZwjw6Xu+8J7Cw1bZlO0A==}
     engines: {node: '>=10'}
@@ -5350,51 +5160,8 @@ packages:
       '@bone-ui/utils': 0.37.0
     dev: false
 
-  /@bone-ui/number-input@0.37.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-1BTdto+8qn0ItJjo3aWKvUxNAMgJYJU45W4gzJ94khT3tDtONrQZQbOZevcPZSh7q0Upy4sBeQdYxikFxyJStw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/input': 0.37.0
-      '@bone-ui/utils': 0.37.0
-      rc-input-number: 7.4.2(react-dom@18.2.0)(react@18.2.0)
-      react-multi-ref: 1.0.1
-    transitivePeerDependencies:
-      - react
-      - react-dom
-    dev: false
-
-  /@bone-ui/pin-code@0.37.0:
-    resolution: {integrity: sha512-eu7xLnsutD7txUpvlhKPManyNJKVUlMlXkUA46vF0afBCJJpu8ePCrHoINimQ8IFPq+sc3l86L/V5Fmeb3lVbw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/input': 0.37.0
-      '@bone-ui/utils': 0.37.0
-      react-multi-ref: 1.0.1
-    dev: false
-
-  /@bone-ui/popover@0.37.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-2/3Ug619euEPlmgsRljHKDVV+Ke5TdWrha5NIjf7RRcPgTsBwR14ri1Qi2wFOL8fyfcGEeM22ZrqcqBIO13UPQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/close-button': 0.37.0
-      '@bone-ui/hooks': 0.37.0
-      '@bone-ui/portal': 0.37.0
-      '@bone-ui/utils': 0.37.0
-      '@floating-ui/react': 0.24.3(react-dom@18.2.0)(react@18.2.0)
-    transitivePeerDependencies:
-      - react
-      - react-dom
-    dev: false
-
   /@bone-ui/portal@0.37.0:
     resolution: {integrity: sha512-sDbX6OSbznrmyFvbgxYrUHdwrDOZ6tKedr5uZJHhosXOd6foAo3BldrRjA2dSJ4Btzt3HS5P2/ioswjZmKuSlQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/progress-bar@0.37.0:
-    resolution: {integrity: sha512-q59SP4DMnMXqBxw0M2FvR6N6RqbSDAnxmKjQ6NOnvATq9wPg8GkA7NSatUAo9nhsYk/KvNcA2MD0kayENHq2wg==}
     engines: {node: '>=10'}
     dependencies:
       '@bone-ui/utils': 0.37.0
@@ -5406,95 +5173,6 @@ packages:
     dependencies:
       '@bone-ui/hooks': 0.37.0
       '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/rating@0.37.0:
-    resolution: {integrity: sha512-iLLZjSZsfnhAfCS8swlM71Ln0iE/UwXcmO/MN12pEQeVd/L573oLovrwWjhWH7ksRDGsuzGUNHJgKK9N72p0Lg==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/select@0.37.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Cjn/VYGcW4HaqO5FrkXvIcOczoru+AkIE6N1wcEBdawl4S2G/V220jWeA6oKzH0N9mKI273Ni52c4wAOO0TNsg==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/input': 0.37.0
-      '@bone-ui/menu': 0.37.0
-      '@bone-ui/popover': 0.37.0(react-dom@18.2.0)(react@18.2.0)
-      '@bone-ui/radio': 0.37.0
-      '@bone-ui/spinner': 0.37.0
-      '@bone-ui/utils': 0.37.0
-      '@floating-ui/react': 0.24.3(react-dom@18.2.0)(react@18.2.0)
-    transitivePeerDependencies:
-      - react
-      - react-dom
-    dev: false
-
-  /@bone-ui/skeleton@0.37.0:
-    resolution: {integrity: sha512-bG9auwP5JbTfjttHNnDrt5jsc3TwjWgO8X5gQSy9dwsioc77bmagqPRSznC1JjRVWQkpr++Y+yO3+T0rE/UhIA==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/spinner@0.37.0:
-    resolution: {integrity: sha512-I6VzpJEs6duvay7N1pG6LWFKgeK66iL4cj98k2cqQ/l09/Yj3VMephrtzhyLpnqQ45olrhgksrPXE4uju0jjaw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/switch@0.37.0:
-    resolution: {integrity: sha512-KOn8gXcO5LGfbjeXt0fGHkz51M4yXdoaDUTmg7apTawEOxyYrrZ+FVcAXW3Tlo1DSiQ6MmzE+xYkts1EEghbHA==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/checkbox': 0.37.0
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/table@0.37.0:
-    resolution: {integrity: sha512-7efiRH4Wq9d7eDBmp2vx0+3nywwhKsj2HiSJFu7UCS6971qQkreBNp4VKwM8UM2CL5IHd5HFoBLsZMYYow1G7w==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/tabs@0.37.0:
-    resolution: {integrity: sha512-ip7HZS+/gnznevbal/FLGqRaRK9k8dum6Cg+3pCbHMFLzPv0UVRh7eUTheinvDXsIb7aIll7BpYb5sGF50gTNQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/radio': 0.37.0
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/tag@0.37.0:
-    resolution: {integrity: sha512-3C3H8JNchWOCJ+TYxGokFmFr7j6+31/GRDdvkYBxV3EXpzbzucVjx/QOaFPjYGuI9qUJfFRxyz5v44eVl2MBDA==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/textarea@0.37.0:
-    resolution: {integrity: sha512-FCWQUXA5qu/JUa2j4yitO5ncWL+HZk/Vkf9sskF4TijTZCXbIC2R61seUZChGgrpO92aNfSAoTnW/QLf+0buZw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/tooltip@0.37.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-9cQNVHOvjnVIYPQOxp8x8w2aoJiQnO8pRwvXhCtTsat8VnNCAB4ByGsrxp1eEgiInH7H2Cscze5L4gqJ+kGRdw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/close-button': 0.37.0
-      '@bone-ui/hooks': 0.37.0
-      '@bone-ui/iconify': 0.37.0
-      '@bone-ui/portal': 0.37.0
-      '@bone-ui/utils': 0.37.0
-      '@floating-ui/react': 0.24.3(react-dom@18.2.0)(react@18.2.0)
-    transitivePeerDependencies:
-      - react
-      - react-dom
     dev: false
 
   /@bone-ui/utils@0.37.0:
@@ -9016,13 +8694,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@rc-component/mini-decimal@1.1.0:
-    resolution: {integrity: sha512-jS4E7T9Li2GuYwI6PyiVXmxTiM6b07rlD9Ge8uGZSCz3WlzcG5ZK7g5bbuKNeZ9pgUuPK/5guV781ujdVpm4HQ==}
-    engines: {node: '>=8.x'}
-    dependencies:
-      '@babel/runtime': 7.23.1
-    dev: false
-
   /@react-pdf/fns@2.0.1:
     resolution: {integrity: sha512-/vgecczzFYBQFkgUupH+sxXhLWQtBwdwCgweyh25XOlR4NZuaMD/UVUDl4loFHhRQqDMQq37lkTcchh7zzW6ug==}
     dependencies:
@@ -11510,54 +11181,6 @@ packages:
       unpipe: 1.0.0
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /bone-ui@0.37.0(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-rWGE7M6SUut4i1Jhtvk2KjYKMuGyKtqgQqjhzbS7ewB8sJJ2byzfVPxBKPygw3/2am0XKsUxqCfUDCAxYDoWtA==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/alert': 0.37.0
-      '@bone-ui/avatar': 0.37.0
-      '@bone-ui/back-top': 0.37.0
-      '@bone-ui/badge': 0.37.0
-      '@bone-ui/breadcrumb': 0.37.0
-      '@bone-ui/button': 0.37.0
-      '@bone-ui/card': 0.37.0
-      '@bone-ui/checkbox': 0.37.0
-      '@bone-ui/circular-progress': 0.37.0
-      '@bone-ui/close-button': 0.37.0
-      '@bone-ui/divider': 0.37.0
-      '@bone-ui/dot': 0.37.0
-      '@bone-ui/drawer': 0.37.0(@types/react@18.2.22)(react@18.2.0)
-      '@bone-ui/dropdown-menu': 0.37.0(react-dom@18.2.0)(react@18.2.0)
-      '@bone-ui/form-field': 0.37.0
-      '@bone-ui/hooks': 0.37.0
-      '@bone-ui/iconify': 0.37.0
-      '@bone-ui/input': 0.37.0
-      '@bone-ui/menu': 0.37.0
-      '@bone-ui/modal': 0.37.0(@types/react@18.2.22)(react@18.2.0)
-      '@bone-ui/motion-configs': 0.37.0
-      '@bone-ui/number-input': 0.37.0(react-dom@18.2.0)(react@18.2.0)
-      '@bone-ui/pin-code': 0.37.0
-      '@bone-ui/popover': 0.37.0(react-dom@18.2.0)(react@18.2.0)
-      '@bone-ui/portal': 0.37.0
-      '@bone-ui/progress-bar': 0.37.0
-      '@bone-ui/radio': 0.37.0
-      '@bone-ui/rating': 0.37.0
-      '@bone-ui/select': 0.37.0(react-dom@18.2.0)(react@18.2.0)
-      '@bone-ui/skeleton': 0.37.0
-      '@bone-ui/spinner': 0.37.0
-      '@bone-ui/switch': 0.37.0
-      '@bone-ui/table': 0.37.0
-      '@bone-ui/tabs': 0.37.0
-      '@bone-ui/tag': 0.37.0
-      '@bone-ui/textarea': 0.37.0
-      '@bone-ui/tooltip': 0.37.0(react-dom@18.2.0)(react@18.2.0)
-      '@bone-ui/utils': 0.37.0
-    transitivePeerDependencies:
-      - '@types/react'
-      - react
-      - react-dom
     dev: false
 
   /boolbase@1.0.0:
@@ -17520,20 +17143,6 @@ packages:
       unpipe: 1.0.0
     dev: false
 
-  /rc-input-number@7.4.2(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-yGturTw7WGP+M1GbJ+UTAO7L4buxeW6oilhL9Sq3DezsRS8/9qec4UiXUbeoiX9bzvRXH11JvgskBtxSp4YSNg==}
-    peerDependencies:
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.23.1
-      '@rc-component/mini-decimal': 1.1.0
-      classnames: 2.3.2
-      rc-util: 5.37.0(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
   /rc-resize-observer@1.3.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-iFUdt3NNhflbY3mwySv5CA1TC06zdJ+pfo0oc27xpf4PIOvfZwZGtD9Kz41wGYqC4SLio93RVAirSSpYlV/uYg==}
     peerDependencies:
@@ -17661,12 +17270,6 @@ packages:
 
   /react-merge-refs@2.0.2:
     resolution: {integrity: sha512-V5BGTwGa2r+/t0A/BZMS6L7VPXY0CU8xtAhkT3XUoI1WJJhhtvulvoiZkJ5Jt9YAW23m4xFWmhQ+C5HwjtTFhQ==}
-    dev: false
-
-  /react-multi-ref@1.0.1:
-    resolution: {integrity: sha512-zgQKmduv95vtXIkze6583pRW7Y+mNj7R0bYgxIRWOrsEfxBQaK+MZ6yjTiZ/qcFV4bYGM74nE9isb+YRBNIw2g==}
-    dependencies:
-      '@babel/runtime': 7.23.1
     dev: false
 
   /react-refresh@0.14.0:

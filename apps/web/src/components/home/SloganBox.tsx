@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { Trans } from '@lingui/macro'
-import { Tag } from 'bone-ui'
+import { Tag } from 'uikit'
 
 export const SloganBox = () => {
   return (

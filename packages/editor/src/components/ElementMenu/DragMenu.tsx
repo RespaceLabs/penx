@@ -1,10 +1,9 @@
 import { FC } from 'react'
-import { MenuItem } from '@bone-ui/menu'
 import { Box } from '@fower/react'
 import { Copy, Hash, Plus, Trash2 } from 'lucide-react'
 import { Path, Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
-import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
+import { MenuItem, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { IconDrag } from '@penx/icons'
 
 interface Props {
@@ -34,17 +33,26 @@ export const DragMenu: FC<Props> = ({ id = '', path, listeners }) => {
         </Box>
       </PopoverTrigger>
       <PopoverContent>
-        <MenuItem icon={<Copy size={18} />}>Duplicate</MenuItem>
-        <MenuItem icon={<Hash size={18} />}>Copy link</MenuItem>
+        <MenuItem>
+          <Copy size={18} />
+          <Box>Duplicate</Box>
+        </MenuItem>
+        <MenuItem>
+          <Hash size={18} />
+          <Box>Copy link</Box>
+        </MenuItem>
         <MenuItem
-          icon={<Trash2 size={18} />}
           onClick={() => {
             Transforms.removeNodes(editor, { at: path })
           }}
         >
-          Delete
+          <Trash2 size={18} />
+          <Box>Delete</Box>
         </MenuItem>
-        <MenuItem icon={<Plus size={18} />}>Add to below</MenuItem>
+        <MenuItem>
+          <Plus size={18} />
+          <Box>Add to below</Box>
+        </MenuItem>
       </PopoverContent>
     </Popover>
   )

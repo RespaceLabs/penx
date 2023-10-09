@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
 import { CatalogueBox } from '../EditorLayout/Catalogue/CatalogueBox'
-import { CurrentSpace } from '../EditorLayout/CurrentSpace'
+import { SettingsModal } from '../EditorLayout/SettingsModal/SettingsModal'
+import { SpacePopover } from '../EditorLayout/SpacePopover'
 
 export const Sidebar = () => {
   return (
@@ -12,10 +13,11 @@ export const Sidebar = () => {
       display={['none', 'none', 'flex']}
       bgZinc100--T60
     >
-      <CurrentSpace />
+      <SpacePopover />
       <Box flex-1 gray600 px3>
         <CatalogueBox />
       </Box>
+      <SettingsModal></SettingsModal>
     </Box>
   )
 }

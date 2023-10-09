@@ -2,8 +2,8 @@ import React, { FC, ReactNode } from 'react'
 import { forwardRef } from '@bone-ui/utils'
 import { css, FowerHTMLProps } from '@fower/react'
 import { motion, Variant } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
 import { usePopoverContext } from '../popover'
-import ChevronDownOutline from './icons/ChevronDownOutline'
 
 const variants: Record<'open' | 'closed', Variant> = {
   open: {
@@ -29,7 +29,7 @@ export const SelectIcon: FC<SelectIconProps> = forwardRef(
     const { children, size = 16, ...rest } = props
     const { isOpen } = usePopoverContext()
 
-    let childrenElement: ReactNode = <ChevronDownOutline size={size} />
+    let childrenElement: ReactNode = <ChevronDown size={size} />
 
     if (children) {
       childrenElement = children
