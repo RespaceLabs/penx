@@ -1,3 +1,4 @@
+import { Settings } from 'lucide-react'
 import {
   Button,
   Modal,
@@ -6,7 +7,6 @@ import {
   ModalOverlay,
   ModalTrigger,
 } from 'uikit'
-import { IconSettings } from '@penx/icons'
 import { SettingsContent } from './SettingsContent'
 import { SettingsSidebar } from './SettingsSidebar'
 
@@ -15,8 +15,14 @@ export const SettingsModal = () => {
     <Modal>
       <ModalOverlay />
       <ModalTrigger>
-        <Button colorScheme="gray500" variant="ghost" isSquare roundedFull>
-          <IconSettings gray500 />
+        <Button
+          size="sm"
+          colorScheme="gray500"
+          variant="ghost"
+          isSquare
+          roundedFull
+        >
+          <Settings />
         </Button>
       </ModalTrigger>
       <ModalContent w={[1000]} toLeft p0 h-800>

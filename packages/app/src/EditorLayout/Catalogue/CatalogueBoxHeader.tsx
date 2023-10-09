@@ -7,7 +7,7 @@ export const CatalogueBoxHeader = () => {
   return (
     <Box toCenterY toBetween gap2 my2>
       <Box fontBold ml2>
-        Docs
+        Tree view
       </Box>
       <NewDocPopover>
         <Button

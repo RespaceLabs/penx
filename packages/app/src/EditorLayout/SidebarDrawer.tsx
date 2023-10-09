@@ -2,8 +2,8 @@ import { Box, styled } from '@fower/react'
 import { Menu } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
+import { SpacePopover } from '../Sidebar/SpacePopover'
 import { CatalogueBox } from './Catalogue/CatalogueBox'
-import { SpacePopover } from './SpacePopover'
 
 const DrawerOverlay = styled(Drawer.Overlay)
 const DrawerContent = styled(Drawer.Content)
