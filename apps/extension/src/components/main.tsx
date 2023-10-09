@@ -10,10 +10,10 @@ export function Main({ name = 'Extension' }) {
         flexDirection: 'column',
         padding: 16,
         width: 200,
-      }}
-    >
+      }}>
       <h1>
-        xWelcome to your <a href="https://www.plasmo.com">Plasmo</a> {name}!
+        ....xxxx.Welcome to your <a href="https://www.plasmo.com">Plasmo</a>{' '}
+        {name}!
       </h1>
       <input onChange={(e) => setData(e.target.value)} value={data} />
 

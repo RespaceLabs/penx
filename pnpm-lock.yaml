@@ -83,57 +83,6 @@ importers:
       '@lingui/react':
         specifier: 4.1.2
         version: 4.1.2(react@18.2.0)
-      '@next-auth/prisma-adapter':
-        specifier: ^1.0.7
-        version: 1.0.7(@prisma/client@5.2.0)(next-auth@4.22.1)
-      '@octokit/auth-app':
-        specifier: ^6.0.0
-        version: 6.0.0
-      '@octokit/oauth-app':
-        specifier: ^6.0.0
-        version: 6.0.0
-      '@octokit/rest':
-        specifier: ^20.0.1
-        version: 20.0.1
-      '@penx/app':
-        specifier: workspace:*
-        version: link:../../packages/app
-      '@penx/catalogue':
-        specifier: workspace:*
-        version: link:../../packages/catalogue
-      '@penx/constants':
-        specifier: workspace:*
-        version: link:../../packages/constants
-      '@penx/db':
-        specifier: workspace:*
-        version: link:../../packages/db
-      '@penx/editor':
-        specifier: workspace:*
-        version: link:../../packages/editor
-      '@penx/editor-queries':
-        specifier: workspace:*
-        version: link:../../packages/editor-queries
-      '@penx/editor-shared':
-        specifier: workspace:*
-        version: link:../../packages/editor-shared
-      '@penx/hooks':
-        specifier: workspace:*
-        version: link:../../packages/hooks
-      '@penx/icons':
-        specifier: workspace:*
-        version: link:../../packages/icons
-      '@penx/local-db':
-        specifier: workspace:*
-        version: link:../../packages/local-db
-      '@penx/serializer':
-        specifier: workspace:*
-        version: link:../../packages/serializer
-      '@penx/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      '@prisma/nextjs-monorepo-workaround-plugin':
-        specifier: ^5.1.1
-        version: 5.1.1
       '@radix-ui/react-hover-card':
         specifier: ^1.0.6
         version: 1.0.6(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
@@ -143,24 +92,9 @@ importers:
       '@react-pdf/renderer':
         specifier: ^3.1.12
         version: 3.1.12(react@18.2.0)
-      '@supabase/supabase-js':
-        specifier: ^2.33.1
-        version: 2.33.1
       '@t3-oss/env-nextjs':
         specifier: ^0.3.1
         version: 0.3.1(typescript@5.2.2)(zod@3.21.4)
-      '@trpc/client':
-        specifier: ^10.36.0
-        version: 10.36.0(@trpc/server@10.36.0)
-      '@trpc/next':
-        specifier: ^10.36.0
-        version: 10.36.0(@tanstack/react-query@4.35.7)(@trpc/client@10.36.0)(@trpc/react-query@10.36.0)(@trpc/server@10.36.0)(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
-      '@trpc/server':
-        specifier: ^10.36.0
-        version: 10.36.0
-      '@vercel/analytics':
-        specifier: ^1.0.2
-        version: 1.0.2
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -218,9 +152,6 @@ importers:
       next:
         specifier: 13.3.1
         version: 13.3.1(@babel/core@7.22.17)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
-      next-auth:
-        specifier: 4.22.1
-        version: 4.22.1(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
       octokit:
         specifier: ^3.1.0
         version: 3.1.0
@@ -251,33 +182,12 @@ importers:
       react-intersection-observer:
         specifier: ^9.5.2
         version: 9.5.2(react@18.2.0)
-      slate:
-        specifier: 0.94.1
-        version: 0.94.1
-      slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
-      slate-hyperscript:
-        specifier: 0.77.0
-        version: 0.77.0(slate@0.94.1)
-      slate-lists:
-        specifier: workspace:*
-        version: link:../../packages/slate-lists
-      slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
-      sonner:
-        specifier: ^0.6.2
-        version: 0.6.2(react-dom@18.2.0)(react@18.2.0)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
       superjson:
         specifier: 1.9.1
         version: 1.9.1
-      uikit:
-        specifier: workspace:*
-        version: link:../../packages/uikit
       use-debounce:
         specifier: ^9.0.4
         version: 9.0.4(react@18.2.0)
