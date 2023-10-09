@@ -7,6 +7,7 @@ import './src/env.mjs'
 const withPWA = NextPWA({
   dest: 'public',
   // runtimeCaching,
+  disableDevLogs: true,
 })
 
 /** @type {import('next').NextConfig} */

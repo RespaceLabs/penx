@@ -151,6 +151,7 @@ export class Catalogue {
   }
 
   selectNode = async (node: CatalogueNode) => {
+    if (!node) return
     if (node.isGroup) {
       await this.switchFolded(node.id)
       return

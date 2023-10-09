@@ -4,7 +4,7 @@ import { getClassMetadata, getPropertyMetadata } from './Decorators'
 import IDBError from './IDBError'
 import Model from './Model'
 import { ConfigSchema } from './schema'
-import { ConfigType, TableType, TimeStampsType } from './types'
+import { ConfigType, TableType } from './types'
 
 export class Database {
   private __connection: IDBDatabase = null as any
@@ -225,13 +225,9 @@ export class Database {
 
   public useModel<CollectionType>(
     target: new () => CollectionType,
-  ): Model<CollectionType & Optional<TimeStampsType>>
-  public useModel<CollectionType>(
-    tableName: string,
-  ): Model<CollectionType & Optional<TimeStampsType>>
-  public useModel<CollectionType>(
-    target: string | ((new () => CollectionType) & Optional<TimeStampsType>),
-  ) {
+  ): Model<CollectionType>
+  public useModel<CollectionType>(tableName: string): Model<CollectionType>
+  public useModel<CollectionType>(target: string | (new () => CollectionType)) {
     if (this.connection === null)
       throw new Error('Database is not connected. Did you call .connect()?')
 
@@ -252,10 +248,7 @@ export class Database {
     )!
 
     if (typeof target === 'string') {
-      return new Model<CollectionType & Optional<TimeStampsType>>(
-        this.connection,
-        table,
-      )
+      return new Model<CollectionType>(this.connection, table)
     }
 
     return new Model(this.connection, table, target)

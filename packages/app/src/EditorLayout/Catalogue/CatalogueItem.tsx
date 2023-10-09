@@ -73,7 +73,7 @@ export const CatalogueItem = forwardRef<HTMLDivElement, CatalogueItemProps>(
           cursorPointer
           gray500
           pl={level * 12 + 8}
-          onClick={async (e) => {
+          onClick={async () => {
             await catalogue.selectNode(item)
           }}
         >

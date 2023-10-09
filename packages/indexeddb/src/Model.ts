@@ -3,14 +3,9 @@ import { Optional } from 'utility-types'
 import ArraySorter from './array-sorter'
 import { Database } from './Database'
 import { getPrimaryKey } from './Decorators'
-import {
-  OptionsType,
-  OptionsWhereAsObject,
-  TableType,
-  TimeStampsType,
-} from './types'
+import { OptionsType, OptionsWhereAsObject, TableType } from './types'
 
-export default class Model<DataType extends Optional<TimeStampsType>> {
+export default class Model<DataType> {
   constructor(
     private readonly db: IDBDatabase,
     private readonly table: TableType,
@@ -168,7 +163,7 @@ export default class Model<DataType extends Optional<TimeStampsType>> {
     options: OptionsType<DataType>,
   ): Promise<DataType[] | undefined> {
     return this.selectAll().then((data) => {
-      let result: DataType[] = []
+      let result: DataType[] = data
       if (Reflect.has(options, 'where') && options.where) {
         if (!data) return []
 
@@ -176,6 +171,7 @@ export default class Model<DataType extends Optional<TimeStampsType>> {
           result = (options.where as Function)(data)
         } else {
           const whereKeys = Object.keys(options.where)
+
           result = data.filter((item) => {
             const dataKeys = Object.keys(item)
             for (const key of whereKeys) {

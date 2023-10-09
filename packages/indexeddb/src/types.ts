@@ -5,11 +5,6 @@ export type ConfigType<T = TableType> = {
   indexedDB?: IDBFactory
 }
 
-export type TimeStampsType = {
-  createdAt: number
-  updatedAt: number
-}
-
 export type TableType = {
   name: string
   primaryKey: {
