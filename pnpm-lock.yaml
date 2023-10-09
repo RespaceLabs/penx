@@ -1284,6 +1284,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       react-intersection-observer:
         specifier: ^9.5.2
         version: 9.5.2(react@18.2.0)

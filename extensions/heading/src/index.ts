@@ -1,9 +1,7 @@
+import { Heading1, Heading2, Heading3, Heading4, Heading5 } from 'lucide-react'
 import { Node } from 'slate'
 import { ExtensionContext } from '@penx/extension-typings'
 import { Heading } from './Heading'
-import { IconH1 } from './icons/IconH1'
-import { IconH2 } from './icons/IconH2'
-import { IconH3 } from './icons/IconH3'
 import {
   ELEMENT_H1,
   ELEMENT_H2,
@@ -15,7 +13,7 @@ import {
 } from './types'
 import { withHeading } from './withHeading'
 
-const icons = [IconH1, IconH2, IconH3, IconH3, IconH3, IconH3]
+const icons = [Heading1, Heading2, Heading3, Heading4, Heading5, Heading5]
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({

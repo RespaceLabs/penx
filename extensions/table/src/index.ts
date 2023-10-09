@@ -1,3 +1,4 @@
+import { TableIcon } from 'lucide-react'
 import { ExtensionContext } from '@penx/extension-typings'
 import { getEmptyTableNode } from './getEmptyTableNode'
 import { ELEMENT_TABLE, ELEMENT_TD, ELEMENT_TR } from './types'
@@ -16,7 +17,7 @@ export function activate(ctx: ExtensionContext) {
         component: Table,
         slashCommand: {
           name: 'Table',
-          icon: Table,
+          icon: TableIcon,
           defaultNode: getEmptyTableNode(),
         },
       },

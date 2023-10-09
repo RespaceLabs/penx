@@ -9,10 +9,10 @@ export function activate(ctx: ExtensionContext) {
       {
         isVoid: true,
         type: ELEMENT_IMG,
-        component: ImageIcon,
+        component: Image,
         slashCommand: {
           name: 'Image',
-          icon: Image,
+          icon: ImageIcon,
         },
       },
     ],
