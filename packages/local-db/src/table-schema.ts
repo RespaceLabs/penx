@@ -29,6 +29,22 @@ export const tableSchema: TableType[] = [
     },
     timestamps: true,
   },
+
+  {
+    name: 'file',
+    primaryKey: {
+      name: 'id',
+      autoIncrement: false,
+      unique: true,
+    },
+    indexes: {
+      spaceId: {
+        unique: false,
+      },
+    },
+    timestamps: true,
+  },
+
   {
     name: 'extension',
     primaryKey: {

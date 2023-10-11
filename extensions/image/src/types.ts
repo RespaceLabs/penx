@@ -6,5 +6,6 @@ export interface ImageElement extends BaseElement {
   id?: string
   type: typeof ELEMENT_IMG
   url: string
+  fileId: string
   width: number // image width
 }

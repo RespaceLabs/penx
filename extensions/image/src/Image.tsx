@@ -20,11 +20,10 @@ import {
 } from 'uikit'
 import { setNodes } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/extension-typings'
+import { useSpaces } from '@penx/hooks'
+import { db } from '@penx/local-db'
 import { ImageElement } from './types'
 import { UploadButton } from './UploadButton'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string
-const bucket = process.env.NEXT_PUBLIC_SUPABASE_BUCKET as string
 
 export const Image = ({
   attributes,
@@ -38,10 +37,12 @@ export const Image = ({
   const active = selected && focused
   const [width, setWidth] = useState(nodeWidth)
   const [uploading, setUploading] = useState(false)
+  const { activeSpace } = useSpaces()
+
+  const path = ReactEditor.findPath(editor as any, element as any)
 
   const setNodeWidth = useCallback(
     (w: number) => {
-      const path = ReactEditor.findPath(editor as any, element as any)
       if (w === nodeWidth) {
         // Focus the node if not resized
         Transforms.select(editor, path)
@@ -49,38 +50,39 @@ export const Image = ({
         setNodes<ImageElement>(editor, { width: w }, { at: path })
       }
     },
-    [editor, element, nodeWidth],
+    [editor, nodeWidth, path],
   )
 
   useEffect(() => {
     setWidth(nodeWidth)
   }, [nodeWidth])
 
-  function setImageUrl(url: string) {
-    setNodes<ImageElement>(
-      editor,
-      { url },
-      {
-        mode: 'lowest',
-        match: (n: any) => n.id === element.id,
-      },
-    )
+  const [fileUrl, setFileUrl] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!element.fileId) return
+    db.getFile(element.fileId).then((file) => {
+      const url = URL.createObjectURL(file.value)
+      setFileUrl(url)
+    })
+  }, [element])
+
+  function setFileId(fileId: string) {
+    setNodes<ImageElement>(editor, { fileId }, { at: path })
   }
 
   async function handleUpload(file: File) {
     setUploading(true)
     try {
-      const data = new FormData()
-      data.append('file', file)
-      const res = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: data,
+      const fileInfo = await db.createFile({
+        spaceId: activeSpace.id,
+        value: file,
       })
 
-      const r = await res.json()
-      const url = `${supabaseUrl}/storage/v1/object/public/${bucket}/${r.filePath}`
+      console.log('fileInfo:', fileInfo)
+
+      setFileId(fileInfo.id!)
       setUploading(false)
-      setImageUrl(url)
     } catch (error) {
       setUploading(false)
       toast.error('Upload image failed')
@@ -88,7 +90,7 @@ export const Image = ({
     }
   }
 
-  if (element.url) {
+  if (fileUrl) {
     return (
       <Box {...attributes} contentEditable={false} toCenter>
         {children}
@@ -108,7 +110,7 @@ export const Image = ({
             cursorPointer
             w-100p
             h-auto
-            src={element.url}
+            src={fileUrl}
           />
         </Resizable>
       </Box>
@@ -151,7 +153,7 @@ export const Image = ({
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       const url = (e.target as HTMLInputElement).value
-                      setImageUrl(url)
+                      setFileId(url)
                     }
                   }}
                 />

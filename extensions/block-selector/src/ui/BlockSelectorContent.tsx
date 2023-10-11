@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { Box } from '@fower/react'
-import { insertNode, TElement } from '@udecode/plate-common'
+import { TElement } from '@udecode/plate-common'
 import { Editor, Element, Node, Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { selectEditor } from '@penx/editor-transforms'
@@ -38,7 +38,6 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
   const selectType = useCallback(
     (elementType: any) => {
       const elementInfo = extensionStore.elementMaps[elementType]
-      console.log('elementInfo:', elementInfo)
 
       if (!elementInfo) return // TODO
       close()

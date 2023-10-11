@@ -74,13 +74,25 @@ export default class Model<DataType extends {}> {
    */
   public async selectByPk(pKey: IDBValidKey | IDBKeyRange): Promise<DataType> {
     return new Promise((resolve, reject) => {
-      const transaction = this.db.transaction(this.table.name, 'readonly')
-      const objectStore = transaction.objectStore(this.table.name)
-      const request: IDBRequest<DataType> = objectStore.get(pKey)
-      request.onerror = () =>
-        reject(request.error || 'Unable to retrieve data from the model')
-      request.onsuccess = () =>
-        resolve(this.resolveValue(request.result) as DataType)
+      try {
+        const transaction = this.db.transaction(this.table.name, 'readonly')
+
+        const objectStore = transaction.objectStore(this.table.name)
+
+        if (!pKey) {
+          return reject(
+            'Unable to retrieve data from the model with empty primary key',
+          )
+        }
+        const request: IDBRequest<DataType> = objectStore.get(pKey)
+
+        request.onerror = () =>
+          reject(request.error || 'Unable to retrieve data from the model')
+        request.onsuccess = () =>
+          resolve(this.resolveValue(request.result) as DataType)
+      } catch (error) {
+        reject(error)
+      }
     })
   }
 

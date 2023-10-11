@@ -4,6 +4,7 @@ import { getNewDoc } from './getNewDoc'
 import { getNewSpace } from './getNewSpace'
 import { IDoc } from './interfaces/IDoc'
 import { IExtension } from './interfaces/IExtension'
+import { IFile } from './interfaces/IFile'
 import { ISpace } from './interfaces/ISpace'
 import { tableSchema } from './table-schema'
 
@@ -23,6 +24,10 @@ class DB {
 
   get doc() {
     return database.useModel<IDoc>('doc')
+  }
+
+  get file() {
+    return database.useModel<IFile>('file')
   }
 
   get extension() {
@@ -183,6 +188,19 @@ class DB {
 
   listExtensions = async () => {
     return (await this.extension.selectAll()) as IExtension[]
+  }
+
+  createFile(file: Partial<IFile>) {
+    return this.file.insert({
+      ...file,
+      id: nanoid(),
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    })
+  }
+
+  getFile = (id: string) => {
+    return this.file.selectByPk(id)
   }
 }
 
