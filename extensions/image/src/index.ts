@@ -1,7 +1,7 @@
 import { ImageIcon } from 'lucide-react'
 import { ExtensionContext } from '@penx/extension-typings'
-import { Image } from './Image'
 import { ELEMENT_IMG } from './types'
+import { Image } from './ui/Image'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
