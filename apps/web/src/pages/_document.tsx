@@ -67,7 +67,7 @@ class MyDocument extends Document {
             href="/icons/touch-icon-ipad-retina.png"
           />
 
-          <link
+          {/* <link
             rel="icon"
             type="image/png"
             sizes="32x32"
@@ -78,7 +78,7 @@ class MyDocument extends Document {
             type="image/png"
             sizes="16x16"
             href="/icons/favicon-16x16.png"
-          />
+          /> */}
           <link rel="manifest" href="/manifest.json" />
           <link
             rel="mask-icon"

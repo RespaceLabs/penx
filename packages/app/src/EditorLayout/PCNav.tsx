@@ -1,8 +1,11 @@
 import { Box } from '@fower/react'
 import { MoreHorizontal, Share2, Star } from 'lucide-react'
 import { Button } from 'uikit'
+import { useDoc } from '@penx/hooks'
 
 export const PCNav = () => {
+  const doc = useDoc()
+
   return (
     <Box
       h-48
@@ -16,7 +19,7 @@ export const PCNav = () => {
       bgWhite
       zIndex-10
     >
-      <Box></Box>
+      <Box pl2>{doc.title}</Box>
       <Box>
         <Button size="sm" variant="ghost" colorScheme="gray500" isSquare>
           <Share2 />

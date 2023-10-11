@@ -44,8 +44,8 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
           <Box
             overflowYAuto
             h={['calc(100vh - 48px)', '100vh']}
-            relative
             px={[16, 16, 16, 0]}
+            py0
           >
             <WithDoc docId={activeSpace.activeDocId!}>
               <DocContent />

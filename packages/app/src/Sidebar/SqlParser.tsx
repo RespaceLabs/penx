@@ -12,7 +12,6 @@ export class SqlParser {
   private ast: Select
   constructor(private sql: string) {
     this.ast = parser.astify(sql) as Select
-    console.log('this.ast:', this.ast)
   }
 
   get isValid() {

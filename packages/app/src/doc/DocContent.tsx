@@ -30,7 +30,7 @@ export function DocContent() {
   // )
 
   return (
-    <Box>
+    <Box relative>
       <Box mx-auto maxW-800>
         <DocEditor
           content={doc.content}
@@ -40,7 +40,7 @@ export function DocContent() {
             }
           }}
           renderPrefix={(editor) => (
-            <Box mt10>
+            <Box>
               <Input
                 text5XL
                 fontSemibold

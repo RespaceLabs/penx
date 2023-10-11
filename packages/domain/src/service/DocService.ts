@@ -20,7 +20,7 @@ export class DocService {
   }
 
   get title(): string {
-    return this.raw.title
+    return this.raw?.title || ''
   }
 
   get content() {
