@@ -112,12 +112,15 @@ class DB {
       activeDocId: docId,
     })
 
+    // update openedAt
+    await this.doc.updateByPk(docId, { openedAt: Date.now() })
+
     const doc = await this.doc.selectByPk(docId)
     return doc
   }
 
   createDoc(doc: Partial<IDoc>) {
-    return this.doc.insert(doc)
+    return this.doc.insert({ ...doc, openedAt: Date.now() })
   }
 
   getDoc = (docId: string) => {
@@ -125,7 +128,7 @@ class DB {
   }
 
   updateDoc = (docId: string, doc: Partial<IDoc>) => {
-    return this.doc.updateByPk(docId, doc)
+    return this.doc.updateByPk(docId, { ...doc, updatedAt: Date.now() })
   }
 
   // TODO: should use cursor

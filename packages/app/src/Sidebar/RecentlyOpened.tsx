@@ -7,10 +7,10 @@ import { db, IDoc } from '@penx/local-db'
 import { CatalogueIconPopover } from './CatalogueIconPopover'
 import { SqlParser } from './SqlParser'
 
-export const RecentlyEdited = () => {
+export const RecentlyOpened = () => {
   const [docs, setDocs] = useState<IDoc[]>([])
   useEffect(() => {
-    const sql = 'SELECT * FROM doc ORDER BY updatedAt DESC limit 4'
+    const sql = 'SELECT * FROM doc ORDER BY openedAt DESC limit 4'
     const parsed = new SqlParser(sql)
 
     db[parsed.tableName].select(parsed.queryParams).then((docs = []) => {
@@ -23,7 +23,7 @@ export const RecentlyEdited = () => {
   return (
     <Box gray600 p3 bgWhite rounded2XL>
       <Box toCenterY toBetween gap2>
-        <Box fontBold>Recently Edited</Box>
+        <Box fontBold>Recently Opened</Box>
         <Button
           size="sm"
           variant="ghost"

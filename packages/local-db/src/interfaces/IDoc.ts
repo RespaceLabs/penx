@@ -7,6 +7,8 @@ export interface IDoc {
 
   content: string
 
+  openedAt: number
+
   createdAt: number
 
   updatedAt: number

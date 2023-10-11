@@ -3,9 +3,14 @@ import { Optional } from 'utility-types'
 import ArraySorter from './array-sorter'
 import { Database } from './Database'
 import { getPrimaryKey } from './Decorators'
-import { OptionsType, OptionsWhereAsObject, TableType } from './types'
+import {
+  OptionsType,
+  OptionsWhereAsObject,
+  TableType,
+  TimeStampsType,
+} from './types'
 
-export default class Model<DataType> {
+export default class Model<DataType extends {}> {
   constructor(
     private readonly db: IDBDatabase,
     private readonly table: TableType,
@@ -218,15 +223,25 @@ export default class Model<DataType> {
         const transaction = this.db.transaction(this.table.name, 'readwrite')
 
         const store = transaction.objectStore(this.table.name)
-        const data = Object.assign(fetchedData || {}, dataToUpdate)
+        const data = Object.assign(
+          fetchedData || {},
+          dataToUpdate,
+        ) as DataType & TimeStampsType
+
         const primary: { key: string } = { key: null as any }
+
         try {
           primary.key = getPrimaryKey(this.tableClass)!
         } catch (e) {
           // No primary key found
         }
-        if (this.table.timestamps) data.createdAt = Date.now()
+
+        // if (this.table.timestamps) {
+        //   data.updatedAt = Date.now()
+        // }
+
         const save = store.put(data)
+
         save.onsuccess = () => {
           resolve(
             this.resolveValue({

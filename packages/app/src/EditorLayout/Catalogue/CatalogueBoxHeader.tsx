@@ -5,7 +5,7 @@ import { NewDocPopover } from './NewDocPopover'
 
 export const CatalogueBoxHeader = () => {
   return (
-    <Box toCenterY toBetween gap2 my2>
+    <Box toCenterY toBetween gap2 mb2>
       <Box fontBold ml2>
         Tree view
       </Box>
