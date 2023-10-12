@@ -12,14 +12,14 @@ import { setNodes } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/extension-typings'
 import { useSpaces } from '@penx/hooks'
 import { db } from '@penx/local-db'
-import { ImageElement } from '../types'
+import { FileElement } from '../types'
 import { UploadButton } from '../UploadButton'
 
 export const UploadBox = ({
   attributes,
   children,
   element,
-}: ElementProps<ImageElement>) => {
+}: ElementProps<FileElement>) => {
   const editor = useSlateStatic()
   const selected = useSelected()
   const focused = useFocused()
@@ -30,7 +30,7 @@ export const UploadBox = ({
   const path = ReactEditor.findPath(editor as any, element as any)
 
   function setFileId(fileId: string) {
-    setNodes<ImageElement>(editor, { fileId }, { at: path })
+    setNodes<FileElement>(editor, { fileId }, { at: path })
   }
 
   async function handleUpload(file: File) {
@@ -41,8 +41,6 @@ export const UploadBox = ({
         spaceId: activeSpace.id,
         value: file,
       })
-
-      console.log('fileInfo:', fileInfo)
 
       setFileId(fileInfo.id!)
       setUploading(false)

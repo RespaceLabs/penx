@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Box, css } from '@fower/react'
 import { Resizable } from 're-resizable'
 import { Transforms } from 'slate'
@@ -10,7 +10,7 @@ import {
 } from 'slate-react'
 import { setNodes } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/extension-typings'
-import { db } from '@penx/local-db'
+import { useFile } from '@penx/hooks'
 import { ImageElement } from '../types'
 
 export const ImageView = (props: ElementProps<ImageElement>) => {
@@ -35,15 +35,7 @@ export const ImageView = (props: ElementProps<ImageElement>) => {
     [editor, nodeWidth, path],
   )
 
-  const [fileUrl, setFileUrl] = useState<string | null>(null)
-
-  useEffect(() => {
-    if (!element.fileId) return
-    db.getFile(element.fileId).then((file) => {
-      const url = URL.createObjectURL(file.value)
-      setFileUrl(url)
-    })
-  }, [element])
+  const { file } = useFile(element.fileId!)
 
   return (
     <Box {...attributes} contentEditable={false} toCenter>
@@ -64,7 +56,7 @@ export const ImageView = (props: ElementProps<ImageElement>) => {
           cursorPointer
           w-100p
           h-auto
-          src={fileUrl || ''}
+          src={file?.url}
         />
       </Resizable>
     </Box>

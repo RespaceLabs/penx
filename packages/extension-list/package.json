@@ -31,6 +31,7 @@
     "@penx/paragraph": "workspace:*",
     "@penx/code-block": "workspace:*",
     "@penx/image": "workspace:*",
+    "@penx/file": "workspace:*",
     "@penx/link": "workspace:*",
     "@penx/table": "workspace:*",
     "@penx/internal-link": "workspace:*",

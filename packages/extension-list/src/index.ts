@@ -5,6 +5,7 @@ import * as blockquote from '@penx/blockquote'
 import * as checkList from '@penx/check-list'
 import * as codeBlock from '@penx/code-block'
 import * as divider from '@penx/divider'
+import * as File from '@penx/file'
 import * as githubSync from '@penx/github-sync'
 import * as heading from '@penx/heading'
 import * as image from '@penx/image'
@@ -83,5 +84,10 @@ export const extensionList = [
   {
     id: 'block-selector',
     activate: blockSelector.activate,
+  },
+
+  {
+    id: 'file',
+    activate: File.activate,
   },
 ]

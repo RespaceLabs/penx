@@ -43,6 +43,7 @@ const config = {
     '@penx/paragraph',
     '@penx/list',
     '@penx/image',
+    '@penx/file',
     '@penx/link',
     '@penx/internal-link',
     '@penx/table',
