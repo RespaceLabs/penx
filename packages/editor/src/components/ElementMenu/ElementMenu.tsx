@@ -1,6 +1,7 @@
 import { FC, memo } from 'react'
 import { Box } from '@fower/react'
 import { Path } from 'slate'
+import { isBlockquote } from '@penx/blockquote'
 import { isHeading } from '@penx/heading'
 import { isEqual } from '../../common/utils'
 import { DragMenu } from './DragMenu'
@@ -16,6 +17,13 @@ export const ElementMenu: FC<Props> = memo(
     const { id = '', type } = element as any
     const width = 80
 
+    function h() {
+      if (isBlockquote(element)) {
+        return '1.5em'
+      }
+      return isHeading(element) ? '2em' : 'calc(1.5em + 8px)'
+    }
+
     return (
       <Box
         contentEditable={false}
@@ -25,7 +33,7 @@ export const ElementMenu: FC<Props> = memo(
         left={-width - 6}
         w={width}
         textBase
-        h={isHeading(element) ? '2em' : 'calc(1.5em + 8px)'}
+        h={h()}
         text3XL={isHeading(element, 'h1')}
         text2XL={isHeading(element, 'h2')}
         textXL={isHeading(element, 'h3')}

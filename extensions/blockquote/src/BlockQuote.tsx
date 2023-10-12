@@ -14,11 +14,11 @@ export const Blockquote = ({
       borderGray300
       textBase
       leadingSnug
-      m0
-      mt0
-      mb4
+      my0
+      mx0
       pl2
       py0
+      h="1.5em"
       relative
       {...attributes}
       {...nodeProps}

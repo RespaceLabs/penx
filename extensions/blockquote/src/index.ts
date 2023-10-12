@@ -5,6 +5,8 @@ import { ELEMENT_BLOCKQUOTE } from './constants'
 
 export { ELEMENT_BLOCKQUOTE }
 
+export * from './types'
+
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     elements: [

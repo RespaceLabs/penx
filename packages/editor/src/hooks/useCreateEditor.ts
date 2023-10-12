@@ -20,8 +20,14 @@ import { isTable } from '@penx/table'
 export function useCreateEditor() {
   const { extensionStore } = useExtensionStore()
   const editorRef = useRef<Editor>()
-  const { rules, inlineTypes, voidTypes, elementMaps, onKeyDownFns } =
-    extensionStore
+  const {
+    rules,
+    inlineTypes,
+    voidTypes,
+    elementMaps,
+    onKeyDownFns,
+    onBlurFns,
+  } = extensionStore
 
   const withFns: ((editor: Editor) => any)[] = [
     withHistory,
@@ -105,6 +111,7 @@ export function useCreateEditor() {
     }
     ;(editor as any).elementMaps = elementMaps
     ;(editor as any).onKeyDownFns = onKeyDownFns
+    ;(editor as any).onBlurFns = onBlurFns
 
     return editor
   })

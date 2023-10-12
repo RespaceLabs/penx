@@ -120,6 +120,14 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
     listItemIdPrefix,
   })
 
+  if (!filteredTypes.length) {
+    return (
+      <Box py3 px3 gray400>
+        No results
+      </Box>
+    )
+  }
+
   return (
     <Box column gapY-1>
       {filteredTypes.map((type, i) => {

@@ -1,6 +1,11 @@
 import { Editor } from 'slate'
 import type { AutoformatRule } from '@penx/autoformat'
-import { BlockElement, OnKeyDown, PenxEditor } from '@penx/extension-typings'
+import {
+  BlockElement,
+  OnBlur,
+  OnKeyDown,
+  PenxEditor,
+} from '@penx/extension-typings'
 import { ExtensionStore as ExtensionStoreJSON } from '@penx/store'
 
 export class ExtensionStore {
@@ -11,6 +16,8 @@ export class ExtensionStore {
   elementMaps: Record<string, BlockElement> = {}
 
   onKeyDownFns: OnKeyDown[] = []
+
+  onBlurFns: OnBlur[] = []
 
   inlineTypes: string[] = []
 
@@ -28,6 +35,7 @@ export class ExtensionStore {
       rules,
       elementMaps,
       onKeyDownFns,
+      onBlurFns,
       inlineTypes,
       voidTypes,
     } = this
@@ -41,6 +49,10 @@ export class ExtensionStore {
 
       if (plugin.block.handlers?.onKeyDown) {
         onKeyDownFns.push(plugin.block.handlers.onKeyDown)
+      }
+
+      if (plugin.block.handlers?.onBlur) {
+        onBlurFns.push(plugin.block.handlers.onBlur)
       }
 
       if (plugin.block.autoformatRules) {

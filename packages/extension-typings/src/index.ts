@@ -1,4 +1,4 @@
-import { FC, KeyboardEvent } from 'react'
+import { FC, FocusEvent, KeyboardEvent } from 'react'
 import { Editor, Element } from 'slate'
 import { HistoryEditor } from 'slate-history'
 import { ReactEditor, RenderElementProps } from 'slate-react'
@@ -36,7 +36,8 @@ export interface RegisterComponentOptions {
 export interface RegisterBlockOptions {
   with?: (editor: PenxEditor) => Editor
   handlers?: {
-    onKeyDown: OnKeyDown
+    onKeyDown?: OnKeyDown
+    onBlur?: OnBlur
   }
   elements?: BlockElement[]
 
@@ -63,6 +64,11 @@ export type SettingsSchema = SettingsSchemaItem[]
 export type OnKeyDown = (
   editor: Editor,
   e: KeyboardEvent<HTMLDivElement>,
+) => boolean | void
+
+export type OnBlur = (
+  editor: Editor,
+  e: FocusEvent<HTMLDivElement, globalThis.Element>,
 ) => boolean | void
 
 export interface BlockElement {

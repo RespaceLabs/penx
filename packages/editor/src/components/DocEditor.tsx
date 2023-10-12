@@ -1,4 +1,11 @@
-import { KeyboardEvent, ReactNode, useCallback, useMemo, useState } from 'react'
+import {
+  FocusEvent,
+  KeyboardEvent,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react'
 import { createPortal } from 'react-dom'
 import {
   closestCenter,
@@ -20,7 +27,6 @@ import {
 } from '@dnd-kit/sortable'
 import { css } from '@fower/react'
 import { Descendant, Editor, Element, Transforms } from 'slate'
-import { withListsReact } from 'slate-lists'
 import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
 import { onKeyDownAutoformat } from '@penx/autoformat'
@@ -142,6 +148,12 @@ export function DocEditor({ content, onChange, renderPrefix }: Props) {
     }
   }
 
+  const blur = (e: FocusEvent<HTMLDivElement, globalThis.Element>) => {
+    for (const fn of (editor as any).onBlurFns) {
+      fn(editor, e)
+    }
+  }
+
   return (
     <Slate
       editor={editor as any}
@@ -172,6 +184,7 @@ export function DocEditor({ content, onChange, renderPrefix }: Props) {
             onCompositionEnd={onOnCompositionEvent}
             onKeyDown={keyDown}
             onDOMBeforeInput={onDOMBeforeInput}
+            onBlur={blur}
           />
         </SortableContext>
         <ClickablePadding />

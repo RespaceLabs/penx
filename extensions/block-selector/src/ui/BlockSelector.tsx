@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   autoUpdate,
   flip,
@@ -12,11 +12,10 @@ import {
   useRole,
 } from '@floating-ui/react'
 import { Box } from '@fower/react'
-import { Transforms } from 'slate'
-import { useSlate, useSlateStatic } from 'slate-react'
+import { Node, Transforms } from 'slate'
+import { useSlateStatic } from 'slate-react'
 import { findNodePath, getCurrentNode } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
-import { ELEMENT_BLOCK_SELECTOR } from '../constants'
 import { BlockSelectorElement } from '../types'
 import { BlockSelectorContent } from './BlockSelectorContent'
 
@@ -26,18 +25,30 @@ export const BlockSelector = ({
 }: ElementProps<BlockSelectorElement>) => {
   const editor = useSlateStatic()
   const path = findNodePath(editor, element)!
-  const [isOpen, setIsOpen] = useState(false)
+
+  const setIsOpen = useCallback(
+    (isOpen: boolean) => {
+      Transforms.setNodes<BlockSelectorElement>(
+        editor,
+        { isOpen },
+        { at: path },
+      )
+    },
+    [editor, path],
+  )
+
+  const { isOpen } = element
 
   const { refs, floatingStyles, context } = useFloating({
     whileElementsMounted: autoUpdate,
     open: isOpen,
     onOpenChange: (open: boolean) => {
+      setIsOpen(open)
       if (!open) {
         Transforms.unwrapNodes(editor, {
           at: path,
         })
       }
-      setIsOpen(open)
     },
     placement: 'bottom-start',
     middleware: [
@@ -61,7 +72,7 @@ export const BlockSelector = ({
     if (node) {
       setIsOpen(true)
     }
-  }, [editor])
+  }, [editor, setIsOpen])
 
   return (
     <>

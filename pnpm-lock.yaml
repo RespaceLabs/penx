@@ -2570,6 +2570,9 @@ importers:
       '@penx/autoformat':
         specifier: workspace:*
         version: link:../autoformat
+      '@penx/blockquote':
+        specifier: workspace:*
+        version: link:../../extensions/blockquote
       '@penx/catalogue':
         specifier: workspace:*
         version: link:../catalogue
