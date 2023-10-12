@@ -223,11 +223,15 @@ export class Database {
     }
   }
 
-  public useModel<CollectionType>(
+  public useModel<CollectionType extends {}>(
     target: new () => CollectionType,
   ): Model<CollectionType>
-  public useModel<CollectionType>(tableName: string): Model<CollectionType>
-  public useModel<CollectionType>(target: string | (new () => CollectionType)) {
+  public useModel<CollectionType extends {}>(
+    tableName: string,
+  ): Model<CollectionType>
+  public useModel<CollectionType extends {}>(
+    target: string | (new () => CollectionType),
+  ) {
     if (this.connection === null)
       throw new Error('Database is not connected. Did you call .connect()?')
 

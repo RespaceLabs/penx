@@ -15,6 +15,7 @@ export function getNewDoc(spaceId: string): IDoc {
     spaceId,
     title: 'Untitled',
     content: JSON.stringify(EDITOR_CONTENT),
+    openedAt: Date.now(),
     createdAt: Date.now(),
     updatedAt: Date.now(),
   }

@@ -102,6 +102,7 @@ export class Catalogue {
       spaceId: this.spaceId,
       title: node.name,
       content: JSON.stringify(initialValue),
+      openedAt: Date.now(),
       createdAt: Date.now(),
       updatedAt: Date.now(),
     }
