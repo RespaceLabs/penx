@@ -1343,6 +1343,9 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@penx/store':
+        specifier: workspace:*
+        version: link:../../packages/store
       lucide-react:
         specifier: ^0.284.0
         version: 0.284.0(react@18.2.0)

@@ -29,6 +29,7 @@
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
+    "@penx/store": "workspace:*",
     "@penx/shared": "workspace:*",
     "lucide-react": "^0.284.0",
     "prismjs": "^1.29.0",

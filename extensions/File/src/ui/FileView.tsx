@@ -31,7 +31,9 @@ export const FileView = (props: ElementProps<FileElement>) => {
       {loading && <Box>{children}</Box>}
       {!loading && (
         <>
-          <Paperclip size={20} />
+          <Box gray400 inlineFlex>
+            <Paperclip size={16} />
+          </Box>
           <Box>
             {children}
             {file.name}
