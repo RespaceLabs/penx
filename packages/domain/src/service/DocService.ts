@@ -11,6 +11,10 @@ export class DocService {
     public catalogue: Catalogue,
   ) {}
 
+  get id() {
+    return this.raw.id
+  }
+
   get inited() {
     return !!this.raw
   }
@@ -63,5 +67,19 @@ export class DocService {
 
   setTitleState = async (title: string) => {
     store.set(docAtom, { ...this.raw, title })
+  }
+
+  selectDoc = async () => {
+    const doc = await db.selectDoc(this.spaceId, this.id)
+    this.updateDocAtom(doc!)
+  }
+
+  private updateDocAtom(doc: IDoc) {
+    store.set(docAtom, null as any)
+
+    // for rerender editor
+    setTimeout(() => {
+      store.set(docAtom, doc!)
+    }, 0)
   }
 }
