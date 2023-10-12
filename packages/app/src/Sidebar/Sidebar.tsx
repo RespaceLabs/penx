@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { CatalogueBox } from '../EditorLayout/Catalogue/CatalogueBox'
+// import { CatalogueBox } from '../EditorLayout/Catalogue/CatalogueBox'
 import { RecentlyEdited } from './RecentlyEdited'
 import { RecentlyOpened } from './RecentlyOpened'
 import { SpacePopover } from './SpacePopover'
@@ -19,9 +19,9 @@ export const Sidebar = () => {
       <SpacePopover />
       <RecentlyOpened />
       <RecentlyEdited />
-      <Box gray600 px3 py4 bgWhite rounded2XL>
+      {/* <Box gray600 px3 py4 bgWhite rounded2XL>
         <CatalogueBox />
-      </Box>
+      </Box> */}
     </Box>
   )
 }

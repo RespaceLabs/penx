@@ -5,7 +5,6 @@ import { Button } from 'uikit'
 import { DocService } from '@penx/domain'
 import { useCatalogue } from '@penx/hooks'
 import { db, IDoc } from '@penx/local-db'
-import { CatalogueIconPopover } from './CatalogueIconPopover'
 import { SqlParser } from './SqlParser'
 
 interface Props {
@@ -21,9 +20,7 @@ export const DocQuery = ({ sql, title }: Props) => {
     db[parsed.tableName].select(parsed.queryParams).then((docs = []) => {
       setDocs(docs)
     })
-  }, [])
-
-  const catalogue = useCatalogue()
+  }, [sql])
 
   return (
     <Box gray600 p3 bgWhite rounded2XL>
@@ -41,8 +38,6 @@ export const DocQuery = ({ sql, title }: Props) => {
       </Box>
       <Box column>
         {docs.map((doc) => {
-          const node = catalogue.tree.findNode(doc.id)!
-
           return (
             <Box
               key={doc.id}
@@ -56,11 +51,10 @@ export const DocQuery = ({ sql, title }: Props) => {
               cursorPointer
               rounded
               onClick={() => {
-                const docService = new DocService(doc, catalogue)
+                const docService = new DocService(doc)
                 docService.selectDoc()
               }}
             >
-              <CatalogueIconPopover node={node} />
               <Box flex-1>{doc.title}</Box>
             </Box>
           )

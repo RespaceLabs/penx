@@ -2,14 +2,10 @@ import _ from 'lodash'
 import { db, IDoc } from '@penx/local-db'
 import { slateToMarkdown } from '@penx/serializer'
 import { docAtom, store } from '@penx/store'
-import { Catalogue } from './Catalogue'
 import { ChangeService } from './ChangeService'
 
 export class DocService {
-  constructor(
-    public raw: IDoc,
-    public catalogue: Catalogue,
-  ) {}
+  constructor(public raw: IDoc) {}
 
   get id() {
     return this.raw.id
@@ -37,7 +33,7 @@ export class DocService {
 
   private debouncedUpdateDoc = _.debounce(
     async (content: any, title: string) => {
-      const { raw: doc, catalogue } = this
+      const { raw: doc } = this
 
       const newContent = JSON.stringify(content)
 
@@ -49,8 +45,6 @@ export class DocService {
       const space = await db.getSpace(doc.spaceId)
       const changeService = new ChangeService(space!)
       await changeService.update(doc.id, this.raw.content, newContent)
-
-      await catalogue.updateNodeName(doc.id, title)
 
       store.set(docAtom, {
         ...doc,

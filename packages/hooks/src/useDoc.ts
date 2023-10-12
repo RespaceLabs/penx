@@ -3,7 +3,6 @@ import { useAtom } from 'jotai'
 import { DocService } from '@penx/domain'
 import { db } from '@penx/local-db'
 import { docAtom } from '@penx/store'
-import { useCatalogue } from './useCatalogue'
 
 export function useInitDoc(docId: string) {
   const [_, setDoc] = useAtom(docAtom)
@@ -18,8 +17,7 @@ export function useInitDoc(docId: string) {
 
 export function useDoc() {
   const [docValue] = useAtom(docAtom)
-  const catalogue = useCatalogue()
-  const doc = new DocService(docValue, catalogue)
+  const doc = new DocService(docValue)
 
   return doc
 }
