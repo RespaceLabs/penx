@@ -1,3 +1,8 @@
+export enum DocStatus {
+  NORMAL,
+  DELETED,
+}
+
 export interface IDoc {
   id: string
 
@@ -11,9 +16,9 @@ export interface IDoc {
 
   emoji?: string
 
-  isFolded?: boolean
-
   openedAt: number
+
+  status: DocStatus
 
   createdAt: number
 

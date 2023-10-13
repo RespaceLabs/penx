@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid'
 import { Database } from '@penx/indexeddb'
 import { getNewDoc } from './getNewDoc'
 import { getNewSpace } from './getNewSpace'
-import { IDoc } from './interfaces/IDoc'
+import { DocStatus, IDoc } from './interfaces/IDoc'
 import { IExtension } from './interfaces/IExtension'
 import { IFile } from './interfaces/IFile'
 import { ISpace } from './interfaces/ISpace'
@@ -117,7 +117,11 @@ class DB {
   }
 
   createDoc(doc: Partial<IDoc>) {
-    return this.doc.insert({ ...doc, openedAt: Date.now() })
+    return this.doc.insert({
+      ...doc,
+      status: DocStatus.NORMAL,
+      openedAt: Date.now(),
+    })
   }
 
   getDoc = (docId: string) => {

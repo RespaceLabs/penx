@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { IDoc } from './interfaces/IDoc'
+import { DocStatus, IDoc } from './interfaces/IDoc'
 
 const EDITOR_CONTENT = [
   {
@@ -15,6 +15,7 @@ export function getNewDoc(spaceId: string): IDoc {
     spaceId,
     title: 'Untitled',
     content: JSON.stringify(EDITOR_CONTENT),
+    status: DocStatus.NORMAL,
     openedAt: Date.now(),
     createdAt: Date.now(),
     updatedAt: Date.now(),

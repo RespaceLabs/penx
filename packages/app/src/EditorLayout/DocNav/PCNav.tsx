@@ -3,6 +3,7 @@ import { MoreHorizontal, Star } from 'lucide-react'
 import { Button } from 'uikit'
 import { useDoc } from '@penx/hooks'
 import { MorePopover } from './MorePopover'
+import { NewDocButton } from './NewDocButton'
 import { SharePopover } from './SharePopover'
 
 export const PCNav = () => {
@@ -23,6 +24,7 @@ export const PCNav = () => {
     >
       <Box pl2>{doc.title}</Box>
       <Box>
+        <NewDocButton />
         <SharePopover />
         <Button size="sm" variant="ghost" colorScheme="gray500" isSquare>
           <Star />
