@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { Box } from '@fower/react'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from 'uikit'
-import { DocService } from '@penx/domain'
 import { useSpaces } from '@penx/hooks'
 import { db, IDoc } from '@penx/local-db'
-import { SqlParser } from './SqlParser'
+import { SqlParser } from '../SqlParser'
+import { DocItem } from './DocItem'
 
 interface Props {
   sql: string
@@ -43,28 +43,9 @@ export const DocQuery = ({ sql, title }: Props) => {
         </Button>
       </Box>
       <Box column>
-        {docs.map((doc) => {
-          return (
-            <Box
-              key={doc.id}
-              toCenterY
-              gap2
-              gray500
-              textSM
-              py2
-              px1
-              bgGray100--hover
-              cursorPointer
-              rounded
-              onClick={() => {
-                const docService = new DocService(doc)
-                docService.selectDoc()
-              }}
-            >
-              <Box flex-1>{doc.title}</Box>
-            </Box>
-          )
-        })}
+        {docs.map((doc) => (
+          <DocItem key={doc.id} doc={doc} />
+        ))}
       </Box>
     </Box>
   )

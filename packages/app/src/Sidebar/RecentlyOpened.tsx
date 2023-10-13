@@ -1,4 +1,4 @@
-import { DocQuery } from './DocQuery'
+import { DocQuery } from './DocQuery/DocQuery'
 
 const sql = 'SELECT * FROM doc ORDER BY openedAt DESC limit 4'
 
