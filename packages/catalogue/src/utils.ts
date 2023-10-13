@@ -11,7 +11,7 @@ export function flattenTree(
     const flattenNode = Object.assign(item, { parentId, depth, index })
 
     if (typeof type === 'undefined') acc.push(flattenNode)
-    if (type === item.type) acc.push(flattenNode)
+    // if (type === item.type) acc.push(flattenNode)
     if (item?.children?.length) {
       acc.push(...flattenTree(item.children || [], type, item.id, depth + 1))
     }

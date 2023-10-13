@@ -48,7 +48,6 @@ export class CatalogueTree {
         const catalogue = new CatalogueNode({
           name: node.title,
           id: node.id,
-          type: CatalogueNodeType.DOC,
           emoji: node.emoji,
         })
         return catalogue
@@ -109,8 +108,6 @@ export class CatalogueTree {
 
     function traverse(nodes: CatalogueNode[]) {
       for (const node of nodes) {
-        if (!node.isGroup) continue
-
         if (node.id === parentId) {
           if (!node.children) node.children = []
           node.children.push(newNode)

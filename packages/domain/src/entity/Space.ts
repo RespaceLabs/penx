@@ -32,10 +32,6 @@ export class Space {
     return 'space.json'
   }
 
-  get catalogue() {
-    return this.raw.catalogue
-  }
-
   get changes() {
     return this.raw.changes
   }
@@ -67,7 +63,6 @@ export class Space {
   toJSON() {
     return {
       ...this.raw,
-      catalogue: this.catalogue,
     }
   }
 

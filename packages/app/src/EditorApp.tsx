@@ -16,9 +16,9 @@ if (!isServer) {
   emitter.on('ADD_DOCUMENT', () => {
     const spaces = store.get(spacesAtom)
     const activeSpace = spaces.find((space) => space.isActive)!
-    const catalogueTree = CatalogueTree.fromJSON(activeSpace?.catalogue)
-    const catalogue = new Catalogue(activeSpace, catalogueTree)
-    catalogue.addNode(CatalogueNodeType.DOC)
+
+    // TODO:
+    store.createDoc()
   })
 }
 

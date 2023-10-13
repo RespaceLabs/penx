@@ -66,14 +66,6 @@ class DB {
     await this.space.updateByPk(spaceId, {
       isActive: true,
       activeDocId: doc.id,
-      catalogue: [
-        {
-          id: doc.id,
-          isFolded: false,
-          name: doc.title,
-          type: 0,
-        },
-      ],
     })
 
     const space = await this.space.selectByPk(spaceId)!

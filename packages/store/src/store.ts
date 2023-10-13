@@ -26,8 +26,6 @@ export type ExtensionStore = Record<
   }
 >
 
-export const store = createStore()
-
 export const docAtom = atom(null as any as IDoc)
 
 export const docsAtom = atom<IDoc[]>([])
@@ -55,6 +53,12 @@ export const commandsAtom = atom<Command[]>([
 ])
 
 export const extensionStoreAtom = atom<ExtensionStore>({})
+
+export const store = Object.assign(createStore(), {
+  async createDoc() {
+    //
+  },
+})
 
 ////
 // store.sub(spacesAtom, () => {
