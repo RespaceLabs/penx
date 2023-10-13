@@ -4,10 +4,12 @@ import {
   Button,
   MenuItem,
   Popover,
+  PopoverClose,
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
 import { useDoc } from '@penx/hooks'
+import { store } from '@penx/store'
 
 export const MorePopover = () => {
   const doc = useDoc()
@@ -22,10 +24,17 @@ export const MorePopover = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent w-260 column>
-        <MenuItem gap2 onClick={async () => {}}>
-          <Trash2 size={18} />
-          <Box>Delete</Box>
-        </MenuItem>
+        <PopoverClose>
+          <MenuItem
+            gap2
+            onClick={async () => {
+              await store.trashDoc(doc.id)
+            }}
+          >
+            <Trash2 size={18} />
+            <Box>Delete</Box>
+          </MenuItem>
+        </PopoverClose>
 
         <MenuItem gap2 onClick={async () => {}}>
           <StarOff size={18} />

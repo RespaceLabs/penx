@@ -6,7 +6,7 @@ import {
   RegisterComponentOptions,
   SettingsSchema,
 } from '@penx/extension-typings'
-import { IDoc, ISpace } from '@penx/local-db'
+import { db, IDoc, ISpace } from '@penx/local-db'
 
 type pluginId = string
 
@@ -55,8 +55,28 @@ export const commandsAtom = atom<Command[]>([
 export const extensionStoreAtom = atom<ExtensionStore>({})
 
 export const store = Object.assign(createStore(), {
+  getSpaces() {
+    return store.get(spacesAtom)
+  },
+
+  getActiveSpace() {
+    const spaces = store.getSpaces()
+    return spaces.find((space) => space.isActive)!
+  },
+
+  setDoc(doc: IDoc) {
+    return store.set(docAtom, doc)
+  },
+
   async createDoc() {
     //
+  },
+
+  async trashDoc(id: string) {
+    const space = this.getActiveSpace()
+    await db.trashDoc(id)
+    const docs = await db.listDocsBySpaceId(space.id)
+    if (docs.length) this.setDoc(docs[0])
   },
 })
 

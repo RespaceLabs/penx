@@ -132,6 +132,12 @@ class DB {
     return this.doc.updateByPk(docId, { ...doc, updatedAt: Date.now() })
   }
 
+  trashDoc = (docId: string) => {
+    return this.doc.updateByPk(docId, {
+      status: DocStatus.DELETED,
+    })
+  }
+
   // TODO: should use cursor
   listDocsBySpaceId = async (spaceId: string) => {
     const docs = (await this.doc.selectAll()) as IDoc[]

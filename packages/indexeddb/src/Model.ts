@@ -1,5 +1,4 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer'
-import { Optional } from 'utility-types'
 import ArraySorter from './array-sorter'
 import { Database } from './Database'
 import { getPrimaryKey } from './Decorators'
@@ -191,16 +190,15 @@ export default class Model<DataType extends {}> {
 
           result = data.filter((item) => {
             const dataKeys = Object.keys(item)
-            for (const key of whereKeys) {
-              if (
+            const every = whereKeys.every((key) => {
+              return (
                 dataKeys.includes(key) &&
                 (item as any)[key] ===
                   (options.where as OptionsWhereAsObject)[key]
-              ) {
-                return true
-              }
-            }
-            return false
+              )
+            })
+
+            return every
           })
         }
       }

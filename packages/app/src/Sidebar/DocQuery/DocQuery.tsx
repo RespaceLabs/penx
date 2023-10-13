@@ -3,7 +3,7 @@ import { Box } from '@fower/react'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from 'uikit'
 import { useSpaces } from '@penx/hooks'
-import { db, IDoc } from '@penx/local-db'
+import { db, DocStatus, IDoc } from '@penx/local-db'
 import { SqlParser } from '../SqlParser'
 import { DocItem } from './DocItem'
 
@@ -20,7 +20,10 @@ export const DocQuery = ({ sql, title }: Props) => {
 
     db[parsed.tableName]
       .select({
-        where: { spaceId: activeSpace.id },
+        where: {
+          spaceId: activeSpace.id,
+          status: DocStatus.NORMAL,
+        },
         ...parsed.queryParams,
       })
       .then((docs = []) => {
