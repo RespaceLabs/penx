@@ -1,10 +1,25 @@
 import { Box } from '@fower/react'
-import { CatalogueBox } from '../EditorLayout/Catalogue/CatalogueBox'
+import { useAtom } from 'jotai'
+import { ExtensionStore, extensionStoreAtom } from '@penx/store'
 import { RecentlyEdited } from './RecentlyEdited'
 import { RecentlyOpened } from './RecentlyOpened'
 import { SpacePopover } from './SpacePopover'
 
+function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
+  const values = Object.values(extensionStore)
+  if (!values.length) return []
+  return values.reduce((acc, { components = [] }) => {
+    const matched = components
+      .filter((c) => c.at === 'side_bar')
+      .map((c) => c.component)
+    return [...acc, ...matched]
+  }, [] as any[])
+}
+
 export const Sidebar = () => {
+  const [extensionStore] = useAtom(extensionStoreAtom)
+  const components = getStatusBarComponents(extensionStore)
+
   return (
     <Box
       column
@@ -19,11 +34,13 @@ export const Sidebar = () => {
       overflowAuto
     >
       <SpacePopover />
+
+      {components.map((C, i) => (
+        <C key={i} />
+      ))}
+
       <RecentlyOpened />
       <RecentlyEdited />
-      <Box gray600 px3 py4 bgWhite rounded2XL>
-        <CatalogueBox />
-      </Box>
     </Box>
   )
 }

@@ -29,7 +29,7 @@ export interface RegisterCommandOptions {
 }
 
 export interface RegisterComponentOptions {
-  at: 'status_bar' | 'activity_bar'
+  at: 'status_bar' | 'side_bar'
   component: any
 }
 

@@ -7,10 +7,10 @@ import { Dot } from 'uikit'
 import { CatalogueNode } from '@penx/catalogue'
 import { ChangeService } from '@penx/domain'
 import { useCatalogue, useSpaces } from '@penx/hooks'
-import { AnimateArrow } from '../../components/AnimateArrow'
+import { AnimateArrow } from './AnimateArrow'
 import { CatalogueIconPopover } from './CatalogueIconPopover'
 import { CatalogueMenuPopover } from './CatalogueMenuPopover'
-import { NewDocPopover } from './NewDocPopover'
+import { NewDocButton } from './NewDocButton'
 import { RenameCatalogueInput } from './RenameCatalogueInput'
 
 interface CatalogueItemProps extends FowerHTMLProps<'div'> {
@@ -59,7 +59,7 @@ export const CatalogueItem = forwardRef<HTMLDivElement, CatalogueItemProps>(
         bgGray100--hover
         transitionColors
         bgGray100={active}
-        bgBrand500--T90--i={sortable?.isOver && item.isGroup}
+        bgBrand500--T90--i={sortable?.isOver}
         css={css}
         style={style}
         {...sortable?.listeners}
@@ -77,18 +77,18 @@ export const CatalogueItem = forwardRef<HTMLDivElement, CatalogueItemProps>(
             await catalogue.selectNode(item)
           }}
         >
-          {item.isDoc && (
-            <Box
-              inlineFlex
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-              }}
-            >
-              <CatalogueIconPopover node={item} />
-            </Box>
-          )}
-          {item.isGroup && <AnimateArrow isOpen={!item.isFolded} />}
+          <Box
+            inlineFlex
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+            }}
+          >
+            <CatalogueIconPopover node={item} />
+          </Box>
+
+          <AnimateArrow isOpen={!item.isFolded} />
+
           <Box textSM fontMedium>
             {item.name}
           </Box>
@@ -97,17 +97,7 @@ export const CatalogueItem = forwardRef<HTMLDivElement, CatalogueItemProps>(
         <Box toCenterY gap1 opacity-0 opacity-100--$catalogueItem--hover>
           <CatalogueMenuPopover node={item} setIsRenaming={setIsRenaming} />
 
-          <Box
-            inlineFlex
-            bgGray200--hover
-            rounded
-            cursorPointer
-            gray600
-            p-2
-            onClick={() => catalogue.addNode(item.id)}
-          >
-            <Plus size={16} />
-          </Box>
+          <NewDocButton parentId={item.id} />
         </Box>
 
         {changeService.isAdded(item.id) && <Dot square-6 type="success" ml1 />}

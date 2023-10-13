@@ -15,6 +15,7 @@ import * as list from '@penx/list'
 import * as paragraph from '@penx/paragraph'
 import * as storageEstimate from '@penx/storage-estimate'
 import * as table from '@penx/table'
+import * as treeView from '@penx/tree-view'
 import * as wordCount from '@penx/word-count'
 
 export const extensionList = [
@@ -89,5 +90,10 @@ export const extensionList = [
   {
     id: 'file',
     activate: File.activate,
+  },
+
+  {
+    id: 'tree-view',
+    activate: treeView.activate,
   },
 ]

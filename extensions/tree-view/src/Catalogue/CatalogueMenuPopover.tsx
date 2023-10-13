@@ -12,7 +12,8 @@ import {
 import { CatalogueNode } from '@penx/catalogue'
 import { useCatalogue } from '@penx/hooks'
 import { db } from '@penx/local-db'
-import { appEmitter } from '../../AppEmitter'
+
+// import { appEmitter } from '../../AppEmitter'
 
 interface Props {
   node: CatalogueNode
@@ -28,7 +29,7 @@ export const CatalogueMenuPopover: FC<PropsWithChildren<Props>> = ({
   const onShare = async (node: CatalogueNode) => {
     const doc = await db.getDoc(node.id)
     if (doc) {
-      appEmitter.emit('onShare', doc)
+      // appEmitter.emit('onShare', doc)
     } else {
       toast.error('Failed to generate sharing link')
     }

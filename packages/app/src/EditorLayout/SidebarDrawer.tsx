@@ -3,7 +3,6 @@ import { Menu } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
 import { SpacePopover } from '../Sidebar/SpacePopover'
-import { CatalogueBox } from './Catalogue/CatalogueBox'
 
 const DrawerOverlay = styled(Drawer.Overlay)
 const DrawerContent = styled(Drawer.Content)
@@ -33,7 +32,7 @@ export const DrawerSidebar = () => {
           <Box overflowAuto p5>
             <SpacePopover />
             <Box flex-1 gray600 px3>
-              <CatalogueBox />
+              {/* <CatalogueBox /> */}
             </Box>
           </Box>
         </DrawerContent>

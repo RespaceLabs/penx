@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { Plus } from 'lucide-react'
 import { Button } from 'uikit'
-import { NewDocPopover } from './NewDocPopover'
+import { NewDocButton } from './NewDocButton'
 
 export const CatalogueBoxHeader = () => {
   return (
@@ -9,7 +9,7 @@ export const CatalogueBoxHeader = () => {
       <Box fontBold ml2>
         Tree view
       </Box>
-      <NewDocPopover>
+      <NewDocButton>
         <Button
           size="sm"
           variant="ghost"
@@ -19,7 +19,7 @@ export const CatalogueBoxHeader = () => {
         >
           <Plus />
         </Button>
-      </NewDocPopover>
+      </NewDocButton>
     </Box>
   )
 }

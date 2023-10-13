@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { CatalogueNode, CatalogueTree } from '@penx/catalogue'
+import { CatalogueNode } from '@penx/catalogue'
 import { useCatalogue } from '@penx/hooks'
 import { CatalogueItem } from './CatalogueItem'
 
