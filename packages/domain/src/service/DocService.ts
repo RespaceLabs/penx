@@ -70,6 +70,7 @@ export class DocService {
   }
 
   private updateDocAtom(doc: IDoc) {
+    store.routeTo('DOC')
     store.set(docAtom, null as any)
 
     // for rerender editor

@@ -175,9 +175,7 @@ export default class Model<DataType extends {}> {
   /**
    * @description This method is used to select data from the table.
    */
-  public async select(
-    options: OptionsType<DataType>,
-  ): Promise<DataType[] | undefined> {
+  public async select(options: OptionsType<DataType>): Promise<DataType[]> {
     return this.selectAll().then((data) => {
       let result: DataType[] = data
       if (Reflect.has(options, 'where') && options.where) {

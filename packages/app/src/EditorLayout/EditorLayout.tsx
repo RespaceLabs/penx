@@ -1,5 +1,6 @@
 import { FC, PropsWithChildren } from 'react'
 import { Box } from '@fower/react'
+import { useAtomValue } from 'jotai'
 import { EditorProvider } from '@penx/editor'
 import {
   useDoc,
@@ -8,6 +9,7 @@ import {
   useSpaces,
   useWorkers,
 } from '@penx/hooks'
+import { routerAtom } from '@penx/store'
 import { DocContent } from '../doc/DocContent'
 import { CommandPanel } from '../Palette'
 import { Sidebar } from '../Sidebar/Sidebar'
@@ -15,6 +17,7 @@ import { StatusBar } from '../StatusBar/StatusBar'
 import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
 import { QueryDocs } from './QueryDocs'
+import { TrashBox } from './TrashBox/TrashBox'
 
 function WithDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
   const doc = useDoc()
@@ -29,6 +32,7 @@ function WithDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
 export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   useQuerySpaces()
   const { spaces, activeSpace } = useSpaces()
+  const { name } = useAtomValue(routerAtom)
 
   if (!spaces?.length) return null
 
@@ -41,17 +45,24 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
           <Sidebar />
         </Box>
         <Box flex-1 h-100vh relative>
-          <MobileNav />
-          <PCNav />
+          {name === 'DOC' && (
+            <>
+              <MobileNav />
+              <PCNav />
+            </>
+          )}
           <Box
             overflowYAuto
             h={['calc(100vh - 48px)', '100vh']}
             px={[16, 16, 16, 0]}
             py0
           >
-            <WithDoc docId={activeSpace.activeDocId!}>
-              <DocContent />
-            </WithDoc>
+            {name === 'TRASH' && <TrashBox />}
+            {name === 'DOC' && (
+              <WithDoc docId={activeSpace.activeDocId!}>
+                <DocContent />
+              </WithDoc>
+            )}
           </Box>
 
           <StatusBar></StatusBar>

@@ -138,10 +138,22 @@ class DB {
     })
   }
 
-  // TODO: should use cursor
   listDocsBySpaceId = async (spaceId: string) => {
-    const docs = (await this.doc.selectAll()) as IDoc[]
-    return docs.filter((d) => d.spaceId === spaceId)
+    return this.doc.select({
+      where: {
+        spaceId,
+        status: DocStatus.NORMAL,
+      },
+    })
+  }
+
+  listTrashedDocs = async (spaceId: string) => {
+    return this.doc.select({
+      where: {
+        spaceId,
+        status: DocStatus.DELETED,
+      },
+    })
   }
 
   queryDocByIds = (docIds: string[]) => {

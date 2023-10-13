@@ -4,7 +4,7 @@ import {
   CatalogueNodeType,
   CatalogueTree,
 } from '@penx/catalogue'
-import { db, IDoc, ISpace } from '@penx/local-db'
+import { db, DocStatus, IDoc, ISpace } from '@penx/local-db'
 import { docAtom, spacesAtom, store } from '@penx/store'
 import { ChangeService } from './ChangeService'
 
@@ -79,6 +79,7 @@ export class Catalogue {
       spaceId: this.spaceId,
       title: node.name,
       content: JSON.stringify(initialValue),
+      status: DocStatus.NORMAL,
       openedAt: Date.now(),
       createdAt: Date.now(),
       updatedAt: Date.now(),

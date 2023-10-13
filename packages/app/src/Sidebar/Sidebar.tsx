@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
-import { ExtensionStore, extensionStoreAtom } from '@penx/store'
+import { Trash, Trash2 } from 'lucide-react'
+import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import { RecentlyEdited } from './RecentlyEdited'
 import { RecentlyOpened } from './RecentlyOpened'
 import { SpacePopover } from './SpacePopover'
@@ -41,6 +42,26 @@ export const Sidebar = () => {
 
       <RecentlyOpened />
       <RecentlyEdited />
+
+      <Box
+        toCenterY
+        gap2
+        bgWhite
+        rounded2XL
+        px2
+        py3
+        cursorPointer
+        onClick={() => {
+          store.routeTo('TRASH')
+        }}
+      >
+        <Box inlineFlex gray500>
+          <Trash2 size={20} />
+        </Box>
+        <Box fontSemibold textLG>
+          Trash
+        </Box>
+      </Box>
     </Box>
   )
 }

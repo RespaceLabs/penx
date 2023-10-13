@@ -10,6 +10,12 @@ import { db, IDoc, ISpace } from '@penx/local-db'
 
 type pluginId = string
 
+type RouteName = 'DOC' | 'TRASH' | 'ALL_DOCS'
+export type RouterStore = {
+  name: RouteName
+  params: Record<string, any>
+}
+
 export type Command = {
   id: string
   name: string
@@ -52,6 +58,10 @@ export const commandsAtom = atom<Command[]>([
   },
 ])
 
+export const routerAtom = atom({
+  name: 'DOC',
+} as RouterStore)
+
 export const extensionStoreAtom = atom<ExtensionStore>({})
 
 export const store = Object.assign(createStore(), {
@@ -66,6 +76,13 @@ export const store = Object.assign(createStore(), {
 
   setDoc(doc: IDoc) {
     return store.set(docAtom, doc)
+  },
+
+  routeTo(name: RouteName, params: Record<string, any> = {}) {
+    return store.set(routerAtom, {
+      name,
+      params,
+    })
   },
 
   async createDoc() {
