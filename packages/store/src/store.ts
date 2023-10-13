@@ -1,4 +1,5 @@
 import { atom, createStore } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
 import { SyncStatus } from '@penx/constants'
 import { emitter } from '@penx/event'
 import {
@@ -58,7 +59,7 @@ export const commandsAtom = atom<Command[]>([
   },
 ])
 
-export const routerAtom = atom({
+export const routerAtom = atomWithStorage('Router', {
   name: 'DOC',
 } as RouterStore)
 
@@ -92,6 +93,13 @@ export const store = Object.assign(createStore(), {
   async trashDoc(id: string) {
     const space = this.getActiveSpace()
     await db.trashDoc(id)
+    const docs = await db.listDocsBySpaceId(space.id)
+    if (docs.length) this.setDoc(docs[0])
+  },
+
+  async restoreDoc(id: string) {
+    const space = this.getActiveSpace()
+    await db.restoreDoc(id)
     const docs = await db.listDocsBySpaceId(space.id)
     if (docs.length) this.setDoc(docs[0])
   },

@@ -2364,6 +2364,9 @@ importers:
       superjson:
         specifier: 1.9.1
         version: 1.9.1
+      tinykeys:
+        specifier: ^2.1.0
+        version: 2.1.0
       uikit:
         specifier: workspace:*
         version: link:../uikit
@@ -2621,6 +2624,9 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../store
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
       diff-match-patch:
         specifier: ^1.0.5
         version: 1.0.5
@@ -3883,6 +3889,9 @@ importers:
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
+      rc-table:
+        specifier: ^7.32.1
+        version: 7.32.1(react-dom@18.2.0)(react@18.2.0)
       react-remove-scroll:
         specifier: ^2.5.6
         version: 2.5.6(@types/react@18.2.22)(react@18.2.0)
@@ -18642,6 +18651,10 @@ packages:
       '@types/tinycolor2': 1.4.4
       tinycolor2: 1.6.0
     dev: true
+
+  /tinykeys@2.1.0:
+    resolution: {integrity: sha512-/MESnqBD1xItZJn5oGQ4OsNORQgJfPP96XSGoyu4eLpwpL0ifO0SYR5OD76u0YMhMXsqkb0UqvI9+yXTh4xv8Q==}
+    dev: false
 
   /title-case@2.1.1:
     resolution: {integrity: sha512-EkJoZ2O3zdCz3zJsYCsxyq2OC5hrxR9mfdd5I+w8h/tmFfeOxJ+vvkxsKxdmN0WtS9zLdHEgfgVOiMVgv+Po4Q==}

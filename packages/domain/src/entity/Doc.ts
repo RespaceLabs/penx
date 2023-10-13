@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import { IDoc } from '@penx/local-db'
 
 export class Doc {
@@ -7,12 +8,23 @@ export class Doc {
     return this.raw.id
   }
 
+  get title(): string {
+    return this.raw.title
+  }
+
   getFullPath(baseDir = 'docs'): string {
     return `${baseDir}/${this.id}.json`
   }
 
   get filename() {
     return `${this.id}.json`
+  }
+
+  get createdAtFormatted() {
+    return format(this.raw.createdAt, 'yyyy-MM-dd HH:mm')
+  }
+  get updatedAtFormatted() {
+    return format(this.raw.updatedAt, 'yyyy-MM-dd HH:mm')
   }
 
   get content() {

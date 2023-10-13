@@ -19,7 +19,7 @@ import {
 } from '@dnd-kit/sortable'
 import { Box } from '@fower/react'
 import { Transforms } from 'slate'
-import { useSlate, useSlateStatic } from 'slate-react'
+import { useSlateStatic } from 'slate-react'
 import { findNode, findNodePath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { useActiveElement } from '../../activeElement.store'

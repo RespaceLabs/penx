@@ -127,6 +127,7 @@
     "sonner": "^0.6.2",
     "stook": "^1.17.0",
     "superjson": "1.9.1",
+    "tinykeys": "^2.1.0",
     "uikit": "workspace:*",
     "use-debounce": "^9.0.4",
     "uuid": "^9.0.0",

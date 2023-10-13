@@ -138,6 +138,12 @@ class DB {
     })
   }
 
+  restoreDoc = (docId: string) => {
+    return this.doc.updateByPk(docId, {
+      status: DocStatus.NORMAL,
+    })
+  }
+
   listDocsBySpaceId = async (spaceId: string) => {
     return this.doc.select({
       where: {
