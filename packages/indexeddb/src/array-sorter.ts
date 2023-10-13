@@ -4,7 +4,7 @@ type PropObject = {
 }
 export type Props = PropObject | string | null
 
-export default class ArraySorter<ItemType> {
+export class ArraySorter<ItemType> {
   constructor(private readonly listToBeSorted: ItemType[]) {
     if (!Array.isArray(listToBeSorted)) {
       throw new Error('The list to be sorted must be an array')

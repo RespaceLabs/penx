@@ -1,15 +1,16 @@
 import { Box } from '@fower/react'
-import { Trans } from '@lingui/macro'
 import { RotateCcw, Trash2 } from 'lucide-react'
 import {
   Button,
   ColumnsType,
   Table,
+  toast,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from 'uikit'
 import { Doc } from '@penx/domain'
+import { store } from '@penx/store'
 
 interface Props {
   docs: Doc[]
@@ -50,8 +51,9 @@ export const TrashTable = ({ docs }: Props) => {
                   variant="ghost"
                   colorScheme="gray500"
                   isSquare
-                  onClick={() => {
-                    console.log('seerer')
+                  onClick={async () => {
+                    await store.restoreDoc(item.id)
+                    toast.info(`${item.title} restored`)
                   }}
                 >
                   <RotateCcw />

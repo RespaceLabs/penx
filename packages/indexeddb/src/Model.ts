@@ -1,5 +1,5 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer'
-import ArraySorter from './array-sorter'
+import { ArraySorter } from './array-sorter'
 import { Database } from './Database'
 import { getPrimaryKey } from './Decorators'
 import {

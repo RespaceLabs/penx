@@ -1,6 +1,6 @@
 export enum DocStatus {
   NORMAL,
-  DELETED,
+  TRASHED,
 }
 
 export interface IDoc {

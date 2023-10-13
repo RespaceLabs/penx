@@ -134,7 +134,7 @@ class DB {
 
   trashDoc = (docId: string) => {
     return this.doc.updateByPk(docId, {
-      status: DocStatus.DELETED,
+      status: DocStatus.TRASHED,
     })
   }
 
@@ -148,7 +148,6 @@ class DB {
     return this.doc.select({
       where: {
         spaceId,
-        status: DocStatus.NORMAL,
       },
     })
   }
@@ -157,7 +156,7 @@ class DB {
     return this.doc.select({
       where: {
         spaceId,
-        status: DocStatus.DELETED,
+        status: DocStatus.TRASHED,
       },
     })
   }

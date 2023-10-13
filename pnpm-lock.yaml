@@ -2615,6 +2615,9 @@ importers:
       '@penx/extension-typings':
         specifier: '*'
         version: link:../extension-typings
+      '@penx/indexeddb':
+        specifier: workspace:*
+        version: link:../indexeddb
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db

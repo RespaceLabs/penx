@@ -79,6 +79,10 @@ export const store = Object.assign(createStore(), {
     return store.set(docAtom, doc)
   },
 
+  setDocs(docs: IDoc[]) {
+    return store.set(docsAtom, docs)
+  },
+
   routeTo(name: RouteName, params: Record<string, any> = {}) {
     return store.set(routerAtom, {
       name,
@@ -102,6 +106,7 @@ export const store = Object.assign(createStore(), {
     await db.restoreDoc(id)
     const docs = await db.listDocsBySpaceId(space.id)
     if (docs.length) this.setDoc(docs[0])
+    this.setDocs(docs)
   },
 })
 

@@ -1,18 +1,9 @@
-import { useEffect, useState } from 'react'
 import { Box } from '@fower/react'
-import { Doc } from '@penx/domain'
-import { useSpaces } from '@penx/hooks'
-import { db } from '@penx/local-db'
+import { useDocs } from '@penx/hooks'
 import { TrashTable } from './TrashTable'
 
 export const TrashBox = () => {
-  const [docs, setDocs] = useState<Doc[]>([])
-  const { activeSpace } = useSpaces()
-  useEffect(() => {
-    db.listTrashedDocs(activeSpace.id).then((docs = []) => {
-      setDocs(docs.map((doc) => new Doc(doc)))
-    })
-  }, [activeSpace])
+  const { docList } = useDocs()
 
   return (
     <Box px10 py10 bgWhite rounded2XL>
@@ -22,7 +13,7 @@ export const TrashBox = () => {
         </Box>
       </Box>
       <Box column gray700>
-        <TrashTable docs={docs} />
+        <TrashTable docs={docList.trashedDocs} />
       </Box>
     </Box>
   )

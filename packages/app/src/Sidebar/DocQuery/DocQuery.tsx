@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Box } from '@fower/react'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from 'uikit'
-import { useSpaces } from '@penx/hooks'
+import { useDocs, useSpaces } from '@penx/hooks'
 import { db, DocStatus, IDoc } from '@penx/local-db'
 import { SqlParser } from '../SqlParser'
 import { DocItem } from './DocItem'
@@ -13,23 +13,16 @@ interface Props {
 }
 
 export const DocQuery = ({ sql, title }: Props) => {
-  const [docs, setDocs] = useState<IDoc[]>([])
+  const { docList } = useDocs()
   const { activeSpace } = useSpaces()
-  useEffect(() => {
-    const parsed = new SqlParser(sql)
-
-    db[parsed.tableName]
-      .select({
-        where: {
-          spaceId: activeSpace.id,
-          status: DocStatus.NORMAL,
-        },
-        ...parsed.queryParams,
-      })
-      .then((docs = []) => {
-        setDocs(docs)
-      })
-  }, [sql, activeSpace])
+  const parsed = new SqlParser(sql)
+  const docs = docList.find({
+    where: {
+      spaceId: activeSpace.id,
+      status: DocStatus.NORMAL,
+    },
+    ...parsed.queryParams,
+  })
 
   return (
     <Box gray600 p3 bgWhite rounded2XL>

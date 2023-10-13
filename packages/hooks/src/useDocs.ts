@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { CatalogueTree } from '@penx/catalogue'
+import { DocListService } from '@penx/domain'
 import { db } from '@penx/local-db'
 import { docsAtom } from '@penx/store'
 
@@ -19,5 +20,14 @@ export function useDocs() {
   const catalogueTree = useMemo(() => {
     return CatalogueTree.fromJSON(docs)
   }, [docs])
-  return { docs, catalogueTree }
+
+  const docList = useMemo(() => {
+    return new DocListService(docs)
+  }, [docs])
+
+  return {
+    docList,
+    docs,
+    catalogueTree,
+  }
 }
