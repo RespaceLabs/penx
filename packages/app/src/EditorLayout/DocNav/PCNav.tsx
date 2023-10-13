@@ -1,7 +1,8 @@
 import { Box } from '@fower/react'
-import { MoreHorizontal, Share2, Star } from 'lucide-react'
+import { MoreHorizontal, Star } from 'lucide-react'
 import { Button } from 'uikit'
 import { useDoc } from '@penx/hooks'
+import { MorePopover } from './MorePopover'
 import { SharePopover } from './SharePopover'
 
 export const PCNav = () => {
@@ -27,9 +28,7 @@ export const PCNav = () => {
           <Star />
         </Button>
 
-        <Button size="sm" variant="ghost" colorScheme="gray500" isSquare>
-          <MoreHorizontal />
-        </Button>
+        <MorePopover />
       </Box>
     </Box>
   )

@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
-import { CommandDrawer } from './CommandDrawer'
-import { DrawerSidebar } from './SidebarDrawer'
+import { CommandDrawer } from '../CommandDrawer'
+import { DrawerSidebar } from '../SidebarDrawer'
 
 export const MobileNav = () => {
   return (

@@ -12,8 +12,8 @@ import { DocContent } from '../doc/DocContent'
 import { CommandPanel } from '../Palette'
 import { Sidebar } from '../Sidebar/Sidebar'
 import { StatusBar } from '../StatusBar/StatusBar'
-import { MobileNav } from './MobileNav'
-import { PCNav } from './PCNav'
+import { MobileNav } from './DocNav/MobileNav'
+import { PCNav } from './DocNav/PCNav'
 import { QueryDocs } from './QueryDocs'
 
 function WithDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
@@ -37,25 +37,25 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
       <QueryDocs spaceId={activeSpace.id} />
       <CommandPanel />
       <Box h-100vh toLeft black textSM overflowHidden>
-        <Box w={[0, 0, 300]} toLeft>
-          <Sidebar />
-        </Box>
-        <Box flex-1 h-100vh relative>
-          <MobileNav />
-          <PCNav />
-          <Box
-            overflowYAuto
-            h={['calc(100vh - 48px)', '100vh']}
-            px={[16, 16, 16, 0]}
-            py0
-          >
-            <WithDoc docId={activeSpace.activeDocId!}>
-              <DocContent />
-            </WithDoc>
+        <WithDoc docId={activeSpace.activeDocId!}>
+          <Box w={[0, 0, 300]} toLeft>
+            <Sidebar />
           </Box>
+          <Box flex-1 h-100vh relative>
+            <MobileNav />
+            <PCNav />
+            <Box
+              overflowYAuto
+              h={['calc(100vh - 48px)', '100vh']}
+              px={[16, 16, 16, 0]}
+              py0
+            >
+              <DocContent />
+            </Box>
 
-          <StatusBar></StatusBar>
-        </Box>
+            <StatusBar></StatusBar>
+          </Box>
+        </WithDoc>
       </Box>
     </EditorProvider>
   )
