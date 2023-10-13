@@ -13,8 +13,6 @@ export interface ISpace {
 
   description?: string
 
-  catalogue: any
-
   isActive: boolean
 
   activeDocId?: string

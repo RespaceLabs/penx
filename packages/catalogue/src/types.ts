@@ -22,8 +22,6 @@ export interface CatalogueNodeJSON {
 
   isFolded: boolean
 
-  type: CatalogueNodeType
-
   emoji?: string
 
   url?: string

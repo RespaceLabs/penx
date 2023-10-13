@@ -1,4 +1,5 @@
 import mitt from 'mitt'
+import { IDoc } from '@penx/local-db'
 import { CatalogueNode } from './CatalogueNode'
 import {
   CatalogueNodeJSON,
@@ -41,14 +42,24 @@ export class CatalogueTree {
     return nodes[0]?.id
   }
 
-  static fromJSON(json = []): CatalogueTree {
-    function convert(nodes: CatalogueNodeJSON[]): CatalogueNode[] {
+  static fromJSON(json: IDoc[] = []): CatalogueTree {
+    function convert(nodes: IDoc[]): CatalogueNode[] {
       return nodes.map((node) => {
-        if (!node.children?.length) return new CatalogueNode(node)
-        const catalogue = new CatalogueNode(node)
-        catalogue.children = convert(node.children)
+        const catalogue = new CatalogueNode({
+          name: node.title,
+          id: node.id,
+          type: CatalogueNodeType.DOC,
+          emoji: node.emoji,
+        })
         return catalogue
       })
+
+      // return nodes.map((node) => {
+      //   if (!node.children?.length) return new CatalogueNode(node)
+      //   const catalogue = new CatalogueNode(node)
+      //   catalogue.children = convert(node.children)
+      //   return catalogue
+      // })
     }
 
     const tree = new CatalogueTree(convert(json))

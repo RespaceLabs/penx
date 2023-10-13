@@ -30,6 +30,8 @@ export const store = createStore()
 
 export const docAtom = atom(null as any as IDoc)
 
+export const docsAtom = atom<IDoc[]>([])
+
 export const spacesAtom = atom<ISpace[]>([])
 
 export const syncStatusAtom = atom<SyncStatus>(SyncStatus.NORMAL)

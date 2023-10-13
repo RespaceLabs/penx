@@ -33,7 +33,7 @@ export const CatalogueItem = forwardRef<HTMLDivElement, CatalogueItemProps>(
     }: CatalogueItemProps,
     ref,
   ) {
-    const { activeSpace, spaces } = useSpaces()
+    const { activeSpace } = useSpaces()
 
     const catalogue = useCatalogue()
     const [isRenaming, setIsRenaming] = useState(false)
@@ -97,11 +97,17 @@ export const CatalogueItem = forwardRef<HTMLDivElement, CatalogueItemProps>(
         <Box toCenterY gap1 opacity-0 opacity-100--$catalogueItem--hover>
           <CatalogueMenuPopover node={item} setIsRenaming={setIsRenaming} />
 
-          {item.isGroup && (
-            <NewDocPopover parentId={item.id}>
-              <Plus size={20} />
-            </NewDocPopover>
-          )}
+          <Box
+            inlineFlex
+            bgGray200--hover
+            rounded
+            cursorPointer
+            gray600
+            p-2
+            onClick={() => catalogue.addNode(item.id)}
+          >
+            <Plus size={16} />
+          </Box>
         </Box>
 
         {changeService.isAdded(item.id) && <Dot square-6 type="success" ml1 />}

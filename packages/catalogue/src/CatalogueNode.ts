@@ -8,8 +8,6 @@ export class CatalogueNode {
 
   isFolded: boolean
 
-  type: CatalogueNodeType
-
   emoji?: string
 
   url: string
@@ -23,18 +21,9 @@ export class CatalogueNode {
     return convertToValidHtmlId(this.name).toLocaleLowerCase()
   }
 
-  get isDoc(): boolean {
-    return this.type === CatalogueNodeType.DOC
-  }
-
-  get isGroup(): boolean {
-    return this.type === CatalogueNodeType.GROUP
-  }
-
   constructor(options: CreateCatalogueNodeOptions) {
     this.name = options.name
     this.id = options.id
-    this.type = options.type
     this.isFolded = options.isFolded ?? false
     this.url = options.url ?? ''
     this.emoji = options.emoji
@@ -51,7 +40,6 @@ export class CatalogueNode {
       id: this.id,
       isFolded: this.isFolded,
       emoji: this.emoji,
-      type: this.type,
       url: this.url,
       pathname: this._pathname,
       children: this.children,

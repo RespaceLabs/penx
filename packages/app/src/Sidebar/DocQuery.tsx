@@ -3,7 +3,7 @@ import { Box } from '@fower/react'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from 'uikit'
 import { DocService } from '@penx/domain'
-import { useCatalogue } from '@penx/hooks'
+import { useSpaces } from '@penx/hooks'
 import { db, IDoc } from '@penx/local-db'
 import { SqlParser } from './SqlParser'
 
@@ -14,13 +14,19 @@ interface Props {
 
 export const DocQuery = ({ sql, title }: Props) => {
   const [docs, setDocs] = useState<IDoc[]>([])
+  const { activeSpace } = useSpaces()
   useEffect(() => {
     const parsed = new SqlParser(sql)
 
-    db[parsed.tableName].select(parsed.queryParams).then((docs = []) => {
-      setDocs(docs)
-    })
-  }, [sql])
+    db[parsed.tableName]
+      .select({
+        where: { spaceId: activeSpace.id },
+        ...parsed.queryParams,
+      })
+      .then((docs = []) => {
+        setDocs(docs)
+      })
+  }, [sql, activeSpace])
 
   return (
     <Box gray600 p3 bgWhite rounded2XL>

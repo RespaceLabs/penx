@@ -65,6 +65,7 @@ export class DocService {
 
   selectDoc = async () => {
     const doc = await db.selectDoc(this.spaceId, this.id)
+    await db.space.updateByPk(doc.spaceId, { activeDocId: doc.id })
     this.updateDocAtom(doc!)
   }
 

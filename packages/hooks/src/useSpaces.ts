@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { CatalogueTree } from '@penx/catalogue'
+import { useAtomValue, useSetAtom } from 'jotai'
 import { db } from '@penx/local-db'
 import { spacesAtom } from '@penx/store'
 
@@ -22,10 +21,6 @@ export function useSpaces() {
     return space || spaces[0]
   }, [spaces])
 
-  const catalogueTree = useMemo(() => {
-    return CatalogueTree.fromJSON(activeSpace?.catalogue)
-  }, [activeSpace])
-
   useEffect(() => {
     ;(window as any).__space = activeSpace
   }, [activeSpace])
@@ -33,6 +28,5 @@ export function useSpaces() {
   return {
     activeSpace,
     spaces,
-    catalogueTree,
   }
 }

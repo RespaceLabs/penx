@@ -1,5 +1,6 @@
 export * from './useMounted'
 export * from './useDoc'
+export * from './useDocs'
 export * from './useSpaces'
 export * from './useSpaceService'
 export * from './useCatalogue'

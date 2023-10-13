@@ -14,6 +14,7 @@ import { Sidebar } from '../Sidebar/Sidebar'
 import { StatusBar } from '../StatusBar/StatusBar'
 import { MobileNav } from './MobileNav'
 import { PCNav } from './PCNav'
+import { QueryDocs } from './QueryDocs'
 
 function WithDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
   const doc = useDoc()
@@ -33,6 +34,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <EditorProvider space={activeSpace}>
+      <QueryDocs spaceId={activeSpace.id} />
       <CommandPanel />
       <Box h-100vh toLeft black textSM overflowHidden>
         <Box w={[0, 0, 300]} toLeft>

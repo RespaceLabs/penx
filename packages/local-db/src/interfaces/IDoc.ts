@@ -7,6 +7,12 @@ export interface IDoc {
 
   content: string
 
+  parentId?: string
+
+  emoji?: string
+
+  isFolded?: boolean
+
   openedAt: number
 
   createdAt: number
