@@ -8,7 +8,7 @@ import { NewDocButton } from './NewDocButton'
 import { SharePopover } from './SharePopover'
 
 export const PCNav = () => {
-  const { doc, docService } = useDoc()
+  const { doc } = useDoc()
 
   if (!doc.id) return null
 

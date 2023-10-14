@@ -1,5 +1,6 @@
 import { Box } from '@fower/react'
 import { Doc, DocService } from '@penx/domain'
+import { useSidebarDrawer } from '@penx/hooks'
 import { DocItemMenu } from './DocItemMenu'
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export const DocItem = ({ doc }: Props) => {
+  const { close } = useSidebarDrawer()
   return (
     <Box
       className="docItem"
@@ -22,6 +24,7 @@ export const DocItem = ({ doc }: Props) => {
       onClick={() => {
         const docService = new DocService(doc)
         docService.selectDoc()
+        close?.()
       }}
     >
       <Box flex-1>{doc.title || 'Untitled'}</Box>

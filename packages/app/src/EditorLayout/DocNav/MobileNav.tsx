@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
 import { CommandDrawer } from '../CommandDrawer'
 import { DrawerSidebar } from '../SidebarDrawer'
+import { NewDocButton } from './NewDocButton'
 
 export const MobileNav = () => {
   return (
@@ -17,7 +18,10 @@ export const MobileNav = () => {
       zIndex-10
     >
       <DrawerSidebar />
-      <CommandDrawer />
+      <Box toCenterY>
+        <NewDocButton />
+        <CommandDrawer />
+      </Box>
     </Box>
   )
 }

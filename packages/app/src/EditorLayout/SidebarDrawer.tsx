@@ -2,14 +2,28 @@ import { Box, styled } from '@fower/react'
 import { Menu } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
+import { useSidebarDrawer } from '@penx/hooks'
+import { FavoriteBox } from '../Sidebar/FavoriteBox/FavoriteBox'
+import { RecentlyEdited } from '../Sidebar/RecentlyEdited'
 import { SpacePopover } from '../Sidebar/SpacePopover'
 
 const DrawerOverlay = styled(Drawer.Overlay)
 const DrawerContent = styled(Drawer.Content)
 
 export const DrawerSidebar = () => {
+  const { isOpen, close, open } = useSidebarDrawer()
   return (
-    <Drawer.Root shouldScaleBackground>
+    <Drawer.Root
+      shouldScaleBackground
+      open={isOpen}
+      onOpenChange={(o) => {
+        if (o) {
+          open()
+        } else {
+          close()
+        }
+      }}
+    >
       <Drawer.Trigger asChild>
         <Button variant="ghost" size="sm" isSquare p0 colorScheme="gray600">
           <Menu />
@@ -31,8 +45,9 @@ export const DrawerSidebar = () => {
         >
           <Box overflowAuto p5>
             <SpacePopover />
-            <Box flex-1 gray600 px3>
-              {/* <CatalogueBox /> */}
+            <Box flex-1>
+              <FavoriteBox />
+              <RecentlyEdited />
             </Box>
           </Box>
         </DrawerContent>

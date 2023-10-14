@@ -2377,8 +2377,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       vaul:
-        specifier: ^0.7.0
-        version: 0.7.0(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^0.7.1
+        version: 0.7.1(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -19283,8 +19283,8 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
-  /vaul@0.7.0(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-qhn8oEqvoisxLsebjyatO555DZAnCyRk0+zZlYPOOlUAs8+LWjFCRYg5KjYzVlQiAU/bkwsOqr1YVHztY08H9w==}
+  /vaul@0.7.1(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-kChKcUCzW2m+WwKojuJFBSViYksVKTnicb//8U8KmxNroUVJBPQBJJ6S7Pi2rYw3Kp7LO5UDTPYI3tnTphuolA==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0
