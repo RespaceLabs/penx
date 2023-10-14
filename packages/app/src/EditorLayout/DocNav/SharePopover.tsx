@@ -5,11 +5,11 @@ import { useDoc } from '@penx/hooks'
 import { useCopyToClipboard } from '@penx/shared'
 
 export const SharePopover = () => {
-  const doc = useDoc()
+  const { doc } = useDoc()
 
   const { copy } = useCopyToClipboard()
 
-  if (!doc.raw) return null
+  if (!doc) return null
 
   const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL + `/share/${doc?.id}`
   return (

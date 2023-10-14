@@ -7,12 +7,12 @@ function countWords(text: string): number {
 }
 
 export function WordCountView() {
-  const doc = useDoc()
+  const { docService, doc } = useDoc()
 
   return (
     <Box toCenterY gap2>
-      <Box gray400>{countWords(doc.markdownContent)} words</Box>
-      <Box gray400>{doc.markdownContent.length} characters</Box>
+      <Box gray400>{countWords(docService.markdownContent)} words</Box>
+      <Box gray400>{docService.markdownContent.length} characters</Box>
     </Box>
   )
 }

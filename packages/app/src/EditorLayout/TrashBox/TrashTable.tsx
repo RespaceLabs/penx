@@ -3,14 +3,17 @@ import { RotateCcw, Trash2 } from 'lucide-react'
 import {
   Button,
   ColumnsType,
+  modalController,
   Table,
   toast,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from 'uikit'
+import { ModalNames } from '@penx/constants'
 import { Doc } from '@penx/domain'
 import { store } from '@penx/store'
+import { DeleteDocModal } from './DeleteDocModal'
 
 interface Props {
   docs: Doc[]
@@ -53,7 +56,7 @@ export const TrashTable = ({ docs }: Props) => {
                   variant="ghost"
                   colorScheme="gray500"
                   isSquare
-                  onClick={async () => {
+                  onClick={async (e) => {
                     await store.restoreDoc(item.id)
                     toast.info(`${item.title} restored`)
                   }}
@@ -64,7 +67,15 @@ export const TrashTable = ({ docs }: Props) => {
               <TooltipContent>Restore</TooltipContent>
             </Tooltip>
 
-            <Button size={28} variant="ghost" colorScheme="gray500" isSquare>
+            <Button
+              size={28}
+              variant="ghost"
+              colorScheme="gray500"
+              isSquare
+              onClick={() => {
+                modalController.open(ModalNames.DeleteDoc, item)
+              }}
+            >
               <Trash2 />
             </Button>
           </Box>
@@ -73,5 +84,10 @@ export const TrashTable = ({ docs }: Props) => {
     },
   ]
 
-  return <Table columns={columns} data={docs} rowKey="id" bordered={false} />
+  return (
+    <Box>
+      <DeleteDocModal />
+      <Table columns={columns} data={docs} rowKey="id" bordered={false} />
+    </Box>
+  )
 }

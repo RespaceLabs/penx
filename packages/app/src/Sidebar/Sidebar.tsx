@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
-import { Database, Folder, Trash, Trash2 } from 'lucide-react'
+import { Folder, Trash2 } from 'lucide-react'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import { RecentlyEdited } from './RecentlyEdited'
 import { RecentlyOpened } from './RecentlyOpened'

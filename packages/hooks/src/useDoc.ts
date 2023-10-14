@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useAtom, useSetAtom } from 'jotai'
-import { DocService } from '@penx/domain'
+import { Doc, DocService } from '@penx/domain'
 import { db } from '@penx/local-db'
 import { docAtom } from '@penx/store'
 
@@ -19,8 +19,12 @@ export function useQueryDoc(docId: string) {
 }
 
 export function useDoc() {
-  const [docValue] = useAtom(docAtom)
-  const doc = new DocService(docValue)
+  const [docRaw] = useAtom(docAtom)
+  const doc = new Doc(docRaw)
+  const docService = new DocService(doc)
 
-  return doc
+  return {
+    doc,
+    docService,
+  }
 }

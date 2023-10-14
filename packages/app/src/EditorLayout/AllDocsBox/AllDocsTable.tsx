@@ -1,16 +1,7 @@
 import { Box } from '@fower/react'
-import { RotateCcw, Trash2 } from 'lucide-react'
-import {
-  Button,
-  ColumnsType,
-  Table,
-  toast,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from 'uikit'
+import { Trash2 } from 'lucide-react'
+import { Button, ColumnsType, Table } from 'uikit'
 import { Doc, DocService } from '@penx/domain'
-import { store } from '@penx/store'
 
 interface Props {
   docs: Doc[]
@@ -73,7 +64,7 @@ export const AllDocsTable = ({ docs }: Props) => {
               transitionColors
               onClick={async () => {
                 const doc = docs.find((doc) => doc.id === props['data-row-key'])
-                await new DocService(doc?.raw!).selectDoc()
+                await new DocService(doc!).selectDoc()
               }}
             />
           ),

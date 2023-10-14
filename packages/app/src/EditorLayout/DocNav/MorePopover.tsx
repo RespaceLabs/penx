@@ -12,9 +12,9 @@ import { useDoc } from '@penx/hooks'
 import { store } from '@penx/store'
 
 export const MorePopover = () => {
-  const doc = useDoc()
+  const { doc } = useDoc()
 
-  if (!doc.raw) return null
+  if (!doc) return null
 
   return (
     <Popover placement="bottom-end">

@@ -20,7 +20,7 @@ import { ExportToMarkdown } from './ExportToMarkdown'
 interface Props {}
 
 export const DocSettingsPopover: FC<PropsWithChildren<Props>> = () => {
-  const { raw: doc } = useDoc()
+  const { doc: doc } = useDoc()
   const { copy } = useCopyToClipboard()
   function copyMarkdown() {
     copy(docToMarkdown(doc))
@@ -59,7 +59,7 @@ export const DocSettingsPopover: FC<PropsWithChildren<Props>> = () => {
           </MenuItem>
         </PopoverClose>
 
-        <ExportToMarkdown doc={doc} />
+        <ExportToMarkdown doc={doc.raw} />
 
         <PopoverClose asChild>
           <MenuItem gap2>

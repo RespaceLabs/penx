@@ -6,6 +6,6 @@ export interface ModalHeaderProps extends FowerHTMLProps<'div'> {}
 
 export const ModalHeader: FC<PropsWithChildren<ModalHeaderProps>> = forwardRef(
   (props, ref) => {
-    return <Box py2 fontSemibold textXL ref={ref} {...props} />
+    return <Box mb4 fontSemibold textXL ref={ref} {...props} />
   },
 )

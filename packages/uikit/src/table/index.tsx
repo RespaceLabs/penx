@@ -52,15 +52,7 @@ export const Table = ({
           ),
         },
         body: {
-          row: (props: any) => (
-            <Box
-              as="tr"
-              {...props}
-              onClick={() => {
-                console.log(props)
-              }}
-            />
-          ),
+          row: (props: any) => <Box as="tr" {...props} />,
           cell: (props: any) => (
             <Box
               as="td"

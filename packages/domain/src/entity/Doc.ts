@@ -8,6 +8,10 @@ export class Doc {
     return this.raw.id
   }
 
+  get spaceId(): string {
+    return this.raw.spaceId
+  }
+
   get title(): string {
     return this.raw.title
   }

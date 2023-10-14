@@ -46,3 +46,7 @@ export enum SettingsType {
   ABOUT = 'about',
   EXTENSIONS = 'extensions',
 }
+
+export enum ModalNames {
+  DeleteDoc,
+}

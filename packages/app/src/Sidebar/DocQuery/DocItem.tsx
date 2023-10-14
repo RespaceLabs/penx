@@ -1,6 +1,5 @@
 import { Box } from '@fower/react'
 import { Doc, DocService } from '@penx/domain'
-import { IDoc } from '@penx/local-db'
 import { DocItemMenu } from './DocItemMenu'
 
 interface Props {
@@ -21,7 +20,7 @@ export const DocItem = ({ doc }: Props) => {
       cursorPointer
       rounded
       onClick={() => {
-        const docService = new DocService(doc.raw)
+        const docService = new DocService(doc)
         docService.selectDoc()
       }}
     >

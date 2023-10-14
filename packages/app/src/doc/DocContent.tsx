@@ -9,7 +9,7 @@ import { insertEmptyParagraph } from '@penx/paragraph'
 import { docToMarkdown } from '@penx/shared'
 
 export function DocContent() {
-  const doc = useDoc()
+  const { doc, docService } = useDoc()
   const { title } = doc
 
   function handleEnterKeyInTitle(editor: Editor) {
@@ -19,9 +19,9 @@ export function DocContent() {
     Transforms.select(editor, Editor.start(editor, [0]))
   }
 
-  if (!doc.inited) return null
+  // if (!docService.inited) return null
 
-  const md = docToMarkdown(doc.raw)
+  const md = docToMarkdown(doc)
 
   // return (
   //   <Box p10>
@@ -36,7 +36,7 @@ export function DocContent() {
           content={doc.content}
           onChange={(value, editor) => {
             if (isAstChange(editor)) {
-              doc.updateDoc(value, title)
+              docService.updateDoc(value, title)
             }
           }}
           renderPrefix={(editor) => (
@@ -57,8 +57,8 @@ export function DocContent() {
                   }
                 }}
                 onChange={(e) => {
-                  doc.setTitleState(e.target.value)
-                  doc.updateDoc(editor.children, e.target.value)
+                  docService.setTitleState(e.target.value)
+                  docService.updateDoc(editor.children, e.target.value)
                 }}
               />
             </Box>

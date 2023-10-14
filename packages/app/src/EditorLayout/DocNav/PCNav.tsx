@@ -7,7 +7,7 @@ import { NewDocButton } from './NewDocButton'
 import { SharePopover } from './SharePopover'
 
 export const PCNav = () => {
-  const doc = useDoc()
+  const { doc } = useDoc()
 
   return (
     <Box

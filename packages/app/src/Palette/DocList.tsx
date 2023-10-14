@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
-import { DocService } from '@penx/domain'
+import { Doc, DocService } from '@penx/domain'
 import { db, IDoc } from '@penx/local-db'
 
 const CommandItem = styled(Command.Item)
@@ -40,7 +40,7 @@ export function DocList({ q, close }: Props) {
   return (
     <>
       {filteredItems.map((doc) => {
-        const docService = new DocService(doc)
+        const docService = new DocService(new Doc(doc))
         return (
           <CommandItem
             key={doc.id}

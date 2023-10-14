@@ -2,29 +2,14 @@ import _ from 'lodash'
 import { db, IDoc } from '@penx/local-db'
 import { slateToMarkdown } from '@penx/serializer'
 import { docAtom, store } from '@penx/store'
+import { Doc } from '../entity'
 import { ChangeService } from './ChangeService'
 
 export class DocService {
-  constructor(public raw: IDoc) {}
-
-  get id() {
-    return this.raw.id
-  }
-
-  get inited() {
-    return !!this.raw
-  }
-
-  get spaceId() {
-    return this.raw.spaceId
-  }
-
-  get title(): string {
-    return this.raw?.title || ''
-  }
+  constructor(public doc: Doc) {}
 
   get content() {
-    return JSON.parse(this.raw?.content || '[]')
+    return JSON.parse(this.doc?.content || '[]')
   }
 
   get markdownContent() {
@@ -33,7 +18,7 @@ export class DocService {
 
   private debouncedUpdateDoc = _.debounce(
     async (content: any, title: string) => {
-      const { raw: doc } = this
+      const { doc: doc } = this
 
       const newContent = JSON.stringify(content)
 
@@ -44,10 +29,10 @@ export class DocService {
 
       const space = await db.getSpace(doc.spaceId)
       const changeService = new ChangeService(space!)
-      await changeService.update(doc.id, this.raw.content, newContent)
+      await changeService.update(doc.id, this.doc.content, newContent)
 
       store.set(docAtom, {
-        ...doc,
+        ...this.doc.raw,
         title,
         content: newContent,
       })
@@ -60,13 +45,13 @@ export class DocService {
   }
 
   setTitleState = async (title: string) => {
-    store.set(docAtom, { ...this.raw, title })
+    store.set(docAtom, { ...this.doc.raw, title })
   }
 
   selectDoc = async () => {
-    const doc = await db.selectDoc(this.spaceId, this.id)
+    const doc = await db.selectDoc(this.doc.spaceId, this.doc.id)
     this.updateDocAtom(doc!)
-    const docs = await db.listDocsBySpaceId(this.spaceId)
+    const docs = await db.listDocsBySpaceId(this.doc.spaceId)
     store.setDocs(docs)
   }
 
