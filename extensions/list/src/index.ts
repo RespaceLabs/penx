@@ -10,6 +10,8 @@ import { onKeyDown } from './onKeyDown'
 import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_OL, ELEMENT_UL } from './types'
 import { listSchema, withListsPlugin } from './withListsPlugin'
 
+export * from './types'
+
 const preFormat: AutoformatBlockRule['preFormat'] = (editor: any) =>
   unwrapList(editor, listSchema)
 
@@ -35,7 +37,7 @@ function formatListNode(editor: Editor, type: ListType) {
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
-    with: withListsPlugin as any,
+    with: withListsPlugin,
     handlers: {
       onKeyDown: onKeyDown,
     },

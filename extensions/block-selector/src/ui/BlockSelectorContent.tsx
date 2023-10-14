@@ -37,8 +37,6 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
    */
   const selectType = useCallback(
     (elementType: any) => {
-      console.log('elementType:', elementType)
-
       const elementInfo = extensionStore.elementMaps[elementType]
 
       if (!elementInfo) return // TODO
@@ -143,7 +141,6 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
             isActive={i === cursor}
             icon={slashCommand?.icon}
             onClick={() => {
-              console.log('click type=====:', type)
               selectType(type)
             }}
           />

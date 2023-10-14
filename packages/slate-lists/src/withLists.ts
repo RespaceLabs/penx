@@ -1,4 +1,3 @@
-import { BaseEditor } from 'slate'
 import type { ReactEditor } from 'slate-react'
 import type { ListsSchema } from './types'
 import { withListsNormalization } from './withListsNormalization'

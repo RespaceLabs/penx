@@ -61,3 +61,4 @@ export function activate(ctx: ExtensionContext) {
 
 export * from './guard'
 export * from './SetNodeToDecorations/SetNodeToDecorations'
+export * from './constants'

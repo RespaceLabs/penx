@@ -36,10 +36,6 @@ export const withCode = (editor: Editor & ReactEditor) => {
   const { deleteBackward, apply, insertText, insertFragment, insertData } =
     editor
 
-  editor.deleteBackward = (unit) => {
-    deleteBackward(unit)
-  }
-
   editor.insertText = (text) => {
     if (text === ' ' && isEndOfInlineCode(editor)) {
       Editor.removeMark(editor, MarkType.code)

@@ -10,6 +10,7 @@ export function onBackspaceDecreaseListDepth(
   event: KeyboardEvent,
 ) {
   const schema = ListsEditor.getListsSchema(editor)
+
   if (
     schema &&
     isHotkey('backspace', event.nativeEvent) &&

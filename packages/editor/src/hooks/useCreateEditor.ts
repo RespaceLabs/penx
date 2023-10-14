@@ -4,13 +4,16 @@ import { withHistory } from 'slate-history'
 import { withListsReact } from 'slate-lists'
 import { withReact } from 'slate-react'
 import { withAutoformat } from '@penx/autoformat'
+import { ELEMENT_CODE_LINE } from '@penx/code-block'
 import {
   getCurrentNode,
   getPreviousBlockById,
   isCollapsed,
 } from '@penx/editor-queries'
 import { useExtensionStore } from '@penx/hooks'
+import { ELEMENT_LIC } from '@penx/list'
 import {
+  ELEMENT_P,
   getEmptyParagraph,
   isParagraph,
   ParagraphElement,
@@ -70,7 +73,11 @@ export function useCreateEditor() {
             Element.isElement(block) &&
             Point.equals(selection.anchor, start)
 
-          const isGeneral = ['p', 'lic', 'code_line'].includes(block.type)
+          const isGeneral = [
+            ELEMENT_P,
+            ELEMENT_LIC,
+            ELEMENT_CODE_LINE,
+          ].includes(block.type)
 
           if (isStartOfBlock) {
             const { id } = getCurrentNode(editor)! as any

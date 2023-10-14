@@ -34,6 +34,7 @@ export const Sidebar = () => {
       display={['none', 'none', 'flex']}
       bgZinc100
       px2
+      pb10
       gap3
       h-100vh
       overflowAuto
