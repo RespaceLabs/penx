@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { CommandDrawer } from '../CommandDrawer'
+import { PaletteDrawer } from '../PaletteDrawer'
 import { DrawerSidebar } from '../SidebarDrawer'
 import { NewDocButton } from './NewDocButton'
 
@@ -20,7 +20,7 @@ export const MobileNav = () => {
       <DrawerSidebar />
       <Box toCenterY>
         <NewDocButton />
-        <CommandDrawer />
+        <PaletteDrawer />
       </Box>
     </Box>
   )

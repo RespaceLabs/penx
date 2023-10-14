@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
 import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
-import { Doc, DocService } from '@penx/domain'
-import { db, IDoc } from '@penx/local-db'
+import { DocService } from '@penx/domain'
+import { useDocs, usePaletteDrawer } from '@penx/hooks'
+import { DocStatus } from '@penx/local-db'
 
 const CommandItem = styled(Command.Item)
 
@@ -12,22 +12,19 @@ interface Props {
 }
 
 export function DocList({ q, close }: Props) {
-  const [docs, setDocs] = useState<IDoc[]>([])
+  const { docList } = useDocs()
+  const paletteDrawer = usePaletteDrawer()
 
-  useEffect(() => {
-    db.doc
-      .select({
-        sortBy: 'openedAt',
-        orderByDESC: true,
-      })
-      .then((docs = []) => {
-        setDocs(docs)
-      })
-  }, [])
-
-  const filteredItems = docs.filter((i) =>
-    i.title.toLowerCase().includes(q.toLowerCase()),
-  )
+  const filteredItems = docList
+    .find({
+      where: {
+        status: DocStatus.NORMAL,
+      },
+      sortBy: 'openedAt',
+      orderByDESC: true,
+      limit: 20,
+    })
+    .filter((i) => i.title.toLowerCase().includes(q.toLowerCase()))
 
   if (!filteredItems.length) {
     return (
@@ -40,7 +37,7 @@ export function DocList({ q, close }: Props) {
   return (
     <>
       {filteredItems.map((doc) => {
-        const docService = new DocService(new Doc(doc))
+        const docService = new DocService(doc)
         return (
           <CommandItem
             key={doc.id}
@@ -53,13 +50,16 @@ export function DocList({ q, close }: Props) {
             value={doc.id}
             onSelect={() => {
               close()
+              paletteDrawer?.close()
               docService.selectDoc()
             }}
             onClick={() => {
               docService.selectDoc()
+              paletteDrawer?.close()
+              close()
             }}
           >
-            {doc.title}
+            {doc.title || 'Untitled'}
           </CommandItem>
         )
       })}

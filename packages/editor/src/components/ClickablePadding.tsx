@@ -1,15 +1,13 @@
 import { memo } from 'react'
 import { Box } from '@fower/react'
 import { Node } from 'slate'
-import { useSlateStatic } from 'slate-react'
+import { useSlate } from 'slate-react'
 import { getLastNode } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
 import { insertEmptyParagraph, isParagraph } from '@penx/paragraph'
 
-// import { getLastNode} from '@udecode/plate-common'
-
 const ClickablePadding = () => {
-  const editor = useSlateStatic()
+  const editor = useSlate()
 
   return (
     <Box

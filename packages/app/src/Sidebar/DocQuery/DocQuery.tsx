@@ -16,6 +16,7 @@ export const DocQuery = ({ sql, title }: Props) => {
   const { docList } = useDocs()
   const { activeSpace } = useSpaces()
   const parsed = new SqlParser(sql)
+
   const docs = docList.find({
     where: {
       spaceId: activeSpace.id,

@@ -1,34 +1,53 @@
-import { useEffect, useState } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
-import { useCatalogue } from '@penx/hooks'
 import { CommandList } from './CommandList'
 import { DocList } from './DocList'
 
 const CommandDialog = styled(Command.Dialog)
 const CommandInput = styled(Command.Input)
 const StyledCommandList = styled(Command.List)
+const StyledCommand = styled(Command)
 
-export function CommandPanel() {
-  const [open, setOpen] = useState(false)
-  const [search, setSearch] = useState('')
+interface WrapperProps {
+  isMobile?: boolean
+  open: boolean
+  setOpen: (open: boolean) => void
+}
 
-  // Toggle the menu when ⌘K is pressed
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setOpen((open) => !open)
-      }
-    }
-
-    document.addEventListener('keydown', down)
-    return () => document.removeEventListener('keydown', down)
-  }, [])
-
-  const close = () => setOpen(false)
-  const isCommand = search.startsWith('>')
-
+const Wrapper = ({
+  children,
+  isMobile,
+  open,
+  setOpen,
+}: PropsWithChildren<WrapperProps>) => {
+  if (isMobile) {
+    return (
+      <StyledCommand
+        bgRed100
+        w-100p
+        left-50p
+        bgWhite
+        css={{
+          height: 'fit-content',
+        }}
+        loop
+        className="command-panel"
+        onValueChange={(value) => {
+          console.log(value)
+        }}
+        onKeyUp={(e) => {
+          // Escape goes to previous page
+          // Backspace goes to previous page when search is empty
+          if (e.key === 'Escape' || e.key === 'Backspace') {
+            e.preventDefault()
+          }
+        }}
+      >
+        {children}
+      </StyledCommand>
+    )
+  }
   return (
     <CommandDialog
       shadow="0 16px 70px rgba(0,0,0,.2)"
@@ -61,6 +80,37 @@ export function CommandPanel() {
         }
       }}
     >
+      {children}
+    </CommandDialog>
+  )
+}
+
+interface CommandPanelProps {
+  isMobile?: boolean
+}
+
+export function CommandPanel({ isMobile = false }: CommandPanelProps) {
+  const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
+
+  // Toggle the menu when ⌘K is pressed
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        setOpen((open) => !open)
+      }
+    }
+
+    document.addEventListener('keydown', down)
+    return () => document.removeEventListener('keydown', down)
+  }, [])
+
+  const close = () => setOpen(false)
+  const isCommand = search.startsWith('>')
+
+  return (
+    <Wrapper isMobile={isMobile} open={open} setOpen={setOpen}>
       <CommandInput
         // bgRed100
         toCenterY
@@ -75,10 +125,17 @@ export function CommandPanel() {
         outlineNone
         placeholder="Search doc by name"
         value={search}
-        onValueChange={setSearch}
+        onValueChange={(v) => {
+          console.log('v:', v)
+
+          setSearch(v)
+        }}
         onBlur={() => {
           setSearch('')
-          setOpen(false)
+          // TODO: This is a hack
+          // setTimeout(() => {
+          //   setOpen(false)
+          // }, 500)
         }}
       />
 
@@ -100,6 +157,6 @@ export function CommandPanel() {
         )}
       </StyledCommandList>
       <Box h8></Box>
-    </CommandDialog>
+    </Wrapper>
   )
 }

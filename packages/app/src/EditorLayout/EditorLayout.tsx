@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren } from 'react'
+import { isMobile } from 'react-device-detect'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { EditorProvider } from '@penx/editor'
@@ -24,18 +25,16 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <EditorProvider space={activeSpace}>
       <QueryDocs spaceId={activeSpace.id} />
-      <CommandPanel />
+      {!isMobile && <CommandPanel />}
+
       <Box h-100vh toLeft black textSM overflowHidden>
         <Box w={[0, 0, 300]} toLeft>
           <Sidebar />
         </Box>
         <Box flex-1 h-100vh relative>
-          {name === 'DOC' && (
-            <>
-              <MobileNav />
-              <PCNav />
-            </>
-          )}
+          <MobileNav />
+          <PCNav />
+
           <Box
             overflowYAuto
             h={['calc(100vh - 48px)', '100vh']}

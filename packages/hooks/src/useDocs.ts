@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { CatalogueTree } from '@penx/catalogue'
-import { DocListService } from '@penx/domain'
+import { Doc, DocListService } from '@penx/domain'
 import { db, DocStatus } from '@penx/local-db'
 import { docsAtom, store } from '@penx/store'
 
@@ -39,7 +39,7 @@ export function useDocs() {
 
   return {
     docList,
-    docs,
+    docs: docs.map((doc) => new Doc(doc)),
     catalogueTree,
   }
 }

@@ -19,9 +19,7 @@ export const AllDocsBox = () => {
           <Trans>There are no documents here yet.</Trans>
         </Box>
         <Box gray400>
-          <Trans>
-            Click the 'New Doc' button or press ⌘ + N to create your Doc.
-          </Trans>
+          <Trans>Click the 'New Doc' button to create your Doc.</Trans>
         </Box>
         <Button
           colorScheme="white"

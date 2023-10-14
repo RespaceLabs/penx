@@ -13,7 +13,7 @@ export class Doc {
   }
 
   get title(): string {
-    return this.raw.title
+    return this.raw.title || ''
   }
 
   get isNormal() {

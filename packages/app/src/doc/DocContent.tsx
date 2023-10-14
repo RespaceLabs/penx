@@ -49,6 +49,7 @@ export function DocContent() {
                 fontSemibold
                 h-2em
                 placeholderGray300
+                autoFocus
                 leadingNormal
                 value={title || ''}
                 variant="unstyled"

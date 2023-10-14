@@ -9,6 +9,7 @@ import { db } from '@penx/local-db'
 import { JotaiNexus, spacesAtom, store } from '@penx/store'
 import { ClientOnly } from './components/ClientOnly'
 import { EditorLayout } from './EditorLayout/EditorLayout'
+import { HotkeyBinding } from './HotkeyBinding'
 import { WorkerStarter } from './WorkerStarter'
 
 if (!isServer) {
@@ -44,6 +45,7 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
     <ClientOnly>
       <Provider store={store}>
         <WorkerStarter />
+        <HotkeyBinding />
         <JotaiNexus />
         <EditorLayout />
       </Provider>

@@ -11,9 +11,6 @@ import { db, DocStatus, IDoc, ISpace } from '@penx/local-db'
 
 type pluginId = string
 
-const sleep = (time: number) =>
-  new Promise((resolve) => setTimeout(resolve, time))
-
 type RouteName = 'DOC' | 'TRASH' | 'ALL_DOCS'
 
 export type RouterStore = {
