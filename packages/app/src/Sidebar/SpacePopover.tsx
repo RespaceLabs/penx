@@ -28,6 +28,7 @@ export const SpacePopover = () => {
         <PopoverTrigger asChild>
           {({ close }) => (
             <Box
+              className="currentSpace"
               textXL
               fontBold
               toCenterY
@@ -48,6 +49,8 @@ export const SpacePopover = () => {
               </Box>
               <Box
                 inlineFlex
+                opacity-0
+                opacity-100--$currentSpace--hover
                 onClick={(e) => {
                   close()
                   e.stopPropagation()

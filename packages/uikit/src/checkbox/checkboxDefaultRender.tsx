@@ -15,7 +15,7 @@ export const checkboxDefaultRender = ({
   return (
     <Box toCenter square-16 border-2 borderGray600={!checked} {...atomicProps}>
       <Check
-        square-20
+        size={20}
         style={{
           display: checked ? 'block' : 'none',
         }}

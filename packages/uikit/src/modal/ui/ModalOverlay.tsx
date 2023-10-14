@@ -1,5 +1,6 @@
 import React, { FC, PropsWithChildren } from 'react'
 import { fadeConfig } from '@bone-ui/motion-configs'
+import { Portal } from '@bone-ui/portal'
 import { forwardRef } from '@bone-ui/utils'
 import { styled } from '@fower/react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -15,29 +16,31 @@ export const ModalOverlay: FC<PropsWithChildren<ModalOverlayProps>> =
     const { state } = useModalContext()
 
     return (
-      <AnimatePresence>
-        {state.isOpen && (
-          <AnimatedDiv
-            ref={ref}
-            className="bone-modal-overlay"
-            fixed
-            w-100p
-            h-100p
-            top0
-            left0
-            bgBlack--T70
-            // bgWhite--T20
-            // bgBlack--T50--dark
-            zIndex={Z_INDEX}
-            style={
-              {
-                // backdropFilter: 'blur(5px)',
+      <Portal>
+        <AnimatePresence>
+          {state.isOpen && (
+            <AnimatedDiv
+              ref={ref}
+              className="bone-modal-overlay"
+              fixed
+              w-100p
+              h-100p
+              top0
+              left0
+              bgBlack--T70
+              // bgWhite--T20
+              // bgBlack--T50--dark
+              zIndex={Z_INDEX}
+              style={
+                {
+                  // backdropFilter: 'blur(5px)',
+                }
               }
-            }
-            {...(fadeConfig as any)}
-            {...rest}
-          />
-        )}
-      </AnimatePresence>
+              {...(fadeConfig as any)}
+              {...rest}
+            />
+          )}
+        </AnimatePresence>
+      </Portal>
     )
   })
