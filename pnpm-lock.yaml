@@ -3412,6 +3412,9 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../store
+      '@tanstack/react-query':
+        specifier: ^4.35.7
+        version: 4.35.7(react-dom@18.2.0)(react@18.2.0)
       jotai:
         specifier: ^2.4.2
         version: 2.4.2(@types/react@18.2.22)(react@18.2.0)

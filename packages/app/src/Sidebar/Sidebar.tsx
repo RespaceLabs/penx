@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
-import { Trash, Trash2 } from 'lucide-react'
+import { Database, Folder, Trash, Trash2 } from 'lucide-react'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import { RecentlyEdited } from './RecentlyEdited'
 import { RecentlyOpened } from './RecentlyOpened'
@@ -35,6 +35,26 @@ export const Sidebar = () => {
       overflowAuto
     >
       <SpacePopover />
+
+      <Box
+        toCenterY
+        gap2
+        bgWhite
+        rounded2XL
+        px2
+        py3
+        cursorPointer
+        onClick={() => {
+          store.routeTo('ALL_DOCS')
+        }}
+      >
+        <Box inlineFlex gray500>
+          <Folder size={20} />
+        </Box>
+        <Box fontSemibold textLG>
+          All Docs
+        </Box>
+      </Box>
 
       {components.map((C, i) => (
         <C key={i} />

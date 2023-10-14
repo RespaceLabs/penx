@@ -4,7 +4,7 @@ import { useAtomValue } from 'jotai'
 import { EditorProvider } from '@penx/editor'
 import {
   useDoc,
-  useInitDoc,
+  useQueryDoc,
   useQuerySpaces,
   useSpaces,
   useWorkers,
@@ -14,17 +14,17 @@ import { DocContent } from '../doc/DocContent'
 import { CommandPanel } from '../Palette'
 import { Sidebar } from '../Sidebar/Sidebar'
 import { StatusBar } from '../StatusBar/StatusBar'
+import { AllDocsBox } from './AllDocsBox/AllDocsBox'
 import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
 import { QueryDocs } from './QueryDocs'
 import { TrashBox } from './TrashBox/TrashBox'
 
 function WithDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
-  const doc = useDoc()
-  useInitDoc(docId)
+  const { inited } = useQueryDoc(docId)
   useWorkers()
 
-  if (!doc.inited) return null
+  if (!inited) return null
 
   return <>{children}</>
 }
@@ -58,6 +58,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
             py0
           >
             {name === 'TRASH' && <TrashBox />}
+            {name === 'ALL_DOCS' && <AllDocsBox />}
             {name === 'DOC' && (
               <WithDoc docId={activeSpace.activeDocId!}>
                 <DocContent />

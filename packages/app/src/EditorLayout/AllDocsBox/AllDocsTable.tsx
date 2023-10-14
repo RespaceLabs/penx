@@ -9,14 +9,14 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from 'uikit'
-import { Doc } from '@penx/domain'
+import { Doc, DocService } from '@penx/domain'
 import { store } from '@penx/store'
 
 interface Props {
   docs: Doc[]
 }
 
-export const TrashTable = ({ docs }: Props) => {
+export const AllDocsTable = ({ docs }: Props) => {
   const columns: ColumnsType<Doc> = [
     {
       title: 'Name',
@@ -46,24 +46,6 @@ export const TrashTable = ({ docs }: Props) => {
       render(_, item) {
         return (
           <Box toCenterY gap1>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button
-                  size={28}
-                  variant="ghost"
-                  colorScheme="gray500"
-                  isSquare
-                  onClick={async () => {
-                    await store.restoreDoc(item.id)
-                    toast.info(`${item.title} restored`)
-                  }}
-                >
-                  <RotateCcw />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Restore</TooltipContent>
-            </Tooltip>
-
             <Button size={28} variant="ghost" colorScheme="gray500" isSquare>
               <Trash2 />
             </Button>
@@ -73,5 +55,42 @@ export const TrashTable = ({ docs }: Props) => {
     },
   ]
 
-  return <Table columns={columns} data={docs} rowKey="id" bordered={false} />
+  return (
+    <Table
+      columns={columns}
+      data={docs}
+      rowKey="id"
+      bordered={false}
+      components={{
+        body: {
+          row: (props: any) => (
+            <Box
+              as="tr"
+              {...props}
+              rounded2XL
+              bgGray100--hover
+              cursorPointer
+              transitionColors
+              onClick={async () => {
+                const doc = docs.find((doc) => doc.id === props['data-row-key'])
+                await new DocService(doc?.raw!).selectDoc()
+              }}
+            />
+          ),
+          cell: (props: any) => {
+            return (
+              <Box
+                as="td"
+                px3
+                py2
+                textLeft
+                {...props}
+                contentEditable={false}
+              />
+            )
+          },
+        },
+      }}
+    />
+  )
 }

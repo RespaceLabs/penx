@@ -1,12 +1,14 @@
 import { ReactNode } from 'react'
 import { Box } from '@fower/react'
 import RcTable from 'rc-table'
-import { GetRowKey } from 'rc-table/lib/interface'
+import { GetRowKey, TableComponents } from 'rc-table/lib/interface'
 
-interface Props {
+interface Props<RecordType = any> {
   rowKey?: string | GetRowKey<any>
   columns: any[]
   data: any
+  components?: TableComponents<RecordType>
+  bordered?: boolean
 }
 
 interface ColumnType<RecordType = any> {
@@ -20,7 +22,13 @@ interface ColumnType<RecordType = any> {
 
 export type ColumnsType<RecordType = any> = ColumnType<RecordType>[]
 
-export const Table = ({ columns, data, rowKey }: Props) => {
+export const Table = ({
+  columns,
+  data,
+  rowKey,
+  components,
+  bordered = true,
+}: Props) => {
   return (
     <RcTable
       columns={columns}
@@ -37,19 +45,28 @@ export const Table = ({ columns, data, rowKey }: Props) => {
             }}
           />
         ),
+
         header: {
           cell: (props: any) => (
             <Box as="th" px3 py2 textLeft fontSemibold gray400 {...props} />
           ),
         },
         body: {
-          row: (props: any) => <Box as="tr" {...props} />,
+          row: (props: any) => (
+            <Box
+              as="tr"
+              {...props}
+              onClick={() => {
+                console.log(props)
+              }}
+            />
+          ),
           cell: (props: any) => (
             <Box
               as="td"
-              borderBottom
-              borderBottomGray200
-              borderGray800--dark
+              borderBottom={bordered}
+              borderBottomGray200={bordered}
+              borderGray800--dark={bordered}
               px3
               py2
               textLeft
@@ -58,6 +75,7 @@ export const Table = ({ columns, data, rowKey }: Props) => {
             />
           ),
         },
+        ...components,
       }}
     />
   )

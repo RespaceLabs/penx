@@ -12,6 +12,7 @@ import { db, IDoc, ISpace } from '@penx/local-db'
 type pluginId = string
 
 type RouteName = 'DOC' | 'TRASH' | 'ALL_DOCS'
+
 export type RouterStore = {
   name: RouteName
   params: Record<string, any>
