@@ -37,6 +37,8 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
    */
   const selectType = useCallback(
     (elementType: any) => {
+      console.log('elementType:', elementType)
+
       const elementInfo = extensionStore.elementMaps[elementType]
 
       if (!elementInfo) return // TODO
@@ -132,6 +134,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
     <Box column gapY-1>
       {filteredTypes.map((type, i) => {
         const { slashCommand } = extensionStore.elementMaps[type]
+
         return (
           <BlockSelectorItem
             key={type}
@@ -139,7 +142,10 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
             name={slashCommand?.name || ''}
             isActive={i === cursor}
             icon={slashCommand?.icon}
-            onClick={() => selectType(type)}
+            onClick={() => {
+              console.log('click type=====:', type)
+              selectType(type)
+            }}
           />
         )
       })}
