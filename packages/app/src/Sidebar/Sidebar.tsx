@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
 import { Folder, Trash2 } from 'lucide-react'
+import { useDocs } from '@penx/hooks'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import { RecentlyEdited } from './RecentlyEdited'
 import { RecentlyOpened } from './RecentlyOpened'
@@ -21,6 +22,8 @@ export const Sidebar = () => {
   const [extensionStore] = useAtom(extensionStoreAtom)
   const components = getStatusBarComponents(extensionStore)
 
+  const { docList } = useDocs()
+
   return (
     <Box
       column
@@ -38,6 +41,7 @@ export const Sidebar = () => {
 
       <Box
         toCenterY
+        toBetween
         gap2
         bgWhite
         rounded2XL
@@ -48,11 +52,17 @@ export const Sidebar = () => {
           store.routeTo('ALL_DOCS')
         }}
       >
-        <Box inlineFlex gray500>
-          <Folder size={20} />
+        <Box toCenterY gap2>
+          <Box inlineFlex gray500>
+            <Folder size={20} />
+          </Box>
+          <Box fontSemibold textLG>
+            All Docs
+          </Box>
         </Box>
-        <Box fontSemibold textLG>
-          All Docs
+
+        <Box gray500 roundedFull textXS>
+          {docList.docs.length}
         </Box>
       </Box>
 
@@ -65,21 +75,28 @@ export const Sidebar = () => {
 
       <Box
         toCenterY
+        toBetween
         gap2
         bgWhite
         rounded2XL
-        px2
+        pl2
+        pr3
         py3
         cursorPointer
         onClick={() => {
           store.routeTo('TRASH')
         }}
       >
-        <Box inlineFlex gray500>
-          <Trash2 size={20} />
+        <Box toCenterY gap2>
+          <Box inlineFlex gray500>
+            <Trash2 size={20} />
+          </Box>
+          <Box fontSemibold textLG>
+            Trash
+          </Box>
         </Box>
-        <Box fontSemibold textLG>
-          Trash
+        <Box gray500 roundedFull textXS>
+          {docList.trashedDocs.length}
         </Box>
       </Box>
     </Box>

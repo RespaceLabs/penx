@@ -144,6 +144,10 @@ class DB {
     })
   }
 
+  deleteDoc = (docId: string) => {
+    return this.doc.deleteByPk(docId)
+  }
+
   listDocsBySpaceId = async (spaceId: string) => {
     return this.doc.select({
       where: {

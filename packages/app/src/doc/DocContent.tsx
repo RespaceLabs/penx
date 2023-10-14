@@ -10,7 +10,6 @@ import { docToMarkdown } from '@penx/shared'
 
 export function DocContent() {
   const { doc, docService } = useDoc()
-  const { title } = doc
 
   function handleEnterKeyInTitle(editor: Editor) {
     insertEmptyParagraph(editor, { at: [0] })
@@ -19,9 +18,10 @@ export function DocContent() {
     Transforms.select(editor, Editor.start(editor, [0]))
   }
 
-  // if (!docService.inited) return null
+  if (!doc.id) return null
 
-  const md = docToMarkdown(doc)
+  const { title } = doc
+  const md = docToMarkdown(doc.raw)
 
   // return (
   //   <Box p10>

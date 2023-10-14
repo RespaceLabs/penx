@@ -9,6 +9,8 @@ import { SharePopover } from './SharePopover'
 export const PCNav = () => {
   const { doc } = useDoc()
 
+  if (!doc.id) return null
+
   return (
     <Box
       h-48

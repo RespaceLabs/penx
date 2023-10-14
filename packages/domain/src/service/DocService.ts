@@ -8,12 +8,8 @@ import { ChangeService } from './ChangeService'
 export class DocService {
   constructor(public doc: Doc) {}
 
-  get content() {
-    return JSON.parse(this.doc?.content || '[]')
-  }
-
   get markdownContent() {
-    return slateToMarkdown(this.content)
+    return slateToMarkdown(this.doc.content)
   }
 
   private debouncedUpdateDoc = _.debounce(
@@ -63,5 +59,11 @@ export class DocService {
     setTimeout(() => {
       store.set(docAtom, doc!)
     }, 0)
+  }
+
+  async deleteDoc() {
+    await db.deleteDoc(this.doc.id)
+    const docs = await db.listDocsBySpaceId(this.doc.spaceId)
+    store.setDocs(docs)
   }
 }

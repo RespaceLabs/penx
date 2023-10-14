@@ -5,7 +5,7 @@ export class Doc {
   constructor(public raw: IDoc) {}
 
   get id(): string {
-    return this.raw.id
+    return this.raw?.id || ''
   }
 
   get spaceId(): string {
@@ -43,7 +43,8 @@ export class Doc {
   }
 
   get content() {
-    return JSON.parse(this.raw.content)
+    if (!this.raw?.content) return []
+    return JSON.parse(this.raw?.content || '[]')
   }
 
   toJSON() {
