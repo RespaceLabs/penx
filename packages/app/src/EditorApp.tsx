@@ -9,6 +9,7 @@ import { db } from '@penx/local-db'
 import { JotaiNexus, spacesAtom, store } from '@penx/store'
 import { ClientOnly } from './components/ClientOnly'
 import { EditorLayout } from './EditorLayout/EditorLayout'
+import { WorkerStarter } from './WorkerStarter'
 
 if (!isServer) {
   appLoader.init()
@@ -42,6 +43,7 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ClientOnly>
       <Provider store={store}>
+        <WorkerStarter />
         <JotaiNexus />
         <EditorLayout />
       </Provider>

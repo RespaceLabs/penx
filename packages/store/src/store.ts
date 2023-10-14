@@ -7,9 +7,12 @@ import {
   RegisterComponentOptions,
   SettingsSchema,
 } from '@penx/extension-typings'
-import { db, IDoc, ISpace } from '@penx/local-db'
+import { db, DocStatus, IDoc, ISpace } from '@penx/local-db'
 
 type pluginId = string
+
+const sleep = (time: number) =>
+  new Promise((resolve) => setTimeout(resolve, time))
 
 type RouteName = 'DOC' | 'TRASH' | 'ALL_DOCS'
 
@@ -76,6 +79,10 @@ export const store = Object.assign(createStore(), {
     return spaces.find((space) => space.isActive)!
   },
 
+  getDoc() {
+    return store.get(docAtom)
+  },
+
   setDoc(doc: IDoc) {
     return store.set(docAtom, doc)
   },
@@ -91,22 +98,49 @@ export const store = Object.assign(createStore(), {
     })
   },
 
-  async createDoc() {
-    //
+  // TODO: need improvement
+  reloadDoc(doc: IDoc) {
+    this.setDoc(null as any)
+
+    // for rerender editor
+    setTimeout(() => {
+      this.setDoc(doc)
+    }, 0)
   },
 
   async trashDoc(id: string) {
     const space = this.getActiveSpace()
     await db.trashDoc(id)
+
     const docs = await db.listDocsBySpaceId(space.id)
-    if (docs.length) this.setDoc(docs[0])
+    const normalDocs = docs.filter((doc) => doc.status === DocStatus.NORMAL)
+
+    if (normalDocs.length) {
+      this.reloadDoc(normalDocs[0])
+    } else {
+      this.routeTo('ALL_DOCS')
+    }
+    this.setDocs(docs)
   },
 
   async restoreDoc(id: string) {
     const space = this.getActiveSpace()
     await db.restoreDoc(id)
     const docs = await db.listDocsBySpaceId(space.id)
-    if (docs.length) this.setDoc(docs[0])
+    const normalDocs = docs.filter((doc) => doc.status === DocStatus.NORMAL)
+    this.setDoc(normalDocs[0])
+    this.setDocs(docs)
+  },
+
+  async createDoc() {
+    const space = this.getActiveSpace()
+    const doc = await db.createDoc({ spaceId: space.id })
+    await db.updateSpace(space.id, { activeDocId: doc.id })
+
+    const docs = await db.listDocsBySpaceId(space.id)
+
+    this.routeTo('DOC')
+    this.reloadDoc(doc)
     this.setDocs(docs)
   },
 })

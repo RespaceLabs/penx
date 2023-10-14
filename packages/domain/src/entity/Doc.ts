@@ -16,6 +16,10 @@ export class Doc {
     return this.raw.title
   }
 
+  get isNormal() {
+    return this.raw.status === DocStatus.NORMAL
+  }
+
   get isTrashed() {
     return this.raw.status === DocStatus.TRASHED
   }

@@ -32,7 +32,7 @@ export default class Model<DataType extends {}> {
   /**
    * @description This method is used to insert data into the table.
    */
-  public async insert(data: Partial<DataType>): Promise<Partial<DataType>> {
+  public async insert(data: Partial<DataType>): Promise<DataType> {
     return new Promise((resolve, reject) => {
       try {
         const verifiedInsertData: Partial<DataType> = {
@@ -58,7 +58,7 @@ export default class Model<DataType extends {}> {
             this.resolveValue({
               ...data,
               ...(primary.key && { [primary.key]: request.result }),
-            }) as Partial<DataType>,
+            }) as DataType,
           )
         request.onerror = () =>
           reject(request.error || 'Unable to add data. Check the unique values')

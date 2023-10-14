@@ -62,7 +62,7 @@ export const Sidebar = () => {
         </Box>
 
         <Box gray500 roundedFull textXS>
-          {docList.docs.length}
+          {docList.normalDocs.length}
         </Box>
       </Box>
 

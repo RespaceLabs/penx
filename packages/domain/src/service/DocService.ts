@@ -12,32 +12,29 @@ export class DocService {
     return slateToMarkdown(this.doc.content)
   }
 
-  private debouncedUpdateDoc = _.debounce(
-    async (content: any, title: string) => {
-      const { doc: doc } = this
+  // TODO: should debounce
+  private debouncedUpdateDoc = async (value: Partial<IDoc>) => {
+    const { doc: doc } = this
 
-      const newContent = JSON.stringify(content)
+    await db.updateDoc(doc.id, value)
 
-      await db.updateDoc(doc.id, {
-        title,
-        content: newContent,
-      })
+    const space = await db.getSpace(doc.spaceId)
+    const changeService = new ChangeService(space!)
+    await changeService.update(doc.id, this.doc.content, value.content!)
 
-      const space = await db.getSpace(doc.spaceId)
-      const changeService = new ChangeService(space!)
-      await changeService.update(doc.id, this.doc.content, newContent)
+    store.set(docAtom, {
+      ...this.doc.raw,
+      ...value,
+    })
 
-      store.set(docAtom, {
-        ...this.doc.raw,
-        title,
-        content: newContent,
-      })
-    },
-    50,
-  )
+    if (value.title !== this.doc.title) {
+      const docs = await db.listDocsBySpaceId(doc.spaceId)
+      store.setDocs(docs)
+    }
+  }
 
-  updateDoc = (content: any, title: string) => {
-    this.debouncedUpdateDoc(content, title)
+  updateDoc = (doc: Partial<IDoc>) => {
+    this.debouncedUpdateDoc(doc)
   }
 
   setTitleState = async (title: string) => {
@@ -46,6 +43,7 @@ export class DocService {
 
   selectDoc = async () => {
     const doc = await db.selectDoc(this.doc.spaceId, this.doc.id)
+
     this.updateDocAtom(doc!)
     const docs = await db.listDocsBySpaceId(this.doc.spaceId)
     store.setDocs(docs)

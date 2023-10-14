@@ -1,21 +1,18 @@
 import React, { FC, PropsWithChildren } from 'react'
 import { Plus } from 'lucide-react'
 import { Button } from 'uikit'
-import { useCatalogue } from '@penx/hooks'
+import { store } from '@penx/store'
 
-interface Props {
-  parentId?: string
-}
+interface Props {}
 
-export const NewDocButton: FC<PropsWithChildren<Props>> = ({ parentId }) => {
-  const catalogue = useCatalogue()
+export const NewDocButton: FC<PropsWithChildren<Props>> = () => {
   return (
     <Button
       size="sm"
       variant="ghost"
       colorScheme="gray500"
       isSquare
-      onClick={() => catalogue.addNode(parentId)}
+      onClick={() => store.createDoc()}
     >
       <Plus />
     </Button>

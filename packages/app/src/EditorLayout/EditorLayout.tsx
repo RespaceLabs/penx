@@ -2,13 +2,7 @@ import { FC, PropsWithChildren } from 'react'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { EditorProvider } from '@penx/editor'
-import {
-  useDoc,
-  useQueryDoc,
-  useQuerySpaces,
-  useSpaces,
-  useWorkers,
-} from '@penx/hooks'
+import { useDoc, useQuerySpaces, useSpaces, useWorkers } from '@penx/hooks'
 import { routerAtom } from '@penx/store'
 import { DocContent } from '../doc/DocContent'
 import { CommandPanel } from '../Palette'
@@ -19,15 +13,6 @@ import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
 import { QueryDocs } from './QueryDocs'
 import { TrashBox } from './TrashBox/TrashBox'
-
-function WithDoc({ docId, children }: PropsWithChildren<{ docId: string }>) {
-  const { inited } = useQueryDoc(docId)
-  useWorkers()
-
-  if (!inited) return null
-
-  return <>{children}</>
-}
 
 export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   useQuerySpaces()
@@ -59,11 +44,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
           >
             {name === 'TRASH' && <TrashBox />}
             {name === 'ALL_DOCS' && <AllDocsBox />}
-            {name === 'DOC' && (
-              <WithDoc docId={activeSpace.activeDocId!}>
-                <DocContent />
-              </WithDoc>
-            )}
+            {name === 'DOC' && <DocContent />}
           </Box>
 
           <StatusBar></StatusBar>

@@ -2,8 +2,8 @@ import { useEffect, useMemo } from 'react'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { CatalogueTree } from '@penx/catalogue'
 import { DocListService } from '@penx/domain'
-import { db } from '@penx/local-db'
-import { docsAtom } from '@penx/store'
+import { db, DocStatus } from '@penx/local-db'
+import { docsAtom, store } from '@penx/store'
 
 export function useQueryDocs(spaceId: string) {
   const setDocs = useSetAtom(docsAtom)
@@ -11,6 +11,18 @@ export function useQueryDocs(spaceId: string) {
   useEffect(() => {
     db.listDocsBySpaceId(spaceId).then((docs) => {
       setDocs(docs)
+
+      if (!store.getDoc()) {
+        const normalDocs = docs.filter((doc) => doc.status === DocStatus.NORMAL)
+
+        if (normalDocs.length) {
+          const space = store.getSpaces().find((s) => s.id === spaceId)
+          const activeDoc = normalDocs.find(
+            (doc) => doc.id === space?.activeDocId,
+          )
+          store.setDoc(activeDoc || docs[0])
+        }
+      }
     })
   }, [setDocs, spaceId])
 }

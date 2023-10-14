@@ -36,7 +36,10 @@ export function DocContent() {
           content={doc.content}
           onChange={(value, editor) => {
             if (isAstChange(editor)) {
-              docService.updateDoc(value, title)
+              docService.updateDoc({
+                content: JSON.stringify(value),
+                title,
+              })
             }
           }}
           renderPrefix={(editor) => (
@@ -47,9 +50,9 @@ export function DocContent() {
                 h-2em
                 placeholderGray300
                 leadingNormal
-                value={title}
+                value={title || ''}
                 variant="unstyled"
-                placeholder="Enter Title"
+                placeholder="Untitled"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     e.preventDefault()
@@ -58,7 +61,10 @@ export function DocContent() {
                 }}
                 onChange={(e) => {
                   docService.setTitleState(e.target.value)
-                  docService.updateDoc(editor.children, e.target.value)
+                  docService.updateDoc({
+                    title: e.target.value,
+                    content: JSON.stringify(editor.children),
+                  })
                 }}
               />
             </Box>

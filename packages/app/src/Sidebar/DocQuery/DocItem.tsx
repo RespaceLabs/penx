@@ -24,7 +24,7 @@ export const DocItem = ({ doc }: Props) => {
         docService.selectDoc()
       }}
     >
-      <Box flex-1>{doc.title}</Box>
+      <Box flex-1>{doc.title || 'Untitled'}</Box>
       <DocItemMenu doc={doc} />
     </Box>
   )

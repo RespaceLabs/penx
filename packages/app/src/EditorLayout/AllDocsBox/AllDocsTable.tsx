@@ -15,6 +15,13 @@ export const AllDocsTable = ({ docs }: Props) => {
       key: 'title',
       width: '50%',
       render(value) {
+        if (!value) {
+          return (
+            <Box fontBold gray400>
+              Untitled
+            </Box>
+          )
+        }
         return <Box fontBold>{value}</Box>
       },
     },

@@ -17,6 +17,10 @@ export class DocListService {
     this.docs = this.raw.map((raw) => new Doc(raw))
   }
 
+  get normalDocs() {
+    return this.docs.filter((doc) => doc.isNormal)
+  }
+
   get trashedDocs() {
     return this.docs.filter((doc) => doc.isTrashed)
   }

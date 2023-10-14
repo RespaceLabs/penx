@@ -8,6 +8,14 @@ import { IFile } from './interfaces/IFile'
 import { ISpace } from './interfaces/ISpace'
 import { tableSchema } from './table-schema'
 
+const initialValue = [
+  {
+    type: 'p',
+    id: nanoid(),
+    children: [{ text: '' }],
+  },
+]
+
 const database = new Database({
   version: 1,
   name: 'PenxDB',
@@ -118,9 +126,11 @@ class DB {
 
   createDoc(doc: Partial<IDoc>) {
     return this.doc.insert({
-      ...doc,
+      id: nanoid(),
       status: DocStatus.NORMAL,
       openedAt: Date.now(),
+      content: JSON.stringify(initialValue),
+      ...doc,
     })
   }
 
@@ -132,8 +142,8 @@ class DB {
     return this.doc.updateByPk(docId, { ...doc, updatedAt: Date.now() })
   }
 
-  trashDoc = (docId: string) => {
-    return this.doc.updateByPk(docId, {
+  trashDoc = async (docId: string) => {
+    return await this.doc.updateByPk(docId, {
       status: DocStatus.TRASHED,
     })
   }
@@ -152,6 +162,15 @@ class DB {
     return this.doc.select({
       where: {
         spaceId,
+      },
+    })
+  }
+
+  listNormalDocs = async (spaceId: string) => {
+    return this.doc.select({
+      where: {
+        spaceId,
+        status: DocStatus.NORMAL,
       },
     })
   }
