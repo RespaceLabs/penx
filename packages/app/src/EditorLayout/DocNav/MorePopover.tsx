@@ -28,8 +28,6 @@ export const MorePopover = () => {
           <MenuItem
             gap2
             onClick={async () => {
-              // await store.trashDoc(doc.id)
-              console.log('docId:', doc.id, store.getDoc().id)
               await store.trashDoc(store.getDoc().id)
             }}
           >

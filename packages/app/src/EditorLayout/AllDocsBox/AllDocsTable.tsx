@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import { Trash2 } from 'lucide-react'
 import { Button, ColumnsType, Table } from 'uikit'
 import { Doc, DocService } from '@penx/domain'
+import { store } from '@penx/store'
 
 interface Props {
   docs: Doc[]
@@ -44,7 +45,16 @@ export const AllDocsTable = ({ docs }: Props) => {
       render(_, item) {
         return (
           <Box toCenterY gap1>
-            <Button size={28} variant="ghost" colorScheme="gray500" isSquare>
+            <Button
+              size={28}
+              variant="ghost"
+              colorScheme="gray500"
+              isSquare
+              onClick={async (e) => {
+                e.stopPropagation()
+                await store.trashDoc(item.id)
+              }}
+            >
               <Trash2 />
             </Button>
           </Box>

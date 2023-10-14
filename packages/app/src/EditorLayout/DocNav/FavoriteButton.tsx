@@ -6,7 +6,7 @@ import { useDoc } from '@penx/hooks'
 interface Props {}
 
 export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
-  const { doc, docService } = useDoc()
+  const { docService } = useDoc()
   const isFavorite = docService.isFavorite()
   return (
     <Button
