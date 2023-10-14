@@ -64,4 +64,30 @@ export class DocService {
     const docs = await db.listDocsBySpaceId(this.doc.spaceId)
     store.setDocs(docs)
   }
+
+  async addToFavorites() {
+    const space = store.getActiveSpace()
+
+    await db.updateSpace(this.doc.spaceId, {
+      favorites: [...space.favorites, this.doc.id],
+    })
+
+    const spaces = await db.listSpaces()
+    store.setSpaces(spaces)
+  }
+
+  async removeFromFavorites() {
+    const space = store.getActiveSpace()
+
+    const favorites = space.favorites.filter((id) => id !== this.doc.id)
+    await db.updateSpace(this.doc.spaceId, { favorites })
+
+    const spaces = await db.listSpaces()
+    store.setSpaces(spaces)
+  }
+
+  isFavorite() {
+    const space = store.getActiveSpace()
+    return space.favorites.includes(this.doc.id)
+  }
 }

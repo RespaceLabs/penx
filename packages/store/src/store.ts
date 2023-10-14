@@ -79,6 +79,10 @@ export const store = Object.assign(createStore(), {
     return spaces.find((space) => space.isActive)!
   },
 
+  setSpaces(spaces: ISpace[]) {
+    return store.set(spacesAtom, spaces)
+  },
+
   getDoc() {
     return store.get(docAtom)
   },

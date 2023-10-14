@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box } from '@fower/react'
 import { Check } from 'lucide-react'
 import { CheckboxStatus } from './types'

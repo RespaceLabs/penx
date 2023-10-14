@@ -17,7 +17,7 @@ export interface ISpace {
 
   activeDocId?: string
 
-  favorites: []
+  favorites: string[]
 
   changes: Record<
     string,

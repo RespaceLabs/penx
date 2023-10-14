@@ -2,12 +2,13 @@ import { Box } from '@fower/react'
 import { MoreHorizontal, Star } from 'lucide-react'
 import { Button } from 'uikit'
 import { useDoc } from '@penx/hooks'
+import { FavoriteButton } from './FavoriteButton'
 import { MorePopover } from './MorePopover'
 import { NewDocButton } from './NewDocButton'
 import { SharePopover } from './SharePopover'
 
 export const PCNav = () => {
-  const { doc } = useDoc()
+  const { doc, docService } = useDoc()
 
   if (!doc.id) return null
 
@@ -28,9 +29,7 @@ export const PCNav = () => {
       <Box>
         <NewDocButton />
         <SharePopover />
-        <Button size="sm" variant="ghost" colorScheme="gray500" isSquare>
-          <Star />
-        </Button>
+        <FavoriteButton />
 
         <MorePopover />
       </Box>

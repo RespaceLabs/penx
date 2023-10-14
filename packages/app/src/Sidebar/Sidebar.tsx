@@ -3,6 +3,7 @@ import { useAtom } from 'jotai'
 import { Folder, Trash2 } from 'lucide-react'
 import { useDocs } from '@penx/hooks'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
+import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { RecentlyEdited } from './RecentlyEdited'
 import { RecentlyOpened } from './RecentlyOpened'
 import { SpacePopover } from './SpacePopover'
@@ -70,6 +71,7 @@ export const Sidebar = () => {
         <C key={i} />
       ))}
 
+      <FavoriteBox />
       <RecentlyOpened />
       <RecentlyEdited />
 

@@ -25,6 +25,10 @@ export class DocListService {
     return this.docs.filter((doc) => doc.isTrashed)
   }
 
+  getFavorites(ids: string[] = []) {
+    return this.docs.filter((doc) => ids.includes(doc.id))
+  }
+
   // TODO: need to improvement
   find(options: FindOptions = {}): Doc[] {
     const data = this.raw
