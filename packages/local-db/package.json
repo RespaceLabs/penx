@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@penx/constants": "workspace:*",
+    "@penx/model": "workspace:*",
     "@penx/types": "workspace:*",
     "@penx/indexeddb": "workspace:*",
     "nanoid": "^4.0.2"

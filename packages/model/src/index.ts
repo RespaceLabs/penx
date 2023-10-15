@@ -1,5 +1,6 @@
 export * from './Doc'
 export * from './Space'
+export * from './Snapshot'
 export * from './ExtensionStore'
 export * from './File'
 export * from './Settings'

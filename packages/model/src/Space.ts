@@ -1,11 +1,15 @@
 import { ChangeType, ISpace } from '@penx/types'
 import { Settings } from './Settings'
+import { Snapshot } from './Snapshot'
 
 export class Space {
   settings: Settings
 
+  snapshot: Snapshot
+
   constructor(private raw: ISpace) {
     this.settings = new Settings(raw.settings)
+    this.snapshot = new Snapshot(raw)
   }
 
   get id() {

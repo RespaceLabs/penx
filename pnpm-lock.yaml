@@ -3568,6 +3568,9 @@ importers:
       '@penx/indexeddb':
         specifier: workspace:*
         version: link:../indexeddb
+      '@penx/model':
+        specifier: workspace:*
+        version: link:../model
       '@penx/types':
         specifier: workspace:*
         version: link:../types
@@ -3596,6 +3599,9 @@ importers:
       '@penx/types':
         specifier: workspace:*
         version: link:../types
+      crypto-js:
+        specifier: ^4.1.1
+        version: 4.1.1
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -3609,6 +3615,9 @@ importers:
         specifier: ^0.98.3
         version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
     devDependencies:
+      '@types/crypto-js':
+        specifier: ^4.1.1
+        version: 4.1.1
       '@types/diff-match-patch':
         specifier: ^1.0.33
         version: 1.0.33

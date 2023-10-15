@@ -20,7 +20,7 @@ export interface ISpace {
   favorites: string[]
 
   snapshot?: {
-    timestamp: string
+    timestamp: number
     hashMap: Record<string, string>
   }
 

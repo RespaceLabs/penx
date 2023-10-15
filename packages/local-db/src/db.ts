@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid'
 import { Database } from '@penx/indexeddb'
+import { Space } from '@penx/model'
 import { DocStatus, IDoc, IExtension, IFile, ISpace } from '@penx/types'
 import { getNewDoc } from './getNewDoc'
 import { getNewSpace } from './getNewSpace'
@@ -58,7 +59,7 @@ class DB {
 
     const doc = getNewDoc(spaceId)
 
-    await this.doc.insert(doc)
+    await this.createDoc(doc)
 
     const spaces = await this.listSpaces()
 
@@ -115,7 +116,7 @@ class DB {
     })
 
     // update openedAt
-    await this.doc.updateByPk(docId, { openedAt: Date.now() })
+    await this.updateDoc(docId, { openedAt: Date.now() })
 
     const doc = await this.doc.selectByPk(docId)
     return doc
@@ -130,6 +131,10 @@ class DB {
       ...doc,
     })
 
+    setTimeout(async () => {
+      await this.updateSnapshot(newDoc.id, 'add')
+    }, 0)
+
     return newDoc
   }
 
@@ -137,23 +142,49 @@ class DB {
     return this.doc.selectByPk(docId)
   }
 
-  updateDoc = (docId: string, doc: Partial<IDoc>) => {
-    return this.doc.updateByPk(docId, { ...doc, updatedAt: Date.now() })
+  private updateSnapshot = async (
+    docId: string,
+    action: 'add' | 'delete' | 'update',
+  ) => {
+    const doc = await this.getDoc(docId)
+    const space = await this.getSpace(doc.spaceId)
+    const spaceModel = new Space(space)
+    spaceModel.snapshot[action](docId, doc)
+
+    await this.updateSpace(space.id, {
+      snapshot: spaceModel.snapshot.toJSON(),
+    })
+  }
+
+  updateDoc = async (docId: string, data: Partial<IDoc>) => {
+    setTimeout(async () => {
+      await this.updateSnapshot(docId, 'update')
+    }, 0)
+
+    const newDoc = await this.doc.updateByPk(docId, {
+      ...data,
+      updatedAt: Date.now(),
+    })
+    return newDoc
   }
 
   trashDoc = async (docId: string) => {
-    return await this.doc.updateByPk(docId, {
+    return await this.updateDoc(docId, {
       status: DocStatus.TRASHED,
     })
   }
 
   restoreDoc = (docId: string) => {
-    return this.doc.updateByPk(docId, {
+    return this.updateDoc(docId, {
       status: DocStatus.NORMAL,
     })
   }
 
   deleteDoc = (docId: string) => {
+    setTimeout(async () => {
+      await this.updateSnapshot(docId, 'delete')
+    }, 0)
+
     return this.doc.deleteByPk(docId)
   }
 
