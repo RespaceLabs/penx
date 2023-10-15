@@ -6,9 +6,10 @@
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
     "build": "pnpm with-env prisma generate",
+    "dev": "pnpm with-env prisma generate",
     "db:generate": "pnpm with-env prisma generate",
     "db:push": "pnpm with-env prisma db push --skip-generate",
-    "dev": "pnpm with-env prisma studio --port 5556",
+    "dev:studio": "pnpm with-env prisma studio --port 5556",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
