@@ -208,9 +208,10 @@ model Extension {
 }
 
 model Snapshot {
-    id        String  @id @default(cuid())
-    spaceId   String  @unique
+    id        String   @id @default(cuid())
+    spaceId   String   @unique
     version   Int
-    timestamp Int
-    hashMap   String? @db.Text
+    hashMap   String?  @db.Text
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

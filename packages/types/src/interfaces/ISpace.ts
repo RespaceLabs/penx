@@ -20,7 +20,7 @@ export interface ISpace {
   favorites: string[]
 
   snapshot: {
-    timestamp: number
+    version: number
     hashMap: Record<string, string>
   }
 
@@ -47,12 +47,6 @@ export interface ISpace {
     [SettingsType.EXTENSIONS]: Record<string, any>
     [key: string]: Record<string, any>
   }
-
-  commitTree?: any
-
-  commitSha?: string
-
-  commitDate?: Date
 
   createdAt: number
 

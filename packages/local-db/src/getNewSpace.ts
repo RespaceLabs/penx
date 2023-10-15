@@ -11,7 +11,7 @@ export function getNewSpace(name: string): ISpace {
     changes: {},
     favorites: [],
     snapshot: {
-      timestamp: 0,
+      version: 0,
       hashMap: {},
     },
     settings: {

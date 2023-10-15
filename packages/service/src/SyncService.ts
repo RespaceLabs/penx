@@ -1,3 +1,4 @@
+import ky from 'ky'
 import { Octokit, RequestError } from 'octokit'
 import { db } from '@penx/local-db'
 import { Doc, SnapshotDiffResult, Space } from '@penx/model'
@@ -8,6 +9,7 @@ type SpaceInfoRes = {
   error: RequestError
   data: any
 }
+
 interface SharedParams {
   owner: string
   repo: string
@@ -25,6 +27,7 @@ type TreeItem = {
 }
 
 type Content = {
+  content?: string
   name: string
   path: string
   sha: string
@@ -42,6 +45,7 @@ export class SyncService {
   private space: Space
 
   private docs: Doc[] = []
+
   private docsMap: Record<string, Doc> = {}
 
   private app: Octokit
@@ -55,8 +59,6 @@ export class SyncService {
   docsTree: Content[]
 
   commitSha: string
-
-  commitDate: string
 
   get baseBranchName() {
     return 'main'
@@ -175,25 +177,15 @@ export class SyncService {
     this.baseBranchSha = refSha
   }
 
-  async getSpaceInfo(): Promise<SpaceInfoRes> {
-    try {
-      const res = await this.app.request(
-        'GET /repos/{owner}/{repo}/contents/{path}',
-        {
-          ...this.params,
-          path: '/space.json',
-        },
-      )
-      return {
-        error: null as any,
-        data: res.data,
-      }
-    } catch (error) {
-      return {
-        error: error as any,
-        data: null,
-      }
-    }
+  async getSpaceInfo() {
+    const res = await this.app.request(
+      'GET /repos/{owner}/{repo}/contents/{path}',
+      {
+        ...this.params,
+        path: '/space.json',
+      },
+    )
+    return res.data
   }
 
   async getDocsTreeInfo() {
@@ -217,12 +209,12 @@ export class SyncService {
     return this.docsTree
   }
 
-  createSpaceTreeItem() {
+  createSpaceTreeItem(version: number) {
     return {
       path: this.space.syncName,
       mode: '100644',
       type: 'blob',
-      content: this.space.stringify(),
+      content: this.space.stringify(version),
     } as TreeItem
   }
 
@@ -238,8 +230,7 @@ export class SyncService {
 
     if (spaceRes.data.content) {
       const space: ISpace = JSON.parse(atob(spaceRes.data.content))
-      const { commitDate, commitTree, commitSha, ...rest } = space
-      await db.updateSpace(this.space.id, rest)
+      await db.updateSpace(this.space.id, space)
     }
   }
 
@@ -260,41 +251,36 @@ export class SyncService {
 
   async push() {
     await this.getBaseBranchInfo()
-    const { error, data: spaceInfo } = await this.getSpaceInfo()
+
     let tree: TreeItem[] = []
-
-    if (error) {
-      // if error, only 404 can push
-      if (error.status === 404) {
-        const docsTree = await this.createTreeForNewDir()
-        tree.push(...docsTree)
-      } else {
-        throw error
-      }
-    } else {
-      const content: ISpace = JSON.parse(decodeBase64(spaceInfo.content))
-
-      const diff = this.space.snapshot.diff(content.snapshot)
+    try {
+      const serverSnapshot = await this.getSnapshot()
+      const diff = this.space.snapshot.diff(serverSnapshot)
 
       console.log('difff.........', diff)
 
       // isEqual, don't push
       if (diff.isEqual) return
 
-      return
-
       // space.json existed
       await this.getDocsTreeInfo()
       const docsTree = await this.createTreeForExistedDir(diff)
 
       tree.push(...docsTree)
-    }
 
-    const spaceTreeItem = this.createSpaceTreeItem()
-    tree.push(spaceTreeItem)
+      const spaceTreeItem = this.createSpaceTreeItem(serverSnapshot.version + 1)
+      tree.push(spaceTreeItem)
+    } catch (error) {
+      const docsTree = await this.createTreeForNewDir()
+      tree.push(...docsTree)
+
+      const spaceTreeItem = this.createSpaceTreeItem(1)
+      tree.push(spaceTreeItem)
+    }
 
     console.log('tree x=============', tree)
 
+    // update tree to GitHub before commit
     const { data } = await this.app.request(
       'POST /repos/{owner}/{repo}/git/trees',
       {
@@ -308,49 +294,24 @@ export class SyncService {
 
     console.log('commitData:', commitData)
 
+    // update ref to GitHub after commit
     await this.updateRef(commitData.sha)
 
-    const commitTree = await this.getDocsTreeInfo()
-
     await db.updateSpace(this.space.id, {
-      commitTree,
-      commitSha: commitData.sha,
-      commitDate: new Date(commitData.committer.date),
       changes: {},
+      snapshot: this.space.snapshot.toJSON(),
     })
 
-    await this.reloadSpaceStore()
+    const spaces = await this.reloadSpaceStore()
+
+    const activeSpace = spaces.find((s) => s.id === this.space.id)
+    await this.upsertSnapshot(activeSpace!)
   }
 
   async isCanPull() {
     const now = Date.now()
     const ONE_MINUTE = 60 * 1000
-
-    if (
-      this.space.commit.timestamp &&
-      now - this.space.commit.timestamp < ONE_MINUTE * 2
-    ) {
-      console.log('=========less than 2 minute')
-      return false
-    }
-
-    const { data } = await this.app.request(
-      'GET /repos/{owner}/{repo}/commits/{ref}',
-      {
-        ...this.params,
-        ref: this.baseBranchName,
-      },
-    )
-
-    const sha = data.sha
-    const date = data.commit.author?.date
-    const timestamp = new Date(date!).valueOf()
-
-    this.commitSha = sha
-    this.commitDate = date!
-
-    if (sha === this.space.commit.sha) return false
-
+    //
     return true
   }
 
@@ -386,18 +347,74 @@ export class SyncService {
 
     await this.pullSpaceInfo()
 
-    const commitTree = await this.getDocsTreeInfo()
-
     await db.updateSpace(this.space.id, {
-      commitTree,
-      commitSha: this.commitSha,
-      commitDate: new Date(this.commitDate!),
       changes: {},
     })
 
     await this.reloadSpaceStore()
     const activeDoc = await db.getDoc(this.space.activeDocId!)
     this.updateDocAtom(activeDoc!)
+  }
+
+  private async getSnapshotFromDatabase(): Promise<ISpace['snapshot']> {
+    const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL + '/api/get-snapshot'
+    const data = await ky
+      .get(url, {
+        searchParams: {
+          spaceId: this.space.id,
+        },
+        retry: {
+          limit: 3,
+        },
+      })
+      .json<any>()
+
+    return {
+      version: data.version,
+      hashMap: JSON.parse(data.hashMap),
+    }
+  }
+
+  private async getSnapshotFromGithub() {
+    ///
+  }
+
+  private async getSnapshot(): Promise<ISpace['snapshot']> {
+    try {
+      return this.getSnapshotFromDatabase()
+    } catch (error) {
+      try {
+        const data = (await this.getSpaceInfo()) as Content
+        const content: ISpace = JSON.parse(decodeBase64(data.content!))
+
+        return {
+          version: content.snapshot.version,
+          hashMap: content.snapshot.hashMap,
+        }
+      } catch (e) {
+        throw e
+      }
+    }
+  }
+
+  private async upsertSnapshot(space: ISpace) {
+    // await trpc.snapshot.upsert.mutate({
+    //   spaceId: this.space.id,
+    //   version: 1,
+    //   timestamp: Date.now(),
+    //   hashMap: '',
+    // })
+
+    const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL + '/api/upsert-snapshot'
+    await ky
+      .post(url, {
+        json: {
+          spaceId: this.space.id,
+          version: this.space.snapshot.version,
+          hashMap: JSON.stringify(space.snapshot.hashMap),
+        },
+      })
+      .json()
   }
 }
 

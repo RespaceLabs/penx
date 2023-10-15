@@ -3706,6 +3706,9 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../store
+      '@penx/trpc-client':
+        specifier: workspace:*
+        version: link:../trpc-client
       '@penx/types':
         specifier: workspace:*
         version: link:../types
@@ -3721,6 +3724,9 @@ importers:
       jotai:
         specifier: ^2.4.2
         version: 2.4.2(@types/react@18.2.22)(react@18.2.0)
+      ky:
+        specifier: ^1.0.1
+        version: 1.0.1
       lodash:
         specifier: ^4.17.21
         version: 4.17.21

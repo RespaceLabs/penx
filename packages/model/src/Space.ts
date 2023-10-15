@@ -40,14 +40,6 @@ export class Space {
     return this.raw.changes
   }
 
-  get commit() {
-    return {
-      sha: this.raw.commitSha,
-      date: this.raw.commitDate,
-      timestamp: this.raw.commitDate?.valueOf(),
-    }
-  }
-
   get updatedAtTimestamp() {
     return new Date(this.raw.updatedAt).valueOf()
   }
@@ -67,10 +59,14 @@ export class Space {
   toJSON() {
     return {
       ...this.raw,
+      snapshot: this.snapshot.toJSON(),
     }
   }
 
-  stringify(): string {
+  stringify(version?: number): string {
+    if (typeof version !== 'undefined') {
+      this.snapshot.updateVersion(version)
+    }
     return JSON.stringify(this.toJSON(), null, 2)
   }
 }

@@ -14,9 +14,11 @@ export class Snapshot {
   // Record<docId, md5>
   map: Record<string, string> = {}
 
+  version: number
+
   constructor(public space: ISpace) {
-    this.timestamp = space.snapshot?.timestamp || Date.now()
-    this.map = space.snapshot?.hashMap || {}
+    this.map = space.snapshot.hashMap || {}
+    this.version = space.snapshot.version || 0
   }
 
   md5Doc = (doc: IDoc) => {
@@ -49,9 +51,14 @@ export class Snapshot {
 
   toJSON() {
     return {
+      version: this.version,
       timestamp: this.timestamp,
       hashMap: this.map,
     }
+  }
+
+  updateVersion = (v: number) => {
+    this.version = v
   }
 
   diff(serverSnapshot: ISpace['snapshot']): SnapshotDiffResult {
