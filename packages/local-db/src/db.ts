@@ -131,9 +131,7 @@ class DB {
       ...doc,
     })
 
-    setTimeout(async () => {
-      await this.updateSnapshot(newDoc.id, 'add')
-    }, 0)
+    await this.updateSnapshot(newDoc.id, 'add', newDoc)
 
     return newDoc
   }
@@ -145,9 +143,14 @@ class DB {
   private updateSnapshot = async (
     docId: string,
     action: 'add' | 'delete' | 'update',
+    doc?: IDoc,
   ) => {
-    const doc = await this.getDoc(docId)
+    if (!doc) {
+      doc = await this.getDoc(docId)
+    }
+
     const space = await this.getSpace(doc.spaceId)
+
     const spaceModel = new Space(space)
     spaceModel.snapshot[action](docId, doc)
 
@@ -157,14 +160,13 @@ class DB {
   }
 
   updateDoc = async (docId: string, data: Partial<IDoc>) => {
-    setTimeout(async () => {
-      await this.updateSnapshot(docId, 'update')
-    }, 0)
-
     const newDoc = await this.doc.updateByPk(docId, {
       ...data,
       updatedAt: Date.now(),
     })
+
+    await this.updateSnapshot(docId, 'update', newDoc)
+
     return newDoc
   }
 
@@ -180,11 +182,8 @@ class DB {
     })
   }
 
-  deleteDoc = (docId: string) => {
-    setTimeout(async () => {
-      await this.updateSnapshot(docId, 'delete')
-    }, 0)
-
+  deleteDoc = async (docId: string) => {
+    await this.updateSnapshot(docId, 'delete')
     return this.doc.deleteByPk(docId)
   }
 
@@ -214,7 +213,7 @@ class DB {
     })
   }
 
-  queryDocByIds = (docIds: string[]) => {
+  listDocByIds = (docIds: string[]) => {
     const promises = docIds.map((id) => this.doc.selectByPk(id))
     return Promise.all(promises) as any as Promise<IDoc[]>
   }

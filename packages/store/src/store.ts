@@ -112,6 +112,15 @@ export const store = Object.assign(createStore(), {
     this.setDocs(docs)
   },
 
+  async deleteDoc(id: string) {
+    const space = this.getActiveSpace()
+    await db.deleteDoc(id)
+    const docs = await db.listDocsBySpaceId(space.id)
+    const normalDocs = docs.filter((doc) => doc.status === DocStatus.NORMAL)
+    this.setDoc(normalDocs[0])
+    this.setDocs(docs)
+  },
+
   async createDoc() {
     const space = this.getActiveSpace()
     const doc = await db.createDoc({ spaceId: space.id })

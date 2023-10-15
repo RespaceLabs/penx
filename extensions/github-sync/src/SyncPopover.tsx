@@ -5,6 +5,7 @@ import { Divider, Dot, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { SyncStatus } from '@penx/constants'
 import { useSpaces, useSyncStatus } from '@penx/hooks'
 import { IconPull, IconPush } from '@penx/icons'
+import { db } from '@penx/local-db'
 import { SyncService } from '@penx/service'
 
 interface Props {}
@@ -12,12 +13,13 @@ interface Props {}
 export const SyncPopover: FC<Props> = () => {
   const { isSyncing, isPulling, isFailed, isNormal, status, setStatus } =
     useSyncStatus()
-  const { activeSpace } = useSpaces()
 
   async function push() {
+    const space = await db.getActiveSpace()
+    if (!space) return // TODO:
     try {
       setStatus(SyncStatus.PUSHING)
-      const s = await SyncService.init(activeSpace!)
+      const s = await SyncService.init(space)
       await s.push()
       setStatus(SyncStatus.NORMAL)
     } catch (error) {
@@ -26,9 +28,11 @@ export const SyncPopover: FC<Props> = () => {
   }
 
   async function pull() {
+    const space = await db.getActiveSpace()
+    if (!space) return // TODO:
     try {
       setStatus(SyncStatus.PULLING)
-      const s = await SyncService.init(activeSpace!)
+      const s = await SyncService.init(space)
       await s.pull()
       setStatus(SyncStatus.NORMAL)
     } catch (error) {

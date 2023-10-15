@@ -10,6 +10,10 @@ export function getNewSpace(name: string): ISpace {
     isActive: false,
     changes: {},
     favorites: [],
+    snapshot: {
+      timestamp: 0,
+      hashMap: {},
+    },
     settings: {
       [SettingsType.SYNC]: {
         repo: '',

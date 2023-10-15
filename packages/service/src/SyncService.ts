@@ -1,9 +1,13 @@
-import { Octokit } from 'octokit'
+import { Octokit, RequestError } from 'octokit'
 import { db } from '@penx/local-db'
-import { Doc, Space } from '@penx/model'
+import { Doc, SnapshotDiffResult, Space } from '@penx/model'
 import { docAtom, spacesAtom, store } from '@penx/store'
 import { ChangeType, IDoc, ISpace } from '@penx/types'
 
+type SpaceInfoRes = {
+  error: RequestError
+  data: any
+}
 interface SharedParams {
   owner: string
   repo: string
@@ -37,8 +41,8 @@ export class SyncService {
 
   private space: Space
 
-  private docs: Doc[]
-  private docsMap: Record<string, Doc>
+  private docs: Doc[] = []
+  private docsMap: Record<string, Doc> = {}
 
   private app: Octokit
 
@@ -82,19 +86,6 @@ export class SyncService {
       auth: s.space.settings.githubToken,
     })
 
-    const changedIds = s.space.getChangedDocIds()
-
-    const docs = await db.queryDocByIds(changedIds)
-
-    s.docs = docs.map((doc) => new Doc(doc))
-
-    s.docsMap = s.docs.reduce(
-      (acc, doc) => {
-        return { ...acc, [doc.id]: doc }
-      },
-      {} as Record<string, Doc>,
-    )
-
     return s
   }
 
@@ -125,31 +116,31 @@ export class SyncService {
     return commit
   }
 
-  async createTreeForExistedDir(): Promise<TreeItem[]> {
-    const { docsMap } = this
+  async createTreeForExistedDir(diff: SnapshotDiffResult): Promise<TreeItem[]> {
     let treeItems: TreeItem[] = []
 
-    for (const [id, change] of Object.entries(this.space.changes)) {
-      const doc = docsMap[id]
+    // handle deleted docs
+    for (const id of diff.deleted) {
+      treeItems.push({
+        path: `${this.docsDir}/${id}.json`,
+        mode: '100644',
+        type: 'blob',
+        // sha: item.sha,
+        sha: null,
+      })
+    }
 
-      if ([ChangeType.ADD, ChangeType.UPDATE].includes(change.type)) {
-        treeItems.push({
-          path: doc.getFullPath(),
-          mode: '100644',
-          type: 'blob',
-          content: doc.stringify(),
-        })
-      }
+    const changeIds = [...diff.added, ...diff.updated]
+    const docsRaw = await db.listDocByIds(changeIds)
+    const docs = docsRaw.map((doc) => new Doc(doc))
 
-      if (change.type === ChangeType.DELETE) {
-        treeItems.push({
-          path: `${this.docsDir}/${id}.json`,
-          mode: '100644',
-          type: 'blob',
-          // sha: item.sha,
-          sha: null,
-        })
-      }
+    for (const doc of docs) {
+      treeItems.push({
+        path: doc.getFullPath(),
+        mode: '100644',
+        type: 'blob',
+        content: doc.stringify(),
+      })
     }
 
     return treeItems
@@ -184,6 +175,27 @@ export class SyncService {
     this.baseBranchSha = refSha
   }
 
+  async getSpaceInfo(): Promise<SpaceInfoRes> {
+    try {
+      const res = await this.app.request(
+        'GET /repos/{owner}/{repo}/contents/{path}',
+        {
+          ...this.params,
+          path: '/space.json',
+        },
+      )
+      return {
+        error: null as any,
+        data: res.data,
+      }
+    } catch (error) {
+      return {
+        error: error as any,
+        data: null,
+      }
+    }
+  }
+
   async getDocsTreeInfo() {
     try {
       const contentRes = await this.app.request(
@@ -199,6 +211,8 @@ export class SyncService {
     } catch (error) {
       this.docsTree = []
     }
+
+    console.log('this.docsTree:', this.docsTree)
 
     return this.docsTree
   }
@@ -245,15 +259,34 @@ export class SyncService {
   }
 
   async push() {
-    await Promise.all([this.getBaseBranchInfo(), this.getDocsTreeInfo()])
-
+    await this.getBaseBranchInfo()
+    const { error, data: spaceInfo } = await this.getSpaceInfo()
     let tree: TreeItem[] = []
 
-    if (!this.docsTree.length) {
-      const docsTree = await this.createTreeForNewDir()
-      tree.push(...docsTree)
+    if (error) {
+      // if error, only 404 can push
+      if (error.status === 404) {
+        const docsTree = await this.createTreeForNewDir()
+        tree.push(...docsTree)
+      } else {
+        throw error
+      }
     } else {
-      const docsTree = await this.createTreeForExistedDir()
+      const content: ISpace = JSON.parse(decodeBase64(spaceInfo.content))
+
+      const diff = this.space.snapshot.diff(content.snapshot)
+
+      console.log('difff.........', diff)
+
+      // isEqual, don't push
+      if (diff.isEqual) return
+
+      return
+
+      // space.json existed
+      await this.getDocsTreeInfo()
+      const docsTree = await this.createTreeForExistedDir(diff)
+
       tree.push(...docsTree)
     }
 

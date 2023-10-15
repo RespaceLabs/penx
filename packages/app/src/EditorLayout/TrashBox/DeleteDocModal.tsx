@@ -12,10 +12,14 @@ import {
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { Doc } from '@penx/model'
+import { store } from '@penx/store'
 
 const Footer = () => {
   const { data } = useModalContext<Doc>()
-  console.log('data-----:', data)
+
+  async function deleteDoc() {
+    await store.deleteDoc(data.id)
+  }
   return (
     <Box toCenterY gap3>
       <ModalClose asChild>
@@ -23,7 +27,7 @@ const Footer = () => {
           <Trans>Cancel</Trans>
         </Button>
       </ModalClose>
-      <Button colorScheme="red500">
+      <Button colorScheme="red500" onClick={deleteDoc}>
         <Trans>Delete</Trans>
       </Button>
     </Box>
