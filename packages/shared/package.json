@@ -7,6 +7,7 @@
     "lint": "eslint \"**/*.ts*\""
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "eslint": "^8.42.0",
@@ -17,6 +18,7 @@
   },
   "dependencies": {
     "@penx/serializer": "workspace:*",
+    "crypto-js": "^4.1.1",
     "nanoid": "^4.0.2"
   }
 }

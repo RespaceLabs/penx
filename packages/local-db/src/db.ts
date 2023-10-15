@@ -124,14 +124,16 @@ class DB {
     return doc
   }
 
-  createDoc(doc: Partial<IDoc>) {
-    return this.doc.insert({
+  createDoc = async (doc: Partial<IDoc>) => {
+    const newDoc = await this.doc.insert({
       id: nanoid(),
       status: DocStatus.NORMAL,
       openedAt: Date.now(),
       content: JSON.stringify(initialValue),
       ...doc,
     })
+
+    return newDoc
   }
 
   getDoc = (docId: string) => {

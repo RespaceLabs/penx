@@ -7,29 +7,14 @@ import {
   PopoverClose,
   PopoverContent,
   PopoverTrigger,
-  toast,
 } from 'uikit'
-import { CatalogueNode } from '@penx/catalogue'
 import { Doc } from '@penx/domain'
-import { useCatalogue } from '@penx/hooks'
-import { db, IDoc } from '@penx/local-db'
 
 interface Props {
   doc: Doc
 }
 
-export const DocItemMenu: FC<PropsWithChildren<Props>> = ({ doc: node }) => {
-  const catalogue = useCatalogue()
-
-  const onShare = async (node: CatalogueNode) => {
-    const doc = await db.getDoc(node.id)
-    if (doc) {
-      // appEmitter.emit('onShare', doc)
-    } else {
-      toast.error('Failed to generate sharing link')
-    }
-  }
-
+export const DocItemMenu: FC<Props> = ({ doc }) => {
   return (
     <Popover placement="right-start">
       <PopoverTrigger asChild>

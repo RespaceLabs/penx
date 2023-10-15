@@ -6,7 +6,7 @@ import { DocEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
 import { useDoc } from '@penx/hooks'
 import { insertEmptyParagraph } from '@penx/paragraph'
-import { docToMarkdown } from '@penx/shared'
+import { md5 } from '@penx/shared'
 
 export function DocContent() {
   const { doc, docService } = useDoc()
@@ -21,7 +21,7 @@ export function DocContent() {
   if (!doc.id) return null
 
   const { title } = doc
-  const md = docToMarkdown(doc.raw)
+  const md = md5(doc.raw)
 
   // return (
   //   <Box p10>

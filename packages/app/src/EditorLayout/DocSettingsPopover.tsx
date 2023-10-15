@@ -14,7 +14,7 @@ import {
 } from 'uikit'
 import { useDoc } from '@penx/hooks'
 import { IconCopy } from '@penx/icons'
-import { docToMarkdown, useCopyToClipboard } from '@penx/shared'
+import { md5, useCopyToClipboard } from '@penx/shared'
 import { ExportToMarkdown } from './ExportToMarkdown'
 
 interface Props {}
@@ -23,7 +23,7 @@ export const DocSettingsPopover: FC<PropsWithChildren<Props>> = () => {
   const { doc: doc } = useDoc()
   const { copy } = useCopyToClipboard()
   function copyMarkdown() {
-    copy(docToMarkdown(doc))
+    copy(md5(doc))
     toast.success('Markdown copied to clipboard')
   }
   return (

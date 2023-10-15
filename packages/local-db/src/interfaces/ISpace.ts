@@ -19,6 +19,11 @@ export interface ISpace {
 
   favorites: string[]
 
+  snapshot?: {
+    timestamp: string
+    hashMap: Record<string, string>
+  }
+
   changes: Record<
     string,
     {
