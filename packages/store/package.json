@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@penx/local-db": "workspace:*",
+    "@penx/types": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/extension-typings": "*",
     "@penx/event": "workspace:*",

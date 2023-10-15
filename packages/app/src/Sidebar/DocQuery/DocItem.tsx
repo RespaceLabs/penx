@@ -1,7 +1,8 @@
 import { memo } from 'react'
 import { Box } from '@fower/react'
-import { Doc, DocService } from '@penx/domain'
 import { useSidebarDrawer } from '@penx/hooks'
+import { Doc } from '@penx/model'
+import { DocService } from '@penx/service'
 import { DocItemMenu } from './DocItemMenu'
 
 interface Props {

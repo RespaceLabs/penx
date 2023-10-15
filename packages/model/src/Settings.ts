@@ -1,4 +1,4 @@
-import { ChangeType, ISpace } from '@penx/local-db'
+import { ISpace } from '@penx/types'
 
 export class Settings {
   syncExtensionId = 'github-sync'

@@ -1,5 +1,6 @@
 import { Box } from '@fower/react'
-import { Doc, DocService } from '@penx/domain'
+import { Doc } from '@penx/model'
+import { DocService } from '@penx/service'
 import { DocItemMenu } from './DocItemMenu'
 
 interface Props {

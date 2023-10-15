@@ -1,6 +1,7 @@
 import DiffMatchPatch from 'diff-match-patch'
-import { ChangeType, db, ISpace } from '@penx/local-db'
+import { db } from '@penx/local-db'
 import { slateToMarkdown } from '@penx/serializer'
+import { ChangeType, ISpace } from '@penx/types'
 
 export class ChangeService {
   constructor(public space: ISpace) {}

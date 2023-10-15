@@ -1,4 +1,4 @@
-import { TableType } from '@penx/indexeddb/src/types'
+import { TableType } from '@penx/indexeddb'
 
 export const tableSchema: TableType[] = [
   {

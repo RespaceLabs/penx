@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
-import { IDoc, ISpace } from '@penx/local-db'
+import { IDoc, ISpace } from '@penx/types'
 
 type Context = {
   doc?: IDoc

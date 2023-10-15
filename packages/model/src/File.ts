@@ -1,4 +1,4 @@
-import { IFile } from '@penx/local-db'
+import { IFile } from '@penx/types'
 
 function formatFileSize(bytes: number): string {
   if (bytes < 1024) {

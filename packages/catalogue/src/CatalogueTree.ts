@@ -1,5 +1,5 @@
 import mitt from 'mitt'
-import { IDoc } from '@penx/local-db'
+import { IDoc } from '@penx/types'
 import { CatalogueNode } from './CatalogueNode'
 import {
   CatalogueNodeJSON,

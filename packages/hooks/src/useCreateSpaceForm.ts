@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useModalContext } from 'uikit'
-import { db, ISpace } from '@penx/local-db'
+import { ISpace } from '@penx/types'
 import { useSpaceService } from './useSpaceService'
 
 export type CreateSpaceValues = {

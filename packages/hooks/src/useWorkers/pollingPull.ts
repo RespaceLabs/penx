@@ -1,6 +1,6 @@
 import { WorkerEvents } from '@penx/constants'
-import { SyncService } from '@penx/domain'
 import { db } from '@penx/local-db'
+import { SyncService } from '@penx/service'
 import { sleep } from '@penx/shared'
 
 const INTERVAL = 5 * 1000

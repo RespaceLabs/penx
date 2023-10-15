@@ -10,9 +10,9 @@ import {
   toast,
 } from 'uikit'
 import { CatalogueNode } from '@penx/catalogue'
-import { Doc } from '@penx/domain'
 import { useCatalogue } from '@penx/hooks'
-import { db, IDoc } from '@penx/local-db'
+import { db } from '@penx/local-db'
+import { Doc } from '@penx/model'
 
 interface Props {
   doc: Doc

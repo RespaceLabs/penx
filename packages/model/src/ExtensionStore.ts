@@ -6,7 +6,7 @@ import {
   OnKeyDown,
   PenxEditor,
 } from '@penx/extension-typings'
-import { ExtensionStore as ExtensionStoreJSON } from '@penx/store'
+import { ExtensionStore as ExtensionStoreJSON } from '@penx/types'
 
 export class ExtensionStore {
   rules: AutoformatRule[] = []

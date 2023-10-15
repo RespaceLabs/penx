@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { DocStatus, IDoc } from './interfaces/IDoc'
+import { DocStatus, IDoc } from '@penx/types'
 
 const EDITOR_CONTENT = [
   {

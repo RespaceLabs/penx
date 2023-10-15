@@ -8,7 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
-import { Doc } from '@penx/domain'
+import { Doc } from '@penx/model'
 
 interface Props {
   doc: Doc

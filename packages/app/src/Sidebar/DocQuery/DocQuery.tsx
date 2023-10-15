@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react'
 import { Box } from '@fower/react'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from 'uikit'
 import { useDocs, useSpaces } from '@penx/hooks'
-import { db, DocStatus, IDoc } from '@penx/local-db'
+import { DocStatus } from '@penx/types'
 import { SqlParser } from '../SqlParser'
 import { DocItem } from './DocItem'
 

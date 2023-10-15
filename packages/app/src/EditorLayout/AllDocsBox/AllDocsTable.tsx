@@ -1,7 +1,8 @@
 import { Box } from '@fower/react'
 import { Trash2 } from 'lucide-react'
 import { Button, ColumnsType, Table } from 'uikit'
-import { Doc, DocService } from '@penx/domain'
+import { Doc } from '@penx/model'
+import { DocService } from '@penx/service'
 import { store } from '@penx/store'
 
 interface Props {

@@ -1,8 +1,8 @@
 import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
-import { DocService } from '@penx/domain'
 import { useDocs, usePaletteDrawer } from '@penx/hooks'
-import { DocStatus } from '@penx/local-db'
+import { DocService } from '@penx/service'
+import { DocStatus } from '@penx/types'
 
 const CommandItem = styled(Command.Item)
 

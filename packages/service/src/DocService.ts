@@ -1,8 +1,9 @@
 import _ from 'lodash'
-import { db, IDoc } from '@penx/local-db'
+import { db } from '@penx/local-db'
+import { Doc } from '@penx/model'
 import { slateToMarkdown } from '@penx/serializer'
 import { docAtom, store } from '@penx/store'
-import { Doc } from '../entity'
+import { IDoc } from '@penx/types'
 import { ChangeService } from './ChangeService'
 
 export class DocService {

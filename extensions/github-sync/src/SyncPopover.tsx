@@ -3,9 +3,9 @@ import { Box, css } from '@fower/react'
 import { RefreshCcw } from 'lucide-react'
 import { Divider, Dot, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { SyncStatus } from '@penx/constants'
-import { SyncService } from '@penx/domain'
 import { useSpaces, useSyncStatus } from '@penx/hooks'
 import { IconPull, IconPush } from '@penx/icons'
+import { SyncService } from '@penx/service'
 
 interface Props {}
 

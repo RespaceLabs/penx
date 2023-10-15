@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Catalogue } from '@penx/domain'
+import { Catalogue } from '@penx/service'
 import { useDocs } from './useDocs'
 import { useSpaces } from './useSpaces'
 

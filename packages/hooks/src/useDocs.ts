@@ -1,9 +1,11 @@
 import { useEffect, useMemo } from 'react'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { CatalogueTree } from '@penx/catalogue'
-import { Doc, DocListService } from '@penx/domain'
-import { db, DocStatus } from '@penx/local-db'
+import { db } from '@penx/local-db'
+import { Doc } from '@penx/model'
+import { DocListService } from '@penx/service'
 import { docsAtom, store } from '@penx/store'
+import { DocStatus } from '@penx/types'
 
 export function useQueryDocs(spaceId: string) {
   const setDocs = useSetAtom(docsAtom)

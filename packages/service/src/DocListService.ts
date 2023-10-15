@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { ArraySorter } from '@penx/indexeddb'
-import { IDoc } from '@penx/local-db'
-import { Doc } from '../entity'
+import { Doc } from '@penx/model'
+import { IDoc } from '@penx/types'
 
 type FindOptions<T = IDoc> = {
   where?: Partial<T>

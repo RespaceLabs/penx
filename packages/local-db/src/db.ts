@@ -1,11 +1,8 @@
 import { nanoid } from 'nanoid'
 import { Database } from '@penx/indexeddb'
+import { DocStatus, IDoc, IExtension, IFile, ISpace } from '@penx/types'
 import { getNewDoc } from './getNewDoc'
 import { getNewSpace } from './getNewSpace'
-import { DocStatus, IDoc } from './interfaces/IDoc'
-import { IExtension } from './interfaces/IExtension'
-import { IFile } from './interfaces/IFile'
-import { ISpace } from './interfaces/ISpace'
 import { tableSchema } from './table-schema'
 
 const initialValue = [

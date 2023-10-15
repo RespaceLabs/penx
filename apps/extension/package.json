@@ -22,7 +22,7 @@
     "@dnd-kit/utilities": "^3.1.0",
     "@emoji-mart/data": "^1.1.2",
     "@emoji-mart/react": "^1.1.1",
-    "@floating-ui/react": "^0.25.4",
+    "@floating-ui/react": "^0.26.1",
     "@fower/atomic-props": "^1.86.0",
     "@fower/react": "^1.86.0",
     "@hookform/resolvers": "^3.2.0",

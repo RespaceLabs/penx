@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { File } from '@penx/domain'
 import { db } from '@penx/local-db'
+import { File } from '@penx/model'
 
 export function useFile(fileId: string) {
   const [loading, setLoading] = useState(true)

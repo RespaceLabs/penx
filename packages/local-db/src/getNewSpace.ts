@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import { SettingsType } from '@penx/constants'
-import { ISpace } from './interfaces/ISpace'
+import { ISpace } from '@penx/types'
 
 export function getNewSpace(name: string): ISpace {
   const spaceId = nanoid()

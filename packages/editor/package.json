@@ -39,6 +39,7 @@
     "@penx/editor-transforms": "workspace:*",
     "@penx/editor-types": "workspace:*",
     "@penx/extension-typings": "*",
+    "@penx/types": "workspace:*",
     "@penx/heading": "workspace:*",
     "@penx/blockquote": "workspace:*",
     "@penx/list": "workspace:*",

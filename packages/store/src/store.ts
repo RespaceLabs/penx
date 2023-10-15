@@ -2,37 +2,16 @@ import { atom, createStore } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import { SyncStatus } from '@penx/constants'
 import { emitter } from '@penx/event'
+import { db } from '@penx/local-db'
 import {
-  RegisterBlockOptions,
-  RegisterComponentOptions,
-  SettingsSchema,
-} from '@penx/extension-typings'
-import { db, DocStatus, IDoc, ISpace } from '@penx/local-db'
-
-type pluginId = string
-
-type RouteName = 'DOC' | 'TRASH' | 'ALL_DOCS'
-
-export type RouterStore = {
-  name: RouteName
-  params: Record<string, any>
-}
-
-export type Command = {
-  id: string
-  name: string
-  pluginId?: string
-  handler: () => void
-}
-
-export type ExtensionStore = Record<
-  pluginId,
-  {
-    components: Array<RegisterComponentOptions>
-    block: RegisterBlockOptions
-    settingsSchema: SettingsSchema
-  }
->
+  Command,
+  DocStatus,
+  ExtensionStore,
+  IDoc,
+  ISpace,
+  RouteName,
+  RouterStore,
+} from '@penx/types'
 
 export const docAtom = atom(null as any as IDoc)
 

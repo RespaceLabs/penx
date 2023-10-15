@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai'
-import { ExtensionStore } from '@penx/domain'
+import { ExtensionStore } from '@penx/model'
 import { extensionStoreAtom } from '@penx/store'
 
 export function useExtensionStore() {

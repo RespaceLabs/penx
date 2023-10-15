@@ -1,4 +1,4 @@
-import { ChangeType, ISpace } from '@penx/local-db'
+import { ChangeType, ISpace } from '@penx/types'
 import { Settings } from './Settings'
 
 export class Space {

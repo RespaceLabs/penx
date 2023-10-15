@@ -8,7 +8,7 @@ import {
   PopoverClose,
 } from 'uikit'
 import { useSpaces, useSpaceService } from '@penx/hooks'
-import type { ISpace } from '@penx/local-db'
+import { ISpace } from '@penx/types'
 
 function SpaceItem({
   item,

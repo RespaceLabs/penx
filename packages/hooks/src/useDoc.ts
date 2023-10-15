@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import { useAtom, useSetAtom } from 'jotai'
-import { Doc, DocService } from '@penx/domain'
-import { db } from '@penx/local-db'
+import { Doc } from '@penx/model'
+import { DocService } from '@penx/service'
 import { docAtom } from '@penx/store'
 
 export function useDoc() {

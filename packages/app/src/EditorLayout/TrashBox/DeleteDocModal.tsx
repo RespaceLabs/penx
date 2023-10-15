@@ -11,7 +11,7 @@ import {
   useModalContext,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { Doc } from '@penx/domain'
+import { Doc } from '@penx/model'
 
 const Footer = () => {
   const { data } = useModalContext<Doc>()

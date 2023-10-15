@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
-import { ExtensionStore, extensionStoreAtom } from '@penx/store'
+import { extensionStoreAtom } from '@penx/store'
+import { ExtensionStore } from '@penx/types'
 
 function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
   const values = Object.values(extensionStore)

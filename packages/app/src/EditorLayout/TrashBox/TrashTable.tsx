@@ -11,7 +11,7 @@ import {
   TooltipTrigger,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { Doc } from '@penx/domain'
+import { Doc } from '@penx/model'
 import { store } from '@penx/store'
 import { DeleteDocModal } from './DeleteDocModal'
 

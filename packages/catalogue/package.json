@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@penx/local-db": "workspace:*",
+    "@penx/types": "workspace:*",
     "@penx/store": "workspace:*",
     "mitt": "^3.0.0",
     "nanoid": "^4.0.2"

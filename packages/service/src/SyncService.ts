@@ -1,7 +1,8 @@
 import { Octokit } from 'octokit'
-import { ChangeType, db, IDoc, ISpace } from '@penx/local-db'
+import { db } from '@penx/local-db'
+import { Doc, Space } from '@penx/model'
 import { docAtom, spacesAtom, store } from '@penx/store'
-import { Doc, Space } from '../entity'
+import { ChangeType, IDoc, ISpace } from '@penx/types'
 
 interface SharedParams {
   owner: string

@@ -4,8 +4,9 @@ import {
   CatalogueNodeType,
   CatalogueTree,
 } from '@penx/catalogue'
-import { db, DocStatus, IDoc, ISpace } from '@penx/local-db'
+import { db } from '@penx/local-db'
 import { docAtom, spacesAtom, store } from '@penx/store'
+import { DocStatus, IDoc, ISpace } from '@penx/types'
 import { ChangeService } from './ChangeService'
 
 const initialValue = [

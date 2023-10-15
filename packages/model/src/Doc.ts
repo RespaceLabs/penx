@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import { DocStatus, IDoc } from '@penx/local-db'
+import { DocStatus, IDoc } from '@penx/types'
 
 export class Doc {
   constructor(public raw: IDoc) {}
