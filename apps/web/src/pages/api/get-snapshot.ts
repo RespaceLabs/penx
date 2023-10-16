@@ -8,8 +8,6 @@ export default async function handler(
   // Validate params
   const spaceId = req.query.spaceId as string
 
-  console.log('=============spaceId:', spaceId)
-
   try {
     const snapshot = await prisma.snapshot.findFirst({
       where: { spaceId },

@@ -7,6 +7,7 @@ import {
   modalController,
   PopoverClose,
 } from 'uikit'
+import { ModalNames } from '@penx/constants'
 import { useSpaces, useSpaceService } from '@penx/hooks'
 import { ISpace } from '@penx/types'
 
@@ -54,13 +55,14 @@ export const SpaceList = () => {
         {spaces?.map((item) => (
           <SpaceItem key={item.id} item={item} activeSpace={activeSpace} />
         ))}
-        <Box toCenter mt4>
+        <Box mt4>
           <PopoverClose asChild>
             <Button
+              toLeft
               variant="ghost"
               w-100p
               onClick={() => {
-                modalController.open('CREATE_SPACE_MODAL')
+                modalController.open(ModalNames.CREATE_SPACE)
               }}
             >
               <Plus />

@@ -15,10 +15,11 @@ import { Doc } from '@penx/model'
 import { store } from '@penx/store'
 
 const Footer = () => {
-  const { data } = useModalContext<Doc>()
+  const { data, close } = useModalContext<Doc>()
 
   async function deleteDoc() {
     await store.deleteDoc(data.id)
+    close()
   }
   return (
     <Box toCenterY gap3>
@@ -36,7 +37,7 @@ const Footer = () => {
 
 export const DeleteDocModal = () => {
   return (
-    <Modal name={ModalNames.DeleteDoc}>
+    <Modal name={ModalNames.DELETE_DOC}>
       <ModalOverlay />
       <ModalContent w={[500]} column gap4 toCenterX>
         <ModalCloseButton />

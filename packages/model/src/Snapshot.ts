@@ -9,7 +9,7 @@ export interface SnapshotDiffResult {
 }
 
 export class Snapshot {
-  timestamp: number
+  repo: string
 
   // Record<docId, md5>
   map: Record<string, string> = {}
@@ -19,6 +19,7 @@ export class Snapshot {
   constructor(public space: ISpace) {
     this.map = space.snapshot.hashMap || {}
     this.version = space.snapshot.version || 0
+    this.repo = space.settings.sync.repo
   }
 
   md5Doc = (doc: IDoc) => {
@@ -30,29 +31,22 @@ export class Snapshot {
     return CryptoJS.MD5(JSON.stringify(data)).toString()
   }
 
-  private updateTimestamp = () => {
-    this.timestamp = Date.now()
-  }
-
   add = (docId: string, doc: IDoc) => {
-    this.updateTimestamp()
     this.map[docId] = this.md5Doc(doc)
   }
 
   update = (docId: string, doc: IDoc) => {
-    this.updateTimestamp()
     this.map[docId] = this.md5Doc(doc)
   }
 
   delete = (docId: string) => {
-    this.updateTimestamp()
     delete this.map[docId]
   }
 
   toJSON() {
     return {
+      repo: this.repo,
       version: this.version,
-      timestamp: this.timestamp,
       hashMap: this.map,
     }
   }

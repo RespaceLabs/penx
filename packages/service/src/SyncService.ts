@@ -1,14 +1,9 @@
 import ky from 'ky'
-import { Octokit, RequestError } from 'octokit'
+import { Octokit } from 'octokit'
 import { db } from '@penx/local-db'
 import { Doc, SnapshotDiffResult, Space } from '@penx/model'
 import { docAtom, spacesAtom, store } from '@penx/store'
-import { ChangeType, IDoc, ISpace } from '@penx/types'
-
-type SpaceInfoRes = {
-  error: RequestError
-  data: any
-}
+import { IDoc, ISpace } from '@penx/types'
 
 interface SharedParams {
   owner: string
@@ -170,7 +165,7 @@ export class SyncService {
       },
     )
 
-    console.log('ref===========:', ref.data.object)
+    console.log('base branch info===========:', ref.data.object)
 
     const refSha = ref.data.object.sha
 
@@ -250,12 +245,12 @@ export class SyncService {
   }
 
   async push() {
-    await this.getBaseBranchInfo()
-
     let tree: TreeItem[] = []
     try {
       const serverSnapshot = await this.getSnapshot()
       const diff = this.space.snapshot.diff(serverSnapshot)
+
+      console.log('serverSnapshot:', serverSnapshot)
 
       console.log('difff.........', diff)
 
@@ -278,7 +273,9 @@ export class SyncService {
       tree.push(spaceTreeItem)
     }
 
-    console.log('tree x=============', tree)
+    console.log('tree to commit=============', tree)
+
+    await this.getBaseBranchInfo()
 
     // update tree to GitHub before commit
     const { data } = await this.app.request(
@@ -370,6 +367,7 @@ export class SyncService {
       .json<any>()
 
     return {
+      repo: this.space.settings.repo,
       version: data.version,
       hashMap: JSON.parse(data.hashMap),
     }
@@ -388,6 +386,7 @@ export class SyncService {
         const content: ISpace = JSON.parse(decodeBase64(data.content!))
 
         return {
+          repo: content.snapshot.repo,
           version: content.snapshot.version,
           hashMap: content.snapshot.hashMap,
         }
@@ -409,6 +408,7 @@ export class SyncService {
     await ky
       .post(url, {
         json: {
+          repo: this.space.settings.repo,
           spaceId: this.space.id,
           version: this.space.snapshot.version,
           hashMap: JSON.stringify(space.snapshot.hashMap),

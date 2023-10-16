@@ -73,7 +73,7 @@ export const TrashTable = ({ docs }: Props) => {
               colorScheme="gray500"
               isSquare
               onClick={() => {
-                modalController.open(ModalNames.DeleteDoc, item)
+                modalController.open(ModalNames.DELETE_DOC, item)
               }}
             >
               <Trash2 />

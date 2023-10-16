@@ -14,7 +14,7 @@ import {
   PopoverTrigger,
 } from 'uikit'
 import { useSpaces } from '@penx/hooks'
-import { CreateSpaceModal } from '../EditorLayout/CreateSpaceModal'
+import { CreateSpaceModal } from '../EditorLayout/CreateSpaceModal/CreateSpaceModal'
 import { SettingsModal } from '../EditorLayout/SettingsModal/SettingsModal'
 import { SpaceList } from './SpaceList'
 

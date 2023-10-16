@@ -5,6 +5,7 @@ export const snapshotRouter = createTRPCRouter({
   upsert: publicProcedure
     .input(
       z.object({
+        repo: z.string(),
         spaceId: z.string(),
         version: z.number(),
         hashMap: z.string(),

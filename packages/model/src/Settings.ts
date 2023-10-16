@@ -9,7 +9,7 @@ export class Settings {
     return this.raw?.extensions?.[this.syncExtensionId]?.githubToken || ''
   }
 
-  get repo() {
+  get repo(): string {
     return this.raw?.extensions?.[this.syncExtensionId]?.repo || ''
   }
 

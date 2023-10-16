@@ -2,15 +2,15 @@ import { nanoid } from 'nanoid'
 import { SettingsType } from '@penx/constants'
 import { ISpace } from '@penx/types'
 
-export function getNewSpace(name: string): ISpace {
-  const spaceId = nanoid()
+export function getNewSpace(name: string, id = nanoid()): ISpace {
   return {
-    id: spaceId,
+    id,
     name,
     isActive: false,
     changes: {},
     favorites: [],
     snapshot: {
+      repo: '',
       version: 0,
       hashMap: {},
     },
