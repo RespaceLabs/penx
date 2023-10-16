@@ -1,20 +1,15 @@
 import { Box } from '@fower/react'
 import { t, Trans } from '@lingui/macro'
-import { EasyModal } from 'easy-modal'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import {
   Avatar,
   AvatarFallback,
-  Menu,
-  MenuItem,
   Popover,
-  PopoverClose,
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { CreateSpaceModal } from '../EditorLayout/CreateSpaceModal/CreateSpaceModal'
+import { ImportSpaceModal } from '../EditorLayout/ImportSpaceModal/ImportSpaceModal'
 import { SettingsModal } from '../EditorLayout/SettingsModal/SettingsModal'
 import { SpaceList } from './SpaceList'
 
@@ -24,6 +19,7 @@ export const SpacePopover = () => {
   return (
     <>
       <CreateSpaceModal />
+      <ImportSpaceModal />
       <Popover offset={{ crossAxis: 10 }}>
         <PopoverTrigger asChild>
           {({ close }) => (
