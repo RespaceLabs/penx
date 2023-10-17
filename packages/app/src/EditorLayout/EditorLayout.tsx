@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { EditorProvider } from '@penx/editor'
-import { useDoc, useQuerySpaces, useSpaces, useWorkers } from '@penx/hooks'
+import { useQuerySpaces, useSpaces, useWorkers } from '@penx/hooks'
 import { routerAtom } from '@penx/store'
 import { DocContent } from '../doc/DocContent'
 import { CommandPanel } from '../Palette'
@@ -13,6 +13,7 @@ import { AllDocsBox } from './AllDocsBox/AllDocsBox'
 import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
 import { QueryDocs } from './QueryDocs'
+import { SyncBox } from './SyncBox/SyncBox'
 import { TrashBox } from './TrashBox/TrashBox'
 
 export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
@@ -33,7 +34,8 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
         </Box>
         <Box flex-1 h-100vh relative>
           <MobileNav />
-          <PCNav />
+
+          {name === 'DOC' && <PCNav />}
 
           <Box
             overflowYAuto
@@ -44,6 +46,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
             {name === 'TRASH' && <TrashBox />}
             {name === 'ALL_DOCS' && <AllDocsBox />}
             {name === 'DOC' && <DocContent />}
+            {name === 'SYNC' && <SyncBox />}
           </Box>
 
           <StatusBar></StatusBar>

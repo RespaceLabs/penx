@@ -70,7 +70,14 @@ export const UserAvatarModal: FC<Props> = () => {
                 {nickname}
               </Box>
             </Box>
-            <Button isSquare variant="ghost" colorScheme="gray600">
+            <Button
+              isSquare
+              variant="ghost"
+              colorScheme="gray600"
+              onClick={() => {
+                disconnect()
+              }}
+            >
               <IconDisconnect />
             </Button>
           </Box>

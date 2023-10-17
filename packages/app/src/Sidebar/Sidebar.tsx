@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
-import { Folder, Trash2 } from 'lucide-react'
+import { Cloud, Folder, Trash2 } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import { useDocs } from '@penx/hooks'
 import { extensionStoreAtom, store } from '@penx/store'
@@ -8,6 +8,7 @@ import { ExtensionStore } from '@penx/types'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { RecentlyEdited } from './RecentlyEdited'
 import { RecentlyOpened } from './RecentlyOpened'
+import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover'
 import { UserAvatarModal } from './UserAvatarModal/UserAvatarModal'
 import { WalletConnectButton } from './WalletConnectButton'
@@ -46,32 +47,22 @@ export const Sidebar = () => {
     >
       <SpacePopover />
       <Box column gap3 flex-1 pb10>
-        <Box
-          toCenterY
-          toBetween
-          gap2
-          bgWhite
-          rounded2XL
-          px2
-          py3
-          cursorPointer
+        <SidebarItem
+          icon={<Folder size={20} />}
+          label="All Docs"
+          count={docList.normalDocs.length}
           onClick={() => {
             store.routeTo('ALL_DOCS')
           }}
-        >
-          <Box toCenterY gap2>
-            <Box inlineFlex gray500>
-              <Folder size={20} />
-            </Box>
-            <Box fontSemibold textLG>
-              All Docs
-            </Box>
-          </Box>
-          <Box gray500 roundedFull textXS>
-            {docList.normalDocs.length}
-          </Box>
-          B
-        </Box>
+        />
+
+        <SidebarItem
+          icon={<Cloud size={20} />}
+          label="Sync"
+          onClick={() => {
+            store.routeTo('SYNC')
+          }}
+        />
 
         {components.map((C, i) => (
           <C key={i} />
@@ -81,34 +72,15 @@ export const Sidebar = () => {
         <RecentlyOpened />
         <RecentlyEdited />
 
-        <Box
-          toCenterY
-          toBetween
-          gap2
-          bgWhite
-          rounded2XL
-          pl2
-          pr3
-          py3
-          cursorPointer
+        <SidebarItem
+          icon={<Trash2 size={20} />}
+          label="Trash"
+          count={docList.normalDocs.length}
           onClick={() => {
             store.routeTo('TRASH')
           }}
-        >
-          <Box toCenterY gap2>
-            <Box inlineFlex gray500>
-              <Trash2 size={20} />
-            </Box>
-            <Box fontSemibold textLG>
-              Trash
-            </Box>
-          </Box>
-          <Box gray500 roundedFull textXS>
-            {docList.trashedDocs.length}
-          </Box>
-        </Box>
+        />
       </Box>
-
       <Box>
         {!isConnected && <WalletConnectButton size="lg" w-100p />}
         {isConnected && <UserAvatarModal />}
