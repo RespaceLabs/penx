@@ -1,8 +1,13 @@
 import React from 'react'
 import { EditorApp } from '@penx/app'
+import { WalletConnectProvider } from '~/components/WalletConnectProvider'
 
 const PageEditor = () => {
-  return <EditorApp />
+  return (
+    <WalletConnectProvider>
+      <EditorApp />
+    </WalletConnectProvider>
+  )
 }
 
 export default PageEditor

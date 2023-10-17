@@ -8,6 +8,7 @@ import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { RecentlyEdited } from './RecentlyEdited'
 import { RecentlyOpened } from './RecentlyOpened'
 import { SpacePopover } from './SpacePopover'
+import { WalletConnectButton } from './WalletConnectButton'
 
 function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
   const values = Object.values(extensionStore)
@@ -35,73 +36,78 @@ export const Sidebar = () => {
       display={['none', 'none', 'flex']}
       bgZinc100
       px2
-      pb10
       gap3
       h-100vh
       overflowAuto
+      pb2
     >
       <SpacePopover />
-
-      <Box
-        toCenterY
-        toBetween
-        gap2
-        bgWhite
-        rounded2XL
-        px2
-        py3
-        cursorPointer
-        onClick={() => {
-          store.routeTo('ALL_DOCS')
-        }}
-      >
-        <Box toCenterY gap2>
-          <Box inlineFlex gray500>
-            <Folder size={20} />
+      <Box column gap3 flex-1 pb10>
+        <Box
+          toCenterY
+          toBetween
+          gap2
+          bgWhite
+          rounded2XL
+          px2
+          py3
+          cursorPointer
+          onClick={() => {
+            store.routeTo('ALL_DOCS')
+          }}
+        >
+          <Box toCenterY gap2>
+            <Box inlineFlex gray500>
+              <Folder size={20} />
+            </Box>
+            <Box fontSemibold textLG>
+              All Docs
+            </Box>
           </Box>
-          <Box fontSemibold textLG>
-            All Docs
+          <Box gray500 roundedFull textXS>
+            {docList.normalDocs.length}
           </Box>
+          B
         </Box>
 
-        <Box gray500 roundedFull textXS>
-          {docList.normalDocs.length}
+        {components.map((C, i) => (
+          <C key={i} />
+        ))}
+
+        <FavoriteBox />
+        <RecentlyOpened />
+        <RecentlyEdited />
+
+        <Box
+          toCenterY
+          toBetween
+          gap2
+          bgWhite
+          rounded2XL
+          pl2
+          pr3
+          py3
+          cursorPointer
+          onClick={() => {
+            store.routeTo('TRASH')
+          }}
+        >
+          <Box toCenterY gap2>
+            <Box inlineFlex gray500>
+              <Trash2 size={20} />
+            </Box>
+            <Box fontSemibold textLG>
+              Trash
+            </Box>
+          </Box>
+          <Box gray500 roundedFull textXS>
+            {docList.trashedDocs.length}
+          </Box>
         </Box>
       </Box>
 
-      {components.map((C, i) => (
-        <C key={i} />
-      ))}
-
-      <FavoriteBox />
-      <RecentlyOpened />
-      <RecentlyEdited />
-
-      <Box
-        toCenterY
-        toBetween
-        gap2
-        bgWhite
-        rounded2XL
-        pl2
-        pr3
-        py3
-        cursorPointer
-        onClick={() => {
-          store.routeTo('TRASH')
-        }}
-      >
-        <Box toCenterY gap2>
-          <Box inlineFlex gray500>
-            <Trash2 size={20} />
-          </Box>
-          <Box fontSemibold textLG>
-            Trash
-          </Box>
-        </Box>
-        <Box gray500 roundedFull textXS>
-          {docList.trashedDocs.length}
-        </Box>
+      <Box>
+        <WalletConnectButton size="lg" w-100p />
       </Box>
     </Box>
   )
