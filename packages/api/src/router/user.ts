@@ -41,6 +41,21 @@ export const userRouter = createTRPCRouter({
       return users
     }),
 
+  create: publicProcedure
+    .input(
+      z.object({
+        address: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { address } = input
+      let user = await ctx.prisma.user.findFirst({ where: { address } })
+      if (!user) {
+        user = await ctx.prisma.user.create({ data: { address } })
+      }
+      return user
+    }),
+
   update: publicProcedure
     .input(
       z.object({

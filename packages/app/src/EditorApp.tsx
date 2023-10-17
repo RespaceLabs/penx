@@ -1,11 +1,13 @@
-import { FC, PropsWithChildren, useEffect } from 'react'
+import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { Provider } from 'jotai'
+import { useAccount } from 'wagmi'
 import { CatalogueNodeType, CatalogueTree } from '@penx/catalogue'
 import { isServer } from '@penx/constants'
 import { emitter } from '@penx/event'
 import { appLoader, useLoaderStatus } from '@penx/loader'
 import { db } from '@penx/local-db'
 import { JotaiNexus, spacesAtom, store } from '@penx/store'
+import { trpc } from '@penx/trpc-client'
 import { ClientOnly } from './components/ClientOnly'
 import { EditorLayout } from './EditorLayout/EditorLayout'
 import { HotkeyBinding } from './HotkeyBinding'
@@ -25,6 +27,14 @@ if (!isServer) {
 
 export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
   const { isLoaded } = useLoaderStatus()
+  const { address } = useAccount()
+  const createRef = useRef(false)
+
+  useEffect(() => {
+    if (!address || createRef.current) return
+    trpc.user.create.mutate({ address })
+    createRef.current = true
+  }, [address])
 
   useEffect(() => {
     persist()

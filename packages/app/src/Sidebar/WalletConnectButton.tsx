@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { Trans } from '@lingui/macro'
 import { useWeb3Modal } from '@web3modal/react'

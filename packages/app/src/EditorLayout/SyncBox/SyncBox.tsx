@@ -1,5 +1,6 @@
 import { Box } from '@fower/react'
 import { useDocs } from '@penx/hooks'
+import { ConnectGitHub } from './ConnectGitHub'
 
 export const SyncBox = () => {
   return (
@@ -10,7 +11,7 @@ export const SyncBox = () => {
         </Box>
       </Box>
       <Box>
-        <Box>gogo</Box>
+        <ConnectGitHub />
       </Box>
     </Box>
   )

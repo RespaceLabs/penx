@@ -21,20 +21,21 @@ export default async function handler(
     code,
   })
 
-  const token = await getToken({ req })
+  console.log('token=========authentication:', authentication)
 
-  await prisma.user.update({
-    where: { id: token?.uid },
-    data: {
-      ghToken: authentication.token,
-      ghRefreshToken: (authentication as any).refreshToken,
-      ghTokenExpiresAt: (authentication as any).expiresAt,
-      ghRefreshTokenExpiresAt: (authentication as any).refreshTokenExpiresAt,
-    },
-  })
+  // await prisma.user.update({
+  //   where: { id: token?.uid },
+  //   data: {
+  //     ghToken: authentication.token,
+  //     ghRefreshToken: (authentication as any).refreshToken,
+  //     ghTokenExpiresAt: (authentication as any).expiresAt,
+  //     ghRefreshTokenExpiresAt: (authentication as any).refreshTokenExpiresAt,
+  //   },
+  // })
 
-  const spaceId = req.query.state
+  // const spaceId = req.query.state
 
   // https://github.com/login/oauth/access_token
-  res.redirect(`/spaces/${spaceId}/git`)
+  // res.redirect(`/spaces/${spaceId}/git`)
+  res.redirect(`/`)
 }
