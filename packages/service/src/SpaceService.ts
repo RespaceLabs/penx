@@ -4,7 +4,7 @@ import { docAtom, spacesAtom, store } from '@penx/store'
 
 export class SpaceService {
   createSpace = async (name: string) => {
-    const space = await db.createSpace(name)
+    const space = await db.createSpace({ name })
     await this.loadSpaces()
     return space!
   }

@@ -43,7 +43,7 @@ class DB {
   init = async () => {
     const count = await this.space.count()
     if (count === 0) {
-      const space = await this.createSpace('First Space')
+      const space = await this.createSpace({ name: 'My Space' })
     }
     // const space = await this.space.toCollection().first()
     const space = (await this.space.selectAll())[0]
@@ -51,15 +51,11 @@ class DB {
     return space!
   }
 
-  createSpace = async (name: string) => {
-    const newSpace = getNewSpace(name)
+  createSpace = async (data: Partial<ISpace>, initDoc = true) => {
+    const newSpace = getNewSpace(data)
     const spaceId = newSpace.id
 
     await this.space.insert(newSpace)
-
-    const doc = getNewDoc(spaceId)
-
-    await this.createDoc(doc)
 
     const spaces = await this.listSpaces()
 
@@ -69,10 +65,20 @@ class DB {
       })
     }
 
-    await this.space.updateByPk(spaceId, {
-      isActive: true,
-      activeDocId: doc.id,
-    })
+    if (initDoc) {
+      const doc = getNewDoc(spaceId)
+
+      await this.createDoc(doc)
+
+      await this.space.updateByPk(spaceId, {
+        isActive: true,
+        activeDocId: doc.id,
+      })
+    } else {
+      await this.space.updateByPk(spaceId, {
+        isActive: true,
+      })
+    }
 
     const space = await this.space.selectByPk(spaceId)!
     return space as ISpace

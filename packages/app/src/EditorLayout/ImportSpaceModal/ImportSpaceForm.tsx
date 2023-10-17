@@ -12,7 +12,6 @@ export function ImportSpaceForm() {
       <Input
         textCenter
         placeholder="GitHub token"
-        size="lg"
         {...register('githubToken')}
       />
 
@@ -25,12 +24,13 @@ export function ImportSpaceForm() {
 
       <Box toCenter gapX4 mt10>
         <ModalClose>
-          <Button type="button" roundedFull colorScheme="white">
+          <Button size="lg" type="button" roundedFull colorScheme="white">
             Cancel
           </Button>
         </ModalClose>
 
         <Button
+          size="lg"
           type="submit"
           colorScheme="red500"
           roundedFull

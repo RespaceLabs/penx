@@ -2,6 +2,18 @@ import { z } from 'zod'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
 export const snapshotRouter = createTRPCRouter({
+  getByRepo: publicProcedure
+    .input(
+      z.object({
+        repo: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      return ctx.prisma.snapshot.findFirstOrThrow({
+        where: { repo: input.repo },
+      })
+    }),
+
   upsert: publicProcedure
     .input(
       z.object({

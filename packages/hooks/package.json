@@ -22,6 +22,7 @@
     "@penx/constants": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/service": "workspace:*",
+    "@penx/trpc-client": "workspace:*",
     "@penx/types": "workspace:*",
     "@penx/extension-typings": "*",
     "@penx/local-db": "workspace:*",

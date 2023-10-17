@@ -2,10 +2,10 @@ import { nanoid } from 'nanoid'
 import { SettingsType } from '@penx/constants'
 import { ISpace } from '@penx/types'
 
-export function getNewSpace(name: string, id = nanoid()): ISpace {
+export function getNewSpace(data: Partial<ISpace>): ISpace {
   return {
-    id,
-    name,
+    id: nanoid(),
+    name: 'My Space',
     isActive: false,
     changes: {},
     favorites: [],
@@ -27,9 +27,16 @@ export function getNewSpace(name: string, id = nanoid()): ISpace {
 
       [SettingsType.HOTKEYS]: {},
 
-      [SettingsType.EXTENSIONS]: {},
+      // TODO
+      [SettingsType.EXTENSIONS]: {
+        'github-sync': {
+          repo: '',
+          githubToken: '',
+        },
+      },
     },
     createdAt: Date.now(),
     updatedAt: Date.now(),
+    ...data,
   }
 }

@@ -212,7 +212,7 @@ model Snapshot {
     spaceId   String   @unique
     version   Int
     hashMap   String?  @db.Text
-    repo      String
+    repo      String   @unique
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

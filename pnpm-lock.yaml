@@ -3339,6 +3339,9 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../store
+      '@penx/trpc-client':
+        specifier: workspace:*
+        version: link:../trpc-client
       '@penx/types':
         specifier: workspace:*
         version: link:../types
