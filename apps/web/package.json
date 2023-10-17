@@ -55,6 +55,9 @@
     "@trpc/next": "^10.36.0",
     "@trpc/server": "^10.36.0",
     "@vercel/analytics": "^1.0.2",
+    "@wagmi/core": "^1.4.3",
+    "@web3modal/ethereum": "^2.7.1",
+    "@web3modal/react": "^2.7.1",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
@@ -101,6 +104,8 @@
     "uikit": "workspace:*",
     "use-debounce": "^9.0.4",
     "uuid": "^9.0.0",
+    "viem": "^1.16.6",
+    "wagmi": "^1.4.3",
     "zod": "^3.21.4"
   },
   "devDependencies": {
