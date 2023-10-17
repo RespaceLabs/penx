@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
 import { Folder, Trash2 } from 'lucide-react'
+import { useAccount } from 'wagmi'
 import { useDocs } from '@penx/hooks'
 import { extensionStoreAtom, store } from '@penx/store'
 import { ExtensionStore } from '@penx/types'
@@ -8,6 +9,7 @@ import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { RecentlyEdited } from './RecentlyEdited'
 import { RecentlyOpened } from './RecentlyOpened'
 import { SpacePopover } from './SpacePopover'
+import { UserAvatarModal } from './UserAvatarModal/UserAvatarModal'
 import { WalletConnectButton } from './WalletConnectButton'
 
 function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
@@ -22,6 +24,7 @@ function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
 }
 
 export const Sidebar = () => {
+  const { isConnected } = useAccount()
   const [extensionStore] = useAtom(extensionStoreAtom)
   const components = getStatusBarComponents(extensionStore)
 
@@ -107,7 +110,8 @@ export const Sidebar = () => {
       </Box>
 
       <Box>
-        <WalletConnectButton size="lg" w-100p />
+        {!isConnected && <WalletConnectButton size="lg" w-100p />}
+        {isConnected && <UserAvatarModal />}
       </Box>
     </Box>
   )
