@@ -1,7 +1,14 @@
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
-import { prisma } from '@penx/db'
 import { createTRPCRouter, publicProcedure } from '../trpc'
+
+type GhConnectionInfo = Record<
+  string,
+  {
+    repoName: string
+    installationId: number
+  }
+>
 
 export const userRouter = createTRPCRouter({
   all: publicProcedure.query(async ({ ctx }) => {
@@ -19,6 +26,17 @@ export const userRouter = createTRPCRouter({
       const { createdAt, ...rest } = user!
 
       return rest
+    }),
+
+  byAddress: publicProcedure
+    .input(z.object({ address: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findUniqueOrThrow({
+        where: { address: input.address },
+      })
+
+      console.log('========user:', user)
+      return user
     }),
 
   search: publicProcedure
@@ -60,6 +78,7 @@ export const userRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
+        address: z.string(),
         displayName: z.string().min(1).optional(),
         description: z.string().min(1).optional(),
         avatarURL: z.string().min(1).optional(),
@@ -75,4 +94,32 @@ export const userRouter = createTRPCRouter({
   delete: publicProcedure.input(z.string()).mutation(({ ctx, input }) => {
     return ctx.prisma.user.delete({ where: { id: input } })
   }),
+
+  connectRepo: publicProcedure
+    .input(
+      z.object({
+        address: z.string(),
+        spaceId: z.string(), // local spaceId
+        repoName: z.string(),
+        installationId: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      console.log('input=============:', input)
+
+      const { address, spaceId, ...rest } = input
+      const user = await ctx.prisma.user.findFirstOrThrow({
+        where: { address: input.address },
+      })
+
+      const ghConnectionInfo: GhConnectionInfo = JSON.parse(
+        user.ghConnectionInfo || '{}',
+      )
+
+      ghConnectionInfo[spaceId] = rest
+      return ctx.prisma.user.update({
+        where: { address },
+        data: { ghConnectionInfo: JSON.stringify(ghConnectionInfo) },
+      })
+    }),
 })

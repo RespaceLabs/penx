@@ -1,14 +1,28 @@
 import { Box } from '@fower/react'
 import { GitHubAuthButton } from './GitHubAuthButton'
+import { GithubConnectionBox } from './GitHubConnectionBox'
+import { GitIntegration } from './GitIntegration'
+import { useGitHubToken } from './useGitHubToken'
 
 export const ConnectGitHub = () => {
+  const { token, isTokenValid, isLoading } = useGitHubToken()
+
+  // console.log('token, isTokenValid:', token, isTokenValid)
+
   return (
     <Box rounded2XL>
       <Box heading2>Github Connection</Box>
       <Box mb6 gray600>
         Connect to you GitHub Repository, so you can sync docs to GitHub
       </Box>
-      <GitHubAuthButton />
+
+      <GithubConnectionBox isLoading={isLoading}>
+        {isTokenValid ? (
+          <GitIntegration token={token!} />
+        ) : (
+          <GitHubAuthButton />
+        )}
+      </GithubConnectionBox>
     </Box>
   )
 }

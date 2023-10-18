@@ -3381,6 +3381,9 @@ importers:
       use-debounce:
         specifier: ^9.0.4
         version: 9.0.4(react@18.2.0)
+      wagmi:
+        specifier: ^1.4.2
+        version: 1.4.3(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.16.6)(zod@3.21.4)
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -3620,6 +3623,9 @@ importers:
       '@penx/types':
         specifier: workspace:*
         version: link:../types
+      '@prisma/client':
+        specifier: ^5.2.0
+        version: 5.2.0(prisma@5.2.0)
       crypto-js:
         specifier: ^4.1.1
         version: 4.1.1

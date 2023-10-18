@@ -18,6 +18,8 @@ model User {
     bio      String?
     avatar   String?
 
+    ghConnectionInfo String? @db.Text
+
     // github token info for github sync
     ghToken                 String?
     ghRefreshToken          String?
@@ -109,9 +111,9 @@ model SharedDoc {
 
 model Space {
     id             String   @id @default(cuid())
+    address        String   @unique // wallet address
     name           String?
     description    String?  @db.Text
-    catalogue      String?  @db.Text
     logo           String?  @default("") @db.Text
     image          String?  @default("") @db.Text
     subdomain      String?  @unique
@@ -121,10 +123,6 @@ model Space {
     coverURL       String?
     repo           String?
     installationId Int? // github app installationId
-    docDir         String?
-    branch         String?
-    syncStrategy   String? // commit/pr
-    isMDX          Boolean  @default(false)
     createdAt      DateTime @default(now())
     updatedAt      DateTime @updatedAt
 

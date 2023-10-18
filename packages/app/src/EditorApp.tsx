@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Provider } from 'jotai'
 import { useAccount } from 'wagmi'
 import { CatalogueNodeType, CatalogueTree } from '@penx/catalogue'
@@ -27,12 +28,14 @@ if (!isServer) {
 
 export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
   const { isLoaded } = useLoaderStatus()
-  const { address } = useAccount()
+  const { address = '' } = useAccount()
   const createRef = useRef(false)
 
   useEffect(() => {
     if (!address || createRef.current) return
+
     trpc.user.create.mutate({ address })
+
     createRef.current = true
   }, [address])
 
