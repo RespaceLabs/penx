@@ -35,6 +35,7 @@
     "@penx/catalogue": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/db": "workspace:*",
+    "@penx/model": "workspace:*",
     "@penx/editor": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-shared": "workspace:*",
