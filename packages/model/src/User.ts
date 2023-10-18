@@ -20,7 +20,7 @@ export class User {
   }
 
   getSpace(spaceId: string) {
-    return this.ghConnectionInfo[spaceId]
+    return this.ghConnectionInfo[spaceId]!
   }
 
   getRepoName(spaceId: string) {

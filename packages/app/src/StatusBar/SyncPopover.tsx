@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Box, css } from '@fower/react'
 import { RefreshCcw } from 'lucide-react'
+import { useAccount } from 'wagmi'
 import { Divider, Dot, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { SyncStatus } from '@penx/constants'
 import { useSpaces, useSyncStatus } from '@penx/hooks'
@@ -11,6 +12,7 @@ import { SyncService } from '@penx/service'
 interface Props {}
 
 export const SyncPopover: FC<Props> = () => {
+  const { address = '' } = useAccount()
   const { isSyncing, isPulling, isFailed, isNormal, status, setStatus } =
     useSyncStatus()
 
@@ -19,7 +21,7 @@ export const SyncPopover: FC<Props> = () => {
     if (!space) return // TODO:
     try {
       setStatus(SyncStatus.PUSHING)
-      const s = await SyncService.init(space)
+      const s = await SyncService.init(space, address)
       await s.push()
       setStatus(SyncStatus.NORMAL)
     } catch (error) {
@@ -32,7 +34,7 @@ export const SyncPopover: FC<Props> = () => {
     if (!space) return // TODO:
     try {
       setStatus(SyncStatus.PULLING)
-      const s = await SyncService.init(space)
+      const s = await SyncService.init(space, address)
       await s.pull()
       setStatus(SyncStatus.NORMAL)
     } catch (error) {

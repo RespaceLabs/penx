@@ -6,7 +6,6 @@ import * as checkList from '@penx/check-list'
 import * as codeBlock from '@penx/code-block'
 import * as divider from '@penx/divider'
 import * as File from '@penx/file'
-import * as githubSync from '@penx/github-sync'
 import * as heading from '@penx/heading'
 import * as image from '@penx/image'
 import * as internalLink from '@penx/internal-link'
@@ -24,10 +23,6 @@ export const extensionList = [
     activate: paragraph.activate,
   },
 
-  {
-    id: 'github-sync',
-    activate: githubSync.activate,
-  },
   // {
   //   id: 'storage-estimate',
   //   activate: storageEstimate.activate,

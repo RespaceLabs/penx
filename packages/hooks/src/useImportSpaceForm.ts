@@ -48,14 +48,14 @@ export function useImportSpaceForm() {
 
     console.log('space=============:', space)
 
-    try {
-      setStatus(SyncStatus.PULLING)
-      const s = await SyncService.init(space)
-      await s.pull()
-      setStatus(SyncStatus.NORMAL)
-    } catch (error) {
-      setStatus(SyncStatus.PULL_FAILED)
-    }
+    // try {
+    //   setStatus(SyncStatus.PULLING)
+    //   const s = await SyncService.init(space)
+    //   await s.pull()
+    //   setStatus(SyncStatus.NORMAL)
+    // } catch (error) {
+    //   setStatus(SyncStatus.PULL_FAILED)
+    // }
 
     // const space = await createSpace(data.name)
     // modalContext?.close?.()

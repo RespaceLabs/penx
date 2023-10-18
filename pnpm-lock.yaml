@@ -1201,61 +1201,6 @@ importers:
         specifier: ^5.1.3
         version: 5.2.2
 
-  extensions/github-sync:
-    dependencies:
-      '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
-      '@penx/constants':
-        specifier: workspace:*
-        version: link:../../packages/constants
-      '@penx/extension-typings':
-        specifier: '*'
-        version: link:../../packages/extension-typings
-      '@penx/hooks':
-        specifier: workspace:*
-        version: link:../../packages/hooks
-      '@penx/icons':
-        specifier: workspace:*
-        version: link:../../packages/icons
-      '@penx/local-db':
-        specifier: workspace:*
-        version: link:../../packages/local-db
-      '@penx/model':
-        specifier: workspace:*
-        version: link:../../packages/model
-      '@penx/service':
-        specifier: workspace:*
-        version: link:../../packages/service
-      lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
-      uikit:
-        specifier: workspace:*
-        version: link:../../packages/uikit
-    devDependencies:
-      '@types/react':
-        specifier: ^18.2.22
-        version: 18.2.22
-      '@types/react-dom':
-        specifier: ^18.2.7
-        version: 18.2.7
-      eslint:
-        specifier: ^8.42.0
-        version: 8.49.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      typescript:
-        specifier: ^5.1.3
-        version: 5.2.2
-
   extensions/heading:
     dependencies:
       '@bone-ui/iconify':
@@ -2045,6 +1990,9 @@ importers:
       '@penx/editor-types':
         specifier: workspace:*
         version: link:../editor-types
+      '@penx/model':
+        specifier: workspace:*
+        version: link:../model
       '@penx/serializer':
         specifier: workspace:*
         version: link:../serializer
@@ -3235,9 +3183,6 @@ importers:
       '@penx/file':
         specifier: workspace:*
         version: link:../../extensions/File
-      '@penx/github-sync':
-        specifier: workspace:*
-        version: link:../../extensions/github-sync
       '@penx/heading':
         specifier: workspace:*
         version: link:../../extensions/heading

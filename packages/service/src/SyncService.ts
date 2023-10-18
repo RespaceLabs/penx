@@ -3,6 +3,7 @@ import { Octokit } from 'octokit'
 import { db } from '@penx/local-db'
 import { Doc, SnapshotDiffResult, Space } from '@penx/model'
 import { docAtom, spacesAtom, store } from '@penx/store'
+import { trpc } from '@penx/trpc-client'
 import { IDoc, ISpace } from '@penx/types'
 
 interface SharedParams {
@@ -39,10 +40,6 @@ export class SyncService {
 
   private space: Space
 
-  private docs: Doc[] = []
-
-  private docsMap: Record<string, Doc> = {}
-
   private app: Octokit
 
   private baseBranchSha: string
@@ -70,23 +67,20 @@ export class SyncService {
     this.params = sharedParams
   }
 
-  static async init(space: ISpace) {
+  static async init(space: ISpace, address: string) {
     const s = new SyncService()
-
     s.space = new Space(space)
+
+    const token = await trpc.github.getTokenByInstallationId.query({
+      address,
+      spaceId: space.id,
+    })
+
+    console.log('=======token:', token)
 
     s.setSharedParams()
 
-    console.log(
-      's.space.settings.githubToken,:',
-      s.space.settings.githubToken,
-      'ghs_y8Zg4WN3b6DRsyN94sjG9eXOozAqTx3sISSz',
-    )
-
-    s.app = new Octokit({
-      // auth: s.space.settings.githubToken,
-      auth: 'ghs_y8Zg4WN3b6DRsyN94sjG9eXOozAqTx3sISSz',
-    })
+    s.app = new Octokit({ auth: token })
 
     return s
   }
@@ -366,7 +360,7 @@ export class SyncService {
           spaceId: this.space.id,
         },
         retry: {
-          limit: 3,
+          limit: 2,
         },
       })
       .json<any>()

@@ -50,7 +50,6 @@ const config = {
     '@penx/link',
     '@penx/internal-link',
     '@penx/table',
-    '@penx/github-sync',
     '@penx/block-selector',
     '@penx/editor-leaf',
     '@penx/trpc-client',

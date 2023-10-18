@@ -33,17 +33,6 @@ export const spaceRouter = createTRPCRouter({
       })
     }),
 
-  getCatalogue: publicProcedure
-    .input(z.object({ spaceId: z.string() }))
-    .query(async ({ ctx, input }) => {
-      const result = await ctx.prisma.space.findFirst({
-        where: { id: input.spaceId },
-        select: { catalogue: true },
-      })
-      if (!result?.catalogue) return '[]'
-      return result.catalogue
-    }),
-
   create: publicProcedure.input(CreateUserInput).mutation(({ ctx, input }) => {
     return createSpace(input)
   }),
@@ -91,47 +80,5 @@ export const spaceRouter = createTRPCRouter({
         where: { id: input.spaceId },
         data: { repo: null, installationId: null },
       })
-    }),
-
-  updateGithubSettings: publicProcedure
-    .input(
-      z.object({
-        ghToken: z.string(),
-        spaceId: z.string(),
-        docDir: z.string().min(1),
-        branch: z.string().min(1),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const { spaceId: id, ghToken, ...data } = input
-      const space = await ctx.prisma.space.findFirstOrThrow({ where: { id } })
-      const app = await getAuthApp(space.installationId!)
-
-      const { repo } = space
-      const sharedParams = {
-        owner: repo!.split('/')[0]!,
-        repo: repo!.split('/')[1]!,
-        headers: {
-          'X-GitHub-Api-Version': '2022-11-28',
-        },
-      }
-
-      try {
-        const ref = await app.request(
-          'GET /repos/{owner}/{repo}/git/ref/{ref}',
-          {
-            ...sharedParams,
-            ref: `heads/${input.branch}`,
-          },
-        )
-
-        return ctx.prisma.space.update({ where: { id }, data })
-      } catch (error) {
-        console.log('error:', error)
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: `Branch "${input.branch}" not found in repo`,
-        })
-      }
     }),
 })
