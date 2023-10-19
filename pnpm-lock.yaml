@@ -2246,6 +2246,9 @@ importers:
       framer-motion:
         specifier: ^10.12.16
         version: 10.12.16(react-dom@18.2.0)(react@18.2.0)
+      html5-qrcode:
+        specifier: ^2.3.8
+        version: 2.3.8
       immer:
         specifier: ^10.0.2
         version: 10.0.2
@@ -3937,6 +3940,9 @@ importers:
 
   packages/types:
     dependencies:
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
       '@penx/extension-typings':
         specifier: workspace:*
         version: link:../extension-typings
@@ -15233,6 +15239,10 @@ packages:
 
   /hsl-to-rgb-for-reals@1.1.1:
     resolution: {integrity: sha512-LgOWAkrN0rFaQpfdWBQlv/VhkOxb5AsBjk6NQVx4yEzWS923T07X0M1Y0VNko2H52HeSpZrZNNMJ0aFqsdVzQg==}
+    dev: false
+
+  /html5-qrcode@2.3.8:
+    resolution: {integrity: sha512-jsr4vafJhwoLVEDW3n1KvPnCCXWaQfRng0/EEYk1vNcQGcG/htAdhJX0be8YyqMoSz7+hZvOZSTAepsabiuhiQ==}
     dev: false
 
   /htmlnano@2.0.4(svgo@2.8.0)(typescript@5.2.2):

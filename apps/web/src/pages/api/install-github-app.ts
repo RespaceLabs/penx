@@ -27,7 +27,9 @@ export default async function handler(
     },
   )
 
-  res.redirect(`/spaces/${spaceId}/git`)
+  console.log('==========data:', data)
+
+  res.redirect(`/`)
 }
 
 function getJWT() {

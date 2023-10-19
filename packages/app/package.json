@@ -97,6 +97,7 @@
     "emoji-mart": "^5.5.2",
     "emoji-picker-react": "^4.4.10",
     "framer-motion": "^10.12.16",
+    "html5-qrcode": "^2.3.8",
     "immer": "^10.0.2",
     "is-hotkey": "^0.2.0",
     "jotai": "^2.4.2",

@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import { useQuery } from '@tanstack/react-query'
 import { LockKeyhole } from 'lucide-react'
 import { useAccount } from 'wagmi'
+import { Card, Spinner } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { trpc } from '@penx/trpc-client'
 import { GitHubConnectButton } from './GitHubConnectButton'
@@ -13,9 +14,6 @@ interface Props {
 }
 
 export function Repos({ installationId, q, token }: Props) {
-  const { address = '' } = useAccount()
-  const { activeSpace } = useSpaces()
-  // const { refetch, isFetching: isSpaceFetching } = useSpace()
   const {
     data = [],
     isLoading,
@@ -35,16 +33,16 @@ export function Repos({ installationId, q, token }: Props) {
 
   const h = 383
 
-  // if (isFetching) {
-  //   return (
-  //     <Card h={h} toCenter>
-  //       <Box toCenterY gap2>
-  //         <Spinner />
-  //         <Box>Loading repos...</Box>
-  //       </Box>
-  //     </Card>
-  //   )
-  // }
+  if (isLoading) {
+    return (
+      <Card h={h} toCenter>
+        <Box toCenterY gap2>
+          <Spinner />
+          <Box>Loading repos...</Box>
+        </Box>
+      </Card>
+    )
+  }
 
   // if (!data?.length) {
   //   return (

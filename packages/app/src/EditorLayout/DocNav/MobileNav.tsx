@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import { PaletteDrawer } from '../PaletteDrawer'
 import { DrawerSidebar } from '../SidebarDrawer'
 import { NewDocButton } from './NewDocButton'
+import { QRScanner } from './QRScanner'
 
 export const MobileNav = () => {
   return (
@@ -19,6 +20,7 @@ export const MobileNav = () => {
     >
       <DrawerSidebar />
       <Box toCenterY>
+        <QRScanner />
         <NewDocButton />
         <PaletteDrawer />
       </Box>

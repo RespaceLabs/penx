@@ -8,6 +8,8 @@ interface Props {}
 
 export const QrCode: FC<Props> = () => {
   const [blur, setBlur] = useState(true)
+  const value =
+    '867419323004-jgr1sre86kr9braen5isovueejss0dti.apps.googleusercontent.com867419323004-jgr1sre86kr9braen5isovueejss0dti.apps.googleusercontent.com'
   return (
     <Box column gap2>
       <Box textLG fontSemibold>
@@ -38,7 +40,7 @@ export const QrCode: FC<Props> = () => {
             style={{ backdropFilter: 'blur(8px)' }}
           />
         )}
-        <QRCode value="hey" style={{ width: 200, height: 200 }} />
+        <QRCode value={value} style={{ width: 200, height: 200 }} />
       </Box>
     </Box>
   )
