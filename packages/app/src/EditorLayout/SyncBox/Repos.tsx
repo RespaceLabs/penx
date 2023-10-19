@@ -2,10 +2,9 @@ import { Box } from '@fower/react'
 import { useQuery } from '@tanstack/react-query'
 import { LockKeyhole } from 'lucide-react'
 import { useAccount } from 'wagmi'
-import { Button, Card, Spinner } from 'uikit'
 import { useSpaces } from '@penx/hooks'
-import { db } from '@penx/local-db'
 import { trpc } from '@penx/trpc-client'
+import { GitHubConnectButton } from './GitHubConnectButton'
 
 interface Props {
   token: string
@@ -75,23 +74,10 @@ export function Repos({ installationId, q, token }: Props) {
               </Box>
             )}
           </Box>
-          <Button
-            size="sm"
-            colorScheme="black"
-            // disabled={loading}
-            onClick={async () => {
-              await trpc.user.connectRepo.mutate({
-                address,
-                spaceId: activeSpace.id,
-                installationId,
-                repoName: item.full_name,
-              })
-              // await refetch()
-            }}
-          >
-            {isLoading && <Spinner />}
-            <Box>Connect</Box>
-          </Button>
+          <GitHubConnectButton
+            installationId={installationId}
+            repoName={item.full_name}
+          />
         </Box>
       ))}
     </Box>

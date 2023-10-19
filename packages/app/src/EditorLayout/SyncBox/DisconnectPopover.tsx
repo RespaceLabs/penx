@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Box } from '@fower/react'
 import { useAccount } from 'wagmi'
 import {
@@ -8,19 +9,19 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Spinner,
+  toast,
 } from 'uikit'
 import { useSpaces } from '@penx/hooks'
+import { User } from '@penx/model'
+import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 
 interface Props {}
 
 export function DisconnectPopover({}: Props) {
+  const [loading, setLoading] = useState(false)
   const { address = '' } = useAccount()
   const { activeSpace } = useSpaces()
-  // const { mutateAsync: disconnect, isLoading } =
-  //   api.space.disconnectRepo.useMutation()
-  // const loading = isSpaceLoading || isLoading
-  const loading = false
 
   return (
     <Popover>
@@ -37,17 +38,24 @@ export function DisconnectPopover({}: Props) {
               </Button>
               <Button
                 disabled={loading}
+                gap2
                 onClick={async () => {
-                  await trpc.user.disconnectRepo.mutate({
-                    address,
-                    spaceId: activeSpace.id,
-                  })
+                  setLoading(true)
+                  try {
+                    const user = await trpc.user.disconnectRepo.mutate({
+                      address,
+                      spaceId: activeSpace.id,
+                    })
+                    store.setUser(new User(user))
+                    close()
+                  } catch (error) {
+                    toast.warning('Disconnect GitHub failed')
+                  }
 
-                  // close()
-                  // await refetch()
+                  setLoading(false)
                 }}
               >
-                {loading && <Spinner />}
+                {loading && <Spinner white square4 />}
                 <Box>Confirm</Box>
               </Button>
             </PopoverBody>
