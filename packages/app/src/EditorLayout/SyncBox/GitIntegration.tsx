@@ -6,7 +6,6 @@ import { Input } from 'uikit'
 import { RouterOutputs } from '@penx/api'
 import { useSpaces, useUser } from '@penx/hooks'
 import { trpc } from '@penx/trpc-client'
-// import { api, RouterOutputs } from '~/utils/api'
 import { GithubConnectedBox } from './GitHubConnectedBox'
 import { GithubInstallationSelect } from './GitHubInstallationSelect'
 import { Repos } from './Repos'
@@ -17,14 +16,13 @@ interface Props {
 
 export function GitIntegration({ token }: Props) {
   const { user } = useUser()
+
   const { activeSpace } = useSpaces()
   const { data: installations } = useQuery(['appInstallations'], () =>
     trpc.github.appInstallations.query({
       token: token?.ghToken!,
     }),
   )
-
-  // console.log('==========installations:', installations)
 
   const [installationId, setInstallationId] = useState<number>()
   const [q, setQ] = useState<string>('')
@@ -41,6 +39,7 @@ export function GitIntegration({ token }: Props) {
   if (!user.raw) return null
 
   const repo = user.getRepoName(activeSpace.id)
+
   if (repo) {
     return <GithubConnectedBox repo={repo} />
   }

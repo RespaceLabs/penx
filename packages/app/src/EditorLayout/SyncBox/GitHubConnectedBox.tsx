@@ -1,9 +1,7 @@
 import { Box } from '@fower/react'
 import { Link } from 'lucide-react'
-import { Space } from '@penx/db'
 import { IconGitHub } from '@penx/icons'
-
-// import { DisconnectPopover } from './DisconnectPopover'
+import { DisconnectPopover } from './DisconnectPopover'
 
 interface Props {
   repo: string
@@ -19,7 +17,7 @@ export function GithubConnectedBox({ repo }: Props) {
           <Link size={16} />
         </Box>
       </Box>
-      {/* <DisconnectPopover /> */}
+      <DisconnectPopover />
     </Box>
   )
 }

@@ -56,29 +56,4 @@ export const spaceRouter = createTRPCRouter({
   delete: publicProcedure.input(z.string()).mutation(({ ctx, input }) => {
     return ctx.prisma.space.delete({ where: { id: input } })
   }),
-
-  connectRepo: publicProcedure
-    .input(
-      z.object({
-        spaceId: z.string(),
-        repoName: z.string(),
-        installationId: z.number(),
-      }),
-    )
-    .mutation(({ ctx, input }) => {
-      const { installationId, spaceId: id } = input
-      return ctx.prisma.space.update({
-        where: { id },
-        data: { repo: input.repoName, installationId },
-      })
-    }),
-
-  disconnectRepo: publicProcedure
-    .input(z.object({ spaceId: z.string() }))
-    .mutation(({ ctx, input }) => {
-      return ctx.prisma.space.update({
-        where: { id: input.spaceId },
-        data: { repo: null, installationId: null },
-      })
-    }),
 })

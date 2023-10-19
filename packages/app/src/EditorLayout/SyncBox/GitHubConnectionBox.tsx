@@ -1,5 +1,5 @@
 import { Box, FowerHTMLProps } from '@fower/react'
-import { Card, Skeleton } from 'uikit'
+import { Skeleton } from 'uikit'
 
 interface Props extends FowerHTMLProps<'div'> {
   isLoading: boolean
@@ -7,7 +7,7 @@ interface Props extends FowerHTMLProps<'div'> {
 
 export function GithubConnectionBox({ children, isLoading, ...rest }: Props) {
   return (
-    <Card {...rest}>
+    <Box {...rest}>
       {isLoading && (
         <Box toBetween>
           <Box toCenter gap2>
@@ -19,6 +19,6 @@ export function GithubConnectionBox({ children, isLoading, ...rest }: Props) {
       )}
 
       {!isLoading && <Box>{children}</Box>}
-    </Card>
+    </Box>
   )
 }

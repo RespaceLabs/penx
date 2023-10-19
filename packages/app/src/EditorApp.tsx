@@ -2,16 +2,15 @@ import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Provider } from 'jotai'
 import { useAccount } from 'wagmi'
-import { CatalogueNodeType, CatalogueTree } from '@penx/catalogue'
 import { isServer } from '@penx/constants'
 import { emitter } from '@penx/event'
 import { appLoader, useLoaderStatus } from '@penx/loader'
-import { db } from '@penx/local-db'
 import { JotaiNexus, spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 import { ClientOnly } from './components/ClientOnly'
 import { EditorLayout } from './EditorLayout/EditorLayout'
 import { HotkeyBinding } from './HotkeyBinding'
+import { UserQuery } from './UserQuery'
 import { WorkerStarter } from './WorkerStarter'
 
 if (!isServer) {
@@ -57,6 +56,7 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
     <ClientOnly>
       <Provider store={store}>
         <WorkerStarter />
+        <UserQuery />
         <HotkeyBinding />
         <JotaiNexus />
         <EditorLayout />

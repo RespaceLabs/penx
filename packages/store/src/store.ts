@@ -3,6 +3,7 @@ import { atomWithStorage } from 'jotai/utils'
 import { SyncStatus } from '@penx/constants'
 import { emitter } from '@penx/event'
 import { db } from '@penx/local-db'
+import type { User } from '@penx/model'
 import {
   Command,
   DocStatus,
@@ -45,6 +46,8 @@ export const routerAtom = atomWithStorage('Router', {
 
 export const extensionStoreAtom = atom<ExtensionStore>({})
 
+export const userAtom = atom<User>(null as any)
+
 export const store = Object.assign(createStore(), {
   getSpaces() {
     return store.get(spacesAtom)
@@ -63,12 +66,20 @@ export const store = Object.assign(createStore(), {
     return store.get(docAtom)
   },
 
+  getUser() {
+    return store.get(userAtom)
+  },
+
   setDoc(doc: IDoc) {
     return store.set(docAtom, doc)
   },
 
   setDocs(docs: IDoc[]) {
     return store.set(docsAtom, docs)
+  },
+
+  setUser(user: User) {
+    return store.set(userAtom, user)
   },
 
   routeTo(name: RouteName, params: Record<string, any> = {}) {

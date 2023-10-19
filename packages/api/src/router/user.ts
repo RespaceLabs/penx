@@ -35,7 +35,6 @@ export const userRouter = createTRPCRouter({
         where: { address: input.address },
       })
 
-      console.log('========user:', user)
       return user
     }),
 
@@ -105,8 +104,6 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      console.log('input=============:', input)
-
       const { address, spaceId, ...rest } = input
       const user = await ctx.prisma.user.findFirstOrThrow({
         where: { address: input.address },
@@ -117,6 +114,35 @@ export const userRouter = createTRPCRouter({
       )
 
       ghConnectionInfo[spaceId] = rest
+
+      return ctx.prisma.user.update({
+        where: { address },
+        data: { ghConnectionInfo: JSON.stringify(ghConnectionInfo) },
+      })
+    }),
+
+  disconnectRepo: publicProcedure
+    .input(
+      z.object({
+        address: z.string(),
+        spaceId: z.string(), // local spaceId
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { address, spaceId } = input
+      const user = await ctx.prisma.user.findFirstOrThrow({
+        where: { address: input.address },
+      })
+
+      const ghConnectionInfo: GhConnectionInfo = JSON.parse(
+        user.ghConnectionInfo || '{}',
+      )
+
+      ghConnectionInfo[spaceId] = {
+        installationId: null as any,
+        repoName: '',
+      }
+
       return ctx.prisma.user.update({
         where: { address },
         data: { ghConnectionInfo: JSON.stringify(ghConnectionInfo) },

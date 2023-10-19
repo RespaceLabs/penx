@@ -7,8 +7,6 @@ import { useGitHubToken } from './useGitHubToken'
 export const ConnectGitHub = () => {
   const { token, isTokenValid, isLoading } = useGitHubToken()
 
-  // console.log('token, isTokenValid:', token, isTokenValid)
-
   return (
     <Box rounded2XL>
       <Box heading2>Github Connection</Box>
