@@ -2,14 +2,17 @@ import { FC, useState } from 'react'
 import QRCode from 'react-qr-code'
 import { Box } from '@fower/react'
 import { Eye } from 'lucide-react'
+import { useAccount } from 'wagmi'
 import { Button } from 'uikit'
 
 interface Props {}
 
 export const QrCode: FC<Props> = () => {
+  const { address } = useAccount()
   const [blur, setBlur] = useState(true)
-  const value =
-    '867419323004-jgr1sre86kr9braen5isovueejss0dti.apps.googleusercontent.com867419323004-jgr1sre86kr9braen5isovueejss0dti.apps.googleusercontent.com'
+  const value = JSON.stringify({
+    address,
+  })
   return (
     <Box column gap2>
       <Box textLG fontSemibold>

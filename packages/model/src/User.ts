@@ -19,6 +19,10 @@ export class User {
     return JSON.parse(this.raw.ghConnectionInfo || '{}')
   }
 
+  get spaceIds() {
+    return Object.keys(this.ghConnectionInfo)
+  }
+
   getSpace(spaceId: string) {
     return this.ghConnectionInfo[spaceId]!
   }
