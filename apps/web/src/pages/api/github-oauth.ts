@@ -11,6 +11,9 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const code = req.query.code as string
+
+  console.log('github auth code----------', code)
+
   const app = new OAuthApp({
     clientType: 'github-app',
     clientId,
