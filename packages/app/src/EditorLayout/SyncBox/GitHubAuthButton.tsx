@@ -30,7 +30,7 @@ export function GitHubAuthButton() {
         const baseURL = process.env.NEXT_PUBLIC_NEXTAUTH_URL
 
         const callbackURL = `${baseURL}/api/github-oauth`
-        const url = `https:github.com/login/oauth/authorize?client_id=${clientId}&state=${address}&redirect_uri=${callbackURL}`
+        const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&state=${address}&redirect_uri=${callbackURL}`
 
         location.href = url
       }}
