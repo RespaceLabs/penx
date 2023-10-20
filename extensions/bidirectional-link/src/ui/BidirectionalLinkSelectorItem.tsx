@@ -4,19 +4,19 @@ import { Box } from '@fower/react'
 import { useStore } from 'stook'
 import { CatalogueNode } from '@penx/catalogue'
 
-interface BlockSelectorItemProps {
+interface BidirectionalLinkSelectorItemProps {
   id: string
   isActive: boolean
   node: CatalogueNode
   onClick: () => void
 }
 
-export function InternalLinkSelectorItem({
+export function BidirectionalLinkSelectorItem({
   id,
   isActive,
   node,
   onClick,
-}: BlockSelectorItemProps) {
+}: BidirectionalLinkSelectorItemProps) {
   const [value, setValue] = useStore(id, false)
   const root = document.getElementById('internal-link-selector')
   const { ref, inView, entry } = useInView({

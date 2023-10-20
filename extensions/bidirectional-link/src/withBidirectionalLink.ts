@@ -1,12 +1,12 @@
 import { Editor, Element, Node, Transforms } from 'slate'
 import { isCodeBlock } from '@penx/code-block'
 import { insertNodes } from '@penx/editor-transforms'
-import { isInternalLinkSelectorElement } from './isInternalLinkSelectorElement'
-import { ELEMENT_INTERNAL_LINK_SELECTOR } from './types'
+import { isBidirectionalLinkSelectorElement } from './isBidirectionalLinkSelectorElement'
+import { ELEMENT_BIDIRECTIONAL_LINK_SELECTOR } from './types'
 
 const trigger = '[['
 
-export const withInternalLink = (editor: Editor) => {
+export const withBidirectionalLink = (editor: Editor) => {
   const { insertText, normalizeNode } = editor
 
   let prevText = ''
@@ -33,7 +33,7 @@ export const withInternalLink = (editor: Editor) => {
     if (text?.length === 1 && prevText + text == trigger) {
       Editor.deleteBackward(editor)
       insertNodes(editor, {
-        type: ELEMENT_INTERNAL_LINK_SELECTOR,
+        type: ELEMENT_BIDIRECTIONAL_LINK_SELECTOR,
         children: [{ text: '[[' }],
         trigger,
       })
@@ -49,7 +49,7 @@ export const withInternalLink = (editor: Editor) => {
   editor.normalizeNode = ([node, path]) => {
     if (
       Element.isElement(node) &&
-      isInternalLinkSelectorElement(node) &&
+      isBidirectionalLinkSelectorElement(node) &&
       Node.string(node) === ''
     ) {
       Transforms.removeNodes(editor, { at: path })

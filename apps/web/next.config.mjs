@@ -48,7 +48,7 @@ const config = {
     '@penx/image',
     '@penx/file',
     '@penx/link',
-    '@penx/internal-link',
+    '@penx/bidirectional-link',
     '@penx/table',
     '@penx/block-selector',
     '@penx/editor-leaf',

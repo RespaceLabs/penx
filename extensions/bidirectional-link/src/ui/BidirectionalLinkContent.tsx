@@ -1,13 +1,13 @@
 import { Box } from '@fower/react'
 import { Tooltip, TooltipContent, TooltipTrigger } from 'uikit'
 import { ElementProps } from '@penx/extension-typings'
-import { InternalLinkContentElement } from '../types'
+import { BidirectionalLinkContentElement } from '../types'
 
-export const InternalLinkContent = ({
+export const BidirectionalLinkContent = ({
   element,
   children,
   attributes,
-}: ElementProps<InternalLinkContentElement>) => {
+}: ElementProps<BidirectionalLinkContentElement>) => {
   return (
     <Tooltip>
       <TooltipTrigger>

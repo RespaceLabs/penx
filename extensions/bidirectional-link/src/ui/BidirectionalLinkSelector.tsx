@@ -16,13 +16,13 @@ import { Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { findNodePath, getCurrentNode } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
-import { InternalLinkSelectorElement } from '../types'
-import { InternalLinkSelectorContent } from './InternalLinkSelectorContent'
+import { BidirectionalLinkSelectorElement } from '../types'
+import { BidirectionalLinkSelectorContent } from './BidirectionalLinkSelectorContent'
 
-export const InternalLinkSelector = ({
+export const BidirectionalLinkSelector = ({
   element,
   children,
-}: ElementProps<InternalLinkSelectorElement>) => {
+}: ElementProps<BidirectionalLinkSelectorElement>) => {
   const editor = useSlateStatic()
   const path = findNodePath(editor, element)!
   const [isOpen, setIsOpen] = useState(false)
@@ -91,7 +91,7 @@ export const InternalLinkSelector = ({
             outlineNone
             {...getFloatingProps({})}
           >
-            <InternalLinkSelectorContent
+            <BidirectionalLinkSelectorContent
               close={() => setIsOpen(false)}
               element={element}
               containerRef={refs.setFloating}

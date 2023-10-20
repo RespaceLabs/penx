@@ -9,11 +9,11 @@ import {
 import { getCurrentPath } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
 import {
-  ELEMENT_INTERNAL_LINK_CONTENT,
-  InternalLinkContentElement,
+  BidirectionalLinkContentElement,
+  ELEMENT_BIDIRECTIONAL_LINK_CONTENT,
 } from '../types'
 import { useKeyDownList } from '../useKeyDownList'
-import { InternalLinkSelectorItem } from './InternalLinkSelectorItem'
+import { BidirectionalLinkSelectorItem } from './BidirectionalLinkSelectorItem'
 
 interface Props {
   close: any
@@ -21,7 +21,7 @@ interface Props {
   containerRef: any
 }
 
-export const InternalLinkSelectorContent = ({ close, element }: Props) => {
+export const BidirectionalLinkSelectorContent = ({ close, element }: Props) => {
   const space = {} as any
   const editor = useSlateStatic()
   const catalogue = CatalogueTree.fromJSON(space?.catalogue)
@@ -45,12 +45,12 @@ export const InternalLinkSelectorContent = ({ close, element }: Props) => {
 
   const selectType = (node: CatalogueNodeJSON) => {
     Transforms.removeNodes(editor, { at: path.slice(0, -1) })
-    Transforms.insertNodes<InternalLinkContentElement>(editor, {
-      type: ELEMENT_INTERNAL_LINK_CONTENT,
+    Transforms.insertNodes<BidirectionalLinkContentElement>(editor, {
+      type: ELEMENT_BIDIRECTIONAL_LINK_CONTENT,
       linkId: node.id,
       linkName: node.name,
       children: [{ text: '' }],
-    } as InternalLinkContentElement)
+    } as BidirectionalLinkContentElement)
     focusToEnd()
     close()
   }
@@ -70,7 +70,7 @@ export const InternalLinkSelectorContent = ({ close, element }: Props) => {
     <Box column gapY-1>
       {filteredNodes.map((node, i) => {
         return (
-          <InternalLinkSelectorItem
+          <BidirectionalLinkSelectorItem
             key={node.id}
             node={node}
             id={listItemIdPrefix + i}

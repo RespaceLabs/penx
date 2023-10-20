@@ -33,7 +33,7 @@
     "@penx/image": "workspace:*",
     "@penx/link": "workspace:*",
     "@penx/table": "workspace:*",
-    "@penx/internal-link": "workspace:*",
+    "@penx/bidirectional-link": "workspace:*",
     "@penx/block-selector": "workspace:*",
     "@penx/extension-list": "workspace:*",
     "@penx/store": "workspace:*",
