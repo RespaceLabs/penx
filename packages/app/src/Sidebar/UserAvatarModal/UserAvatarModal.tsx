@@ -25,7 +25,7 @@ import { QrCode } from './QrCode'
 interface Props {}
 
 export const UserAvatarModal: FC<Props> = () => {
-  const { address } = useUser()
+  const { address = '' } = useAccount()
   const { disconnect } = useDisconnect()
   const { copy } = useCopyToClipboard()
 

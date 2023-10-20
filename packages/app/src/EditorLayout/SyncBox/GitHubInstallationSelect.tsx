@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'uikit'
+import { useSpaces } from '@penx/hooks'
 import { trpc } from '@penx/trpc-client'
 
 interface Props {
@@ -22,7 +23,8 @@ interface Props {
 }
 
 export function GithubInstallationSelect({ token, value, onChange }: Props) {
-  const spaceId = 'TODO'
+  const { activeSpace } = useSpaces()
+  const spaceId = activeSpace.id
 
   const { data: installations } = useQuery(['spaceInstallations'], () =>
     trpc.github.appInstallations.query({
