@@ -54,4 +54,5 @@ export enum ModalNames {
   CREATE_SPACE,
   IMPORT_SPACE,
   DELETE_SPACE,
+  LOGIN_SUCCESS,
 }

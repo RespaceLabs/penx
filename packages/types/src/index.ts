@@ -15,6 +15,11 @@ export type RouterStore = {
   params: Record<string, any>
 }
 
+export type SettingsRouterStore = {
+  name: RouteName
+  params: Record<string, any>
+}
+
 export type Command = {
   id: string
   name: string

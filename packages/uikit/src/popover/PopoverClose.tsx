@@ -10,7 +10,8 @@ export interface PopoverCloseProps extends FowerHTMLProps<'div'> {
 export const PopoverClose: FC<PopoverCloseProps> = forwardRef(
   (props: PopoverCloseProps, ref) => {
     const { asChild, children, ...rest } = props
-    const { close } = usePopoverContext()
+
+    const ctx = usePopoverContext()
 
     if (asChild && isValidElement(children)) {
       rest.onClick = (e) => {
@@ -26,7 +27,7 @@ export const PopoverClose: FC<PopoverCloseProps> = forwardRef(
         ref={ref}
         className="bone-popover-close"
         {...rest}
-        onClick={() => close()}
+        onClick={() => ctx?.close?.()}
       >
         {children}
       </Box>

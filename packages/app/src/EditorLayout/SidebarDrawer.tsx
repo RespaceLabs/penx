@@ -1,10 +1,12 @@
 import { Box, styled } from '@fower/react'
-import { Menu } from 'lucide-react'
+import { Cloud, Menu } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
 import { useSidebarDrawer } from '@penx/hooks'
+import { store } from '@penx/store'
 import { FavoriteBox } from '../Sidebar/FavoriteBox/FavoriteBox'
 import { RecentlyEdited } from '../Sidebar/RecentlyEdited'
+import { SidebarItem } from '../Sidebar/SidebarItem'
 import { SpacePopover } from '../Sidebar/SpacePopover'
 
 const DrawerOverlay = styled(Drawer.Overlay)
@@ -46,6 +48,14 @@ export const DrawerSidebar = () => {
           <Box overflowAuto p5>
             <SpacePopover />
             <Box flex-1>
+              <SidebarItem
+                icon={<Cloud size={20} />}
+                label="Sync"
+                onClick={() => {
+                  store.routeTo('SYNC')
+                  close()
+                }}
+              />
               <FavoriteBox />
               <RecentlyEdited />
             </Box>

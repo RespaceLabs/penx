@@ -9,6 +9,7 @@ import { JotaiNexus, spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 import { ClientOnly } from './components/ClientOnly'
 import { EditorLayout } from './EditorLayout/EditorLayout'
+import { LoginSuccessModal } from './EditorLayout/LoginSuccessModal'
 import { HotkeyBinding } from './HotkeyBinding'
 import { UserQuery } from './UserQuery'
 import { WorkerStarter } from './WorkerStarter'
@@ -57,6 +58,7 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
       <Provider store={store}>
         <WorkerStarter />
         <UserQuery />
+        <LoginSuccessModal />
         <HotkeyBinding />
         <JotaiNexus />
         <EditorLayout />

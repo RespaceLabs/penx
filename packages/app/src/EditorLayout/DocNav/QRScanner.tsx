@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Box } from '@fower/react'
 import { Html5Qrcode } from 'html5-qrcode'
 import { ScanLine, X } from 'lucide-react'
+import { modalController } from 'uikit'
+import { ModalNames } from '@penx/constants'
 import { db, getNewSpace } from '@penx/local-db'
 import { User } from '@penx/model'
 import { store } from '@penx/store'
@@ -18,25 +20,33 @@ export const QRScanner: React.FC = () => {
   }, [])
 
   async function syncSpaces(address: string) {
-    const data = await trpc.user.byAddress.query({ address })
-    const user = new User(data)
-    store.setUser(user)
+    try {
+      const data = await trpc.user.byAddress.query({ address })
+      const user = new User(data)
+      store.setUser(user)
 
-    db.space.insert(
-      getNewSpace({
-        id: user.spaceIds[0],
-        name: 'FOOO',
-        isActive: true,
-      }),
-    )
+      const space = await db.getSpace(user.spaceIds[0])
+
+      if (!space) {
+        await db.createSpace(
+          getNewSpace({
+            id: user.spaceIds[0],
+            name: 'FOOO', // TODO
+            isActive: true,
+          }),
+          false,
+        )
+      }
+      modalController.open(ModalNames.LOGIN_SUCCESS)
+    } catch (error) {
+      alert('login failed')
+    }
   }
 
   const startScanner = async () => {
     // This method will trigger user permissions
     try {
       setVisible(true)
-
-      console.log('device....')
 
       const devices = await Html5Qrcode.getCameras()
 
@@ -51,21 +61,11 @@ export const QRScanner: React.FC = () => {
         ref
           .current!.start(
             { facingMode: 'environment' },
-            {
-              fps: 10, // sets the framerate to 10 frame per second
-              qrbox: 300, // sets only 250 X 250 region of viewfinder to
-              // scannable, rest shaded.
-            },
+            { fps: 10, qrbox: 300 },
             (qrCodeMessage) => {
-              // do something when code is read. For example:
-              try {
-                const data = JSON.parse(qrCodeMessage)
-                alert(data.address)
-                console.log(`QR Code detected: ${qrCodeMessage}`)
-                syncSpaces(data.address)
-              } catch (error) {
-                //
-              }
+              const data = JSON.parse(qrCodeMessage)
+              console.log(`QR Code detected: ${qrCodeMessage}`)
+              syncSpaces(data.address)
             },
             (errorMessage) => {
               // parse error, ideally ignore it. For example:
