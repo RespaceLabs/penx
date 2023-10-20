@@ -37,6 +37,9 @@ export const QRScanner: React.FC = () => {
           false,
         )
       }
+
+      stopScanner()
+
       modalController.open(ModalNames.LOGIN_SUCCESS)
     } catch (error) {
       alert('login failed')

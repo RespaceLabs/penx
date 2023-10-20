@@ -16,6 +16,7 @@ import {
   ModalOverlay,
   ModalTrigger,
 } from 'uikit'
+import { useUser } from '@penx/hooks'
 import { IconDisconnect } from '@penx/icons'
 import { useCopyToClipboard } from '@penx/shared'
 import { EncryptionKey } from './EncryptionKey'
@@ -24,7 +25,7 @@ import { QrCode } from './QrCode'
 interface Props {}
 
 export const UserAvatarModal: FC<Props> = () => {
-  const { address } = useAccount()
+  const { address } = useUser()
   const { disconnect } = useDisconnect()
   const { copy } = useCopyToClipboard()
 

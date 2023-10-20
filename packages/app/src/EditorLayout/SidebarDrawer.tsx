@@ -2,7 +2,7 @@ import { Box, styled } from '@fower/react'
 import { Cloud, Menu } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
-import { useSidebarDrawer } from '@penx/hooks'
+import { useSidebarDrawer, useUser } from '@penx/hooks'
 import { store } from '@penx/store'
 import { FavoriteBox } from '../Sidebar/FavoriteBox/FavoriteBox'
 import { RecentlyEdited } from '../Sidebar/RecentlyEdited'
@@ -14,6 +14,7 @@ const DrawerContent = styled(Drawer.Content)
 
 export const DrawerSidebar = () => {
   const { isOpen, close, open } = useSidebarDrawer()
+  const user = useUser()
   return (
     <Drawer.Root
       shouldScaleBackground
@@ -59,6 +60,7 @@ export const DrawerSidebar = () => {
               <FavoriteBox />
               <RecentlyEdited />
             </Box>
+            <Box>Address: {user?.address}</Box>
           </Box>
         </DrawerContent>
       </Drawer.Portal>

@@ -11,7 +11,7 @@ import {
   Spinner,
   toast,
 } from 'uikit'
-import { useSpaces } from '@penx/hooks'
+import { useSpaces, useUser } from '@penx/hooks'
 import { User } from '@penx/model'
 import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
@@ -20,7 +20,7 @@ interface Props {}
 
 export function DisconnectPopover({}: Props) {
   const [loading, setLoading] = useState(false)
-  const { address = '' } = useAccount()
+  const { address = '' } = useUser()
   const { activeSpace } = useSpaces()
 
   return (

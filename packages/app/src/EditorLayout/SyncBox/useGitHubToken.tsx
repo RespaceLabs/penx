@@ -1,10 +1,11 @@
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useAccount } from 'wagmi'
+import { useUser } from '@penx/hooks'
 import { trpc } from '@penx/trpc-client'
 
 export function useGitHubToken() {
-  const { address = '' } = useAccount()
+  const { address = '' } = useUser()
   const { data: token, ...rest } = useQuery(['githubToken'], () =>
     trpc.github.token.query({ address }),
   )

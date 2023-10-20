@@ -4,10 +4,11 @@ import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { useAccount } from 'wagmi'
 import { Button, Spinner } from 'uikit'
+import { useUser } from '@penx/hooks'
 import { IconGitHub } from '@penx/icons'
 
 export function GitHubAuthButton() {
-  const { address } = useAccount()
+  const { address } = useUser()
   const [loading, setLoading] = useState(false)
 
   // Get error message added by next/auth in URL.

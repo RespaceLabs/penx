@@ -4,11 +4,12 @@ import { Box } from '@fower/react'
 import { Eye } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import { Button } from 'uikit'
+import { useUser } from '@penx/hooks'
 
 interface Props {}
 
 export const QrCode: FC<Props> = () => {
-  const { address } = useAccount()
+  const { address } = useUser()
   const [blur, setBlur] = useState(true)
   const value = JSON.stringify({
     address,

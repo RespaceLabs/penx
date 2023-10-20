@@ -15,7 +15,7 @@ interface Props {
 }
 
 export function GitIntegration({ token }: Props) {
-  const { user } = useUser()
+  const user = useUser()
 
   const { activeSpace } = useSpaces()
   const { data: installations } = useQuery(['appInstallations'], () =>
