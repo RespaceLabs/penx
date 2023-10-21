@@ -1,24 +1,11 @@
 import { nanoid } from 'nanoid'
+import { INITIAL_EDITOR_VALUE } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import { Space } from '@penx/model'
 import { DocStatus, IDoc, IExtension, IFile, ISpace } from '@penx/types'
 import { getNewDoc } from './getNewDoc'
 import { getNewSpace } from './getNewSpace'
 import { tableSchema } from './table-schema'
-
-const initialValue = [
-  {
-    id: nanoid(),
-    type: 'node',
-    children: [
-      {
-        type: 'p',
-        id: nanoid(),
-        children: [{ text: '' }],
-      },
-    ],
-  },
-]
 
 const database = new Database({
   version: 1,
@@ -139,7 +126,7 @@ class DB {
       id: nanoid(),
       status: DocStatus.NORMAL,
       openedAt: Date.now(),
-      content: JSON.stringify(initialValue),
+      content: JSON.stringify(INITIAL_EDITOR_VALUE),
       ...doc,
     })
 

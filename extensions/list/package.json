@@ -18,17 +18,18 @@
   "dependencies": {
     "@bone-ui/utils": "^0.37.0",
     "@fower/react": "^1.86.0",
+    "@penx/autoformat": "workspace:*",
     "@penx/constants": "workspace:*",
-    "@penx/hooks": "workspace:*",
-    "@penx/local-db": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-shared": "workspace:*",
     "@penx/extension-typings": "*",
-    "@penx/autoformat": "workspace:*",
-    "slate-lists": "workspace:*",
-    "uikit": "workspace:*",
+    "@penx/hooks": "workspace:*",
+    "@penx/local-db": "workspace:*",
+    "@penx/paragraph": "workspace:^",
     "slate": "0.94.1",
     "slate-history": "0.93.0",
-    "slate-react": "^0.98.3"
+    "slate-lists": "workspace:*",
+    "slate-react": "^0.98.3",
+    "uikit": "workspace:*"
   }
 }

@@ -1,18 +1,36 @@
-import { Editor, Node, Transforms } from 'slate'
+import { Editor, Transforms } from 'slate'
 import { getCurrentPath } from '@penx/editor-queries'
-import { selectEditor } from '@penx/editor-transforms'
 import { OnKeyDown } from '@penx/extension-typings'
+import { getEmptyParagraph } from '@penx/paragraph'
+import { isNode } from '../isNode'
+import { NodeElement } from '../types'
 
 export const onKeyDown: OnKeyDown = (editor, e) => {
   const { key, shiftKey } = e
 
   if (shiftKey && key === 'Tab') {
     console.log('shift+tab')
+
     return
   }
 
   if (key === 'Tab') {
     console.log('tab')
+    const [entry] = Editor.nodes(editor, {
+      mode: 'highest',
+      match: (n) => !Editor.isEditor(n) && isNode(n),
+    })
+
+    const nodePath = entry[1]
+
+    console.log('entry:', entry[0], entry[1])
+
+    Transforms.moveNodes(editor, {
+      at: nodePath,
+      // match: (node: any) => node.id === activeId,
+      to: [0, 1],
+    })
+
     return
   }
 
@@ -27,13 +45,8 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
       editor,
       {
         type: 'node',
-        children: [
-          {
-            type: 'p',
-            children: [{ text: '' }],
-          },
-        ],
-      },
+        children: [getEmptyParagraph()],
+      } as NodeElement,
       {
         at: parent,
         select: true,

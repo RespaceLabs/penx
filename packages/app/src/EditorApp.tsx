@@ -15,14 +15,16 @@ import { UserQuery } from './UserQuery'
 import { WorkerStarter } from './WorkerStarter'
 
 if (!isServer) {
+  console.log('init.......................')
+
   appLoader.init()
 
-  emitter.on('ADD_DOCUMENT', () => {
-    const spaces = store.get(spacesAtom)
-    const activeSpace = spaces.find((space) => space.isActive)!
-    // TODO:
-    store.createDoc()
-  })
+  // emitter.on('ADD_DOCUMENT', () => {
+  //   const spaces = store.get(spacesAtom)
+  //   const activeSpace = spaces.find((space) => space.isActive)!
+  //   // TODO:
+  //   store.createDoc()
+  // })
 }
 
 export const EditorApp: FC<PropsWithChildren> = ({ children }) => {

@@ -15,12 +15,12 @@ export function normalizeListItemTextChildren(
     return false
   }
 
-  for (const [childNode, childPath] of Node.children(editor, path)) {
-    if (Element.isElement(childNode) && !Editor.isInline(editor, childNode)) {
-      Transforms.unwrapNodes(editor, { at: childPath })
-      return true
-    }
-  }
+  // for (const [childNode, childPath] of Node.children(editor, path)) {
+  //   if (Element.isElement(childNode) && !Editor.isInline(editor, childNode)) {
+  //     Transforms.unwrapNodes(editor, { at: childPath })
+  //     return true
+  //   }
+  // }
 
   return false
 }

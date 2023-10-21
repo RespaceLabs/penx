@@ -1321,6 +1321,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
+      '@penx/editor-queries':
+        specifier: workspace:^
+        version: link:../../packages/editor-queries
       '@penx/extension-typings':
         specifier: '*'
         version: link:../../packages/extension-typings
@@ -1588,6 +1591,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      '@penx/paragraph':
+        specifier: workspace:^
+        version: link:../paragraph
       slate:
         specifier: 0.94.1
         version: 0.94.1
@@ -3918,6 +3924,9 @@ importers:
 
   packages/slate-lists:
     dependencies:
+      '@penx/editor-queries':
+        specifier: workspace:^
+        version: link:../editor-queries
       is-hotkey:
         specifier: ^0.2.0
         version: 0.2.0

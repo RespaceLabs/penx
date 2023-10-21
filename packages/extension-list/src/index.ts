@@ -28,31 +28,31 @@ export const extensionList = [
   //   id: 'storage-estimate',
   //   activate: storageEstimate.activate,
   // },
-  {
-    id: 'word-count',
-    activate: wordCount.activate,
-  },
+  // {
+  //   id: 'word-count',
+  //   activate: wordCount.activate,
+  // },
   {
     id: 'heading',
     activate: heading.activate,
   },
 
-  {
-    id: 'blockquote',
-    activate: blockquote.activate,
-  },
-  {
-    id: 'divider',
-    activate: divider.activate,
-  },
-  {
-    id: 'check-list',
-    activate: checkList.activate,
-  },
-  {
-    id: 'auto-format',
-    activate: autoFormat.activate,
-  },
+  // {
+  //   id: 'blockquote',
+  //   activate: blockquote.activate,
+  // },
+  // {
+  //   id: 'divider',
+  //   activate: divider.activate,
+  // },
+  // {
+  //   id: 'check-list',
+  //   activate: checkList.activate,
+  // },
+  // {
+  //   id: 'auto-format',
+  //   activate: autoFormat.activate,
+  // },
   {
     id: 'list',
     activate: list.activate,
@@ -61,37 +61,37 @@ export const extensionList = [
     id: 'autoNodeId',
     activate: autoNodeId.activate,
   },
-  {
-    id: 'code-block',
-    activate: codeBlock.activate,
-  },
-  {
-    id: 'image',
-    activate: image.activate,
-  },
-  {
-    id: 'link',
-    activate: link.activate,
-  },
-  // { id: 'internal-link', activate: internalLink.activate },
-  {
-    id: 'table',
-    activate: table.activate,
-  },
-  {
-    id: 'block-selector',
-    activate: blockSelector.activate,
-  },
+  // {
+  //   id: 'code-block',
+  //   activate: codeBlock.activate,
+  // },
+  // {
+  //   id: 'image',
+  //   activate: image.activate,
+  // },
+  // {
+  //   id: 'link',
+  //   activate: link.activate,
+  // },
+  // // { id: 'internal-link', activate: internalLink.activate },
+  // {
+  //   id: 'table',
+  //   activate: table.activate,
+  // },
+  // {
+  //   id: 'block-selector',
+  //   activate: blockSelector.activate,
+  // },
 
-  {
-    id: 'file',
-    activate: File.activate,
-  },
+  // {
+  //   id: 'file',
+  //   activate: File.activate,
+  // },
 
-  {
-    id: 'node',
-    activate: node.activate,
-  },
+  // {
+  //   id: 'node',
+  //   activate: node.activate,
+  // },
 
   // {
   //   id: 'tree-view',
