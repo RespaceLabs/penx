@@ -40,6 +40,7 @@ const config = {
     '@penx/word-count',
     '@penx/blockquote',
     '@penx/divider',
+    '@penx/node',
     '@penx/check-list',
     '@penx/auto-format',
     '@penx/auto-node-id',

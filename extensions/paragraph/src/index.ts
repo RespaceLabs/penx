@@ -1,10 +1,9 @@
 import { CaseSensitive } from 'lucide-react'
-import { Node } from 'slate'
 import { ExtensionContext } from '@penx/extension-typings'
 import { getEmptyParagraph } from './getEmptyParagraph'
 import { insertEmptyParagraph } from './insertEmptyParagraph'
 import { Paragraph } from './Paragraph'
-import { ELEMENT_P, ParagraphElement } from './types'
+import { ELEMENT_P } from './types'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
@@ -22,10 +21,7 @@ export function activate(ctx: ExtensionContext) {
   })
 }
 
-export function isParagraph(node: Node) {
-  return (node as ParagraphElement).type === ELEMENT_P
-}
-
 export * from './types'
+export * from './isParagraph'
 
 export { Paragraph, insertEmptyParagraph, getEmptyParagraph }

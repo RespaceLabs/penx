@@ -39,7 +39,6 @@ export function withAutoNodeId(editor: Editor) {
 
     if (operation.type === 'split_node') {
       const node = operation.properties as Node
-
       if (queryNode([node, []], query)) {
         const node = {
           ...operation.properties,

@@ -10,7 +10,9 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
       match: (n) => isBlockSelector(n),
     })
 
-  switch (e.key) {
+  const { key } = e
+
+  switch (key) {
     case 'ArrowUp':
       if (somePopoverNode()) {
         e.preventDefault()

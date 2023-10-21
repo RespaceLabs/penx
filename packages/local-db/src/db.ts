@@ -8,9 +8,15 @@ import { tableSchema } from './table-schema'
 
 const initialValue = [
   {
-    type: 'p',
     id: nanoid(),
-    children: [{ text: '' }],
+    type: 'node',
+    children: [
+      {
+        type: 'p',
+        id: nanoid(),
+        children: [{ text: '' }],
+      },
+    ],
   },
 ]
 

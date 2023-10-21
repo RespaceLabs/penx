@@ -11,6 +11,7 @@ import * as heading from '@penx/heading'
 import * as image from '@penx/image'
 import * as link from '@penx/link'
 import * as list from '@penx/list'
+import * as node from '@penx/node'
 import * as paragraph from '@penx/paragraph'
 import * as storageEstimate from '@penx/storage-estimate'
 import * as table from '@penx/table'
@@ -85,6 +86,11 @@ export const extensionList = [
   {
     id: 'file',
     activate: File.activate,
+  },
+
+  {
+    id: 'node',
+    activate: node.activate,
   },
 
   // {

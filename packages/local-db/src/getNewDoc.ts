@@ -3,9 +3,15 @@ import { DocStatus, IDoc } from '@penx/types'
 
 const EDITOR_CONTENT = [
   {
-    type: 'p',
     id: nanoid(),
-    children: [{ text: 'A page' }],
+    type: 'node',
+    children: [
+      {
+        type: 'p',
+        id: nanoid(),
+        children: [{ text: 'A page' }],
+      },
+    ],
   },
 ]
 

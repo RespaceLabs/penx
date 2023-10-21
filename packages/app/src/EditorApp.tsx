@@ -20,7 +20,6 @@ if (!isServer) {
   emitter.on('ADD_DOCUMENT', () => {
     const spaces = store.get(spacesAtom)
     const activeSpace = spaces.find((space) => space.isActive)!
-
     // TODO:
     store.createDoc()
   })
