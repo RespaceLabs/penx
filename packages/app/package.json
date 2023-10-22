@@ -64,6 +64,7 @@
     "@penx/extension-typings": "*",
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
+    "@penx/list": "workspace:*",
     "@penx/loader": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/model": "workspace:*",

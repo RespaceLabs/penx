@@ -5,6 +5,7 @@ import { Input } from 'uikit'
 import { DocEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
 import { useDoc } from '@penx/hooks'
+import { insertEmptyListItem } from '@penx/list'
 import { insertEmptyParagraph } from '@penx/paragraph'
 import { docToMarkdown } from '@penx/shared'
 
@@ -12,7 +13,7 @@ export function DocContent() {
   const { doc, docService } = useDoc()
 
   function handleEnterKeyInTitle(editor: Editor) {
-    insertEmptyParagraph(editor, { at: [0] })
+    insertEmptyListItem(editor, { at: [0, 0] })
 
     ReactEditor.focus(editor as any)
     Transforms.select(editor, Editor.start(editor, [0]))
