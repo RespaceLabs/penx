@@ -6,7 +6,6 @@ import { DocEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
 import { useDoc } from '@penx/hooks'
 import { insertEmptyListItem } from '@penx/list'
-import { insertEmptyParagraph } from '@penx/paragraph'
 import { docToMarkdown } from '@penx/shared'
 
 export function DocContent() {

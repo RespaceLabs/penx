@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
-import { Cloud, Folder, Trash2 } from 'lucide-react'
+import { CalendarDays, Cloud, Folder, Trash2 } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import { useDocs } from '@penx/hooks'
 import { extensionStoreAtom, store } from '@penx/store'
@@ -46,9 +46,18 @@ export const Sidebar = () => {
       pb2
     >
       <SpacePopover />
-      <Box column gap3 flex-1 pb10>
+      <Box column gap-1 flex-1 pb10>
         <SidebarItem
-          icon={<Folder size={20} />}
+          icon={<CalendarDays size={16} />}
+          label="Daily note"
+          count={docList.normalDocs.length}
+          onClick={() => {
+            store.routeTo('ALL_DOCS')
+          }}
+        />
+
+        <SidebarItem
+          icon={<Folder size={16} />}
           label="All Docs"
           count={docList.normalDocs.length}
           onClick={() => {
@@ -57,7 +66,7 @@ export const Sidebar = () => {
         />
 
         <SidebarItem
-          icon={<Cloud size={20} />}
+          icon={<Cloud size={16} />}
           label="Sync"
           onClick={() => {
             store.routeTo('SYNC')
@@ -69,11 +78,10 @@ export const Sidebar = () => {
         ))}
 
         <FavoriteBox />
-        <RecentlyOpened />
         <RecentlyEdited />
 
         <SidebarItem
-          icon={<Trash2 size={20} />}
+          icon={<Trash2 size={16} />}
           label="Trash"
           count={docList.normalDocs.length}
           onClick={() => {

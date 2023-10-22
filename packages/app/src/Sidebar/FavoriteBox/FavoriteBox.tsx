@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { Box } from '@fower/react'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from 'uikit'
@@ -10,7 +9,7 @@ export const FavoriteBox = () => {
   const { activeSpace } = useSpaces()
 
   return (
-    <Box gray600 p3 bgWhite rounded2XL>
+    <Box gray600 p3 rounded2XL>
       <Box toCenterY toBetween gap2>
         <Box fontBold>Favorites</Box>
         <Button

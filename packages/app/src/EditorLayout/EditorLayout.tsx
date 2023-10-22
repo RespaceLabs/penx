@@ -29,7 +29,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
       {!isMobile && <CommandPanel />}
 
       <Box h-100vh toLeft black textSM overflowHidden>
-        <Box w={[0, 0, 300]} toLeft>
+        <Box w={[0, 0, 280]} toLeft>
           <Sidebar />
         </Box>
         <Box flex-1 h-100vh relative>

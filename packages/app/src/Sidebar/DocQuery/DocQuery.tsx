@@ -25,7 +25,7 @@ export const DocQuery = ({ sql, title }: Props) => {
   })
 
   return (
-    <Box gray600 p3 bgWhite rounded2XL>
+    <Box gray600 px3 py1 rounded2XL mb3>
       <Box toCenterY toBetween gap2>
         <Box fontBold>{title}</Box>
         <Button

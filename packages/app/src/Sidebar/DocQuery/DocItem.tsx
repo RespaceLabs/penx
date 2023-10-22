@@ -20,7 +20,7 @@ export const DocItem = memo(
         gap2
         gray500
         textSM
-        py2
+        h-24
         px1
         bgGray100--hover
         cursorPointer

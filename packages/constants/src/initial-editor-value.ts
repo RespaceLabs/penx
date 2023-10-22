@@ -32,7 +32,7 @@ export const INITIAL_EDITOR_VALUE = [
             children: [
               {
                 type: 'p',
-                children: [{ text: 'fooo' }],
+                children: [{ text: '' }],
               },
             ],
           },
