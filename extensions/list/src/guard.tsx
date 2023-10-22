@@ -1,14 +1,16 @@
 import {
   ELEMENT_LI,
+  ELEMENT_LIC,
   ELEMENT_OL,
   ELEMENT_UL,
+  ListContentElement,
   ListElement,
   ListItemElement,
   OrderedListElement,
 } from './types'
 
 export function isListElement(node: any): node is ListElement {
-  return [ELEMENT_UL, ELEMENT_OL].includes(node.type)
+  return [ELEMENT_UL, ELEMENT_OL].includes(node?.type)
 }
 
 export function isListItemElement(node: any): node is ListItemElement {
@@ -17,4 +19,8 @@ export function isListItemElement(node: any): node is ListItemElement {
 
 export function isOrderedListElement(node: any): node is OrderedListElement {
   return node.type === ELEMENT_OL
+}
+
+export function isListContentElement(node: any): node is ListContentElement {
+  return node.type === ELEMENT_LIC
 }

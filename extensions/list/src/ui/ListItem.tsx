@@ -14,31 +14,21 @@ export const ListItem = ({
 }: ElementProps<ListItemElement>) => {
   const editor = useSlateStatic()
   const path = findNodePath(editor, element)!
-  const parentNode = Node.parent(editor, path) as Element
 
-  const nodes = Path.ancestors(path).filter((p) => {
-    const node = Node.get(editor, p) as Element
-    return isListElement(node)
-  })
-
-  const level = nodes.length % 3
-  const isOrdered = isOrderedListElement(parentNode)
+  // console.log('path: ', path, Node.string(element))
 
   return (
     <Box
-      as="li"
+      data-type="list-item"
       {...attributes}
       {...nodeProps}
       m0
-      css={{
-        listStyleType: () => {
-          if (level === 1) return isOrdered ? 'decimal' : 'disc'
-          if (level === 2) return isOrdered ? 'lower-alpha' : 'circle'
-          if (level === 0) return isOrdered ? 'lower-roman' : 'square'
-          return 'none'
-        },
-      }}
+      relative
+      pl0={path.length > 2}
     >
+      {path.length > 2 && (
+        <Box absolute left--40 top0 bottom0 bgGray200 w-1></Box>
+      )}
       {children}
     </Box>
   )

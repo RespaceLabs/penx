@@ -1594,6 +1594,9 @@ importers:
       '@penx/paragraph':
         specifier: workspace:^
         version: link:../paragraph
+      lucide-react:
+        specifier: ^0.284.0
+        version: 0.284.0(react@18.2.0)
       slate:
         specifier: 0.94.1
         version: 0.94.1

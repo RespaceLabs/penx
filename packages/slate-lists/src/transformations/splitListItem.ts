@@ -48,6 +48,7 @@ export function splitListItem(
   }
 
   const [[listItemNode, listItemPath]] = listItemsInSelection
+  const listContentNode = listItemNode.children[TEXT_PATH_INDEX]
 
   const listItemTextPath = [...listItemPath, TEXT_PATH_INDEX]
 
@@ -69,12 +70,16 @@ export function splitListItem(
   const newListItemTextPath = Path.next(listItemTextPath)
   const hasNestedList = Node.has(listItemNode, [NESTED_LIST_PATH_INDEX]) // listItemNode.children.length > 1
 
+  const isContentCollapsed = (listContentNode as any).collapsed
+
   Editor.withoutNormalizing(editor, () => {
     if (isEnd) {
+      // return false
       const newListItem = schema.createListItemNode({
         children: [schema.createListItemTextNode()],
       })
       Transforms.insertNodes(editor, newListItem, { at: newListItemPath })
+
       // Move the cursor to the new "list-item".
       Transforms.select(editor, newListItemPath)
     } else {
@@ -111,11 +116,18 @@ export function splitListItem(
 
       Transforms.select(editor, Editor.start(editor, at))
 
+      if (hasNestedList && isContentCollapsed) {
+        Transforms.moveNodes(editor, {
+          at: [...Path.next(at)],
+          to: [...Path.next(listItemPath)],
+        })
+      }
+
       return
     }
 
     // If there was a "list" in the "list-item" move it to the new "list-item".
-    if (hasNestedList) {
+    if (hasNestedList && !isContentCollapsed) {
       Transforms.moveNodes(editor, {
         at: Path.next(listItemTextPath),
         to: [...newListItemPath, NESTED_LIST_PATH_INDEX],
