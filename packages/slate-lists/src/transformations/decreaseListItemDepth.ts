@@ -1,6 +1,5 @@
-import { Editor, Element, Node, Path, Transforms } from 'slate'
-import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants'
-import { getListType, getParentList, getParentListItem } from '../lib'
+import { Editor, Path, Transforms } from 'slate'
+import { getParentList, getParentListItem } from '../lib'
 import type { ListsSchema } from '../types'
 import { increaseListItemDepth } from './increaseListItemDepth'
 
@@ -27,6 +26,8 @@ export function decreaseListItemDepth(
   const previousSiblings = parentListNode.children!.slice(0, listItemIndex)
   const nextSiblings = parentListNode.children!.slice(listItemIndex + 1)
 
+  let decreased = false
+
   Editor.withoutNormalizing(editor, () => {
     // We have to move all subsequent sibling "list-items" into a new "list" that will be
     // nested in the "list-item" we're trying to move.
@@ -40,6 +41,7 @@ export function decreaseListItemDepth(
     if (parentListItem) {
       // Move the "list-item" to the grandparent "list".
       const [, parentListItemPath] = parentListItem
+
       Transforms.moveNodes(editor, {
         at: listItemPath,
         to: Path.next(parentListItemPath),
@@ -50,36 +52,10 @@ export function decreaseListItemDepth(
       if (previousSiblings.length === 0) {
         Transforms.removeNodes(editor, { at: parentListPath })
       }
-    } else {
-      // Move the "list-item" to the root of the editor.
-      const listItemTextPath = [...listItemPath, TEXT_PATH_INDEX]
-      const listItemNestedListPath = [...listItemPath, NESTED_LIST_PATH_INDEX]
 
-      if (Node.has(editor, listItemNestedListPath)) {
-        Transforms.setNodes(
-          editor,
-          schema.createListNode(getListType(schema, parentListNode), {
-            children: [],
-          }) as Partial<Element>,
-          { at: listItemNestedListPath },
-        )
-        Transforms.liftNodes(editor, { at: listItemNestedListPath })
-        Transforms.liftNodes(editor, { at: Path.next(listItemPath) })
-      }
-
-      if (Node.has(editor, listItemTextPath)) {
-        Transforms.setNodes(
-          editor,
-          schema.createDefaultTextNode() as Partial<Element>,
-          {
-            at: listItemTextPath,
-          },
-        )
-        Transforms.liftNodes(editor, { at: listItemTextPath })
-        Transforms.liftNodes(editor, { at: listItemPath })
-      }
+      decreased = true
     }
   })
 
-  return true
+  return decreased
 }

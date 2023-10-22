@@ -1,4 +1,4 @@
-import type { Editor, Location, Span } from 'slate'
+import { Node, type Editor, type Location, type Span } from 'slate'
 import type { ListsSchema } from '../types'
 import { getCursorPosition } from './getCursorPosition'
 import { getListItems } from './getListItems'
@@ -26,5 +26,6 @@ export function isAtEmptyListItem(
 
   const [[listItemNode]] = listItemsInSelection
 
-  return !isListItemContainingText(editor, schema, listItemNode)
+  // return !isListItemContainingText(editor, schema, listItemNode)
+  return Node.string(listItemNode).length === 0
 }

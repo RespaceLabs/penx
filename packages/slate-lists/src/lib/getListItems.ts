@@ -16,11 +16,14 @@ export function getListItems(
 
   const start = getLocationStart(at)
   const listItems = Editor.nodes(editor, {
+    mode: 'lowest',
     at,
     match: schema.isListItemNode,
   })
 
-  return Array.from(listItems).filter(([, path]) => {
+  const listItemEntries = Array.from(listItems)
+
+  return listItemEntries.filter(([, path]) => {
     const [, grandparent] = Path.ancestors(start, { reverse: true })
     const rangeIsGrandhild = Path.equals(path, grandparent)
     const rangeIsDescendant = Path.isDescendant(start, path)
@@ -38,7 +41,9 @@ export function getListItems(
       //     </h-li-text>
       // </h-li>
       // Other ancestors are not "visually" in selection, but they are returned by `Editor.nodes`.
-      return !rangeStartsAfter && rangeIsGrandhild
+
+      // return !rangeStartsAfter && rangeIsGrandhild
+      return !rangeStartsAfter
     }
 
     return !rangeStartsAfter

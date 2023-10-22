@@ -1,4 +1,4 @@
-import type { Location } from 'slate'
+import type { Location, NodeEntry } from 'slate'
 import { Editor } from 'slate'
 import { getListItems, getPrevSibling, pickSubtreesRoots } from '../lib'
 import type { ListsSchema } from '../types'
@@ -21,6 +21,7 @@ export function increaseDepth(
     return false
   }
   const listItems = getListItems(editor, schema, at)
+
   const indentableListItems = listItems.filter(([, listItemPath]) => {
     const previousListItem = getPrevSibling(editor, listItemPath)
     return previousListItem !== null
@@ -38,7 +39,7 @@ export function increaseDepth(
 
   Editor.withoutNormalizing(editor, () => {
     // Before we indent "list-items", we want to convert every non list-related block in selection to a "list".
-    wrapInList(editor, schema, ListType.UNORDERED)
+    // wrapInList(editor, schema, ListType.UNORDERED)
 
     refs.forEach((ref) => {
       if (ref.current) {

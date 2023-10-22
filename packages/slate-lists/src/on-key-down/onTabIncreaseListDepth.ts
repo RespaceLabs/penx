@@ -8,6 +8,7 @@ export function onTabIncreaseListDepth(editor: Editor, event: KeyboardEvent) {
   const schema = ListsEditor.getListsSchema(editor)
   if (schema && isHotkey('tab', event.nativeEvent)) {
     event.preventDefault()
+
     return increaseDepth(editor, schema)
   }
   return false

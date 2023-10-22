@@ -1,4 +1,4 @@
-import { Editor, Transforms } from 'slate'
+import { Editor, liftNodes, Transforms } from 'slate'
 import { getCurrentPath } from '@penx/editor-queries'
 import { OnKeyDown } from '@penx/extension-typings'
 import { getEmptyParagraph } from '@penx/paragraph'
@@ -22,8 +22,6 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
     })
 
     const nodePath = entry[1]
-
-    console.log('entry:', entry[0], entry[1])
 
     Transforms.moveNodes(editor, {
       at: nodePath,

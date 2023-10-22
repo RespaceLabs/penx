@@ -30,6 +30,7 @@ export function increaseListItemDepth(
     ...previousListItemPath,
     NESTED_LIST_PATH_INDEX,
   ]
+
   const previousListItemHasChildList = Node.has(
     editor,
     previousListItemChildListPath,
@@ -41,7 +42,10 @@ export function increaseListItemDepth(
     // Ensure there's a nested "list" in the previous sibling "list-item".
     if (!previousListItemHasChildList) {
       const listNodePath = Path.ancestors(listItemPath, { reverse: true })[0]
+
+      // the root of list
       const listNode = Node.get(editor, listNodePath)
+
       Transforms.insertNodes(
         editor,
         schema.createListNode(getListType(schema, listNode), { children: [] }),

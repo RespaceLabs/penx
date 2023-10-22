@@ -45,7 +45,13 @@ export class ExtensionStore {
       const plugin = store[name]
       if (!plugin.block) continue
       const { elements = [] } = plugin.block
-      if (plugin.block?.with) withFns.push(plugin.block.with)
+      if (plugin.block?.with) {
+        if (Array.isArray(plugin.block.with)) {
+          withFns.push(...plugin.block.with)
+        } else {
+          withFns.push(plugin.block.with)
+        }
+      }
 
       if (plugin.block.handlers?.onKeyDown) {
         onKeyDownFns.push(plugin.block.handlers.onKeyDown)

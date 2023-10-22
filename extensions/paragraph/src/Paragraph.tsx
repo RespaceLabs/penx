@@ -7,15 +7,7 @@ export const Paragraph = ({
   nodeProps,
 }: ElementProps) => {
   return (
-    <Box
-      py1
-      leadingNormal
-      gray900
-      textBase
-      relative
-      {...attributes}
-      {...nodeProps}
-    >
+    <Box leadingNormal gray900 textBase relative {...attributes} {...nodeProps}>
       {children}
     </Box>
   )

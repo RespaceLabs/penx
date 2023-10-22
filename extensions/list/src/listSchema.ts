@@ -1,5 +1,6 @@
 import { Element, Node } from 'slate'
-import { ListsSchema, ListType, withLists } from 'slate-lists'
+import { ListsSchema, ListType } from 'slate-lists'
+import { getEmptyParagraph } from '@penx/paragraph'
 import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_OL, ELEMENT_UL } from './types'
 
 export const listSchema: ListsSchema = {
@@ -38,6 +39,10 @@ export const listSchema: ListsSchema = {
     return { children: [{ text: '' }], ...props, type: ELEMENT_LI } as any
   },
   createListItemTextNode(props: Partial<Element> = {}) {
-    return { children: [{ text: '' }], ...props, type: ELEMENT_LIC } as any
+    return {
+      children: [getEmptyParagraph('')],
+      ...props,
+      type: ELEMENT_LIC,
+    }
   },
 }

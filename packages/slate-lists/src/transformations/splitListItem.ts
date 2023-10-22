@@ -3,6 +3,8 @@ import { Editor, Node, Path, Range, Transforms } from 'slate'
 import { NESTED_LIST_PATH_INDEX, TEXT_PATH_INDEX } from '../constants'
 import { getCursorPositionInNode, getListItems } from '../lib'
 import { getCursorPosition } from '../lib/getCursorPosition'
+import { getCurrentNode } from '../queries/getCurrentNode'
+import { getCurrentPath } from '../queries/getCurrentPath'
 import type { ListsSchema } from '../types'
 
 /**
@@ -46,7 +48,9 @@ export function splitListItem(
   }
 
   const [[listItemNode, listItemPath]] = listItemsInSelection
+
   const listItemTextPath = [...listItemPath, TEXT_PATH_INDEX]
+
   const { isEnd, isStart } = getCursorPositionInNode(
     editor,
     cursorPoint,
@@ -77,16 +81,37 @@ export function splitListItem(
       // Split current "list-item-text" element into 2.
       Transforms.splitNodes(editor)
 
-      // The current "list-item-text" has a parent "list-item", the new one needs its own.
-      Transforms.wrapNodes(editor, schema.createListItemNode(), {
-        at: newListItemTextPath,
+      const node = getCurrentNode(editor)!
+      const path = getCurrentPath(editor)!
+
+      const [listItemText] = Editor.nodes(editor, {
+        mode: 'lowest',
+        at: editor.selection!,
+        match: schema.isListItemTextNode,
       })
 
-      // Move the new "list-item" up to be a sibling of the original "list-item".
-      Transforms.moveNodes(editor, {
-        at: newListItemTextPath,
-        to: newListItemPath,
+      // remove the splitted node
+      Transforms.removeNodes(editor, { at: Path.parent(path) })
+
+      // create a new list item base one the splitted node
+      const nodeItem = schema.createListItemNode({
+        children: [
+          schema.createListItemTextNode({
+            children: [node],
+          }),
+        ],
       })
+
+      const listItemPath = listItemText[1]
+
+      const at = Path.next(listItemPath)
+
+      // insert a new list item
+      Transforms.insertNodes(editor, nodeItem, { at, select: true })
+
+      Transforms.select(editor, Editor.start(editor, at))
+
+      return
     }
 
     // If there was a "list" in the "list-item" move it to the new "list-item".

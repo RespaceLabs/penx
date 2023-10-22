@@ -33,6 +33,8 @@ export function wrapInList(
     }),
   )
 
+  console.log('nonListEntries:', nonListEntries)
+
   if (nonListEntries.length === 0) {
     return false
   }

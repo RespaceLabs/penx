@@ -34,7 +34,7 @@ export interface RegisterComponentOptions {
 }
 
 export interface RegisterBlockOptions {
-  with?: (editor: PenxEditor) => Editor
+  with?: ((editor: PenxEditor) => Editor) | ((editor: PenxEditor) => Editor)[]
   handlers?: {
     onKeyDown?: OnKeyDown
     onBlur?: OnBlur
