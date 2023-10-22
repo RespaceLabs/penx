@@ -22,7 +22,6 @@
     "@penx/word-count": "workspace:*",
     "@penx/blockquote": "workspace:*",
     "@penx/heading": "workspace:*",
-    "@penx/node": "workspace:*",
     "@penx/divider": "workspace:*",
     "@penx/tree-view": "workspace:*",
     "@penx/check-list": "workspace:*",

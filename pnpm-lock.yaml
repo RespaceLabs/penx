@@ -1632,118 +1632,6 @@ importers:
         specifier: ^5.1.3
         version: 5.2.2
 
-  extensions/node:
-    dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@floating-ui/react':
-        specifier: ^0.25.4
-        version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
-      '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
-      '@penx/code-block':
-        specifier: workspace:*
-        version: link:../code-block
-      '@penx/constants':
-        specifier: workspace:*
-        version: link:../../packages/constants
-      '@penx/editor-queries':
-        specifier: workspace:*
-        version: link:../../packages/editor-queries
-      '@penx/editor-shared':
-        specifier: workspace:*
-        version: link:../../packages/editor-shared
-      '@penx/editor-transforms':
-        specifier: workspace:*
-        version: link:../../packages/editor-transforms
-      '@penx/extension-typings':
-        specifier: '*'
-        version: link:../../packages/extension-typings
-      '@penx/hooks':
-        specifier: workspace:*
-        version: link:../../packages/hooks
-      '@penx/icons':
-        specifier: workspace:*
-        version: link:../../packages/icons
-      '@penx/local-db':
-        specifier: workspace:*
-        version: link:../../packages/local-db
-      '@penx/paragraph':
-        specifier: workspace:*
-        version: link:../paragraph
-      '@penx/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      '@penx/store':
-        specifier: workspace:*
-        version: link:../../packages/store
-      '@udecode/plate-common':
-        specifier: ^24.4.0
-        version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
-      jotai:
-        specifier: ^2.4.2
-        version: 2.4.2(@types/react@18.2.22)(react@18.2.0)
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      mitt:
-        specifier: ^3.0.0
-        version: 3.0.0
-      react-intersection-observer:
-        specifier: ^9.5.2
-        version: 9.5.2(react@18.2.0)
-      slate:
-        specifier: 0.94.1
-        version: 0.94.1
-      slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
-      slate-lists:
-        specifier: workspace:*
-        version: link:../../packages/slate-lists
-      slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
-      stook:
-        specifier: ^1.17.0
-        version: 1.17.0
-      uikit:
-        specifier: workspace:*
-        version: link:../../packages/uikit
-    devDependencies:
-      '@types/lodash':
-        specifier: ^4.14.195
-        version: 4.14.195
-      '@types/node':
-        specifier: ^20.7.2
-        version: 20.8.2
-      '@types/react':
-        specifier: ^18.2.22
-        version: 18.2.22
-      '@types/react-dom':
-        specifier: ^18.2.7
-        version: 18.2.7
-      eslint:
-        specifier: ^8.42.0
-        version: 8.49.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      typescript:
-        specifier: ^5.1.3
-        version: 5.2.2
-
   extensions/paragraph:
     dependencies:
       '@bone-ui/iconify':
@@ -3325,9 +3213,6 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
-      '@penx/node':
-        specifier: workspace:*
-        version: link:../../extensions/node
       '@penx/paragraph':
         specifier: workspace:*
         version: link:../../extensions/paragraph

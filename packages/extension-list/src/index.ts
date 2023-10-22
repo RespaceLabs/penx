@@ -11,7 +11,6 @@ import * as heading from '@penx/heading'
 import * as image from '@penx/image'
 import * as link from '@penx/link'
 import * as list from '@penx/list'
-import * as node from '@penx/node'
 import * as paragraph from '@penx/paragraph'
 import * as storageEstimate from '@penx/storage-estimate'
 import * as table from '@penx/table'
@@ -37,22 +36,22 @@ export const extensionList = [
     activate: heading.activate,
   },
 
-  // {
-  //   id: 'blockquote',
-  //   activate: blockquote.activate,
-  // },
-  // {
-  //   id: 'divider',
-  //   activate: divider.activate,
-  // },
-  // {
-  //   id: 'check-list',
-  //   activate: checkList.activate,
-  // },
-  // {
-  //   id: 'auto-format',
-  //   activate: autoFormat.activate,
-  // },
+  {
+    id: 'blockquote',
+    activate: blockquote.activate,
+  },
+  {
+    id: 'divider',
+    activate: divider.activate,
+  },
+  {
+    id: 'check-list',
+    activate: checkList.activate,
+  },
+  {
+    id: 'auto-format',
+    activate: autoFormat.activate,
+  },
   {
     id: 'list',
     activate: list.activate,
@@ -61,37 +60,32 @@ export const extensionList = [
     id: 'autoNodeId',
     activate: autoNodeId.activate,
   },
-  // {
-  //   id: 'code-block',
-  //   activate: codeBlock.activate,
-  // },
-  // {
-  //   id: 'image',
-  //   activate: image.activate,
-  // },
-  // {
-  //   id: 'link',
-  //   activate: link.activate,
-  // },
-  // // { id: 'internal-link', activate: internalLink.activate },
-  // {
-  //   id: 'table',
-  //   activate: table.activate,
-  // },
-  // {
-  //   id: 'block-selector',
-  //   activate: blockSelector.activate,
-  // },
+  {
+    id: 'code-block',
+    activate: codeBlock.activate,
+  },
+  {
+    id: 'image',
+    activate: image.activate,
+  },
+  {
+    id: 'link',
+    activate: link.activate,
+  },
+  // { id: 'internal-link', activate: internalLink.activate },
+  {
+    id: 'table',
+    activate: table.activate,
+  },
+  {
+    id: 'block-selector',
+    activate: blockSelector.activate,
+  },
 
-  // {
-  //   id: 'file',
-  //   activate: File.activate,
-  // },
-
-  // {
-  //   id: 'node',
-  //   activate: node.activate,
-  // },
+  {
+    id: 'file',
+    activate: File.activate,
+  },
 
   // {
   //   id: 'tree-view',
