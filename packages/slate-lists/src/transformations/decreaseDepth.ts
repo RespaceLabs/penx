@@ -28,7 +28,6 @@ export function decreaseDepth(
   )
 
   let handled = false
-
   refs.forEach((ref) => {
     if (ref.current) {
       handled = decreaseListItemDepth(editor, schema, ref.current) || handled

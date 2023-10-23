@@ -1,8 +1,13 @@
 import _ from 'lodash'
-import { ListContentElement, ListItemElement } from '@penx/list'
+import {
+  ListContentElement,
+  ListItemElement,
+  UnorderedListElement,
+} from '@penx/list'
 import { isListContentElement } from '@penx/list/src/guard'
 import { db } from '@penx/local-db'
 import { Node, Page } from '@penx/model'
+import { TitleElement } from '@penx/title'
 import { NodeService } from './NodeService'
 
 export class PageService {
@@ -11,6 +16,14 @@ export class PageService {
   }
 
   constructor(public page: Page) {}
+
+  savePage = async (title: TitleElement, ul: UnorderedListElement) => {
+    await db.updateNode(title.id!, {
+      element: title.children[0],
+    })
+
+    await this.saveNodes(ul.children)
+  }
 
   saveNodes = async (
     nodes: (ListItemElement | ListContentElement)[],

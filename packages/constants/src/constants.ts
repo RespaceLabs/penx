@@ -58,6 +58,7 @@ export enum ModalNames {
 }
 
 export const ELEMENT_P = 'p'
+export const ELEMENT_TITLE = 'title'
 
 export const ELEMENT_UL = 'unordered-list'
 export const ELEMENT_LI = 'list-item'

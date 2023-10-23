@@ -45,7 +45,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
           <Box
             overflowYAuto
             h={['calc(100vh - 48px)', '100vh']}
-            px={[16, 16, 30, 40, 0]}
+            px={[10, 16, 30, 40, 0]}
             py0
           >
             {name === 'TRASH' && <TrashBox />}

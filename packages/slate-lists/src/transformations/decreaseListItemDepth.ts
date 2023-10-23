@@ -26,6 +26,8 @@ export function decreaseListItemDepth(
   const previousSiblings = parentListNode.children!.slice(0, listItemIndex)
   const nextSiblings = parentListNode.children!.slice(listItemIndex + 1)
 
+  if (nextSiblings.length) return false
+
   let decreased = false
 
   Editor.withoutNormalizing(editor, () => {
@@ -34,8 +36,9 @@ export function decreaseListItemDepth(
     nextSiblings.forEach(() => {
       // The next sibling path is always the same, because once we move out the next sibling,
       // another one will take its place.
-      const nextSiblingPath = [...parentListPath, listItemIndex + 1]
-      increaseListItemDepth(editor, schema, nextSiblingPath)
+      // TODO: comment this
+      // const nextSiblingPath = [...parentListPath, listItemIndex + 1]
+      // increaseListItemDepth(editor, schema, nextSiblingPath)
     })
 
     if (parentListItem) {

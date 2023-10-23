@@ -44,6 +44,7 @@ const config = {
     '@penx/auto-format',
     '@penx/auto-node-id',
     '@penx/paragraph',
+    '@penx/title',
     '@penx/list',
     '@penx/image',
     '@penx/file',

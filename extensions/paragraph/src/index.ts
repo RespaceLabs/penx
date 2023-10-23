@@ -11,7 +11,8 @@ export function activate(ctx: ExtensionContext) {
       {
         type: ELEMENT_P,
         component: Paragraph,
-        placeholder: "Type '/' to browse options",
+        // placeholder: "Type '/' to browse options",
+        placeholder: '',
         slashCommand: {
           name: 'Text',
           icon: CaseSensitive,

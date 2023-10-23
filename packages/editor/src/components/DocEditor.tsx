@@ -1,7 +1,6 @@
 import {
   FocusEvent,
   KeyboardEvent,
-  ReactNode,
   useCallback,
   useMemo,
   useState,
@@ -51,13 +50,12 @@ const measuring: MeasuringConfiguration = {
 
 interface Props {
   content: any[]
-  renderPrefix?: (editor: Editor) => ReactNode
   editableProps?: EditableProps
   onChange?: (value: Descendant[], editor: Editor) => void
   onBlur?: (editor: Editor) => void
 }
 
-export function DocEditor({ content, onChange, onBlur, renderPrefix }: Props) {
+export function DocEditor({ content, onChange, onBlur }: Props) {
   const editor = useCreateEditor()
   const { extensionStore } = useExtensionStore()
 
@@ -164,7 +162,6 @@ export function DocEditor({ content, onChange, onBlur, renderPrefix }: Props) {
         onChange?.(value, editor)
       }}
     >
-      {renderPrefix?.(editor)}
       <HoveringToolbar />
 
       <SetNodeToDecorations />

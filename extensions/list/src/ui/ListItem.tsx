@@ -15,8 +15,6 @@ export const ListItem = ({
   const editor = useSlateStatic()
   const path = findNodePath(editor, element)!
 
-  // console.log('path: ', path, Node.string(element))
-
   return (
     <Box
       data-type="list-item"
@@ -27,7 +25,15 @@ export const ListItem = ({
       pl0={path.length > 2}
     >
       {path.length > 2 && (
-        <Box absolute left--40 top0 bottom0 bgGray200 w-1></Box>
+        <Box
+          contentEditable={false}
+          absolute
+          left--40
+          top0
+          bottom0
+          bgGray200
+          w-1
+        />
       )}
       {children}
     </Box>

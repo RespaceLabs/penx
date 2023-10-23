@@ -1,5 +1,10 @@
 import { format } from 'date-fns'
-import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_UL } from '@penx/constants'
+import {
+  ELEMENT_LI,
+  ELEMENT_LIC,
+  ELEMENT_TITLE,
+  ELEMENT_UL,
+} from '@penx/constants'
 import { INode } from '@penx/types'
 
 export class Page {
@@ -44,11 +49,12 @@ export class Page {
   }
 
   get editorValue() {
-    const fromChildren = (children: string[]) => {
+    const childrenToList = (children: string[]) => {
       const listItems = children
         .filter((id) => this.nodeMap.get(id))
         .map((id) => {
           const node = this.nodeMap.get(id)!
+
           const children = [
             {
               id: node.id,
@@ -59,7 +65,7 @@ export class Page {
           ]
 
           if (node.children) {
-            const ul = fromChildren(node.children)
+            const ul = childrenToList(node.children)
             if (ul) children.push(ul as any)
           }
 
@@ -78,6 +84,11 @@ export class Page {
 
     const value = [
       {
+        id: this.node.id,
+        type: ELEMENT_TITLE,
+        children: [this.node.element],
+      },
+      {
         type: ELEMENT_UL,
         children: this.pageNodes.map((node) => {
           const listChildren = [
@@ -89,7 +100,7 @@ export class Page {
             },
           ]
 
-          const ul = fromChildren(node.children) as any
+          const ul = childrenToList(node.children) as any
           if (ul) listChildren.push(ul)
 
           return {
@@ -99,7 +110,6 @@ export class Page {
         }),
       },
     ]
-    console.log('editorValue:', value)
 
     return value
   }
