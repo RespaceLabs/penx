@@ -49,7 +49,7 @@ class DB {
     return space!
   }
 
-  createSpace = async (data: Partial<ISpace>, initDoc = true) => {
+  createSpace = async (data: Partial<ISpace>, initNode = true) => {
     const newSpace = getNewSpace(data)
     const spaceId = newSpace.id
 
@@ -63,14 +63,14 @@ class DB {
       })
     }
 
-    if (initDoc) {
-      const doc = getNewDoc(spaceId)
+    if (initNode) {
+      const node = getNewNode(spaceId)
 
-      await this.createDoc(doc)
+      await this.createPageNode(node)
 
       await this.space.updateByPk(spaceId, {
         isActive: true,
-        activeDocId: doc.id,
+        activeNodeId: node.id,
       })
     } else {
       await this.space.updateByPk(spaceId, {
@@ -140,7 +140,20 @@ class DB {
     return newDoc
   }
 
-  createNode = async (node: Partial<INode>) => {
+  getNode = (nodeId: string) => {
+    return this.node.selectByPk(nodeId)
+  }
+
+  updateNode = async (nodeId: string, data: Partial<INode>) => {
+    const newNode = await this.node.updateByPk(nodeId, {
+      ...data,
+      updatedAt: Date.now(),
+    })
+
+    return newNode
+  }
+
+  createPageNode = async (node: Partial<INode>) => {
     const { spaceId = '' } = node
 
     const subNode = await this.node.insert(getNewNode(spaceId))
@@ -156,8 +169,14 @@ class DB {
     await this.space.updateByPk(spaceId, {
       children: [...(space.children || []), newNode.id],
     })
+    return newNode
+  }
 
-    // await this.updateSnapshot(newDoc.id, 'add', newDoc)
+  createNode = async (node: Partial<INode>) => {
+    const newNode = await this.node.insert({
+      ...getNewNode(node.spaceId!),
+      ...node,
+    })
 
     return newNode
   }

@@ -46,7 +46,7 @@ export const commandsAtom = atom<Command[]>([
 ])
 
 export const routerAtom = atomWithStorage('Router', {
-  name: 'DOC',
+  name: 'NODE',
 } as RouterStore)
 
 export const extensionStoreAtom = atom<ExtensionStore>({})
@@ -178,9 +178,9 @@ export const store = Object.assign(createStore(), {
     }, 0)
   },
 
-  async createNode() {
+  async createPageNode() {
     const space = this.getActiveSpace()
-    const node = await db.createNode({ spaceId: space.id })
+    const node = await db.createPageNode({ spaceId: space.id })
     await db.updateSpace(space.id, { activeNodeId: node.id })
 
     this.routeTo('NODE')

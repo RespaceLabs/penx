@@ -25,6 +25,8 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
 
   if (!spaces?.length) return null
 
+  console.log('router name==========:', name)
+
   return (
     <EditorProvider space={activeSpace}>
       <QueryDocs spaceId={activeSpace.id} />

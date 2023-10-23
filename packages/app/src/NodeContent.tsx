@@ -1,17 +1,20 @@
 import { Box } from '@fower/react'
-import { Editor, Transforms } from 'slate'
+import { Descendant, Editor, Transforms } from 'slate'
 import { ReactEditor } from 'slate-react'
+import { useDebouncedCallback } from 'use-debounce'
 import { Input } from 'uikit'
 import { DocEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
-import { useDoc, useNode, usePage } from '@penx/hooks'
+import { usePage } from '@penx/hooks'
 import { insertEmptyListItem } from '@penx/list'
-import { docToMarkdown } from '@penx/shared'
 
 export function NodeContent() {
-  const { page } = usePage()
+  const { page, pageService } = usePage()
 
-  console.log('page:', page)
+  const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
+    const listItems = value[0].children
+    pageService.saveNodes(listItems)
+  }, 500)
 
   function handleEnterKeyInTitle(editor: Editor) {
     insertEmptyListItem(editor, { at: [0, 0] })
@@ -21,6 +24,8 @@ export function NodeContent() {
   }
 
   if (!page || !page?.spaceId) return null
+
+  console.log('page-------:', page)
 
   const { title } = page
 
@@ -32,10 +37,7 @@ export function NodeContent() {
           onChange={(value, editor) => {
             if (isAstChange(editor)) {
               console.log('value:', value)
-              // docService.updateDoc({
-              //   content: JSON.stringify(value),
-              //   title,
-              // })
+              debouncedSaveNodes(value)
             }
           }}
           renderPrefix={(editor) => (

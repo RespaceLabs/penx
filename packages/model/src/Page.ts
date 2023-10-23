@@ -3,10 +3,17 @@ import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_UL } from '@penx/constants'
 import { INode } from '@penx/types'
 
 export class Page {
+  nodeMap = new Map<string, INode>()
+
   constructor(
     public node: INode,
-    public nodes: INode[],
-  ) {}
+    public pageNodes: INode[],
+    public allNodes: INode[],
+  ) {
+    for (const node of allNodes) {
+      this.nodeMap.set(node.id, node)
+    }
+  }
 
   get id(): string {
     return this.node?.id || ''
@@ -37,21 +44,63 @@ export class Page {
   }
 
   get editorValue() {
-    return [
-      {
-        type: ELEMENT_UL,
-        children: this.nodes.map((node) => {
+    const fromChildren = (children: string[]) => {
+      const listItems = children
+        .filter((id) => this.nodeMap.get(id))
+        .map((id) => {
+          const node = this.nodeMap.get(id)!
+          const children = [
+            {
+              id: node.id,
+              type: ELEMENT_LIC,
+              collapsed: node.collapsed,
+              children: [node.element],
+            },
+          ]
+
+          if (node.children) {
+            const ul = fromChildren(node.children)
+            if (ul) children.push(ul as any)
+          }
+
           return {
             type: ELEMENT_LI,
-            children: [
-              {
-                type: ELEMENT_LIC,
-                children: [node.element],
-              },
-            ],
+            children,
+          }
+        })
+
+      if (!listItems.length) return null
+      return {
+        type: ELEMENT_UL,
+        children: listItems,
+      }
+    }
+
+    const value = [
+      {
+        type: ELEMENT_UL,
+        children: this.pageNodes.map((node) => {
+          const listChildren = [
+            {
+              id: node.id,
+              type: ELEMENT_LIC,
+              collapsed: node.collapsed,
+              children: [node.element],
+            },
+          ]
+
+          const ul = fromChildren(node.children) as any
+          if (ul) listChildren.push(ul)
+
+          return {
+            type: ELEMENT_LI,
+            children: listChildren,
           }
         }),
       },
     ]
+    console.log('editorValue:', value)
+
+    return value
   }
 }

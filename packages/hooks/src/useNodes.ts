@@ -11,6 +11,7 @@ export function useQueryNodes(spaceId: string) {
   useEffect(() => {
     db.listNodesBySpaceId(spaceId).then((nodes) => {
       setNodes(nodes)
+      // console.log('nodes:', nodes)
 
       if (!store.getNode()) {
         const normalNodes = nodes.filter(
@@ -25,9 +26,13 @@ export function useQueryNodes(spaceId: string) {
 
           store.setNode(activeNode)
 
-          const set = new Set(activeNode.children)
-          const children = normalNodes.filter((n) => set.has(n.id))
-          const page = new Page(activeNode, children)
+          console.log('activeNode.children-----:', activeNode.children)
+
+          const children = activeNode.children.map((id) => {
+            // TODO: improve performance
+            return normalNodes.find((n) => n.id === id)!
+          })
+          const page = new Page(activeNode, children, normalNodes)
           store.setPage(page)
         }
       }

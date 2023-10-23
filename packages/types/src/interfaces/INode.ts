@@ -14,6 +14,8 @@ export interface INode {
 
   status: NodeStatus
 
+  collapsed: boolean
+
   children: string[]
 
   openedAt: number

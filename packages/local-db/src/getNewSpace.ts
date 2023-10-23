@@ -9,6 +9,7 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
     isActive: false,
     changes: {},
     favorites: [],
+    children: [],
     snapshot: {
       repo: '',
       version: 0,

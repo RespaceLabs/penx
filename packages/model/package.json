@@ -27,6 +27,7 @@
     "crypto-js": "^4.1.1",
     "date-fns": "^2.30.0",
     "diff-match-patch": "^1.0.5",
+    "nanoid": "^4.0.2",
     "slate": "0.94.1",
     "slate-react": "^0.98.3"
   }

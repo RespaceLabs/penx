@@ -3601,6 +3601,9 @@ importers:
       diff-match-patch:
         specifier: ^1.0.5
         version: 1.0.5
+      nanoid:
+        specifier: ^4.0.2
+        version: 4.0.2
       slate:
         specifier: 0.94.1
         version: 0.94.1
@@ -3687,6 +3690,9 @@ importers:
       '@penx/indexeddb':
         specifier: workspace:*
         version: link:../indexeddb
+      '@penx/list':
+        specifier: workspace:*
+        version: link:../../extensions/list
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db

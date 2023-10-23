@@ -25,7 +25,7 @@ export interface OrderedListElement extends BaseElement {
 export interface ListItemElement extends BaseElement {
   id: string
   type: typeof ELEMENT_LI
-  children: any[] // [lic | ul]
+  children: (UnorderedListElement | ListContentElement)[] // [lic | ul]
 }
 
 export interface ListContentElement extends BaseElement {

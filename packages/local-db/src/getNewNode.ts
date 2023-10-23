@@ -7,10 +7,12 @@ export function getNewNode(spaceId: string, text = ''): INode {
     id: nanoid(),
     spaceId,
     element: {
+      id: nanoid(),
       type: ELEMENT_P,
       children: [{ text }],
     },
     status: NodeStatus.NORMAL,
+    collapsed: false,
     children: [],
     openedAt: Date.now(),
     createdAt: Date.now(),
