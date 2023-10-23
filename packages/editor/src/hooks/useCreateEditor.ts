@@ -20,7 +20,9 @@ import {
 } from '@penx/paragraph'
 import { isTable } from '@penx/table'
 
-export function useCreateEditor() {
+type WithFns = (editor: Editor) => Editor
+
+export function useCreateEditor(fns: WithFns[] = []) {
   const { extensionStore } = useExtensionStore()
   const editorRef = useRef<Editor>()
   const {
@@ -36,6 +38,7 @@ export function useCreateEditor() {
     withHistory,
     withReact,
     withListsReact as any,
+    ...fns,
     ...extensionStore.withFns,
   ]
 

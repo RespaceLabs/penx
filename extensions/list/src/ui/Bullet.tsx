@@ -13,11 +13,15 @@ export const Bullet = ({ element }: Props) => {
       className="bullet"
       square-15
       bgTransparent
+      bgGray200--hover
       bgGray200={collapsed}
       toCenter
       roundedFull
       cursorPointer
       flexShrink-1
+      onClick={() => {
+        console.log('gogo.........')
+      }}
     >
       <Box
         square-5

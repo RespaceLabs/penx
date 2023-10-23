@@ -12,7 +12,7 @@ export const NewDocButton: FC<PropsWithChildren<Props>> = () => {
       variant="ghost"
       colorScheme="gray500"
       isSquare
-      onClick={() => store.createDoc()}
+      onClick={() => store.createNode()}
     >
       <Plus />
     </Button>

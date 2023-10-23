@@ -31,6 +31,21 @@ export const tableSchema: TableType[] = [
   },
 
   {
+    name: 'node',
+    primaryKey: {
+      name: 'id',
+      autoIncrement: false,
+      unique: true,
+    },
+    indexes: {
+      spaceId: {
+        unique: false,
+      },
+    },
+    timestamps: true,
+  },
+
+  {
     name: 'file',
     primaryKey: {
       name: 'id',

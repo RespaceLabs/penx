@@ -2,8 +2,9 @@ import { nanoid } from 'nanoid'
 import { INITIAL_EDITOR_VALUE } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import { Space } from '@penx/model'
-import { DocStatus, IDoc, IExtension, IFile, ISpace } from '@penx/types'
+import { DocStatus, IDoc, IExtension, IFile, INode, ISpace } from '@penx/types'
 import { getNewDoc } from './getNewDoc'
+import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { tableSchema } from './table-schema'
 
@@ -23,6 +24,10 @@ class DB {
 
   get doc() {
     return database.useModel<IDoc>('doc')
+  }
+
+  get node() {
+    return database.useModel<INode>('node')
   }
 
   get file() {
@@ -133,6 +138,34 @@ class DB {
     await this.updateSnapshot(newDoc.id, 'add', newDoc)
 
     return newDoc
+  }
+
+  createNode = async (node: Partial<INode>) => {
+    const { spaceId = '' } = node
+
+    const subNode = await this.node.insert(getNewNode(spaceId))
+
+    const newNode = await this.node.insert({
+      ...getNewNode(node.spaceId!),
+      ...node,
+      children: [subNode.id],
+    })
+
+    const space = await this.getSpace(spaceId)
+
+    await this.space.updateByPk(spaceId, {
+      children: [...(space.children || []), newNode.id],
+    })
+
+    // await this.updateSnapshot(newDoc.id, 'add', newDoc)
+
+    return newNode
+  }
+
+  listNodesBySpaceId = async (spaceId: string) => {
+    return this.node.select({
+      where: { spaceId },
+    })
   }
 
   getDoc = (docId: string) => {

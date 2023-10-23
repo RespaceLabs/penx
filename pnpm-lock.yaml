@@ -3580,6 +3580,9 @@ importers:
       '@penx/autoformat':
         specifier: workspace:*
         version: link:../autoformat
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
       '@penx/extension-typings':
         specifier: '*'
         version: link:../extension-typings

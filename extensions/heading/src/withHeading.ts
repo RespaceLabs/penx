@@ -3,6 +3,7 @@ import { HeadingElement } from './types'
 
 export const withHeading = (editor: Editor) => {
   const { apply } = editor
+
   editor.apply = (operation) => {
     if (operation.type === 'split_node') {
       const { properties } = operation

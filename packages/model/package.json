@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@penx/autoformat": "workspace:*",
+    "@penx/constants": "workspace:*",
     "@penx/extension-typings": "*",
     "@penx/types": "workspace:*",
     "@prisma/client": "^5.2.0",

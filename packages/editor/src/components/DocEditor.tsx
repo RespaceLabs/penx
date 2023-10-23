@@ -54,9 +54,10 @@ interface Props {
   renderPrefix?: (editor: Editor) => ReactNode
   editableProps?: EditableProps
   onChange?: (value: Descendant[], editor: Editor) => void
+  onBlur?: (editor: Editor) => void
 }
 
-export function DocEditor({ content, onChange, renderPrefix }: Props) {
+export function DocEditor({ content, onChange, onBlur, renderPrefix }: Props) {
   const editor = useCreateEditor()
   const { extensionStore } = useExtensionStore()
 
@@ -149,6 +150,7 @@ export function DocEditor({ content, onChange, renderPrefix }: Props) {
   }
 
   const blur = (e: FocusEvent<HTMLDivElement, globalThis.Element>) => {
+    onBlur?.(editor)
     for (const fn of (editor as any).onBlurFns) {
       fn(editor, e)
     }

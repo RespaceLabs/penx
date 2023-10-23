@@ -1,3 +1,3 @@
 export * from './db'
 export * from './getNewSpace'
-export * from './getNewDoc'
+export * from './getNewNode'

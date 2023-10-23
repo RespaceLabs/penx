@@ -17,7 +17,12 @@ export interface ISpace {
 
   activeDocId?: string
 
+  activeNodeId?: string
+
   favorites: string[]
+
+  // node IDs
+  children: string[]
 
   snapshot: {
     repo: string

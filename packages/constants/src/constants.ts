@@ -56,3 +56,9 @@ export enum ModalNames {
   DELETE_SPACE,
   LOGIN_SUCCESS,
 }
+
+export const ELEMENT_P = 'p'
+
+export const ELEMENT_UL = 'unordered-list'
+export const ELEMENT_LI = 'list-item'
+export const ELEMENT_LIC = 'list-item-text'
