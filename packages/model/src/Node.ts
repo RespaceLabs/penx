@@ -34,9 +34,18 @@ export class Node {
     return this.raw.status === NodeStatus.TRASHED
   }
 
+  get collapsed() {
+    return this.raw.collapsed
+  }
+
+  get children() {
+    return this.raw.children
+  }
+
   get createdAt() {
     return this.raw.createdAt
   }
+
   get updatedAt() {
     return this.raw.updatedAt
   }

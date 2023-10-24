@@ -1,17 +1,17 @@
 import { Box } from '@fower/react'
 import { Copy, Share2 } from 'lucide-react'
 import { Button, Popover, PopoverContent, PopoverTrigger, toast } from 'uikit'
-import { usePage } from '@penx/hooks'
+import { useNode } from '@penx/hooks'
 import { useCopyToClipboard } from '@penx/shared'
 
 export const SharePopover = () => {
-  const { page } = usePage()
+  const { node } = useNode()
 
   const { copy } = useCopyToClipboard()
 
-  if (!page) return null
+  if (!node?.id) return null
 
-  const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL + `/share/${page?.id}`
+  const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL + `/share/${node?.id}`
   return (
     <Popover placement="bottom-end">
       <PopoverTrigger asChild>
@@ -21,7 +21,7 @@ export const SharePopover = () => {
       </PopoverTrigger>
       <PopoverContent w-360 p4 column gap2>
         <Box fontBold textLG mb2>
-          {page.title}
+          {node.title}
         </Box>
 
         <Box>Share URL</Box>

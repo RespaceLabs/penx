@@ -7,6 +7,7 @@ import { ListItemContent } from './ui/ListItemContent'
 import { withListsPlugin } from './withListsPlugin'
 
 export * from './types'
+export * from './guard'
 export * from './insertEmptyListItem'
 
 export function activate(ctx: ExtensionContext) {

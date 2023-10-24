@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { db } from '@penx/local-db'
-import { Node, Page } from '@penx/model'
+import { Node } from '@penx/model'
 import { NodeListService } from '@penx/service'
 import { nodesAtom, store } from '@penx/store'
 import { useSpaces } from './useSpaces'
@@ -14,7 +14,7 @@ export function useQueryNodes(spaceId: string) {
       setNodes(nodes)
       // console.log('nodes:', nodes)
 
-      if (store.getPage()) return
+      if (store.getNode()) return
       if (!nodes.length) return
 
       const space = store.getSpaces().find((s) => s.id === spaceId)
@@ -22,8 +22,7 @@ export function useQueryNodes(spaceId: string) {
       const activeNode =
         nodes.find((node) => node.id === space?.activeNodeId) || nodes[0]
 
-      const page = new Page(activeNode, nodes)
-      store.setPage(page)
+      store.setNode(activeNode)
     })
   }, [setNodes, spaceId])
 }

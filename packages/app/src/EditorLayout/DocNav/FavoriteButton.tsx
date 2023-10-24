@@ -1,12 +1,12 @@
 import React, { FC, PropsWithChildren } from 'react'
 import { Star, StarOffIcon } from 'lucide-react'
 import { Button } from 'uikit'
-import { usePage } from '@penx/hooks'
+import { useNode } from '@penx/hooks'
 
 interface Props {}
 
 export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
-  const { nodeService } = usePage()
+  const { nodeService } = useNode()
   const isFavorite = nodeService.isFavorite()
   return (
     <Button

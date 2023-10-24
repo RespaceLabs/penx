@@ -3,7 +3,7 @@ import { atomWithStorage } from 'jotai/utils'
 import { SyncStatus } from '@penx/constants'
 import { emitter } from '@penx/event'
 import { db } from '@penx/local-db'
-import { Page, User } from '@penx/model'
+import { User } from '@penx/model'
 import {
   Command,
   DocStatus,
@@ -15,9 +15,8 @@ import {
   RouterStore,
 } from '@penx/types'
 
+export const nodeAtom = atomWithStorage('node', null as any as INode)
 export const nodesAtom = atom<INode[]>([])
-
-export const pageAtom = atom(null as any as Page)
 
 export const docAtom = atom(null as any as IDoc)
 export const docsAtom = atom<IDoc[]>([])
@@ -78,16 +77,20 @@ export const store = Object.assign(createStore(), {
     return store.set(docsAtom, docs)
   },
 
+  getNodes() {
+    return store.get(nodesAtom)
+  },
+
   setNodes(nodes: INode[]) {
     return store.set(nodesAtom, nodes)
   },
 
-  getPage() {
-    return store.get(pageAtom)
+  getNode() {
+    return store.get(nodeAtom)
   },
 
-  setPage(page: Page) {
-    return store.set(pageAtom, page)
+  setNode(node: INode) {
+    return store.set(nodeAtom, node)
   },
 
   getUser() {
@@ -160,12 +163,12 @@ export const store = Object.assign(createStore(), {
     this.setDocs(docs)
   },
 
-  reloadPage(page: Page) {
-    this.setPage(null as any)
+  reloadNode(node: INode) {
+    this.setNode(null as any)
 
     // for rerender editor
     setTimeout(() => {
-      this.setPage(page)
+      this.setNode(node)
     }, 0)
   },
 
@@ -173,13 +176,11 @@ export const store = Object.assign(createStore(), {
     const space = this.getActiveSpace()
     const node = await db.createPageNode({ spaceId: space.id })
     await db.updateSpace(space.id, { activeNodeId: node.id })
-
+    const nodes = await db.listNormalNodes(space.id)
     this.routeTo('NODE')
 
-    const nodes = await db.listNormalNodes(space.id)
-    const page = new Page(node, nodes)
-
-    this.reloadPage(page)
+    this.setNodes(nodes)
+    this.reloadNode(node)
   },
 })
 

@@ -84,7 +84,11 @@ export const AllDocsTable = ({ nodes }: Props) => {
                 const node = nodes.find(
                   (node) => node.id === props['data-row-key'],
                 )
-                await new NodeService(node!).selectNode()
+
+                await new NodeService(
+                  new Node(node?.raw!),
+                  store.getNodes().map((node) => new Node(node)),
+                ).selectNode()
               }}
             />
           ),

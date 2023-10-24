@@ -1,14 +1,14 @@
 import { Box } from '@fower/react'
-import { usePage } from '@penx/hooks'
+import { useNode } from '@penx/hooks'
 import { FavoriteButton } from './FavoriteButton'
 import { MorePopover } from './MorePopover'
 import { NewDocButton } from './NewDocButton'
 import { SharePopover } from './SharePopover'
 
 export const PCNav = () => {
-  const { page } = usePage()
+  const { node } = useNode()
 
-  if (!page?.id) return null
+  if (!node?.id) return null
 
   return (
     <Box
@@ -23,7 +23,7 @@ export const PCNav = () => {
       bgWhite
       zIndex-10
     >
-      <Box pl2>{page.node.id}</Box>
+      <Box pl2>{node.id}</Box>
       <Box>
         <NewDocButton />
         <SharePopover />

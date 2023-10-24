@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
 import { Node } from '@penx/model'
 import { NodeService } from '@penx/service'
+import { store } from '@penx/store'
 import { DocItemMenu } from './DocItemMenu'
 
 interface Props {
@@ -21,7 +22,10 @@ export const DocItem = ({ node }: Props) => {
       cursorPointer
       rounded
       onClick={() => {
-        const nodeService = new NodeService(node)
+        const nodeService = new NodeService(
+          node,
+          store.getNodes().map((node) => new Node(node)),
+        )
         nodeService.selectNode()
       }}
     >
