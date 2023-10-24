@@ -1,13 +1,13 @@
 import React, { FC, PropsWithChildren } from 'react'
 import { Star, StarOffIcon } from 'lucide-react'
 import { Button } from 'uikit'
-import { useDoc } from '@penx/hooks'
+import { usePage } from '@penx/hooks'
 
 interface Props {}
 
 export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
-  const { docService } = useDoc()
-  const isFavorite = docService.isFavorite()
+  const { nodeService } = usePage()
+  const isFavorite = nodeService.isFavorite()
   return (
     <Button
       size="sm"
@@ -16,9 +16,9 @@ export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
       isSquare
       onClick={() => {
         if (isFavorite) {
-          docService.removeFromFavorites()
+          nodeService.removeFromFavorites()
         } else {
-          docService.addToFavorites()
+          nodeService.addToFavorites()
         }
       }}
     >

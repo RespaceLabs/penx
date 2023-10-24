@@ -1,13 +1,13 @@
 import { Box } from '@fower/react'
-import { Doc } from '@penx/model'
-import { DocService } from '@penx/service'
+import { Node } from '@penx/model'
+import { NodeService } from '@penx/service'
 import { DocItemMenu } from './DocItemMenu'
 
 interface Props {
-  doc: Doc
+  node: Node
 }
 
-export const DocItem = ({ doc }: Props) => {
+export const DocItem = ({ node }: Props) => {
   return (
     <Box
       className="docItem"
@@ -21,12 +21,12 @@ export const DocItem = ({ doc }: Props) => {
       cursorPointer
       rounded
       onClick={() => {
-        const docService = new DocService(doc)
-        docService.selectDoc()
+        const nodeService = new NodeService(node)
+        nodeService.selectNode()
       }}
     >
-      <Box flex-1>{doc.title || 'Untitled'}</Box>
-      <DocItemMenu doc={doc} />
+      <Box flex-1>{node.title || 'Untitled'}</Box>
+      <DocItemMenu node={node} />
     </Box>
   )
 }

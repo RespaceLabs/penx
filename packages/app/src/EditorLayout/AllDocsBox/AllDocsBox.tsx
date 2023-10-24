@@ -2,14 +2,14 @@ import { Box } from '@fower/react'
 import { Trans } from '@lingui/macro'
 import { Bird } from 'lucide-react'
 import { Button } from 'uikit'
-import { useDocs } from '@penx/hooks'
+import { useNodes } from '@penx/hooks'
 import { store } from '@penx/store'
 import { AllDocsTable } from './AllDocsTable'
 
 export const AllDocsBox = () => {
-  const { docList } = useDocs()
+  const { nodeList } = useNodes()
 
-  if (!docList.normalDocs.length)
+  if (!nodeList.rootNodes) {
     return (
       <Box toCenter column h-100p gap3>
         <Box gray400>
@@ -32,6 +32,7 @@ export const AllDocsBox = () => {
         </Button>
       </Box>
     )
+  }
 
   return (
     <Box px10 py10 bgWhite rounded2XL>
@@ -41,7 +42,7 @@ export const AllDocsBox = () => {
         </Box>
       </Box>
       <Box column gray700>
-        <AllDocsTable docs={docList.normalDocs} />
+        <AllDocsTable nodes={nodeList.rootNodes} />
       </Box>
     </Box>
   )

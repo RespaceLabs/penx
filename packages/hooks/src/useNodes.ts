@@ -1,9 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { db } from '@penx/local-db'
 import { Node, Page } from '@penx/model'
+import { NodeListService } from '@penx/service'
 import { nodesAtom, store } from '@penx/store'
-import { NodeStatus } from '@penx/types'
+import { useSpaces } from './useSpaces'
 
 export function useQueryNodes(spaceId: string) {
   const setNodes = useSetAtom(nodesAtom)
@@ -29,8 +30,13 @@ export function useQueryNodes(spaceId: string) {
 
 export function useNodes() {
   const nodes = useAtomValue(nodesAtom)
+  const { activeSpace } = useSpaces()
+  const nodeList = useMemo(() => {
+    return new NodeListService(activeSpace, nodes)
+  }, [activeSpace, nodes])
 
   return {
+    nodeList,
     nodes: nodes.map((node) => new Node(node)),
   }
 }

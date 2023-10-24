@@ -19,9 +19,10 @@ export interface ISpace {
 
   activeNodeId?: string
 
+  // favorites node IDs
   favorites: string[]
 
-  // node IDs
+  // root node IDs
   children: string[]
 
   snapshot: {

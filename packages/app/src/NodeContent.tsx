@@ -15,7 +15,6 @@ function listPlugin(editor: any) {
     const node = await db.getNode(element.id)
     const nodes = await db.listNormalNodes(node.spaceId)
     const page = new Page(node, nodes)
-    console.log('click bullet...:', element, node)
     store.reloadPage(page)
   }
   return editor
@@ -25,7 +24,6 @@ export function NodeContent() {
   const { page, pageService } = usePage()
 
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
-    // console.log('value:', value)
     pageService.savePage(value[0], value[1])
   }, 500)
 
@@ -37,8 +35,6 @@ export function NodeContent() {
   }
 
   if (!page || !page?.spaceId) return null
-
-  console.log('page=====:', page)
 
   return (
     <Box relative>

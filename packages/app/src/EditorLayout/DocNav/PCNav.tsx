@@ -1,17 +1,14 @@
 import { Box } from '@fower/react'
-import { useAtomValue } from 'jotai'
-import { useDoc } from '@penx/hooks'
-import { routerAtom } from '@penx/store'
+import { usePage } from '@penx/hooks'
 import { FavoriteButton } from './FavoriteButton'
 import { MorePopover } from './MorePopover'
 import { NewDocButton } from './NewDocButton'
 import { SharePopover } from './SharePopover'
 
 export const PCNav = () => {
-  const { doc } = useDoc()
-  const { name } = useAtomValue(routerAtom)
+  const { page } = usePage()
 
-  if (!doc.id) return null
+  if (!page?.id) return null
 
   return (
     <Box
@@ -26,12 +23,11 @@ export const PCNav = () => {
       bgWhite
       zIndex-10
     >
-      <Box pl2>{doc.title}</Box>
+      <Box pl2>{page.node.id}</Box>
       <Box>
         <NewDocButton />
         <SharePopover />
         <FavoriteButton />
-
         <MorePopover />
       </Box>
     </Box>

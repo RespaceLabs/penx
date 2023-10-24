@@ -40,7 +40,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
         <Box flex-1 h-100vh relative>
           <MobileNav />
 
-          {name === 'DOC' && <PCNav />}
+          {name === 'NODE' && <PCNav />}
 
           <Box
             overflowYAuto

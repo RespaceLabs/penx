@@ -1,16 +1,16 @@
 import { Box } from '@fower/react'
 import { Trash2 } from 'lucide-react'
 import { Button, ColumnsType, Table } from 'uikit'
-import { Doc } from '@penx/model'
-import { DocService } from '@penx/service'
+import { Node } from '@penx/model'
+import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
 
 interface Props {
-  docs: Doc[]
+  nodes: Node[]
 }
 
-export const AllDocsTable = ({ docs }: Props) => {
-  const columns: ColumnsType<Doc> = [
+export const AllDocsTable = ({ nodes }: Props) => {
+  const columns: ColumnsType<Node> = [
     {
       title: 'Name',
       dataIndex: 'title',
@@ -67,7 +67,7 @@ export const AllDocsTable = ({ docs }: Props) => {
   return (
     <Table
       columns={columns}
-      data={docs}
+      data={nodes}
       rowKey="id"
       bordered={false}
       components={{
@@ -81,8 +81,10 @@ export const AllDocsTable = ({ docs }: Props) => {
               cursorPointer
               transitionColors
               onClick={async () => {
-                const doc = docs.find((doc) => doc.id === props['data-row-key'])
-                await new DocService(doc!).selectDoc()
+                const node = nodes.find(
+                  (node) => node.id === props['data-row-key'],
+                )
+                await new NodeService(node!).selectNode()
               }}
             />
           ),

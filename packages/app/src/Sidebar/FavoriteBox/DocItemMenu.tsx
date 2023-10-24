@@ -12,15 +12,13 @@ import {
 import { CatalogueNode } from '@penx/catalogue'
 import { useCatalogue } from '@penx/hooks'
 import { db } from '@penx/local-db'
-import { Doc } from '@penx/model'
+import { Node } from '@penx/model'
 
 interface Props {
-  doc: Doc
+  node: Node
 }
 
-export const DocItemMenu: FC<PropsWithChildren<Props>> = ({ doc: node }) => {
-  const catalogue = useCatalogue()
-
+export const DocItemMenu: FC<PropsWithChildren<Props>> = ({ node: node }) => {
   const onShare = async (node: CatalogueNode) => {
     const doc = await db.getDoc(node.id)
     if (doc) {
