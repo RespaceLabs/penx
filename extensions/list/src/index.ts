@@ -1,14 +1,22 @@
 import { ExtensionContext } from '@penx/extension-typings'
 import { onKeyDown } from './onKeyDown'
-import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_OL, ELEMENT_UL } from './types'
+import {
+  ELEMENT_LI,
+  ELEMENT_LIC,
+  ELEMENT_OL,
+  ELEMENT_TITLE,
+  ELEMENT_UL,
+} from './types'
 import { List } from './ui/List'
 import { ListItem } from './ui/ListItem'
 import { ListItemContent } from './ui/ListItemContent'
+import { Title } from './ui/Title'
 import { withListsPlugin } from './withListsPlugin'
 
 export * from './types'
 export * from './guard'
-export * from './insertEmptyListItem'
+export * from './transforms/insertEmptyList'
+export * from './transforms/insertEmptyListItem'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
@@ -17,6 +25,12 @@ export function activate(ctx: ExtensionContext) {
       onKeyDown: onKeyDown,
     },
     elements: [
+      {
+        type: ELEMENT_TITLE,
+        component: Title,
+        placeholder: 'Untitled',
+      },
+
       {
         type: ELEMENT_UL,
         component: List,

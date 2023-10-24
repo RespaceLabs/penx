@@ -41,7 +41,7 @@ export function NodeContent() {
       <Box mx-auto maxW-800>
         <DocEditor
           plugins={[listPlugin]}
-          content={nodeService.editorValue}
+          content={nodeService.getEditorValue()}
           onChange={(value, editor) => {
             if (isAstChange(editor)) {
               debouncedSaveNodes(value)

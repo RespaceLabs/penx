@@ -1,8 +1,8 @@
 import { Editor, Transforms } from 'slate'
 import { NodeInsertNodesOptions } from 'slate/dist/interfaces/transforms/node'
 import { getEmptyParagraph } from '@penx/paragraph'
-import { listSchema } from './listSchema'
-import { ListItemElement } from './types'
+import { listSchema } from '../listSchema'
+import { ListItemElement } from '../types'
 
 export const insertEmptyListItem = (
   editor: Editor,

@@ -1,4 +1,4 @@
-import { Path, Transforms } from 'slate'
+import { Path } from 'slate'
 import { onKeyDown as onKeyDownList } from 'slate-lists'
 import {
   findNodePath,
@@ -6,8 +6,9 @@ import {
   getNodeByPath,
 } from '@penx/editor-queries'
 import { OnKeyDown } from '@penx/extension-typings'
-import { getEmptyParagraph } from '@penx/paragraph'
-import { listSchema } from './listSchema'
+import { isTitle } from './guard'
+import { insertEmptyList } from './transforms/insertEmptyList'
+import { insertEmptyListItem } from './transforms/insertEmptyListItem'
 
 export const onKeyDown: OnKeyDown = (editor, e) => {
   onKeyDownList(editor, e)
@@ -21,23 +22,18 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
     if (!path) return
 
     const parentPath = Path.parent(path)
-    const parentNode: any = getNodeByPath(editor, parentPath)
+    const parentNode = getNodeByPath(editor, parentPath)
 
-    if (parentNode?.type === 'title') {
+    if (isTitle(parentNode)) {
       const nextPath = Path.next(parentPath)
+      const onlyHasTitle = editor.children.length === 1
+      const at = onlyHasTitle ? nextPath : [...nextPath, 0]
 
-      const listItem = listSchema.createListItemNode({
-        children: [
-          listSchema.createListItemTextNode({
-            children: [getEmptyParagraph()],
-          }),
-        ],
-      })
-
-      Transforms.insertNodes(editor, listItem, {
-        select: true,
-        at: [...nextPath, 0],
-      })
+      if (onlyHasTitle) {
+        insertEmptyList(editor, { select: true, at })
+      } else {
+        insertEmptyListItem(editor, { select: true, at })
+      }
     }
   }
 }

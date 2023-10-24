@@ -1,6 +1,8 @@
 import { Box } from '@fower/react'
 import { Node } from 'slate'
+import { useSlate } from 'slate-react'
 import { ElementProps } from '@penx/extension-typings'
+import { insertEmptyList } from '../transforms/insertEmptyList'
 
 export const Title = ({
   element,
@@ -8,8 +10,15 @@ export const Title = ({
   children,
   nodeProps,
 }: ElementProps) => {
+  const editor = useSlate()
   const str = Node.string(element)
   const isPlaceholderShow = !str?.length
+  const onlyHasTitle = editor.children.length === 1
+
+  function insertList() {
+    insertEmptyList(editor, { at: [1], select: true })
+  }
+
   return (
     <Box
       as="h1"
@@ -36,6 +45,18 @@ export const Title = ({
       }}
     >
       {children}
+      {onlyHasTitle && (
+        <Box
+          contentEditable={false}
+          gray300
+          textSM
+          fontNormal
+          mt2
+          onClick={insertList}
+        >
+          Write something...
+        </Box>
+      )}
     </Box>
   )
 }

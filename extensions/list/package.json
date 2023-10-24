@@ -27,6 +27,7 @@
     "@penx/local-db": "workspace:*",
     "@penx/paragraph": "workspace:^",
     "lucide-react": "^0.284.0",
+    "nanoid": "^4.0.2",
     "slate": "0.94.1",
     "slate-history": "0.93.0",
     "slate-lists": "workspace:*",

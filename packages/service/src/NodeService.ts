@@ -40,7 +40,7 @@ export class NodeService {
     return this.node.spaceId
   }
 
-  get editorValue() {
+  getEditorValue() {
     const childrenToList = (children: string[]) => {
       const listItems = children
         .filter((id) => this.nodeMap.get(id))
@@ -77,6 +77,8 @@ export class NodeService {
     const content = {
       type: ELEMENT_UL,
       children: this.pageNodes.map((node) => {
+        // console.log('node-----------:', node)
+
         const listChildren = [
           {
             id: node.id,
@@ -167,8 +169,6 @@ export class NodeService {
   }
 
   savePage = async (title: TitleElement, ul: UnorderedListElement) => {
-    console.log('title.children[0]:', title.children[0])
-
     const node = await db.updateNode(title.id!, {
       element: title.children[0],
     })
@@ -177,8 +177,8 @@ export class NodeService {
 
     const nodes = await db.listNormalNodes(this.spaceId)
 
+    store.setNodes(nodes)
     store.setNode(node!)
-    // store.setNodes(nodes)
   }
 
   saveNodes = async (

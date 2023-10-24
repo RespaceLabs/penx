@@ -12,7 +12,7 @@ import {
 } from './types'
 
 export function isTitle(node: any): node is TitleElement {
-  return node.type === ELEMENT_TITLE
+  return node?.type === ELEMENT_TITLE
 }
 
 export function isListElement(node: any): node is ListElement {
@@ -20,13 +20,13 @@ export function isListElement(node: any): node is ListElement {
 }
 
 export function isListItemElement(node: any): node is ListItemElement {
-  return node.type === ELEMENT_LI
+  return node?.type === ELEMENT_LI
 }
 
 export function isOrderedListElement(node: any): node is OrderedListElement {
-  return node.type === ELEMENT_OL
+  return node?.type === ELEMENT_OL
 }
 
 export function isListContentElement(node: any): node is ListContentElement {
-  return node.type === ELEMENT_LIC
+  return node?.type === ELEMENT_LIC
 }

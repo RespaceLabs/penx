@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import { Element, Node } from 'slate'
 import { ListsSchema, ListType } from 'slate-lists'
 import { getEmptyParagraph } from '@penx/paragraph'
@@ -28,18 +29,34 @@ export const listSchema: ListsSchema = {
   },
 
   createDefaultTextNode(props: Partial<Element> = {}) {
-    return { children: [{ text: '' }], ...props, type: 'p' }
+    return {
+      id: nanoid(),
+      children: [{ text: '' }],
+      ...props,
+      type: 'p',
+    }
   },
 
   createListNode(type: any = ListType.UNORDERED, props: any = {}) {
     const nodeType = type === ListType.ORDERED ? ELEMENT_OL : ELEMENT_UL
-    return { children: [{ text: '' }], ...props, type: nodeType }
+    return {
+      id: nanoid(),
+      children: [{ text: '' }],
+      ...props,
+      type: nodeType,
+    }
   },
   createListItemNode(props: Partial<Element> = {}) {
-    return { children: [{ text: '' }], ...props, type: ELEMENT_LI } as any
+    return {
+      id: nanoid(),
+      children: [{ text: '' }],
+      ...props,
+      type: ELEMENT_LI,
+    } as any
   },
   createListItemTextNode(props: Partial<Element> = {}) {
     return {
+      id: nanoid(),
       children: [getEmptyParagraph('')],
       ...props,
       type: ELEMENT_LIC,
