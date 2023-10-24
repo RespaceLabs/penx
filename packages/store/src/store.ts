@@ -102,6 +102,8 @@ export const store = Object.assign(createStore(), {
   },
 
   routeTo(name: RouteName, params: Record<string, any> = {}) {
+    const current = store.get(routerAtom)
+    if (name === current.name) return
     return store.set(routerAtom, {
       name,
       params,

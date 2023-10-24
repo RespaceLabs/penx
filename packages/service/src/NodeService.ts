@@ -106,11 +106,34 @@ export class NodeService {
     return value
   }
 
-  async selectNode() {
+  getParentNodes(): Node[] {
+    const parentNodes: Node[] = [this.node]
+    const space = store.getActiveSpace()
+
+    let node = this.node
+    const isRoot = (id: string) => space.children.includes(id)
+    let i = 0
+    while (!isRoot(node.id)) {
+      for (const item of this.allNodes) {
+        if (item.children.includes(node.id)) {
+          node = item
+          parentNodes.unshift(item)
+        }
+      }
+
+      i++
+
+      // fallback, if have some bug, break it forced
+      if (i > 1000) break
+    }
+
+    return parentNodes
+  }
+
+  async selectNode(node?: Node) {
     // TODO: improve performance
-    const nodes = await db.listNormalNodes(this.spaceId)
     store.routeTo('NODE')
-    store.reloadNode(this.node.raw)
+    store.reloadNode(node?.raw || this.node.raw)
   }
 
   async addToFavorites() {
@@ -140,11 +163,18 @@ export class NodeService {
   }
 
   savePage = async (title: TitleElement, ul: UnorderedListElement) => {
-    await db.updateNode(title.id!, {
+    console.log('title.children[0]:', title.children[0])
+
+    const node = await db.updateNode(title.id!, {
       element: title.children[0],
     })
 
     await this.saveNodes(ul.children)
+
+    const nodes = await db.listNormalNodes(this.spaceId)
+
+    store.setNode(node!)
+    // store.setNodes(nodes)
   }
 
   saveNodes = async (

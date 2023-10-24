@@ -1,5 +1,6 @@
 import { Box } from '@fower/react'
 import { useNode } from '@penx/hooks'
+import { Breadcrumb } from './Breadcrumb'
 import { FavoriteButton } from './FavoriteButton'
 import { MorePopover } from './MorePopover'
 import { NewDocButton } from './NewDocButton'
@@ -23,7 +24,7 @@ export const PCNav = () => {
       bgWhite
       zIndex-10
     >
-      <Box pl2>{node.id}</Box>
+      <Breadcrumb />
       <Box>
         <NewDocButton />
         <SharePopover />
