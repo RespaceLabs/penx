@@ -33,6 +33,7 @@
     "@fower/react": "^1.86.0",
     "@penx/autoformat": "workspace:*",
     "@penx/catalogue": "workspace:*",
+    "@penx/model": "workspace:*",
     "@penx/editor-leaf": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-shared": "workspace:*",

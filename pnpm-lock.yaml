@@ -2763,6 +2763,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
+      '@penx/model':
+        specifier: workspace:*
+        version: link:../model
       '@penx/paragraph':
         specifier: workspace:*
         version: link:../../extensions/paragraph

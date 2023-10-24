@@ -10,14 +10,20 @@ import { INode } from '@penx/types'
 export class Page {
   nodeMap = new Map<string, INode>()
 
+  pageNodes: INode[] = []
+
   constructor(
     public node: INode,
-    public pageNodes: INode[],
     public allNodes: INode[],
   ) {
     for (const node of allNodes) {
       this.nodeMap.set(node.id, node)
     }
+
+    this.pageNodes = node.children.map((id) => {
+      // TODO: improve performance
+      return allNodes.find((n) => n.id === id)!
+    })
   }
 
   get id(): string {

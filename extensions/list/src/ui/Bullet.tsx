@@ -1,4 +1,5 @@
 import { Box } from '@fower/react'
+import { useSlate } from 'slate-react'
 import { ListContentElement } from '../types'
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 }
 
 export const Bullet = ({ element }: Props) => {
+  const editor = useSlate()
   const { collapsed = false } = element
 
   return (
@@ -20,7 +22,8 @@ export const Bullet = ({ element }: Props) => {
       cursorPointer
       flexShrink-1
       onClick={() => {
-        console.log('gogo.........')
+        // TODO: handle any
+        ;(editor as any).onClickBullet(element)
       }}
     >
       <Box

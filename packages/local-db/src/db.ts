@@ -3,7 +3,6 @@ import { INITIAL_EDITOR_VALUE } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import { Space } from '@penx/model'
 import { DocStatus, IDoc, IExtension, IFile, INode, ISpace } from '@penx/types'
-import { getNewDoc } from './getNewDoc'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { tableSchema } from './table-schema'
@@ -184,6 +183,15 @@ class DB {
   listNodesBySpaceId = async (spaceId: string) => {
     return this.node.select({
       where: { spaceId },
+    })
+  }
+
+  listNormalNodes = async (spaceId: string) => {
+    return this.node.select({
+      where: {
+        spaceId,
+        status: DocStatus.NORMAL,
+      },
     })
   }
 

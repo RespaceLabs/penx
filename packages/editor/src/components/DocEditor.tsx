@@ -32,6 +32,8 @@ import { onKeyDownAutoformat } from '@penx/autoformat'
 import { SetNodeToDecorations } from '@penx/code-block'
 import { Leaf } from '@penx/editor-leaf'
 import { useExtensionStore } from '@penx/hooks'
+import { ListContentElement } from '@penx/list'
+import { Page } from '@penx/model'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 import { useDecorate } from '../hooks/useDecorate'
 import { useOnCompositionEvent } from '../hooks/useOnCompositionEvent'
@@ -51,12 +53,13 @@ const measuring: MeasuringConfiguration = {
 interface Props {
   content: any[]
   editableProps?: EditableProps
+  plugins: ((editor: Editor) => Editor)[]
   onChange?: (value: Descendant[], editor: Editor) => void
   onBlur?: (editor: Editor) => void
 }
 
-export function DocEditor({ content, onChange, onBlur }: Props) {
-  const editor = useCreateEditor()
+export function DocEditor({ content, onChange, onBlur, plugins }: Props) {
+  const editor = useCreateEditor(plugins)
   const { extensionStore } = useExtensionStore()
 
   const decorate = useDecorate(editor)
