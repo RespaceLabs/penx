@@ -2,12 +2,18 @@ import {
   ELEMENT_LI,
   ELEMENT_LIC,
   ELEMENT_OL,
+  ELEMENT_TITLE,
   ELEMENT_UL,
   ListContentElement,
   ListElement,
   ListItemElement,
   OrderedListElement,
+  TitleElement,
 } from './types'
+
+export function isTitle(node: any): node is TitleElement {
+  return node.type === ELEMENT_TITLE
+}
 
 export function isListElement(node: any): node is ListElement {
   return [ELEMENT_UL, ELEMENT_OL].includes(node?.type)

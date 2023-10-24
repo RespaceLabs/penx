@@ -7,12 +7,12 @@ import {
   isListContentElement,
   ListContentElement,
   ListItemElement,
+  TitleElement,
   UnorderedListElement,
 } from '@penx/list'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
-import { TitleElement } from '@penx/title'
 import { INode } from '@penx/types'
 
 export class NodeService {
@@ -74,34 +74,39 @@ export class NodeService {
       }
     }
 
-    const value = [
+    const content = {
+      type: ELEMENT_UL,
+      children: this.pageNodes.map((node) => {
+        const listChildren = [
+          {
+            id: node.id,
+            type: ELEMENT_LIC,
+            collapsed: node.collapsed,
+            children: [node.element],
+          },
+        ]
+
+        const ul = childrenToList(node.children) as any
+        if (ul) listChildren.push(ul)
+
+        return {
+          type: ELEMENT_LI,
+          children: listChildren,
+        }
+      }),
+    }
+
+    const value: any[] = [
       {
         id: this.node.id,
         type: ELEMENT_TITLE,
         children: [this.node.element],
       },
-      {
-        type: ELEMENT_UL,
-        children: this.pageNodes.map((node) => {
-          const listChildren = [
-            {
-              id: node.id,
-              type: ELEMENT_LIC,
-              collapsed: node.collapsed,
-              children: [node.element],
-            },
-          ]
-
-          const ul = childrenToList(node.children) as any
-          if (ul) listChildren.push(ul)
-
-          return {
-            type: ELEMENT_LI,
-            children: listChildren,
-          }
-        }),
-      },
     ]
+
+    if (this.pageNodes.length) {
+      value.push(content)
+    }
 
     return value
   }
@@ -131,7 +136,6 @@ export class NodeService {
   }
 
   async selectNode(node?: Node) {
-    // TODO: improve performance
     store.routeTo('NODE')
     store.reloadNode(node?.raw || this.node.raw)
   }

@@ -21,7 +21,6 @@
   "dependencies": {
     "@penx/autoformat": "workspace:*",
     "@penx/catalogue": "workspace:*",
-    "@penx/title": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/list": "workspace:*",
     "@penx/extension-typings": "*",

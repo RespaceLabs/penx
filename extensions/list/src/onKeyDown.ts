@@ -19,6 +19,7 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
     const node = getCurrentNode(editor)!
     const path = findNodePath(editor, node)
     if (!path) return
+
     const parentPath = Path.parent(path)
     const parentNode: any = getNodeByPath(editor, parentPath)
 
