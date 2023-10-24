@@ -15,8 +15,6 @@ export interface ISpace {
 
   isActive: boolean
 
-  activeDocId?: string
-
   activeNodeId?: string
 
   // favorites node IDs
@@ -30,17 +28,6 @@ export interface ISpace {
     version: number
     hashMap: Record<string, string>
   }
-
-  changes: Record<
-    string,
-    {
-      type: ChangeType
-
-      oldContent?: string
-
-      newContent?: string
-    }
-  >
 
   settings: {
     [SettingsType.SYNC]: {

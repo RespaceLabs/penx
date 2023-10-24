@@ -1,28 +1,29 @@
 import { Box } from '@fower/react'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from 'uikit'
-import { useDocs, useSpaces } from '@penx/hooks'
-import { DocStatus } from '@penx/types'
+import { useNodes, useSpaces } from '@penx/hooks'
+import { NodeStatus } from '@penx/types'
 import { SqlParser } from '../SqlParser'
-import { DocItem } from './DocItem'
+import { NodeItem } from './NodeItem'
 
 interface Props {
   sql: string
   title: string
 }
 
-export const DocQuery = ({ sql, title }: Props) => {
-  const { docList } = useDocs()
+export const NodeQuery = ({ sql, title }: Props) => {
+  const { nodeList } = useNodes()
   const { activeSpace } = useSpaces()
   const parsed = new SqlParser(sql)
 
-  const docs = docList.find({
-    where: {
-      spaceId: activeSpace.id,
-      status: DocStatus.NORMAL,
-    },
-    ...parsed.queryParams,
-  })
+  // const nodes = nodeList.find({
+  //   where: {
+  //     spaceId: activeSpace.id,
+  //     status: NodeStatus.NORMAL,
+  //   },
+  //   ...parsed.queryParams,
+  // })
+  const nodes = nodeList.rootNodes
 
   return (
     <Box gray600 px3 py1 rounded2XL mb3>
@@ -39,8 +40,8 @@ export const DocQuery = ({ sql, title }: Props) => {
         </Button>
       </Box>
       <Box column>
-        {docs.map((doc) => (
-          <DocItem key={doc.id} doc={doc} />
+        {nodes.map((doc) => (
+          <NodeItem key={doc.id} node={doc} />
         ))}
       </Box>
     </Box>

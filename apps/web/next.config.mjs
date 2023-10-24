@@ -20,7 +20,6 @@ const config = {
     '@penx/db',
     '@penx/hooks',
     '@penx/local-db',
-    '@penx/catalogue',
     '@penx/editor',
     '@penx/editor-queries',
     '@penx/editor-shared',

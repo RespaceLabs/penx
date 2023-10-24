@@ -9,8 +9,6 @@ import {
   PopoverTrigger,
   toast,
 } from 'uikit'
-import { CatalogueNode } from '@penx/catalogue'
-import { useCatalogue } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 
@@ -19,15 +17,6 @@ interface Props {
 }
 
 export const DocItemMenu: FC<PropsWithChildren<Props>> = ({ node: node }) => {
-  const onShare = async (node: CatalogueNode) => {
-    const doc = await db.getDoc(node.id)
-    if (doc) {
-      // appEmitter.emit('onShare', doc)
-    } else {
-      toast.error('Failed to generate sharing link')
-    }
-  }
-
   return (
     <Popover placement="right-start">
       <PopoverTrigger asChild>

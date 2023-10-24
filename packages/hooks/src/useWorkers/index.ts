@@ -43,7 +43,7 @@ export function useWorkers() {
 
         const activeSpace = spaces.find((space) => space.isActive)
 
-        const doc = await db.getDoc(activeSpace?.activeDocId!)
+        const doc = await db.getNode(activeSpace?.activeNodeId!)
 
         store.set(docAtom, null as any)
 

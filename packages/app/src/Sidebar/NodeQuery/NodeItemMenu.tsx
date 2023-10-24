@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react'
+import { FC } from 'react'
 import { Box } from '@fower/react'
 import { MoreHorizontal, Trash } from 'lucide-react'
 import {
@@ -8,13 +8,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
-import { Doc } from '@penx/model'
+import { Node } from '@penx/model'
 
 interface Props {
-  doc: Doc
+  node: Node
 }
 
-export const DocItemMenu: FC<Props> = ({ doc }) => {
+export const NodeItemMenu: FC<Props> = ({ node }) => {
   return (
     <Popover placement="right-start">
       <PopoverTrigger asChild>

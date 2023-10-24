@@ -1,10 +1,10 @@
 import ky from 'ky'
 import { Octokit } from 'octokit'
 import { db } from '@penx/local-db'
-import { Doc, SnapshotDiffResult, Space } from '@penx/model'
-import { docAtom, spacesAtom, store } from '@penx/store'
+import { SnapshotDiffResult, Space } from '@penx/model'
+import { nodeAtom, spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
-import { IDoc, ISpace } from '@penx/types'
+import { ISpace } from '@penx/types'
 
 interface SharedParams {
   owner: string
@@ -127,7 +127,7 @@ export class SyncService {
     }
 
     const changeIds = [...diff.added, ...diff.updated]
-    const docsRaw = await db.listDocByIds(changeIds)
+    const docsRaw = await db.listNodeByIds(changeIds)
     const docs = docsRaw.map((doc) => new Doc(doc))
 
     for (const doc of docs) {
@@ -143,7 +143,7 @@ export class SyncService {
   }
 
   async createTreeForNewDir() {
-    const docsRaw = await db.listDocsBySpaceId(this.space.id)
+    const docsRaw = await db.listNodesBySpaceId(this.space.id)
 
     return docsRaw
       .map((doc) => new Doc(doc))
@@ -234,12 +234,12 @@ export class SyncService {
     return spaces
   }
 
-  private updateDocAtom(doc: IDoc) {
-    store.set(docAtom, null as any)
+  private updateDocAtom(doc: any) {
+    store.set(nodeAtom, null as any)
 
     // for rerender editor
     setTimeout(() => {
-      store.set(docAtom, doc!)
+      store.set(nodeAtom, doc!)
     }, 0)
   }
 
@@ -325,8 +325,8 @@ export class SyncService {
       )
 
       const name: string = docRes.data.name
-      const doc = await db.getDoc(name.replace(/\.json$/, ''))
-      const json: IDoc = JSON.parse(decodeBase64(docRes.data.content))
+      const doc = await db.getNode(name.replace(/\.json$/, ''))
+      const json: any = JSON.parse(decodeBase64(docRes.data.content))
 
       if (doc) {
         await db.updateDoc(doc.id, {
@@ -348,7 +348,7 @@ export class SyncService {
     })
 
     await this.reloadSpaceStore()
-    const activeDoc = await db.getDoc(this.space.activeDocId!)
+    const activeDoc = await db.getNode(this.space.activeNodeId!)
     this.updateDocAtom(activeDoc!)
   }
 

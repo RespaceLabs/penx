@@ -2,12 +2,11 @@ import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
 import { CalendarDays, Cloud, Folder, Trash2 } from 'lucide-react'
 import { useAccount } from 'wagmi'
-import { useDocs } from '@penx/hooks'
+import { useNodes } from '@penx/hooks'
 import { extensionStoreAtom, store } from '@penx/store'
 import { ExtensionStore } from '@penx/types'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { RecentlyEdited } from './RecentlyEdited'
-import { RecentlyOpened } from './RecentlyOpened'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover'
 import { UserAvatarModal } from './UserAvatarModal/UserAvatarModal'
@@ -29,7 +28,7 @@ export const Sidebar = () => {
   const [extensionStore] = useAtom(extensionStoreAtom)
   const components = getStatusBarComponents(extensionStore)
 
-  const { docList } = useDocs()
+  const { nodeList } = useNodes()
 
   return (
     <Box
@@ -50,7 +49,7 @@ export const Sidebar = () => {
         <SidebarItem
           icon={<CalendarDays size={16} />}
           label="Daily note"
-          count={docList.normalDocs.length}
+          count={nodeList.normalNodes.length}
           onClick={() => {
             store.routeTo('ALL_DOCS')
           }}
@@ -59,7 +58,7 @@ export const Sidebar = () => {
         <SidebarItem
           icon={<Folder size={16} />}
           label="All Docs"
-          count={docList.normalDocs.length}
+          count={nodeList.normalNodes.length}
           onClick={() => {
             store.routeTo('ALL_DOCS')
           }}
@@ -83,7 +82,7 @@ export const Sidebar = () => {
         <SidebarItem
           icon={<Trash2 size={16} />}
           label="Trash"
-          count={docList.normalDocs.length}
+          count={nodeList.normalNodes.length}
           onClick={() => {
             store.routeTo('TRASH')
           }}

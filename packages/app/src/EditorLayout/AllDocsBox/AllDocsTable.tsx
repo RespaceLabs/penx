@@ -53,7 +53,7 @@ export const AllDocsTable = ({ nodes }: Props) => {
               isSquare
               onClick={async (e) => {
                 e.stopPropagation()
-                await store.trashDoc(item.id)
+                await store.trashNode(item.id)
               }}
             >
               <Trash2 />

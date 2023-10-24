@@ -1,18 +1,14 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { Box } from '@fower/react'
 import EmojiPicker, { Emoji, EmojiStyle } from 'emoji-picker-react'
 import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
-import { CatalogueNode } from '@penx/catalogue'
-import { useCatalogue } from '@penx/hooks'
 import { IconDocument } from '@penx/icons'
 
 interface Props {
-  node: CatalogueNode
+  node: any
 }
 
 export const CatalogueIconPopover = ({ node }: PropsWithChildren<Props>) => {
-  const catalogue = useCatalogue()
-
   if (!node) return null
 
   return (
@@ -43,7 +39,7 @@ export const CatalogueIconPopover = ({ node }: PropsWithChildren<Props>) => {
             <EmojiPicker
               // width="400"
               onEmojiClick={(v) => {
-                catalogue.updateEmoji(node.id, v.unified)
+                // TODO:
                 close()
               }}
             />

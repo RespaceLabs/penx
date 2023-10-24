@@ -2,12 +2,11 @@ import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { Box } from '@fower/react'
 import { useStore } from 'stook'
-import { CatalogueNode } from '@penx/catalogue'
 
 interface BidirectionalLinkSelectorItemProps {
   id: string
   isActive: boolean
-  node: CatalogueNode
+  node: any[] // TODO:
   onClick: () => void
 }
 

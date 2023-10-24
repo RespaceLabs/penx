@@ -32,7 +32,6 @@
     "@floating-ui/react": "^0.25.4",
     "@fower/react": "^1.86.0",
     "@penx/autoformat": "workspace:*",
-    "@penx/catalogue": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/editor-leaf": "workspace:*",
     "@penx/editor-queries": "workspace:*",

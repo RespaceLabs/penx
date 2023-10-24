@@ -12,19 +12,18 @@ import {
   Switch,
   toast,
 } from 'uikit'
-import { useDoc } from '@penx/hooks'
+import { useNode } from '@penx/hooks'
 import { IconCopy } from '@penx/icons'
-import { docToMarkdown, useCopyToClipboard } from '@penx/shared'
+import { useCopyToClipboard } from '@penx/shared'
 import { ExportToMarkdown } from './ExportToMarkdown'
 
 interface Props {}
 
-export const DocSettingsPopover: FC<PropsWithChildren<Props>> = () => {
-  const { doc: doc } = useDoc()
+export const PageSettingsPopover: FC<PropsWithChildren<Props>> = () => {
+  const { node } = useNode()
   const { copy } = useCopyToClipboard()
   function copyMarkdown() {
-    copy(docToMarkdown(doc))
-    toast.success('Markdown copied to clipboard')
+    //
   }
   return (
     <Popover placement="bottom-end">
@@ -59,7 +58,7 @@ export const DocSettingsPopover: FC<PropsWithChildren<Props>> = () => {
           </MenuItem>
         </PopoverClose>
 
-        <ExportToMarkdown doc={doc.raw} />
+        <ExportToMarkdown node={node} />
 
         <PopoverClose asChild>
           <MenuItem gap2>

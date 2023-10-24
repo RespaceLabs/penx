@@ -1,7 +1,7 @@
-import { DocQuery } from './DocQuery/DocQuery'
+import { NodeQuery } from './NodeQuery/NodeQuery'
 
-const sql = 'SELECT * FROM doc ORDER BY updatedAt DESC limit 20'
+const sql = 'SELECT * FROM node ORDER BY updatedAt DESC limit 20'
 
 export const RecentlyEdited = () => {
-  return <DocQuery sql={sql} title="Recently Edited" />
+  return <NodeQuery sql={sql} title="Recently Edited" />
 }

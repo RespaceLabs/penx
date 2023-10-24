@@ -6,20 +6,16 @@ import { db } from '@penx/local-db'
 import { User } from '@penx/model'
 import {
   Command,
-  DocStatus,
   ExtensionStore,
-  IDoc,
   INode,
   ISpace,
+  NodeStatus,
   RouteName,
   RouterStore,
 } from '@penx/types'
 
 export const nodeAtom = atomWithStorage('node', null as any as INode)
 export const nodesAtom = atom<INode[]>([])
-
-export const docAtom = atom(null as any as IDoc)
-export const docsAtom = atom<IDoc[]>([])
 
 export const spacesAtom = atom<ISpace[]>([])
 
@@ -65,18 +61,6 @@ export const store = Object.assign(createStore(), {
     return store.set(spacesAtom, spaces)
   },
 
-  getDoc() {
-    return store.get(docAtom)
-  },
-
-  setDoc(doc: IDoc) {
-    return store.set(docAtom, doc)
-  },
-
-  setDocs(docs: IDoc[]) {
-    return store.set(docsAtom, docs)
-  },
-
   getNodes() {
     return store.get(nodesAtom)
   },
@@ -110,59 +94,43 @@ export const store = Object.assign(createStore(), {
     })
   },
 
-  // TODO: need improvement
-  reloadDoc(doc: IDoc) {
-    this.setDoc(null as any)
-
-    // for rerender editor
-    setTimeout(() => {
-      this.setDoc(doc)
-    }, 0)
-  },
-
-  async trashDoc(id: string) {
+  async trashNode(id: string) {
     const space = this.getActiveSpace()
-    await db.trashDoc(id)
+    await db.trashNode(id)
 
-    const docs = await db.listDocsBySpaceId(space.id)
-    const normalDocs = docs.filter((doc) => doc.status === DocStatus.NORMAL)
+    const nodes = await db.listNodesBySpaceId(space.id)
+    const normalNodes = nodes.filter(
+      (node) => node.status === NodeStatus.NORMAL,
+    )
 
-    if (normalDocs.length) {
-      this.reloadDoc(normalDocs[0])
+    if (normalNodes.length) {
+      this.reloadNode(normalNodes[0])
     } else {
       this.routeTo('ALL_DOCS')
     }
-    this.setDocs(docs)
+    this.setNodes(nodes)
   },
 
-  async restoreDoc(id: string) {
+  async restoreNode(id: string) {
     const space = this.getActiveSpace()
-    await db.restoreDoc(id)
-    const docs = await db.listDocsBySpaceId(space.id)
-    const normalDocs = docs.filter((doc) => doc.status === DocStatus.NORMAL)
-    this.setDoc(normalDocs[0])
-    this.setDocs(docs)
+    await db.restoreNode(id)
+    const nodes = await db.listNodesBySpaceId(space.id)
+    const normalNodes = nodes.filter(
+      (node) => node.status === NodeStatus.NORMAL,
+    )
+    this.setNode(normalNodes[0])
+    this.setNodes(nodes)
   },
 
-  async deleteDoc(id: string) {
+  async deleteNode(id: string) {
     const space = this.getActiveSpace()
-    await db.deleteDoc(id)
-    const docs = await db.listDocsBySpaceId(space.id)
-    const normalDocs = docs.filter((doc) => doc.status === DocStatus.NORMAL)
-    this.setDoc(normalDocs[0])
-    this.setDocs(docs)
-  },
-
-  async createDoc() {
-    const space = this.getActiveSpace()
-    const doc = await db.createDoc({ spaceId: space.id })
-    await db.updateSpace(space.id, { activeDocId: doc.id })
-
-    const docs = await db.listDocsBySpaceId(space.id)
-
-    this.routeTo('DOC')
-    this.reloadDoc(doc)
-    this.setDocs(docs)
+    await db.deleteNode(id)
+    const nodes = await db.listNodesBySpaceId(space.id)
+    const normalNodes = nodes.filter(
+      (node) => node.status === NodeStatus.NORMAL,
+    )
+    this.setNode(normalNodes[0])
+    this.setNodes(nodes)
   },
 
   reloadNode(node: INode) {
@@ -185,9 +153,3 @@ export const store = Object.assign(createStore(), {
     this.reloadNode(node)
   },
 })
-
-////
-// store.sub(spacesAtom, () => {
-//   console.log('spacesAtom:', spacesAtom.toString())
-//   console.log('change.... space:', store.get(spacesAtom))
-// })

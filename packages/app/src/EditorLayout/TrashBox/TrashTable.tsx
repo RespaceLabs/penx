@@ -11,16 +11,16 @@ import {
   TooltipTrigger,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { Doc } from '@penx/model'
+import { Node } from '@penx/model'
 import { store } from '@penx/store'
 import { DeleteDocModal } from './DeleteDocModal'
 
 interface Props {
-  docs: Doc[]
+  nodes: Node[]
 }
 
-export const TrashTable = ({ docs }: Props) => {
-  const columns: ColumnsType<Doc> = [
+export const TrashTable = ({ nodes }: Props) => {
+  const columns: ColumnsType<Node> = [
     {
       title: 'Name',
       dataIndex: 'title',
@@ -57,7 +57,7 @@ export const TrashTable = ({ docs }: Props) => {
                   colorScheme="gray500"
                   isSquare
                   onClick={async (e) => {
-                    await store.restoreDoc(item.id)
+                    await store.restoreNode(item.id)
                     toast.info(`${item.title} restored`)
                   }}
                 >
@@ -87,7 +87,7 @@ export const TrashTable = ({ docs }: Props) => {
   return (
     <Box>
       <DeleteDocModal />
-      <Table columns={columns} data={docs} rowKey="id" bordered={false} />
+      <Table columns={columns} data={nodes} rowKey="id" bordered={false} />
     </Box>
   )
 }

@@ -1,8 +1,7 @@
 import { nanoid } from 'nanoid'
-import { INITIAL_EDITOR_VALUE } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import { Space } from '@penx/model'
-import { DocStatus, IDoc, IExtension, IFile, INode, ISpace } from '@penx/types'
+import { IExtension, IFile, INode, ISpace, NodeStatus } from '@penx/types'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { tableSchema } from './table-schema'
@@ -19,10 +18,6 @@ class DB {
 
   get space() {
     return database.useModel<ISpace>('space')
-  }
-
-  get doc() {
-    return database.useModel<IDoc>('doc')
   }
 
   get node() {
@@ -113,32 +108,6 @@ class DB {
     return this.space.updateByPk(spaceId, space)
   }
 
-  selectDoc = async (spaceId: string, docId: string) => {
-    await this.space.updateByPk(spaceId, {
-      activeDocId: docId,
-    })
-
-    // update openedAt
-    await this.updateDoc(docId, { openedAt: Date.now() })
-
-    const doc = await this.doc.selectByPk(docId)
-    return doc
-  }
-
-  createDoc = async (doc: Partial<IDoc>) => {
-    const newDoc = await this.doc.insert({
-      id: nanoid(),
-      status: DocStatus.NORMAL,
-      openedAt: Date.now(),
-      content: JSON.stringify(INITIAL_EDITOR_VALUE),
-      ...doc,
-    })
-
-    await this.updateSnapshot(newDoc.id, 'add', newDoc)
-
-    return newDoc
-  }
-
   getNode = (nodeId: string) => {
     return this.node.selectByPk(nodeId)
   }
@@ -150,6 +119,22 @@ class DB {
     })
 
     return newNode
+  }
+
+  trashNode = async (nodeId: string) => {
+    return await this.updateNode(nodeId, {
+      status: NodeStatus.TRASHED,
+    })
+  }
+
+  restoreNode = async (nodeId: string) => {
+    return await this.updateNode(nodeId, {
+      status: NodeStatus.NORMAL,
+    })
+  }
+  deleteNode = async (nodeId: string) => {
+    await this.updateSnapshot(nodeId, 'delete')
+    return this.node.deleteByPk(nodeId)
   }
 
   createPageNode = async (node: Partial<INode>) => {
@@ -190,95 +175,46 @@ class DB {
     return this.node.select({
       where: {
         spaceId,
-        status: DocStatus.NORMAL,
+        status: NodeStatus.NORMAL,
       },
     })
   }
 
-  getDoc = (docId: string) => {
-    return this.doc.selectByPk(docId)
-  }
-
   private updateSnapshot = async (
-    docId: string,
+    nodeId: string,
     action: 'add' | 'delete' | 'update',
-    doc?: IDoc,
+    node?: INode,
   ) => {
-    if (!doc) {
-      doc = await this.getDoc(docId)
+    if (!node) {
+      node = await this.getNode(nodeId)
     }
 
-    const space = await this.getSpace(doc.spaceId)
+    const space = await this.getSpace(node.spaceId)
 
     const spaceModel = new Space(space)
-    spaceModel.snapshot[action](docId, doc)
+    spaceModel.snapshot[action](nodeId, node)
 
     await this.updateSpace(space.id, {
       snapshot: spaceModel.snapshot.toJSON(),
     })
   }
 
-  updateDoc = async (docId: string, data: Partial<IDoc>) => {
-    const newDoc = await this.doc.updateByPk(docId, {
-      ...data,
-      updatedAt: Date.now(),
-    })
-
-    await this.updateSnapshot(docId, 'update', newDoc)
-
-    return newDoc
-  }
-
-  trashDoc = async (docId: string) => {
-    return await this.updateDoc(docId, {
-      status: DocStatus.TRASHED,
-    })
-  }
-
-  restoreDoc = (docId: string) => {
-    return this.updateDoc(docId, {
-      status: DocStatus.NORMAL,
-    })
-  }
-
-  deleteDoc = async (docId: string) => {
-    await this.updateSnapshot(docId, 'delete')
-    return this.doc.deleteByPk(docId)
-  }
-
-  listDocsBySpaceId = async (spaceId: string) => {
-    return this.doc.select({
+  listTrashedNodes = async (spaceId: string) => {
+    return this.node.select({
       where: {
         spaceId,
+        status: NodeStatus.TRASHED,
       },
     })
   }
 
-  listNormalDocs = async (spaceId: string) => {
-    return this.doc.select({
-      where: {
-        spaceId,
-        status: DocStatus.NORMAL,
-      },
-    })
+  listNodeByIds = (nodeIds: string[]) => {
+    const promises = nodeIds.map((id) => this.node.selectByPk(id))
+    return Promise.all(promises) as any as Promise<INode[]>
   }
 
-  listTrashedDocs = async (spaceId: string) => {
-    return this.doc.select({
-      where: {
-        spaceId,
-        status: DocStatus.TRASHED,
-      },
-    })
-  }
-
-  listDocByIds = (docIds: string[]) => {
-    const promises = docIds.map((id) => this.doc.selectByPk(id))
-    return Promise.all(promises) as any as Promise<IDoc[]>
-  }
-
-  deleteDocByIds = (docIds: string[]) => {
-    const promises = docIds.map((id) => this.space.deleteByPk(id))
+  deleteNodeByIds = (nodeIds: string[]) => {
+    const promises = nodeIds.map((id) => this.node.deleteByPk(id))
     return Promise.all(promises)
   }
 

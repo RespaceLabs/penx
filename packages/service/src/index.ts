@@ -1,7 +1,4 @@
-export * from './DocService'
-export * from './DocListService'
 export * from './SpaceService'
-export * from './Catalogue'
 export * from './ChangeService'
 export * from './SyncService'
 export * from './NodeService'

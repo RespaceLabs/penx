@@ -40,6 +40,11 @@ export class NodeService {
     return this.node.spaceId
   }
 
+  get markdownContent() {
+    // return slateToMarkdown(this.doc.content)
+    return ''
+  }
+
   getEditorValue() {
     const childrenToList = (children: string[]) => {
       const listItems = children

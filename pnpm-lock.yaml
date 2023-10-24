@@ -288,9 +288,6 @@ importers:
       '@penx/app':
         specifier: workspace:*
         version: link:../../packages/app
-      '@penx/catalogue':
-        specifier: workspace:*
-        version: link:../../packages/catalogue
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -838,9 +835,6 @@ importers:
       '@fower/react':
         specifier: ^1.86.0
         version: 1.86.0
-      '@penx/catalogue':
-        specifier: workspace:*
-        version: link:../../packages/catalogue
       '@penx/code-block':
         specifier: '*'
         version: link:../code-block
@@ -1315,9 +1309,6 @@ importers:
       '@fower/react':
         specifier: ^1.86.0
         version: 1.86.0
-      '@penx/catalogue':
-        specifier: workspace:*
-        version: link:../../packages/catalogue
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1857,88 +1848,6 @@ importers:
         specifier: ^5.1.3
         version: 5.2.2
 
-  extensions/tree-view:
-    dependencies:
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@dnd-kit/core':
-        specifier: ^6.0.8
-        version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
-      '@dnd-kit/sortable':
-        specifier: ^7.0.2
-        version: 7.0.2(@dnd-kit/core@6.0.8)(react@18.2.0)
-      '@dnd-kit/utilities':
-        specifier: ^3.1.0
-        version: 3.1.0(react@18.2.0)
-      '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
-      '@penx/catalogue':
-        specifier: workspace:*
-        version: link:../../packages/catalogue
-      '@penx/constants':
-        specifier: workspace:*
-        version: link:../../packages/constants
-      '@penx/extension-typings':
-        specifier: '*'
-        version: link:../../packages/extension-typings
-      '@penx/hooks':
-        specifier: workspace:*
-        version: link:../../packages/hooks
-      '@penx/icons':
-        specifier: workspace:*
-        version: link:../../packages/icons
-      '@penx/local-db':
-        specifier: workspace:*
-        version: link:../../packages/local-db
-      '@penx/model':
-        specifier: workspace:*
-        version: link:../../packages/model
-      '@penx/service':
-        specifier: workspace:*
-        version: link:../../packages/service
-      emoji-mart:
-        specifier: ^5.5.2
-        version: 5.5.2
-      emoji-picker-react:
-        specifier: ^4.4.10
-        version: 4.5.2(react@18.2.0)
-      framer-motion:
-        specifier: ^10.12.16
-        version: 10.12.16(react-dom@18.2.0)(react@18.2.0)
-      immer:
-        specifier: ^10.0.2
-        version: 10.0.2
-      lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
-      uikit:
-        specifier: workspace:*
-        version: link:../../packages/uikit
-    devDependencies:
-      '@types/react':
-        specifier: ^18.2.22
-        version: 18.2.22
-      '@types/react-dom':
-        specifier: ^18.2.7
-        version: 18.2.7
-      eslint:
-        specifier: ^8.42.0
-        version: 8.49.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      typescript:
-        specifier: ^5.1.3
-        version: 5.2.2
-
   extensions/word-count:
     dependencies:
       '@fower/react':
@@ -1987,9 +1896,6 @@ importers:
       '@octokit/oauth-app':
         specifier: ^6.0.0
         version: 6.0.0
-      '@penx/catalogue':
-        specifier: workspace:*
-        version: link:../catalogue
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
@@ -2126,9 +2032,6 @@ importers:
       '@penx/api':
         specifier: workspace:*
         version: link:../api
-      '@penx/catalogue':
-        specifier: workspace:*
-        version: link:../catalogue
       '@penx/cmdk':
         specifier: workspace:*
         version: link:../cmdk
@@ -2498,46 +2401,6 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
 
-  packages/catalogue:
-    dependencies:
-      '@penx/local-db':
-        specifier: workspace:*
-        version: link:../local-db
-      '@penx/store':
-        specifier: workspace:*
-        version: link:../store
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../types
-      mitt:
-        specifier: ^3.0.0
-        version: 3.0.0
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
-    devDependencies:
-      '@types/react':
-        specifier: ^18.2.22
-        version: 18.2.22
-      '@types/react-dom':
-        specifier: ^18.2.7
-        version: 18.2.7
-      eslint:
-        specifier: ^8.42.0
-        version: 8.49.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
-      typescript:
-        specifier: ^5.1.3
-        version: 5.2.2
-
   packages/cmdk:
     dependencies:
       '@radix-ui/react-dialog':
@@ -2660,9 +2523,6 @@ importers:
       '@penx/blockquote':
         specifier: workspace:*
         version: link:../../extensions/blockquote
-      '@penx/catalogue':
-        specifier: workspace:*
-        version: link:../catalogue
       '@penx/code-block':
         specifier: workspace:*
         version: link:../../extensions/code-block
@@ -3231,9 +3091,6 @@ importers:
       '@penx/table':
         specifier: workspace:*
         version: link:../../extensions/table
-      '@penx/tree-view':
-        specifier: workspace:*
-        version: link:../../extensions/tree-view
       '@penx/word-count':
         specifier: workspace:*
         version: link:../../extensions/word-count
@@ -3302,9 +3159,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.2.0
         version: 3.2.0(react-hook-form@7.44.3)
-      '@penx/catalogue':
-        specifier: workspace:*
-        version: link:../catalogue
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
@@ -3687,9 +3541,6 @@ importers:
       '@penx/autoformat':
         specifier: workspace:*
         version: link:../autoformat
-      '@penx/catalogue':
-        specifier: workspace:*
-        version: link:../catalogue
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants

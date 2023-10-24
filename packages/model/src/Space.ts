@@ -1,4 +1,4 @@
-import { ChangeType, ISpace } from '@penx/types'
+import { ISpace } from '@penx/types'
 import { Settings } from './Settings'
 import { Snapshot } from './Snapshot'
 
@@ -24,8 +24,8 @@ export class Space {
     return this.raw.isActive
   }
 
-  get activeDocId() {
-    return this.raw.activeDocId
+  get activeNodeId() {
+    return this.raw.activeNodeId
   }
 
   get filename() {
@@ -36,20 +36,8 @@ export class Space {
     return 'space.json'
   }
 
-  get changes() {
-    return this.raw.changes
-  }
-
   get updatedAtTimestamp() {
     return new Date(this.raw.updatedAt).valueOf()
-  }
-
-  getChangedDocIds(
-    changeType: ChangeType[] = [ChangeType.ADD, ChangeType.UPDATE],
-  ) {
-    return Object.keys(this.changes).filter((id) =>
-      changeType.includes(this.changes[id].type),
-    )
   }
 
   getFullPath(baseDir = 'spaces'): string {

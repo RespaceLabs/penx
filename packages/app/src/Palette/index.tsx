@@ -2,7 +2,7 @@ import { PropsWithChildren, useEffect, useState } from 'react'
 import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
 import { CommandList } from './CommandList'
-import { DocList } from './DocList'
+import { NodeList } from './NodeList'
 
 const CommandDialog = styled(Command.Dialog)
 const CommandInput = styled(Command.Input)
@@ -150,7 +150,7 @@ export function CommandPanel({ isMobile = false }: CommandPanelProps) {
           overscrollBehavior: 'contain',
         }}
       >
-        {!isCommand && <DocList q={search} close={close} />}
+        {!isCommand && <NodeList q={search} close={close} />}
 
         {isCommand && (
           <CommandList q={search} close={close} setSearch={setSearch} />

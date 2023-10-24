@@ -1,8 +1,8 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
-import { IDoc, ISpace } from '@penx/types'
+import { ISpace } from '@penx/types'
 
 type Context = {
-  doc?: IDoc
+  doc?: any
   space?: ISpace
 }
 

@@ -1,12 +1,6 @@
-import { useEffect } from 'react'
-import { useInView } from 'react-intersection-observer'
-import { mergeRefs } from '@bone-ui/utils'
 import { Box } from '@fower/react'
-import { Node } from 'slate'
-import { convertToValidHtmlId } from '@penx/catalogue'
 import { ElementProps } from '@penx/extension-typings'
 import { HeadingElement } from './types'
-import { getToc, mutateToc } from './useToc'
 
 export const Heading = ({
   attributes,
@@ -16,27 +10,9 @@ export const Heading = ({
 }: ElementProps<HeadingElement>) => {
   const { type } = element
 
-  const title = Node.string(element)
-  const id = convertToValidHtmlId(title)
-
-  const { ref, inView, entry } = useInView({
-    /* Optional options */
-    threshold: 0,
-  })
-
-  useEffect(() => {
-    const toc = getToc()
-    if (!toc) return
-    const find = toc.find((i) => i.id === id)
-    if (find && find.inView !== inView) {
-      mutateToc(id, inView)
-    }
-  }, [inView, id])
-
   return (
     <Box
       as={type.toLocaleLowerCase() as any}
-      id={id}
       leadingLoose
       text3XL={type === 'h1'}
       text2XL={type === 'h2'}
@@ -49,7 +25,6 @@ export const Heading = ({
       mb0
       {...attributes}
       {...nodeProps}
-      ref={mergeRefs([ref, attributes.ref])}
     >
       {children}
     </Box>

@@ -18,7 +18,7 @@ const Footer = () => {
   const { data, close } = useModalContext<Doc>()
 
   async function deleteDoc() {
-    await store.deleteDoc(data.id)
+    await store.deleteNode(data.id)
     close()
   }
   return (

@@ -1,21 +1,20 @@
-import React from 'react'
 import { Box } from '@fower/react'
 import { Avatar, AvatarFallback, MenuItem } from 'uikit'
+import { Node } from '@penx/model'
 import { docToMarkdown } from '@penx/shared'
-import { IDoc } from '@penx/types'
 
 interface Props {
-  doc: IDoc
+  node: Node
 }
 
-export const ExportToMarkdown = ({ doc }: Props) => {
+export const ExportToMarkdown = ({ node }: Props) => {
   function exportMarkdown() {
-    const downloadLink = document.createElement('a')
-    const md = docToMarkdown(doc)
-    const file = new Blob([md], { type: 'text/plain' })
-    downloadLink.href = URL.createObjectURL(file)
-    downloadLink.download = `${doc.title}.md`
-    downloadLink.click()
+    // const downloadLink = document.createElement('a')
+    // const md = docToMarkdown(doc)
+    // const file = new Blob([md], { type: 'text/plain' })
+    // downloadLink.href = URL.createObjectURL(file)
+    // downloadLink.download = `${doc.title}.md`
+    // downloadLink.click()
   }
   return (
     <MenuItem gap2 onClick={exportMarkdown}>

@@ -5,7 +5,6 @@ import { useAtomValue } from 'jotai'
 import { EditorProvider } from '@penx/editor'
 import { useQuerySpaces, useSpaces } from '@penx/hooks'
 import { routerAtom } from '@penx/store'
-import { DocContent } from '../doc/DocContent'
 import { NodeContent } from '../NodeContent'
 import { CommandPanel } from '../Palette'
 import { Sidebar } from '../Sidebar/Sidebar'
@@ -13,7 +12,6 @@ import { StatusBar } from '../StatusBar/StatusBar'
 import { AllDocsBox } from './AllDocsBox/AllDocsBox'
 import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
-import { QueryDocs } from './QueryDocs'
 import { QueryNodes } from './QueryNodes'
 import { SyncBox } from './SyncBox/SyncBox'
 import { TrashBox } from './TrashBox/TrashBox'
@@ -29,7 +27,6 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <EditorProvider space={activeSpace}>
-      <QueryDocs spaceId={activeSpace.id} />
       <QueryNodes spaceId={activeSpace.id} />
       {!isMobile && <CommandPanel />}
 
@@ -50,7 +47,6 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
           >
             {name === 'TRASH' && <TrashBox />}
             {name === 'ALL_DOCS' && <AllDocsBox />}
-            {name === 'DOC' && <DocContent />}
             {name === 'SYNC' && <SyncBox />}
             {name === 'NODE' && <NodeContent />}
           </Box>

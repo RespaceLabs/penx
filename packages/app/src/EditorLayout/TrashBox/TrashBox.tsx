@@ -1,9 +1,9 @@
 import { Box } from '@fower/react'
-import { useDocs } from '@penx/hooks'
+import { useNodes } from '@penx/hooks'
 import { TrashTable } from './TrashTable'
 
 export const TrashBox = () => {
-  const { docList } = useDocs()
+  const { nodeList } = useNodes()
 
   return (
     <Box px10 py10 bgWhite rounded2XL>
@@ -13,7 +13,7 @@ export const TrashBox = () => {
         </Box>
       </Box>
       <Box column gray700>
-        <TrashTable docs={docList.trashedDocs} />
+        <TrashTable nodes={nodeList.trashedNodes} />
       </Box>
     </Box>
   )

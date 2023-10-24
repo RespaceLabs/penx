@@ -1,8 +1,10 @@
 import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
-import { useDocs, usePaletteDrawer } from '@penx/hooks'
-import { DocService } from '@penx/service'
-import { DocStatus } from '@penx/types'
+import { useNodes, usePaletteDrawer } from '@penx/hooks'
+import { Node } from '@penx/model'
+import { NodeService } from '@penx/service'
+import { store } from '@penx/store'
+import { NodeStatus } from '@penx/types'
 
 const CommandItem = styled(Command.Item)
 
@@ -11,14 +13,14 @@ interface Props {
   close: () => void
 }
 
-export function DocList({ q, close }: Props) {
-  const { docList } = useDocs()
+export function NodeList({ q, close }: Props) {
+  const { nodeList } = useNodes()
   const paletteDrawer = usePaletteDrawer()
 
-  const filteredItems = docList
+  const filteredItems = nodeList
     .find({
       where: {
-        status: DocStatus.NORMAL,
+        status: NodeStatus.NORMAL,
       },
       sortBy: 'openedAt',
       orderByDESC: true,
@@ -36,30 +38,33 @@ export function DocList({ q, close }: Props) {
 
   return (
     <>
-      {filteredItems.map((doc) => {
-        const docService = new DocService(doc)
+      {filteredItems.map((node) => {
+        const nodeService = new NodeService(
+          node,
+          store.getNodes().map((n) => new Node(n)),
+        )
         return (
           <CommandItem
-            key={doc.id}
+            key={node.id}
             h10
             cursorPointer
             toCenterY
             px2
             transitionCommon
             roundedLG
-            value={doc.id}
+            value={node.id}
             onSelect={() => {
               close()
               paletteDrawer?.close()
-              docService.selectDoc()
+              nodeService.selectNode()
             }}
             onClick={() => {
-              docService.selectDoc()
+              nodeService.selectNode()
               paletteDrawer?.close()
               close()
             }}
           >
-            {doc.title || 'Untitled'}
+            {node.title || 'Untitled'}
           </CommandItem>
         )
       })}

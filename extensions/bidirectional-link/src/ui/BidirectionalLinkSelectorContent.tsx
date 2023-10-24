@@ -1,11 +1,6 @@
 import { Box } from '@fower/react'
 import { Editor, Element, Node, Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
-import {
-  CatalogueNodeJSON,
-  CatalogueNodeType,
-  CatalogueTree,
-} from '@penx/catalogue'
 import { getCurrentPath } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
 import {
@@ -22,11 +17,9 @@ interface Props {
 }
 
 export const BidirectionalLinkSelectorContent = ({ close, element }: Props) => {
-  const space = {} as any
   const editor = useSlateStatic()
-  const catalogue = CatalogueTree.fromJSON(space?.catalogue)
   const path = getCurrentPath(editor)!
-  const nodes = catalogue.flatten(CatalogueNodeType.DOC)
+  const nodes: any[] = [] // TODO:
 
   const filteredNodes = nodes.filter((node) => {
     const q = Node.string(element).replace(/^\[\[/, '').toLowerCase()
@@ -43,7 +36,7 @@ export const BidirectionalLinkSelectorContent = ({ close, element }: Props) => {
     selectEditor(editor, { focus: true, at: Editor.end(editor, at) })
   }
 
-  const selectType = (node: CatalogueNodeJSON) => {
+  const selectType = (node: any) => {
     Transforms.removeNodes(editor, { at: path.slice(0, -1) })
     Transforms.insertNodes<BidirectionalLinkContentElement>(editor, {
       type: ELEMENT_BIDIRECTIONAL_LINK_CONTENT,

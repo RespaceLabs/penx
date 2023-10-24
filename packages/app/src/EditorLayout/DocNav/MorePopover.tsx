@@ -8,13 +8,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
-import { useDoc } from '@penx/hooks'
+import { useNode } from '@penx/hooks'
 import { store } from '@penx/store'
 
 export const MorePopover = () => {
-  const { doc } = useDoc()
+  const { node } = useNode()
 
-  if (!doc) return null
+  if (!node?.id) return null
 
   return (
     <Popover placement="bottom-end">
@@ -28,7 +28,7 @@ export const MorePopover = () => {
           <MenuItem
             gap2
             onClick={async () => {
-              await store.trashDoc(store.getDoc().id)
+              await store.trashNode(store.getDoc().id)
             }}
           >
             <Trash2 size={18} />
