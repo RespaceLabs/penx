@@ -1,7 +1,7 @@
 import { Editor, Location, Point } from 'slate'
 
 /**
- * 当前光标是否在给定 Location 的开始位置
+ * check if the cursor is at the start of the given location
  * {@link Editor.isStart}. If point is null, return false.
  */
 export const isStart = (

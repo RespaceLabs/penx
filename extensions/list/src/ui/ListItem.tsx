@@ -1,9 +1,7 @@
 import { Box } from '@fower/react'
-import { Element, Node, Path } from 'slate'
 import { useSlateStatic } from 'slate-react'
 import { findNodePath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
-import { isListElement, isOrderedListElement } from '../guard'
 import { ListItemElement } from '../types'
 
 export const ListItem = ({
