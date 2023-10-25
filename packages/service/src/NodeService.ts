@@ -20,7 +20,7 @@ import { INode } from '@penx/types'
 export class NodeService {
   nodeMap = new Map<string, INode>()
 
-  pageNodes: Node[] = []
+  childrenNodes: Node[] = []
 
   constructor(
     private node: Node,
@@ -31,9 +31,8 @@ export class NodeService {
         this.nodeMap.set(node.id, node.raw)
       }
 
-      this.pageNodes = node.raw.children.map((id) => {
-        // TODO: improve performance
-        return allNodes.find((n) => n.id === id)!
+      this.childrenNodes = node.raw.children.map((id) => {
+        return new Node(this.nodeMap.get(id)!)
       })
     }
   }
@@ -47,7 +46,7 @@ export class NodeService {
     return ''
   }
 
-  getEditorValue() {
+  getEditorValue(childrenNodes: Node[] = this.childrenNodes) {
     const childrenToList = (children: string[]) => {
       const listItems = children
         .filter((id) => this.nodeMap.get(id))
@@ -83,9 +82,7 @@ export class NodeService {
 
     const content = {
       type: ELEMENT_UL,
-      children: this.pageNodes.map((node) => {
-        // console.log('node-----------:', node)
-
+      children: childrenNodes.map((node) => {
         const listChildren = [
           {
             id: node.id,
@@ -113,13 +110,14 @@ export class NodeService {
       },
     ]
 
-    if (this.pageNodes.length) {
+    if (this.childrenNodes.length) {
       value.push(content)
     }
 
     return value
   }
 
+  // TODO: improve performance
   getParentNodes(): Node[] {
     const parentNodes: Node[] = [this.node]
 
@@ -184,6 +182,20 @@ export class NodeService {
 
     store.setNodes(nodes)
     store.setNode(node!)
+
+    // update snapshot
+    const nodeService = new NodeService(
+      new Node(node!),
+      nodes.map((n) => new Node(n)),
+    )
+
+    const [rootNode] = nodeService.getParentNodes()
+    const childrenNodes = rootNode.children.map(
+      (id) => new Node(nodeService.nodeMap.get(id)!),
+    )
+
+    const value = nodeService.getEditorValue(childrenNodes)
+    await db.updateSnapshot(rootNode.raw, 'update', value)
   }
 
   saveNodes = async (title: TitleElement, ul: UnorderedListElement) => {

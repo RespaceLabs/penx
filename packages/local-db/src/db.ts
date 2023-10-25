@@ -180,20 +180,14 @@ class DB {
     })
   }
 
-  private updateSnapshot = async (
-    nodeId: string,
+  updateSnapshot = async (
+    node: INode,
     action: 'add' | 'delete' | 'update',
-    node?: INode,
+    editorValue: any,
   ) => {
-    if (!node) {
-      node = await this.getNode(nodeId)
-    }
-
     const spaceRaw = await this.getSpace(node.spaceId)
-
     const space = new Space(spaceRaw)
-
-    space.snapshot[action](nodeId, node)
+    space.snapshot[action](node.id, editorValue)
 
     await this.updateSpace(space.id, {
       snapshot: space.snapshot.toJSON(),
