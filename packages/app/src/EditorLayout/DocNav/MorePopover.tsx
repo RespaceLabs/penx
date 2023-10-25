@@ -28,7 +28,7 @@ export const MorePopover = () => {
           <MenuItem
             gap2
             onClick={async () => {
-              await store.trashNode(store.getDoc().id)
+              await store.trashNode(store.getNode().id)
             }}
           >
             <Trash2 size={18} />

@@ -99,6 +99,7 @@ export const store = Object.assign(createStore(), {
     await db.trashNode(id)
 
     const nodes = await db.listNodesBySpaceId(space.id)
+
     const normalNodes = nodes.filter(
       (node) => node.status === NodeStatus.NORMAL,
     )

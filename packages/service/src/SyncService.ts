@@ -331,24 +331,20 @@ export class SyncService {
       const doc = await db.getNode(name.replace(/\.json$/, ''))
       const json: any = JSON.parse(decodeBase64(docRes.data.content))
 
-      if (doc) {
-        await db.updateDoc(doc.id, {
-          ...json,
-          content: JSON.stringify(json.content),
-        })
-      } else {
-        await db.createDoc({
-          ...json,
-          content: JSON.stringify(json.content),
-        })
-      }
+      // if (doc) {
+      //   await db.updateDoc(doc.id, {
+      //     ...json,
+      //     content: JSON.stringify(json.content),
+      //   })
+      // } else {
+      //   await db.createDoc({
+      //     ...json,
+      //     content: JSON.stringify(json.content),
+      //   })
+      // }
     }
 
     await this.pullSpaceInfo()
-
-    await db.updateSpace(this.space.id, {
-      changes: {},
-    })
 
     await this.reloadSpaceStore()
     const activeDoc = await db.getNode(this.space.activeNodeId!)
@@ -408,7 +404,6 @@ export class SyncService {
     await ky
       .post(url, {
         json: {
-          repo: this.space.settings.repo,
           spaceId: this.space.id,
           version: this.space.snapshot.version,
           nodeMap: JSON.stringify(space.snapshot.nodeMap),

@@ -42,7 +42,7 @@ export function BidirectionalLinkSelectorItem({
       toCenterY
       leadingNone
     >
-      <Box textBase>{node.name}</Box>
+      {/* <Box textBase>{node}</Box> */}
     </Box>
   )
 }

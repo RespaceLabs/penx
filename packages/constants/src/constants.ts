@@ -49,7 +49,7 @@ export enum SettingsType {
 export const ROOT_DOMAIN = process.env.NEXT_PUBLIC_ROOT_DOMAIN as string
 
 export enum ModalNames {
-  DELETE_DOC,
+  DELETE_NODE,
   CREATE_SPACE,
   IMPORT_SPACE,
   DELETE_SPACE,

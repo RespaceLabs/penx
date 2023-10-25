@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Box } from '@fower/react'
-import { useAccount } from 'wagmi'
 import {
   Button,
   Popover,
@@ -21,7 +20,6 @@ interface Props {}
 export function DisconnectPopover({}: Props) {
   const [loading, setLoading] = useState(false)
   const { address = '' } = useUser()
-  const { activeSpace } = useSpaces()
 
   return (
     <Popover>
@@ -44,7 +42,6 @@ export function DisconnectPopover({}: Props) {
                   try {
                     const user = await trpc.user.disconnectRepo.mutate({
                       address,
-                      spaceId: activeSpace.id,
                     })
                     store.setUser(new User(user))
                     close()

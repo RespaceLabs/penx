@@ -1,5 +1,4 @@
 export * from './SpaceService'
-export * from './ChangeService'
 export * from './SyncService'
 export * from './NodeService'
 export * from './NodeListService'

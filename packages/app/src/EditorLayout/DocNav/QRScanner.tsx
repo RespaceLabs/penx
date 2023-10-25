@@ -25,18 +25,18 @@ export const QRScanner: React.FC = () => {
       const user = new User(data)
       store.setUser(user)
 
-      const space = await db.getSpace(user.spaceIds[0])
+      // const space = await db.getSpace(user.spaceIds[0])
 
-      if (!space) {
-        await db.createSpace(
-          getNewSpace({
-            id: user.spaceIds[0],
-            name: 'FOOO', // TODO
-            isActive: true,
-          }),
-          false,
-        )
-      }
+      // if (!space) {
+      //   await db.createSpace(
+      //     getNewSpace({
+      //       id: user.spaceIds[0],
+      //       name: 'FOOO', // TODO
+      //       isActive: true,
+      //     }),
+      //     false,
+      //   )
+      // }
 
       stopScanner()
 

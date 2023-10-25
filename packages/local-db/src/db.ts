@@ -133,7 +133,8 @@ class DB {
     })
   }
   deleteNode = async (nodeId: string) => {
-    await this.updateSnapshot(nodeId, 'delete')
+    const node = await this.getNode(nodeId)
+    await this.updateSnapshot(node, 'delete')
     return this.node.deleteByPk(nodeId)
   }
 
@@ -183,7 +184,7 @@ class DB {
   updateSnapshot = async (
     node: INode,
     action: 'add' | 'delete' | 'update',
-    editorValue: any,
+    editorValue?: any,
   ) => {
     const spaceRaw = await this.getSpace(node.spaceId)
     const space = new Space(spaceRaw)

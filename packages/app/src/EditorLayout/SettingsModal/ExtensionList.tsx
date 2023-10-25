@@ -9,8 +9,11 @@ interface SidebarItemProps extends FowerHTMLProps<'div'> {
   type: any
 }
 
-function SidebarItem({ type = SettingsType.SYNC, ...rest }: SidebarItemProps) {
-  const { data = SettingsType.SYNC, setData } = useModalContext<string>()
+function SidebarItem({
+  type = SettingsType.PREFERENCES,
+  ...rest
+}: SidebarItemProps) {
+  const { data = SettingsType.PREFERENCES, setData } = useModalContext<string>()
   return (
     <Box
       toCenterY

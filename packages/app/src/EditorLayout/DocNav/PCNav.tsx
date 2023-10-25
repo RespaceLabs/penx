@@ -3,7 +3,7 @@ import { useNode } from '@penx/hooks'
 import { Breadcrumb } from './Breadcrumb'
 import { FavoriteButton } from './FavoriteButton'
 import { MorePopover } from './MorePopover'
-import { NewDocButton } from './NewDocButton'
+import { NewNodeButton } from './NewNodeButton'
 import { SharePopover } from './SharePopover'
 
 export const PCNav = () => {
@@ -26,7 +26,7 @@ export const PCNav = () => {
     >
       <Breadcrumb />
       <Box>
-        <NewDocButton />
+        <NewNodeButton />
         <SharePopover />
         <FavoriteButton />
         <MorePopover />

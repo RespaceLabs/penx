@@ -16,19 +16,19 @@ export const AllDocsBox = () => {
           <Bird size={120} strokeWidth="1px" />
         </Box>
         <Box textLG gray800 fontSemibold>
-          <Trans>There are no documents here yet.</Trans>
+          <Trans>There are no Nodes here yet.</Trans>
         </Box>
         <Box gray400>
-          <Trans>Click the 'New Doc' button to create your Doc.</Trans>
+          <Trans>Click the 'New Node' button to create your Node.</Trans>
         </Box>
         <Button
           colorScheme="white"
           roundedFull
           onClick={() => {
-            store.createDoc()
+            store.createPageNode()
           }}
         >
-          New Doc
+          New Node
         </Button>
       </Box>
     )
@@ -38,7 +38,7 @@ export const AllDocsBox = () => {
     <Box px10 py10 bgWhite rounded2XL>
       <Box toCenterY toBetween gap2 mb8>
         <Box fontBold text3XL>
-          All Docs
+          All Nodes
         </Box>
       </Box>
       <Box column gray700>

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { toast } from 'uikit'
 import { SyncStatus, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
-import { docAtom, spacesAtom, store, syncStatusAtom } from '@penx/store'
+import { nodeAtom, spacesAtom, store, syncStatusAtom } from '@penx/store'
 
 export function useWorkers() {
   const workerRef = useRef<Worker>()
@@ -43,13 +43,13 @@ export function useWorkers() {
 
         const activeSpace = spaces.find((space) => space.isActive)
 
-        const doc = await db.getNode(activeSpace?.activeNodeId!)
+        const node = await db.getNode(activeSpace?.activeNodeId!)
 
-        store.set(docAtom, null as any)
+        store.set(nodeAtom, null as any)
 
         // for rerender editor
         setTimeout(() => {
-          store.set(docAtom, doc!)
+          store.set(nodeAtom, node!)
         }, 0)
       }
 

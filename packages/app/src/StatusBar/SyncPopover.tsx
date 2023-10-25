@@ -37,7 +37,7 @@ export const SyncPopover: FC<Props> = () => {
     if (!space) return // TODO:
     try {
       setStatus(SyncStatus.PULLING)
-      const s = await SyncService.init(space, address)
+      const s = await SyncService.init(space, user)
       await s.pull()
       setStatus(SyncStatus.NORMAL)
     } catch (error) {

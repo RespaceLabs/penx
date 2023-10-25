@@ -5,7 +5,7 @@ import { store } from '@penx/store'
 
 interface Props {}
 
-export const NewDocButton: FC<PropsWithChildren<Props>> = () => {
+export const NewNodeButton: FC<PropsWithChildren<Props>> = () => {
   return (
     <Button
       size="sm"

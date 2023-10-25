@@ -11,11 +11,11 @@ import {
   useModalContext,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { Doc } from '@penx/model'
+import { Node } from '@penx/model'
 import { store } from '@penx/store'
 
 const Footer = () => {
-  const { data, close } = useModalContext<Doc>()
+  const { data, close } = useModalContext<Node>()
 
   async function deleteDoc() {
     await store.deleteNode(data.id)
@@ -37,7 +37,7 @@ const Footer = () => {
 
 export const DeleteDocModal = () => {
   return (
-    <Modal name={ModalNames.DELETE_DOC}>
+    <Modal name={ModalNames.DELETE_NODE}>
       <ModalOverlay />
       <ModalContent w={[500]} column gap4 toCenterX>
         <ModalCloseButton />
