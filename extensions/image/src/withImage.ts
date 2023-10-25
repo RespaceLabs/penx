@@ -1,11 +1,11 @@
 import { Editor, Transforms } from 'slate'
-import { ReactEditor } from 'slate-react'
+import { PenxEditor } from '@penx/editor-common'
 import { getCurrentPath } from '@penx/editor-queries'
 import { db } from '@penx/local-db'
 import { spacesAtom, store } from '@penx/store'
 import { ELEMENT_IMG, ImageElement } from './types'
 
-export const withImage = (editor: Editor & ReactEditor) => {
+export const withImage = (editor: PenxEditor) => {
   const { insertData } = editor
   editor.insertData = async (dataTransfer: DataTransfer) => {
     const { files } = dataTransfer

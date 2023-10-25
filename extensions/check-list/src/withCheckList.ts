@@ -1,8 +1,8 @@
-import { Editor, Element } from 'slate'
+import { PenxEditor } from '@penx/editor-common'
 import { ELEMENT_CHECK_LIST_ITEM } from './constants'
 import { CheckListItemElement } from './types'
 
-export const withCheckList = (editor: Editor) => {
+export const withCheckList = (editor: PenxEditor) => {
   const { apply } = editor
   editor.apply = (operation) => {
     if (operation.type === 'split_node') {

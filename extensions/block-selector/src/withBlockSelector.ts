@@ -1,5 +1,6 @@
 import { Editor, Element, Node, Transforms } from 'slate'
 import { isCodeBlock, isCodeLine } from '@penx/code-block'
+import { PenxEditor } from '@penx/editor-common'
 import { getBlockAbove, getText } from '@penx/editor-queries'
 import { insertNodes } from '@penx/editor-transforms'
 import { ELEMENT_BLOCK_SELECTOR } from './constants'
@@ -11,9 +12,9 @@ import { isBlockSelector } from './isBlockSelector'
  * @param editor
  * @returns
  */
-export const withBlockSelector = (editor: Editor) => {
+export const withBlockSelector = (editor: PenxEditor) => {
   const trigger = '/'
-  const { insertText, normalizeNode } = editor
+  const { insertText, normalizeNode, apply } = editor
 
   editor.insertText = (text) => {
     if (!editor.selection || text !== trigger) {

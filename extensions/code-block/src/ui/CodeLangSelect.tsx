@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Box } from '@fower/react'
 import { Transforms } from 'slate'
-import { ReactEditor, useSlate, useSlateStatic } from 'slate-react'
+import { ReactEditor } from 'slate-react'
 import {
   Input,
   Select,
@@ -11,11 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'uikit'
+import { useEditorStatic } from '@penx/editor-common'
 import { langs } from '../langs'
 import { CodeBlockElement } from '../types'
 
 export const CodeLangSelect = ({ element }: { element: CodeBlockElement }) => {
-  const editor = useSlateStatic()
+  const editor = useEditorStatic()
   const [lang, setLang] = useState(element.language || 'js')
   const [q, setQ] = useState('')
   const allKeys = Object.keys(langs)
@@ -28,7 +29,7 @@ export const CodeLangSelect = ({ element }: { element: CodeBlockElement }) => {
   function selectLang(value: string) {
     setLang(value)
     setQ('')
-    const path = ReactEditor.findPath(editor as any, element as any)
+    const path = ReactEditor.findPath(editor, element)
     Transforms.setNodes<CodeBlockElement>(
       editor,
       { language: value },

@@ -1,11 +1,7 @@
 import { Editor } from 'slate'
 import type { AutoformatRule } from '@penx/autoformat'
-import {
-  BlockElement,
-  OnBlur,
-  OnKeyDown,
-  PenxEditor,
-} from '@penx/extension-typings'
+import { PenxEditor } from '@penx/editor-common'
+import { BlockElement, OnBlur, OnKeyDown } from '@penx/extension-typings'
 import { ExtensionStore as ExtensionStoreJSON } from '@penx/types'
 
 export class ExtensionStore {

@@ -1,9 +1,9 @@
 import { memo } from 'react'
 import { Box } from '@fower/react'
-import { useSlate } from 'slate-react'
+import { useEditor } from '@penx/editor-common'
 
 const ClickablePadding = () => {
-  const editor = useSlate()
+  const editor = useEditor()
 
   return (
     <Box

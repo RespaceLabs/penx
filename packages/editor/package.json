@@ -34,6 +34,7 @@
     "@penx/autoformat": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/editor-leaf": "workspace:*",
+    "@penx/editor-common": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-shared": "workspace:*",
     "@penx/editor-transforms": "workspace:*",

@@ -1,7 +1,7 @@
 import { getNodeString, TElement } from '@udecode/plate-common'
 import MarkdownIt from 'markdown-it'
 import { Editor } from 'slate'
-import { ReactEditor } from 'slate-react'
+import { PenxEditor } from '@penx/editor-common'
 import {
   findNode,
   getCurrentFocus,
@@ -32,7 +32,7 @@ function convertNodeToCodeLine(node: TElement): TElement {
   }
 }
 
-export const withCode = (editor: Editor & ReactEditor) => {
+export const withCode = (editor: PenxEditor) => {
   const { deleteBackward, apply, insertText, insertFragment, insertData } =
     editor
 

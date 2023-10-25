@@ -1,8 +1,8 @@
 import { Box } from '@fower/react'
 import { ChevronDown } from 'lucide-react'
-import { Path, Transforms } from 'slate'
-import { useSlate } from 'slate-react'
-import { findNodePath, getNodeByPath } from '@penx/editor-queries'
+import { Transforms } from 'slate'
+import { useEditor } from '@penx/editor-common'
+import { findNodePath } from '@penx/editor-queries'
 import { ListContentElement, ListElement } from '../types'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const Chevron = ({ element }: Props) => {
-  const editor = useSlate()
+  const editor = useEditor()
 
   function toggle() {
     const path = findNodePath(editor, element)!

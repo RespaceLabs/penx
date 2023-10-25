@@ -5,6 +5,7 @@ import { withListsReact } from 'slate-lists'
 import { withReact } from 'slate-react'
 import { withAutoformat } from '@penx/autoformat'
 import { ELEMENT_CODE_LINE } from '@penx/code-block'
+import { PenxEditor } from '@penx/editor-common'
 import {
   getCurrentNode,
   getPreviousBlockById,
@@ -34,7 +35,7 @@ export function useCreateEditor(fns: WithFns[] = []) {
     onBlurFns,
   } = extensionStore
 
-  const withFns: ((editor: Editor) => any)[] = [
+  const withFns: ((editor: PenxEditor) => any)[] = [
     withHistory,
     withReact,
     withListsReact as any,
@@ -119,9 +120,9 @@ export function useCreateEditor(fns: WithFns[] = []) {
         deleteBackward(...args)
       }
     }
-    ;(editor as any).elementMaps = elementMaps
-    ;(editor as any).onKeyDownFns = onKeyDownFns
-    ;(editor as any).onBlurFns = onBlurFns
+    editor.elementMaps = elementMaps
+    editor.onKeyDownFns = onKeyDownFns
+    editor.onBlurFns = onBlurFns
 
     return editor
   })
@@ -159,5 +160,5 @@ export function useCreateEditor(fns: WithFns[] = []) {
 
   // if (editorRef.current) storeEditor(editorRef.current)
 
-  return editorRef.current!
+  return editorRef.current as PenxEditor
 }

@@ -1,11 +1,5 @@
 import { SettingsType } from '@penx/constants'
 
-export enum ChangeType {
-  UPDATE = 'UPDATE',
-  DELETE = 'DELETE',
-  ADD = 'ADD',
-}
-
 export interface ISpace {
   id: string
 

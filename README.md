@@ -1,3 +1,1 @@
 # PenX
-
-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

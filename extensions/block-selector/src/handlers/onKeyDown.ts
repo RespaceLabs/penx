@@ -30,7 +30,6 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
     case 'Enter':
       if (somePopoverNode()) {
         e.preventDefault()
-        keyDownEmitter.emit('Enter')
       }
 
       break

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Box } from '@fower/react'
 import { Path } from 'slate'
-import { useSlate } from 'slate-react'
+import { useEditor } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { isListContentElement } from '../guard'
@@ -13,7 +13,7 @@ export const List = ({
   element,
   nodeProps,
 }: ElementProps<ListElement>) => {
-  const editor = useSlate()
+  const editor = useEditor()
   const path = findNodePath(editor, element)!
 
   const collapsed = useMemo(() => {

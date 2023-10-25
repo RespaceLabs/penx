@@ -18,6 +18,11 @@ import * as wordCount from '@penx/word-count'
 
 export const extensionList = [
   {
+    id: 'block-selector',
+    activate: blockSelector.activate,
+  },
+
+  {
     id: 'paragraph',
     activate: paragraph.activate,
   },
@@ -75,10 +80,6 @@ export const extensionList = [
   {
     id: 'table',
     activate: table.activate,
-  },
-  {
-    id: 'block-selector',
-    activate: blockSelector.activate,
   },
 
   {

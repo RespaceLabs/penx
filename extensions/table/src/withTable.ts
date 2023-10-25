@@ -1,7 +1,8 @@
 import { Editor, Element, Point, Range } from 'slate'
+import { PenxEditor } from '@penx/editor-common'
 import { isTableCell } from './guard'
 
-export const withTable = (editor: Editor) => {
+export const withTable = (editor: PenxEditor) => {
   const { deleteBackward, deleteForward, insertBreak } = editor
 
   editor.deleteBackward = (unit) => {

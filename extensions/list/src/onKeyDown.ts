@@ -1,4 +1,4 @@
-import { Path } from 'slate'
+import { Editor, Path } from 'slate'
 import { onKeyDown as onKeyDownList } from 'slate-lists'
 import {
   findNodePath,
@@ -10,30 +10,41 @@ import { isTitle } from './guard'
 import { insertEmptyList } from './transforms/insertEmptyList'
 import { insertEmptyListItem } from './transforms/insertEmptyListItem'
 
-export const onKeyDown: OnKeyDown = (editor, e) => {
-  onKeyDownList(editor, e)
+function onEnterInTitle(editor: Editor) {
+  // handle enter key on title
+  const node = getCurrentNode(editor)!
+  const path = findNodePath(editor, node)
+  if (!path) return
 
+  const parentPath = Path.parent(path)
+  const parentNode = getNodeByPath(editor, parentPath)
+
+  if (isTitle(parentNode)) {
+    const nextPath = Path.next(parentPath)
+    const onlyHasTitle = editor.children.length === 1
+    const at = onlyHasTitle ? nextPath : [...nextPath, 0]
+
+    if (onlyHasTitle) {
+      insertEmptyList(editor, { select: true, at })
+    } else {
+      insertEmptyListItem(editor, { select: true, at })
+    }
+    return true
+  }
+}
+
+export const onKeyDown: OnKeyDown = (editor, e) => {
   if (e.key === 'Enter') {
     e.preventDefault()
+    const handled = onEnterInTitle(editor)
 
-    // handle enter key on title
+    if (handled) return
+
     const node = getCurrentNode(editor)!
-    const path = findNodePath(editor, node)
-    if (!path) return
-
-    const parentPath = Path.parent(path)
-    const parentNode = getNodeByPath(editor, parentPath)
-
-    if (isTitle(parentNode)) {
-      const nextPath = Path.next(parentPath)
-      const onlyHasTitle = editor.children.length === 1
-      const at = onlyHasTitle ? nextPath : [...nextPath, 0]
-
-      if (onlyHasTitle) {
-        insertEmptyList(editor, { select: true, at })
-      } else {
-        insertEmptyListItem(editor, { select: true, at })
-      }
-    }
+    // TODO: handle any
+    if ((node as any).type === 'block_selector') return
   }
+
+  if (editor.isBlockSelectorOpened) return
+  onKeyDownList(editor, e)
 }

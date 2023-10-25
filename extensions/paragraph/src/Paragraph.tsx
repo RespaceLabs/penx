@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { Path } from 'slate'
-import { useSlate } from 'slate-react'
+import { useEditor } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 
@@ -10,7 +10,7 @@ export const Paragraph = ({
   children,
   nodeProps,
 }: ElementProps) => {
-  const editor = useSlate()
+  const editor = useEditor()
   const path = findNodePath(editor, element)!
   const parent = Path.parent(path)
   const node: any = getNodeByPath(editor, parent)

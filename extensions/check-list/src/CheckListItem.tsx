@@ -1,7 +1,8 @@
 import { Box } from '@fower/react'
 import { Element, Transforms } from 'slate'
-import { ReactEditor, useSlateStatic } from 'slate-react'
+import { ReactEditor } from 'slate-react'
 import { Checkbox } from 'uikit'
+import { useEditor } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
 import { CheckListItemElement } from './types'
 
@@ -12,7 +13,7 @@ export const CheckListItem = ({
   nodeProps,
 }: ElementProps<CheckListItemElement>) => {
   const { id, checked } = element
-  const editor = useSlateStatic()
+  const editor = useEditor()
   return (
     <Box data-key={id} toCenterY flex-1 leadingNormal textBase {...attributes}>
       <Checkbox
@@ -21,7 +22,7 @@ export const CheckListItem = ({
         mr2
         checked={checked || false}
         onChange={(event) => {
-          const path = ReactEditor.findPath(editor as any, element as any)
+          const path = ReactEditor.findPath(editor, element as any)
           Transforms.setNodes(
             editor,
             { checked: event.target.checked } as CheckListItemElement,

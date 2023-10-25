@@ -4,6 +4,7 @@ import { Editor, Node, Range } from 'slate'
 import { ReactEditor, useSlate } from 'slate-react'
 import { Portal } from 'uikit'
 import { isCodeLine } from '@penx/code-block'
+import { useEditor } from '@penx/editor-common'
 import { ElementType, MarkType } from '@penx/editor-shared'
 import { FormatButton } from './FormatButton'
 
@@ -45,7 +46,7 @@ const ToolbarContentMemoized = memo(
 
 const HoveringToolbar = () => {
   const ref = useRef<HTMLDivElement | null>(null)
-  const editor = useSlate()
+  const editor = useEditor()
 
   useEffect(() => {
     const { selection } = editor
@@ -55,7 +56,7 @@ const HoveringToolbar = () => {
 
     if (
       !selection ||
-      !ReactEditor.isFocused(editor as any) ||
+      !ReactEditor.isFocused(editor) ||
       Range.isCollapsed(selection) ||
       Editor.string(editor, selection) === ''
     ) {

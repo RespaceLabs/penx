@@ -2,9 +2,10 @@ import { useMemo } from 'react'
 import { Box } from '@fower/react'
 import { Node, Path } from 'slate'
 import { useSlate } from 'slate-react'
+import { useEditor } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
-import { isListContentElement, isListElement } from '../guard'
+import { isListElement } from '../guard'
 import { ListContentElement } from '../types'
 import { Bullet } from './Bullet'
 import { Chevron } from './Chevron'
@@ -15,7 +16,7 @@ export const ListItemContent = ({
   children,
   nodeProps,
 }: ElementProps<ListContentElement>) => {
-  const editor = useSlate()
+  const editor = useEditor()
   const path = findNodePath(editor, element)!
 
   const isChevronVisible = useMemo(() => {

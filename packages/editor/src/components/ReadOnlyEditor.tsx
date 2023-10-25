@@ -46,7 +46,7 @@ export function ReadOnlyEditor({ content }: Props) {
   }, [content, editor])
 
   return (
-    <Slate editor={editor as any} initialValue={content}>
+    <Slate editor={editor} initialValue={content}>
       <Editable readOnly renderElement={renderElement} />
     </Slate>
   )

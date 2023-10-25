@@ -16,21 +16,6 @@ export const tableSchema: TableType[] = [
     timestamps: true,
   },
   {
-    name: 'doc',
-    primaryKey: {
-      name: 'id',
-      autoIncrement: false,
-      unique: true,
-    },
-    indexes: {
-      spaceId: {
-        unique: false,
-      },
-    },
-    timestamps: true,
-  },
-
-  {
     name: 'node',
     primaryKey: {
       name: 'id',

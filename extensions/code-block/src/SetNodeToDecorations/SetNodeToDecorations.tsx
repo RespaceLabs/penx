@@ -1,5 +1,5 @@
 import { Editor, Element } from 'slate'
-import { useSlate } from 'slate-react'
+import { useEditor } from '@penx/editor-common'
 import { isCodeBlock } from '../guard'
 import { getChildNodeToDecorations } from './getChildNodeToDecorations'
 
@@ -18,7 +18,7 @@ const mergeMaps = <K, V>(...maps: Map<K, V>[]) => {
 // precalculate editor.nodeToDecorations map to use it inside decorate function then
 export const SetNodeToDecorations = () => {
   // should use useSlate to rerender
-  const editor = useSlate()
+  const editor = useEditor()
 
   const blockEntries = Array.from(
     Editor.nodes(editor, {
@@ -32,7 +32,7 @@ export const SetNodeToDecorations = () => {
     ...blockEntries.map((item) => getChildNodeToDecorations(item as any)),
   )
 
-  ;(editor as any).nodeToDecorations = nodeToDecorations as any
+  editor.nodeToDecorations = nodeToDecorations
 
   return null
 }

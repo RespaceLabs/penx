@@ -9,12 +9,13 @@ import {
   Transforms,
 } from 'slate'
 import { ReactEditor } from 'slate-react'
+import { PenxEditor } from '@penx/editor-common'
 import { findNode, isCollapsed } from '@penx/editor-queries'
 import { isUrl } from '@penx/editor-shared/src/isUrl'
 import { isLinkElement } from './isLinkElement'
 import { ELEMENT_LINK, LinkElement } from './types'
 
-export const withLink = (editor: Editor & ReactEditor) => {
+export const withLink = (editor: PenxEditor) => {
   const { insertData, insertText, normalizeNode } = editor as Editor &
     ReactEditor
 

@@ -38,6 +38,7 @@
     "@penx/editor": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-shared": "workspace:*",
+    "@penx/editor-common": "workspace:*",
     "@penx/encryption": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/indexeddb": "workspace:*",

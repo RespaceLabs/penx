@@ -1,7 +1,7 @@
-import { Editor, Element } from 'slate'
+import { PenxEditor } from '@penx/editor-common'
 import { HeadingElement } from './types'
 
-export const withHeading = (editor: Editor) => {
+export const withHeading = (editor: PenxEditor) => {
   const { apply } = editor
 
   editor.apply = (operation) => {

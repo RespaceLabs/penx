@@ -13,7 +13,7 @@ import {
 } from '@floating-ui/react'
 import { Box } from '@fower/react'
 import { Node, Transforms } from 'slate'
-import { useSlateStatic } from 'slate-react'
+import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getCurrentNode } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { BlockSelectorElement } from '../types'
@@ -23,7 +23,7 @@ export const BlockSelector = ({
   element,
   children,
 }: ElementProps<BlockSelectorElement>) => {
-  const editor = useSlateStatic()
+  const editor = useEditorStatic()
   const path = findNodePath(editor, element)!
 
   const setIsOpen = useCallback(
@@ -70,6 +70,7 @@ export const BlockSelector = ({
     const node = getCurrentNode(editor)
     // only open on focus
     if (node) {
+      editor.isBlockSelectorOpened = true
       setIsOpen(true)
     }
   }, [editor, setIsOpen])

@@ -1,13 +1,9 @@
 import { useState } from 'react'
 import { Box } from '@fower/react'
 import { ImageIcon } from 'lucide-react'
-import {
-  ReactEditor,
-  useFocused,
-  useSelected,
-  useSlateStatic,
-} from 'slate-react'
+import { ReactEditor, useFocused, useSelected } from 'slate-react'
 import { Input, toast } from 'uikit'
+import { useEditorStatic } from '@penx/editor-common'
 import { setNodes } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/extension-typings'
 import { useSpaces } from '@penx/hooks'
@@ -20,14 +16,14 @@ export const UploadBox = ({
   children,
   element,
 }: ElementProps<FileElement>) => {
-  const editor = useSlateStatic()
+  const editor = useEditorStatic()
   const selected = useSelected()
   const focused = useFocused()
   const active = selected && focused
   const [uploading, setUploading] = useState(false)
   const { activeSpace } = useSpaces()
 
-  const path = ReactEditor.findPath(editor as any, element as any)
+  const path = ReactEditor.findPath(editor, element)
 
   function setFileId(fileId: string) {
     setNodes<FileElement>(editor, { fileId }, { at: path })

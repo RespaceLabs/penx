@@ -66,6 +66,7 @@
     "@penx/list": "workspace:*",
     "@penx/loader": "workspace:*",
     "@penx/local-db": "workspace:*",
+    "@penx/editor-common": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/paragraph": "workspace:*",
     "@penx/serializer": "workspace:*",

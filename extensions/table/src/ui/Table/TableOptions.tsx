@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { MoreHorizontal } from 'lucide-react'
-import { Element, Transforms } from 'slate'
+import { Transforms } from 'slate'
 import { ReactEditor, useSelected, useSlate, useSlateStatic } from 'slate-react'
 import {
   Menu,
@@ -10,14 +10,15 @@ import {
   PopoverTrigger,
   Switch,
 } from 'uikit'
+import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
 import { TableElement } from '../../types'
 
 export const TableOptions = ({ element }: { element: TableElement }) => {
-  const editor = useSlateStatic()
+  const editor = useEditorStatic()
   const selected = useSelected()
   const { isHeaderColumn = false, isHeaderRow = false } = element
-  const path = ReactEditor.findPath(editor as any, element)
+  const path = ReactEditor.findPath(editor, element)
   function removeTable() {
     const tablePath = findNodePath(editor, element)
     Transforms.removeNodes(editor, { at: tablePath })

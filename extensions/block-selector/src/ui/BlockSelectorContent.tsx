@@ -3,6 +3,7 @@ import { Box } from '@fower/react'
 import { TElement } from '@udecode/plate-common'
 import { Editor, Element, Node, Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
+import { useEditorStatic } from '@penx/editor-common'
 import { selectEditor } from '@penx/editor-transforms'
 import { useExtensionStore } from '@penx/hooks'
 import { isBlockSelector } from '../isBlockSelector'
@@ -16,7 +17,7 @@ interface Props {
 }
 
 export const BlockSelectorContent = ({ close, element }: Props) => {
-  const editor = useSlateStatic()
+  const editor = useEditorStatic()
   const { extensionStore } = useExtensionStore()
 
   const filteredTypes = Object.keys(extensionStore.elementMaps).filter(
@@ -105,6 +106,11 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
         })
 
         selectEditor(editor, { focus: true, at })
+
+        setTimeout(() => {
+          editor.isBlockSelectorOpened = false
+        }, 0)
+        return
       }
     },
     [editor, close, element, extensionStore],

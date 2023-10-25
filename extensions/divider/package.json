@@ -22,6 +22,7 @@
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/paragraph": "workspace:*",
+    "@penx/editor-common": "workspace:*",
     "@penx/editor-transforms": "workspace:*",
     "@penx/extension-typings": "*",
     "slate": "0.94.1",

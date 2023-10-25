@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep'
 import { BaseElement, Editor, Node, NodeEntry } from 'slate'
+import { PenxEditor } from '@penx/editor-common'
 import { queryNode } from '@penx/editor-queries'
 import { genId } from '@penx/editor-shared'
 
@@ -19,7 +20,7 @@ const filterNode = (nodeEntry: NodeEntry<IElement>) => {
   return nodeEntry[0]?.type !== undefined
 }
 
-export function withAutoNodeId(editor: Editor) {
+export function withAutoNodeId(editor: PenxEditor) {
   const { apply } = editor
 
   const query: any = {

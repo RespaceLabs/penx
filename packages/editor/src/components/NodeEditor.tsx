@@ -107,8 +107,7 @@ export function NodeEditor({ content, onChange, onBlur, plugins }: Props) {
   const renderElement = useCallback(
     (props: RenderElementProps) => {
       const element = props.element as Element
-      const isTopLevel =
-        ReactEditor.findPath(editor as any, element as any).length === 1
+      const isTopLevel = ReactEditor.findPath(editor, element).length === 1
 
       const attr = {
         ...props.attributes,
@@ -143,21 +142,21 @@ export function NodeEditor({ content, onChange, onBlur, plugins }: Props) {
       } as any,
     )(e)
 
-    for (const fn of (editor as any).onKeyDownFns) {
+    for (const fn of editor.onKeyDownFns) {
       fn(editor, e)
     }
   }
 
   const blur = (e: FocusEvent<HTMLDivElement, globalThis.Element>) => {
     onBlur?.(editor)
-    for (const fn of (editor as any).onBlurFns) {
+    for (const fn of editor.onBlurFns) {
       fn(editor, e)
     }
   }
 
   return (
     <Slate
-      editor={editor as any}
+      editor={editor}
       initialValue={content}
       onChange={(value) => {
         onChange?.(value, editor)

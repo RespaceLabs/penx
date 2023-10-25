@@ -25,6 +25,7 @@ const config = {
     '@penx/editor-shared',
     '@penx/editor-transforms',
     '@penx/editor-types',
+    '@penx/editor-common',
     '@penx/icons',
     '@penx/shared',
     '@penx/model',

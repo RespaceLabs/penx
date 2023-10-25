@@ -1,10 +1,8 @@
 import { FC, FocusEvent, KeyboardEvent } from 'react'
-import { Editor, Element } from 'slate'
-import { HistoryEditor } from 'slate-history'
-import { ReactEditor, RenderElementProps } from 'slate-react'
+import { Element } from 'slate'
+import { RenderElementProps } from 'slate-react'
 import { AutoformatRule } from '@penx/autoformat'
-
-export type PenxEditor = Editor & HistoryEditor & ReactEditor
+import { PenxEditor } from '@penx/editor-common'
 
 export interface ExtensionContext {
   pluginId?: string
@@ -34,7 +32,9 @@ export interface RegisterComponentOptions {
 }
 
 export interface RegisterBlockOptions {
-  with?: ((editor: PenxEditor) => Editor) | ((editor: PenxEditor) => Editor)[]
+  with?:
+    | ((editor: PenxEditor) => PenxEditor)
+    | ((editor: PenxEditor) => PenxEditor)[]
   handlers?: {
     onKeyDown?: OnKeyDown
     onBlur?: OnBlur
@@ -62,12 +62,12 @@ export type SettingsSchemaItem = {
 export type SettingsSchema = SettingsSchemaItem[]
 
 export type OnKeyDown = (
-  editor: Editor,
+  editor: PenxEditor,
   e: KeyboardEvent<HTMLDivElement>,
 ) => boolean | void
 
 export type OnBlur = (
-  editor: Editor,
+  editor: PenxEditor,
   e: FocusEvent<HTMLDivElement, globalThis.Element>,
 ) => boolean | void
 
@@ -92,7 +92,7 @@ export interface BlockElement {
     description?: string
     icon?: any
     defaultNode?: Element
-    afterInvokeCommand?: (editor: Editor) => void
+    afterInvokeCommand?: (editor: PenxEditor) => void
   }
 }
 

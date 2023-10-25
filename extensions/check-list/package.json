@@ -21,6 +21,7 @@
     "@penx/constants": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
+    "@penx/editor-common": "workspace:*",
     "@penx/editor-transforms": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/extension-typings": "*",

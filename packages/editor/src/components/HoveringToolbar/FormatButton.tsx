@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Box } from '@fower/react'
 import { Link } from 'lucide-react'
 import { Transforms } from 'slate'
-import { useSlate } from 'slate-react'
+import { useEditor } from '@penx/editor-common'
 import { ElementType, genId, MarkType } from '@penx/editor-shared'
 import { openLink } from '../../stores/linkIsOpen.store'
 import { isMarkActive, toggleMark } from './utils'
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export const FormatButton: FC<Props> = ({ format }) => {
-  const editor = useSlate()
+  const editor = useEditor()
 
   return (
     <Box

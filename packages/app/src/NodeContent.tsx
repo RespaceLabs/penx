@@ -3,6 +3,7 @@ import { Editor, Transforms } from 'slate'
 import { ReactEditor } from 'slate-react'
 import { useDebouncedCallback } from 'use-debounce'
 import { NodeEditor } from '@penx/editor'
+import { PenxEditor } from '@penx/editor-common'
 import { isAstChange } from '@penx/editor-queries'
 import { useNode, useNodes } from '@penx/hooks'
 import { insertEmptyListItem, ListContentElement } from '@penx/list'
@@ -25,10 +26,10 @@ export function NodeContent() {
     nodeService.savePage(value[0], value[1])
   }, 500)
 
-  function handleEnterKeyInTitle(editor: Editor) {
+  function handleEnterKeyInTitle(editor: PenxEditor) {
     insertEmptyListItem(editor, { at: [0, 0] })
 
-    ReactEditor.focus(editor as any)
+    ReactEditor.focus(editor)
     Transforms.select(editor, Editor.start(editor, [0]))
   }
 
