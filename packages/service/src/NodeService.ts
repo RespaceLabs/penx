@@ -239,7 +239,6 @@ export class NodeService {
 
       if (isListItemElement(grandparent)) {
         parentId = grandparent.children[0].id
-        console.log('parentId:', parentId, grandparent.children[0])
       }
 
       const element = item.children[0]

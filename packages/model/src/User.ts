@@ -24,6 +24,14 @@ export class User {
     return this.github.repo
   }
 
+  get repoOwner() {
+    return this.repo.split('/')[0]
+  }
+
+  get repoName() {
+    return this.repo.split('/')[1]
+  }
+
   get installationId() {
     return this.github.installationId
   }

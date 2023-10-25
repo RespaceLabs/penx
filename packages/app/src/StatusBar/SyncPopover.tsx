@@ -4,7 +4,7 @@ import { RefreshCcw } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import { Divider, Dot, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { SyncStatus } from '@penx/constants'
-import { useSyncStatus } from '@penx/hooks'
+import { useSyncStatus, useUser } from '@penx/hooks'
 import { IconPull, IconPush } from '@penx/icons'
 import { db } from '@penx/local-db'
 import { SyncService } from '@penx/service'
@@ -13,6 +13,8 @@ interface Props {}
 
 export const SyncPopover: FC<Props> = () => {
   const { address = '' } = useAccount()
+  const user = useUser()
+
   const { isSyncing, isPulling, isFailed, isNormal, status, setStatus } =
     useSyncStatus()
 
@@ -22,8 +24,8 @@ export const SyncPopover: FC<Props> = () => {
 
     try {
       setStatus(SyncStatus.PUSHING)
-      const s = await SyncService.init(space, address)
-      // await s.push()
+      const s = await SyncService.init(space, user)
+      await s.push()
       setStatus(SyncStatus.NORMAL)
     } catch (error) {
       setStatus(SyncStatus.PUSH_FAILED)

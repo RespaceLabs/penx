@@ -1,6 +1,7 @@
 import { ISpace } from '@penx/types'
 import { Settings } from './Settings'
 import { Snapshot } from './Snapshot'
+import { GithubInfo } from './User'
 
 export class Space {
   settings: Settings
@@ -18,6 +19,10 @@ export class Space {
 
   get name() {
     return this.raw.name
+  }
+
+  get children() {
+    return this.raw.children || []
   }
 
   get isActive() {

@@ -1,10 +1,11 @@
 import ky from 'ky'
 import { Octokit } from 'octokit'
 import { db } from '@penx/local-db'
-import { SnapshotDiffResult, Space } from '@penx/model'
+import { SnapshotDiffResult, Space, User } from '@penx/model'
 import { nodeAtom, spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
-import { ISpace } from '@penx/types'
+import { INode, ISpace } from '@penx/types'
+import { SpaceService } from './SpaceService'
 
 interface SharedParams {
   owner: string
@@ -38,7 +39,11 @@ type Content = {
 export class SyncService {
   private params: SharedParams
 
+  private user: User
+
   private space: Space
+
+  private spaceService: SpaceService
 
   private app: Octokit
 
@@ -46,9 +51,9 @@ export class SyncService {
 
   spacesDir = 'spaces'
 
-  docsDir = 'docs'
+  pagesDir = 'pages'
 
-  docsTree: Content[]
+  pagesTree: Content[]
 
   commitSha: string
 
@@ -58,8 +63,8 @@ export class SyncService {
 
   setSharedParams() {
     const sharedParams = {
-      owner: this.space.settings.repoOwner,
-      repo: this.space.settings.repoName,
+      owner: this.user.repoOwner,
+      repo: this.user.repoName,
       headers: {
         'X-GitHub-Api-Version': '2022-11-28',
       },
@@ -67,12 +72,14 @@ export class SyncService {
     this.params = sharedParams
   }
 
-  static async init(space: ISpace, address: string) {
+  static async init(space: ISpace, user: User) {
     const s = new SyncService()
+    s.user = user
     s.space = new Space(space)
+    s.spaceService = new SpaceService(s.space)
 
     const token = await trpc.github.getTokenByAddress.query({
-      address,
+      address: user.address,
     })
 
     s.setSharedParams()
@@ -95,7 +102,7 @@ export class SyncService {
   private async commit(treeSha: string) {
     const parentSha = this.baseBranchSha
 
-    const msg = `update docs`
+    const msg = `update nodes`
 
     const commit = await this.app.request(
       'POST /repos/{owner}/{repo}/git/commits',
@@ -115,7 +122,7 @@ export class SyncService {
     // handle deleted docs
     for (const id of diff.deleted) {
       treeItems.push({
-        path: `${this.docsDir}/${id}.json`,
+        path: `${this.pagesDir}/${id}.json`,
         mode: '100644',
         type: 'blob',
         // sha: item.sha,
@@ -123,16 +130,20 @@ export class SyncService {
       })
     }
 
-    const changeIds = [...diff.added, ...diff.updated]
-    const docsRaw = await db.listNodeByIds(changeIds)
-    const docs = docsRaw.map((doc) => new Doc(doc))
+    const pages = await this.spaceService.getPages()
+    const pageMap = pages.reduce(
+      (acc, page) => ({ ...acc, [page[0].id]: page }),
+      {} as Record<string, INode[]>,
+    )
 
-    for (const doc of docs) {
+    const changeIds = [...diff.added, ...diff.updated]
+
+    for (const id of changeIds) {
       treeItems.push({
-        path: doc.getFullPath(),
+        path: `pages/${id}.json`,
         mode: '100644',
         type: 'blob',
-        content: doc.stringify(),
+        content: JSON.stringify(pageMap[id], null, 2),
       })
     }
 
@@ -140,16 +151,14 @@ export class SyncService {
   }
 
   async createTreeForNewDir() {
-    const docsRaw = await db.listNodesBySpaceId(this.space.id)
+    const pages = await this.spaceService.getPages()
 
-    return docsRaw
-      .map((doc) => new Doc(doc))
-      .map<TreeItem>((doc) => ({
-        path: doc.getFullPath(),
-        mode: '100644',
-        type: 'blob',
-        content: doc.stringify(),
-      }))
+    return pages.map<TreeItem>((page) => ({
+      path: `pages/${page[0].id}.json`,
+      mode: '100644',
+      type: 'blob',
+      content: JSON.stringify(page, null, 2),
+    }))
   }
 
   async getBaseBranchInfo() {
@@ -179,25 +188,25 @@ export class SyncService {
     return res.data
   }
 
-  async getDocsTreeInfo() {
+  async getPagesTreeInfo() {
     try {
       const contentRes = await this.app.request(
         'GET /repos/{owner}/{repo}/contents/{path}',
         {
           ...this.params,
           ref: `heads/${this.baseBranchName}`,
-          path: this.docsDir,
+          path: this.pagesDir,
         },
       )
 
-      this.docsTree = contentRes.data as any
+      this.pagesTree = contentRes.data as any
     } catch (error) {
-      this.docsTree = []
+      this.pagesTree = []
     }
 
-    console.log('this.docsTree:', this.docsTree)
+    console.log('this.pagesTree:', this.pagesTree)
 
-    return this.docsTree
+    return this.pagesTree
   }
 
   createSpaceTreeItem(version: number) {
@@ -244,30 +253,30 @@ export class SyncService {
     let tree: TreeItem[] = []
     try {
       const serverSnapshot = await this.getSnapshot()
+      console.log('serverSnapshot:', serverSnapshot)
       const diff = this.space.snapshot.diff(serverSnapshot)
 
-      console.log('serverSnapshot:', serverSnapshot)
+      // console.log('diff:', diff)
 
       // isEqual, don't push
       if (diff.isEqual) return
 
       // space.json existed
-      await this.getDocsTreeInfo()
-      const docsTree = await this.createTreeForExistedDir(diff)
+      await this.getPagesTreeInfo()
 
-      tree.push(...docsTree)
+      const pagesTree = await this.createTreeForExistedDir(diff)
+
+      tree.push(...pagesTree)
 
       const spaceTreeItem = this.createSpaceTreeItem(serverSnapshot.version + 1)
       tree.push(spaceTreeItem)
     } catch (error) {
-      const docsTree = await this.createTreeForNewDir()
-      tree.push(...docsTree)
+      const nodesTree = await this.createTreeForNewDir()
+      tree.push(...nodesTree)
 
       const spaceTreeItem = this.createSpaceTreeItem(1)
       tree.push(spaceTreeItem)
     }
-
-    console.log('tree to commit=============', tree)
 
     await this.getBaseBranchInfo()
 
@@ -289,7 +298,6 @@ export class SyncService {
     await this.updateRef(commitData.sha)
 
     await db.updateSpace(this.space.id, {
-      changes: {},
       snapshot: this.space.snapshot.toJSON(),
     })
 
@@ -307,7 +315,7 @@ export class SyncService {
   }
 
   async pull() {
-    const docsTree = await this.getDocsTreeInfo()
+    const docsTree = await this.getPagesTreeInfo()
 
     for (const item of docsTree) {
       const docRes: any = await this.app.request(

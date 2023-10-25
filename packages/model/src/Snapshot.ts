@@ -32,7 +32,6 @@ export class Snapshot {
 
   update = (nodeId: string, editorValue: any) => {
     this.map[nodeId] = this.md5Doc(editorValue)
-    console.log('md5:', this.map[nodeId])
   }
 
   delete = (nodeId: string) => {
