@@ -1,11 +1,13 @@
 import _ from 'lodash'
+import { createEditor, Editor } from 'slate'
 import { ELEMENT_TITLE } from '@penx/constants'
+import { getNodeByPath } from '@penx/editor-queries'
 import {
   ELEMENT_LI,
   ELEMENT_LIC,
   ELEMENT_UL,
   isListContentElement,
-  ListContentElement,
+  isListItemElement,
   ListItemElement,
   TitleElement,
   UnorderedListElement,
@@ -120,14 +122,12 @@ export class NodeService {
 
   getParentNodes(): Node[] {
     const parentNodes: Node[] = [this.node]
-    const space = store.getActiveSpace()
 
     let node = this.node
-    const isRoot = (id: string) => space.children.includes(id)
     let i = 0
-    while (!isRoot(node.id)) {
+    while (this.node.parentId) {
       for (const item of this.allNodes) {
-        if (item.children.includes(node.id)) {
+        if (node.parentId === item.id) {
           node = item
           parentNodes.unshift(item)
         }
@@ -178,7 +178,7 @@ export class NodeService {
       element: title.children[0],
     })
 
-    await this.saveNodes(ul.children)
+    await this.saveNodes(title, ul)
 
     const nodes = await db.listNormalNodes(this.spaceId)
 
@@ -186,58 +186,69 @@ export class NodeService {
     store.setNode(node!)
   }
 
-  saveNodes = async (
-    nodes: (ListItemElement | ListContentElement)[],
-    parent?: any,
-  ) => {
-    if (!nodes.length) return
+  saveNodes = async (title: TitleElement, ul: UnorderedListElement) => {
+    const editor = createEditor()
+    editor.insertNodes(ul)
 
-    if (!parent) {
-      // update root node children
-      const newIdsFromActiveNode = nodes.map((listItem) => {
-        return (listItem as any).children[0].id
-      })
-      await db.updateNode(this.node.id, {
-        children: newIdsFromActiveNode,
-      })
-    }
+    const childrenForCurrentNode = ul.children.map((listItem) => {
+      return listItem.children[0].id
+    })
 
-    for (const item of nodes) {
-      if (isListContentElement(item)) {
-        const element = item.children[0]
-        const node = await db.getNode(item.id)
+    // update root node's children
+    await db.updateNode(this.node.id, {
+      children: childrenForCurrentNode,
+    })
 
-        let children: string[] = []
+    const listContents = Editor.nodes(editor, {
+      at: [],
+      match: isListContentElement,
+    })
 
-        if (parent.children.length > 1) {
-          const listItems = parent.children[1]
-            .children as any as ListItemElement[]
+    for (const [item, path] of listContents) {
+      const parent = getNodeByPath(
+        editor,
+        path.slice(0, -1),
+      ) as any as ListItemElement
 
-          children = listItems.map((item) => {
-            return item.children[0].id
-          })
-        }
+      // get node children
+      let children: string[] = []
 
-        if (node) {
-          await db.updateNode(item.id, {
-            element,
-            collapsed: !!item.collapsed,
-            children,
-          })
-        } else {
-          await db.createNode({
-            spaceId: this.spaceId,
-            id: item.id,
-            collapsed: !!item.collapsed,
-            element,
-            children,
-          })
-        }
-        continue
+      if (parent.children.length > 1) {
+        const listItems = parent.children[1]
+          .children as any as ListItemElement[]
+        children = listItems.map((item) => {
+          return item.children[0].id
+        })
       }
 
-      if (item.children?.length) {
-        await this.saveNodes(item.children as any, item)
+      // node parentId
+      let parentId = title.id
+      const grandparent = getNodeByPath(editor, path.slice(0, -3))!
+
+      if (isListItemElement(grandparent)) {
+        parentId = grandparent.children[0].id
+        console.log('parentId:', parentId, grandparent.children[0])
+      }
+
+      const element = item.children[0]
+      const node = await db.getNode(item.id)
+
+      if (node) {
+        await db.updateNode(item.id, {
+          parentId,
+          element,
+          collapsed: !!item.collapsed,
+          children,
+        })
+      } else {
+        await db.createNode({
+          id: item.id,
+          parentId,
+          spaceId: this.spaceId,
+          collapsed: !!item.collapsed,
+          element,
+          children,
+        })
       }
     }
   }

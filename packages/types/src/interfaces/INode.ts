@@ -6,6 +6,8 @@ export enum NodeStatus {
 export interface INode {
   id: string
 
+  parentId?: string
+
   spaceId: string
 
   element: any

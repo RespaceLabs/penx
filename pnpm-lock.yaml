@@ -3544,6 +3544,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
+      '@penx/editor-queries':
+        specifier: workspace:*
+        version: link:../editor-queries
       '@penx/extension-typings':
         specifier: '*'
         version: link:../extension-typings

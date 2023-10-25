@@ -1,5 +1,5 @@
 import CryptoJS from 'crypto-js'
-import { ISpace } from '@penx/types'
+import { INode, ISpace } from '@penx/types'
 
 export interface SnapshotDiffResult {
   isEqual: boolean
@@ -11,7 +11,7 @@ export interface SnapshotDiffResult {
 export class Snapshot {
   repo: string
 
-  // Record<docId, md5>
+  // Record<nodeId, md5>
   map: Record<string, string> = {}
 
   version: number
@@ -22,25 +22,25 @@ export class Snapshot {
     this.repo = space.settings.sync.repo
   }
 
-  md5Doc = (doc: any) => {
+  md5Doc = (node: INode) => {
     const data = {
-      status: doc.status,
-      title: doc.title,
-      content: doc.content,
+      status: node.status,
+      title: node.title,
+      content: node.content,
     }
     return CryptoJS.MD5(JSON.stringify(data)).toString()
   }
 
-  add = (docId: string, doc: any) => {
-    this.map[docId] = this.md5Doc(doc)
+  add = (nodeId: string, node: any) => {
+    this.map[nodeId] = this.md5Doc(node)
   }
 
-  update = (docId: string, doc: any) => {
-    this.map[docId] = this.md5Doc(doc)
+  update = (nodeId: string, node: any) => {
+    this.map[nodeId] = this.md5Doc(node)
   }
 
-  delete = (docId: string) => {
-    delete this.map[docId]
+  delete = (nodeId: string) => {
+    delete this.map[nodeId]
   }
 
   toJSON() {

@@ -27,6 +27,7 @@
     "@penx/local-db": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/serializer": "workspace:^",
+    "@penx/editor-queries": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "@penx/types": "workspace:*",

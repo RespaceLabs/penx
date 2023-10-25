@@ -189,13 +189,14 @@ class DB {
       node = await this.getNode(nodeId)
     }
 
-    const space = await this.getSpace(node.spaceId)
+    const spaceRaw = await this.getSpace(node.spaceId)
 
-    const spaceModel = new Space(space)
-    spaceModel.snapshot[action](nodeId, node)
+    const space = new Space(spaceRaw)
+
+    space.snapshot[action](nodeId, node)
 
     await this.updateSpace(space.id, {
-      snapshot: spaceModel.snapshot.toJSON(),
+      snapshot: space.snapshot.toJSON(),
     })
   }
 
