@@ -113,11 +113,7 @@ export const userRouter = createTRPCRouter({
     }),
 
   disconnectRepo: publicProcedure
-    .input(
-      z.object({
-        address: z.string(),
-      }),
-    )
+    .input(z.object({ address: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { address } = input
       const user = await ctx.prisma.user.findFirstOrThrow({

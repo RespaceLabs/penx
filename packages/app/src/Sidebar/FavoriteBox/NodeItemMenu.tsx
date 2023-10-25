@@ -9,14 +9,13 @@ import {
   PopoverTrigger,
   toast,
 } from 'uikit'
-import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 
 interface Props {
   node: Node
 }
 
-export const DocItemMenu: FC<PropsWithChildren<Props>> = ({ node: node }) => {
+export const NodeItemMenu: FC<PropsWithChildren<Props>> = ({ node }) => {
   return (
     <Popover placement="right-start">
       <PopoverTrigger asChild>
@@ -28,7 +27,7 @@ export const DocItemMenu: FC<PropsWithChildren<Props>> = ({ node: node }) => {
           gray700
           p-2
           opacity-0
-          opacity-100--$docItem--hover
+          opacity-100--$nodeItem--hover
         >
           <MoreHorizontal size={18} />
         </Box>

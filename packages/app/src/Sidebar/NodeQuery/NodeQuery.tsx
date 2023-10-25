@@ -2,7 +2,6 @@ import { Box } from '@fower/react'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from 'uikit'
 import { useNodes, useSpaces } from '@penx/hooks'
-import { NodeStatus } from '@penx/types'
 import { SqlParser } from '../SqlParser'
 import { NodeItem } from './NodeItem'
 
@@ -40,8 +39,8 @@ export const NodeQuery = ({ sql, title }: Props) => {
         </Button>
       </Box>
       <Box column>
-        {nodes.map((doc) => (
-          <NodeItem key={doc.id} node={doc} />
+        {nodes.map((node) => (
+          <NodeItem key={node.id} node={node} />
         ))}
       </Box>
     </Box>

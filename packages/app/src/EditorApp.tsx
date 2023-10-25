@@ -15,8 +15,6 @@ import { UserQuery } from './UserQuery'
 import { WorkerStarter } from './WorkerStarter'
 
 if (!isServer) {
-  console.log('init.......................')
-
   appLoader.init()
 
   // emitter.on('ADD_DOCUMENT', () => {

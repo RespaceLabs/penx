@@ -12,9 +12,8 @@ export class SpaceService {
   nodes: INode[] = []
 
   createSpace = async (name: string) => {
-    const space = await db.createSpace({ name })
-    await this.loadSpaces()
-    return space!
+    const space = await store.createSpace(name)
+    return space
   }
 
   selectSpace = async (id: string) => {

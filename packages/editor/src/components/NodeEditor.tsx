@@ -56,7 +56,7 @@ interface Props {
   onBlur?: (editor: Editor) => void
 }
 
-export function DocEditor({ content, onChange, onBlur, plugins }: Props) {
+export function NodeEditor({ content, onChange, onBlur, plugins }: Props) {
   const editor = useCreateEditor(plugins)
   const { extensionStore } = useExtensionStore()
 

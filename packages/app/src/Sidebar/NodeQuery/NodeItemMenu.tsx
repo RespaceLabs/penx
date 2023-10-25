@@ -26,7 +26,7 @@ export const NodeItemMenu: FC<Props> = ({ node }) => {
           gray700
           p-2
           opacity-0
-          opacity-100--$docItem--hover
+          opacity-100--$nodeItem--hover
         >
           <MoreHorizontal size={18} />
         </Box>

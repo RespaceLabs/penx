@@ -2,16 +2,16 @@ import { Box } from '@fower/react'
 import { Node } from '@penx/model'
 import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
-import { DocItemMenu } from './DocItemMenu'
+import { NodeItemMenu } from './NodeItemMenu'
 
 interface Props {
   node: Node
 }
 
-export const DocItem = ({ node }: Props) => {
+export const NodeItem = ({ node }: Props) => {
   return (
     <Box
-      className="docItem"
+      className="nodeItem"
       toCenterY
       gap2
       gray500
@@ -30,7 +30,7 @@ export const DocItem = ({ node }: Props) => {
       }}
     >
       <Box flex-1>{node.title || 'Untitled'}</Box>
-      <DocItemMenu node={node} />
+      <NodeItemMenu node={node} />
     </Box>
   )
 }

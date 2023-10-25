@@ -29,8 +29,6 @@ model User {
     accounts      Account[]
     sessions      Session[]
     spaces        Space[]
-    docs          Doc[]
-    member        Member[]
 }
 
 model Account {
@@ -74,28 +72,6 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-model Doc {
-    id          String   @id @default(cuid())
-    title       String?  @db.Text
-    description String?  @db.Text
-    content     String   @db.Text
-    slug        String   @default(cuid())
-    synced      Boolean  @default(false) // is synced to github
-    image       String?  @default("") @db.Text
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    published   Boolean  @default(false)
-
-    space   Space?  @relation(fields: [spaceId], references: [id])
-    spaceId String?
-
-    user   User?   @relation(fields: [userId], references: [id])
-    userId String?
-
-    @@index([spaceId])
-    @@index([userId])
-}
-
 model SharedDoc {
     id        String   @id @default(cuid())
     title     String?  @db.Text
@@ -123,9 +99,6 @@ model Space {
 
     user   User?   @relation(fields: [userId], references: [id])
     userId String?
-
-    docs    Doc[]
-    members Member[]
 
     @@index([userId])
 }
@@ -161,20 +134,6 @@ model Template {
     content     String   @db.Text
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
-}
-
-model Member {
-    id        String    @id @default(cuid())
-    roleType  String?
-    deletedAt DateTime?
-    createdAt DateTime? @default(now())
-    updatedAt DateTime? @updatedAt
-
-    user   User?   @relation(fields: [userId], references: [id])
-    userId String?
-
-    space   Space?  @relation(fields: [spaceId], references: [id])
-    spaceId String?
 }
 
 model InvitationToken {

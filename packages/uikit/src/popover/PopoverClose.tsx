@@ -17,7 +17,7 @@ export const PopoverClose: FC<PopoverCloseProps> = forwardRef(
       rest.onClick = (e) => {
         props.onClick?.(e)
         children.props.onClick?.(e)
-        close?.()
+        ctx?.close?.()
       }
       return cloneElement(children, rest || {})
     }

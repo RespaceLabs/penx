@@ -70,21 +70,6 @@ export const SpaceList = () => {
             </Button>
           </PopoverClose>
         </Box>
-        <Box mt4>
-          <PopoverClose asChild>
-            <Button
-              toLeft
-              variant="ghost"
-              w-100p
-              onClick={() => {
-                modalController.open(ModalNames.IMPORT_SPACE)
-              }}
-            >
-              <Plus />
-              <Box>Import Space</Box>
-            </Button>
-          </PopoverClose>
-        </Box>
       </Box>
     </Box>
   )

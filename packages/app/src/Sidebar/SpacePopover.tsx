@@ -1,5 +1,4 @@
 import { Box } from '@fower/react'
-import { t, Trans } from '@lingui/macro'
 import {
   Avatar,
   AvatarFallback,
@@ -18,7 +17,7 @@ export const SpacePopover = () => {
   return (
     <>
       <CreateSpaceModal />
-      <Popover offset={{ crossAxis: 10 }}>
+      <Popover offset={{ crossAxis: 20 }}>
         <PopoverTrigger asChild>
           {({ close }) => (
             <Box

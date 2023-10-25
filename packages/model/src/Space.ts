@@ -37,8 +37,8 @@ export class Space {
     return `${this.id}.json`
   }
 
-  get syncName() {
-    return 'space.json'
+  get filePath() {
+    return `${this.id}/space.json`
   }
 
   get updatedAtTimestamp() {

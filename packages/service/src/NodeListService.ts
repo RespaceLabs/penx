@@ -40,7 +40,7 @@ export class NodeListService {
   }
 
   getFavorites(ids: string[] = []) {
-    return this.nodes.filter((doc) => ids.includes(doc.id))
+    return this.nodes.filter((node) => ids.includes(node.id))
   }
 
   // TODO: need to improvement

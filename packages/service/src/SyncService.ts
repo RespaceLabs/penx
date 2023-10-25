@@ -51,14 +51,20 @@ export class SyncService {
 
   spacesDir = 'spaces'
 
-  pagesDir = 'pages'
-
   pagesTree: Content[]
 
   commitSha: string
 
   get baseBranchName() {
     return 'main'
+  }
+
+  get pagesDir() {
+    return this.space.id + '/pages'
+  }
+
+  getNodeFilePath(id: string) {
+    return `${this.pagesDir}/${id}.json`
   }
 
   setSharedParams() {
@@ -122,7 +128,7 @@ export class SyncService {
     // handle deleted docs
     for (const id of diff.deleted) {
       treeItems.push({
-        path: `${this.pagesDir}/${id}.json`,
+        path: this.getNodeFilePath(id),
         mode: '100644',
         type: 'blob',
         // sha: item.sha,
@@ -140,7 +146,7 @@ export class SyncService {
 
     for (const id of changeIds) {
       treeItems.push({
-        path: `pages/${id}.json`,
+        path: this.getNodeFilePath(id),
         mode: '100644',
         type: 'blob',
         content: JSON.stringify(pageMap[id], null, 2),
@@ -154,7 +160,7 @@ export class SyncService {
     const pages = await this.spaceService.getPages()
 
     return pages.map<TreeItem>((page) => ({
-      path: `pages/${page[0].id}.json`,
+      path: this.getNodeFilePath(page[0].id),
       mode: '100644',
       type: 'blob',
       content: JSON.stringify(page, null, 2),
@@ -211,7 +217,7 @@ export class SyncService {
 
   createSpaceTreeItem(version: number) {
     return {
-      path: this.space.syncName,
+      path: this.space.filePath,
       mode: '100644',
       type: 'blob',
       content: this.space.stringify(version),
@@ -256,7 +262,7 @@ export class SyncService {
       console.log('serverSnapshot:', serverSnapshot)
       const diff = this.space.snapshot.diff(serverSnapshot)
 
-      // console.log('diff:', diff)
+      console.log('diff:', diff)
 
       // isEqual, don't push
       if (diff.isEqual) return
@@ -278,6 +284,8 @@ export class SyncService {
       tree.push(spaceTreeItem)
     }
 
+    // console.log('tree:', tree)
+
     await this.getBaseBranchInfo()
 
     // update tree to GitHub before commit
@@ -291,8 +299,6 @@ export class SyncService {
     )
 
     const { data: commitData } = await this.commit(data.sha)
-
-    console.log('commitData:', commitData)
 
     // update ref to GitHub after commit
     await this.updateRef(commitData.sha)

@@ -14,7 +14,8 @@ import {
   RouterStore,
 } from '@penx/types'
 
-export const nodeAtom = atomWithStorage('node', null as any as INode)
+// export const nodeAtom = atomWithStorage('node', null as any as INode)
+export const nodeAtom = atom(null as any as INode)
 export const nodesAtom = atom<INode[]>([])
 
 export const spacesAtom = atom<ISpace[]>([])
@@ -112,6 +113,14 @@ export const store = Object.assign(createStore(), {
     this.setNodes(nodes)
   },
 
+  async selectNode(node: INode) {
+    this.routeTo('NODE')
+    this.reloadNode(node)
+    await db.updateSpace(this.getActiveSpace().id, {
+      activeNodeId: node.id,
+    })
+  },
+
   async restoreNode(id: string) {
     const space = this.getActiveSpace()
     await db.restoreNode(id)
@@ -152,5 +161,15 @@ export const store = Object.assign(createStore(), {
 
     this.setNodes(nodes)
     this.reloadNode(node)
+  },
+
+  async createSpace(name: string) {
+    const space = await db.createSpace({ name })
+    const spaces = await db.listSpaces()
+    this.setSpaces(spaces)
+    const nodeId = space.children[0]
+    const node = await db.getNode(nodeId)
+    this.reloadNode(node)
+    return space
   },
 })

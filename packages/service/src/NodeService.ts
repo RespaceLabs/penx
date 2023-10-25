@@ -27,8 +27,8 @@ export class NodeService {
     public allNodes: Node[],
   ) {
     if (node?.raw) {
-      for (const node of allNodes) {
-        this.nodeMap.set(node.id, node.raw)
+      for (const item of allNodes) {
+        this.nodeMap.set(item.id, item.raw)
       }
 
       this.childrenNodes = node.raw.children.map((id) => {
@@ -141,8 +141,7 @@ export class NodeService {
   }
 
   async selectNode(node?: Node) {
-    store.routeTo('NODE')
-    store.reloadNode(node?.raw || this.node.raw)
+    store.selectNode(node?.raw || this.node.raw)
   }
 
   async addToFavorites() {

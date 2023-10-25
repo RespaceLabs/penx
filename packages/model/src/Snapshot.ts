@@ -9,8 +9,6 @@ export interface SnapshotDiffResult {
 }
 
 export class Snapshot {
-  repo: string
-
   // Record<nodeId, md5>
   map: Record<string, string> = {}
 
@@ -19,7 +17,6 @@ export class Snapshot {
   constructor(public space: ISpace) {
     this.map = space.snapshot.nodeMap || {}
     this.version = space.snapshot.version || 0
-    this.repo = space.settings.sync.repo
   }
 
   md5Doc = (editorValue: any) => {

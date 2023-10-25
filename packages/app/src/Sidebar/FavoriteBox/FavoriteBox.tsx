@@ -2,7 +2,7 @@ import { Box } from '@fower/react'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from 'uikit'
 import { useNodes, useSpaces } from '@penx/hooks'
-import { DocItem } from './DocItem'
+import { NodeItem } from './NodeItem'
 
 export const FavoriteBox = () => {
   const { nodeList } = useNodes()
@@ -23,8 +23,8 @@ export const FavoriteBox = () => {
         </Button>
       </Box>
       <Box column>
-        {nodeList.getFavorites(activeSpace.favorites).map((doc) => (
-          <DocItem key={doc.id} node={doc} />
+        {nodeList.getFavorites(activeSpace.favorites).map((node) => (
+          <NodeItem key={node.id} node={node} />
         ))}
       </Box>
     </Box>
