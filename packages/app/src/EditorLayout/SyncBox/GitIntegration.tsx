@@ -4,23 +4,22 @@ import { useQuery } from '@tanstack/react-query'
 import { useDebouncedCallback } from 'use-debounce'
 import { Input } from 'uikit'
 import { RouterOutputs } from '@penx/api'
-import { useSpaces, useUser } from '@penx/hooks'
+import { useUser } from '@penx/hooks'
 import { trpc } from '@penx/trpc-client'
 import { GithubConnectedBox } from './GitHubConnectedBox'
 import { GithubInstallationSelect } from './GitHubInstallationSelect'
 import { Repos } from './Repos'
 
 interface Props {
-  token: RouterOutputs['github']['token']
+  github: RouterOutputs['github']['githubInfo']
 }
 
-export function GitIntegration({ token }: Props) {
+export function GitIntegration({ github }: Props) {
   const user = useUser()
 
-  const { activeSpace } = useSpaces()
   const { data: installations } = useQuery(['appInstallations'], () =>
     trpc.github.appInstallations.query({
-      token: token?.ghToken!,
+      token: github?.token!,
     }),
   )
 
@@ -38,7 +37,7 @@ export function GitIntegration({ token }: Props) {
 
   if (!user.raw) return null
 
-  const repo = user.getRepoName(activeSpace.id)
+  const repo = user.repo
 
   if (repo) {
     return <GithubConnectedBox repo={repo} />
@@ -48,7 +47,7 @@ export function GitIntegration({ token }: Props) {
     <Box mt2 column gapY4>
       <Box toBetween gapX3>
         <GithubInstallationSelect
-          token={token?.ghToken!}
+          token={github?.token!}
           value={installationId!}
           onChange={(v: number) => setInstallationId(v)}
         />
@@ -59,7 +58,7 @@ export function GitIntegration({ token }: Props) {
         />
       </Box>
       {installationId && (
-        <Repos token={token?.ghToken!} q={q} installationId={installationId} />
+        <Repos token={github?.token!} q={q} installationId={installationId} />
       )}
     </Box>
   )

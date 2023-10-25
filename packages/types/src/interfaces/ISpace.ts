@@ -30,11 +30,6 @@ export interface ISpace {
   }
 
   settings: {
-    [SettingsType.SYNC]: {
-      githubToken: string
-      repo: string
-      privateKey: string
-    }
     [SettingsType.APPEARANCE]: Record<string, any>
     [SettingsType.HOTKEYS]: Record<string, any>
     [SettingsType.PREFERENCES]: Record<string, any>

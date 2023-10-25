@@ -18,13 +18,8 @@ model User {
     bio      String?
     avatar   String?
 
-    ghConnectionInfo String? @db.Text
-
-    // github token info for github sync
-    ghToken                 String?
-    ghRefreshToken          String?
-    ghTokenExpiresAt        String?
-    ghRefreshTokenExpiresAt String?
+    // github info for github sync
+    github String? @db.Text
 
     email         String?   @unique
     emailVerified DateTime?

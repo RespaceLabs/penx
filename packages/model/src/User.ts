@@ -1,12 +1,13 @@
 import { User as IUser } from '@prisma/client'
 
-type GhConnectionInfo = Record<
-  string,
-  {
-    repoName: string
-    installationId: number
-  }
->
+export type GithubInfo = {
+  installationId: number
+  repo: string
+  token: string
+  refreshToken: string
+  tokenExpiresAt: string
+  refreshTokenExpiresAt: string
+}
 
 export class User {
   constructor(public raw: IUser) {}
@@ -15,23 +16,15 @@ export class User {
     return this.raw.address
   }
 
-  get ghConnectionInfo(): GhConnectionInfo {
-    return JSON.parse(this.raw.ghConnectionInfo || '{}')
+  get github(): GithubInfo {
+    return JSON.parse(this.raw.github || '{}')
   }
 
-  get spaceIds() {
-    return Object.keys(this.ghConnectionInfo)
+  get repo() {
+    return this.github.repo
   }
 
-  getSpace(spaceId: string) {
-    return this.ghConnectionInfo[spaceId]!
-  }
-
-  getRepoName(spaceId: string) {
-    return this.ghConnectionInfo[spaceId]?.repoName
-  }
-
-  getInstallationId(spaceId: string) {
-    return this.ghConnectionInfo[spaceId]?.installationId
+  get installationId() {
+    return this.github.installationId
   }
 }

@@ -7,7 +7,6 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
     id: nanoid(),
     name: 'My Space',
     isActive: false,
-    changes: {},
     favorites: [],
     children: [],
     snapshot: {
@@ -16,25 +15,13 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
       hashMap: {},
     },
     settings: {
-      [SettingsType.SYNC]: {
-        repo: '',
-        githubToken: '',
-        privateKey: '',
-      },
-
       [SettingsType.APPEARANCE]: {},
 
       [SettingsType.PREFERENCES]: {},
 
       [SettingsType.HOTKEYS]: {},
 
-      // TODO
-      [SettingsType.EXTENSIONS]: {
-        'github-sync': {
-          repo: '',
-          githubToken: '',
-        },
-      },
+      [SettingsType.EXTENSIONS]: {},
     },
     createdAt: Date.now(),
     updatedAt: Date.now(),

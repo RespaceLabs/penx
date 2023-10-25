@@ -5,7 +5,7 @@ import { GitIntegration } from './GitIntegration'
 import { useGitHubToken } from './useGitHubToken'
 
 export const ConnectGitHub = () => {
-  const { token, isTokenValid, isLoading } = useGitHubToken()
+  const { github, isTokenValid, isLoading } = useGitHubToken()
 
   return (
     <Box rounded2XL>
@@ -16,7 +16,7 @@ export const ConnectGitHub = () => {
 
       <GithubConnectionBox isLoading={isLoading}>
         {isTokenValid ? (
-          <GitIntegration token={token!} />
+          <GitIntegration github={github!} />
         ) : (
           <GitHubAuthButton />
         )}

@@ -39,7 +39,6 @@ export enum SyncStatus {
 }
 
 export enum SettingsType {
-  SYNC = 'sync',
   APPEARANCE = 'appearance',
   PREFERENCES = 'preferences',
   HOTKEYS = 'hotkeys',

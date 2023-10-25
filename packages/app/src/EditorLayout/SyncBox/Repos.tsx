@@ -26,11 +26,6 @@ export function Repos({ installationId, q, token }: Props) {
     }),
   )
 
-  // const { mutateAsync, isLoading: isConnecting } =
-  //   api.space.connectRepo.useMutation()
-  // const loading = isConnecting || isSpaceFetching
-  // const loading = isSpaceFetching
-
   const h = 383
 
   if (isLoading) {
@@ -74,7 +69,7 @@ export function Repos({ installationId, q, token }: Props) {
           </Box>
           <GitHubConnectButton
             installationId={installationId}
-            repoName={item.full_name}
+            repo={item.full_name}
           />
         </Box>
       ))}

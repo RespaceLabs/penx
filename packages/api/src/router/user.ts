@@ -1,14 +1,7 @@
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
+import { GithubInfo } from '@penx/model'
 import { createTRPCRouter, publicProcedure } from '../trpc'
-
-type GhConnectionInfo = Record<
-  string,
-  {
-    repoName: string
-    installationId: number
-  }
->
 
 export const userRouter = createTRPCRouter({
   all: publicProcedure.query(async ({ ctx }) => {
@@ -98,26 +91,24 @@ export const userRouter = createTRPCRouter({
     .input(
       z.object({
         address: z.string(),
-        spaceId: z.string(), // local spaceId
-        repoName: z.string(),
+        repo: z.string(),
         installationId: z.number(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { address, spaceId, ...rest } = input
+      const { address } = input
       const user = await ctx.prisma.user.findFirstOrThrow({
-        where: { address: input.address },
+        where: { address },
       })
 
-      const ghConnectionInfo: GhConnectionInfo = JSON.parse(
-        user.ghConnectionInfo || '{}',
-      )
+      const github: GithubInfo = JSON.parse(user.github || '{}')
 
-      ghConnectionInfo[spaceId] = rest
+      github.installationId = input.installationId
+      github.repo = input.repo
 
       return ctx.prisma.user.update({
         where: { address },
-        data: { ghConnectionInfo: JSON.stringify(ghConnectionInfo) },
+        data: { github: JSON.stringify(github) },
       })
     }),
 
@@ -125,27 +116,22 @@ export const userRouter = createTRPCRouter({
     .input(
       z.object({
         address: z.string(),
-        spaceId: z.string(), // local spaceId
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { address, spaceId } = input
+      const { address } = input
       const user = await ctx.prisma.user.findFirstOrThrow({
         where: { address: input.address },
       })
 
-      const ghConnectionInfo: GhConnectionInfo = JSON.parse(
-        user.ghConnectionInfo || '{}',
-      )
+      const github: GithubInfo = JSON.parse(user.github || '{}')
 
-      ghConnectionInfo[spaceId] = {
-        installationId: null as any,
-        repoName: '',
-      }
+      github.installationId = null as any
+      github.repo = ''
 
       return ctx.prisma.user.update({
         where: { address },
-        data: { ghConnectionInfo: JSON.stringify(ghConnectionInfo) },
+        data: { github: JSON.stringify(github) },
       })
     }),
 })

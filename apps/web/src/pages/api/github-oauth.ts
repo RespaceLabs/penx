@@ -2,6 +2,7 @@ import { OAuthApp } from '@octokit/oauth-app'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getToken } from 'next-auth/jwt'
 import { prisma } from '@penx/db'
+import { GithubInfo } from '@penx/model'
 
 const clientId = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID!
 const clientSecret = process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET!
@@ -31,10 +32,12 @@ export default async function handler(
   await prisma.user.update({
     where: { address },
     data: {
-      ghToken: authentication.token,
-      ghRefreshToken: (authentication as any).refreshToken,
-      ghTokenExpiresAt: (authentication as any).expiresAt,
-      ghRefreshTokenExpiresAt: (authentication as any).refreshTokenExpiresAt,
+      github: JSON.stringify({
+        token: authentication.token,
+        refreshToken: (authentication as any).refreshToken,
+        tokenExpiresAt: (authentication as any).expiresAt,
+        refreshTokenExpiresAt: (authentication as any).refreshTokenExpiresAt,
+      } as GithubInfo),
     },
   })
 

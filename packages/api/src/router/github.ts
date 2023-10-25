@@ -2,14 +2,14 @@ import { createAppAuth } from '@octokit/auth-app'
 import { components } from '@octokit/openapi-types'
 import { Octokit } from 'octokit'
 import { z } from 'zod'
-import { User } from '@penx/model'
+import { GithubInfo, User } from '@penx/model'
 import { refreshGitHubToken } from '../service/refreshGitHubToken'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
 const privateKey = JSON.parse(process.env.GITHUB_PRIVATE_KEY || '{}').key
 
 export const githubRouter = createTRPCRouter({
-  token: publicProcedure
+  githubInfo: publicProcedure
     .input(
       z.object({
         address: z.string(),
@@ -17,63 +17,50 @@ export const githubRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const { address } = input
-      const emptyOutput = {
-        ghToken: '',
-        ghTokenExpiresAt: '',
-        ghRefreshToken: '',
-        ghRefreshTokenExpiresAt: '',
-      }
 
-      const tokenInfo = await ctx.prisma.user.findUnique({
+      const user = await ctx.prisma.user.findUnique({
         where: { address },
-        select: {
-          ghToken: true,
-          ghTokenExpiresAt: true,
-          ghRefreshToken: true,
-          ghRefreshTokenExpiresAt: true,
-        },
       })
 
-      const {
-        ghToken,
-        ghTokenExpiresAt,
-        ghRefreshToken,
-        ghRefreshTokenExpiresAt,
-      } = tokenInfo!
+      const github: GithubInfo = JSON.parse(user?.github || '{}')
 
-      if (!ghToken || !ghRefreshToken) return emptyOutput
+      if (!github.token || !github.refreshToken) return github
 
-      const tokenExpiresAt = new Date(ghTokenExpiresAt!).valueOf()
+      const tokenExpiresAt = new Date(github.tokenExpiresAt!).valueOf()
       const isTokenExpired = Date.now() > tokenExpiresAt
 
       // accessToken not expired, use it
-      if (!isTokenExpired) return tokenInfo
+      if (!isTokenExpired) return github
 
-      const refreshTokenExpiresAt = new Date(ghRefreshTokenExpiresAt!).valueOf()
+      const refreshTokenExpiresAt = new Date(
+        github.refreshTokenExpiresAt!,
+      ).valueOf()
 
       const isRefreshTokenExpired = Date.now() > refreshTokenExpiresAt
 
       // accessToken is expired, but refreshToken not expired, refresh it to get a new accessToken
       if (isTokenExpired && !isRefreshTokenExpired) {
         try {
-          const info = await refreshGitHubToken(ghRefreshToken)
+          const info = await refreshGitHubToken(github.refreshToken)
           await ctx.prisma.user.update({
             where: { address },
             data: {
-              ghToken: info.token,
-              ghRefreshToken: info.refreshToken,
-              ghTokenExpiresAt: info.expiresAt,
-              ghRefreshTokenExpiresAt: info.refreshTokenExpiresAt,
+              github: JSON.stringify({
+                token: info.token,
+                refreshToken: info.refreshToken,
+                tokenExpiresAt: info.expiresAt,
+                refreshTokenExpiresAt: info.refreshTokenExpiresAt,
+              } as GithubInfo),
             },
           })
         } catch (error) {
-          return emptyOutput
+          return github
         }
       } else {
-        return emptyOutput
+        return github
       }
 
-      return tokenInfo
+      return github
     }),
 
   appInstallations: publicProcedure

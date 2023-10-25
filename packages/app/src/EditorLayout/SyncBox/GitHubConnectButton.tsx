@@ -1,30 +1,27 @@
 import { useState } from 'react'
 import { Box } from '@fower/react'
-import { useAccount } from 'wagmi'
 import { Button, Spinner, toast } from 'uikit'
-import { useSpaces, useUser } from '@penx/hooks'
+import { useUser } from '@penx/hooks'
 import { User } from '@penx/model'
 import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 
 interface Props {
   installationId: number
-  repoName: string
+  repo: string
 }
 
-export function GitHubConnectButton({ installationId, repoName }: Props) {
+export function GitHubConnectButton({ installationId, repo }: Props) {
   const [loading, setLoading] = useState(false)
   const { address = '' } = useUser()
-  const { activeSpace } = useSpaces()
 
   async function connect() {
     setLoading(true)
     try {
       const user = await trpc.user.connectRepo.mutate({
         address,
-        spaceId: activeSpace.id,
         installationId,
-        repoName,
+        repo,
       })
 
       store.setUser(new User(user))
