@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid'
 import { Element, Node } from 'slate'
 import { ListsSchema, ListType } from 'slate-lists'
 import { getEmptyParagraph } from '@penx/paragraph'
-import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_OL, ELEMENT_UL } from './types'
+import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_OL, ELEMENT_UL } from './constants'
 
 export const listSchema: ListsSchema = {
   isConvertibleToListTextNode(node: Node) {

@@ -1,12 +1,12 @@
 import { ExtensionContext } from '@penx/extension-typings'
-import { onKeyDown } from './onKeyDown'
 import {
   ELEMENT_LI,
   ELEMENT_LIC,
   ELEMENT_OL,
   ELEMENT_TITLE,
   ELEMENT_UL,
-} from './types'
+} from './constants'
+import { onKeyDown } from './onKeyDown'
 import { List } from './ui/List'
 import { ListItem } from './ui/ListItem'
 import { ListItemContent } from './ui/ListItemContent'
@@ -15,6 +15,7 @@ import { withListsPlugin } from './withListsPlugin'
 
 export * from './types'
 export * from './guard'
+export * from './constants'
 export * from './transforms/insertEmptyList'
 export * from './transforms/insertEmptyListItem'
 

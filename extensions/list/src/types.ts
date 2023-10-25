@@ -1,10 +1,11 @@
 import { BaseElement } from 'slate'
-
-export const ELEMENT_TITLE = 'title'
-export const ELEMENT_UL = 'unordered-list'
-export const ELEMENT_OL = 'ordered-list'
-export const ELEMENT_LI = 'list-item'
-export const ELEMENT_LIC = 'list-item-text'
+import {
+  ELEMENT_LI,
+  ELEMENT_LIC,
+  ELEMENT_OL,
+  ELEMENT_TITLE,
+  ELEMENT_UL,
+} from './constants'
 
 export interface TitleElement extends BaseElement {
   id?: string
