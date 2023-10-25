@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Box, css } from '@fower/react'
+import { Box } from '@fower/react'
 import { RefreshCcw } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import { Divider, Dot, Popover, PopoverContent, PopoverTrigger } from 'uikit'
@@ -19,10 +19,11 @@ export const SyncPopover: FC<Props> = () => {
   async function push() {
     const space = await db.getActiveSpace()
     if (!space) return // TODO:
+
     try {
       setStatus(SyncStatus.PUSHING)
       const s = await SyncService.init(space, address)
-      await s.push()
+      // await s.push()
       setStatus(SyncStatus.NORMAL)
     } catch (error) {
       setStatus(SyncStatus.PUSH_FAILED)

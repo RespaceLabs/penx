@@ -17,7 +17,7 @@ export class Snapshot {
   version: number
 
   constructor(public space: ISpace) {
-    this.map = space.snapshot.hashMap || {}
+    this.map = space.snapshot.nodeMap || {}
     this.version = space.snapshot.version || 0
     this.repo = space.settings.sync.repo
   }
@@ -45,9 +45,8 @@ export class Snapshot {
 
   toJSON() {
     return {
-      repo: this.repo,
       version: this.version,
-      hashMap: this.map,
+      nodeMap: this.map,
     }
   }
 
@@ -57,7 +56,7 @@ export class Snapshot {
 
   diff(serverSnapshot: ISpace['snapshot']): SnapshotDiffResult {
     const { map: localMap } = this
-    const { hashMap: serverMap } = serverSnapshot
+    const { nodeMap: serverMap } = serverSnapshot
     console.log('serverSnapshot:', serverSnapshot, 's:', this.toJSON())
 
     const localIds = Object.keys(localMap)

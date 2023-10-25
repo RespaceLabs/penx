@@ -147,22 +147,23 @@ export const githubRouter = createTRPCRouter({
       }
     }),
 
-  getTokenByInstallationId: publicProcedure
+  /**
+   * Get Octokit auth token
+   */
+  getTokenByAddress: publicProcedure
     .input(
       z.object({
         address: z.string(),
-        spaceId: z.string(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { address, spaceId } = input
+      const { address } = input
 
       const userRaw = await ctx.prisma.user.findUniqueOrThrow({
         where: { address },
       })
 
       const user = new User(userRaw)
-      const space = user.getSpace(spaceId)
 
       const auth = createAppAuth({
         appId: process.env.GITHUB_APP_ID!,
@@ -173,7 +174,7 @@ export const githubRouter = createTRPCRouter({
 
       const installationAuthentication = await auth({
         type: 'installation',
-        installationId: space.installationId,
+        installationId: user.github.installationId,
       })
       return installationAuthentication.token
     }),

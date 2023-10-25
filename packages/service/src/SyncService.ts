@@ -71,12 +71,9 @@ export class SyncService {
     const s = new SyncService()
     s.space = new Space(space)
 
-    const token = await trpc.github.getTokenByInstallationId.query({
+    const token = await trpc.github.getTokenByAddress.query({
       address,
-      spaceId: space.id,
     })
-
-    console.log('=======token:', token)
 
     s.setSharedParams()
 
@@ -251,8 +248,6 @@ export class SyncService {
 
       console.log('serverSnapshot:', serverSnapshot)
 
-      console.log('difff.........', diff)
-
       // isEqual, don't push
       if (diff.isEqual) return
 
@@ -366,9 +361,8 @@ export class SyncService {
       .json<any>()
 
     return {
-      repo: this.space.settings.repo,
       version: data.version,
-      hashMap: JSON.parse(data.hashMap),
+      nodeMap: JSON.parse(data.nodeMap),
     }
   }
 
@@ -385,9 +379,8 @@ export class SyncService {
         const content: ISpace = JSON.parse(decodeBase64(data.content!))
 
         return {
-          repo: content.snapshot.repo,
           version: content.snapshot.version,
-          hashMap: content.snapshot.hashMap,
+          nodeMap: content.snapshot.nodeMap,
         }
       } catch (e) {
         throw e
@@ -400,7 +393,7 @@ export class SyncService {
     //   spaceId: this.space.id,
     //   version: 1,
     //   timestamp: Date.now(),
-    //   hashMap: '',
+    //   nodeMap: '',
     // })
 
     const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL + '/api/upsert-snapshot'
@@ -410,7 +403,7 @@ export class SyncService {
           repo: this.space.settings.repo,
           spaceId: this.space.id,
           version: this.space.snapshot.version,
-          hashMap: JSON.stringify(space.snapshot.hashMap),
+          nodeMap: JSON.stringify(space.snapshot.nodeMap),
         },
       })
       .json()

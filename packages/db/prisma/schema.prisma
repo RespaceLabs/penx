@@ -205,8 +205,7 @@ model Snapshot {
     id        String   @id @default(cuid())
     spaceId   String   @unique
     version   Int
-    hashMap   String?  @db.Text
-    repo      String   @unique
+    nodeMap   String?  @db.Text // Record<nodeId, nodeMD5>
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

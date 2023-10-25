@@ -20,7 +20,7 @@ export const snapshotRouter = createTRPCRouter({
         repo: z.string(),
         spaceId: z.string(),
         version: z.number(),
-        hashMap: z.string(),
+        nodeMap: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {

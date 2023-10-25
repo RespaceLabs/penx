@@ -24,9 +24,8 @@ export interface ISpace {
   children: string[]
 
   snapshot: {
-    repo: string
     version: number
-    hashMap: Record<string, string>
+    nodeMap: Record<string, string>
   }
 
   settings: {
