@@ -35,16 +35,10 @@ export function activate(ctx: ExtensionContext) {
       {
         type: ELEMENT_UL,
         component: List,
-        slashCommand: {
-          name: 'Unordered List',
-        },
       },
       {
         type: ELEMENT_OL,
         component: List,
-        slashCommand: {
-          name: 'Ordered List',
-        },
       },
       {
         type: ELEMENT_LI,

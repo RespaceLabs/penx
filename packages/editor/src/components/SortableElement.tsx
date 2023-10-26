@@ -63,7 +63,7 @@ export const SortableElement = (props: Props) => {
       }}
       css={getActiveStyle()}
     >
-      <ElementMenu element={element} path={at} listeners={sortable.listeners} />
+      {/* <ElementMenu element={element} path={at} listeners={sortable.listeners} /> */}
       {renderElement({ attributes, element, children })}
     </Box>
   )

@@ -48,6 +48,8 @@ export const BlockSelector = ({
         Transforms.unwrapNodes(editor, {
           at: path,
         })
+
+        editor.isBlockSelectorOpened = false
       }
     },
     placement: 'bottom-start',

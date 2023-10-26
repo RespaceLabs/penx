@@ -1,9 +1,8 @@
 import { useCallback } from 'react'
 import { Box } from '@fower/react'
-import { TElement } from '@udecode/plate-common'
-import { Editor, Element, Node, Transforms } from 'slate'
-import { useSlateStatic } from 'slate-react'
-import { useEditorStatic } from '@penx/editor-common'
+import { Editor, Element, Node, Path, Transforms } from 'slate'
+import { TElement, useEditorStatic } from '@penx/editor-common'
+import { getNodeByPath } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
 import { useExtensionStore } from '@penx/hooks'
 import { isBlockSelector } from '../isBlockSelector'
@@ -59,6 +58,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
          * don't use setNodes，@see  https://github.com/ianstormtaylor/slate/issues/4020
          */
         Transforms.removeNodes(editor, { at })
+
         Transforms.insertNodes(
           editor,
           {
@@ -67,7 +67,6 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
           { at },
         )
         Transforms.select(editor, Editor.start(editor, at))
-        return
       }
 
       // image,divider...
@@ -76,14 +75,33 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
           match: (n) => Element.isElement(n) && Editor.isBlock(editor, n),
         })
 
-        Transforms.insertNodes(editor, {
-          type: elementType,
-          children: [{ text: '' }],
-        } as TElement)
+        Transforms.insertNodes(
+          editor,
+          {
+            type: elementType,
+            children: [{ text: '' }],
+          } as TElement,
+          {
+            at,
+            select: true,
+          },
+        )
 
-        if (elementInfo?.slashCommand?.afterInvokeCommand) {
-          elementInfo.slashCommand.afterInvokeCommand(editor)
-        }
+        Transforms.insertNodes(
+          editor,
+          {
+            type: 'p',
+            children: [{ text: '' }],
+          } as TElement,
+          {
+            at: Path.next(at),
+            select: true,
+          },
+        )
+
+        // if (elementInfo?.slashCommand?.afterInvokeCommand) {
+        //   elementInfo.slashCommand.afterInvokeCommand(editor)
+        // }
       } else {
         // p,h1,h2,h3,h4...
         Transforms.setNodes(
@@ -106,12 +124,11 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
         })
 
         selectEditor(editor, { focus: true, at })
-
-        setTimeout(() => {
-          editor.isBlockSelectorOpened = false
-        }, 0)
-        return
       }
+
+      setTimeout(() => {
+        editor.isBlockSelectorOpened = false
+      }, 0)
     },
     [editor, close, element, extensionStore],
   )
