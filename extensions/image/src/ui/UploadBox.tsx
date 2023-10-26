@@ -1,15 +1,11 @@
 import { useState } from 'react'
 import { Box } from '@fower/react'
 import { ImageIcon } from 'lucide-react'
-import {
-  ReactEditor,
-  useFocused,
-  useSelected,
-  useSlateStatic,
-} from 'slate-react'
+import { ReactEditor, useFocused, useSelected } from 'slate-react'
 import { Input, toast } from 'uikit'
 import { useEditorStatic } from '@penx/editor-common'
 import { setNodes } from '@penx/editor-transforms'
+import { calculateSHA256FromFile } from '@penx/encryption'
 import { ElementProps } from '@penx/extension-typings'
 import { useSpaces } from '@penx/hooks'
 import { db } from '@penx/local-db'
@@ -38,10 +34,16 @@ export const UploadBox = ({
     setUploading(true)
 
     try {
-      const fileInfo = await db.createFile({
-        spaceId: activeSpace.id,
-        value: file,
-      })
+      const hash = await calculateSHA256FromFile(file)
+      let fileInfo = await db.getFile(hash)
+
+      if (!fileInfo) {
+        fileInfo = await db.createFile({
+          id: hash,
+          spaceId: activeSpace.id,
+          value: file,
+        })
+      }
 
       console.log('fileInfo:', fileInfo)
 

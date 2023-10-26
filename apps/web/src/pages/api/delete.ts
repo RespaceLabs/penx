@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   try {
     const snapshot = await prisma.snapshot.deleteMany({
-      where: { spaceId: 'eTFbK_zv0ZXh8Edf2clGl' },
+      // where: { spaceId: 'eTFbK_zv0ZXh8Edf2clGl' },
     })
 
     res.json(snapshot)

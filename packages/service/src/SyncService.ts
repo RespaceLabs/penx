@@ -125,7 +125,7 @@ export class SyncService {
   async createTreeForExistedDir(diff: SnapshotDiffResult): Promise<TreeItem[]> {
     let treeItems: TreeItem[] = []
 
-    // handle deleted docs
+    // handle deleted nodes
     for (const id of diff.deleted) {
       treeItems.push({
         path: this.getNodeFilePath(id),
@@ -224,6 +224,37 @@ export class SyncService {
     } as TreeItem
   }
 
+  async createFilesTree() {
+    let treeItems: TreeItem[] = []
+    const files = await db.file.selectAll()
+
+    for (const file of files) {
+      const content = await fileToBase64(file.value)
+
+      const { data } = await this.app.request(
+        'POST /repos/{owner}/{repo}/git/blobs',
+        {
+          ...this.params,
+          content,
+          encoding: 'base64',
+        },
+      )
+
+      const ext = getFileExtension(file.value.name)
+
+      console.log('====ext:', ext)
+
+      treeItems.push({
+        path: `${this.space.id}/files/${file.id}.${ext}`,
+        mode: '100644',
+        type: 'blob',
+        sha: data.sha,
+      })
+    }
+
+    return treeItems
+  }
+
   private async pullSpaceInfo() {
     const spaceRes: any = await this.app.request(
       'GET /repos/{owner}/{repo}/contents/{path}',
@@ -276,6 +307,9 @@ export class SyncService {
 
       const spaceTreeItem = this.createSpaceTreeItem(serverSnapshot.version + 1)
       tree.push(spaceTreeItem)
+
+      const filesTree = await this.createFilesTree()
+      tree.push(...filesTree)
     } catch (error) {
       const nodesTree = await this.createTreeForNewDir()
       tree.push(...nodesTree)
@@ -427,4 +461,27 @@ function decodeBase64(base64String: string): string {
   )
   const decoder = new TextDecoder('utf-8')
   return decoder.decode(decodedArray)
+}
+
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+
+    reader.onload = () => {
+      const base64String = (reader.result as string).split(',')[1]
+      // const base64String = reader.result as string
+      resolve(base64String)
+    }
+
+    reader.onerror = (error) => {
+      reject(error)
+    }
+
+    reader.readAsDataURL(file)
+  })
+}
+
+function getFileExtension(fileName: string): string {
+  const fileExtension: string = fileName.split('.').pop()?.toLowerCase() || ''
+  return fileExtension
 }

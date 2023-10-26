@@ -8,7 +8,7 @@ export * from './interfaces'
 
 type pluginId = string
 
-export type RouteName = 'DOC' | 'TRASH' | 'ALL_DOCS' | 'SYNC' | 'NODE'
+export type RouteName = 'TRASH' | 'ALL_DOCS' | 'SYNC' | 'NODE'
 
 export type RouterStore = {
   name: RouteName

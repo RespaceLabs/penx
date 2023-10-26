@@ -1424,6 +1424,9 @@ importers:
       '@penx/editor-transforms':
         specifier: workspace:*
         version: link:../../packages/editor-transforms
+      '@penx/encryption':
+        specifier: workspace:*
+        version: link:../../packages/encryption
       '@penx/extension-typings':
         specifier: '*'
         version: link:../../packages/extension-typings

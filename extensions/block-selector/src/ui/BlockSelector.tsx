@@ -12,7 +12,7 @@ import {
   useRole,
 } from '@floating-ui/react'
 import { Box } from '@fower/react'
-import { Node, Transforms } from 'slate'
+import { Transforms } from 'slate'
 import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getCurrentNode } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'

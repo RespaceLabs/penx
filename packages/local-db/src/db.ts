@@ -254,10 +254,10 @@ class DB {
 
   createFile(file: Partial<IFile>) {
     return this.file.insert({
-      ...file,
       id: nanoid(),
       createdAt: Date.now(),
       updatedAt: Date.now(),
+      ...file,
     })
   }
 
