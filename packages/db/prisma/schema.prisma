@@ -162,9 +162,10 @@ model Extension {
 
 model Snapshot {
     id        String   @id @default(cuid())
+    address   String // wallet address
     spaceId   String   @unique
     version   Int
-    nodeMap   String?  @db.Text // Record<nodeId, nodeMD5>
+    nodeMap   String?  @db.Text // Record<nodeId, nodeHash>
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

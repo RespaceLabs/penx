@@ -176,7 +176,7 @@ class DB {
     return this.node.select({
       where: {
         spaceId,
-        status: NodeStatus.NORMAL,
+        // status: NodeStatus.NORMAL,
       },
     })
   }

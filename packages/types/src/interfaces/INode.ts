@@ -12,6 +12,11 @@ export interface INode {
 
   element: any
 
+  // for dynamic data
+  props: {
+    [key: string]: any
+  }
+
   emoji?: string
 
   status: NodeStatus

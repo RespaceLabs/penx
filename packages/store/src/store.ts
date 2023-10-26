@@ -139,6 +139,7 @@ export const store = Object.assign(createStore(), {
     const normalNodes = nodes.filter(
       (node) => node.status === NodeStatus.NORMAL,
     )
+
     this.setNode(normalNodes[0])
     this.setNodes(nodes)
   },
@@ -157,8 +158,8 @@ export const store = Object.assign(createStore(), {
     const node = await db.createPageNode({ spaceId: space.id })
     await db.updateSpace(space.id, { activeNodeId: node.id })
     const nodes = await db.listNormalNodes(space.id)
-    this.routeTo('NODE')
 
+    this.routeTo('NODE')
     this.setNodes(nodes)
     this.reloadNode(node)
   },
@@ -166,9 +167,23 @@ export const store = Object.assign(createStore(), {
   async createSpace(name: string) {
     const space = await db.createSpace({ name })
     const spaces = await db.listSpaces()
-    this.setSpaces(spaces)
     const nodeId = space.children[0]
     const node = await db.getNode(nodeId)
+    this.setSpaces(spaces)
+    this.reloadNode(node)
+    return space
+  },
+
+  async selectSpace(id: string) {
+    await db.selectSpace(id)
+    const spaces = await db.listSpaces()
+    const nodes = await db.listNormalNodes(id)
+    const space = await db.getActiveSpace()
+    const nodeId = space.activeNodeId || space.children[0]
+    const node = await db.getNode(nodeId)
+
+    this.setSpaces(spaces)
+    this.setNodes(nodes)
     this.reloadNode(node)
     return space
   },

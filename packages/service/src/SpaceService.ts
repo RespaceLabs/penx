@@ -17,20 +17,7 @@ export class SpaceService {
   }
 
   selectSpace = async (id: string) => {
-    await db.selectSpace(id)
-
-    await this.loadSpaces()
-    const nodes = await db.listNodesBySpaceId(id)
-
-    // TODO:
-    // if (nodes.length) {
-    //   store.set(docAtom, null as any)
-
-    //   // for rerender editor
-    //   setTimeout(() => {
-    //     store.set(docAtom, nodes[0])
-    //   }, 0)
-    // }
+    store.selectSpace(id)
   }
 
   loadSpaces = async () => {

@@ -2,6 +2,12 @@ import { z } from 'zod'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
 export const snapshotRouter = createTRPCRouter({
+  listByAddress: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.doc.findMany({ where: { spaceId: input.id } })
+    }),
+
   upsert: publicProcedure
     .input(
       z.object({

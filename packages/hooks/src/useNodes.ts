@@ -19,7 +19,7 @@ export function useQueryNodes(spaceId: string) {
 
       const space = store.getSpaces().find((s) => s.id === spaceId)
 
-      console.log('space?.activeNodeId:', space?.activeNodeId)
+      // console.log('space?.activeNodeId:', space?.activeNodeId)
 
       const activeNode =
         nodes.find((node) => node.id === space?.activeNodeId) || nodes[0]
@@ -32,6 +32,7 @@ export function useQueryNodes(spaceId: string) {
 
 export function useNodes() {
   const nodes = useAtomValue(nodesAtom)
+
   const { activeSpace } = useSpaces()
   const nodeList = useMemo(() => {
     return new NodeListService(activeSpace, nodes)
