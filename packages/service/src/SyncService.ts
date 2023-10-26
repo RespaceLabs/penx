@@ -441,9 +441,13 @@ export class SyncService {
     // })
 
     const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL + '/api/upsert-snapshot'
+
+    console.log('this.user-=======:', this.user)
+
     await ky
       .post(url, {
         json: {
+          address: this.user.address,
           spaceId: this.space.id,
           version: this.space.snapshot.version,
           nodeMap: JSON.stringify(space.snapshot.nodeMap),
