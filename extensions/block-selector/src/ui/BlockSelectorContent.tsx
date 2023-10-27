@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
 import { Box } from '@fower/react'
 import { Editor, Element, Node, Path, Transforms } from 'slate'
+import { ListsEditor } from 'slate-lists'
 import { TElement, useEditorStatic } from '@penx/editor-common'
-import { getNodeByPath } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
 import { useExtensionStore } from '@penx/hooks'
 import { isBlockSelector } from '../isBlockSelector'
@@ -71,9 +71,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
 
       // image,divider...
       if (elementInfo.isVoid) {
-        Transforms.removeNodes(editor, {
-          match: (n) => Element.isElement(n) && Editor.isBlock(editor, n),
-        })
+        Transforms.removeNodes(editor, { at })
 
         Transforms.insertNodes(
           editor,
@@ -81,27 +79,26 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
             type: elementType,
             children: [{ text: '' }],
           } as TElement,
-          {
-            at,
-            select: true,
-          },
+          { at },
         )
+
+        const next = Path.next(Path.parent(at))
 
         Transforms.insertNodes(
           editor,
+          ListsEditor.createListItemTextNode(editor, {
+            children: [
+              {
+                type: 'p',
+                children: [{ text: '' }],
+              } as TElement,
+            ],
+          }),
           {
-            type: 'p',
-            children: [{ text: '' }],
-          } as TElement,
-          {
-            at: Path.next(at),
+            at: next,
             select: true,
           },
         )
-
-        // if (elementInfo?.slashCommand?.afterInvokeCommand) {
-        //   elementInfo.slashCommand.afterInvokeCommand(editor)
-        // }
       } else {
         // p,h1,h2,h3,h4...
         Transforms.setNodes(
@@ -128,7 +125,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
 
       setTimeout(() => {
         editor.isBlockSelectorOpened = false
-      }, 0)
+      }, 50)
     },
     [editor, close, element, extensionStore],
   )

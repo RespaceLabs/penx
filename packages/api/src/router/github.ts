@@ -46,6 +46,7 @@ export const githubRouter = createTRPCRouter({
             where: { address },
             data: {
               github: JSON.stringify({
+                ...github,
                 token: info.token,
                 refreshToken: info.refreshToken,
                 tokenExpiresAt: info.expiresAt,

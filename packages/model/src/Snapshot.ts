@@ -46,7 +46,10 @@ export class Snapshot {
     this.version = v
   }
 
-  diff(serverSnapshot: ISpace['snapshot']): SnapshotDiffResult {
+  diff(
+    serverSnapshot: ISpace['snapshot'],
+    type: 'PUSH' | 'PULL' = 'PUSH',
+  ): SnapshotDiffResult {
     const { map: localMap } = this
     const { nodeMap: serverMap } = serverSnapshot
     console.log('serverSnapshot:', serverSnapshot, 's:', this.toJSON())
@@ -54,11 +57,16 @@ export class Snapshot {
     const localIds = Object.keys(localMap)
     const serverIds = Object.keys(serverMap)
 
-    const added = localIds.filter((item) => !serverIds.includes(item))
-    const same = localIds.filter((item) => serverIds.includes(item))
-    const deleted = serverIds.filter((item) => !localIds.includes(item))
-    const updated: string[] = []
+    let added = localIds.filter((item) => !serverIds.includes(item))
+    let deleted = serverIds.filter((item) => !localIds.includes(item))
 
+    // swap
+    if (type === 'PULL') {
+      ;[added, deleted] = [deleted, added]
+    }
+
+    const same = localIds.filter((item) => serverIds.includes(item))
+    const updated: string[] = []
     for (const id of same) {
       if (localMap[id] !== serverMap[id]) {
         updated.push(id)

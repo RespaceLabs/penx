@@ -2,7 +2,7 @@ import ky from 'ky'
 import { Octokit } from 'octokit'
 import { db } from '@penx/local-db'
 import { SnapshotDiffResult, Space, User } from '@penx/model'
-import { nodeAtom, spacesAtom, store } from '@penx/store'
+import { spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 import { INode, ISpace } from '@penx/types'
 import { SpaceService } from './SpaceService'
@@ -255,13 +255,16 @@ export class SyncService {
     return treeItems
   }
 
+  /**
+   * pull space.json
+   */
   private async pullSpaceInfo() {
     const spaceRes: any = await this.app.request(
       'GET /repos/{owner}/{repo}/contents/{path}',
       {
         ...this.params,
         ref: `heads/${this.baseBranchName}`,
-        path: 'space.json',
+        path: `${this.space.id}/space.json`,
       },
     )
 
@@ -271,32 +274,36 @@ export class SyncService {
     }
   }
 
-  private async reloadSpaceStore() {
+  private async reloadSpacesStore() {
     const spaces = await db.listSpaces()
     store.set(spacesAtom, spaces)
     return spaces
   }
 
-  private updateDocAtom(doc: any) {
-    store.set(nodeAtom, null as any)
-
-    // for rerender editor
-    setTimeout(() => {
-      store.set(nodeAtom, doc!)
-    }, 0)
-  }
-
   async push() {
     let tree: TreeItem[] = []
+
     try {
       const serverSnapshot = await this.getSnapshot()
-      console.log('serverSnapshot:', serverSnapshot)
+      console.log('serverSnapshot:', serverSnapshot, 'space:', this.space)
+
+      if (
+        !this.space.snapshot?.version ||
+        this.space.snapshot.version < serverSnapshot.version
+      ) {
+        console.log('should pull, can not push!!!')
+        return
+      }
+
       const diff = this.space.snapshot.diff(serverSnapshot)
 
       console.log('diff:', diff)
 
       // isEqual, don't push
-      if (diff.isEqual) return
+      if (diff.isEqual) {
+        console.log('diff equal, no need to push')
+        return
+      }
 
       // space.json existed
       await this.getPagesTreeInfo()
@@ -341,7 +348,7 @@ export class SyncService {
       snapshot: this.space.snapshot.toJSON(),
     })
 
-    const spaces = await this.reloadSpaceStore()
+    const spaces = await this.reloadSpacesStore()
 
     const activeSpace = spaces.find((s) => s.id === this.space.id)
     await this.upsertSnapshot(activeSpace!)
@@ -350,15 +357,14 @@ export class SyncService {
   async isCanPull() {
     const now = Date.now()
     const ONE_MINUTE = 60 * 1000
-    //
     return true
   }
 
-  async pull() {
-    const docsTree = await this.getPagesTreeInfo()
+  async pullAll() {
+    const pagesTree = await this.getPagesTreeInfo()
 
-    for (const item of docsTree) {
-      const docRes: any = await this.app.request(
+    for (const item of pagesTree) {
+      const pageRes: any = await this.app.request(
         'GET /repos/{owner}/{repo}/contents/{path}',
         {
           ...this.params,
@@ -367,28 +373,92 @@ export class SyncService {
         },
       )
 
-      const name: string = docRes.data.name
-      const doc = await db.getNode(name.replace(/\.json$/, ''))
-      const json: any = JSON.parse(decodeBase64(docRes.data.content))
+      const nodes: INode[] =
+        JSON.parse(decodeBase64(pageRes.data.content)) || []
 
-      // if (doc) {
-      //   await db.updateDoc(doc.id, {
-      //     ...json,
-      //     content: JSON.stringify(json.content),
-      //   })
-      // } else {
-      //   await db.createDoc({
-      //     ...json,
-      //     content: JSON.stringify(json.content),
-      //   })
-      // }
+      for (const item of nodes) {
+        const node = await db.getNode(item.id)
+        if (node) {
+          await db.updateNode(node.id, item)
+        } else {
+          await db.createNode(item)
+        }
+      }
+    }
+  }
+
+  async pullByDiff() {
+    const serverSnapshot = await this.getSnapshot()
+
+    if (this.space.snapshot.version >= serverSnapshot.version) {
+      console.log('version is equal, no need to pull!!!')
+      return
     }
 
-    await this.pullSpaceInfo()
+    console.log('serverSnapshot:', serverSnapshot)
+    console.log('this:', this.space.snapshot)
 
-    await this.reloadSpaceStore()
-    const activeDoc = await db.getNode(this.space.activeNodeId!)
-    this.updateDocAtom(activeDoc!)
+    const diff = this.space.snapshot.diff(serverSnapshot, 'PULL')
+
+    console.log('diff:', diff)
+    // return
+
+    if (diff.isEqual) return
+
+    for (const id of diff.deleted) {
+      await db.deleteNode(id)
+    }
+
+    const list = [
+      ...diff.added.map((id) => ({ id, isAdd: true })),
+      ...diff.updated.map((id) => ({ id, isAdd: false })),
+    ]
+
+    for (const { id, isAdd } of list) {
+      const pageRes: any = await this.app.request(
+        'GET /repos/{owner}/{repo}/contents/{path}',
+        {
+          ...this.params,
+          ref: `heads/${this.baseBranchName}`,
+          path: this.getNodeFilePath(id),
+        },
+      )
+
+      const nodes: INode[] =
+        JSON.parse(decodeBase64(pageRes.data.content)) || []
+
+      for (const item of nodes) {
+        if (!isAdd) {
+          await db.updateNode(item.id, item)
+        } else {
+          await db.createNode(item)
+        }
+      }
+    }
+  }
+
+  async pull() {
+    try {
+      if (!this.space?.snapshot?.version) {
+        console.log('pull all......')
+        await this.pullAll()
+      } else {
+        console.log('pull by diff......')
+        await this.pullByDiff()
+      }
+
+      await this.pullSpaceInfo()
+
+      const nodes = await db.listNormalNodes(this.space.id)
+      const activeNode = await db.getNode(this.space.activeNodeId!)
+      const spaces = await db.listSpaces()
+
+      store.setSpaces(spaces)
+      store.setNodes(nodes)
+      store.reloadNode(activeNode)
+    } catch (error) {
+      console.log('pull error', error)
+    }
   }
 
   private async getSnapshotFromDatabase(): Promise<ISpace['snapshot']> {
