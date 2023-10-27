@@ -1,8 +1,6 @@
 import { authRouter } from './router/auth'
-import { docRouter } from './router/doc'
 import { extensionRouter } from './router/extension'
 import { githubRouter } from './router/github'
-import { memberRouter } from './router/member'
 import { pageRouter } from './router/page'
 import { SharedDocRouter } from './router/SharedDoc'
 import { snapshotRouter } from './router/snapshot'
@@ -12,9 +10,7 @@ import { userRouter } from './router/user'
 import { createTRPCRouter } from './trpc'
 
 export const appRouter = createTRPCRouter({
-  doc: docRouter,
   space: spaceRouter,
-  member: memberRouter,
   user: userRouter,
   auth: authRouter,
   page: pageRouter,

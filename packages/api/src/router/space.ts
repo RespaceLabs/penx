@@ -23,13 +23,6 @@ export const spaceRouter = createTRPCRouter({
         where: {
           id: input.id,
         },
-        include: {
-          members: {
-            include: {
-              user: true,
-            },
-          },
-        },
       })
     }),
 

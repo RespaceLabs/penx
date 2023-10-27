@@ -11,6 +11,7 @@ export function getNewNode(spaceId: string, text = ''): INode {
       type: ELEMENT_P,
       children: [{ text }],
     },
+    props: {},
     status: NodeStatus.NORMAL,
     collapsed: false,
     children: [],
