@@ -1,10 +1,13 @@
 import ky from 'ky'
+import mime from 'mime-types'
 import { Octokit } from 'octokit'
+import { createEditor, Editor } from 'slate'
 import { db } from '@penx/local-db'
-import { SnapshotDiffResult, Space, User } from '@penx/model'
+import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
-import { INode, ISpace } from '@penx/types'
+import { IFile, INode, ISpace } from '@penx/types'
+import { NodeService } from './NodeService'
 import { SpaceService } from './SpaceService'
 
 interface SharedParams {
@@ -51,7 +54,7 @@ export class SyncService {
 
   spacesDir = 'spaces'
 
-  pagesTree: Content[]
+  filesTree: Content[]
 
   commitSha: string
 
@@ -63,8 +66,16 @@ export class SyncService {
     return this.space.id + '/pages'
   }
 
-  getNodeFilePath(id: string) {
+  get filesDir() {
+    return this.space.id + '/files'
+  }
+
+  getNodePath(id: string) {
     return `${this.pagesDir}/${id}.json`
+  }
+
+  getFilePath(id: string) {
+    return `${this.filesDir}/${id}.json`
   }
 
   setSharedParams() {
@@ -128,7 +139,7 @@ export class SyncService {
     // handle deleted nodes
     for (const id of diff.deleted) {
       treeItems.push({
-        path: this.getNodeFilePath(id),
+        path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
         // sha: item.sha,
@@ -146,7 +157,7 @@ export class SyncService {
 
     for (const id of changeIds) {
       treeItems.push({
-        path: this.getNodeFilePath(id),
+        path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
         content: JSON.stringify(pageMap[id], null, 2),
@@ -160,7 +171,7 @@ export class SyncService {
     const pages = await this.spaceService.getPages()
 
     return pages.map<TreeItem>((page) => ({
-      path: this.getNodeFilePath(page[0].id),
+      path: this.getNodePath(page[0].id),
       mode: '100644',
       type: 'blob',
       content: JSON.stringify(page, null, 2),
@@ -205,14 +216,35 @@ export class SyncService {
         },
       )
 
-      this.pagesTree = contentRes.data as any
+      this.filesTree = contentRes.data as any
     } catch (error) {
-      this.pagesTree = []
+      this.filesTree = []
     }
 
-    console.log('this.pagesTree:', this.pagesTree)
+    console.log('this.pagesTree:', this.filesTree)
 
-    return this.pagesTree
+    return this.filesTree
+  }
+
+  async getFilesTreeInfo() {
+    try {
+      const contentRes = await this.app.request(
+        'GET /repos/{owner}/{repo}/contents/{path}',
+        {
+          ...this.params,
+          ref: `heads/${this.baseBranchName}`,
+          path: this.filesDir,
+        },
+      )
+
+      this.filesTree = contentRes.data as any
+    } catch (error) {
+      this.filesTree = []
+    }
+
+    console.log('this.filesTree:', this.filesTree)
+
+    return this.filesTree
   }
 
   createSpaceTreeItem(version: number) {
@@ -224,32 +256,36 @@ export class SyncService {
     } as TreeItem
   }
 
+  async createFileTreeItem(file: IFile) {
+    const content = await fileToBase64(file.value)
+
+    const { data } = await this.app.request(
+      'POST /repos/{owner}/{repo}/git/blobs',
+      {
+        ...this.params,
+        content,
+        encoding: 'base64',
+      },
+    )
+
+    const ext = getFileExtension(file.value.name)
+    const item: TreeItem = {
+      path: `${this.space.id}/files/${file.id}.${ext}`,
+      mode: '100644',
+      type: 'blob',
+      sha: data.sha,
+    }
+
+    return item
+  }
+
   async createFilesTree() {
     let treeItems: TreeItem[] = []
     const files = await db.file.selectAll()
 
     for (const file of files) {
-      const content = await fileToBase64(file.value)
-
-      const { data } = await this.app.request(
-        'POST /repos/{owner}/{repo}/git/blobs',
-        {
-          ...this.params,
-          content,
-          encoding: 'base64',
-        },
-      )
-
-      const ext = getFileExtension(file.value.name)
-
-      console.log('====ext:', ext)
-
-      treeItems.push({
-        path: `${this.space.id}/files/${file.id}.${ext}`,
-        mode: '100644',
-        type: 'blob',
-        sha: data.sha,
-      })
+      const item = await this.createFileTreeItem(file)
+      treeItems.push(item)
     }
 
     return treeItems
@@ -280,78 +316,134 @@ export class SyncService {
     return spaces
   }
 
-  async push() {
-    let tree: TreeItem[] = []
+  async getFilesTreeByDiff(diff: SnapshotDiffResult) {
+    const ids = [...diff.added, ...diff.updated]
+    const nodesRaw = await db.listNormalNodes(this.space.id)
+    const nodes = nodesRaw.map((n) => new Node(n))
 
-    try {
-      const serverSnapshot = await this.getSnapshot()
-      console.log('serverSnapshot:', serverSnapshot, 'space:', this.space)
+    const fileIds: string[] = []
 
-      if (
-        !this.space.snapshot?.version ||
-        this.space.snapshot.version < serverSnapshot.version
-      ) {
-        console.log('should pull, can not push!!!')
-        return
+    // get fileIds
+    for (const id of ids) {
+      const node = await db.getNode(id)
+      const nodeService = new NodeService(new Node(node), nodes)
+      const value = nodeService.getEditorValue()
+      const editor = createEditor()
+      editor.insertNodes(value)
+
+      const entries = Editor.nodes(editor, {
+        at: [],
+        match: (n: any) => n.type === 'img',
+      })
+      for (const [item] of entries) {
+        fileIds.push((item as any).fileId)
       }
-
-      const diff = this.space.snapshot.diff(serverSnapshot)
-
-      console.log('diff:', diff)
-
-      // isEqual, don't push
-      if (diff.isEqual) {
-        console.log('diff equal, no need to push')
-        return
-      }
-
-      // space.json existed
-      await this.getPagesTreeInfo()
-
-      const pagesTree = await this.createTreeForExistedDir(diff)
-
-      tree.push(...pagesTree)
-
-      const spaceTreeItem = this.createSpaceTreeItem(serverSnapshot.version + 1)
-      tree.push(spaceTreeItem)
-
-      const filesTree = await this.createFilesTree()
-      tree.push(...filesTree)
-    } catch (error) {
-      const nodesTree = await this.createTreeForNewDir()
-      tree.push(...nodesTree)
-
-      const spaceTreeItem = this.createSpaceTreeItem(1)
-      tree.push(spaceTreeItem)
     }
 
-    // console.log('tree:', tree)
+    let tree: TreeItem[] = []
 
-    await this.getBaseBranchInfo()
+    for (const id of fileIds) {
+      const file = await db.getFile(id)
 
-    // update tree to GitHub before commit
-    const { data } = await this.app.request(
-      'POST /repos/{owner}/{repo}/git/trees',
-      {
-        ...this.params,
-        tree,
-        base_tree: this.baseBranchSha,
-      },
-    )
+      const item = await this.createFileTreeItem(file)
+      tree.push(item)
+    }
 
-    const { data: commitData } = await this.commit(data.sha)
+    return tree
+  }
 
-    // update ref to GitHub after commit
-    await this.updateRef(commitData.sha)
+  async pushAll() {
+    let tree: TreeItem[] = []
 
-    await db.updateSpace(this.space.id, {
-      snapshot: this.space.snapshot.toJSON(),
-    })
+    const nodesTree = await this.createTreeForNewDir()
+    tree.push(...nodesTree)
 
-    const spaces = await this.reloadSpacesStore()
+    const filesTree = await this.createFilesTree()
+    tree.push(...filesTree)
 
-    const activeSpace = spaces.find((s) => s.id === this.space.id)
-    await this.upsertSnapshot(activeSpace!)
+    const spaceTreeItem = this.createSpaceTreeItem(1)
+    tree.push(spaceTreeItem)
+    return tree
+  }
+
+  async pushByDiff(diff: SnapshotDiffResult, serverVersion: number) {
+    let tree: TreeItem[] = []
+
+    // space.json existed
+    await this.getPagesTreeInfo()
+
+    const pagesTree = await this.createTreeForExistedDir(diff)
+
+    tree.push(...pagesTree)
+
+    const spaceTreeItem = this.createSpaceTreeItem(serverVersion + 1)
+    tree.push(spaceTreeItem)
+
+    const filesTree = await this.getFilesTreeByDiff(diff)
+    tree.push(...filesTree)
+
+    return tree
+  }
+
+  async push() {
+    try {
+      // TODO: should improve, to many try/catch
+
+      let tree: TreeItem[] = []
+      try {
+        const serverSnapshot = await this.getSnapshot()
+        console.log('serverSnapshot:', serverSnapshot, 'space:', this.space)
+
+        if (
+          !this.space.snapshot?.version ||
+          this.space.snapshot.version < serverSnapshot.version
+        ) {
+          console.log('should pull, can not push!!!')
+          return
+        }
+
+        const diff = this.space.snapshot.diff(serverSnapshot)
+
+        // isEqual, don't push
+        if (diff.isEqual) {
+          console.log('diff equal, no need to push')
+          return
+        }
+
+        tree = await this.pushByDiff(diff, serverSnapshot.version)
+      } catch (error) {
+        tree = await this.pushAll()
+      }
+
+      await this.getBaseBranchInfo()
+
+      // update tree to GitHub before commit
+      const { data } = await this.app.request(
+        'POST /repos/{owner}/{repo}/git/trees',
+        {
+          ...this.params,
+          tree,
+          base_tree: this.baseBranchSha,
+        },
+      )
+
+      // create a commit for the tree
+      const { data: commitData } = await this.commit(data.sha)
+
+      // update ref to GitHub server after commit
+      await this.updateRef(commitData.sha)
+
+      await db.updateSpace(this.space.id, {
+        snapshot: this.space.snapshot.toJSON(),
+      })
+
+      const spaces = await this.reloadSpacesStore()
+
+      const activeSpace = spaces.find((s) => s.id === this.space.id)
+      await this.upsertSnapshot(activeSpace!)
+    } catch (error) {
+      console.log('push error', error)
+    }
   }
 
   async isCanPull() {
@@ -361,6 +453,38 @@ export class SyncService {
   }
 
   async pullAll() {
+    const filesTree = await this.getFilesTreeInfo()
+
+    for (const item of filesTree) {
+      const fileRes: any = await this.app.request(
+        'GET /repos/{owner}/{repo}/contents/{path}',
+        {
+          ...this.params,
+          ref: `heads/${this.baseBranchName}`,
+          path: item.path,
+        },
+      )
+
+      // console.log('item==========:', item)
+
+      const file = base64ToFile(
+        fileRes.data.content,
+        item.name,
+        mime.lookup(item.name) as string,
+      )
+
+      await db.createFile({
+        id: item.name.split('.')[0],
+        spaceId: this.space.id,
+        value: file,
+      })
+
+      // const content = decodeBase64(fileRes.data.content)
+      // console.log('content:', fileRes.data.content)
+      // console.log('file:', file)
+    }
+    // return
+
     const pagesTree = await this.getPagesTreeInfo()
 
     for (const item of pagesTree) {
@@ -420,7 +544,7 @@ export class SyncService {
         {
           ...this.params,
           ref: `heads/${this.baseBranchName}`,
-          path: this.getNodeFilePath(id),
+          path: this.getNodePath(id),
         },
       )
 
@@ -446,6 +570,7 @@ export class SyncService {
         console.log('pull by diff......')
         await this.pullByDiff()
       }
+      // return
 
       await this.pullSpaceInfo()
 
@@ -558,4 +683,29 @@ function fileToBase64(file: File): Promise<string> {
 function getFileExtension(fileName: string): string {
   const fileExtension: string = fileName.split('.').pop()?.toLowerCase() || ''
   return fileExtension
+}
+
+function base64ToFile(
+  base64String: string,
+  fileName: string,
+  mimeType: string,
+): File {
+  const byteCharacters = atob(base64String)
+  const byteArrays: Uint8Array[] = []
+
+  for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+    const slice = byteCharacters.slice(offset, offset + 512)
+
+    const byteNumbers = new Array(slice.length)
+    for (let i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i)
+    }
+
+    const byteArray = new Uint8Array(byteNumbers)
+    byteArrays.push(byteArray)
+  }
+
+  const blob = new Blob(byteArrays, { type: mimeType })
+
+  return new File([blob], fileName, { type: mimeType })
 }

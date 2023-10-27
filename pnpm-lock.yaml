@@ -3686,6 +3686,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      mime-types:
+        specifier: ^2.1.35
+        version: 2.1.35
       nanoid:
         specifier: ^4.0.2
         version: 4.0.2
@@ -3717,6 +3720,9 @@ importers:
       '@types/lodash':
         specifier: ^4.14.195
         version: 4.14.195
+      '@types/mime-types':
+        specifier: ^2.1.3
+        version: 2.1.3
       '@types/node':
         specifier: ^20.7.2
         version: 20.8.2
@@ -10401,6 +10407,10 @@ packages:
 
   /@types/mdurl@1.0.3:
     resolution: {integrity: sha512-T5k6kTXak79gwmIOaDF2UUQXFbnBE0zBUzF20pz7wDYu0RQMzWg+Ml/Pz50214NsFHBITkoi5VtdjFZnJ2ijjA==}
+    dev: true
+
+  /@types/mime-types@2.1.3:
+    resolution: {integrity: sha512-bvxCbHeeS7quxS7uOJShyoOQj/BfLabhF6mk9Rmr+2MRfW8W1yxyyL/0GTxLFTHen41GrIw4K3D4DrLouhb8vg==}
     dev: true
 
   /@types/mime@1.3.3:
