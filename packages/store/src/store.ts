@@ -164,11 +164,15 @@ export const store = Object.assign(createStore(), {
     this.reloadNode(node)
   },
 
-  async createSpace(name: string) {
-    const space = await db.createSpace({ name })
+  async createSpace(input: Partial<ISpace>) {
+    const space = await db.createSpace(input)
     const spaces = await db.listSpaces()
     const nodeId = space.children[0]
+    const nodes = await db.listNormalNodes(space.id)
     const node = await db.getNode(nodeId)
+
+    this.routeTo('NODE')
+    this.setNodes(nodes)
     this.setSpaces(spaces)
     this.reloadNode(node)
     return space

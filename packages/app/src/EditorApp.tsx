@@ -11,6 +11,7 @@ import { ClientOnly } from './components/ClientOnly'
 import { EditorLayout } from './EditorLayout/EditorLayout'
 import { LoginSuccessModal } from './EditorLayout/LoginSuccessModal'
 import { HotkeyBinding } from './HotkeyBinding'
+import { SyncDetectorModal } from './SyncDetectorModal'
 import { UserQuery } from './UserQuery'
 import { WorkerStarter } from './WorkerStarter'
 
@@ -55,6 +56,8 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ClientOnly>
       <Provider store={store}>
+        {address && <SyncDetectorModal />}
+
         <WorkerStarter />
         <UserQuery />
         <LoginSuccessModal />

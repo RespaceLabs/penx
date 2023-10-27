@@ -54,6 +54,7 @@ export enum ModalNames {
   IMPORT_SPACE,
   DELETE_SPACE,
   LOGIN_SUCCESS,
+  SYNC_DETECTOR,
 }
 
 export const ELEMENT_P = 'p'

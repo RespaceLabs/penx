@@ -12,7 +12,7 @@ export class SpaceService {
   nodes: INode[] = []
 
   createSpace = async (name: string) => {
-    const space = await store.createSpace(name)
+    const space = await store.createSpace({ name })
     return space
   }
 

@@ -5,7 +5,11 @@ export const snapshotRouter = createTRPCRouter({
   listByAddress: publicProcedure
     .input(z.object({ address: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.snapshot.findMany({ where: {} })
+      return ctx.prisma.snapshot.findMany({
+        where: {
+          address: input.address,
+        },
+      })
     }),
 
   upsert: publicProcedure
