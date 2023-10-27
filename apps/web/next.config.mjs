@@ -1,4 +1,5 @@
 import { PrismaPlugin } from '@prisma/nextjs-monorepo-workaround-plugin'
+import million from 'million/compiler'
 import NextPWA from 'next-pwa'
 // Importing env files here to validate on build
 // import runtimeCaching from 'next-pwa/cache'
@@ -87,4 +88,4 @@ const config = {
     return config
   },
 }
-export default withPWA(config)
+export default withPWA(million.next(config))
