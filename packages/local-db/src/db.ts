@@ -204,7 +204,7 @@ class DB {
     })
   }
 
-  listNodeByIds = (nodeIds: string[]) => {
+  listNodesByIds = (nodeIds: string[]) => {
     const promises = nodeIds.map((id) => this.node.selectByPk(id))
     return Promise.all(promises) as any as Promise<INode[]>
   }
