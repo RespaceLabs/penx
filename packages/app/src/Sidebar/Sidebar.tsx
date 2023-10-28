@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
-import { CalendarDays, Cloud, Folder, Trash2 } from 'lucide-react'
+import { CalendarDays, Cloud, Folder, Inbox, Trash2 } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import { useNodes } from '@penx/hooks'
 import { extensionStoreAtom, store } from '@penx/store'
@@ -51,6 +51,14 @@ export const Sidebar = () => {
           label="Daily note"
           onClick={() => {
             store.routeTo('ALL_NODES')
+          }}
+        />
+
+        <SidebarItem
+          icon={<Inbox size={16} />}
+          label="Inbox"
+          onClick={() => {
+            store.routeTo('INBOX')
           }}
         />
 

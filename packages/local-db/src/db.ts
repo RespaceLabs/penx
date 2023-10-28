@@ -1,7 +1,14 @@
 import { nanoid } from 'nanoid'
 import { Database } from '@penx/indexeddb'
 import { Space } from '@penx/model'
-import { IExtension, IFile, INode, ISpace, NodeStatus } from '@penx/types'
+import {
+  IExtension,
+  IFile,
+  INode,
+  ISpace,
+  NodeStatus,
+  NodeType,
+} from '@penx/types'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { tableSchema } from './table-schema'
@@ -58,7 +65,13 @@ class DB {
     }
 
     if (initNode) {
-      const node = getNewNode(spaceId)
+      // init inbox node
+      await this.node.insert(getNewNode({ spaceId, type: NodeType.INBOX }))
+
+      // init trash node
+      await this.node.insert(getNewNode({ spaceId, type: NodeType.TRASH }))
+
+      const node = getNewNode({ spaceId })
 
       await this.createPageNode(node)
 
@@ -141,10 +154,10 @@ class DB {
   createPageNode = async (node: Partial<INode>) => {
     const { spaceId = '' } = node
 
-    const subNode = await this.node.insert(getNewNode(spaceId))
+    const subNode = await this.node.insert(getNewNode({ spaceId }))
 
     const newNode = await this.node.insert({
-      ...getNewNode(node.spaceId!),
+      ...getNewNode({ spaceId: node.spaceId! }),
       ...node,
       children: [subNode.id],
     })
@@ -159,7 +172,7 @@ class DB {
 
   createNode = async (node: Partial<INode>) => {
     const newNode = await this.node.insert({
-      ...getNewNode(node.spaceId!),
+      ...getNewNode({ spaceId: node.spaceId! }),
       ...node,
     })
 

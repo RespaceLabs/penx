@@ -15,7 +15,7 @@ export const SidebarItem = ({ icon, label, onClick }: SidebarItemProps) => {
       gap2
       rounded2XL
       px2
-      py4
+      py-14
       cursorPointer
       h-24
       onClick={onClick}

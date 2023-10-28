@@ -3,12 +3,20 @@ export enum NodeStatus {
   TRASHED,
 }
 
+export enum NodeType {
+  COMMON,
+  INBOX,
+  TRASH,
+}
+
 export interface INode {
   id: string
 
   parentId?: string
 
   spaceId: string
+
+  type: NodeType
 
   element: any
 

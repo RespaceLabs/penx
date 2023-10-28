@@ -1,11 +1,16 @@
 import { nanoid } from 'nanoid'
 import { ELEMENT_P } from '@penx/constants'
-import { INode, NodeStatus } from '@penx/types'
+import { INode, NodeStatus, NodeType } from '@penx/types'
 
-export function getNewNode(spaceId: string, text = ''): INode {
+type Input = {
+  spaceId: string
+  type?: NodeType
+}
+
+export function getNewNode(input: Input, text = ''): INode {
   return {
     id: nanoid(),
-    spaceId,
+    type: NodeType.COMMON,
     element: {
       id: nanoid(),
       type: ELEMENT_P,
@@ -18,5 +23,6 @@ export function getNewNode(spaceId: string, text = ''): INode {
     openedAt: Date.now(),
     createdAt: Date.now(),
     updatedAt: Date.now(),
+    ...input,
   }
 }
