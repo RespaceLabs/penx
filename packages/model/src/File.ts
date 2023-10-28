@@ -19,6 +19,7 @@ export class File {
   constructor(private raw: IFile) {}
 
   get url(): string {
+    if (!this?.raw?.value) return ''
     const url = URL.createObjectURL(this.raw.value)
     return url || ''
   }

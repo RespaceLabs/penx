@@ -176,7 +176,7 @@ class DB {
     return this.node.select({
       where: {
         spaceId,
-        // status: NodeStatus.NORMAL,
+        status: NodeStatus.NORMAL,
       },
     })
   }
@@ -263,6 +263,15 @@ class DB {
 
   getFile = (id: string) => {
     return this.file.selectByPk(id)
+  }
+
+  updateFile = async (fileId: string, data: Partial<IFile>) => {
+    const newNode = await this.file.updateByPk(fileId, {
+      ...data,
+      updatedAt: Date.now(),
+    })
+
+    return newNode
   }
 }
 

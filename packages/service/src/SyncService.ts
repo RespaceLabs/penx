@@ -10,6 +10,11 @@ import { IFile, INode, ISpace } from '@penx/types'
 import { NodeService } from './NodeService'
 import { SpaceService } from './SpaceService'
 
+type FileNode = {
+  fileId: string
+  mime: string
+}
+
 interface SharedParams {
   owner: string
   repo: string
@@ -74,8 +79,8 @@ export class SyncService {
     return `${this.pagesDir}/${id}.json`
   }
 
-  getFilePath(id: string) {
-    return `${this.filesDir}/${id}.json`
+  getFilePath(id: string, mimeType: string) {
+    return `${this.filesDir}/${id}.${mime.extension(mimeType)}`
   }
 
   setSharedParams() {
@@ -316,16 +321,15 @@ export class SyncService {
     return spaces
   }
 
-  async getFilesTreeByDiff(diff: SnapshotDiffResult) {
-    const ids = [...diff.added, ...diff.updated]
+  async getFileNodesInNodeIds(nodeIds: string[]) {
     const nodesRaw = await db.listNormalNodes(this.space.id)
     const nodes = nodesRaw.map((n) => new Node(n))
 
-    const fileIds: string[] = []
+    const fileNodes: FileNode[] = []
 
     // get fileIds
-    for (const id of ids) {
-      const node = await db.getNode(id)
+    for (const nodeId of nodeIds) {
+      const node = await db.getNode(nodeId)
       const nodeService = new NodeService(new Node(node), nodes)
       const value = nodeService.getEditorValue()
       const editor = createEditor()
@@ -335,15 +339,23 @@ export class SyncService {
         at: [],
         match: (n: any) => n.type === 'img',
       })
+
       for (const [item] of entries) {
-        fileIds.push((item as any).fileId)
+        fileNodes.push(item as any)
       }
     }
 
+    return fileNodes
+  }
+
+  async getFilesTreeByDiff(diff: SnapshotDiffResult) {
     let tree: TreeItem[] = []
 
-    for (const id of fileIds) {
-      const file = await db.getFile(id)
+    const nodeIds = [...diff.added, ...diff.updated]
+    const fileNode = await this.getFileNodesInNodeIds(nodeIds)
+
+    for (const { fileId } of fileNode) {
+      const file = await db.getFile(fileId)
 
       const item = await this.createFileTreeItem(file)
       tree.push(item)
@@ -452,6 +464,38 @@ export class SyncService {
     return true
   }
 
+  async pullSingleFile(fileNode: FileNode) {
+    const node = await db.getFile(fileNode.fileId)
+    if (node) return
+
+    const fileRes: any = await this.app.request(
+      'GET /repos/{owner}/{repo}/contents/{path}',
+      {
+        ...this.params,
+        ref: `heads/${this.baseBranchName}`,
+        path: this.getFilePath(fileNode.fileId, fileNode.mime),
+      },
+    )
+
+    const file = base64ToFile(
+      fileRes.data.content,
+      `${fileNode.fileId}.${mime.extension(fileNode.mime)}`,
+      fileNode.mime,
+    )
+
+    await db.createFile({
+      id: fileNode.fileId,
+      spaceId: this.space.id,
+      value: file,
+    })
+  }
+
+  async pullByFileNodes(fileNodes: FileNode[]) {
+    for (const fileNode of fileNodes) {
+      await this.pullSingleFile(fileNode)
+    }
+  }
+
   async pullAll() {
     const filesTree = await this.getFilesTreeInfo()
 
@@ -465,8 +509,6 @@ export class SyncService {
         },
       )
 
-      // console.log('item==========:', item)
-
       const file = base64ToFile(
         fileRes.data.content,
         item.name,
@@ -478,12 +520,7 @@ export class SyncService {
         spaceId: this.space.id,
         value: file,
       })
-
-      // const content = decodeBase64(fileRes.data.content)
-      // console.log('content:', fileRes.data.content)
-      // console.log('file:', file)
     }
-    // return
 
     const pagesTree = await this.getPagesTreeInfo()
 
@@ -559,6 +596,14 @@ export class SyncService {
         }
       }
     }
+
+    // update file node after node updated
+    const fileNodes = await this.getFileNodesInNodeIds([
+      ...diff.added,
+      ...diff.updated,
+    ])
+
+    await this.pullByFileNodes(fileNodes)
   }
 
   async pull() {
@@ -570,7 +615,6 @@ export class SyncService {
         console.log('pull by diff......')
         await this.pullByDiff()
       }
-      // return
 
       await this.pullSpaceInfo()
 

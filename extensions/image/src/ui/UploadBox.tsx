@@ -26,8 +26,8 @@ export const UploadBox = ({
 
   const path = ReactEditor.findPath(editor, element)
 
-  function setFileId(fileId: string) {
-    setNodes<ImageElement>(editor, { fileId }, { at: path })
+  function setFileNode(data: Partial<ImageElement>) {
+    setNodes<ImageElement>(editor, data, { at: path })
   }
 
   async function handleUpload(file: File) {
@@ -45,9 +45,7 @@ export const UploadBox = ({
         })
       }
 
-      console.log('fileInfo:', fileInfo)
-
-      setFileId(fileInfo.id!)
+      setFileNode({ fileId: fileInfo.id, mime: file.type })
       setUploading(false)
     } catch (error) {
       setUploading(false)
@@ -78,7 +76,7 @@ export const UploadBox = ({
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               const url = (e.target as HTMLInputElement).value
-              setFileId(url)
+              setFileNode({ url })
             }
           }}
         />

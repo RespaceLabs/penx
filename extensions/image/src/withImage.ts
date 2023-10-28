@@ -13,8 +13,8 @@ export const withImage = (editor: PenxEditor) => {
     const path = getCurrentPath(editor)!
     if (files && files.length) {
       const file = files[0]
-      const [mime] = file.type.split('/')
 
+      const [mime] = file.type.split('/')
       if (mime !== 'image') return insertData(dataTransfer)
 
       const spaces = store.get(spacesAtom)
@@ -29,6 +29,7 @@ export const withImage = (editor: PenxEditor) => {
         {
           type: ELEMENT_IMG,
           fileId: fileInfo.id,
+          mime: file.type,
           children: [{ text: '' }],
         } as ImageElement,
         { at: path },
