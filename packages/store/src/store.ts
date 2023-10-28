@@ -108,7 +108,7 @@ export const store = Object.assign(createStore(), {
     if (normalNodes.length) {
       this.reloadNode(normalNodes[0])
     } else {
-      this.routeTo('ALL_DOCS')
+      this.routeTo('ALL_NODES')
     }
     this.setNodes(nodes)
   },

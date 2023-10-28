@@ -17,7 +17,8 @@ const handleSharing = async (data: ShareEvent) => {
       await trpc.sharedDoc.create.mutate({
         id: data.id,
         title: data.title,
-        content: encryptString(data.content, data.id),
+        // content: await encryptString(data.content, data.id),
+        content: '',
       })
     }
 

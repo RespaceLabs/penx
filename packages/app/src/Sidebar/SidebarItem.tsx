@@ -4,16 +4,10 @@ import { Box } from '@fower/react'
 interface SidebarItemProps {
   label: ReactNode
   icon: ReactNode
-  count?: ReactNode
   onClick: () => void
 }
 
-export const SidebarItem = ({
-  icon,
-  count,
-  label,
-  onClick,
-}: SidebarItemProps) => {
+export const SidebarItem = ({ icon, label, onClick }: SidebarItemProps) => {
   return (
     <Box
       toCenterY
@@ -21,7 +15,7 @@ export const SidebarItem = ({
       gap2
       rounded2XL
       px2
-      py3
+      py4
       cursorPointer
       h-24
       onClick={onClick}
@@ -31,9 +25,6 @@ export const SidebarItem = ({
           {icon}
         </Box>
         <Box textSM>{label}</Box>
-      </Box>
-      <Box gray500 roundedFull textXS>
-        {count}
       </Box>
     </Box>
   )

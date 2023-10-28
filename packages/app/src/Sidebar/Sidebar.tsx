@@ -49,18 +49,16 @@ export const Sidebar = () => {
         <SidebarItem
           icon={<CalendarDays size={16} />}
           label="Daily note"
-          count={nodeList.normalNodes.length}
           onClick={() => {
-            store.routeTo('ALL_DOCS')
+            store.routeTo('ALL_NODES')
           }}
         />
 
         <SidebarItem
           icon={<Folder size={16} />}
-          label="All Docs"
-          count={nodeList.normalNodes.length}
+          label="All Nodes"
           onClick={() => {
-            store.routeTo('ALL_DOCS')
+            store.routeTo('ALL_NODES')
           }}
         />
 
@@ -82,7 +80,6 @@ export const Sidebar = () => {
         <SidebarItem
           icon={<Trash2 size={16} />}
           label="Trash"
-          count={nodeList.normalNodes.length}
           onClick={() => {
             store.routeTo('TRASH')
           }}

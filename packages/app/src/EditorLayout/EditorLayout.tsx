@@ -46,7 +46,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
             py0
           >
             {name === 'TRASH' && <TrashBox />}
-            {name === 'ALL_DOCS' && <AllDocsBox />}
+            {name === 'ALL_NODES' && <AllDocsBox />}
             {name === 'SYNC' && <SyncBox />}
             {name === 'NODE' && <NodeContent />}
           </Box>

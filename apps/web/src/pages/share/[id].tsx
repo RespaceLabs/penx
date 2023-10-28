@@ -10,11 +10,11 @@ const PageShare = () => {
   const sharedDoc = api.sharedDoc.byId.useQuery({ id: id as string })
 
   useEffect(() => {
-    const decryptedText =
-      sharedDoc.data?.content &&
-      decryptString(sharedDoc.data.content, key as string)
-    const decryptedJson = decryptedText ? JSON.parse(decryptedText) : null
-    console.log('decryptedJson:', decryptedJson)
+    // const decryptedText =
+    //   sharedDoc.data?.content &&
+    //   decryptString(sharedDoc.data.content, key as string)
+    // const decryptedJson = decryptedText ? JSON.parse(decryptedText) : null
+    // console.log('decryptedJson:', decryptedJson)
   }, [])
 
   return (
