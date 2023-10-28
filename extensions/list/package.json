@@ -22,6 +22,7 @@
     "@penx/constants": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-common": "workspace:*",
+    "@penx/types": "workspace:*",
     "@penx/extension-typings": "*",
     "@penx/local-db": "workspace:*",
     "lucide-react": "^0.289.0",

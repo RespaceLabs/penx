@@ -15,6 +15,7 @@ declare module 'slate' {
     Element: {
       type?: any
       id?: string
+      nodeType?: string
     }
   }
 }

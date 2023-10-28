@@ -1627,6 +1627,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      '@penx/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       lucide-react:
         specifier: ^0.289.0
         version: 0.289.0(react@18.2.0)
@@ -3580,6 +3583,43 @@ importers:
       '@types/lodash':
         specifier: ^4.14.195
         version: 4.14.195
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.22
+      '@types/react-dom':
+        specifier: ^18.2.7
+        version: 18.2.7
+      eslint:
+        specifier: ^8.42.0
+        version: 8.49.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.1.3
+        version: 5.2.2
+
+  packages/sdk:
+    dependencies:
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
+      '@penx/local-db':
+        specifier: workspace:*
+        version: link:../local-db
+      '@penx/model':
+        specifier: workspace:*
+        version: link:../model
+      '@penx/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
       '@types/react':
         specifier: ^18.2.22
         version: 18.2.22

@@ -5,14 +5,14 @@ import { withListsReact } from 'slate-lists'
 import { withReact } from 'slate-react'
 import { withAutoformat } from '@penx/autoformat'
 import { ELEMENT_CODE_LINE } from '@penx/code-block'
-import { PenxEditor } from '@penx/editor-common'
+import { PenxEditor, TElement } from '@penx/editor-common'
 import {
   getCurrentNode,
   getPreviousBlockById,
   isCollapsed,
 } from '@penx/editor-queries'
 import { useExtensionStore } from '@penx/hooks'
-import { ELEMENT_LIC } from '@penx/list'
+import { ELEMENT_LIC, isTitle } from '@penx/list'
 import {
   ELEMENT_P,
   getEmptyParagraph,
@@ -20,6 +20,7 @@ import {
   ParagraphElement,
 } from '@penx/paragraph'
 import { isTable } from '@penx/table'
+import { NodeType } from '@penx/types'
 
 type WithFns = (editor: Editor) => Editor
 
@@ -48,13 +49,18 @@ export function useCreateEditor(fns: WithFns[] = []) {
    * TODO: handle
    */
   withFns.push((editor) => {
-    const { isInline, deleteBackward } = editor
+    const { isInline, isVoid, deleteBackward } = editor
     editor.isInline = (element: any) => {
       return inlineTypes.includes(element.type) ? true : isInline(element)
     }
 
     editor.isVoid = (element: any) => {
-      return voidTypes.includes(element.type) ? true : isInline(element)
+      // TODO: too hack
+      if (isTitle(element) && element.nodeType === NodeType.INBOX) {
+        return true
+      }
+
+      return voidTypes.includes(element.type) ? true : isVoid(element)
     }
 
     // handle deleteBackward

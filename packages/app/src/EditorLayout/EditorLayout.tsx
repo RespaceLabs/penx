@@ -12,7 +12,6 @@ import { StatusBar } from '../StatusBar/StatusBar'
 import { AllDocsBox } from './AllDocsBox/AllDocsBox'
 import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
-import { Inbox } from './Inbox/Inbox'
 import { QueryNodes } from './QueryNodes'
 import { SyncBox } from './SyncBox/SyncBox'
 import { TrashBox } from './TrashBox/TrashBox'
@@ -47,7 +46,6 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
             py0
           >
             {name === 'TRASH' && <TrashBox />}
-            {name === 'INBOX' && <Inbox />}
             {name === 'ALL_NODES' && <AllDocsBox />}
             {name === 'SYNC' && <SyncBox />}
             {name === 'NODE' && <NodeContent />}

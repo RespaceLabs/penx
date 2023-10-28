@@ -26,6 +26,9 @@ export const tableSchema: TableType[] = [
       spaceId: {
         unique: false,
       },
+      type: {
+        unique: false,
+      },
     },
     timestamps: true,
   },

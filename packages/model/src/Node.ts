@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import { INode, NodeStatus } from '@penx/types'
+import { INode, NodeStatus, NodeType } from '@penx/types'
 
 type Element = {
   id: string
@@ -22,6 +22,10 @@ export class Node {
     return this.raw.spaceId
   }
 
+  get type(): string {
+    return this.raw.type || ''
+  }
+
   get element(): Element {
     return this.raw.element
   }
@@ -36,6 +40,10 @@ export class Node {
 
   get isTrashed() {
     return this.raw.status === NodeStatus.TRASHED
+  }
+
+  get isInbox() {
+    return this.type === NodeType.INBOX
   }
 
   get collapsed() {

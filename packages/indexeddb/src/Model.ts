@@ -225,7 +225,7 @@ export default class Model<DataType extends {}> {
   updateByPk(
     pKey: IDBValidKey | IDBKeyRange,
     dataToUpdate: Partial<DataType>,
-  ): Promise<DataType | undefined> {
+  ): Promise<DataType> {
     return new Promise((resolve, reject) => {
       this.selectByPk(pKey).then((fetchedData) => {
         const transaction = this.db.transaction(this.table.name, 'readwrite')

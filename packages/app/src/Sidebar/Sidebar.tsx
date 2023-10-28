@@ -58,7 +58,7 @@ export const Sidebar = () => {
           icon={<Inbox size={16} />}
           label="Inbox"
           onClick={() => {
-            store.routeTo('INBOX')
+            store.selectInbox()
           }}
         />
 

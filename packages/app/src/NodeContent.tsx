@@ -23,7 +23,12 @@ export function NodeContent() {
   const { node, nodeService } = useNode()
 
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
-    nodeService.savePage(value[0], value[1])
+    // has title
+    if (value[1]) {
+      nodeService.savePage(node.raw, value[1], value[0])
+    } else {
+      nodeService.savePage(node.raw, value[0])
+    }
   }, 500)
 
   function handleEnterKeyInTitle(editor: PenxEditor) {
@@ -38,6 +43,11 @@ export function NodeContent() {
   return (
     <Box relative>
       <Box mx-auto maxW-800>
+        {node.isInbox && (
+          <Box text4XL pl4 fontBold>
+            Inbox
+          </Box>
+        )}
         <NodeEditor
           plugins={[listPlugin]}
           content={nodeService.getEditorValue()}

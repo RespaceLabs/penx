@@ -15,7 +15,7 @@ import {
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
-import { INode } from '@penx/types'
+import { INode, NodeType } from '@penx/types'
 
 export class NodeService {
   nodeMap = new Map<string, INode>()
@@ -102,13 +102,16 @@ export class NodeService {
       }),
     }
 
-    const value: any[] = [
-      {
+    const value: any[] = []
+
+    if (this.node.type !== NodeType.INBOX) {
+      value.push({
         id: this.node.id,
         type: ELEMENT_TITLE,
+        nodeType: this.node.type,
         children: [this.node.element],
-      },
-    ]
+      })
+    }
 
     if (this.childrenNodes.length) {
       value.push(content)
@@ -170,17 +173,23 @@ export class NodeService {
     return space.favorites.includes(this.node.id)
   }
 
-  savePage = async (title: TitleElement, ul: UnorderedListElement) => {
-    const node = await db.updateNode(title.id!, {
-      element: title.children[0],
-    })
+  savePage = async (
+    node: INode,
+    ul: UnorderedListElement,
+    title?: TitleElement,
+  ) => {
+    if (title) {
+      node = await db.updateNode(node.id, {
+        element: title.children[0],
+      })
+    }
 
-    await this.saveNodes(title, ul)
+    await this.saveNodes(node.id, ul)
 
     const nodes = await db.listNormalNodes(this.spaceId)
 
     store.setNodes(nodes)
-    store.setNode(node!)
+    store.setNode(node)
 
     // update snapshot
     const nodeService = new NodeService(
@@ -197,7 +206,7 @@ export class NodeService {
     await db.updateSnapshot(rootNode.raw, 'update', value)
   }
 
-  saveNodes = async (title: TitleElement, ul: UnorderedListElement) => {
+  saveNodes = async (parentId: string, ul: UnorderedListElement) => {
     const editor = createEditor()
     editor.insertNodes(ul)
 
@@ -233,7 +242,6 @@ export class NodeService {
       }
 
       // node parentId
-      let parentId = title.id
       const grandparent = getNodeByPath(editor, path.slice(0, -3))!
 
       if (isListItemElement(grandparent)) {

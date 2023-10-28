@@ -4,9 +4,10 @@ export enum NodeStatus {
 }
 
 export enum NodeType {
-  COMMON,
-  INBOX,
-  TRASH,
+  COMMON = 'COMMON',
+  INBOX = 'INBOX',
+  TRASH = 'TRASH',
+  DAILY_NOTE = 'DAILY_NOTE',
 }
 
 export interface INode {
@@ -22,10 +23,10 @@ export interface INode {
 
   // for dynamic data
   props: {
+    emoji?: string
+    date?: string // 2024-01-01
     [key: string]: any
   }
-
-  emoji?: string
 
   status: NodeStatus
 

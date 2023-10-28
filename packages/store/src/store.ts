@@ -121,6 +121,17 @@ export const store = Object.assign(createStore(), {
     })
   },
 
+  async selectInbox() {
+    let node = await db.getInboxNode()
+
+    await db.updateSpace(this.getActiveSpace().id, {
+      activeNodeId: node.id,
+    })
+
+    this.reloadNode(node)
+    this.routeTo('NODE')
+  },
+
   async restoreNode(id: string) {
     const space = this.getActiveSpace()
     await db.restoreNode(id)
