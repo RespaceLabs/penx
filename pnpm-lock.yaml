@@ -3644,6 +3644,9 @@ importers:
       '@penx/editor-queries':
         specifier: workspace:*
         version: link:../editor-queries
+      '@penx/encryption':
+        specifier: workspace:*
+        version: link:../encryption
       '@penx/extension-typings':
         specifier: '*'
         version: link:../extension-typings

@@ -2,6 +2,11 @@ import ky from 'ky'
 import mime from 'mime-types'
 import { Octokit } from 'octokit'
 import { createEditor, Editor } from 'slate'
+import {
+  decryptString,
+  deriveAESKeyFromString,
+  encryptString,
+} from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { spacesAtom, store } from '@penx/store'
@@ -45,6 +50,8 @@ type Content = {
 }
 
 export class SyncService {
+  secretKey: any
+
   private params: SharedParams
 
   private user: User
@@ -108,6 +115,8 @@ export class SyncService {
 
     s.app = new Octokit({ auth: token })
 
+    s.secretKey = await deriveAESKeyFromString('123456' + user.address, 256)
+
     return s
   }
 
@@ -165,7 +174,10 @@ export class SyncService {
         path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
-        content: JSON.stringify(pageMap[id], null, 2),
+        content: await encryptString(
+          JSON.stringify(pageMap[id], null, 2),
+          this.secretKey,
+        ),
       })
     }
 
@@ -175,12 +187,20 @@ export class SyncService {
   async createTreeForNewDir() {
     const pages = await this.spaceService.getPages()
 
-    return pages.map<TreeItem>((page) => ({
-      path: this.getNodePath(page[0].id),
-      mode: '100644',
-      type: 'blob',
-      content: JSON.stringify(page, null, 2),
-    }))
+    let treeItems: TreeItem[] = []
+    for (const page of pages) {
+      treeItems.push({
+        path: this.getNodePath(page[0].id),
+        mode: '100644',
+        type: 'blob',
+        content: await encryptString(
+          JSON.stringify(page, null, 2),
+          this.secretKey,
+        ),
+      })
+    }
+
+    return treeItems
   }
 
   async getBaseBranchInfo() {
@@ -252,12 +272,15 @@ export class SyncService {
     return this.filesTree
   }
 
-  createSpaceTreeItem(version: number) {
+  async createSpaceTreeItem(version: number) {
     return {
       path: this.space.filePath,
       mode: '100644',
       type: 'blob',
-      content: this.space.stringify(version),
+      content: await encryptString(
+        this.space.stringify(version),
+        this.secretKey,
+      ),
     } as TreeItem
   }
 
@@ -310,7 +333,11 @@ export class SyncService {
     )
 
     if (spaceRes.data.content) {
-      const space: ISpace = JSON.parse(atob(spaceRes.data.content))
+      const originalContent = await decryptString(
+        atob(spaceRes.data.content),
+        this.secretKey,
+      )
+      const space: ISpace = JSON.parse(originalContent)
       await db.updateSpace(this.space.id, space)
     }
   }
@@ -373,7 +400,7 @@ export class SyncService {
     const filesTree = await this.createFilesTree()
     tree.push(...filesTree)
 
-    const spaceTreeItem = this.createSpaceTreeItem(1)
+    const spaceTreeItem = await this.createSpaceTreeItem(1)
     tree.push(spaceTreeItem)
     return tree
   }
@@ -388,7 +415,7 @@ export class SyncService {
 
     tree.push(...pagesTree)
 
-    const spaceTreeItem = this.createSpaceTreeItem(serverVersion + 1)
+    const spaceTreeItem = await this.createSpaceTreeItem(serverVersion + 1)
     tree.push(spaceTreeItem)
 
     const filesTree = await this.getFilesTreeByDiff(diff)
@@ -534,8 +561,11 @@ export class SyncService {
         },
       )
 
-      const nodes: INode[] =
-        JSON.parse(decodeBase64(pageRes.data.content)) || []
+      const originalContent = await decryptString(
+        decodeBase64(pageRes.data.content),
+        this.secretKey,
+      )
+      const nodes: INode[] = JSON.parse(originalContent) || []
 
       for (const item of nodes) {
         const node = await db.getNode(item.id)
@@ -585,8 +615,12 @@ export class SyncService {
         },
       )
 
-      const nodes: INode[] =
-        JSON.parse(decodeBase64(pageRes.data.content)) || []
+      const originalContent = await decryptString(
+        decodeBase64(pageRes.data.content),
+        this.secretKey,
+      )
+
+      const nodes: INode[] = JSON.parse(originalContent) || []
 
       for (const item of nodes) {
         if (!isAdd) {

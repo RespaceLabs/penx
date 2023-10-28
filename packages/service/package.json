@@ -22,6 +22,7 @@
   "dependencies": {
     "@penx/autoformat": "workspace:*",
     "@penx/constants": "workspace:*",
+    "@penx/encryption": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/extension-typings": "*",
     "@penx/indexeddb": "workspace:*",
