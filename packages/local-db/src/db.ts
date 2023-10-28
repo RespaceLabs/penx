@@ -179,6 +179,14 @@ class DB {
     return newNode
   }
 
+  createTextNode = async (spaceId: string, text: string) => {
+    const newNode = await this.node.insert({
+      ...getNewNode({ spaceId }, text),
+    })
+
+    return newNode
+  }
+
   listNodesBySpaceId = async (spaceId: string) => {
     return this.node.select({
       where: { spaceId },

@@ -1,16 +1,19 @@
 import { FC, useState } from 'react'
 import QRCode from 'react-qr-code'
 import { Box } from '@fower/react'
-import { Eye } from 'lucide-react'
 import { useAccount } from 'wagmi'
-import { Button } from 'uikit'
 import { useUser } from '@penx/hooks'
 
 interface Props {}
 
 export const QrCode: FC<Props> = () => {
-  const { address } = useUser()
+  const user = useUser()
   const [blur, setBlur] = useState(true)
+
+  console.log('user:', user)
+
+  if (!user) return null
+  const { address } = user
   const value = JSON.stringify({
     address,
   })

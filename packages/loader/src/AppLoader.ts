@@ -15,9 +15,10 @@ class AppLoader {
 
   // TODO: handle error, need retry
   async init() {
-    if (isProd) {
-      protectDB()
-    }
+    // TODO:
+    // if (isProd) {
+    //   protectDB()
+    // }
 
     try {
       const t0 = Date.now()
