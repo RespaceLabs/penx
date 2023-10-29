@@ -52,7 +52,8 @@ export class Snapshot {
   ): SnapshotDiffResult {
     const { map: localMap } = this
     const { nodeMap: serverMap } = serverSnapshot
-    console.log('serverSnapshot:', serverSnapshot, 's:', this.toJSON())
+    console.log('serverSnapshot--------:', serverSnapshot)
+    console.log('localSnapshot:', this.toJSON())
 
     const localIds = Object.keys(localMap)
     const serverIds = Object.keys(serverMap)

@@ -3,7 +3,7 @@ import { atomWithStorage } from 'jotai/utils'
 import { SyncStatus } from '@penx/constants'
 import { emitter } from '@penx/event'
 import { db } from '@penx/local-db'
-import { User } from '@penx/model'
+import { Node, User } from '@penx/model'
 import {
   Command,
   ExtensionStore,
@@ -120,7 +120,8 @@ export const store = Object.assign(createStore(), {
   },
 
   async selectInbox() {
-    let node = await db.getInboxNode()
+    const space = this.getActiveSpace()
+    let node = await db.getInboxNode(space.id)
 
     await db.updateSpace(this.getActiveSpace().id, {
       activeNodeId: node.id,
@@ -186,6 +187,13 @@ export const store = Object.assign(createStore(), {
     )
     await db.updateSpace(space.id, { activeNodeId: node.id })
     const nodes = await db.listNormalNodes(space.id)
+
+    const rootNode = nodes.find((n) => new Node(n).isRootNode)!
+
+    console.log('rootNode:', rootNode)
+
+    // update space root not snapshot
+    await db.updateSnapshot(rootNode, 'update', rootNode)
 
     this.routeTo('NODE')
     this.setNodes(nodes)

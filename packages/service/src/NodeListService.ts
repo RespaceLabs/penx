@@ -28,7 +28,18 @@ export class NodeListService {
     return rootNode
   }
 
+  get inboxNode() {
+    const rootNode = this.nodes.find((n) => n.isInbox)!
+    return rootNode
+  }
+
+  get trashNode() {
+    const rootNode = this.nodes.find((n) => n.isTrashed)!
+    return rootNode
+  }
+
   get rootNodes() {
+    if (!this.nodes?.length) return []
     return this.rootNode.children
       .map((id) => this.nodeMap.get(id)!)
       .sort((a, b) => b.updatedAt - a.updatedAt)

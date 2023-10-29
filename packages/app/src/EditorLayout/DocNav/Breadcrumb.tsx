@@ -18,7 +18,7 @@ export const Breadcrumb = () => {
               gray700
               black={isLast}
             >
-              {node.title}
+              {node.title}({isLast && node.id})
             </Box>
             {!isLast && (
               <Box gray500 pl2 pr1 toCenterY mb--2>

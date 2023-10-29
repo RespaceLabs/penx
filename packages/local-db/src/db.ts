@@ -136,16 +136,14 @@ class DB {
     return this.node.selectByPk(nodeId)
   }
 
-  getInboxNode = async () => {
-    let node = await this.node.selectByIndex('type', NodeType.INBOX)
+  getInboxNode = async (spaceId: string) => {
+    let nodes = await this.node.selectByIndexAll('type', NodeType.INBOX)
+    return nodes.find((node) => node.spaceId === spaceId)!
+  }
 
-    if (!node) {
-      const space = await this.getActiveSpace()
-      node = await this.node.insert(
-        getNewNode({ spaceId: space.id, type: NodeType.INBOX }),
-      )
-    }
-    return node
+  getTrashNode = async (spaceId: string) => {
+    let nodes = await this.node.selectByIndexAll('type', NodeType.TRASH)
+    return nodes.find((node) => node.spaceId === spaceId)!
   }
 
   updateNode = async (nodeId: string, data: Partial<INode>) => {

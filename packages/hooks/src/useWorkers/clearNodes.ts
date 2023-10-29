@@ -27,11 +27,7 @@ async function clearDeletedNode() {
 
     const parentNode = nodeMap.get(node.parentId)
 
-    console.log('start clear....')
-
     if (!parentNode?.children.includes(node.id)) {
-      console.log('clear..... done:', node)
-
       await db.deleteNode(node.id)
     }
   }

@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { db } from '@penx/local-db'
-import { Space } from '@penx/model'
+import { Node, Space } from '@penx/model'
 import { spacesAtom, store } from '@penx/store'
 import { INode } from '@penx/types'
 import { NodeListService } from './NodeListService'
@@ -27,6 +27,20 @@ export class SpaceService {
   }
 
   // TODO: need to handle rootNode, inboxNode, trashNode
+  /**
+   * split nodes[] to page[], so we can store it github
+   * node[]
+   * ->
+   * {
+   *   rootNode: node[]
+   *   inboxNode: node[]
+   *   trashNode: node[]
+   *   pageNode1: node[] // pageNode from rootNode'children
+   *   pageNode2: node[]
+   *   pageNode2: node[]
+   * }
+   * @returns
+   */
   getPages = async (): Promise<INode[][]> => {
     const nodes = await db.listNodesBySpaceId(this.space.id)
 
@@ -37,19 +51,32 @@ export class SpaceService {
     const nodeList = new NodeListService(nodes)
 
     const pages = nodeList.rootNode.children.map((id) => {
-      const rootNode = this.nodeMap.get(id)!
-      let pageNodes: INode[] = [rootNode]
-      const loop = (children: string[] = []) => {
-        for (const id of children) {
-          const node = this.nodeMap.get(id)!
-          pageNodes.push(node)
-          if (node.children?.length) loop(node.children)
-        }
-      }
-      loop(rootNode.children)
+      const pageNode = this.nodeMap.get(id)!
+      const pageNodes = this.getPageNodesFromOneNode(pageNode)
       return pageNodes
     })
 
+    // space's rootNode
+    pages.push([nodeList.rootNode.raw])
+
+    pages.push(this.getPageNodesFromOneNode(nodeList.inboxNode.raw))
+
+    pages.push(this.getPageNodesFromOneNode(nodeList.trashNode.raw))
+
     return pages
+  }
+
+  private getPageNodesFromOneNode = (node: INode) => {
+    let pageNodes: INode[] = [node]
+
+    const loop = (children: string[] = []) => {
+      for (const id of children) {
+        const node = this.nodeMap.get(id)!
+        pageNodes.push(node)
+        if (node.children?.length) loop(node.children)
+      }
+    }
+    loop(node.children)
+    return pageNodes
   }
 }

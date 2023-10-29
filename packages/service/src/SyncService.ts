@@ -443,6 +443,8 @@ export class SyncService {
 
         const diff = this.space.snapshot.diff(serverSnapshot)
 
+        console.log('====diff:', diff)
+
         // isEqual, don't push
         if (diff.isEqual) {
           console.log('diff equal, no need to push')
@@ -550,6 +552,18 @@ export class SyncService {
     }
 
     const pagesTree = await this.getPagesTreeInfo()
+
+    const inboxNode = await db.getInboxNode(this.space.id)
+    if (inboxNode) {
+      console.log('indexNode:', inboxNode)
+      await db.deleteNode(inboxNode.id)
+    }
+
+    const trashNode = await db.getTrashNode(this.space.id)
+    if (trashNode) {
+      console.log('trashNode:', trashNode)
+      await db.deleteNode(trashNode.id)
+    }
 
     for (const item of pagesTree) {
       const pageRes: any = await this.app.request(
@@ -659,6 +673,7 @@ export class SyncService {
       store.setSpaces(spaces)
       store.setNodes(nodes)
       store.reloadNode(activeNode)
+      store.routeTo('NODE')
     } catch (error) {
       console.log('pull error', error)
     }

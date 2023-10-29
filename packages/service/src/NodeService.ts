@@ -128,7 +128,9 @@ export class NodeService {
       for (const item of this.allNodes) {
         if (node.parentId === item.id) {
           node = item
-          parentNodes.unshift(item)
+          if (node.type !== NodeType.SPACE) {
+            parentNodes.unshift(item)
+          }
         }
       }
 
@@ -207,6 +209,7 @@ export class NodeService {
       (id) => new Node(nodeService.nodeMap.get(id)!),
     )
 
+    // update page snapshot
     const value = nodeService.getEditorValue(childrenNodes)
     await db.updateSnapshot(rootNode.raw, 'update', value)
   }

@@ -41,7 +41,7 @@ export class Node {
   }
 
   get isTrashed() {
-    return this.raw.status === NodeStatus.TRASHED
+    return this.raw.type === NodeType.TRASH
   }
 
   get isInbox() {
