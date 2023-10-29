@@ -48,30 +48,28 @@ export class NodeService {
 
   getEditorValue(childrenNodes: Node[] = this.childrenNodes) {
     const childrenToList = (children: string[]) => {
-      const listItems = children
-        .filter((id) => this.nodeMap.get(id))
-        .map((id) => {
-          const node = this.nodeMap.get(id)!
+      const listItems = children.map((id) => {
+        const node = this.nodeMap.get(id)!
 
-          const children = [
-            {
-              id: node.id,
-              type: ELEMENT_LIC,
-              collapsed: node.collapsed,
-              children: [node.element],
-            },
-          ]
+        const children = [
+          {
+            id: node.id,
+            type: ELEMENT_LIC,
+            collapsed: node.collapsed,
+            children: [node.element],
+          },
+        ]
 
-          if (node.children) {
-            const ul = childrenToList(node.children)
-            if (ul) children.push(ul as any)
-          }
+        if (node.children) {
+          const ul = childrenToList(node.children)
+          if (ul) children.push(ul as any)
+        }
 
-          return {
-            type: ELEMENT_LI,
-            children,
-          }
-        })
+        return {
+          type: ELEMENT_LI,
+          children,
+        }
+      })
 
       if (!listItems.length) return null
       return {
@@ -244,8 +242,10 @@ export class NodeService {
       // node parentId
       const grandparent = getNodeByPath(editor, path.slice(0, -3))!
 
+      let newParentId = parentId
+
       if (isListItemElement(grandparent)) {
-        parentId = grandparent.children[0].id
+        newParentId = grandparent.children[0].id
       }
 
       const element = item.children[0]
@@ -253,7 +253,7 @@ export class NodeService {
 
       if (node) {
         await db.updateNode(item.id, {
-          parentId,
+          parentId: newParentId,
           element,
           collapsed: !!item.collapsed,
           children,
@@ -261,7 +261,7 @@ export class NodeService {
       } else {
         await db.createNode({
           id: item.id,
-          parentId,
+          parentId: newParentId,
           spaceId: this.spaceId,
           collapsed: !!item.collapsed,
           element,

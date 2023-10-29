@@ -14,9 +14,6 @@ export interface ISpace {
   // favorites node IDs
   favorites: string[]
 
-  // root node IDs
-  children: string[]
-
   snapshot: {
     version: number
     nodeMap: Record<string, string>

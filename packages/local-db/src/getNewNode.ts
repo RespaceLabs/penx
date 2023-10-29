@@ -5,9 +5,12 @@ import { INode, NodeStatus, NodeType } from '@penx/types'
 type Input = {
   spaceId: string
   type?: NodeType
+  name?: string
+  props?: INode['props']
 }
 
 export function getNewNode(input: Input, text = ''): INode {
+  const { name, ...rest } = input
   return {
     id: nanoid(),
     type: NodeType.COMMON,
@@ -16,13 +19,16 @@ export function getNewNode(input: Input, text = ''): INode {
       type: ELEMENT_P,
       children: [{ text }],
     },
-    props: {},
+    props: {
+      name,
+      ...rest.props,
+    },
     status: NodeStatus.NORMAL,
     collapsed: false,
     children: [],
     openedAt: Date.now(),
     createdAt: Date.now(),
     updatedAt: Date.now(),
-    ...input,
+    ...rest,
   }
 }

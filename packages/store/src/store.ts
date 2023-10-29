@@ -107,8 +107,6 @@ export const store = Object.assign(createStore(), {
 
     if (normalNodes.length) {
       this.reloadNode(normalNodes[0])
-    } else {
-      this.routeTo('ALL_NODES')
     }
     this.setNodes(nodes)
   },
@@ -123,6 +121,19 @@ export const store = Object.assign(createStore(), {
 
   async selectInbox() {
     let node = await db.getInboxNode()
+
+    await db.updateSpace(this.getActiveSpace().id, {
+      activeNodeId: node.id,
+    })
+
+    this.reloadNode(node)
+    this.routeTo('NODE')
+  },
+
+  // select the space root node
+  async selectSpaceNode() {
+    const space = this.getActiveSpace()
+    let node = await db.getSpaceNode(space.id)
 
     await db.updateSpace(this.getActiveSpace().id, {
       activeNodeId: node.id,
@@ -166,7 +177,13 @@ export const store = Object.assign(createStore(), {
 
   async createPageNode() {
     const space = this.getActiveSpace()
-    const node = await db.createPageNode({ spaceId: space.id })
+    const node = await db.createPageNode(
+      {
+        collapsed: true,
+        spaceId: space.id,
+      },
+      space,
+    )
     await db.updateSpace(space.id, { activeNodeId: node.id })
     const nodes = await db.listNormalNodes(space.id)
 
@@ -178,9 +195,8 @@ export const store = Object.assign(createStore(), {
   async createSpace(input: Partial<ISpace>) {
     const space = await db.createSpace(input)
     const spaces = await db.listSpaces()
-    const nodeId = space.children[0]
     const nodes = await db.listNormalNodes(space.id)
-    const node = await db.getNode(nodeId)
+    const node = await db.getNode(space.activeNodeId!)
 
     this.routeTo('NODE')
     this.setNodes(nodes)
@@ -194,7 +210,7 @@ export const store = Object.assign(createStore(), {
     const spaces = await db.listSpaces()
     const nodes = await db.listNormalNodes(id)
     const space = await db.getActiveSpace()
-    const nodeId = space.activeNodeId || space.children[0]
+    const nodeId = space.activeNodeId!
     const node = await db.getNode(nodeId)
 
     this.setSpaces(spaces)

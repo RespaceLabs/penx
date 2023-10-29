@@ -51,11 +51,6 @@ class DB {
   }
 
   createSpace = async (data: Partial<ISpace>, initNode = true) => {
-    const newSpace = getNewSpace(data)
-    const spaceId = newSpace.id
-
-    await this.space.insert(newSpace)
-
     const spaces = await this.listSpaces()
 
     for (const space of spaces) {
@@ -64,28 +59,47 @@ class DB {
       })
     }
 
+    // insert new space
+    const newSpace = getNewSpace(data)
+    const spaceId = newSpace.id
+    const space = await this.space.insert(newSpace)
+
     if (initNode) {
+      // init space root node
+      await this.node.insert(
+        getNewNode({
+          spaceId,
+          type: NodeType.SPACE,
+          name: newSpace.name,
+        }),
+      )
+
       // init inbox node
-      await this.node.insert(getNewNode({ spaceId, type: NodeType.INBOX }))
+      await this.node.insert(
+        getNewNode({
+          spaceId,
+          type: NodeType.INBOX,
+        }),
+      )
 
       // init trash node
-      await this.node.insert(getNewNode({ spaceId, type: NodeType.TRASH }))
+      await this.node.insert(
+        getNewNode({
+          spaceId,
+          type: NodeType.TRASH,
+        }),
+      )
 
       const node = getNewNode({ spaceId })
 
-      await this.createPageNode(node)
+      await this.createPageNode(node, space)
 
       await this.space.updateByPk(spaceId, {
         isActive: true,
         activeNodeId: node.id,
       })
-    } else {
-      await this.space.updateByPk(spaceId, {
-        isActive: true,
-      })
     }
 
-    const space = await this.space.selectByPk(spaceId)!
     return space as ISpace
   }
 
@@ -164,7 +178,13 @@ class DB {
     return this.node.deleteByPk(nodeId)
   }
 
-  createPageNode = async (node: Partial<INode>) => {
+  getSpaceNode = async (spaceId: string) => {
+    const spaceNodes = await db.node.selectByIndexAll('type', NodeType.SPACE)
+    const spaceNode = spaceNodes.find((node) => node.spaceId === spaceId)
+    return spaceNode!
+  }
+
+  createPageNode = async (node: Partial<INode>, space: ISpace) => {
     const { spaceId = '' } = node
 
     const subNode = await this.node.insert(getNewNode({ spaceId }))
@@ -175,11 +195,12 @@ class DB {
       children: [subNode.id],
     })
 
-    const space = await this.getSpace(spaceId)
+    const spaceNode = await this.getSpaceNode(space.id)
 
-    await this.space.updateByPk(spaceId, {
-      children: [...(space.children || []), newNode.id],
+    await this.updateNode(spaceNode.id, {
+      children: [...(spaceNode.children || []), newNode.id],
     })
+
     return newNode
   }
 

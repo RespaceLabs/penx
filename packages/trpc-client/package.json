@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@penx/api": "workspace:*",
+    "@penx/model": "workspace:*",
     "@penx/db": "workspace:*",
     "@prisma/client": "^5.2.0",
     "@trpc/client": "^10.36.0",

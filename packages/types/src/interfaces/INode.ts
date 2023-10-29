@@ -24,6 +24,7 @@ export interface INode {
 
   // for dynamic data
   props: {
+    name?: string
     emoji?: string
     date?: string // 2024-01-01
     [key: string]: any

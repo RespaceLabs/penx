@@ -50,7 +50,7 @@ export const Sidebar = () => {
           icon={<CalendarDays size={16} />}
           label="Daily note"
           onClick={() => {
-            store.routeTo('ALL_NODES')
+            //
           }}
         />
 
@@ -66,7 +66,7 @@ export const Sidebar = () => {
           icon={<Folder size={16} />}
           label="All Nodes"
           onClick={() => {
-            store.routeTo('ALL_NODES')
+            store.selectSpaceNode()
           }}
         />
 

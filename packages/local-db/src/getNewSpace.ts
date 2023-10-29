@@ -6,7 +6,7 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
   return {
     id: nanoid(),
     name: 'My Space',
-    isActive: false,
+    isActive: true,
     favorites: [],
     children: [],
     snapshot: {
