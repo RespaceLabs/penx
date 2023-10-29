@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { createEditor, Editor } from 'slate'
+import { createEditor, Editor, Node as SlateNode } from 'slate'
 import { ELEMENT_TITLE } from '@penx/constants'
 import { getNodeByPath } from '@penx/editor-queries'
 import {
@@ -180,6 +180,13 @@ export class NodeService {
       node = await db.updateNode(node.id, {
         element: title.children[0],
       })
+
+      // update space name
+      if (this.node.isRootNode) {
+        await store.updateSpace(node.spaceId, {
+          name: SlateNode.string(title),
+        })
+      }
     }
 
     await this.saveNodes(node.id, ul)

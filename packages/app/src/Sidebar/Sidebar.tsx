@@ -28,8 +28,6 @@ export const Sidebar = () => {
   const [extensionStore] = useAtom(extensionStoreAtom)
   const components = getStatusBarComponents(extensionStore)
 
-  const { nodeList } = useNodes()
-
   return (
     <Box
       column

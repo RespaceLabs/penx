@@ -218,4 +218,10 @@ export const store = Object.assign(createStore(), {
     this.reloadNode(node)
     return space
   },
+
+  async updateSpace(id: string, data: Partial<ISpace>) {
+    await db.updateSpace(id, data)
+    const spaces = await db.listSpaces()
+    this.setSpaces(spaces)
+  },
 })

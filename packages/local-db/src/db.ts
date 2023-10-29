@@ -67,11 +67,13 @@ class DB {
     if (initNode) {
       // init space root node
       await this.node.insert(
-        getNewNode({
-          spaceId,
-          type: NodeType.SPACE,
-          name: newSpace.name,
-        }),
+        getNewNode(
+          {
+            spaceId,
+            type: NodeType.SPACE,
+          },
+          space.name,
+        ),
       )
 
       // init inbox node

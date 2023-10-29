@@ -40,7 +40,7 @@ export const SpacePopover = () => {
                 </Avatar>
                 <Box>{activeSpace?.name}</Box>
               </Box>
-              <Box
+              {/* <Box
                 inlineFlex
                 opacity-0
                 opacity-100--$currentSpace--hover
@@ -50,7 +50,7 @@ export const SpacePopover = () => {
                 }}
               >
                 <SettingsModal></SettingsModal>
-              </Box>
+              </Box> */}
             </Box>
           )}
         </PopoverTrigger>

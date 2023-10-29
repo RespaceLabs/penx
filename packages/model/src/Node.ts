@@ -7,6 +7,8 @@ type Element = {
   children: Array<{ text: string }>
 }
 
+export const isRootNode = () => {}
+
 export class Node {
   constructor(public raw: INode) {}
 
@@ -44,6 +46,10 @@ export class Node {
 
   get isInbox() {
     return this.type === NodeType.INBOX
+  }
+
+  get isRootNode() {
+    return this.type === NodeType.SPACE
   }
 
   get collapsed() {
