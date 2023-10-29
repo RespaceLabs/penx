@@ -40,7 +40,7 @@ export class Node {
     return this.raw.status === NodeStatus.NORMAL
   }
 
-  get isTrashed() {
+  get isTrash() {
     return this.raw.type === NodeType.TRASH
   }
 
@@ -49,7 +49,7 @@ export class Node {
   }
 
   get isRootNode() {
-    return this.type === NodeType.SPACE
+    return this.type === NodeType.ROOT
   }
 
   get collapsed() {
@@ -71,7 +71,15 @@ export class Node {
   get createdAtFormatted() {
     return format(this.raw.createdAt, 'yyyy-MM-dd HH:mm')
   }
+
   get updatedAtFormatted() {
     return format(this.raw.updatedAt, 'yyyy-MM-dd HH:mm')
+  }
+
+  get snapshotId() {
+    if (this.isInbox) return NodeType.INBOX
+    if (this.isRootNode) return NodeType.ROOT
+    if (this.isTrash) return NodeType.TRASH
+    return this.id
   }
 }

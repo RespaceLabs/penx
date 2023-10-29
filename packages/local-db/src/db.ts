@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import { Database } from '@penx/indexeddb'
-import { Space } from '@penx/model'
+import { Node, Space } from '@penx/model'
 import {
   IExtension,
   IFile,
@@ -70,7 +70,7 @@ class DB {
         getNewNode(
           {
             spaceId,
-            type: NodeType.SPACE,
+            type: NodeType.ROOT,
           },
           space.name,
         ),
@@ -174,7 +174,7 @@ class DB {
   }
 
   getSpaceNode = async (spaceId: string) => {
-    const spaceNodes = await db.node.selectByIndexAll('type', NodeType.SPACE)
+    const spaceNodes = await db.node.selectByIndexAll('type', NodeType.ROOT)
     const spaceNode = spaceNodes.find((node) => node.spaceId === spaceId)
     return spaceNode!
   }
@@ -249,7 +249,8 @@ class DB {
   ) => {
     const spaceRaw = await this.getSpace(node.spaceId)
     const space = new Space(spaceRaw)
-    space.snapshot[action](node.id, editorValue)
+    const nodeModel = new Node(node)
+    space.snapshot[action](nodeModel.snapshotId, editorValue)
 
     await this.updateSpace(space.id, {
       snapshot: space.snapshot.toJSON(),

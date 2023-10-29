@@ -34,7 +34,7 @@ export class NodeListService {
   }
 
   get trashNode() {
-    const rootNode = this.nodes.find((n) => n.isTrashed)!
+    const rootNode = this.nodes.find((n) => n.isTrash)!
     return rootNode
   }
 
@@ -50,7 +50,7 @@ export class NodeListService {
   }
 
   get trashedNodes() {
-    return this.nodes.filter((node) => node.isTrashed)
+    return this.nodes.filter((node) => node.isTrash)
   }
 
   getFavorites(ids: string[] = []) {

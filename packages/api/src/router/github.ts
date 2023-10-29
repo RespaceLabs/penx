@@ -1,12 +1,10 @@
-import { createAppAuth } from '@octokit/auth-app'
 import { components } from '@octokit/openapi-types'
 import { Octokit } from 'octokit'
 import { z } from 'zod'
-import { GithubInfo, User } from '@penx/model'
+import { GithubInfo } from '@penx/model'
+import { getTokenByAddress } from '../service/getTokenByAddress'
 import { refreshGitHubToken } from '../service/refreshGitHubToken'
 import { createTRPCRouter, publicProcedure } from '../trpc'
-
-const privateKey = JSON.parse(process.env.GITHUB_PRIVATE_KEY || '{}').key
 
 export const githubRouter = createTRPCRouter({
   githubInfo: publicProcedure
@@ -157,26 +155,8 @@ export const githubRouter = createTRPCRouter({
         address: z.string(),
       }),
     )
-    .query(async ({ ctx, input }) => {
+    .query(({ input }) => {
       const { address } = input
-
-      const userRaw = await ctx.prisma.user.findUniqueOrThrow({
-        where: { address },
-      })
-
-      const user = new User(userRaw)
-
-      const auth = createAppAuth({
-        appId: process.env.GITHUB_APP_ID!,
-        privateKey,
-        clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
-        clientSecret: process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET,
-      })
-
-      const installationAuthentication = await auth({
-        type: 'installation',
-        installationId: user.github.installationId,
-      })
-      return installationAuthentication.token
+      return getTokenByAddress(address)
     }),
 })

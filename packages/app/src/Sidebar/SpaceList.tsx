@@ -8,7 +8,8 @@ import {
   PopoverClose,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { useSpaces, useSpaceService } from '@penx/hooks'
+import { useSpaces } from '@penx/hooks'
+import { store } from '@penx/store'
 import { ISpace } from '@penx/types'
 
 function SpaceItem({
@@ -19,7 +20,6 @@ function SpaceItem({
   activeSpace: ISpace
 }) {
   const active = activeSpace.id === item.id
-  const spaceService = useSpaceService()
   return (
     <PopoverClose asChild>
       <Box
@@ -34,7 +34,7 @@ function SpaceItem({
         cursorPointer
         transitionColors
         onClick={async () => {
-          await spaceService.selectSpace(item.id)
+          await store.selectSpace(item.id)
         }}
       >
         <Avatar roundedFull rounded2XL={active}>

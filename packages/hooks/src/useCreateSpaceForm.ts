@@ -2,8 +2,8 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useModalContext } from 'uikit'
+import { store } from '@penx/store'
 import { ISpace } from '@penx/types'
-import { useSpaceService } from './useSpaceService'
 
 export type CreateSpaceValues = {
   description: string
@@ -13,7 +13,6 @@ export type CreateSpaceValues = {
 
 export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
   const modalContext = useModalContext()
-  const { createSpace } = useSpaceService()
   const form = useForm<CreateSpaceValues>({
     defaultValues: {
       name: '',
@@ -26,7 +25,7 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
   })
 
   const onSubmit: SubmitHandler<CreateSpaceValues> = async (data) => {
-    const space = await createSpace(data.name)
+    const space = await store.createSpace({ name: data.name })
     onSpaceCreated?.(space)
     modalContext?.close?.()
   }

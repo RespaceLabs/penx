@@ -1962,6 +1962,9 @@ importers:
       '@penx/editor-types':
         specifier: workspace:*
         version: link:../editor-types
+      '@penx/encryption':
+        specifier: workspace:*
+        version: link:../encryption
       '@penx/model':
         specifier: workspace:*
         version: link:../model
@@ -3616,6 +3619,9 @@ importers:
       '@penx/model':
         specifier: workspace:*
         version: link:../model
+      '@penx/trpc-client':
+        specifier: workspace:*
+        version: link:../trpc-client
       '@penx/types':
         specifier: workspace:*
         version: link:../types

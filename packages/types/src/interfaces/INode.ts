@@ -4,7 +4,7 @@ export enum NodeStatus {
 }
 
 export enum NodeType {
-  SPACE = 'SPACE',
+  ROOT = 'ROOT',
   COMMON = 'COMMON',
   INBOX = 'INBOX',
   TRASH = 'TRASH',

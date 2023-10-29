@@ -1,6 +1,5 @@
 export * from './useMounted'
 export * from './useSpaces'
-export * from './useSpaceService'
 export * from './useHover'
 export * from './useCreateSpaceForm'
 export * from './useSyncStatus'

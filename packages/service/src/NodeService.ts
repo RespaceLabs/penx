@@ -128,7 +128,7 @@ export class NodeService {
       for (const item of this.allNodes) {
         if (node.parentId === item.id) {
           node = item
-          if (node.type !== NodeType.SPACE) {
+          if (node.type !== NodeType.ROOT) {
             parentNodes.unshift(item)
           }
         }

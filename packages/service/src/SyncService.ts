@@ -11,7 +11,7 @@ import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
-import { IFile, INode, ISpace } from '@penx/types'
+import { IFile, INode, ISpace, NodeType } from '@penx/types'
 import { NodeService } from './NodeService'
 import { SpaceService } from './SpaceService'
 
@@ -58,6 +58,8 @@ export class SyncService {
 
   private space: Space
 
+  private nodes: INode[]
+
   private spaceService: SpaceService
 
   private app: Octokit
@@ -103,9 +105,10 @@ export class SyncService {
 
   static async init(space: ISpace, user: User) {
     const s = new SyncService()
+    s.nodes = await db.listNodesBySpaceId(space.id)
     s.user = user
     s.space = new Space(space)
-    s.spaceService = new SpaceService(s.space)
+    s.spaceService = new SpaceService(s.space, s.nodes)
 
     const token = await trpc.github.getTokenByAddress.query({
       address: user.address,
@@ -161,12 +164,7 @@ export class SyncService {
       })
     }
 
-    const pages = await this.spaceService.getPages()
-    const pageMap = pages.reduce(
-      (acc, page) => ({ ...acc, [page[0].id]: page }),
-      {} as Record<string, INode[]>,
-    )
-
+    const pageMap = await this.spaceService.getPageMap()
     const changeIds = [...diff.added, ...diff.updated]
 
     for (const id of changeIds) {
@@ -181,20 +179,23 @@ export class SyncService {
       })
     }
 
+    console.log('treeItems:', treeItems)
+
     return treeItems
   }
 
   async createTreeForNewDir() {
-    const pages = await this.spaceService.getPages()
+    const pageMap = await this.spaceService.getPageMap()
 
     let treeItems: TreeItem[] = []
-    for (const page of pages) {
+    for (const id of Object.keys(pageMap)) {
+      const nodes = pageMap[id]
       treeItems.push({
-        path: this.getNodePath(page[0].id),
+        path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
         content: await encryptString(
-          JSON.stringify(page, null, 2),
+          JSON.stringify(nodes, null, 2),
           this.secretKey,
         ),
       })
@@ -357,6 +358,7 @@ export class SyncService {
     // get fileIds
     for (const nodeId of nodeIds) {
       const node = await db.getNode(nodeId)
+
       const nodeService = new NodeService(new Node(node), nodes)
       const value = nodeService.getEditorValue()
       const editor = createEditor()
@@ -375,10 +377,24 @@ export class SyncService {
     return fileNodes
   }
 
+  private changesToNodeIds(changes: string[]) {
+    const nodeIds: string[] = changes
+      .filter((item) => item !== NodeType.ROOT)
+      .map((item) => {
+        const node = this.nodes.find((n) => n.type === (item as any))
+        if (node) return node.id
+        return item
+      })
+    return nodeIds
+  }
+
   async getFilesTreeByDiff(diff: SnapshotDiffResult) {
     let tree: TreeItem[] = []
 
-    const nodeIds = [...diff.added, ...diff.updated]
+    const changes = [...diff.added, ...diff.updated]
+
+    const nodeIds = this.changesToNodeIds(changes)
+
     const fileNode = await this.getFileNodesInNodeIds(nodeIds)
 
     for (const { fileId } of fileNode) {
@@ -453,8 +469,11 @@ export class SyncService {
 
         tree = await this.pushByDiff(diff, serverSnapshot.version)
       } catch (error) {
+        console.log('push all................:', error)
         tree = await this.pushAll()
       }
+
+      console.log('tree------:', tree)
 
       await this.getBaseBranchInfo()
 
@@ -646,10 +665,10 @@ export class SyncService {
     }
 
     // update file node after node updated
-    const fileNodes = await this.getFileNodesInNodeIds([
-      ...diff.added,
-      ...diff.updated,
-    ])
+
+    const changes = [...diff.added, ...diff.updated]
+    const nodeIds: string[] = this.changesToNodeIds(changes)
+    const fileNodes = await this.getFileNodesInNodeIds(nodeIds)
 
     await this.pullByFileNodes(fileNodes)
   }
@@ -698,10 +717,6 @@ export class SyncService {
     }
   }
 
-  private async getSnapshotFromGithub() {
-    ///
-  }
-
   private async getSnapshot(): Promise<ISpace['snapshot']> {
     try {
       return this.getSnapshotFromDatabase()
@@ -729,8 +744,6 @@ export class SyncService {
     // })
 
     const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL + '/api/upsert-snapshot'
-
-    console.log('this.user-=======:', this.user)
 
     await ky
       .post(url, {

@@ -23,16 +23,16 @@ export class Snapshot {
     return CryptoJS.MD5(JSON.stringify(editorValue)).toString()
   }
 
-  add = (nodeId: string, editorValue: any) => {
-    this.map[nodeId] = this.md5Doc(editorValue)
+  add = (id: string, editorValue: any) => {
+    this.map[id] = this.md5Doc(editorValue)
   }
 
-  update = (nodeId: string, editorValue: any) => {
-    this.map[nodeId] = this.md5Doc(editorValue)
+  update = (id: string, editorValue: any) => {
+    this.map[id] = this.md5Doc(editorValue)
   }
 
-  delete = (nodeId: string) => {
-    delete this.map[nodeId]
+  delete = (id: string) => {
+    delete this.map[id]
   }
 
   toJSON() {
