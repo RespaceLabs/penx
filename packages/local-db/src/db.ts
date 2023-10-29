@@ -157,6 +157,7 @@ class DB {
       status: NodeStatus.NORMAL,
     })
   }
+
   deleteNode = async (nodeId: string) => {
     const node = await this.getNode(nodeId)
     await this.updateSnapshot(node, 'delete')

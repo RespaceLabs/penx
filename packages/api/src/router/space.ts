@@ -1,7 +1,5 @@
-import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { createSpace, CreateUserInput } from '../service/createSpace'
-import { getAuthApp } from '../service/getAuthApp'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
 export const spaceRouter = createTRPCRouter({
