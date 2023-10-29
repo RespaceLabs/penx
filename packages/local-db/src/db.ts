@@ -75,12 +75,7 @@ class DB {
       )
 
       // init inbox node
-      await this.node.insert(
-        getNewNode({
-          spaceId,
-          type: NodeType.INBOX,
-        }),
-      )
+      await this.createInboxNode(space.id)
 
       // init trash node
       await this.node.insert(
@@ -202,6 +197,17 @@ class DB {
     })
 
     return newNode
+  }
+
+  createInboxNode = async (spaceId: string) => {
+    const subNode = await this.node.insert(getNewNode({ spaceId }))
+
+    const inboxNode = await this.node.insert({
+      ...getNewNode({ spaceId, type: NodeType.INBOX }),
+      children: [subNode.id],
+    })
+
+    return inboxNode
   }
 
   createNode = async (node: Partial<INode>) => {
