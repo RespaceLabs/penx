@@ -15,10 +15,7 @@ export class NodeListService {
 
   nodeMap = new Map<string, Node>()
 
-  constructor(
-    private space: ISpace,
-    private rawNodes: INode[] = [],
-  ) {
+  constructor(private rawNodes: INode[] = []) {
     this.nodes = this.rawNodes.map((raw) => new Node(raw))
 
     for (const node of this.nodes) {
@@ -26,9 +23,15 @@ export class NodeListService {
     }
   }
 
+  get rootNode() {
+    const rootNode = this.nodes.find((n) => n.isRootNode)!
+    return rootNode
+  }
+
   get rootNodes() {
-    if (!this.nodes.length) return []
-    return this.space.children.map((id) => this.nodeMap.get(id)!)
+    return this.rootNode.children
+      .map((id) => this.nodeMap.get(id)!)
+      .sort((a, b) => b.updatedAt - a.updatedAt)
   }
 
   get normalNodes() {

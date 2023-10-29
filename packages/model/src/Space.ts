@@ -21,10 +21,6 @@ export class Space {
     return this.raw.name
   }
 
-  get children() {
-    return this.raw.children || []
-  }
-
   get isActive() {
     return this.raw.isActive
   }

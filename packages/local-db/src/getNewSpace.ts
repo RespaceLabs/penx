@@ -8,7 +8,6 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
     name: 'My Space',
     isActive: true,
     favorites: [],
-    children: [],
     snapshot: {
       version: 0,
       nodeMap: {},

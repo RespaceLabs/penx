@@ -33,10 +33,9 @@ export function useQueryNodes(spaceId: string) {
 export function useNodes() {
   const nodes = useAtomValue(nodesAtom)
 
-  const { activeSpace } = useSpaces()
   const nodeList = useMemo(() => {
-    return new NodeListService(activeSpace, nodes)
-  }, [activeSpace, nodes])
+    return new NodeListService(nodes)
+  }, [nodes])
 
   return {
     nodeList,

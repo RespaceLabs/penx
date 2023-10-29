@@ -3,6 +3,7 @@ import { db } from '@penx/local-db'
 import { Space } from '@penx/model'
 import { spacesAtom, store } from '@penx/store'
 import { INode } from '@penx/types'
+import { NodeListService } from './NodeListService'
 
 export class SpaceService {
   constructor(private space: Space) {}
@@ -25,6 +26,7 @@ export class SpaceService {
     store.set(spacesAtom, spaces)
   }
 
+  // TODO: need to handle rootNode, inboxNode, trashNode
   getPages = async (): Promise<INode[][]> => {
     const nodes = await db.listNodesBySpaceId(this.space.id)
 
@@ -32,7 +34,9 @@ export class SpaceService {
       this.nodeMap.set(node.id, node)
     }
 
-    const pages = this.space.children.map((id) => {
+    const nodeList = new NodeListService(nodes)
+
+    const pages = nodeList.rootNode.children.map((id) => {
       const rootNode = this.nodeMap.get(id)!
       let pageNodes: INode[] = [rootNode]
       const loop = (children: string[] = []) => {
