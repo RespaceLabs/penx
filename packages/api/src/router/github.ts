@@ -1,8 +1,8 @@
 import { components } from '@octokit/openapi-types'
 import { Octokit } from 'octokit'
 import { z } from 'zod'
-import { GithubInfo } from '@penx/model'
-import { getTokenByAddress } from '../service/getTokenByAddress'
+import { GithubInfo, User } from '@penx/model'
+import { getTokenByInstallationId } from '../service/getTokenByInstallationId'
 import { refreshGitHubToken } from '../service/refreshGitHubToken'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
@@ -155,8 +155,13 @@ export const githubRouter = createTRPCRouter({
         address: z.string(),
       }),
     )
-    .query(({ input }) => {
+    .query(async ({ ctx, input }) => {
       const { address } = input
-      return getTokenByAddress(address)
+      const userRaw = await ctx.prisma.user.findUniqueOrThrow({
+        where: { address },
+      })
+
+      const user = new User(userRaw)
+      return getTokenByInstallationId(user.github.installationId)
     }),
 })

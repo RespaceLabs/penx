@@ -35,3 +35,13 @@ export type ExtensionStore = Record<
     settingsSchema: SettingsSchema
   }
 >
+
+export type TreeItem = {
+  path: string
+  // mode: '100644' | '100755' | '040000' | '160000' | '120000'
+  mode: '100644'
+  // type: 'blob' | 'tree' | 'commit'
+  type: 'blob'
+  content?: string
+  sha?: string | null
+}

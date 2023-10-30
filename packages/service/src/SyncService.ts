@@ -2,16 +2,12 @@ import ky from 'ky'
 import mime from 'mime-types'
 import { Octokit } from 'octokit'
 import { createEditor, Editor } from 'slate'
-import {
-  decryptString,
-  deriveAESKeyFromString,
-  encryptString,
-} from '@penx/encryption'
+import { decryptString, encryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
-import { IFile, INode, ISpace, NodeType } from '@penx/types'
+import { IFile, INode, ISpace, NodeType, TreeItem } from '@penx/types'
 import { NodeService } from './NodeService'
 import { SpaceService } from './SpaceService'
 
@@ -26,14 +22,6 @@ interface SharedParams {
   headers: {
     'X-GitHub-Api-Version': string
   }
-}
-
-type TreeItem = {
-  path: string
-  mode: '100644' | '100755' | '040000' | '160000' | '120000'
-  type: 'blob' | 'tree' | 'commit'
-  content?: string
-  sha?: string | null
 }
 
 type Content = {
@@ -118,7 +106,7 @@ export class SyncService {
 
     s.app = new Octokit({ auth: token })
 
-    s.secretKey = await deriveAESKeyFromString('123456' + user.address, 256)
+    s.secretKey = '123456' + user.address
 
     return s
   }
@@ -172,7 +160,7 @@ export class SyncService {
         path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
-        content: await encryptString(
+        content: encryptString(
           JSON.stringify(pageMap[id], null, 2),
           this.secretKey,
         ),
@@ -194,10 +182,7 @@ export class SyncService {
         path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
-        content: await encryptString(
-          JSON.stringify(nodes, null, 2),
-          this.secretKey,
-        ),
+        content: encryptString(JSON.stringify(nodes, null, 2), this.secretKey),
       })
     }
 
@@ -278,10 +263,7 @@ export class SyncService {
       path: this.space.filePath,
       mode: '100644',
       type: 'blob',
-      content: await encryptString(
-        this.space.stringify(version),
-        this.secretKey,
-      ),
+      content: encryptString(this.space.stringify(version), this.secretKey),
     } as TreeItem
   }
 
@@ -334,7 +316,7 @@ export class SyncService {
     )
 
     if (spaceRes.data.content) {
-      const originalContent = await decryptString(
+      const originalContent = decryptString(
         atob(spaceRes.data.content),
         this.secretKey,
       )
@@ -594,7 +576,7 @@ export class SyncService {
         },
       )
 
-      const originalContent = await decryptString(
+      const originalContent = decryptString(
         decodeBase64(pageRes.data.content),
         this.secretKey,
       )
@@ -648,7 +630,7 @@ export class SyncService {
         },
       )
 
-      const originalContent = await decryptString(
+      const originalContent = decryptString(
         decodeBase64(pageRes.data.content),
         this.secretKey,
       )

@@ -1,44 +1,34 @@
-export async function encryptString(
-  plainText: string,
-  secretKey: CryptoKey,
-): Promise<string> {
-  const encoder = new TextEncoder()
-  const data = encoder.encode(plainText)
+import CryptoJS from 'crypto-js'
 
-  const iv = crypto.getRandomValues(new Uint8Array(12))
-  const encryptedData = await crypto.subtle.encrypt(
-    { name: 'AES-GCM', iv },
-    secretKey,
-    data,
+export function encryptString(plainText: string, secretKey: string) {
+  const key = CryptoJS.enc.Utf8.parse(secretKey)
+  // random IV
+  const iv = CryptoJS.lib.WordArray.random(16)
+  const encrypted = CryptoJS.AES.encrypt(
+    CryptoJS.enc.Utf8.parse(plainText),
+    key,
+    {
+      iv,
+      mode: CryptoJS.mode.CFB,
+      padding: CryptoJS.pad.Pkcs7,
+    },
   )
 
-  const encryptedBytes = new Uint8Array([
-    ...iv,
-    ...new Uint8Array(encryptedData),
-  ])
-  const encryptedText = btoa(String.fromCharCode(...encryptedBytes))
-  return encryptedText
+  return iv.toString() + encrypted.toString()
 }
 
-export async function decryptString(
-  encryptedText: string,
-  secretKey: CryptoKey,
-): Promise<string> {
-  const decoder = new TextDecoder()
-  const encryptedBytes = Uint8Array.from(atob(encryptedText), (c) =>
-    c.charCodeAt(0),
-  )
+/** Decryption function */
+export function decryptString(cipherTextWithIV: string, secretKey: string) {
+  const key = CryptoJS.enc.Utf8.parse(secretKey)
+  const iv = CryptoJS.enc.Hex.parse(cipherTextWithIV.slice(0, 32))
+  const encryptedText = cipherTextWithIV.slice(32)
+  const decrypted = CryptoJS.AES.decrypt(encryptedText, key, {
+    iv,
+    mode: CryptoJS.mode.CFB,
+    padding: CryptoJS.pad.Pkcs7,
+  })
 
-  const iv = encryptedBytes.slice(0, 12)
-  const encryptedData = encryptedBytes.slice(12)
-  const decryptedData = await crypto.subtle.decrypt(
-    { name: 'AES-GCM', iv },
-    secretKey,
-    encryptedData,
-  )
-
-  const decryptedText = decoder.decode(decryptedData)
-  return decryptedText
+  return decrypted.toString(CryptoJS.enc.Utf8)
 }
 
 export async function calculateSHA256FromFile(file: File): Promise<string> {
@@ -64,28 +54,4 @@ export async function calculateSHA256FromString(text: string): Promise<string> {
     .map((byte) => byte.toString(16).padStart(2, '0'))
     .join('')
   return hashHex
-}
-
-export async function deriveAESKeyFromString(
-  keyString: string,
-  keyLength: number,
-): Promise<CryptoKey> {
-  if (keyLength !== 128 && keyLength !== 256) {
-    throw new Error('Invalid key length. The key must be 128 or 256 bits.')
-  }
-
-  const encoder = new TextEncoder()
-  const keyData = encoder.encode(keyString)
-
-  const derivedKey = await crypto.subtle.digest('SHA-256', keyData)
-
-  const importedKey = await crypto.subtle.importKey(
-    'raw',
-    derivedKey.slice(0, keyLength / 8),
-    { name: 'AES-GCM' },
-    false,
-    ['encrypt', 'decrypt'],
-  )
-
-  return importedKey
 }

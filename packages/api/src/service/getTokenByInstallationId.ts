@@ -1,20 +1,8 @@
 import { createAppAuth } from '@octokit/auth-app'
-import { prisma } from '@penx/db'
-import { User } from '@penx/model'
 
 const privateKey = JSON.parse(process.env.GITHUB_PRIVATE_KEY || '{}').key
 
-/**
- * Get Octokit auth token
- * @param address
- */
-export async function getTokenByAddress(address: string) {
-  const userRaw = await prisma.user.findUniqueOrThrow({
-    where: { address },
-  })
-
-  const user = new User(userRaw)
-
+export async function getTokenByInstallationId(installationId: number) {
   const auth = createAppAuth({
     appId: process.env.GITHUB_APP_ID!,
     privateKey,
@@ -24,7 +12,7 @@ export async function getTokenByAddress(address: string) {
 
   const installationAuthentication = await auth({
     type: 'installation',
-    installationId: user.github.installationId,
+    installationId,
   })
   return installationAuthentication.token
 }
