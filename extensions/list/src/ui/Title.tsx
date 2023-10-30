@@ -2,14 +2,16 @@ import { Box } from '@fower/react'
 import { Node } from 'slate'
 import { useEditor } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
+import { NodeType } from '@penx/types'
 import { insertEmptyList } from '../transforms/insertEmptyList'
+import { TitleElement } from '../types'
 
 export const Title = ({
   element,
   attributes,
   children,
   nodeProps,
-}: ElementProps) => {
+}: ElementProps<TitleElement>) => {
   const editor = useEditor()
   const str = Node.string(element)
   const isPlaceholderShow = !str?.length
@@ -19,6 +21,8 @@ export const Title = ({
     insertEmptyList(editor, { at: [1], select: true })
   }
 
+  const isInbox = element.nodeType === NodeType.INBOX
+
   return (
     <Box
       pl5
@@ -26,6 +30,7 @@ export const Title = ({
       fontSemibold
       gray900
       relative
+      cursorNotAllowed={isInbox}
       {...attributes}
       {...nodeProps}
       className="page-title"

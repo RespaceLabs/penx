@@ -43,11 +43,6 @@ export function NodeContent() {
   return (
     <Box relative>
       <Box mx-auto maxW-800>
-        {node.isInbox && (
-          <Box text4XL pl4 fontBold>
-            Inbox
-          </Box>
-        )}
         <NodeEditor
           plugins={[listPlugin]}
           content={nodeService.getEditorValue()}

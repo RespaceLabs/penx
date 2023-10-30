@@ -60,6 +60,7 @@ export enum ModalNames {
 export const ELEMENT_P = 'p'
 export const ELEMENT_TITLE = 'title'
 
+export const ELEMENT_OL = 'ol'
 export const ELEMENT_UL = 'ul'
 export const ELEMENT_LI = 'li'
 export const ELEMENT_LIC = 'lic'

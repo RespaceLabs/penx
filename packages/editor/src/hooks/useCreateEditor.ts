@@ -55,11 +55,6 @@ export function useCreateEditor(fns: WithFns[] = []) {
     }
 
     editor.isVoid = (element: any) => {
-      // TODO: too hack
-      if (isTitle(element) && element.nodeType === NodeType.INBOX) {
-        return true
-      }
-
       return voidTypes.includes(element.type) ? true : isVoid(element)
     }
 

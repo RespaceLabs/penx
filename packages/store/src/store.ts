@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import { atom, createStore } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import { SyncStatus } from '@penx/constants'
@@ -10,6 +11,7 @@ import {
   INode,
   ISpace,
   NodeStatus,
+  NodeType,
   RouteName,
   RouterStore,
 } from '@penx/types'
@@ -176,12 +178,29 @@ export const store = Object.assign(createStore(), {
     }, 0)
   },
 
-  async createPageNode() {
+  async selectDailyNote(date = format(new Date(), 'yyyy-MM-dd')) {
+    const nodes = store.getNodes()
+    let dateNode = nodes.find(
+      (node) => node.type === NodeType.DAILY_NOTE && node.props.date === date,
+    )
+
+    if (!dateNode) {
+      await this.createPageNode({ type: NodeType.DAILY_NOTE, props: { date } })
+    } else {
+      await db.updateSpace(dateNode.spaceId, { activeNodeId: dateNode.id })
+      this.routeTo('NODE')
+      this.setNodes(nodes)
+      this.reloadNode(dateNode)
+    }
+  },
+
+  async createPageNode(input: Partial<INode> = {}) {
     const space = this.getActiveSpace()
     const node = await db.createPageNode(
       {
         collapsed: true,
         spaceId: space.id,
+        ...input,
       },
       space,
     )
@@ -189,8 +208,6 @@ export const store = Object.assign(createStore(), {
     const nodes = await db.listNormalNodes(space.id)
 
     const rootNode = nodes.find((n) => new Node(n).isRootNode)!
-
-    console.log('rootNode:', rootNode)
 
     // update space root not snapshot
     await db.updateSnapshot(rootNode, 'update', rootNode)

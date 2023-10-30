@@ -33,6 +33,13 @@ export class Node {
   }
 
   get title(): string {
+    if (this.isDailyNote) {
+      return format(new Date(this.raw.props.date || Date.now()), 'EEEE, LLL Mo')
+    }
+
+    if (this.isInbox) {
+      return 'Inbox'
+    }
     return this.element?.children?.[0]?.text || ''
   }
 
@@ -46,6 +53,10 @@ export class Node {
 
   get isInbox() {
     return this.type === NodeType.INBOX
+  }
+
+  get isDailyNote() {
+    return this.type === NodeType.DAILY_NOTE
   }
 
   get isRootNode() {

@@ -12,6 +12,7 @@ import {
   TitleElement,
   UnorderedListElement,
 } from '@penx/list'
+import { getEmptyElement } from '@penx/list/src/getEmptyElement'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
@@ -100,16 +101,19 @@ export class NodeService {
       }),
     }
 
-    const value: any[] = []
+    // override the title
+    if (this.node.isDailyNote || this.node.isInbox) {
+      this.node.element.children[0].text = this.node.title
+    }
 
-    if (this.node.type !== NodeType.INBOX) {
-      value.push({
+    const value: any[] = [
+      {
         id: this.node.id,
         type: ELEMENT_TITLE,
         nodeType: this.node.type,
         children: [this.node.element],
-      })
-    }
+      },
+    ]
 
     if (this.childrenNodes.length) {
       value.push(content)

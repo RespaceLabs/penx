@@ -48,7 +48,7 @@ export const Sidebar = () => {
           icon={<CalendarDays size={16} />}
           label="Daily note"
           onClick={() => {
-            //
+            store.selectDailyNote()
           }}
         />
 
