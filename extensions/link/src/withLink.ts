@@ -16,8 +16,7 @@ import { isLinkElement } from './isLinkElement'
 import { ELEMENT_LINK, LinkElement } from './types'
 
 export const withLink = (editor: PenxEditor) => {
-  const { insertData, insertText, normalizeNode } = editor as Editor &
-    ReactEditor
+  const { insertData, insertText, normalizeNode } = editor
 
   editor.insertText = (text) => {
     if (!editor.selection || !isCollapsed(editor.selection)) {

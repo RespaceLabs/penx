@@ -12,6 +12,7 @@ import { ListItem } from './ui/ListItem'
 import { ListItemContent } from './ui/ListItemContent'
 import { Title } from './ui/Title'
 import { withListsPlugin } from './withListsPlugin'
+import { withMarkdown } from './withMarkdown'
 
 export * from './types'
 export * from './guard'
@@ -21,7 +22,7 @@ export * from './transforms/insertEmptyListItem'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
-    with: withListsPlugin,
+    with: [withListsPlugin, withMarkdown],
     handlers: {
       onKeyDown: onKeyDown,
     },

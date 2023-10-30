@@ -16,20 +16,25 @@ export const NewNodeButton: FC<PropsWithChildren<Props>> = () => {
       variant="ghost"
       colorScheme="gray500"
       isSquare
-      // onClick={() => store.createPageNode()}
       onClick={async () => {
-        try {
-          const res = await trpc.inbox.addText.mutate({
-            address,
-            spaceId: activeSpace.id,
-            text: 'Hello world2',
-            encryptionKey: '123456',
-          })
-          console.log('res-------:', res)
-        } catch (error) {
-          console.log('error:', error)
-        }
+        console.log('go....')
+        console.log('file:', file.result)
       }}
+
+      // onClick={() => store.createPageNode()}
+      // onClick={async () => {
+      //   try {
+      //     const res = await trpc.inbox.addText.mutate({
+      //       address,
+      //       spaceId: activeSpace.id,
+      //       text: 'Hello world2',
+      //       encryptionKey: '123456',
+      //     })
+      //     console.log('res-------:', res)
+      //   } catch (error) {
+      //     console.log('error:', error)
+      //   }
+      // }}
     >
       <Plus />
     </Button>
