@@ -12,7 +12,15 @@ export const getChildNodeToDecorations = ([
   const text = block.children.map((line) => Node.string(line)).join('\n')
   const language = block.language
 
-  const tokens = Prism.tokenize(text, Prism.languages[language])
+  let tokens: any[] = []
+
+  // TODO: handle exceptions
+  try {
+    tokens = Prism.tokenize(text, Prism.languages[language])
+  } catch (error) {
+    return nodeToDecorations
+  }
+
   const normalizedTokens = normalizeTokens(tokens) // make tokens flat and grouped by line
   const blockChildren = block.children as unknown as Element[]
 

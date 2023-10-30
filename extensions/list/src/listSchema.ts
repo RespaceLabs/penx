@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid'
 import { Element, Node } from 'slate'
 import { ListsSchema, ListType } from 'slate-lists'
 import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_OL, ELEMENT_UL } from './constants'
-import { getEmptyParagraph } from './getEmptyParagraph'
+import { getEmptyElement } from './getEmptyElement'
 
 export const listSchema: ListsSchema = {
   isConvertibleToListTextNode(node: Node) {
@@ -57,7 +57,7 @@ export const listSchema: ListsSchema = {
   createListItemTextNode(props: Partial<Element> = {}) {
     return {
       id: nanoid(),
-      children: [getEmptyParagraph('')],
+      children: [getEmptyElement()],
       ...props,
       type: ELEMENT_LIC,
     }

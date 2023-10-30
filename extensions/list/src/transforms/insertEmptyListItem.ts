@@ -1,6 +1,6 @@
 import { Editor, Transforms } from 'slate'
 import { NodeInsertNodesOptions } from 'slate/dist/interfaces/transforms/node'
-import { getEmptyParagraph } from '../getEmptyParagraph'
+import { getEmptyElement } from '../getEmptyElement'
 import { listSchema } from '../listSchema'
 import { ListItemElement } from '../types'
 
@@ -11,7 +11,7 @@ export const insertEmptyListItem = (
   const listItem = listSchema.createListItemNode({
     children: [
       listSchema.createListItemTextNode({
-        children: [getEmptyParagraph()],
+        children: [getEmptyElement()],
       }),
     ],
   })

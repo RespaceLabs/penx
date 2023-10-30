@@ -1,6 +1,6 @@
-const ELEMENT_UL = 'unordered-list'
-const ELEMENT_LI = 'list-item'
-const ELEMENT_LIC = 'list-item-text'
+const ELEMENT_UL = 'ul'
+const ELEMENT_LI = 'li'
+const ELEMENT_LIC = 'lic'
 
 export const INITIAL_EDITOR_VALUE = [
   {

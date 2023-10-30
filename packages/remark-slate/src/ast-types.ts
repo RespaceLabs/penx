@@ -46,7 +46,7 @@ export const defaultNodeTypes: NodeTypes = {
   link: 'la',
   ul_list: 'ul',
   ol_list: 'ol',
-  listItem: 'list-item',
+  listItem: 'li',
   heading: {
     1: 'h1',
     2: 'h2',

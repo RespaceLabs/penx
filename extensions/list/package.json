@@ -26,6 +26,7 @@
     "@penx/extension-typings": "*",
     "@penx/local-db": "workspace:*",
     "@penx/types": "workspace:*",
+    "@penx/serializer": "workspace:*",
     "lucide-react": "^0.289.0",
     "nanoid": "^4.0.2",
     "remark-parse": "^11.0.0",

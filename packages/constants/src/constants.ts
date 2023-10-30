@@ -60,6 +60,6 @@ export enum ModalNames {
 export const ELEMENT_P = 'p'
 export const ELEMENT_TITLE = 'title'
 
-export const ELEMENT_UL = 'unordered-list'
-export const ELEMENT_LI = 'list-item'
-export const ELEMENT_LIC = 'list-item-text'
+export const ELEMENT_UL = 'ul'
+export const ELEMENT_LI = 'li'
+export const ELEMENT_LIC = 'lic'

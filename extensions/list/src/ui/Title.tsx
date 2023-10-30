@@ -21,7 +21,6 @@ export const Title = ({
 
   return (
     <Box
-      as="h1"
       pl5
       text4XL
       fontSemibold
