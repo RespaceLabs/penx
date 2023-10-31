@@ -1,5 +1,6 @@
+import { useMemo } from 'react'
 import { Box } from '@fower/react'
-import { TElement, useEditor } from '@penx/editor-common'
+import { TElement, useEditor, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { ListContentElement } from '../types'
@@ -12,7 +13,7 @@ export const ListItemContent = ({
   children,
   nodeProps,
 }: ElementProps<ListContentElement>) => {
-  const editor = useEditor()
+  const editor = useEditorStatic()
   const path = findNodePath(editor, element)!
   const child = getNodeByPath(editor, [...path, 0]) as TElement
   const isHeading = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(child.type)
@@ -20,6 +21,15 @@ export const ListItemContent = ({
   function h() {
     return isHeading ? 'calc(1.8em + 8px)' : 'calc(1.5em + 8px)'
   }
+
+  const memoedChildren = useMemo(
+    () => (
+      <Box flex-1 pl1 leadingNormal>
+        {children}
+      </Box>
+    ),
+    [children],
+  )
 
   return (
     <Box
@@ -56,9 +66,7 @@ export const ListItemContent = ({
         <Chevron element={element} />
         <Bullet element={element} />
       </Box>
-      <Box flex-1 pl1 leadingNormal>
-        {children}
-      </Box>
+      {memoedChildren}
     </Box>
   )
 }

@@ -1,32 +1,7 @@
-import {
-  FocusEvent,
-  KeyboardEvent,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react'
-import { createPortal } from 'react-dom'
-import {
-  closestCenter,
-  DndContext,
-  DragEndEvent,
-  DragOverlay,
-  DragStartEvent,
-  KeyboardSensor,
-  MeasuringConfiguration,
-  MeasuringStrategy,
-  MouseSensor,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core'
-import {
-  rectSortingStrategy,
-  SortableContext,
-  sortableKeyboardCoordinates,
-} from '@dnd-kit/sortable'
+import { FocusEvent, KeyboardEvent, useCallback } from 'react'
 import { css } from '@fower/react'
-import { Descendant, Editor, Element, Transforms } from 'slate'
-import { Editable, ReactEditor, RenderElementProps, Slate } from 'slate-react'
+import { Descendant, Editor } from 'slate'
+import { Editable, RenderElementProps, Slate } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
 import { onKeyDownAutoformat } from '@penx/autoformat'
 import { SetNodeToDecorations } from '@penx/code-block'
@@ -37,16 +12,8 @@ import { useDecorate } from '../hooks/useDecorate'
 import { useOnCompositionEvent } from '../hooks/useOnCompositionEvent'
 import { useOnDOMBeforeInput } from '../hooks/useOnDOMBeforeInput'
 import ClickablePadding from './ClickablePadding'
-import { DragOverlayContent } from './DragOverlayContent'
 import { ElementContent } from './ElementContent'
 import HoveringToolbar from './HoveringToolbar/HoveringToolbar'
-import { SortableElement } from './SortableElement'
-
-const measuring: MeasuringConfiguration = {
-  droppable: {
-    strategy: MeasuringStrategy.Always,
-  },
-}
 
 interface Props {
   content: any[]
@@ -59,78 +26,20 @@ interface Props {
 export function NodeEditor({ content, onChange, onBlur, plugins }: Props) {
   const editor = useCreateEditor(plugins)
   const { extensionStore } = useExtensionStore()
-
   const decorate = useDecorate(editor)
   const onDOMBeforeInput = useOnDOMBeforeInput(editor)
   const onOnCompositionEvent = useOnCompositionEvent(editor)
 
-  const [activeId, setActiveId] = useState<string | null>(null)
-  const activeElement = editor.children.find((x: any) => x.id === activeId)
-
-  const sensors = useSensors(
-    useSensor(MouseSensor, {
-      activationConstraint: {
-        delay: 150,
-        tolerance: 5,
-      },
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
-  )
-
-  const handleDragStart = ({ active }: DragStartEvent) => {
-    if (active) {
-      setActiveId(active.id as string)
-    }
-  }
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const overId = event.over?.id
-    const overIndex = editor.children.findIndex((x: any) => x.id === overId)
-
-    if (overId !== activeId && overIndex !== -1) {
-      Transforms.moveNodes(editor, {
-        at: [],
-        match: (node: any) => node.id === activeId,
-        to: [overIndex],
-      })
-    }
-
-    setActiveId(null)
-  }
-
-  const handleDragCancel = () => {
-    setActiveId(null)
-  }
-
   const renderElement = useCallback(
     (props: RenderElementProps) => {
-      const element = props.element as Element
-      const isTopLevel = ReactEditor.findPath(editor, element).length === 1
-
       const attr = {
         ...props.attributes,
         // 'data-slate-type': element.type,
       }
 
-      return isTopLevel ? (
-        <SortableElement
-          {...props}
-          renderElement={(p) => {
-            return <ElementContent {...p} attributes={attr} />
-          }}
-        />
-      ) : (
-        <ElementContent {...props} attributes={attr} />
-      )
+      return <ElementContent {...props} attributes={attr} />
     },
     [editor],
-  )
-
-  const items: string[] = useMemo(
-    () => editor.children.map((element: any) => element.id!),
-    [editor.children],
   )
 
   const keyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -165,37 +74,19 @@ export function NodeEditor({ content, onChange, onBlur, plugins }: Props) {
       <HoveringToolbar />
 
       <SetNodeToDecorations />
-      <DndContext
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        onDragCancel={handleDragCancel}
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        measuring={measuring}
-      >
-        <SortableContext items={items} strategy={rectSortingStrategy}>
-          <Editable
-            className={css('black mt4 outlineNone')}
-            renderLeaf={(props) => <Leaf {...props} />}
-            renderElement={renderElement}
-            decorate={decorate as any} //
-            onCompositionUpdate={onOnCompositionEvent}
-            onCompositionEnd={onOnCompositionEvent}
-            onKeyDown={keyDown}
-            onDOMBeforeInput={onDOMBeforeInput}
-            onBlur={blur}
-          />
-        </SortableContext>
-        <ClickablePadding />
-        {createPortal(
-          <DragOverlay adjustScale={false}>
-            {activeElement && (
-              <DragOverlayContent element={activeElement as any} />
-            )}
-          </DragOverlay>,
-          document.body,
-        )}
-      </DndContext>
+
+      <Editable
+        className={css('black mt4 outlineNone')}
+        renderLeaf={(props) => <Leaf {...props} />}
+        renderElement={renderElement}
+        decorate={decorate as any} //
+        onCompositionUpdate={onOnCompositionEvent}
+        onCompositionEnd={onOnCompositionEvent}
+        onKeyDown={keyDown}
+        onDOMBeforeInput={onDOMBeforeInput}
+        onBlur={blur}
+      />
+      <ClickablePadding />
     </Slate>
   )
 }

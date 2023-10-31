@@ -1,9 +1,46 @@
+import { memo } from 'react'
 import { Box } from '@fower/react'
 import { Editor, Node } from 'slate'
-import { useSelected, useSlate } from 'slate-react'
-import { useEditor } from '@penx/editor-common'
+import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { listSchema } from '../listSchema'
 import { ListContentElement } from '../types'
+
+interface BulletContentProps {
+  collapsed?: boolean
+  nodeId?: string
+}
+
+const BulletContent = memo(
+  function BulletContent({ collapsed, nodeId }: BulletContentProps) {
+    const editor = useEditorStatic()
+    return (
+      <Box
+        className="bullet"
+        square-15
+        bgTransparent
+        bgGray200--hover
+        bgGray200={collapsed}
+        toCenter
+        roundedFull
+        cursorPointer
+        flexShrink-1
+        onClick={() => {
+          editor.onClickBullet(nodeId)
+        }}
+      >
+        <Box
+          square-5
+          bgGray400
+          roundedFull
+          transitionCommon
+          scale-130--$bullet--hover
+        />
+      </Box>
+    )
+  },
+  (prev, next) =>
+    prev.nodeId === next.nodeId && prev.collapsed === next.collapsed,
+)
 
 interface Props {
   element: ListContentElement
@@ -32,28 +69,5 @@ export const Bullet = ({ element }: Props) => {
 
   if (!isBulletVisible) return null
 
-  return (
-    <Box
-      className="bullet"
-      square-15
-      bgTransparent
-      bgGray200--hover
-      bgGray200={collapsed}
-      toCenter
-      roundedFull
-      cursorPointer
-      flexShrink-1
-      onClick={() => {
-        editor.onClickBullet(element)
-      }}
-    >
-      <Box
-        square-5
-        bgGray400
-        roundedFull
-        transitionCommon
-        scale-130--$bullet--hover
-      />
-    </Box>
-  )
+  return <BulletContent collapsed={collapsed} nodeId={element.id} />
 }

@@ -4,8 +4,8 @@ import isEqual from 'react-fast-compare'
 import { mergeRefs } from '@bone-ui/utils'
 import { flip, offset, shift, useFloating } from '@floating-ui/react'
 import { Box } from '@fower/react'
-import { useSlateStatic } from 'slate-react'
 import { Button } from 'uikit'
+import { useEditorStatic } from '@penx/editor-common'
 import { selectEditor } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/extension-typings'
 import { isHeading } from '@penx/heading'
@@ -19,7 +19,7 @@ interface ElementContentProps extends ElementProps {
 
 export const ElementContent = memo(
   function ElementContent(props: ElementContentProps) {
-    const editor = useSlateStatic()
+    const editor = useEditorStatic()
     const { element, attributes } = props
     const { extensionStore } = useExtensionStore()
     const { type } = element as any

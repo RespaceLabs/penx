@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { Node } from 'slate'
-import { useEditor } from '@penx/editor-common'
+import { useEditorStatic } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
 import { NodeType } from '@penx/types'
 import { insertEmptyList } from '../transforms/insertEmptyList'
@@ -12,7 +12,7 @@ export const Title = ({
   children,
   nodeProps,
 }: ElementProps<TitleElement>) => {
-  const editor = useEditor()
+  const editor = useEditorStatic()
   const str = Node.string(element)
   const isPlaceholderShow = !str?.length
   const onlyHasTitle = editor.children.length === 1

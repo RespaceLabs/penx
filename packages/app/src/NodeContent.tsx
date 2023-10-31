@@ -6,13 +6,13 @@ import { NodeEditor } from '@penx/editor'
 import { PenxEditor } from '@penx/editor-common'
 import { isAstChange } from '@penx/editor-queries'
 import { useNode, useNodes } from '@penx/hooks'
-import { insertEmptyListItem, ListContentElement } from '@penx/list'
+import { insertEmptyListItem } from '@penx/list'
 import { db } from '@penx/local-db'
 import { store } from '@penx/store'
 
 function listPlugin(editor: any) {
-  editor.onClickBullet = async (element: ListContentElement) => {
-    const node = await db.getNode(element.id)
+  editor.onClickBullet = async (nodeId: string) => {
+    const node = await db.getNode(nodeId)
     store.selectNode(node)
   }
   return editor
