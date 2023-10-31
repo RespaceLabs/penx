@@ -12,7 +12,6 @@ import {
   TitleElement,
   UnorderedListElement,
 } from '@penx/list'
-import { getEmptyElement } from '@penx/list/src/getEmptyElement'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
@@ -56,6 +55,7 @@ export class NodeService {
           {
             id: node.id,
             type: ELEMENT_LIC,
+            nodeType: node.type,
             collapsed: node.collapsed,
             children: [node.element],
           },
@@ -82,10 +82,15 @@ export class NodeService {
     const content = {
       type: ELEMENT_UL,
       children: childrenNodes.map((node) => {
+        // override the title
+        if (node.isDailyNote || node.isInbox) {
+          node.element.children[0].text = node.title
+        }
         const listChildren = [
           {
             id: node.id,
             type: ELEMENT_LIC,
+            nodeType: node.type,
             collapsed: node.collapsed,
             children: [node.element],
           },

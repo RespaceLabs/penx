@@ -2,7 +2,7 @@ import { BaseEditor, Element } from 'slate'
 import { HistoryEditor } from 'slate-history'
 import { ReactEditor, useSlate, useSlateStatic } from 'slate-react'
 
-export type TElement<T = string> = Element & { type: T }
+export type TElement<T = string> = Element & { type: T; nodeType?: string }
 
 export type PenxEditor = BaseEditor &
   ReactEditor &

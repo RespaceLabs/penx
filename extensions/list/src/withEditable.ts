@@ -1,17 +1,13 @@
-import { Editor } from 'slate'
-import { PenxEditor } from '@penx/editor-common'
-import {
-  getCurrentNode,
-  getCurrentPath,
-  getNodeByPath,
-} from '@penx/editor-queries'
+import { PenxEditor, TElement } from '@penx/editor-common'
+import { getCurrentPath, getNodeByPath } from '@penx/editor-queries'
 import { NodeType } from '@penx/types'
-import { isTitle } from './guard'
 
-function isInboxTitle(editor: PenxEditor) {
+function isNotEditable(editor: PenxEditor) {
   const path = getCurrentPath(editor)!
-  const parent = getNodeByPath(editor, path.slice(0, -2))
-  return isTitle(parent) && parent?.nodeType === NodeType.INBOX
+  const parent = getNodeByPath(editor, path.slice(0, -2)) as TElement
+  return [NodeType.INBOX, NodeType.DAILY_NOTE].includes(
+    parent?.nodeType as NodeType,
+  )
 }
 
 export const withEditable = (editor: PenxEditor) => {
@@ -19,12 +15,12 @@ export const withEditable = (editor: PenxEditor) => {
 
   // TODO: have bug
   editor.insertText = (text) => {
-    if (isInboxTitle(editor)) return
+    if (isNotEditable(editor)) return
     insertText(text)
   }
 
   editor.deleteBackward = (unit) => {
-    if (isInboxTitle(editor)) return
+    if (isNotEditable(editor)) return
 
     deleteBackward(unit)
   }

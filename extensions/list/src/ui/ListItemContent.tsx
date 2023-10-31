@@ -45,6 +45,7 @@ export const ListItemContent = ({
       textBase
       relative
       toTop
+      p1
       gap2
       {...nodeProps}
       className="nodeContent"

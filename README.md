@@ -29,8 +29,7 @@ _italic text_
   - item 11
   - item 22
     - **aaaaa**
-    - bbb
-    - ## bbb
+    - bbbb
   - item 22
 - bullet list item 2
 

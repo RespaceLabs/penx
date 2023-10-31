@@ -34,7 +34,7 @@ export class Node {
 
   get title(): string {
     if (this.isDailyNote) {
-      return format(new Date(this.raw.props.date || Date.now()), 'EEEE, LLL Mo')
+      return format(new Date(this.raw.props.date || Date.now()), 'EEEE, LLL do')
     }
 
     if (this.isInbox) {

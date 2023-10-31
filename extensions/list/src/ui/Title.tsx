@@ -21,7 +21,9 @@ export const Title = ({
     insertEmptyList(editor, { at: [1], select: true })
   }
 
-  const isInbox = element.nodeType === NodeType.INBOX
+  const disabled = [NodeType.INBOX, NodeType.DAILY_NOTE].includes(
+    element.nodeType as any,
+  )
 
   return (
     <Box
@@ -30,7 +32,7 @@ export const Title = ({
       fontSemibold
       gray900
       relative
-      cursorNotAllowed={isInbox}
+      cursorNotAllowed={disabled}
       {...attributes}
       {...nodeProps}
       className="page-title"
