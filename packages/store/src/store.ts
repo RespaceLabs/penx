@@ -178,14 +178,19 @@ export const store = Object.assign(createStore(), {
     }, 0)
   },
 
-  async selectDailyNote(date = format(new Date(), 'yyyy-MM-dd')) {
+  async selectDailyNote(date: Date = new Date()) {
+    const dateStr = format(date, 'yyyy-MM-dd')
     const nodes = store.getNodes()
     let dateNode = nodes.find(
-      (node) => node.type === NodeType.DAILY_NOTE && node.props.date === date,
+      (node) =>
+        node.type === NodeType.DAILY_NOTE && node.props.date === dateStr,
     )
 
     if (!dateNode) {
-      await this.createPageNode({ type: NodeType.DAILY_NOTE, props: { date } })
+      await this.createPageNode({
+        type: NodeType.DAILY_NOTE,
+        props: { date: dateStr },
+      })
     } else {
       await db.updateSpace(dateNode.spaceId, { activeNodeId: dateNode.id })
       this.routeTo('NODE')

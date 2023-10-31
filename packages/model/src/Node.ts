@@ -28,6 +28,10 @@ export class Node {
     return this.raw.type || ''
   }
 
+  get props() {
+    return this.raw.props || {}
+  }
+
   get element(): Element {
     return this.raw.element
   }

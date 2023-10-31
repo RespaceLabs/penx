@@ -91,6 +91,7 @@ export class NodeService {
             id: node.id,
             type: ELEMENT_LIC,
             nodeType: node.type,
+            props: node.props,
             collapsed: node.collapsed,
             children: [node.element],
           },
@@ -115,6 +116,7 @@ export class NodeService {
       {
         id: this.node.id,
         type: ELEMENT_TITLE,
+        props: this.node.props,
         nodeType: this.node.type,
         children: [this.node.element],
       },

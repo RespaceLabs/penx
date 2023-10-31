@@ -11,6 +11,9 @@ export interface TitleElement extends BaseElement {
   id?: string
   type: typeof ELEMENT_TITLE
   nodeType?: string
+  props?: {
+    date: string
+  }
 }
 
 export interface ListElement extends BaseElement {
