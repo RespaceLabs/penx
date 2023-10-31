@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Box } from '@fower/react'
 import { Path } from 'slate'
-import { useEditor, useEditorStatic } from '@penx/editor-common'
+import { useEditor } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { isListContentElement } from '../guard'

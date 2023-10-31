@@ -5,6 +5,7 @@ import { ElementProps } from '@penx/extension-typings'
 import { NodeType } from '@penx/types'
 import { insertEmptyList } from '../transforms/insertEmptyList'
 import { TitleElement } from '../types'
+import { DailyNoteNav } from './DailyNoteNav'
 
 export const Title = ({
   element,
@@ -25,6 +26,8 @@ export const Title = ({
     element.nodeType as any,
   )
 
+  const isDailyNote = element.nodeType === NodeType.DAILY_NOTE
+
   return (
     <Box
       pl5
@@ -33,6 +36,7 @@ export const Title = ({
       gray900
       relative
       cursorNotAllowed={disabled}
+      mb4
       {...attributes}
       {...nodeProps}
       className="page-title"
@@ -51,6 +55,8 @@ export const Title = ({
       }}
     >
       {children}
+      {isDailyNote && <DailyNoteNav element={element} />}
+
       {onlyHasTitle && (
         <Box
           contentEditable={false}
