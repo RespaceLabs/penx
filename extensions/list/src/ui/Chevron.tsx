@@ -1,8 +1,10 @@
+import { useMemo } from 'react'
 import { Box } from '@fower/react'
 import { ChevronDown } from 'lucide-react'
-import { Transforms } from 'slate'
+import { Path, Transforms } from 'slate'
 import { useEditor } from '@penx/editor-common'
-import { findNodePath } from '@penx/editor-queries'
+import { findNodePath, getNodeByPath } from '@penx/editor-queries'
+import { isListElement } from '../guard'
 import { ListContentElement, ListElement } from '../types'
 
 interface Props {
@@ -11,6 +13,14 @@ interface Props {
 
 export const Chevron = ({ element }: Props) => {
   const editor = useEditor()
+  const path = findNodePath(editor, element)!
+
+  const isChevronVisible = useMemo(() => {
+    const prevPath = Path.next(path)
+    const node = getNodeByPath(editor, prevPath)!
+    if (isListElement(node)) return true
+    return false
+  }, [path, editor])
 
   function toggle() {
     const path = findNodePath(editor, element)!
@@ -23,6 +33,8 @@ export const Chevron = ({ element }: Props) => {
       { at: path },
     )
   }
+
+  if (!isChevronVisible) return null
 
   return (
     <Box

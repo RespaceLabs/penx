@@ -1,5 +1,6 @@
 import { Box } from '@fower/react'
 import { Path } from 'slate'
+import { useSelected } from 'slate-react'
 import { useEditor } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
