@@ -23,6 +23,7 @@
     "@penx/blockquote": "workspace:*",
     "@penx/heading": "workspace:*",
     "@penx/divider": "workspace:*",
+    "@penx/tag": "workspace:*",
     "@penx/check-list": "workspace:*",
     "@penx/auto-format": "workspace:*",
     "@penx/list": "workspace:*",
