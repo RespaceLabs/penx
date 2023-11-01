@@ -1,6 +1,5 @@
 import { Box } from '@fower/react'
 import { addDays, sub, subDays } from 'date-fns'
-import { useEditorStatic } from '@penx/editor-common'
 import { store } from '@penx/store'
 import { TitleElement } from '../types'
 

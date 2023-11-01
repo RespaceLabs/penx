@@ -30,17 +30,14 @@ export function NodeEditor({ content, onChange, onBlur, plugins }: Props) {
   const onDOMBeforeInput = useOnDOMBeforeInput(editor)
   const onOnCompositionEvent = useOnCompositionEvent(editor)
 
-  const renderElement = useCallback(
-    (props: RenderElementProps) => {
-      const attr = {
-        ...props.attributes,
-        // 'data-slate-type': element.type,
-      }
+  const renderElement = useCallback((props: RenderElementProps) => {
+    const attr = {
+      ...props.attributes,
+      // 'data-slate-type': element.type,
+    }
 
-      return <ElementContent {...props} attributes={attr} />
-    },
-    [editor],
-  )
+    return <ElementContent {...props} attributes={attr} />
+  }, [])
 
   const keyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     // form auto format

@@ -2,6 +2,7 @@ import { memo } from 'react'
 import { Box } from '@fower/react'
 import { Editor, Node } from 'slate'
 import { useEditor, useEditorStatic } from '@penx/editor-common'
+import { findNodePath } from '@penx/editor-queries'
 import { listSchema } from '../listSchema'
 import { ListContentElement } from '../types'
 
@@ -49,7 +50,6 @@ interface Props {
 export const Bullet = ({ element }: Props) => {
   const editor = useEditor()
   const { collapsed = false } = element
-  const str = Node.string(element)
 
   const currentElement = (() => {
     if (!editor.selection) return null
@@ -64,8 +64,11 @@ export const Bullet = ({ element }: Props) => {
     return licEntries[0][0]
   })()
 
+  const path = findNodePath(editor, element)
+  const isFirstLine = path?.[0] === 1
+  const str = Node.string(element)
   const isFocused = currentElement === element
-  const isBulletVisible = !!str || isFocused
+  const isBulletVisible = !!str || isFocused || isFirstLine
 
   if (!isBulletVisible) return null
 

@@ -1,5 +1,7 @@
+import { useEffect } from 'react'
 import { Box } from '@fower/react'
-import { Node } from 'slate'
+import { Editor, Node, Transforms } from 'slate'
+import { ReactEditor } from 'slate-react'
 import { useEditorStatic } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
 import { NodeType } from '@penx/types'
@@ -14,8 +16,8 @@ export const Title = ({
   nodeProps,
 }: ElementProps<TitleElement>) => {
   const editor = useEditorStatic()
-  const str = Node.string(element)
-  const isPlaceholderShow = !str?.length
+  const titleStr = Node.string(element)
+  const isPlaceholderShow = !titleStr?.length
   const onlyHasTitle = editor.children.length === 1
 
   function insertList() {
@@ -27,6 +29,26 @@ export const Title = ({
   )
 
   const isDailyNote = element.nodeType === NodeType.DAILY_NOTE
+  const firstLineNode = editor.children[1]
+  const firstLineStr = Node.string(editor.children[1])
+
+  useEffect(() => {
+    // focus on title
+    if (onlyHasTitle || !titleStr) {
+      setTimeout(() => {
+        Transforms.select(editor, Editor.end(editor, [0]))
+        ReactEditor.focus(editor)
+      }, 0)
+    }
+
+    // focus to the first line
+    if (titleStr && !firstLineStr) {
+      setTimeout(() => {
+        Transforms.select(editor, Editor.end(editor, [1]))
+        ReactEditor.focus(editor)
+      }, 0)
+    }
+  }, [onlyHasTitle, editor, titleStr, firstLineStr])
 
   return (
     <Box
