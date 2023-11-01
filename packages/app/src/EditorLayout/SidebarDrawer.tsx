@@ -1,5 +1,5 @@
 import { Box, styled } from '@fower/react'
-import { Cloud, Menu } from 'lucide-react'
+import { CalendarDays, Cloud, Folder, Inbox, Menu } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
 import { useSidebarDrawer, useUser } from '@penx/hooks'
@@ -49,6 +49,33 @@ export const DrawerSidebar = () => {
           <Box overflowAuto p5>
             <SpacePopover />
             <Box flex-1>
+              <SidebarItem
+                icon={<CalendarDays size={16} />}
+                label="Daily note"
+                onClick={() => {
+                  store.selectDailyNote()
+                  close()
+                }}
+              />
+
+              <SidebarItem
+                icon={<Inbox size={16} />}
+                label="Inbox"
+                onClick={() => {
+                  store.selectInbox()
+                  close()
+                }}
+              />
+
+              <SidebarItem
+                icon={<Folder size={16} />}
+                label="All Nodes"
+                onClick={() => {
+                  store.selectSpaceNode()
+                  close()
+                }}
+              />
+
               <SidebarItem
                 icon={<Cloud size={20} />}
                 label="Sync"

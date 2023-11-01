@@ -23,8 +23,6 @@ export function moveCursorToPreviousListItem(
     return false
   }
 
-  console.log('parentList:', parentList)
-
   // is in root list and is first item
   if (
     parentList[0].children.length === 1 &&
