@@ -10,10 +10,15 @@ import { ListContentElement } from '../types'
 interface ChevronContentProps {
   collapsed: boolean
   path: Path
+  displayMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
 }
 
 export const ChevronContent = memo(
-  function ChevronContent({ collapsed, path }: ChevronContentProps) {
+  function ChevronContent({
+    collapsed,
+    path,
+    displayMenu,
+  }: ChevronContentProps) {
     const editor = useEditorStatic()
     function toggle() {
       Transforms.setNodes<ListContentElement>(
@@ -34,6 +39,7 @@ export const ChevronContent = memo(
         gray600
         border
         borderGray200
+        onContextMenu={displayMenu}
         onClick={() => {
           toggle()
         }}
@@ -46,10 +52,11 @@ export const ChevronContent = memo(
 )
 
 interface Props {
+  displayMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
   element: ListContentElement
 }
 
-export const Chevron = ({ element }: Props) => {
+export const Chevron = ({ element, displayMenu }: Props) => {
   const editor = useEditorStatic()
   const path = findNodePath(editor, element)!
 
@@ -62,5 +69,11 @@ export const Chevron = ({ element }: Props) => {
 
   if (!isChevronVisible) return null
 
-  return <ChevronContent collapsed={!element.collapsed} path={path} />
+  return (
+    <ChevronContent
+      collapsed={!element.collapsed}
+      path={path}
+      displayMenu={displayMenu}
+    />
+  )
 }

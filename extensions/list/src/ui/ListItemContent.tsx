@@ -1,4 +1,12 @@
 import { useMemo } from 'react'
+import {
+  Item,
+  ItemParams,
+  Menu,
+  Separator,
+  Submenu,
+  useContextMenu,
+} from 'react-contexify'
 import { Box } from '@fower/react'
 import { TElement, useEditor, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
@@ -6,6 +14,8 @@ import { ElementProps } from '@penx/extension-typings'
 import { ListContentElement } from '../types'
 import { Bullet } from './Bullet'
 import { Chevron } from './Chevron'
+
+const MENU_ID = 'menu-id'
 
 export const ListItemContent = ({
   attributes,
@@ -30,6 +40,17 @@ export const ListItemContent = ({
     ),
     [children],
   )
+  const { show } = useContextMenu({
+    id: MENU_ID,
+  })
+
+  function handleItemClick({ event, props, triggerEvent, data }: ItemParams) {
+    console.log(event, props, triggerEvent, data)
+  }
+
+  function displayMenu(e: any) {
+    show({ event: e })
+  }
 
   return (
     <Box
@@ -45,6 +66,22 @@ export const ListItemContent = ({
       {...nodeProps}
       className="nodeContent"
     >
+      <Menu id={MENU_ID} contentEditable={false}>
+        <Item onClick={handleItemClick}>Add to favorite</Item>
+        <Item onClick={handleItemClick}>Publish</Item>
+        <Separator />
+        <Item onClick={handleItemClick}>Copy</Item>
+        <Item onClick={handleItemClick}>Delete</Item>
+        <Submenu label="Move to">
+          <Item onClick={handleItemClick}>Sub Item 1</Item>
+          <Item onClick={handleItemClick}>Sub Item 1</Item>
+          <Item onClick={handleItemClick}>Sub Item 2</Item>
+        </Submenu>
+        <Separator />
+        <Item onClick={handleItemClick}>Expand all</Item>
+        <Item onClick={handleItemClick}>Collapse all</Item>
+      </Menu>
+
       <Box
         absolute
         top-2
@@ -63,8 +100,8 @@ export const ListItemContent = ({
         textXL={child.type === 'h3'}
         textLG={child.type === 'h4'}
       >
-        <Chevron element={element} />
-        <Bullet element={element} />
+        <Chevron element={element} displayMenu={displayMenu} />
+        <Bullet element={element} displayMenu={displayMenu} />
       </Box>
       {memoedChildren}
     </Box>

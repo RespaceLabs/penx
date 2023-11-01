@@ -9,10 +9,15 @@ import { ListContentElement } from '../types'
 interface BulletContentProps {
   collapsed?: boolean
   nodeId?: string
+  displayMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
 }
 
 const BulletContent = memo(
-  function BulletContent({ collapsed, nodeId }: BulletContentProps) {
+  function BulletContent({
+    collapsed,
+    nodeId,
+    displayMenu,
+  }: BulletContentProps) {
     const editor = useEditorStatic()
     return (
       <Box
@@ -25,6 +30,7 @@ const BulletContent = memo(
         roundedFull
         cursorPointer
         flexShrink-1
+        onContextMenu={displayMenu}
         onClick={() => {
           editor.onClickBullet(nodeId)
         }}
@@ -45,9 +51,10 @@ const BulletContent = memo(
 
 interface Props {
   element: ListContentElement
+  displayMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
 }
 
-export const Bullet = ({ element }: Props) => {
+export const Bullet = ({ element, displayMenu }: Props) => {
   const editor = useEditor()
   const { collapsed = false } = element
 
@@ -72,5 +79,11 @@ export const Bullet = ({ element }: Props) => {
 
   if (!isBulletVisible) return null
 
-  return <BulletContent collapsed={collapsed} nodeId={element.id} />
+  return (
+    <BulletContent
+      collapsed={collapsed}
+      nodeId={element.id}
+      displayMenu={displayMenu}
+    />
+  )
 }
