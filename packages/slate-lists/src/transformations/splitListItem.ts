@@ -74,9 +74,19 @@ export function splitListItem(
 
   Editor.withoutNormalizing(editor, () => {
     if (isEnd) {
-      // return false
+      const node = getCurrentNode(editor)! as any
+
       const newListItem = schema.createListItemNode({
-        children: [schema.createListItemTextNode()],
+        children: [
+          schema.createListItemTextNode({
+            children: [
+              {
+                type: node.type || 'p',
+                children: [{ text: '' }],
+              } as any,
+            ],
+          }),
+        ],
       })
       Transforms.insertNodes(editor, newListItem, { at: newListItemPath })
 
