@@ -27,6 +27,7 @@ export interface INode {
     name?: string
     emoji?: string
     date?: string // 2024-01-01
+    restoreId?: string // restore to original
     [key: string]: any
   }
 

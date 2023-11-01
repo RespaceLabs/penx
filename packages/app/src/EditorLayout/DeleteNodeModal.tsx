@@ -35,7 +35,7 @@ const Footer = () => {
   )
 }
 
-export const DeleteDocModal = () => {
+export const DeleteNodeModal = () => {
   return (
     <Modal name={ModalNames.DELETE_NODE}>
       <ModalOverlay />

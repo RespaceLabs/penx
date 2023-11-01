@@ -41,9 +41,9 @@ export class Node {
       return format(new Date(this.raw.props.date || Date.now()), 'EEEE, LLL do')
     }
 
-    if (this.isInbox) {
-      return 'Inbox'
-    }
+    if (this.isInbox) return 'Inbox'
+    if (this.isTrash) return 'Trash'
+
     return this.element?.children?.[0]?.text || ''
   }
 
@@ -52,7 +52,7 @@ export class Node {
   }
 
   get isTrash() {
-    return this.raw.type === NodeType.TRASH
+    return this.type === NodeType.TRASH
   }
 
   get isInbox() {

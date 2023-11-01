@@ -13,7 +13,6 @@ import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
 import { QueryNodes } from './QueryNodes'
 import { SyncBox } from './SyncBox/SyncBox'
-import { TrashBox } from './TrashBox/TrashBox'
 
 export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   useQuerySpaces()
@@ -44,7 +43,6 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
             px={[10, 16, 30, 40, 0]}
             py0
           >
-            {name === 'TRASH' && <TrashBox />}
             {name === 'SYNC' && <SyncBox />}
             {name === 'NODE' && <NodeContent />}
           </Box>

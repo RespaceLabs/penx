@@ -31,13 +31,6 @@ export function NodeContent() {
     }
   }, 500)
 
-  function handleEnterKeyInTitle(editor: PenxEditor) {
-    insertEmptyListItem(editor, { at: [0, 0] })
-
-    ReactEditor.focus(editor)
-    Transforms.select(editor, Editor.start(editor, [0]))
-  }
-
   if (!node.id || !nodes.length) return null
 
   return (

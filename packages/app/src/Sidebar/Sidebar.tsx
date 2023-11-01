@@ -86,7 +86,7 @@ export const Sidebar = () => {
           icon={<Trash2 size={16} />}
           label="Trash"
           onClick={() => {
-            store.routeTo('TRASH')
+            store.selectTrash()
           }}
         />
       </Box>

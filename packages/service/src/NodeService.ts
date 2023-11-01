@@ -108,7 +108,7 @@ export class NodeService {
     }
 
     // override the title
-    if (this.node.isDailyNote || this.node.isInbox) {
+    if (this.node.isDailyNote || this.node.isInbox || this.node.isTrash) {
       this.node.element.children[0].text = this.node.title
     }
 

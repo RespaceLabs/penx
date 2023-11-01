@@ -133,6 +133,18 @@ export const store = Object.assign(createStore(), {
     this.routeTo('NODE')
   },
 
+  async selectTrash() {
+    const space = this.getActiveSpace()
+    let node = await db.getTrashNode(space.id)
+
+    await db.updateSpace(this.getActiveSpace().id, {
+      activeNodeId: node.id,
+    })
+
+    this.reloadNode(node)
+    this.routeTo('NODE')
+  },
+
   // select the space root node
   async selectSpaceNode() {
     const space = this.getActiveSpace()

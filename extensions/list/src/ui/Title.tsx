@@ -30,7 +30,7 @@ export const Title = ({
 
   const isDailyNote = element.nodeType === NodeType.DAILY_NOTE
   const firstLineNode = editor.children[1]
-  const firstLineStr = Node.string(editor.children[1])
+  const firstLineStr = firstLineNode ? Node.string(firstLineNode) : ''
 
   useEffect(() => {
     // focus on title
@@ -42,13 +42,13 @@ export const Title = ({
     }
 
     // focus to the first line
-    if (titleStr && !firstLineStr) {
+    if (titleStr && firstLineNode && !firstLineStr) {
       setTimeout(() => {
         Transforms.select(editor, Editor.end(editor, [1]))
         ReactEditor.focus(editor)
       }, 0)
     }
-  }, [onlyHasTitle, editor, titleStr, firstLineStr])
+  }, [onlyHasTitle, editor, titleStr, firstLineStr, firstLineNode])
 
   return (
     <Box

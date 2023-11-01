@@ -5,7 +5,7 @@ import { NodeType } from '@penx/types'
 function isNotEditable(editor: PenxEditor) {
   const path = getCurrentPath(editor)!
   const parent = getNodeByPath(editor, path.slice(0, -2)) as TElement
-  return [NodeType.INBOX, NodeType.DAILY_NOTE].includes(
+  return [NodeType.INBOX, NodeType.TRASH, NodeType.DAILY_NOTE].includes(
     parent?.nodeType as NodeType,
   )
 }
