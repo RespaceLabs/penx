@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import { INode, NodeStatus, NodeType } from '@penx/types'
+import { INode, NodeType } from '@penx/types'
 
 type Element = {
   id: string
@@ -45,10 +45,6 @@ export class Node {
     if (this.isTrash) return 'Trash'
 
     return this.element?.children?.[0]?.text || ''
-  }
-
-  get isNormal() {
-    return this.raw.status === NodeStatus.NORMAL
   }
 
   get isTrash() {

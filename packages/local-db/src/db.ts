@@ -1,14 +1,7 @@
 import { nanoid } from 'nanoid'
 import { Database } from '@penx/indexeddb'
 import { Node, Space } from '@penx/model'
-import {
-  IExtension,
-  IFile,
-  INode,
-  ISpace,
-  NodeStatus,
-  NodeType,
-} from '@penx/types'
+import { IExtension, IFile, INode, ISpace, NodeType } from '@penx/types'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { tableSchema } from './table-schema'
@@ -87,6 +80,14 @@ class DB {
         }),
       )
 
+      // init tag root node
+      await this.node.insert(
+        getNewNode({
+          spaceId,
+          type: NodeType.TAG_ROOT,
+        }),
+      )
+
       const node = getNewNode({ spaceId })
 
       await this.createPageNode(node, space)
@@ -156,15 +157,11 @@ class DB {
   }
 
   trashNode = async (nodeId: string) => {
-    return await this.updateNode(nodeId, {
-      status: NodeStatus.TRASHED,
-    })
+    // TODO:
   }
 
   restoreNode = async (nodeId: string) => {
-    return await this.updateNode(nodeId, {
-      status: NodeStatus.NORMAL,
-    })
+    // TODO:
   }
 
   deleteNode = async (nodeId: string) => {
@@ -210,7 +207,9 @@ class DB {
     return inboxNode
   }
 
-  createNode = async (node: Partial<INode>) => {
+  createNode = async (node: Partial<INode> & { spaceId: string }) => {
+    console.log('node==========:', node)
+
     const newNode = await this.node.insert({
       ...getNewNode({ spaceId: node.spaceId! }),
       ...node,
@@ -235,10 +234,7 @@ class DB {
 
   listNormalNodes = async (spaceId: string) => {
     return this.node.select({
-      where: {
-        spaceId,
-        status: NodeStatus.NORMAL,
-      },
+      where: { spaceId },
     })
   }
 
@@ -258,12 +254,7 @@ class DB {
   }
 
   listTrashedNodes = async (spaceId: string) => {
-    return this.node.select({
-      where: {
-        spaceId,
-        status: NodeStatus.TRASHED,
-      },
-    })
+    // TODO:
   }
 
   listNodesByIds = (nodeIds: string[]) => {

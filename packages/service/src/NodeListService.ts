@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { ArraySorter } from '@penx/indexeddb'
 import { Node } from '@penx/model'
-import { INode, ISpace } from '@penx/types'
+import { INode, ISpace, NodeType } from '@penx/types'
 
 type FindOptions<T = INode> = {
   where?: Partial<T>
@@ -45,8 +45,13 @@ export class NodeListService {
       .sort((a, b) => b.updatedAt - a.updatedAt)
   }
 
+  get tagNodes() {
+    return this.nodes.filter((n) => n.type === NodeType.DATABASE)
+  }
+
   get normalNodes() {
-    return this.nodes.filter((node) => node.isNormal)
+    // TODO:
+    return this.nodes
   }
 
   get trashedNodes() {

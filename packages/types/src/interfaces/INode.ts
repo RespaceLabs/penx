@@ -1,14 +1,18 @@
-export enum NodeStatus {
-  NORMAL,
-  TRASHED,
-}
-
 export enum NodeType {
   ROOT = 'ROOT',
   COMMON = 'COMMON',
   INBOX = 'INBOX',
   TRASH = 'TRASH',
   DAILY_NOTE = 'DAILY_NOTE',
+  TAG_ROOT = 'TAG_ROOT',
+  TAG = 'TAG',
+  DATABASE = 'DATABASE',
+}
+
+type Column = {
+  title: string
+  type: string // field type
+  width?: number
 }
 
 export interface INode {
@@ -24,14 +28,12 @@ export interface INode {
 
   // for dynamic data
   props: {
-    name?: string
-    emoji?: string
     date?: string // 2024-01-01
+    tag?: string // tag name
     restoreId?: string // restore to original
+    columns?: Column[]
     [key: string]: any
   }
-
-  status: NodeStatus
 
   collapsed: boolean
 

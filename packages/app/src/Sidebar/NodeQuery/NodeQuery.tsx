@@ -18,7 +18,6 @@ export const NodeQuery = ({ sql, title }: Props) => {
   // const nodes = nodeList.find({
   //   where: {
   //     spaceId: activeSpace.id,
-  //     status: NodeStatus.NORMAL,
   //   },
   //   ...parsed.queryParams,
   // })

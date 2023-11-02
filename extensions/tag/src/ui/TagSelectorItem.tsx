@@ -7,7 +7,6 @@ interface TagSelectorItemProps {
   id: string
   isActive: boolean
   name: string
-  icon: any
   onClick: () => void
 }
 
@@ -15,7 +14,6 @@ export function TagSelectorItem({
   id,
   isActive,
   name,
-  icon: Icon,
   onClick,
 }: TagSelectorItemProps) {
   const [value, setValue] = useStore(id, false)
@@ -44,9 +42,6 @@ export function TagSelectorItem({
       toCenterY
       leadingNone
     >
-      <Box square6 rounded border toCenter borderGray200 bgWhite>
-        {Icon && <Icon size={20} />}
-      </Box>
       <Box textBase>{name}</Box>
     </Box>
   )

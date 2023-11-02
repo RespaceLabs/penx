@@ -10,7 +10,6 @@ import {
   ExtensionStore,
   INode,
   ISpace,
-  NodeStatus,
   NodeType,
   RouteName,
   RouterStore,
@@ -103,12 +102,8 @@ export const store = Object.assign(createStore(), {
 
     const nodes = await db.listNodesBySpaceId(space.id)
 
-    const normalNodes = nodes.filter(
-      (node) => node.status === NodeStatus.NORMAL,
-    )
-
-    if (normalNodes.length) {
-      this.reloadNode(normalNodes[0])
+    if (nodes.length) {
+      this.reloadNode(nodes[0])
     }
     this.setNodes(nodes)
   },
@@ -162,10 +157,7 @@ export const store = Object.assign(createStore(), {
     const space = this.getActiveSpace()
     await db.restoreNode(id)
     const nodes = await db.listNodesBySpaceId(space.id)
-    const normalNodes = nodes.filter(
-      (node) => node.status === NodeStatus.NORMAL,
-    )
-    this.setNode(normalNodes[0])
+    this.setNode(nodes[0])
     this.setNodes(nodes)
   },
 
@@ -173,11 +165,7 @@ export const store = Object.assign(createStore(), {
     const space = this.getActiveSpace()
     await db.deleteNode(id)
     const nodes = await db.listNodesBySpaceId(space.id)
-    const normalNodes = nodes.filter(
-      (node) => node.status === NodeStatus.NORMAL,
-    )
-
-    this.setNode(normalNodes[0])
+    this.setNode(nodes[0])
     this.setNodes(nodes)
   },
 
@@ -232,6 +220,39 @@ export const store = Object.assign(createStore(), {
     this.routeTo('NODE')
     this.setNodes(nodes)
     this.reloadNode(node)
+  },
+
+  async createTag(text: string) {
+    const space = this.getActiveSpace()
+    const nodes = store.getNodes()
+
+    let tagRootNode = nodes.find((node) => node.type === NodeType.TAG_ROOT)!
+
+    let tagNode = nodes.find(
+      (node) => node.type === NodeType.DATABASE && node.props.tag === text,
+    )
+
+    if (!tagNode) {
+      const newNode = await db.createNode({
+        spaceId: space.id,
+        parentId: tagRootNode.id,
+        type: NodeType.DATABASE,
+        props: {
+          tag: text,
+          // TODO:
+          columns: [
+            {
+              title: text,
+              type: 'TEXT',
+            },
+          ],
+        },
+      })
+
+      await db.updateNode(tagRootNode.id, {
+        children: [...tagRootNode.children, newNode.id],
+      })
+    }
   },
 
   async createSpace(input: Partial<ISpace>) {

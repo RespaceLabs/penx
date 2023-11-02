@@ -4,7 +4,6 @@ import { useNodes, usePaletteDrawer } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
-import { NodeStatus } from '@penx/types'
 
 const CommandItem = styled(Command.Item)
 
@@ -19,9 +18,6 @@ export function NodeList({ q, close }: Props) {
 
   const filteredItems = nodeList
     .find({
-      where: {
-        status: NodeStatus.NORMAL,
-      },
       sortBy: 'openedAt',
       orderByDESC: true,
       limit: 20,

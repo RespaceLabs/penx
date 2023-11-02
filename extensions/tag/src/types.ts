@@ -6,4 +6,5 @@ export interface TagSelectorElement extends BaseElement {
   type: typeof ELEMENT_TAG
   isOpen: boolean
   trigger: string
+  tagId: string
 }
