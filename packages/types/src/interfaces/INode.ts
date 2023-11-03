@@ -4,9 +4,17 @@ export enum NodeType {
   INBOX = 'INBOX',
   TRASH = 'TRASH',
   DAILY_NOTE = 'DAILY_NOTE',
+
   TAG_ROOT = 'TAG_ROOT',
   TAG = 'TAG',
+
+  // Database
   DATABASE = 'DATABASE',
+  CELL = 'CEL',
+  ROW = 'ROW',
+  COLUMN = 'COLUMN',
+  VIEW = 'VIEW',
+  FILTER = 'FILTER',
 }
 
 type Column = {
@@ -44,4 +52,88 @@ export interface INode {
   createdAt: number
 
   updatedAt: number
+}
+export enum FieldType {
+  Number = 'Number',
+  SingleSelect = 'SingleSelect',
+  CreatedAt = 'CreatedAt',
+  UpdatedAt = 'UpdatedAt',
+  CreatedBy = 'CreatedBy',
+  LastUpdatedBy = 'LastUpdatedBy',
+}
+
+export interface IColumnNode extends INode {
+  parentId: string // should be database id
+  props: {
+    databaseId: string
+    name: string
+    description: string
+    fieldType: FieldType
+    isPrimary: boolean
+    config: any
+  }
+}
+
+export interface IRowNode extends INode {
+  parentId: string // should be database id
+  props: {
+    databaseId: string
+  }
+}
+
+export interface ICellNode extends INode {
+  parentId: string // should be database id
+  props: {
+    databaseId: string
+    columnId: string
+    rowId: string
+    fieldType: FieldType
+    // options: Option[]
+    options: any
+  }
+}
+
+export interface ICellNode extends INode {
+  parentId: string // should be database id
+  props: {
+    databaseId: string
+    columnId: string
+    rowId: string
+    fieldType: FieldType
+    // options: Option[]
+    options: any
+  }
+}
+export enum ViewType {
+  Grid = 'Grid',
+  Calendar = 'Calendar',
+  Gallery = 'Gallery',
+  Kanban = 'Kanban',
+}
+
+export enum LeadingType {
+  Short = 'Short',
+  Medium = 'Medium',
+  Tall = 'Tall',
+  ExtraTall = 'ExtraTall',
+}
+
+export interface IViewNode extends INode {
+  parentId: string // should be database id
+  props: {
+    databaseId: string
+    name: string
+    type: ViewType
+    stackedColumnId: string
+    leading: LeadingType
+  }
+}
+
+export interface IFilterNode extends INode {
+  parentId: string // should be database id
+  props: {
+    databaseId: string
+    columnId: string
+    viewId: string
+  }
 }
