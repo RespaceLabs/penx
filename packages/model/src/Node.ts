@@ -25,7 +25,7 @@ export class Node {
   }
 
   get type(): string {
-    return this.raw.type || ''
+    return this.raw?.type || ''
   }
 
   get props() {

@@ -1,7 +1,8 @@
 import { ExtensionContext } from '@penx/extension-typings'
-import { ELEMENT_TAG } from './constants'
+import { ELEMENT_TAG, ELEMENT_TAG_SELECTOR } from './constants'
 import { onBlur } from './handlers/onBlur'
 import { onKeyDown } from './handlers/onKeyDown'
+import { Tag } from './ui/Tag'
 import { TagSelector } from './ui/TagSelector'
 import { withTag } from './withTag'
 
@@ -15,8 +16,14 @@ export function activate(ctx: ExtensionContext) {
     elements: [
       {
         isInline: true,
-        type: ELEMENT_TAG,
+        type: ELEMENT_TAG_SELECTOR,
         component: TagSelector,
+      },
+      {
+        isInline: true,
+        isVoid: true,
+        type: ELEMENT_TAG,
+        component: Tag,
       },
     ],
   })

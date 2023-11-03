@@ -1,12 +1,14 @@
 import { useCallback } from 'react'
 import { Box } from '@fower/react'
 import { Editor, Element, Node, Path, Transforms } from 'slate'
-import { ListsEditor } from 'slate-lists'
 import { TElement, useEditorStatic } from '@penx/editor-common'
+import { findNodePath, getCurrentNode } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
-import { useExtensionStore, useNodes } from '@penx/hooks'
+import { useNodes } from '@penx/hooks'
 import { store } from '@penx/store'
+import { ELEMENT_TAG, ELEMENT_TAG_SELECTOR } from '../constants'
 import { isTag } from '../isTag'
+import { TagElement } from '../types'
 import { useKeyDownList } from '../useKeyDownList'
 import { TagSelectorItem } from './TagSelectorItem'
 
@@ -18,10 +20,7 @@ interface Props {
 
 export const TagSelectorContent = ({ close, element }: Props) => {
   const editor = useEditorStatic()
-  const { extensionStore } = useExtensionStore()
-
   const { nodeList } = useNodes()
-
   const tagNames = nodeList.tagNodes.map((node) => node.props.tag!)
 
   const filteredTypes = tagNames.filter((item) => {
@@ -32,26 +31,36 @@ export const TagSelectorContent = ({ close, element }: Props) => {
 
   const text = Node.string(element)
 
-  /**
-   * TODO: need refactoring
-   */
-  const selectType = useCallback(
-    (elementType: any) => {
-      //
+  const selectTag = useCallback(
+    (tagName: any) => {
+      const path = findNodePath(editor, element)!
+      Transforms.setNodes<TagElement>(
+        editor,
+        {
+          type: ELEMENT_TAG,
+          name: tagName,
+        },
+        { at: path },
+      )
+
+      Transforms.select(editor, Editor.end(editor, Path.parent(path)))
+
+      setTimeout(() => {
+        close()
+      }, 0)
     },
-    [editor, close, element, extensionStore],
+    [editor, close, element],
   )
 
   const listItemIdPrefix = 'type-list-item-'
 
   const { cursor } = useKeyDownList({
     onEnter: (cursor) => {
-      console.log('enter----:', text, cursor)
       if (!filteredTypes.length) {
         store.createTag(text)
         return
       }
-      selectType(filteredTypes[cursor])
+      selectTag(filteredTypes[cursor])
     },
     listLength: filteredTypes.length,
     listItemIdPrefix,
@@ -75,7 +84,7 @@ export const TagSelectorContent = ({ close, element }: Props) => {
             name={name}
             isActive={i === cursor}
             onClick={() => {
-              selectType(name)
+              selectTag(name)
             }}
           />
         )

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { createEditor, Editor, Node as SlateNode } from 'slate'
+import { createEditor, Editor, Node as SlateNode, Transforms } from 'slate'
 import { ELEMENT_TITLE } from '@penx/constants'
 import { getNodeByPath } from '@penx/editor-queries'
 import {
@@ -227,7 +227,7 @@ export class NodeService {
 
   saveNodes = async (parentId: string, ul: UnorderedListElement) => {
     const editor = createEditor()
-    editor.insertNodes(ul)
+    Transforms.insertNodes(editor, ul)
 
     const childrenForCurrentNode = ul.children.map((listItem) => {
       return listItem.children[0].id
@@ -269,7 +269,13 @@ export class NodeService {
         newParentId = grandparent.children[0].id
       }
 
-      const element = item.children[0]
+      const key = [...path.slice(1), 0].reduce(
+        (acc, cur) => [...acc, 'children', cur],
+        [] as any[],
+      )
+
+      const element = _.get(ul, key)
+
       const node = await db.getNode(item.id)
 
       if (node) {
