@@ -33,7 +33,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
   )
 
   /**
-   * TODO: need refactoring
+   * TODO: need refactor
    */
   const selectType = useCallback(
     (elementType: any) => {
@@ -47,10 +47,9 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
       })
 
       const at = block ? block[1] : []
+      console.log('block:', block)
 
-      if (elementInfo.isInline) {
-        return
-      }
+      if (elementInfo.isInline) return
 
       if (elementInfo.shouldNested) {
         /**
@@ -61,12 +60,16 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
 
         Transforms.insertNodes(
           editor,
-          {
-            ...elementInfo.slashCommand?.defaultNode,
-          } as any,
+          elementInfo.slashCommand?.defaultNode as any,
           { at },
         )
+
         Transforms.select(editor, Editor.start(editor, at))
+
+        setTimeout(() => {
+          editor.isBlockSelectorOpened = false
+        }, 50)
+        return
       }
 
       // image,divider...

@@ -13,9 +13,9 @@ export function activate(ctx: ExtensionContext) {
         component: Divider,
         slashCommand: {
           name: 'Divider',
-          afterInvokeCommand(editor) {
-            insertEmptyParagraph(editor)
-          },
+          // afterInvokeCommand(editor) {
+          //   insertEmptyParagraph(editor)
+          // },
         },
       },
     ],
@@ -26,7 +26,7 @@ export function activate(ctx: ExtensionContext) {
         match: '---',
         format: (editor) => {
           setNodes<DividerElement>(editor, { type: ELEMENT_HR })
-          insertEmptyParagraph(editor)
+          // insertEmptyParagraph(editor)
         },
       },
     ],

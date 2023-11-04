@@ -208,8 +208,6 @@ class DB {
   }
 
   createNode = async (node: Partial<INode> & { spaceId: string }) => {
-    console.log('node==========:', node)
-
     const newNode = await this.node.insert({
       ...getNewNode({ spaceId: node.spaceId! }),
       ...node,
