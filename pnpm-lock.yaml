@@ -1329,6 +1329,12 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@penx/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@tanstack/react-query':
+        specifier: ^4.35.7
+        version: 4.35.7(react-dom@18.2.0)(react@18.2.0)
       framer-motion:
         specifier: ^10.12.16
         version: 10.12.16(react-dom@18.2.0)(react@18.2.0)

@@ -360,7 +360,7 @@ class DB {
       type: NodeType.VIEW,
       props: {
         name: 'Table',
-        type: ViewType.Grid,
+        type: ViewType.View,
       },
     })
 
@@ -385,6 +385,7 @@ class DB {
           description: '',
           fieldType: FieldType.Text,
           isPrimary: true,
+          width: 120,
           config: {},
         },
       }),

@@ -84,11 +84,6 @@ export const extensionList = [
     activate: table.activate,
   },
   {
-    id: 'database',
-    activate: database.activate,
-  },
-
-  {
     id: 'file',
     activate: File.activate,
   },
@@ -96,5 +91,9 @@ export const extensionList = [
   {
     id: 'tag',
     activate: tag.activate,
+  },
+  {
+    id: 'database',
+    activate: database.activate,
   },
 ]

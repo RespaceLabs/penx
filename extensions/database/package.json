@@ -36,6 +36,8 @@
     "@penx/local-db": "workspace:*",
     "@penx/paragraph": "workspace:*",
     "@penx/shared": "workspace:*",
+    "@penx/types": "workspace:*",
+    "@tanstack/react-query": "^4.35.7",
     "framer-motion": "^10.12.16",
     "immer": "^10.0.2",
     "lodash": "^4.17.21",

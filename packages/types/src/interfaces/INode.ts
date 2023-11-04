@@ -71,6 +71,7 @@ export interface IColumnNode extends INode {
     fieldType: FieldType
     isPrimary: boolean
     config: any
+    width: number
   }
 }
 
@@ -94,7 +95,7 @@ export interface ICellNode extends INode {
 }
 
 export enum ViewType {
-  Grid = 'Grid',
+  View = 'View',
   Calendar = 'Calendar',
   Gallery = 'Gallery',
   Kanban = 'Kanban',
