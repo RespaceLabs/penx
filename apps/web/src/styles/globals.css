@@ -179,3 +179,13 @@ pre[class*='language-'] {
 .token.entity {
   cursor: help;
 }
+
+.MenuItem.open {
+  background: #ddd;
+}
+
+.MenuItem:focus,
+.MenuItem:not([disabled]):active {
+  background: #f0f0f0;
+  color: black;
+}

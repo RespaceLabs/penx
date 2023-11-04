@@ -91,7 +91,6 @@
     "rc-table": "^7.32.1",
     "re-resizable": "^6.9.9",
     "react": "^18.2.0",
-    "react-contexify": "^6.0.0",
     "react-dom": "^18.2.0",
     "react-fast-compare": "^3.2.2",
     "react-hook-form": "^7.44.3",

@@ -14,7 +14,6 @@ import { initFower } from '../common/initFower'
 import { useLinguiInit } from '../utils'
 import '@penx/local-db'
 import '../styles/globals.css'
-import '../styles/context-menu.scss'
 import '../styles/command.scss'
 
 // import 'prismjs/themes/prism.css'

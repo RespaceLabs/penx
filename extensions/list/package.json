@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@bone-ui/utils": "^0.37.0",
+    "@floating-ui/react": "^0.26.1",
     "@fower/react": "^1.86.0",
     "@penx/autoformat": "workspace:*",
     "@penx/constants": "workspace:*",
@@ -29,8 +30,8 @@
     "@penx/store": "workspace:*",
     "@penx/types": "workspace:*",
     "date-fns": "^2.30.0",
-    "react-contexify": "^6.0.0",
     "lucide-react": "^0.289.0",
+    "mitt": "^3.0.0",
     "nanoid": "^4.0.2",
     "remark-parse": "^11.0.0",
     "slate": "0.94.1",

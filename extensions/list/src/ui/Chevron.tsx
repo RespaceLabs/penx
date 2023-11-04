@@ -10,14 +10,15 @@ import { ListContentElement } from '../types'
 interface ChevronContentProps {
   collapsed: boolean
   path: Path
-  displayMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
+  nodeId: string
+  onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
 }
 
 export const ChevronContent = memo(
   function ChevronContent({
     collapsed,
     path,
-    displayMenu,
+    onContextMenu,
   }: ChevronContentProps) {
     const editor = useEditorStatic()
     function toggle() {
@@ -39,10 +40,8 @@ export const ChevronContent = memo(
         gray600
         border
         borderGray200
-        onContextMenu={displayMenu}
-        onClick={() => {
-          toggle()
-        }}
+        onContextMenu={onContextMenu}
+        onClick={toggle}
       >
         <ChevronDown size={12} />
       </Box>
@@ -52,11 +51,11 @@ export const ChevronContent = memo(
 )
 
 interface Props {
-  displayMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
   element: ListContentElement
+  onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
 }
 
-export const Chevron = ({ element, displayMenu }: Props) => {
+export const Chevron = ({ element, onContextMenu }: Props) => {
   const editor = useEditorStatic()
   const path = findNodePath(editor, element)!
 
@@ -71,9 +70,10 @@ export const Chevron = ({ element, displayMenu }: Props) => {
 
   return (
     <ChevronContent
+      onContextMenu={onContextMenu}
       collapsed={!element.collapsed}
       path={path}
-      displayMenu={displayMenu}
+      nodeId={element.id}
     />
   )
 }

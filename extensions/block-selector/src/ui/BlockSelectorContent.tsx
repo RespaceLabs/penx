@@ -47,7 +47,6 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
       })
 
       const at = block ? block[1] : []
-      console.log('block:', block)
 
       if (elementInfo.isInline) return
 
