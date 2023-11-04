@@ -10,7 +10,7 @@ export enum NodeType {
 
   // Database
   DATABASE = 'DATABASE',
-  CELL = 'CEL',
+  CELL = 'CELL',
   ROW = 'ROW',
   COLUMN = 'COLUMN',
   VIEW = 'VIEW',
@@ -23,6 +23,8 @@ export interface INode {
   parentId?: string
 
   spaceId: string
+
+  databaseId?: string
 
   type: NodeType
 
@@ -56,10 +58,14 @@ export enum FieldType {
   LastUpdatedBy = 'LastUpdatedBy',
 }
 
+export interface IDatabaseNode extends INode {
+  type: NodeType.DATABASE
+}
+
 export interface IColumnNode extends INode {
   parentId: string // should be database id
+  type: NodeType.COLUMN
   props: {
-    databaseId: string
     name: string
     description: string
     fieldType: FieldType
@@ -70,34 +76,23 @@ export interface IColumnNode extends INode {
 
 export interface IRowNode extends INode {
   parentId: string // should be database id
-  props: {
-    databaseId: string
-  }
+  type: NodeType.ROW
+  props: {}
 }
 
 export interface ICellNode extends INode {
   parentId: string // should be database id
+  type: NodeType.CELL
   props: {
-    databaseId: string
     columnId: string
     rowId: string
     fieldType: FieldType
     // options: Option[]
     options: any
+    data: any
   }
 }
 
-export interface ICellNode extends INode {
-  parentId: string // should be database id
-  props: {
-    databaseId: string
-    columnId: string
-    rowId: string
-    fieldType: FieldType
-    // options: Option[]
-    options: any
-  }
-}
 export enum ViewType {
   Grid = 'Grid',
   Calendar = 'Calendar',
@@ -105,28 +100,20 @@ export enum ViewType {
   Kanban = 'Kanban',
 }
 
-export enum LeadingType {
-  Short = 'Short',
-  Medium = 'Medium',
-  Tall = 'Tall',
-  ExtraTall = 'ExtraTall',
-}
-
 export interface IViewNode extends INode {
   parentId: string // should be database id
+  type: NodeType.VIEW
   props: {
-    databaseId: string
     name: string
     type: ViewType
-    stackedColumnId: string
-    leading: LeadingType
+    // stackedColumnId: string
   }
 }
 
 export interface IFilterNode extends INode {
   parentId: string // should be database id
+  type: NodeType.FILTER
   props: {
-    databaseId: string
     columnId: string
     viewId: string
   }

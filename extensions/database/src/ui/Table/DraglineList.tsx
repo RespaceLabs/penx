@@ -1,7 +1,7 @@
-import { TableElement } from '../../types'
+import { DatabaseElement } from '../../types'
 import { DraglineItem } from './DraglineItem'
 
-export const DraglineList = ({ element }: { element: TableElement }) => {
+export const DraglineList = ({ element }: { element: DatabaseElement }) => {
   const { colWidths = [] } = element
   return (
     <>

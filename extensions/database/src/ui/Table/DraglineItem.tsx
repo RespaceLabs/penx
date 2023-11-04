@@ -3,7 +3,7 @@ import { Box, css } from '@fower/react'
 import { motion, useMotionValue } from 'framer-motion'
 import { Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
-import { TableElement } from '../../types'
+import { DatabaseElement } from '../../types'
 
 export function DraglineItem({
   id,
@@ -66,7 +66,7 @@ export function DraglineItem({
         const offset = info.offset.x
         const newWidth = Number((width + offset).toFixed(0))
         const widths = colWidths.map((w, i) => (i === index ? newWidth : w))
-        Transforms.setNodes<TableElement>(
+        Transforms.setNodes<DatabaseElement>(
           editor,
           { colWidths: widths },
           { at: [], match: (n: any) => n.id === id },

@@ -3,12 +3,12 @@ import { Editor, Path, Transforms } from 'slate'
 import { findNodePath } from '@penx/editor-queries'
 import { getEmptyCellNode } from '../getEmptyCellNode'
 import { getEmptyRowNode } from '../getEmptyRowNode'
-import { TableCellElement, TableElement } from '../types'
+import { DatabaseElement, TableCellElement } from '../types'
 
 export class TableNode {
   constructor(
     private editor: Editor,
-    private element: TableElement,
+    private element: DatabaseElement,
   ) {}
 
   get firstRowElement() {

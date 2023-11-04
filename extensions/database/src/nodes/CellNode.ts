@@ -1,6 +1,6 @@
 import { Editor, Node, Path, Transforms } from 'slate'
 import { findNodePath } from '@penx/editor-queries'
-import { TableCellElement, TableElement, TableRowElement } from '../types'
+import { DatabaseElement, TableCellElement, TableRowElement } from '../types'
 
 export class CellNode {
   constructor(
@@ -29,7 +29,7 @@ export class CellNode {
   }
 
   get tableElement() {
-    return Node.parent(this.editor, this.path.slice(0, -1)) as TableElement
+    return Node.parent(this.editor, this.path.slice(0, -1)) as DatabaseElement
   }
 
   get isInHeader() {

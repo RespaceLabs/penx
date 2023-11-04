@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { MoreHorizontal } from 'lucide-react'
 import { Transforms } from 'slate'
-import { ReactEditor, useSelected, useSlate, useSlateStatic } from 'slate-react'
+import { ReactEditor, useSelected } from 'slate-react'
 import {
   MenuItem,
   Popover,
@@ -11,9 +11,9 @@ import {
 } from 'uikit'
 import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
-import { TableElement } from '../../types'
+import { DatabaseElement } from '../../types'
 
-export const TableOptions = ({ element }: { element: TableElement }) => {
+export const TableOptions = ({ element }: { element: DatabaseElement }) => {
   const editor = useEditorStatic()
   const selected = useSelected()
   const { isHeaderColumn = false, isHeaderRow = false } = element
@@ -53,7 +53,7 @@ export const TableOptions = ({ element }: { element: TableElement }) => {
             toBetween
             checked={isHeaderColumn}
             onChange={(e) => {
-              Transforms.setNodes<TableElement>(
+              Transforms.setNodes<DatabaseElement>(
                 editor,
                 { isHeaderColumn: e.target.checked },
                 { at: path },
@@ -72,7 +72,7 @@ export const TableOptions = ({ element }: { element: TableElement }) => {
             toBetween
             checked={isHeaderRow}
             onChange={(e) => {
-              Transforms.setNodes<TableElement>(
+              Transforms.setNodes<DatabaseElement>(
                 editor,
                 { isHeaderRow: e.target.checked },
                 { at: path },

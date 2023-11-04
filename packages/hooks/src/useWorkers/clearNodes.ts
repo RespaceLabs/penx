@@ -1,6 +1,6 @@
 import { db } from '@penx/local-db'
 import { sleep } from '@penx/shared'
-import { INode } from '@penx/types'
+import { INode, NodeType } from '@penx/types'
 
 const INTERVAL = 10 * 1000
 
@@ -22,6 +22,19 @@ async function clearDeletedNode() {
   }
 
   for (const node of nodes) {
+    // TODO: need improvement
+    if (
+      [
+        NodeType.DATABASE,
+        NodeType.COLUMN,
+        NodeType.ROW,
+        NodeType.VIEW,
+        NodeType.CELL,
+      ].includes(node.type)
+    ) {
+      continue
+    }
+
     // if (!Reflect.has(node, 'parentId')) continue
     if (!node.parentId) continue
 

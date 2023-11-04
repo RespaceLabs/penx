@@ -1,14 +1,14 @@
 import {
-  ELEMENT_TABLE,
+  DatabaseElement,
+  ELEMENT_DATABASE,
   ELEMENT_TD,
   ELEMENT_TR,
   TableCellElement,
-  TableElement,
   TableRowElement,
 } from './types'
 
-export function isTable(node: any): node is TableElement {
-  return node?.type === ELEMENT_TABLE
+export function isTable(node: any): node is DatabaseElement {
+  return node?.type === ELEMENT_DATABASE
 }
 
 export function isTableRow(node: any): node is TableRowElement {

@@ -33,6 +33,7 @@
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/shared": "workspace:*",
+    "@penx/types": "workspace:*",
     "@penx/store": "workspace:*",
     "@udecode/plate-common": "^24.4.0",
     "jotai": "^2.4.2",

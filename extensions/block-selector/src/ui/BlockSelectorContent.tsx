@@ -5,6 +5,7 @@ import { ListsEditor } from 'slate-lists'
 import { TElement, useEditorStatic } from '@penx/editor-common'
 import { selectEditor } from '@penx/editor-transforms'
 import { useExtensionStore } from '@penx/hooks'
+import { INode, NodeType } from '@penx/types'
 import { isBlockSelector } from '../isBlockSelector'
 import { useKeyDownList } from '../useKeyDownList'
 import { BlockSelectorItem } from './BlockSelectorItem'
@@ -36,8 +37,9 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
    * TODO: need refactor
    */
   const selectType = useCallback(
-    (elementType: any) => {
+    async (elementType: any) => {
       const elementInfo = extensionStore.elementMaps[elementType]
+      const { slashCommand } = elementInfo
 
       if (!elementInfo) return // TODO
       close()
@@ -57,11 +59,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
          */
         Transforms.removeNodes(editor, { at })
 
-        Transforms.insertNodes(
-          editor,
-          elementInfo.slashCommand?.defaultNode as any,
-          { at },
-        )
+        Transforms.insertNodes(editor, slashCommand?.defaultNode as any, { at })
 
         Transforms.select(editor, Editor.start(editor, at))
 
@@ -75,14 +73,19 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
       if (elementInfo.isVoid) {
         Transforms.removeNodes(editor, { at })
 
-        Transforms.insertNodes(
-          editor,
-          {
-            type: elementType,
-            children: [{ text: '' }],
-          } as TElement,
-          { at },
-        )
+        const node: INode = await slashCommand?.beforeInvokeCommand?.(editor)
+
+        const props = {
+          type: elementType,
+          children: [{ text: '' }],
+        } as TElement & { [key: string]: any }
+
+        if (node.type === NodeType.DATABASE) {
+          props.id = node.id
+          props.databaseId = node.id
+        }
+
+        Transforms.insertNodes(editor, props, { at })
 
         const next = Path.next(Path.parent(at))
 
@@ -107,7 +110,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
           editor,
           {
             type: elementType,
-            ...elementInfo.slashCommand?.defaultNode,
+            ...slashCommand?.defaultNode,
           } as TElement,
           {
             // mode: 'lowest',

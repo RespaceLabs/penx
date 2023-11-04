@@ -2,10 +2,10 @@ import { Box } from '@fower/react'
 import { Plus } from 'lucide-react'
 import { useSlateStatic } from 'slate-react'
 import { TableNode } from '../../nodes/TableNode'
-import { TableElement } from '../../types'
+import { DatabaseElement } from '../../types'
 
 interface Props {
-  element: TableElement
+  element: DatabaseElement
 }
 
 export const AddRowBar = ({ element }: Props) => {

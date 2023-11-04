@@ -1,7 +1,20 @@
 import { nanoid } from 'nanoid'
 import { Database } from '@penx/indexeddb'
 import { Node, Space } from '@penx/model'
-import { IExtension, IFile, INode, ISpace, NodeType } from '@penx/types'
+import {
+  FieldType,
+  ICellNode,
+  IColumnNode,
+  IDatabaseNode,
+  IExtension,
+  IFile,
+  INode,
+  IRowNode,
+  ISpace,
+  IViewNode,
+  NodeType,
+  ViewType,
+} from '@penx/types'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { tableSchema } from './table-schema'
@@ -207,13 +220,15 @@ class DB {
     return inboxNode
   }
 
-  createNode = async (node: Partial<INode> & { spaceId: string }) => {
+  createNode = async <T = INode>(
+    node: Partial<T> & { spaceId: string },
+  ): Promise<T> => {
     const newNode = await this.node.insert({
       ...getNewNode({ spaceId: node.spaceId! }),
       ...node,
     })
 
-    return newNode
+    return newNode as T
   }
 
   createTextNode = async (spaceId: string, text: string) => {
@@ -325,8 +340,161 @@ class DB {
     return newNode
   }
 
-  createDatabase = async () => {
-    //
+  createDatabase = async (data: Partial<INode>) => {
+    // const { id = '' } = data
+    const space = await this.getActiveSpace()
+    const database = await this.createNode<IDatabaseNode>({
+      // id,
+      ...data,
+      spaceId: space.id,
+      type: NodeType.DATABASE,
+    })
+
+    console.log('create database....')
+
+    // Create view
+    const view = await this.createNode<IViewNode>({
+      spaceId: space.id,
+      databaseId: database.id,
+      parentId: database.id,
+      type: NodeType.VIEW,
+      props: {
+        name: 'Table',
+        type: ViewType.Grid,
+      },
+    })
+
+    const [columns, rows] = await Promise.all([
+      this.initColumns(space.id, database.id),
+      this.initRows(space.id, database.id),
+    ])
+
+    await this.initCells(space.id, database.id, columns, rows)
+    return database
+  }
+
+  initColumns = async (spaceId: string, databaseId: string) => {
+    return Promise.all([
+      this.createNode<IColumnNode>({
+        spaceId,
+        parentId: databaseId,
+        databaseId,
+        type: NodeType.COLUMN,
+        props: {
+          name: 'Column 1',
+          description: '',
+          fieldType: FieldType.Text,
+          isPrimary: true,
+          config: {},
+        },
+      }),
+      this.createNode<IColumnNode>({
+        spaceId,
+        databaseId,
+        parentId: databaseId,
+        type: NodeType.COLUMN,
+        props: {
+          name: 'Column 2',
+          description: '',
+          fieldType: FieldType.Text,
+          isPrimary: false,
+          config: {},
+        },
+      }),
+    ])
+  }
+
+  initRows = async (spaceId: string, databaseId: string) => {
+    return Promise.all([
+      this.createNode<IRowNode>({
+        spaceId,
+        databaseId,
+        parentId: databaseId,
+        type: NodeType.ROW,
+        props: {},
+      }),
+      this.createNode<IRowNode>({
+        spaceId,
+        parentId: databaseId,
+        type: NodeType.ROW,
+        databaseId,
+        props: {},
+      }),
+    ])
+  }
+
+  initCells = async (
+    spaceId: string,
+    databaseId: string,
+    columns: IColumnNode[],
+    rows: IRowNode[],
+  ) => {
+    const cellNodes = rows.reduce<ICellNode[]>((result, row) => {
+      const cells: ICellNode[] = columns.map(
+        (column) =>
+          ({
+            spaceId,
+            databaseId,
+            parentId: databaseId,
+            type: NodeType.CELL,
+            props: {
+              columnId: column.id,
+              rowId: row.id,
+              fieldType: column.props.fieldType,
+              options: [],
+              data: '',
+            },
+          }) as ICellNode,
+      )
+      return [...result, ...cells]
+    }, [])
+    for (const node of cellNodes) {
+      await this.createNode(node)
+    }
+  }
+
+  getDatabase = async (id: string) => {
+    const space = await this.getActiveSpace()
+    const database = await this.getNode(id)
+    const columns = await this.node.select({
+      where: {
+        type: NodeType.COLUMN,
+        spaceId: space.id,
+        databaseId: id,
+      },
+    })
+
+    const rows = await this.node.select({
+      where: {
+        type: NodeType.ROW,
+        spaceId: space.id,
+        databaseId: id,
+      },
+    })
+
+    const views = await this.node.select({
+      where: {
+        type: NodeType.VIEW,
+        spaceId: space.id,
+        databaseId: id,
+      },
+    })
+
+    const cells = await this.node.select({
+      where: {
+        type: NodeType.CELL,
+        spaceId: space.id,
+        databaseId: id,
+      },
+    })
+
+    return {
+      database,
+      views,
+      columns,
+      rows,
+      cells,
+    }
   }
 }
 

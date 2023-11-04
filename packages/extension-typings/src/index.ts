@@ -92,6 +92,7 @@ export interface BlockElement {
     description?: string
     icon?: any
     defaultNode?: Element
+    beforeInvokeCommand?: (editor: PenxEditor) => Promise<any>
     afterInvokeCommand?: (editor: PenxEditor) => void
   }
 }
