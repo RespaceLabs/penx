@@ -17,12 +17,6 @@ export enum NodeType {
   FILTER = 'FILTER',
 }
 
-type Column = {
-  title: string
-  type: string // field type
-  width?: number
-}
-
 export interface INode {
   id: string
 
@@ -39,7 +33,6 @@ export interface INode {
     date?: string // 2024-01-01
     tag?: string // tag name
     restoreId?: string // restore to original
-    columns?: Column[]
     [key: string]: any
   }
 
@@ -54,6 +47,7 @@ export interface INode {
   updatedAt: number
 }
 export enum FieldType {
+  Text = 'Text',
   Number = 'Number',
   SingleSelect = 'SingleSelect',
   CreatedAt = 'CreatedAt',

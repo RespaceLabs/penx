@@ -34,6 +34,7 @@
     "@penx/file": "workspace:*",
     "@penx/link": "workspace:*",
     "@penx/table": "workspace:*",
+    "@penx/database": "workspace:*",
     "@penx/bidirectional-link": "workspace:*",
     "@penx/block-selector": "workspace:*"
   }

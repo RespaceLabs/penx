@@ -51,6 +51,7 @@ const config = {
     '@penx/link',
     '@penx/bidirectional-link',
     '@penx/table',
+    '@penx/database',
     '@penx/tag',
     '@penx/block-selector',
     '@penx/editor-leaf',

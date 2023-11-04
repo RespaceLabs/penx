@@ -186,6 +186,7 @@ export const Menu = forwardRef<
             <Box
               shadowPopover
               roundedLG
+              textSM
               w-200
               bgWhite
               overflowHidden

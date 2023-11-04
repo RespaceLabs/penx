@@ -324,6 +324,10 @@ class DB {
 
     return newNode
   }
+
+  createDatabase = async () => {
+    //
+  }
 }
 
 export const db = new DB()

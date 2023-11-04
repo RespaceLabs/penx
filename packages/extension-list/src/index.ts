@@ -5,6 +5,7 @@ import * as blockSelector from '@penx/block-selector'
 import * as blockquote from '@penx/blockquote'
 import * as checkList from '@penx/check-list'
 import * as codeBlock from '@penx/code-block'
+import * as database from '@penx/database'
 import * as divider from '@penx/divider'
 import * as File from '@penx/file'
 import * as heading from '@penx/heading'
@@ -81,6 +82,10 @@ export const extensionList = [
   {
     id: 'table',
     activate: table.activate,
+  },
+  {
+    id: 'database',
+    activate: database.activate,
   },
 
   {
