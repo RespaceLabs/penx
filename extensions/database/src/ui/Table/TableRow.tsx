@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { ICellNode, IColumnNode, IRowNode } from '@penx/types'
-import { TableCell } from './TableCell'
+import { TableCell } from './Cell'
 
 interface Props {
   row: IRowNode

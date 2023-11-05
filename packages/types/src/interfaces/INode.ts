@@ -54,8 +54,6 @@ export enum FieldType {
   SingleSelect = 'SingleSelect',
   CreatedAt = 'CreatedAt',
   UpdatedAt = 'UpdatedAt',
-  CreatedBy = 'CreatedBy',
-  LastUpdatedBy = 'LastUpdatedBy',
 }
 
 export interface IDatabaseNode extends INode {
