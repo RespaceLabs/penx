@@ -1,4 +1,4 @@
-import { Editor, Node, Path, Transforms } from 'slate'
+import { Editor, Node, Path } from 'slate'
 import { findNodePath } from '@penx/editor-queries'
 import { TableCellElement, TableElement, TableRowElement } from '../types'
 

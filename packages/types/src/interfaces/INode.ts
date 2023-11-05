@@ -88,6 +88,7 @@ export interface ICellNode extends INode {
   props: {
     columnId: string
     rowId: string
+    ref: string // ref to a node id
     fieldType: FieldType
     // options: Option[]
     options: any

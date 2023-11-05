@@ -547,6 +547,7 @@ class DB {
         props: {
           columnId: column.id,
           rowId: row.id,
+          ref: '',
           fieldType: column.props.fieldType,
           options: [],
           data: '',
@@ -555,7 +556,7 @@ class DB {
     }
   }
 
-  addRow = async (databaseId: string) => {
+  addRow = async (databaseId: string, ref = '') => {
     const space = await this.getActiveSpace()
     const spaceId = space.id
 
@@ -575,8 +576,8 @@ class DB {
       },
     })
 
-    for (const column of columns) {
-      await this.createNode<ICellNode>({
+    const promises = columns.map((column, index) =>
+      this.createNode<ICellNode>({
         spaceId,
         databaseId,
         parentId: databaseId,
@@ -584,12 +585,15 @@ class DB {
         props: {
           columnId: column.id,
           rowId: row.id,
+          ref: index === 0 ? ref : '',
           fieldType: column.props.fieldType,
           options: [],
           data: '',
         },
-      })
-    }
+      }),
+    )
+
+    await Promise.all(promises)
   }
 }
 

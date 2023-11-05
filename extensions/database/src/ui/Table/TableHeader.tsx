@@ -11,12 +11,9 @@ export const TableHeader = () => {
   return (
     <Box flex-1 toLeft>
       <Box
-        sticky
         toCenter
-        left0
         bgWhite
         h-40
-        zIndex-1000
         borderBottom
         borderLeft
         borderTop

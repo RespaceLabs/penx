@@ -27,8 +27,6 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
         toCenterY
         pl3
         px2
-        sticky
-        left0
         w={FIRST_COL_WIDTH}
         // h-100p
         bgTransparent
@@ -36,7 +34,6 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
         borderLeft
         // borderRight
         flexShrink={0}
-        zIndex-100
       >
         <IconDrag invisible visible--$gridRow--hover bgTransparent />
         <Box as="input" type="checkbox" hidden inlineBlock--$gridRow--hover />

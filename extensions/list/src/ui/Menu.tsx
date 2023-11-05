@@ -191,6 +191,7 @@ export const Menu = forwardRef<
               bgWhite
               overflowHidden
               outlineNone
+              zIndex-100
               ref={refs.setFloating}
               style={floatingStyles}
               {...getFloatingProps()}

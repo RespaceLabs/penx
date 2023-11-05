@@ -16,8 +16,6 @@ export const AddRowBtn: FC<Props> = ({}) => {
       <Box
         onClick={onAddRow}
         toCenter
-        sticky
-        left-0
         cursorPointer
         w-50
         h-40
