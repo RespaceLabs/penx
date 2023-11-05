@@ -220,7 +220,7 @@ class DB {
     return inboxNode
   }
 
-  createNode = async <T = INode>(
+  createNode = async <T extends INode>(
     node: Partial<T> & { spaceId: string },
   ): Promise<T> => {
     const newNode = await this.node.insert({
@@ -400,6 +400,7 @@ class DB {
           fieldType: FieldType.Text,
           isPrimary: false,
           config: {},
+          width: 120,
         },
       }),
     ])
@@ -463,6 +464,9 @@ class DB {
         spaceId: space.id,
         databaseId: id,
       },
+
+      sortBy: 'createdAt',
+      orderByDESC: false,
     })
 
     const rows = await this.node.select({
@@ -495,6 +499,50 @@ class DB {
       columns,
       rows,
       cells,
+    }
+  }
+
+  addColumn = async (databaseId: string, fieldType: FieldType) => {
+    const space = await this.getActiveSpace()
+    const spaceId = space.id
+
+    const column = await this.createNode<IColumnNode>({
+      spaceId,
+      databaseId,
+      parentId: databaseId,
+      type: NodeType.COLUMN,
+      props: {
+        name: fieldType,
+        description: '',
+        fieldType,
+        isPrimary: false,
+        config: {},
+        width: 120,
+      },
+    })
+
+    const rows = await this.node.select({
+      where: {
+        type: NodeType.ROW,
+        spaceId,
+        databaseId,
+      },
+    })
+
+    for (const row of rows) {
+      await this.createNode<ICellNode>({
+        spaceId,
+        databaseId,
+        parentId: databaseId,
+        type: NodeType.CELL,
+        props: {
+          columnId: column.id,
+          rowId: row.id,
+          fieldType: column.props.fieldType,
+          options: [],
+          data: '',
+        },
+      })
     }
   }
 }

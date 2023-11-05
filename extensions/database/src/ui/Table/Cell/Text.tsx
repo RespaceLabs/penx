@@ -1,11 +1,12 @@
-import React, { FC, memo, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, memo, useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { Box, css } from '@fower/react'
 import { Maximize2 } from 'lucide-react'
+import { useDebouncedCallback } from 'use-debounce'
 import { CellProps } from './CellProps'
 
 // eslint-disable-next-line react/display-name
-export const TextCell: FC<CellProps> = memo((props) => {
+export const TextCell: FC<CellProps> = memo(function TextCell(props) {
   const { cell, updateCell, selected, width } = props
   const [value, setValue] = useState(cell.props.data || '')
 
@@ -13,12 +14,14 @@ export const TextCell: FC<CellProps> = memo((props) => {
     setValue(cell.props.data)
   }, [cell.props.data])
 
-  const onChange = (e: any) => {
-    setValue(e.target.value)
-  }
+  const debouncedUpdate = useDebouncedCallback(async (value: any) => {
+    updateCell(value)
+  }, 500)
 
-  const onBlur = () => {
-    //
+  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const data = e.target.value
+    setValue(data)
+    debouncedUpdate(data)
   }
 
   return (
@@ -26,7 +29,6 @@ export const TextCell: FC<CellProps> = memo((props) => {
       <TextareaAutosize
         value={value || ''}
         onChange={onChange}
-        onBlur={onBlur}
         className={css({
           w: '100%',
           h: '100%',

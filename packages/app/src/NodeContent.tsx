@@ -1,6 +1,4 @@
 import { Box } from '@fower/react'
-import { Editor, Transforms } from 'slate'
-import { ReactEditor } from 'slate-react'
 import { useDebouncedCallback } from 'use-debounce'
 import { NodeEditor } from '@penx/editor'
 import { PenxEditor } from '@penx/editor-common'

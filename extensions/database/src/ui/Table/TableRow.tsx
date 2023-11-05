@@ -9,7 +9,13 @@ interface Props {
 }
 
 export const TableRow = ({ columns = [], row, cells = [] }: Props) => {
-  const rowCells = cells.filter((cell) => cell.props.rowId === row.id)
+  // TODO: need to improve performance
+  const rowCells = columns.map((column) => {
+    return cells.find(
+      (cell) =>
+        cell.props.rowId === row.id && cell.props.columnId === column.id,
+    )!
+  })
   return (
     <Box flex-1 toLeft>
       {rowCells.map((cell, index) => (

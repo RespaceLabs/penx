@@ -1,14 +1,9 @@
 import { Box } from '@fower/react'
-import { ICellNode, IColumnNode, IRowNode } from '@penx/types'
+import { useDatabaseContext } from '../DatabaseContext'
 import { TableRow } from './TableRow'
 
-interface Props {
-  columns: IColumnNode[]
-  rows: IRowNode[]
-  cells: ICellNode[]
-}
-
-export const TableBody = ({ columns = [], rows = [], cells = [] }: Props) => {
+export const TableBody = () => {
+  const { columns, rows, cells } = useDatabaseContext()
   if (!columns.length) return null
 
   return (

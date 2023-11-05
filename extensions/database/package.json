@@ -44,6 +44,7 @@
     "lucide-react": "^0.284.0",
     "mitt": "^3.0.0",
     "react-fast-compare": "^3.2.2",
+    "react-hook-form": "^7.44.3",
     "react-textarea-autosize": "^8.5.3",
     "simplebar-react": "^3.2.4",
     "slate": "0.94.1",
@@ -51,6 +52,7 @@
     "slate-lists": "workspace:*",
     "slate-react": "^0.98.3",
     "stook": "^1.17.0",
-    "uikit": "workspace:*"
+    "uikit": "workspace:*",
+    "use-debounce": "^9.0.4"
   }
 }

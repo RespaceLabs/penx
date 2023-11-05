@@ -1,12 +1,10 @@
 import { Box } from '@fower/react'
-import { IColumnNode } from '@penx/types'
+import { useDatabaseContext } from '../DatabaseContext'
+import { AddColumnBtn } from './AddColumnBtn'
 import { ColumnItem } from './ColumnItem'
 
-interface Props {
-  columns: IColumnNode[]
-}
-
-export const TableHeader = ({ columns = [] }: Props) => {
+export const TableHeader = () => {
+  const { columns } = useDatabaseContext()
   if (!columns.length) return null
 
   return (
@@ -14,6 +12,7 @@ export const TableHeader = ({ columns = [] }: Props) => {
       {columns.map((column, index) => (
         <ColumnItem key={column.id} column={column} index={index} />
       ))}
+      <AddColumnBtn />
     </Box>
   )
 }

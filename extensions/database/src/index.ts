@@ -3,7 +3,7 @@ import { ExtensionContext } from '@penx/extension-typings'
 import { db } from '@penx/local-db'
 import { getEmptyTableNode } from './getEmptyTableNode'
 import { ELEMENT_DATABASE } from './types'
-import { Database } from './ui/Table/Database'
+import { Database } from './ui/Database'
 import { withTable } from './withTable'
 
 export function activate(ctx: ExtensionContext) {

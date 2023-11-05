@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 import isEqual from 'react-fast-compare'
 import { css } from '@fower/react'
 import { motion } from 'framer-motion'
+import { db } from '@penx/local-db'
 import { FieldType, ICellNode, IColumnNode } from '@penx/types'
 import { CreatedAtCell } from './CreatedAt'
 import { TextCell } from './Text'
@@ -37,9 +38,19 @@ export const TableCell = memo(
     const { fieldType, rowId, columnId } = cell.props
     const CellComponent = cellsMap[fieldType as FieldType]
 
+    async function updateCell(data: any) {
+      console.log('data==========:', data)
+      db.updateNode(cell.id, {
+        props: {
+          ...cell.props,
+          data,
+        },
+      })
+    }
+
     return (
       <motion.div className={className} tabIndex={0} style={{ width }}>
-        <CellComponent width={width} cell={cell} />
+        <CellComponent width={width} cell={cell} updateCell={updateCell} />
       </motion.div>
     )
   },
