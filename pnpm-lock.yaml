@@ -4032,6 +4032,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
+      '@penx/editor-common':
+        specifier: workspace:*
+        version: link:../editor-common
       '@penx/editor-queries':
         specifier: workspace:*
         version: link:../editor-queries

@@ -1,13 +1,11 @@
 import { useCallback } from 'react'
 import { Box } from '@fower/react'
-import { Editor, Element, Node, Path, Transforms } from 'slate'
+import { Editor, Node, Path, Transforms } from 'slate'
 import { TElement, useEditorStatic } from '@penx/editor-common'
-import { findNodePath, getCurrentNode } from '@penx/editor-queries'
-import { selectEditor } from '@penx/editor-transforms'
+import { findNodePath } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
 import { store } from '@penx/store'
-import { ELEMENT_TAG, ELEMENT_TAG_SELECTOR } from '../constants'
-import { isTag } from '../isTag'
+import { ELEMENT_TAG } from '../constants'
 import { TagElement } from '../types'
 import { useKeyDownList } from '../useKeyDownList'
 import { TagSelectorItem } from './TagSelectorItem'
@@ -21,7 +19,9 @@ interface Props {
 export const TagSelectorContent = ({ close, element }: Props) => {
   const editor = useEditorStatic()
   const { nodeList } = useNodes()
-  const tagNames = nodeList.tagNodes.map((node) => node.props.tag!)
+  const tagNames = nodeList.tagNodes
+    .map((node) => node.props.tag!)
+    .filter((i) => !!i)
 
   const filteredTypes = tagNames.filter((item) => {
     const q = Node.string(element).replace(/^#/, '').toLowerCase()
@@ -34,8 +34,6 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   const selectTag = useCallback(
     (tagName: any) => {
       const path = findNodePath(editor, element)!
-
-      console.log('selectTag.................')
 
       Transforms.setNodes<TagElement>(
         editor,

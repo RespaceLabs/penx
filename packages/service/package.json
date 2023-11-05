@@ -24,6 +24,7 @@
     "@penx/constants": "workspace:*",
     "@penx/encryption": "workspace:*",
     "@penx/editor-queries": "workspace:*",
+    "@penx/editor-common": "workspace:*",
     "@penx/extension-typings": "*",
     "@penx/indexeddb": "workspace:*",
     "@penx/list": "workspace:*",

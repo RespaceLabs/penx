@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { createEditor, Editor, Node as SlateNode, Transforms } from 'slate'
 import { ELEMENT_TITLE } from '@penx/constants'
+import { TElement } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
 import {
   ELEMENT_LI,
@@ -276,8 +277,11 @@ export class NodeService {
       )
 
       const element = _.get(ul, key)
-
       const node = await db.getNode(item.id)
+
+      const tags = this.extractTags(element)
+
+      console.log('tags:', tags)
 
       if (node) {
         await db.updateNode(item.id, {
@@ -297,5 +301,11 @@ export class NodeService {
         })
       }
     }
+  }
+
+  private extractTags(element: TElement) {
+    return element.children
+      .filter((item: any) => item.type === 'tag')
+      .map((i: any) => i.name.replace('#', ''))
   }
 }
