@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
-import { Input } from 'uikit'
 import { IColumnNode } from '@penx/types'
+import { FieldIcon } from './FieldIcon'
 
 interface Props {
   index: number
@@ -13,14 +13,15 @@ export const ColumnItem = ({ column, index }: Props) => {
     <Box
       borderTop
       borderBottom
-      // borderLeft={index === 0}
       borderRight
       h-40
       toCenterY
       px3
+      gap2
+      cursorPointer
       w={width}
     >
-      {/* <Input defaultValue={column.props.name} /> */}
+      <FieldIcon fieldType={column.props.fieldType} />
       <Box>{column.props.name}</Box>
     </Box>
   )

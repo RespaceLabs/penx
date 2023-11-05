@@ -1,4 +1,5 @@
 import { Box } from '@fower/react'
+import { FIRST_COL_WIDTH } from '../../constants'
 import { useDatabaseContext } from '../DatabaseContext'
 import { AddColumnBtn } from './AddColumnBtn'
 import { ColumnItem } from './ColumnItem'
@@ -16,13 +17,13 @@ export const TableHeader = () => {
         bgWhite
         h-40
         zIndex-1000
-        w-70
         borderBottom
         borderLeft
         borderTop
-        flexShrink={0}
+        flexShrink-0
+        w={FIRST_COL_WIDTH}
       >
-        <Box as="input" type="checkbox" />
+        <Box as="input" type="checkbox" mr--8 />
       </Box>
       {columns.map((column, index) => (
         <ColumnItem key={column.id} column={column} index={index} />
