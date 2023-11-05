@@ -58,6 +58,9 @@ export enum FieldType {
 
 export interface IDatabaseNode extends INode {
   type: NodeType.DATABASE
+  props: {
+    name: string // database name, same with tag name
+  }
 }
 
 export interface IColumnNode extends INode {

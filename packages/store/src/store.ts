@@ -254,6 +254,8 @@ export const store = Object.assign(createStore(), {
       await db.updateNode(tagRootNode.id, {
         children: [...tagRootNode.children, newNode.id],
       })
+
+      await db.createDatabase(text)
     }
   },
 

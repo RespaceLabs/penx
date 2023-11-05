@@ -1426,6 +1426,9 @@ importers:
       '@penx/editor-common':
         specifier: workspace:*
         version: link:../../packages/editor-common
+      '@penx/editor-queries':
+        specifier: workspace:*
+        version: link:../../packages/editor-queries
       '@penx/editor-transforms':
         specifier: workspace:*
         version: link:../../packages/editor-transforms

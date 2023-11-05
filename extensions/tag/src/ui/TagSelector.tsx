@@ -13,7 +13,7 @@ import {
 } from '@floating-ui/react'
 import { Box } from '@fower/react'
 import { Transforms } from 'slate'
-import { useEditorStatic } from '@penx/editor-common'
+import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getCurrentNode } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { TagSelectorElement } from '../types'
@@ -23,7 +23,7 @@ export const TagSelector = ({
   element,
   children,
 }: ElementProps<TagSelectorElement>) => {
-  const editor = useEditorStatic()
+  const editor = useEditor()
   const path = findNodePath(editor, element)!
 
   const setIsOpen = useCallback(

@@ -340,17 +340,25 @@ class DB {
     return newNode
   }
 
-  createDatabase = async (data: Partial<INode>) => {
+  createDatabase = async (name: string = '') => {
     // const { id = '' } = data
     const space = await this.getActiveSpace()
+
+    const spaceNode = await this.getSpaceNode(space.id)
+
     const database = await this.createNode<IDatabaseNode>({
       // id,
-      ...data,
+      parentId: spaceNode.id,
       spaceId: space.id,
       type: NodeType.DATABASE,
+      props: {
+        name,
+      },
     })
 
-    console.log('create database....')
+    await this.updateNode(spaceNode.id, {
+      children: [...(spaceNode.children || []), database.id],
+    })
 
     // Create view
     const view = await this.createNode<IViewNode>({

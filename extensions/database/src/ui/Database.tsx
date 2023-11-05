@@ -15,6 +15,8 @@ export const Database = ({
 }: ElementProps<DatabaseElement>) => {
   const { databaseId } = element
 
+  console.log('========database element:', element)
+
   return (
     <Box flex-1 mb8 mt8 contentEditable={false} {...attributes}>
       <DatabaseProvider databaseId={databaseId}>

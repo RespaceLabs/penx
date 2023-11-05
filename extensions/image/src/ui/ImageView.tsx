@@ -8,7 +8,7 @@ import {
   useSelected,
   useSlateStatic,
 } from 'slate-react'
-import { useEditorStatic } from '@penx/editor-common'
+import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { setNodes } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/extension-typings'
 import { useFile } from '@penx/hooks'
@@ -17,7 +17,7 @@ import { ImageElement } from '../types'
 export const ImageView = (props: ElementProps<ImageElement>) => {
   const { attributes, children, element } = props
   const { width: nodeWidth } = element
-  const editor = useEditorStatic()
+  const editor = useEditor()
   const selected = useSelected()
   const focused = useFocused()
   const active = selected && focused

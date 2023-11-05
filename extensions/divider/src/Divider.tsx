@@ -4,8 +4,7 @@ import { ElementProps } from '@penx/extension-typings'
 
 export const Divider = ({ attributes, children }: ElementProps) => {
   const selected = useSelected()
-  const focused = useFocused()
-  const active = selected && focused
+  const active = selected
 
   return (
     <Box {...attributes} cursorPointer toCenterY h8 w-100p>

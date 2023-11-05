@@ -1,8 +1,9 @@
-import { Editor } from 'slate'
+import { Editor, Element, Node, Transforms } from 'slate'
 import { isCodeBlock } from '@penx/code-block'
 import { PenxEditor } from '@penx/editor-common'
 import { insertNodes } from '@penx/editor-transforms'
 import { ELEMENT_TAG_SELECTOR } from './constants'
+import { isTagSelector } from './isTagSelector'
 
 /**
  * close or open block selector popover
@@ -38,6 +39,30 @@ export const withTag = (editor: PenxEditor) => {
     })
 
     return
+  }
+
+  /**
+   *  remove element when  is empty
+   */
+  editor.normalizeNode = ([node, path]) => {
+    if (
+      Element.isElement(node) &&
+      isTagSelector(node) &&
+      Node.string(node) === ''
+    ) {
+      console.log('normalizeNode.............')
+      Transforms.removeNodes(editor, { at: path })
+
+      // Transforms.unwrapNodes(editor, {
+      //   at: path,
+      // })
+
+      // console.log('tag node:', node, path)
+
+      return
+    }
+
+    normalizeNode([node, path])
   }
 
   return editor

@@ -34,6 +34,9 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   const selectTag = useCallback(
     (tagName: any) => {
       const path = findNodePath(editor, element)!
+
+      console.log('selectTag.................')
+
       Transforms.setNodes<TagElement>(
         editor,
         {
@@ -56,8 +59,12 @@ export const TagSelectorContent = ({ close, element }: Props) => {
 
   const { cursor } = useKeyDownList({
     onEnter: (cursor) => {
+      console.log('enter.......xx')
       if (!filteredTypes.length) {
+        console.log('create tag......')
+
         store.createTag(text)
+        selectTag(text)
         return
       }
       selectTag(filteredTypes[cursor])

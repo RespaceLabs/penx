@@ -1,13 +1,13 @@
 import { someNode } from '@penx/editor-queries'
 import { OnKeyDown } from '@penx/extension-typings'
-import { isTag } from '../isTag'
+import { isTagSelector } from '../isTagSelector'
 import { keyDownEmitter } from '../keyDownEmitter'
 
 export const onKeyDown: OnKeyDown = (editor, e) => {
   // if block selector popover is open
   const somePopoverNode = () =>
     someNode(editor, {
-      match: (n) => isTag(n),
+      match: (n) => isTagSelector(n),
     })
 
   const { key } = e

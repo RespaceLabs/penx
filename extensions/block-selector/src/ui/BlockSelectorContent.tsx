@@ -80,7 +80,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
           children: [{ text: '' }],
         } as TElement & { [key: string]: any }
 
-        if (node.type === NodeType.DATABASE) {
+        if (node?.type === NodeType.DATABASE) {
           props.id = node.id
           props.databaseId = node.id
         }

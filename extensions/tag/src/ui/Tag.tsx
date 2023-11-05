@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { useEditorStatic } from '@penx/editor-common'
+import { useSelected } from 'slate-react'
 import { ElementProps } from '@penx/extension-typings'
 import { TagElement } from '../types'
 
@@ -8,10 +8,19 @@ export const Tag = ({
   attributes,
   children,
 }: ElementProps<TagElement>) => {
-  const editor = useEditorStatic()
+  let selected = useSelected()
 
   return (
-    <Box toCenterY inlineFlex {...attributes} bgGray100 py1 px1 rounded>
+    <Box
+      {...attributes}
+      toCenterY
+      inlineFlex
+      bgGray100
+      py1
+      px1
+      rounded
+      ringBrand500={selected}
+    >
       {children}
       {element.name}
     </Box>
