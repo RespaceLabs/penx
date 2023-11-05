@@ -24,6 +24,7 @@ export interface IDatabaseContext {
   cells: ICellNode[]
 
   addColumn(fieldType: FieldType): Promise<void>
+  addRow(): Promise<void>
 }
 
 export const databaseContext = createContext<IDatabaseContext>(
@@ -53,7 +54,13 @@ export const DatabaseProvider = ({
     loadDatabase()
   }
 
+  async function addRow() {
+    await db.addRow(databaseId)
+    loadDatabase()
+  }
+
   ctx.addColumn = addColumn
+  ctx.addRow = addRow
 
   useEffect(() => {
     loadDatabase()

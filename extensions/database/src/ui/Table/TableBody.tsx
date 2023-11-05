@@ -1,5 +1,6 @@
 import { Box } from '@fower/react'
 import { useDatabaseContext } from '../DatabaseContext'
+import { AddRowBtn } from './AddRowBtn'
 import { TableRow } from './TableRow'
 
 export const TableBody = () => {
@@ -8,9 +9,16 @@ export const TableBody = () => {
 
   return (
     <Box column flex-1>
-      {rows.map((row) => (
-        <TableRow key={row.id} columns={columns} row={row} cells={cells} />
+      {rows.map((row, index) => (
+        <TableRow
+          key={row.id}
+          columns={columns}
+          row={row}
+          cells={cells}
+          index={index}
+        />
       ))}
+      <AddRowBtn />
     </Box>
   )
 }

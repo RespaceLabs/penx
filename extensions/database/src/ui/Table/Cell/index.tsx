@@ -28,7 +28,6 @@ export const TableCell = memo(
     const className = css({
       inlineFlex: true,
       bgWhite: true,
-      borderLeft: index === 0,
       borderBottom: true,
       borderRight: true,
     })
@@ -39,8 +38,7 @@ export const TableCell = memo(
     const CellComponent = cellsMap[fieldType as FieldType]
 
     async function updateCell(data: any) {
-      console.log('data==========:', data)
-      db.updateNode(cell.id, {
+      await db.updateNode(cell.id, {
         props: {
           ...cell.props,
           data,

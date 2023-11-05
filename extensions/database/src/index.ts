@@ -1,14 +1,13 @@
 import { TableIcon } from 'lucide-react'
 import { ExtensionContext } from '@penx/extension-typings'
 import { db } from '@penx/local-db'
-import { getEmptyTableNode } from './getEmptyTableNode'
-import { ELEMENT_DATABASE } from './types'
+import { ELEMENT_DATABASE } from './constants'
 import { Database } from './ui/Database'
-import { withTable } from './withTable'
+import { withDatabase } from './withTable'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
-    with: withTable,
+    with: withDatabase,
     elements: [
       {
         isVoid: true,
@@ -18,7 +17,6 @@ export function activate(ctx: ExtensionContext) {
           name: 'Database',
           icon: TableIcon,
           async beforeInvokeCommand(editor) {
-            console.log('xooeeo.......')
             return db.createDatabase({})
           },
         },

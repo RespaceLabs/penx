@@ -464,7 +464,6 @@ class DB {
         spaceId: space.id,
         databaseId: id,
       },
-
       sortBy: 'createdAt',
       orderByDESC: false,
     })
@@ -475,6 +474,8 @@ class DB {
         spaceId: space.id,
         databaseId: id,
       },
+      sortBy: 'createdAt',
+      orderByDESC: false,
     })
 
     const views = await this.node.select({
@@ -530,6 +531,43 @@ class DB {
     })
 
     for (const row of rows) {
+      await this.createNode<ICellNode>({
+        spaceId,
+        databaseId,
+        parentId: databaseId,
+        type: NodeType.CELL,
+        props: {
+          columnId: column.id,
+          rowId: row.id,
+          fieldType: column.props.fieldType,
+          options: [],
+          data: '',
+        },
+      })
+    }
+  }
+
+  addRow = async (databaseId: string) => {
+    const space = await this.getActiveSpace()
+    const spaceId = space.id
+
+    const row = await this.createNode<IRowNode>({
+      spaceId,
+      databaseId,
+      parentId: databaseId,
+      type: NodeType.ROW,
+      props: {},
+    })
+
+    const columns = await this.node.select({
+      where: {
+        type: NodeType.COLUMN,
+        spaceId,
+        databaseId,
+      },
+    })
+
+    for (const column of columns) {
       await this.createNode<ICellNode>({
         spaceId,
         databaseId,

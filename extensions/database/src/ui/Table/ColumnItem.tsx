@@ -13,7 +13,7 @@ export const ColumnItem = ({ column, index }: Props) => {
     <Box
       borderTop
       borderBottom
-      borderLeft={index === 0}
+      // borderLeft={index === 0}
       borderRight
       h-40
       toCenterY

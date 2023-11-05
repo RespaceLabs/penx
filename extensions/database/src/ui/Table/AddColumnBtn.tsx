@@ -7,7 +7,6 @@ import {
   PopoverTrigger,
   usePopoverContext,
 } from 'uikit'
-import { db } from '@penx/local-db'
 import { FieldType } from '@penx/types'
 import { useDatabaseContext } from '../DatabaseContext'
 
