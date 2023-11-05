@@ -1,9 +1,12 @@
 import { TableIcon } from 'lucide-react'
 import { ExtensionContext } from '@penx/extension-typings'
 import { db } from '@penx/local-db'
-import { ELEMENT_DATABASE } from './constants'
+import { ELEMENT_DATABASE, ELEMENT_NODE_QUERY } from './constants'
 import { Database } from './ui/Database'
-import { withDatabase } from './withTable'
+import { NodeQuery } from './ui/NodeQuery'
+import { withDatabase } from './withDatabase'
+
+export * from './guard'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
@@ -17,12 +20,20 @@ export function activate(ctx: ExtensionContext) {
           name: 'Database',
           icon: TableIcon,
           async beforeInvokeCommand(editor) {
-            return db.createDatabase({})
+            return db.createDatabase()
           },
+        },
+      },
+
+      {
+        isVoid: true,
+        type: ELEMENT_NODE_QUERY,
+        component: NodeQuery,
+        slashCommand: {
+          name: 'Node Query',
+          icon: TableIcon,
         },
       },
     ],
   })
 }
-
-export * from './guard'

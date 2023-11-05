@@ -7,6 +7,12 @@ export interface BaseCustomElement extends BaseElement {
 
 export interface DatabaseElement extends BaseCustomElement {
   type: typeof ELEMENT_DATABASE
+  databaseId: string
+  name: string
+}
+
+export interface NodeQueryElement extends BaseCustomElement {
+  type: typeof ELEMENT_DATABASE
   colWidths: number[] // table col widths
   isHeaderRow: boolean
   isHeaderColumn: boolean

@@ -86,6 +86,7 @@ export class NodeService {
         if (node.isDailyNote || node.isInbox) {
           node.element.children[0].text = node.title
         }
+
         const listChildren = [
           {
             id: node.id,

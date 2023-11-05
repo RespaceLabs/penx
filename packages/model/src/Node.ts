@@ -4,6 +4,7 @@ import { INode, NodeType } from '@penx/types'
 type Element = {
   id: string
   type: string
+  name?: string
   children: Array<{ text: string }>
 }
 
@@ -61,6 +62,10 @@ export class Node {
 
   get isRootNode() {
     return this.type === NodeType.ROOT
+  }
+
+  get isDatabase() {
+    return this.type === NodeType.DATABASE
   }
 
   get collapsed() {
