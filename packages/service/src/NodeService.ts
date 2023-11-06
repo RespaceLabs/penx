@@ -281,15 +281,19 @@ export class NodeService {
 
       const tags = this.extractTags(element)
 
-      console.log('tags:', tags)
-
       if (node) {
-        await db.updateNode(item.id, {
+        const node = await db.updateNode(item.id, {
           parentId: newParentId,
           element,
           collapsed: !!item.collapsed,
           children,
         })
+
+        for (const tagName of tags) {
+          await db.createTagRow(tagName, node.id)
+        }
+
+        // console.log('tags:', tags, node)
       } else {
         await db.createNode({
           id: item.id,

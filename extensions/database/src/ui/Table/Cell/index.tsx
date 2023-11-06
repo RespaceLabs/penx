@@ -22,9 +22,8 @@ interface Props {
   cell: ICellNode
 }
 
-// eslint-disable-next-line react/display-name
 export const TableCell = memo(
-  ({ columns, cell, index }: Props) => {
+  function TableCell({ columns, cell, index }: Props) {
     const className = css({
       inlineFlex: true,
       bgWhite: true,
@@ -48,7 +47,12 @@ export const TableCell = memo(
 
     return (
       <motion.div className={className} tabIndex={0} style={{ width }}>
-        <CellComponent width={width} cell={cell} updateCell={updateCell} />
+        <CellComponent
+          width={width}
+          cell={cell}
+          updateCell={updateCell}
+          index={index}
+        />
       </motion.div>
     )
   },

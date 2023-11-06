@@ -595,6 +595,33 @@ class DB {
 
     await Promise.all(promises)
   }
+
+  createTagRow = async (name: string, ref = '') => {
+    const space = await this.getActiveSpace()
+    const databases = await this.node.select({
+      where: { type: NodeType.DATABASE, spaceId: space.id },
+    })
+
+    const database = databases.find((db) => db.props.name === name)
+    if (!database) return
+
+    const cells = await this.node.select({
+      where: {
+        type: NodeType.CELL,
+        spaceId: space.id,
+        databaseId: database.id,
+      },
+    })
+
+    const cell = cells.find((cell) => cell.props.ref === ref)
+
+    console.log('cell:', cell)
+
+    if (!cell) {
+      await this.addRow(database.id, ref)
+    }
+    // console.log('========cell:', cell)
+  }
 }
 
 export const db = new DB()

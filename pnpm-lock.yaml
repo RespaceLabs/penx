@@ -1302,6 +1302,9 @@ importers:
       '@penx/editor-common':
         specifier: workspace:*
         version: link:../../packages/editor-common
+      '@penx/editor-leaf':
+        specifier: workspace:*
+        version: link:../../packages/editor-leaf
       '@penx/editor-queries':
         specifier: workspace:*
         version: link:../../packages/editor-queries
@@ -1329,6 +1332,9 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@penx/tag':
+        specifier: workspace:*
+        version: link:../tag
       '@penx/types':
         specifier: workspace:*
         version: link:../../packages/types

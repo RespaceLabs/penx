@@ -31,3 +31,4 @@ export function activate(ctx: ExtensionContext) {
 
 export * from './constants'
 export * from './isTag'
+export * from './ui/Tag'

@@ -69,9 +69,7 @@ export function NodeEditor({ content, onChange, onBlur, plugins }: Props) {
       }}
     >
       <HoveringToolbar />
-
       <SetNodeToDecorations />
-
       <Editable
         className={css('black mt4 outlineNone')}
         renderLeaf={(props) => <Leaf {...props} />}

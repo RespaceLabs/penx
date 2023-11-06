@@ -3,16 +3,25 @@ import TextareaAutosize from 'react-textarea-autosize'
 import { Box, css } from '@fower/react'
 import { Maximize2 } from 'lucide-react'
 import { useDebouncedCallback } from 'use-debounce'
+import { db } from '@penx/local-db'
 import { CellProps } from './CellProps'
+import { PrimaryCell } from './PrimaryCell'
 
-// eslint-disable-next-line react/display-name
 export const TextCell: FC<CellProps> = memo(function TextCell(props) {
-  const { cell, updateCell, selected, width } = props
+  const { cell, updateCell, selected, width, index } = props
   const [value, setValue] = useState(cell.props.data || '')
 
   useEffect(() => {
+    if (!cell.props.ref) return
+    db.getNode(cell.props.ref).then((node) => {
+      setValue(node.element)
+    })
+  }, [cell.props.ref])
+
+  useEffect(() => {
+    if (cell.props.ref) return
     setValue(cell.props.data)
-  }, [cell.props.data])
+  }, [cell])
 
   const debouncedUpdate = useDebouncedCallback(async (value: any) => {
     updateCell(value)
@@ -22,6 +31,10 @@ export const TextCell: FC<CellProps> = memo(function TextCell(props) {
     const data = e.target.value
     setValue(data)
     debouncedUpdate(data)
+  }
+
+  if (cell.props.ref) {
+    return <PrimaryCell {...props} element={value} />
   }
 
   return (
