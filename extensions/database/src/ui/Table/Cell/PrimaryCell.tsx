@@ -68,6 +68,21 @@ export const PrimaryCell: FC<CellProps> = memo(function PrimaryCell(props) {
     return <div {...props}>{props.children}</div>
   }, [])
 
+  function updateParentEditor(element: any) {
+    const entry = getNodeById(parentEditor, element.id)
+    if (!entry) return
+
+    const [node, path] = entry
+
+    if (!isEqual(node, element)) return
+
+    Transforms.removeNodes(parentEditor, { at: path })
+    Transforms.insertNodes(parentEditor, element, {
+      at: path,
+      select: true,
+    })
+  }
+
   if (!value) return null
 
   return (
@@ -78,13 +93,7 @@ export const PrimaryCell: FC<CellProps> = memo(function PrimaryCell(props) {
         onChange={async (value) => {
           const element: any = value[0]
           db.updateNode(nodeId, { element })
-
-          const entry = getNodeById(parentEditor, element.id)
-          if (!entry) return
-
-          const [_, path] = entry
-          Transforms.removeNodes(parentEditor, { at: path })
-          Transforms.insertNodes(parentEditor, element, { at: path })
+          updateParentEditor(element)
         }}
       >
         {/* <HoveringToolbar /> */}

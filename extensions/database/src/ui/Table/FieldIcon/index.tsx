@@ -1,15 +1,16 @@
 import { Box } from '@fower/react'
-import { Hash, Lock } from 'lucide-react'
+import { Hash, Home, Lock } from 'lucide-react'
 import { FieldType } from '@penx/types'
 import { IconSingleLineText } from './IconSingleLineText'
 import { IconSingleSelect } from './IconSingleSelect'
 
 interface Props {
+  index: number
   fieldType: `${FieldType}`
   size?: number
 }
 
-export const FieldIcon = ({ fieldType, size = 14 }: Props) => {
+export const FieldIcon = ({ fieldType, size = 16, index }: Props) => {
   const iconsMap: Record<FieldType, any> = {
     [FieldType.Text]: IconSingleLineText,
     [FieldType.Number]: Hash,
@@ -17,11 +18,13 @@ export const FieldIcon = ({ fieldType, size = 14 }: Props) => {
     [FieldType.CreatedAt]: Lock,
     [FieldType.UpdatedAt]: Lock,
   }
-  const Icon = iconsMap[fieldType]
+  let Icon = iconsMap[fieldType]
+
+  if (index === 0) Icon = Home
 
   if (Icon)
     return (
-      <Box gray600>
+      <Box gray500>
         <Icon size={size} />
       </Box>
     )

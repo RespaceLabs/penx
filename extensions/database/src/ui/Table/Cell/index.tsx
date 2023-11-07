@@ -1,9 +1,10 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import isEqual from 'react-fast-compare'
 import { css } from '@fower/react'
 import { motion } from 'framer-motion'
 import { db } from '@penx/local-db'
 import { FieldType, ICellNode, IColumnNode } from '@penx/types'
+import { columnWidthMotion } from '../../../columnWidthMotion'
 import { CreatedAtCell } from './CreatedAt'
 import { TextCell } from './Text'
 import { UpdatedAtCell } from './UpdatedAt'
@@ -32,16 +33,15 @@ export const TableCell = memo(
     })
 
     const column = columns.find((c) => c.id === cell.props.columnId)!
-    const { width = 120 } = column.props
     const { fieldType, rowId, columnId } = cell.props
     const CellComponent = cellsMap[fieldType as FieldType]
 
+    // TODO: get width from store, see ColumnItem
+    const width = columnWidthMotion[column.id]
+
     async function updateCell(data: any) {
       await db.updateNode(cell.id, {
-        props: {
-          ...cell.props,
-          data,
-        },
+        props: { ...cell.props, data },
       })
     }
 
