@@ -41,6 +41,8 @@ export const ColumnItem = ({ column, index }: Props) => {
       gap2
       cursorPointer
       relative
+      bgGray100--hover
+      transitionColors
       style={{
         width,
       }}
@@ -55,7 +57,6 @@ export const ColumnItem = ({ column, index }: Props) => {
           'w-4',
           'h-100p',
           'bgTransparent',
-          // 'bgBrand300',
           'transitionColors',
           {
             ':hover': {

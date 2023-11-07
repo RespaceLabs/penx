@@ -70,7 +70,7 @@ interface Props {
   nested?: boolean
 }
 
-export const Menu = forwardRef<
+export const ContextMenu = forwardRef<
   HTMLButtonElement,
   Props & React.HTMLProps<HTMLButtonElement>
 >(function Menu({ children, id }, forwardedRef) {

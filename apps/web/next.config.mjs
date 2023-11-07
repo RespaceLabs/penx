@@ -30,6 +30,7 @@ const config = {
     '@penx/icons',
     '@penx/shared',
     '@penx/model',
+    '@penx/context-menu',
     '@penx/service',
     '@penx/serializer',
     '@penx/store',
@@ -90,4 +91,5 @@ const config = {
     return config
   },
 }
+
 export default withPWA(million.next(config))

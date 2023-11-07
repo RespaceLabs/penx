@@ -1,12 +1,12 @@
 import { Box } from '@fower/react'
-import { Node, Path, Transforms } from 'slate'
+import { Path, Transforms } from 'slate'
+import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
 import { TElement, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { ListContentElement } from '../types'
 import { Bullet } from './Bullet'
 import { Chevron } from './Chevron'
-import { Menu, MenuItem, useContextMenu } from './Menu'
 
 export const ListItemContent = ({
   attributes,
@@ -64,7 +64,7 @@ export const ListItemContent = ({
         textXL={child.type === 'h3'}
         textLG={child.type === 'h4'}
       >
-        <Menu id={menuId}>
+        <ContextMenu id={menuId}>
           <MenuItem onClick={() => handleItemClick('a')}>
             Add to favorite
           </MenuItem>
@@ -73,7 +73,7 @@ export const ListItemContent = ({
           <MenuItem onClick={() => handleItemClick('DELETE')}>Delete</MenuItem>
           <MenuItem onClick={() => handleItemClick('d')}>Expand all</MenuItem>
           <MenuItem onClick={() => handleItemClick('f')}>Collapse all</MenuItem>
-        </Menu>
+        </ContextMenu>
         <Chevron element={element} onContextMenu={show} />
         <Bullet element={element} onContextMenu={show} />
       </Box>
