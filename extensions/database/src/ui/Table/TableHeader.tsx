@@ -2,7 +2,7 @@ import { Box } from '@fower/react'
 import { FIRST_COL_WIDTH } from '../../constants'
 import { useDatabaseContext } from '../DatabaseContext'
 import { AddColumnBtn } from './AddColumnBtn'
-import { ColumnItem } from './ColumnItem'
+import { ColumnItem } from './ColumnItem/ColumnItem'
 
 export const TableHeader = () => {
   const { columns } = useDatabaseContext()

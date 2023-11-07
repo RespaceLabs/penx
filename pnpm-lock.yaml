@@ -1299,6 +1299,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
+      '@penx/context-menu':
+        specifier: workspace:*
+        version: link:../../packages/context-menu
       '@penx/editor-common':
         specifier: workspace:*
         version: link:../../packages/editor-common

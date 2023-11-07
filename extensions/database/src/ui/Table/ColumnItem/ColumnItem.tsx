@@ -1,9 +1,9 @@
 import { Box, css, styled } from '@fower/react'
 import { motion, useMotionValue, useTransform } from 'framer-motion'
-import { db } from '@penx/local-db'
 import { IColumnNode } from '@penx/types'
-import { columnWidthMotion } from '../../columnWidthMotion'
-import { FieldIcon } from './FieldIcon'
+import { columnWidthMotion } from '../../../columnWidthMotion'
+import { FieldIcon } from '../FieldIcon'
+import { ResizeHandle } from './ResizeHandle'
 
 const AnimatedDiv = styled(motion.div)
 
@@ -19,16 +19,6 @@ export const ColumnItem = ({ column, index }: Props) => {
 
   // TODO: hack, save width in store, so we can use it in cell
   columnWidthMotion[column.id] = width
-
-  async function updateWidth() {
-    const newWidth = Number(width.get().toFixed(0))
-    await db.updateNode(column.id, {
-      props: {
-        ...column.props,
-        width: newWidth,
-      },
-    })
-  }
 
   return (
     <AnimatedDiv
@@ -49,32 +39,7 @@ export const ColumnItem = ({ column, index }: Props) => {
     >
       <FieldIcon fieldType={column.props.fieldType} index={index} />
       <Box>{column.props.name}</Box>
-      <motion.div
-        className={css(
-          'zIndex-10000',
-          'absolute',
-          'left--2',
-          'w-4',
-          'h-100p',
-          'bgTransparent',
-          'transitionColors',
-          {
-            ':hover': {
-              bgBrand300: true,
-              cursor: 'col-resize',
-            },
-          },
-        )}
-        dragMomentum={false}
-        dragConstraints={{
-          left: 80,
-        }}
-        drag="x"
-        style={{ x }}
-        onDragEnd={() => {
-          updateWidth()
-        }}
-      />
+      <ResizeHandle x={x} width={width} column={column} />
     </AnimatedDiv>
   )
 }
