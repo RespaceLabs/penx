@@ -3835,6 +3835,9 @@ importers:
       '@penx/types':
         specifier: workspace:*
         version: link:../types
+      mitt:
+        specifier: ^3.0.0
+        version: 3.0.0
       nanoid:
         specifier: ^4.0.2
         version: 4.0.2

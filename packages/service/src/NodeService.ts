@@ -13,7 +13,7 @@ import {
   TitleElement,
   UnorderedListElement,
 } from '@penx/list'
-import { db } from '@penx/local-db'
+import { db, emitter } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
 import { INode, NodeType } from '@penx/types'
@@ -293,7 +293,9 @@ export class NodeService {
           await db.createTagRow(tagName, node.id)
         }
 
-        // console.log('tags:', tags, node)
+        if (tags.length) {
+          emitter.emit('REF_NODE_UPDATED', node)
+        }
       } else {
         await db.createNode({
           id: item.id,

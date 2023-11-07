@@ -5,6 +5,5 @@ export interface CellProps {
   selected: boolean
   cell: ICellNode
   width: number
-  element: any
   updateCell: (data: any) => void
 }

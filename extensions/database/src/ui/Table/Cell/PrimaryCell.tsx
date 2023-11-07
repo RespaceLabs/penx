@@ -1,18 +1,14 @@
-import React, {
-  ChangeEvent,
-  FC,
-  memo,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import { FC, memo, useCallback, useEffect, useRef, useState } from 'react'
+import isEqual from 'react-fast-compare'
 import { Box, css } from '@fower/react'
-import { createEditor, Editor, Node } from 'slate'
+import { createEditor, Editor, Transforms } from 'slate'
 import { withHistory } from 'slate-history'
 import { Editable, RenderElementProps, Slate, withReact } from 'slate-react'
-import { useDebouncedCallback } from 'use-debounce'
-import { PenxEditor, TElement, useEditor } from '@penx/editor-common'
+import { TElement, useEditor } from '@penx/editor-common'
 import { Leaf } from '@penx/editor-leaf'
+import { getNodeById } from '@penx/editor-queries'
+import { clearEditor } from '@penx/editor-transforms'
+import { db, emitter } from '@penx/local-db'
 import { Paragraph } from '@penx/paragraph'
 import { Tag } from '@penx/tag'
 import { CellProps } from './CellProps'
@@ -31,23 +27,33 @@ function withCell(editor: Editor) {
   return editor
 }
 
-export const PrimaryCell: FC<CellProps> = memo(function TextCell(props) {
-  const { cell, updateCell, selected, width, index, element } = props
-  const [value, setValue] = useState(cell.props.data || '')
+export const PrimaryCell: FC<CellProps> = memo(function PrimaryCell(props) {
+  const { cell, updateCell } = props
+  const [value, setValue] = useState<any>(null)
+  const editorRef = useRef(withCell(withReact(withHistory(createEditor()))))
 
-  const [editor] = useState(() =>
-    withCell(withReact(withHistory(createEditor()))),
-  )
+  const parentEditor = useEditor()
 
-  const debouncedUpdate = useDebouncedCallback(async (value: any) => {
-    updateCell(value)
-  }, 500)
+  const nodeId = cell.props.ref
 
-  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const data = e.target.value
-    setValue(data)
-    debouncedUpdate(data)
-  }
+  useEffect(() => {
+    db.getNode(nodeId).then((node) => {
+      if (!isEqual(editorRef.current.children[0], node.element)) {
+        setValue([node.element])
+      }
+    })
+  }, [nodeId])
+
+  useEffect(() => {
+    emitter.on('REF_NODE_UPDATED', (node) => {
+      if (node.id === nodeId) {
+        if (isEqual(editorRef.current.children[0], node.element)) return
+        clearEditor(editorRef.current)
+        Transforms.insertNodes(editorRef.current, [node.element])
+      }
+    })
+    return () => emitter.off('REF_NODE_UPDATED')
+  }, [nodeId])
 
   const renderElement = useCallback((props: RenderElementProps) => {
     const element = props.element as TElement
@@ -62,20 +68,35 @@ export const PrimaryCell: FC<CellProps> = memo(function TextCell(props) {
     return <div {...props}>{props.children}</div>
   }, [])
 
-  if (typeof element === 'string') return null
+  if (!value) return null
 
   return (
     <Box w-100p h-100p relative inlineFlex>
       <Slate
-        editor={editor as any}
-        initialValue={[element]}
-        onChange={(value) => {}}
+        editor={editorRef.current as any}
+        initialValue={value}
+        onChange={async (value) => {
+          const element: any = value[0]
+          db.updateNode(nodeId, { element })
+
+          const entry = getNodeById(parentEditor, element.id)
+          if (!entry) return
+
+          const [_, path] = entry
+          Transforms.removeNodes(parentEditor, { at: path })
+          Transforms.insertNodes(parentEditor, element, { at: path })
+        }}
       >
         {/* <HoveringToolbar /> */}
         <Editable
-          className={css('black outlineNone h-100p w-100p')}
+          className={css('black p2 outlineNone h-100p w-100p')}
           renderLeaf={(props) => <Leaf {...props} />}
           renderElement={renderElement}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault()
+            }
+          }}
         />
       </Slate>
     </Box>

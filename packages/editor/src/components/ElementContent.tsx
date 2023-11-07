@@ -5,7 +5,7 @@ import { mergeRefs } from '@bone-ui/utils'
 import { flip, offset, shift, useFloating } from '@floating-ui/react'
 import { Box } from '@fower/react'
 import { Button } from 'uikit'
-import { useEditor } from '@penx/editor-common'
+import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { selectEditor } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/extension-typings'
 import { isHeading } from '@penx/heading'
@@ -20,7 +20,9 @@ interface ElementContentProps extends ElementProps {
 export const ElementContent = memo(
   function ElementContent(props: ElementContentProps) {
     // don't use static, because useSelected
-    const editor = useEditor()
+    // TODO: improve performance
+    // const editor = useEditor()
+    const editor = useEditorStatic()
     const { element, attributes } = props
 
     const { extensionStore } = useExtensionStore()

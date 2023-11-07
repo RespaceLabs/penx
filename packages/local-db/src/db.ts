@@ -15,6 +15,7 @@ import {
   NodeType,
   ViewType,
 } from '@penx/types'
+import { emitter } from './emitter'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { tableSchema } from './table-schema'
@@ -615,7 +616,7 @@ class DB {
 
     const cell = cells.find((cell) => cell.props.ref === ref)
 
-    console.log('cell:', cell)
+    // console.log('cell:', cell)
 
     if (!cell) {
       await this.addRow(database.id, ref)
