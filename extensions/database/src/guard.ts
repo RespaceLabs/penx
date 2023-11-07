@@ -1,10 +1,10 @@
-import { ELEMENT_DATABASE, ELEMENT_NODE_QUERY } from './constants'
-import { DatabaseElement, NodeQueryElement } from './types'
+import { ELEMENT_DATABASE, ELEMENT_LIVE_QUERY } from './constants'
+import { DatabaseElement, LiveQueryElement } from './types'
 
 export function isDatabase(node: any): node is DatabaseElement {
   return node?.type === ELEMENT_DATABASE
 }
 
-export function isNodeQuery(node: any): node is NodeQueryElement {
-  return node?.type === ELEMENT_NODE_QUERY
+export function isLiveQuery(node: any): node is LiveQueryElement {
+  return node?.type === ELEMENT_LIVE_QUERY
 }

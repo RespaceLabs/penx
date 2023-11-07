@@ -222,40 +222,15 @@ export const store = Object.assign(createStore(), {
     this.reloadNode(node)
   },
 
-  async createTag(text: string) {
-    const space = this.getActiveSpace()
+  async createDatabase(tagName: string) {
     const nodes = store.getNodes()
 
-    let tagRootNode = nodes.find((node) => node.type === NodeType.TAG_ROOT)!
-
-    let tagNode = nodes.find(
-      (node) => node.type === NodeType.DATABASE && node.props.tag === text,
+    let databaseNode = nodes.find(
+      (node) => node.type === NodeType.DATABASE && node.props.name === tagName,
     )
 
-    if (!tagNode) {
-      const newNode = await db.createNode({
-        spaceId: space.id,
-        parentId: tagRootNode.id,
-        type: NodeType.DATABASE,
-        props: {
-          tag: text,
-          // TODO:
-          columns: [
-            {
-              title: text,
-              type: 'TEXT',
-            },
-          ],
-        },
-      })
-
-      newNode.parentId
-
-      await db.updateNode(tagRootNode.id, {
-        children: [...tagRootNode.children, newNode.id],
-      })
-
-      await db.createDatabase(text)
+    if (!databaseNode) {
+      await db.createDatabase(tagName)
     }
   },
 

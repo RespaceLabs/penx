@@ -89,6 +89,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
 
         const next = Path.next(Path.parent(at))
 
+        // create new empty list item node
         Transforms.insertNodes(
           editor,
           ListsEditor.createListItemTextNode(editor, {

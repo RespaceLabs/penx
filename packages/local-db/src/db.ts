@@ -98,7 +98,7 @@ class DB {
       await this.node.insert(
         getNewNode({
           spaceId,
-          type: NodeType.TAG_ROOT,
+          type: NodeType.DATABASE_ROOT,
         }),
       )
 
@@ -510,6 +510,20 @@ class DB {
       rows,
       cells,
     }
+  }
+
+  getDatabaseByName = async (name: string) => {
+    const space = await this.getActiveSpace()
+    const nodes = await this.node.select({
+      where: {
+        type: NodeType.DATABASE,
+        spaceId: space.id,
+      },
+    })
+    console.log('nodes:', nodes)
+
+    const database = nodes.find((node) => node.props.name === name)
+    return database
   }
 
   addColumn = async (databaseId: string, fieldType: FieldType) => {

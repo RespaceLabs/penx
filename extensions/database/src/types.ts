@@ -1,5 +1,5 @@
 import { BaseElement } from 'slate'
-import { ELEMENT_DATABASE } from './constants'
+import { ELEMENT_DATABASE, ELEMENT_LIVE_QUERY } from './constants'
 
 export interface BaseCustomElement extends BaseElement {
   id?: string
@@ -11,10 +11,6 @@ export interface DatabaseElement extends BaseCustomElement {
   name: string
 }
 
-export interface NodeQueryElement extends BaseCustomElement {
-  type: typeof ELEMENT_DATABASE
-  colWidths: number[] // table col widths
-  isHeaderRow: boolean
-  isHeaderColumn: boolean
-  databaseId: string
+export interface LiveQueryElement extends BaseCustomElement {
+  type: typeof ELEMENT_LIVE_QUERY
 }

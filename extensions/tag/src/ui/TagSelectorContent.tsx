@@ -19,9 +19,8 @@ interface Props {
 export const TagSelectorContent = ({ close, element }: Props) => {
   const editor = useEditorStatic()
   const { nodeList } = useNodes()
-  const tagNames = nodeList.tagNodes
-    .map((node) => node.props.tag!)
-    .filter((i) => !!i)
+  const tagNames = nodeList.tagNodes.map((node) => node.props.name!)
+  // .filter((i) => !!i)
 
   const filteredTypes = tagNames.filter((item) => {
     const q = Node.string(element).replace(/^#/, '').toLowerCase()
@@ -30,6 +29,7 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   })
 
   const text = Node.string(element)
+  const tagName = text.replace(/^#/, '')
 
   const selectTag = useCallback(
     (tagName: any) => {
@@ -56,13 +56,11 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   const listItemIdPrefix = 'type-list-item-'
 
   const { cursor } = useKeyDownList({
-    onEnter: (cursor) => {
-      console.log('enter.......xx')
+    onEnter: async (cursor) => {
       if (!filteredTypes.length) {
-        console.log('create tag......')
-
-        store.createTag(text)
-        selectTag(text)
+        console.log('create tag......:', tagName)
+        await store.createDatabase(tagName)
+        selectTag(tagName)
         return
       }
       selectTag(filteredTypes[cursor])

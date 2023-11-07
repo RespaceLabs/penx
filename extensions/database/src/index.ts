@@ -1,9 +1,9 @@
 import { TableIcon } from 'lucide-react'
 import { ExtensionContext } from '@penx/extension-typings'
 import { db } from '@penx/local-db'
-import { ELEMENT_DATABASE, ELEMENT_NODE_QUERY } from './constants'
+import { ELEMENT_DATABASE, ELEMENT_LIVE_QUERY } from './constants'
 import { Database } from './ui/Database'
-import { NodeQuery } from './ui/NodeQuery'
+import { LiveQuery } from './ui/LiveQuery/LiveQuery'
 import { withDatabase } from './withDatabase'
 
 export * from './guard'
@@ -20,6 +20,7 @@ export function activate(ctx: ExtensionContext) {
           name: 'Database',
           icon: TableIcon,
           async beforeInvokeCommand(editor) {
+            console.log('before.............')
             return db.createDatabase()
           },
         },
@@ -27,10 +28,10 @@ export function activate(ctx: ExtensionContext) {
 
       {
         isVoid: true,
-        type: ELEMENT_NODE_QUERY,
-        component: NodeQuery,
+        type: ELEMENT_LIVE_QUERY,
+        component: LiveQuery,
         slashCommand: {
-          name: 'Node Query',
+          name: 'Live Query',
           icon: TableIcon,
         },
       },
