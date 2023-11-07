@@ -207,9 +207,9 @@ export const ContextMenu = forwardRef<
                       ref(node: HTMLButtonElement) {
                         listItemsRef.current[index] = node
                       },
-                      onClick() {
-                        child.props.onClick?.()
-                        setIsOpen(false)
+                      onClick(e) {
+                        // child.props.onClick?.(e)
+                        // setIsOpen(false)
                       },
                       onMouseUp() {
                         child.props.onClick?.()
