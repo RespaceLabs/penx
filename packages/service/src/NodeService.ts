@@ -281,6 +281,8 @@ export class NodeService {
 
       const tags = this.extractTags(element)
 
+      // console.log('=======tags:', tags, element)
+
       if (node) {
         const node = await db.updateNode(item.id, {
           parentId: newParentId,
@@ -310,6 +312,7 @@ export class NodeService {
   }
 
   private extractTags(element: TElement) {
+    // console.log('element===:', element)
     return element.children
       .filter((item: any) => item.type === 'tag')
       .map((i: any) => i.name.replace('#', ''))

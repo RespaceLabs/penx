@@ -43,10 +43,12 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
     }
 
     const node = getCurrentNode(editor)!
+
     // TODO: handle any
     if ((node as any).type === 'block_selector') return
   }
 
-  if (editor.isBlockSelectorOpened) return
+  // TODO: too hack
+  if (editor.isBlockSelectorOpened || editor.isTagSelectorOpened) return
   onKeyDownList(editor, e)
 }

@@ -22,7 +22,7 @@ export const Tag = ({
       ringBrand500={selected}
     >
       {children}
-      {element.name}
+      <Box contentEditable={false}>#{element.name}</Box>
     </Box>
   )
 }

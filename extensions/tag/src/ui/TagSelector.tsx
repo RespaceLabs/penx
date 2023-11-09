@@ -68,7 +68,7 @@ export const TagSelector = ({
     const node = getCurrentNode(editor)
     // only open on focus
     if (node) {
-      editor.isBlockSelectorOpened = true
+      editor.isTagSelectorOpened = true
       setIsOpen(true)
     }
   }, [editor, setIsOpen])

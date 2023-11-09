@@ -12,6 +12,7 @@ export type PenxEditor = BaseEditor &
     onBlurFns: any
     onClickBullet: any
     isBlockSelectorOpened: boolean
+    isTagSelectorOpened: boolean
     nodeToDecorations: Map<any, Range[]>
   }
 

@@ -58,12 +58,15 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   const { cursor } = useKeyDownList({
     onEnter: async (cursor) => {
       if (!filteredTypes.length) {
-        console.log('create tag......:', tagName)
         await store.createDatabase(tagName)
         selectTag(tagName)
-        return
+      } else {
+        selectTag(filteredTypes[cursor])
       }
-      selectTag(filteredTypes[cursor])
+
+      setTimeout(() => {
+        editor.isTagSelectorOpened = false
+      }, 50)
     },
     listLength: filteredTypes.length,
     listItemIdPrefix,
