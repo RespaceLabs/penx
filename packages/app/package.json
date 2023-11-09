@@ -54,6 +54,7 @@
     "@octokit/rest": "^20.0.1",
     "@penx/api": "workspace:*",
     "@penx/cmdk": "workspace:*",
+    "@penx/database": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/db": "workspace:*",
     "@penx/remark-slate": "workspace:*",

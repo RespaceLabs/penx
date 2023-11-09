@@ -7,6 +7,7 @@ import { LiveQuery } from './ui/LiveQuery/LiveQuery'
 import { withDatabase } from './withDatabase'
 
 export * from './guard'
+export * from './ui/TableView'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({

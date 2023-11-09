@@ -1,10 +1,9 @@
 import { Box } from '@fower/react'
 import { useDebouncedCallback } from 'use-debounce'
+import { TableView } from '@penx/database'
 import { NodeEditor } from '@penx/editor'
-import { PenxEditor } from '@penx/editor-common'
 import { isAstChange } from '@penx/editor-queries'
 import { useNode, useNodes } from '@penx/hooks'
-import { insertEmptyListItem } from '@penx/list'
 import { db } from '@penx/local-db'
 import { store } from '@penx/store'
 
@@ -30,6 +29,16 @@ export function NodeContent() {
   }, 500)
 
   if (!node.id || !nodes.length) return null
+
+  console.log('node======:', node)
+  // return null
+  // if (node.isDatabase) {
+  //   return (
+  //     <Box>
+  //       <TableView databaseId={node.id} />
+  //     </Box>
+  //   )
+  // }
 
   return (
     <Box relative>

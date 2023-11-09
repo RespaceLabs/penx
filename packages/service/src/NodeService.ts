@@ -48,6 +48,37 @@ export class NodeService {
   }
 
   getEditorValue(childrenNodes: Node[] = this.childrenNodes) {
+    console.log('this.childrenNodes=========:', this.childrenNodes)
+
+    if (this.node.isDatabase) {
+      return [
+        {
+          type: ELEMENT_UL,
+          children: [
+            {
+              type: ELEMENT_LI,
+              children: [
+                {
+                  id: this.node.id,
+                  type: ELEMENT_LIC,
+                  nodeType: this.node.type,
+                  props: this.node.props,
+                  collapsed: this.node.collapsed,
+                  children: [
+                    {
+                      type: 'database',
+                      databaseId: this.node.id,
+                      children: [{ text: '' }],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ]
+    }
+
     const childrenToList = (children: string[]) => {
       const listItems = children.map((id) => {
         const node = this.nodeMap.get(id)!
