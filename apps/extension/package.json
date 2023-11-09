@@ -14,6 +14,18 @@
     "build:next": "next build"
   },
   "dependencies": {
+    "@plasmohq/storage": "^1.8.0",
+    "addressparser": "^1.0.1",
+    "axios": "^1.5.1",
+    "linkedom": "^0.15.6",
+    "luxon": "^3.4.3",
+    "puppeteer-core": "^21.3.8",
+    "turndown": "^7.1.2",
+    "underscore": "^1.13.6",
+    "@mozilla/readability": "^0.4.4",
+    "@bone-ui/checkbox": "^0.37.0",
+    "@bone-ui/iconify": "^0.37.0",
+    "@bone-ui/utils": "^0.37.0",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
     "@dnd-kit/utilities": "^3.1.0",
@@ -79,6 +91,8 @@
       "https://*/*"
     ],
     "permissions": [
+      "contextMenus",
+      "activeTab",
       "tabs"
     ]
   }
