@@ -1,8 +1,13 @@
 import { TableIcon } from 'lucide-react'
 import { ExtensionContext } from '@penx/extension-typings'
 import { db } from '@penx/local-db'
-import { ELEMENT_DATABASE, ELEMENT_LIVE_QUERY } from './constants'
+import {
+  ELEMENT_DATABASE,
+  ELEMENT_DATABASE_ENTRY,
+  ELEMENT_LIVE_QUERY,
+} from './constants'
 import { Database } from './ui/Database'
+import { DatabaseEntry } from './ui/DatabaseEntry'
 import { LiveQuery } from './ui/LiveQuery/LiveQuery'
 import { withDatabase } from './withDatabase'
 
@@ -25,6 +30,12 @@ export function activate(ctx: ExtensionContext) {
             return db.createDatabase()
           },
         },
+      },
+
+      {
+        isVoid: true,
+        type: ELEMENT_DATABASE_ENTRY,
+        component: DatabaseEntry,
       },
 
       {

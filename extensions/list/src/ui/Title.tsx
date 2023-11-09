@@ -24,9 +24,11 @@ export const Title = ({
     insertEmptyList(editor, { at: [1], select: true })
   }
 
-  const disabled = [NodeType.INBOX, NodeType.DAILY_NOTE].includes(
-    element.nodeType as any,
-  )
+  const disabled = [
+    NodeType.INBOX,
+    NodeType.DAILY_NOTE,
+    NodeType.DATABASE_ROOT,
+  ].includes(element.nodeType as any)
 
   const isDailyNote = element.nodeType === NodeType.DAILY_NOTE
   const firstLineNode = editor.children[1]

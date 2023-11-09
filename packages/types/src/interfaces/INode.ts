@@ -56,6 +56,10 @@ export enum FieldType {
   UpdatedAt = 'UpdatedAt',
 }
 
+export interface IDatabaseRootNode extends INode {
+  type: NodeType.DATABASE_ROOT
+}
+
 export interface IDatabaseNode extends INode {
   type: NodeType.DATABASE
   props: {

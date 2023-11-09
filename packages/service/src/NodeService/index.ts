@@ -18,6 +18,7 @@ import { Node } from '@penx/model'
 import { store } from '@penx/store'
 import { INode, NodeType } from '@penx/types'
 import { getDatabaseNodeEditorValue } from './getDatabaseNodeEditorValue'
+import { getDatabaseRootEditorValue } from './getDatabaseRootEditorValue'
 
 export class NodeService {
   nodeMap = new Map<string, INode>()
@@ -51,6 +52,10 @@ export class NodeService {
   getEditorValue(childrenNodes: Node[] = this.childrenNodes) {
     if (this.node.isDatabase) {
       return getDatabaseNodeEditorValue(this.node)
+    }
+
+    if (this.node.isDatabaseRoot) {
+      return getDatabaseRootEditorValue(this.node, this.nodeMap)
     }
 
     const childrenToList = (children: string[]) => {

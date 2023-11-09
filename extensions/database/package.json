@@ -36,6 +36,7 @@
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
+    "@penx/store": "workspace:*",
     "@penx/paragraph": "workspace:*",
     "@penx/tag": "workspace:*",
     "@penx/shared": "workspace:*",

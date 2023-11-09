@@ -128,6 +128,18 @@ export const store = Object.assign(createStore(), {
     this.routeTo('NODE')
   },
 
+  async selectTagBox() {
+    const space = this.getActiveSpace()
+    let node = await db.getDatabaseRootNode(space.id)
+
+    await db.updateSpace(this.getActiveSpace().id, {
+      activeNodeId: node.id,
+    })
+
+    this.reloadNode(node)
+    this.routeTo('NODE')
+  },
+
   async selectTrash() {
     const space = this.getActiveSpace()
     let node = await db.getTrashNode(space.id)

@@ -94,7 +94,7 @@ class DB {
         }),
       )
 
-      // init tag root node
+      // init database root node
       await this.node.insert(
         getNewNode({
           spaceId,
@@ -341,15 +341,21 @@ class DB {
     return newNode
   }
 
+  // TODO: need improve
+  getDatabaseRootNode = async (spaceId: string) => {
+    const nodes = await db.node.selectByIndexAll('type', NodeType.DATABASE_ROOT)
+    const databaseRootNode = nodes.find((node) => node.spaceId === spaceId)
+    return databaseRootNode!
+  }
+
   createDatabase = async (name: string = '') => {
     // const { id = '' } = data
     const space = await this.getActiveSpace()
-
-    const spaceNode = await this.getSpaceNode(space.id)
+    const databaseRootNode = await this.getDatabaseRootNode(space.id)
 
     const database = await this.createNode<IDatabaseNode>({
       // id,
-      parentId: spaceNode.id,
+      parentId: databaseRootNode.id,
       spaceId: space.id,
       type: NodeType.DATABASE,
       props: {
@@ -357,8 +363,8 @@ class DB {
       },
     })
 
-    await this.updateNode(spaceNode.id, {
-      children: [...(spaceNode.children || []), database.id],
+    await this.updateNode(databaseRootNode.id, {
+      children: [...(databaseRootNode.children || []), database.id],
     })
 
     // Create view
@@ -520,10 +526,9 @@ class DB {
         spaceId: space.id,
       },
     })
-    console.log('nodes:', nodes)
 
     const database = nodes.find((node) => node.props.name === name)
-    return database
+    return database!
   }
 
   addColumn = async (databaseId: string, fieldType: FieldType) => {

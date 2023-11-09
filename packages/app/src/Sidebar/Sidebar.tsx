@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
-import { CalendarDays, Cloud, Folder, Inbox, Trash2 } from 'lucide-react'
+import { CalendarDays, Cloud, Folder, Hash, Inbox, Trash2 } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import { extensionStoreAtom, store } from '@penx/store'
 import { ExtensionStore } from '@penx/types'
@@ -56,6 +56,14 @@ export const Sidebar = () => {
           label="Inbox"
           onClick={() => {
             store.selectInbox()
+          }}
+        />
+
+        <SidebarItem
+          icon={<Hash size={16} />}
+          label="Tags"
+          onClick={() => {
+            store.selectTagBox()
           }}
         />
 

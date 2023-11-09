@@ -30,16 +30,6 @@ export function NodeContent() {
 
   if (!node.id || !nodes.length) return null
 
-  console.log('node======:', node)
-  // return null
-  // if (node.isDatabase) {
-  //   return (
-  //     <Box>
-  //       <TableView databaseId={node.id} />
-  //     </Box>
-  //   )
-  // }
-
   return (
     <Box relative>
       <Box mx-auto maxW-800>

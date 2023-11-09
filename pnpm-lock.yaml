@@ -1335,6 +1335,9 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@penx/store':
+        specifier: workspace:*
+        version: link:../../packages/store
       '@penx/tag':
         specifier: workspace:*
         version: link:../tag

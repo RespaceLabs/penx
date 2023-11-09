@@ -64,6 +64,10 @@ export class Node<T extends INode = any> {
     return this.type === NodeType.ROOT
   }
 
+  get isDatabaseRoot() {
+    return this.type === NodeType.DATABASE_ROOT
+  }
+
   get isDatabase() {
     return this.type === NodeType.DATABASE
   }
