@@ -18,6 +18,7 @@ import { withMarkdown } from './withMarkdown'
 export * from './types'
 export * from './guard'
 export * from './constants'
+export * from './listSchema'
 export * from './transforms/insertEmptyList'
 export * from './transforms/insertEmptyListItem'
 

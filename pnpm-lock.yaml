@@ -4138,6 +4138,9 @@ importers:
       slate:
         specifier: 0.94.1
         version: 0.94.1
+      slate-lists:
+        specifier: workspace:*
+        version: link:../slate-lists
       slate-react:
         specifier: ^0.98.3
         version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
