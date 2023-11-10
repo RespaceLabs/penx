@@ -44,8 +44,9 @@ export class Node {
 
     if (this.isInbox) return 'Inbox'
     if (this.isTrash) return 'Trash'
+    if (this.isDatabaseRoot) return 'Tags'
 
-    return this.element?.children?.[0]?.text || ''
+    return this.element?.children?.[0]?.text || this.props.name || ''
   }
 
   get isTrash() {
@@ -74,6 +75,14 @@ export class Node {
 
   get collapsed() {
     return this.raw.collapsed
+  }
+
+  get tagName() {
+    return this.raw.props.name || ''
+  }
+
+  get tagColor() {
+    return this.raw.props.color || ''
   }
 
   get children() {

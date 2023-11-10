@@ -2133,6 +2133,9 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
+      '@penx/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@udecode/plate-common':
         specifier: ^24.4.0
         version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
@@ -3857,6 +3860,9 @@ importers:
 
   packages/local-db:
     dependencies:
+      '@fower/react':
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants

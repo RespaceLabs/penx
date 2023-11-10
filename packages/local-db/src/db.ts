@@ -18,6 +18,7 @@ import {
 import { emitter } from './emitter'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
+import { getTagColor } from './getTagColor'
 import { tableSchema } from './table-schema'
 
 const database = new Database({
@@ -359,7 +360,7 @@ class DB {
       spaceId: space.id,
       type: NodeType.DATABASE,
       props: {
-        color: '',
+        color: getTagColor(),
         name,
       },
     })

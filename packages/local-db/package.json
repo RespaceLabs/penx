@@ -10,6 +10,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@fower/react": "^2.0.0",
     "@penx/constants": "workspace:*",
     "@penx/indexeddb": "workspace:*",
     "@penx/model": "workspace:*",

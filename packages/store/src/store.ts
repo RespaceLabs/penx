@@ -242,8 +242,13 @@ export const store = Object.assign(createStore(), {
     )
 
     if (!databaseNode) {
-      await db.createDatabase(tagName)
+      databaseNode = await db.createDatabase(tagName)
     }
+
+    const newNodes = await db.listNormalNodes(databaseNode.spaceId)
+    this.setNodes(newNodes)
+
+    return databaseNode
   },
 
   async createSpace(input: Partial<ISpace>) {

@@ -4,7 +4,9 @@ import { Editor, Node, Path, Transforms } from 'slate'
 import { TElement, useEditorStatic } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
+import { db } from '@penx/local-db'
 import { store } from '@penx/store'
+import { INode } from '@penx/types'
 import { ELEMENT_TAG } from '../constants'
 import { TagElement } from '../types'
 import { useKeyDownList } from '../useKeyDownList'
@@ -32,7 +34,7 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   const tagName = text.replace(/^#/, '')
 
   const selectTag = useCallback(
-    (tagName: any) => {
+    (tagName: any, databaseId: string) => {
       const path = findNodePath(editor, element)!
 
       Transforms.setNodes<TagElement>(
@@ -40,6 +42,7 @@ export const TagSelectorContent = ({ close, element }: Props) => {
         {
           type: ELEMENT_TAG,
           name: tagName,
+          databaseId,
         },
         { at: path },
       )
@@ -57,11 +60,14 @@ export const TagSelectorContent = ({ close, element }: Props) => {
 
   const { cursor } = useKeyDownList({
     onEnter: async (cursor) => {
+      let database: INode
       if (!filteredTypes.length) {
-        await store.createDatabase(tagName)
-        selectTag(tagName)
+        database = await store.createDatabase(tagName)
+        selectTag(tagName, database.id)
       } else {
-        selectTag(filteredTypes[cursor])
+        const name = filteredTypes[cursor]
+        database = await db.getDatabaseByName(name)
+        selectTag(name, database.id)
       }
 
       setTimeout(() => {

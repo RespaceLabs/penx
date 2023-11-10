@@ -22,6 +22,7 @@ export function getDatabaseRootEditorValue(
             {
               type: 'database_entry', // TODO: don't hardcode
               databaseId: databaseNode.id,
+              props: databaseNode.props,
               name: databaseNode.props.name,
               children: [{ text: databaseNode.props.name }],
             },
@@ -31,7 +32,7 @@ export function getDatabaseRootEditorValue(
     }
   })
 
-  return [
+  const value: any[] = [
     {
       id: node.id,
       type: ELEMENT_TITLE,
@@ -44,10 +45,14 @@ export function getDatabaseRootEditorValue(
         },
       ],
     },
+  ]
 
-    {
+  if (node.children.length) {
+    value.push({
       type: ELEMENT_UL,
       children,
-    },
-  ]
+    })
+  }
+
+  return value
 }

@@ -19,6 +19,10 @@ export interface DatabaseEntryElement extends BaseCustomElement {
   type: typeof ELEMENT_DATABASE_ENTRY
   databaseId: string
   name: string
+  props: {
+    color: string
+    name: string
+  }
 }
 
 export interface LiveQueryElement extends BaseCustomElement {

@@ -30,6 +30,7 @@
     "@penx/editor-transforms": "workspace:*",
     "@penx/extension-typings": "*",
     "@penx/hooks": "workspace:*",
+    "@penx/types": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/shared": "workspace:*",
