@@ -37,6 +37,7 @@ export const Tag = ({
       <Box
         contentEditable={false}
         cursorPointer
+        fontNormal
         py1
         px1
         textSM

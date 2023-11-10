@@ -1,16 +1,11 @@
 import { Editor, Element, Node, Transforms } from 'slate'
-import { isCodeBlock } from '@penx/code-block'
+import { isCodeBlock, isCodeLine } from '@penx/code-block'
 import { PenxEditor } from '@penx/editor-common'
+import { getBlockAbove, getText } from '@penx/editor-queries'
 import { insertNodes } from '@penx/editor-transforms'
 import { ELEMENT_TAG_SELECTOR } from './constants'
 import { isTagSelector } from './isTagSelector'
 
-/**
- * close or open block selector popover
- * Open when typing / at the beginning of a line, and close when deleting /.
- * @param editor
- * @returns
- */
 export const withTag = (editor: PenxEditor) => {
   const trigger = '#'
   const { insertText, normalizeNode, apply } = editor
@@ -20,17 +15,14 @@ export const withTag = (editor: PenxEditor) => {
       return insertText(text)
     }
 
+    if (!shouldOpen(editor)) return insertText(text)
+
     // in codeblock
     const match = Editor.above(editor, {
       match: (n) => isCodeBlock(n),
     })
 
     if (match?.[0]) return insertText(text)
-
-    // const id = shouldOpen(editor)
-
-    // if (id) {
-    // }
 
     insertNodes(editor, {
       type: ELEMENT_TAG_SELECTOR,
@@ -66,4 +58,15 @@ export const withTag = (editor: PenxEditor) => {
   }
 
   return editor
+}
+
+function shouldOpen(editor: Editor): boolean {
+  const nodeEntry = getBlockAbove(editor)
+
+  if (nodeEntry && !isCodeLine(nodeEntry[0].type)) {
+    if (getText(editor, nodeEntry[1]) !== '') {
+      return true
+    }
+  }
+  return false
 }

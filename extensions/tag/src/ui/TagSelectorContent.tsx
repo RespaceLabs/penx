@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { Box } from '@fower/react'
 import { Editor, Node, Path, Transforms } from 'slate'
-import { TElement, useEditorStatic } from '@penx/editor-common'
+import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
@@ -95,8 +95,10 @@ export const TagSelectorContent = ({ close, element }: Props) => {
             id={listItemIdPrefix + i}
             name={name}
             isActive={i === cursor}
-            onClick={() => {
-              selectTag(name)
+            onClick={async () => {
+              const name = filteredTypes[cursor]
+              const database = await db.getDatabaseByName(name)
+              selectTag(name, database.id)
             }}
           />
         )
