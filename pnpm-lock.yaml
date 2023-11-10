@@ -69,11 +69,11 @@ importers:
         specifier: ^0.26.1
         version: 0.26.1(react-dom@18.2.0)(react@18.2.0)
       '@fower/atomic-props':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@hookform/resolvers':
         specifier: ^3.2.0
         version: 3.2.0(react-hook-form@7.44.3)
@@ -256,11 +256,11 @@ importers:
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/atomic-props':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@hookform/resolvers':
         specifier: ^3.2.0
         version: 3.2.0(react-hook-form@7.44.3)
@@ -605,8 +605,8 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -696,8 +696,8 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/autoformat':
         specifier: workspace:*
         version: link:../../packages/autoformat
@@ -772,8 +772,8 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -848,8 +848,8 @@ importers:
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/code-block':
         specifier: '*'
         version: link:../code-block
@@ -951,8 +951,8 @@ importers:
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/code-block':
         specifier: workspace:*
         version: link:../code-block
@@ -1057,8 +1057,8 @@ importers:
   extensions/blockquote:
     dependencies:
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1115,8 +1115,8 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1182,8 +1182,8 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1294,8 +1294,8 @@ importers:
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1430,8 +1430,8 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1497,8 +1497,8 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1567,8 +1567,8 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1673,8 +1673,8 @@ importers:
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1767,8 +1767,8 @@ importers:
         specifier: ^0.26.1
         version: 0.26.1(react-dom@18.2.0)(react@18.2.0)
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/autoformat':
         specifier: workspace:*
         version: link:../../packages/autoformat
@@ -1867,8 +1867,8 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1931,8 +1931,8 @@ importers:
   extensions/storage-estimate:
     dependencies:
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1986,8 +1986,8 @@ importers:
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -2095,8 +2095,8 @@ importers:
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/code-block':
         specifier: workspace:*
         version: link:../code-block
@@ -2198,8 +2198,8 @@ importers:
   extensions/word-count:
     dependencies:
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -2362,11 +2362,11 @@ importers:
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/atomic-props':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@hookform/resolvers':
         specifier: ^3.2.0
         version: 3.2.0(react-hook-form@7.44.3)
@@ -2833,8 +2833,8 @@ importers:
         specifier: ^0.26.1
         version: 0.26.1(react-dom@18.2.0)(react@18.2.0)
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -2917,8 +2917,8 @@ importers:
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@penx/autoformat':
         specifier: workspace:*
         version: link:../autoformat
@@ -3135,8 +3135,8 @@ importers:
   packages/editor-leaf:
     dependencies:
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       slate:
         specifier: 0.94.1
         version: 0.94.1
@@ -3690,11 +3690,11 @@ importers:
         specifier: ^0.37.0
         version: 0.37.0
       '@fower/atomic-props':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -4438,14 +4438,14 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1(react-dom@18.2.0)(react@18.2.0)
       '@fower/atomic-props':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@fower/react':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@fower/utils':
-        specifier: ^1.86.0
-        version: 1.86.0
+        specifier: ^2.0.0
+        version: 2.0.0
       framer-motion:
         specifier: ^10.12.16
         version: 10.12.16(react-dom@18.2.0)(react@18.2.0)
@@ -6634,121 +6634,117 @@ packages:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
     dev: false
 
-  /@fower/atomic-props@1.86.0:
-    resolution: {integrity: sha512-qewsB0yeAmnBQ37G1ElA6veB8B1gA1e3O4C9ZUPwZrjjRt3xdbFvhvR1E+m3wjIoxDy6S10tt6xl4LnzdwSWwQ==}
+  /@fower/atomic-props@2.0.0:
+    resolution: {integrity: sha512-X//5oGDRFRTGxCY64l9alruVNxCtNUGIGWvzkwp7w0KRLIiqNwyfVzXjKhPL7XlUrYJCzemxVmCppjSwnmdJ2Q==}
     dependencies:
       csstype: 3.1.2
     dev: false
 
-  /@fower/color-helper@1.86.0:
-    resolution: {integrity: sha512-mMquQgnLA43iiihRNor/OmojJ1+LLECDwpNmGtmQNgP46mG8N80sHQyWyBcSdGoXysvz0ZAkxU5ciLvpyPIcCw==}
+  /@fower/color-helper@2.0.0:
+    resolution: {integrity: sha512-RyHHUIz9FJMhwO+OhCAXpxiTQ0I5/ml0M1xvUGcwyk1s/hjTi/KPFsL5qFkLeKoPYW+ycCJSqq2cCuD4uQdZEQ==}
     engines: {node: '>=10'}
     dev: false
 
-  /@fower/colors@1.86.0:
-    resolution: {integrity: sha512-EzNcpPT0MPz4P5Lcx7rsPSaw+kr7FCRbITA0KjdQxP8LAI36raqslGqDEyKDrCnfWYVjCLdohq8NILid1nydxw==}
+  /@fower/colors@2.0.0:
+    resolution: {integrity: sha512-BnvzP2j8SWpsS2djpeYTyT2Rm/AvxweCip0EEYIleBBY/5qlUMLJt6K+4TdIEBHAyV1dQb1lExmT3Qd+WAMLWw==}
     engines: {node: '>=10'}
     dev: false
 
-  /@fower/core@1.86.0:
-    resolution: {integrity: sha512-NsJGPAt112GvvdfWFoduK1ErCsarJ77FI+aS//QfCeO13Waqjs4CwnlmnEazcEYX0TGbKRaAYPGcl88RuEhZDA==}
+  /@fower/core@2.0.0:
+    resolution: {integrity: sha512-+0UJ8OIB0jfFZ1q2CFhBtp6T+zD8kCG2acacvX4BEYYEHKmKt5FKMlfk/z/2XyZf2AHZEXGZSdQ7nBG1eVDuuA==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/color-helper': 1.86.0
-      '@fower/css-object-processor': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/color-helper': 2.0.0
+      '@fower/css-object-processor': 2.0.0
+      '@fower/utils': 2.0.0
       csstype: 3.1.2
       deepmerge: 4.3.1
       string-hash: 1.1.3
     dev: false
 
-  /@fower/css-object-processor@1.86.0:
-    resolution: {integrity: sha512-tV5idUfqs2chuxGRy/Za+5D2Oe9lwEDMigTzVASI1IgPmTjEkAE0eOaGeQ7PHAdH1Ip82M4kIoYtxztd3KgDxQ==}
+  /@fower/css-object-processor@2.0.0:
+    resolution: {integrity: sha512-F8r2/iKrm9z3agSgOxuT10PSwhQsu3hdUbr2GKQTXt2G+FCOgJhLci/19G7nuM+KXuVNjT283BDE/HXnds28kg==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/utils': 1.86.0
+      '@fower/utils': 2.0.0
       csstype: 3.1.2
     dev: false
 
-  /@fower/preset-web@1.86.0:
-    resolution: {integrity: sha512-DVym8iP7zTfBTqygPko9yu4HXaHC80Ce6rMgq++/a8JSDR1zWFCz53qop60hi+QjywUtYIeUnPhukWqtH/WP7g==}
+  /@fower/preset-web@2.0.0:
+    resolution: {integrity: sha512-8tednUL0CZ7W0Wk+kDShd/UQTED/Ws/dkmAirNr1ELCKzBloiRpCc5LB3ylPcwFt3i8reaZXcTq0abUApAhwIA==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/colors': 1.86.0
-      '@fower/core': 1.86.0
-      fower-plugin-animation: 1.86.0
-      fower-plugin-appearance: 1.86.0
-      fower-plugin-background: 1.86.0
-      fower-plugin-border: 1.86.0
-      fower-plugin-box-alignment: 1.86.0
-      fower-plugin-box-sizing: 1.86.0
-      fower-plugin-color: 1.86.0
-      fower-plugin-container: 1.86.0
-      fower-plugin-cursor: 1.86.0
-      fower-plugin-debug: 1.86.0
-      fower-plugin-display: 1.86.0
-      fower-plugin-flexbox: 1.86.0
-      fower-plugin-font-family: 1.86.0
-      fower-plugin-font-style: 1.86.0
-      fower-plugin-font-weight: 1.86.0
-      fower-plugin-gap: 1.86.0
-      fower-plugin-gradient: 1.86.0
-      fower-plugin-grid: 1.86.0
-      fower-plugin-layout: 1.86.0
-      fower-plugin-line-height: 1.86.0
-      fower-plugin-list: 1.86.0
-      fower-plugin-margin: 1.86.0
-      fower-plugin-opacity: 1.86.0
-      fower-plugin-outline: 1.86.0
-      fower-plugin-overflow: 1.86.0
-      fower-plugin-padding: 1.86.0
-      fower-plugin-placeholder: 1.86.0
-      fower-plugin-position: 1.86.0
-      fower-plugin-ring: 1.86.0
-      fower-plugin-rounded: 1.86.0
-      fower-plugin-shadow: 1.86.0
-      fower-plugin-size: 1.86.0
-      fower-plugin-space: 1.86.0
-      fower-plugin-svg: 1.86.0
-      fower-plugin-text-align: 1.86.0
-      fower-plugin-text-decoration: 1.86.0
-      fower-plugin-text-overflow: 1.86.0
-      fower-plugin-text-size: 1.86.0
-      fower-plugin-text-transform: 1.86.0
-      fower-plugin-transform: 1.86.0
-      fower-plugin-transition: 1.86.0
-      fower-plugin-user-select: 1.86.0
-      fower-plugin-visibility: 1.86.0
-      fower-plugin-word-break: 1.86.0
-      fower-plugin-z-index: 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/colors': 2.0.0
+      '@fower/core': 2.0.0
+      fower-plugin-animation: 2.0.0
+      fower-plugin-appearance: 2.0.0
+      fower-plugin-background: 2.0.0
+      fower-plugin-border: 2.0.0
+      fower-plugin-box-sizing: 2.0.0
+      fower-plugin-color: 2.0.0
+      fower-plugin-cursor: 2.0.0
+      fower-plugin-display: 2.0.0
+      fower-plugin-flexbox: 2.0.0
+      fower-plugin-font-family: 2.0.0
+      fower-plugin-font-style: 2.0.0
+      fower-plugin-font-weight: 2.0.0
+      fower-plugin-gap: 2.0.0
+      fower-plugin-gradient: 2.0.0
+      fower-plugin-grid: 2.0.0
+      fower-plugin-layout: 2.0.0
+      fower-plugin-line-height: 2.0.0
+      fower-plugin-list: 2.0.0
+      fower-plugin-margin: 2.0.0
+      fower-plugin-opacity: 2.0.0
+      fower-plugin-outline: 2.0.0
+      fower-plugin-overflow: 2.0.0
+      fower-plugin-padding: 2.0.0
+      fower-plugin-placeholder: 2.0.0
+      fower-plugin-position: 2.0.0
+      fower-plugin-ring: 2.0.0
+      fower-plugin-rounded: 2.0.0
+      fower-plugin-shadow: 2.0.0
+      fower-plugin-size: 2.0.0
+      fower-plugin-svg: 2.0.0
+      fower-plugin-text-align: 2.0.0
+      fower-plugin-text-decoration: 2.0.0
+      fower-plugin-text-overflow: 2.0.0
+      fower-plugin-text-size: 2.0.0
+      fower-plugin-text-transform: 2.0.0
+      fower-plugin-transform: 2.0.0
+      fower-plugin-transition: 2.0.0
+      fower-plugin-user-select: 2.0.0
+      fower-plugin-visibility: 2.0.0
+      fower-plugin-word-break: 2.0.0
+      fower-plugin-z-index: 2.0.0
     dev: false
 
-  /@fower/react@1.86.0:
-    resolution: {integrity: sha512-2BxJ+qdqmroSqFd4oDJh9a7vMk4KUKhDIsOqJwKKvJ33PNkIgYXxjgaOvFqbOBic6rTvoHgZ+5O0gif7Ha744w==}
+  /@fower/react@2.0.0:
+    resolution: {integrity: sha512-53lg01xi3orbErfRzM8GnXxhbarTOjRtuJ4g1bIhtRnOVs2T5HuE/r2xOCYUxR73UWRj4oPv25bIFsHeHUN7UA==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/css-object-processor': 1.86.0
-      '@fower/preset-web': 1.86.0
-      '@fower/styled': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/css-object-processor': 2.0.0
+      '@fower/preset-web': 2.0.0
+      '@fower/styled': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /@fower/styled@1.86.0:
-    resolution: {integrity: sha512-AFx8IE1N7NccnbPETTXw1r26upNgyGEbbzpCpwUaI6Pr3NGswLXw2icoC5BE2ea4jXcKf5WBHnjiIwVdExWVCw==}
+  /@fower/styled@2.0.0:
+    resolution: {integrity: sha512-UyECZGC5wHx48XQWq0BihOCuqjjotPYKDR/69RXE4z0M7lnm3C7Fv/jGHMG9vkiZDILuCdYWDKEJFJb4syX/QQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
       hoist-non-react-statics: 3.3.2
     dev: false
 
-  /@fower/utils@1.86.0:
-    resolution: {integrity: sha512-0XKKXsG1fpxp3oDONetURml8lhoqRn/hLWfFFyuOUWwf0c7AzZN+LYmdrLjeRDTXuBIie/NspuWFWTpe+Romkw==}
+  /@fower/utils@2.0.0:
+    resolution: {integrity: sha512-LCmr684r8YIXr+EYDgFF34XBY/8p06vKJx28lkK2+XMqphJnDxHIIwXw53PB+Uigha70eimA/KMicuxs8KjoHQ==}
     engines: {node: '>=10'}
     dependencies:
       '@types/string-hash': 1.1.1
@@ -14841,421 +14837,385 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /fower-plugin-animation@1.86.0:
-    resolution: {integrity: sha512-G+RhKv/gujKwN/hQTJ7WDOkxlwVO30xPMVlY5s/JLtQ3ljKgDrBWtmh3Hz5OerVJLWGl1d1n0GElwOfgq1y1cw==}
+  /fower-plugin-animation@2.0.0:
+    resolution: {integrity: sha512-G0SsP9c1rirPkPIVi6vrNqpi+A0YwlGDrYypgPxd8fI/PmiVPKT7wpnaAzHYEkOW6nPntUqVNfaQo9SFvs8PWg==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/color-helper': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/color-helper': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-appearance@1.86.0:
-    resolution: {integrity: sha512-PWxiXXOe+b/RAsemhBdkfnMkZlJwQQlm91MoZJqpQ7LpxjOLKclLGyw1I/CJe20VKCZRqwgnJIYcYo1P/wDWWQ==}
+  /fower-plugin-appearance@2.0.0:
+    resolution: {integrity: sha512-ZRbuCO68d4TQULMxNMIP6UEGq+vxJgCstnqwF+tx4fy2Ds3B/Ef2Xvzn5+DdVjAxM0QkahEvMRzLTWfSAO5QpQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-background@1.86.0:
-    resolution: {integrity: sha512-njNlI/nahiUcNjTrMdlQFcISdp59JrbEOjzl+eB9igTp1gM7O1ulxwJnwQQ5EZiMHZy2Ju2DGGj70zSLTHqbog==}
+  /fower-plugin-background@2.0.0:
+    resolution: {integrity: sha512-jGwf9GjyXvnYKcWtGF2c98a7LyItJQTSQsIX+Wa3IlGnRos9F2DxRws7HbzlKJXXdYUYqVfqxcfuxZF43k7MdQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/colors': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/colors': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-border@1.86.0:
-    resolution: {integrity: sha512-NKZW8Aw0M808e/MAgqbJQA3GrOUr+EAcsnnez+xTpaSHA5ByCR7WiGwqX8IlGqwFqZyKiTQauxCDodS0CDGjkw==}
+  /fower-plugin-border@2.0.0:
+    resolution: {integrity: sha512-wYD/xRlSpBIGo54WNTuaT2jfN2hGBzGyYqyjycsp/aAeoExvwDMMr1/K/wSuabr65fJ2incIOmYx0dhquLEk9Q==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-box-alignment@1.86.0:
-    resolution: {integrity: sha512-nu9sHgeQ9Psj3UGBouJBtecrUx7NSKPmgE2Nn71JWe9n9N67a0jiSAaisK+nbiJLCqITVHx3uzFmtgVCV18n5Q==}
+  /fower-plugin-box-sizing@2.0.0:
+    resolution: {integrity: sha512-oiWoa71nKjwZhAjC3duokKjThzwOqlI3J75iMcpc63GsXR10nnlwL/vDnrEGxYZyLmDpeEQEU+Jot4KvqgBppQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
-    dev: false
-
-  /fower-plugin-box-sizing@1.86.0:
-    resolution: {integrity: sha512-6tgC3sh7W0kDCNt2VAwe3OxOWnJ3jZPxEiz2cwtRneNO7i9YB2j89hdIUd/5uSiL9KZS+cU19FPw+MU93pFB4A==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
       csstype: 3.1.2
     dev: false
 
-  /fower-plugin-color@1.86.0:
-    resolution: {integrity: sha512-1856nDs61UEaqCr3y/Dw0BIcsHDE2MB7znfaFIOODMtzuDZL9k0ijie9AP/IGzKHoyz6stPuMyJ41RFdV/rq2g==}
+  /fower-plugin-color@2.0.0:
+    resolution: {integrity: sha512-rKnezTarp/0koVxIpKL40zyB/FnV8p1WKsJozKnhudDkqDX8v7Hib+Vij/CVOqJzn5vIn9lBu7WdAmgQal/rsw==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/color-helper': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/color-helper': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-container@1.86.0:
-    resolution: {integrity: sha512-f+4tds3e+BlBZFYO018iAqsg6Ha2rYmf41h1CJj1qLp7hSbpr5D1rXC8oCkWT007RVAQAGV8rLJ+7vL7j0+b+g==}
+  /fower-plugin-cursor@2.0.0:
+    resolution: {integrity: sha512-aaJOz8nr0Xdjl5gBrUSdPM6FeozBaUwQcwKdc74KDqznK7P4XFEUc9NVBhLE1Nbh1oNnNLPOqXmEKGDoOPgZyQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-cursor@1.86.0:
-    resolution: {integrity: sha512-YS9zRzNFfGGrnlKzsIjpfQI/vXDbrUscsCdPFvfKZdBsy3JsZtdXpIIygXjrqnPKJQswg9TtE0tQ8cw+JNuuCA==}
+  /fower-plugin-display@2.0.0:
+    resolution: {integrity: sha512-Qft8trGZHWRhQov0LCJttqEtCc0Rskr3gg7a6gTXqEP01K38VQ9+KBKRqx7TYSTaCPmMKI4K1IBCxU247bD4Jw==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-debug@1.86.0:
-    resolution: {integrity: sha512-ejMJ/mzjXBdo1XuTh2wZJBQ7fhOmkYd9Np0Uls3hfH1YRtTYK93P2ImMoJATR4GbyC8IWG9kBVsamcCgfz3yNA==}
+  /fower-plugin-flexbox@2.0.0:
+    resolution: {integrity: sha512-0arxms5w6GwArwaA6ZDu35tdBvKFEldJ8yYkw/tqsDv6NqOI7vOj6/VwNbZ5wK3ojjOYIVnTQY3U7oLnJHx1tQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-display@1.86.0:
-    resolution: {integrity: sha512-aCvjW4t6OEQtO1WILthrNfMd7PaCXM4J6iKPKyLnSpo9D4TXjmiobm8Yf8Nc128OsW4xiIjwLjxd3bH1k3BV7g==}
+  /fower-plugin-font-family@2.0.0:
+    resolution: {integrity: sha512-MxQ4FDtRRzCWFqy/cFTjZ1GmVQRHuGipjW+mrd9P1Gv032kt6ieYVxsqNlDHw/dhz4KFf/VY9jebmeyQJmzBfQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-flexbox@1.86.0:
-    resolution: {integrity: sha512-wDomagWyJT+ewCxvaI11L7Q/jjKxXKClhA+iAnwK8SCwqhvH79qrj/7vIWOahE9hfnol+2bEKRzeU2NZVLWKxg==}
+  /fower-plugin-font-style@2.0.0:
+    resolution: {integrity: sha512-Nak+MbNDFrdOIv5rAv7eKlQBmGYZQb3rGzaSx3bXDVx9ogIWtaRLHTg8SWz0ZTHqk0Oq71aAafOCqvMeMjZFFg==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-font-family@1.86.0:
-    resolution: {integrity: sha512-P8UHFPfA5jl4BMkUF5uvpb7y9CCCXnhbkwWGdi1VJ8yW3aXIMKtfXcBTY55kRHf0W1oBHKArRrtZCNumBAK56g==}
+  /fower-plugin-font-weight@2.0.0:
+    resolution: {integrity: sha512-oyO8+pZZ/4v5QZHZl17HqSheGW5nazXWU+s/6O/3bDQSOXQiOwALa6k8x3uxyjuW4AXiSoKGzefzw58qkQT0EA==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-font-style@1.86.0:
-    resolution: {integrity: sha512-yvTo2pEncgnai/Na5A+gPxjJPOMlsFVu3Zo4obzrFKiAmt7t28N7hFTfhx3v10LJsR46yaMaERi3gYeKo4a2Kw==}
+  /fower-plugin-gap@2.0.0:
+    resolution: {integrity: sha512-2WBnSnwXXMpcoYJX7pgeT2bTfpFPNndGkvdb4axTGVjys4cQpPQ14ZClipO2ZbNyhjrcNEnhjhfcC7/oKLX2aQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-font-weight@1.86.0:
-    resolution: {integrity: sha512-d2VaqPwtZbeATwMvj0UKUmoAVkgBoO/ljF/3ncrfJeCV1p2UW9G2DBk99JeDTTrCy1mEYH73EYD8ZNKBIN9J2Q==}
+  /fower-plugin-gradient@2.0.0:
+    resolution: {integrity: sha512-kNawsSkPm9DGNLuV506/aGW0z48a5rSSsxzqIwogzGxtQ5TOGsszPI7rZ2j3hjaxTu+WP6bWzYFuuQWJN1ddBA==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
-    dev: false
-
-  /fower-plugin-gap@1.86.0:
-    resolution: {integrity: sha512-xglhFReN25+yiwgSN+5CZe/RGCtFe77QFulrBe/mKBVxRyFwfsmE5nrRSJ+aTs8xfb2LBJm8ST1GNTxE5BGzmA==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
-    dev: false
-
-  /fower-plugin-gradient@1.86.0:
-    resolution: {integrity: sha512-FePhVhpRBGBg4oJLtc/GM9soGjj3J4iyn1Cjw1UeWBqjJZib6m/jjM5A/YOUWTa2mLqmlWtTLiWFRPoVTL1dsw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
       csstype: 3.1.2
     dev: false
 
-  /fower-plugin-grid@1.86.0:
-    resolution: {integrity: sha512-h9aj7D1vzXcW+MbtCa7RHpxyZRK9x7HeEG0PpvRydfL+ThLbbe8Rm20p5tGi2SN1SsUNDxkM0+gDTLTXDddNMw==}
+  /fower-plugin-grid@2.0.0:
+    resolution: {integrity: sha512-442Pll+RXamnAi6MtkSUeND1lORdV5fXdArtt+9fOCZ5IYFbTCVxTIuMTDAbunaD9Oxv9adaPX/T/kXiRimLeQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-layout@1.86.0:
-    resolution: {integrity: sha512-7ruIvWdpqrT3u0eZGIIF1LiW6kk3sW0yFrW5Suk1TZ0jWVh3IVnwYoLzhvsWDi/wdSYXOrb/WIIQD0c5kXA7sw==}
+  /fower-plugin-layout@2.0.0:
+    resolution: {integrity: sha512-WuMmQo18k1dGpbMLQqnQWyF3e09nwrjQc2CKwfGglSpZXihcdXhTYcGioFazxXzm7J5v5bB8jASmSkEWrhbNcg==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
       csstype: 3.1.2
     dev: false
 
-  /fower-plugin-line-height@1.86.0:
-    resolution: {integrity: sha512-iZk9ncviNm2tTjQbZ8RCciOzZAbn2Zw824C4EohyBvsUgkEt8j+DyFNZB1TVuKlQ7uC41w30FCCmCk1EnK9iZg==}
+  /fower-plugin-line-height@2.0.0:
+    resolution: {integrity: sha512-o/wBdYe3mgnQovXFRXphPuX98hDBhTzZcoR9IDBrLv4j71KY/ZpAVqceFsoNdnCdRpPDy8O8lcBqY1f7v1zklQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-list@1.86.0:
-    resolution: {integrity: sha512-M7709BJR31GH9sGyHEH7H/UOi308e7EawSCx0bHQHiUv4kc5JLIYSl7C4tS5kjEUQkSmJ6KV0KS4XZ7QztcePA==}
+  /fower-plugin-list@2.0.0:
+    resolution: {integrity: sha512-L7wB9YxJ0xu8QkKyIsXLYJHLgmR23iZiTXouJ51FLTXghd3RfwWf+nTojNFfBKU3+EoP8fzS9yL0cInrgJObag==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-margin@1.86.0:
-    resolution: {integrity: sha512-dQ1GGZhKpmOEmWa/7nlbzAVt2gEOB4IOBQJioUI1uceKcsMdSkJWfea+S4bu76JmGCoNn8I6i+Rx6M41vcccYA==}
+  /fower-plugin-margin@2.0.0:
+    resolution: {integrity: sha512-jLx68PVveueeho6GrDQIoQZHukst87vfwp77Xf3en9Eklpgn2h68XLrIVA0KCIjQXZafPnF0Knso6aUZCD483g==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-opacity@1.86.0:
-    resolution: {integrity: sha512-yRksf5HxeCrblt/DkVW5NuRyyM6UFKeS2plmJWJVa/ndT9uWcu2TQOjb1L4vqtCR1OWpM4RHplbS37JvXB1X6g==}
+  /fower-plugin-opacity@2.0.0:
+    resolution: {integrity: sha512-k8A7wAq2GnSbDVNSt+kxkdHiUD2Ct7Y6dwe3sNEhPzaYJaSgjd13C3pz0HzWVD/CkT9WqJpOlyndCYR4D9K3LQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-outline@1.86.0:
-    resolution: {integrity: sha512-IpLHFac31sVGDzHz+hffzQXBAWaOFjA+OaZwc65V4WshLRrHJA4pK/0Dm/VWMsdMRgdMu5rzU8HouMABwZmo1w==}
+  /fower-plugin-outline@2.0.0:
+    resolution: {integrity: sha512-oWa6JoA2BO46EEkTePuwhx/ATvVe39qEavX7BWK+dhJn71vP0dSoMfliWT2lm1s6/RZgS81ecj/W/YdFZmM6Sg==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-overflow@1.86.0:
-    resolution: {integrity: sha512-eUiqQzGJp0u+Wju5/qYB2p5fZPofA9mqYufv1MlmMRewh5y621FOQKTvy+xYkd/rMGWfvKC4TjuqA5LH2ahatw==}
+  /fower-plugin-overflow@2.0.0:
+    resolution: {integrity: sha512-tgpsGmyhiEAaXih1Elf3/x/iuv7K74eZEEWnFyB5Lasq2177UBB5DPFfiWq7zYWB19zw6CwKFSkZOIWuD3S/Rw==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-padding@1.86.0:
-    resolution: {integrity: sha512-WGU/U7boLH/yozQoBGO6VzeWlS+wjqdv09PnMkuCKCaN6CWl+ohQZuuISuSWHpnPBCEpbB3fcFvQ27VMlQymrQ==}
+  /fower-plugin-padding@2.0.0:
+    resolution: {integrity: sha512-WORfz0l95KjjKzvKg2Kr6A65PFF5iHvb+uvqJ5kbiDKGUXCgQTqLNzMsXUb3+Cww9bqiNb2M62lt1LP2dhal6A==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-placeholder@1.86.0:
-    resolution: {integrity: sha512-YTHYTbjLzpn3dMO8K0BjhhtDqpWwTYZEDPXzDJkroAXPkb4ZGjey5XfyvraYBw96X2gPFjcsYPNpzHkYvLykXQ==}
+  /fower-plugin-placeholder@2.0.0:
+    resolution: {integrity: sha512-lTOEcrux9deMRwSC3pIIlYb5ALfTdeC7CQ9TZ/w6hGIlY/54OYIkIv5RHLLW+/nXrGCtBIt03Kc6MQYUQrq/Gg==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/color-helper': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/color-helper': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-position@1.86.0:
-    resolution: {integrity: sha512-bn56Kh53B5sLSGuS/Mzv2PBCbX0re6abMX0Cwa1o8SRni736+iKK31qtNZMEkieWxPr3p+hwzD7v748gOq77WQ==}
+  /fower-plugin-position@2.0.0:
+    resolution: {integrity: sha512-2T2CZTfTtYA57uagsK4MASehHdrkSC4ssN6NdeiF7VmsA1dJ84xxmHCeTq1sHs60kVDBGjj0+xwE8EJ0O246ZQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-ring@1.86.0:
-    resolution: {integrity: sha512-utUL551evRLlh0UTkXjGXDtpCkClMg+Xe687lnmowmIRqowUBbIdJsSHz/lflJLqZJTs4KDMKgB5XX4Z4Tqlzw==}
+  /fower-plugin-ring@2.0.0:
+    resolution: {integrity: sha512-uDLIFc/9uyOJgJmfjXbAY5+28URAfJ1DAuVIHAzWxGKWnqB1Rp+ZCuudlLx+gxunbLDwEIDmINYKeepdxQr0Xg==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/color-helper': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/color-helper': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
       csstype: 3.1.2
     dev: false
 
-  /fower-plugin-rounded@1.86.0:
-    resolution: {integrity: sha512-yKf25+tuu3UaVLUmAtBTnW4b8S/4wVMrNXJM19XmrXsWEotDIpLsMvhW6zfcF3t1diWXaJFtTB0QlREppP309g==}
+  /fower-plugin-rounded@2.0.0:
+    resolution: {integrity: sha512-GJdawvLxqO8ilAU7WuVJQMLD8+b2ZRqZr3+BjrqFHZ4veQWJAvi4wz0BKjLVMn7X4GAw2lGutPDosmvCMAtn1g==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-shadow@1.86.0:
-    resolution: {integrity: sha512-F88cMAukqAHPR2N3NLrrs0HVYsF4HyVmhNdTNFQAAv7D4BkywV1aO1lGn31VgTfc2tcUH1qozwH6wVuyp2/IGQ==}
+  /fower-plugin-shadow@2.0.0:
+    resolution: {integrity: sha512-E1sQbdPRJAcpeRSRO8Vg5MyvVvj9pem7JAT25Adjj4pWoR7NqCItdjiS9ZkbzpZlGc5BAlD2rkjww1K7ANMZQQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-size@1.86.0:
-    resolution: {integrity: sha512-+lxAv/4jgGISejZgeKXAIevfV8g3H65NN4Z09/t/OmyJCln8VM8x3ZTHoXJf/Qf8PAKQV2JAjY2jEeBGRA4/XA==}
+  /fower-plugin-size@2.0.0:
+    resolution: {integrity: sha512-QJYY4My3TqngxD5y07PGa0R7HXe7zrj4ybAYLjW3R0xAGefLPiDNyJJfcgXqIed5NH6UHj/lOzV1kj9Sn8r3gQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-space@1.86.0:
-    resolution: {integrity: sha512-lziPqwGjhcB2UfK4aEnhA0p+s+k6E8zaJqXJUgzHc4lU4kbfRLXo/P6hH4DIPFUACNJsGKLvae1CQ314T3gHDw==}
+  /fower-plugin-svg@2.0.0:
+    resolution: {integrity: sha512-wbgey5+pqXa5xGWcm4nAJOwwtfYjCX9yXbQG9akaGBfkrk35i2b3lBuZNiVZcMGVBueCEEfRjAHP6ej7YY3kSg==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
-    dev: false
-
-  /fower-plugin-svg@1.86.0:
-    resolution: {integrity: sha512-Phgk8Py+M2gFmP0aAt3YS3aXb+mmGlR9GAWVjOgx3AZIpaVibkQNlatp31idBkxY09JpHFqArnyP6GJ3uJJztQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
       csstype: 3.1.2
     dev: false
 
-  /fower-plugin-text-align@1.86.0:
-    resolution: {integrity: sha512-dUmaxIQXR5bquXXRO+A3FNQ006ysSddyGGYl34cBtBlZDUzBce6k1gYpJ1aIlNZkj47sXy2mrVN/APZ3JkZsjw==}
+  /fower-plugin-text-align@2.0.0:
+    resolution: {integrity: sha512-ooleObn9nifbnrpIBMzSr2Y49ALx9fE+7IASt7Et965kzB25z+J0yGNqoBgznE9hl2BwWXFMBCp4nuMXWb1UJg==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-text-decoration@1.86.0:
-    resolution: {integrity: sha512-4n2YEh59vhMfcAyeaqPv7PUhu6SNUokIyv4oeSiA6QPFvb0pNk/HHtU8AzrqW6PU1swZ3lFfOwn/wxx1XIrD6g==}
+  /fower-plugin-text-decoration@2.0.0:
+    resolution: {integrity: sha512-466TgbAqC4BuGVIG1euDRYnMMQy1EyCrqNONwLIgLDZamuFR/TJ1WoGyGjXdpqhXtePwVWsF8owbTgeZN9WaYg==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-text-overflow@1.86.0:
-    resolution: {integrity: sha512-ge/w6Bdn1GqY4e/v1AR9h2YfYkvq8M9ku1Gya4dnKX9etE2WSwr/UnkjHEmGmZoiAYxF4wTQgiNDqLRvqE911A==}
+  /fower-plugin-text-overflow@2.0.0:
+    resolution: {integrity: sha512-s6JAFvKKTd5Q8jmA/r4UXX6ykIaiLxJV0aTuYsZeUNn1Lfz3xfNmdBpl5+lFloPYkkNareda7bYC/3PgtIc37A==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-text-size@1.86.0:
-    resolution: {integrity: sha512-0RFHcHq1RbFo8svudMgfQC25SefPYR6/ek+DRrw/BY1FFlaKTs2SKUtQJSAjItH3XUfKPXZsEa/ilHy9NBs9wQ==}
+  /fower-plugin-text-size@2.0.0:
+    resolution: {integrity: sha512-tRvtIsscvbnRgr3k5Y1JL/ltEVJ0jLV7ZejwpuIEPI6s/NO8FXsHE8LGeS+es9qLyJ0n0qfHW/fyXoyjawiTTQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-text-transform@1.86.0:
-    resolution: {integrity: sha512-eeMO9Z41953Vj1Djb5y/NYcRMdTXEu6tFvOu4o+SDa5IMSPz9BU66Bh9TRRxe0ZOtFdimiK1zQXLX7v8yDx4qg==}
+  /fower-plugin-text-transform@2.0.0:
+    resolution: {integrity: sha512-grTW58La+VwPaT9Htt1OjnJdbxnGT2HbvvYuhgWgKbL0cd9BwL3xswky8dmEiP3WNjBA/c4g2BPCyqLZ2P8dnQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-transform@1.86.0:
-    resolution: {integrity: sha512-O4KjO23XyzC/XArsnX78QH5hKUEQlwnJbhomtozUwDZX5llqcGCkalpsW85EpDchLhQtJTzSooakeYZReifWWg==}
+  /fower-plugin-transform@2.0.0:
+    resolution: {integrity: sha512-bVCoOgFVvss+MuVYk86y/BEYpBm1jvzQ2TSQCUjRn//I3tGAOUiK62Ybxifgo+6o79C6XxGH0eBuSMhM8eMSIQ==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
       csstype: 3.1.2
     dev: false
 
-  /fower-plugin-transition@1.86.0:
-    resolution: {integrity: sha512-S0Vbdwp7TDAuLXhdSn5p0qsK180u/MNvwlSr3XnOMZs5JlxYxygn6GlqAAYG+rqZoFQjmo5bc2RyBeAMVdwebA==}
+  /fower-plugin-transition@2.0.0:
+    resolution: {integrity: sha512-6fkSJrY3zTAfKgMo9vPtruqvvmNYz0ES+EKEy2m5H6qmDc4Vekyv96Qxs+OzXW8ZXh4lyTdU6jr1xaxccmQVIg==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-user-select@1.86.0:
-    resolution: {integrity: sha512-XmfP5k6dhdME7FWtcRSbyOJKhPUyb985vfU5LRVLstKbTnF/L43UQ9VmzNo3sNvvcUmiQTDwC5PHP4jWeXFyaw==}
+  /fower-plugin-user-select@2.0.0:
+    resolution: {integrity: sha512-Ymp8FOpgYliLPa4wDEzoGAtq3S6Ixxs0ABbcmScgg5A+EiF0+itmWBf4OFzkMtfKX4+aS7rQAtJWyhkTrKXDAw==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-visibility@1.86.0:
-    resolution: {integrity: sha512-TsZaVU6UslkXa6vYGWo+g6z1TSiGDwHILROtuRy1Xfwoa9ZZ6u1vDCKs+WdvqajwE1yE0vcI49UosBbv0p+MCA==}
+  /fower-plugin-visibility@2.0.0:
+    resolution: {integrity: sha512-1ES/kE4TSpySycf6flYUECBpFDtAEtZDCaw8qo+Nga/il677FG8YIgoeO9zJtjujmNR28A2I/bQqeZwPyO6bMA==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
       csstype: 3.1.2
     dev: false
 
-  /fower-plugin-word-break@1.86.0:
-    resolution: {integrity: sha512-Mj79dTRz8EGeZWfgA3+IThKkCAe1+G+aFUF8+ZFlX1ntfdC5OJPLoYuytUtldOGGozynHvNsDOUv6ybXtTp/Xw==}
+  /fower-plugin-word-break@2.0.0:
+    resolution: {integrity: sha512-rLa4lkQaX0gCqqPdr8U8wgl8bp9Z92pnguZG43w71DKd9wwiGZH5ZQ2QkA3B1eyUGZQS+JLhTzPj6Fzt7aw++Q==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
-  /fower-plugin-z-index@1.86.0:
-    resolution: {integrity: sha512-OovBF/vApFzdCELWFfoRRUp6aGu29OOtpJbf13QL5KSzYlnThEm9bYo9RIdxFXQSuYXAVF82pEtIErwoCXEmfg==}
+  /fower-plugin-z-index@2.0.0:
+    resolution: {integrity: sha512-oNvbAtBGG2VMqluTQcoTc3TOVUrPxtNWMnaOE46vK2VUgQMFa3PL5ZQjuG6R7ZoR2HZQwM+34gwRDYzucBRi6Q==}
     engines: {node: '>=10'}
     dependencies:
-      '@fower/atomic-props': 1.86.0
-      '@fower/core': 1.86.0
-      '@fower/utils': 1.86.0
+      '@fower/atomic-props': 2.0.0
+      '@fower/core': 2.0.0
+      '@fower/utils': 2.0.0
     dev: false
 
   /fraction.js@4.3.6:

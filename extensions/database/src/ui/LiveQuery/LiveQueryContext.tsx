@@ -41,6 +41,7 @@ export const LiveQueryProvider = ({
   const loadLiveQuery = useCallback(async () => {
     console.log('sql:', sql)
     const database = await db.getDatabaseByName('bookmark')
+    console.log('==========database:', database)
 
     // const data = await db.getLiveQuery(databaseId)
     // setLoading(false)

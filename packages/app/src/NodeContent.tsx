@@ -1,6 +1,5 @@
 import { Box } from '@fower/react'
 import { useDebouncedCallback } from 'use-debounce'
-import { TableView } from '@penx/database'
 import { NodeEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
 import { useNode, useNodes } from '@penx/hooks'

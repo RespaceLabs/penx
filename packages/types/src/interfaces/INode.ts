@@ -64,6 +64,7 @@ export interface IDatabaseNode extends INode {
   type: NodeType.DATABASE
   props: {
     name: string // database name, same with tag name
+    color: string
   }
 }
 

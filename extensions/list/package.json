@@ -18,7 +18,7 @@
   "dependencies": {
     "@bone-ui/utils": "^0.37.0",
     "@floating-ui/react": "^0.26.1",
-    "@fower/react": "^1.86.0",
+    "@fower/react": "^2.0.0",
     "@penx/autoformat": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/context-menu": "workspace:*",

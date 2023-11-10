@@ -359,6 +359,7 @@ class DB {
       spaceId: space.id,
       type: NodeType.DATABASE,
       props: {
+        color: '',
         name,
       },
     })

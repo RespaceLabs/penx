@@ -24,7 +24,7 @@
     "@dnd-kit/sortable": "^7.0.2",
     "@dnd-kit/utilities": "^3.1.0",
     "@floating-ui/react": "^0.25.4",
-    "@fower/react": "^1.86.0",
+    "@fower/react": "^2.0.0",
     "@penx/constants": "workspace:*",
     "@penx/context-menu": "workspace:*",
     "@penx/editor-leaf": "workspace:*",
