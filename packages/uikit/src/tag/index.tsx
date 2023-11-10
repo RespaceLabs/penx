@@ -1,6 +1,6 @@
 import React, { cloneElement } from 'react'
 import { forwardRef } from '@bone-ui/utils'
-import { As, Box, BoxComponent, FowerColor, store } from '@fower/react'
+import { As, Box, BoxComponent, FowerColor, fowerStore } from '@fower/react'
 
 export interface TagProps {
   as?: As
@@ -31,7 +31,7 @@ export const Tag: BoxComponent<'div', TagProps> = forwardRef(
     } = props
 
     const sizeStyle = getSizeStyle(size)
-    const colors: any = store.theme.colors
+    const colors: any = fowerStore.theme.colors
     const color = colors[colorScheme]
 
     const isStringChildren = typeof children === 'string'

@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { useId } from '@bone-ui/hooks'
 import { forwardRef } from '@bone-ui/utils'
-import { Box, FowerHTMLProps, store, styled } from '@fower/react'
+import { Box, FowerHTMLProps, fowerStore } from '@fower/react'
 import { useAvatarContext } from './context'
 
 export interface AvatarFallbackProps extends FowerHTMLProps<'span'> {
@@ -12,7 +12,7 @@ export const AvatarFallback: FC<AvatarFallbackProps> = forwardRef(
   ({ letterNum = 1, children, ...rest }: AvatarFallbackProps, ref) => {
     const ctx = useAvatarContext()
     const id = useId(undefined, '')
-    const { colors } = store.theme
+    const { colors } = fowerStore.theme
 
     const keys = Object.keys(colors)
       .filter((i) => i.endsWith('400'))

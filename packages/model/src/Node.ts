@@ -10,8 +10,8 @@ type Element = {
 
 export const isRootNode = () => {}
 
-export class Node<T extends INode = any> {
-  constructor(public raw: T) {}
+export class Node {
+  constructor(public raw: INode) {}
 
   get id(): string {
     return this.raw?.id || ''

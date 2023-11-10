@@ -2,7 +2,7 @@ import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_UL } from '@penx/list'
 import { Node } from '@penx/model'
 import { IDatabaseNode } from '@penx/types'
 
-export function getDatabaseNodeEditorValue(node: Node<IDatabaseNode>) {
+export function getDatabaseNodeEditorValue(node: Node) {
   return [
     {
       type: ELEMENT_UL,

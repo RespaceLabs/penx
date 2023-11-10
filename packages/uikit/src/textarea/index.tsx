@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { __DEV__, forwardRef } from '@bone-ui/utils'
-import { Box, Colors, FowerHTMLProps, store } from '@fower/react'
+import { Box, Colors, FowerHTMLProps, fowerStore } from '@fower/react'
 import { upFirst } from '@fower/utils'
 
 export interface TextareaProps extends FowerHTMLProps<'textarea'> {
@@ -19,7 +19,7 @@ export const Textarea: FC<TextareaProps> = forwardRef(
     } = props
     const { disabled } = props
 
-    const color = store.theme.colors[colorScheme]
+    const color = fowerStore.theme.colors[colorScheme]
 
     const attrs: any = {}
     if (variant !== 'unstyled') {

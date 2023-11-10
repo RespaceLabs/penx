@@ -30,7 +30,7 @@ export function DisconnectPopover({}: Props) {
         {({ close }) => (
           <>
             <PopoverHeader>Sure to disconnect?</PopoverHeader>
-            <PopoverBody spaceX3>
+            <PopoverBody gapX3>
               <Button variant="light" onClick={close} colorScheme="gray600">
                 Cancel
               </Button>

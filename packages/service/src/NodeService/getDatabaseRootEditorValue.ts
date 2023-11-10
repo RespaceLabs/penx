@@ -4,7 +4,7 @@ import { Node } from '@penx/model'
 import { IDatabaseNode, INode } from '@penx/types'
 
 export function getDatabaseRootEditorValue(
-  node: Node<IDatabaseNode>,
+  node: Node,
   nodeMap: Map<string, INode>,
 ) {
   const children = node.children.map((id) => {
