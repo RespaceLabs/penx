@@ -8,6 +8,7 @@ import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { RecentlyEdited } from './RecentlyEdited'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover'
+import { TreeView } from './TreeView'
 import { UserAvatarModal } from './UserAvatarModal/UserAvatarModal'
 import { WalletConnectButton } from './WalletConnectButton'
 
@@ -88,6 +89,9 @@ export const Sidebar = () => {
         ))}
 
         <FavoriteBox />
+
+        <TreeView />
+
         <RecentlyEdited />
 
         <SidebarItem

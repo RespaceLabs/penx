@@ -29,6 +29,10 @@ export class Node {
     return this.raw?.type || ''
   }
 
+  get hasChildren() {
+    return !!this.children.length
+  }
+
   get props() {
     return this.raw.props || {}
   }

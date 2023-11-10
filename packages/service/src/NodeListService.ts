@@ -58,6 +58,10 @@ export class NodeListService {
     return this.nodes.filter((node) => node.isTrash)
   }
 
+  getNode(id: string) {
+    return this.nodeMap.get(id)!
+  }
+
   getFavorites(ids: string[] = []) {
     return this.nodes.filter((node) => ids.includes(node.id))
   }

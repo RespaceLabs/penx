@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Box } from '@fower/react'
 import { useSelected } from 'slate-react'
 import { ElementProps } from '@penx/extension-typings'
@@ -40,7 +39,7 @@ export const Tag = ({
         fontNormal
         py1
         px1
-        textSM
+        textXS
         bg--T92={node?.tagColor}
         bg--T88--hover={node?.tagColor}
         color={node?.tagColor}
