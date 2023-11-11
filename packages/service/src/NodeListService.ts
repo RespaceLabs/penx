@@ -1,9 +1,15 @@
 import _ from 'lodash'
 import { ArraySorter } from '@penx/indexeddb'
 import { Node } from '@penx/model'
-import { INode, ISpace, NodeType } from '@penx/types'
+import { INode, NodeType } from '@penx/types'
 
-type FindOptions<T = INode> = {
+export type WithFlattenedProps<T> = T & {
+  parentId: string | null // parent node id
+  depth: number
+  index: number
+}
+
+export type FindOptions<T = INode> = {
   where?: Partial<T>
   limit?: number
   orderByDESC?: boolean
@@ -60,6 +66,34 @@ export class NodeListService {
 
   getNode(id: string) {
     return this.nodeMap.get(id)!
+  }
+
+  flattenNode(node: Node) {
+    return this.flattenChildren(node.children)
+  }
+
+  private flattenChildren(
+    children: string[] = [],
+    parentId: string | null = null,
+    depth = 0,
+  ): WithFlattenedProps<Node>[] {
+    return children.reduce<WithFlattenedProps<Node>[]>((acc, id, index) => {
+      const node = this.getNode(id)
+
+      // copy a new node
+      const flattenedNode = Object.assign(new Node({ ...node.raw }), {
+        parentId,
+        depth,
+        index,
+      })
+      acc.push(flattenedNode)
+
+      if (node.hasChildren) {
+        acc.push(...this.flattenChildren(node.children, node.id, depth + 1))
+      }
+
+      return acc
+    }, [])
   }
 
   getFavorites(ids: string[] = []) {

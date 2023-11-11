@@ -17,6 +17,7 @@ import { db, emitter } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
 import { INode, NodeType } from '@penx/types'
+import { NodeCleaner } from '../NodeCleaner'
 import { getDatabaseNodeEditorValue } from './getDatabaseNodeEditorValue'
 import { getDatabaseRootEditorValue } from './getDatabaseRootEditorValue'
 
@@ -235,6 +236,8 @@ export class NodeService {
     // update page snapshot
     const value = nodeService.getEditorValue(childrenNodes)
     await db.updateSnapshot(rootNode.raw, 'update', value)
+
+    await new NodeCleaner().cleanDeletedNodes()
   }
 
   saveNodes = async (parentId: string, ul: UnorderedListElement) => {

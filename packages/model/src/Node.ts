@@ -17,9 +17,7 @@ export class Node {
     return this.raw?.id || ''
   }
 
-  get parentId() {
-    return this.raw.parentId
-  }
+  parentId = this.raw?.parentId || ''
 
   get spaceId(): string {
     return this.raw.spaceId

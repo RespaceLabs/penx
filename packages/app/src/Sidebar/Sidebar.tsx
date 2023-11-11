@@ -2,13 +2,14 @@ import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
 import { CalendarDays, Cloud, Folder, Hash, Inbox, Trash2 } from 'lucide-react'
 import { useAccount } from 'wagmi'
+import { useNodes } from '@penx/hooks'
 import { extensionStoreAtom, store } from '@penx/store'
 import { ExtensionStore } from '@penx/types'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { RecentlyEdited } from './RecentlyEdited'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover'
-import { TreeView } from './TreeView'
+import { TreeView } from './TreeView/TreeView'
 import { UserAvatarModal } from './UserAvatarModal/UserAvatarModal'
 import { WalletConnectButton } from './WalletConnectButton'
 
@@ -27,6 +28,9 @@ export const Sidebar = () => {
   const { isConnected } = useAccount()
   const [extensionStore] = useAtom(extensionStoreAtom)
   const components = getStatusBarComponents(extensionStore)
+  const { nodes, nodeList } = useNodes()
+
+  if (!nodes.length) return null
 
   return (
     <Box
@@ -90,7 +94,7 @@ export const Sidebar = () => {
 
         <FavoriteBox />
 
-        <TreeView />
+        {!!nodes.length && <TreeView nodeList={nodeList} />}
 
         <RecentlyEdited />
 
