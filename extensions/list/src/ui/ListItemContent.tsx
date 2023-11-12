@@ -144,9 +144,13 @@ export const ListItemContent = ({
         </ContextMenu>
         <Chevron element={element} onContextMenu={show} />
 
-        <Box inlineFlex {...sortable.listeners}>
+        <Bullet element={element} onContextMenu={show} />
+
+        {/* disable drag now */}
+
+        {/* <Box inlineFlex {...sortable.listeners}>
           <Bullet element={element} onContextMenu={show} />
-        </Box>
+        </Box> */}
       </Box>
 
       <Box flex-1 pl1 leadingNormal>

@@ -1793,6 +1793,9 @@ importers:
       '@penx/extension-typings':
         specifier: '*'
         version: link:../../packages/extension-typings
+      '@penx/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
@@ -1820,6 +1823,9 @@ importers:
       nanoid:
         specifier: ^4.0.2
         version: 4.0.2
+      react-fast-compare:
+        specifier: ^3.2.2
+        version: 3.2.2
       remark-parse:
         specifier: ^11.0.0
         version: 11.0.0

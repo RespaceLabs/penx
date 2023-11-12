@@ -1,14 +1,15 @@
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
+import isEqual from 'react-fast-compare'
 import { Box } from '@fower/react'
-import { Editor, Node } from 'slate'
-import { useEditor, useEditorStatic } from '@penx/editor-common'
-import { findNodePath } from '@penx/editor-queries'
-import { listSchema } from '../listSchema'
+import { extractTags, useEditorStatic } from '@penx/editor-common'
+import { useNodes } from '@penx/hooks'
+import { useBulletVisible } from '../hooks/useBulletVisible'
 import { ListContentElement } from '../types'
 
 interface BulletContentProps {
   collapsed?: boolean
   nodeId?: string
+  colors?: string[]
   onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
 }
 
@@ -16,21 +17,36 @@ const BulletContent = memo(
   function BulletContent({
     collapsed,
     nodeId,
+    colors,
     onContextMenu,
   }: BulletContentProps) {
     const editor = useEditorStatic()
+
+    const color = colors?.length ? colors[0] : 'gray400'
+
+    const bgColor = useMemo(() => {
+      if (!collapsed) return 'transparent'
+      if (color) return `${color}--T80`
+      return 'gray200'
+    }, [collapsed, color])
+
+    const bgHoverColor = useMemo(() => {
+      if (color) return `${color}--T80`
+      return 'gray200'
+    }, [color])
+
     return (
       <Box
         id={`${nodeId}`}
         className="bullet"
         square-15
         bgTransparent
-        bgGray200--hover
-        bgGray200={collapsed}
+        bg--hover={bgHoverColor}
         toCenter
         roundedFull
         cursorPointer
         flexShrink-1
+        bg={bgColor}
         onContextMenu={onContextMenu}
         onClick={() => {
           editor.onClickBullet(nodeId)
@@ -38,7 +54,7 @@ const BulletContent = memo(
       >
         <Box
           square-5
-          bgGray400
+          bg={color}
           roundedFull
           transitionCommon
           scale-130--$bullet--hover
@@ -56,27 +72,19 @@ interface Props {
 }
 
 export const Bullet = ({ element, onContextMenu }: Props) => {
-  const editor = useEditor()
   const { collapsed = false } = element
+  const isBulletVisible = useBulletVisible(element)
+  const tagNames = extractTags(element.children[0])
+  const { nodeList } = useNodes()
 
-  const currentElement = (() => {
-    if (!editor.selection) return null
-    const res = Editor.nodes(editor, {
-      mode: 'lowest',
-      at: editor.selection,
-      match: listSchema.isListItemTextNode,
+  let colors: string[] = []
+
+  if (tagNames.length) {
+    colors = tagNames.map((tagName) => {
+      const find = nodeList.tagNodes.find((n) => n.tagName === tagName)
+      return find?.tagColor ?? 'gray400'
     })
-
-    const licEntries = Array.from(res)
-    if (!licEntries.length) return null
-    return licEntries[0][0]
-  })()
-
-  const path = findNodePath(editor, element)
-  const isFirstLine = path?.[0] === 1
-  const str = Node.string(element)
-  const isFocused = currentElement === element
-  const isBulletVisible = !!str || isFocused || isFirstLine
+  }
 
   if (!isBulletVisible) return null
 
@@ -84,6 +92,7 @@ export const Bullet = ({ element, onContextMenu }: Props) => {
     <BulletContent
       collapsed={collapsed}
       nodeId={element.id}
+      colors={colors}
       onContextMenu={onContextMenu}
     />
   )

@@ -87,11 +87,11 @@ export class Node {
     return this.raw.folded
   }
 
-  get tagName() {
+  get tagName(): string {
     return this.raw.props.name || ''
   }
 
-  get tagColor() {
+  get tagColor(): string {
     return this.raw.props.color || ''
   }
 
