@@ -60,6 +60,8 @@ export class SyncService {
 
   commitSha: string
 
+  enableEncryption: boolean = false
+
   get baseBranchName() {
     return 'main'
   }
@@ -91,8 +93,13 @@ export class SyncService {
     this.params = sharedParams
   }
 
-  static async init(space: ISpace, user: User) {
+  static async init(
+    space: ISpace,
+    user: User,
+    enabledEncryption: boolean = false,
+  ) {
     const s = new SyncService()
+    s.enableEncryption = enabledEncryption
     s.nodes = await db.listNodesBySpaceId(space.id)
     s.user = user
     s.space = new Space(space)
@@ -160,10 +167,7 @@ export class SyncService {
         path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
-        content: encryptString(
-          JSON.stringify(pageMap[id], null, 2),
-          this.secretKey,
-        ),
+        content: this.encrypt(JSON.stringify(pageMap[id], null, 2)),
       })
     }
 
@@ -182,7 +186,7 @@ export class SyncService {
         path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
-        content: encryptString(JSON.stringify(nodes, null, 2), this.secretKey),
+        content: this.encrypt(JSON.stringify(nodes, null, 2)),
       })
     }
 
@@ -263,7 +267,7 @@ export class SyncService {
       path: this.space.filePath,
       mode: '100644',
       type: 'blob',
-      content: encryptString(this.space.stringify(version), this.secretKey),
+      content: this.encrypt(this.space.stringify(version)),
     } as TreeItem
   }
 
@@ -316,10 +320,7 @@ export class SyncService {
     )
 
     if (spaceRes.data.content) {
-      const originalContent = decryptString(
-        atob(spaceRes.data.content),
-        this.secretKey,
-      )
+      const originalContent = this.decrypt(atob(spaceRes.data.content))
       const space: ISpace = JSON.parse(originalContent)
       await db.updateSpace(this.space.id, space)
     }
@@ -576,10 +577,8 @@ export class SyncService {
         },
       )
 
-      const originalContent = decryptString(
-        decodeBase64(pageRes.data.content),
-        this.secretKey,
-      )
+      const originalContent = this.decrypt(decodeBase64(pageRes.data.content))
+
       const nodes: INode[] = JSON.parse(originalContent) || []
 
       for (const item of nodes) {
@@ -630,10 +629,7 @@ export class SyncService {
         },
       )
 
-      const originalContent = decryptString(
-        decodeBase64(pageRes.data.content),
-        this.secretKey,
-      )
+      const originalContent = this.decrypt(decodeBase64(pageRes.data.content))
 
       const nodes: INode[] = JSON.parse(originalContent) || []
 
@@ -737,6 +733,16 @@ export class SyncService {
         },
       })
       .json()
+  }
+
+  encrypt(str: string) {
+    if (!this.enableEncryption) return str
+    return encryptString(str, this.secretKey)
+  }
+
+  decrypt(str: string) {
+    if (!this.enableEncryption) return str
+    return decryptString(str, this.secretKey)
   }
 }
 

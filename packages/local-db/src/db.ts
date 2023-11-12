@@ -15,7 +15,6 @@ import {
   NodeType,
   ViewType,
 } from '@penx/types'
-import { emitter } from './emitter'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { getTagColor } from './getTagColor'
