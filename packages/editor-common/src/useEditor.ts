@@ -4,6 +4,13 @@ import { ReactEditor, useSlate, useSlateStatic } from 'slate-react'
 
 export type TElement<T = string> = Element & { type: T; nodeType?: string }
 
+export type Projected = {
+  depth: number
+  maxDepth: number
+  minDepth: number
+  parentId: string | null
+}
+
 export type PenxEditor = BaseEditor &
   ReactEditor &
   HistoryEditor & {
@@ -14,6 +21,11 @@ export type PenxEditor = BaseEditor &
     isBlockSelectorOpened: boolean
     isTagSelectorOpened: boolean
     nodeToDecorations: Map<any, Range[]>
+
+    projected: Projected | null
+
+    // save flattened node to editor
+    flattenedItems: any[]
   }
 
 export function useEditor() {

@@ -17,6 +17,9 @@
   },
   "dependencies": {
     "@bone-ui/utils": "^0.37.0",
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@dnd-kit/utilities": "^3.1.0",
     "@floating-ui/react": "^0.26.1",
     "@fower/react": "^2.0.0",
     "@penx/autoformat": "workspace:*",
@@ -28,6 +31,7 @@
     "@penx/local-db": "workspace:*",
     "@penx/remark-slate": "workspace:*",
     "@penx/serializer": "workspace:*",
+    "@penx/dnd-projection": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/types": "workspace:*",
     "date-fns": "^2.30.0",

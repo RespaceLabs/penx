@@ -54,6 +54,7 @@ const config = {
     '@penx/table',
     '@penx/database',
     '@penx/tag',
+    '@penx/dnd-projection',
     '@penx/block-selector',
     '@penx/editor-leaf',
     '@penx/trpc-client',

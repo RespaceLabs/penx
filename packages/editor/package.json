@@ -33,6 +33,8 @@
     "@fower/react": "^2.0.0",
     "@penx/autoformat": "workspace:*",
     "@penx/model": "workspace:*",
+    "@penx/service": "workspace:*",
+    "@penx/dnd-projection": "workspace:*",
     "@penx/editor-leaf": "workspace:*",
     "@penx/editor-common": "workspace:*",
     "@penx/editor-queries": "workspace:*",

@@ -4,7 +4,7 @@ import { unified } from 'unified'
 import { PenxEditor } from '@penx/editor-common'
 import { getCurrentPath } from '@penx/editor-queries'
 import slate from '@penx/remark-slate'
-import { listSchema } from './listSchema'
+import { listSchema } from '../listSchema'
 
 export const withMarkdown = (editor: PenxEditor) => {
   const { insertData } = editor

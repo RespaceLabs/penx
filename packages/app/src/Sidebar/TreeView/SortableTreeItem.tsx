@@ -2,8 +2,7 @@ import React, { CSSProperties, useState } from 'react'
 import { AnimateLayoutChanges, useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { CSSObject } from '@fower/react'
-import { Node } from '@penx/model'
-import { WithFlattenedProps } from '@penx/service'
+import { Node, WithFlattenedProps } from '@penx/model'
 import { TreeItem } from './TreeItem'
 
 interface Props {
@@ -55,9 +54,9 @@ export function SortableTreeItem({ node, level, overDepth }: Props) {
       bottom0: isAfter,
       content: '""',
       position: 'absolute',
-      h: 2,
+      h: 3,
       // w: '100%',
-      bgBrand500: true,
+      bgBrand300: true,
     }
     return {
       '::after': style,

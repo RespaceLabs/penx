@@ -1763,6 +1763,15 @@ importers:
       '@bone-ui/utils':
         specifier: ^0.37.0
         version: 0.37.0
+      '@dnd-kit/core':
+        specifier: ^6.0.8
+        version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
+      '@dnd-kit/sortable':
+        specifier: ^7.0.2
+        version: 7.0.2(@dnd-kit/core@6.0.8)(react@18.2.0)
+      '@dnd-kit/utilities':
+        specifier: ^3.1.0
+        version: 3.2.1(react@18.2.0)
       '@floating-ui/react':
         specifier: ^0.26.1
         version: 0.26.1(react-dom@18.2.0)(react@18.2.0)
@@ -1778,6 +1787,9 @@ importers:
       '@penx/context-menu':
         specifier: workspace:*
         version: link:../../packages/context-menu
+      '@penx/dnd-projection':
+        specifier: workspace:*
+        version: link:../../packages/dnd-projection
       '@penx/editor-common':
         specifier: workspace:*
         version: link:../../packages/editor-common
@@ -2406,6 +2418,9 @@ importers:
       '@penx/db':
         specifier: workspace:*
         version: link:../db
+      '@penx/dnd-projection':
+        specifier: workspace:*
+        version: link:../dnd-projection
       '@penx/editor':
         specifier: workspace:*
         version: link:../editor
@@ -2874,6 +2889,37 @@ importers:
         specifier: ^5.1.3
         version: 5.2.2
 
+  packages/dnd-projection:
+    dependencies:
+      '@dnd-kit/sortable':
+        specifier: ^7.0.2
+        version: 7.0.2(@dnd-kit/core@6.0.8)(react@18.2.0)
+      '@penx/model':
+        specifier: workspace:*
+        version: link:../model
+    devDependencies:
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.22
+      '@types/react-dom':
+        specifier: ^18.2.7
+        version: 18.2.7
+      eslint:
+        specifier: ^8.42.0
+        version: 8.49.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.1.3
+        version: 5.2.2
+
   packages/easy-modal:
     dependencies:
       immer:
@@ -2934,6 +2980,9 @@ importers:
       '@penx/code-block':
         specifier: workspace:*
         version: link:../../extensions/code-block
+      '@penx/dnd-projection':
+        specifier: workspace:*
+        version: link:../dnd-projection
       '@penx/editor-common':
         specifier: workspace:*
         version: link:../editor-common
@@ -2976,6 +3025,9 @@ importers:
       '@penx/paragraph':
         specifier: workspace:*
         version: link:../../extensions/paragraph
+      '@penx/service':
+        specifier: workspace:*
+        version: link:../service
       '@penx/shared':
         specifier: workspace:*
         version: link:../shared

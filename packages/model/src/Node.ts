@@ -8,7 +8,11 @@ type Element = {
   children: Array<{ text: string }>
 }
 
-export const isRootNode = () => {}
+export type WithFlattenedProps<T> = T & {
+  parentId: string | null // parent node id
+  depth: number
+  index: number
+}
 
 export class Node {
   constructor(public raw: INode) {}

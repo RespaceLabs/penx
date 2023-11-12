@@ -59,7 +59,10 @@ export class NodeService {
       return getDatabaseRootEditorValue(this.node, this.nodeMap)
     }
 
-    const childrenToList = (children: string[]) => {
+    const childrenToList = (
+      children: string[],
+      parentId: string | null = null,
+    ) => {
       const listItems = children.map((id) => {
         const node = this.nodeMap.get(id)!
 
@@ -68,13 +71,14 @@ export class NodeService {
             id: node.id,
             type: ELEMENT_LIC,
             nodeType: node.type,
+            parentId,
             collapsed: node.collapsed,
             children: [node.element],
           },
         ]
 
         if (node.children) {
-          const ul = childrenToList(node.children)
+          const ul = childrenToList(node.children, node.id)
           if (ul) children.push(ul as any)
         }
 
@@ -103,6 +107,7 @@ export class NodeService {
           {
             id: node.id,
             type: ELEMENT_LIC,
+            parentId: null,
             nodeType: node.type,
             props: node.props,
             collapsed: node.collapsed,
@@ -110,7 +115,7 @@ export class NodeService {
           },
         ]
 
-        const ul = childrenToList(node.children) as any
+        const ul = childrenToList(node.children, node.id) as any
         if (ul) listChildren.push(ul)
 
         return {
@@ -270,6 +275,7 @@ export class NodeService {
       if (parent.children.length > 1) {
         const listItems = parent.children[1]
           .children as any as ListItemElement[]
+
         children = listItems.map((item) => {
           return item.children[0].id
         })
@@ -325,7 +331,7 @@ export class NodeService {
   }
 
   private extractTags(element: TElement) {
-    // console.log('element===:', element)
+    if (!element.children) return []
     return element.children
       .filter((item: any) => item.type === 'tag')
       .map((i: any) => i.name.replace('#', ''))

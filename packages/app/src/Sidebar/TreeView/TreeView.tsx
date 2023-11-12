@@ -27,13 +27,13 @@ import {
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'
+import { getProjection, UniqueIdentifier } from '@penx/dnd-projection'
 import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { NodeCleaner, NodeListService } from '@penx/service'
 import { store } from '@penx/store'
 import { SortableTreeItem } from './SortableTreeItem'
 import { TreeItem } from './TreeItem'
-import { getProjection, UniqueIdentifier } from './utils'
 
 const measuring = {
   droppable: {
@@ -149,8 +149,8 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
         sensors={sensors}
         collisionDetection={closestCenter}
         measuring={measuring}
-        onDragMove={handleDragMove}
         onDragStart={handleDragStart}
+        onDragMove={handleDragMove}
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
         onDragCancel={handleDragCancel}
@@ -188,6 +188,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
 
     document.body.style.setProperty('cursor', 'grabbing')
   }
+
   function handleDragMove({ delta }: DragMoveEvent) {
     setOffsetLeft(delta.x)
   }
@@ -205,7 +206,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
     if (!(overId && projected)) return
     const { depth, parentId } = projected
 
-    console.log('gogo........: ', depth, 'parentId:', parentId)
+    // console.log('handleDragEnd======: ', depth, 'parentId:', parentId)
 
     if (!parentId) {
       if (activeId !== overId) {
@@ -284,7 +285,8 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
           parentId: activeNode.raw.parentId,
         }),
       ])
-      console.log('activeNode.parentId,:', activeNode.parentId)
+
+      // console.log('activeNode.parentId,:', activeNode.parentId)
 
       await new NodeCleaner().cleanDeletedNodes()
     }

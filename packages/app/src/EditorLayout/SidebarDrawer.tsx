@@ -5,7 +5,6 @@ import { Button } from 'uikit'
 import { useSidebarDrawer, useUser } from '@penx/hooks'
 import { store } from '@penx/store'
 import { FavoriteBox } from '../Sidebar/FavoriteBox/FavoriteBox'
-import { RecentlyEdited } from '../Sidebar/RecentlyEdited'
 import { SidebarItem } from '../Sidebar/SidebarItem'
 import { SpacePopover } from '../Sidebar/SpacePopover'
 
@@ -85,7 +84,6 @@ export const DrawerSidebar = () => {
                 }}
               />
               <FavoriteBox />
-              <RecentlyEdited />
             </Box>
             <Box>Address: {user?.address}</Box>
           </Box>

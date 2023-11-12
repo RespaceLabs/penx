@@ -29,12 +29,15 @@ export function NodeContent() {
 
   if (!node.id || !nodes.length) return null
 
+  // console.log('nodes=========:', nodes)
+
   return (
     <Box relative>
       <Box mx-auto maxW-800>
         <NodeEditor
           plugins={[listPlugin]}
           content={nodeService.getEditorValue()}
+          node={node}
           onChange={(value, editor) => {
             if (isAstChange(editor)) {
               debouncedSaveNodes(value)

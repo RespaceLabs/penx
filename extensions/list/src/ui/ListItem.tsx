@@ -3,6 +3,7 @@ import { useSlateStatic } from 'slate-react'
 import { findNodePath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { ListItemElement } from '../types'
+import { GuideLine } from './GuideLine'
 
 export const ListItem = ({
   attributes,
@@ -22,17 +23,7 @@ export const ListItem = ({
       relative
       pl0={path.length > 2}
     >
-      {path.length > 2 && (
-        <Box
-          contentEditable={false}
-          absolute
-          left--40
-          top0
-          bottom0
-          bgGray200
-          w-1
-        />
-      )}
+      {path.length > 2 && <GuideLine />}
       {children}
     </Box>
   )

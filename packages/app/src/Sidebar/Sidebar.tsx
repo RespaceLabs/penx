@@ -6,7 +6,6 @@ import { useNodes } from '@penx/hooks'
 import { extensionStoreAtom, store } from '@penx/store'
 import { ExtensionStore } from '@penx/types'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
-import { RecentlyEdited } from './RecentlyEdited'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover'
 import { TreeView } from './TreeView/TreeView'
@@ -95,8 +94,6 @@ export const Sidebar = () => {
         <FavoriteBox />
 
         {!!nodes.length && <TreeView nodeList={nodeList} />}
-
-        <RecentlyEdited />
 
         <SidebarItem
           icon={<Trash2 size={16} />}
