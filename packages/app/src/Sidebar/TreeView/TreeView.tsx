@@ -117,7 +117,9 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
             level={depth}
             overDepth={overDepth}
           />
-          <Box>{renderNodes(node.children, level + 1)}</Box>
+          <Box display={node.folded ? 'none' : 'block'}>
+            {renderNodes(node.children, level + 1)}
+          </Box>
         </Box>
       )
     })
@@ -141,9 +143,22 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
     : null
 
   return (
-    <Box px3>
-      <Box mb2 fontBold>
-        Tree view
+    <Box>
+      <Box
+        toCenterY
+        px3
+        mb-1
+        fontBold
+        gray600
+        cursorPointer
+        bgGray200--hover
+        rounded
+        h-30
+        onClick={() => {
+          store.selectSpaceNode()
+        }}
+      >
+        Nodes
       </Box>
       <DndContext
         sensors={sensors}

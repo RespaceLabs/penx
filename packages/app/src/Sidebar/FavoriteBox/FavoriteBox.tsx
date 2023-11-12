@@ -12,15 +12,6 @@ export const FavoriteBox = () => {
     <Box gray600 p3 rounded2XL>
       <Box toCenterY toBetween gap2>
         <Box fontBold>Favorites</Box>
-        <Button
-          size="sm"
-          variant="ghost"
-          colorScheme="gray700"
-          isSquare
-          roundedFull
-        >
-          <MoreHorizontal />
-        </Button>
       </Box>
       <Box column>
         {nodeList.getFavorites(activeSpace.favorites).map((node) => (

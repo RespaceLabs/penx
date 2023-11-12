@@ -38,7 +38,15 @@ export interface INode {
     [key: string]: any
   }
 
+  /**
+   * for editor
+   */
   collapsed: boolean
+
+  /**
+   * for tree view
+   */
+  folded: boolean
 
   children: string[]
 

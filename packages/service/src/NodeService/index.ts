@@ -50,6 +50,10 @@ export class NodeService {
     return ''
   }
 
+  isEqual(node: Node) {
+    return node.id === this.node.id
+  }
+
   getEditorValue(childrenNodes: Node[] = this.childrenNodes) {
     if (this.node.isDatabase) {
       return getDatabaseNodeEditorValue(this.node)
@@ -174,6 +178,16 @@ export class NodeService {
 
   async selectNode(node?: Node) {
     store.selectNode(node?.raw || this.node.raw)
+  }
+
+  async toggleFolded(node: Node) {
+    await db.updateNode(node.id, {
+      folded: !node.folded,
+    })
+
+    const nodes = await db.listNodesBySpaceId(this.spaceId)
+
+    store.setNodes(nodes)
   }
 
   async addToFavorites() {

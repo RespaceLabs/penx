@@ -83,6 +83,10 @@ export class Node {
     return this.raw.collapsed
   }
 
+  get folded() {
+    return this.raw.folded
+  }
+
   get tagName() {
     return this.raw.props.name || ''
   }

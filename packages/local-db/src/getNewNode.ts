@@ -24,6 +24,7 @@ export function getNewNode(input: Input, text = ''): INode {
       ...rest.props,
     },
     collapsed: false,
+    folded: true,
     children: [],
     openedAt: Date.now(),
     createdAt: Date.now(),

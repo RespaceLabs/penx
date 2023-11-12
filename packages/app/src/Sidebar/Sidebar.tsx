@@ -72,14 +72,6 @@ export const Sidebar = () => {
         />
 
         <SidebarItem
-          icon={<Folder size={16} />}
-          label="All Nodes"
-          onClick={() => {
-            store.selectSpaceNode()
-          }}
-        />
-
-        <SidebarItem
           icon={<Cloud size={16} />}
           label="Sync"
           onClick={() => {
@@ -95,13 +87,13 @@ export const Sidebar = () => {
 
         {!!nodes.length && <TreeView nodeList={nodeList} />}
 
-        <SidebarItem
+        {/* <SidebarItem
           icon={<Trash2 size={16} />}
           label="Trash"
           onClick={() => {
             store.selectTrash()
           }}
-        />
+        /> */}
       </Box>
       <Box>
         {!isConnected && <WalletConnectButton size="lg" w-100p />}
