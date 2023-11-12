@@ -67,7 +67,6 @@
     "date-fns": "^2.30.0",
     "dexie": "^3.2.4",
     "dexie-react-hooks": "^1.1.6",
-    "easy-modal": "workspace:*",
     "emoji-mart": "^5.5.2",
     "emoji-picker-react": "^4.5.2",
     "framer-motion": "^10.12.16",

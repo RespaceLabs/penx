@@ -38,7 +38,6 @@
     "cookies-next": "^2.1.1",
     "crypto-js": "^4.1.1",
     "date-fns": "^2.30.0",
-    "easy-modal": "workspace:*",
     "emoji-mart": "^5.5.2",
     "emoji-picker-react": "^4.4.10",
     "framer-motion": "^10.12.16",

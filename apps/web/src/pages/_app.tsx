@@ -3,7 +3,6 @@ import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
-import { EasyModalProvider } from 'easy-modal'
 import { Session } from 'next-auth'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'uikit'
@@ -47,12 +46,10 @@ function MyApp({ Component, pageProps }: Props<any>) {
 
       <QueryClientProvider client={queryClient}>
         <I18nProvider i18n={i18n}>
-          <EasyModalProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <ToastContainer position="bottom-right" />
-          </EasyModalProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          <ToastContainer position="bottom-right" />
         </I18nProvider>
         {/* <Analytics /> */}
       </QueryClientProvider>

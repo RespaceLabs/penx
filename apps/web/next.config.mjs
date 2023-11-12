@@ -61,7 +61,6 @@ const config = {
     '@penx/extension-list',
     'uikit',
     'slate-lists',
-    'easy-modal',
   ],
   i18n: {
     // These are all the locales you want to support in
