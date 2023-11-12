@@ -27,7 +27,7 @@ export function activate(ctx: ExtensionContext) {
           icon: TableIcon,
           async beforeInvokeCommand(editor) {
             console.log('before.............')
-            return db.createDatabase()
+            return db.createDatabase('')
           },
         },
       },

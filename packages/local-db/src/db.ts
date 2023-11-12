@@ -349,7 +349,7 @@ class DB {
     return databaseRootNode!
   }
 
-  createDatabase = async (name: string = '') => {
+  createDatabase = async (name: string, shouldInitCell = false) => {
     // const { id = '' } = data
     const space = await this.getActiveSpace()
     const databaseRootNode = await this.getDatabaseRootNode(space.id)
@@ -381,12 +381,12 @@ class DB {
       },
     })
 
-    const [columns, rows] = await Promise.all([
-      this.initColumns(space.id, database.id),
-      this.initRows(space.id, database.id),
-    ])
+    const columns = await this.initColumns(space.id, database.id)
 
-    await this.initCells(space.id, database.id, columns, rows)
+    if (shouldInitCell) {
+      const rows = await this.initRows(space.id, database.id)
+      await this.initCells(space.id, database.id, columns, rows)
+    }
     return database
   }
 
