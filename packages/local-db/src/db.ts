@@ -47,12 +47,19 @@ class DB {
   }
 
   init = async () => {
+    let space: ISpace | undefined = undefined
     const count = await this.space.count()
     if (count === 0) {
-      const space = await this.createSpace({ name: 'My Space' })
+      await this.createSpace({ name: 'My Space' })
+      space = await this.createSpace({
+        id: 'penx-101',
+        name: 'PenX 101',
+      })
     }
     // const space = await this.space.toCollection().first()
-    const space = (await this.space.selectAll())[0]
+    if (!space) {
+      space = (await this.space.selectAll())[0]
+    }
 
     return space!
   }
