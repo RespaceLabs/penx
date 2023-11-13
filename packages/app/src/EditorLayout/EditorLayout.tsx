@@ -18,7 +18,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   useQuerySpaces()
   const { spaces, activeSpace } = useSpaces()
   const { name } = useAtomValue(routerAtom)
-  const SIDEBAR_WIDTH = 280
+  const SIDEBAR_WIDTH = 260
 
   if (!spaces?.length) return null
 

@@ -1,5 +1,5 @@
-import { CSSProperties, forwardRef } from 'react'
-import { mergeRefs } from '@bone-ui/utils'
+import { CSSProperties, forwardRef, memo } from 'react'
+import isEqual from 'react-fast-compare'
 import { useSortable } from '@dnd-kit/sortable'
 import { Box, CSSObject, FowerHTMLProps } from '@fower/react'
 import { ChevronDown, ChevronRight } from 'lucide-react'
@@ -12,25 +12,26 @@ interface TreeItemProps extends FowerHTMLProps<'div'> {
   node: Node
   style?: CSSProperties
   css?: CSSObject
-  sortable?: ReturnType<typeof useSortable>
+  listeners?: ReturnType<typeof useSortable>['listeners']
 }
 
-export const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(
-  function TreeItem(
-    { node, level, sortable, style = {}, css = {}, ...rest },
+export const TreeItem = memo(
+  forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
+    { node, level, listeners, style = {}, css = {}, ...rest },
     ref,
   ) {
     const { nodeService } = useNode()
 
     return (
       <Box
-        ref={mergeRefs([sortable ? sortable?.setNodeRef : null, ref])}
+        ref={ref}
         relative
         h-30
         toCenterY
         cursorPointer
         rounded
         bgGray200--hover
+        bgGray200--D4--active
         bgGray200={nodeService.isEqual(node)}
         transitionColors
         gray800
@@ -38,7 +39,7 @@ export const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(
         pl={level * 16 + 6}
         css={css}
         style={style}
-        {...sortable?.listeners}
+        {...listeners}
         {...rest}
         onClick={() => {
           store.selectNode(node.raw)
@@ -86,5 +87,11 @@ export const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(
         </Box>
       </Box>
     )
+  }),
+
+  (prev, next) => {
+    const { listeners: l1, ...prevProps } = prev
+    const { listeners: l2, ...nextProps } = next
+    return isEqual(prevProps, nextProps)
   },
 )

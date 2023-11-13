@@ -34,6 +34,7 @@ import { NodeCleaner, NodeListService } from '@penx/service'
 import { store } from '@penx/store'
 import { SortableTreeItem } from './SortableTreeItem'
 import { TreeItem } from './TreeItem'
+import { TreeViewHeader } from './TreeViewHeader'
 
 const measuring = {
   droppable: {
@@ -144,22 +145,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
 
   return (
     <Box>
-      <Box
-        toCenterY
-        px3
-        mb-1
-        fontBold
-        gray600
-        cursorPointer
-        bgGray200--hover
-        rounded
-        h-30
-        onClick={() => {
-          store.selectSpaceNode()
-        }}
-      >
-        Nodes
-      </Box>
+      <TreeViewHeader />
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -186,7 +172,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
                 <TreeItem
                   node={activeItem}
                   level={activeItem.depth}
-                  opacity-80
+                  opacity-40
                 />
               ) : null}
             </DragOverlay>,

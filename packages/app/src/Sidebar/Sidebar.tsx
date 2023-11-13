@@ -38,7 +38,7 @@ export const Sidebar = () => {
       borderGray100
       flex-1
       display={['none', 'none', 'flex']}
-      bgZinc100
+      bgZinc100--T20
       px2
       gap3
       h-100vh

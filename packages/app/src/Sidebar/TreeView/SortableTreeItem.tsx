@@ -72,10 +72,11 @@ export function SortableTreeItem({ node, level, overDepth }: Props) {
 
   return (
     <TreeItem
+      ref={sortable.setNodeRef}
       node={node}
       // level={node.depth}
       level={level}
-      sortable={sortable}
+      listeners={sortable.listeners}
       style={style}
       css={getActiveStyle()}
     />
