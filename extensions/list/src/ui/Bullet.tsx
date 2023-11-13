@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import { Box } from '@fower/react'
 import { extractTags, useEditorStatic } from '@penx/editor-common'
-import { useNodes } from '@penx/hooks'
+import { NodeType } from '@penx/types'
 import { useBulletVisible } from '../hooks/useBulletVisible'
 import { ListContentElement } from '../types'
 
@@ -72,16 +72,17 @@ interface Props {
 }
 
 export const Bullet = ({ element, onContextMenu }: Props) => {
+  const editor = useEditorStatic()
   const { collapsed = false } = element
   const isBulletVisible = useBulletVisible(element)
   const tagNames = extractTags(element.children[0])
-  const { nodeList } = useNodes()
+  const tagNodes = editor.items.filter((n) => n.type === NodeType.DATABASE)
 
   let colors: string[] = []
 
   if (tagNames.length) {
     colors = tagNames.map((tagName) => {
-      const find = nodeList.tagNodes.find((n) => n.tagName === tagName)
+      const find = tagNodes.find((n) => n.tagName === tagName)
       return find?.tagColor ?? 'gray400'
     })
   }

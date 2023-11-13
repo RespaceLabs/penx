@@ -16,7 +16,6 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
-    "@penx/constants": "workspace:*",
-    "@penx/extension-typings": "workspace:*"
+    "@penx/constants": "workspace:*"
   }
 }

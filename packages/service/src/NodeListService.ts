@@ -28,6 +28,11 @@ export class NodeListService {
     return rootNode
   }
 
+  get databaseRootNode() {
+    const databaseRootNode = this.nodes.find((n) => n.isDatabaseRoot)!
+    return databaseRootNode
+  }
+
   get inboxNode() {
     const rootNode = this.nodes.find((n) => n.isInbox)!
     return rootNode

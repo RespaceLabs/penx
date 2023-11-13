@@ -97,12 +97,14 @@ export function NodeEditor({
   onBlur,
   plugins,
 }: Props) {
-  const { nodeList } = useNodes()
+  const { nodeList, nodes } = useNodes()
   const editor = useCreateEditor(plugins)
   const { extensionStore } = useExtensionStore()
   const decorate = useDecorate(editor)
   const onDOMBeforeInput = useOnDOMBeforeInput(editor)
   const onOnCompositionEvent = useOnCompositionEvent(editor)
+
+  editor.items = nodes
 
   const renderElement = useCallback((props: RenderElementProps) => {
     const attr = {

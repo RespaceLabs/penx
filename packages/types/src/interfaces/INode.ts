@@ -5,8 +5,6 @@ export enum NodeType {
   TRASH = 'TRASH',
   DAILY_NOTE = 'DAILY_NOTE',
 
-  TAG = 'TAG',
-
   // Database
   DATABASE_ROOT = 'DATABASE_ROOT',
   DATABASE = 'DATABASE',

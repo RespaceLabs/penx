@@ -29,7 +29,6 @@
     "@penx/editor-common": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/extension-typings": "*",
-    "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/remark-slate": "workspace:*",
     "@penx/serializer": "workspace:*",
