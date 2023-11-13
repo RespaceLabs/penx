@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import { INode, NodeType } from '@penx/types'
+import { INode, NodeType } from '@penx/model-types'
 
 type Element = {
   id: string

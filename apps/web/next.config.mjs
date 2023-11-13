@@ -34,7 +34,7 @@ const config = {
     '@penx/service',
     '@penx/serializer',
     '@penx/store',
-    '@penx/types',
+    '@penx/model-types',
     '@penx/cmdk',
     '@penx/indexeddb',
     '@penx/event',

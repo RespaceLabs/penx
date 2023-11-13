@@ -1,6 +1,6 @@
 import { db } from '@penx/local-db'
+import { INode, NodeType } from '@penx/model-types'
 import { sleep } from '@penx/shared'
-import { INode, NodeType } from '@penx/types'
 
 const INTERVAL = 10 * 1000
 

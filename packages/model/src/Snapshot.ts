@@ -1,5 +1,5 @@
 import CryptoJS from 'crypto-js'
-import { ISpace } from '@penx/types'
+import { ISpace } from '@penx/model-types'
 
 export interface SnapshotDiffResult {
   isEqual: boolean

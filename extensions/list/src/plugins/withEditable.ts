@@ -1,6 +1,6 @@
 import { PenxEditor, TElement } from '@penx/editor-common'
 import { getCurrentPath, getNodeByPath } from '@penx/editor-queries'
-import { NodeType } from '@penx/types'
+import { NodeType } from '@penx/model-types'
 
 function isNotEditable(editor: PenxEditor) {
   const path = getCurrentPath(editor)!

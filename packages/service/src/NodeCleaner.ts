@@ -1,5 +1,5 @@
 import { db } from '@penx/local-db'
-import { INode, NodeType } from '@penx/types'
+import { INode, NodeType } from '@penx/model-types'
 
 export class NodeCleaner {
   async cleanDeletedNodes() {

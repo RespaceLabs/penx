@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import { SettingsType } from '@penx/constants'
-import { ISpace } from '@penx/types'
+import { ISpace } from '@penx/model-types'
 
 export function getNewSpace(data: Partial<ISpace>): ISpace {
   return {

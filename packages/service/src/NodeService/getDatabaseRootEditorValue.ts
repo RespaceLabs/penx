@@ -1,7 +1,7 @@
 import { ELEMENT_TITLE } from '@penx/constants'
 import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_UL } from '@penx/list'
 import { Node } from '@penx/model'
-import { IDatabaseNode, INode } from '@penx/types'
+import { IDatabaseNode, INode } from '@penx/model-types'
 
 export function getDatabaseRootEditorValue(
   node: Node,

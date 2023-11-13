@@ -1,5 +1,5 @@
 {
-  "name": "@penx/types",
+  "name": "@penx/model-types",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "types": "./src/index.ts",

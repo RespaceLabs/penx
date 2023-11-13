@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
-import { ICellNode, IColumnNode, IRowNode } from '@penx/types'
+import { ICellNode, IColumnNode, IRowNode } from '@penx/model-types'
 import { FIRST_COL_WIDTH } from '../../constants'
 import { IconDrag } from '../icons/IconDrag'
 import { TableCell } from './Cell'

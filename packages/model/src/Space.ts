@@ -1,4 +1,4 @@
-import { ISpace } from '@penx/types'
+import { ISpace } from '@penx/model-types'
 import { Settings } from './Settings'
 import { Snapshot } from './Snapshot'
 import { GithubInfo } from './User'

@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { db } from '@penx/local-db'
 import { Space } from '@penx/model'
-import { INode, NodeType } from '@penx/types'
+import { INode, NodeType } from '@penx/model-types'
 import { NodeListService } from './NodeListService'
 
 export class SpaceService {

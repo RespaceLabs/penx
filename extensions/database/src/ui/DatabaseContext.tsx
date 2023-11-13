@@ -14,7 +14,7 @@ import {
   INode,
   IRowNode,
   IViewNode,
-} from '@penx/types'
+} from '@penx/model-types'
 
 export interface IDatabaseContext {
   database: INode

@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { ArraySorter } from '@penx/indexeddb'
 import { Node, WithFlattenedProps } from '@penx/model'
-import { INode, NodeType } from '@penx/types'
+import { INode, NodeType } from '@penx/model-types'
 
 export type FindOptions<T = INode> = {
   where?: Partial<T>

@@ -1,7 +1,7 @@
 import { Box, css, styled } from '@fower/react'
 import { motion, MotionValue } from 'framer-motion'
 import { db } from '@penx/local-db'
-import { IColumnNode } from '@penx/types'
+import { IColumnNode } from '@penx/model-types'
 
 interface Props {
   x: MotionValue<number>

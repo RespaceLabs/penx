@@ -33,7 +33,7 @@
     "@penx/remark-slate": "workspace:*",
     "@penx/serializer": "workspace:*",
     "@penx/store": "workspace:*",
-    "@penx/types": "workspace:*",
+    "@penx/model-types": "workspace:*",
     "date-fns": "^2.30.0",
     "lucide-react": "^0.289.0",
     "mitt": "^3.0.0",

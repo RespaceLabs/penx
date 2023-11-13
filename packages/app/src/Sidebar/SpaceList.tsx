@@ -9,8 +9,8 @@ import {
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { useSpaces } from '@penx/hooks'
+import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
-import { ISpace } from '@penx/types'
 
 function SpaceItem({
   item,

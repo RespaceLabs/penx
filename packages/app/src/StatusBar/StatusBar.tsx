@@ -1,7 +1,6 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
-import { extensionStoreAtom } from '@penx/store'
-import { ExtensionStore } from '@penx/types'
+import { ExtensionStore, extensionStoreAtom } from '@penx/store'
 import { SyncPopover } from './SyncPopover'
 
 function getStatusBarComponents(extensionStore: ExtensionStore): any[] {

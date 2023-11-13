@@ -77,7 +77,7 @@
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/trpc-client": "workspace:*",
-    "@penx/types": "workspace:*",
+    "@penx/model-types": "workspace:*",
     "@prisma/nextjs-monorepo-workaround-plugin": "^5.1.1",
     "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-hover-card": "^1.0.6",

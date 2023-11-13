@@ -5,15 +5,8 @@ import { SyncStatus } from '@penx/constants'
 import { emitter } from '@penx/event'
 import { db } from '@penx/local-db'
 import { Node, User } from '@penx/model'
-import {
-  Command,
-  ExtensionStore,
-  INode,
-  ISpace,
-  NodeType,
-  RouteName,
-  RouterStore,
-} from '@penx/types'
+import { INode, ISpace, NodeType } from '@penx/model-types'
+import { Command, ExtensionStore, RouteName, RouterStore } from './types'
 
 // export const nodeAtom = atomWithStorage('node', null as any as INode)
 export const nodeAtom = atom(null as any as INode)

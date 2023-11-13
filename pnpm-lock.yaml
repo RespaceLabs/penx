@@ -977,15 +977,15 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../../packages/model-types
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../../packages/types
       '@udecode/plate-common':
         specifier: ^24.4.0
         version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
@@ -1323,6 +1323,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../../packages/model-types
       '@penx/paragraph':
         specifier: workspace:*
         version: link:../paragraph
@@ -1335,9 +1338,6 @@ importers:
       '@penx/tag':
         specifier: workspace:*
         version: link:../tag
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../../packages/types
       '@tanstack/react-query':
         specifier: ^4.35.7
         version: 4.35.7(react-dom@18.2.0)(react@18.2.0)
@@ -1593,15 +1593,15 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../../packages/model-types
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../../packages/types
       lucide-react:
         specifier: ^0.284.0
         version: 0.284.0(react@18.2.0)
@@ -1796,6 +1796,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../../packages/model-types
       '@penx/remark-slate':
         specifier: workspace:*
         version: link:../../packages/remark-slate
@@ -1805,9 +1808,6 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../../packages/types
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -2136,15 +2136,15 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../../packages/model-types
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../../packages/types
       '@udecode/plate-common':
         specifier: ^24.4.0
         version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
@@ -2279,15 +2279,15 @@ importers:
       '@penx/model':
         specifier: workspace:*
         version: link:../model
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
       '@penx/serializer':
         specifier: workspace:*
         version: link:../serializer
       '@penx/shared':
         specifier: workspace:*
         version: link:../shared
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../types
       '@prisma/client':
         specifier: ^5.2.0
         version: 5.2.0(prisma@5.2.0)
@@ -2454,6 +2454,9 @@ importers:
       '@penx/model':
         specifier: workspace:*
         version: link:../model
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
       '@penx/paragraph':
         specifier: workspace:*
         version: link:../../extensions/paragraph
@@ -2475,9 +2478,6 @@ importers:
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../trpc-client
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../types
       '@prisma/nextjs-monorepo-workaround-plugin':
         specifier: ^5.1.1
         version: 5.1.1
@@ -2994,6 +2994,9 @@ importers:
       '@penx/model':
         specifier: workspace:*
         version: link:../model
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
       '@penx/paragraph':
         specifier: workspace:*
         version: link:../../extensions/paragraph
@@ -3009,9 +3012,6 @@ importers:
       '@penx/table':
         specifier: workspace:*
         version: link:../../extensions/table
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../types
       '@udecode/plate-common':
         specifier: ^24.3.6
         version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
@@ -3652,6 +3652,9 @@ importers:
       '@penx/model':
         specifier: workspace:*
         version: link:../model
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
       '@penx/service':
         specifier: workspace:*
         version: link:../service
@@ -3664,9 +3667,6 @@ importers:
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../trpc-client
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../types
       '@tanstack/react-query':
         specifier: ^4.35.7
         version: 4.35.7(react-dom@18.2.0)(react@18.2.0)
@@ -3902,9 +3902,9 @@ importers:
       '@penx/model':
         specifier: workspace:*
         version: link:../model
-      '@penx/types':
+      '@penx/model-types':
         specifier: workspace:*
-        version: link:../types
+        version: link:../model-types
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
@@ -3930,9 +3930,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
-      '@penx/types':
+      '@penx/model-types':
         specifier: workspace:*
-        version: link:../types
+        version: link:../model-types
       '@prisma/client':
         specifier: ^5.2.0
         version: 5.2.0(prisma@5.2.0)
@@ -3986,14 +3986,42 @@ importers:
         specifier: ^5.1.3
         version: 5.2.2
 
+  packages/model-types:
+    dependencies:
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
+    devDependencies:
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.22
+      '@types/react-dom':
+        specifier: ^18.2.7
+        version: 18.2.7
+      eslint:
+        specifier: ^8.42.0
+        version: 8.49.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.1.3
+        version: 5.2.2
+
   packages/remark-slate:
     dependencies:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
-      '@penx/types':
+      '@penx/model-types':
         specifier: workspace:*
-        version: link:../types
+        version: link:../model-types
       escape-html:
         specifier: ^1.0.3
         version: 1.0.3
@@ -4034,12 +4062,12 @@ importers:
       '@penx/model':
         specifier: workspace:*
         version: link:../model
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../trpc-client
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../types
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -4129,6 +4157,9 @@ importers:
       '@penx/model':
         specifier: workspace:*
         version: link:../model
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
       '@penx/serializer':
         specifier: workspace:^
         version: link:../serializer
@@ -4138,9 +4169,6 @@ importers:
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../trpc-client
-      '@penx/types':
-        specifier: workspace:*
-        version: link:../types
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -4324,9 +4352,9 @@ importers:
       '@penx/model':
         specifier: workspace:*
         version: link:../model
-      '@penx/types':
+      '@penx/model-types':
         specifier: workspace:*
-        version: link:../types
+        version: link:../model-types
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -4406,34 +4434,6 @@ importers:
         version: 5.2.2
 
   packages/tsconfig: {}
-
-  packages/types:
-    dependencies:
-      '@penx/constants':
-        specifier: workspace:*
-        version: link:../constants
-    devDependencies:
-      '@types/react':
-        specifier: ^18.2.22
-        version: 18.2.22
-      '@types/react-dom':
-        specifier: ^18.2.7
-        version: 18.2.7
-      eslint:
-        specifier: ^8.42.0
-        version: 8.49.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
-      typescript:
-        specifier: ^5.1.3
-        version: 5.2.2
 
   packages/uikit:
     dependencies:

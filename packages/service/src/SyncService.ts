@@ -5,11 +5,21 @@ import { createEditor, Editor } from 'slate'
 import { decryptString, encryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
+import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
 import { spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
-import { IFile, INode, ISpace, NodeType, TreeItem } from '@penx/types'
 import { NodeService } from './NodeService'
 import { SpaceService } from './SpaceService'
+
+export type TreeItem = {
+  path: string
+  // mode: '100644' | '100755' | '040000' | '160000' | '120000'
+  mode: '100644'
+  // type: 'blob' | 'tree' | 'commit'
+  type: 'blob'
+  content?: string
+  sha?: string | null
+}
 
 type FileNode = {
   fileId: string

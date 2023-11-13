@@ -33,7 +33,7 @@
     "@penx/serializer": "workspace:^",
     "@penx/store": "workspace:*",
     "@penx/trpc-client": "workspace:*",
-    "@penx/types": "workspace:*",
+    "@penx/model-types": "workspace:*",
     "date-fns": "^2.30.0",
     "diff-match-patch": "^1.0.5",
     "immer": "^10.0.2",

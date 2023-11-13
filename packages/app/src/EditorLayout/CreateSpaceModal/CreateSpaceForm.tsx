@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { Button, Input, ModalClose } from 'uikit'
 import { useCreateSpaceForm } from '@penx/hooks'
-import { ISpace } from '@penx/types'
+import { ISpace } from '@penx/model-types'
 
 interface Props {
   showCancel?: boolean

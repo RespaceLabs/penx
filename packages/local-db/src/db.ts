@@ -14,7 +14,7 @@ import {
   IViewNode,
   NodeType,
   ViewType,
-} from '@penx/types'
+} from '@penx/model-types'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { getTagColor } from './getTagColor'
@@ -349,13 +349,6 @@ class DB {
     })
 
     return newNode
-  }
-
-  // TODO: need improve
-  getDatabaseRootNode = async (spaceId: string) => {
-    const nodes = await db.node.selectByIndexAll('type', NodeType.DATABASE_ROOT)
-    const databaseRootNode = nodes.find((node) => node.spaceId === spaceId)
-    return databaseRootNode!
   }
 
   createDatabase = async (name: string, shouldInitCell = false) => {

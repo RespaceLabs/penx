@@ -7,7 +7,13 @@ import {
   useState,
 } from 'react'
 import { db } from '@penx/local-db'
-import { ICellNode, IColumnNode, INode, IRowNode, IViewNode } from '@penx/types'
+import {
+  ICellNode,
+  IColumnNode,
+  INode,
+  IRowNode,
+  IViewNode,
+} from '@penx/model-types'
 
 export interface ILiveQueryContext {
   database: INode

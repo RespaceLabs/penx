@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import { Box } from '@fower/react'
 import { extractTags, useEditorStatic } from '@penx/editor-common'
-import { NodeType } from '@penx/types'
+import { NodeType } from '@penx/model-types'
 import { useBulletVisible } from '../hooks/useBulletVisible'
 import { ListContentElement } from '../types'
 
