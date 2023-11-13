@@ -38,8 +38,6 @@ export const Sidebar = () => {
   const { nodes, nodeList } = useNodes()
   const user = useUser()
 
-  console.log('user:', user?.isSyncWorks)
-
   if (!nodes.length) return null
 
   return (

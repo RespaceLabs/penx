@@ -3,6 +3,11 @@ import { SettingsType } from '@penx/constants'
 export interface ISpace {
   id: string
 
+  /**
+   * wallet address
+   */
+  address: string
+
   name: string
 
   description?: string
