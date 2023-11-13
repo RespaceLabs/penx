@@ -1,9 +1,8 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, forwardRef } from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
-import { Portal } from '@bone-ui/portal'
-import { forwardRef } from '@bone-ui/utils'
 import { Box, styled } from '@fower/react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Portal } from '../../portal'
 import { Z_INDEX } from '../constants'
 import { useModalContext } from '../modalContext'
 import { scaleConfig } from '../scaleConfig'
@@ -11,8 +10,8 @@ import { ModalContentProps } from '../types'
 
 const AnimatedDiv = styled(motion.div)
 
-export const ModalContent: FC<ModalContentProps> = forwardRef(
-  (props: ModalContentProps, ref) => {
+export const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
+  function ModalContentProps(props, ref) {
     const { children, ...rest } = props
     const ctx = useModalContext()
     const { close, closeOnOverlayClick, state } = ctx
@@ -39,7 +38,7 @@ export const ModalContent: FC<ModalContentProps> = forwardRef(
                     onClick={(e) => {
                       e.stopPropagation()
                     }}
-                    className="bone-modal-content"
+                    className="uikit-modal-content"
                     rounded2XL
                     black
                     relative

@@ -1,16 +1,15 @@
-import React, { FC } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 
 export interface SkeletonCircleProps extends FowerHTMLProps<'div'> {
   size?: number
 }
 
-export const SkeletonCircle: FC<SkeletonCircleProps> = forwardRef(
-  (props: SkeletonCircleProps, ref) => {
+export const SkeletonCircle = forwardRef<HTMLDivElement, SkeletonCircleProps>(
+  function SkeletonCircle(props, ref) {
     return (
       <Box
-        className={`bone-skeleton-circle`}
+        className={`uikit-skeleton-circle`}
         ref={ref}
         bgGray200
         animatePulse

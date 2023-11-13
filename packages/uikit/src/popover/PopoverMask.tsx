@@ -15,7 +15,7 @@ export const PopoverMask = memo(
             e.stopPropagation()
             if (isOpen) close()
           }}
-          className="bone-popover-mask"
+          className="uikit-popover-mask"
           display={isOpen ? 'block' : 'none'}
           bgTransparent
           fixed

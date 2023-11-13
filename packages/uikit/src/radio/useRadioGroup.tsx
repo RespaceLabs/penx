@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useState } from 'react'
-import { useControlledInfo, useId } from '@bone-ui/hooks'
+import { useControlledInfo, useId } from '../hooks'
 import { RadioGroupProps, StringOrNumber, UseRadioGroupReturn } from './types'
 
 export function useRadioGroup(props: RadioGroupProps): UseRadioGroupReturn {

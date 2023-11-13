@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { InputGroupProvider, Placement } from './context'
 
@@ -11,8 +10,8 @@ function formatSize(size: any): number {
   return size
 }
 
-export const InputGroup: FC<InputGroupProps> = forwardRef(
-  (props: InputGroupProps, ref) => {
+export const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
+  function InputGroup(props: InputGroupProps, ref) {
     let size: string = 'md'
     const { children } = props
     const childrenArray: any[] = Array.isArray(children) ? children : [children]
@@ -44,7 +43,7 @@ export const InputGroup: FC<InputGroupProps> = forwardRef(
         }}
       >
         <Box
-          className="bone-input-group"
+          className="uikit-input-group"
           ref={ref}
           toCenterY
           relative

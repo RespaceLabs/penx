@@ -1,4 +1,4 @@
-import { iconify } from '@bone-ui/iconify'
+import { iconify } from 'uikit'
 
 export const IconLang = iconify({
   displayName: 'IconLang',

@@ -1,13 +1,14 @@
-import React, { ChangeEvent, FC } from 'react'
-import { cx, forwardRef } from '@bone-ui/utils'
+import React, { ChangeEvent, FC, forwardRef } from 'react'
 import { Box, css } from '@fower/react'
 import { checkboxDefaultRender } from './checkboxDefaultRender'
 import { useCheckboxGroupContext } from './checkboxGroupContext'
 import { CheckboxProps } from './types'
 import { useCheckbox } from './useCheckbox'
 
-export const Checkbox: FC<CheckboxProps> = forwardRef(
-  (props: CheckboxProps, ref) => {
+const cx = (...classNames: any[]) => classNames.filter(Boolean).join(' ')
+
+export const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
+  function Checkbox(props, ref) {
     const {
       children,
       colorScheme = 'brand500',
@@ -39,7 +40,7 @@ export const Checkbox: FC<CheckboxProps> = forwardRef(
     return (
       <Box
         as="label"
-        className="bone-checkbox"
+        className="uikit-checkbox"
         inlineFlex
         toCenterY
         toLeft
@@ -52,7 +53,7 @@ export const Checkbox: FC<CheckboxProps> = forwardRef(
         <input
           ref={ref}
           className={cx(
-            'bone-checkbox-input',
+            'uikit-checkbox-input',
             css('square0', 'opacity-0', 'hidden'),
           )}
           type="checkbox"
@@ -64,7 +65,7 @@ export const Checkbox: FC<CheckboxProps> = forwardRef(
         {render({ ...state, children, colorScheme })}
 
         {children && (
-          <Box className="bone-checkbox-label" leading-1em>
+          <Box className="uikit-checkbox-label" leading-1em>
             {children}
           </Box>
         )}

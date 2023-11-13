@@ -41,15 +41,6 @@ importers:
 
   apps/extension:
     dependencies:
-      '@bone-ui/checkbox':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@dnd-kit/core':
         specifier: ^6.0.8
         version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
@@ -225,15 +216,6 @@ importers:
 
   apps/web:
     dependencies:
-      '@bone-ui/checkbox':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@dnd-kit/core':
         specifier: ^6.0.8
         version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
@@ -471,6 +453,9 @@ importers:
       react-intersection-observer:
         specifier: ^9.5.2
         version: 9.5.2(react@18.2.0)
+      react-merge-refs:
+        specifier: ^2.0.2
+        version: 2.0.2
       slate:
         specifier: 0.94.1
         version: 0.94.1
@@ -592,12 +577,6 @@ importers:
 
   extensions/File:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
@@ -686,9 +665,6 @@ importers:
 
   extensions/auto-format:
     dependencies:
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
@@ -762,9 +738,6 @@ importers:
 
   extensions/auto-node-id:
     dependencies:
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
@@ -832,12 +805,6 @@ importers:
 
   extensions/bidirectional-link:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@floating-ui/react':
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
@@ -935,12 +902,6 @@ importers:
 
   extensions/block-selector:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@floating-ui/react':
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
@@ -1105,9 +1066,6 @@ importers:
 
   extensions/check-list:
     dependencies:
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1169,12 +1127,6 @@ importers:
 
   extensions/code-block:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1269,12 +1221,6 @@ importers:
 
   extensions/database:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@dnd-kit/core':
         specifier: ^6.0.8
         version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
@@ -1420,9 +1366,6 @@ importers:
 
   extensions/divider:
     dependencies:
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1484,12 +1427,6 @@ importers:
 
   extensions/heading:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1554,12 +1491,6 @@ importers:
 
   extensions/image:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1657,12 +1588,6 @@ importers:
 
   extensions/link:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@floating-ui/react':
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
@@ -1754,9 +1679,6 @@ importers:
 
   extensions/list:
     dependencies:
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@dnd-kit/core':
         specifier: ^6.0.8
         version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
@@ -1823,6 +1745,9 @@ importers:
       react-fast-compare:
         specifier: ^3.2.2
         version: 3.2.2
+      react-merge-refs:
+        specifier: ^2.0.2
+        version: 2.0.2
       remark-parse:
         specifier: ^11.0.0
         version: 11.0.0
@@ -1869,12 +1794,6 @@ importers:
 
   extensions/paragraph:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1976,12 +1895,6 @@ importers:
 
   extensions/table:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@dnd-kit/core':
         specifier: ^6.0.8
         version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
@@ -2045,6 +1958,9 @@ importers:
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
+      react-merge-refs:
+        specifier: ^2.0.2
+        version: 2.0.2
       slate:
         specifier: 0.94.1
         version: 0.94.1
@@ -2094,12 +2010,6 @@ importers:
 
   extensions/tag:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@floating-ui/react':
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
@@ -2346,15 +2256,6 @@ importers:
 
   packages/app:
     dependencies:
-      '@bone-ui/checkbox':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@dnd-kit/core':
         specifier: ^6.0.8
         version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
@@ -2919,15 +2820,6 @@ importers:
 
   packages/editor:
     dependencies:
-      '@bone-ui/checkbox':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@dnd-kit/core':
         specifier: ^6.0.8
         version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
@@ -3719,18 +3611,15 @@ importers:
 
   packages/icons:
     dependencies:
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@fower/atomic-props':
         specifier: ^2.0.0
         version: 2.0.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
+      uikit:
+        specifier: workspace:*
+        version: link:../uikit
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -4440,30 +4329,9 @@ importers:
 
   packages/uikit:
     dependencies:
-      '@bone-ui/close-button':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/hooks':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/iconify':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/motion-configs':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/portal':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/radio':
-        specifier: ^0.37.0
-        version: 0.37.0
-      '@bone-ui/utils':
-        specifier: ^0.37.0
-        version: 0.37.0
       '@floating-ui/react':
-        specifier: ^0.24.3
-        version: 0.24.3(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^0.24.8
+        version: 0.24.8(react-dom@18.2.0)(react@18.2.0)
       '@floating-ui/react-dom':
         specifier: ^2.0.1
         version: 2.0.1(react-dom@18.2.0)(react@18.2.0)
@@ -4488,6 +4356,9 @@ importers:
       rc-table:
         specifier: ^7.32.1
         version: 7.32.1(react-dom@18.2.0)(react@18.2.0)
+      react-merge-refs:
+        specifier: ^2.0.2
+        version: 2.0.2
       react-remove-scroll:
         specifier: ^2.5.6
         version: 2.5.6(@types/react@18.2.22)(react@18.2.0)
@@ -5822,62 +5693,6 @@ packages:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
-  /@bone-ui/checkbox@0.37.0:
-    resolution: {integrity: sha512-atE0KjX+rC4uJ8+biYsd17gJrxekuUbHA3qVAbDb2HTYbwdTgbHEnpFQyGjmXMiaylxlzUuvzYEINUwmZ6XqyQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/close-button@0.37.0:
-    resolution: {integrity: sha512-JABRiJRL7LCyeCzBcMtSEG5qS03MQ5zYNO4CJBsDMf9COpj+1q561utvrYdIHda4TLRYdGMxHsVOmnSwqJe9XQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/iconify': 0.37.0
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/hooks@0.37.0:
-    resolution: {integrity: sha512-U8UEdz31/x3r7b8SByQMq8B+lmdni9oxNXqtH+AsL5HolKqFbJqgU4Z4R0PECqD8il9Z/26ZSB05SmejcS2UOA==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/iconify@0.37.0:
-    resolution: {integrity: sha512-rSFBAjKym7ZXWy0HaXRNFg8LGgJFyo3jc/ZNXBf1juwHANjQ4YPkY9Phad6YlxRaXZOfhP6bXdSZRVG8aE2i/A==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/motion-configs@0.37.0:
-    resolution: {integrity: sha512-IsuMPRlmKXODrkHCSQeE5YOVJLw6xg4thRyJK6lg7+T75GJpfbUgAu1ZOrNLSzOGDLZwjw6Xu+8J7Cw1bZlO0A==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/portal@0.37.0:
-    resolution: {integrity: sha512-sDbX6OSbznrmyFvbgxYrUHdwrDOZ6tKedr5uZJHhosXOd6foAo3BldrRjA2dSJ4Btzt3HS5P2/ioswjZmKuSlQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/radio@0.37.0:
-    resolution: {integrity: sha512-Uua+la0jqSPIjUyiMMg1g5lAVj8W35Q7dy4jtwNmpDh7csDf3fZbfI1MQlkQRKoyzbMpPWXi03DhaV/TCL1GDQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@bone-ui/hooks': 0.37.0
-      '@bone-ui/utils': 0.37.0
-    dev: false
-
-  /@bone-ui/utils@0.37.0:
-    resolution: {integrity: sha512-Xa8Pnb1sGfAhhaPqHgkRtcc6AtafE4+68JnLcTgPfUh/z5ld2RHYpo5zrOaIE0nk8YkwgvzVlJYxvpi83Wd1/w==}
-    engines: {node: '>=10'}
-    dev: false
-
   /@coinbase/wallet-sdk@3.7.2:
     resolution: {integrity: sha512-lIGvXMsgpsQWci/XOMQIJ2nIZ8JUy/L+bvC0wkRaYarr0YylwpXrJ2gRM3hCXPS477pkyO7N/kSiAoRgEXUdJQ==}
     engines: {node: '>= 10.0.0'}
@@ -6621,13 +6436,13 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@floating-ui/react@0.24.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-wWC9duiog4HmbgKSKObDRuXqMjZR/6m75MIG+slm5CVWbridAjK9STcnCsGYmdpK78H/GmzYj4ADVP8paZVLYQ==}
+  /@floating-ui/react@0.24.8(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-AuYeDoaR8jtUlUXtZ1IJ/6jtBkGnSpJXbGNzokBL87VDJ8opMq1Bgrc0szhK482ReQY6KZsMoZCVSb4xwalkBA==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@floating-ui/react-dom': 2.0.1(react-dom@18.2.0)(react@18.2.0)
+      '@floating-ui/react-dom': 2.0.2(react-dom@18.2.0)(react@18.2.0)
       aria-hidden: 1.2.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)

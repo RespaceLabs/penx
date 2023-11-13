@@ -12,9 +12,6 @@
     "lingui:compile": "pnpm with-env lingui compile"
   },
   "dependencies": {
-    "@bone-ui/checkbox": "^0.37.0",
-    "@bone-ui/iconify": "^0.37.0",
-    "@bone-ui/utils": "^0.37.0",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
     "@dnd-kit/utilities": "^3.1.0",
@@ -94,6 +91,7 @@
     "react-fast-compare": "^3.2.2",
     "react-hook-form": "^7.44.3",
     "react-intersection-observer": "^9.5.2",
+    "react-merge-refs": "^2.0.2",
     "slate": "0.94.1",
     "slate-history": "0.93.0",
     "slate-hyperscript": "0.77.0",

@@ -18,8 +18,6 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
-    "@bone-ui/iconify": "^0.37.0",
-    "@bone-ui/utils": "^0.37.0",
     "@floating-ui/react": "^0.25.4",
     "@fower/react": "^2.0.0",
     "@penx/code-block": "workspace:*",

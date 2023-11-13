@@ -1,8 +1,14 @@
-import React, { cloneElement } from 'react'
-import { forwardRef } from '@bone-ui/utils'
-import { As, Box, BoxComponent, FowerColor, fowerStore } from '@fower/react'
+import React, { cloneElement, forwardRef } from 'react'
+import {
+  As,
+  Box,
+  BoxComponent,
+  FowerColor,
+  FowerHTMLProps,
+  fowerStore,
+} from '@fower/react'
 
-export interface TagProps {
+export interface TagProps extends FowerHTMLProps<'div'> {
   as?: As
 
   colorScheme?: FowerColor
@@ -18,8 +24,8 @@ export interface TagProps {
 
 type Size = 'sm' | 'md' | 'lg' | number
 
-export const Tag: BoxComponent<'div', TagProps> = forwardRef(
-  (props: TagProps, ref) => {
+export const Tag = forwardRef<HTMLDivElement, TagProps>(
+  function Tag(props, ref) {
     const {
       as = 'div',
       variant = 'filled',
@@ -39,7 +45,7 @@ export const Tag: BoxComponent<'div', TagProps> = forwardRef(
     return (
       <Box
         as={as}
-        className="bone-tag"
+        className="uikit-tag"
         ref={ref}
         inlineFlex
         toCenter

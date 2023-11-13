@@ -1,5 +1,4 @@
-import React, { FC, memo } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef, memo } from 'react'
 import { Box, FowerColor, FowerHTMLProps } from '@fower/react'
 import { Checkbox } from '../checkbox'
 
@@ -27,8 +26,11 @@ export interface SwitchProps extends Omit<FowerHTMLProps<'input'>, 'size'> {
   aspectRatio?: number
 }
 
-export const Switch: FC<SwitchProps> = memo(
-  forwardRef((props: SwitchProps, ref) => {
+export const Switch = memo(
+  forwardRef<HTMLLabelElement, SwitchProps>(function Switch(
+    props: SwitchProps,
+    ref,
+  ) {
     const {
       colorScheme = 'brand500',
       offColorScheme = 'gray400',

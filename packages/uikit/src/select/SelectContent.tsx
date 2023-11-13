@@ -26,7 +26,7 @@ export const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
 
     return (
       <PopoverContent
-        ref={ref}
+        ref={ref as any}
         useTriggerWidth={useTriggerWidth}
         overflowYAuto
         {...rest}

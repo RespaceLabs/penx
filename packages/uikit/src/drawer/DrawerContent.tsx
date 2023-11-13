@@ -1,17 +1,16 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, forwardRef, useContext } from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
-import { CloseButton } from '@bone-ui/close-button'
-import { forwardRef } from '@bone-ui/utils'
 import { Box, styled } from '@fower/react'
 import { motion } from 'framer-motion'
+import { CloseButton } from '../close-button'
 import { drawerContext } from './drawerContext'
 import { slideConfig } from './slideConfig'
 import { DrawerContentProps } from './types'
 
 const AnimatedDiv = styled(motion.div)
 
-export const DrawerContent: FC<DrawerContentProps> = forwardRef(
-  (props: DrawerContentProps, ref) => {
+export const DrawerContent = forwardRef<HTMLDivElement, DrawerContentProps>(
+  function DrawerContent(props, ref) {
     const { children, ...rest } = props
     const ctx = useContext(drawerContext)
     const { close } = ctx
@@ -36,7 +35,7 @@ export const DrawerContent: FC<DrawerContentProps> = forwardRef(
               onClick={(e) => {
                 e.stopPropagation()
               }}
-              className="bone-modal-content"
+              className="uikit-modal-content"
               shadow
               relative
               h-100p

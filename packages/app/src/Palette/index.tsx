@@ -123,7 +123,7 @@ export function CommandPanel({ isMobile = false }: CommandPanelProps) {
         borderBottom
         borderGray100
         outlineNone
-        placeholder="Search doc by name"
+        placeholder="Search page by name"
         value={search}
         onValueChange={(v) => {
           console.log('v:', v)

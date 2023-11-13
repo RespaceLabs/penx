@@ -1,12 +1,11 @@
-import React, { FC, useContext } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef, useContext } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { dividerContext } from './context'
 
 export interface DividerTitleProps extends FowerHTMLProps<'div'> {}
 
-export const DividerTitle: FC<DividerTitleProps> = forwardRef(
-  (props: DividerTitleProps, ref) => {
+export const DividerTitle = forwardRef<HTMLDivElement, DividerTitleProps>(
+  function DividerTitle(props, ref) {
     const { orientation } = useContext(dividerContext)
     const isVertical = orientation === 'vertical'
     return (

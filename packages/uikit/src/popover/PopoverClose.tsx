@@ -1,5 +1,4 @@
-import React, { cloneElement, FC, isValidElement } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { cloneElement, FC, forwardRef, isValidElement } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { usePopoverContext } from './context'
 
@@ -7,8 +6,8 @@ export interface PopoverCloseProps extends FowerHTMLProps<'div'> {
   asChild?: boolean
 }
 
-export const PopoverClose: FC<PopoverCloseProps> = forwardRef(
-  (props: PopoverCloseProps, ref) => {
+export const PopoverClose = forwardRef<HTMLDivElement, PopoverCloseProps>(
+  function PopoverCloseProps(props, ref) {
     const { asChild, children, ...rest } = props
 
     const ctx = usePopoverContext()
@@ -25,7 +24,7 @@ export const PopoverClose: FC<PopoverCloseProps> = forwardRef(
     return (
       <Box
         ref={ref}
-        className="bone-popover-close"
+        className="uikit-popover-close"
         {...rest}
         onClick={() => ctx?.close?.()}
       >

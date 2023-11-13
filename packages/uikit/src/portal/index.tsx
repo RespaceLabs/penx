@@ -16,7 +16,7 @@ export const Portal: FC<PortalProps> = (props) => {
 
   return mounted
     ? createPortal(
-        <Box className={`bone-portal ${className}`.trimEnd()} {...rest}>
+        <Box className={`uikit-portal ${className}`.trimEnd()} {...rest}>
           {children}
         </Box>,
         document.body,

@@ -1,5 +1,5 @@
-import React, { FC, useMemo } from 'react'
-import { forwardRef, mergeRefs } from '@bone-ui/utils'
+import React, { FC, forwardRef, useMemo } from 'react'
+import { mergeRefs } from 'react-merge-refs'
 import { FloatingArrow } from '@floating-ui/react'
 import { css, FowerHTMLProps } from '@fower/react'
 import { useTooltipContext } from './context'
@@ -15,8 +15,8 @@ export interface TooltipArrowProps
   strokeWidth?: number
 }
 
-export const TooltipArrow: FC<TooltipArrowProps> = forwardRef(
-  function TooltipArrow(props: TooltipArrowProps, propRef) {
+export const TooltipArrow = forwardRef<HTMLDivElement, TooltipArrowProps>(
+  function TooltipArrow(props, propRef) {
     const {
       width,
       height,
@@ -45,7 +45,7 @@ export const TooltipArrow: FC<TooltipArrowProps> = forwardRef(
 
     return (
       <FloatingArrow
-        ref={ref}
+        ref={ref as any}
         context={state.context}
         {...arrowProps}
         className={css(rest)}

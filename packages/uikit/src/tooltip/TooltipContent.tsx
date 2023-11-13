@@ -1,5 +1,5 @@
-import React, { FC, ReactNode, useMemo } from 'react'
-import { forwardRef, mergeRefs } from '@bone-ui/utils'
+import React, { FC, forwardRef, ReactNode, useMemo } from 'react'
+import { mergeRefs } from 'react-merge-refs'
 import {
   FloatingPortal,
   useDelayGroup,
@@ -15,8 +15,8 @@ export interface TooltipContentProps
   children: ReactNode
 }
 
-export const TooltipContent: FC<TooltipContentProps> = forwardRef(
-  function PopoverContent(props: TooltipContentProps, propRef) {
+export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
+  function PopoverContent(props, propRef) {
     const { children, ...rest } = props
     const state = useTooltipContext()
     const id = useId()

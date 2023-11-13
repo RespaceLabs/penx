@@ -1,5 +1,4 @@
-import React, { FC, ReactNode } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef, ReactNode } from 'react'
 import { css, FowerHTMLProps } from '@fower/react'
 import { motion, Variant } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
@@ -10,8 +9,8 @@ export interface SelectIconProps extends Omit<FowerHTMLProps<'div'>, 'rotate'> {
   duration?: number
 }
 
-export const AnimateArrow: FC<SelectIconProps> = forwardRef(
-  (props: SelectIconProps, ref) => {
+export const AnimateArrow = forwardRef<HTMLDivElement, SelectIconProps>(
+  function AnimateArrow(props, ref) {
     const { children, isOpen, rotate = 90, duration = 0.2, ...rest } = props
 
     const variants: Record<'open' | 'closed', Variant> = {

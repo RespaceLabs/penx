@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import { __DEV__, forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef } from 'react'
 import { Box, Colors, FowerHTMLProps, fowerStore } from '@fower/react'
 import { upFirst } from '@fower/utils'
 
@@ -9,16 +8,16 @@ export interface TextareaProps extends FowerHTMLProps<'textarea'> {
   variant?: 'outline' | 'unstyled' | 'filled'
 }
 
-export const Textarea: FC<TextareaProps> = forwardRef(
-  (props: TextareaProps, ref) => {
+export const Textarea = forwardRef<HTMLDivElement, TextareaProps>(
+  function Textarea(props: TextareaProps, ref) {
     const {
       colorScheme = 'brand500',
       size = 'md',
       variant = 'outline',
       ...rest
     } = props
-    const { disabled } = props
 
+    const { disabled } = props
     const color = fowerStore.theme.colors[colorScheme]
 
     const attrs: any = {}
@@ -52,7 +51,7 @@ export const Textarea: FC<TextareaProps> = forwardRef(
 
     return (
       <Box
-        className="bone-textarea"
+        className="uikit-textarea"
         as="textarea"
         ref={ref}
         rounded-6
@@ -78,8 +77,5 @@ export const Textarea: FC<TextareaProps> = forwardRef(
   },
 )
 
-if (__DEV__) {
-  Textarea.displayName = 'Textarea'
-}
-
+Textarea.displayName = 'Textarea'
 ;(Textarea as any).id = 'Textarea'

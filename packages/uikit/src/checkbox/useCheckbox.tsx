@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useControlledInfo, useSafeLayoutEffect } from '@bone-ui/hooks'
+import { useControlledInfo, useSafeLayoutEffect } from '../hooks'
 import { useCheckboxGroupContext } from './checkboxGroupContext'
 import { CheckboxProps, UseCheckboxReturn } from './types'
 import { getNextCheckboxGroupValue } from './utils'

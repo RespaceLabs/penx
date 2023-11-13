@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef } from 'react'
 import { Box, FowerHTMLProps, keyframes } from '@fower/react'
 
 export interface SpinnerProps extends FowerHTMLProps<'div'> {
@@ -17,8 +16,8 @@ const spin = keyframes({
   to: { transform: 'rotate(360deg)' },
 })
 
-export const Spinner: FC<SpinnerProps> = forwardRef(
-  (props: SpinnerProps, ref) => {
+export const Spinner = forwardRef<HTMLOrSVGElement, SpinnerProps>(
+  function Spinner(props, ref) {
     const { speed = '1s', children, ...rest } = props
 
     if (Array.isArray(children)) {

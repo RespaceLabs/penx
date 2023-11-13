@@ -1,4 +1,4 @@
-import { mergeRefs } from '@bone-ui/utils'
+import { mergeRefs } from 'react-merge-refs'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'

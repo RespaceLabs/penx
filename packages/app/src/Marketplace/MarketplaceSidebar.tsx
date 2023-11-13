@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Box } from '@fower/react'
-import { Tab, Tabs } from 'uikit'
 import { ExtensionFilter } from './ExtensionFilter'
 import { ExtensionList } from './ExtensionList'
 

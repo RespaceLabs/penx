@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from 'react'
-import { mergeRefs } from '@bone-ui/utils'
+import { mergeRefs } from 'react-merge-refs'
 import { AnimateLayoutChanges, useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'

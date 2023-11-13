@@ -54,7 +54,7 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
             {description}
           </Box>
         )}
-        <Box className="bone-form-field-control" column flex-1 relative>
+        <Box className="uikit-form-field-control" column flex-1 relative>
           <Box toCenterY toLeft>
             {children}
           </Box>

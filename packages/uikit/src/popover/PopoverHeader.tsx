@@ -1,16 +1,15 @@
-import React, { FC, memo } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef, memo } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 
 export interface PopoverHeaderProps extends FowerHTMLProps<'header'> {}
 
-export const PopoverHeader: FC<PopoverHeaderProps> = memo(
-  forwardRef((props, ref) => {
+export const PopoverHeader = memo(
+  forwardRef<HTMLDivElement, PopoverHeaderProps>((props, ref) => {
     return (
       <Box
         ref={ref}
         as="header"
-        className="bone-popover-title"
+        className="uikit-popover-title"
         fontBold
         px-12
         py-12

@@ -1,8 +1,16 @@
 import { Box, FowerHTMLProps } from '@fower/react'
 import { Trans } from '@lingui/macro'
 import { useWeb3Modal } from '@web3modal/react'
+import { MoreHorizontal } from 'lucide-react'
 import { useAccount } from 'wagmi'
-import { Avatar, AvatarGroup, AvatarImage, Button, ButtonProps } from 'uikit'
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarImage,
+  Button,
+  ButtonProps,
+} from 'uikit'
 
 interface Props extends FowerHTMLProps<'button'>, ButtonProps {}
 
@@ -28,7 +36,8 @@ export const WalletConnectButton = (props: Props) => {
       toBetween
       variant="light"
       // colorScheme="white"
-      colorScheme="gray700"
+      // brand500
+      colorScheme="gray600"
       size="sm"
       onClick={onClick}
       {...props}
@@ -42,6 +51,11 @@ export const WalletConnectButton = (props: Props) => {
         </Avatar>
         <Avatar size="sm">
           <AvatarImage src="/images/zion.png" />
+        </Avatar>
+        <Avatar size="sm">
+          <AvatarFallback bgGray400>
+            <MoreHorizontal size={16} />
+          </AvatarFallback>
         </Avatar>
       </AvatarGroup>
 
