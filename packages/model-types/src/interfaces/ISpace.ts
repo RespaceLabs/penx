@@ -7,6 +7,8 @@ export interface ISpace {
 
   description?: string
 
+  color: string
+
   isActive: boolean
 
   activeNodeId?: string

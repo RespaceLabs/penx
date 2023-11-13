@@ -15,12 +15,7 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
 
   return (
     <Box as="form" onSubmit={form.onSubmit} column gapY2 pt3>
-      <Input
-        textCenter
-        placeholder="Display Name"
-        size="lg"
-        {...register('name')}
-      />
+      <Input textCenter placeholder="Name" size="lg" {...register('name')} />
 
       <Box toCenter gapX4 mt10>
         {showCancel && (

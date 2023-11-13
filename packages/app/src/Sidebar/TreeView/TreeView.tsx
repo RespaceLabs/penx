@@ -144,7 +144,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
     : null
 
   return (
-    <Box>
+    <Box mt3>
       <TreeViewHeader />
       <DndContext
         sensors={sensors}

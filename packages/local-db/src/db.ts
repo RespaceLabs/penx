@@ -17,7 +17,7 @@ import {
 } from '@penx/model-types'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
-import { getTagColor } from './getTagColor'
+import { getRandomColor } from './getRandomColor'
 import { tableSchema } from './table-schema'
 
 const database = new Database({
@@ -61,7 +61,7 @@ class DB {
     const spaces = await this.listSpaces()
 
     for (const space of spaces) {
-      await this.space.updateByPk(space.id, {
+      await this.updateSpace(space.id, {
         isActive: false,
       })
     }
@@ -102,11 +102,9 @@ class DB {
         }),
       )
 
-      const node = getNewNode({ spaceId })
+      const node = await this.createPageNode(getNewNode({ spaceId }), space)
 
-      await this.createPageNode(node, space)
-
-      await this.space.updateByPk(spaceId, {
+      await this.updateSpace(spaceId, {
         isActive: true,
         activeNodeId: node.id,
       })
@@ -362,7 +360,7 @@ class DB {
       spaceId: space.id,
       type: NodeType.DATABASE,
       props: {
-        color: getTagColor(),
+        color: getRandomColor(),
         name,
       },
     })

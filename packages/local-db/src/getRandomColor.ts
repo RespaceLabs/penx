@@ -1,10 +1,10 @@
 import { fowerStore } from '@fower/react'
 
-export function getTagColor(): string {
+export function getRandomColor(postfix = '500'): string {
   const { colors } = fowerStore.theme
   const keys = Object.keys(colors).filter(
     (i) =>
-      i.endsWith('500') && !/gray|slate|zinc|neutral/i.test(i.toLowerCase()),
+      i.endsWith(postfix) && !/gray|slate|zinc|neutral/i.test(i.toLowerCase()),
   )
 
   const index = Math.floor(Math.random() * keys.length)

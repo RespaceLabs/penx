@@ -25,9 +25,13 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
   })
 
   const onSubmit: SubmitHandler<CreateSpaceValues> = async (data) => {
-    const space = await store.createSpace({ name: data.name })
-    onSpaceCreated?.(space)
-    modalContext?.close?.()
+    try {
+      const space = await store.createSpace({ name: data.name })
+      onSpaceCreated?.(space)
+      modalContext?.close?.()
+    } catch (error) {
+      console.log('error', error)
+    }
   }
 
   return { ...form, onSubmit: form.handleSubmit(onSubmit) }

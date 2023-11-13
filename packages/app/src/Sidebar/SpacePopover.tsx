@@ -1,12 +1,8 @@
 import { Box } from '@fower/react'
-import {
-  Avatar,
-  AvatarFallback,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from 'uikit'
+import { ChevronsUpDown } from 'lucide-react'
+import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { useSpaces } from '@penx/hooks'
+import { Bullet } from '../components/Bullet'
 import { CreateSpaceModal } from '../EditorLayout/CreateSpaceModal/CreateSpaceModal'
 import { SettingsModal } from '../EditorLayout/SettingsModal/SettingsModal'
 import { SpaceList } from './SpaceList'
@@ -17,28 +13,40 @@ export const SpacePopover = () => {
   return (
     <>
       <CreateSpaceModal />
-      <Popover offset={{ crossAxis: 20 }}>
+      <Popover placement="bottom-start" offset={{ crossAxis: 6 }}>
         <PopoverTrigger asChild>
           {({ close }) => (
             <Box
               className="currentSpace"
-              textXL
-              fontBold
+              textBase
               toCenterY
+              fontSemibold
               toBetween
-              gap2
+              gap1
               bgZinc200--hover
               px2
-              py4
               cursorPointer
-              rounded2XL
-              my2
+              roundedLG
+              h-36
+              mt2
+              transitionColors
             >
-              <Box toCenterY gap2>
-                <Avatar>
-                  <AvatarFallback>{activeSpace?.name}</AvatarFallback>
-                </Avatar>
-                <Box>{activeSpace?.name}</Box>
+              <Box toCenterY gap1>
+                <Bullet
+                  size={20}
+                  innerSize={6}
+                  innerColor={activeSpace.color}
+                  mr1
+                />
+                <Box gray600>{activeSpace?.name}</Box>
+                <Box gray400>
+                  <ChevronsUpDown
+                    size={12}
+                    style={{
+                      strokeWidth: 2.5,
+                    }}
+                  />
+                </Box>
               </Box>
               {/* <Box
                 inlineFlex

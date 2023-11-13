@@ -245,9 +245,12 @@ export const store = Object.assign(createStore(), {
   },
 
   async createSpace(input: Partial<ISpace>) {
-    const space = await db.createSpace(input)
+    let space = await db.createSpace(input)
     const spaces = await db.listSpaces()
+
     const nodes = await db.listNormalNodes(space.id)
+
+    space = await db.getSpace(space.id)
     const node = await db.getNode(space.activeNodeId!)
 
     this.routeTo('NODE')

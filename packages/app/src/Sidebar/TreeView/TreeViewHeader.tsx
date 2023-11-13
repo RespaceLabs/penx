@@ -1,11 +1,12 @@
 import { Box } from '@fower/react'
 import { store } from '@penx/store'
+import { Bullet } from '../../components/Bullet'
 
 export function TreeViewHeader() {
   return (
     <Box
       toCenterY
-      px3
+      px2
       mb-1
       textSM
       fontSemibold
@@ -18,25 +19,7 @@ export function TreeViewHeader() {
         store.selectSpaceNode()
       }}
     >
-      <Box
-        className="bullet"
-        mr-4
-        square-15
-        bgTransparent
-        bgGray200
-        toCenter
-        roundedFull
-        cursorPointer
-        flexShrink-1
-      >
-        <Box
-          square-5
-          bgGray500
-          roundedFull
-          transitionCommon
-          scale-130--$bullet--hover
-        />
-      </Box>
+      <Bullet mr-4 />
       <Box>All nodes</Box>
     </Box>
   )

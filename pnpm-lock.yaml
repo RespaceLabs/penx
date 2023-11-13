@@ -2631,6 +2631,9 @@ importers:
       remark-slate:
         specifier: ^1.8.6
         version: 1.8.6
+      simplebar-react:
+        specifier: ^3.2.4
+        version: 3.2.4(react@18.2.0)
       slate:
         specifier: 0.94.1
         version: 0.94.1

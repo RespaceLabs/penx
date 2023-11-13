@@ -12,6 +12,7 @@ import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
 import { useLinguiInit } from '../utils'
 import '@penx/local-db'
+import 'simplebar-react/dist/simplebar.min.css'
 import '../styles/globals.css'
 import '../styles/command.scss'
 

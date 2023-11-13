@@ -17,13 +17,13 @@ export const SidebarItem = ({ icon, label, onClick }: SidebarItemProps) => {
       px2
       py-14
       cursorPointer
+      gray600
+      black--hover
       h-24
       onClick={onClick}
     >
       <Box toCenterY gap2>
-        <Box inlineFlex gray500>
-          {icon}
-        </Box>
+        <Box inlineFlex>{icon}</Box>
         <Box textSM>{label}</Box>
       </Box>
     </Box>

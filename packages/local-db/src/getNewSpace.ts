@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid'
 import { SettingsType } from '@penx/constants'
 import { ISpace } from '@penx/model-types'
+import { getRandomColor } from './getRandomColor'
 
 export function getNewSpace(data: Partial<ISpace>): ISpace {
   return {
@@ -8,6 +9,7 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
     name: 'My Space',
     isActive: true,
     favorites: [],
+    color: getRandomColor(),
     snapshot: {
       version: 0,
       nodeMap: {},

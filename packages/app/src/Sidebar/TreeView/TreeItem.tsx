@@ -83,7 +83,7 @@ export const TreeItem = memo(
             />
           )}
 
-          <Box>{node.title}</Box>
+          <Box opacity-40={!node.title}>{node.title || 'Untitled'}</Box>
         </Box>
       </Box>
     )

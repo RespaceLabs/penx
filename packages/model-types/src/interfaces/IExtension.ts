@@ -16,5 +16,6 @@ export interface IExtension {
   author?: string
 
   createdAt: number
+
   updatedAt: number
 }

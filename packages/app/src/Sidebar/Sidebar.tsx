@@ -38,63 +38,65 @@ export const Sidebar = () => {
       flex-1
       display={['none', 'none', 'flex']}
       bgZinc100--T20
-      px2
       gap3
       h-100vh
       overflowAuto
       pb2
     >
-      <SpacePopover />
-      <Box column gap-1 flex-1 pb10>
-        <SidebarItem
-          icon={<CalendarDays size={16} />}
-          label="Daily note"
-          onClick={() => {
-            store.selectDailyNote()
-          }}
-        />
+      <Box px2>
+        <SpacePopover />
+        <Box column gap-1 flex-1>
+          <SidebarItem
+            icon={<CalendarDays size={16} />}
+            label="Daily note"
+            onClick={() => {
+              store.selectDailyNote()
+            }}
+          />
 
-        <SidebarItem
-          icon={<Inbox size={16} />}
-          label="Inbox"
-          onClick={() => {
-            store.selectInbox()
-          }}
-        />
+          <SidebarItem
+            icon={<Inbox size={16} />}
+            label="Inbox"
+            onClick={() => {
+              store.selectInbox()
+            }}
+          />
 
-        <SidebarItem
-          icon={<Hash size={16} />}
-          label="Tags"
-          onClick={() => {
-            store.selectTagBox()
-          }}
-        />
+          <SidebarItem
+            icon={<Hash size={16} />}
+            label="Tags"
+            onClick={() => {
+              store.selectTagBox()
+            }}
+          />
 
-        <SidebarItem
-          icon={<Cloud size={16} />}
-          label="Sync"
-          onClick={() => {
-            store.routeTo('SYNC')
-          }}
-        />
+          <SidebarItem
+            icon={<Cloud size={16} />}
+            label="Sync"
+            onClick={() => {
+              store.routeTo('SYNC')
+            }}
+          />
 
-        {components.map((C, i) => (
-          <C key={i} />
-        ))}
+          {components.map((C, i) => (
+            <C key={i} />
+          ))}
 
-        <FavoriteBox />
-
-        {!!nodes.length && <TreeView nodeList={nodeList} />}
-
-        {/* <SidebarItem
+          {/* <SidebarItem
           icon={<Trash2 size={16} />}
           label="Trash"
           onClick={() => {
             store.selectTrash()
           }}
         /> */}
+        </Box>
       </Box>
-      <Box>
+
+      <Box Box flex-1 zIndex-1 overflowYAuto px2>
+        <FavoriteBox />
+        {!!nodes.length && <TreeView nodeList={nodeList} />}
+      </Box>
+      <Box px2>
         {!isConnected && <WalletConnectButton size="lg" w-100p />}
         {isConnected && <UserAvatarModal />}
       </Box>
