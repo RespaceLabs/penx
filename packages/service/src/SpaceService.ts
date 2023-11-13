@@ -54,7 +54,7 @@ export class SpaceService {
     for (const id of nodeList.databaseRootNode.children) {
       const databaseNode = this.nodeMap.get(id)!
       const pageNodes = this.nodes.filter((n) => n.parentId === databaseNode.id)
-      pageMap[id] = pageNodes
+      pageMap[id] = [databaseNode, ...pageNodes]
     }
 
     // space's rootNode

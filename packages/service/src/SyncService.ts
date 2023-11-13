@@ -555,6 +555,18 @@ export class SyncService {
 
     const pagesTree = await this.getPagesTreeInfo()
 
+    const rootNode = await db.getRootNode(this.space.id)
+    if (rootNode) {
+      console.log('rootNode:', rootNode)
+      await db.deleteNode(rootNode.id)
+    }
+
+    const databaseRootNode = await db.getRootNode(this.space.id)
+    if (databaseRootNode) {
+      console.log('databaseRootNode:', databaseRootNode)
+      await db.deleteNode(databaseRootNode.id)
+    }
+
     const inboxNode = await db.getInboxNode(this.space.id)
     if (inboxNode) {
       console.log('indexNode:', inboxNode)

@@ -151,6 +151,16 @@ class DB {
     return this.node.selectByPk(nodeId)
   }
 
+  getRootNode = async (spaceId: string) => {
+    let nodes = await this.node.selectByIndexAll('type', NodeType.ROOT)
+    return nodes.find((node) => node.spaceId === spaceId)!
+  }
+
+  getDatabaseRootNode = async (spaceId: string) => {
+    let nodes = await this.node.selectByIndexAll('type', NodeType.DATABASE_ROOT)
+    return nodes.find((node) => node.spaceId === spaceId)!
+  }
+
   getInboxNode = async (spaceId: string) => {
     let nodes = await this.node.selectByIndexAll('type', NodeType.INBOX)
     return nodes.find((node) => node.spaceId === spaceId)!
