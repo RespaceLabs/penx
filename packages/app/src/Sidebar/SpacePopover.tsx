@@ -38,8 +38,18 @@ export const SpacePopover = () => {
                   innerColor={activeSpace.color}
                   mr1
                 />
-                <Box gray600>{activeSpace?.name}</Box>
-                <Box gray400>
+                <Box gray600 flex-1 maxW-180>
+                  <Box
+                    overflowHidden
+                    css={{
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    {activeSpace?.name}
+                  </Box>
+                </Box>
+                <Box gray400 flexShrink-0>
                   <ChevronsUpDown
                     size={12}
                     style={{

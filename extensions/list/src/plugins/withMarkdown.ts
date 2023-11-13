@@ -2,9 +2,24 @@ import markdown from 'remark-parse'
 import { Path, Transforms } from 'slate'
 import { unified } from 'unified'
 import { PenxEditor } from '@penx/editor-common'
-import { getCurrentPath } from '@penx/editor-queries'
+import {
+  findNode,
+  getCurrentNode,
+  getCurrentPath,
+  queryNode,
+} from '@penx/editor-queries'
 import slate from '@penx/remark-slate'
+import { isTitle } from '../guard'
 import { listSchema } from '../listSchema'
+
+function isInTitle(editor: PenxEditor) {
+  const res = findNode(editor, {
+    at: editor.selection!,
+    // mode: 'highest',
+    match: isTitle,
+  })
+  return !!res
+}
 
 export const withMarkdown = (editor: PenxEditor) => {
   const { insertData } = editor
@@ -15,7 +30,12 @@ export const withMarkdown = (editor: PenxEditor) => {
     const file = unified().use(markdown).use(slate).processSync(text)
 
     if (file.result) {
+      if (isInTitle(editor)) {
+        return insertData(data)
+      }
+
       const path = getCurrentPath(editor)!
+
       const listItemPath = path.slice(0, path.length - 2)
 
       const nodes = resultToSlateNode(file.result as any)

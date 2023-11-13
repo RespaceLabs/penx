@@ -34,11 +34,12 @@ export const WalletConnectButton = (props: Props) => {
       textSM
       roundedFull
       toBetween
-      variant="light"
+      fontSemibold
       // colorScheme="white"
       // brand500
+      variant="light"
       colorScheme="gray600"
-      size="sm"
+      size="lg"
       onClick={onClick}
       {...props}
     >

@@ -1,8 +1,17 @@
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
-import { CalendarDays, Cloud, Folder, Hash, Inbox, Trash2 } from 'lucide-react'
+import {
+  CalendarDays,
+  Cloud,
+  CloudOff,
+  Folder,
+  Hash,
+  Inbox,
+  Trash2,
+} from 'lucide-react'
 import { useAccount } from 'wagmi'
-import { useNodes } from '@penx/hooks'
+import { Dot } from 'uikit'
+import { useNodes, useUser } from '@penx/hooks'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { SidebarItem } from './SidebarItem'
@@ -27,6 +36,9 @@ export const Sidebar = () => {
   const [extensionStore] = useAtom(extensionStoreAtom)
   const components = getStatusBarComponents(extensionStore)
   const { nodes, nodeList } = useNodes()
+  const user = useUser()
+
+  console.log('user:', user?.isSyncWorks)
 
   if (!nodes.length) return null
 
@@ -45,7 +57,7 @@ export const Sidebar = () => {
     >
       <Box px2>
         <SpacePopover />
-        <Box column gap-1 flex-1>
+        <Box column gap-1 flex-1 mt3>
           <SidebarItem
             icon={<CalendarDays size={16} />}
             label="Daily note"
@@ -71,12 +83,16 @@ export const Sidebar = () => {
           />
 
           <SidebarItem
-            icon={<Cloud size={16} />}
+            icon={
+              user?.isSyncWorks ? <Cloud size={16} /> : <CloudOff size={16} />
+            }
             label="Sync"
             onClick={() => {
               store.routeTo('SYNC')
             }}
-          />
+          >
+            <Dot type={user?.isSyncWorks ? 'success' : 'error'} />
+          </SidebarItem>
 
           {components.map((C, i) => (
             <C key={i} />
@@ -92,7 +108,7 @@ export const Sidebar = () => {
         </Box>
       </Box>
 
-      <Box Box flex-1 zIndex-1 overflowYAuto px2>
+      <Box flex-1 zIndex-1 overflowYAuto px2>
         <FavoriteBox />
         {!!nodes.length && <TreeView nodeList={nodeList} />}
       </Box>

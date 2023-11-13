@@ -18,7 +18,9 @@ import {
 } from 'uikit'
 import { useUser } from '@penx/hooks'
 import { IconDisconnect } from '@penx/icons'
+import { getRandomColor } from '@penx/local-db'
 import { useCopyToClipboard } from '@penx/shared'
+import { Bullet } from '../../components/Bullet'
 import { EncryptionKey } from './EncryptionKey'
 import { QrCode } from './QrCode'
 
@@ -43,18 +45,19 @@ export const UserAvatarModal: FC<Props> = () => {
           roundedFull
           bgZinc100--D4
           bgZinc200--hover
-          py2
+          h-48
           px3
           gap1
           gray500
         >
           <Box toCenterY gap1>
-            <Avatar>
+            <Bullet innerColor={getRandomColor()}></Bullet>
+            {/* <Avatar>
               <AvatarFallback>{nickname}</AvatarFallback>
-            </Avatar>
+            </Avatar> */}
             <Box>{nickname}</Box>
           </Box>
-          <MoreHorizontal size={24} />
+          <MoreHorizontal size={20} />
         </Box>
       </ModalTrigger>
       <ModalOverlay />
