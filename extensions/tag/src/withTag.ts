@@ -18,11 +18,17 @@ export const withTag = (editor: PenxEditor) => {
     if (!shouldOpen(editor)) return insertText(text)
 
     // in codeblock
-    const match = Editor.above(editor, {
-      match: (n) => isCodeBlock(n),
+    const codeBlock = Editor.above(editor, {
+      match: isCodeBlock,
     })
 
-    if (match?.[0]) return insertText(text)
+    if (codeBlock?.[0]) return insertText(text)
+
+    const tagSelector = Editor.above(editor, {
+      match: isTagSelector,
+    })
+
+    if (tagSelector?.[0]) return insertText(text)
 
     insertNodes(editor, {
       type: ELEMENT_TAG_SELECTOR,
@@ -64,7 +70,16 @@ function shouldOpen(editor: Editor): boolean {
   const nodeEntry = getBlockAbove(editor)
 
   if (nodeEntry && !isCodeLine(nodeEntry[0].type)) {
-    if (getText(editor, nodeEntry[1]) !== '') {
+    const text = getText(editor, nodeEntry[1])
+
+    // if (/#{2,}$/) {
+    //   return false
+    // }
+
+    // #...# is markdown heading
+    if (/^#+/.test(text)) return false
+
+    if (text !== '') {
       return true
     }
   }

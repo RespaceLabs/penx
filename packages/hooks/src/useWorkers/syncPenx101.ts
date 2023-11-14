@@ -3,8 +3,8 @@ import { db } from '@penx/local-db'
 import { INode } from '@penx/model-types'
 import { sleep } from '@penx/shared'
 
-// const INTERVAL = 5 * 60 * 1000
-const INTERVAL = 5 * 1000
+const INTERVAL = 5 * 60 * 1000
+// const INTERVAL = 5 * 1000
 
 let isPolling = true
 
