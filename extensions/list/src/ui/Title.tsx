@@ -34,11 +34,12 @@ export const Title = ({
   const firstLineNode = editor.children[1]
   const firstLineStr = firstLineNode ? Node.string(firstLineNode) : ''
 
+  // TODO: have bugs
   useEffect(() => {
     // focus on title
     if (onlyHasTitle || !titleStr) {
       setTimeout(() => {
-        Transforms.select(editor, Editor.end(editor, [0]))
+        Transforms.select(editor, Editor.end(editor, [0, 0]))
         ReactEditor.focus(editor)
       }, 0)
     }
@@ -46,8 +47,8 @@ export const Title = ({
     // focus to the first line
     if (titleStr && firstLineNode && !firstLineStr) {
       setTimeout(() => {
-        Transforms.select(editor, Editor.end(editor, [1]))
-        ReactEditor.focus(editor)
+        // Transforms.select(editor, Editor.end(editor, [1]))
+        // ReactEditor.focus(editor)
       }, 0)
     }
   }, [onlyHasTitle, editor, titleStr, firstLineStr, firstLineNode])
