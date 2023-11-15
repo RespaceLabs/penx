@@ -102,6 +102,9 @@ export const store = Object.assign(createStore(), {
   },
 
   async selectNode(node: INode) {
+    const currentNode = store.getNode()
+    if (currentNode.id === node.id) return
+
     this.routeTo('NODE')
     this.reloadNode(node)
     await db.updateSpace(this.getActiveSpace().id, {

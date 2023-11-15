@@ -20,7 +20,7 @@ export function TreeViewHeader() {
       }}
     >
       <Bullet mr-4 />
-      <Box>All nodes</Box>
+      <Box>ALL NODES</Box>
     </Box>
   )
 }

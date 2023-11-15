@@ -1,6 +1,4 @@
 import { Box } from '@fower/react'
-import { MoreHorizontal } from 'lucide-react'
-import { Button } from 'uikit'
 import { useNodes, useSpaces } from '@penx/hooks'
 import { NodeItem } from './NodeItem'
 
@@ -9,9 +7,9 @@ export const FavoriteBox = () => {
   const { activeSpace } = useSpaces()
 
   return (
-    <Box gray600 p3 rounded2XL>
-      <Box toCenterY toBetween gap2>
-        <Box fontBold>Favorites</Box>
+    <Box>
+      <Box toCenterY gap2 px2 gray600 mb2 mt2>
+        <Box fontBold>FAVORITES</Box>
       </Box>
       <Box column>
         {nodeList.getFavorites(activeSpace.favorites).map((node) => (

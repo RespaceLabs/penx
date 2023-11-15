@@ -16,9 +16,10 @@ export const NodeItem = ({ node }: Props) => {
       gap2
       gray500
       textSM
-      py2
-      px1
-      bgGray100--hover
+      h-30
+      px2
+      bgGray200--hover
+      bgGray200--D4--active
       cursorPointer
       rounded
       onClick={() => {
@@ -26,11 +27,11 @@ export const NodeItem = ({ node }: Props) => {
           node,
           store.getNodes().map((node) => new Node(node)),
         )
+
         nodeService.selectNode()
       }}
     >
       <Box flex-1>{node.title || 'Untitled'}</Box>
-      <NodeItemMenu node={node} />
     </Box>
   )
 }
