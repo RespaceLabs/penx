@@ -97,7 +97,7 @@ export class NodeListService {
   }
 
   getFavorites(ids: string[] = []) {
-    return this.nodes.filter((node) => ids.includes(node.id))
+    return ids.map((id) => this.nodeMap.get(id)!)
   }
 
   // TODO: need to improvement

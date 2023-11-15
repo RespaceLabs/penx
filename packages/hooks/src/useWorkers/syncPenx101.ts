@@ -20,7 +20,7 @@ async function sync() {
 
   try {
     const url =
-      'https://raw.githubusercontent.com/penx-lab/penx-101/main/nodes.json'
+      'https://raw.githubusercontent.com/penx-dao/penx-101/main/nodes.json'
 
     const data: INode[] = await ky(url).json()
 

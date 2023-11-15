@@ -28,7 +28,6 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'
 import { getProjection, UniqueIdentifier } from '@penx/dnd-projection'
-import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { NodeCleaner, NodeListService } from '@penx/service'
 import { store } from '@penx/store'

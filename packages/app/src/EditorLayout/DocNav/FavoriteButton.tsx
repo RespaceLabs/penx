@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren } from 'react'
-import { Star, StarOffIcon } from 'lucide-react'
 import { Button } from 'uikit'
 import { useNode } from '@penx/hooks'
+import { IconStar, IconStarSolid } from '@penx/icons'
 
 interface Props {}
 
@@ -14,6 +14,7 @@ export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
       variant="ghost"
       colorScheme="gray500"
       isSquare
+      red500
       onClick={() => {
         if (isFavorite) {
           nodeService.removeFromFavorites()
@@ -22,7 +23,11 @@ export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
         }
       }}
     >
-      {isFavorite ? <StarOffIcon /> : <Star />}
+      {isFavorite ? (
+        <IconStarSolid fillYellow500 />
+      ) : (
+        <IconStar stroke="#666" />
+      )}
     </Button>
   )
 }

@@ -10,7 +10,7 @@ import {
   Spinner,
   toast,
 } from 'uikit'
-import { useSpaces, useUser } from '@penx/hooks'
+import { useUser } from '@penx/hooks'
 import { User } from '@penx/model'
 import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
@@ -30,7 +30,7 @@ export function DisconnectPopover({}: Props) {
         {({ close }) => (
           <>
             <PopoverHeader>Sure to disconnect?</PopoverHeader>
-            <PopoverBody gapX3>
+            <PopoverBody gap3 toCenterY>
               <Button variant="light" onClick={close} colorScheme="gray600">
                 Cancel
               </Button>
