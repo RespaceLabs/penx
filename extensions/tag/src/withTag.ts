@@ -1,16 +1,34 @@
 import { Editor, Element, Node, Transforms } from 'slate'
 import { isCodeBlock, isCodeLine } from '@penx/code-block'
 import { PenxEditor } from '@penx/editor-common'
-import { getBlockAbove, getText } from '@penx/editor-queries'
+import { getBlockAbove, getNodeByPath, getText } from '@penx/editor-queries'
 import { insertNodes } from '@penx/editor-transforms'
 import { ELEMENT_TAG_SELECTOR } from './constants'
 import { isTagSelector } from './isTagSelector'
+
+function getTextBeforeCursor(editor: PenxEditor) {
+  try {
+    const anchor = {
+      ...editor.selection?.anchor!,
+      offset: 0,
+    }
+    const beforeText = Editor.string(editor, {
+      focus: editor.selection?.focus!,
+      anchor,
+    })
+    return beforeText
+  } catch (error) {
+    return undefined
+  }
+}
 
 export const withTag = (editor: PenxEditor) => {
   const trigger = '#'
   const { insertText, normalizeNode, apply } = editor
 
   editor.insertText = (text) => {
+    const node = getNodeByPath(editor, editor.selection!.focus!.path)
+
     if (!editor.selection || text !== trigger) {
       return insertText(text)
     }
@@ -51,6 +69,8 @@ export const withTag = (editor: PenxEditor) => {
       console.log('normalizeNode.............')
       Transforms.removeNodes(editor, { at: path })
 
+      editor.isTagSelectorOpened = false
+
       // Transforms.unwrapNodes(editor, {
       //   at: path,
       // })
@@ -66,22 +86,10 @@ export const withTag = (editor: PenxEditor) => {
   return editor
 }
 
-function shouldOpen(editor: Editor): boolean {
-  const nodeEntry = getBlockAbove(editor)
-
-  if (nodeEntry && !isCodeLine(nodeEntry[0].type)) {
-    const text = getText(editor, nodeEntry[1])
-
-    // if (/#{2,}$/) {
-    //   return false
-    // }
-
-    // #...# is markdown heading
-    if (/^#+/.test(text)) return false
-
-    if (text !== '') {
-      return true
-    }
-  }
-  return false
+function shouldOpen(editor: PenxEditor): boolean {
+  const beforeText = getTextBeforeCursor(editor)
+  if (typeof beforeText === 'undefined') return false
+  if (beforeText === '') return false
+  if (/^#+$/.test(beforeText)) return false
+  return true
 }
