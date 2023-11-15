@@ -1,5 +1,5 @@
 import markdown from 'remark-parse'
-import { Path, Transforms } from 'slate'
+import { insertText, Node, Path, Transforms } from 'slate'
 import { unified } from 'unified'
 import { PenxEditor } from '@penx/editor-common'
 import {
@@ -21,8 +21,12 @@ function isInTitle(editor: PenxEditor) {
   return !!res
 }
 
+function isSingleLine(nodes: Node[]) {
+  return nodes?.length === 1
+}
+
 export const withMarkdown = (editor: PenxEditor) => {
-  const { insertData } = editor
+  const { insertData, insertText } = editor
 
   editor.insertData = (data: DataTransfer) => {
     const text = data.getData('text/plain')
@@ -34,15 +38,19 @@ export const withMarkdown = (editor: PenxEditor) => {
         return insertData(data)
       }
 
-      const path = getCurrentPath(editor)!
-
-      const listItemPath = path.slice(0, path.length - 2)
-
       const nodes = resultToSlateNode(file.result as any)
+
+      if (isSingleLine(nodes)) {
+        return insertText(Node.string(nodes[0]))
+      }
+
+      const path = getCurrentPath(editor)!
+      const listItemPath = path.slice(0, path.length - 2)
 
       Transforms.insertNodes(editor, nodes, {
         at: Path.next(listItemPath),
       })
+
       return
     }
 

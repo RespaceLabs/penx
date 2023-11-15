@@ -32,7 +32,9 @@ async function sync() {
     }
 
     for (const item of data) {
-      // const find = await db.getNode(item.id)
+      const find = await db.getNode(item.id)
+      const space = await db.getSpace('penx-101')
+      if (!space) break
       // console.log('find:', find)
       await db.createNode({
         ...item,

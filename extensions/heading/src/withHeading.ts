@@ -7,7 +7,6 @@ export const withHeading = (editor: PenxEditor) => {
   editor.apply = (operation) => {
     if (operation.type === 'split_node') {
       const { properties } = operation
-      console.log('gogo........', properties)
       if (
         ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(
           (properties as HeadingElement).type,
