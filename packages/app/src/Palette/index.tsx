@@ -123,11 +123,9 @@ export function CommandPanel({ isMobile = false }: CommandPanelProps) {
         borderBottom
         borderGray100
         outlineNone
-        placeholder="Search page by name"
+        placeholder="Search node by name"
         value={search}
         onValueChange={(v) => {
-          console.log('v:', v)
-
           setSearch(v)
         }}
         onBlur={() => {
@@ -150,7 +148,9 @@ export function CommandPanel({ isMobile = false }: CommandPanelProps) {
           overscrollBehavior: 'contain',
         }}
       >
-        {!isCommand && <NodeList q={search} close={close} />}
+        {!isCommand && (
+          <NodeList q={search} setSearch={setSearch} close={close} />
+        )}
 
         {isCommand && (
           <CommandList q={search} close={close} setSearch={setSearch} />

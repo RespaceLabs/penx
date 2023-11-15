@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react'
 import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
 import { useNodes, usePaletteDrawer } from '@penx/hooks'
@@ -9,20 +10,17 @@ const CommandItem = styled(Command.Item)
 
 interface Props {
   q: string
+  setSearch: Dispatch<SetStateAction<string>>
   close: () => void
 }
 
-export function NodeList({ q, close }: Props) {
+export function NodeList({ q, setSearch, close }: Props) {
   const { nodeList } = useNodes()
   const paletteDrawer = usePaletteDrawer()
 
-  const filteredItems = nodeList
-    .find({
-      sortBy: 'openedAt',
-      orderByDESC: true,
-      limit: 20,
-    })
+  const filteredItems = nodeList.nodes
     .filter((i) => i.title.toLowerCase().includes(q.toLowerCase()))
+    .slice(0, 20)
 
   if (!filteredItems.length) {
     return (
@@ -50,14 +48,16 @@ export function NodeList({ q, close }: Props) {
             roundedLG
             value={node.id}
             onSelect={() => {
-              close()
               paletteDrawer?.close()
               nodeService.selectNode()
+              close()
+              setSearch('')
             }}
             onClick={() => {
               nodeService.selectNode()
               paletteDrawer?.close()
               close()
+              setSearch('')
             }}
           >
             {node.title || 'Untitled'}
