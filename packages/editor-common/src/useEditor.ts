@@ -19,8 +19,11 @@ export type PenxEditor = BaseEditor &
     onKeyDownFns: any
     onBlurFns: any
     onClickBullet: any
+
     isBlockSelectorOpened: boolean
     isTagSelectorOpened: boolean
+    isBidirectionalLinkSelector: boolean
+
     nodeToDecorations: Map<any, Range[]>
 
     projected: Projected | null

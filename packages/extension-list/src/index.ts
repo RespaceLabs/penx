@@ -78,7 +78,7 @@ export const extensionList = [
     id: 'link',
     activate: link.activate,
   },
-  // { id: 'internal-link', activate: internalLink.activate },
+  { id: 'bidirectional-link', activate: bidirectionalLink.activate },
   {
     id: 'table',
     activate: table.activate,

@@ -38,6 +38,9 @@ export const PrimaryCell: FC<CellProps> = memo(function PrimaryCell(props) {
 
   useEffect(() => {
     db.getNode(nodeId).then((node) => {
+      if (!node) {
+        return setValue([])
+      }
       if (!isEqual(editorRef.current.children[0], node.element)) {
         setValue([node.element])
       }

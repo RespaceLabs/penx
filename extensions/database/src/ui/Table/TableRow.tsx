@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
 import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
 import { ICellNode, IColumnNode, IRowNode } from '@penx/model-types'
+import { store } from '@penx/store'
 import { FIRST_COL_WIDTH } from '../../constants'
 import { IconDrag } from '../icons/IconDrag'
 import { TableCell } from './Cell'
@@ -43,7 +44,7 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            //
+            store.deleteRow(row.id)
           }}
         >
           Delete Row

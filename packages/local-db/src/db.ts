@@ -356,6 +356,10 @@ class DB {
     return newNode
   }
 
+  deleteRow = async (rowId: string) => {
+    console.log('deleteRow.......:', rowId)
+  }
+
   createDatabase = async (name: string, shouldInitCell = false) => {
     // const { id = '' } = data
     const space = await this.getActiveSpace()

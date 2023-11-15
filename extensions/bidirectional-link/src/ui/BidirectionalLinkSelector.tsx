@@ -14,6 +14,7 @@ import {
 import { Box } from '@fower/react'
 import { Transforms } from 'slate'
 import { useSlateStatic } from 'slate-react'
+import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getCurrentNode } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { BidirectionalLinkSelectorElement } from '../types'
@@ -23,7 +24,7 @@ export const BidirectionalLinkSelector = ({
   element,
   children,
 }: ElementProps<BidirectionalLinkSelectorElement>) => {
-  const editor = useSlateStatic()
+  const editor = useEditorStatic()
   const path = findNodePath(editor, element)!
   const [isOpen, setIsOpen] = useState(false)
 
@@ -35,6 +36,7 @@ export const BidirectionalLinkSelector = ({
         Transforms.unwrapNodes(editor, {
           at: path,
         })
+        editor.isBidirectionalLinkSelector = false
       }
       setIsOpen(open)
     },
@@ -58,6 +60,7 @@ export const BidirectionalLinkSelector = ({
     const node = getCurrentNode(editor)
     // only open on focus
     if (node) {
+      editor.isBidirectionalLinkSelector = true
       setIsOpen(true)
     }
   }, [editor])

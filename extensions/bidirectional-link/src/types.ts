@@ -12,6 +12,5 @@ export interface BidirectionalLinkSelectorElement extends BaseElement {
 export interface BidirectionalLinkContentElement extends BaseElement {
   id?: string
   type: typeof ELEMENT_BIDIRECTIONAL_LINK_CONTENT
-  linkName: string
   linkId: string
 }

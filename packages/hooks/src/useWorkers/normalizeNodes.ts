@@ -16,5 +16,5 @@ export async function normalizeNodes() {
 }
 
 async function normalize() {
-  console.log('normalize.........nodes')
+  // console.log('normalize.........nodes')
 }

@@ -53,8 +53,6 @@ export const TagSelector = ({
     onOpenChange: (open: boolean) => {
       setIsOpen(open)
 
-      console.log('====open:', open)
-
       if (!open) {
         Transforms.unwrapNodes(editor, {
           at: path,

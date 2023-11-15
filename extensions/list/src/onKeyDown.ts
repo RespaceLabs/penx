@@ -49,6 +49,11 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
   }
 
   // TODO: too hack
-  if (editor.isBlockSelectorOpened || editor.isTagSelectorOpened) return
+  if (
+    editor.isBlockSelectorOpened ||
+    editor.isTagSelectorOpened ||
+    editor.isBidirectionalLinkSelector
+  )
+    return
   onKeyDownList(editor, e)
 }

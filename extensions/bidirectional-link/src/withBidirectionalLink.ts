@@ -54,6 +54,7 @@ export const withBidirectionalLink = (editor: PenxEditor) => {
       Node.string(node) === ''
     ) {
       Transforms.removeNodes(editor, { at: path })
+      editor.isBidirectionalLinkSelector = false
       return
     }
 

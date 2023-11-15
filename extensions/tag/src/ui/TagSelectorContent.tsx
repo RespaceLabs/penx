@@ -22,7 +22,6 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   const editor = useEditorStatic()
   const { nodeList } = useNodes()
   const tagNames = nodeList.tagNodes.map((node) => node.props.name!)
-  // .filter((i) => !!i)
 
   const filteredTypes = tagNames.filter((item) => {
     const q = Node.string(element).replace(/^#/, '').toLowerCase()

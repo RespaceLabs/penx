@@ -181,7 +181,7 @@ export function NodeEditor({
     setActiveId(activeId as string)
     setOverId(activeId as string)
 
-    document.body.style.setProperty('cursor', 'grabbing')
+    // document.body.style.setProperty('cursor', 'grabbing')
   }
 
   function handleDragMove({ delta }: DragMoveEvent) {

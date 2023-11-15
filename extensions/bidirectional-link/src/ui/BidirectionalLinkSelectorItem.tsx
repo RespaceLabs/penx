@@ -2,11 +2,12 @@ import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { Box } from '@fower/react'
 import { useStore } from 'stook'
+import { Node } from '@penx/model'
 
 interface BidirectionalLinkSelectorItemProps {
   id: string
   isActive: boolean
-  node: any[] // TODO:
+  node: Node
   onClick: () => void
 }
 
@@ -42,7 +43,7 @@ export function BidirectionalLinkSelectorItem({
       toCenterY
       leadingNone
     >
-      {/* <Box textBase>{node}</Box> */}
+      <Box textBase>{node.title}</Box>
     </Box>
   )
 }

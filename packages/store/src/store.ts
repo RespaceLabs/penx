@@ -244,6 +244,10 @@ export const store = Object.assign(createStore(), {
     return databaseNode
   },
 
+  async deleteRow(rowId: string) {
+    await db.deleteRow(rowId)
+  },
+
   async createSpace(input: Partial<ISpace>) {
     let space = await db.createSpace(input)
     const spaces = await db.listSpaces()
