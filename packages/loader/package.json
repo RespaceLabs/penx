@@ -37,6 +37,7 @@
     "@penx/block-selector": "workspace:*",
     "@penx/extension-list": "workspace:*",
     "@penx/store": "workspace:*",
+    "@penx/model-types": "workspace:*",
     "immer": "^10.0.2",
     "jotai": "^2.4.2",
     "mitt": "^3.0.0",

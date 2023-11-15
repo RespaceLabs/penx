@@ -218,8 +218,8 @@ export class NodeService {
 
   savePage = async (
     node: INode,
-    ul: UnorderedListElement,
-    title?: TitleElement,
+    title: TitleElement,
+    ul?: UnorderedListElement,
   ) => {
     if (title) {
       node = await db.updateNode(node.id, {
@@ -234,7 +234,9 @@ export class NodeService {
       }
     }
 
-    await this.saveNodes(node.id, ul)
+    if (ul) {
+      await this.saveNodes(node.id, ul)
+    }
 
     const nodes = await db.listNormalNodes(this.spaceId)
 
@@ -254,6 +256,7 @@ export class NodeService {
 
     // update page snapshot
     const value = nodeService.getEditorValue(childrenNodes)
+
     await db.updateSnapshot(rootNode.raw, 'update', value)
 
     await new NodeCleaner().cleanDeletedNodes()

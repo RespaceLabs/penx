@@ -99,7 +99,9 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
       const depth = level
       const overDepth = child === overId && projected ? projected.depth : level
 
-      if (!node.children.length) {
+      if (!node) return null
+
+      if (!node?.children?.length) {
         return (
           <SortableTreeItem
             key={child}

@@ -78,6 +78,7 @@ export class NodeListService {
   ): WithFlattenedProps<Node>[] {
     return children.reduce<WithFlattenedProps<Node>[]>((acc, id, index) => {
       const node = this.getNode(id)
+      if (!node) return acc // TODO:
 
       // copy a new node
       const flattenedNode = Object.assign(new Node({ ...node.raw }), {

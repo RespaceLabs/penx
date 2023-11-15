@@ -20,18 +20,14 @@ export function NodeContent() {
   const { node, nodeService } = useNode()
 
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
-    // has title
-    if (value[1]) {
-      nodeService.savePage(node.raw, value[1], value[0])
-    } else {
-      nodeService.savePage(node.raw, value[0])
-    }
+    nodeService.savePage(node.raw, value[0], value[1])
   }, 500)
 
   if (!node.id || !nodes.length) return null
 
   // console.log('nodes=========:', nodes)
   // console.log('node========:', nodeService.getEditorValue())
+  // console.log('node========:', node)
 
   return (
     <Box relative>

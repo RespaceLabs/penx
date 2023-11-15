@@ -3730,6 +3730,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
       '@penx/paragraph':
         specifier: workspace:*
         version: link:../../extensions/paragraph
