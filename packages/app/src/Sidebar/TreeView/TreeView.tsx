@@ -1,5 +1,6 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import isEqual from 'react-fast-compare'
 import {
   closestCenter,
   defaultDropAnimation,
@@ -29,11 +30,19 @@ import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'
 import { getProjection, UniqueIdentifier } from '@penx/dnd-projection'
 import { db } from '@penx/local-db'
+import { INode } from '@penx/model-types'
 import { NodeCleaner, NodeListService } from '@penx/service'
 import { store } from '@penx/store'
 import { SortableTreeItem } from './SortableTreeItem'
 import { TreeItem } from './TreeItem'
 import { TreeViewHeader } from './TreeViewHeader'
+import { FlattenedItem, TreeItems } from './types'
+import {
+  buildTree,
+  flattenTree,
+  removeChildrenOf,
+  setProperty,
+} from './utilities'
 
 const measuring = {
   droppable: {
@@ -68,16 +77,25 @@ interface TreeViewProps {
   nodeList: NodeListService
 }
 
+const indentationWidth = 50
+
 export const TreeView = ({ nodeList }: TreeViewProps) => {
-  const indentationWidth = 50
+  const items = nodeList.createTree(nodeList.rootNode)
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null)
   const [overId, setOverId] = useState<UniqueIdentifier | null>(null)
   const [offsetLeft, setOffsetLeft] = useState(0)
 
   const flattenedItems = useMemo(() => {
-    return nodeList.flattenNode(nodeList.rootNode)
-  }, [nodeList])
+    const flattenedTree = flattenTree(items)
+    const foldedItems = flattenedTree.reduce<string[]>(
+      (acc, { children, folded, id }) =>
+        folded && children.length ? [...acc, id] : acc,
+      [],
+    )
+
+    return removeChildrenOf(flattenedTree, foldedItems)
+  }, [items])
 
   const projected =
     activeId && overId
@@ -89,43 +107,6 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
           indentationWidth,
         )
       : null
-
-  const renderNodes = (children: string[], level = 0) => {
-    return children.map((child, i) => {
-      const node = flattenedItems.find(({ id }) => id === child)!
-      // const node = nodeList.getNode(child)
-
-      const depth = level
-      const overDepth = child === overId && projected ? projected.depth : level
-
-      if (!node) return null
-
-      if (!node?.children?.length) {
-        return (
-          <SortableTreeItem
-            key={child}
-            node={node}
-            level={depth}
-            overDepth={overDepth}
-          />
-        )
-      }
-
-      return (
-        <Box key={child}>
-          <SortableTreeItem
-            key={child}
-            node={node}
-            level={depth}
-            overDepth={overDepth}
-          />
-          <Box display={node.folded ? 'none' : 'block'}>
-            {renderNodes(node.children, level + 1)}
-          </Box>
-        </Box>
-      )
-    })
-  }
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -162,7 +143,31 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
           // strategy={verticalListSortingStrategy}
           strategy={rectSortingStrategy}
         >
-          <Box>{renderNodes(nodeList.rootNode?.children || [])}</Box>
+          {flattenedItems.map((item) => {
+            const overDepth =
+              item.id === overId && projected ? projected.depth : item.depth
+
+            return (
+              <SortableTreeItem
+                key={item.id}
+                item={item}
+                depth={item.depth}
+                overDepth={overDepth}
+                onCollapse={async () => {
+                  if (item.children.length) {
+                    console.log('onCollapse!!!!!')
+                    handleCollapse(item.id)
+
+                    await db.updateNode(item.id, {
+                      folded: !item.folded,
+                    })
+                    const nodes = await db.listNodesBySpaceId(item.spaceId)
+                    store.setNodes(nodes)
+                  }
+                }}
+              />
+            )
+          })}
 
           {createPortal(
             <DragOverlay
@@ -171,8 +176,8 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
             >
               {activeId && activeItem ? (
                 <TreeItem
-                  node={activeItem}
-                  level={activeItem.depth}
+                  item={activeItem}
+                  depth={activeItem.depth}
                   opacity-40
                 />
               ) : null}
@@ -201,109 +206,56 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
 
   async function handleDragEnd({ active, over }: DragEndEvent) {
     resetState()
+    if (projected && over) {
+      // console.log('projected:', projected)
 
-    const activeId = active.id as string
-    const overId = over?.id as string
+      const activeId = active.id as string
+      const overId = over.id as string
 
-    if (!(overId && projected)) return
-    const { depth, parentId } = projected
+      const isOverChildren = checkIsOverChildren(activeId, overId)
+      // console.log('isOverChildren=======:', isOverChildren)
+      if (isOverChildren) return
 
-    // console.log('handleDragEnd======: ', depth, 'parentId:', parentId)
+      const activeNode = findNode(activeId)
 
-    if (!parentId) {
-      if (activeId !== overId) {
-        const { children } = nodeList.rootNode
-        const activeIndex = children.findIndex((id) => id === activeId)
-        const overIndex = children.findIndex((id) => id === overId)
+      const isOverSame =
+        activeId === overId && activeNode.depth === projected.depth
+      // is over same no need to move
+      if (isOverSame) return
 
-        nodeList.rootNode.raw.children = arrayMove(
-          children,
-          activeIndex,
-          overIndex,
-        )
+      const { depth, parentId } = projected
 
-        updateStore()
+      const clonedItems: FlattenedItem[] = JSON.parse(
+        JSON.stringify(flattenTree(items)),
+      )
+      const overIndex = clonedItems.findIndex(({ id }) => id === over.id)
+      const activeIndex = clonedItems.findIndex(({ id }) => id === active.id)
 
-        // save to db async
-        await db.updateNode(nodeList.rootNode.id, {
-          children: nodeList.rootNode.children,
-        })
+      const activeTreeItem = clonedItems[activeIndex]
 
-        await new NodeCleaner().cleanDeletedNodes()
-      } else {
-        // nothing to do
-      }
-    } else {
-      if (activeId === overId) {
-        // console.log('same ...222222222222')
-        // TODO..
-        // return
+      clonedItems[activeIndex] = {
+        ...activeTreeItem,
+        depth,
+        parentId: parentId as any,
       }
 
-      /**
-       * has parentId
-       */
-      const activeNode = nodeList.getNode(activeId)
-      const overNode = nodeList.getNode(overId)
-      const targetParentNode = nodeList.getNode(parentId)
-      const originalParentNode = nodeList.getNode(activeNode.parentId)
+      const sortedItems = arrayMove(clonedItems, activeIndex, overIndex)
+      const newItems = buildTree(sortedItems)
 
-      // remove from original parent node
-      originalParentNode.raw.children = originalParentNode.raw.children.filter(
-        (id) => id !== activeId,
-      )
-
-      // insert into target parent node
-      const overIndex = targetParentNode.raw.children.findIndex(
-        (i) => i === overId,
-      )
-      targetParentNode.raw.children.splice(overIndex, 0, activeId)
-
-      // update active node parentID
-      activeNode.raw.parentId = targetParentNode.id
-
-      // console.log(
-      //   'targetParentNode.id:',
-      //   targetParentNode.id,
-      //   'activeNode:',
-      //   activeNode,
-      // )
-
-      updateStore()
-
-      /**
-       * save to db async
-       */
-      await Promise.all([
-        db.updateNode(originalParentNode.id, {
-          children: originalParentNode.raw.children,
-        }),
-
-        db.updateNode(targetParentNode.id, {
-          children: targetParentNode.raw.children,
-        }),
-
-        db.updateNode(activeNode.id, {
-          parentId: activeNode.raw.parentId,
-        }),
-      ])
-
-      // console.log('activeNode.parentId,:', activeNode.parentId)
-
-      await new NodeCleaner().cleanDeletedNodes()
+      await updateItemsState(newItems)
     }
-  }
-
-  function updateStore() {
-    const newNodes = nodeList.nodes.map((n) => n.raw)
-    store.setNodes(newNodes)
-    const activeNode = store.getNode()
-    const newActiveNode = newNodes.find((n) => n.id === activeNode.id)
-    if (newActiveNode) store.reloadNode(newActiveNode)
   }
 
   function handleDragCancel() {
     resetState()
+  }
+
+  async function handleCollapse(id: UniqueIdentifier) {
+    const newItems = setProperty(items, id, 'folded', (value) => {
+      return !value
+    })
+
+    await updateItemsState(newItems)
   }
 
   function resetState() {
@@ -311,5 +263,92 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
     setOverId(null)
     setOffsetLeft(0)
     document.body.style.setProperty('cursor', '')
+  }
+
+  function checkIsOverChildren(activeId: string, overId: string) {
+    const activeNode = nodeList.getNode(activeId)
+    const overNode = nodeList.getNode(overId)
+    const childrenNodes = nodeList.flattenNode(activeNode)
+    const find = childrenNodes.find(({ id }) => id === overNode.id)
+    return !!find
+  }
+
+  /**
+   * find node in flattenedItems
+   * @param nodeId
+   * @returns
+   */
+  function findNode(nodeId: string) {
+    return flattenedItems.find(({ id }) => id === nodeId)!
+  }
+
+  async function updateItemsState(newItems: TreeItems) {
+    updateToStore(newItems)
+
+    await updateToDB(newItems)
+  }
+
+  async function updateToStore(newItems: TreeItems) {
+    const items = flattenTree(newItems)
+    const newNodes = nodeList.nodes.map<INode>((node) => {
+      if (node.isRootNode) {
+        const children = items
+          .filter((item) => !item.parentId)
+          .map((item) => item.id)
+        return {
+          ...node.raw,
+          children,
+        }
+      }
+
+      const item = items.find(({ id }) => id === node.id)!
+
+      if (!item) return { ...node.raw }
+
+      const parentId = item.parentId || nodeList.rootNode.id
+      const children = item.children.map((child) => child.id)
+
+      return {
+        ...node.raw,
+        parentId,
+        children,
+      }
+    })
+
+    store.setNodes(newNodes)
+    const activeNode = store.getNode()
+    const newActiveNode = newNodes.find((n) => n.id === activeNode.id)
+    if (newActiveNode) store.reloadNode(newActiveNode)
+  }
+
+  async function updateToDB(newItems: TreeItems) {
+    const items = flattenTree(newItems)
+
+    for (const item of items) {
+      const parentId = item.parentId || nodeList.rootNode.id
+      const children = item.children.map((child) => child.id)
+      const node = nodeList.getNode(item.id)
+      if (
+        isEqual(parentId, node.parentId) &&
+        isEqual(children, node.children)
+      ) {
+        continue
+      }
+
+      await db.updateNode(item.id, {
+        parentId,
+        children,
+      })
+    }
+
+    const rootNodeChildren = items
+      .filter((item) => !item.parentId)
+      .map((item) => item.id)
+
+    await db.updateNode(nodeList.rootNode.id, {
+      children: rootNodeChildren,
+    })
+
+    await new NodeCleaner().cleanDeletedNodes()
   }
 }

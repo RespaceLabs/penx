@@ -27,7 +27,7 @@ export function NodeContent() {
 
   // console.log('nodes=========:', nodes)
   // console.log('node========:', nodeService.getEditorValue())
-  // console.log('node========:', node)
+  // console.log('node content========:', node.raw)
 
   return (
     <Box relative>

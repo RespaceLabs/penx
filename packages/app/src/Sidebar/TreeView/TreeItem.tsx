@@ -6,21 +6,27 @@ import { ChevronDown, ChevronRight } from 'lucide-react'
 import { useNode } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
+import { FlattenedItem } from './types'
 
 interface TreeItemProps extends FowerHTMLProps<'div'> {
-  level: number
-  node: Node
+  depth: number
+  item: FlattenedItem
   style?: CSSProperties
   css?: CSSObject
   listeners?: ReturnType<typeof useSortable>['listeners']
+  onCollapse?: () => void
 }
 
 export const TreeItem = memo(
   forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
-    { node, level, listeners, style = {}, css = {}, ...rest },
+    { item, depth, listeners, style = {}, css = {}, onCollapse, ...rest },
     ref,
   ) {
-    const { nodeService } = useNode()
+    const { node: currentNode, nodeService } = useNode()
+    const node = new Node(item as any)
+
+    const isEqual = item.id === currentNode.id
+    const hasChildren = !!item.children.length
 
     return (
       <Box
@@ -32,21 +38,24 @@ export const TreeItem = memo(
         rounded
         bgGray200--hover
         bgGray200--D4--active
-        bgGray200={nodeService.isEqual(node)}
+        bgGray200={isEqual}
         transitionColors
         gray800
         mb-1
-        pl={level * 16 + 6}
+        pl={depth * 16 + 6}
         css={css}
         style={style}
         {...listeners}
         {...rest}
         onClick={() => {
-          store.selectNode(node.raw)
+          // TODO: need to improve performance
+          const nodes = store.getNodes()
+          const node = nodes.find((n) => n.id === item.id)!
+          store.selectNode(node)
         }}
       >
         <Box toCenterY gap-2>
-          {node.hasChildren && (
+          {hasChildren && (
             <Box
               inlineFlex
               gray500
@@ -63,17 +72,18 @@ export const TreeItem = memo(
               }}
               onClick={(e) => {
                 e.stopPropagation()
-                nodeService.toggleFolded(node)
+                // nodeService.toggleFolded(node)
+                onCollapse?.()
               }}
             >
-              {node.folded && <ChevronRight size={14} />}
-              {!node.folded && <ChevronDown size={14} />}
+              {item.folded && <ChevronRight size={14} />}
+              {!item.folded && <ChevronDown size={14} />}
             </Box>
           )}
 
-          {!node.hasChildren && (
+          {!hasChildren && (
             <Box
-              ml-14={level === 0}
+              ml-14={depth === 0}
               ml-10
               mr-6
               inlineFlex

@@ -12,6 +12,8 @@ export interface ISpace {
 
   description?: string
 
+  sort: number
+
   color: string
 
   isActive: boolean

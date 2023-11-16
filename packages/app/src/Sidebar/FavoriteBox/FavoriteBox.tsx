@@ -44,6 +44,7 @@ const measuring: MeasuringConfiguration = {
 export const FavoriteBox = () => {
   const { nodeList } = useNodes()
   const { favoriteNode } = nodeList
+
   const nodes = nodeList.getFavorites()
   const [items, setItems] = useState(favoriteNode.children)
   const [activeId, setActiveId] = useState<string | null>(null)

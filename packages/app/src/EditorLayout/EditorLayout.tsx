@@ -19,6 +19,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   const { spaces, activeSpace } = useSpaces()
   const { name } = useAtomValue(routerAtom)
   const SIDEBAR_WIDTH = 260
+  // const SIDEBAR_WIDTH = 600
 
   if (!spaces?.length || !activeSpace.id) return null
 

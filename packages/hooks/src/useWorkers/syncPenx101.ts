@@ -18,6 +18,9 @@ export async function syncPenx101() {
 
 async function sync() {
   const space = await db.getSpace('penx-101')
+
+  if (!space) return
+
   const favoriteNodes = await db.getFavoriteNode(space.id)
 
   // User visit first time
@@ -32,6 +35,7 @@ async function sync() {
     // console.log('data:', data)
 
     const nodes = await db.listNodesBySpaceId('penx-101')
+
     for (const node of nodes) {
       await db.node.deleteByPk(node.id)
     }

@@ -41,7 +41,7 @@ class AppLoader {
 
       // TODO: should not be here, should be in worker or service worker
       // const tt0 = Date.now()
-      await this.normalizeNodes()
+      // await this.normalizeNodes()
       // const tt1 = Date.now()
       // console.log('normalize nodes time tt1-tt0', tt1 - tt0)
 

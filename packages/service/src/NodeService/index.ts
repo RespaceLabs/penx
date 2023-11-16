@@ -180,9 +180,9 @@ export class NodeService {
     store.selectNode(node?.raw || this.node.raw)
   }
 
-  async toggleFolded(node: Node) {
-    await db.updateNode(node.id, {
-      folded: !node.folded,
+  async toggleFolded(id: string, folded: boolean) {
+    await db.updateNode(id, {
+      folded: !folded,
     })
 
     const nodes = await db.listNodesBySpaceId(this.spaceId)

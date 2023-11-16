@@ -5,6 +5,10 @@ import { Node, WithFlattenedProps } from '@penx/model'
 import { INode, NodeType } from '@penx/model-types'
 import { store } from '@penx/store'
 
+interface TreeItem extends Omit<INode, 'children'> {
+  children: TreeItem[]
+}
+
 export type FindOptions<T = INode> = {
   where?: Partial<T>
   limit?: number
@@ -76,6 +80,23 @@ export class NodeListService {
 
   flattenNode(node: Node) {
     return this.flattenChildren(node.children)
+  }
+
+  createTree(node: Node): TreeItem[] {
+    return node.children.map((id) => {
+      const node = this.nodeMap.get(id)!
+      if (!node.children.length) {
+        return { ...node.raw, children: [] }
+      }
+      return {
+        ...node.raw,
+        children: this.createTree(node),
+      }
+    })
+  }
+
+  flattenTree() {
+    //
   }
 
   private flattenChildren(

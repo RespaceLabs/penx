@@ -7,6 +7,7 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
   return {
     id: nanoid(),
     name: 'My Space',
+    sort: 1,
     address: '',
     isActive: true,
     color: getRandomColor(),

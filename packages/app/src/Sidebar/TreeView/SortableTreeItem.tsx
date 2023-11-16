@@ -4,11 +4,13 @@ import { CSS } from '@dnd-kit/utilities'
 import { CSSObject } from '@fower/react'
 import { Node, WithFlattenedProps } from '@penx/model'
 import { TreeItem } from './TreeItem'
+import { FlattenedItem } from './types'
 
 interface Props {
-  level: number
+  depth: number
   overDepth: number // projected depth
-  node: WithFlattenedProps<Node>
+  item: FlattenedItem
+  onCollapse?: () => void
 }
 
 const animateLayoutChanges: AnimateLayoutChanges = ({
@@ -16,9 +18,14 @@ const animateLayoutChanges: AnimateLayoutChanges = ({
   wasDragging,
 }) => (isSorting || wasDragging ? false : true)
 
-export function SortableTreeItem({ node, level, overDepth }: Props) {
+export function SortableTreeItem({
+  item,
+  depth,
+  overDepth,
+  onCollapse,
+}: Props) {
   const sortable = useSortable({
-    id: node.id,
+    id: item.id,
     animateLayoutChanges,
   })
 
@@ -39,14 +46,17 @@ export function SortableTreeItem({ node, level, overDepth }: Props) {
     transition,
   } = sortable
 
-  const { id } = node
+  const { id } = item
+
+  // console.log('overIndex:', overIndex, 'activeIndex:', activeIndex)
 
   function getActiveStyle() {
     if (!over || !active) return {}
     if (id !== over.id) return {}
-    if (node.hasChildren) return {}
+    // if (node.hasChildren) return {}
 
     const isAfter = overIndex > activeIndex
+
     const style: CSSObject = {
       left: overDepth * 20,
       right: 0,
@@ -73,12 +83,12 @@ export function SortableTreeItem({ node, level, overDepth }: Props) {
   return (
     <TreeItem
       ref={sortable.setNodeRef}
-      node={node}
-      // level={node.depth}
-      level={level}
+      item={item}
+      depth={depth}
       listeners={sortable.listeners}
       style={style}
       css={getActiveStyle()}
+      onCollapse={onCollapse}
     />
   )
 }

@@ -3,7 +3,8 @@ import { Node, WithFlattenedProps } from '@penx/model'
 
 export type UniqueIdentifier = string
 
-type FlattenedItem = WithFlattenedProps<Node>
+// type FlattenedItem = WithFlattenedProps<Node>
+type FlattenedItem = any
 
 function getDragDepth(offset: number, indentationWidth: number) {
   return Math.round(offset / indentationWidth)
