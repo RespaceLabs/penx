@@ -58,7 +58,7 @@ export const FavoriteBox = () => {
   const sensors = useSensors(
     useSensor(MouseSensor, {
       activationConstraint: {
-        delay: 50,
+        delay: 150,
         tolerance: 5,
       },
     }),
