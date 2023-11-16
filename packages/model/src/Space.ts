@@ -33,7 +33,7 @@ export class Space {
   }
 
   get isSpace101() {
-    return this.name
+    return this.id === 'penx-101'
   }
 
   get activeNodeId() {
