@@ -1,9 +1,9 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
-import { ISpace } from '@penx/model-types'
+import { Space } from '@penx/model'
 
 type Context = {
   doc?: any
-  space?: ISpace
+  space?: Space
 }
 
 export const editorContext = createContext({} as Context)

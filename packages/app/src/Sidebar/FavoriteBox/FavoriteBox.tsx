@@ -92,6 +92,8 @@ export const FavoriteBox = () => {
 
   const activeItem = activeId ? nodes.find(({ id }) => id === activeId) : null
 
+  if (!isEqual(items, favoriteNode.children)) return null
+
   return (
     <Box>
       <FavoriteTitle />

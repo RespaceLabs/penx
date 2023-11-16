@@ -11,7 +11,7 @@ import {
 } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import { Dot } from 'uikit'
-import { useNodes, useUser } from '@penx/hooks'
+import { useNodes, useSpaces, useUser } from '@penx/hooks'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { SidebarItem } from './SidebarItem'
@@ -32,6 +32,7 @@ function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
 }
 
 export const Sidebar = () => {
+  const { activeSpace } = useSpaces()
   const { isConnected } = useAccount()
   const [extensionStore] = useAtom(extensionStoreAtom)
   const components = getStatusBarComponents(extensionStore)
@@ -80,17 +81,19 @@ export const Sidebar = () => {
             }}
           />
 
-          <SidebarItem
-            icon={
-              user?.isSyncWorks ? <Cloud size={16} /> : <CloudOff size={16} />
-            }
-            label="Sync"
-            onClick={() => {
-              store.routeTo('SYNC')
-            }}
-          >
-            <Dot type={user?.isSyncWorks ? 'success' : 'error'} />
-          </SidebarItem>
+          {!activeSpace.isSpace101 && (
+            <SidebarItem
+              icon={
+                user?.isSyncWorks ? <Cloud size={16} /> : <CloudOff size={16} />
+              }
+              label="Sync"
+              onClick={() => {
+                store.routeTo('SYNC')
+              }}
+            >
+              <Dot type={user?.isSyncWorks ? 'success' : 'error'} />
+            </SidebarItem>
+          )}
 
           {components.map((C, i) => (
             <C key={i} />

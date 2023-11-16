@@ -1,4 +1,5 @@
 import ky from 'ky'
+import { WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { INode } from '@penx/model-types'
 import { sleep } from '@penx/shared'
@@ -16,7 +17,11 @@ export async function syncPenx101() {
 }
 
 async function sync() {
-  console.log('sync......101')
+  const space = await db.getSpace('penx-101')
+  const favoriteNodes = await db.getFavoriteNode(space.id)
+
+  // User visit first time
+  const isOnboarding = !favoriteNodes.children?.length
 
   try {
     const url =
@@ -24,7 +29,7 @@ async function sync() {
 
     const data: INode[] = await ky(url).json()
 
-    console.log('data:', data)
+    // console.log('data:', data)
 
     const nodes = await db.listNodesBySpaceId('penx-101')
     for (const node of nodes) {
@@ -32,8 +37,6 @@ async function sync() {
     }
 
     for (const item of data) {
-      const find = await db.getNode(item.id)
-      const space = await db.getSpace('penx-101')
       if (!space) break
       // console.log('find:', find)
       await db.createNode({
@@ -43,6 +46,10 @@ async function sync() {
     }
 
     console.log('sync 101 done')
+
+    if (isOnboarding) {
+      postMessage(WorkerEvents.SYNC_101_SUCCEEDED)
+    }
   } catch (error) {
     console.log('error nodes:', error)
   }

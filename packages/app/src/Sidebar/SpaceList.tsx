@@ -3,17 +3,17 @@ import { Plus } from 'lucide-react'
 import { Button, modalController, PopoverClose } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { useSpaces } from '@penx/hooks'
+import { Space } from '@penx/model'
 import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
 import { Bullet } from '../components/Bullet'
 
-function SpaceItem({
-  item,
-  activeSpace,
-}: {
+interface Props {
   item: ISpace
-  activeSpace: ISpace
-}) {
+  activeSpace: Space
+}
+
+function SpaceItem({ item, activeSpace }: Props) {
   const active = activeSpace.id === item.id
   return (
     <PopoverClose asChild>
