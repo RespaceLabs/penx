@@ -1,7 +1,9 @@
 import _ from 'lodash'
 import { ArraySorter } from '@penx/indexeddb'
+import { db } from '@penx/local-db'
 import { Node, WithFlattenedProps } from '@penx/model'
 import { INode, NodeType } from '@penx/model-types'
+import { store } from '@penx/store'
 
 export type FindOptions<T = INode> = {
   where?: Partial<T>
@@ -41,6 +43,11 @@ export class NodeListService {
   get trashNode() {
     const rootNode = this.nodes.find((n) => n.isTrash)!
     return rootNode
+  }
+
+  get favoriteNode() {
+    const favoriteNode = this.nodes.find((n) => n.isFavorite)!
+    return favoriteNode
   }
 
   get rootNodes() {
@@ -96,8 +103,37 @@ export class NodeListService {
     }, [])
   }
 
-  getFavorites(ids: string[] = []) {
-    return ids.map((id) => this.nodeMap.get(id)!)
+  getFavorites() {
+    return this.favoriteNode.children.map((id) => this.nodeMap.get(id)!)
+  }
+
+  isFavorite(id: string) {
+    return this.favoriteNode.children.includes(id)
+  }
+
+  async addToFavorites(node: Node) {
+    await db.updateNode(this.favoriteNode.id, {
+      children: [...this.favoriteNode.children, node.id],
+    })
+    const nodes = await db.listNodesBySpaceId(node.spaceId)
+    store.setNodes(nodes)
+  }
+
+  async removeFromFavorites(node: Node) {
+    const children = this.favoriteNode.children.filter((id) => id !== node.id)
+    await db.updateNode(this.favoriteNode.id, {
+      children,
+    })
+    const nodes = await db.listNodesBySpaceId(node.spaceId)
+    store.setNodes(nodes)
+  }
+
+  async updateFavoriteNode(id: string, node: Partial<INode>) {
+    await db.updateNode(id, {
+      ...node,
+    })
+    const nodes = await db.listNodesBySpaceId(node.spaceId!)
+    store.setNodes(nodes)
   }
 
   // TODO: need to improvement

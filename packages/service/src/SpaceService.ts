@@ -12,7 +12,6 @@ export class SpaceService {
 
   nodeMap = new Map<string, INode>()
 
-  // TODO: need to handle rootNode, inboxNode, trashNode
   /**
    * split nodes[] to pageMap, so we can store it github
    * node[]
@@ -21,6 +20,7 @@ export class SpaceService {
    *   ROOT: node[]
    *   INBOX: node[]
    *   TRASH: node[]
+   *   FAVORITE: node[]
    *   DATABASE_ROOT: node[]
    *
    *   page1: node[] // pageNode from rootNode'children
@@ -62,6 +62,9 @@ export class SpaceService {
 
     // database's rootNode
     pageMap[NodeType.DATABASE_ROOT] = [nodeList.databaseRootNode.raw]
+
+    // favorite node
+    pageMap[NodeType.FAVORITE] = [nodeList.favoriteNode.raw]
 
     pageMap[NodeType.INBOX] = this.getPageNodesFromOneNode(
       nodeList.inboxNode.raw,

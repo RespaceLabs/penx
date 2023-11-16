@@ -9,7 +9,6 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
     name: 'My Space',
     address: '',
     isActive: true,
-    favorites: [],
     color: getRandomColor(),
     snapshot: {
       version: 0,

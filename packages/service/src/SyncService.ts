@@ -600,6 +600,11 @@ export class SyncService {
       await db.deleteNode(inboxNode.id)
     }
 
+    const favoriteNode = await db.getFavoriteNode(this.space.id)
+    if (favoriteNode) {
+      await db.deleteNode(favoriteNode.id)
+    }
+
     const trashNode = await db.getTrashNode(this.space.id)
     if (trashNode) {
       console.log('trashNode:', trashNode)

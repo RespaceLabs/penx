@@ -25,7 +25,7 @@ export const NodeItem = memo(
         relative
         toCenterY
         gap2
-        gray500
+        gray800
         textSM
         h-30
         px2

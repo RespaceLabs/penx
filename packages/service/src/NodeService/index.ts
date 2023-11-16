@@ -190,32 +190,6 @@ export class NodeService {
     store.setNodes(nodes)
   }
 
-  async addToFavorites() {
-    const space = store.getActiveSpace()
-
-    await db.updateSpace(this.spaceId, {
-      favorites: [...space.favorites, this.node.id],
-    })
-
-    const spaces = await db.listSpaces()
-    store.setSpaces(spaces)
-  }
-
-  async removeFromFavorites() {
-    const space = store.getActiveSpace()
-
-    const favorites = space.favorites.filter((id) => id !== this.node.id)
-    await db.updateSpace(this.spaceId, { favorites })
-
-    const spaces = await db.listSpaces()
-    store.setSpaces(spaces)
-  }
-
-  isFavorite() {
-    const space = store.getActiveSpace()
-    return space.favorites.includes(this.node.id)
-  }
-
   savePage = async (
     node: INode,
     title: TitleElement,

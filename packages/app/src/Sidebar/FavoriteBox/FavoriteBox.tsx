@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import isEqual from 'react-fast-compare'
 import {
@@ -31,7 +31,6 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'
 import { useNodes, useSpaces } from '@penx/hooks'
-import { store } from '@penx/store'
 import { FavoriteTitle } from './FavoriteTitle'
 import { NodeItem } from './NodeItem'
 import { SortableNodeItem } from './SortableNodeItem'
@@ -44,16 +43,16 @@ const measuring: MeasuringConfiguration = {
 
 export const FavoriteBox = () => {
   const { nodeList } = useNodes()
-  const { activeSpace } = useSpaces()
-  const nodes = nodeList.getFavorites(activeSpace.favorites)
-  const [items, setItems] = useState(activeSpace.favorites)
+  const { favoriteNode } = nodeList
+  const nodes = nodeList.getFavorites()
+  const [items, setItems] = useState(favoriteNode.children)
   const [activeId, setActiveId] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!isEqual(items, activeSpace.favorites)) {
-      setItems(activeSpace.favorites)
+    if (!isEqual(items, favoriteNode.children)) {
+      setItems(favoriteNode.children)
     }
-  }, [items, activeSpace])
+  }, [items, favoriteNode.children])
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -81,8 +80,8 @@ export const FavoriteBox = () => {
     const newItems = arrayMove(clonedItems, activeIndex, overIndex)
 
     setItems(newItems)
-    await store.updateSpace(activeSpace.id, {
-      favorites: newItems,
+    await nodeList.updateFavoriteNode(favoriteNode.id, {
+      children: newItems,
     })
     setActiveId(null)
   }

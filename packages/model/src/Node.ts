@@ -63,6 +63,10 @@ export class Node {
     return this.type === NodeType.INBOX
   }
 
+  get isFavorite() {
+    return this.type === NodeType.FAVORITE
+  }
+
   get isDailyNote() {
     return this.type === NodeType.DAILY_NOTE
   }

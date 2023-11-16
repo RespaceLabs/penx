@@ -1,13 +1,14 @@
 import React, { FC, PropsWithChildren } from 'react'
 import { Button } from 'uikit'
-import { useNode } from '@penx/hooks'
+import { useNode, useNodes } from '@penx/hooks'
 import { IconStar, IconStarSolid } from '@penx/icons'
 
 interface Props {}
 
 export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
-  const { nodeService } = useNode()
-  const isFavorite = nodeService.isFavorite()
+  const { node } = useNode()
+  const { nodeList } = useNodes()
+  const isFavorite = nodeList.isFavorite(node.id)
   return (
     <Button
       size="sm"
@@ -17,9 +18,9 @@ export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
       red500
       onClick={() => {
         if (isFavorite) {
-          nodeService.removeFromFavorites()
+          nodeList.removeFromFavorites(node)
         } else {
-          nodeService.addToFavorites()
+          nodeList.addToFavorites(node)
         }
       }}
     >

@@ -3,6 +3,7 @@ export enum NodeType {
   COMMON = 'COMMON',
   INBOX = 'INBOX',
   TRASH = 'TRASH',
+  FAVORITE = 'FAVORITE',
   DAILY_NOTE = 'DAILY_NOTE',
 
   // Database

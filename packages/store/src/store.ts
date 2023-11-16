@@ -90,15 +90,7 @@ export const store = Object.assign(createStore(), {
   },
 
   async trashNode(id: string) {
-    const space = this.getActiveSpace()
-    await db.trashNode(id)
-
-    const nodes = await db.listNodesBySpaceId(space.id)
-
-    if (nodes.length) {
-      this.reloadNode(nodes[0])
-    }
-    this.setNodes(nodes)
+    //
   },
 
   async selectNode(node: INode) {
@@ -161,13 +153,7 @@ export const store = Object.assign(createStore(), {
     this.routeTo('NODE')
   },
 
-  async restoreNode(id: string) {
-    const space = this.getActiveSpace()
-    await db.restoreNode(id)
-    const nodes = await db.listNodesBySpaceId(space.id)
-    this.setNode(nodes[0])
-    this.setNodes(nodes)
-  },
+  async restoreNode(id: string) {},
 
   async deleteNode(id: string) {
     const space = this.getActiveSpace()

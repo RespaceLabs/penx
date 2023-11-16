@@ -101,6 +101,14 @@ class DB {
         }),
       )
 
+      // init favorite node
+      await this.node.insert(
+        getNewNode({
+          spaceId,
+          type: NodeType.FAVORITE,
+        }),
+      )
+
       // init database root node
       await this.node.insert(
         getNewNode({
@@ -176,6 +184,11 @@ class DB {
     return nodes.find((node) => node.spaceId === spaceId)!
   }
 
+  getFavoriteNode = async (spaceId: string) => {
+    let nodes = await this.node.selectByIndexAll('type', NodeType.FAVORITE)
+    return nodes.find((node) => node.spaceId === spaceId)!
+  }
+
   updateNode = async (nodeId: string, data: Partial<INode>) => {
     const newNode = await this.node.updateByPk(nodeId, {
       ...data,
@@ -183,14 +196,6 @@ class DB {
     })
 
     return newNode
-  }
-
-  trashNode = async (nodeId: string) => {
-    // TODO:
-  }
-
-  restoreNode = async (nodeId: string) => {
-    // TODO:
   }
 
   deleteNode = async (nodeId: string) => {
@@ -280,10 +285,6 @@ class DB {
     await this.updateSpace(space.id, {
       snapshot: space.snapshot.toJSON(),
     })
-  }
-
-  listTrashedNodes = async (spaceId: string) => {
-    // TODO:
   }
 
   listNodesByIds = (nodeIds: string[]) => {
