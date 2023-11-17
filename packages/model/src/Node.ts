@@ -55,6 +55,10 @@ export class Node {
     return this.element?.children?.[0]?.text || this.props.name || ''
   }
 
+  get isCommon() {
+    return this.type === NodeType.COMMON
+  }
+
   get isTrash() {
     return this.type === NodeType.TRASH
   }
