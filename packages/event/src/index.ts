@@ -1,7 +1,7 @@
 import mitt from 'mitt'
 
 export type Events = {
-  ADD_DOCUMENT?: string
+  ADD_NODE?: string
   ADD_SPACE?: string
 
   ADD_TAG?: string

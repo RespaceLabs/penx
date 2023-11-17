@@ -57,9 +57,7 @@ export function CommandPanel({ isMobile = false }: CommandPanelProps) {
           setSearch(v)
         }}
         onBlur={() => {
-          setSearch('')
-          console.log('blure...........')
-
+          // setSearch('')
           // TODO: This is a hack
           // setTimeout(() => {
           //   setOpen(false)

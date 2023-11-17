@@ -18,7 +18,7 @@ import { WorkerStarter } from './WorkerStarter'
 if (!isServer) {
   appLoader.init()
 
-  // emitter.on('ADD_DOCUMENT', () => {
+  // emitter.on('ADD_NODE', () => {
   //   const spaces = store.get(spacesAtom)
   //   const activeSpace = spaces.find((space) => space.isActive)!
   //   // TODO:

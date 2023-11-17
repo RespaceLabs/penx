@@ -27,9 +27,31 @@ export function NodeList({ q, setSearch, close }: Props) {
 
   if (!filteredItems.length) {
     return (
-      <Box textSM toCenter h-64>
-        No results found.
-      </Box>
+      <CommandItem
+        h10
+        cursorPointer
+        toCenterY
+        px2
+        transitionCommon
+        roundedLG
+        gap2
+        value="Add to node"
+        onSelect={() => {
+          store.createNodeToToday(q)
+          paletteDrawer?.close()
+          close()
+          setSearch('')
+        }}
+        onClick={() => {
+          store.createNodeToToday(q)
+          paletteDrawer?.close()
+          close()
+          setSearch('')
+        }}
+      >
+        <Box textSM>Add to today:</Box>
+        <Box>"{q}"</Box>
+      </CommandItem>
     )
   }
 

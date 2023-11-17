@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import { nanoid } from 'nanoid'
 import { Database } from '@penx/indexeddb'
 import { Node, Space } from '@penx/model'
@@ -184,6 +185,13 @@ class DB {
     return nodes.find((node) => node.spaceId === spaceId)!
   }
 
+  getTodayNode = async (spaceId: string) => {
+    let nodes = await this.node.selectByIndexAll('type', NodeType.DAILY_NOTE)
+    return nodes.find(
+      (node) => node.props.date === format(new Date(), 'yyyy-MM-dd'),
+    )!
+  }
+
   getFavoriteNode = async (spaceId: string) => {
     let nodes = await this.node.selectByIndexAll('type', NodeType.FAVORITE)
     return nodes.find((node) => node.spaceId === spaceId)!
@@ -258,6 +266,27 @@ class DB {
     })
 
     return newNode
+  }
+
+  addNodeToToday = async (spaceId: string, text: string) => {
+    const todayNode = await this.getTodayNode(spaceId)
+
+    const newNode = await this.node.insert({
+      ...getNewNode({ spaceId }, text),
+    })
+
+    const newTodayNode = await this.updateNode(todayNode.id, {
+      children: [...(todayNode.children || []), newNode.id],
+    })
+
+    await this.updateSpace(spaceId, {
+      activeNodeId: newTodayNode.id,
+    })
+
+    return {
+      node: newNode,
+      todayNode: newTodayNode,
+    }
   }
 
   listNodesBySpaceId = async (spaceId: string) => {

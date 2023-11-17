@@ -18,10 +18,10 @@ export const syncStatusAtom = atom<SyncStatus>(SyncStatus.NORMAL)
 
 export const commandsAtom = atom<Command[]>([
   {
-    id: 'add-document',
-    name: 'Add document',
+    id: 'add-node',
+    name: 'Add node',
     handler: () => {
-      emitter.emit('ADD_DOCUMENT')
+      emitter.emit('ADD_NODE')
     },
   },
 
@@ -29,7 +29,7 @@ export const commandsAtom = atom<Command[]>([
     id: 'export-to-markdown',
     name: 'export to markdown',
     handler: () => {
-      emitter.emit('ADD_DOCUMENT')
+      emitter.emit('ADD_NODE')
     },
   },
 ])
@@ -191,6 +191,16 @@ export const store = Object.assign(createStore(), {
       this.setNodes(nodes)
       this.reloadNode(dateNode)
     }
+  },
+
+  async createNodeToToday(text: string) {
+    const space = this.getActiveSpace()
+    const { todayNode } = await db.addNodeToToday(space.id, text)
+    const nodes = await db.listNormalNodes(space.id)
+
+    this.routeTo('NODE')
+    this.setNodes(nodes)
+    this.reloadNode(todayNode)
   },
 
   async createPageNode(input: Partial<INode> = {}) {

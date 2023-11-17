@@ -59,7 +59,7 @@ export const Sidebar = () => {
         <Box column gap-1 flex-1 mt3>
           <SidebarItem
             icon={<CalendarDays size={16} />}
-            label="Daily note"
+            label="Today"
             onClick={() => {
               store.selectDailyNote()
             }}

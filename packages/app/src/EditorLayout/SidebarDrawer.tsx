@@ -50,7 +50,7 @@ export const DrawerSidebar = () => {
             <Box flex-1>
               <SidebarItem
                 icon={<CalendarDays size={16} />}
-                label="Daily note"
+                label="Today"
                 onClick={() => {
                   store.selectDailyNote()
                   close()
