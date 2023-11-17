@@ -68,6 +68,28 @@ export const store = Object.assign(createStore(), {
     return store.get(nodeAtom)
   },
 
+  findNode(id: string) {
+    const nodes = store.getNodes()
+    return nodes.find((node) => node.id === id)
+  },
+  getDatabaseByName(tagName: string) {
+    const nodes = store.getNodes()
+
+    let databaseNode = nodes.find(
+      (node) => node.type === NodeType.DATABASE && node.props.name === tagName,
+    )
+
+    return databaseNode
+  },
+
+  getCells(databaseId: string) {
+    const nodes = store.getNodes()
+    let cells = nodes.filter(
+      (node) => node.type === NodeType.CELL && node.parentId === databaseId,
+    )
+    return cells
+  },
+
   setNode(node: INode) {
     return store.set(nodeAtom, node)
   },

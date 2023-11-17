@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
 import { CommandList } from './CommandList'
 import { CommandWrapper } from './CommandWrapper'
 import { NodeList } from './NodeList'
+import { SearchByTag } from './SearchByTag'
 
 const CommandInput = styled(Command.Input)
 const StyledCommandList = styled(Command.List)
@@ -29,8 +30,21 @@ export function CommandPanel({ isMobile = false }: CommandPanelProps) {
     return () => document.removeEventListener('keydown', down)
   }, [])
 
-  const close = () => setOpen(false)
+  const close = useCallback(() => setOpen(false), [])
   const isCommand = search.startsWith('>')
+  const isTag = search.startsWith('#')
+
+  const listJSX = useMemo(() => {
+    if (isCommand) {
+      return <CommandList q={search} close={close} setSearch={setSearch} />
+    }
+
+    if (isTag) {
+      return <SearchByTag q={search} setSearch={setSearch} close={close} />
+    }
+
+    return <NodeList q={search} setSearch={setSearch} close={close} />
+  }, [isCommand, isTag, search, close, setSearch])
 
   return (
     <CommandWrapper
@@ -76,13 +90,7 @@ export function CommandPanel({ isMobile = false }: CommandPanelProps) {
           overscrollBehavior: 'contain',
         }}
       >
-        {!isCommand && (
-          <NodeList q={search} setSearch={setSearch} close={close} />
-        )}
-
-        {isCommand && (
-          <CommandList q={search} close={close} setSearch={setSearch} />
-        )}
+        {listJSX}
       </StyledCommandList>
       <Box h8></Box>
     </CommandWrapper>
