@@ -155,14 +155,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
                 overDepth={overDepth}
                 onCollapse={async () => {
                   if (item.children.length) {
-                    console.log('onCollapse!!!!!')
                     handleCollapse(item.id)
-
-                    await db.updateNode(item.id, {
-                      folded: !item.folded,
-                    })
-                    const nodes = await db.listNodesBySpaceId(item.spaceId)
-                    store.setNodes(nodes)
                   }
                 }}
               />
@@ -255,7 +248,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
       return !value
     })
 
-    await updateItemsState(newItems)
+    await updateItemsState(newItems, false)
   }
 
   function resetState() {
@@ -282,13 +275,13 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
     return flattenedItems.find(({ id }) => id === nodeId)!
   }
 
-  async function updateItemsState(newItems: TreeItems) {
-    updateToStore(newItems)
+  async function updateItemsState(newItems: TreeItems, reloadNode: boolean) {
+    updateToStore(newItems, reloadNode)
 
     await updateToDB(newItems)
   }
 
-  async function updateToStore(newItems: TreeItems) {
+  async function updateToStore(newItems: TreeItems, reloadNode = true) {
     const items = flattenTree(newItems)
     const newNodes = nodeList.nodes.map<INode>((node) => {
       if (node.isRootNode) {
@@ -310,15 +303,19 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
 
       return {
         ...node.raw,
+        folded: item.folded,
         parentId,
         children,
       }
     })
 
     store.setNodes(newNodes)
-    const activeNode = store.getNode()
-    const newActiveNode = newNodes.find((n) => n.id === activeNode.id)
-    if (newActiveNode) store.reloadNode(newActiveNode)
+
+    if (reloadNode) {
+      const activeNode = store.getNode()
+      const newActiveNode = newNodes.find((n) => n.id === activeNode.id)
+      if (newActiveNode) store.reloadNode(newActiveNode)
+    }
   }
 
   async function updateToDB(newItems: TreeItems) {
@@ -336,6 +333,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
       }
 
       await db.updateNode(item.id, {
+        folded: item.folded,
         parentId,
         children,
       })

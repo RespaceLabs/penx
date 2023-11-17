@@ -1,8 +1,9 @@
+import { memo } from 'react'
 import { Box } from '@fower/react'
 import { store } from '@penx/store'
 import { Bullet } from '../../components/Bullet'
 
-export function TreeViewHeader() {
+export const TreeViewHeader = memo(function TreeViewHeader() {
   return (
     <Box
       toCenterY
@@ -23,4 +24,4 @@ export function TreeViewHeader() {
       <Box>ALL NODES</Box>
     </Box>
   )
-}
+})

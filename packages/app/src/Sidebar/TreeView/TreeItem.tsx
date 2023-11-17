@@ -22,10 +22,10 @@ export const TreeItem = memo(
     { item, depth, listeners, style = {}, css = {}, onCollapse, ...rest },
     ref,
   ) {
-    const { node: currentNode, nodeService } = useNode()
+    // const { node: currentNode } = useNode()
     const node = new Node(item as any)
 
-    const isEqual = item.id === currentNode.id
+    // const isEqual = item.id === currentNode.id
     const hasChildren = !!item.children.length
 
     return (
@@ -38,7 +38,7 @@ export const TreeItem = memo(
         rounded
         bgGray200--hover
         bgGray200--D4--active
-        bgGray200={isEqual}
+        // bgGray200={isEqual}
         transitionColors
         gray800
         mb-1
@@ -72,7 +72,7 @@ export const TreeItem = memo(
               }}
               onClick={(e) => {
                 e.stopPropagation()
-                // nodeService.toggleFolded(node)
+                e.preventDefault()
                 onCollapse?.()
               }}
             >
@@ -100,8 +100,12 @@ export const TreeItem = memo(
   }),
 
   (prev, next) => {
-    const { listeners: l1, ...prevProps } = prev
-    const { listeners: l2, ...nextProps } = next
-    return isEqual(prevProps, nextProps)
+    const { item: i1, depth: d1, css: c1, style: s1 } = prev
+    const { item: i2, depth: d2, css: c2, style: s2 } = next
+
+    const equal =
+      isEqual(i1, i2) && isEqual(c1, c2) && isEqual(s1, s2) && isEqual(d1, d2)
+
+    return equal
   },
 )
