@@ -28,9 +28,11 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'
-import { useNodes, useSpaces } from '@penx/hooks'
+import { useNodes } from '@penx/hooks'
+import { db } from '@penx/local-db'
+import { NodeListService } from '@penx/service'
+import { store } from '@penx/store'
 import { FavoriteTitle } from './FavoriteTitle'
 import { NodeItem } from './NodeItem'
 import { SortableNodeItem } from './SortableNodeItem'
@@ -41,19 +43,15 @@ const measuring: MeasuringConfiguration = {
   },
 }
 
-export const FavoriteBox = () => {
-  const { nodeList } = useNodes()
+interface Props {
+  nodeList: NodeListService
+}
+
+export const FavoriteBox = ({ nodeList }: Props) => {
   const { favoriteNode } = nodeList
-
-  const nodes = nodeList.getFavorites()
-  const [items, setItems] = useState(favoriteNode.children)
+  const nodes = nodeList.getFavorites().filter((n) => !!n?.id)
+  const items = favoriteNode.children.filter((id) => !!id)
   const [activeId, setActiveId] = useState<string | null>(null)
-
-  useEffect(() => {
-    if (!isEqual(items, favoriteNode.children)) {
-      setItems(favoriteNode.children)
-    }
-  }, [items, favoriteNode.children])
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -77,11 +75,16 @@ export const FavoriteBox = () => {
     const overId = event.over?.id
     const activeIndex = items.indexOf(activeId as string)
     const overIndex = items.indexOf(overId as string)
-    const clonedItems: string[] = JSON.parse(JSON.stringify(items))
-    const newItems = arrayMove(clonedItems, activeIndex, overIndex)
+    const newItems = arrayMove(items, activeIndex, overIndex)
 
-    setItems(newItems)
-    await nodeList.updateFavoriteNode(favoriteNode.id, {
+    const newNodes = nodeList.nodes.map((node) => {
+      if (!node.isFavorite) return { ...node.raw }
+      return { ...node.raw, children: newItems }
+    })
+
+    store.setNodes(newNodes)
+
+    await db.updateNode(favoriteNode.id, {
       children: newItems,
     })
     setActiveId(null)
@@ -92,8 +95,6 @@ export const FavoriteBox = () => {
   }
 
   const activeItem = activeId ? nodes.find(({ id }) => id === activeId) : null
-
-  if (!isEqual(items, favoriteNode.children)) return null
 
   return (
     <Box>
@@ -111,6 +112,7 @@ export const FavoriteBox = () => {
           <Box column>
             {items.map((id) => {
               const node = nodeList.getNode(id)
+              if (!node) return null
               return <SortableNodeItem key={node.id} node={node} />
             })}
           </Box>

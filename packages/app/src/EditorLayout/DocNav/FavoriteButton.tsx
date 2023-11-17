@@ -8,6 +8,9 @@ interface Props {}
 export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
   const { node } = useNode()
   const { nodeList } = useNodes()
+  // console.log('nodeList.favoriteNode:', nodeList.favoriteNode, nodeList)
+
+  if (!nodeList.favoriteNode) return
   const isFavorite = nodeList.isFavorite(node.id)
   return (
     <Button

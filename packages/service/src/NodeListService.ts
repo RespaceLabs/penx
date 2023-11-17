@@ -149,14 +149,6 @@ export class NodeListService {
     store.setNodes(nodes)
   }
 
-  async updateFavoriteNode(id: string, node: Partial<INode>) {
-    await db.updateNode(id, {
-      ...node,
-    })
-    const nodes = await db.listNodesBySpaceId(node.spaceId!)
-    store.setNodes(nodes)
-  }
-
   // TODO: need to improvement
   find(options: FindOptions = {}): Node[] {
     const data = this.rawNodes

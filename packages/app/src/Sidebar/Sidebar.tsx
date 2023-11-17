@@ -110,8 +110,12 @@ export const Sidebar = () => {
       </Box>
 
       <Box flex-1 zIndex-1 overflowYAuto px2>
-        <FavoriteBox />
-        {!!nodes.length && <TreeView nodeList={nodeList} />}
+        {!!nodes.length && (
+          <>
+            <FavoriteBox nodeList={nodeList} />
+            <TreeView nodeList={nodeList} />
+          </>
+        )}
       </Box>
       <Box px2>
         {!isConnected && <WalletConnectButton size="lg" w-100p />}

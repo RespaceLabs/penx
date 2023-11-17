@@ -275,7 +275,10 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
     return flattenedItems.find(({ id }) => id === nodeId)!
   }
 
-  async function updateItemsState(newItems: TreeItems, reloadNode: boolean) {
+  async function updateItemsState(
+    newItems: TreeItems,
+    reloadNode: boolean = true,
+  ) {
     updateToStore(newItems, reloadNode)
 
     await updateToDB(newItems)

@@ -83,7 +83,7 @@ export const DrawerSidebar = () => {
                   close()
                 }}
               />
-              <FavoriteBox />
+              {/* <FavoriteBox /> */}
             </Box>
             <Box>Address: {user?.address}</Box>
           </Box>
