@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 import { useQuery } from '@tanstack/react-query'
 import { Provider } from 'jotai'
 import { useAccount } from 'wagmi'
@@ -55,16 +56,18 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <ClientOnly>
-      <Provider store={store}>
-        {address && <SyncDetectorModal />}
+      <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
+        <Provider store={store}>
+          {address && <SyncDetectorModal />}
 
-        <WorkerStarter />
-        <UserQuery />
-        <LoginSuccessModal />
-        <HotkeyBinding />
-        <JotaiNexus />
-        <EditorLayout />
-      </Provider>
+          <WorkerStarter />
+          <UserQuery />
+          <LoginSuccessModal />
+          <HotkeyBinding />
+          <JotaiNexus />
+          <EditorLayout />
+        </Provider>
+      </ErrorBoundary>
     </ClientOnly>
   )
 }
