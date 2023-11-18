@@ -1,5 +1,5 @@
 import { Editor, Path, Transforms } from 'slate'
-import { findNodePath } from '@penx/editor-queries'
+import { findNodePath, getCurrentNode } from '@penx/editor-queries'
 import { TEXT_PATH_INDEX } from '../constants'
 import { getListItems, getParentList } from '../lib'
 import { getNodeByPath } from '../queries/getNodeByPath'
@@ -31,8 +31,17 @@ export function moveCursorToPreviousListItem(
   ) {
     let handled = false
 
+    const node = getCurrentNode(editor) as any
+
     Editor.withoutNormalizing(editor, () => {
-      Transforms.select(editor, Editor.end(editor, [0]))
+      // TODO: too hack
+      if (node?.type !== 'p') {
+        Transforms.setNodes(editor, {
+          type: 'p',
+        } as any)
+      } else {
+        Transforms.select(editor, Editor.end(editor, [0]))
+      }
       handled = true
     })
 

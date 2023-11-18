@@ -1,28 +1,37 @@
 import React, { FC, PropsWithChildren } from 'react'
-import { Star, StarOffIcon } from 'lucide-react'
 import { Button } from 'uikit'
-import { useNode } from '@penx/hooks'
+import { useNode, useNodes } from '@penx/hooks'
+import { IconStar, IconStarSolid } from '@penx/icons'
 
 interface Props {}
 
 export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
-  const { nodeService } = useNode()
-  const isFavorite = nodeService.isFavorite()
+  const { node } = useNode()
+  const { nodeList } = useNodes()
+  // console.log('nodeList.favoriteNode:', nodeList.favoriteNode, nodeList)
+
+  if (!nodeList.favoriteNode) return
+  const isFavorite = nodeList.isFavorite(node.id)
   return (
     <Button
       size="sm"
       variant="ghost"
       colorScheme="gray500"
       isSquare
+      red500
       onClick={() => {
         if (isFavorite) {
-          nodeService.removeFromFavorites()
+          nodeList.removeFromFavorites(node)
         } else {
-          nodeService.addToFavorites()
+          nodeList.addToFavorites(node)
         }
       }}
     >
-      {isFavorite ? <StarOffIcon /> : <Star />}
+      {isFavorite ? (
+        <IconStarSolid fillYellow500 />
+      ) : (
+        <IconStar stroke="#666" />
+      )}
     </Button>
   )
 }

@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { Hash, Home, Lock } from 'lucide-react'
-import { FieldType } from '@penx/types'
+import { FieldType } from '@penx/model-types'
 import { IconSingleLineText } from './IconSingleLineText'
 import { IconSingleSelect } from './IconSingleSelect'
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { store } from '@fower/react'
+import { fowerStore } from '@fower/react'
 import { getCookie, setCookie } from 'cookies-next'
 
 interface Result {
@@ -19,7 +19,7 @@ export function useMode(): Result {
   function setMode(mode: string) {
     setState(mode)
     setCookie('theme-mode', mode)
-    store.setMode(mode)
+    fowerStore.setMode(mode)
   }
 
   return { mode: state, setMode } as Result

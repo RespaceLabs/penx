@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { Editor, Element, Node, Transforms } from 'slate'
-import { useSlateStatic } from 'slate-react'
+import { useEditorStatic } from '@penx/editor-common'
 import { getCurrentPath } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
 import {
@@ -17,15 +17,16 @@ interface Props {
 }
 
 export const BidirectionalLinkSelectorContent = ({ close, element }: Props) => {
-  const editor = useSlateStatic()
+  const editor = useEditorStatic()
   const path = getCurrentPath(editor)!
-  const nodes: any[] = [] // TODO:
 
-  const filteredNodes = nodes.filter((node) => {
-    const q = Node.string(element).replace(/^\[\[/, '').toLowerCase()
-    if (!q) return true
-    return node.name.toLowerCase().includes(q)
-  })
+  const filteredNodes = editor.items
+    .filter((node) => {
+      const q = Node.string(element).replace(/^\[\[/, '').toLowerCase()
+      if (!q) return true
+      return node.title.toLowerCase().includes(q)
+    })
+    .slice(0, 20)
 
   function focusToEnd() {
     const block = Editor.above(editor, {
@@ -41,7 +42,6 @@ export const BidirectionalLinkSelectorContent = ({ close, element }: Props) => {
     Transforms.insertNodes<BidirectionalLinkContentElement>(editor, {
       type: ELEMENT_BIDIRECTIONAL_LINK_CONTENT,
       linkId: node.id,
-      linkName: node.name,
       children: [{ text: '' }],
     } as BidirectionalLinkContentElement)
     focusToEnd()
@@ -54,6 +54,10 @@ export const BidirectionalLinkSelectorContent = ({ close, element }: Props) => {
     onEnter: (cursor) => {
       selectType(filteredNodes[cursor])
       setCursor(0)
+
+      setTimeout(() => {
+        editor.isBidirectionalLinkSelector = false
+      }, 50)
     },
     listLength: filteredNodes.length,
     listItemIdPrefix,

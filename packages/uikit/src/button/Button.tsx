@@ -43,7 +43,7 @@ export const Button: BoxComponent<'button', ButtonProps> = forwardRef(
       <Box
         as={as}
         ref={ref}
-        className="bone-button"
+        className="uikit-button"
         inlineFlex
         leadingNone
         toCenter

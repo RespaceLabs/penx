@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import { __DEV__, forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef } from 'react'
 import { AtomicProps } from '@fower/atomic-props'
 import { Box, Colors, FowerHTMLProps } from '@fower/react'
 import { upFirst } from '@fower/utils'
@@ -91,7 +90,7 @@ function getSizeStyle(size: Size) {
   }
 }
 
-export const Input: FC<InputProps> = forwardRef((props: InputProps, ref) => {
+export const Input = forwardRef<HTMLDivElement, InputProps>((props, ref) => {
   const {
     colorScheme = 'brand500',
     size = 'md',
@@ -127,7 +126,7 @@ export const Input: FC<InputProps> = forwardRef((props: InputProps, ref) => {
   return (
     <Box
       as="input"
-      className="bone-input"
+      className="uikit-input"
       ref={ref}
       w-100p
       gray800
@@ -147,8 +146,5 @@ export const Input: FC<InputProps> = forwardRef((props: InputProps, ref) => {
   )
 })
 
-if (__DEV__) {
-  Input.displayName = 'Input'
-}
-
+Input.displayName = 'Input'
 ;(Input as any).id = 'Input'

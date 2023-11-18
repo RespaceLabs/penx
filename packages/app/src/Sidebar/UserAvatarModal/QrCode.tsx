@@ -10,7 +10,7 @@ export const QrCode: FC<Props> = () => {
   const user = useUser()
   const [blur, setBlur] = useState(true)
 
-  console.log('user:', user)
+  // console.log('user:', user)
 
   if (!user) return null
   const { address } = user

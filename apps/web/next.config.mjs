@@ -30,10 +30,11 @@ const config = {
     '@penx/icons',
     '@penx/shared',
     '@penx/model',
+    '@penx/context-menu',
     '@penx/service',
     '@penx/serializer',
     '@penx/store',
-    '@penx/types',
+    '@penx/model-types',
     '@penx/cmdk',
     '@penx/indexeddb',
     '@penx/event',
@@ -53,13 +54,13 @@ const config = {
     '@penx/table',
     '@penx/database',
     '@penx/tag',
+    '@penx/dnd-projection',
     '@penx/block-selector',
     '@penx/editor-leaf',
     '@penx/trpc-client',
     '@penx/extension-list',
     'uikit',
     'slate-lists',
-    'easy-modal',
   ],
   i18n: {
     // These are all the locales you want to support in
@@ -90,4 +91,5 @@ const config = {
     return config
   },
 }
+
 export default withPWA(million.next(config))

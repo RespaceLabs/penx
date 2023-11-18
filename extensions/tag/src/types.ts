@@ -14,5 +14,5 @@ export interface TagElement extends BaseElement {
   type: typeof ELEMENT_TAG
   trigger: string
   name: string
-  tagId: string
+  databaseId: string
 }

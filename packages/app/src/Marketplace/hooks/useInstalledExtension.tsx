@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { atom, useAtom } from 'jotai'
 import { db } from '@penx/local-db'
+import { IExtension } from '@penx/model-types'
 import { store } from '@penx/store'
-import { IExtension } from '@penx/types'
 
 export const installedExtensionsAtom = atom<IExtension[]>([])
 

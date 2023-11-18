@@ -11,12 +11,12 @@ export function activate(ctx: ExtensionContext) {
         isVoid: true,
         type: ELEMENT_HR,
         component: Divider,
-        slashCommand: {
-          name: 'Divider',
-          // afterInvokeCommand(editor) {
-          //   insertEmptyParagraph(editor)
-          // },
-        },
+        // slashCommand: {
+        //   name: 'Divider',
+        //   afterInvokeCommand(editor) {
+        //     insertEmptyParagraph(editor)
+        //   },
+        // },
       },
     ],
     autoformatRules: [

@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { DividerProvider } from './context'
 
@@ -7,15 +6,15 @@ export interface DividerProps extends FowerHTMLProps<'div'> {
   orientation?: 'vertical' | 'horizontal'
 }
 
-export const Divider: FC<DividerProps> = forwardRef(
-  (props: DividerProps, ref) => {
+export const Divider = forwardRef<HTMLDivElement, DividerProps>(
+  function Divider(props, ref) {
     const { orientation = 'horizontal', ...rest } = props
     const isVertical = orientation === 'vertical'
     return (
       <DividerProvider value={{ orientation }}>
         <Box
           ref={ref}
-          className="bone-divider"
+          className="uikit-divider"
           relative
           bgGray200
           w-1={isVertical}

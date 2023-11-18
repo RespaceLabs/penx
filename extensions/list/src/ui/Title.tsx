@@ -4,7 +4,7 @@ import { Editor, Node, Transforms } from 'slate'
 import { ReactEditor } from 'slate-react'
 import { useEditorStatic } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
-import { NodeType } from '@penx/types'
+import { NodeType } from '@penx/model-types'
 import { insertEmptyList } from '../transforms/insertEmptyList'
 import { TitleElement } from '../types'
 import { DailyNoteNav } from './DailyNoteNav'
@@ -24,19 +24,22 @@ export const Title = ({
     insertEmptyList(editor, { at: [1], select: true })
   }
 
-  const disabled = [NodeType.INBOX, NodeType.DAILY_NOTE].includes(
-    element.nodeType as any,
-  )
+  const disabled = [
+    NodeType.INBOX,
+    NodeType.DAILY_NOTE,
+    NodeType.DATABASE_ROOT,
+  ].includes(element.nodeType as any)
 
   const isDailyNote = element.nodeType === NodeType.DAILY_NOTE
   const firstLineNode = editor.children[1]
   const firstLineStr = firstLineNode ? Node.string(firstLineNode) : ''
 
+  // TODO: have bugs
   useEffect(() => {
     // focus on title
     if (onlyHasTitle || !titleStr) {
       setTimeout(() => {
-        Transforms.select(editor, Editor.end(editor, [0]))
+        Transforms.select(editor, Editor.end(editor, [0, 0]))
         ReactEditor.focus(editor)
       }, 0)
     }
@@ -44,8 +47,8 @@ export const Title = ({
     // focus to the first line
     if (titleStr && firstLineNode && !firstLineStr) {
       setTimeout(() => {
-        Transforms.select(editor, Editor.end(editor, [1]))
-        ReactEditor.focus(editor)
+        // Transforms.select(editor, Editor.end(editor, [1]))
+        // ReactEditor.focus(editor)
       }, 0)
     }
   }, [onlyHasTitle, editor, titleStr, firstLineStr, firstLineNode])

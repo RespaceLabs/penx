@@ -7,17 +7,18 @@ import {
   ELEMENT_UL,
 } from './constants'
 import { onKeyDown } from './onKeyDown'
+import { withEditable } from './plugins/withEditable'
+import { withListsPlugin } from './plugins/withListsPlugin'
+import { withMarkdown } from './plugins/withMarkdown'
 import { List } from './ui/List'
 import { ListItem } from './ui/ListItem'
 import { ListItemContent } from './ui/ListItemContent'
 import { Title } from './ui/Title'
-import { withEditable } from './withEditable'
-import { withListsPlugin } from './withListsPlugin'
-import { withMarkdown } from './withMarkdown'
 
 export * from './types'
 export * from './guard'
 export * from './constants'
+export * from './listSchema'
 export * from './transforms/insertEmptyList'
 export * from './transforms/insertEmptyListItem'
 

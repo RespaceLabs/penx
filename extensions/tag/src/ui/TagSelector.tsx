@@ -14,7 +14,11 @@ import {
 import { Box } from '@fower/react'
 import { Transforms } from 'slate'
 import { useEditor, useEditorStatic } from '@penx/editor-common'
-import { findNodePath, getCurrentNode } from '@penx/editor-queries'
+import {
+  findNodePath,
+  getCurrentNode,
+  getNodeByPath,
+} from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { TagSelectorElement } from '../types'
 import { TagSelectorContent } from './TagSelectorContent'
@@ -28,7 +32,15 @@ export const TagSelector = ({
 
   const setIsOpen = useCallback(
     (isOpen: boolean) => {
-      Transforms.setNodes<TagSelectorElement>(editor, { isOpen }, { at: path })
+      const node = getNodeByPath(editor, path)
+
+      if (node) {
+        Transforms.setNodes<TagSelectorElement>(
+          editor,
+          { isOpen },
+          { at: path },
+        )
+      }
     },
     [editor, path],
   )
@@ -40,12 +52,13 @@ export const TagSelector = ({
     open: isOpen,
     onOpenChange: (open: boolean) => {
       setIsOpen(open)
+
       if (!open) {
         Transforms.unwrapNodes(editor, {
           at: path,
         })
 
-        editor.isBlockSelectorOpened = false
+        editor.isTagSelectorOpened = false
       }
     },
     placement: 'bottom-start',
@@ -68,7 +81,7 @@ export const TagSelector = ({
     const node = getCurrentNode(editor)
     // only open on focus
     if (node) {
-      editor.isBlockSelectorOpened = true
+      editor.isTagSelectorOpened = true
       setIsOpen(true)
     }
   }, [editor, setIsOpen])

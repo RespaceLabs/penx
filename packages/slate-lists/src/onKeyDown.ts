@@ -19,6 +19,8 @@ export function onKeyDown(
       onKeyDown.onEnterEscapeFromEmptyList(editor, event) ||
       onKeyDown.onEnterSplitNonEmptyList(editor, event)
     )
+  } catch (e) {
+    console.log('onkeydown', e)
   } finally {
     // Slate does not always trigger normalization when one would expect it to.
     // So we want to force it after we perform lists operations, as it fixes

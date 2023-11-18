@@ -1,11 +1,12 @@
 import React, {
   cloneElement,
   FC,
+  forwardRef,
   isValidElement,
   ReactNode,
   useMemo,
 } from 'react'
-import { forwardRef, mergeRefs } from '@bone-ui/utils'
+import { mergeRefs } from 'react-merge-refs'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { useTooltipContext } from './context'
 
@@ -14,8 +15,8 @@ interface TooltipTriggerProps extends Omit<FowerHTMLProps<'div'>, 'children'> {
   asChild?: boolean
 }
 
-export const TooltipTrigger: FC<TooltipTriggerProps> = forwardRef(
-  ({ children, asChild = true, ...rest }: TooltipTriggerProps, propRef) => {
+export const TooltipTrigger = forwardRef<HTMLDivElement, TooltipTriggerProps>(
+  function TooltipTrigger({ children, asChild = true, ...rest }, propRef) {
     const state = useTooltipContext()
     const childrenRef = (children as any).ref
 
@@ -29,7 +30,7 @@ export const TooltipTrigger: FC<TooltipTriggerProps> = forwardRef(
     let trigger = (
       <Box
         ref={ref}
-        className="bone-tooltip-trigger"
+        className="uikit-tooltip-trigger"
         cursorNotAllowed={!!state.isDisabled}
         inlineFlex
         data-state={state.isOpen ? 'opened' : 'closed'}

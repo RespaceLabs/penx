@@ -1,5 +1,5 @@
-import React, { FC, ReactNode, useMemo } from 'react'
-import { forwardRef, mergeRefs } from '@bone-ui/utils'
+import React, { FC, forwardRef, ReactNode, useMemo } from 'react'
+import { mergeRefs } from 'react-merge-refs'
 import { FloatingFocusManager, FloatingPortal } from '@floating-ui/react'
 import { FowerHTMLProps, styled } from '@fower/react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -21,8 +21,8 @@ export interface PopoverContentProps
   children: ((props: PopoverRenderProps) => ReactNode) | ReactNode
 }
 
-export const PopoverContent: FC<PopoverContentProps> = forwardRef(
-  function PopoverContent(props: PopoverContentProps, propRef) {
+export const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
+  function PopoverContent(props, propRef) {
     const { children, animation = true, useTriggerWidth, ...rest } = props
     const state = usePopoverContext()
 

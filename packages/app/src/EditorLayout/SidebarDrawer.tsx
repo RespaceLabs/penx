@@ -5,7 +5,6 @@ import { Button } from 'uikit'
 import { useSidebarDrawer, useUser } from '@penx/hooks'
 import { store } from '@penx/store'
 import { FavoriteBox } from '../Sidebar/FavoriteBox/FavoriteBox'
-import { RecentlyEdited } from '../Sidebar/RecentlyEdited'
 import { SidebarItem } from '../Sidebar/SidebarItem'
 import { SpacePopover } from '../Sidebar/SpacePopover'
 
@@ -51,7 +50,7 @@ export const DrawerSidebar = () => {
             <Box flex-1>
               <SidebarItem
                 icon={<CalendarDays size={16} />}
-                label="Daily note"
+                label="Today"
                 onClick={() => {
                   store.selectDailyNote()
                   close()
@@ -84,8 +83,7 @@ export const DrawerSidebar = () => {
                   close()
                 }}
               />
-              <FavoriteBox />
-              <RecentlyEdited />
+              {/* <FavoriteBox /> */}
             </Box>
             <Box>Address: {user?.address}</Box>
           </Box>

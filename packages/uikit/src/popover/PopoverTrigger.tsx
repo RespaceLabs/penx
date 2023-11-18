@@ -1,12 +1,13 @@
 import React, {
   cloneElement,
   FC,
+  forwardRef,
   isValidElement,
   ReactNode,
   useCallback,
   useMemo,
 } from 'react'
-import { forwardRef, mergeRefs } from '@bone-ui/utils'
+import { mergeRefs } from 'react-merge-refs'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { isBrowser } from '@fower/utils'
 import { usePopoverContext } from './context'
@@ -17,11 +18,8 @@ interface PopoverTriggerProps extends Omit<FowerHTMLProps<'div'>, 'children'> {
   asChild?: boolean
 }
 
-export const PopoverTrigger: FC<PopoverTriggerProps> = forwardRef(
-  function PopoverTrigger(
-    { children, asChild = true, ...rest }: PopoverTriggerProps,
-    propRef,
-  ) {
+export const PopoverTrigger = forwardRef<HTMLDivElement, PopoverTriggerProps>(
+  function PopoverTrigger({ children, asChild = true, ...rest }, propRef) {
     const state = usePopoverContext()
 
     const childrenRef = (children as any).ref
@@ -52,7 +50,7 @@ export const PopoverTrigger: FC<PopoverTriggerProps> = forwardRef(
     let trigger = (
       <Box
         ref={ref}
-        className="bone-popover-trigger"
+        className="uikit-popover-trigger"
         cursorNotAllowed={!!state.isDisabled}
         inlineFlex
         data-state={state.isOpen ? 'opened' : 'closed'}

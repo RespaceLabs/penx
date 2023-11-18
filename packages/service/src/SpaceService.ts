@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { db } from '@penx/local-db'
 import { Space } from '@penx/model'
-import { INode, NodeType } from '@penx/types'
+import { INode, NodeType } from '@penx/model-types'
 import { NodeListService } from './NodeListService'
 
 export class SpaceService {
@@ -12,18 +12,24 @@ export class SpaceService {
 
   nodeMap = new Map<string, INode>()
 
-  // TODO: need to handle rootNode, inboxNode, trashNode
   /**
    * split nodes[] to pageMap, so we can store it github
    * node[]
    * ->
    * {
-   *   root: node[]
-   *   inbox: node[]
-   *   trash: node[]
+   *   ROOT: node[]
+   *   INBOX: node[]
+   *   TRASH: node[]
+   *   FAVORITE: node[]
+   *   DATABASE_ROOT: node[]
+   *
    *   page1: node[] // pageNode from rootNode'children
    *   page2: node[]
    *   page2: node[]
+   *
+   *   database1: node[] // databaseNode from databaseRootNode'children
+   *   database2: node[]
+   *   database3: node[]
    * }
    * @returns
    */
@@ -44,8 +50,21 @@ export class SpaceService {
       pageMap[id] = pageNodes
     }
 
+    // common database nodes
+    for (const id of nodeList.databaseRootNode.children) {
+      const databaseNode = this.nodeMap.get(id)!
+      const pageNodes = this.nodes.filter((n) => n.parentId === databaseNode.id)
+      pageMap[id] = [databaseNode, ...pageNodes]
+    }
+
     // space's rootNode
     pageMap[NodeType.ROOT] = [nodeList.rootNode.raw]
+
+    // database's rootNode
+    pageMap[NodeType.DATABASE_ROOT] = [nodeList.databaseRootNode.raw]
+
+    // favorite node
+    pageMap[NodeType.FAVORITE] = [nodeList.favoriteNode.raw]
 
     pageMap[NodeType.INBOX] = this.getPageNodesFromOneNode(
       nodeList.inboxNode.raw,
@@ -54,6 +73,7 @@ export class SpaceService {
     pageMap[NodeType.TRASH] = this.getPageNodesFromOneNode(
       nodeList.trashNode.raw,
     )
+
     return pageMap
   }
 

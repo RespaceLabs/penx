@@ -1,47 +1,12 @@
 import { db } from '@penx/local-db'
+import { INode, NodeType } from '@penx/model-types'
 import { sleep } from '@penx/shared'
-import { INode, NodeType } from '@penx/types'
 
 const INTERVAL = 10 * 1000
 
 export async function clearNodes() {
-  while (true) {
-    await clearDeletedNode()
-    await sleep(INTERVAL)
-  }
-}
-
-async function clearDeletedNode() {
-  const space = await db.getActiveSpace()
-  const nodes = await db.listNodesBySpaceId(space.id)
-
-  const nodeMap = new Map<string, INode>()
-
-  for (const node of nodes) {
-    nodeMap.set(node.id, node)
-  }
-
-  for (const node of nodes) {
-    // TODO: need improvement
-    if (
-      [
-        NodeType.DATABASE,
-        NodeType.COLUMN,
-        NodeType.ROW,
-        NodeType.VIEW,
-        NodeType.CELL,
-      ].includes(node.type)
-    ) {
-      continue
-    }
-
-    // if (!Reflect.has(node, 'parentId')) continue
-    if (!node.parentId) continue
-
-    const parentNode = nodeMap.get(node.parentId)
-
-    if (!parentNode?.children.includes(node.id)) {
-      await db.deleteNode(node.id)
-    }
-  }
+  // while (true) {
+  // await clearDeletedNode()
+  // await sleep(INTERVAL)
+  // }
 }

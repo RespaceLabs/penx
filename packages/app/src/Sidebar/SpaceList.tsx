@@ -1,24 +1,19 @@
 import { Box } from '@fower/react'
 import { Plus } from 'lucide-react'
-import {
-  Avatar,
-  AvatarFallback,
-  Button,
-  modalController,
-  PopoverClose,
-} from 'uikit'
+import { Button, modalController, PopoverClose } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { useSpaces } from '@penx/hooks'
+import { Space } from '@penx/model'
+import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
-import { ISpace } from '@penx/types'
+import { Bullet } from '../components/Bullet'
 
-function SpaceItem({
-  item,
-  activeSpace,
-}: {
+interface Props {
   item: ISpace
-  activeSpace: ISpace
-}) {
+  activeSpace: Space
+}
+
+function SpaceItem({ item, activeSpace }: Props) {
   const active = activeSpace.id === item.id
   return (
     <PopoverClose asChild>
@@ -30,16 +25,15 @@ function SpaceItem({
         py3
         px3
         gapX2
-        roundedXL
+        textBase
+        roundedLG
         cursorPointer
         transitionColors
         onClick={async () => {
           await store.selectSpace(item.id)
         }}
       >
-        <Avatar roundedFull rounded2XL={active}>
-          <AvatarFallback>{item.name}</AvatarFallback>
-        </Avatar>
+        <Bullet size={20} innerSize={6} innerColor={item.color} />
         <Box>{item.name}</Box>
       </Box>
     </PopoverClose>
@@ -50,12 +44,12 @@ export const SpaceList = () => {
   const { spaces, activeSpace } = useSpaces()
 
   return (
-    <Box toCenterX w-100p p3>
-      <Box flex-1 column gap2>
+    <Box toCenterX w-100p p2>
+      <Box flex-1 column gap-2>
         {spaces?.map((item) => (
           <SpaceItem key={item.id} item={item} activeSpace={activeSpace} />
         ))}
-        <Box mt4>
+        <Box>
           <PopoverClose asChild>
             <Button
               toLeft

@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { Button, Input, ModalClose } from 'uikit'
 import { useCreateSpaceForm } from '@penx/hooks'
-import { ISpace } from '@penx/types'
+import { ISpace } from '@penx/model-types'
 
 interface Props {
   showCancel?: boolean
@@ -15,12 +15,7 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
 
   return (
     <Box as="form" onSubmit={form.onSubmit} column gapY2 pt3>
-      <Input
-        textCenter
-        placeholder="Display Name"
-        size="lg"
-        {...register('name')}
-      />
+      <Input textCenter placeholder="Name" size="lg" {...register('name')} />
 
       <Box toCenter gapX4 mt10>
         {showCancel && (

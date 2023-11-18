@@ -1,11 +1,15 @@
-import React, { FC } from 'react'
-import { cx, forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef } from 'react'
 import { Box, css } from '@fower/react'
 import { RadioProvider } from './radioContext'
 import { RadioProps } from './types'
 import { useRadio } from './useRadio'
 
-export const Radio: FC<RadioProps> = forwardRef((props: RadioProps, ref) => {
+const cx = (...classNames: any[]) => classNames.filter(Boolean).join(' ')
+
+export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
+  props: RadioProps,
+  ref,
+) {
   const { children, ...rest } = props
   const { inputProps, state } = useRadio(props)
   const { disabled, checked } = state
@@ -16,7 +20,7 @@ export const Radio: FC<RadioProps> = forwardRef((props: RadioProps, ref) => {
         as="label"
         data-state={checked ? 'checked' : 'unchecked'}
         data-disabled={disabled}
-        className="bone-radio"
+        className="uikit-radio"
         toCenterY
         toLeft
         gapX2
@@ -27,7 +31,7 @@ export const Radio: FC<RadioProps> = forwardRef((props: RadioProps, ref) => {
       >
         <input
           className={cx(
-            'bone-radio-input',
+            'uikit-radio-input',
             css('square0', 'opacity-0', 'hidden'),
           )}
           ref={ref}

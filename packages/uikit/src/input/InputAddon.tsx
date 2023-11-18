@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef } from 'react'
 import { AtomicProps } from '@fower/atomic-props'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { Placement, useInputGroupContext } from './context'
@@ -8,8 +7,8 @@ export interface InputAddonProps extends FowerHTMLProps<'div'> {
   placementMap?: 'left' | 'right'
 }
 
-export const InputAddon: FC<InputAddonProps> = forwardRef(
-  (props: InputAddonProps, ref) => {
+export const InputAddon = forwardRef<HTMLDivElement, InputAddonProps>(
+  function InputAddon(props, ref) {
     let attrs: AtomicProps = {}
     const ctx = useInputGroupContext()
 
@@ -33,7 +32,7 @@ export const InputAddon: FC<InputAddonProps> = forwardRef(
     }
     return (
       <Box
-        className="bone-input-addon"
+        className="uikit-input-addon"
         ref={ref}
         px4
         bgGray100

@@ -76,12 +76,15 @@ export function splitListItem(
     if (isEnd) {
       const node = getCurrentNode(editor)! as any
 
+      // TODO: too hack, move to listSchema?
+      let type = node.type === 'check_list_item' ? node.type : 'p'
+
       const newListItem = schema.createListItemNode({
         children: [
           schema.createListItemTextNode({
             children: [
               {
-                type: node.type || 'p',
+                type,
                 children: [{ text: '' }],
               } as any,
             ],

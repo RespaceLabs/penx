@@ -1,4 +1,4 @@
-import { iconify } from '@bone-ui/iconify'
+import { iconify } from 'uikit'
 
 export const IconGoogle = iconify({
   displayName: 'IconGoogle',

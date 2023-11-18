@@ -18,10 +18,8 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
-    "@bone-ui/iconify": "^0.37.0",
-    "@bone-ui/utils": "^0.37.0",
     "@floating-ui/react": "^0.25.4",
-    "@fower/react": "^1.86.0",
+    "@fower/react": "^2.0.0",
     "@penx/code-block": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/editor-queries": "workspace:*",
@@ -33,7 +31,7 @@
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/shared": "workspace:*",
-    "@penx/types": "workspace:*",
+    "@penx/model-types": "workspace:*",
     "@penx/store": "workspace:*",
     "@udecode/plate-common": "^24.4.0",
     "jotai": "^2.4.2",

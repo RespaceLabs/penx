@@ -1,5 +1,5 @@
-import React, { FC, useMemo } from 'react'
-import { forwardRef, mergeRefs } from '@bone-ui/utils'
+import React, { FC, forwardRef, useMemo } from 'react'
+import { mergeRefs } from 'react-merge-refs'
 import { FloatingArrow } from '@floating-ui/react'
 import { css, FowerHTMLProps } from '@fower/react'
 import { useHoverCardContext } from './context'
@@ -15,8 +15,8 @@ export interface HoverCardArrowProps
   strokeWidth?: number
 }
 
-export const HoverCardArrow: FC<HoverCardArrowProps> = forwardRef(
-  function HoverCardArrow(props: HoverCardArrowProps, propRef) {
+export const HoverCardArrow = forwardRef<HTMLDivElement, HoverCardArrowProps>(
+  function HoverCardArrow(props, propRef) {
     const {
       width,
       height,
@@ -45,7 +45,7 @@ export const HoverCardArrow: FC<HoverCardArrowProps> = forwardRef(
 
     return (
       <FloatingArrow
-        ref={ref}
+        ref={ref as any}
         context={state.context}
         {...arrowProps}
         className={css(rest)}

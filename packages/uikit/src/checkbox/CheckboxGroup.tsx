@@ -1,12 +1,11 @@
-import React, { FC, useMemo } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef, useMemo } from 'react'
 import { Box } from '@fower/react'
 import { CheckboxGroupProvider } from './checkboxGroupContext'
 import { CheckboxGroupContext, CheckboxGroupProps } from './types'
 import { useCheckboxGroup } from './useCheckboxGroup'
 
-export const CheckboxGroup: FC<CheckboxGroupProps> = forwardRef(
-  (props, ref) => {
+export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
+  function CheckboxGroup(props, ref) {
     const {
       defaultValue,
       value: propValue,

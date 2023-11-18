@@ -1,5 +1,4 @@
-import React, { FC, useLayoutEffect } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef, useLayoutEffect } from 'react'
 import { FowerHTMLProps, styled } from '@fower/react'
 import { useAvatarContext } from './context'
 import { useImageLoadingStatus } from './useImageLoadingStatus'
@@ -8,8 +7,8 @@ const Image = styled('img')
 
 export interface AvatarImageProps extends FowerHTMLProps<'img'> {}
 
-export const AvatarImage: FC<AvatarImageProps> = forwardRef(
-  (props: AvatarImageProps, ref) => {
+export const AvatarImage = forwardRef<HTMLImageElement, AvatarImageProps>(
+  function AvatarImage(props, ref) {
     const context = useAvatarContext()
     const imageLoadingStatus = useImageLoadingStatus(props.src)
 
@@ -24,7 +23,7 @@ export const AvatarImage: FC<AvatarImageProps> = forwardRef(
     return (
       <Image
         ref={ref}
-        className="bone-avatar-img"
+        className="uikit-avatar-img"
         square-100p
         alt=""
         {...props}

@@ -1,15 +1,14 @@
-import React, { FC, useContext } from 'react'
-import { fadeConfig } from '@bone-ui/motion-configs'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef, useContext } from 'react'
 import { styled } from '@fower/react'
 import { motion } from 'framer-motion'
+import { fadeConfig } from '../motion-configs'
 import { drawerContext } from './drawerContext'
 import { DrawerOverlayProps } from './types'
 
 const AnimatedDiv = styled(motion.div)
 
-export const DrawerOverlay: FC<DrawerOverlayProps> = forwardRef(
-  (props: DrawerOverlayProps, ref) => {
+export const DrawerOverlay = forwardRef<HTMLDivElement, DrawerOverlayProps>(
+  function DrawerOverlayProps(props, ref) {
     const { children, ...rest } = props
     const ctx = useContext(drawerContext)
     const { close } = ctx
@@ -19,7 +18,7 @@ export const DrawerOverlay: FC<DrawerOverlayProps> = forwardRef(
         onClick={() => {
           close()
         }}
-        className="bone-drawer-overlay"
+        className="uikit-drawer-overlay"
         fixed
         w-100p
         h-100p

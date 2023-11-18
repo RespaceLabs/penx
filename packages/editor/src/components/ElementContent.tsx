@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { isMobile } from 'react-device-detect'
 import isEqual from 'react-fast-compare'
-import { mergeRefs } from '@bone-ui/utils'
+import { mergeRefs } from 'react-merge-refs'
 import { flip, offset, shift, useFloating } from '@floating-ui/react'
 import { Box } from '@fower/react'
 import { Button } from 'uikit'

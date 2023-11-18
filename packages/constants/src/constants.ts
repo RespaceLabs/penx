@@ -24,6 +24,8 @@ export enum WorkerEvents {
   START_PULL,
   PULL_SUCCEEDED,
   PULL_FAILED,
+
+  SYNC_101_SUCCEEDED,
 }
 
 export enum SyncStatus {

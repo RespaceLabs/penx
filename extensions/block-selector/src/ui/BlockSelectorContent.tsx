@@ -5,7 +5,7 @@ import { ListsEditor } from 'slate-lists'
 import { TElement, useEditorStatic } from '@penx/editor-common'
 import { selectEditor } from '@penx/editor-transforms'
 import { useExtensionStore } from '@penx/hooks'
-import { INode, NodeType } from '@penx/types'
+import { INode, NodeType } from '@penx/model-types'
 import { isBlockSelector } from '../isBlockSelector'
 import { useKeyDownList } from '../useKeyDownList'
 import { BlockSelectorItem } from './BlockSelectorItem'
@@ -89,6 +89,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
 
         const next = Path.next(Path.parent(at))
 
+        // create new empty list item node
         Transforms.insertNodes(
           editor,
           ListsEditor.createListItemTextNode(editor, {
@@ -163,6 +164,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
             key={type}
             id={listItemIdPrefix + i}
             name={slashCommand?.name || ''}
+            description={slashCommand?.description}
             isActive={i === cursor}
             icon={slashCommand?.icon}
             onClick={() => {

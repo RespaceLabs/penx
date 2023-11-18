@@ -1,15 +1,15 @@
 {
   "name": "PenX",
   "short_name": "PenX",
-  "description": "PenX in a progressive web app (PWA)",
+  "description": "PenX",
   "icons": [
     {
-      "src": "/images/blobby-192.png",
+      "src": "/images/logo-192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/images/blobby-512.png",
+      "src": "/images/logo-512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

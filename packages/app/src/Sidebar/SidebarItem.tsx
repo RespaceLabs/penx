@@ -1,13 +1,20 @@
 import { ReactNode } from 'react'
-import { Box } from '@fower/react'
+import { Box, FowerHTMLProps } from '@fower/react'
 
-interface SidebarItemProps {
+interface SidebarItemProps extends FowerHTMLProps<'div'> {
   label: ReactNode
   icon: ReactNode
+  children?: ReactNode
   onClick: () => void
 }
 
-export const SidebarItem = ({ icon, label, onClick }: SidebarItemProps) => {
+export const SidebarItem = ({
+  icon,
+  label,
+  onClick,
+  children,
+  ...rest
+}: SidebarItemProps) => {
   return (
     <Box
       toCenterY
@@ -17,15 +24,17 @@ export const SidebarItem = ({ icon, label, onClick }: SidebarItemProps) => {
       px2
       py-14
       cursorPointer
+      black
+      black--hover
       h-24
+      {...rest}
       onClick={onClick}
     >
       <Box toCenterY gap2>
-        <Box inlineFlex gray500>
-          {icon}
-        </Box>
+        <Box inlineFlex>{icon}</Box>
         <Box textSM>{label}</Box>
       </Box>
+      {children}
     </Box>
   )
 }

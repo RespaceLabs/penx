@@ -18,7 +18,7 @@
   "dependencies": {
     "@penx/local-db": "workspace:*",
     "@penx/trpc-client": "workspace:*",
-    "@penx/types": "workspace:*",
+    "@penx/model-types": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/model": "workspace:*"
   }

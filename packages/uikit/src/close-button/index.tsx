@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { forwardRef } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { X } from 'lucide-react'
 
@@ -9,8 +8,8 @@ export interface CloseButtonProps extends FowerHTMLProps<'button'> {
   size?: Size
 }
 
-export const CloseButton: FC<CloseButtonProps> = forwardRef(
-  (props: CloseButtonProps, ref) => {
+export const CloseButton = forwardRef<HTMLDivElement, CloseButtonProps>(
+  function CloseButton(props, ref) {
     const { size = 32, children, ...rest } = props
     const sizeStyle = getSizeStyle(size)
     return (
@@ -18,7 +17,7 @@ export const CloseButton: FC<CloseButtonProps> = forwardRef(
         as="button"
         ref={ref}
         aria-label="Close"
-        className="bone-close-button"
+        className="uikit-close-button"
         toCenter
         cursorPointer
         p0

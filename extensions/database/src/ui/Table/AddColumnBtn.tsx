@@ -7,7 +7,7 @@ import {
   PopoverTrigger,
   usePopoverContext,
 } from 'uikit'
-import { FieldType } from '@penx/types'
+import { FieldType } from '@penx/model-types'
 import { useDatabaseContext } from '../DatabaseContext'
 
 const WrapIcon = styled('div', ['gray500'])

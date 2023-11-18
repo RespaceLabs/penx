@@ -35,16 +35,25 @@ function onEnterInTitle(editor: Editor) {
 
 export const onKeyDown: OnKeyDown = (editor, e) => {
   if (e.key === 'Enter') {
-    e.preventDefault()
     const handled = onEnterInTitle(editor)
 
-    if (handled) return
+    if (handled) {
+      e.preventDefault()
+      return
+    }
 
     const node = getCurrentNode(editor)!
+
     // TODO: handle any
     if ((node as any).type === 'block_selector') return
   }
 
-  if (editor.isBlockSelectorOpened) return
+  // TODO: too hack
+  if (
+    editor.isBlockSelectorOpened ||
+    editor.isTagSelectorOpened ||
+    editor.isBidirectionalLinkSelector
+  )
+    return
   onKeyDownList(editor, e)
 }

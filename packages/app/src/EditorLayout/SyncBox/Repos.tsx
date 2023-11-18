@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Box } from '@fower/react'
 import { useQuery } from '@tanstack/react-query'
 import { LockKeyhole } from 'lucide-react'
@@ -17,6 +18,7 @@ export function Repos({ installationId, q, token }: Props) {
   const {
     data = [],
     isLoading,
+    refetch,
     isFetching,
   } = useQuery(['searchRepo'], () =>
     trpc.github.searchRepo.query({
@@ -25,6 +27,10 @@ export function Repos({ installationId, q, token }: Props) {
       token,
     }),
   )
+
+  useEffect(() => {
+    refetch()
+  }, [installationId, refetch])
 
   const h = 383
 

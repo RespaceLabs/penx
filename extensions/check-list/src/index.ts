@@ -1,3 +1,4 @@
+import { CheckSquare2 } from 'lucide-react'
 import { Editor } from 'slate'
 import { setNodes } from '@penx/editor-transforms'
 import { ExtensionContext } from '@penx/extension-typings'
@@ -15,8 +16,11 @@ export function activate(ctx: ExtensionContext) {
       {
         type: ELEMENT_CHECK_LIST_ITEM,
         component: CheckListItem,
+        placeholder: '',
         slashCommand: {
-          name: 'Check List',
+          name: 'To-do',
+          icon: CheckSquare2,
+          description: 'Track tasks with to-do list',
         },
       },
     ],

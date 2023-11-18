@@ -35,4 +35,8 @@ export class User {
   get installationId() {
     return this.github.installationId
   }
+
+  get isSyncWorks() {
+    return !!this.repo
+  }
 }

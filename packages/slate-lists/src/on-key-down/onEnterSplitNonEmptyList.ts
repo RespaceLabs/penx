@@ -7,6 +7,7 @@ import { splitListItem } from '../transformations'
 
 export function onEnterSplitNonEmptyList(editor: Editor, event: KeyboardEvent) {
   const schema = ListsEditor.getListsSchema(editor)
+
   if (schema && isHotkey('enter', event.nativeEvent)) {
     const listItemsInSelection = getListItems(editor, schema, editor.selection)
 

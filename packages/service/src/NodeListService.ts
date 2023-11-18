@@ -1,9 +1,15 @@
 import _ from 'lodash'
 import { ArraySorter } from '@penx/indexeddb'
-import { Node } from '@penx/model'
-import { INode, ISpace, NodeType } from '@penx/types'
+import { db } from '@penx/local-db'
+import { Node, WithFlattenedProps } from '@penx/model'
+import { INode, NodeType } from '@penx/model-types'
+import { store } from '@penx/store'
 
-type FindOptions<T = INode> = {
+interface TreeItem extends Omit<INode, 'children'> {
+  children: TreeItem[]
+}
+
+export type FindOptions<T = INode> = {
   where?: Partial<T>
   limit?: number
   orderByDESC?: boolean
@@ -28,6 +34,11 @@ export class NodeListService {
     return rootNode
   }
 
+  get databaseRootNode() {
+    const databaseRootNode = this.nodes.find((n) => n.isDatabaseRoot)!
+    return databaseRootNode
+  }
+
   get inboxNode() {
     const rootNode = this.nodes.find((n) => n.isInbox)!
     return rootNode
@@ -36,6 +47,11 @@ export class NodeListService {
   get trashNode() {
     const rootNode = this.nodes.find((n) => n.isTrash)!
     return rootNode
+  }
+
+  get favoriteNode() {
+    const favoriteNode = this.nodes.find((n) => n.isFavorite)!
+    return favoriteNode
   }
 
   get rootNodes() {
@@ -58,8 +74,79 @@ export class NodeListService {
     return this.nodes.filter((node) => node.isTrash)
   }
 
-  getFavorites(ids: string[] = []) {
-    return this.nodes.filter((node) => ids.includes(node.id))
+  getNode(id: string) {
+    return this.nodeMap.get(id)!
+  }
+
+  flattenNode(node: Node) {
+    return this.flattenChildren(node.children)
+  }
+
+  createTree(node: Node): TreeItem[] {
+    return node.children.map((id) => {
+      const node = this.nodeMap.get(id)!
+      if (!node.children.length) {
+        return { ...node.raw, children: [] }
+      }
+      return {
+        ...node.raw,
+        children: this.createTree(node),
+      }
+    })
+  }
+
+  flattenTree() {
+    //
+  }
+
+  private flattenChildren(
+    children: string[] = [],
+    parentId: string | null = null,
+    depth = 0,
+  ): WithFlattenedProps<Node>[] {
+    return children.reduce<WithFlattenedProps<Node>[]>((acc, id, index) => {
+      const node = this.getNode(id)
+      if (!node) return acc // TODO:
+
+      // copy a new node
+      const flattenedNode = Object.assign(new Node({ ...node.raw }), {
+        parentId,
+        depth,
+        index,
+      })
+      acc.push(flattenedNode)
+
+      if (node.hasChildren) {
+        acc.push(...this.flattenChildren(node.children, node.id, depth + 1))
+      }
+
+      return acc
+    }, [])
+  }
+
+  getFavorites() {
+    return this.favoriteNode.children.map((id) => this.nodeMap.get(id)!)
+  }
+
+  isFavorite(id: string) {
+    return this.favoriteNode.children.includes(id)
+  }
+
+  async addToFavorites(node: Node) {
+    await db.updateNode(this.favoriteNode.id, {
+      children: [...this.favoriteNode.children, node.id],
+    })
+    const nodes = await db.listNodesBySpaceId(node.spaceId)
+    store.setNodes(nodes)
+  }
+
+  async removeFromFavorites(node: Node) {
+    const children = this.favoriteNode.children.filter((id) => id !== node.id)
+    await db.updateNode(this.favoriteNode.id, {
+      children,
+    })
+    const nodes = await db.listNodesBySpaceId(node.spaceId)
+    store.setNodes(nodes)
   }
 
   // TODO: need to improvement

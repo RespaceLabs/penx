@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useState } from 'react'
-import { useControlledInfo } from '@bone-ui/hooks'
+import { useControlledInfo } from '../hooks'
 import {
   CheckboxGroupProps,
   CheckboxGroupValue,

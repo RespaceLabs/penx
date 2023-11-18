@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import { nanoid } from 'nanoid'
 import { Database } from '@penx/indexeddb'
 import { Node, Space } from '@penx/model'
@@ -14,10 +15,10 @@ import {
   IViewNode,
   NodeType,
   ViewType,
-} from '@penx/types'
-import { emitter } from './emitter'
+} from '@penx/model-types'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
+import { getRandomColor } from './getRandomColor'
 import { tableSchema } from './table-schema'
 
 const database = new Database({
@@ -47,12 +48,19 @@ class DB {
   }
 
   init = async () => {
+    let space: ISpace | undefined = undefined
     const count = await this.space.count()
     if (count === 0) {
-      const space = await this.createSpace({ name: 'My Space' })
+      await this.createSpace({ name: 'My Space' })
+      space = await this.createSpace({
+        id: 'penx-101',
+        name: 'PenX 101',
+      })
     }
     // const space = await this.space.toCollection().first()
-    const space = (await this.space.selectAll())[0]
+    if (!space) {
+      space = (await this.space.selectAll())[0]
+    }
 
     return space!
   }
@@ -61,7 +69,7 @@ class DB {
     const spaces = await this.listSpaces()
 
     for (const space of spaces) {
-      await this.space.updateByPk(space.id, {
+      await this.updateSpace(space.id, {
         isActive: false,
       })
     }
@@ -94,19 +102,25 @@ class DB {
         }),
       )
 
-      // init tag root node
+      // init favorite node
       await this.node.insert(
         getNewNode({
           spaceId,
-          type: NodeType.TAG_ROOT,
+          type: NodeType.FAVORITE,
         }),
       )
 
-      const node = getNewNode({ spaceId })
+      // init database root node
+      await this.node.insert(
+        getNewNode({
+          spaceId,
+          type: NodeType.DATABASE_ROOT,
+        }),
+      )
 
-      await this.createPageNode(node, space)
+      const node = await this.createPageNode(getNewNode({ spaceId }), space)
 
-      await this.space.updateByPk(spaceId, {
+      await this.updateSpace(spaceId, {
         isActive: true,
         activeNodeId: node.id,
       })
@@ -151,6 +165,16 @@ class DB {
     return this.node.selectByPk(nodeId)
   }
 
+  getRootNode = async (spaceId: string) => {
+    let nodes = await this.node.selectByIndexAll('type', NodeType.ROOT)
+    return nodes.find((node) => node.spaceId === spaceId)!
+  }
+
+  getDatabaseRootNode = async (spaceId: string) => {
+    let nodes = await this.node.selectByIndexAll('type', NodeType.DATABASE_ROOT)
+    return nodes.find((node) => node.spaceId === spaceId)!
+  }
+
   getInboxNode = async (spaceId: string) => {
     let nodes = await this.node.selectByIndexAll('type', NodeType.INBOX)
     return nodes.find((node) => node.spaceId === spaceId)!
@@ -161,6 +185,18 @@ class DB {
     return nodes.find((node) => node.spaceId === spaceId)!
   }
 
+  getTodayNode = async (spaceId: string) => {
+    let nodes = await this.node.selectByIndexAll('type', NodeType.DAILY_NOTE)
+    return nodes.find(
+      (node) => node.props.date === format(new Date(), 'yyyy-MM-dd'),
+    )!
+  }
+
+  getFavoriteNode = async (spaceId: string) => {
+    let nodes = await this.node.selectByIndexAll('type', NodeType.FAVORITE)
+    return nodes.find((node) => node.spaceId === spaceId)!
+  }
+
   updateNode = async (nodeId: string, data: Partial<INode>) => {
     const newNode = await this.node.updateByPk(nodeId, {
       ...data,
@@ -168,14 +204,6 @@ class DB {
     })
 
     return newNode
-  }
-
-  trashNode = async (nodeId: string) => {
-    // TODO:
-  }
-
-  restoreNode = async (nodeId: string) => {
-    // TODO:
   }
 
   deleteNode = async (nodeId: string) => {
@@ -240,6 +268,27 @@ class DB {
     return newNode
   }
 
+  addNodeToToday = async (spaceId: string, text: string) => {
+    const todayNode = await this.getTodayNode(spaceId)
+
+    const newNode = await this.node.insert({
+      ...getNewNode({ spaceId }, text),
+    })
+
+    const newTodayNode = await this.updateNode(todayNode.id, {
+      children: [...(todayNode.children || []), newNode.id],
+    })
+
+    await this.updateSpace(spaceId, {
+      activeNodeId: newTodayNode.id,
+    })
+
+    return {
+      node: newNode,
+      todayNode: newTodayNode,
+    }
+  }
+
   listNodesBySpaceId = async (spaceId: string) => {
     return this.node.select({
       where: { spaceId },
@@ -265,10 +314,6 @@ class DB {
     await this.updateSpace(space.id, {
       snapshot: space.snapshot.toJSON(),
     })
-  }
-
-  listTrashedNodes = async (spaceId: string) => {
-    // TODO:
   }
 
   listNodesByIds = (nodeIds: string[]) => {
@@ -341,24 +386,28 @@ class DB {
     return newNode
   }
 
-  createDatabase = async (name: string = '') => {
+  deleteRow = async (rowId: string) => {
+    console.log('deleteRow.......:', rowId)
+  }
+
+  createDatabase = async (name: string, shouldInitCell = false) => {
     // const { id = '' } = data
     const space = await this.getActiveSpace()
-
-    const spaceNode = await this.getSpaceNode(space.id)
+    const databaseRootNode = await this.getDatabaseRootNode(space.id)
 
     const database = await this.createNode<IDatabaseNode>({
       // id,
-      parentId: spaceNode.id,
+      parentId: databaseRootNode.id,
       spaceId: space.id,
       type: NodeType.DATABASE,
       props: {
+        color: getRandomColor(),
         name,
       },
     })
 
-    await this.updateNode(spaceNode.id, {
-      children: [...(spaceNode.children || []), database.id],
+    await this.updateNode(databaseRootNode.id, {
+      children: [...(databaseRootNode.children || []), database.id],
     })
 
     // Create view
@@ -373,12 +422,12 @@ class DB {
       },
     })
 
-    const [columns, rows] = await Promise.all([
-      this.initColumns(space.id, database.id),
-      this.initRows(space.id, database.id),
-    ])
+    const columns = await this.initColumns(space.id, database.id)
 
-    await this.initCells(space.id, database.id, columns, rows)
+    if (shouldInitCell) {
+      const rows = await this.initRows(space.id, database.id)
+      await this.initCells(space.id, database.id, columns, rows)
+    }
     return database
   }
 
@@ -510,6 +559,19 @@ class DB {
       rows,
       cells,
     }
+  }
+
+  getDatabaseByName = async (name: string) => {
+    const space = await this.getActiveSpace()
+    const nodes = await this.node.select({
+      where: {
+        type: NodeType.DATABASE,
+        spaceId: space.id,
+      },
+    })
+
+    const database = nodes.find((node) => node.props.name === name)
+    return database!
   }
 
   addColumn = async (databaseId: string, fieldType: FieldType) => {

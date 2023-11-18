@@ -1,12 +1,18 @@
 import { TableIcon } from 'lucide-react'
 import { ExtensionContext } from '@penx/extension-typings'
 import { db } from '@penx/local-db'
-import { ELEMENT_DATABASE, ELEMENT_NODE_QUERY } from './constants'
+import {
+  ELEMENT_DATABASE,
+  ELEMENT_DATABASE_ENTRY,
+  ELEMENT_LIVE_QUERY,
+} from './constants'
 import { Database } from './ui/Database'
-import { NodeQuery } from './ui/NodeQuery'
+import { DatabaseEntry } from './ui/DatabaseEntry'
+import { LiveQuery } from './ui/LiveQuery/LiveQuery'
 import { withDatabase } from './withDatabase'
 
 export * from './guard'
+export * from './ui/TableView'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
@@ -16,23 +22,30 @@ export function activate(ctx: ExtensionContext) {
         isVoid: true,
         type: ELEMENT_DATABASE,
         component: Database,
-        slashCommand: {
-          name: 'Database',
-          icon: TableIcon,
-          async beforeInvokeCommand(editor) {
-            return db.createDatabase()
-          },
-        },
+        // slashCommand: {
+        //   name: 'Database',
+        //   icon: TableIcon,
+        //   async beforeInvokeCommand(editor) {
+        //     console.log('before.............')
+        //     return db.createDatabase('')
+        //   },
+        // },
       },
 
       {
         isVoid: true,
-        type: ELEMENT_NODE_QUERY,
-        component: NodeQuery,
-        slashCommand: {
-          name: 'Node Query',
-          icon: TableIcon,
-        },
+        type: ELEMENT_DATABASE_ENTRY,
+        component: DatabaseEntry,
+      },
+
+      {
+        isVoid: true,
+        type: ELEMENT_LIVE_QUERY,
+        component: LiveQuery,
+        // slashCommand: {
+        //   name: 'Live Query',
+        //   icon: TableIcon,
+        // },
       },
     ],
   })

@@ -1,15 +1,18 @@
-import { ISpace } from '@penx/types'
+import { ISpace } from '@penx/model-types'
 import { Settings } from './Settings'
 import { Snapshot } from './Snapshot'
 import { GithubInfo } from './User'
 
 export class Space {
-  settings: Settings
+  // settings: Settings
 
   snapshot: Snapshot
 
+  settings: ISpace['settings']
+
   constructor(private raw: ISpace) {
-    this.settings = new Settings(raw.settings)
+    // this.settings = new Settings(raw.settings)
+    this.settings = raw?.settings
     this.snapshot = new Snapshot(raw)
   }
 
@@ -21,8 +24,16 @@ export class Space {
     return this.raw.name
   }
 
+  get color() {
+    return this.raw.color
+  }
+
   get isActive() {
     return this.raw.isActive
+  }
+
+  get isSpace101() {
+    return this.id === 'penx-101'
   }
 
   get activeNodeId() {

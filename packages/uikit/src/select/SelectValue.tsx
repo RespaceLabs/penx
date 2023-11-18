@@ -1,5 +1,10 @@
-import React, { cloneElement, FC, isValidElement, ReactNode } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, {
+  cloneElement,
+  FC,
+  forwardRef,
+  isValidElement,
+  ReactNode,
+} from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { useRadioGroupContext } from '../radio'
 import { useSelectContext } from './context'
@@ -10,8 +15,8 @@ export interface SelectValueProps
   asChild?: boolean
 }
 
-export const SelectValue: FC<SelectValueProps> = forwardRef(
-  (props: SelectValueProps, ref) => {
+export const SelectValue = forwardRef<HTMLSpanElement, SelectValueProps>(
+  function SelectValue(props: SelectValueProps, ref) {
     const { asChild, placeholder, children, onClick, ...rest } = props
     const { selectedItem } = useSelectContext()
     const radioContext = useRadioGroupContext()

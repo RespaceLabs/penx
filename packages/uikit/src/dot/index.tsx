@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { forwardRef } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 
 export const typeStyles = {
@@ -16,23 +15,25 @@ export interface DotProps extends FowerHTMLProps<'div'> {
   type?: DotType
 }
 
-export const Dot: FC<DotProps> = forwardRef((props: DotProps, ref) => {
-  const { type = 'default', children, ...rest } = props
+export const Dot = forwardRef<HTMLDivElement, DotProps>(
+  function Dot(props, ref) {
+    const { type = 'default', children, ...rest } = props
 
-  return (
-    <Box className="bone-dot" ref={ref} inlineFlex toCenterY>
-      <Box
-        className="bone-dot-color"
-        square-8
-        roundedFull
-        {...typeStyles[type]}
-        {...rest}
-      ></Box>
-      {children && (
-        <Box as="span" className="bone-dot-text" ml-8>
-          {children}
-        </Box>
-      )}
-    </Box>
-  )
-})
+    return (
+      <Box className="uikit-dot" ref={ref} inlineFlex toCenterY>
+        <Box
+          className="uikit-dot-color"
+          square-8
+          roundedFull
+          {...typeStyles[type]}
+          {...rest}
+        ></Box>
+        {children && (
+          <Box as="span" className="uikit-dot-text" ml-8>
+            {children}
+          </Box>
+        )}
+      </Box>
+    )
+  },
+)

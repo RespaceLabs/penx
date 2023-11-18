@@ -1,5 +1,4 @@
-import React, { FC } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { useMenuContext } from './context'
 
@@ -9,15 +8,15 @@ export interface MenuItemProps extends FowerHTMLProps<'div'> {
   disabled?: boolean
 }
 
-export const MenuItem: FC<MenuItemProps> = forwardRef(
-  (props: MenuItemProps, ref) => {
+export const MenuItem = forwardRef<HTMLDivElement, MenuItemProps>(
+  function MenuItem(props, ref) {
     const { selected, disabled, children, ...rest } = props
     let { colorScheme } = useMenuContext()
     if (selected) rest.color = colorScheme
 
     return (
       <Box
-        className="bone-menu-item"
+        className="uikit-menu-item"
         ref={ref}
         px4
         py3

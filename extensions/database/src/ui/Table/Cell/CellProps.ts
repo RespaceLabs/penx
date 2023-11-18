@@ -1,4 +1,4 @@
-import { ICellNode } from '@penx/types'
+import { ICellNode } from '@penx/model-types'
 
 export interface CellProps {
   index: number

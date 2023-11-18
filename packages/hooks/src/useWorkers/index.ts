@@ -15,6 +15,15 @@ export function useWorkers() {
     workerRef.current.onmessage = async (event: MessageEvent<number>) => {
       console.log(`WebWorker Response => ${event.data}`)
 
+      if (event.data === WorkerEvents.SYNC_101_SUCCEEDED) {
+        const space = await db.getSpace('penx-101')
+        const nodes = await db.listNodesBySpaceId('penx-101')
+        const favoriteNodes = await db.getFavoriteNode(space.id)
+        const firstNode = await db.getNode(favoriteNodes.children[0])
+        store.setNodes(nodes)
+        store.reloadNode(firstNode)
+      }
+
       if (event.data === WorkerEvents.START_PUSH) {
         store.set(syncStatusAtom, SyncStatus.PUSHING)
       }

@@ -1,25 +1,26 @@
-import React, { FC } from 'react'
-import { CloseButton, CloseButtonProps } from '@bone-ui/close-button'
-import { forwardRef } from '@bone-ui/utils'
+import React, { forwardRef } from 'react'
+import { CloseButton, CloseButtonProps } from '../close-button'
 import { usePopoverContext } from './context'
 
 export interface PopoverCloseButtonProps extends CloseButtonProps {}
 
-export const PopoverCloseButton: FC<PopoverCloseButtonProps> = forwardRef(
-  (props: PopoverCloseButtonProps, ref) => {
-    const ctx = usePopoverContext()
-    return (
-      <CloseButton
-        onClick={(e) => {
-          ctx.close()
-          props?.onClick?.(e)
-        }}
-        size="sm"
-        absolute
-        top-8
-        right-8
-        {...props}
-      ></CloseButton>
-    )
-  },
-)
+export const PopoverCloseButton = forwardRef<
+  HTMLButtonElement,
+  PopoverCloseButtonProps
+>(function PopoverCloseButton(props, ref) {
+  const ctx = usePopoverContext()
+  return (
+    <CloseButton
+      ref={ref as any}
+      onClick={(e) => {
+        ctx.close()
+        props?.onClick?.(e)
+      }}
+      size="sm"
+      absolute
+      top-8
+      right-8
+      {...props}
+    ></CloseButton>
+  )
+})

@@ -1,7 +1,5 @@
-import React, { FC, useMemo } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef, useMemo } from 'react'
 import { Box } from '@fower/react'
-import { Radio } from './Radio'
 import { RadioGroupProvider } from './radioGroupContext'
 import { RadioGroupContext, RadioGroupProps, RadioProps } from './types'
 import { useRadioGroup } from './useRadioGroup'
@@ -14,8 +12,8 @@ function checkIsControlled(props: RadioGroupProps) {
   }
 }
 
-export const RadioGroup: FC<RadioGroupProps> = forwardRef(
-  (props: RadioGroupProps, ref) => {
+export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
+  function RadioGroup(props, ref) {
     const {
       defaultValue,
       value: propValue,

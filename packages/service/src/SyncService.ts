@@ -5,11 +5,21 @@ import { createEditor, Editor } from 'slate'
 import { decryptString, encryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
+import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
 import { spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
-import { IFile, INode, ISpace, NodeType, TreeItem } from '@penx/types'
 import { NodeService } from './NodeService'
 import { SpaceService } from './SpaceService'
+
+export type TreeItem = {
+  path: string
+  // mode: '100644' | '100755' | '040000' | '160000' | '120000'
+  mode: '100644'
+  // type: 'blob' | 'tree' | 'commit'
+  type: 'blob'
+  content?: string
+  sha?: string | null
+}
 
 type FileNode = {
   fileId: string
@@ -60,6 +70,8 @@ export class SyncService {
 
   commitSha: string
 
+  enableEncryption: boolean = false
+
   get baseBranchName() {
     return 'main'
   }
@@ -70,6 +82,10 @@ export class SyncService {
 
   get filesDir() {
     return this.space.id + '/files'
+  }
+
+  get isPenx101() {
+    return this.user.repoName === 'penx-101'
   }
 
   getNodePath(id: string) {
@@ -91,8 +107,13 @@ export class SyncService {
     this.params = sharedParams
   }
 
-  static async init(space: ISpace, user: User) {
+  static async init(
+    space: ISpace,
+    user: User,
+    enabledEncryption: boolean = false,
+  ) {
     const s = new SyncService()
+    s.enableEncryption = enabledEncryption
     s.nodes = await db.listNodesBySpaceId(space.id)
     s.user = user
     s.space = new Space(space)
@@ -160,10 +181,7 @@ export class SyncService {
         path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
-        content: encryptString(
-          JSON.stringify(pageMap[id], null, 2),
-          this.secretKey,
-        ),
+        content: this.encrypt(JSON.stringify(pageMap[id], null, 2)),
       })
     }
 
@@ -182,7 +200,7 @@ export class SyncService {
         path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
-        content: encryptString(JSON.stringify(nodes, null, 2), this.secretKey),
+        content: this.encrypt(JSON.stringify(nodes, null, 2)),
       })
     }
 
@@ -263,7 +281,16 @@ export class SyncService {
       path: this.space.filePath,
       mode: '100644',
       type: 'blob',
-      content: encryptString(this.space.stringify(version), this.secretKey),
+      content: this.encrypt(this.space.stringify(version)),
+    } as TreeItem
+  }
+
+  async createPenx101TreeItem() {
+    return {
+      path: 'nodes.json',
+      mode: '100644',
+      type: 'blob',
+      content: this.encrypt(JSON.stringify(this.nodes, null, 2)),
     } as TreeItem
   }
 
@@ -316,10 +343,7 @@ export class SyncService {
     )
 
     if (spaceRes.data.content) {
-      const originalContent = decryptString(
-        atob(spaceRes.data.content),
-        this.secretKey,
-      )
+      const originalContent = this.decrypt(atob(spaceRes.data.content))
       const space: ISpace = JSON.parse(originalContent)
       await db.updateSpace(this.space.id, space)
     }
@@ -400,6 +424,7 @@ export class SyncService {
 
     const spaceTreeItem = await this.createSpaceTreeItem(1)
     tree.push(spaceTreeItem)
+
     return tree
   }
 
@@ -419,13 +444,16 @@ export class SyncService {
     const filesTree = await this.getFilesTreeByDiff(diff)
     tree.push(...filesTree)
 
+    if (this.isPenx101) {
+      const penx101 = await this.createPenx101TreeItem()
+      tree.push(penx101)
+    }
     return tree
   }
 
   async push() {
     try {
       // TODO: should improve, to many try/catch
-
       let tree: TreeItem[] = []
       try {
         const serverSnapshot = await this.getSnapshot()
@@ -554,10 +582,27 @@ export class SyncService {
 
     const pagesTree = await this.getPagesTreeInfo()
 
+    const rootNode = await db.getRootNode(this.space.id)
+    if (rootNode) {
+      console.log('rootNode:', rootNode)
+      await db.deleteNode(rootNode.id)
+    }
+
+    const databaseRootNode = await db.getRootNode(this.space.id)
+    if (databaseRootNode) {
+      console.log('databaseRootNode:', databaseRootNode)
+      await db.deleteNode(databaseRootNode.id)
+    }
+
     const inboxNode = await db.getInboxNode(this.space.id)
     if (inboxNode) {
       console.log('indexNode:', inboxNode)
       await db.deleteNode(inboxNode.id)
+    }
+
+    const favoriteNode = await db.getFavoriteNode(this.space.id)
+    if (favoriteNode) {
+      await db.deleteNode(favoriteNode.id)
     }
 
     const trashNode = await db.getTrashNode(this.space.id)
@@ -576,10 +621,8 @@ export class SyncService {
         },
       )
 
-      const originalContent = decryptString(
-        decodeBase64(pageRes.data.content),
-        this.secretKey,
-      )
+      const originalContent = this.decrypt(decodeBase64(pageRes.data.content))
+
       const nodes: INode[] = JSON.parse(originalContent) || []
 
       for (const item of nodes) {
@@ -630,10 +673,7 @@ export class SyncService {
         },
       )
 
-      const originalContent = decryptString(
-        decodeBase64(pageRes.data.content),
-        this.secretKey,
-      )
+      const originalContent = this.decrypt(decodeBase64(pageRes.data.content))
 
       const nodes: INode[] = JSON.parse(originalContent) || []
 
@@ -737,6 +777,16 @@ export class SyncService {
         },
       })
       .json()
+  }
+
+  encrypt(str: string) {
+    if (!this.enableEncryption) return str
+    return encryptString(str, this.secretKey)
+  }
+
+  decrypt(str: string) {
+    if (!this.enableEncryption) return str
+    return decryptString(str, this.secretKey)
   }
 }
 

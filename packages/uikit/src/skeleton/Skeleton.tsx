@@ -1,14 +1,13 @@
-import React, { FC } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 
 export interface SkeletonProps extends FowerHTMLProps<'div'> {}
 
-export const Skeleton: FC<SkeletonProps> = forwardRef(
-  (props: SkeletonProps, ref) => {
+export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
+  function Skeleton(props, ref) {
     return (
       <Box
-        className={`bone-skeleton`}
+        className={`uikit-skeleton`}
         ref={ref}
         bgGray200
         animatePulse

@@ -1,16 +1,18 @@
-import React, { FC } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { MenuContext, MenuProvider } from './context'
 
 export interface MenuProps extends MenuContext, FowerHTMLProps<'div'> {}
 
-export const Menu: FC<MenuProps> = forwardRef((props: MenuProps, ref) => {
+export const Menu = forwardRef<HTMLDivElement, MenuProps>(function MenuProps(
+  props: MenuProps,
+  ref,
+) {
   const { colorScheme = 'brand500', ...rest } = props
   return (
     <MenuProvider value={{ colorScheme }}>
       <Box
-        className="bone-menu"
+        className="uikit-menu"
         ref={ref}
         bgWhite
         minW-140

@@ -115,7 +115,7 @@ export const TableCell = ({
           <PopoverTrigger>
             <Box contentEditable={false}>&nbsp;</Box>
           </PopoverTrigger>
-          <PopoverContent p3 toCenterY spaceX1>
+          <PopoverContent p3 toCenterY gap1>
             <IconInsertLeft onClick={() => addColumn()} />
             <IconInsertRight onClick={() => addColumn(true)} />
             <Trash2 size={20} onClick={() => removeColumn()} />

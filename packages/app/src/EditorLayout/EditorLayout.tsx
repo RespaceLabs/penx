@@ -18,10 +18,12 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
   useQuerySpaces()
   const { spaces, activeSpace } = useSpaces()
   const { name } = useAtomValue(routerAtom)
+  const SIDEBAR_WIDTH = 260
+  // const SIDEBAR_WIDTH = 600
 
-  if (!spaces?.length) return null
+  if (!spaces?.length || !activeSpace.id) return null
 
-  console.log('router name==========:', name)
+  // console.log('router name==========:', name)
 
   return (
     <EditorProvider space={activeSpace}>
@@ -29,7 +31,7 @@ export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
       {!isMobile && <CommandPanel />}
 
       <Box h-100vh toLeft black textSM overflowHidden>
-        <Box w={[0, 0, 280]} toLeft>
+        <Box w={[0, 0, SIDEBAR_WIDTH]} toLeft>
           <Sidebar />
         </Box>
         <Box flex-1 h-100vh relative>

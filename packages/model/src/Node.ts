@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import { INode, NodeType } from '@penx/types'
+import { INode, NodeType } from '@penx/model-types'
 
 type Element = {
   id: string
@@ -8,7 +8,11 @@ type Element = {
   children: Array<{ text: string }>
 }
 
-export const isRootNode = () => {}
+export type WithFlattenedProps<T> = T & {
+  parentId: string | null // parent node id
+  depth: number
+  index: number
+}
 
 export class Node {
   constructor(public raw: INode) {}
@@ -17,9 +21,7 @@ export class Node {
     return this.raw?.id || ''
   }
 
-  get parentId() {
-    return this.raw.parentId
-  }
+  parentId = this.raw?.parentId || ''
 
   get spaceId(): string {
     return this.raw.spaceId
@@ -27,6 +29,10 @@ export class Node {
 
   get type(): string {
     return this.raw?.type || ''
+  }
+
+  get hasChildren() {
+    return !!this.children.length
   }
 
   get props() {
@@ -44,8 +50,13 @@ export class Node {
 
     if (this.isInbox) return 'Inbox'
     if (this.isTrash) return 'Trash'
+    if (this.isDatabaseRoot) return 'Tags'
 
-    return this.element?.children?.[0]?.text || ''
+    return this.element?.children?.[0]?.text || this.props.name || ''
+  }
+
+  get isCommon() {
+    return this.type === NodeType.COMMON
   }
 
   get isTrash() {
@@ -56,6 +67,10 @@ export class Node {
     return this.type === NodeType.INBOX
   }
 
+  get isFavorite() {
+    return this.type === NodeType.FAVORITE
+  }
+
   get isDailyNote() {
     return this.type === NodeType.DAILY_NOTE
   }
@@ -64,12 +79,28 @@ export class Node {
     return this.type === NodeType.ROOT
   }
 
+  get isDatabaseRoot() {
+    return this.type === NodeType.DATABASE_ROOT
+  }
+
   get isDatabase() {
     return this.type === NodeType.DATABASE
   }
 
   get collapsed() {
     return this.raw.collapsed
+  }
+
+  get folded() {
+    return this.raw.folded
+  }
+
+  get tagName(): string {
+    return this.raw.props.name || ''
+  }
+
+  get tagColor(): string {
+    return this.raw.props.color || ''
   }
 
   get children() {

@@ -5,15 +5,8 @@ import { SyncStatus } from '@penx/constants'
 import { emitter } from '@penx/event'
 import { db } from '@penx/local-db'
 import { Node, User } from '@penx/model'
-import {
-  Command,
-  ExtensionStore,
-  INode,
-  ISpace,
-  NodeType,
-  RouteName,
-  RouterStore,
-} from '@penx/types'
+import { INode, ISpace, NodeType } from '@penx/model-types'
+import { Command, ExtensionStore, RouteName, RouterStore } from './types'
 
 // export const nodeAtom = atomWithStorage('node', null as any as INode)
 export const nodeAtom = atom(null as any as INode)
@@ -25,10 +18,10 @@ export const syncStatusAtom = atom<SyncStatus>(SyncStatus.NORMAL)
 
 export const commandsAtom = atom<Command[]>([
   {
-    id: 'add-document',
-    name: 'Add document',
+    id: 'add-node',
+    name: 'Add node',
     handler: () => {
-      emitter.emit('ADD_DOCUMENT')
+      emitter.emit('ADD_NODE')
     },
   },
 
@@ -36,7 +29,7 @@ export const commandsAtom = atom<Command[]>([
     id: 'export-to-markdown',
     name: 'export to markdown',
     handler: () => {
-      emitter.emit('ADD_DOCUMENT')
+      emitter.emit('ADD_NODE')
     },
   },
 ])
@@ -75,6 +68,28 @@ export const store = Object.assign(createStore(), {
     return store.get(nodeAtom)
   },
 
+  findNode(id: string) {
+    const nodes = store.getNodes()
+    return nodes.find((node) => node.id === id)
+  },
+  getDatabaseByName(tagName: string) {
+    const nodes = store.getNodes()
+
+    let databaseNode = nodes.find(
+      (node) => node.type === NodeType.DATABASE && node.props.name === tagName,
+    )
+
+    return databaseNode
+  },
+
+  getCells(databaseId: string) {
+    const nodes = store.getNodes()
+    let cells = nodes.filter(
+      (node) => node.type === NodeType.CELL && node.parentId === databaseId,
+    )
+    return cells
+  },
+
   setNode(node: INode) {
     return store.set(nodeAtom, node)
   },
@@ -97,18 +112,13 @@ export const store = Object.assign(createStore(), {
   },
 
   async trashNode(id: string) {
-    const space = this.getActiveSpace()
-    await db.trashNode(id)
-
-    const nodes = await db.listNodesBySpaceId(space.id)
-
-    if (nodes.length) {
-      this.reloadNode(nodes[0])
-    }
-    this.setNodes(nodes)
+    //
   },
 
   async selectNode(node: INode) {
+    const currentNode = store.getNode()
+    if (currentNode.id === node.id) return
+
     this.routeTo('NODE')
     this.reloadNode(node)
     await db.updateSpace(this.getActiveSpace().id, {
@@ -119,6 +129,18 @@ export const store = Object.assign(createStore(), {
   async selectInbox() {
     const space = this.getActiveSpace()
     let node = await db.getInboxNode(space.id)
+
+    await db.updateSpace(this.getActiveSpace().id, {
+      activeNodeId: node.id,
+    })
+
+    this.reloadNode(node)
+    this.routeTo('NODE')
+  },
+
+  async selectTagBox() {
+    const space = this.getActiveSpace()
+    let node = await db.getDatabaseRootNode(space.id)
 
     await db.updateSpace(this.getActiveSpace().id, {
       activeNodeId: node.id,
@@ -153,13 +175,7 @@ export const store = Object.assign(createStore(), {
     this.routeTo('NODE')
   },
 
-  async restoreNode(id: string) {
-    const space = this.getActiveSpace()
-    await db.restoreNode(id)
-    const nodes = await db.listNodesBySpaceId(space.id)
-    this.setNode(nodes[0])
-    this.setNodes(nodes)
-  },
+  async restoreNode(id: string) {},
 
   async deleteNode(id: string) {
     const space = this.getActiveSpace()
@@ -199,6 +215,16 @@ export const store = Object.assign(createStore(), {
     }
   },
 
+  async createNodeToToday(text: string) {
+    const space = this.getActiveSpace()
+    const { todayNode } = await db.addNodeToToday(space.id, text)
+    const nodes = await db.listNormalNodes(space.id)
+
+    this.routeTo('NODE')
+    this.setNodes(nodes)
+    this.reloadNode(todayNode)
+  },
+
   async createPageNode(input: Partial<INode> = {}) {
     const space = this.getActiveSpace()
     const node = await db.createPageNode(
@@ -222,47 +248,34 @@ export const store = Object.assign(createStore(), {
     this.reloadNode(node)
   },
 
-  async createTag(text: string) {
-    const space = this.getActiveSpace()
+  async createDatabase(tagName: string) {
     const nodes = store.getNodes()
 
-    let tagRootNode = nodes.find((node) => node.type === NodeType.TAG_ROOT)!
-
-    let tagNode = nodes.find(
-      (node) => node.type === NodeType.DATABASE && node.props.tag === text,
+    let databaseNode = nodes.find(
+      (node) => node.type === NodeType.DATABASE && node.props.name === tagName,
     )
 
-    if (!tagNode) {
-      const newNode = await db.createNode({
-        spaceId: space.id,
-        parentId: tagRootNode.id,
-        type: NodeType.DATABASE,
-        props: {
-          tag: text,
-          // TODO:
-          columns: [
-            {
-              title: text,
-              type: 'TEXT',
-            },
-          ],
-        },
-      })
-
-      newNode.parentId
-
-      await db.updateNode(tagRootNode.id, {
-        children: [...tagRootNode.children, newNode.id],
-      })
-
-      await db.createDatabase(text)
+    if (!databaseNode) {
+      databaseNode = await db.createDatabase(tagName)
     }
+
+    const newNodes = await db.listNormalNodes(databaseNode.spaceId)
+    this.setNodes(newNodes)
+
+    return databaseNode
+  },
+
+  async deleteRow(rowId: string) {
+    await db.deleteRow(rowId)
   },
 
   async createSpace(input: Partial<ISpace>) {
-    const space = await db.createSpace(input)
+    let space = await db.createSpace(input)
     const spaces = await db.listSpaces()
+
     const nodes = await db.listNormalNodes(space.id)
+
+    space = await db.getSpace(space.id)
     const node = await db.getNode(space.activeNodeId!)
 
     this.routeTo('NODE')

@@ -1,9 +1,11 @@
 import { useCallback } from 'react'
 import { Box } from '@fower/react'
 import { Editor, Node, Path, Transforms } from 'slate'
-import { TElement, useEditorStatic } from '@penx/editor-common'
+import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
+import { db } from '@penx/local-db'
+import { INode } from '@penx/model-types'
 import { store } from '@penx/store'
 import { ELEMENT_TAG } from '../constants'
 import { TagElement } from '../types'
@@ -19,9 +21,7 @@ interface Props {
 export const TagSelectorContent = ({ close, element }: Props) => {
   const editor = useEditorStatic()
   const { nodeList } = useNodes()
-  const tagNames = nodeList.tagNodes
-    .map((node) => node.props.tag!)
-    .filter((i) => !!i)
+  const tagNames = nodeList.tagNodes.map((node) => node.props.name!)
 
   const filteredTypes = tagNames.filter((item) => {
     const q = Node.string(element).replace(/^#/, '').toLowerCase()
@@ -30,9 +30,10 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   })
 
   const text = Node.string(element)
+  const tagName = text.replace(/^#/, '')
 
   const selectTag = useCallback(
-    (tagName: any) => {
+    (tagName: any, databaseId: string) => {
       const path = findNodePath(editor, element)!
 
       Transforms.setNodes<TagElement>(
@@ -40,6 +41,7 @@ export const TagSelectorContent = ({ close, element }: Props) => {
         {
           type: ELEMENT_TAG,
           name: tagName,
+          databaseId,
         },
         { at: path },
       )
@@ -56,16 +58,20 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   const listItemIdPrefix = 'type-list-item-'
 
   const { cursor } = useKeyDownList({
-    onEnter: (cursor) => {
-      console.log('enter.......xx')
+    onEnter: async (cursor) => {
+      let database: INode
       if (!filteredTypes.length) {
-        console.log('create tag......')
-
-        store.createTag(text)
-        selectTag(text)
-        return
+        database = await store.createDatabase(tagName)
+        selectTag(tagName, database.id)
+      } else {
+        const name = filteredTypes[cursor]
+        database = await db.getDatabaseByName(name)
+        selectTag(name, database.id)
       }
-      selectTag(filteredTypes[cursor])
+
+      setTimeout(() => {
+        editor.isTagSelectorOpened = false
+      }, 50)
     },
     listLength: filteredTypes.length,
     listItemIdPrefix,
@@ -73,7 +79,7 @@ export const TagSelectorContent = ({ close, element }: Props) => {
 
   if (!filteredTypes.length) {
     return (
-      <Box py3 px3 gray400>
+      <Box py3 px3>
         Create tag "{text}"
       </Box>
     )
@@ -88,8 +94,10 @@ export const TagSelectorContent = ({ close, element }: Props) => {
             id={listItemIdPrefix + i}
             name={name}
             isActive={i === cursor}
-            onClick={() => {
-              selectTag(name)
+            onClick={async () => {
+              const name = filteredTypes[cursor]
+              const database = await db.getDatabaseByName(name)
+              selectTag(name, database.id)
             }}
           />
         )

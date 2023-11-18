@@ -13,14 +13,8 @@ import {
 } from '@penx/editor-queries'
 import { useExtensionStore } from '@penx/hooks'
 import { ELEMENT_LIC, isTitle } from '@penx/list'
-import {
-  ELEMENT_P,
-  getEmptyParagraph,
-  isParagraph,
-  ParagraphElement,
-} from '@penx/paragraph'
+import { ELEMENT_P, getEmptyParagraph, isParagraph } from '@penx/paragraph'
 import { isTable } from '@penx/table'
-import { NodeType } from '@penx/types'
 
 type WithFns = (editor: Editor) => Editor
 

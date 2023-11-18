@@ -1,5 +1,4 @@
-import React, { FC, ReactNode } from 'react'
-import { forwardRef } from '@bone-ui/utils'
+import React, { FC, forwardRef, ReactNode } from 'react'
 import { css, FowerHTMLProps } from '@fower/react'
 import { motion, Variant } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
@@ -24,8 +23,8 @@ export interface SelectIconProps extends FowerHTMLProps<'div'> {
   size?: number
 }
 
-export const SelectIcon: FC<SelectIconProps> = forwardRef(
-  (props: SelectIconProps, ref) => {
+export const SelectIcon = forwardRef<HTMLDivElement, SelectIconProps>(
+  function SelectIcon(props, ref) {
     const { children, size = 16, ...rest } = props
     const { isOpen } = usePopoverContext()
 
