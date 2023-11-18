@@ -30,6 +30,7 @@ export const SpacePopover = () => {
               h-36
               mt2
               transitionColors
+              black
             >
               <Box toCenterY gap1>
                 <Bullet
@@ -38,7 +39,7 @@ export const SpacePopover = () => {
                   innerColor={activeSpace.color}
                   mr1
                 />
-                <Box gray600 flex-1 maxW-180>
+                <Box flex-1 maxW-180>
                   <Box
                     overflowHidden
                     css={{

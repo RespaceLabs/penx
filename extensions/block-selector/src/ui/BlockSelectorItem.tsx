@@ -7,6 +7,7 @@ interface BlockSelectorItemProps {
   id: string
   isActive: boolean
   name: string
+  description?: string
   icon: any
   onClick: () => void
 }
@@ -15,6 +16,7 @@ export function BlockSelectorItem({
   id,
   isActive,
   name,
+  description,
   icon: Icon,
   onClick,
 }: BlockSelectorItemProps) {
@@ -37,17 +39,22 @@ export function BlockSelectorItem({
       onClick={onClick}
       bgGray100--hover
       bgGray100={isActive}
-      py2
+      py3
       px3
       cursorPointer
       gapX2
       toCenterY
       leadingNone
     >
-      <Box square6 rounded border toCenter borderGray200 bgWhite>
-        {Icon && <Icon size={20} />}
+      <Box toCenter>{Icon && <Icon size={20} />}</Box>
+      <Box column gap1>
+        <Box textSM black>
+          {name}
+        </Box>
+        <Box textXS gray500>
+          {description}
+        </Box>
       </Box>
-      <Box textBase>{name}</Box>
     </Box>
   )
 }

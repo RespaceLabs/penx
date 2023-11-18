@@ -18,7 +18,7 @@ export const CheckListItem = ({
     <Box data-key={id} toCenterY flex-1 leadingNormal textBase {...attributes}>
       <Checkbox
         contentEditable={false}
-        colorScheme="black"
+        colorScheme="gray800"
         mr2
         checked={checked || false}
         onChange={(event) => {

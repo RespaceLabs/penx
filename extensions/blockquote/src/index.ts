@@ -13,10 +13,10 @@ export function activate(ctx: ExtensionContext) {
       {
         type: ELEMENT_BLOCKQUOTE,
         component: Blockquote,
-        slashCommand: {
-          name: 'Blockquote',
-          icon: Quote,
-        },
+        // slashCommand: {
+        //   name: 'Blockquote',
+        //   icon: Quote,
+        // },
       },
     ],
     autoformatRules: [

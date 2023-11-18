@@ -15,9 +15,9 @@ export function activate(ctx: ExtensionContext) {
         isInline: true,
         type: ELEMENT_BIDIRECTIONAL_LINK_SELECTOR,
         component: BidirectionalLinkSelector,
-        slashCommand: {
-          name: 'Internal Link',
-        },
+        // slashCommand: {
+        //   name: 'Bidirectional Link',
+        // },
       },
       {
         isInline: true,

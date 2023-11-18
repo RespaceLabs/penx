@@ -22,14 +22,14 @@ export function activate(ctx: ExtensionContext) {
         isVoid: true,
         type: ELEMENT_DATABASE,
         component: Database,
-        slashCommand: {
-          name: 'Database',
-          icon: TableIcon,
-          async beforeInvokeCommand(editor) {
-            console.log('before.............')
-            return db.createDatabase('')
-          },
-        },
+        // slashCommand: {
+        //   name: 'Database',
+        //   icon: TableIcon,
+        //   async beforeInvokeCommand(editor) {
+        //     console.log('before.............')
+        //     return db.createDatabase('')
+        //   },
+        // },
       },
 
       {
@@ -42,10 +42,10 @@ export function activate(ctx: ExtensionContext) {
         isVoid: true,
         type: ELEMENT_LIVE_QUERY,
         component: LiveQuery,
-        slashCommand: {
-          name: 'Live Query',
-          icon: TableIcon,
-        },
+        // slashCommand: {
+        //   name: 'Live Query',
+        //   icon: TableIcon,
+        // },
       },
     ],
   })

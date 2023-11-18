@@ -12,7 +12,7 @@ export function onBackspaceDecreaseListDepth(
 ) {
   const schema = ListsEditor.getListsSchema(editor)
 
-  // Should move these code to another file
+  // TODO: Should move these code to another file
   if (
     schema &&
     isHotkey('backspace', event.nativeEvent) &&

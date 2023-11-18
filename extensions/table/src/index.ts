@@ -15,11 +15,11 @@ export function activate(ctx: ExtensionContext) {
         shouldNested: true,
         type: ELEMENT_TABLE,
         component: Table,
-        slashCommand: {
-          name: 'Table',
-          icon: TableIcon,
-          defaultNode: getEmptyTableNode(),
-        },
+        // slashCommand: {
+        //   name: 'Table',
+        //   icon: TableIcon,
+        //   defaultNode: getEmptyTableNode(),
+        // },
       },
       {
         type: ELEMENT_TR,

@@ -14,6 +14,7 @@ export function activate(ctx: ExtensionContext) {
         component: Image,
         slashCommand: {
           name: 'Image',
+          description: 'Upload an image',
           icon: ImageIcon,
         },
       },

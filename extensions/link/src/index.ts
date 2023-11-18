@@ -11,9 +11,9 @@ export function activate(ctx: ExtensionContext) {
         isInline: true,
         type: ELEMENT_LINK,
         component: Link,
-        slashCommand: {
-          name: 'Link',
-        },
+        // slashCommand: {
+        //   name: 'Link',
+        // },
       },
     ],
   })

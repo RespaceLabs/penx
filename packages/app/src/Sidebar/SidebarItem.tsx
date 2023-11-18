@@ -24,7 +24,7 @@ export const SidebarItem = ({
       px2
       py-14
       cursorPointer
-      gray600
+      black
       black--hover
       h-24
       {...rest}

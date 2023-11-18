@@ -11,10 +11,10 @@ export const TreeViewHeader = memo(function TreeViewHeader() {
       mb-1
       textSM
       fontSemibold
-      gray600
       cursorPointer
       bgGray200--hover
       rounded
+      black
       h-30
       onClick={() => {
         store.selectSpaceNode()

@@ -10,10 +10,10 @@ export function activate(ctx: ExtensionContext) {
         isVoid: true,
         type: ELEMENT_FILE,
         component: File,
-        slashCommand: {
-          name: 'File',
-          icon: Paperclip,
-        },
+        // slashCommand: {
+        //   name: 'File',
+        //   icon: Paperclip,
+        // },
       },
     ],
   })

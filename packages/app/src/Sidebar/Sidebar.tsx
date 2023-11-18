@@ -44,11 +44,11 @@ export const Sidebar = () => {
   return (
     <Box
       column
-      borderRight
-      borderGray100
+      // borderRight
+      // borderGray100
       flex-1
       display={['none', 'none', 'flex']}
-      bgZinc100--T20
+      bgZinc100--T40
       gap3
       h-100vh
       overflowAuto

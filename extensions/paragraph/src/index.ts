@@ -13,10 +13,10 @@ export function activate(ctx: ExtensionContext) {
         component: Paragraph,
         // placeholder: "Type '/' to browse options",
         placeholder: '',
-        slashCommand: {
-          name: 'Text',
-          icon: CaseSensitive,
-        },
+        // slashCommand: {
+        //   name: 'Text',
+        //   icon: CaseSensitive,
+        // },
       },
     ],
   })

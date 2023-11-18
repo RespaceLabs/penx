@@ -164,6 +164,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
             key={type}
             id={listItemIdPrefix + i}
             name={slashCommand?.name || ''}
+            description={slashCommand?.description}
             isActive={i === cursor}
             icon={slashCommand?.icon}
             onClick={() => {
