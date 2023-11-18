@@ -13,7 +13,6 @@ export const config: PlasmoCSConfig = {
 }
 
 const PlasmoOverlay = () => {
-  // const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   useEffect(() => {
@@ -57,7 +56,7 @@ const PlasmoOverlay = () => {
     return () => {
       document.removeEventListener('keydown', handleShortcut)
     }
-  }, [isOpen])
+  }, [])
 
   const onClose = () => {
     setIsOpen(false)
