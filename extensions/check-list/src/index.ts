@@ -9,6 +9,8 @@ import { withCheckList } from './withCheckList'
 
 export { ELEMENT_CHECK_LIST_ITEM }
 
+export * from './types'
+
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     with: withCheckList,

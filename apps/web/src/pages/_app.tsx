@@ -13,6 +13,7 @@ import { initFower } from '../common/initFower'
 import { useLinguiInit } from '../utils'
 import '@penx/local-db'
 import 'simplebar-react/dist/simplebar.min.css'
+import 'react-circular-progressbar/dist/styles.css'
 import '../styles/globals.css'
 import '../styles/command.scss'
 

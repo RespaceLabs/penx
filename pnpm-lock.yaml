@@ -1745,6 +1745,9 @@ importers:
       '@penx/autoformat':
         specifier: workspace:*
         version: link:../../packages/autoformat
+      '@penx/check-list':
+        specifier: workspace:*
+        version: link:../check-list
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1790,6 +1793,9 @@ importers:
       nanoid:
         specifier: ^4.0.2
         version: 4.0.2
+      react-circular-progressbar:
+        specifier: ^2.1.0
+        version: 2.1.0(react@18.2.0)
       react-fast-compare:
         specifier: ^3.2.2
         version: 3.2.2
@@ -2556,6 +2562,9 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      react-circular-progressbar:
+        specifier: ^2.1.0
+        version: 2.1.0(react@18.2.0)
       react-device-detect:
         specifier: ^2.2.3
         version: 2.2.3(react-dom@18.2.0)(react@18.2.0)
@@ -19085,6 +19094,14 @@ packages:
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-circular-progressbar@2.1.0(react@18.2.0):
+    resolution: {integrity: sha512-xp4THTrod4aLpGy68FX/k1Q3nzrfHUjUe5v6FsdwXBl3YVMwgeXYQKDrku7n/D6qsJA9CuunarAboC2xCiKs1g==}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-device-detect@2.2.3(react-dom@18.2.0)(react@18.2.0):

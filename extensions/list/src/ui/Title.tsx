@@ -1,13 +1,13 @@
-import { useEffect } from 'react'
 import { Box } from '@fower/react'
-import { Editor, Node, Transforms } from 'slate'
-import { ReactEditor } from 'slate-react'
+import { Node } from 'slate'
 import { useEditorStatic } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
 import { NodeType } from '@penx/model-types'
+import { useFocusTitle } from '../hooks/useFocusTitle'
 import { insertEmptyList } from '../transforms/insertEmptyList'
 import { TitleElement } from '../types'
 import { DailyNoteNav } from './DailyNoteNav'
+import { TaskProgress } from './TaskProgress'
 
 export const Title = ({
   element,
@@ -31,27 +31,8 @@ export const Title = ({
   ].includes(element.nodeType as any)
 
   const isDailyNote = element.nodeType === NodeType.DAILY_NOTE
-  const firstLineNode = editor.children[1]
-  const firstLineStr = firstLineNode ? Node.string(firstLineNode) : ''
 
-  // TODO: have bugs
-  useEffect(() => {
-    // focus on title
-    if (onlyHasTitle || !titleStr) {
-      setTimeout(() => {
-        Transforms.select(editor, Editor.end(editor, [0, 0]))
-        ReactEditor.focus(editor)
-      }, 0)
-    }
-
-    // focus to the first line
-    if (titleStr && firstLineNode && !firstLineStr) {
-      setTimeout(() => {
-        // Transforms.select(editor, Editor.end(editor, [1]))
-        // ReactEditor.focus(editor)
-      }, 0)
-    }
-  }, [onlyHasTitle, editor, titleStr, firstLineStr, firstLineNode])
+  useFocusTitle(element)
 
   return (
     <Box
@@ -63,8 +44,7 @@ export const Title = ({
       cursorNotAllowed={disabled}
       mb4
       {...attributes}
-      {...nodeProps}
-      className="page-title"
+      // {...nodeProps}
       css={{
         '::before': {
           content: `"Untitled"`,
@@ -79,8 +59,25 @@ export const Title = ({
         },
       }}
     >
-      {children}
-      {isDailyNote && <DailyNoteNav element={element} />}
+      {!isDailyNote && children}
+      {isDailyNote && (
+        <Box toCenterY gap2>
+          <TaskProgress />
+          <Box
+            leadingNone
+            column
+            gap2
+            css={{
+              '> div': {
+                'leadingNone--i': true,
+              },
+            }}
+          >
+            {children}
+            {isDailyNote && <DailyNoteNav element={element} />}
+          </Box>
+        </Box>
+      )}
 
       {onlyHasTitle && (
         <Box
