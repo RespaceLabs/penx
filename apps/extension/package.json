@@ -3,7 +3,6 @@
   "displayName": "PenX",
   "version": "0.0.1",
   "description": "A basic Plasmo extension.",
-  "author": "forsigner@gmail.com",
   "scripts": {
     "start": "next start",
     "dev": "run-p dev:*",
