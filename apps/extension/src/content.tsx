@@ -44,10 +44,12 @@ const PlasmoOverlay = () => {
         return true
       },
     )
+  }, [])
 
+  useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.shiftKey && event.keyCode === 75) {
-        setIsOpen(isOpen ? false : true)
+        setIsOpen(!isOpen)
       }
     }
 
@@ -56,7 +58,7 @@ const PlasmoOverlay = () => {
     return () => {
       document.removeEventListener('keydown', handleShortcut)
     }
-  }, [])
+  }, [isOpen])
 
   const onClose = () => {
     setIsOpen(false)

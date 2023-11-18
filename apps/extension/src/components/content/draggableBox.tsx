@@ -8,7 +8,7 @@ interface DraggableBoxProps {
 }
 
 export const DraggableBox = (props: DraggableBoxProps) => {
-  const [doc, setDoc] = useState('')
+  const [doc, setDoc] = useState<string>('')
   const { isOpen, onClose } = props
 
   const handleChange = (event) => {
@@ -31,12 +31,6 @@ export const DraggableBox = (props: DraggableBoxProps) => {
           }}>
           <Rnd
             default={{
-              // x: 0,
-              // y: 0,
-              // center
-              // x: (window.innerWidth - width) / 2,
-              // y: (window.innerHeight - height) / 2,
-              // upper right corner
               x: window.innerWidth - 470,
               y: 20,
               width: 450,
