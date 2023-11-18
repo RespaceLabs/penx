@@ -8,5 +8,5 @@ export interface CheckListItemElement extends BaseElement {
 }
 
 export function isCheckListItem(node: any): node is CheckListItemElement {
-  return node.type === ELEMENT_CHECK_LIST_ITEM
+  return node?.type === ELEMENT_CHECK_LIST_ITEM
 }

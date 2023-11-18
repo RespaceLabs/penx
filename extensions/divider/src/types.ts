@@ -8,5 +8,5 @@ export interface DividerElement extends BaseElement {
 }
 
 export function isDivider(node: any): node is DividerElement {
-  return node.type === ELEMENT_HR
+  return node?.type === ELEMENT_HR
 }

@@ -5,13 +5,6 @@ import { Node } from '@penx/model'
 
 export type TElement<T = string> = Element & { type: T; nodeType?: string }
 
-export type Projected = {
-  depth: number
-  maxDepth: number
-  minDepth: number
-  parentId: string | null
-}
-
 export type PenxEditor = BaseEditor &
   ReactEditor &
   HistoryEditor & {
@@ -25,8 +18,6 @@ export type PenxEditor = BaseEditor &
     isBidirectionalLinkSelector: boolean
 
     nodeToDecorations: Map<any, Range[]>
-
-    projected: Projected | null
 
     // save all items to editor
     items: Node[]

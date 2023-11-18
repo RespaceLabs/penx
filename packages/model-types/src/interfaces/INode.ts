@@ -27,7 +27,7 @@ export interface INode {
 
   type: NodeType
 
-  element: any
+  element: any | any[]
 
   // for dynamic data
   props: {

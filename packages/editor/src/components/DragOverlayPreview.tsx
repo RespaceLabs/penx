@@ -1,21 +1,20 @@
 import { Box } from '@fower/react'
+import { Node, WithFlattenedProps } from '@penx/model'
 
-export function DragOverlayPreview() {
+interface Props {
+  item: WithFlattenedProps<Node>
+}
+
+export function DragOverlayPreview({ item }: Props) {
   return (
     <Box
-      className="bullet"
-      square-15
-      bgTransparent
-      bgGray200--hover
-      bgGray200
-      toCenter
-      roundedFull
-      ml--14
-      mt-6
-      cursorPointer
-      flexShrink-1
+      h-30
+      // w-100p
+      toCenterY
+      rounded
+      opacity-80
     >
-      <Box square-5 bgGray400 roundedFull transitionCommon scale-130 />
+      {item.title || 'Untitled'}
     </Box>
   )
 }

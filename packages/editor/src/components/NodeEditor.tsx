@@ -29,11 +29,13 @@ import { Slate } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
 import { SetNodeToDecorations } from '@penx/code-block'
 import { getProjection } from '@penx/dnd-projection'
+import { getNodeByPath } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 import ClickablePadding from './ClickablePadding'
 import { DragOverlayPreview } from './DragOverlayPreview'
+import { editorValueToNode } from './editorValueToNode'
 import HoveringToolbar from './HoveringToolbar/HoveringToolbar'
 import { NodeEditorEditable } from './NodeEditorEditable'
 import { ProtectionProvider } from './ProtectionProvider'
@@ -90,31 +92,23 @@ export function NodeEditor({
 
   editor.items = nodes
 
+  // console.log('editor node======:', node)
+
   const indentationWidth = 50
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null)
-  const [overId, setOverId] = useState<UniqueIdentifier | null>(null)
-  const [offsetLeft, setOffsetLeft] = useState(0)
 
   const flattenedItems = useMemo(() => {
     return nodeList.flattenNode(node)
   }, [nodeList, node])
 
-  editor.flattenedItems = flattenedItems
+  const [items, setItems] = useState(flattenedItems)
 
-  const projected =
-    activeId && overId
-      ? getProjection(
-          flattenedItems,
-          activeId,
-          overId,
-          offsetLeft,
-          indentationWidth,
-        )
-      : null
+  // console.log(
+  //   'flattenedItems===:',
+  //   flattenedItems.map((item) => nodeList.getNode(item.id)),
+  // )
 
-  // save projection to editor
-  // TODO: not use projected now, do it later
-  editor.projected = projected
+  editor.flattenedItems = items
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -128,9 +122,7 @@ export function NodeEditor({
     }),
   )
 
-  const activeItem = activeId
-    ? flattenedItems.find(({ id }) => id === activeId)
-    : null
+  const activeItem = activeId ? items.find(({ id }) => id === activeId) : null
 
   return (
     <Slate
@@ -145,33 +137,29 @@ export function NodeEditor({
 
       <DndContext
         sensors={sensors}
-        collisionDetection={closestCenter}
+        // collisionDetection={closestCenter}
         measuring={measuring}
         onDragStart={handleDragStart}
-        onDragMove={handleDragMove}
-        onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
         onDragCancel={handleDragCancel}
       >
-        <ProtectionProvider value={projected as any}>
-          <SortableContext
-            items={flattenedItems}
-            // strategy={verticalListSortingStrategy}
-            strategy={rectSortingStrategy}
-          >
-            <NodeEditorEditable onBlur={onBlur} />
+        <SortableContext
+          items={items}
+          // strategy={verticalListSortingStrategy}
+          strategy={rectSortingStrategy}
+        >
+          <NodeEditorEditable onBlur={onBlur} />
 
-            {createPortal(
-              <DragOverlay
-                adjustScale={false}
-                dropAnimation={dropAnimationConfig}
-              >
-                {activeId && activeItem ? <DragOverlayPreview /> : null}
-              </DragOverlay>,
-              document.body,
-            )}
-          </SortableContext>
-        </ProtectionProvider>
+          {createPortal(
+            // <DragOverlay dropAnimation={dropAnimationConfig}>
+            <DragOverlay dropAnimation={null}>
+              {activeId && activeItem ? (
+                <DragOverlayPreview item={activeItem} />
+              ) : null}
+            </DragOverlay>,
+            document.body,
+          )}
+        </SortableContext>
       </DndContext>
       <ClickablePadding />
     </Slate>
@@ -179,35 +167,24 @@ export function NodeEditor({
 
   function handleDragStart({ active: { id: activeId } }: DragStartEvent) {
     setActiveId(activeId as string)
-    setOverId(activeId as string)
-
-    // document.body.style.setProperty('cursor', 'grabbing')
-  }
-
-  function handleDragMove({ delta }: DragMoveEvent) {
-    setOffsetLeft(delta.x)
-  }
-
-  function handleDragOver({ over }: DragOverEvent) {
-    setOverId((over?.id as any) ?? null)
   }
 
   function handleDragEnd({ active, over }: DragEndEvent) {
-    resetState()
+    // resetState()
+
+    console.log('active:', active.id, 'over:', over?.id)
 
     const activeId = active.id as string
     const overId = over?.id as string
 
-    if (!(overId && projected)) return
-    console.log('protected============:', projected)
+    // console.log('protected============:', projected)
 
     if (activeId === overId) {
       console.log('same........')
-      // TODO:
       return
     }
 
-    console.log('overID:', overId)
+    // console.log('overID:', overId)
 
     const [activeEntry] = Editor.nodes(editor, {
       at: [],
@@ -219,17 +196,44 @@ export function NodeEditor({
       match: (n: any) => n.id === overId,
     })
 
+    const isOverChildren = checkIsOverChildren(activeEntry[1], overId)
+    // console.log('isOverChildren=======:', isOverChildren)
+
+    if (isOverChildren) return
+
     if (overEntry) {
+      const p1 = getNodeByPath(editor, Path.parent(activeEntry[1]))
+      const p2 = getNodeByPath(editor, Path.parent(overEntry[1]))
+      // console.log('p1:', p1, 'p2:', p2)
+
       Transforms.moveNodes(editor, {
         at: Path.parent(activeEntry[1]),
         // match: (n: any) => n === activeEntry[0],
         to: Path.parent(overEntry[1]),
       })
 
-      console.log('entry:', overEntry)
+      const newItems = editorValueToNode(
+        nodeList,
+        editor,
+        editor.children[0] as any,
+      )
+
+      // console.log('newItems===:', newItems)
+
+      setItems(newItems)
+      // console.log('entry:', overEntry)
     }
 
     // console.log('handleDragEnd======: ', depth, 'parentId:', parentId)
+  }
+
+  function checkIsOverChildren(activePath: Path, overId: string) {
+    const [overEntry] = Editor.nodes(editor, {
+      at: Path.parent(activePath),
+      match: (n: any) => n.id === overId,
+    })
+
+    return !!overEntry
   }
 
   function handleDragCancel() {
@@ -238,8 +242,6 @@ export function NodeEditor({
 
   function resetState() {
     setActiveId(null)
-    setOverId(null)
-    setOffsetLeft(0)
     document.body.style.setProperty('cursor', '')
   }
 }

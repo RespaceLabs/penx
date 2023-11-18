@@ -100,7 +100,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
   const projected =
     activeId && overId
       ? getProjection(
-          flattenedItems,
+          flattenedItems as any,
           activeId,
           overId,
           offsetLeft,

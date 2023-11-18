@@ -3,6 +3,7 @@ import isEqual from 'react-fast-compare'
 import { useSortable } from '@dnd-kit/sortable'
 import { Box, CSSObject, FowerHTMLProps } from '@fower/react'
 import { ChevronDown, ChevronRight } from 'lucide-react'
+import { Editor } from 'slate'
 import { useNode } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
@@ -22,10 +23,10 @@ export const TreeItem = memo(
     { item, depth, listeners, style = {}, css = {}, onCollapse, ...rest },
     ref,
   ) {
-    // const { node: currentNode } = useNode()
+    const { node: currentNode } = useNode()
     const node = new Node(item as any)
 
-    // const isEqual = item.id === currentNode.id
+    const isEqual = item.id === currentNode.id
     const hasChildren = !!item.children.length
 
     return (
@@ -38,7 +39,7 @@ export const TreeItem = memo(
         rounded
         bgGray200--hover
         bgGray200--D4--active
-        // bgGray200={isEqual}
+        bgGray200={isEqual}
         transitionColors
         gray800
         mb-1

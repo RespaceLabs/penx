@@ -1,16 +1,16 @@
-import React, { CSSProperties, useState } from 'react'
+import React, { CSSProperties } from 'react'
 import { mergeRefs } from 'react-merge-refs'
 import { AnimateLayoutChanges, useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'
-import { Path, Transforms } from 'slate'
 import { isCheckListItem } from '@penx/check-list'
-import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
+import { useContextMenu } from '@penx/context-menu'
 import { TElement, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { ListContentElement } from '../types'
 import { Bullet } from './Bullet'
+import { BulletMenu } from './BulletMenu'
 import { Chevron } from './Chevron'
 
 const animateLayoutChanges: AnimateLayoutChanges = ({
@@ -27,7 +27,7 @@ export const ListItemContent = ({
   const editor = useEditorStatic()
   const path = findNodePath(editor, element)!
   const child = getNodeByPath(editor, [...path, 0]) as TElement
-  const isHeading = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(child.type)
+  const isHeading = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(child?.type)
 
   function h() {
     return isHeading ? 'calc(1.8em + 8px)' : 'calc(1.5em + 8px)'
@@ -36,11 +36,6 @@ export const ListItemContent = ({
   const menuId = `lic-menu-${element.id}`
   const { show } = useContextMenu(menuId)
 
-  function handleItemClick(type: string) {
-    if (type === 'DELETE') {
-      Transforms.removeNodes(editor, { at: Path.parent(path) })
-    }
-  }
   const { id } = element
 
   const sortable = useSortable({
@@ -72,17 +67,12 @@ export const ListItemContent = ({
     if (!over || !active) return {}
     if (id !== over.id) return {}
 
-    const node = editor.flattenedItems.find(({ id }) => id === element.id)
-
-    const { projected } = editor
-
-    const isNextDepth = projected?.depth !== node?.depth
-
     const isAfter = overIndex > activeIndex
+
     const style = {
-      left: isNextDepth ? 20 : -10,
-      // left: -10,
+      left: -10,
       right: 0,
+      // top: 0,
       top0: !isAfter,
       bottom0: isAfter,
       content: '""',
@@ -132,26 +122,17 @@ export const ListItemContent = ({
         leadingNormal
         h={h()}
         textSM
-        text3XL={child.type === 'h1'}
-        text2XL={child.type === 'h2'}
-        textXL={child.type === 'h3'}
-        textLG={child.type === 'h4'}
+        text3XL={child?.type === 'h1'}
+        text2XL={child?.type === 'h2'}
+        textXL={child?.type === 'h3'}
+        textLG={child?.type === 'h4'}
       >
-        <ContextMenu id={menuId}>
-          <MenuItem onClick={() => handleItemClick('a')}>
-            Add to favorite
-          </MenuItem>
-          <MenuItem onClick={() => handleItemClick('b')}>Publish</MenuItem>
-          <MenuItem onClick={() => handleItemClick('c')}>Copy</MenuItem>
-          <MenuItem onClick={() => handleItemClick('DELETE')}>Delete</MenuItem>
-          <MenuItem onClick={() => handleItemClick('d')}>Expand all</MenuItem>
-          <MenuItem onClick={() => handleItemClick('f')}>Collapse all</MenuItem>
-        </ContextMenu>
+        <BulletMenu menuId={menuId} element={element} />
+
         <Chevron element={element} onContextMenu={show} />
 
         {/* <Bullet element={element} onContextMenu={show} /> */}
 
-        {/* disable drag now */}
         <Box inlineFlex {...sortable.listeners}>
           <Bullet element={element} onContextMenu={show} />
         </Box>

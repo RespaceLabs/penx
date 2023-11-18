@@ -12,9 +12,9 @@ export function isTable(node: any): node is TableElement {
 }
 
 export function isTableRow(node: any): node is TableRowElement {
-  return node.type === ELEMENT_TR
+  return node?.type === ELEMENT_TR
 }
 
 export function isTableCell(node: any): node is TableCellElement {
-  return node.type === ELEMENT_TD
+  return node?.type === ELEMENT_TD
 }
