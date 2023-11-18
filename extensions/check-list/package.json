@@ -22,7 +22,6 @@
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-transforms": "workspace:*",
     "@penx/extension-typings": "*",
-    "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
     "lucide-react": "^0.292.0",
     "slate": "0.94.1",

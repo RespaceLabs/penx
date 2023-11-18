@@ -15,7 +15,7 @@ export const CheckListItem = ({
   const { id, checked } = element
   const editor = useEditor()
   return (
-    <Box data-key={id} toCenterY flex-1 leadingNormal textBase {...attributes}>
+    <Box data-key={id} toLeft flex-1 leadingNormal textBase {...attributes}>
       <Checkbox
         contentEditable={false}
         colorScheme="gray800"
@@ -35,7 +35,7 @@ export const CheckListItem = ({
       <Box
         relative
         flex-1
-        py1
+        leadingNormal
         lineThrough={checked}
         opacity-60={checked}
         {...nodeProps}

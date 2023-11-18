@@ -1129,9 +1129,6 @@ importers:
       '@penx/extension-typings':
         specifier: '*'
         version: link:../../packages/extension-typings
-      '@penx/hooks':
-        specifier: workspace:*
-        version: link:../../packages/hooks
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db

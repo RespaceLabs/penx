@@ -4,6 +4,7 @@ import { AnimateLayoutChanges, useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'
 import { Path, Transforms } from 'slate'
+import { isCheckListItem } from '@penx/check-list'
 import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
 import { TElement, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
@@ -46,6 +47,8 @@ export const ListItemContent = ({
     id: id,
     animateLayoutChanges,
   })
+
+  const isTask = isCheckListItem(child)
 
   const {
     over,
@@ -106,8 +109,9 @@ export const ListItemContent = ({
       leadingNormal
       textBase
       relative
-      toTop
-      p1
+      toTop={!isTask}
+      px1
+      py-2
       gap2
       {...nodeProps}
       css={getActiveStyle()}
@@ -116,7 +120,8 @@ export const ListItemContent = ({
     >
       <Box
         absolute
-        top-2
+        top-0={!isTask}
+        top--1={isTask}
         w-40
         left--40
         contentEditable={false}
@@ -144,13 +149,12 @@ export const ListItemContent = ({
         </ContextMenu>
         <Chevron element={element} onContextMenu={show} />
 
-        <Bullet element={element} onContextMenu={show} />
+        {/* <Bullet element={element} onContextMenu={show} /> */}
 
         {/* disable drag now */}
-
-        {/* <Box inlineFlex {...sortable.listeners}>
+        <Box inlineFlex {...sortable.listeners}>
           <Bullet element={element} onContextMenu={show} />
-        </Box> */}
+        </Box>
       </Box>
 
       <Box flex-1 pl1 leadingNormal>
