@@ -70,7 +70,7 @@ export function Main({ name = 'Extension' }) {
         width: '400px',
       }}>
       your currentUrl is: {tab?.url}
-      <button onClick={onSendMsgToBg}>Send To Bg</button>
+      <button onClick={onSendMsgToBg}>start clip</button>
     </div>
   )
 }

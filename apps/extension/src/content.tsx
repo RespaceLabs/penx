@@ -1,19 +1,22 @@
 import type { PlasmoCSConfig } from 'plasmo'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import TurndownService from 'turndown'
 
 import { ACTIONS } from '~/common/action'
 import { prepareContent } from '~/common/prepare-content'
 import type { MsgRes } from '~/common/types'
 
+import { DraggableBox } from './components/content/draggableBox'
+
 export const config: PlasmoCSConfig = {
   matches: ['<all_urls>'],
 }
 
 const PlasmoOverlay = () => {
-  useEffect(() => {
-    console.log('===contentjs-content.tsx-init====')
+  // const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
+  useEffect(() => {
     chrome.runtime.onMessage.addListener(
       (request: MsgRes<keyof typeof ACTIONS, any>, sender, sendResponse) => {
         console.log('%c=contentjs onMessage:', 'color:red', request)
@@ -42,9 +45,29 @@ const PlasmoOverlay = () => {
         return true
       },
     )
-  }, [])
 
-  return <div />
+    const handleShortcut = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.shiftKey && event.keyCode === 75) {
+        setIsOpen(isOpen ? false : true)
+      }
+    }
+
+    document.addEventListener('keydown', handleShortcut)
+
+    return () => {
+      document.removeEventListener('keydown', handleShortcut)
+    }
+  }, [isOpen])
+
+  const onClose = () => {
+    setIsOpen(false)
+  }
+
+  return (
+    <>
+      <DraggableBox isOpen={isOpen} onClose={onClose} />
+    </>
+  )
 }
 
 export default PlasmoOverlay
