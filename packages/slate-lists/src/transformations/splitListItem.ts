@@ -58,7 +58,9 @@ export function splitListItem(
     listItemTextPath,
   )
 
-  if (isStart) {
+  const node = getCurrentNode(editor) as any
+
+  if (isStart && node.type === 'p') {
     const newListItem = schema.createListItemNode({
       children: [schema.createListItemTextNode()],
     })
