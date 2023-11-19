@@ -13,7 +13,6 @@ export const config: PlasmoCSConfig = {
 }
 
 const PlasmoOverlay = () => {
-  // const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   useEffect(() => {
@@ -40,15 +39,20 @@ const PlasmoOverlay = () => {
             'color:yellow',
             { markdownContent },
           )
+        } else if (request.type === ACTIONS.EnterManually) {
+          console.log('%c=EnterManually', 'color:red')
+          setIsOpen(true)
         }
 
         return true
       },
     )
+  }, [])
 
+  useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.shiftKey && event.keyCode === 75) {
-        setIsOpen(isOpen ? false : true)
+        setIsOpen(!isOpen)
       }
     }
 

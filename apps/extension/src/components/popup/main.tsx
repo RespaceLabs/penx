@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react'
 import { ACTIONS } from '~/common/action'
 import type { MsgRes, TabInfo } from '~/common/types'
 
+import styles from './main.module.css'
+
+import './globals.css'
+
 export function Main({ name = 'Extension' }) {
   const [tab, setTab] = useState<TabInfo>(null)
 
@@ -15,7 +19,7 @@ export function Main({ name = 'Extension' }) {
     setTab(tab as TabInfo)
   }
 
-  const onSendMsgToBg = async () => {
+  const onClipEntirePage = async () => {
     try {
       if (tab) {
         const data = await chrome.runtime.sendMessage({
@@ -56,21 +60,45 @@ export function Main({ name = 'Extension' }) {
     )
   }
 
+  const onEnterManually = async () => {
+    window.close()
+    await chrome.tabs.sendMessage(tab.id, {
+      type: ACTIONS.EnterManually,
+      payload: {},
+    })
+  }
+
+  const onSubmit = () => {
+    console.log('onsubmit')
+  }
+
   useEffect(() => {
     initTabsListener()
     getCurrentTab()
   }, [])
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        padding: 16,
-        width: '400px',
-      }}>
-      your currentUrl is: {tab?.url}
-      <button onClick={onSendMsgToBg}>start clip</button>
+    <div className={styles.container}>
+      {/* your currentUrl is: {tab?.url} */}
+      <ul className={styles.ul}>
+        <li className={styles.item} onClick={onEnterManually}>
+          Enter content manually
+        </li>
+
+        <li className={styles.item}>Clip selected content</li>
+
+        <li className={styles.item} onClick={onClipEntirePage}>
+          Clip entire page content
+        </li>
+
+        <li className={styles.item}>Screenshot</li>
+      </ul>
+
+      <div>
+        <button className={styles.saveBtn} onClick={onSubmit}>
+          Save to penx
+        </button>
+      </div>
     </div>
   )
 }
