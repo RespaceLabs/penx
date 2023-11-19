@@ -50,11 +50,19 @@ export class NodeService {
     return ''
   }
 
+  get parentNode() {
+    const node = this.nodeMap.get(this.node.parentId)
+    return node ? new Node(node) : null
+  }
+
   isEqual(node: Node) {
     return node.id === this.node.id
   }
 
-  getEditorValue(childrenNodes: Node[] = this.childrenNodes) {
+  getEditorValue(
+    childrenNodes: Node[] = this.childrenNodes,
+    isCreateTitle = true,
+  ) {
     if (this.node.isDatabase) {
       return getDatabaseNodeEditorValue(this.node)
     }
@@ -106,7 +114,7 @@ export class NodeService {
       children: childrenNodes.map((node) => {
         // override the title
         if (node.isDailyNote || node.isInbox) {
-          node.element.children[0].text = node.title
+          node.element[0].children[0].text = node.title
         }
 
         const listChildren = [
@@ -138,8 +146,10 @@ export class NodeService {
       this.node.element[0].children[0].text = this.node.title
     }
 
-    const value: any[] = [
-      {
+    const value: any[] = []
+
+    if (isCreateTitle) {
+      value.push({
         id: this.node.id,
         type: ELEMENT_TITLE,
         props: this.node.props,
@@ -147,10 +157,10 @@ export class NodeService {
         children: Array.isArray(this.node.element)
           ? this.node.element
           : [this.node.element],
-      },
-    ]
+      })
+    }
 
-    if (this.childrenNodes.length) {
+    if (childrenNodes.length) {
       value.push(content)
     }
 

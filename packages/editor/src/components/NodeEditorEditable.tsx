@@ -56,7 +56,7 @@ export const NodeEditorEditable = memo(
 
     return (
       <Editable
-        className={css('black mt4 outlineNone')}
+        className={css('black outlineNone')}
         renderLeaf={(props) => <Leaf {...props} />}
         renderElement={renderElement}
         decorate={decorate as any} //

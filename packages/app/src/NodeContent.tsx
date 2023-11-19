@@ -6,6 +6,7 @@ import { isAstChange } from '@penx/editor-queries'
 import { useNode, useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { store } from '@penx/store'
+import { LinkedReferences } from './LinkedReferences'
 
 function listPlugin(editor: PenxEditor) {
   editor.onClickBullet = async (nodeId: string) => {
@@ -30,7 +31,7 @@ export function NodeContent() {
   // console.log('node content========:', node.raw)
 
   return (
-    <Box relative>
+    <Box relative mt10>
       <Box mx-auto maxW-800>
         <NodeEditor
           plugins={[listPlugin as any]}
@@ -42,6 +43,7 @@ export function NodeContent() {
             }
           }}
         />
+        <LinkedReferences node={node} />
       </Box>
     </Box>
   )

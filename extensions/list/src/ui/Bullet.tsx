@@ -1,5 +1,4 @@
 import { memo, useMemo } from 'react'
-import isEqual from 'react-fast-compare'
 import { Box } from '@fower/react'
 import { extractTags, useEditorStatic } from '@penx/editor-common'
 import { NodeType } from '@penx/model-types'
@@ -75,7 +74,7 @@ export const Bullet = ({ element, onContextMenu }: Props) => {
   const editor = useEditorStatic()
   const { collapsed = false } = element
   const isBulletVisible = useBulletVisible(element)
-  const tagNames = extractTags(element.children[0])
+  const tagNames = extractTags(element.children)
   const tagNodes = editor.items.filter((n) => n.type === NodeType.DATABASE)
 
   let colors: string[] = []

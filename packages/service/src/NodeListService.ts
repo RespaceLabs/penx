@@ -95,10 +95,6 @@ export class NodeListService {
     })
   }
 
-  flattenTree() {
-    //
-  }
-
   private flattenChildren(
     children: string[] = [],
     parentId: string | null = null,
@@ -130,6 +126,29 @@ export class NodeListService {
 
   isFavorite(id: string) {
     return this.favoriteNode.children.includes(id)
+  }
+
+  getLinkedReferences(node: Node) {
+    const nodes: Node[] = []
+
+    for (const item of this.nodes) {
+      if (item.id === node.id) continue
+      if (!item.isCommon) continue
+
+      const isLinked = () => {
+        const children = item.element.reduce((acc, cur) => {
+          return [...acc, ...cur.children]
+        }, [] as any[])
+        const some = children.some((i) => {
+          // TODO: too hack
+          return i.type == 'bidirectional_link_content' && i.linkId === node.id
+        })
+        return some
+      }
+
+      if (isLinked()) nodes.push(item)
+    }
+    return nodes.sort((a, b) => a.updatedAt - b.updatedAt)
   }
 
   async addToFavorites(node: Node) {

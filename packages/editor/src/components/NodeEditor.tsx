@@ -161,7 +161,7 @@ export function NodeEditor({
           )}
         </SortableContext>
       </DndContext>
-      <ClickablePadding />
+      {/* <ClickablePadding /> */}
     </Slate>
   )
 

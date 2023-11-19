@@ -38,7 +38,7 @@ export const Title = ({
     <Box
       pl5
       text4XL
-      fontSemibold
+      fontMedium
       gray900
       relative
       cursorNotAllowed={disabled}

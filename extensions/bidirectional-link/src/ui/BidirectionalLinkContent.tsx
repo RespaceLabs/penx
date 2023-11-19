@@ -16,36 +16,40 @@ export const BidirectionalLinkContent = ({
   const { linkId } = element
   const node = editor.items.find((item) => item.id === linkId)
 
+  const trigger = (
+    <Box
+      textBase
+      inlineFlex
+      relative
+      toCenterY
+      rounded
+      py1
+      px1
+      bgGray100={selected}
+      cursorPointer
+      {...attributes}
+      contentEditable={false}
+      onClick={(e) => {
+        e.preventDefault()
+        store.selectNode(node?.raw!)
+      }}
+    >
+      {children}
+      <Box gray400>
+        <Box as="span">[[</Box>
+        <Box as="span" brand500 inlineFlex>
+          {node?.title || 'Untitled'}
+        </Box>
+        <Box as="span">]]</Box>
+      </Box>
+    </Box>
+  )
+
+  return trigger
+
   return (
     <Tooltip>
-      <TooltipTrigger>
-        <Box
-          textBase
-          inlineFlex
-          relative
-          toCenterY
-          rounded
-          py1
-          px1
-          bgGray100={selected}
-          cursorPointer
-          {...attributes}
-          contentEditable={false}
-          onClick={(e) => {
-            e.preventDefault()
-            store.selectNode(node?.raw!)
-          }}
-        >
-          {children}
-          <Box gray400>
-            <Box as="span">[[</Box>
-            <Box as="span" brand500 inlineFlex>
-              {node?.title || 'Untitled'}
-            </Box>
-            <Box as="span">]]</Box>
-          </Box>
-        </Box>
-      </TooltipTrigger>
+      <TooltipTrigger>{trigger}</TooltipTrigger>
       <TooltipContent shadow bgWhite black w-400 h-300>
         <Box gray500>Coming soon...</Box>
       </TooltipContent>

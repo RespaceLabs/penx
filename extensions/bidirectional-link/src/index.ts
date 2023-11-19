@@ -1,4 +1,6 @@
 import { ExtensionContext } from '@penx/extension-typings'
+import { onBlur } from './handlers/onBlur'
+import { onKeyDown } from './handlers/onKeyDown'
 import {
   ELEMENT_BIDIRECTIONAL_LINK_CONTENT,
   ELEMENT_BIDIRECTIONAL_LINK_SELECTOR,
@@ -10,6 +12,10 @@ import { withBidirectionalLink } from './withBidirectionalLink'
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     with: withBidirectionalLink,
+    handlers: {
+      onKeyDown: onKeyDown,
+      onBlur: onBlur,
+    },
     elements: [
       {
         isInline: true,
@@ -29,4 +35,4 @@ export function activate(ctx: ExtensionContext) {
   })
 }
 
-export * from './isBidirectionalLinkSelectorElement'
+export * from './isBidirectionalLinkSelector'

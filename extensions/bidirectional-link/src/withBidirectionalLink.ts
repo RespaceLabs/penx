@@ -2,7 +2,7 @@ import { Editor, Element, Node, Transforms } from 'slate'
 import { isCodeBlock } from '@penx/code-block'
 import { PenxEditor } from '@penx/editor-common'
 import { insertNodes } from '@penx/editor-transforms'
-import { isBidirectionalLinkSelectorElement } from './isBidirectionalLinkSelectorElement'
+import { isBidirectionalLinkSelector } from './isBidirectionalLinkSelector'
 import { ELEMENT_BIDIRECTIONAL_LINK_SELECTOR } from './types'
 
 const trigger = '[['
@@ -50,7 +50,7 @@ export const withBidirectionalLink = (editor: PenxEditor) => {
   editor.normalizeNode = ([node, path]) => {
     if (
       Element.isElement(node) &&
-      isBidirectionalLinkSelectorElement(node) &&
+      isBidirectionalLinkSelector(node) &&
       Node.string(node) === ''
     ) {
       Transforms.removeNodes(editor, { at: path })
