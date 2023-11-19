@@ -21,8 +21,8 @@ export const ElementContent = memo(
   function ElementContent(props: ElementContentProps) {
     // don't use static, because useSelected
     // TODO: improve performance
-    const editor = useEditor()
-    // const editor = useEditorStatic()
+    // const editor = useEditor()
+    const editor = useEditorStatic()
     const { element, attributes } = props
 
     const { extensionStore } = useExtensionStore()
@@ -93,8 +93,8 @@ export const ElementContent = memo(
       </>
     )
   },
-  // (prev, next) => {
-  //   // TODO: need to improvement
-  //   return isEqual(prev, next)
-  // },
+  (prev, next) => {
+    // TODO: need to improvement
+    return isEqual(prev, next)
+  },
 )

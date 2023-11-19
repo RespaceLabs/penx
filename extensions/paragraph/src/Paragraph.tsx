@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { Path } from 'slate'
+import { Node, Path } from 'slate'
 import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
@@ -16,6 +16,8 @@ export const Paragraph = ({
   const node: any = getNodeByPath(editor, parent)
 
   const isInTitle = node?.type === 'title'
+
+  // console.log('render.......', Node.string(element))
 
   return (
     <Box

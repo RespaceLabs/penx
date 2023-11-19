@@ -167,6 +167,7 @@ export function NodeEditor({
 
   function handleDragStart({ active: { id: activeId } }: DragStartEvent) {
     setActiveId(activeId as string)
+    document.body.style.setProperty('cursor', 'grabbing')
   }
 
   function handleDragEnd({ active, over }: DragEndEvent) {
@@ -202,13 +203,8 @@ export function NodeEditor({
     if (isOverChildren) return
 
     if (overEntry) {
-      const p1 = getNodeByPath(editor, Path.parent(activeEntry[1]))
-      const p2 = getNodeByPath(editor, Path.parent(overEntry[1]))
-      // console.log('p1:', p1, 'p2:', p2)
-
       Transforms.moveNodes(editor, {
         at: Path.parent(activeEntry[1]),
-        // match: (n: any) => n === activeEntry[0],
         to: Path.parent(overEntry[1]),
       })
 
@@ -221,10 +217,9 @@ export function NodeEditor({
       // console.log('newItems===:', newItems)
 
       setItems(newItems)
-      // console.log('entry:', overEntry)
     }
 
-    // console.log('handleDragEnd======: ', depth, 'parentId:', parentId)
+    resetState()
   }
 
   function checkIsOverChildren(activePath: Path, overId: string) {
