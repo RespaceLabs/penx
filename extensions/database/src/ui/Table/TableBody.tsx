@@ -18,7 +18,7 @@ export const TableBody = () => {
           index={index}
         />
       ))}
-      <AddRowBtn />
+      {/* <AddRowBtn /> */}
     </Box>
   )
 }

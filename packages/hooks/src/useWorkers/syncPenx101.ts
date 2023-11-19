@@ -17,6 +17,7 @@ export async function syncPenx101() {
 }
 
 async function sync() {
+  return
   const space = await db.getSpace('penx-101')
 
   if (!space) return

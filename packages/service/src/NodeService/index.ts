@@ -77,7 +77,9 @@ export class NodeService {
             nodeType: node.type,
             parentId,
             collapsed: node.collapsed,
-            children: [node.element],
+            children: Array.isArray(node.element)
+              ? node.element
+              : [node.element],
           },
         ]
 
@@ -115,7 +117,9 @@ export class NodeService {
             nodeType: node.type,
             props: node.props,
             collapsed: node.collapsed,
-            children: [node.element],
+            children: Array.isArray(node.element)
+              ? node.element
+              : [node.element],
           },
         ]
 
@@ -131,7 +135,7 @@ export class NodeService {
 
     // override the title
     if (this.node.isDailyNote || this.node.isInbox || this.node.isTrash) {
-      this.node.element.children[0].text = this.node.title
+      this.node.element[0].children[0].text = this.node.title
     }
 
     const value: any[] = [
@@ -140,7 +144,9 @@ export class NodeService {
         type: ELEMENT_TITLE,
         props: this.node.props,
         nodeType: this.node.type,
-        children: [this.node.element],
+        children: Array.isArray(this.node.element)
+          ? this.node.element
+          : [this.node.element],
       },
     ]
 
@@ -197,7 +203,7 @@ export class NodeService {
   ) => {
     if (title) {
       node = await db.updateNode(node.id, {
-        element: title.children[0],
+        element: title.children,
       })
 
       // update space name
@@ -281,12 +287,13 @@ export class NodeService {
         newParentId = grandparent.children[0].id
       }
 
-      const key = [...path.slice(1), 0].reduce(
+      const key = [...path.slice(1)].reduce(
         (acc, cur) => [...acc, 'children', cur],
         [] as any[],
       )
 
-      const element = _.get(ul, key)
+      const element = _.get(ul, [...key, 'children'])
+
       const node = await db.getNode(item.id)
 
       const tags = extractTags(element)

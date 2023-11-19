@@ -14,11 +14,13 @@ export function getNewNode(input: Input, text = ''): INode {
   return {
     id: nanoid(),
     type: NodeType.COMMON,
-    element: {
-      id: nanoid(),
-      type: ELEMENT_P,
-      children: [{ text }],
-    },
+    element: [
+      {
+        id: nanoid(),
+        type: ELEMENT_P,
+        children: [{ text }],
+      },
+    ],
     props: {
       name,
       ...rest.props,

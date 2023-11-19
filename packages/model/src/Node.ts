@@ -39,7 +39,7 @@ export class Node {
     return this.raw.props || {}
   }
 
-  get element(): Element {
+  get element(): Element[] {
     return this.raw.element
   }
 
@@ -52,7 +52,7 @@ export class Node {
     if (this.isTrash) return 'Trash'
     if (this.isDatabaseRoot) return 'Tags'
 
-    return this.element?.children?.[0]?.text || this.props.name || ''
+    return this.element[0]?.children?.[0]?.text || this.props.name || ''
   }
 
   get isCommon() {

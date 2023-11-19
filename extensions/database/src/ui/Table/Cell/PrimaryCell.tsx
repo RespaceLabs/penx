@@ -41,8 +41,8 @@ export const PrimaryCell: FC<CellProps> = memo(function PrimaryCell(props) {
       if (!node) {
         return setValue([])
       }
-      if (!isEqual(editorRef.current.children[0], node.element)) {
-        setValue([node.element])
+      if (!isEqual(editorRef.current.children, node.element)) {
+        setValue(Array.isArray(node.element) ? node.element : [node.element])
       }
     })
   }, [nodeId])
@@ -50,9 +50,12 @@ export const PrimaryCell: FC<CellProps> = memo(function PrimaryCell(props) {
   useEffect(() => {
     emitter.on('REF_NODE_UPDATED', (node) => {
       if (node.id === nodeId) {
-        if (isEqual(editorRef.current.children[0], node.element)) return
+        if (isEqual(editorRef.current.children, node.element)) return
         clearEditor(editorRef.current)
-        Transforms.insertNodes(editorRef.current, [node.element])
+        Transforms.insertNodes(
+          editorRef.current,
+          Array.isArray(node.element) ? node.element : [node.element],
+        )
       }
     })
     return () => emitter.off('REF_NODE_UPDATED')
