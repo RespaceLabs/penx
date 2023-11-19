@@ -44,7 +44,7 @@ export const DraggableBox = (props: DraggableBoxProps) => {
             style={{
               background: '#fff',
               borderRadius: '8px',
-              border: '1px solid #9c27b0',
+              border: '1px solid #000000',
             }}>
             <div
               style={{
@@ -56,7 +56,7 @@ export const DraggableBox = (props: DraggableBoxProps) => {
               <div style={{ position: 'relative', height: '20px' }}>
                 <XCircle
                   style={{ cursor: 'pointer' }}
-                  color="#9c27b0"
+                  color="#000000"
                   size={20}
                   onClick={() => onClose()}
                 />
@@ -90,7 +90,7 @@ export const DraggableBox = (props: DraggableBoxProps) => {
                   style={{
                     width: '150px',
                     height: '30px',
-                    background: '#9c27b0',
+                    background: '#000000',
                     color: '#fff',
                     borderRadius: '3px',
                     border: 'none',
