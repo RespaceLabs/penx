@@ -25,6 +25,8 @@ export const TaskProgress = () => {
 
   const percentage = (checkedSum / sum) * 100
 
+  if (!sum) return null
+
   return (
     <Box contentEditable={false} w-60 flexShrink-0>
       <CircularProgressbarWithChildren
