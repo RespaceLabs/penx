@@ -69,6 +69,8 @@ export const DraggableBox = (props: DraggableBoxProps) => {
                   boxSizing: 'border-box',
                   outline: 'none',
                   border: '1px solid ghostwhite',
+                  background: '#f9f9f9',
+                  color: '#262626',
                 }}
                 value={doc}
                 onChange={handleChange}

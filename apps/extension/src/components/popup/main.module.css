@@ -1,0 +1,52 @@
+.container {
+  width: 300px;
+  height: 420px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #262626;
+  padding: 0 24px;
+}
+
+.ul {
+  padding: 0px;
+}
+
+.item {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  height: 32px;
+  list-style-type: none;
+  transition: border-color 0.3s, background 0.3s, padding 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.item:hover {
+  background-color: rgb(226, 223, 223);
+  cursor: pointer;
+}
+
+.item-selected {
+  background-color: #e1faeb;
+  color: #9c27b0;
+}
+
+.saveBtn {
+  width: 150px;
+  height: 30px;
+  background: #9c27b0;
+  color: #fff;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}
+
+.saveBtn:hover {
+  background: #bd21d8;
+  cursor: pointer;
+}
+
+.saveBtn:active {
+  background: #da5ff0;
+}

@@ -39,6 +39,9 @@ const PlasmoOverlay = () => {
             'color:yellow',
             { markdownContent },
           )
+        } else if (request.type === ACTIONS.EnterManually) {
+          console.log('%c=EnterManually', 'color:red')
+          setIsOpen(true)
         }
 
         return true
