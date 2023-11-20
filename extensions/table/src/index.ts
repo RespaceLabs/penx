@@ -1,7 +1,7 @@
 import { TableIcon } from 'lucide-react'
+import { ELEMENT_TABLE, ELEMENT_TD, ELEMENT_TR } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
 import { getEmptyTableNode } from './getEmptyTableNode'
-import { ELEMENT_TABLE, ELEMENT_TD, ELEMENT_TR } from './types'
 import { Table } from './ui/Table/Table'
 import { TableCell } from './ui/TableCell'
 import { TableRow } from './ui/TableRow'

@@ -1,9 +1,9 @@
 import { CheckSquare2 } from 'lucide-react'
 import { Editor } from 'slate'
+import { ELEMENT_CHECK_LIST_ITEM } from '@penx/constants'
 import { setNodes } from '@penx/editor-transforms'
 import { ExtensionContext } from '@penx/extension-typings'
 import { CheckListItem } from './CheckListItem'
-import { ELEMENT_CHECK_LIST_ITEM } from './constants'
 import { CheckListItemElement } from './types'
 import { withCheckList } from './withCheckList'
 

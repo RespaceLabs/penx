@@ -1,12 +1,14 @@
 import _ from 'lodash'
 import { createEditor, Editor, Node as SlateNode, Transforms } from 'slate'
-import { ELEMENT_TITLE } from '@penx/constants'
-import { extractTags } from '@penx/editor-common'
-import { getNodeByPath } from '@penx/editor-queries'
 import {
   ELEMENT_LI,
   ELEMENT_LIC,
+  ELEMENT_TITLE,
   ELEMENT_UL,
+} from '@penx/constants'
+import { extractTags } from '@penx/editor-common'
+import { getNodeByPath } from '@penx/editor-queries'
+import {
   isListContentElement,
   isListItemElement,
   ListItemElement,

@@ -1,9 +1,9 @@
 import { Editor, Element, Node, Transforms } from 'slate'
 import { isCodeBlock, isCodeLine } from '@penx/code-block'
+import { ELEMENT_BLOCK_SELECTOR } from '@penx/constants'
 import { PenxEditor } from '@penx/editor-common'
 import { getBlockAbove, getText } from '@penx/editor-queries'
 import { insertNodes } from '@penx/editor-transforms'
-import { ELEMENT_BLOCK_SELECTOR } from './constants'
 import { isBlockSelector } from './isBlockSelector'
 
 /**

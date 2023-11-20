@@ -1,6 +1,6 @@
 import { Element } from 'slate'
+import { ELEMENT_TR } from '@penx/constants'
 import { getEmptyCellNode } from './getEmptyCellNode'
-import { ELEMENT_TR } from './types'
 
 /**
  * Get empty table row node

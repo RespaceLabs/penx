@@ -1,6 +1,6 @@
 import { Element } from 'slate'
+import { ELEMENT_TABLE } from '@penx/constants'
 import { getEmptyRowNode } from './getEmptyRowNode'
-import { ELEMENT_TABLE } from './types'
 
 export function getEmptyTableNode(rowCount = 3, columnCount = 3): Element {
   return {

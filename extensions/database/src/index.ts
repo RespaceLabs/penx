@@ -1,11 +1,11 @@
 import { TableIcon } from 'lucide-react'
-import { ExtensionContext } from '@penx/extension-typings'
-import { db } from '@penx/local-db'
 import {
   ELEMENT_DATABASE,
   ELEMENT_DATABASE_ENTRY,
   ELEMENT_LIVE_QUERY,
-} from './constants'
+} from '@penx/constants'
+import { ExtensionContext } from '@penx/extension-typings'
+import { db } from '@penx/local-db'
 import { Database } from './ui/Database'
 import { DatabaseEntry } from './ui/DatabaseEntry'
 import { LiveQuery } from './ui/LiveQuery/LiveQuery'

@@ -1,7 +1,12 @@
 import { nanoid } from 'nanoid'
 import { Element, Node } from 'slate'
 import { ListsSchema, ListType } from 'slate-lists'
-import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_OL, ELEMENT_UL } from './constants'
+import {
+  ELEMENT_LI,
+  ELEMENT_LIC,
+  ELEMENT_OL,
+  ELEMENT_UL,
+} from '@penx/constants'
 import { getEmptyElement } from './getEmptyElement'
 
 export const listSchema: ListsSchema = {

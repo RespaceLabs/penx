@@ -4,7 +4,7 @@ import { withHistory } from 'slate-history'
 import { withListsReact } from 'slate-lists'
 import { withReact } from 'slate-react'
 import { withAutoformat } from '@penx/autoformat'
-import { ELEMENT_CODE_LINE } from '@penx/code-block'
+import { ELEMENT_CODE_LINE, ELEMENT_LIC, ELEMENT_P } from '@penx/constants'
 import { PenxEditor, TElement } from '@penx/editor-common'
 import {
   getCurrentNode,
@@ -12,8 +12,7 @@ import {
   isCollapsed,
 } from '@penx/editor-queries'
 import { useExtensionStore } from '@penx/hooks'
-import { ELEMENT_LIC, isTitle } from '@penx/list'
-import { ELEMENT_P, getEmptyParagraph, isParagraph } from '@penx/paragraph'
+import { getEmptyParagraph, isParagraph } from '@penx/paragraph'
 import { isTable } from '@penx/table'
 
 type WithFns = (editor: PenxEditor) => PenxEditor

@@ -1,9 +1,9 @@
 import { Editor, Element, Node, Transforms } from 'slate'
 import { isCodeBlock, isCodeLine } from '@penx/code-block'
+import { ELEMENT_TAG_SELECTOR } from '@penx/constants'
 import { PenxEditor } from '@penx/editor-common'
 import { getBlockAbove, getNodeByPath, getText } from '@penx/editor-queries'
 import { insertNodes } from '@penx/editor-transforms'
-import { ELEMENT_TAG_SELECTOR } from './constants'
 import { isTagSelector } from './isTagSelector'
 
 function getTextBeforeCursor(editor: PenxEditor) {

@@ -1,5 +1,5 @@
 import { BaseElement } from 'slate'
-import { ELEMENT_CHECK_LIST_ITEM } from './constants'
+import { ELEMENT_CHECK_LIST_ITEM } from '@penx/constants'
 
 export interface CheckListItemElement extends BaseElement {
   id: string

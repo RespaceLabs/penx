@@ -1,7 +1,8 @@
 import { BaseElement } from 'slate'
-
-export const ELEMENT_BIDIRECTIONAL_LINK_SELECTOR = 'bidirectional_link_selector'
-export const ELEMENT_BIDIRECTIONAL_LINK_CONTENT = 'bidirectional_link_content'
+import {
+  ELEMENT_BIDIRECTIONAL_LINK_CONTENT,
+  ELEMENT_BIDIRECTIONAL_LINK_SELECTOR,
+} from '@penx/constants'
 
 export interface BidirectionalLinkSelectorElement extends BaseElement {
   id?: string

@@ -5,7 +5,7 @@ import {
   ELEMENT_OL,
   ELEMENT_TITLE,
   ELEMENT_UL,
-} from './constants'
+} from '@penx/constants'
 
 export interface TitleElement extends BaseElement {
   id?: string

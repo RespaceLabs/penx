@@ -1,5 +1,5 @@
 import { BaseElement } from 'slate'
-import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from './constants'
+import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from '@penx/constants'
 
 export interface CodeBlockElement extends BaseElement {
   id?: string

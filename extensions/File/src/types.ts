@@ -1,6 +1,5 @@
 import { BaseElement } from 'slate'
-
-export const ELEMENT_FILE = 'file'
+import { ELEMENT_FILE } from '@penx/constants'
 
 export interface FileElement extends BaseElement {
   id?: string

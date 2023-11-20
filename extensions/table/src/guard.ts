@@ -1,11 +1,5 @@
-import {
-  ELEMENT_TABLE,
-  ELEMENT_TD,
-  ELEMENT_TR,
-  TableCellElement,
-  TableElement,
-  TableRowElement,
-} from './types'
+import { ELEMENT_TABLE, ELEMENT_TD, ELEMENT_TR } from '@penx/constants'
+import { TableCellElement, TableElement, TableRowElement } from './types'
 
 export function isTable(node: any): node is TableElement {
   return node?.type === ELEMENT_TABLE

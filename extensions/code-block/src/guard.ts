@@ -1,4 +1,4 @@
-import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from './constants'
+import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from '@penx/constants'
 import { CodeBlockElement, CodeLineElement } from './types'
 
 export function isCodeBlock(node: any): node is CodeBlockElement {

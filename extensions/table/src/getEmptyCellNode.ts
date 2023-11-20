@@ -1,6 +1,6 @@
 import { Element } from 'slate'
+import { ELEMENT_TD, ELEMENT_TH } from '@penx/constants'
 import { getEmptyParagraph } from '@penx/paragraph'
-import { ELEMENT_TD, ELEMENT_TH } from './types'
 
 /**
  * get empty cell node

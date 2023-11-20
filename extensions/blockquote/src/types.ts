@@ -1,5 +1,5 @@
 import { BaseElement } from 'slate'
-import { ELEMENT_BLOCKQUOTE } from './constants'
+import { ELEMENT_BLOCKQUOTE } from '@penx/constants'
 
 export interface BlockquoteElement extends BaseElement {
   id?: string

@@ -1,5 +1,9 @@
-import { ELEMENT_TITLE } from '@penx/constants'
-import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_UL } from '@penx/list'
+import {
+  ELEMENT_LI,
+  ELEMENT_LIC,
+  ELEMENT_TITLE,
+  ELEMENT_UL,
+} from '@penx/constants'
 import { Node } from '@penx/model'
 import { IDatabaseNode, INode } from '@penx/model-types'
 

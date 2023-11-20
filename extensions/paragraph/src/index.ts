@@ -1,9 +1,9 @@
 import { CaseSensitive } from 'lucide-react'
+import { ELEMENT_P } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
 import { getEmptyParagraph } from './getEmptyParagraph'
 import { insertEmptyParagraph } from './insertEmptyParagraph'
 import { Paragraph } from './Paragraph'
-import { ELEMENT_P } from './types'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({

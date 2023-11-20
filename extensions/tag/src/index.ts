@@ -1,5 +1,5 @@
+import { ELEMENT_TAG, ELEMENT_TAG_SELECTOR } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
-import { ELEMENT_TAG, ELEMENT_TAG_SELECTOR } from './constants'
 import { onBlur } from './handlers/onBlur'
 import { onKeyDown } from './handlers/onKeyDown'
 import { Tag } from './ui/Tag'
@@ -29,6 +29,5 @@ export function activate(ctx: ExtensionContext) {
   })
 }
 
-export * from './constants'
 export * from './isTag'
 export * from './ui/Tag'

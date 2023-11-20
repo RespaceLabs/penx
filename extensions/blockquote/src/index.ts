@@ -1,7 +1,7 @@
 import { Quote } from 'lucide-react'
+import { ELEMENT_BLOCKQUOTE } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
 import { Blockquote } from './BlockQuote'
-import { ELEMENT_BLOCKQUOTE } from './constants'
 
 export { ELEMENT_BLOCKQUOTE }
 

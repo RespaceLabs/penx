@@ -1,9 +1,9 @@
 import { Editor, Element, Node, Transforms } from 'slate'
 import { isCodeBlock } from '@penx/code-block'
+import { ELEMENT_BIDIRECTIONAL_LINK_SELECTOR } from '@penx/constants'
 import { PenxEditor } from '@penx/editor-common'
 import { insertNodes } from '@penx/editor-transforms'
 import { isBidirectionalLinkSelector } from './isBidirectionalLinkSelector'
-import { ELEMENT_BIDIRECTIONAL_LINK_SELECTOR } from './types'
 
 const trigger = '[['
 

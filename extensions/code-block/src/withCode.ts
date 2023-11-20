@@ -1,6 +1,7 @@
 import { getNodeString, TElement } from '@udecode/plate-common'
 import MarkdownIt from 'markdown-it'
 import { Editor } from 'slate'
+import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from '@penx/constants'
 import { PenxEditor } from '@penx/editor-common'
 import {
   findNode,
@@ -9,7 +10,6 @@ import {
   getNodeByPath,
 } from '@penx/editor-queries'
 import { MarkType } from '@penx/editor-shared'
-import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from './constants'
 
 function isEndOfInlineCode(editor: Editor) {
   const focus = getCurrentFocus(editor)

@@ -1,5 +1,5 @@
 import { BaseElement } from 'slate'
-import { ELEMENT_TAG, ELEMENT_TAG_SELECTOR } from './constants'
+import { ELEMENT_TAG, ELEMENT_TAG_SELECTOR } from '@penx/constants'
 
 export interface TagSelectorElement extends BaseElement {
   id?: string

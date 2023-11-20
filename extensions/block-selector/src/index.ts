@@ -1,5 +1,5 @@
+import { ELEMENT_BLOCK_SELECTOR } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
-import { ELEMENT_BLOCK_SELECTOR } from './constants'
 import { onBlur } from './handlers/onBlur'
 import { onKeyDown } from './handlers/onKeyDown'
 import { isBlockSelector } from './isBlockSelector'
@@ -22,7 +22,5 @@ export function activate(ctx: ExtensionContext) {
     ],
   })
 }
-
-export * from './constants'
 
 export { isBlockSelector }

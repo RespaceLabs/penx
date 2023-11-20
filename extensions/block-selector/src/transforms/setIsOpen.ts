@@ -1,8 +1,8 @@
 import { TElement } from '@udecode/plate-common'
 import { Editor, Transforms } from 'slate'
+import { ELEMENT_BLOCK_SELECTOR } from '@penx/constants'
 import { findNode } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
-import { ELEMENT_BLOCK_SELECTOR } from '../constants'
 import { BlockSelectorElement } from '../types'
 
 export function setIsOpen(editor: Editor): void {

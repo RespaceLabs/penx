@@ -1,11 +1,11 @@
-import { ExtensionContext } from '@penx/extension-typings'
 import {
   ELEMENT_LI,
   ELEMENT_LIC,
   ELEMENT_OL,
   ELEMENT_TITLE,
   ELEMENT_UL,
-} from './constants'
+} from '@penx/constants'
+import { ExtensionContext } from '@penx/extension-typings'
 import { onKeyDown } from './onKeyDown'
 import { withEditable } from './plugins/withEditable'
 import { withListsPlugin } from './plugins/withListsPlugin'
@@ -17,7 +17,6 @@ import { Title } from './ui/Title'
 
 export * from './types'
 export * from './guard'
-export * from './constants'
 export * from './listSchema'
 export * from './transforms/insertEmptyList'
 export * from './transforms/insertEmptyListItem'

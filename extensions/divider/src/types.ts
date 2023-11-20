@@ -1,6 +1,5 @@
 import { BaseElement } from 'slate'
-
-export const ELEMENT_HR = 'hr'
+import { ELEMENT_HR } from '@penx/constants'
 
 export interface DividerElement extends BaseElement {
   type: typeof ELEMENT_HR

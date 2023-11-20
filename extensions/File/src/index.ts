@@ -1,6 +1,6 @@
 import { Paperclip } from 'lucide-react'
+import { ELEMENT_FILE } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
-import { ELEMENT_FILE } from './types'
 import { File } from './ui/File'
 
 export function activate(ctx: ExtensionContext) {

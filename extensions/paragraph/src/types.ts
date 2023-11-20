@@ -1,6 +1,5 @@
 import { BaseElement } from 'slate'
-
-export const ELEMENT_P = 'p'
+import { ELEMENT_P } from '@penx/constants'
 
 export interface ParagraphElement extends BaseElement {
   id?: string

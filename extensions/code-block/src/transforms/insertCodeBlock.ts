@@ -1,11 +1,11 @@
 import { Editor, Element } from 'slate'
+import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from '@penx/constants'
 import {
   isExpanded,
   isSelectionAtBlockStart,
   someNode,
 } from '@penx/editor-queries'
 import { setNodes, wrapNodes } from '@penx/editor-transforms'
-import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from '../constants'
 import { isCodeBlock, isCodeLine } from '../guard'
 import { CodeBlockElement, CodeLineElement } from '../types'
 

@@ -1,5 +1,5 @@
+import { ELEMENT_CHECK_LIST_ITEM } from '@penx/constants'
 import { PenxEditor } from '@penx/editor-common'
-import { ELEMENT_CHECK_LIST_ITEM } from './constants'
 import { CheckListItemElement } from './types'
 
 export const withCheckList = (editor: PenxEditor) => {

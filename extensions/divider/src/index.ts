@@ -1,8 +1,9 @@
+import { ELEMENT_HR } from '@penx/constants'
 import { setNodes } from '@penx/editor-transforms'
 import { ExtensionContext } from '@penx/extension-typings'
 import { insertEmptyParagraph } from '@penx/paragraph'
 import { Divider } from './Divider'
-import { DividerElement, ELEMENT_HR } from './types'
+import { DividerElement } from './types'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({

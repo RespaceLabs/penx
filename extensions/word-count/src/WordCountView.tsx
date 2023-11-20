@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { useNode } from '@penx/hooks'
+import { useNodeContext } from '@penx/hooks'
 
 function countWords(text: string): number {
   const words = text.match(/[\u4e00-\u9fa5]|\w+/g)
@@ -7,7 +7,7 @@ function countWords(text: string): number {
 }
 
 export function WordCountView() {
-  const { nodeService, node } = useNode()
+  const { nodeService, node } = useNodeContext()
 
   if (!node.raw) return null
 

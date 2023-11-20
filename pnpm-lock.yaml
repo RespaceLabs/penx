@@ -2907,6 +2907,9 @@ importers:
       '@penx/code-block':
         specifier: workspace:*
         version: link:../../extensions/code-block
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
       '@penx/dnd-projection':
         specifier: workspace:*
         version: link:../dnd-projection

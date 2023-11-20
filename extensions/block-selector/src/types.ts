@@ -1,5 +1,5 @@
 import { BaseElement } from 'slate'
-import { ELEMENT_BLOCK_SELECTOR } from './constants'
+import { ELEMENT_BLOCK_SELECTOR } from '@penx/constants'
 
 export interface BlockSelectorElement extends BaseElement {
   id?: string

@@ -1,10 +1,10 @@
-import { ExtensionContext } from '@penx/extension-typings'
-import { onBlur } from './handlers/onBlur'
-import { onKeyDown } from './handlers/onKeyDown'
 import {
   ELEMENT_BIDIRECTIONAL_LINK_CONTENT,
   ELEMENT_BIDIRECTIONAL_LINK_SELECTOR,
-} from './types'
+} from '@penx/constants'
+import { ExtensionContext } from '@penx/extension-typings'
+import { onBlur } from './handlers/onBlur'
+import { onKeyDown } from './handlers/onKeyDown'
 import { BidirectionalLinkContent } from './ui/BidirectionalLinkContent'
 import { BidirectionalLinkSelector } from './ui/BidirectionalLinkSelector'
 import { withBidirectionalLink } from './withBidirectionalLink'

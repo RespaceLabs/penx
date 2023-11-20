@@ -1,7 +1,5 @@
 import { Heading1, Heading2, Heading3, Heading4, Heading5 } from 'lucide-react'
 import { Node } from 'slate'
-import { ExtensionContext } from '@penx/extension-typings'
-import { Heading } from './Heading'
 import {
   ELEMENT_H1,
   ELEMENT_H2,
@@ -9,8 +7,10 @@ import {
   ELEMENT_H4,
   ELEMENT_H5,
   ELEMENT_H6,
-  HeadingElement,
-} from './types'
+} from '@penx/constants'
+import { ExtensionContext } from '@penx/extension-typings'
+import { Heading } from './Heading'
+import { HeadingElement } from './types'
 import { withHeading } from './withHeading'
 
 const icons = [Heading1, Heading2, Heading3, Heading4, Heading5, Heading5]

@@ -3,7 +3,7 @@ import {
   ELEMENT_DATABASE,
   ELEMENT_DATABASE_ENTRY,
   ELEMENT_LIVE_QUERY,
-} from './constants'
+} from '@penx/constants'
 
 export interface BaseCustomElement extends BaseElement {
   id?: string

@@ -1,8 +1,8 @@
 import { TElement } from '@udecode/plate-common'
 import { Editor, Transforms } from 'slate'
+import { ELEMENT_TAG_SELECTOR } from '@penx/constants'
 import { findNode } from '@penx/editor-queries'
 import { selectEditor } from '@penx/editor-transforms'
-import { ELEMENT_TAG_SELECTOR } from '../constants'
 import { TagSelectorElement } from '../types'
 
 export function setIsOpen(editor: Editor): void {

@@ -1,9 +1,5 @@
 import { BaseElement } from 'slate'
-
-export const ELEMENT_TABLE = 'table'
-export const ELEMENT_TR = 'tr'
-export const ELEMENT_TD = 'td'
-export const ELEMENT_TH = 'th'
+import { ELEMENT_TABLE, ELEMENT_TD, ELEMENT_TR } from '@penx/constants'
 
 export interface BaseCustomElement extends BaseElement {
   id?: string

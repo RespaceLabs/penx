@@ -1,4 +1,4 @@
-import { ELEMENT_DATABASE, ELEMENT_LIVE_QUERY } from './constants'
+import { ELEMENT_DATABASE, ELEMENT_LIVE_QUERY } from '@penx/constants'
 import { DatabaseElement, LiveQueryElement } from './types'
 
 export function isDatabase(node: any): node is DatabaseElement {

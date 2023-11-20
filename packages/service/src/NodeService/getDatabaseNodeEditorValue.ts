@@ -1,4 +1,4 @@
-import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_UL } from '@penx/list'
+import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_UL } from '@penx/constants'
 import { Node } from '@penx/model'
 import { IDatabaseNode } from '@penx/model-types'
 
