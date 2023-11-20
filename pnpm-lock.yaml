@@ -4310,6 +4310,12 @@ importers:
       '@penx/editor-common':
         specifier: workspace:*
         version: link:../editor-common
+      '@penx/editor-shared':
+        specifier: workspace:^
+        version: link:../editor-shared
+      '@penx/editor-transforms':
+        specifier: workspace:*
+        version: link:../editor-transforms
       '@penx/event':
         specifier: workspace:*
         version: link:../event
@@ -4325,12 +4331,18 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../model-types
+      '@penx/serializer':
+        specifier: workspace:*
+        version: link:../serializer
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
       jotai:
         specifier: ^2.4.2
         version: 2.4.2(@types/react@18.2.22)(react@18.2.0)
+      slate:
+        specifier: 0.94.1
+        version: 0.94.1
     devDependencies:
       '@types/react':
         specifier: ^18.2.22

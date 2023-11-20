@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { createEditor, Editor, Element, Point, Range, Transforms } from 'slate'
 import { withHistory } from 'slate-history'
 import { withListsReact } from 'slate-lists'
@@ -19,7 +19,7 @@ type WithFns = (editor: PenxEditor) => PenxEditor
 
 export function useCreateEditor(fns: WithFns[] = []) {
   const { extensionStore } = useExtensionStore()
-  const editorRef = useRef<PenxEditor>()
+  // const editorRef = useRef<PenxEditor>()
   const {
     rules,
     inlineTypes,
@@ -121,38 +121,41 @@ export function useCreateEditor(fns: WithFns[] = []) {
     return editor
   })
 
-  if (!editorRef.current) {
-    const editor = withFns.reduce<any>(
-      (wrappedEditor, plugin) => plugin(wrappedEditor),
-      createEditor(),
-    )
+  // if (!editorRef.current) {
+  // }
+  let editor = withFns.reduce<any>(
+    (wrappedEditor, plugin) => plugin(wrappedEditor),
+    createEditor(),
+  )
 
-    // handle autoformat
-    editorRef.current = withAutoformat(editor, {
-      key: 'AUTO_FORMAT',
-      options: {
-        rules,
-        shouldIgnore(editor: Editor) {
-          // TODO: should improve
-          const match = Editor.above(editor, {
-            match: (n: any) => ['code_block'].includes(n.type),
-          })
+  // handle autoformat
+  editor = withAutoformat(editor, {
+    key: 'AUTO_FORMAT',
+    options: {
+      rules,
+      shouldIgnore(editor: Editor) {
+        // TODO: should improve
+        const match = Editor.above(editor, {
+          match: (n: any) => ['code_block'].includes(n.type),
+        })
 
-          if (match?.[0]) return true
-          return false
-        },
+        if (match?.[0]) return true
+        return false
       },
-    } as any)
-  }
+    },
+  } as any)
+
+  const [penxEditor] = useState(() => editor)
 
   /**
    * TODO: for debug
    */
-  if (typeof window !== 'undefined') {
-    ;(window as any).__editor = editorRef.current
-  }
+  // if (typeof window !== 'undefined') {
+  //   ;(window as any).__editor = editorRef.current
+  // }
 
   // if (editorRef.current) storeEditor(editorRef.current)
 
-  return editorRef.current as PenxEditor
+  // return editorRef.current as PenxEditor
+  return penxEditor as PenxEditor
 }

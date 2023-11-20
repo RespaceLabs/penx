@@ -16,11 +16,11 @@ export function useQueryNodes(spaceId: string) {
       if (store.getNode()) return
       if (!nodes.length) return
 
-      const space = store.getSpaces().find((s) => s.id === spaceId)
+      const space = store.getSpaces().find((s) => s.id === spaceId)!
 
-      const activeNodes = nodes.filter(
-        (node) => space?.activeNodeIds.includes(node.id),
-      )
+      const activeNodes = space.activeNodeIds.map((id) => {
+        return nodes.find((n) => n.id === id)!
+      })
 
       store.setNodes(nodes)
       store.setActiveNodes(activeNodes)

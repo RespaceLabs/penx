@@ -18,8 +18,6 @@ export interface ISpace {
 
   isActive: boolean
 
-  activeNodeId?: string
-
   activeNodeIds: string[]
 
   snapshot: {

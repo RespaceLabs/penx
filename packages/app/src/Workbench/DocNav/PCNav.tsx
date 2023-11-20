@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
 import { useNodeContext } from '@penx/hooks'
 import { Breadcrumb } from './Breadcrumb'
+import { ClosePanelButton } from './ClosePanelButton'
 import { FavoriteButton } from './FavoriteButton'
 import { MorePopover } from './MorePopover'
 import { NewNodeButton } from './NewNodeButton'
@@ -28,6 +29,7 @@ export const PCNav = () => {
         {/* <SharePopover /> */}
         <FavoriteButton />
         <MorePopover />
+        <ClosePanelButton />
       </Box>
     </Box>
   )

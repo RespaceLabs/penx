@@ -3,12 +3,8 @@ import isEqual from 'react-fast-compare'
 import { useSortable } from '@dnd-kit/sortable'
 import { Box, CSSObject, FowerHTMLProps } from '@fower/react'
 import { ChevronDown, ChevronRight } from 'lucide-react'
-import { Editor, Transforms } from 'slate'
-import { clearEditor } from '@penx/editor-transforms'
 import { useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
-import { nodeToSlate } from '@penx/serializer'
-import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
 import { FlattenedItem } from './types'
 
@@ -49,13 +45,8 @@ export const TreeItem = memo(
         {...listeners}
         {...rest}
         onClick={() => {
-          const editor = store.getEditor(0)
-          clearEditor(editor)
-
           const node = nodeList.getNode(item.id)
           store.selectNode(node.raw)
-          const value = nodeToSlate(node.raw, nodeList.rawNodes)
-          Transforms.insertNodes(editor, value)
         }}
       >
         <Box toCenterY gap-2>

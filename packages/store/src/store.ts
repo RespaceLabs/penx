@@ -1,12 +1,14 @@
 import { format } from 'date-fns'
 import { atom, createStore } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
+import { Transforms } from 'slate'
 import { SyncStatus } from '@penx/constants'
 import { PenxEditor } from '@penx/editor-common'
-import { emitter } from '@penx/event'
+import { clearEditor } from '@penx/editor-transforms'
 import { db } from '@penx/local-db'
 import { Node, User } from '@penx/model'
 import { INode, ISpace, NodeType } from '@penx/model-types'
+import { nodeToSlate } from '@penx/serializer'
 import { commands } from './constants'
 import { Command, ExtensionStore, RouteName, RouterStore } from './types'
 
@@ -74,6 +76,11 @@ export const store = Object.assign(createStore(), {
     return editors.get(index)!
   },
 
+  getMainEditor() {
+    const editors = store.get(editorsAtom)
+    return editors.get(0)!
+  },
+
   setEditor(index: number, editor: PenxEditor) {
     const editors = store.get(editorsAtom)
     editors.set(index, editor)
@@ -131,9 +138,17 @@ export const store = Object.assign(createStore(), {
     //
   },
 
-  async selectNode(node: INode) {
+  async selectNode(node: INode, index = 0) {
     const router = store.get(routerAtom)
     if (router.name !== 'NODE') this.routeTo('NODE')
+
+    const editor = store.getEditor(index)
+    clearEditor(editor)
+
+    const nodes = store.getNodes()
+    const value = nodeToSlate(node, nodes)
+    Transforms.insertNodes(editor, value)
+
     const newActiveNodes = this.setFirstActiveNodes(node)
     await db.updateSpace(this.getActiveSpace().id, {
       activeNodeIds: newActiveNodes.map((node) => node.id),
@@ -144,41 +159,21 @@ export const store = Object.assign(createStore(), {
     const space = this.getActiveSpace()
     let node = await db.getInboxNode(space.id)
 
-    this.reloadNode(node)
-    this.routeTo('NODE')
-    const activeNodes = this.setFirstActiveNodes(node)
-
-    await db.updateSpace(this.getActiveSpace().id, {
-      activeNodeIds: activeNodes.map((node) => node.id),
-    })
+    this.selectNode(node)
   },
 
   async selectTagBox() {
     const space = this.getActiveSpace()
     let node = await db.getDatabaseRootNode(space.id)
 
-    this.reloadNode(node)
-    this.routeTo('NODE')
-
-    const activeNodes = this.setFirstActiveNodes(node)
-
-    await db.updateSpace(this.getActiveSpace().id, {
-      activeNodeIds: activeNodes.map((node) => node.id),
-    })
+    this.selectNode(node)
   },
 
   async selectTrash() {
     const space = this.getActiveSpace()
     let node = await db.getTrashNode(space.id)
 
-    this.reloadNode(node)
-    this.routeTo('NODE')
-
-    const activeNodes = this.setFirstActiveNodes(node)
-
-    await db.updateSpace(this.getActiveSpace().id, {
-      activeNodeIds: activeNodes.map((node) => node.id),
-    })
+    this.selectNode(node)
   },
 
   // select the space root node
@@ -186,14 +181,7 @@ export const store = Object.assign(createStore(), {
     const space = this.getActiveSpace()
     let node = await db.getSpaceNode(space.id)
 
-    this.reloadNode(node)
-    this.routeTo('NODE')
-
-    const activeNodes = this.setFirstActiveNodes(node)
-
-    await db.updateSpace(this.getActiveSpace().id, {
-      activeNodeIds: activeNodes.map((node) => node.id),
-    })
+    this.selectNode(node)
   },
 
   async restoreNode(id: string) {},
@@ -206,21 +194,23 @@ export const store = Object.assign(createStore(), {
     this.setNodes(nodes)
   },
 
-  reloadNode(node: INode) {
-    this.setNode(null as any)
-
-    // for rerender editor
-    setTimeout(() => {
-      this.setNode(node)
-    }, 0)
-  },
-
   async openInNewPanel(nodeId: string) {
     const nodes = store.getNodes()
     const node = nodes.find((n) => n.id === nodeId)!
     const activeNodes = store.getActiveNodes()
 
     const newActiveNodes = [...activeNodes, node]
+    store.setActiveNodes([...newActiveNodes])
+
+    const space = this.getActiveSpace()
+    await db.updateSpace(space.id, {
+      activeNodeIds: newActiveNodes.map((node) => node.id),
+    })
+  },
+
+  async closePanel(index: number) {
+    const activeNodes = store.getActiveNodes()
+    const newActiveNodes = activeNodes.filter((_, i) => i !== index)
     store.setActiveNodes([...newActiveNodes])
 
     const space = this.getActiveSpace()
@@ -248,15 +238,8 @@ export const store = Object.assign(createStore(), {
     }
     const newNodes = await db.listNormalNodes(space.id)
 
-    const activeNodes = this.setFirstActiveNodes(dateNode)
-
     this.setNodes(newNodes)
-    this.reloadNode(dateNode)
-    this.routeTo('NODE')
-
-    await db.updateSpace(this.getActiveSpace().id, {
-      activeNodeIds: activeNodes.map((node) => node.id),
-    })
+    this.selectNode(dateNode)
   },
 
   async createNodeToToday(text: string) {
@@ -264,11 +247,8 @@ export const store = Object.assign(createStore(), {
     const { todayNode } = await db.addNodeToToday(space.id, text)
     const nodes = await db.listNormalNodes(space.id)
 
-    this.routeTo('NODE')
     this.setNodes(nodes)
-    this.reloadNode(todayNode)
-
-    this.setFirstActiveNodes(todayNode)
+    this.selectNode(todayNode)
   },
 
   async createPageNode(input: Partial<INode> = {}) {
@@ -288,15 +268,8 @@ export const store = Object.assign(createStore(), {
     // update space root not snapshot
     await db.updateSnapshot(rootNode, 'update', rootNode)
 
-    this.routeTo('NODE')
     this.setNodes(nodes)
-    this.reloadNode(node)
-
-    const activeNodes = this.setFirstActiveNodes(node)
-
-    await db.updateSpace(space.id, {
-      activeNodeIds: activeNodes.map((node) => node.id),
-    })
+    this.selectNode(node)
   },
 
   async createDatabase(tagName: string) {
@@ -332,7 +305,6 @@ export const store = Object.assign(createStore(), {
     this.routeTo('NODE')
     this.setNodes(nodes)
     this.setSpaces(spaces)
-    // this.reloadNode()
     this.setActiveNodes(activeNodes)
     return space
   },
@@ -347,6 +319,8 @@ export const store = Object.assign(createStore(), {
     this.setSpaces(spaces)
     this.setNodes(nodes)
     this.setActiveNodes(activeNodes)
+
+    this.selectNode(activeNodes[0])
     return space
   },
 

@@ -21,7 +21,9 @@ export function useWorkers() {
         const favoriteNodes = await db.getFavoriteNode(space.id)
         const firstNode = await db.getNode(favoriteNodes.children[0])
         store.setNodes(nodes)
-        store.reloadNode(firstNode)
+
+        // TODO:..
+        // store.reloadNode(firstNode)
       }
 
       if (event.data === WorkerEvents.START_PUSH) {

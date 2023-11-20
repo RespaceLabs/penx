@@ -16,6 +16,8 @@ export const useFocusTitle = (element: TitleElement) => {
     // focus on title
     if (onlyHasTitle || !titleStr) {
       setTimeout(() => {
+        console.log('gogo........')
+
         Transforms.select(editor, Editor.end(editor, [0, 0]))
         ReactEditor.focus(editor)
       }, 0)

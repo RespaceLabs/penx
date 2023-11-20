@@ -29,9 +29,11 @@ export function PanelItem({ node, index }: Props) {
 
   const content = nodeToSlate(node.raw, nodeList.rawNodes)
 
+  console.log('====content:', index, content)
+
   return (
-    <NodeProvider value={{ node, nodeService }}>
-      <Box relative h-100vh>
+    <NodeProvider value={{ index, node, nodeService }}>
+      <Box relative h-100vh flex-1 borderRight>
         <Box
           overflowYAuto
           h={['calc(100vh - 48px)', '100vh']}

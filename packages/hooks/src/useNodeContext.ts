@@ -3,6 +3,7 @@ import { Node } from '@penx/model'
 import { NodeService } from '@penx/service'
 
 export interface NodeContext {
+  index: number
   node: Node
   nodeService: NodeService
 }

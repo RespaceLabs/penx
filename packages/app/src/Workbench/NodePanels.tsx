@@ -11,9 +11,7 @@ export function NodePanels() {
   return (
     <Box flex-1 toLeft>
       {activeNodes.map((node, index) => (
-        <Box key={node.id} flex-1 borderRight>
-          <PanelItem node={new Node(node)} index={index} />
-        </Box>
+        <PanelItem key={index} node={new Node(node)} index={index} />
       ))}
     </Box>
   )

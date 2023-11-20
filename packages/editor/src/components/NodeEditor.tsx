@@ -138,7 +138,7 @@ export function NodeEditor({
         onChange?.(value, editor)
       }}
     >
-      <HoveringToolbar />
+      {/* <HoveringToolbar /> */}
       <SetNodeToDecorations />
 
       <DndContext
