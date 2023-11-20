@@ -35,7 +35,7 @@
 .saveBtn {
   width: 150px;
   height: 30px;
-  background: #9c27b0;
+  background: #262525;
   color: #fff;
   border-radius: 3px;
   border: none;
@@ -43,10 +43,10 @@
 }
 
 .saveBtn:hover {
-  background: #bd21d8;
+  background: #000000;
   cursor: pointer;
 }
 
 .saveBtn:active {
-  background: #da5ff0;
+  background: #262525;
 }

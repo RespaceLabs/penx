@@ -7,7 +7,7 @@ import styles from './main.module.css'
 
 import './globals.css'
 
-export function Main({ name = 'Extension' }) {
+export function Main() {
   const [tab, setTab] = useState<TabInfo>(null)
 
   const getCurrentTab = async () => {
