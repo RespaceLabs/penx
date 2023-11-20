@@ -16,11 +16,11 @@ import { ELEMENT_LIC, isTitle } from '@penx/list'
 import { ELEMENT_P, getEmptyParagraph, isParagraph } from '@penx/paragraph'
 import { isTable } from '@penx/table'
 
-type WithFns = (editor: Editor) => Editor
+type WithFns = (editor: PenxEditor) => PenxEditor
 
 export function useCreateEditor(fns: WithFns[] = []) {
   const { extensionStore } = useExtensionStore()
-  const editorRef = useRef<Editor>()
+  const editorRef = useRef<PenxEditor>()
   const {
     rules,
     inlineTypes,

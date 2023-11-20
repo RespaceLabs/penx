@@ -1,28 +1,37 @@
 import { memo } from 'react'
-import { Box } from '@fower/react'
+import { Box, FowerHTMLProps } from '@fower/react'
 import { ChevronRight } from 'lucide-react'
 import { useDebouncedCallback } from 'use-debounce'
 import { NodeEditor } from '@penx/editor'
 import { PenxEditor } from '@penx/editor-common'
 import { isAstChange } from '@penx/editor-queries'
-import { useNode, useNodes } from '@penx/hooks'
-import { db } from '@penx/local-db'
+import { useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { NodeService } from '@penx/service'
-import { store } from '@penx/store'
+import { withBulletPlugin } from './plugins/withBulletPlugin'
 
-interface ReferenceItemProps {
+interface ReferenceItemProps extends FowerHTMLProps<'div'> {
   node: Node
 }
 const ReferenceItem = memo(function ReferenceItem({
   node,
+  ...rest
 }: ReferenceItemProps) {
   const { nodes } = useNodes()
   const nodeService = new NodeService(node, nodes)
   const parentNodes = nodeService.getParentNodes().slice(0, -1)
 
+  const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
+    nodeService.savePage(
+      nodeService.parentNode?.raw!,
+      null as any,
+      value[0],
+      true,
+    )
+  }, 500)
+
   return (
-    <Box bgGray100--T40 rounded px3 py2>
+    <Box rounded py2 px3 bgGray100--T40 {...rest}>
       <Box toCenterY pl0 mb1>
         {parentNodes.map((node, index) => {
           const isLast = index === parentNodes.length - 1
@@ -31,7 +40,7 @@ const ReferenceItem = memo(function ReferenceItem({
               <Box
                 cursorPointer
                 onClick={() => nodeService.selectNode(node)}
-                gray700
+                brand500
               >
                 {node.title}
               </Box>
@@ -46,14 +55,13 @@ const ReferenceItem = memo(function ReferenceItem({
       </Box>
 
       <NodeEditor
-        // plugins={[listPlugin as any]}
-        plugins={[]}
+        plugins={[withBulletPlugin]}
         content={nodeService.getEditorValue([node], false)}
         node={node}
         onChange={(value, editor) => {
-          // if (isAstChange(editor)) {
-          //   debouncedSaveNodes(value)
-          // }
+          if (isAstChange(editor)) {
+            debouncedSaveNodes(value)
+          }
         }}
       />
     </Box>
@@ -71,10 +79,16 @@ export function LinkedReferences({ node }: LinkedReferencesProps) {
   if (!linkedNodes.length) return null
 
   return (
-    <Box relative mt20 column gap2>
-      {linkedNodes.map((linkedNode) => (
-        <ReferenceItem key={linkedNode.id} node={linkedNode} />
-      ))}
+    <Box mt20 px4>
+      <Box fontSemibold gray300 mb2>
+        References ({linkedNodes.length})
+      </Box>
+
+      <Box column gap2>
+        {linkedNodes.map((linkedNode) => (
+          <ReferenceItem key={linkedNode.id} node={linkedNode} />
+        ))}
+      </Box>
     </Box>
   )
 }

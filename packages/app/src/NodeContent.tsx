@@ -1,20 +1,10 @@
 import { Box } from '@fower/react'
 import { useDebouncedCallback } from 'use-debounce'
 import { NodeEditor } from '@penx/editor'
-import { PenxEditor } from '@penx/editor-common'
 import { isAstChange } from '@penx/editor-queries'
 import { useNode, useNodes } from '@penx/hooks'
-import { db } from '@penx/local-db'
-import { store } from '@penx/store'
 import { LinkedReferences } from './LinkedReferences'
-
-function listPlugin(editor: PenxEditor) {
-  editor.onClickBullet = async (nodeId: string) => {
-    const node = await db.getNode(nodeId)
-    store.selectNode(node)
-  }
-  return editor
-}
+import { withBulletPlugin } from './plugins/withBulletPlugin'
 
 export function NodeContent() {
   const { nodes } = useNodes()
@@ -34,7 +24,7 @@ export function NodeContent() {
     <Box relative mt10>
       <Box mx-auto maxW-800>
         <NodeEditor
-          plugins={[listPlugin as any]}
+          plugins={[withBulletPlugin]}
           content={nodeService.getEditorValue()}
           node={node}
           onChange={(value, editor) => {

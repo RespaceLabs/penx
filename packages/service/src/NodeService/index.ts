@@ -210,6 +210,7 @@ export class NodeService {
     node: INode,
     title: TitleElement,
     ul?: UnorderedListElement,
+    isInReference = false,
   ) => {
     if (title) {
       node = await db.updateNode(node.id, {
@@ -231,7 +232,10 @@ export class NodeService {
     const nodes = await db.listNormalNodes(this.spaceId)
 
     store.setNodes(nodes)
-    store.setNode(node)
+
+    if (!isInReference) {
+      store.setNode(node)
+    }
 
     // update snapshot
     const nodeService = new NodeService(

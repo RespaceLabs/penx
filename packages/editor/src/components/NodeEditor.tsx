@@ -29,6 +29,7 @@ import { Slate } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
 import { SetNodeToDecorations } from '@penx/code-block'
 import { getProjection } from '@penx/dnd-projection'
+import { PenxEditor } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
@@ -44,9 +45,9 @@ interface Props {
   content: any[]
   node: Node
   editableProps?: EditableProps
-  plugins: ((editor: Editor) => Editor)[]
+  plugins: ((editor: PenxEditor) => PenxEditor)[]
   onChange?: (value: Descendant[], editor: Editor) => void
-  onBlur?: (editor: Editor) => void
+  onBlur?: (editor: PenxEditor) => void
 }
 
 const measuring = {
