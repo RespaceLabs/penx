@@ -7,7 +7,6 @@ interface LoginProps {
 
 export function Login(props: LoginProps) {
   const onLogin = () => {
-    console.log('onLogin')
     props.loginCallback()
   }
 

@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 
 import { ACTIONS } from '~/common/action'
 import type { MsgRes, TabInfo } from '~/common/types'
+import styles from '~/components/popup/main.module.css'
 
-import styles from './main.module.css'
-
-import './globals.css'
+import '../components/popup/globals.module.css'
 
 export function Main() {
   const [tab, setTab] = useState<TabInfo>(null)

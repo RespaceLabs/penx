@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Login } from '~/components/popup/login'
-import { Main } from '~/components/popup/main'
+import { Main } from '~/pages/main'
 
 function IndexPopup() {
   const [isLogin, setIsLogin] = useState<boolean>(false)
