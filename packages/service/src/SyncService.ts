@@ -713,13 +713,14 @@ export class SyncService {
 
       await this.pullSpaceInfo()
 
+      // TODO:
       const nodes = await db.listNormalNodes(this.space.id)
-      const activeNode = await db.getNode(this.space.activeNodeId!)
+      // const activeNode = await db.getNode(this.space.activeNodeId!)
       const spaces = await db.listSpaces()
 
       store.setSpaces(spaces)
       store.setNodes(nodes)
-      store.reloadNode(activeNode)
+      // store.reloadNode(activeNode)
       store.routeTo('NODE')
     } catch (error) {
       console.log('pull error', error)

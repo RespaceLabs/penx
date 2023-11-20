@@ -4,7 +4,6 @@ import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { NodeListService } from '@penx/service'
 import { nodesAtom, store } from '@penx/store'
-import { useSpaces } from './useSpaces'
 
 export function useQueryNodes(spaceId: string) {
   const setNodes = useSetAtom(nodesAtom)
@@ -19,13 +18,12 @@ export function useQueryNodes(spaceId: string) {
 
       const space = store.getSpaces().find((s) => s.id === spaceId)
 
-      // console.log('space?.activeNodeId:', space?.activeNodeId)
-
-      const activeNode =
-        nodes.find((node) => node.id === space?.activeNodeId) || nodes[0]
+      const activeNodes = nodes.filter(
+        (node) => space?.activeNodeIds.includes(node.id),
+      )
 
       store.setNodes(nodes)
-      store.setNode(activeNode)
+      store.setActiveNodes(activeNodes)
     })
   }, [setNodes, spaceId])
 }

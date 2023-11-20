@@ -138,7 +138,7 @@ class DB {
 
       await this.updateSpace(spaceId, {
         isActive: true,
-        activeNodeId: node.id,
+        activeNodeIds: [node.id],
       })
     }
 
@@ -321,10 +321,6 @@ class DB {
 
     const newTodayNode = await this.updateNode(todayNode.id, {
       children: [...(todayNode.children || []), newNode.id],
-    })
-
-    await this.updateSpace(spaceId, {
-      activeNodeId: newTodayNode.id,
     })
 
     return {

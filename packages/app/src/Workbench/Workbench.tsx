@@ -9,9 +9,10 @@ import { Sidebar } from '../Sidebar/Sidebar'
 import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
 import { NodeContent } from './NodeContent'
-import { QueryNodes } from './QueryNodes'
+import { NodePanels } from './NodePanels'
 import { StatusBar } from './StatusBar/StatusBar'
 import { SyncBox } from './SyncBox/SyncBox'
+import { WithNodes } from './WithNodes'
 
 export const Workbench = () => {
   useQuerySpaces()
@@ -26,31 +27,18 @@ export const Workbench = () => {
 
   return (
     <EditorProvider space={activeSpace}>
-      <QueryNodes spaceId={activeSpace.id} />
       {!isMobile && <CommandPanel />}
-
-      <Box h-100vh toLeft black textSM overflowHidden>
-        <Box w={[0, 0, SIDEBAR_WIDTH]} toLeft>
-          <Sidebar />
-        </Box>
-        <Box flex-1 h-100vh relative>
-          <MobileNav />
-
-          {name === 'NODE' && <PCNav />}
-
-          <Box
-            overflowYAuto
-            h={['calc(100vh - 48px)', '100vh']}
-            px={[10, 16, 30, 40, 0]}
-            py0
-          >
-            {name === 'SYNC' && <SyncBox />}
-            {name === 'NODE' && <NodeContent />}
+      <WithNodes spaceId={activeSpace.id}>
+        <Box h-100vh toLeft black textSM flex-1 borderRight>
+          <Box w={[0, 0, SIDEBAR_WIDTH]} toLeft>
+            <Sidebar />
           </Box>
-
-          <StatusBar></StatusBar>
+          <Box flex-1>
+            {name === 'SYNC' && <SyncBox />}
+            {name === 'NODE' && <NodePanels />}
+          </Box>
         </Box>
-      </Box>
+      </WithNodes>
     </EditorProvider>
   )
 }

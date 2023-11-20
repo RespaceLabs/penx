@@ -33,6 +33,7 @@ import { PenxEditor } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
+import { store } from '@penx/store'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 import ClickablePadding from './ClickablePadding'
 import { DragOverlayPreview } from './DragOverlayPreview'
@@ -42,6 +43,7 @@ import { NodeEditorEditable } from './NodeEditorEditable'
 import { ProtectionProvider } from './ProtectionProvider'
 
 interface Props {
+  index?: number
   content: any[]
   node: Node
   editableProps?: EditableProps
@@ -87,9 +89,12 @@ export function NodeEditor({
   onChange,
   onBlur,
   plugins,
+  index = 0,
 }: Props) {
   const { nodeList, nodes } = useNodes()
   const editor = useCreateEditor(plugins)
+
+  store.setEditor(index, editor)
 
   editor.items = nodes
 

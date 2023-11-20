@@ -18,6 +18,7 @@
   "dependencies": {
     "@penx/local-db": "workspace:*",
     "@penx/model-types": "workspace:*",
+    "@penx/editor-common": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/extension-typings": "*",

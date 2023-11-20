@@ -2,37 +2,27 @@ import { format } from 'date-fns'
 import { atom, createStore } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import { SyncStatus } from '@penx/constants'
+import { PenxEditor } from '@penx/editor-common'
 import { emitter } from '@penx/event'
 import { db } from '@penx/local-db'
 import { Node, User } from '@penx/model'
 import { INode, ISpace, NodeType } from '@penx/model-types'
+import { commands } from './constants'
 import { Command, ExtensionStore, RouteName, RouterStore } from './types'
-
-// export const nodeAtom = atomWithStorage('node', null as any as INode)
-export const nodeAtom = atom(null as any as INode)
-export const nodesAtom = atom<INode[]>([])
 
 export const spacesAtom = atom<ISpace[]>([])
 
+export const nodeAtom = atom(null as any as INode)
+
+export const nodesAtom = atom<INode[]>([])
+
+export const activeNodesAtom = atom<INode[]>([])
+
+export const editorsAtom = atom<Map<number, PenxEditor>>(new Map())
+
 export const syncStatusAtom = atom<SyncStatus>(SyncStatus.NORMAL)
 
-export const commandsAtom = atom<Command[]>([
-  {
-    id: 'add-node',
-    name: 'Add node',
-    handler: () => {
-      emitter.emit('ADD_NODE')
-    },
-  },
-
-  {
-    id: 'export-to-markdown',
-    name: 'export to markdown',
-    handler: () => {
-      emitter.emit('ADD_NODE')
-    },
-  },
-])
+export const commandsAtom = atom<Command[]>(commands)
 
 export const routerAtom = atomWithStorage('Router', {
   name: 'NODE',
@@ -62,6 +52,32 @@ export const store = Object.assign(createStore(), {
 
   setNodes(nodes: INode[]) {
     return store.set(nodesAtom, nodes)
+  },
+
+  setActiveNodes(nodes: INode[]) {
+    return store.set(activeNodesAtom, nodes)
+  },
+
+  getActiveNodes() {
+    return store.get(activeNodesAtom)
+  },
+
+  setFirstActiveNodes(node: INode) {
+    const [_, ...activeNodes] = this.getActiveNodes()
+    const newActiveNodes = [node, ...activeNodes]
+    this.setActiveNodes([...newActiveNodes])
+    return newActiveNodes
+  },
+
+  getEditor(index: number) {
+    const editors = store.get(editorsAtom)
+    return editors.get(index)!
+  },
+
+  setEditor(index: number, editor: PenxEditor) {
+    const editors = store.get(editorsAtom)
+    editors.set(index, editor)
+    store.set(editorsAtom, editors)
   },
 
   getNode() {
@@ -116,13 +132,11 @@ export const store = Object.assign(createStore(), {
   },
 
   async selectNode(node: INode) {
-    const currentNode = store.getNode()
-    if (currentNode.id === node.id) return
-
-    this.routeTo('NODE')
-    this.reloadNode(node)
+    const router = store.get(routerAtom)
+    if (router.name !== 'NODE') this.routeTo('NODE')
+    const newActiveNodes = this.setFirstActiveNodes(node)
     await db.updateSpace(this.getActiveSpace().id, {
-      activeNodeId: node.id,
+      activeNodeIds: newActiveNodes.map((node) => node.id),
     })
   },
 
@@ -130,36 +144,41 @@ export const store = Object.assign(createStore(), {
     const space = this.getActiveSpace()
     let node = await db.getInboxNode(space.id)
 
-    await db.updateSpace(this.getActiveSpace().id, {
-      activeNodeId: node.id,
-    })
-
     this.reloadNode(node)
     this.routeTo('NODE')
+    const activeNodes = this.setFirstActiveNodes(node)
+
+    await db.updateSpace(this.getActiveSpace().id, {
+      activeNodeIds: activeNodes.map((node) => node.id),
+    })
   },
 
   async selectTagBox() {
     const space = this.getActiveSpace()
     let node = await db.getDatabaseRootNode(space.id)
 
-    await db.updateSpace(this.getActiveSpace().id, {
-      activeNodeId: node.id,
-    })
-
     this.reloadNode(node)
     this.routeTo('NODE')
+
+    const activeNodes = this.setFirstActiveNodes(node)
+
+    await db.updateSpace(this.getActiveSpace().id, {
+      activeNodeIds: activeNodes.map((node) => node.id),
+    })
   },
 
   async selectTrash() {
     const space = this.getActiveSpace()
     let node = await db.getTrashNode(space.id)
 
-    await db.updateSpace(this.getActiveSpace().id, {
-      activeNodeId: node.id,
-    })
-
     this.reloadNode(node)
     this.routeTo('NODE')
+
+    const activeNodes = this.setFirstActiveNodes(node)
+
+    await db.updateSpace(this.getActiveSpace().id, {
+      activeNodeIds: activeNodes.map((node) => node.id),
+    })
   },
 
   // select the space root node
@@ -167,12 +186,14 @@ export const store = Object.assign(createStore(), {
     const space = this.getActiveSpace()
     let node = await db.getSpaceNode(space.id)
 
-    await db.updateSpace(this.getActiveSpace().id, {
-      activeNodeId: node.id,
-    })
-
     this.reloadNode(node)
     this.routeTo('NODE')
+
+    const activeNodes = this.setFirstActiveNodes(node)
+
+    await db.updateSpace(this.getActiveSpace().id, {
+      activeNodeIds: activeNodes.map((node) => node.id),
+    })
   },
 
   async restoreNode(id: string) {},
@@ -211,13 +232,17 @@ export const store = Object.assign(createStore(), {
         props: { date: dateStr },
       })
     }
-
-    await db.updateSpace(dateNode.spaceId, { activeNodeId: dateNode.id })
-
     const newNodes = await db.listNormalNodes(space.id)
+
+    const activeNodes = this.setFirstActiveNodes(dateNode)
+
     this.setNodes(newNodes)
     this.reloadNode(dateNode)
     this.routeTo('NODE')
+
+    await db.updateSpace(this.getActiveSpace().id, {
+      activeNodeIds: activeNodes.map((node) => node.id),
+    })
   },
 
   async createNodeToToday(text: string) {
@@ -228,6 +253,8 @@ export const store = Object.assign(createStore(), {
     this.routeTo('NODE')
     this.setNodes(nodes)
     this.reloadNode(todayNode)
+
+    this.setFirstActiveNodes(todayNode)
   },
 
   async createPageNode(input: Partial<INode> = {}) {
@@ -240,7 +267,6 @@ export const store = Object.assign(createStore(), {
       },
       space,
     )
-    await db.updateSpace(space.id, { activeNodeId: node.id })
     const nodes = await db.listNormalNodes(space.id)
 
     const rootNode = nodes.find((n) => new Node(n).isRootNode)!
@@ -251,6 +277,12 @@ export const store = Object.assign(createStore(), {
     this.routeTo('NODE')
     this.setNodes(nodes)
     this.reloadNode(node)
+
+    const activeNodes = this.setFirstActiveNodes(node)
+
+    await db.updateSpace(space.id, {
+      activeNodeIds: activeNodes.map((node) => node.id),
+    })
   },
 
   async createDatabase(tagName: string) {
@@ -281,12 +313,13 @@ export const store = Object.assign(createStore(), {
     const nodes = await db.listNormalNodes(space.id)
 
     space = await db.getSpace(space.id)
-    const node = await db.getNode(space.activeNodeId!)
+    const activeNodes = nodes.filter((n) => space.activeNodeIds.includes(n.id))
 
     this.routeTo('NODE')
     this.setNodes(nodes)
     this.setSpaces(spaces)
-    this.reloadNode(node)
+    // this.reloadNode()
+    this.setActiveNodes(activeNodes)
     return space
   },
 
@@ -295,12 +328,11 @@ export const store = Object.assign(createStore(), {
     const spaces = await db.listSpaces()
     const nodes = await db.listNormalNodes(id)
     const space = await db.getActiveSpace()
-    const nodeId = space.activeNodeId!
-    const node = await db.getNode(nodeId)
+    const activeNodes = nodes.filter((n) => space.activeNodeIds.includes(n.id))
 
     this.setSpaces(spaces)
     this.setNodes(nodes)
-    this.reloadNode(node)
+    this.setActiveNodes(activeNodes)
     return space
   },
 

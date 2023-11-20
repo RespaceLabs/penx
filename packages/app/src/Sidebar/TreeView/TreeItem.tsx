@@ -3,9 +3,11 @@ import isEqual from 'react-fast-compare'
 import { useSortable } from '@dnd-kit/sortable'
 import { Box, CSSObject, FowerHTMLProps } from '@fower/react'
 import { ChevronDown, ChevronRight } from 'lucide-react'
-import { Editor } from 'slate'
-import { useNode } from '@penx/hooks'
+import { Editor, Transforms } from 'slate'
+import { clearEditor } from '@penx/editor-transforms'
+import { useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
+import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
 import { FlattenedItem } from './types'
 
@@ -23,10 +25,8 @@ export const TreeItem = memo(
     { item, depth, listeners, style = {}, css = {}, onCollapse, ...rest },
     ref,
   ) {
-    const { node: currentNode } = useNode()
+    const { nodes, nodeList } = useNodes()
     const node = new Node(item as any)
-
-    const isEqual = item.id === currentNode.id
     const hasChildren = !!item.children.length
 
     return (
@@ -39,7 +39,6 @@ export const TreeItem = memo(
         rounded
         bgGray200--hover
         bgGray200--D4--active
-        bgGray200={isEqual}
         transitionColors
         gray800
         mb-1
@@ -49,10 +48,13 @@ export const TreeItem = memo(
         {...listeners}
         {...rest}
         onClick={() => {
-          // TODO: need to improve performance
-          const nodes = store.getNodes()
-          const node = nodes.find((n) => n.id === item.id)!
-          store.selectNode(node)
+          const editor = store.getEditor(0)
+          clearEditor(editor)
+
+          const node = nodeList.getNode(item.id)
+          store.selectNode(node.raw)
+          const nodeService = new NodeService(node, nodes)
+          Transforms.insertNodes(editor, nodeService.getEditorValue())
         }}
       >
         <Box toCenterY gap-2>

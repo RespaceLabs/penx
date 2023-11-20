@@ -1,12 +1,12 @@
 import React, { FC, PropsWithChildren } from 'react'
 import { Button } from 'uikit'
-import { useNode, useNodes } from '@penx/hooks'
+import { useNodeContext, useNodes } from '@penx/hooks'
 import { IconStar, IconStarSolid } from '@penx/icons'
 
 interface Props {}
 
 export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
-  const { node } = useNode()
+  const { node } = useNodeContext()
   const { nodeList } = useNodes()
   // console.log('nodeList.favoriteNode:', nodeList.favoriteNode, nodeList)
 

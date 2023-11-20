@@ -1,9 +1,9 @@
 import { Box } from '@fower/react'
 import { ChevronRight } from 'lucide-react'
-import { useNode } from '@penx/hooks'
+import { useNodeContext } from '@penx/hooks'
 
 export const Breadcrumb = () => {
-  const { nodeService } = useNode()
+  const { nodeService } = useNodeContext()
   const parentNodes = nodeService.getParentNodes()
 
   return (

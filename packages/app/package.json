@@ -58,6 +58,7 @@
     "@penx/editor": "workspace:*",
     "@penx/editor-common": "workspace:*",
     "@penx/editor-queries": "workspace:*",
+    "@penx/editor-transforms": "workspace:*",
     "@penx/editor-shared": "workspace:*",
     "@penx/event": "workspace:*",
     "@penx/extension-typings": "*",

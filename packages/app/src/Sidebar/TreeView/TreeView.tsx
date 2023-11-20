@@ -28,10 +28,14 @@ import {
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'
+import { Transforms } from 'slate'
 import { getProjection, UniqueIdentifier } from '@penx/dnd-projection'
+import { clearEditor } from '@penx/editor-transforms'
+import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
+import { Node } from '@penx/model'
 import { INode } from '@penx/model-types'
-import { NodeCleaner, NodeListService } from '@penx/service'
+import { NodeCleaner, NodeListService, NodeService } from '@penx/service'
 import { store } from '@penx/store'
 import { SortableTreeItem } from './SortableTreeItem'
 import { TreeItem } from './TreeItem'
@@ -80,6 +84,7 @@ interface TreeViewProps {
 const indentationWidth = 50
 
 export const TreeView = ({ nodeList }: TreeViewProps) => {
+  const { nodes } = useNodes()
   const items = nodeList.createTree(nodeList.rootNode)
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null)
@@ -282,6 +287,26 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
     updateToStore(newItems, reloadNode)
 
     await updateToDB(newItems)
+
+    // reload the editor
+    if (reloadNode) {
+      const nodes = await db.listNodesBySpaceId(newItems[0].spaceId)
+      const editor = store.getEditor(0)
+      clearEditor(editor)
+
+      const [activeNode] = store.getActiveNodes()
+
+      const newActiveNode = nodes.find(({ id }) => id === activeNode.id)!
+
+      store.setFirstActiveNodes(newActiveNode)
+
+      const nodeService = new NodeService(
+        new Node(newActiveNode),
+        nodes.map((n) => new Node(n)),
+      )
+
+      Transforms.insertNodes(editor, nodeService.getEditorValue())
+    }
   }
 
   async function updateToStore(newItems: TreeItems, reloadNode = true) {
@@ -313,12 +338,6 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
     })
 
     store.setNodes(newNodes)
-
-    if (reloadNode) {
-      const activeNode = store.getNode()
-      const newActiveNode = newNodes.find((n) => n.id === activeNode.id)
-      if (newActiveNode) store.reloadNode(newActiveNode)
-    }
   }
 
   async function updateToDB(newItems: TreeItems) {

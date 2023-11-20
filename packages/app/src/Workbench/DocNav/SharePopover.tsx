@@ -1,11 +1,11 @@
 import { Box } from '@fower/react'
 import { Copy, Share2 } from 'lucide-react'
 import { Button, Popover, PopoverContent, PopoverTrigger, toast } from 'uikit'
-import { useNode } from '@penx/hooks'
+import { useNodeContext } from '@penx/hooks'
 import { useCopyToClipboard } from '@penx/shared'
 
 export const SharePopover = () => {
-  const { node } = useNode()
+  const { node } = useNodeContext()
 
   const { copy } = useCopyToClipboard()
 

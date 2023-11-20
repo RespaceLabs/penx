@@ -80,13 +80,6 @@ class AppLoader {
         }
       }
     }
-
-    const activeNode = await db.getNode(space.activeNodeId!)
-    if (!activeNode) {
-      await db.updateSpace(space.id, {
-        activeNodeId: nodes[0]?.id,
-      })
-    }
   }
 }
 

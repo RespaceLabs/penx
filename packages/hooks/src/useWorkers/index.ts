@@ -52,13 +52,14 @@ export function useWorkers() {
 
         const activeSpace = spaces.find((space) => space.isActive)
 
-        const node = await db.getNode(activeSpace?.activeNodeId!)
+        // TODO:
+        // const node = await db.getNode(activeSpace?.activeNodeId!)
 
-        store.set(nodeAtom, null as any)
+        // store.set(nodeAtom, null as any)
 
         // for rerender editor
         setTimeout(() => {
-          store.set(nodeAtom, node!)
+          // store.set(nodeAtom, node!)
         }, 0)
       }
 

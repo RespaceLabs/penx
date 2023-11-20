@@ -36,10 +36,6 @@ export class Space {
     return this.id === 'penx-101'
   }
 
-  get activeNodeId() {
-    return this.raw.activeNodeId
-  }
-
   get filename() {
     return `${this.id}.json`
   }

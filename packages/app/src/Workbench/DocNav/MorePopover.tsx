@@ -8,13 +8,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
-import { useNode } from '@penx/hooks'
+import { useNodeContext } from '@penx/hooks'
 import { store } from '@penx/store'
 
 export const MorePopover = () => {
-  const { node } = useNode()
-
-  if (!node?.id) return null
+  const { node } = useNodeContext()
 
   return (
     <Popover placement="bottom-end">

@@ -239,6 +239,7 @@ export class NodeService {
     store.setNodes(nodes)
 
     if (!isInReference) {
+      // TODO:
       store.setNode(node)
     }
 

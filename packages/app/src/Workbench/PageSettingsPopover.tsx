@@ -12,7 +12,7 @@ import {
   Switch,
   toast,
 } from 'uikit'
-import { useNode } from '@penx/hooks'
+import { useNodeContext } from '@penx/hooks'
 import { IconCopy } from '@penx/icons'
 import { useCopyToClipboard } from '@penx/shared'
 import { ExportToMarkdown } from './ExportToMarkdown'
@@ -20,7 +20,7 @@ import { ExportToMarkdown } from './ExportToMarkdown'
 interface Props {}
 
 export const PageSettingsPopover: FC<PropsWithChildren<Props>> = () => {
-  const { node } = useNode()
+  const { node } = useNodeContext()
   const { copy } = useCopyToClipboard()
   function copyMarkdown() {
     //

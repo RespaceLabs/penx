@@ -20,6 +20,8 @@ export interface ISpace {
 
   activeNodeId?: string
 
+  activeNodeIds: string[]
+
   snapshot: {
     version: number
     nodeMap: Record<string, string>

@@ -2382,6 +2382,9 @@ importers:
       '@penx/editor-shared':
         specifier: workspace:*
         version: link:../editor-shared
+      '@penx/editor-transforms':
+        specifier: workspace:*
+        version: link:../editor-transforms
       '@penx/event':
         specifier: workspace:*
         version: link:../event
@@ -4292,6 +4295,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
+      '@penx/editor-common':
+        specifier: workspace:*
+        version: link:../editor-common
       '@penx/event':
         specifier: workspace:*
         version: link:../event

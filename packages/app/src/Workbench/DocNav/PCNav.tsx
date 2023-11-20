@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { useNode } from '@penx/hooks'
+import { useNodeContext } from '@penx/hooks'
 import { Breadcrumb } from './Breadcrumb'
 import { FavoriteButton } from './FavoriteButton'
 import { MorePopover } from './MorePopover'
@@ -7,9 +7,7 @@ import { NewNodeButton } from './NewNodeButton'
 import { SharePopover } from './SharePopover'
 
 export const PCNav = () => {
-  const { node } = useNode()
-
-  if (!node?.id) return null
+  const { node } = useNodeContext()
 
   return (
     <Box
