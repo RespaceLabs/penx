@@ -22,10 +22,15 @@ export class SpaceService {
    *   TRASH: node[]
    *   FAVORITE: node[]
    *   DATABASE_ROOT: node[]
+   *   DAILY_ROOT: node[]
    *
    *   page1: node[] // pageNode from rootNode'children
    *   page2: node[]
    *   page2: node[]
+   *
+   *   daily1: node[] // DailyNode from dailyRootNode'children
+   *   daily2: node[]
+   *   daily3: node[]
    *
    *   database1: node[] // databaseNode from databaseRootNode'children
    *   database2: node[]
@@ -57,11 +62,21 @@ export class SpaceService {
       pageMap[id] = [databaseNode, ...pageNodes]
     }
 
+    // common daily nodes
+    for (const id of nodeList.dailyRootNode.children) {
+      const dailyNode = this.nodeMap.get(id)!
+      const pageNodes = this.nodes.filter((n) => n.parentId === dailyNode.id)
+      pageMap[id] = [dailyNode, ...pageNodes]
+    }
+
     // space's rootNode
     pageMap[NodeType.ROOT] = [nodeList.rootNode.raw]
 
     // database's rootNode
     pageMap[NodeType.DATABASE_ROOT] = [nodeList.databaseRootNode.raw]
+
+    // daily's rootNode
+    pageMap[NodeType.DAILY_ROOT] = [nodeList.dailyRootNode.raw]
 
     // favorite node
     pageMap[NodeType.FAVORITE] = [nodeList.favoriteNode.raw]

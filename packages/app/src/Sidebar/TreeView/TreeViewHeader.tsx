@@ -20,7 +20,7 @@ export const TreeViewHeader = memo(function TreeViewHeader() {
         store.selectSpaceNode()
       }}
     >
-      <Bullet mr-4 />
+      {/* <Bullet mr-4 /> */}
       <Box>ALL NODES</Box>
     </Box>
   )

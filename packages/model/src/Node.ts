@@ -44,13 +44,14 @@ export class Node {
   }
 
   get title(): string {
-    if (this.isDailyNote) {
+    if (this.isDaily) {
       return format(new Date(this.raw.props.date || Date.now()), 'EEEE, LLL do')
     }
 
     if (this.isInbox) return 'Inbox'
     if (this.isTrash) return 'Trash'
     if (this.isDatabaseRoot) return 'Tags'
+    if (this.isDailyRoot) return 'Daily Notes'
 
     return this.element[0]?.children?.[0]?.text || this.props.name || ''
   }
@@ -71,8 +72,8 @@ export class Node {
     return this.type === NodeType.FAVORITE
   }
 
-  get isDailyNote() {
-    return this.type === NodeType.DAILY_NOTE
+  get isDaily() {
+    return this.type === NodeType.DAILY
   }
 
   get isRootNode() {
@@ -81,6 +82,10 @@ export class Node {
 
   get isDatabaseRoot() {
     return this.type === NodeType.DATABASE_ROOT
+  }
+
+  get isDailyRoot() {
+    return this.type === NodeType.DAILY_ROOT
   }
 
   get isDatabase() {

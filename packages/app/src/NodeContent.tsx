@@ -18,7 +18,7 @@ export function NodeContent() {
 
   // console.log('nodes=========:', nodes)
   // console.log('node========:', nodeService.getEditorValue())
-  // console.log('node content========:', node.raw)
+  // console.log('node content========:', node.raw, nodeService.parentNode)
 
   return (
     <Box relative mt10>

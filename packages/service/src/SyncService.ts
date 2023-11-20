@@ -588,7 +588,13 @@ export class SyncService {
       await db.deleteNode(rootNode.id)
     }
 
-    const databaseRootNode = await db.getRootNode(this.space.id)
+    const dailyRootNode = await db.getDailyRootNode(this.space.id)
+    if (dailyRootNode) {
+      console.log('dailyRootNode:', dailyRootNode)
+      await db.deleteNode(dailyRootNode.id)
+    }
+
+    const databaseRootNode = await db.getDatabaseRootNode(this.space.id)
     if (databaseRootNode) {
       console.log('databaseRootNode:', databaseRootNode)
       await db.deleteNode(databaseRootNode.id)

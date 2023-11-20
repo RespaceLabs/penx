@@ -4,6 +4,7 @@ import { INode, NodeType } from '@penx/model-types'
 
 type Input = {
   spaceId: string
+  parentId?: string
   type?: NodeType
   name?: string
   props?: INode['props']
@@ -21,6 +22,7 @@ export function getNewNode(input: Input, text = ''): INode {
         children: [{ text }],
       },
     ],
+
     props: {
       name,
       ...rest.props,
@@ -32,5 +34,5 @@ export function getNewNode(input: Input, text = ''): INode {
     createdAt: Date.now(),
     updatedAt: Date.now(),
     ...rest,
-  }
+  } as INode
 }

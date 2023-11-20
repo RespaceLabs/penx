@@ -3,7 +3,7 @@ import { css } from '@fower/react'
 import { Editor } from 'slate'
 import { Editable, RenderElementProps } from 'slate-react'
 import { onKeyDownAutoformat } from '@penx/autoformat'
-import { useEditor, useEditorStatic } from '@penx/editor-common'
+import { PenxEditor, useEditor, useEditorStatic } from '@penx/editor-common'
 import { Leaf } from '@penx/editor-leaf'
 import { useExtensionStore } from '@penx/hooks'
 import { useDecorate } from '../hooks/useDecorate'
@@ -12,7 +12,7 @@ import { useOnDOMBeforeInput } from '../hooks/useOnDOMBeforeInput'
 import { ElementContent } from './ElementContent'
 
 interface Props {
-  onBlur?: (editor: Editor) => void
+  onBlur?: (editor: PenxEditor) => void
 }
 
 export const NodeEditorEditable = memo(

@@ -113,7 +113,7 @@ export class NodeService {
       type: ELEMENT_UL,
       children: childrenNodes.map((node) => {
         // override the title
-        if (node.isDailyNote || node.isInbox) {
+        if (node.isDaily || node.isInbox) {
           node.element[0].children[0].text = node.title
         }
 
@@ -142,7 +142,12 @@ export class NodeService {
     }
 
     // override the title
-    if (this.node.isDailyNote || this.node.isInbox || this.node.isTrash) {
+    if (
+      this.node.isDaily ||
+      this.node.isDailyRoot ||
+      this.node.isInbox ||
+      this.node.isTrash
+    ) {
       this.node.element[0].children[0].text = this.node.title
     }
 

@@ -26,11 +26,11 @@ export const Title = ({
 
   const disabled = [
     NodeType.INBOX,
-    NodeType.DAILY_NOTE,
+    NodeType.DAILY,
     NodeType.DATABASE_ROOT,
   ].includes(element.nodeType as any)
 
-  const isDailyNote = element.nodeType === NodeType.DAILY_NOTE
+  const isDaily = element.nodeType === NodeType.DAILY
 
   useFocusTitle(element)
 
@@ -59,8 +59,8 @@ export const Title = ({
         },
       }}
     >
-      {!isDailyNote && children}
-      {isDailyNote && (
+      {!isDaily && children}
+      {isDaily && (
         <Box toCenterY gap2>
           <TaskProgress />
           <Box
@@ -74,7 +74,7 @@ export const Title = ({
             }}
           >
             {children}
-            {isDailyNote && <DailyNoteNav element={element} />}
+            {isDaily && <DailyNoteNav element={element} />}
           </Box>
         </Box>
       )}

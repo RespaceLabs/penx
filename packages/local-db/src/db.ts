@@ -118,7 +118,23 @@ class DB {
         }),
       )
 
-      const node = await this.createPageNode(getNewNode({ spaceId }), space)
+      // init daily root node
+      const dailyRoot = await this.node.insert(
+        getNewNode({
+          spaceId,
+          type: NodeType.DAILY_ROOT,
+        }),
+      )
+
+      const todayStr = format(new Date(), 'yyyy-MM-dd')
+      const node = await this.createDailyNode(
+        getNewNode({
+          parentId: dailyRoot.id,
+          spaceId,
+          type: NodeType.DAILY,
+          props: { date: todayStr },
+        }),
+      )
 
       await this.updateSpace(spaceId, {
         isActive: true,
@@ -175,6 +191,11 @@ class DB {
     return nodes.find((node) => node.spaceId === spaceId)!
   }
 
+  getDailyRootNode = async (spaceId: string) => {
+    let nodes = await this.node.selectByIndexAll('type', NodeType.DAILY_ROOT)
+    return nodes.find((node) => node.spaceId === spaceId)!
+  }
+
   getInboxNode = async (spaceId: string) => {
     let nodes = await this.node.selectByIndexAll('type', NodeType.INBOX)
     return nodes.find((node) => node.spaceId === spaceId)!
@@ -186,7 +207,7 @@ class DB {
   }
 
   getTodayNode = async (spaceId: string) => {
-    let nodes = await this.node.selectByIndexAll('type', NodeType.DAILY_NOTE)
+    let nodes = await this.node.selectByIndexAll('type', NodeType.DAILY)
     return nodes.find(
       (node) => node.props.date === format(new Date(), 'yyyy-MM-dd'),
     )!
@@ -236,6 +257,29 @@ class DB {
     })
 
     return newNode
+  }
+
+  createDailyNode = async (node: Partial<INode>) => {
+    const { spaceId = '' } = node
+    const dailyRootNode = await this.getDailyRootNode(spaceId)
+    const subNode = await this.node.insert(getNewNode({ spaceId }))
+
+    const dailyNode = await this.node.insert({
+      ...getNewNode({ spaceId: node.spaceId!, type: NodeType.DAILY }),
+      ...node,
+      collapsed: true,
+      children: [subNode.id],
+    })
+
+    await this.updateNode(subNode.id, {
+      parentId: dailyNode.id,
+    })
+
+    await this.updateNode(dailyRootNode.id, {
+      children: [...(dailyRootNode.children || []), dailyNode.id],
+    })
+
+    return dailyNode
   }
 
   createInboxNode = async (spaceId: string) => {

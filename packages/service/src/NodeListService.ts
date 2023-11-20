@@ -39,6 +39,11 @@ export class NodeListService {
     return databaseRootNode
   }
 
+  get dailyRootNode() {
+    const dailyRootNode = this.nodes.find((n) => n.isDailyRoot)!
+    return dailyRootNode
+  }
+
   get inboxNode() {
     const rootNode = this.nodes.find((n) => n.isInbox)!
     return rootNode

@@ -198,21 +198,26 @@ export const store = Object.assign(createStore(), {
     const dateStr = format(date, 'yyyy-MM-dd')
     const nodes = store.getNodes()
     let dateNode = nodes.find(
-      (node) =>
-        node.type === NodeType.DAILY_NOTE && node.props.date === dateStr,
+      (node) => node.type === NodeType.DAILY && node.props.date === dateStr,
     )
+    const space = this.getActiveSpace()
+    const dailyRoot = await db.getDailyRootNode(space.id)
 
     if (!dateNode) {
-      await this.createPageNode({
-        type: NodeType.DAILY_NOTE,
+      dateNode = await db.createDailyNode({
+        parentId: dailyRoot.id,
+        spaceId: space.id,
+        type: NodeType.DAILY,
         props: { date: dateStr },
       })
-    } else {
-      await db.updateSpace(dateNode.spaceId, { activeNodeId: dateNode.id })
-      this.routeTo('NODE')
-      this.setNodes(nodes)
-      this.reloadNode(dateNode)
     }
+
+    await db.updateSpace(dateNode.spaceId, { activeNodeId: dateNode.id })
+
+    const newNodes = await db.listNormalNodes(space.id)
+    this.setNodes(newNodes)
+    this.reloadNode(dateNode)
+    this.routeTo('NODE')
   },
 
   async createNodeToToday(text: string) {

@@ -4,10 +4,13 @@ export enum NodeType {
   INBOX = 'INBOX',
   TRASH = 'TRASH',
   FAVORITE = 'FAVORITE',
-  DAILY_NOTE = 'DAILY_NOTE',
+  DAILY = 'DAILY',
+
+  DAILY_ROOT = 'DAILY_ROOT',
 
   // Database
   DATABASE_ROOT = 'DATABASE_ROOT',
+
   DATABASE = 'DATABASE',
   CELL = 'CELL',
   ROW = 'ROW',
@@ -61,6 +64,10 @@ export enum FieldType {
   SingleSelect = 'SingleSelect',
   CreatedAt = 'CreatedAt',
   UpdatedAt = 'UpdatedAt',
+}
+
+export interface IDailyRootNode extends INode {
+  type: NodeType.DAILY_ROOT
 }
 
 export interface IDatabaseRootNode extends INode {

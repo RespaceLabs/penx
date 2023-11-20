@@ -96,6 +96,8 @@ export const FavoriteBox = ({ nodeList }: Props) => {
 
   const activeItem = activeId ? nodes.find(({ id }) => id === activeId) : null
 
+  if (!items.length) return null
+
   return (
     <Box>
       <FavoriteTitle />
