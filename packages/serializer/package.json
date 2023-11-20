@@ -18,6 +18,9 @@
   "dependencies": {
     "@penx/editor-shared": "workspace:*",
     "@penx/editor-types": "workspace:*",
+    "@penx/model": "workspace:*",
+    "@penx/model-types": "workspace:*",
+    "@penx/constants": "workspace:*",
     "slate": "0.94.1"
   }
 }

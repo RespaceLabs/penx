@@ -35,6 +35,7 @@ import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode } from '@penx/model-types'
+import { nodeToSlate } from '@penx/serializer'
 import { NodeCleaner, NodeListService, NodeService } from '@penx/service'
 import { store } from '@penx/store'
 import { SortableTreeItem } from './SortableTreeItem'
@@ -300,12 +301,9 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
 
       store.setFirstActiveNodes(newActiveNode)
 
-      const nodeService = new NodeService(
-        new Node(newActiveNode),
-        nodes.map((n) => new Node(n)),
-      )
+      const value = nodeToSlate(newActiveNode, nodes)
 
-      Transforms.insertNodes(editor, nodeService.getEditorValue())
+      Transforms.insertNodes(editor, value)
     }
   }
 

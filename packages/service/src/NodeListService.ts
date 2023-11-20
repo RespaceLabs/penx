@@ -21,7 +21,7 @@ export class NodeListService {
 
   nodeMap = new Map<string, Node>()
 
-  constructor(private rawNodes: INode[] = []) {
+  constructor(public rawNodes: INode[] = []) {
     this.nodes = this.rawNodes.map((raw) => new Node(raw))
 
     for (const node of this.nodes) {

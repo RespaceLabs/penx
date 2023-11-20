@@ -19,9 +19,7 @@ import { db, emitter } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, NodeType } from '@penx/model-types'
 import { store } from '@penx/store'
-import { NodeCleaner } from '../NodeCleaner'
-import { getDatabaseNodeEditorValue } from './getDatabaseNodeEditorValue'
-import { getDatabaseRootEditorValue } from './getDatabaseRootEditorValue'
+import { NodeCleaner } from './NodeCleaner'
 
 export class NodeService {
   nodeMap = new Map<string, INode>()
@@ -59,119 +57,6 @@ export class NodeService {
 
   isEqual(node: Node) {
     return node.id === this.node.id
-  }
-
-  getEditorValue(
-    childrenNodes: Node[] = this.childrenNodes,
-    isCreateTitle = true,
-  ) {
-    if (this.node.isDatabase) {
-      return getDatabaseNodeEditorValue(this.node)
-    }
-
-    if (this.node.isDatabaseRoot) {
-      return getDatabaseRootEditorValue(this.node, this.nodeMap)
-    }
-
-    const childrenToList = (
-      children: string[],
-      parentId: string | null = null,
-    ) => {
-      const listItems = children.map((id) => {
-        const node = this.nodeMap.get(id)!
-
-        const children = [
-          {
-            id: node.id,
-            type: ELEMENT_LIC,
-            nodeType: node.type,
-            parentId,
-            collapsed: node.collapsed,
-            children: Array.isArray(node.element)
-              ? node.element
-              : [node.element],
-          },
-        ]
-
-        if (node.children) {
-          const ul = childrenToList(node.children, node.id)
-          if (ul) children.push(ul as any)
-        }
-
-        return {
-          type: ELEMENT_LI,
-          children,
-        }
-      })
-
-      if (!listItems.length) return null
-      return {
-        type: ELEMENT_UL,
-        children: listItems,
-      }
-    }
-
-    const content = {
-      type: ELEMENT_UL,
-      children: childrenNodes.map((node) => {
-        // override the title
-        if (node.isDaily || node.isInbox) {
-          node.element[0].children[0].text = node.title
-        }
-
-        const listChildren = [
-          {
-            id: node.id,
-            type: ELEMENT_LIC,
-            parentId: null,
-            nodeType: node.type,
-            props: node.props,
-            collapsed: node.collapsed,
-            children: Array.isArray(node.element)
-              ? node.element
-              : [node.element],
-          },
-        ]
-
-        const ul = childrenToList(node.children, node.id) as any
-        if (ul) listChildren.push(ul)
-
-        return {
-          type: ELEMENT_LI,
-          children: listChildren,
-        }
-      }),
-    }
-
-    // override the title
-    if (
-      this.node.isDaily ||
-      this.node.isDailyRoot ||
-      this.node.isInbox ||
-      this.node.isTrash
-    ) {
-      this.node.element[0].children[0].text = this.node.title
-    }
-
-    const value: any[] = []
-
-    if (isCreateTitle) {
-      value.push({
-        id: this.node.id,
-        type: ELEMENT_TITLE,
-        props: this.node.props,
-        nodeType: this.node.type,
-        children: Array.isArray(this.node.element)
-          ? this.node.element
-          : [this.node.element],
-      })
-    }
-
-    if (childrenNodes.length) {
-      value.push(content)
-    }
-
-    return value
   }
 
   // TODO: improve performance
@@ -257,9 +142,7 @@ export class NodeService {
     )
 
     // update page snapshot
-    const value = nodeService.getEditorValue(childrenNodes)
-
-    await db.updateSnapshot(rootNode.raw, 'update', value)
+    await db.updateSnapshot(rootNode.raw, 'update', childrenNodes)
 
     await new NodeCleaner().cleanDeletedNodes()
   }

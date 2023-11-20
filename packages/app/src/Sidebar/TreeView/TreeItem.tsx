@@ -7,6 +7,7 @@ import { Editor, Transforms } from 'slate'
 import { clearEditor } from '@penx/editor-transforms'
 import { useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
+import { nodeToSlate } from '@penx/serializer'
 import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
 import { FlattenedItem } from './types'
@@ -53,8 +54,8 @@ export const TreeItem = memo(
 
           const node = nodeList.getNode(item.id)
           store.selectNode(node.raw)
-          const nodeService = new NodeService(node, nodes)
-          Transforms.insertNodes(editor, nodeService.getEditorValue())
+          const value = nodeToSlate(node.raw, nodeList.rawNodes)
+          Transforms.insertNodes(editor, value)
         }}
       >
         <Box toCenterY gap-2>

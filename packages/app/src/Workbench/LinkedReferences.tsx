@@ -7,6 +7,7 @@ import { PenxEditor } from '@penx/editor-common'
 import { isAstChange } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
+import { NodeToSlateSerializer } from '@penx/serializer'
 import { NodeService } from '@penx/service'
 import { withBulletPlugin } from '../plugins/withBulletPlugin'
 
@@ -20,6 +21,8 @@ const ReferenceItem = memo(function ReferenceItem({
   const { nodes } = useNodes()
   const nodeService = new NodeService(node, nodes)
   const parentNodes = nodeService.getParentNodes().slice(0, -1)
+
+  const serializer = new NodeToSlateSerializer(node, nodes)
 
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
     nodeService.savePage(
@@ -56,7 +59,7 @@ const ReferenceItem = memo(function ReferenceItem({
 
       <NodeEditor
         plugins={[withBulletPlugin]}
-        content={nodeService.getEditorValue([node], false)}
+        content={serializer.getEditorValue([node], false)}
         node={node}
         onChange={(value, editor) => {
           if (isAstChange(editor)) {

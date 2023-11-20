@@ -4051,12 +4051,21 @@ importers:
 
   packages/serializer:
     dependencies:
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
       '@penx/editor-shared':
         specifier: workspace:*
         version: link:../editor-shared
       '@penx/editor-types':
         specifier: workspace:*
         version: link:../editor-types
+      '@penx/model':
+        specifier: workspace:*
+        version: link:../model
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
       slate:
         specifier: 0.94.1
         version: 0.94.1

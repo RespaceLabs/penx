@@ -6,6 +6,7 @@ import { decryptString, encryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
+import { nodeToSlate } from '@penx/serializer'
 import { spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 import { NodeService } from './NodeService'
@@ -364,9 +365,7 @@ export class SyncService {
     // get fileIds
     for (const nodeId of nodeIds) {
       const node = await db.getNode(nodeId)
-
-      const nodeService = new NodeService(new Node(node), nodes)
-      const value = nodeService.getEditorValue()
+      const value = nodeToSlate(node, nodesRaw)
       const editor = createEditor()
       editor.insertNodes(value)
 
