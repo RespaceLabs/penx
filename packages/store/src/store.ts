@@ -215,6 +215,20 @@ export const store = Object.assign(createStore(), {
     }, 0)
   },
 
+  async openInNewPanel(nodeId: string) {
+    const nodes = store.getNodes()
+    const node = nodes.find((n) => n.id === nodeId)!
+    const activeNodes = store.getActiveNodes()
+
+    const newActiveNodes = [...activeNodes, node]
+    store.setActiveNodes([...newActiveNodes])
+
+    const space = this.getActiveSpace()
+    await db.updateSpace(space.id, {
+      activeNodeIds: newActiveNodes.map((node) => node.id),
+    })
+  },
+
   async selectDailyNote(date: Date = new Date()) {
     const dateStr = format(date, 'yyyy-MM-dd')
     const nodes = store.getNodes()

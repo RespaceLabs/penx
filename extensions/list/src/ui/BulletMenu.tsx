@@ -20,11 +20,8 @@ export const BulletMenu = ({ menuId, element }: Props) => {
     }
   }
 
-  function openInNewPanel() {
-    const nodes = store.getNodes()
-    const node = nodes.find((n) => n.id === element.id)!
-    const activeNodes = store.getActiveNodes()
-    store.setActiveNodes([...activeNodes, node])
+  async function openInNewPanel() {
+    await store.openInNewPanel(element.id)
   }
 
   return (
