@@ -9,11 +9,11 @@ import { appLoader, useLoaderStatus } from '@penx/loader'
 import { JotaiNexus, spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 import { ClientOnly } from './components/ClientOnly'
-import { EditorLayout } from './EditorLayout/EditorLayout'
-import { LoginSuccessModal } from './EditorLayout/LoginSuccessModal'
 import { HotkeyBinding } from './HotkeyBinding'
 import { SyncDetectorModal } from './SyncDetectorModal'
 import { UserQuery } from './UserQuery'
+import { LoginSuccessModal } from './Workbench/LoginSuccessModal'
+import { Workbench } from './Workbench/Workbench'
 import { WorkerStarter } from './WorkerStarter'
 
 if (!isServer) {
@@ -65,7 +65,7 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
           <LoginSuccessModal />
           <HotkeyBinding />
           <JotaiNexus />
-          <EditorLayout />
+          <Workbench />
         </Provider>
       </ErrorBoundary>
     </ClientOnly>

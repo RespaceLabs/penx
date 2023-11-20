@@ -8,7 +8,7 @@ import { isAstChange } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { NodeService } from '@penx/service'
-import { withBulletPlugin } from './plugins/withBulletPlugin'
+import { withBulletPlugin } from '../plugins/withBulletPlugin'
 
 interface ReferenceItemProps extends FowerHTMLProps<'div'> {
   node: Node

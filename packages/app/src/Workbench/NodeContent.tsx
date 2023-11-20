@@ -3,8 +3,8 @@ import { useDebouncedCallback } from 'use-debounce'
 import { NodeEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
 import { useNode, useNodes } from '@penx/hooks'
+import { withBulletPlugin } from '../plugins/withBulletPlugin'
 import { LinkedReferences } from './LinkedReferences'
-import { withBulletPlugin } from './plugins/withBulletPlugin'
 
 export function NodeContent() {
   const { nodes } = useNodes()

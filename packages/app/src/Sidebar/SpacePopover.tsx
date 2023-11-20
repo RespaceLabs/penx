@@ -3,8 +3,8 @@ import { ChevronsUpDown } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { Bullet } from '../components/Bullet'
-import { CreateSpaceModal } from '../EditorLayout/CreateSpaceModal/CreateSpaceModal'
-import { SettingsModal } from '../EditorLayout/SettingsModal/SettingsModal'
+import { CreateSpaceModal } from '../Workbench/CreateSpaceModal/CreateSpaceModal'
+import { SettingsModal } from '../Workbench/SettingsModal/SettingsModal'
 import { SpaceList } from './SpaceList'
 
 export const SpacePopover = () => {

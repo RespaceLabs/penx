@@ -1,20 +1,19 @@
-import { FC, PropsWithChildren } from 'react'
 import { isMobile } from 'react-device-detect'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { EditorProvider } from '@penx/editor'
 import { useQuerySpaces, useSpaces } from '@penx/hooks'
 import { routerAtom } from '@penx/store'
-import { NodeContent } from '../NodeContent'
 import { CommandPanel } from '../Palette'
 import { Sidebar } from '../Sidebar/Sidebar'
-import { StatusBar } from '../StatusBar/StatusBar'
 import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
+import { NodeContent } from './NodeContent'
 import { QueryNodes } from './QueryNodes'
+import { StatusBar } from './StatusBar/StatusBar'
 import { SyncBox } from './SyncBox/SyncBox'
 
-export const EditorLayout: FC<PropsWithChildren> = ({ children }) => {
+export const Workbench = () => {
   useQuerySpaces()
   const { spaces, activeSpace } = useSpaces()
   const { name } = useAtomValue(routerAtom)

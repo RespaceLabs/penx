@@ -1,5 +1,5 @@
 export * from './common'
 export * from './EditorApp'
-export * from './EditorLayout/EditorLayout'
-export * from './EditorLayout/PageSettingsPopover'
+export * from './Workbench/Workbench'
+export * from './Workbench/PageSettingsPopover'
 export * from './Marketplace/Marketplace'
