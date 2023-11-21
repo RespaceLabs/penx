@@ -22,9 +22,9 @@ export enum NodeType {
 export interface INode {
   id: string
 
-  parentId?: string
-
   spaceId: string
+
+  parentId?: string
 
   databaseId?: string
 
@@ -58,6 +58,7 @@ export interface INode {
 
   updatedAt: number
 }
+
 export enum FieldType {
   Text = 'Text',
   Number = 'Number',

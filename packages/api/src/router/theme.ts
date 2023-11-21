@@ -40,7 +40,6 @@ export const themeRouter = createTRPCRouter({
         id: z.string(),
         name: z.string().min(1).optional(),
         introduction: z.string().min(1).optional(),
-        isPrivate: z.boolean().optional(),
       }),
     )
     .mutation(({ ctx, input }) => {

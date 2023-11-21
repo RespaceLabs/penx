@@ -29,15 +29,6 @@ export function createSpace(input: CreateUserInput) {
 
       const { id: spaceId } = space
 
-      const pageHome = await tx.page.create({
-        data: {
-          spaceId,
-          title: 'Home',
-          pathname: '/',
-          content: JSON.stringify(EDITOR_CONTENT),
-        },
-      })
-
       // Init pages
       const [_, doc] = await Promise.all([
         tx.page.create({
@@ -72,7 +63,6 @@ export function createSpace(input: CreateUserInput) {
       await tx.space.update({
         where: { id: space.id },
         data: {
-          homePageId: pageHome.id,
           catalogue: JSON.stringify([
             {
               id: doc.slug,

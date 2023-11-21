@@ -74,7 +74,6 @@ export const userRouter = createTRPCRouter({
         displayName: z.string().min(1).optional(),
         description: z.string().min(1).optional(),
         avatarURL: z.string().min(1).optional(),
-        coverURL: z.string().min(1).optional(),
         color: z.string().min(1).optional(),
       }),
     )

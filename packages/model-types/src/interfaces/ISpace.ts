@@ -25,14 +25,6 @@ export interface ISpace {
     nodeMap: Record<string, string>
   }
 
-  settings: {
-    [SettingsType.APPEARANCE]: Record<string, any>
-    [SettingsType.HOTKEYS]: Record<string, any>
-    [SettingsType.PREFERENCES]: Record<string, any>
-    [SettingsType.EXTENSIONS]: Record<string, any>
-    [key: string]: Record<string, any>
-  }
-
   createdAt: number
 
   updatedAt: number

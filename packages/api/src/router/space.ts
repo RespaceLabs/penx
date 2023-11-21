@@ -35,7 +35,6 @@ export const spaceRouter = createTRPCRouter({
         name: z.string().min(1).optional(),
         subdomain: z.string().min(1).optional(),
         description: z.string().min(1).optional(),
-        isPrivate: z.boolean().optional(),
         catalogue: z.string().min(1).optional(),
       }),
     )

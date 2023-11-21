@@ -8,7 +8,6 @@ import { store } from '@penx/store'
 export type CreateSpaceValues = {
   description: string
   name: string
-  coverURL: string
 }
 
 export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
