@@ -32,7 +32,14 @@ export const BulletMenu = ({ menuId, element }: Props) => {
       <MenuItem onClick={() => handleItemClick('c')}>Copy</MenuItem>
       <MenuItem onClick={() => handleItemClick('DELETE')}>Delete</MenuItem>
       <MenuItem onClick={() => handleItemClick('d')}>Expand all</MenuItem>
-      <MenuItem onClick={() => handleItemClick('f')}>Collapse all</MenuItem>
+      <div
+        onClick={(e) => {
+          console.log('e.....:', e)
+          handleItemClick('f')
+        }}
+      >
+        Collapse all
+      </div>
     </ContextMenu>
   )
 }

@@ -57,6 +57,7 @@ export const NodeEditorEditable = memo(
     return (
       <Editable
         className={css('black outlineNone')}
+        autoFocus={false}
         renderLeaf={(props) => <Leaf {...props} />}
         renderElement={renderElement}
         decorate={decorate as any} //

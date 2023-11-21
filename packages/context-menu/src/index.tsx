@@ -167,6 +167,8 @@ export const ContextMenu = forwardRef<
   // TODO:
   useEffect(() => {
     function onMouseUp(e: any) {
+      // console.log('up.....x')
+
       if (allowMouseUpCloseRef.current) {
         // console.log('e:', e)
         // setIsOpen(false)
@@ -182,44 +184,42 @@ export const ContextMenu = forwardRef<
     <FloatingPortal>
       {isOpen && (
         <FloatingOverlay lockScroll>
-          <FloatingFocusManager context={context} initialFocus={refs.floating}>
-            <Box
-              shadowPopover
-              roundedLG
-              textSM
-              w-200
-              bgWhite
-              overflowHidden
-              outlineNone
-              zIndex-100
-              ref={refs.setFloating}
-              style={floatingStyles}
-              {...getFloatingProps()}
-            >
-              {Children.map(
-                children,
-                (child, index) =>
-                  isValidElement(child) &&
-                  cloneElement(
-                    child,
-                    getItemProps({
-                      tabIndex: activeIndex === index ? 0 : -1,
-                      ref(node: HTMLButtonElement) {
-                        listItemsRef.current[index] = node
-                      },
-                      onClick(e) {
-                        // child.props.onClick?.(e)
-                        // setIsOpen(false)
-                      },
-                      onMouseUp() {
-                        child.props.onClick?.()
-                        setIsOpen(false)
-                      },
-                    }),
-                  ),
-              )}
-            </Box>
-          </FloatingFocusManager>
+          <Box
+            shadowPopover
+            roundedLG
+            textSM
+            w-200
+            bgWhite
+            overflowHidden
+            outlineNone
+            zIndex-100
+            ref={refs.setFloating}
+            style={floatingStyles}
+            {...getFloatingProps()}
+          >
+            {Children.map(children, (child, index) => {
+              if (!isValidElement(child)) return null
+
+              return cloneElement(
+                child,
+                getItemProps({
+                  tabIndex: activeIndex === index ? 0 : -1,
+                  ref(node: HTMLButtonElement) {
+                    listItemsRef.current[index] = node
+                  },
+                  onClick(e) {
+                    // child.props.onClick?.(e)
+                    // setIsOpen(false)
+                  },
+                  onMouseUp() {
+                    console.log('up....')
+                    child.props.onClick?.()
+                    setIsOpen(false)
+                  },
+                }),
+              )
+            })}
+          </Box>
         </FloatingOverlay>
       )}
     </FloatingPortal>
