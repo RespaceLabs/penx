@@ -65,7 +65,7 @@ export function PanelItem({ node, index }: Props) {
 
     console.log('====diffed:', diffed)
 
-    // nodeService.savePage(node.raw, value[0], value[1])
+    nodeService.savePage(node.raw, value[0], value[1])
   }, 500)
 
   // console.log('====content:', index, content)

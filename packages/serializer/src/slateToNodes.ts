@@ -32,6 +32,12 @@ export function slateToNodes(
   const [title, ul] = value as [TitleElement, UnorderedListElement]
 
   const editor = createEditor()
+
+  if (!ul) {
+    nodes.push({ ...node, element: title.children })
+    return nodes
+  }
+
   Transforms.insertNodes(editor, ul)
 
   const childrenForCurrentNode = ul.children.map((listItem) => {

@@ -17,7 +17,7 @@ export const UserProfile = () => {
   if (status === 'unauthenticated' || !data) return null
 
   return (
-    <Box borderBottom borderGray200 h-40 toCenterY pl4 pr2 toBetween>
+    <Box borderBottom borderGray200--T40 h-40 toCenterY pl4 pr2 toBetween>
       <Box toCenterY gap2>
         <Avatar size={24}>
           <AvatarImage src={data.user.image!} />
