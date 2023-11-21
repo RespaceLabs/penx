@@ -5,14 +5,18 @@ import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { Bullet } from '../../../components/Bullet'
 import { CreateSpaceModal } from '../../CreateSpaceModal/CreateSpaceModal'
+import { QueryCloudSpaces } from './QueryCloudSpaces'
 import { SpacePopoverContent } from './SpacePopoverContent'
 
 export const SpacePopover = () => {
   const { activeSpace } = useSpaces()
+  const { status, data } = useSession()
 
   return (
     <>
       <CreateSpaceModal />
+
+      {status === 'authenticated' && <QueryCloudSpaces userId={data.userId} />}
       <Popover placement="bottom-start" offset={{ crossAxis: 6 }}>
         <PopoverTrigger asChild>
           {({ close }) => (

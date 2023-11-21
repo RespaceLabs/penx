@@ -4,15 +4,9 @@ import { Snapshot } from './Snapshot'
 import { GithubInfo } from './User'
 
 export class Space {
-  // settings: Settings
-
   snapshot: Snapshot
 
-  settings: ISpace['settings']
-
   constructor(private raw: ISpace) {
-    // this.settings = new Settings(raw.settings)
-    this.settings = raw?.settings
     this.snapshot = new Snapshot(raw)
   }
 

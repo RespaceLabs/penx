@@ -6,15 +6,9 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   try {
-    const snapshot = await prisma.snapshot.deleteMany({
-      // where: { spaceId: 'eTFbK_zv0ZXh8Edf2clGl' },
-    })
+    const users = await prisma.user.findMany()
 
-    const user = await prisma.user.deleteMany({
-      // where: { spaceId: 'eTFbK_zv0ZXh8Edf2clGl' },
-    })
-
-    res.json(snapshot)
+    res.json(users)
   } catch (error) {
     throw error
   }

@@ -9,8 +9,8 @@ export const CreateSpaceModal = () => {
       <ModalOverlay />
       <ModalContent w={[520]} px8 py20>
         <ModalCloseButton />
-        <Box column textCenter gapy4>
-          <Box fontSemibold text3XL>
+        <Box column gapy4>
+          <Box fontSemibold text2XL>
             Create new space
           </Box>
         </Box>

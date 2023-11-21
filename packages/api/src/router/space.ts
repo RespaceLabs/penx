@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { createSpace, CreateUserInput } from '../service/createSpace'
+import { createSpace, CreateSpaceInput } from '../service/createSpace'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
 export const spaceRouter = createTRPCRouter({
@@ -24,7 +24,7 @@ export const spaceRouter = createTRPCRouter({
       })
     }),
 
-  create: publicProcedure.input(CreateUserInput).mutation(({ ctx, input }) => {
+  create: publicProcedure.input(CreateSpaceInput).mutation(({ ctx, input }) => {
     return createSpace(input)
   }),
 

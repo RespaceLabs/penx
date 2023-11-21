@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid'
 import { z } from 'zod'
 import { prisma } from '@penx/db'
+import { INode, ISpace } from '@penx/model-types'
 import { RoleType } from '../constants'
 
 const EDITOR_CONTENT = [
@@ -11,68 +12,41 @@ const EDITOR_CONTENT = [
   },
 ]
 
-export const CreateUserInput = z.object({
+export const CreateSpaceInput = z.object({
   userId: z.string().min(1),
-  name: z.string().min(1),
-  description: z.string().min(1).optional(),
+  spaceData: z.string(),
+  nodesData: z.string(),
 })
 
-export type CreateUserInput = z.infer<typeof CreateUserInput>
+export type CreateUserInput = z.infer<typeof CreateSpaceInput>
 
 export function createSpace(input: CreateUserInput) {
-  const { userId } = input
+  const { userId, spaceData, nodesData } = input
+  console.log('===========userId:', userId)
+
+  const space: ISpace = JSON.parse(spaceData)
+  const nodes: INode[] = JSON.parse(nodesData)
+
   return prisma.$transaction(
-    async (tx: any) => {
-      const space = await tx.space.create({
-        data: { subdomain: nanoid(), ...input },
+    async (tx) => {
+      await tx.space.create({
+        data: {
+          id: space.id,
+          subdomain: nanoid(),
+          userId,
+          name: space.name,
+          color: space.color,
+          isActive: space.isActive,
+          activeNodeIds: space.activeNodeIds || [],
+          snapshot: space.snapshot,
+        },
       })
 
-      const { id: spaceId } = space
-
-      // Init pages
-      const [_, doc] = await Promise.all([
-        tx.page.create({
-          data: {
-            spaceId,
-            title: 'Doc content',
-            pathname: '/[docId]',
-            content: JSON.stringify(EDITOR_CONTENT),
-          },
+      await tx.node.createMany({
+        data: nodes.map((node) => {
+          const { openedAt, createdAt, updatedAt, ...rest } = node
+          return { ...rest }
         }),
-
-        // init docs
-        tx.doc.create({
-          data: {
-            userId,
-            spaceId: space.id,
-            title: 'Untitled',
-            content: JSON.stringify(EDITOR_CONTENT),
-            slug: nanoid(),
-          },
-        }),
-
-        tx.member.create({
-          data: {
-            userId,
-            spaceId,
-            roleType: RoleType.Owner,
-          },
-        }),
-      ])
-
-      await tx.space.update({
-        where: { id: space.id },
-        data: {
-          catalogue: JSON.stringify([
-            {
-              id: doc.slug,
-              isFolded: false,
-              name: doc.title,
-              type: 0,
-              url: '',
-            },
-          ]),
-        },
       })
 
       return space

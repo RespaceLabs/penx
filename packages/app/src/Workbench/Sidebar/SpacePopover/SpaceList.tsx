@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { Plus } from 'lucide-react'
-import { Button, modalController, PopoverClose } from 'uikit'
+import { Button, modalController, PopoverClose, Tag } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { useSpaces } from '@penx/hooks'
 import { Space } from '@penx/model'
@@ -22,6 +22,7 @@ function SpaceItem({ item, activeSpace }: Props) {
         bgGray100={active}
         bgGray100--hover
         toCenterY
+        toBetween
         py3
         px3
         gapX2
@@ -33,8 +34,11 @@ function SpaceItem({ item, activeSpace }: Props) {
           await store.selectSpace(item.id)
         }}
       >
-        <Bullet size={20} innerSize={6} innerColor={item.color} />
-        <Box>{item.name}</Box>
+        <Box toCenterY gap2>
+          <Bullet size={20} innerSize={6} innerColor={item.color} />
+          <Box>{item.name}</Box>
+        </Box>
+        {item.isCloud && <Tag variant="light">Cloud</Tag>}
       </Box>
     </PopoverClose>
   )

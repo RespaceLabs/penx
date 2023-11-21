@@ -2,7 +2,7 @@ import { authRouter } from './router/auth'
 import { extensionRouter } from './router/extension'
 import { githubRouter } from './router/github'
 import { inboxRouter } from './router/inbox'
-import { pageRouter } from './router/page'
+import { nodeRouter } from './router/node'
 import { SharedDocRouter } from './router/SharedDoc'
 import { snapshotRouter } from './router/snapshot'
 import { spaceRouter } from './router/space'
@@ -14,7 +14,7 @@ export const appRouter = createTRPCRouter({
   space: spaceRouter,
   user: userRouter,
   auth: authRouter,
-  page: pageRouter,
+  node: nodeRouter,
   theme: themeRouter,
   inbox: inboxRouter,
   github: githubRouter,
