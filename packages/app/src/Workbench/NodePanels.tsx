@@ -6,7 +6,7 @@ import { PanelItem } from './PanelItem'
 export function NodePanels() {
   const { activeNodes } = useActiveNodes()
 
-  console.log('activeNodes:', activeNodes)
+  // console.log('activeNodes:', activeNodes)
 
   return (
     <Box flex-1 toLeft>

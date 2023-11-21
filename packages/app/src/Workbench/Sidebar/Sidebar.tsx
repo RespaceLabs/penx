@@ -9,13 +9,15 @@ import {
   Inbox,
   Trash2,
 } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
 import { Dot } from 'uikit'
 import { useNodes, useSpaces, useUser } from '@penx/hooks'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
+import LoginWithGoogleButton from '../../components/LoginWithGoogleButton'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { SidebarItem } from './SidebarItem'
-import { SpacePopover } from './SpacePopover'
+import { SpacePopover } from './SpacePopover/SpacePopover'
 import { TreeView } from './TreeView/TreeView'
 import { UserAvatarModal } from './UserAvatarModal/UserAvatarModal'
 import { WalletConnectButton } from './WalletConnectButton'
@@ -38,6 +40,7 @@ export const Sidebar = () => {
   const components = getStatusBarComponents(extensionStore)
   const { nodes, nodeList } = useNodes()
   const user = useUser()
+  const { data, status } = useSession()
 
   if (!nodes.length) return null
 
@@ -118,8 +121,9 @@ export const Sidebar = () => {
         )}
       </Box>
       <Box px2>
-        {!isConnected && <WalletConnectButton size="lg" w-100p />}
-        {isConnected && <UserAvatarModal />}
+        {status === 'unauthenticated' && <LoginWithGoogleButton />}
+        {/* {!isConnected && <WalletConnectButton size="lg" w-100p />}
+        {isConnected && <UserAvatarModal />} */}
       </Box>
     </Box>
   )

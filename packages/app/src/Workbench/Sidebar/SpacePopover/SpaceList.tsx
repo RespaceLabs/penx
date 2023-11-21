@@ -6,7 +6,7 @@ import { useSpaces } from '@penx/hooks'
 import { Space } from '@penx/model'
 import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
-import { Bullet } from '../components/Bullet'
+import { Bullet } from '../../../components/Bullet'
 
 interface Props {
   item: ISpace

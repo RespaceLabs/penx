@@ -19,7 +19,7 @@ export function GitHubConnectButton({ installationId, repo }: Props) {
     setLoading(true)
     try {
       const user = await trpc.user.connectRepo.mutate({
-        address,
+        address: address as string,
         installationId,
         repo,
       })

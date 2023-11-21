@@ -41,7 +41,7 @@ export function DisconnectPopover({}: Props) {
                   setLoading(true)
                   try {
                     const user = await trpc.user.disconnectRepo.mutate({
-                      address,
+                      address: address as string,
                     })
                     store.setUser(new User(user))
                     close()

@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { useAccount } from 'wagmi'
 import { useUser } from '@penx/hooks'
-import { WalletConnectButton } from '../../Sidebar/WalletConnectButton'
+import { WalletConnectButton } from '../Sidebar/WalletConnectButton'
 import { ConnectGitHub } from './ConnectGitHub'
 
 export const SyncBox = () => {

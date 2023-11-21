@@ -1,11 +1,11 @@
 import { Box } from '@fower/react'
 import { ChevronsUpDown } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { useSpaces } from '@penx/hooks'
-import { Bullet } from '../components/Bullet'
-import { CreateSpaceModal } from '../Workbench/CreateSpaceModal/CreateSpaceModal'
-import { SettingsModal } from '../Workbench/SettingsModal/SettingsModal'
-import { SpaceList } from './SpaceList'
+import { Bullet } from '../../../components/Bullet'
+import { CreateSpaceModal } from '../../CreateSpaceModal/CreateSpaceModal'
+import { SpacePopoverContent } from './SpacePopoverContent'
 
 export const SpacePopover = () => {
   const { activeSpace } = useSpaces()
@@ -74,7 +74,7 @@ export const SpacePopover = () => {
           )}
         </PopoverTrigger>
         <PopoverContent w-300>
-          <SpaceList />
+          <SpacePopoverContent />
         </PopoverContent>
       </Popover>
     </>

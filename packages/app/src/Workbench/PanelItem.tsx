@@ -29,7 +29,7 @@ export function PanelItem({ node, index }: Props) {
 
   const content = nodeToSlate(node.raw, nodeList.rawNodes)
 
-  console.log('====content:', index, content)
+  // console.log('====content:', index, content)
 
   return (
     <NodeProvider value={{ index, node, nodeService }}>

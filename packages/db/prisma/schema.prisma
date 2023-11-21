@@ -12,7 +12,7 @@ datasource db {
 
 model User {
     id       String  @id @default(cuid())
-    address  String  @unique // wallet address
+    address  String? @unique // wallet address
     name     String?
     nickname String?
     bio      String?

@@ -4,6 +4,7 @@ import { I18nProvider } from '@lingui/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
 import { Session } from 'next-auth'
+import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'uikit'
 import { isServer } from '@penx/constants'
@@ -45,16 +46,17 @@ function MyApp({ Component, pageProps }: Props<any>) {
         name="viewport"
         content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
       />
-
-      <QueryClientProvider client={queryClient}>
-        <I18nProvider i18n={i18n}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          <ToastContainer position="bottom-right" />
-        </I18nProvider>
-        {/* <Analytics /> */}
-      </QueryClientProvider>
+      <SessionProvider session={pageProps.session} refetchInterval={0}>
+        <QueryClientProvider client={queryClient}>
+          <I18nProvider i18n={i18n}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            <ToastContainer position="bottom-right" />
+          </I18nProvider>
+          {/* <Analytics /> */}
+        </QueryClientProvider>
+      </SessionProvider>
     </>
   )
 }

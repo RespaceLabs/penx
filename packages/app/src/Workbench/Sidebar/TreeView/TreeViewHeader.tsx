@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { Box } from '@fower/react'
 import { store } from '@penx/store'
-import { Bullet } from '../../components/Bullet'
+import { Bullet } from '../../../components/Bullet'
 
 export const TreeViewHeader = memo(function TreeViewHeader() {
   return (

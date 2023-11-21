@@ -4,9 +4,9 @@ import { Drawer } from 'vaul'
 import { Button } from 'uikit'
 import { useSidebarDrawer, useUser } from '@penx/hooks'
 import { store } from '@penx/store'
-import { FavoriteBox } from '../Sidebar/FavoriteBox/FavoriteBox'
-import { SidebarItem } from '../Sidebar/SidebarItem'
-import { SpacePopover } from '../Sidebar/SpacePopover'
+import { FavoriteBox } from './Sidebar/FavoriteBox/FavoriteBox'
+import { SidebarItem } from './Sidebar/SidebarItem'
+import { SpacePopover } from './Sidebar/SpacePopover/SpacePopover'
 
 const DrawerOverlay = styled(Drawer.Overlay)
 const DrawerContent = styled(Drawer.Content)

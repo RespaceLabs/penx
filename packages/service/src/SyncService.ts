@@ -121,7 +121,7 @@ export class SyncService {
     s.spaceService = new SpaceService(s.space, s.nodes)
 
     const token = await trpc.github.getTokenByAddress.query({
-      address: user.address,
+      address: user.address as string,
     })
 
     s.setSharedParams()
