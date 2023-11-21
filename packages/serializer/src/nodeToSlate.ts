@@ -7,6 +7,12 @@ import {
 import { Node } from '@penx/model'
 import { INode } from '@penx/model-types'
 
+/**
+ * single node to slate
+ * @param node
+ * @param allNodes
+ * @returns
+ */
 export function nodeToSlate(node: INode, allNodes: INode[]) {
   const serializer = new NodeToSlateSerializer(
     new Node(node),

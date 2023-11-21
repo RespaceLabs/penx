@@ -4054,6 +4054,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
+      '@penx/editor-queries':
+        specifier: workspace:*
+        version: link:../editor-queries
       '@penx/editor-shared':
         specifier: workspace:*
         version: link:../editor-shared
@@ -4066,10 +4069,19 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../model-types
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      nanoid:
+        specifier: ^4.0.2
+        version: 4.0.2
       slate:
         specifier: 0.94.1
         version: 0.94.1
     devDependencies:
+      '@types/lodash':
+        specifier: ^4.14.195
+        version: 4.14.195
       '@types/react':
         specifier: ^18.2.22
         version: 18.2.22

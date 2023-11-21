@@ -178,9 +178,7 @@ export class NodeService {
         const listItems = parent.children[1]
           .children as any as ListItemElement[]
 
-        children = listItems.map((item) => {
-          return item.children[0].id
-        })
+        children = listItems.map((item) => item.children[0].id)
       }
 
       // node parentId
