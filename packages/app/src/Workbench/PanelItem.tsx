@@ -1,3 +1,4 @@
+import isEqual from 'react-fast-compare'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { useDebouncedCallback } from 'use-debounce'
@@ -5,6 +6,7 @@ import { NodeEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
 import { NodeProvider, useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
+import { INode } from '@penx/model-types'
 import { nodeToSlate, slateToNodes } from '@penx/serializer'
 import { NodeService } from '@penx/service'
 import { routerAtom } from '@penx/store'
@@ -18,8 +20,36 @@ interface Props {
   node: Node
 }
 
-function diff(a: any, b: any) {
-  // console.log('a:', a, 'b:', b)
+// TODO: need improve performance
+function diff(oldNodes: INode[], newNodes: INode[]) {
+  console.log('oldNodes:', oldNodes, 'newNodes:', newNodes)
+
+  const added: INode[] = []
+  const updated: INode[] = []
+  const deleted: INode[] = []
+
+  for (const b of newNodes) {
+    const a = oldNodes.find((n) => n.id === b.id)
+    if (!a) {
+      added.push(b)
+      continue
+    }
+
+    // should custom isEqual
+    if (!isEqual(a, b)) {
+      updated.push(b)
+      continue
+    }
+  }
+
+  for (const a of oldNodes) {
+    const b = newNodes.find((n) => n.id === a.id)
+    if (!b) {
+      deleted.push(a)
+      continue
+    }
+  }
+  return { added, updated, deleted }
 }
 
 export function PanelItem({ node, index }: Props) {
@@ -29,12 +59,13 @@ export function PanelItem({ node, index }: Props) {
 
   const content = nodeToSlate(node.raw, nodeList.rawNodes)
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
-    // console.log('nodeList.flatten:', nodeList.flattenNode(node))
-    diff(content, value)
+    const oldNodes = nodeList.flattenNode(node).map((node) => node.raw)
     const newNodes = slateToNodes(node.raw, value, nodeList.rawNodes)
-    console.log('newNodes---:', newNodes)
+    const diffed = diff([node.raw, ...oldNodes], newNodes)
 
-    nodeService.savePage(node.raw, value[0], value[1])
+    console.log('====diffed:', diffed)
+
+    // nodeService.savePage(node.raw, value[0], value[1])
   }, 500)
 
   // console.log('====content:', index, content)
