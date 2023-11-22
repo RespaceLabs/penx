@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 
 import { ACTIONS } from '~/common/action'
 import type { MsgRes, TabInfo } from '~/common/types'
+import styles from '~/components/popup/main.module.css'
 
-import styles from './main.module.css'
-
-import './globals.css'
+import '../components/popup/globals.module.css'
 
 export function Main() {
   const [tab, setTab] = useState<TabInfo>(null)
@@ -27,7 +26,7 @@ export function Main() {
           payload: tab,
         })
 
-        console.log('popup.tsx onSendMsgToBg-res', data)
+        console.log('popup.tsx onClipEntirePage-res', data)
       } else {
         console.warn('popup.tsx No tab information')
       }
@@ -68,6 +67,14 @@ export function Main() {
     })
   }
 
+  const onAreaSelect = async () => {
+    window.close()
+    await chrome.tabs.sendMessage(tab.id, {
+      type: ACTIONS.AreaSelect,
+      payload: {},
+    })
+  }
+
   const onSubmit = () => {
     console.log('onsubmit')
   }
@@ -85,10 +92,12 @@ export function Main() {
           Enter content manually
         </li>
 
-        <li className={styles.item}>Clip selected content</li>
+        <li className={styles.item} onClick={onAreaSelect}>
+          Area select
+        </li>
 
         <li className={styles.item} onClick={onClipEntirePage}>
-          Clip entire page content
+          Clip selected content
         </li>
 
         <li className={styles.item}>Screenshot</li>

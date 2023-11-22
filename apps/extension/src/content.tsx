@@ -1,3 +1,4 @@
+import styles from 'data-text:./components/content/content.module.css'
 import type { PlasmoCSConfig } from 'plasmo'
 import { useEffect, useState } from 'react'
 import TurndownService from 'turndown'
@@ -7,6 +8,15 @@ import { prepareContent } from '~/common/prepare-content'
 import type { MsgRes } from '~/common/types'
 
 import { DraggableBox } from './components/content/draggableBox'
+import { StartSelectEnum } from './components/content/helper'
+import { initSelectArea } from './components/content/selector'
+
+export const getStyle = () => {
+  const style = document.createElement('style')
+  style.textContent = styles
+
+  return style
+}
 
 export const config: PlasmoCSConfig = {
   matches: ['<all_urls>'],
@@ -40,8 +50,9 @@ const PlasmoOverlay = () => {
             { markdownContent },
           )
         } else if (request.type === ACTIONS.EnterManually) {
-          console.log('%c=EnterManually', 'color:red')
           setIsOpen(true)
+        } else if (request.type === ACTIONS.AreaSelect) {
+          initSelectArea({ type: StartSelectEnum.areaSelect })
         }
 
         return true

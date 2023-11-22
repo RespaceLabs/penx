@@ -4,4 +4,5 @@ export const ACTIONS = {
   GetPageContent: 'GET_PAGE_CONTENT',
   EndOfGetPageContent: 'ENDOF_GET_PAGECONTENT',
   EnterManually: 'ENTER_MANUALLY',
+  AreaSelect: 'AREA_SELECT',
 }
