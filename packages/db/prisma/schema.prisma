@@ -87,6 +87,7 @@ model Space {
     subdomain     String?  @unique
     customDomain  String?  @unique
     sort          Int      @default(0)
+    version       Int      @default(0)
     color         String
     isActive      Boolean  @default(true)
     activeNodeIds Json?

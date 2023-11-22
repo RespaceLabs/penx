@@ -1,15 +1,16 @@
-import isEqual from 'react-fast-compare'
+import { useState } from 'react'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { useDebouncedCallback } from 'use-debounce'
 import { NodeEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
 import { NodeProvider, useNodes } from '@penx/hooks'
+import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
-import { INode } from '@penx/model-types'
 import { nodeToSlate, slateToNodes } from '@penx/serializer'
-import { NodeService } from '@penx/service'
-import { routerAtom } from '@penx/store'
+import { diffNodes, NodeListService, NodeService } from '@penx/service'
+import { routerAtom, store } from '@penx/store'
+import { trpc } from '@penx/trpc-client'
 import { withBulletPlugin } from '../plugins/withBulletPlugin'
 import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
@@ -20,53 +21,50 @@ interface Props {
   node: Node
 }
 
-// TODO: need improve performance
-function diff(oldNodes: INode[], newNodes: INode[]) {
-  console.log('oldNodes:', oldNodes, 'newNodes:', newNodes)
-
-  const added: INode[] = []
-  const updated: INode[] = []
-  const deleted: INode[] = []
-
-  for (const b of newNodes) {
-    const a = oldNodes.find((n) => n.id === b.id)
-    if (!a) {
-      added.push(b)
-      continue
-    }
-
-    // should custom isEqual
-    if (!isEqual(a, b)) {
-      updated.push(b)
-      continue
-    }
-  }
-
-  for (const a of oldNodes) {
-    const b = newNodes.find((n) => n.id === a.id)
-    if (!b) {
-      deleted.push(a)
-      continue
-    }
-  }
-  return { added, updated, deleted }
-}
-
 export function PanelItem({ node, index }: Props) {
   const { nodes, nodeList } = useNodes()
   const { name } = useAtomValue(routerAtom)
   const nodeService = new NodeService(node, nodes)
 
+  const [saving, setSaving] = useState(false)
+
   const content = nodeToSlate(node.raw, nodeList.rawNodes)
+
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
     const oldNodes = nodeList.flattenNode(node).map((node) => node.raw)
-    const newNodes = slateToNodes(node.raw, value, nodeList.rawNodes)
-    const diffed = diff([node.raw, ...oldNodes], newNodes)
+
+    await nodeService.savePage(node.raw, value[0], value[1])
+
+    /**
+     * sync to cloud
+     */
+    const activeSpace = store.getActiveSpace()
+    if (!activeSpace.isCloud) return
+
+    // TODO: need to improve
+    const newNode = await db.getNode(node.id)
+    const nodes = await db.listNodesBySpaceId(node.spaceId)
+    const nodeListService = new NodeListService(nodes)
+    const newNodes = nodeListService
+      .flattenNode(new Node(newNode))
+      .map((node) => node.raw)
+
+    const diffed = diffNodes([node.raw, ...oldNodes], [newNode, ...newNodes])
 
     console.log('====diffed:', diffed)
 
-    nodeService.savePage(node.raw, value[0], value[1])
-  }, 500)
+    const newVersion = await trpc.node.sync.mutate({
+      version: activeSpace.version,
+      spaceId: node.spaceId,
+      added: JSON.stringify(diffed.added),
+      updated: JSON.stringify(diffed.updated),
+      deleted: JSON.stringify(diffed.deleted.map((n) => n.id)),
+    })
+
+    console.log('=========newVersion:', newVersion)
+
+    await store.updateSpace(activeSpace.id, { version: newVersion })
+  }, 1000)
 
   // console.log('====content:', index, content)
 
@@ -88,9 +86,12 @@ export function PanelItem({ node, index }: Props) {
                 plugins={[withBulletPlugin]}
                 content={content}
                 node={node}
-                onChange={(value, editor) => {
+                onChange={async (value, editor) => {
                   if (isAstChange(editor)) {
-                    debouncedSaveNodes(value)
+                    if (saving) return
+                    setSaving(true)
+                    await debouncedSaveNodes(value)
+                    setSaving(false)
                   }
                 }}
               />

@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { nanoid } from 'nanoid'
 import { createEditor, Editor, Path, Transforms } from 'slate'
 import { ELEMENT_LI, ELEMENT_LIC } from '@penx/constants'
+import { extractTags } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
 import { INode, NodeType } from '@penx/model-types'
 import {
@@ -19,6 +20,7 @@ function isListContentElement(node: any): node is ListContentElement {
   return node?.type === ELEMENT_LIC
 }
 
+// TODO: should handle tags
 export function slateToNodes(
   node: INode,
   value: any,
@@ -57,11 +59,15 @@ export function slateToNodes(
   })
 
   for (const [item, path] of listContents) {
+    // console.log('======item:', item)
+
+    // listItem
     const parent = getNodeByPath(
       editor,
       Path.parent(path),
     ) as any as ListItemElement
 
+    // get node children
     let children: string[] = []
 
     if (parent.children.length > 1) {

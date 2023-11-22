@@ -13,7 +13,6 @@ export function useQueryNodes(spaceId: string) {
       setNodes(nodes)
       // console.log('nodes:', nodes)
 
-      if (store.getNode()) return
       if (!nodes.length) return
 
       const space = store.getSpaces().find((s) => s.id === spaceId)!

@@ -4,16 +4,11 @@ import {
   Button,
   MenuItem,
   Popover,
-  PopoverClose,
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
-import { useNodeContext } from '@penx/hooks'
-import { store } from '@penx/store'
 
 export const MorePopover = () => {
-  const { node } = useNodeContext()
-
   return (
     <Popover placement="bottom-end">
       <PopoverTrigger asChild>
@@ -22,18 +17,6 @@ export const MorePopover = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent w-260 column>
-        <PopoverClose>
-          <MenuItem
-            gap2
-            onClick={async () => {
-              await store.trashNode(store.getNode().id)
-            }}
-          >
-            <Trash2 size={18} />
-            <Box>Delete</Box>
-          </MenuItem>
-        </PopoverClose>
-
         <MenuItem gap2 onClick={async () => {}}>
           <StarOff size={18} />
           <Box>Remove from Favorites</Box>

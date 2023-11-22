@@ -3088,9 +3088,15 @@ importers:
 
   packages/editor-common:
     dependencies:
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
       '@penx/model':
         specifier: workspace:*
         version: link:../model
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
       slate:
         specifier: 0.94.1
         version: 0.94.1
@@ -4054,6 +4060,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
+      '@penx/editor-common':
+        specifier: workspace:*
+        version: link:../editor-common
       '@penx/editor-queries':
         specifier: workspace:*
         version: link:../editor-queries
@@ -4175,6 +4184,9 @@ importers:
       octokit:
         specifier: ^3.1.0
         version: 3.1.0
+      react-fast-compare:
+        specifier: ^3.2.2
+        version: 3.2.2
       slate:
         specifier: 0.94.1
         version: 0.94.1

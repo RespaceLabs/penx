@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { toast } from 'uikit'
 import { SyncStatus, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
-import { nodeAtom, spacesAtom, store, syncStatusAtom } from '@penx/store'
+import { spacesAtom, store, syncStatusAtom } from '@penx/store'
 
 export function useWorkers() {
   const workerRef = useRef<Worker>()

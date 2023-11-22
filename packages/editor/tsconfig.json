@@ -3,6 +3,6 @@
   "compilerOptions": {
     "lib": ["ESNext", "DOM"]
   },
-  "include": [".", "fower.d.ts"],
+  "include": [".", "fower.d.ts", "../app/src/common/diffNodes.ts"],
   "exclude": ["dist", "build", "node_modules"]
 }

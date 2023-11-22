@@ -14,8 +14,6 @@ import { Command, ExtensionStore, RouteName, RouterStore } from './types'
 
 export const spacesAtom = atom<ISpace[]>([])
 
-export const nodeAtom = atom(null as any as INode)
-
 export const nodesAtom = atom<INode[]>([])
 
 export const activeNodesAtom = atom<INode[]>([])
@@ -87,10 +85,6 @@ export const store = Object.assign(createStore(), {
     store.set(editorsAtom, editors)
   },
 
-  getNode() {
-    return store.get(nodeAtom)
-  },
-
   findNode(id: string) {
     const nodes = store.getNodes()
     return nodes.find((node) => node.id === id)
@@ -113,10 +107,6 @@ export const store = Object.assign(createStore(), {
     return cells
   },
 
-  setNode(node: INode) {
-    return store.set(nodeAtom, node)
-  },
-
   getUser() {
     return store.get(userAtom)
   },
@@ -134,21 +124,24 @@ export const store = Object.assign(createStore(), {
     })
   },
 
-  async trashNode(id: string) {
-    //
-  },
-
   async selectNode(node: INode, index = 0) {
     const router = store.get(routerAtom)
     if (router.name !== 'NODE') this.routeTo('NODE')
+
+    const activeNodes = store.getActiveNodes()
+
+    if (index === 0 && activeNodes[0]?.id === node.id) {
+      console.log('is equal node')
+      return
+    }
 
     const editor = store.getEditor(index)
     clearEditor(editor)
 
     const nodes = store.getNodes()
     const value = nodeToSlate(node, nodes)
-    Transforms.insertNodes(editor, value)
 
+    Transforms.insertNodes(editor, value)
     const newActiveNodes = this.setFirstActiveNodes(node)
     await db.updateSpace(this.getActiveSpace().id, {
       activeNodeIds: newActiveNodes.map((node) => node.id),

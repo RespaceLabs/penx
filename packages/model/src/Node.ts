@@ -40,7 +40,9 @@ export class Node {
   }
 
   get element(): Element[] {
-    return this.raw.element
+    return Array.isArray(this.raw.element)
+      ? this.raw.element
+      : [this.raw.element]
   }
 
   get title(): string {

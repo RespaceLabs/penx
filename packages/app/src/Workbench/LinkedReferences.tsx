@@ -76,6 +76,8 @@ interface LinkedReferencesProps {
 }
 
 export function LinkedReferences({ node }: LinkedReferencesProps) {
+  // console.log('=========x:', node)
+
   const { nodeList } = useNodes()
   const linkedNodes = nodeList.getLinkedReferences(node)
 

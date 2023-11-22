@@ -4,14 +4,6 @@ import { prisma } from '@penx/db'
 import { INode, ISpace } from '@penx/model-types'
 import { RoleType } from '../constants'
 
-const EDITOR_CONTENT = [
-  {
-    type: 'p',
-    id: nanoid(),
-    children: [{ text: 'A page' }],
-  },
-]
-
 export const CreateSpaceInput = z.object({
   userId: z.string().min(1),
   spaceData: z.string(),
@@ -22,8 +14,6 @@ export type CreateUserInput = z.infer<typeof CreateSpaceInput>
 
 export function createSpace(input: CreateUserInput) {
   const { userId, spaceData, nodesData } = input
-  console.log('===========userId:', userId)
-
   const space: ISpace = JSON.parse(spaceData)
   const nodes: INode[] = JSON.parse(nodesData)
 

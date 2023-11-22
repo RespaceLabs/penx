@@ -18,6 +18,8 @@ export const Tag = ({
   async function clickTag() {
     const database = await db.getDatabaseByName(element.name)
     if (database) {
+      console.log('=====database:', database)
+
       store.selectNode(database)
     }
   }
@@ -31,6 +33,7 @@ export const Tag = ({
       rounded
       overflowHidden
       ringBrand500={selected}
+      contentEditable={false}
     >
       {children}
       <Box

@@ -11,8 +11,6 @@ const PageEditor = () => {
 
   const { data } = useSession()
 
-  console.log('sesion========data:', data)
-
   return (
     <WalletConnectProvider>
       <EditorApp />

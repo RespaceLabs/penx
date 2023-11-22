@@ -19,6 +19,7 @@
   "dependencies": {
     "@penx/constants": "workspace:*",
     "@penx/editor-queries": "workspace:*",
+    "@penx/editor-common": "workspace:*",
     "@penx/editor-shared": "workspace:*",
     "@penx/editor-types": "workspace:*",
     "@penx/model": "workspace:*",

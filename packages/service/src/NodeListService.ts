@@ -90,6 +90,7 @@ export class NodeListService {
   createTree(node: Node): TreeItem[] {
     return node.children.map((id) => {
       const node = this.nodeMap.get(id)!
+
       if (!node.children.length) {
         return { ...node.raw, children: [] }
       }
@@ -136,11 +137,19 @@ export class NodeListService {
   getLinkedReferences(node: Node) {
     const nodes: Node[] = []
 
+    // console.log('get===this.nodes:', this.nodes)
+
     for (const item of this.nodes) {
+      // console.log('x=========item:', item)
+
       if (item.id === node.id) continue
       if (!item.isCommon) continue
 
       const isLinked = () => {
+        if (!Array.isArray(item.element)) {
+          console.log('---ite-mmmmmmm:', item, item.element, item.raw.element)
+        }
+
         const children = item.element.reduce((acc, cur) => {
           return [...acc, ...cur.children]
         }, [] as any[])

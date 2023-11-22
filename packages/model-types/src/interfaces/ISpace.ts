@@ -1,5 +1,3 @@
-import { SettingsType } from '@penx/constants'
-
 export interface ISpace {
   id: string
 
@@ -16,6 +14,8 @@ export interface ISpace {
   isCloud: boolean
 
   activeNodeIds: string[]
+
+  version: number
 
   snapshot: {
     version: number

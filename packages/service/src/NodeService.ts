@@ -126,10 +126,15 @@ export class NodeService {
     store.setNodes(nodes)
 
     if (!isInReference) {
-      // TODO:
-      store.setNode(node)
+      // TODO: should update activeNodes
     }
 
+    await this.updateSnapshot(node, nodes)
+
+    await new NodeCleaner().cleanDeletedNodes()
+  }
+
+  private async updateSnapshot(node: INode, nodes: INode[]) {
     // update snapshot
     const nodeService = new NodeService(
       new Node(node!),
@@ -143,8 +148,6 @@ export class NodeService {
 
     // update page snapshot
     await db.updateSnapshot(rootNode.raw, 'update', childrenNodes)
-
-    await new NodeCleaner().cleanDeletedNodes()
   }
 
   saveNodes = async (parentId: string, ul: UnorderedListElement) => {
