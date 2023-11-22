@@ -4,7 +4,7 @@ import { Login } from '~/components/popup/login'
 import { Main } from '~/pages/main'
 
 function IndexPopup() {
-  const [isLogin, setIsLogin] = useState<boolean>(false)
+  const [isLogin, setIsLogin] = useState<boolean>(true)
 
   const loginCallback = () => {
     console.log('loginCallback')
