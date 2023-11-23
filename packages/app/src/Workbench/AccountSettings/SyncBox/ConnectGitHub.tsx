@@ -9,11 +9,6 @@ export const ConnectGitHub = () => {
 
   return (
     <Box rounded2XL>
-      <Box heading2>Github Connection</Box>
-      <Box mb6 gray600>
-        Connect to you GitHub Repository, so you can sync docs to GitHub
-      </Box>
-
       <GithubConnectionBox isLoading={isLoading}>
         {isTokenValid ? (
           <GitIntegration github={github!} />

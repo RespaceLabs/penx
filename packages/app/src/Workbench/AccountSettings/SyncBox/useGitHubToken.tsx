@@ -4,9 +4,10 @@ import { useUser } from '@penx/hooks'
 import { trpc } from '@penx/trpc-client'
 
 export function useGitHubToken() {
-  const { address = '' } = useUser()
+  const { id } = useUser()
+
   const { data: github, ...rest } = useQuery(['githubToken'], () =>
-    trpc.github.githubInfo.query({ address: address as string }),
+    trpc.github.githubInfo.query({ userId: id }),
   )
 
   const isTokenValid = useMemo(() => {

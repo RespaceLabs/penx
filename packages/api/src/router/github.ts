@@ -10,17 +10,17 @@ export const githubRouter = createTRPCRouter({
   githubInfo: publicProcedure
     .input(
       z.object({
-        address: z.string(),
+        userId: z.string(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { address } = input
+      const { userId } = input
 
       const user = await ctx.prisma.user.findUnique({
-        where: { address },
+        where: { id: userId },
       })
 
-      const github: GithubInfo = JSON.parse(user?.github || '{}')
+      const github = (user?.github || {}) as GithubInfo
 
       if (!github.token || !github.refreshToken) return github
 
@@ -41,15 +41,15 @@ export const githubRouter = createTRPCRouter({
         try {
           const info = await refreshGitHubToken(github.refreshToken)
           await ctx.prisma.user.update({
-            where: { address },
+            where: { id: userId },
             data: {
-              github: JSON.stringify({
+              github: {
                 ...github,
                 token: info.token,
                 refreshToken: info.refreshToken,
                 tokenExpiresAt: info.expiresAt,
                 refreshTokenExpiresAt: info.refreshTokenExpiresAt,
-              } as GithubInfo),
+              } as GithubInfo,
             },
           })
         } catch (error) {

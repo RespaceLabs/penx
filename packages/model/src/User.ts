@@ -12,12 +12,16 @@ export type GithubInfo = {
 export class User {
   constructor(public raw: IUser) {}
 
+  get id() {
+    return this.raw?.id as string
+  }
+
   get address() {
     return this.raw.address
   }
 
   get github(): GithubInfo {
-    return JSON.parse(this.raw.github || '{}')
+    return (this.raw.github || {}) as GithubInfo
   }
 
   get repo() {

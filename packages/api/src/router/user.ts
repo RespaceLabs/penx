@@ -16,9 +16,8 @@ export const userRouter = createTRPCRouter({
       })
 
       if (!user) new TRPCError({ code: 'NOT_FOUND' })
-      const { createdAt, ...rest } = user!
 
-      return rest
+      return user!
     }),
 
   byAddress: publicProcedure
@@ -89,43 +88,43 @@ export const userRouter = createTRPCRouter({
   connectRepo: publicProcedure
     .input(
       z.object({
-        address: z.string(),
+        userId: z.string(),
         repo: z.string(),
         installationId: z.number(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { address } = input
+      const { userId } = input
       const user = await ctx.prisma.user.findFirstOrThrow({
-        where: { address },
+        where: { id: userId },
       })
 
-      const github: GithubInfo = JSON.parse(user.github || '{}')
+      const github = (user.github || {}) as GithubInfo
 
       github.installationId = input.installationId
       github.repo = input.repo
 
       return ctx.prisma.user.update({
-        where: { address },
-        data: { github: JSON.stringify(github) },
+        where: { id: userId },
+        data: { github: github },
       })
     }),
 
   disconnectRepo: publicProcedure
-    .input(z.object({ address: z.string() }))
+    .input(z.object({ userId: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      const { address } = input
+      const { userId } = input
       const user = await ctx.prisma.user.findFirstOrThrow({
-        where: { address: input.address },
+        where: { id: userId },
       })
 
-      const github: GithubInfo = JSON.parse(user.github || '{}')
+      const github = (user.github || {}) as GithubInfo
 
       github.installationId = null as any
       github.repo = ''
 
       return ctx.prisma.user.update({
-        where: { address },
+        where: { id: userId },
         data: { github: JSON.stringify(github) },
       })
     }),

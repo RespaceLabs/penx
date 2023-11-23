@@ -31,7 +31,7 @@ export const routerAtom = atomWithStorage('Router', {
 
 export const extensionStoreAtom = atom<ExtensionStore>({})
 
-export const userAtom = atom<User>(null as any as User)
+export const userAtom = atom<User>({} as User)
 
 export const store = Object.assign(createStore(), {
   getSpaces() {

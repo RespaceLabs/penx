@@ -25,12 +25,12 @@ export default async function handler(
     code,
   })
 
-  const address = req.query.state as string
+  const userId = req.query.state as string
 
-  console.log('token=========authentication:', address, authentication)
+  console.log('token=========authentication:', userId, authentication)
 
   await prisma.user.update({
-    where: { address },
+    where: { id: userId },
     data: {
       github: JSON.stringify({
         token: authentication.token,

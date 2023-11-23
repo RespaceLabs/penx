@@ -1,22 +1,16 @@
 import { Box } from '@fower/react'
-import { useAccount } from 'wagmi'
 import { useUser } from '@penx/hooks'
-import { WalletConnectButton } from '../../Sidebar/WalletConnectButton'
 import { ConnectGitHub } from './ConnectGitHub'
 
 export const SyncBox = () => {
-  const user = useUser()
-
+  const { id } = useUser()
   return (
-    <Box px10 py10 bgWhite rounded2XL>
-      <Box toCenterY toBetween gap2 mb8>
-        <Box fontBold text3XL>
-          Sync
-        </Box>
+    <Box bgWhite mt8>
+      <Box heading2>Github Connection</Box>
+      <Box mb6 gray600>
+        Connect to you GitHub Repository, so you can sync docs to GitHub
       </Box>
-      <Box>
-        <ConnectGitHub />
-      </Box>
+      {id && <ConnectGitHub />}
     </Box>
   )
 }

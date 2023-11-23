@@ -1,18 +1,15 @@
 import { useEffect } from 'react'
 import { useAtomValue } from 'jotai'
-import { useAccount } from 'wagmi'
 import { User } from '@penx/model'
 import { store, userAtom } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 
-export function useQueryUser() {
-  const { address = '' } = useAccount()
+export function useQueryUser(userId: string) {
   useEffect(() => {
-    if (!address) return
-    trpc.user.byAddress.query({ address }).then((data) => {
+    trpc.user.byId.query({ id: userId }).then((data) => {
       store.setUser(new User(data))
     })
-  }, [address])
+  }, [userId])
 }
 
 export function useUser() {

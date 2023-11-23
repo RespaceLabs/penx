@@ -2,6 +2,7 @@ import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { useQuery } from '@tanstack/react-query'
 import { Provider } from 'jotai'
+import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
 import { isServer } from '@penx/constants'
 import { emitter } from '@penx/event'
@@ -29,16 +30,8 @@ if (!isServer) {
 
 export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
   const { isLoaded } = useLoaderStatus()
-  const { address = '' } = useAccount()
+  const { status, data } = useSession()
   const createRef = useRef(false)
-
-  useEffect(() => {
-    if (!address || createRef.current) return
-
-    trpc.user.create.mutate({ address })
-
-    createRef.current = true
-  }, [address])
 
   useEffect(() => {
     persist()
@@ -58,10 +51,12 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
     <ClientOnly>
       <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
         <Provider store={store}>
-          {address && <SyncDetectorModal />}
+          <SyncDetectorModal />
 
           <WorkerStarter />
-          <UserQuery />
+
+          {status === 'authenticated' && <UserQuery userId={data.userId} />}
+
           <LoginSuccessModal />
           <HotkeyBinding />
           <JotaiNexus />

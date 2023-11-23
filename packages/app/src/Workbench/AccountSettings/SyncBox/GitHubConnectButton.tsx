@@ -13,13 +13,13 @@ interface Props {
 
 export function GitHubConnectButton({ installationId, repo }: Props) {
   const [loading, setLoading] = useState(false)
-  const { address = '' } = useUser()
+  const { id } = useUser()
 
   async function connect() {
     setLoading(true)
     try {
       const user = await trpc.user.connectRepo.mutate({
-        address: address as string,
+        userId: id,
         installationId,
         repo,
       })

@@ -19,7 +19,7 @@ interface Props {}
 
 export function DisconnectPopover({}: Props) {
   const [loading, setLoading] = useState(false)
-  const { address = '' } = useUser()
+  const { id } = useUser()
 
   return (
     <Popover>
@@ -41,7 +41,7 @@ export function DisconnectPopover({}: Props) {
                   setLoading(true)
                   try {
                     const user = await trpc.user.disconnectRepo.mutate({
-                      address: address as string,
+                      userId: id,
                     })
                     store.setUser(new User(user))
                     close()

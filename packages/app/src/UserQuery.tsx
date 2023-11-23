@@ -1,6 +1,10 @@
 import { useQueryUser } from '@penx/hooks'
 
-export const UserQuery = () => {
-  useQueryUser()
+interface Props {
+  userId: string
+}
+
+export const UserQuery = ({ userId }: Props) => {
+  useQueryUser(userId)
   return null
 }
