@@ -1,3 +1,4 @@
+import CryptoJS from 'crypto-js'
 import { format } from 'date-fns'
 import { INode, NodeType } from '@penx/model-types'
 
@@ -135,5 +136,25 @@ export class Node {
     if (this.isRootNode) return NodeType.ROOT
     if (this.isTrash) return NodeType.TRASH
     return this.id
+  }
+
+  get hash() {
+    return this.md5Node()
+  }
+
+  private md5Node = () => {
+    const json = [
+      this.id,
+      this.spaceId,
+      this.parentId,
+      this.type,
+      this.element,
+      this.props,
+      this.collapsed,
+      this.folded,
+      this.children,
+    ]
+
+    return CryptoJS.MD5(JSON.stringify(json)).toString()
   }
 }

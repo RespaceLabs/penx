@@ -1,31 +1,36 @@
 import React, { FC } from 'react'
 import { Box } from '@fower/react'
 import { RefreshCcw } from 'lucide-react'
-import { useAccount } from 'wagmi'
 import { Divider, Dot, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { SyncStatus } from '@penx/constants'
 import { useSyncStatus, useUser } from '@penx/hooks'
 import { IconPull, IconPush } from '@penx/icons'
 import { db } from '@penx/local-db'
 import { SyncService } from '@penx/service'
+import { store } from '@penx/store'
+import { syncToCloud } from '@penx/sync'
 
 interface Props {}
 
 export const SyncPopover: FC<Props> = () => {
-  const { address = '' } = useAccount()
   const user = useUser()
 
   const { isSyncing, isPulling, isFailed, isNormal, status, setStatus } =
     useSyncStatus()
 
-  async function push() {
-    const space = await db.getActiveSpace()
-    if (!space) return // TODO:
-
+  async function pushToCloud() {
     try {
       setStatus(SyncStatus.PUSHING)
-      const s = await SyncService.init(space, user)
-      await s.push()
+      // const s = await SyncService.init(space, user)
+      // await s.push()
+
+      const isSynced = await syncToCloud()
+
+      if (isSynced) {
+        const spaces = await db.listSpaces()
+        store.setSpaces(spaces)
+      }
+
       setStatus(SyncStatus.NORMAL)
     } catch (error) {
       setStatus(SyncStatus.PUSH_FAILED)
@@ -35,13 +40,16 @@ export const SyncPopover: FC<Props> = () => {
   async function pull() {
     const space = await db.getActiveSpace()
     if (!space) return // TODO:
+    console.log('pull----xxx...')
+
     try {
-      setStatus(SyncStatus.PULLING)
+      setStatus(SyncStatus.PUSHING)
       const s = await SyncService.init(space, user)
-      await s.pull()
+      await s.push()
+
       setStatus(SyncStatus.NORMAL)
     } catch (error) {
-      setStatus(SyncStatus.PULL_FAILED)
+      setStatus(SyncStatus.PUSH_FAILED)
     }
   }
 
@@ -80,11 +88,11 @@ export const SyncPopover: FC<Props> = () => {
       </PopoverTrigger>
       <PopoverContent
         bgGray800--T20--dark
-        w-160
+        w-260
         toBetween
         gray600
         cursorPointer
-        textSM
+        textXS
       >
         {({ close }) => (
           <>
@@ -96,11 +104,11 @@ export const SyncPopover: FC<Props> = () => {
               bgGray100--hover
               onClick={async () => {
                 close()
-                push()
+                pushToCloud()
               }}
             >
               <IconPush square-20 />
-              <Box>Push</Box>
+              <Box>Sync to Cloud</Box>
             </Box>
             <Divider orientation="vertical" h-36 gap1 />
             <Box
@@ -113,8 +121,8 @@ export const SyncPopover: FC<Props> = () => {
                 pull()
               }}
             >
-              <IconPull square-20 />
-              <Box>Pull</Box>
+              <IconPush square-20 />
+              <Box>Push to GitHub</Box>
             </Box>
           </>
         )}

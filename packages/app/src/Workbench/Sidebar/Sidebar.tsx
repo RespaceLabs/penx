@@ -15,6 +15,7 @@ import { Dot } from 'uikit'
 import { useNodes, useSpaces, useUser } from '@penx/hooks'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import LoginWithGoogleButton from '../../components/LoginWithGoogleButton'
+import { SyncPopover } from '../StatusBar/SyncPopover'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover/SpacePopover'
@@ -110,6 +111,7 @@ export const Sidebar = () => {
         {status === 'unauthenticated' && <LoginWithGoogleButton />}
         {/* {!isConnected && <WalletConnectButton size="lg" w-100p />}
         {isConnected && <UserAvatarModal />} */}
+        <SyncPopover />
       </Box>
     </Box>
   )

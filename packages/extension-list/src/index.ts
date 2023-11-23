@@ -1,5 +1,4 @@
 import * as autoFormat from '@penx/auto-format'
-import * as autoNodeId from '@penx/auto-node-id'
 import * as bidirectionalLink from '@penx/bidirectional-link'
 import * as blockSelector from '@penx/block-selector'
 import * as blockquote from '@penx/blockquote'
@@ -61,10 +60,6 @@ export const extensionList = [
   {
     id: 'list',
     activate: list.activate,
-  },
-  {
-    id: 'autoNodeId',
-    activate: autoNodeId.activate,
   },
   {
     id: 'code-block',

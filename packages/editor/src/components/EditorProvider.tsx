@@ -2,7 +2,6 @@ import { createContext, PropsWithChildren, useContext } from 'react'
 import { Space } from '@penx/model'
 
 type Context = {
-  doc?: any
   space?: Space
 }
 

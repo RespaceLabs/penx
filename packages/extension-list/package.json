@@ -27,7 +27,6 @@
     "@penx/check-list": "workspace:*",
     "@penx/auto-format": "workspace:*",
     "@penx/list": "workspace:*",
-    "@penx/auto-node-id": "workspace:*",
     "@penx/paragraph": "workspace:*",
     "@penx/code-block": "workspace:*",
     "@penx/image": "workspace:*",

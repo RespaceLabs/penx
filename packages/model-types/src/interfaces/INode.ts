@@ -67,6 +67,10 @@ export enum FieldType {
   UpdatedAt = 'UpdatedAt',
 }
 
+export interface IRootNode extends INode {
+  type: NodeType.ROOT
+}
+
 export interface IDailyRootNode extends INode {
   type: NodeType.DAILY_ROOT
 }

@@ -126,7 +126,7 @@ export class NodeService {
     store.setNodes(nodes)
 
     if (!isInReference) {
-      // TODO: should update activeNodes
+      store.setFirstActiveNodes(node)
     }
 
     await this.updateSnapshot(node, nodes)

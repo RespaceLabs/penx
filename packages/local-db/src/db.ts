@@ -145,6 +145,10 @@ class DB {
     return space as ISpace
   }
 
+  createSpaceByRemote = async (data: Partial<ISpace>) => {
+    return await this.space.insert(data)
+  }
+
   selectSpace = async (spaceId: string) => {
     const spaces = await this.listSpaces()
 

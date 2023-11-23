@@ -7,7 +7,7 @@ import { RoleType } from '../constants'
 export const CreateSpaceInput = z.object({
   userId: z.string().min(1),
   spaceData: z.string(),
-  nodesData: z.string(),
+  nodesData: z.string().optional(),
 })
 
 export type CreateUserInput = z.infer<typeof CreateSpaceInput>
@@ -15,7 +15,9 @@ export type CreateUserInput = z.infer<typeof CreateSpaceInput>
 export function createSpace(input: CreateUserInput) {
   const { userId, spaceData, nodesData } = input
   const space: ISpace = JSON.parse(spaceData)
-  const nodes: INode[] = JSON.parse(nodesData)
+  const nodes: INode[] = JSON.parse(nodesData || '[]')
+
+  console.log('========nodes:', nodes)
 
   return prisma.$transaction(
     async (tx) => {

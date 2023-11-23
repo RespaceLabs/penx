@@ -149,16 +149,16 @@ export const githubRouter = createTRPCRouter({
   /**
    * Get Octokit auth token
    */
-  getTokenByAddress: publicProcedure
+  getTokenByUserId: publicProcedure
     .input(
       z.object({
-        address: z.string(),
+        userId: z.string(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { address } = input
+      const { userId } = input
       const userRaw = await ctx.prisma.user.findUniqueOrThrow({
-        where: { address },
+        where: { id: userId },
       })
 
       const user = new User(userRaw)

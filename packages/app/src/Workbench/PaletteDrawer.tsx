@@ -1,5 +1,5 @@
 import { styled } from '@fower/react'
-import { TerminalIcon } from 'lucide-react'
+import { SearchIcon } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
 import { usePaletteDrawer } from '@penx/hooks'
@@ -23,8 +23,15 @@ export const PaletteDrawer = () => {
       }}
     >
       <Drawer.Trigger asChild>
-        <Button type="button" size="sm" colorScheme="white" isSquare>
-          <TerminalIcon />
+        <Button
+          type="button"
+          size="sm"
+          variant="ghost"
+          colorScheme="white"
+          isSquare
+          roundedFull
+        >
+          <SearchIcon />
         </Button>
       </Drawer.Trigger>
       <Drawer.Portal>

@@ -84,11 +84,12 @@ model Space {
     subdomain     String? @unique
     customDomain  String? @unique
     sort          Int     @default(0)
-    version       Int     @default(0)
     color         String
     isActive      Boolean @default(true)
     activeNodeIds Json?
-    snapshot      Json?
+
+    hash     Json?
+    snapshot Json?
 
     deletedAt DateTime?
     createdAt DateTime  @default(now())
@@ -158,14 +159,4 @@ model Extension {
     author      String?
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
-}
-
-model Snapshot {
-    id        String   @id @default(cuid())
-    address   String // wallet address
-    spaceId   String   @unique
-    version   Int
-    nodeMap   String?  @db.Text // Record<nodeId, nodeHash>
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
 }

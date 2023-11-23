@@ -15,8 +15,13 @@ export interface ISpace {
 
   activeNodeIds: string[]
 
-  version: number
+  // for cloud
+  nodeHash: {
+    version: number
+    nodeMap: Record<string, string>
+  }
 
+  // for github
   snapshot: {
     version: number
     nodeMap: Record<string, string>

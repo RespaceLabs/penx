@@ -5,10 +5,7 @@ import { INode, NodeType } from '@penx/model-types'
 import { NodeListService } from './NodeListService'
 
 export class SpaceService {
-  constructor(
-    private space: Space,
-    private nodes: INode[],
-  ) {}
+  constructor(private nodes: INode[]) {}
 
   nodeMap = new Map<string, INode>()
 

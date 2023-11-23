@@ -3,6 +3,6 @@
   "compilerOptions": {
     "lib": ["ESNext", "DOM"]
   },
-  "include": [".", "custom-types.ts"],
+  "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
 }

@@ -19,8 +19,7 @@ export const MobileNav = () => {
       zIndex-10
     >
       <DrawerSidebar />
-      <Box toCenterY>
-        <QRScanner />
+      <Box toCenterY gap-2>
         <NewNodeButton />
         <PaletteDrawer />
       </Box>

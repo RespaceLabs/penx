@@ -118,10 +118,10 @@ export class SyncService {
     s.nodes = await db.listNodesBySpaceId(space.id)
     s.user = user
     s.space = new Space(space)
-    s.spaceService = new SpaceService(s.space, s.nodes)
+    s.spaceService = new SpaceService(s.nodes)
 
-    const token = await trpc.github.getTokenByAddress.query({
-      address: user.address as string,
+    const token = await trpc.github.getTokenByUserId.query({
+      userId: user.id,
     })
 
     s.setSharedParams()
@@ -510,6 +510,9 @@ export class SyncService {
 
       const activeSpace = spaces.find((s) => s.id === this.space.id)
       await this.upsertSnapshot(activeSpace!)
+
+      // update local snapshot
+      // const nodes =
     } catch (error) {
       console.log('push error', error)
     }
@@ -727,22 +730,13 @@ export class SyncService {
   }
 
   private async getSnapshotFromDatabase(): Promise<ISpace['snapshot']> {
-    const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL + '/api/get-snapshot'
-    const data = await ky
-      .get(url, {
-        searchParams: {
-          spaceId: this.space.id,
-        },
-        retry: {
-          limit: 2,
-        },
-      })
-      .json<any>()
+    const snapshot = await trpc.space.getSnapshot.query({
+      spaceId: this.space.id,
+    })
 
-    return {
-      version: data.version,
-      nodeMap: JSON.parse(data.nodeMap),
-    }
+    console.log('database snapshot:', snapshot)
+
+    return snapshot
   }
 
   private async getSnapshot(): Promise<ISpace['snapshot']> {
@@ -764,25 +758,11 @@ export class SyncService {
   }
 
   private async upsertSnapshot(space: ISpace) {
-    // await trpc.snapshot.upsert.mutate({
-    //   spaceId: this.space.id,
-    //   version: 1,
-    //   timestamp: Date.now(),
-    //   nodeMap: '',
-    // })
-
-    const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL + '/api/upsert-snapshot'
-
-    await ky
-      .post(url, {
-        json: {
-          address: this.user.address,
-          spaceId: this.space.id,
-          version: this.space.snapshot.version,
-          nodeMap: JSON.stringify(space.snapshot.nodeMap),
-        },
-      })
-      .json()
+    await trpc.space.upsertSnapshot.mutate({
+      spaceId: this.space.id,
+      version: 1,
+      nodeMap: JSON.stringify(space.snapshot.nodeMap),
+    })
   }
 
   encrypt(str: string) {

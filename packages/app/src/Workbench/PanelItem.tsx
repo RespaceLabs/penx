@@ -8,8 +8,9 @@ import { NodeProvider, useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { nodeToSlate } from '@penx/serializer'
-import { diffNodes, NodeListService, NodeService } from '@penx/service'
+import { NodeListService, NodeService } from '@penx/service'
 import { routerAtom, store } from '@penx/store'
+import { diffNodes } from '@penx/sync'
 import { trpc } from '@penx/trpc-client'
 import { withBulletPlugin } from '../plugins/withBulletPlugin'
 import { MobileNav } from './DocNav/MobileNav'
@@ -31,52 +32,7 @@ export function PanelItem({ node, index }: Props) {
   const content = nodeToSlate(node.raw, nodeList.rawNodes)
 
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
-    const oldNodes = nodeList.flattenNode(node).map((node) => node.raw)
-
     await nodeService.savePage(node.raw, value[0], value[1])
-
-    /**
-     * sync to cloud
-     */
-    const activeSpace = store.getActiveSpace()
-    if (!activeSpace.isCloud) return
-
-    // TODO: need to improve
-    const newNode = await db.getNode(node.id)
-    const nodes = await db.listNodesBySpaceId(node.spaceId)
-    const nodeListService = new NodeListService(nodes)
-    const newNodes = nodeListService
-      .flattenNode(new Node(newNode))
-      .map((node) => node.raw)
-
-    const diffed = diffNodes([node.raw, ...oldNodes], [newNode, ...newNodes])
-
-    const canSyncToRemote =
-      !!diffed.added.length ||
-      !!diffed.updated.length ||
-      !!diffed.deleted.length
-
-    console.log('====diffed:', diffed, 'canSyncToRemote:', canSyncToRemote)
-
-    if (!canSyncToRemote) return
-
-    try {
-      const newVersion = await trpc.node.sync.mutate({
-        version: activeSpace.version,
-        spaceId: node.spaceId,
-        added: JSON.stringify(diffed.added),
-        updated: JSON.stringify(diffed.updated),
-        deleted: JSON.stringify(diffed.deleted.map((n) => n.id)),
-      })
-
-      // console.log('=========newVersion:', newVersion)
-
-      await store.updateSpace(activeSpace.id, { version: newVersion })
-    } catch (error) {
-      console.log(error)
-
-      // TODO: should to pull
-    }
   }, 1000)
 
   // console.log('====content:', index, content)
@@ -87,13 +43,19 @@ export function PanelItem({ node, index }: Props) {
         <Box
           overflowYAuto
           h={['calc(100vh - 48px)', '100vh']}
-          px={[10, 16, 30, 40, 0]}
+          px={[0, 16, 16, 16, 0]}
           py0
         >
           <MobileNav />
           {name === 'NODE' && <PCNav />}
           <Box w-100p>
-            <Box mx-auto maxW-800>
+            <Box
+              mx-auto
+              maxW-800
+              style={{
+                wordBreak: 'break-all',
+              }}
+            >
               <NodeEditor
                 index={index}
                 plugins={[withBulletPlugin]}

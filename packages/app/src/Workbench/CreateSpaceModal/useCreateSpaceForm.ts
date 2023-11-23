@@ -52,7 +52,7 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
           await trpc.space.create.mutate({
             userId: session?.userId as string,
             spaceData: JSON.stringify(space),
-            nodesData: JSON.stringify(nodes),
+            // nodesData: JSON.stringify(nodes),
           })
 
           onSpaceCreated?.(space)

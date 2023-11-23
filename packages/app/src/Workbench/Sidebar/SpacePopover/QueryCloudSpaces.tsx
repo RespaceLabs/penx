@@ -19,12 +19,10 @@ export const QueryCloudSpaces = ({ userId }: Props) => {
     for (const space of spaces) {
       const nodes = await trpc.node.listBySpaceId.query({ spaceId: space.id })
 
-      console.log('=====nodes:', nodes)
-
-      await db.createSpace({
+      await db.createSpaceByRemote({
         ...space,
-        isCloud: true,
         isActive: false,
+        isCloud: true,
       } as any as ISpace)
 
       for (const item of nodes) {

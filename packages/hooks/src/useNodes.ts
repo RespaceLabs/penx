@@ -8,10 +8,11 @@ import { nodesAtom, store } from '@penx/store'
 export function useQueryNodes(spaceId: string) {
   const setNodes = useSetAtom(nodesAtom)
 
+  // console.log('======spaceId:', spaceId)
+
   useEffect(() => {
     db.listNormalNodes(spaceId).then((nodes) => {
       setNodes(nodes)
-      // console.log('nodes:', nodes)
 
       if (!nodes.length) return
 

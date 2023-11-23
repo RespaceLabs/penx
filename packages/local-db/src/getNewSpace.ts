@@ -8,11 +8,15 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
     id: nanoid(),
     name: 'My Space',
     sort: 1,
-    version: 0,
+    // version: 0,
     isActive: true,
     isCloud: false,
     color: getRandomColor(),
     activeNodeIds: [],
+    hash: {
+      version: 0,
+      nodeMap: {},
+    },
     snapshot: {
       version: 0,
       nodeMap: {},

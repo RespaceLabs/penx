@@ -50,6 +50,7 @@
     "@octokit/oauth-app": "^6.0.0",
     "@octokit/rest": "^20.0.1",
     "@penx/api": "workspace:*",
+    "@penx/sync": "workspace:*",
     "@penx/cmdk": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/database": "workspace:*",

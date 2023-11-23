@@ -17,21 +17,20 @@ export const ExtensionSettingsForm = ({ schema, extensionId }: Props) => {
   const { activeSpace } = useSpaces()
 
   const { handleSubmit, watch, control } = useForm<any>({
-    defaultValues: activeSpace.settings?.extensions?.[extensionId] || {},
+    defaultValues: {},
   })
 
   const values = watch()
 
   useEffect(() => {
-    const settings = produce(activeSpace.settings, (draft) => {
-      if (!draft.extensions) draft.extensions = {}
-      if (!draft.extensions?.[extensionId]) {
-        draft.extensions[extensionId] = {}
-      }
-      draft.extensions[extensionId] = values
-    })
-
-    db.updateSpace(activeSpace.id, { settings })
+    // const settings = produce(activeSpace.settings, (draft) => {
+    //   if (!draft.extensions) draft.extensions = {}
+    //   if (!draft.extensions?.[extensionId]) {
+    //     draft.extensions[extensionId] = {}
+    //   }
+    //   draft.extensions[extensionId] = values
+    // })
+    // db.updateSpace(activeSpace.id, { settings })
   }, [values, activeSpace, extensionId])
 
   const onSubmit: SubmitHandler<any> = async (data) => {

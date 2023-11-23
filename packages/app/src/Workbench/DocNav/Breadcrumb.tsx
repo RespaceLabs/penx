@@ -7,7 +7,7 @@ export const Breadcrumb = () => {
   const parentNodes = nodeService.getParentNodes()
 
   return (
-    <Box toCenterY pl4>
+    <Box toCenterY>
       {parentNodes.map((node, index) => {
         const isLast = index === parentNodes.length - 1
         return (

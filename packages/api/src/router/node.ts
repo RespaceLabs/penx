@@ -12,7 +12,7 @@ export const nodeRouter = createTRPCRouter({
       })
     }),
 
-  sync: publicProcedure.input(syncNodesInput).mutation(({ ctx, input }) => {
+  sync: publicProcedure.input(syncNodesInput).mutation(({ input }) => {
     return syncNodes(input)
   }),
 })

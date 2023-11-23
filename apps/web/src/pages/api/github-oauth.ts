@@ -32,12 +32,12 @@ export default async function handler(
   await prisma.user.update({
     where: { id: userId },
     data: {
-      github: JSON.stringify({
+      github: {
         token: authentication.token,
         refreshToken: (authentication as any).refreshToken,
         tokenExpiresAt: (authentication as any).expiresAt,
         refreshTokenExpiresAt: (authentication as any).refreshTokenExpiresAt,
-      } as GithubInfo),
+      } as GithubInfo,
     },
   })
 

@@ -228,6 +228,10 @@ export const store = Object.assign(createStore(), {
         type: NodeType.DAILY,
         props: { date: dateStr },
       })
+
+      console.log('goog......')
+
+      // TODO: sync
     }
     const newNodes = await db.listNormalNodes(space.id)
 
