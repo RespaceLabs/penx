@@ -14,6 +14,15 @@ export const spaceRouter = createTRPCRouter({
     })
   }),
 
+  version: publicProcedure
+    .input(z.object({ spaceId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const space = await ctx.prisma.space.findUnique({
+        where: { id: input.spaceId },
+      })
+      return space?.version!
+    }),
+
   byId: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {

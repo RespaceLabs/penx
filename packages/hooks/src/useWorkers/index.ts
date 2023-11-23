@@ -47,22 +47,16 @@ export function useWorkers() {
       }
 
       if (event.data === WorkerEvents.PULL_SUCCEEDED) {
-        store.set(syncStatusAtom, SyncStatus.NORMAL)
+        console.log('=====PULL_SUCCEEDED....')
 
         const spaces = await db.listSpaces()
-        store.set(spacesAtom, spaces)
-
-        const activeSpace = spaces.find((space) => space.isActive)
-
-        // TODO:
-        // const node = await db.getNode(activeSpace?.activeNodeId!)
-
-        // store.set(nodeAtom, null as any)
-
-        // for rerender editor
-        setTimeout(() => {
-          // store.set(nodeAtom, node!)
-        }, 0)
+        const activeSpace = await db.getActiveSpace()
+        const nodes = await db.listNormalNodes(activeSpace.id)
+        store.setSpaces(spaces)
+        store.setNodes(nodes)
+        const [activeNode] = store.getActiveNodes()
+        const newActiveNode = nodes.find((n) => n.id === activeNode.id)
+        if (newActiveNode) store.selectNode(newActiveNode)
       }
 
       if (event.data === WorkerEvents.PULL_FAILED) {

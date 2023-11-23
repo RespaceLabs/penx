@@ -1,3 +1,4 @@
+import isEqual from 'react-fast-compare'
 import { format } from 'date-fns'
 import { atom, createStore } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
@@ -130,7 +131,12 @@ export const store = Object.assign(createStore(), {
 
     const activeNodes = store.getActiveNodes()
 
-    if (index === 0 && activeNodes[0]?.id === node.id) {
+    // console.log(
+    //   '===isEqual(activeNodes[0], node):',
+    //   isEqual(activeNodes[0], node),
+    // )
+
+    if (index === 0 && isEqual(activeNodes[0], node)) {
       console.log('is equal node')
       return
     }
@@ -183,7 +189,6 @@ export const store = Object.assign(createStore(), {
     const space = this.getActiveSpace()
     await db.deleteNode(id)
     const nodes = await db.listNodesBySpaceId(space.id)
-    this.setNode(nodes[0])
     this.setNodes(nodes)
   },
 

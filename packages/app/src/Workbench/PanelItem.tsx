@@ -7,7 +7,7 @@ import { isAstChange } from '@penx/editor-queries'
 import { NodeProvider, useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
-import { nodeToSlate, slateToNodes } from '@penx/serializer'
+import { nodeToSlate } from '@penx/serializer'
 import { diffNodes, NodeListService, NodeService } from '@penx/service'
 import { routerAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
@@ -51,19 +51,32 @@ export function PanelItem({ node, index }: Props) {
 
     const diffed = diffNodes([node.raw, ...oldNodes], [newNode, ...newNodes])
 
-    console.log('====diffed:', diffed)
+    const canSyncToRemote =
+      !!diffed.added.length ||
+      !!diffed.updated.length ||
+      !!diffed.deleted.length
 
-    const newVersion = await trpc.node.sync.mutate({
-      version: activeSpace.version,
-      spaceId: node.spaceId,
-      added: JSON.stringify(diffed.added),
-      updated: JSON.stringify(diffed.updated),
-      deleted: JSON.stringify(diffed.deleted.map((n) => n.id)),
-    })
+    console.log('====diffed:', diffed, 'canSyncToRemote:', canSyncToRemote)
 
-    console.log('=========newVersion:', newVersion)
+    if (!canSyncToRemote) return
 
-    await store.updateSpace(activeSpace.id, { version: newVersion })
+    try {
+      const newVersion = await trpc.node.sync.mutate({
+        version: activeSpace.version,
+        spaceId: node.spaceId,
+        added: JSON.stringify(diffed.added),
+        updated: JSON.stringify(diffed.updated),
+        deleted: JSON.stringify(diffed.deleted.map((n) => n.id)),
+      })
+
+      // console.log('=========newVersion:', newVersion)
+
+      await store.updateSpace(activeSpace.id, { version: newVersion })
+    } catch (error) {
+      console.log(error)
+
+      // TODO: should to pull
+    }
   }, 1000)
 
   // console.log('====content:', index, content)

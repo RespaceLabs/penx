@@ -18,11 +18,15 @@ export const QueryCloudSpaces = ({ userId }: Props) => {
   const initSpaces = async (spaces: Space[]) => {
     for (const space of spaces) {
       const nodes = await trpc.node.listBySpaceId.query({ spaceId: space.id })
+
+      console.log('=====nodes:', nodes)
+
       await db.createSpace({
         ...space,
         isCloud: true,
         isActive: false,
       } as any as ISpace)
+
       for (const item of nodes) {
         await db.createNode(item as any as INode)
       }
