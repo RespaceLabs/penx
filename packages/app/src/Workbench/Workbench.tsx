@@ -5,9 +5,9 @@ import { EditorProvider } from '@penx/editor'
 import { useQuerySpaces, useSpaces } from '@penx/hooks'
 import { routerAtom } from '@penx/store'
 import { CommandPanel } from '../Palette'
+import { AccountSettings } from './AccountSettings/AccountSettings'
 import { NodePanels } from './NodePanels'
 import { Sidebar } from './Sidebar/Sidebar'
-import { SyncBox } from './SyncBox/SyncBox'
 import { WithNodes } from './WithNodes'
 
 export const Workbench = () => {
@@ -30,7 +30,7 @@ export const Workbench = () => {
             <Sidebar />
           </Box>
           <Box flex-1>
-            {name === 'SYNC' && <SyncBox />}
+            {name === 'SPACE_SETTINGS' && <AccountSettings />}
             {name === 'NODE' && <NodePanels />}
           </Box>
         </Box>

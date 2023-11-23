@@ -84,20 +84,6 @@ export const Sidebar = () => {
             }}
           />
 
-          {!activeSpace.isSpace101 && (
-            <SidebarItem
-              icon={
-                user?.isSyncWorks ? <Cloud size={16} /> : <CloudOff size={16} />
-              }
-              label="Sync"
-              onClick={() => {
-                store.routeTo('SYNC')
-              }}
-            >
-              <Dot type={user?.isSyncWorks ? 'success' : 'error'} />
-            </SidebarItem>
-          )}
-
           {components.map((C, i) => (
             <C key={i} />
           ))}

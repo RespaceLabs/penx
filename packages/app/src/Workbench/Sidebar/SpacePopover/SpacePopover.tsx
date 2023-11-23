@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { Bullet } from '../../../components/Bullet'
 import { CreateSpaceModal } from '../../CreateSpaceModal/CreateSpaceModal'
+import { SettingsModal } from '../../SettingsModal/SettingsModal'
 import { QueryCloudSpaces } from './QueryCloudSpaces'
 import { SpacePopoverContent } from './SpacePopoverContent'
 
@@ -72,7 +73,7 @@ export const SpacePopover = () => {
                   e.stopPropagation()
                 }}
               >
-                <SettingsModal></SettingsModal>
+                <SettingsModal />
               </Box> */}
             </Box>
           )}

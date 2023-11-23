@@ -75,17 +75,8 @@ export const DrawerSidebar = () => {
                 }}
               />
 
-              <SidebarItem
-                icon={<Cloud size={20} />}
-                label="Sync"
-                onClick={() => {
-                  store.routeTo('SYNC')
-                  close()
-                }}
-              />
               {/* <FavoriteBox /> */}
             </Box>
-            <Box>Address: {user?.address}</Box>
           </Box>
         </DrawerContent>
       </Drawer.Portal>

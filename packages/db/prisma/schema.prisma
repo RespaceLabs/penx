@@ -11,16 +11,13 @@ datasource db {
 }
 
 model User {
-    id       String  @id @default(cuid())
-    address  String? @unique // wallet address
-    name     String?
-    nickname String?
-    bio      String?
-    avatar   String?
-
-    // github info for github sync
-    github String? @db.Text
-
+    id            String    @id @default(cuid())
+    address       String?   @unique // wallet address
+    name          String?
+    nickname      String?
+    bio           String?
+    avatar        String?
+    github        Json?
     email         String?   @unique
     emailVerified DateTime?
     image         String?

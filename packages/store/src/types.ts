@@ -15,7 +15,7 @@ export type ExtensionStore = Record<
   }
 >
 
-export type RouteName = 'TRASH' | 'SYNC' | 'NODE'
+export type RouteName = 'TRASH' | 'NODE' | 'SPACE_SETTINGS'
 
 export type RouterStore = {
   name: RouteName
