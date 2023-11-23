@@ -131,11 +131,6 @@ export const store = Object.assign(createStore(), {
 
     const activeNodes = store.getActiveNodes()
 
-    // console.log(
-    //   '===isEqual(activeNodes[0], node):',
-    //   isEqual(activeNodes[0], node),
-    // )
-
     if (index === 0 && isEqual(activeNodes[0], node)) {
       console.log('is equal node')
       return
@@ -298,11 +293,14 @@ export const store = Object.assign(createStore(), {
     const nodes = await db.listNormalNodes(space.id)
 
     space = await db.getSpace(space.id)
-    const activeNodes = nodes.filter((n) => space.activeNodeIds.includes(n.id))
+    const activeNodes = space.activeNodeIds.map((id) => {
+      return nodes.find((n) => n.id === id)!
+    })
 
     this.routeTo('NODE')
     this.setNodes(nodes)
     this.setSpaces(spaces)
+    this.selectNode(activeNodes[0])
     this.setActiveNodes(activeNodes)
     return space
   },
@@ -312,13 +310,15 @@ export const store = Object.assign(createStore(), {
     const spaces = await db.listSpaces()
     const nodes = await db.listNormalNodes(id)
     const space = await db.getActiveSpace()
-    const activeNodes = nodes.filter((n) => space.activeNodeIds.includes(n.id))
+
+    const activeNodes = space.activeNodeIds.map((id) => {
+      return nodes.find((n) => n.id === id)!
+    })
 
     this.setSpaces(spaces)
     this.setNodes(nodes)
-    this.setActiveNodes(activeNodes)
-
     this.selectNode(activeNodes[0])
+    this.setActiveNodes(activeNodes)
     return space
   },
 
