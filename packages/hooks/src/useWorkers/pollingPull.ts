@@ -29,16 +29,13 @@ async function sync() {
 
     for (const item of nodes) {
       const node = await db.getNode(item.id)
-      const { id, createdAt, updatedAt, openedAt, ...rest } = item
+      const { id, ...rest } = item
       if (node) {
         // TODO: handle date
         await db.updateNode(node.id, rest as any)
       } else {
         await db.createNode({
           ...item,
-          createdAt: createdAt.getTime(),
-          updatedAt: updatedAt.getTime(),
-          openedAt: openedAt.getTime(),
         } as any)
       }
     }

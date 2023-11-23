@@ -52,11 +52,11 @@ export interface INode {
 
   children: string[]
 
-  openedAt: number
+  openedAt: Date
 
-  createdAt: number
+  createdAt: Date
 
-  updatedAt: number
+  updatedAt: Date
 }
 
 export enum FieldType {

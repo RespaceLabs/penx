@@ -221,7 +221,7 @@ class DB {
   updateNode = async (nodeId: string, data: Partial<INode>) => {
     const newNode = await this.node.updateByPk(nodeId, {
       ...data,
-      updatedAt: Date.now(),
+      updatedAt: new Date(),
     })
 
     return newNode
@@ -407,8 +407,8 @@ class DB {
   createFile(file: Partial<IFile>) {
     return this.file.insert({
       id: nanoid(),
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
       ...file,
     })
   }
@@ -420,7 +420,7 @@ class DB {
   updateFile = async (fileId: string, data: Partial<IFile>) => {
     const newNode = await this.file.updateByPk(fileId, {
       ...data,
-      updatedAt: Date.now(),
+      updatedAt: new Date(),
     })
 
     return newNode

@@ -39,8 +39,8 @@ export default class Model<DataType extends {}> {
           ...Database.verify<Partial<DataType>>(data, [this.table]),
           // Adding timestamps when enabled
           ...(this.table.timestamps && {
-            createdAt: Date.now(),
-            updatedAt: Date.now(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
           }),
         }
         const primary: { key: string } = { key: null as any }

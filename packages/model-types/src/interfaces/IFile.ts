@@ -5,7 +5,7 @@ export interface IFile {
 
   value: File
 
-  createdAt: number
+  createdAt: Date
 
-  updatedAt: number
+  updatedAt: Date
 }

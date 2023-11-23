@@ -17,8 +17,8 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
       version: 0,
       nodeMap: {},
     },
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
     ...data,
   }
 }

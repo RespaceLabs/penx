@@ -112,9 +112,9 @@ export function slateToNodes(
         collapsed: !!item.collapsed,
         folded: true,
         children,
-        openedAt: Date.now(),
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
+        openedAt: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       })
     }
   }

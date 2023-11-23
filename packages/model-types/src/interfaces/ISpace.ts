@@ -22,7 +22,7 @@ export interface ISpace {
     nodeMap: Record<string, string>
   }
 
-  createdAt: number
+  createdAt: Date
 
-  updatedAt: number
+  updatedAt: Date
 }

@@ -63,7 +63,7 @@ export class NodeListService {
     if (!this.nodes?.length) return []
     return this.rootNode.children
       .map((id) => this.nodeMap.get(id)!)
-      .sort((a, b) => b.updatedAt - a.updatedAt)
+      .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
   }
 
   get tagNodes() {
@@ -162,7 +162,7 @@ export class NodeListService {
 
       if (isLinked()) nodes.push(item)
     }
-    return nodes.sort((a, b) => a.updatedAt - b.updatedAt)
+    return nodes.sort((a, b) => a.updatedAt.getTime() - b.updatedAt.getTime())
   }
 
   async addToFavorites(node: Node) {
