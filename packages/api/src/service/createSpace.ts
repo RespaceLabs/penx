@@ -7,6 +7,7 @@ import { RoleType } from '../constants'
 export const CreateSpaceInput = z.object({
   userId: z.string().min(1),
   spaceData: z.string(),
+  encrypted: z.boolean(),
   nodesData: z.string().optional(),
 })
 
@@ -27,6 +28,7 @@ export function createSpace(input: CreateUserInput) {
           name: space.name,
           color: space.color,
           isActive: space.isActive,
+          encrypted: true,
           activeNodeIds: space.activeNodeIds || [],
           nodeSnapshot: space.nodeSnapshot,
           pageSnapshot: space.pageSnapshot,

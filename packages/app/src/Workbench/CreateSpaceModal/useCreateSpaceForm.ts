@@ -16,6 +16,7 @@ export enum SpaceType {
 export type CreateSpaceValues = {
   name: string
   type: SpaceType
+  encrypted: boolean
 }
 
 export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
@@ -24,6 +25,7 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
     defaultValues: {
       name: '',
       type: SpaceType.LOCAL,
+      encrypted: false,
     },
   })
 
@@ -41,17 +43,15 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
       const space = await store.createSpace({
         name: data.name,
         isCloud: data.type === SpaceType.CLOUD,
+        encrypted: data.encrypted,
       })
 
       if (data.type === SpaceType.CLOUD) {
-        const nodes = await db.listNormalNodes(space.id)
-
-        console.log('space=====:', space)
-
         try {
           await trpc.space.create.mutate({
             userId: session?.userId as string,
             spaceData: JSON.stringify(space),
+            encrypted: data.encrypted,
             // nodesData: JSON.stringify(nodes),
           })
 

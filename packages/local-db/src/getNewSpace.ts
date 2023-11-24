@@ -1,4 +1,3 @@
-import { SettingsType } from '@penx/constants'
 import { ISpace } from '@penx/model-types'
 import { uniqueId } from '@penx/unique-id'
 import { getRandomColor } from './getRandomColor'

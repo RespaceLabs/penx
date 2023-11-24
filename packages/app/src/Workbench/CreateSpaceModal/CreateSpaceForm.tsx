@@ -1,6 +1,7 @@
 import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
-import { Button, Input, ModalClose, Switch } from 'uikit'
+import { useSession } from 'next-auth/react'
+import { Button, Checkbox, Input, ModalClose, Switch } from 'uikit'
 import { ISpace } from '@penx/model-types'
 import { BorderedRadioGroup } from './BorderedRadioGroup'
 import { SpaceType, useCreateSpaceForm } from './useCreateSpaceForm'
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
+  const { status } = useSession()
   const form = useCreateSpaceForm(onSpaceCreated)
   const { control, formState } = form
   const { isValid } = formState
@@ -23,7 +25,7 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
-          <Input size="lg" placeholder="Name your space" {...field} />
+          <Input autoFocus size="lg" placeholder="Name your space" {...field} />
         )}
       />
 
@@ -44,6 +46,26 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
         )}
       />
 
+      <Box toCenterY gap1>
+        <Controller
+          name="encrypted"
+          control={control}
+          render={({ field }) => (
+            <Checkbox
+              disabled={status === 'unauthenticated'}
+              onChange={(e) => {
+                field.onChange(e.target.checked)
+              }}
+              checked={field.value}
+            >
+              Enable End-to-End Encryption
+            </Checkbox>
+          )}
+        />
+        <Box textXS gray400 yellow500={status === 'unauthenticated'}>
+          (Need login to set password in Account Setting)
+        </Box>
+      </Box>
       <Box toCenterY gap2 mt2>
         {showCancel && (
           <ModalClose>

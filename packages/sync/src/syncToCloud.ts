@@ -5,7 +5,7 @@ import { trpc } from '@penx/trpc-client'
 
 export async function syncToCloud(): Promise<boolean> {
   const space = await db.getActiveSpace()
-  if (!space) return false
+  if (!space || !space.isCloud) return false
 
   // push all nodes
   if (space.nodeSnapshot.version === 0) {
