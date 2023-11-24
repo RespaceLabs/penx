@@ -8,13 +8,13 @@ const DEBUG_MODE = false
 export const parsePreparedContent = async (url: string, html: string) => {
   let dom: Document | null = parseHTML(html).document
   // Attempt to parse the article
-  console.log('%c=parsePreparedContent', 'color:green', { url, html, dom })
+  // console.log('%c=parsePreparedContent', 'color:green', { url, html, dom })
 
   dom = (await preParseContent(url, dom)) || dom
 
   const content = await getReadabilityResult(url, html, dom, false)
 
-  console.log('%c=getReadabilityResult:', 'color:green', content)
+  // console.log('%c=getReadabilityResult:', 'color:green', content)
 
   return content
 }

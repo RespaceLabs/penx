@@ -117,7 +117,7 @@ export const preHandleContent = async (
           url = resolvedUrl
         }
       } catch (err) {
-        console.log('error resolving url with handler', handler.name, err)
+        console.warn('error resolving url with handler', handler.name, err)
       }
       break
     }
@@ -127,7 +127,6 @@ export const preHandleContent = async (
   // enumerate the handlers and see if any of them want to handle the request
   for (const handler of contentHandlers) {
     if (handler.shouldPreHandle(url)) {
-      console.log('preHandleContent', handler.name, url)
       return handler.preHandle(url, browser)
     }
   }
@@ -143,7 +142,6 @@ export const preParseContent = async (
   // enumerate the handlers and see if any of them want to handle the dom
   for (const handler of contentHandlers) {
     if (handler.shouldPreParse(url, dom)) {
-      console.log('preParseContent', handler.name, url)
       return handler.preParse(url, dom)
     }
   }
@@ -170,7 +168,6 @@ export const handleNewsletter = async (
 ): Promise<NewsletterResult | undefined> => {
   const handler = await getNewsletterHandler(input)
   if (handler) {
-    console.log('handleNewsletter', handler.name, input.subject)
     return handler.handleNewsletter(input)
   }
 

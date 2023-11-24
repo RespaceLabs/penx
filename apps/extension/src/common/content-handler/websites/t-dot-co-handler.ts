@@ -20,7 +20,7 @@ export class TDotCoHandler extends ContentHandler {
         return new URL(res.headers.location).href
       })
       .catch((err) => {
-        console.log('err with t.co url', err)
+        console.warn('err with t.co url', err)
         return undefined
       })
   }
