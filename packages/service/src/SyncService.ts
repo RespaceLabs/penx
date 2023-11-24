@@ -9,7 +9,6 @@ import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
 import { nodeToSlate } from '@penx/serializer'
 import { spacesAtom, store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
-import { NodeService } from './NodeService'
 import { SpaceService } from './SpaceService'
 
 export type TreeItem = {
@@ -174,7 +173,8 @@ export class SyncService {
       })
     }
 
-    const pageMap = await this.spaceService.getPageMap()
+    const pageMap = this.spaceService.getPageMap()
+
     const changeIds = [...diff.added, ...diff.updated]
 
     for (const id of changeIds) {
@@ -192,7 +192,7 @@ export class SyncService {
   }
 
   async createTreeForNewDir() {
-    const pageMap = await this.spaceService.getPageMap()
+    const pageMap = this.spaceService.getPageMap()
 
     let treeItems: TreeItem[] = []
     for (const id of Object.keys(pageMap)) {
@@ -451,77 +451,75 @@ export class SyncService {
   }
 
   async push() {
-    try {
-      // TODO: should improve, to many try/catch
-      let tree: TreeItem[] = []
-      try {
-        const serverSnapshot = await this.getSnapshot()
-        console.log('serverSnapshot:', serverSnapshot, 'space:', this.space)
+    let tree: TreeItem[] = []
 
-        if (
-          !this.space.snapshot?.version ||
-          this.space.snapshot.version < serverSnapshot.version
-        ) {
-          console.log('should pull, can not push!!!')
-          return
-        }
+    const serverSnapshot = await this.getServerSnapshot()
 
-        const diff = this.space.snapshot.diff(serverSnapshot)
+    if (serverSnapshot.version === 0) {
+      console.log('push all................:', serverSnapshot)
+      tree = await this.pushAll()
+    } else {
+      console.log('serverSnapshot:', serverSnapshot, 'space:', this.space)
 
-        console.log('====diff:', diff)
-
-        // isEqual, don't push
-        if (diff.isEqual) {
-          console.log('diff equal, no need to push')
-          return
-        }
-
-        tree = await this.pushByDiff(diff, serverSnapshot.version)
-      } catch (error) {
-        console.log('push all................:', error)
-        tree = await this.pushAll()
+      if (this.space.snapshot.version < serverSnapshot.version) {
+        console.log('should pull, can not push!!!')
+        return
       }
 
-      console.log('tree------:', tree)
+      const diff = this.space.snapshot.diff(serverSnapshot)
 
-      await this.getBaseBranchInfo()
+      console.log('====diff:', diff)
 
-      // update tree to GitHub before commit
-      const { data } = await this.app.request(
-        'POST /repos/{owner}/{repo}/git/trees',
-        {
-          ...this.params,
-          tree,
-          base_tree: this.baseBranchSha,
-        },
-      )
+      // isEqual, don't push
+      if (diff.isEqual) {
+        console.log('diff equal, no need to push')
+        return
+      }
 
-      // create a commit for the tree
-      const { data: commitData } = await this.commit(data.sha)
-
-      // update ref to GitHub server after commit
-      await this.updateRef(commitData.sha)
-
-      await db.updateSpace(this.space.id, {
-        snapshot: this.space.snapshot.toJSON(),
-      })
-
-      const spaces = await this.reloadSpacesStore()
-
-      const activeSpace = spaces.find((s) => s.id === this.space.id)
-      await this.upsertSnapshot(activeSpace!)
-
-      // update local snapshot
-      // const nodes =
-    } catch (error) {
-      console.log('push error', error)
+      tree = await this.pushByDiff(diff, serverSnapshot.version)
     }
-  }
 
-  async isCanPull() {
-    const now = Date.now()
-    const ONE_MINUTE = 60 * 1000
-    return true
+    console.log('tree------:', tree)
+
+    await this.getBaseBranchInfo()
+
+    // update tree to GitHub before commit
+    const { data } = await this.app.request(
+      'POST /repos/{owner}/{repo}/git/trees',
+      {
+        ...this.params,
+        tree,
+        base_tree: this.baseBranchSha,
+      },
+    )
+
+    // create a commit for the tree
+    const { data: commitData } = await this.commit(data.sha)
+
+    // update ref to GitHub server after commit
+    await this.updateRef(commitData.sha)
+
+    await db.updateSpace(this.space.id, {
+      pageSnapshot: this.space.snapshot.toJSON(),
+    })
+
+    const pageMapHash = this.spaceService.getPageMapHash()
+    const newVersion = this.space.snapshot.version + 1
+
+    // update remote snapshot
+    await trpc.space.upsertPageSnapshot.mutate({
+      spaceId: this.space.id,
+      version: newVersion,
+      pageMap: JSON.stringify(pageMapHash),
+    })
+
+    // update local snapshot
+    await db.updateSpace(this.space.id, {
+      pageSnapshot: {
+        version: newVersion,
+        pageMap: pageMapHash,
+      },
+    })
   }
 
   async pullSingleFile(fileNode: FileNode) {
@@ -645,7 +643,7 @@ export class SyncService {
   }
 
   async pullByDiff() {
-    const serverSnapshot = await this.getSnapshot()
+    const serverSnapshot = await this.getServerSnapshot()
 
     if (this.space.snapshot.version >= serverSnapshot.version) {
       console.log('version is equal, no need to pull!!!')
@@ -729,40 +727,12 @@ export class SyncService {
     }
   }
 
-  private async getSnapshotFromDatabase(): Promise<ISpace['snapshot']> {
-    const snapshot = await trpc.space.getSnapshot.query({
+  private async getServerSnapshot(): Promise<ISpace['pageSnapshot']> {
+    const snapshot = await trpc.space.getPageSnapshot.query({
       spaceId: this.space.id,
     })
-
-    console.log('database snapshot:', snapshot)
 
     return snapshot
-  }
-
-  private async getSnapshot(): Promise<ISpace['snapshot']> {
-    try {
-      return this.getSnapshotFromDatabase()
-    } catch (error) {
-      try {
-        const data = (await this.getSpaceInfo()) as Content
-        const content: ISpace = JSON.parse(decodeBase64(data.content!))
-
-        return {
-          version: content.snapshot.version,
-          nodeMap: content.snapshot.nodeMap,
-        }
-      } catch (e) {
-        throw e
-      }
-    }
-  }
-
-  private async upsertSnapshot(space: ISpace) {
-    await trpc.space.upsertSnapshot.mutate({
-      spaceId: this.space.id,
-      version: 1,
-      nodeMap: JSON.stringify(space.snapshot.nodeMap),
-    })
   }
 
   encrypt(str: string) {

@@ -22,7 +22,7 @@ async function sync() {
     spaceId: space.id,
   })
 
-  const localVersion = space.hash.version
+  const localVersion = space.nodeSnapshot.version
   console.log('local.version', localVersion, 'remote.version:', remoteVersion)
 
   // TODO: should use diff or websocket

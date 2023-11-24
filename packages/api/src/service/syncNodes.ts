@@ -25,7 +25,7 @@ export function syncNodes(input: SyncUserInput) {
         where: { id: input.spaceId },
       })
 
-      const version = (space?.hash as any)?.version || 0
+      const version = (space?.nodeSnapshot as any)?.version || 0
 
       console.log('input.version:', input.version, 'space.version:', version)
 
@@ -87,7 +87,7 @@ export function syncNodes(input: SyncUserInput) {
       await tx.space.update({
         where: { id: input.spaceId },
         data: {
-          hash: {
+          nodeSnapshot: {
             version: newVersion,
             nodeMap,
           },

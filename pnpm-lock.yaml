@@ -4090,6 +4090,9 @@ importers:
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../trpc-client
+      crypto-js:
+        specifier: ^4.1.1
+        version: 4.1.1
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -4142,6 +4145,9 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
     devDependencies:
+      '@types/crypto-js':
+        specifier: ^4.1.1
+        version: 4.1.1
       '@types/diff-match-patch':
         specifier: ^1.0.33
         version: 1.0.33

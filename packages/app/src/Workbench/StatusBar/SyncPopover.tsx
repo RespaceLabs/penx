@@ -37,10 +37,9 @@ export const SyncPopover: FC<Props> = () => {
     }
   }
 
-  async function pull() {
+  async function pushToGitHub() {
     const space = await db.getActiveSpace()
-    if (!space) return // TODO:
-    console.log('pull----xxx...')
+    if (!space) return
 
     try {
       setStatus(SyncStatus.PUSHING)
@@ -118,7 +117,7 @@ export const SyncPopover: FC<Props> = () => {
               bgGray100--hover
               onClick={async () => {
                 close()
-                pull()
+                pushToGitHub()
               }}
             >
               <IconPush square-20 />

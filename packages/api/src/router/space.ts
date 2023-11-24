@@ -21,7 +21,7 @@ export const spaceRouter = createTRPCRouter({
       const space = await ctx.prisma.space.findUnique({
         where: { id: input.spaceId },
       })
-      const version: number = (space?.hash as any)?.version || 0
+      const version: number = (space?.nodeSnapshot as any)?.version || 0
       return version
     }),
 
@@ -56,7 +56,7 @@ export const spaceRouter = createTRPCRouter({
     return ctx.prisma.space.delete({ where: { id: input } })
   }),
 
-  getSnapshot: publicProcedure
+  getPageSnapshot: publicProcedure
     .input(
       z.object({
         spaceId: z.string(),
@@ -68,7 +68,7 @@ export const spaceRouter = createTRPCRouter({
         where: { id: spaceId },
       })
 
-      if (!(space.snapshot as any)?.pageMap) {
+      if (!(space.pageSnapshot as any)?.pageMap) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: 'Snapshot not found',
@@ -76,30 +76,30 @@ export const spaceRouter = createTRPCRouter({
       }
 
       return {
-        version: !(space.snapshot as any).version as any as number,
-        nodeMap: !(space.snapshot as any).nodeMap as any as Record<
+        version: (space.pageSnapshot as any).version as any as number,
+        pageMap: (space.pageSnapshot as any).pageMap as any as Record<
           string,
           string
         >,
       }
     }),
 
-  upsertSnapshot: publicProcedure
+  upsertPageSnapshot: publicProcedure
     .input(
       z.object({
         spaceId: z.string(),
         version: z.number(),
-        nodeMap: z.string(),
+        pageMap: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { spaceId, version, nodeMap } = input
+      const { spaceId, version, pageMap } = input
       return ctx.prisma.space.update({
         where: { id: spaceId },
         data: {
-          snapshot: {
+          pageSnapshot: {
             version,
-            nodeMap: JSON.parse(nodeMap),
+            pageMap: JSON.parse(pageMap),
           },
         },
       })

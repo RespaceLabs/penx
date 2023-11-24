@@ -356,7 +356,7 @@ class DB {
     space.snapshot[action](nodeModel.snapshotId, editorValue)
 
     await this.updateSpace(space.id, {
-      snapshot: space.snapshot.toJSON(),
+      pageSnapshot: space.snapshot.toJSON(),
     })
   }
 

@@ -13,13 +13,13 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
     isCloud: false,
     color: getRandomColor(),
     activeNodeIds: [],
-    hash: {
+    nodeSnapshot: {
       version: 0,
       nodeMap: {},
     },
-    snapshot: {
+    pageSnapshot: {
       version: 0,
-      nodeMap: {},
+      pageMap: {},
     },
     createdAt: new Date(),
     updatedAt: new Date(),

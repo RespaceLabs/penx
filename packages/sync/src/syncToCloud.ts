@@ -8,10 +8,10 @@ export async function syncToCloud(): Promise<boolean> {
   if (!space) return false
 
   // push all nodes
-  if (space.hash.version === 0) {
+  if (space.nodeSnapshot.version === 0) {
     const remoteVersion = await trpc.space.version.query({ spaceId: space.id })
 
-    if (space.hash.version < remoteVersion) return false
+    if (space.nodeSnapshot.version < remoteVersion) return false
     remoteVersion === 0
     await pushAllNodes(space)
     return true
@@ -28,12 +28,12 @@ async function pushAllNodes(space: ISpace) {
   })
 
   await db.updateSpace(space.id, {
-    hash: { version: newVersion, nodeMap: getNodeMap(nodes) },
+    nodeSnapshot: { version: newVersion, nodeMap: getNodeMap(nodes) },
   })
 }
 
 async function pushByDiff(space: ISpace): Promise<boolean> {
-  const prevNodeMap = space.hash.nodeMap
+  const prevNodeMap = space.nodeSnapshot.nodeMap
   const nodes = await db.listNodesBySpaceId(space.id)
   const curNodeMap = getNodeMap(nodes)
   const diffed = diffNodeMap(prevNodeMap, curNodeMap)
@@ -55,7 +55,7 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
     })
 
     await db.updateSpace(space.id, {
-      hash: { version: newVersion, nodeMap: getNodeMap(nodes) },
+      nodeSnapshot: { version: newVersion, nodeMap: getNodeMap(nodes) },
     })
     return true
   }
@@ -71,7 +71,7 @@ export interface Options {
 async function submitToServer(space: ISpace, diffed: Partial<Options>) {
   const { added = [], updated = [], deleted = [] } = diffed
   const newVersion = await trpc.node.sync.mutate({
-    version: space.hash.version,
+    version: space.nodeSnapshot.version,
     spaceId: space.id,
     added: JSON.stringify(added),
     updated: JSON.stringify(updated),

@@ -1,3 +1,4 @@
+import CryptoJS from 'crypto-js'
 import _ from 'lodash'
 import { db } from '@penx/local-db'
 import { Space } from '@penx/model'
@@ -35,7 +36,7 @@ export class SpaceService {
    * }
    * @returns
    */
-  getPageMap = async () => {
+  getPageMap = () => {
     const { nodes } = this
     let pageMap: Record<string, INode[]> = {}
 
@@ -87,6 +88,17 @@ export class SpaceService {
     )
 
     return pageMap
+  }
+
+  getPageMapHash() {
+    const pageMap = this.getPageMap()
+
+    return Object.keys(pageMap).reduce<Record<string, string>>((acc, key) => {
+      return {
+        ...acc,
+        [key]: CryptoJS.MD5(JSON.stringify(pageMap[key])).toString(),
+      }
+    }, {})
   }
 
   private getPageNodesFromOneNode = (node: INode) => {

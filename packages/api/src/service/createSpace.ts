@@ -17,8 +17,6 @@ export function createSpace(input: CreateUserInput) {
   const space: ISpace = JSON.parse(spaceData)
   const nodes: INode[] = JSON.parse(nodesData || '[]')
 
-  console.log('========nodes:', nodes)
-
   return prisma.$transaction(
     async (tx) => {
       await tx.space.create({
@@ -30,7 +28,8 @@ export function createSpace(input: CreateUserInput) {
           color: space.color,
           isActive: space.isActive,
           activeNodeIds: space.activeNodeIds || [],
-          snapshot: space.snapshot,
+          nodeSnapshot: space.nodeSnapshot,
+          pageSnapshot: space.pageSnapshot,
         },
       })
 

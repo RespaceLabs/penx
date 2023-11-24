@@ -8,15 +8,15 @@ export interface SnapshotDiffResult {
   updated: string[]
 }
 
-export class Snapshot {
+export class PageSnapshot {
   // Record<nodeId, md5>
   map: Record<string, string> = {}
 
   version: number
 
   constructor(public space: ISpace) {
-    this.map = space.snapshot.nodeMap || {}
-    this.version = space.snapshot.version || 0
+    this.map = space.pageSnapshot.pageMap || {}
+    this.version = space.pageSnapshot.version || 0
   }
 
   md5Doc = (editorValue: any) => {
@@ -38,7 +38,7 @@ export class Snapshot {
   toJSON() {
     return {
       version: this.version,
-      nodeMap: this.map,
+      pageMap: this.map,
     }
   }
 
@@ -47,11 +47,11 @@ export class Snapshot {
   }
 
   diff(
-    serverSnapshot: ISpace['snapshot'],
+    serverSnapshot: ISpace['pageSnapshot'],
     type: 'PUSH' | 'PULL' = 'PUSH',
   ): SnapshotDiffResult {
     const { map: localMap } = this
-    const { nodeMap: serverMap } = serverSnapshot
+    const { pageMap: serverMap } = serverSnapshot
     console.log('serverSnapshot--------:', serverSnapshot)
     console.log('localSnapshot:', this.toJSON())
 

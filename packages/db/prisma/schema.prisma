@@ -88,8 +88,8 @@ model Space {
     isActive      Boolean @default(true)
     activeNodeIds Json?
 
-    hash     Json?
-    snapshot Json?
+    nodeSnapshot Json?
+    pageSnapshot Json?
 
     deletedAt DateTime?
     createdAt DateTime  @default(now())

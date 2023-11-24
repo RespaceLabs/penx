@@ -1,13 +1,13 @@
 import { ISpace } from '@penx/model-types'
+import { PageSnapshot } from './PageSnapshot'
 import { Settings } from './Settings'
-import { Snapshot } from './Snapshot'
 import { GithubInfo } from './User'
 
 export class Space {
-  snapshot: Snapshot
+  snapshot: PageSnapshot
 
   constructor(private raw: ISpace) {
-    this.snapshot = new Snapshot(raw)
+    this.snapshot = new PageSnapshot(raw)
   }
 
   get id() {
