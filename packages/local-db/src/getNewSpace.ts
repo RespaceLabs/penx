@@ -11,6 +11,7 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
     // version: 0,
     isActive: true,
     isCloud: false,
+    encrypted: false,
     color: getRandomColor(),
     activeNodeIds: [],
     nodeSnapshot: {
