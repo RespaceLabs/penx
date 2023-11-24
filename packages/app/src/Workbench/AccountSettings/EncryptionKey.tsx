@@ -2,8 +2,8 @@ import { FC, useEffect, useState } from 'react'
 import { Box } from '@fower/react'
 import { get, set } from 'idb-keyval'
 import { Check, Eye, PencilLine } from 'lucide-react'
-import { nanoid } from 'nanoid'
 import { Button, Input } from 'uikit'
+import { uniqueId } from '@penx/unique-id'
 
 interface Props {}
 
@@ -17,7 +17,7 @@ export const EncryptionKey: FC<Props> = () => {
   useEffect(() => {
     get(ENCRYPTION_KEY).then((value) => {
       if (value) return setKey(value)
-      setKey(nanoid())
+      setKey(uniqueId())
     })
   }, [])
 

@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid'
 import { Element, Node } from 'slate'
 import { ListsSchema, ListType } from 'slate-lists'
 import {
@@ -7,6 +6,7 @@ import {
   ELEMENT_OL,
   ELEMENT_UL,
 } from '@penx/constants'
+import { uniqueId } from '@penx/unique-id'
 import { getEmptyElement } from './getEmptyElement'
 
 export const listSchema: ListsSchema = {
@@ -35,7 +35,7 @@ export const listSchema: ListsSchema = {
 
   createDefaultTextNode(props: Partial<Element> = {}) {
     return {
-      id: nanoid(),
+      id: uniqueId(),
       children: [{ text: '' }],
       ...props,
       type: 'p',
@@ -45,7 +45,7 @@ export const listSchema: ListsSchema = {
   createListNode(type: any = ListType.UNORDERED, props: any = {}) {
     const nodeType = type === ListType.ORDERED ? ELEMENT_OL : ELEMENT_UL
     return {
-      id: nanoid(),
+      id: uniqueId(),
       children: [{ text: '' }],
       ...props,
       type: nodeType,
@@ -53,7 +53,7 @@ export const listSchema: ListsSchema = {
   },
   createListItemNode(props: Partial<Element> = {}) {
     return {
-      id: nanoid(),
+      id: uniqueId(),
       children: [{ text: '' }],
       ...props,
       type: ELEMENT_LI,
@@ -61,7 +61,7 @@ export const listSchema: ListsSchema = {
   },
   createListItemTextNode(props: Partial<Element> = {}) {
     return {
-      id: nanoid(),
+      id: uniqueId(),
       children: [getEmptyElement()],
       ...props,
       type: ELEMENT_LIC,

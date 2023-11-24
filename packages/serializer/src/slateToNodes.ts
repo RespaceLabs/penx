@@ -1,10 +1,10 @@
 import _ from 'lodash'
-import { nanoid } from 'nanoid'
 import { createEditor, Editor, Path, Transforms } from 'slate'
 import { ELEMENT_LI, ELEMENT_LIC } from '@penx/constants'
 import { extractTags } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
 import { INode, NodeType } from '@penx/model-types'
+import { uniqueId } from '@penx/unique-id'
 import {
   ListContentElement,
   ListItemElement,
@@ -103,7 +103,7 @@ export function slateToNodes(
       })
     } else {
       nodes.push({
-        id: nanoid(),
+        id: uniqueId(),
         spaceId: node.spaceId,
         parentId: newParentId,
         type: NodeType.COMMON,

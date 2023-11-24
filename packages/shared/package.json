@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@penx/serializer": "workspace:*",
-    "crypto-js": "^4.1.1",
-    "nanoid": "^4.0.2"
+    "@penx/unique-id": "workspace:*",
+    "crypto-js": "^4.1.1"
   }
 }

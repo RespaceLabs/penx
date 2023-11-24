@@ -1,5 +1,5 @@
 import reactFastCompare from 'react-fast-compare'
-import { nanoid } from 'nanoid'
+import { uniqueId } from '@penx/unique-id'
 
 export const isServer = typeof window === 'undefined'
 
@@ -10,7 +10,7 @@ export const isEqual = reactFastCompare
  * @returns
  */
 export function genId() {
-  return nanoid()
+  return uniqueId()
 }
 
 export const convertStringToArr = (str = '', pattern = ',') => {

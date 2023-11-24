@@ -1,7 +1,7 @@
-import { nanoid } from 'nanoid'
 import { z } from 'zod'
 import { prisma } from '@penx/db'
 import { INode, ISpace } from '@penx/model-types'
+import { uniqueId } from '@penx/unique-id'
 import { RoleType } from '../constants'
 
 export const CreateSpaceInput = z.object({
@@ -22,7 +22,7 @@ export function createSpace(input: CreateUserInput) {
       await tx.space.create({
         data: {
           id: space.id,
-          subdomain: nanoid(),
+          subdomain: uniqueId(),
           userId,
           name: space.name,
           color: space.color,

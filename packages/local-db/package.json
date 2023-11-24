@@ -13,10 +13,10 @@
     "@fower/react": "^2.0.0",
     "@penx/constants": "workspace:*",
     "@penx/indexeddb": "workspace:*",
+    "@penx/unique-id": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
-    "mitt": "^3.0.0",
-    "nanoid": "^4.0.2"
+    "mitt": "^3.0.0"
   },
   "devDependencies": {
     "@penx/eslint-config": "workspace:*",

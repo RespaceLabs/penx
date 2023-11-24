@@ -1,6 +1,6 @@
-import { nanoid } from 'nanoid'
 import { ELEMENT_P } from '@penx/constants'
 import { INode, NodeType } from '@penx/model-types'
+import { uniqueId } from '@penx/unique-id'
 
 type Input = {
   spaceId: string
@@ -13,11 +13,11 @@ type Input = {
 export function getNewNode(input: Input, text = ''): INode {
   const { name, ...rest } = input
   return {
-    id: nanoid(),
+    id: uniqueId(),
     type: NodeType.COMMON,
     element: [
       {
-        id: nanoid(),
+        id: uniqueId(),
         type: ELEMENT_P,
         children: [{ text }],
       },

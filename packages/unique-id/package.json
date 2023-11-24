@@ -1,5 +1,5 @@
 {
-  "name": "@penx/editor-shared",
+  "name": "@penx/unique-id",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -9,7 +9,7 @@
   "devDependencies": {
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
-    "@types/uuid": "^9.0.2",
+    "@types/uuid": "^9.0.7",
     "eslint": "^8.42.0",
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
@@ -17,8 +17,6 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
-    "@penx/unique-id": "workspace:*",
-    "react-fast-compare": "^3.2.2",
-    "slate": "0.94.1"
+    "uuid": "^9.0.1"
   }
 }

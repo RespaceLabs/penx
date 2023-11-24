@@ -345,6 +345,9 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../../packages/unique-id
       '@prisma/nextjs-monorepo-workaround-plugin':
         specifier: ^5.1.1
         version: 5.1.1
@@ -453,9 +456,6 @@ importers:
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
       next:
         specifier: 13.3.1
         version: 13.3.1(@babel/core@7.22.17)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
@@ -1711,6 +1711,9 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../../packages/unique-id
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -1720,9 +1723,6 @@ importers:
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
       react-circular-progressbar:
         specifier: ^2.1.0
         version: 2.1.0(react@18.2.0)
@@ -2182,6 +2182,9 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../shared
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../unique-id
       '@prisma/client':
         specifier: ^5.2.0
         version: 5.2.0(prisma@5.2.0)
@@ -2203,9 +2206,6 @@ importers:
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
       next-auth:
         specifier: ^4.22.1
         version: 4.22.1(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
@@ -2369,6 +2369,9 @@ importers:
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../trpc-client
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../unique-id
       '@prisma/nextjs-monorepo-workaround-plugin':
         specifier: ^5.1.1
         version: 5.1.1
@@ -2471,9 +2474,6 @@ importers:
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
       next:
         specifier: 13.3.1
         version: 13.3.1(@babel/core@7.22.17)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
@@ -2906,6 +2906,9 @@ importers:
       '@penx/table':
         specifier: workspace:*
         version: link:../../extensions/table
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../unique-id
       '@udecode/plate-common':
         specifier: ^24.3.6
         version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
@@ -2933,9 +2936,6 @@ importers:
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
       next:
         specifier: 13.3.1
         version: 13.3.1(@babel/core@7.22.17)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
@@ -3147,18 +3147,15 @@ importers:
 
   packages/editor-shared:
     dependencies:
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../unique-id
       react-fast-compare:
         specifier: ^3.2.2
         version: 3.2.2
       slate:
         specifier: 0.94.1
         version: 0.94.1
-      uuid:
-        specifier: ^9.0.0
-        version: 9.0.0
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -3802,12 +3799,12 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../model-types
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../unique-id
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
     devDependencies:
       '@penx/eslint-config':
         specifier: workspace:*
@@ -3830,6 +3827,9 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../model-types
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../unique-id
       '@prisma/client':
         specifier: ^5.2.0
         version: 5.2.0(prisma@5.2.0)
@@ -3842,9 +3842,6 @@ importers:
       diff-match-patch:
         specifier: ^1.0.5
         version: 1.0.5
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
       slate:
         specifier: 0.94.1
         version: 0.94.1
@@ -4011,12 +4008,12 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../model-types
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../unique-id
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
       slate:
         specifier: 0.94.1
         version: 0.94.1
@@ -4090,6 +4087,9 @@ importers:
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../trpc-client
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../unique-id
       crypto-js:
         specifier: ^4.1.1
         version: 4.1.1
@@ -4114,9 +4114,6 @@ importers:
       mime-types:
         specifier: ^2.1.35
         version: 2.1.35
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
       octokit:
         specifier: ^3.1.0
         version: 3.1.0
@@ -4187,12 +4184,12 @@ importers:
       '@penx/serializer':
         specifier: workspace:*
         version: link:../serializer
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../unique-id
       crypto-js:
         specifier: ^4.1.1
         version: 4.1.1
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
     devDependencies:
       '@types/crypto-js':
         specifier: ^4.1.1
@@ -4474,6 +4471,37 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.7
         version: 18.2.7
+      eslint:
+        specifier: ^8.42.0
+        version: 8.49.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.1.3
+        version: 5.2.2
+
+  packages/unique-id:
+    dependencies:
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
+    devDependencies:
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.22
+      '@types/react-dom':
+        specifier: ^18.2.7
+        version: 18.2.7
+      '@types/uuid':
+        specifier: ^9.0.7
+        version: 9.0.7
       eslint:
         specifier: ^8.42.0
         version: 8.49.0
@@ -10991,6 +11019,10 @@ packages:
 
   /@types/uuid@9.0.2:
     resolution: {integrity: sha512-kNnC1GFBLuhImSnV7w4njQkUiJi0ZXUycu1rUaouPqiKlXkh77JKgdRnTAp1x5eBwcIwbtI+3otwzuIDEuDoxQ==}
+    dev: true
+
+  /@types/uuid@9.0.7:
+    resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
     dev: true
 
   /@types/websocket@1.0.7:
@@ -21368,6 +21400,11 @@ packages:
 
   /uuid@9.0.0:
     resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
+
+  /uuid@9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
     dev: false
 

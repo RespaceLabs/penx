@@ -60,6 +60,7 @@ const config = {
     '@penx/editor-leaf',
     '@penx/trpc-client',
     '@penx/sync',
+    '@penx/unique-id',
     '@penx/extension-list',
     'uikit',
     'slate-lists',

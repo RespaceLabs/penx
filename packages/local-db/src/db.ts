@@ -1,5 +1,4 @@
 import { format } from 'date-fns'
-import { nanoid } from 'nanoid'
 import { Database } from '@penx/indexeddb'
 import { Node, Space } from '@penx/model'
 import {
@@ -16,6 +15,7 @@ import {
   NodeType,
   ViewType,
 } from '@penx/model-types'
+import { uniqueId } from '@penx/unique-id'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { getRandomColor } from './getRandomColor'
@@ -399,7 +399,7 @@ class DB {
     }
 
     return this.extension.insert({
-      id: nanoid(),
+      id: uniqueId(),
       ...extension,
     })
   }
@@ -410,7 +410,7 @@ class DB {
 
   createFile(file: Partial<IFile>) {
     return this.file.insert({
-      id: nanoid(),
+      id: uniqueId(),
       createdAt: new Date(),
       updatedAt: new Date(),
       ...file,
