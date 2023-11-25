@@ -1,5 +1,6 @@
 import CryptoJS from 'crypto-js'
 import { format } from 'date-fns'
+import { encryptString } from '@penx/encryption'
 import { INode, NodeType } from '@penx/model-types'
 
 type Element = {
@@ -156,5 +157,14 @@ export class Node {
     ]
 
     return CryptoJS.MD5(JSON.stringify(json)).toString()
+  }
+
+  toEncrypted(password: string) {
+    return {
+      ...this.raw,
+      element: encryptString(password, JSON.stringify(this.element)),
+      props: encryptString(password, JSON.stringify(this.props)),
+    }
+    //
   }
 }

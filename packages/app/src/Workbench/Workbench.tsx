@@ -8,6 +8,7 @@ import { CommandPanel } from '../Palette'
 import { AccountSettings } from './AccountSettings/AccountSettings'
 import { NodePanels } from './NodePanels'
 import { Sidebar } from './Sidebar/Sidebar'
+import { SpaceSettings } from './SpaceSettings/SpaceSettings'
 import { WithNodes } from './WithNodes'
 
 export const Workbench = () => {
@@ -30,7 +31,8 @@ export const Workbench = () => {
             <Sidebar />
           </Box>
           <Box flex-1>
-            {name === 'SPACE_SETTINGS' && <AccountSettings />}
+            {name === 'ACCOUNT_SETTINGS' && <AccountSettings />}
+            {name === 'SPACE_SETTINGS' && <SpaceSettings />}
             {name === 'NODE' && <NodePanels />}
           </Box>
         </Box>

@@ -1,3 +1,4 @@
+import { getPassword } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
@@ -44,7 +45,7 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
   }
 
   if (diffed.isEqual) {
-    console.log('is equal, no need to push')
+    // console.log('is equal, no need to push')
   }
 
   if (!diffed.isEqual) {
@@ -69,6 +70,10 @@ export interface Options {
 }
 
 async function submitToServer(space: ISpace, diffed: Partial<Options>) {
+  const password = await getPassword()
+
+  console.log('==========password:', password)
+
   const { added = [], updated = [], deleted = [] } = diffed
   const newVersion = await trpc.node.sync.mutate({
     version: space.nodeSnapshot.version,

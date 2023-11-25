@@ -1,4 +1,5 @@
 import { Box } from '@fower/react'
+import { Cloud, KeyRound, Laptop } from 'lucide-react'
 import { PopoverClose, Tag } from 'uikit'
 import { Space } from '@penx/model'
 import { ISpace } from '@penx/model-types'
@@ -35,11 +36,11 @@ export function SpaceItem({ item, activeSpace }: Props) {
           <Bullet size={20} innerSize={6} innerColor={item.color} />
           <Box>{item.name}</Box>
         </Box>
-        {item.isCloud && (
-          <Tag size="sm" variant="light">
-            Cloud
-          </Tag>
-        )}
+        <Box toCenterY gap1 gray600>
+          {item.encrypted && <KeyRound size={16} />}
+          {item.isCloud && <Cloud size={16} />}
+          {!item.isCloud && <Laptop size={16} />}
+        </Box>
       </Box>
     </PopoverClose>
   )

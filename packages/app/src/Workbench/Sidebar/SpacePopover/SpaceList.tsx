@@ -3,14 +3,7 @@ import { Plus } from 'lucide-react'
 import { Button, modalController, PopoverClose } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { useSpaces } from '@penx/hooks'
-import { Space } from '@penx/model'
-import { ISpace } from '@penx/model-types'
 import { SpaceItem } from './SpaceItem'
-
-interface Props {
-  item: ISpace
-  activeSpace: Space
-}
 
 export const SpaceList = () => {
   const { spaces, activeSpace } = useSpaces()

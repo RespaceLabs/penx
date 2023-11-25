@@ -23,6 +23,7 @@
     "@penx/constants": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "@penx/model-types": "workspace:*",
+    "@penx/encryption": "workspace:*",
     "@prisma/client": "^5.2.0",
     "crypto-js": "^4.1.1",
     "date-fns": "^2.30.0",

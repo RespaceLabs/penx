@@ -17,6 +17,8 @@ export interface ISpace {
 
   encrypted: boolean
 
+  password: string
+
   // for cloud
   nodeSnapshot: {
     version: number

@@ -51,6 +51,7 @@
     "@octokit/rest": "^20.0.1",
     "@penx/api": "workspace:*",
     "@penx/sync": "workspace:*",
+    "@penx/encryption": "workspace:*",
     "@penx/cmdk": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/database": "workspace:*",

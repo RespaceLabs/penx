@@ -38,7 +38,7 @@ export const UserProfile = () => {
             <MenuItem
               gap2
               onClick={() => {
-                store.routeTo('SPACE_SETTINGS')
+                store.routeTo('ACCOUNT_SETTINGS')
                 close()
               }}
             >

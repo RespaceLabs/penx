@@ -1,11 +1,11 @@
 import { Box } from '@fower/react'
-import { ChevronsUpDown } from 'lucide-react'
+import { ChevronsUpDown, Settings } from 'lucide-react'
 import { useSession } from 'next-auth/react'
-import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
+import { Button, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { useSpaces } from '@penx/hooks'
+import { store } from '@penx/store'
 import { Bullet } from '../../../components/Bullet'
 import { CreateSpaceModal } from '../../CreateSpaceModal/CreateSpaceModal'
-import { SettingsModal } from '../../SettingsModal/SettingsModal'
 import { QueryCloudSpaces } from './QueryCloudSpaces'
 import { SpacePopoverContent } from './SpacePopoverContent'
 
@@ -64,17 +64,26 @@ export const SpacePopover = () => {
                   />
                 </Box>
               </Box>
-              {/* <Box
+              <Box
                 inlineFlex
                 opacity-0
                 opacity-100--$currentSpace--hover
                 onClick={(e) => {
                   close()
+                  store.routeTo('SPACE_SETTINGS')
                   e.stopPropagation()
                 }}
               >
-                <SettingsModal />
-              </Box> */}
+                <Button
+                  size={28}
+                  colorScheme="gray500"
+                  variant="ghost"
+                  isSquare
+                  roundedFull
+                >
+                  <Settings size={16} />
+                </Button>
+              </Box>
             </Box>
           )}
         </PopoverTrigger>

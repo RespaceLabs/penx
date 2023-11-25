@@ -2318,6 +2318,9 @@ importers:
       '@penx/editor-transforms':
         specifier: workspace:*
         version: link:../editor-transforms
+      '@penx/encryption':
+        specifier: workspace:*
+        version: link:../encryption
       '@penx/event':
         specifier: workspace:*
         version: link:../event
@@ -3279,6 +3282,9 @@ importers:
       crypto-js:
         specifier: ^4.1.1
         version: 4.1.1
+      idb-keyval:
+        specifier: ^6.2.1
+        version: 6.2.1
     devDependencies:
       '@types/crypto-js':
         specifier: ^4.1.1
@@ -3824,6 +3830,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
+      '@penx/encryption':
+        specifier: workspace:*
+        version: link:../encryption
       '@penx/model-types':
         specifier: workspace:*
         version: link:../model-types
@@ -4337,6 +4346,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
+      '@penx/encryption':
+        specifier: workspace:*
+        version: link:../encryption
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
