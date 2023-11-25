@@ -11,26 +11,38 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalTrigger,
+  Spinner,
+  toast,
   useModalContext,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { useSpaces } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
+import { trpc } from '@penx/trpc-client'
 
 const Footer = () => {
   const { close } = useModalContext<Node>()
   const [name, setName] = useState('')
+  const [loading, setLoading] = useState(false)
   const { activeSpace } = useSpaces()
 
   async function deleteSpace() {
     if (!name) return
-    if (activeSpace.isCloud) {
-      console.log('TODO?.....')
-    } else {
-      console.log('activeSpace:', activeSpace)
+    setLoading(true)
+    try {
+      if (activeSpace.isCloud) {
+        await trpc.space.deleteById.mutate(activeSpace.id)
+        await store.deleteSpace(activeSpace.id)
+      } else {
+        await store.deleteSpace(activeSpace.id)
+      }
+      close()
+    } catch (error) {
+      toast.error('Failed to delete space')
     }
-    close()
+
+    setLoading(false)
   }
   return (
     <Box>
@@ -47,10 +59,13 @@ const Footer = () => {
         </ModalClose>
         <Button
           colorScheme="red500"
-          disabled={name !== activeSpace.name}
+          disabled={name !== activeSpace.name || loading}
           onClick={deleteSpace}
         >
-          <Trans>Delete</Trans>
+          {loading && <Spinner white square4 />}
+          <Box>
+            <Trans>Delete</Trans>
+          </Box>
         </Button>
       </Box>
     </Box>

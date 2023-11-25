@@ -187,6 +187,10 @@ class DB {
       await this.deleteNode(node.id)
     }
     await this.space.deleteByPk(spaceId)
+    const spaces = await this.listSpaces()
+    if (spaces.length) {
+      await this.updateSpace(spaces?.[0]?.id!, { isActive: true })
+    }
   }
 
   getNode = (nodeId: string) => {

@@ -309,6 +309,22 @@ export const store = Object.assign(createStore(), {
     return space
   },
 
+  async deleteSpace(spaceId: string) {
+    await db.deleteSpace(spaceId)
+    const spaces = await db.listSpaces()
+    const space = await db.getActiveSpace()
+    const nodes = await db.listNormalNodes(space.id)
+    const activeNodes = space.activeNodeIds.map((id) => {
+      return nodes.find((n) => n.id === id)!
+    })
+
+    this.routeTo('NODE')
+    this.setNodes(nodes)
+    this.setSpaces(spaces)
+    this.selectNode(activeNodes[0])
+    this.setActiveNodes(activeNodes)
+  },
+
   async selectSpace(id: string) {
     await db.selectSpace(id)
     const spaces = await db.listSpaces()

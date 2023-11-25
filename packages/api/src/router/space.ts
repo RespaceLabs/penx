@@ -52,9 +52,14 @@ export const spaceRouter = createTRPCRouter({
       return ctx.prisma.space.update({ where: { id }, data })
     }),
 
-  delete: publicProcedure.input(z.string()).mutation(({ ctx, input }) => {
-    return ctx.prisma.space.delete({ where: { id: input } })
-  }),
+  deleteById: publicProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.$transaction(async (tx) => {
+        await tx.node.deleteMany({ where: { spaceId: input } })
+        return ctx.prisma.space.delete({ where: { id: input } })
+      })
+    }),
 
   getPageSnapshot: publicProcedure
     .input(
