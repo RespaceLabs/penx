@@ -17,6 +17,7 @@ export type CreateSpaceValues = {
   name: string
   type: SpaceType
   encrypted: boolean
+  password: string
 }
 
 export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
@@ -26,6 +27,7 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
       name: '',
       type: SpaceType.LOCAL,
       encrypted: false,
+      password: '',
     },
   })
 
@@ -44,6 +46,7 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
         name: data.name,
         isCloud: data.type === SpaceType.CLOUD,
         encrypted: data.encrypted,
+        password: data.password,
       })
 
       if (data.type === SpaceType.CLOUD) {

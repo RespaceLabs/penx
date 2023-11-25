@@ -1,6 +1,5 @@
 import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
-import { useSession } from 'next-auth/react'
 import { Button, Checkbox, Input, ModalClose, Switch } from 'uikit'
 import { ISpace } from '@penx/model-types'
 import { BorderedRadioGroup } from './BorderedRadioGroup'
@@ -12,14 +11,16 @@ interface Props {
 }
 
 export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
-  const { status } = useSession()
   const form = useCreateSpaceForm(onSpaceCreated)
   const { control, formState } = form
   const { isValid } = formState
+  const encrypted = form.watch('encrypted')
 
   return (
     <Box as="form" onSubmit={form.onSubmit} column gap4 pt3>
-      <Box mb--6>Space Name</Box>
+      <Box mb--6 fontMedium>
+        Space Name
+      </Box>
       <Controller
         name="name"
         control={control}
@@ -29,7 +30,9 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
         )}
       />
 
-      <Box mb--6>Type</Box>
+      <Box mb--6 fontMedium>
+        Type
+      </Box>
       <Controller
         name="type"
         control={control}
@@ -52,7 +55,6 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
           control={control}
           render={({ field }) => (
             <Checkbox
-              disabled={status === 'unauthenticated'}
               onChange={(e) => {
                 field.onChange(e.target.checked)
               }}
@@ -62,10 +64,26 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
             </Checkbox>
           )}
         />
-        <Box textXS gray400 yellow500={status === 'unauthenticated'}>
-          (Need login to set password in Account Setting)
-        </Box>
       </Box>
+
+      {encrypted && (
+        <Box>
+          <Box mb2 fontMedium>
+            End-to-End Encryption password
+          </Box>
+          <Box gray400 leadingNormal textSM mb2>
+            The password can be update in space settings.
+          </Box>
+          <Controller
+            name="password"
+            control={control}
+            render={({ field }) => (
+              <Input size="lg" type="password" placeholder="" {...field} />
+            )}
+          />
+        </Box>
+      )}
+
       <Box toCenterY gap2 mt2>
         {showCancel && (
           <ModalClose>
