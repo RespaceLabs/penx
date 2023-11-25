@@ -1,4 +1,5 @@
 import { Box } from '@fower/react'
+import { DeleteSpaceModal } from './DeleteSpaceModal'
 import { EncryptionKey } from './EncryptionKey'
 import { SpaceName } from './SpaceName'
 
@@ -10,6 +11,7 @@ export function SpaceSettings() {
       </Box>
       <SpaceName />
       <EncryptionKey />
+      <DeleteSpaceModal />
     </Box>
   )
 }

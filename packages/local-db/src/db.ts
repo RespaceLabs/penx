@@ -181,6 +181,14 @@ class DB {
     return this.space.updateByPk(spaceId, space)
   }
 
+  deleteSpace = async (spaceId: string) => {
+    const nodes = await this.listNodesBySpaceId(spaceId)
+    for (const node of nodes) {
+      await this.deleteNode(node.id)
+    }
+    await this.space.deleteByPk(spaceId)
+  }
+
   getNode = (nodeId: string) => {
     return this.node.selectByPk(nodeId)
   }
