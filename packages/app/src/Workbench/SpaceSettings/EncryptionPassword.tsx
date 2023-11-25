@@ -2,20 +2,16 @@ import { FC, useEffect, useState } from 'react'
 import { Box } from '@fower/react'
 import { Check, Eye, PencilLine } from 'lucide-react'
 import { Button, Input } from 'uikit'
-import { getPassword, setPassword } from '@penx/encryption'
+import { useSpaces } from '@penx/hooks'
+import { db } from '@penx/local-db'
+import { store } from '@penx/store'
 
 interface Props {}
 
-export const EncryptionKey: FC<Props> = () => {
+export const EncryptionPassword: FC<Props> = () => {
   const [blur, setBlur] = useState(true)
   const [editing, setEditing] = useState(false)
-  const [key, setKey] = useState('')
-
-  useEffect(() => {
-    getPassword().then((value) => {
-      if (value) return setKey(value)
-    })
-  }, [])
+  const { activeSpace } = useSpaces()
 
   return (
     <Box column gap2 maxW-600>
@@ -41,16 +37,25 @@ export const EncryptionKey: FC<Props> = () => {
             style={{ backdropFilter: 'blur(5px)' }}
           />
         )}
-        {!editing && <Box flex-1>{key ? key : 'Edit to set a password'}</Box>}
+        {!editing && (
+          <Box flex-1>
+            {activeSpace.password
+              ? activeSpace.password
+              : 'Edit to set a password'}
+          </Box>
+        )}
         {editing && (
           <Input
             flex-1
             // variant="filled"
             placeholder="Set a password"
-            value={key}
+            value={activeSpace.password}
             onChange={async (e) => {
-              setKey(e.target.value)
-              await setPassword(e.target.value)
+              await db.updateSpace(activeSpace.id, {
+                password: e.target.value,
+              })
+              const spaces = await db.listSpaces()
+              store.setSpaces(spaces)
             }}
           />
         )}

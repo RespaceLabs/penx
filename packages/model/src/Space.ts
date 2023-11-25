@@ -18,6 +18,10 @@ export class Space {
     return this.raw.name
   }
 
+  get password() {
+    return this.raw.password || ''
+  }
+
   get color() {
     return this.raw.color
   }
