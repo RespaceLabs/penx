@@ -19,6 +19,15 @@ export function syncNodes(input: SyncUserInput) {
   const updated: INode[] = JSON.parse(input.updated)
   const deleted: string[] = JSON.parse(input.deleted)
 
+  // console.log(
+  //   '===========added:',
+  //   added,
+  //   'updated:',
+  //   updated,
+  //   'deleted:',
+  //   deleted,
+  // )
+
   return prisma.$transaction(
     async (tx) => {
       const space = await tx.space.findUniqueOrThrow({
@@ -27,7 +36,7 @@ export function syncNodes(input: SyncUserInput) {
 
       const version = (space?.nodeSnapshot as any)?.version || 0
 
-      console.log('input.version:', input.version, 'space.version:', version)
+      // console.log('input.version:', input.version, 'space.version:', version)
 
       if (input.version < version) {
         throw new TRPCError({
@@ -76,20 +85,21 @@ export function syncNodes(input: SyncUserInput) {
         where: { spaceId: input.spaceId },
       })
 
-      const nodeMap = nodes.reduce(
-        (acc, cur) => {
-          const node = new NodeModel(cur as any)
-          return { ...acc, [node.id]: node.hash }
-        },
-        {} as Record<string, string>,
-      )
+      // TODO:
+      // const nodeMap = nodes.reduce(
+      //   (acc, cur) => {
+      //     const node = new NodeModel(cur as any)
+      //     return { ...acc, [node.id]: node.hash }
+      //   },
+      //   {} as Record<string, string>,
+      // )
 
       await tx.space.update({
         where: { id: input.spaceId },
         data: {
           nodeSnapshot: {
             version: newVersion,
-            nodeMap,
+            nodeMap: {}, // TODO: how to handle encrypted?
           },
         },
       })

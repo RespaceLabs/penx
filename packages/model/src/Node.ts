@@ -139,18 +139,18 @@ export class Node {
     return this.id
   }
 
-  get hash() {
-    return this.md5Node()
-  }
-
-  private md5Node = () => {
+  toHash(encrypted: boolean, password: string): string {
     const json = [
       this.id,
       this.spaceId,
       this.parentId,
       this.type,
-      this.element,
-      this.props,
+      encrypted
+        ? encryptString(password, JSON.stringify(this.element))
+        : this.element,
+      encrypted
+        ? encryptString(password, JSON.stringify(this.props))
+        : this.props,
       this.collapsed,
       this.folded,
       this.children,
@@ -165,6 +165,5 @@ export class Node {
       element: encryptString(password, JSON.stringify(this.element)),
       props: encryptString(password, JSON.stringify(this.props)),
     }
-    //
   }
 }

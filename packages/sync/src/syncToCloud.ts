@@ -1,4 +1,3 @@
-import { getPassword } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
@@ -29,14 +28,17 @@ async function pushAllNodes(space: ISpace) {
   })
 
   await db.updateSpace(space.id, {
-    nodeSnapshot: { version: newVersion, nodeMap: getNodeMap(nodes) },
+    nodeSnapshot: {
+      version: newVersion,
+      nodeMap: getNodeMap(nodes, space),
+    },
   })
 }
 
 async function pushByDiff(space: ISpace): Promise<boolean> {
   const prevNodeMap = space.nodeSnapshot.nodeMap
   const nodes = await db.listNodesBySpaceId(space.id)
-  const curNodeMap = getNodeMap(nodes)
+  const curNodeMap = getNodeMap(nodes, space)
   const diffed = diffNodeMap(prevNodeMap, curNodeMap)
 
   const nodeMap = new Map<string, INode>()
@@ -56,7 +58,10 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
     })
 
     await db.updateSpace(space.id, {
-      nodeSnapshot: { version: newVersion, nodeMap: getNodeMap(nodes) },
+      nodeSnapshot: {
+        version: newVersion,
+        nodeMap: getNodeMap(nodes, space),
+      },
     })
     return true
   }
@@ -70,27 +75,32 @@ export interface Options {
 }
 
 async function submitToServer(space: ISpace, diffed: Partial<Options>) {
-  const password = await getPassword()
-
-  console.log('==========password:', password)
+  const { password } = space
 
   const { added = [], updated = [], deleted = [] } = diffed
   const newVersion = await trpc.node.sync.mutate({
     version: space.nodeSnapshot.version,
     spaceId: space.id,
-    added: JSON.stringify(added),
-    updated: JSON.stringify(updated),
+    added: JSON.stringify(
+      added.map((node) => new Node(node).toEncrypted(password)),
+    ),
+    updated: JSON.stringify(
+      updated.map((node) => new Node(node).toEncrypted(password)),
+    ),
     deleted: JSON.stringify(deleted),
   })
 
   return newVersion
 }
 
-function getNodeMap(nodes: INode[]) {
+function getNodeMap(nodes: INode[], space: ISpace) {
   return nodes.reduce(
     (acc, cur) => {
       const node = new Node(cur)
-      return { ...acc, [node.id]: node.hash }
+      return {
+        ...acc,
+        [node.id]: node.toHash(space.encrypted, space.password),
+      }
     },
     {} as Record<string, string>,
   )
