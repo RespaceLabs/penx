@@ -12,8 +12,6 @@ export class MediumHandler extends ContentHandler {
   }
 
   async preHandle(url: string): Promise<PreHandleResult> {
-    console.log('prehandling medium url', url)
-
     try {
       const res = new URL(url)
       res.searchParams.delete('source')

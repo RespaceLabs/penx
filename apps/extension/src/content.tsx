@@ -3,7 +3,7 @@ import type { PlasmoCSConfig } from 'plasmo'
 import { useEffect, useState } from 'react'
 import TurndownService from 'turndown'
 
-import { ACTIONS } from '~/common/action'
+import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
 import { prepareContent } from '~/common/prepare-content'
 import type { MsgRes } from '~/common/types'
 
@@ -27,9 +27,13 @@ const PlasmoOverlay = () => {
 
   useEffect(() => {
     chrome.runtime.onMessage.addListener(
-      (request: MsgRes<keyof typeof ACTIONS, any>, sender, sendResponse) => {
+      (
+        request: MsgRes<keyof typeof BACKGROUND_EVENTS, any>,
+        sender,
+        sendResponse,
+      ) => {
         console.log('%c=contentjs onMessage:', 'color:red', request)
-        if (request.type === ACTIONS.GetPageContent) {
+        if (request.type === BACKGROUND_EVENTS.GetPageContent) {
           prepareContent()
             .then((document) => {
               sendResponse({ document })
@@ -37,7 +41,7 @@ const PlasmoOverlay = () => {
             .catch((error) => {
               console.log('prepare error', error)
             })
-        } else if (request.type === ACTIONS.EndOfGetPageContent) {
+        } else if (request.type === BACKGROUND_EVENTS.EndOfGetPageContent) {
           const turndownService = new TurndownService()
 
           const markdownContent = turndownService.turndown(
@@ -52,7 +56,7 @@ const PlasmoOverlay = () => {
         } else if (request.type === ACTIONS.EnterManually) {
           setIsOpen(true)
         } else if (request.type === ACTIONS.AreaSelect) {
-          initSelectArea({ type: StartSelectEnum.areaSelect })
+          initSelectArea({ type: request.payload.action as StartSelectEnum })
         }
 
         return true

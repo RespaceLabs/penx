@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { ACTIONS } from '~/common/action'
+import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
 import type { MsgRes, TabInfo } from '~/common/types'
 import styles from '~/components/popup/main.module.css'
 
 import '../components/popup/globals.module.css'
+
+import { StartSelectEnum } from '~/components/content/helper'
 
 export function Main() {
   const [tab, setTab] = useState<TabInfo>(null)
@@ -22,7 +24,7 @@ export function Main() {
     try {
       if (tab) {
         const data = await chrome.runtime.sendMessage({
-          type: ACTIONS.QueryTab,
+          type: BACKGROUND_EVENTS.QueryTab,
           payload: tab,
         })
 
@@ -39,19 +41,25 @@ export function Main() {
     chrome.runtime.onMessage.addListener(
       (request: MsgRes<keyof typeof ACTIONS, any>, sender, sendResponse) => {
         console.log('%c=popup.tsx add Listener:', 'color:gold', request)
-        if (request.type === ACTIONS.TabNotComplete) {
-          // Todo
-          console.log(
-            '%c=popup.tsx-add Listener TabNotComplete:',
-            'color: gold',
-          )
-        } else if (request.type === ACTIONS.GetPageContent) {
-          console.log(
-            '%c=popup.tsx-add Listener GetPageContent:',
-            'color: gold',
-          )
-          // sendResponse({ staus: 'loading' })
-          return Promise.resolve({ response: 'Hi from content script' })
+
+        switch (request.type) {
+          case BACKGROUND_EVENTS.TabNotComplete:
+            // Todo
+            console.log(
+              '%c=popup.tsx-add Listener TabNotComplete:',
+              'color: gold',
+            )
+            break
+          case BACKGROUND_EVENTS.GetPageContent:
+            console.log(
+              '%c=popup.tsx-add Listener GetPageContent:',
+              'color: gold',
+            )
+            // sendResponse({ staus: 'loading' })
+            return Promise.resolve({ response: 'Hi from content script' })
+          default:
+            // Handle other cases here
+            break
         }
 
         return true
@@ -67,11 +75,13 @@ export function Main() {
     })
   }
 
-  const onAreaSelect = async () => {
+  const onAreaSelect = async (action: StartSelectEnum) => {
     window.close()
     await chrome.tabs.sendMessage(tab.id, {
       type: ACTIONS.AreaSelect,
-      payload: {},
+      payload: {
+        action,
+      },
     })
   }
 
@@ -92,15 +102,21 @@ export function Main() {
           Enter content manually
         </li>
 
-        <li className={styles.item} onClick={onAreaSelect}>
+        <li
+          className={styles.item}
+          onClick={() => onAreaSelect(StartSelectEnum.areaSelect)}>
           Area select
         </li>
 
-        <li className={styles.item} onClick={onClipEntirePage}>
-          Clip selected content
+        <li
+          className={styles.item}
+          onClick={() => onAreaSelect(StartSelectEnum.screenShot)}>
+          Screenshot c
         </li>
 
-        <li className={styles.item}>Screenshot</li>
+        <li className={styles.item} onClick={onClipEntirePage}>
+          Clip ClipEntire Page
+        </li>
       </ul>
 
       <div>

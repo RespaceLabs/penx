@@ -1,9 +1,9 @@
-import { ACTIONS } from '~/common/action'
+import { BACKGROUND_EVENTS } from '~/common/action'
 import { parsePreparedContent } from '~/common/parser'
 import type { MsgRes, TabInfo } from '~/common/types'
 
 async function setMessageToFrontEnd(
-  type: keyof typeof ACTIONS | string,
+  type: keyof typeof BACKGROUND_EVENTS | string,
   payload: any,
 ) {
   try {
@@ -30,11 +30,36 @@ chrome.runtime.onInstalled.addListener(() => {
  * Receive and process events from each page
  */
 chrome.runtime.onMessage.addListener(
-  (request: MsgRes<keyof typeof ACTIONS, any>, sender, sendResponse) => {
+  (
+    request: MsgRes<keyof typeof BACKGROUND_EVENTS, any>,
+    sender,
+    sendResponse,
+  ) => {
     ;(async () => {
-      console.log('%c=bgjs-onMessage.addListener', 'color:red', request)
-      if (request.type === ACTIONS.QueryTab) {
-        saveCurrentPage(request.payload)
+      console.log('%c=bgjs-onMessage.addListener-0:', 'color:red', request)
+      switch (request.type) {
+        case BACKGROUND_EVENTS.QueryTab: {
+          saveCurrentPage(request.payload)
+          break
+        }
+        case BACKGROUND_EVENTS.SCREEN_SHOT: {
+          console.log(
+            '%c=bgjs-onMessage.addListener-2:',
+            'color:red',
+            BACKGROUND_EVENTS.SCREEN_SHOT,
+          )
+          chrome.tabs.query({ lastFocusedWindow: true }, (res) => {
+            chrome.tabs.captureVisibleTab(res[0].windowId as number, (url) => {
+              console.log(
+                '%c=bgjs-onMessage.addListener-2-1::',
+                'color:red',
+                url,
+              )
+              sendResponse(url)
+            })
+          })
+          break
+        }
       }
     })()
 
@@ -45,7 +70,7 @@ chrome.runtime.onMessage.addListener(
 async function saveCurrentPage(tabInfo: TabInfo) {
   if (tabInfo.status !== 'complete') {
     // show message to user on page yet to complete load
-    setMessageToFrontEnd(ACTIONS.TabNotComplete, {
+    setMessageToFrontEnd(BACKGROUND_EVENTS.TabNotComplete, {
       text: 'Page loading...',
     })
   } else if (tabInfo.status === 'complete') {
@@ -56,7 +81,7 @@ async function saveCurrentPage(tabInfo: TabInfo) {
 async function getPageContent(tabInfo: TabInfo) {
   try {
     const res = await chrome.tabs.sendMessage(tabInfo.id, {
-      type: ACTIONS.GetPageContent,
+      type: BACKGROUND_EVENTS.GetPageContent,
       payload: {},
     })
 
@@ -76,7 +101,7 @@ async function getPageContent(tabInfo: TabInfo) {
 
     // TODO: test Send response to content and then parse markdownwn
     await chrome.tabs.sendMessage(tabInfo.id, {
-      type: ACTIONS.EndOfGetPageContent,
+      type: BACKGROUND_EVENTS.EndOfGetPageContent,
       payload: { ...document },
     })
   } catch (error) {

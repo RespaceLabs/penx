@@ -28,7 +28,6 @@ export class AxiosHandler extends ContentHandler {
         // remove the last two rows of the table (they are ads)
         el.querySelectorAll('tr').forEach((tr, i) => {
           if (i <= 7 || i >= el.querySelectorAll('tr').length - 2) {
-            console.log('removing', tr)
             tr.remove()
           }
         })

@@ -104,11 +104,9 @@ export abstract class ContentHandler {
       try {
         const response = await axios.head(href, { timeout: 5000 })
         return Promise.resolve(
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           response.request.res.responseUrl as string | undefined,
         )
       } catch (e) {
-        console.log('error making HEAD request', e)
         return Promise.resolve(href)
       }
     }
@@ -159,10 +157,8 @@ export abstract class ContentHandler {
     html,
     headers,
   }: NewsletterInput): Promise<NewsletterResult> {
-    console.log('handleNewsletter', from, to, subject, headers)
-
     if (!from || !html || !subject || !to) {
-      console.log('invalid newsletter email')
+      console.warn('invalid newsletter email')
       throw new Error('invalid newsletter email')
     }
 

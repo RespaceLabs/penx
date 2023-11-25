@@ -9,7 +9,6 @@ export async function prepareContent() {
 }
 
 function prepareContentPostScroll() {
-  console.log('prepareContentPostScroll==>')
   const contentCopyEl = document.createElement('div')
   contentCopyEl.style.position = 'absolute'
   contentCopyEl.style.left = '-2000px'
