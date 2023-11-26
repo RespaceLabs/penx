@@ -4,16 +4,6 @@ import { db } from '@penx/local-db'
 import { Space } from '@penx/model'
 import { spacesAtom } from '@penx/store'
 
-export function useQuerySpaces() {
-  const setSpaces = useSetAtom(spacesAtom)
-
-  useEffect(() => {
-    db.listSpaces().then((spaces) => {
-      setSpaces(spaces)
-    })
-  }, [setSpaces])
-}
-
 export function useSpaces() {
   const spaces = useAtomValue(spacesAtom)
 

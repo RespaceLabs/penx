@@ -35,15 +35,10 @@ function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
 }
 
 export const Sidebar = () => {
-  const { activeSpace } = useSpaces()
-  const { isConnected } = useAccount()
   const [extensionStore] = useAtom(extensionStoreAtom)
   const components = getStatusBarComponents(extensionStore)
   const { nodes, nodeList } = useNodes()
-  const user = useUser()
   const { data, status } = useSession()
-
-  if (!nodes.length) return null
 
   return (
     <Box
@@ -60,43 +55,45 @@ export const Sidebar = () => {
     >
       <Box px2>
         <SpacePopover />
-        <Box column gap-1 flex-1 mt3>
-          <SidebarItem
-            icon={<CalendarDays size={16} />}
-            label="Today"
-            onClick={() => {
-              store.selectDailyNote()
-            }}
-          />
+        {!!nodes.length && (
+          <Box column gap-1 flex-1 mt3>
+            <SidebarItem
+              icon={<CalendarDays size={16} />}
+              label="Today"
+              onClick={() => {
+                store.selectDailyNote()
+              }}
+            />
 
-          <SidebarItem
-            icon={<Inbox size={16} />}
-            label="Inbox"
-            onClick={() => {
-              store.selectInbox()
-            }}
-          />
+            <SidebarItem
+              icon={<Inbox size={16} />}
+              label="Inbox"
+              onClick={() => {
+                store.selectInbox()
+              }}
+            />
 
-          <SidebarItem
-            icon={<Hash size={16} />}
-            label="Tags"
-            onClick={() => {
-              store.selectTagBox()
-            }}
-          />
+            <SidebarItem
+              icon={<Hash size={16} />}
+              label="Tags"
+              onClick={() => {
+                store.selectTagBox()
+              }}
+            />
 
-          {components.map((C, i) => (
-            <C key={i} />
-          ))}
+            {components.map((C, i) => (
+              <C key={i} />
+            ))}
 
-          {/* <SidebarItem
+            {/* <SidebarItem
           icon={<Trash2 size={16} />}
           label="Trash"
           onClick={() => {
             store.selectTrash()
           }}
         /> */}
-        </Box>
+          </Box>
+        )}
       </Box>
 
       <Box flex-1 zIndex-1 overflowYAuto px2>

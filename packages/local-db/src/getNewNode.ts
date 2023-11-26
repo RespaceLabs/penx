@@ -17,7 +17,6 @@ export function getNewNode(input: Input, text = ''): INode {
     type: NodeType.COMMON,
     element: [
       {
-        id: uniqueId(),
         type: ELEMENT_P,
         children: [{ text }],
       },

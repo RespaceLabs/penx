@@ -36,9 +36,11 @@ async function pushAllNodes(space: ISpace) {
 }
 
 async function pushByDiff(space: ISpace): Promise<boolean> {
-  const prevNodeMap = space.nodeSnapshot.nodeMap
   const nodes = await db.listNodesBySpaceId(space.id)
+
+  const prevNodeMap = space.nodeSnapshot.nodeMap
   const curNodeMap = getNodeMap(nodes, space)
+
   const diffed = diffNodeMap(prevNodeMap, curNodeMap)
 
   const nodeMap = new Map<string, INode>()
@@ -47,7 +49,9 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
   }
 
   if (diffed.isEqual) {
-    // console.log('is equal, no need to push')
+    console.log('is equal, no need to push')
+  } else {
+    console.log('diff:', diffed)
   }
 
   if (!diffed.isEqual) {
@@ -111,6 +115,7 @@ type NodeMap = Record<string, string>
 function diffNodeMap(serverMap: NodeMap, localMap: NodeMap) {
   const localIds = Object.keys(localMap)
   const serverIds = Object.keys(serverMap)
+
   let added = localIds.filter((item) => !serverIds.includes(item))
   let deleted = serverIds.filter((item) => !localIds.includes(item))
 
@@ -127,10 +132,11 @@ function diffNodeMap(serverMap: NodeMap, localMap: NodeMap) {
   const isEqual =
     added.length === 0 && updated.length === 0 && deleted.length === 0
 
-  return {
+  const diffed = {
     isEqual,
     added,
     deleted,
     updated,
   }
+  return diffed
 }

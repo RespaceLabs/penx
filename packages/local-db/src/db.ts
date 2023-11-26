@@ -158,7 +158,7 @@ class DB {
       })
     }
 
-    await this.space.updateByPk(spaceId, {
+    return await this.space.updateByPk(spaceId, {
       isActive: true,
     })
   }

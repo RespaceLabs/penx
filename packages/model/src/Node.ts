@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js'
 import { format } from 'date-fns'
-import { encryptString } from '@penx/encryption'
+import { decryptString, encryptString } from '@penx/encryption'
 import { INode, NodeType } from '@penx/model-types'
 
 type Element = {
@@ -145,12 +145,8 @@ export class Node {
       this.spaceId,
       this.parentId,
       this.type,
-      encrypted
-        ? encryptString(password, JSON.stringify(this.element))
-        : this.element,
-      encrypted
-        ? encryptString(password, JSON.stringify(this.props))
-        : this.props,
+      this.element,
+      this.props,
       this.collapsed,
       this.folded,
       this.children,
@@ -162,8 +158,16 @@ export class Node {
   toEncrypted(password: string) {
     return {
       ...this.raw,
-      element: encryptString(password, JSON.stringify(this.element)),
-      props: encryptString(password, JSON.stringify(this.props)),
+      element: encryptString(JSON.stringify(this.element), password),
+      props: encryptString(JSON.stringify(this.props), password),
+    }
+  }
+
+  toDecrypted(password: string) {
+    return {
+      ...this.raw,
+      element: decryptString(JSON.stringify(this.raw.element), password),
+      props: decryptString(JSON.stringify(this.raw.props), password),
     }
   }
 }

@@ -36,7 +36,7 @@ export function syncNodes(input: SyncUserInput) {
 
       const version = (space?.nodeSnapshot as any)?.version || 0
 
-      // console.log('input.version:', input.version, 'space.version:', version)
+      console.log('input.version:', input.version, 'space.version:', version)
 
       if (input.version < version) {
         throw new TRPCError({
@@ -138,6 +138,9 @@ async function cleanDeletedNodes(
         NodeType.ROW,
         NodeType.VIEW,
         NodeType.CELL,
+        NodeType.ROOT,
+        NodeType.DAILY_ROOT,
+        NodeType.DATABASE_ROOT,
       ].includes(node.type as NodeType)
     ) {
       continue

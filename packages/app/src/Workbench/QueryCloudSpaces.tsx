@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { RouterOutputs } from '@penx/api'
 import { db } from '@penx/local-db'
+import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
@@ -13,20 +14,24 @@ interface Props {
 type Space = RouterOutputs['space']['all'][0]
 
 export const QueryCloudSpaces = ({ userId }: Props) => {
-  const { data } = useQuery(['spaces'], () => trpc.space.all.query())
+  const { data } = useQuery(['spaces'], () => trpc.space.mySpaces.query())
 
   const initSpaces = async (spaces: Space[]) => {
-    for (const space of spaces) {
-      const nodes = await trpc.node.listBySpaceId.query({ spaceId: space.id })
+    // console.log('=========xxxspaces::', spaces)
 
+    for (const space of spaces) {
       await db.createSpaceByRemote({
         ...space,
         isActive: false,
         isCloud: true,
       } as any as ISpace)
 
-      for (const item of nodes) {
-        await db.createNode(item as any as INode)
+      // only create nodes if the space is not encrypted
+      if (!space.encrypted) {
+        const nodes = await trpc.node.listBySpaceId.query({ spaceId: space.id })
+        for (const item of nodes) {
+          await db.createNode(item as any as INode)
+        }
       }
     }
 

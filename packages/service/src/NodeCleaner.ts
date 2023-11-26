@@ -16,6 +16,9 @@ export class NodeCleaner {
       // TODO: need improvement
       if (
         [
+          NodeType.ROOT,
+          NodeType.DAILY_ROOT,
+          NodeType.DATABASE_ROOT,
           NodeType.DATABASE,
           NodeType.COLUMN,
           NodeType.ROW,

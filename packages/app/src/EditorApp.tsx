@@ -1,17 +1,14 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { useQuery } from '@tanstack/react-query'
-import { Provider } from 'jotai'
 import { useSession } from 'next-auth/react'
-import { useAccount } from 'wagmi'
 import { isServer } from '@penx/constants'
 import { emitter } from '@penx/event'
 import { appLoader, useLoaderStatus } from '@penx/loader'
-import { JotaiNexus, spacesAtom, store } from '@penx/store'
+import { JotaiNexus, spacesAtom, store, StoreProvider } from '@penx/store'
+import { AppProvider } from './AppProvider'
 import { ClientOnly } from './components/ClientOnly'
 import { HotkeyBinding } from './HotkeyBinding'
 import { UserQuery } from './UserQuery'
-import { LoginSuccessModal } from './Workbench/LoginSuccessModal'
 import { Workbench } from './Workbench/Workbench'
 import { WorkerStarter } from './WorkerStarter'
 
@@ -37,16 +34,14 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ClientOnly>
       <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
-        <Provider store={store}>
+        <StoreProvider>
           <WorkerStarter />
-
           {status === 'authenticated' && <UserQuery userId={data.userId} />}
-
-          <LoginSuccessModal />
           <HotkeyBinding />
-          <JotaiNexus />
-          <Workbench />
-        </Provider>
+          <AppProvider>
+            <Workbench />
+          </AppProvider>
+        </StoreProvider>
       </ErrorBoundary>
     </ClientOnly>
   )

@@ -8,10 +8,8 @@ import { NodeProvider, useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { nodeToSlate } from '@penx/serializer'
-import { NodeListService, NodeService } from '@penx/service'
-import { routerAtom, store } from '@penx/store'
-import { diffNodes } from '@penx/sync'
-import { trpc } from '@penx/trpc-client'
+import { NodeService } from '@penx/service'
+import { routerAtom } from '@penx/store'
 import { withBulletPlugin } from '../plugins/withBulletPlugin'
 import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
@@ -34,8 +32,6 @@ export function PanelItem({ node, index }: Props) {
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
     await nodeService.savePage(node.raw, value[0], value[1])
   }, 1000)
-
-  // console.log('====content:', index, content)
 
   return (
     <NodeProvider value={{ index, node, nodeService }}>

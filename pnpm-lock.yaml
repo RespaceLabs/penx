@@ -3543,6 +3543,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
+      '@penx/encryption':
+        specifier: workspace:*
+        version: link:../encryption
       '@penx/extension-typings':
         specifier: '*'
         version: link:../extension-typings

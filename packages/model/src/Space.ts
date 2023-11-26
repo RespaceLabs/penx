@@ -6,7 +6,7 @@ import { GithubInfo } from './User'
 export class Space {
   snapshot: PageSnapshot
 
-  constructor(private raw: ISpace) {
+  constructor(public raw: ISpace) {
     this.snapshot = new PageSnapshot(raw)
   }
 
@@ -32,6 +32,10 @@ export class Space {
 
   get isActive() {
     return this.raw.isActive
+  }
+
+  get encrypted() {
+    return this.raw.encrypted
   }
 
   get isSpace101() {

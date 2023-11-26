@@ -23,6 +23,7 @@
     "@penx/local-db": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/sync": "workspace:*",
+    "@penx/encryption": "workspace:*",
     "@penx/service": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",

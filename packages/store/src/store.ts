@@ -13,6 +13,8 @@ import { nodeToSlate } from '@penx/serializer'
 import { commands } from './constants'
 import { Command, ExtensionStore, RouteName, RouterStore } from './types'
 
+export const appLoadingAtom = atom(true)
+
 export const spacesAtom = atom<ISpace[]>([])
 
 export const nodesAtom = atom<INode[]>([])
@@ -34,6 +36,14 @@ export const extensionStoreAtom = atom<ExtensionStore>({})
 export const userAtom = atom<User>({} as User)
 
 export const store = Object.assign(createStore(), {
+  getAppLoading() {
+    return store.get(appLoadingAtom)
+  },
+
+  setAppLoading(loading: boolean) {
+    return store.set(appLoadingAtom, loading)
+  },
+
   getSpaces() {
     return store.get(spacesAtom)
   },
@@ -337,8 +347,13 @@ export const store = Object.assign(createStore(), {
 
     this.setSpaces(spaces)
     this.setNodes(nodes)
-    this.selectNode(activeNodes[0])
     this.setActiveNodes(activeNodes)
+
+    if (space.isCloud && !nodes.length) {
+      store.routeTo('SET_PASSWORD')
+    } else {
+      this.selectNode(activeNodes[0])
+    }
     return space
   },
 
