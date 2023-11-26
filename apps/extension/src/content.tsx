@@ -7,7 +7,6 @@ import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
 import { prepareContent } from '~/common/prepare-content'
 import type { MsgRes } from '~/common/types'
 
-import { DraggableBox } from './components/content/draggableBox'
 import { StartSelectEnum } from './components/content/helper'
 import { initSelectArea } from './components/content/selector'
 
@@ -23,8 +22,6 @@ export const config: PlasmoCSConfig = {
 }
 
 const PlasmoOverlay = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-
   useEffect(() => {
     chrome.runtime.onMessage.addListener(
       (
@@ -33,41 +30,49 @@ const PlasmoOverlay = () => {
         sendResponse,
       ) => {
         console.log('%c=contentjs onMessage:', 'color:red', request)
-        if (request.type === BACKGROUND_EVENTS.GetPageContent) {
-          prepareContent()
-            .then((document) => {
-              sendResponse({ document })
-            })
-            .catch((error) => {
-              console.log('prepare error', error)
-            })
-        } else if (request.type === BACKGROUND_EVENTS.EndOfGetPageContent) {
-          const turndownService = new TurndownService()
+        switch (request.type) {
+          case BACKGROUND_EVENTS.GetPageContent:
+            prepareContent()
+              .then((document) => {
+                sendResponse({ document })
+              })
+              .catch((error) => {
+                console.log('prepare error', error)
+              })
+            break
 
-          const markdownContent = turndownService.turndown(
-            request.payload.content,
-          )
+          case BACKGROUND_EVENTS.EndOfGetPageContent:
+            const turndownService = new TurndownService()
+            const markdownContent = turndownService.turndown(
+              request.payload.content,
+            )
 
-          console.log(
-            '%c=contentjs onMessage EndOfGetPageContent parse markdownwn results:',
-            'color:yellow',
-            { markdownContent },
-          )
-        } else if (request.type === ACTIONS.EnterManually) {
-          setIsOpen(true)
-        } else if (request.type === ACTIONS.AreaSelect) {
-          initSelectArea({ type: request.payload.action as StartSelectEnum })
+            console.log(
+              '%c=contentjs onMessage EndOfGetPageContent parse markdownwn results:',
+              'color:yellow',
+              { markdownContent },
+            )
+            break
+
+          case ACTIONS.EnterManually:
+            initSelectArea({ type: request.payload.action as StartSelectEnum })
+            break
+
+          case ACTIONS.AreaSelect:
+            initSelectArea({ type: request.payload.action as StartSelectEnum })
+            break
+
+          default:
+            break
         }
 
         return true
       },
     )
-  }, [])
 
-  useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.shiftKey && event.keyCode === 75) {
-        setIsOpen(!isOpen)
+        initSelectArea({ type: StartSelectEnum.draggableEditor })
       }
     }
 
@@ -76,17 +81,9 @@ const PlasmoOverlay = () => {
     return () => {
       document.removeEventListener('keydown', handleShortcut)
     }
-  }, [isOpen])
+  }, [])
 
-  const onClose = () => {
-    setIsOpen(false)
-  }
-
-  return (
-    <>
-      <DraggableBox isOpen={isOpen} onClose={onClose} />
-    </>
-  )
+  return <></>
 }
 
 export default PlasmoOverlay

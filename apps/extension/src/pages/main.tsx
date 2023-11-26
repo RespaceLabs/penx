@@ -88,14 +88,6 @@ export function Main() {
     )
   }
 
-  const onEnterManually = async () => {
-    window.close()
-    await chrome.tabs.sendMessage(tab.id, {
-      type: ACTIONS.EnterManually,
-      payload: {},
-    })
-  }
-
   const onAreaSelect = async (action: StartSelectEnum) => {
     window.close()
     await chrome.tabs.sendMessage(tab.id, {
@@ -116,7 +108,9 @@ export function Main() {
       <UserProfile />
       {/* your currentUrl is: {tab?.url} */}
       <ul className={styles.ul}>
-        <li className={styles.item} onClick={onEnterManually}>
+        <li
+          className={styles.item}
+          onClick={() => onAreaSelect(StartSelectEnum.draggableEditor)}>
           Enter content manually
         </li>
 
@@ -129,7 +123,7 @@ export function Main() {
         <li
           className={styles.item}
           onClick={() => onAreaSelect(StartSelectEnum.screenShot)}>
-          Screenshot c1
+          Screenshot
         </li>
 
         <li className={styles.item} onClick={onClipEntirePage}>

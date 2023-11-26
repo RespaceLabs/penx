@@ -1,6 +1,7 @@
 export enum StartSelectEnum {
   areaSelect = 'areaSelect',
   screenShot = 'screenShot',
+  draggableEditor = 'draggableEditor',
 }
 
 // selection container id
