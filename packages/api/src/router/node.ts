@@ -15,4 +15,15 @@ export const nodeRouter = createTRPCRouter({
   sync: protectedProcedure.input(syncNodesInput).mutation(({ input }) => {
     return syncNodes(input)
   }),
+
+  addMarkdown: publicProcedure
+    .input(
+      z.object({
+        spaceId: z.string(),
+        markdown: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      //
+    }),
 })

@@ -1,3 +1,5 @@
+import { trpc } from '~/common/trpc'
+
 import logo from '../../../assets/logo.png'
 import styles from './login.module.css'
 
@@ -7,7 +9,7 @@ interface LoginProps {
 
 export function Login(props: LoginProps) {
   const onLogin = () => {
-    props.loginCallback()
+    window.open(process.env.PLASMO_PUBLIC_API_BASE_URL)
   }
 
   return (

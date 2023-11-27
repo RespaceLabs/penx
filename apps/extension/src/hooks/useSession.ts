@@ -46,9 +46,10 @@ export function useSession() {
   const [value, setValue] = useAtom(sessionAtom)
 
   useEffect(() => {
-    const localSession = getLocalSession()
+    // const localSession = getLocalSession()
 
-    if (!value.data && !localSession?.data?.accessToken) {
+    // if (!value.data && !localSession?.data?.accessToken) {
+    if (!value.data) {
       ky(`${process.env.PLASMO_PUBLIC_API_BASE_URL}/api/auth/session`)
         .json()
         .then((data) => {

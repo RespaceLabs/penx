@@ -8,6 +8,7 @@ import '../components/popup/globals.module.css'
 
 import { Box } from '@fower/react'
 
+import { trpc } from '~/common/trpc'
 import { StartSelectEnum } from '~/components/content/helper'
 import { UserProfile } from '~/components/UserProfile'
 
@@ -96,6 +97,10 @@ export function Main() {
     initTabsListener()
     getCurrentTab()
   }, [])
+
+  const spacesQuery = trpc.space.mySpaces.useQuery()
+
+  console.log('========spacesQuery:', spacesQuery.data)
 
   return (
     <Box className={styles.container} p4>

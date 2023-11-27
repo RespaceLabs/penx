@@ -1,14 +1,13 @@
 import { Box } from '@fower/react'
-import { useState } from 'react'
+import React from 'react'
 import { Spinner } from 'uikit'
 
 import { Login } from '~/components/popup/login'
+import { TrpcProvider } from '~/components/TrpcProvider'
 import { useSession } from '~/hooks/useSession'
 import { Main } from '~/pages/main'
 
 function IndexPopup() {
-  const [_, setIsLogin] = useState<boolean>(false)
-
   const { loading, data } = useSession()
 
   if (loading || !data) {
@@ -24,10 +23,19 @@ function IndexPopup() {
 
   const loginCallback = () => {
     console.log('loginCallback')
-    setIsLogin(true)
   }
 
-  return <>{isLogin ? <Main /> : <Login loginCallback={loginCallback} />}</>
+  return (
+    <>
+      {isLogin ? (
+        <TrpcProvider token={data.accessToken}>
+          <Main />
+        </TrpcProvider>
+      ) : (
+        <Login loginCallback={loginCallback} />
+      )}
+    </>
+  )
 }
 
 export default IndexPopup
