@@ -30,9 +30,7 @@ export const withBlockSelector = (editor: PenxEditor) => {
       return insertText(text)
     }
 
-    const id = shouldOpen(editor)
-
-    if (id) {
+    if (shouldOpen(editor)) {
       insertNodes(editor, {
         type: ELEMENT_BLOCK_SELECTOR,
         children: [{ text: trigger }],
@@ -65,16 +63,16 @@ export const withBlockSelector = (editor: PenxEditor) => {
 }
 
 /**
- * Whether to open or close the block selector popover, returning the current block ID in the process.
+ * Whether to open or close the block selector popover
  * @param editor
  * @returns
  */
-function shouldOpen(editor: Editor): string | false {
+function shouldOpen(editor: Editor): boolean {
   const nodeEntry = getBlockAbove(editor)
 
   if (nodeEntry && !isCodeLine(nodeEntry[0].type)) {
     if (getText(editor, nodeEntry[1]) === '') {
-      return nodeEntry[0].id!
+      return true
     }
   }
   return false
