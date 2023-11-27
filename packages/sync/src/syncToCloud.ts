@@ -16,6 +16,8 @@ export async function syncToCloud(): Promise<boolean> {
     await pushAllNodes(space)
     return true
   } else {
+    console.log('diff....')
+
     return await pushByDiff(space)
   }
 }

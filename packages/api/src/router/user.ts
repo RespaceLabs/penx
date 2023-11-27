@@ -1,14 +1,14 @@
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { GithubInfo } from '@penx/model'
-import { createTRPCRouter, publicProcedure } from '../trpc'
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 export const userRouter = createTRPCRouter({
-  all: publicProcedure.query(async ({ ctx }) => {
+  all: protectedProcedure.query(async ({ ctx }) => {
     return ctx.prisma.user.findMany({ orderBy: { id: 'desc' } })
   }),
 
-  byId: publicProcedure
+  byId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
       const user = await ctx.prisma.user.findUnique({
@@ -20,7 +20,7 @@ export const userRouter = createTRPCRouter({
       return user!
     }),
 
-  byAddress: publicProcedure
+  byAddress: protectedProcedure
     .input(z.object({ address: z.string() }))
     .query(async ({ ctx, input }) => {
       const user = await ctx.prisma.user.findUniqueOrThrow({
@@ -30,7 +30,7 @@ export const userRouter = createTRPCRouter({
       return user
     }),
 
-  search: publicProcedure
+  search: protectedProcedure
     .input(z.object({ q: z.string() }))
     .query(async ({ ctx, input }) => {
       let { q } = input
@@ -65,7 +65,7 @@ export const userRouter = createTRPCRouter({
       return user
     }),
 
-  update: publicProcedure
+  update: protectedProcedure
     .input(
       z.object({
         id: z.string(),
@@ -81,11 +81,11 @@ export const userRouter = createTRPCRouter({
       return ctx.prisma.user.update({ where: { id }, data })
     }),
 
-  delete: publicProcedure.input(z.string()).mutation(({ ctx, input }) => {
+  delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
     return ctx.prisma.user.delete({ where: { id: input } })
   }),
 
-  connectRepo: publicProcedure
+  connectRepo: protectedProcedure
     .input(
       z.object({
         userId: z.string(),
@@ -110,7 +110,7 @@ export const userRouter = createTRPCRouter({
       })
     }),
 
-  disconnectRepo: publicProcedure
+  disconnectRepo: protectedProcedure
     .input(z.object({ userId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { userId } = input

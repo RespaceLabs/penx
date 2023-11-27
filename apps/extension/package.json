@@ -50,6 +50,7 @@
     "immer": "^10.0.2",
     "is-hotkey": "^0.2.0",
     "jsonwebtoken": "^9.0.1",
+    "ky": "^1.0.1",
     "linkedom": "^0.15.6",
     "lodash": "^4.17.21",
     "lucide-react": "^0.292.0",

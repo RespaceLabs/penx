@@ -152,6 +152,9 @@ importers:
       jsonwebtoken:
         specifier: ^9.0.1
         version: 9.0.1
+      ky:
+        specifier: ^1.0.1
+        version: 1.0.1
       linkedom:
         specifier: ^0.15.6
         version: 0.15.6

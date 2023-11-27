@@ -67,6 +67,8 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
 
   const token = (await getToken({ req })) as Token
 
+  console.log('===========token:', token)
+
   return createInnerTRPCContext({
     token,
   })
@@ -119,8 +121,8 @@ export const publicProcedure = t.procedure
  * Reusable middleware that enforces users are logged in before running the
  * procedure
  */
-const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
-  if (!ctx.token) {
+const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
+  if (!ctx.token?.uid) {
     throw new TRPCError({ code: 'UNAUTHORIZED' })
   }
 

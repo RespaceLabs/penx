@@ -14,6 +14,8 @@ import { INode } from '@penx/model-types'
  * @returns
  */
 export function nodeToSlate(node: INode, allNodes: INode[]) {
+  // console.log('node........:', node)
+
   const serializer = new NodeToSlateSerializer(
     new Node(node),
     allNodes.map((n) => new Node(n)),
@@ -34,9 +36,12 @@ export class NodeToSlateSerializer {
       this.nodeMap.set(item.id, item.raw)
     }
 
-    this.childrenNodes = node.raw.children.map((id) => {
-      return new Node(this.nodeMap.get(id)!)
-    })
+    this.childrenNodes = node.raw.children
+      // TODO: why get an undefined node
+      .filter((id) => !!this.nodeMap.get(id))
+      .map((id) => {
+        return new Node(this.nodeMap.get(id)!)
+      })
   }
 
   get spaceId() {

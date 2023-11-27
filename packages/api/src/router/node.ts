@@ -1,10 +1,10 @@
 import { z } from 'zod'
 import { INode } from '@penx/model-types'
 import { syncNodes, syncNodesInput } from '../service/syncNodes'
-import { createTRPCRouter, publicProcedure } from '../trpc'
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 export const nodeRouter = createTRPCRouter({
-  listBySpaceId: publicProcedure
+  listBySpaceId: protectedProcedure
     .input(z.object({ spaceId: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.node.findMany({
@@ -12,7 +12,7 @@ export const nodeRouter = createTRPCRouter({
       })
     }),
 
-  sync: publicProcedure.input(syncNodesInput).mutation(({ input }) => {
+  sync: protectedProcedure.input(syncNodesInput).mutation(({ input }) => {
     return syncNodes(input)
   }),
 })

@@ -1,21 +1,21 @@
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { createSpace, CreateSpaceInput } from '../service/createSpace'
-import { createTRPCRouter, publicProcedure } from '../trpc'
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 export const spaceRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.space.findMany({ orderBy: { createdAt: 'desc' } })
   }),
 
-  mySpaces: publicProcedure.query(({ ctx }) => {
+  mySpaces: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.space.findMany({
       where: { userId: ctx.token.uid },
       orderBy: { createdAt: 'desc' },
     })
   }),
 
-  version: publicProcedure
+  version: protectedProcedure
     .input(z.object({ spaceId: z.string() }))
     .query(async ({ ctx, input }) => {
       const space = await ctx.prisma.space.findUnique({
@@ -25,7 +25,7 @@ export const spaceRouter = createTRPCRouter({
       return version
     }),
 
-  byId: publicProcedure
+  byId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.space.findUniqueOrThrow({
@@ -33,11 +33,13 @@ export const spaceRouter = createTRPCRouter({
       })
     }),
 
-  create: publicProcedure.input(CreateSpaceInput).mutation(({ ctx, input }) => {
-    return createSpace(input)
-  }),
+  create: protectedProcedure
+    .input(CreateSpaceInput)
+    .mutation(({ ctx, input }) => {
+      return createSpace(input)
+    }),
 
-  update: publicProcedure
+  update: protectedProcedure
     .input(
       z.object({
         id: z.string(),
@@ -52,7 +54,7 @@ export const spaceRouter = createTRPCRouter({
       return ctx.prisma.space.update({ where: { id }, data })
     }),
 
-  deleteById: publicProcedure
+  deleteById: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -61,7 +63,7 @@ export const spaceRouter = createTRPCRouter({
       })
     }),
 
-  getPageSnapshot: publicProcedure
+  getPageSnapshot: protectedProcedure
     .input(
       z.object({
         spaceId: z.string(),
@@ -89,7 +91,7 @@ export const spaceRouter = createTRPCRouter({
       }
     }),
 
-  upsertPageSnapshot: publicProcedure
+  upsertPageSnapshot: protectedProcedure
     .input(
       z.object({
         spaceId: z.string(),

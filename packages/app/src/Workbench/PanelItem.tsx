@@ -25,6 +25,8 @@ export function PanelItem({ node, index }: Props) {
   const { name } = useAtomValue(routerAtom)
   const nodeService = new NodeService(node, nodes)
 
+  // console.log('panel item node-=---====:', node)
+
   const [saving, setSaving] = useState(false)
 
   const content = nodeToSlate(node.raw, nodeList.rawNodes)

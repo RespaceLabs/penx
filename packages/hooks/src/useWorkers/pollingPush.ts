@@ -8,8 +8,12 @@ let isPolling = true
 
 export async function startPollingPush() {
   while (isPolling) {
-    console.log('polling push...')
-    await sync()
+    console.log('polling push.....')
+    try {
+      await sync()
+    } catch (error) {
+      console.log('sync error', error)
+    }
     await sleep(INTERVAL)
   }
 }
