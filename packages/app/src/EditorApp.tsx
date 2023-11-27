@@ -1,8 +1,9 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { useSession } from 'next-auth/react'
+// import { useSession } from 'next-auth/react'
 import { isServer } from '@penx/constants'
 import { emitter } from '@penx/event'
+import { useSession } from '@penx/hooks'
 import { appLoader, useLoaderStatus } from '@penx/loader'
 import { StoreProvider } from '@penx/store'
 import { AppProvider } from './AppProvider'
@@ -25,7 +26,9 @@ if (!isServer) {
 
 export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
   const { isLoaded } = useLoaderStatus()
-  const { status, data } = useSession()
+  const session = useSession()
+
+  // console.log('======session:', session)
 
   if (!isLoaded) {
     return null
@@ -36,7 +39,7 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
       <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
         <StoreProvider>
           <WorkerStarter />
-          {status === 'authenticated' && <UserQuery userId={data.userId} />}
+          {session && <UserQuery userId={session.userId} />}
           <HotkeyBinding />
           <AppProvider>
             <Workbench />

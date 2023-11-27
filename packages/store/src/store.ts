@@ -11,6 +11,7 @@ import { Node, User } from '@penx/model'
 import { INode, ISpace, NodeType } from '@penx/model-types'
 import { nodeToSlate } from '@penx/serializer'
 import { commands } from './constants'
+import { SessionStore } from './stores/SessionStore'
 import { Command, ExtensionStore, RouteName, RouterStore } from './types'
 
 export const appLoadingAtom = atom(true)
@@ -35,7 +36,10 @@ export const extensionStoreAtom = atom<ExtensionStore>({})
 
 export const userAtom = atom<User>({} as User)
 
-export const store = Object.assign(createStore(), {
+const baseStore = createStore()
+
+export const store = Object.assign(baseStore, {
+  session: new SessionStore(baseStore),
   getAppLoading() {
     return store.get(appLoadingAtom)
   },

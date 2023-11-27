@@ -348,6 +348,9 @@ importers:
       '@penx/encryption':
         specifier: workspace:*
         version: link:../../packages/encryption
+      '@penx/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons
@@ -366,6 +369,9 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@penx/store':
+        specifier: workspace:*
+        version: link:../../packages/store
       '@penx/unique-id':
         specifier: workspace:*
         version: link:../../packages/unique-id
@@ -453,6 +459,9 @@ importers:
       is-hotkey:
         specifier: ^0.2.0
         version: 0.2.0
+      jotai:
+        specifier: ^2.4.2
+        version: 2.4.2(@types/react@18.2.22)(react@18.2.0)
       jsonwebtoken:
         specifier: ^9.0.1
         version: 9.0.1
@@ -2294,9 +2303,6 @@ importers:
       '@lingui/react':
         specifier: 4.1.2
         version: 4.1.2(react@18.2.0)
-      '@next-auth/prisma-adapter':
-        specifier: ^1.0.7
-        version: 1.0.7(@prisma/client@5.2.0)(next-auth@4.22.1)
       '@octokit/auth-app':
         specifier: ^6.0.0
         version: 6.0.0
@@ -2396,9 +2402,6 @@ importers:
       '@penx/unique-id':
         specifier: workspace:*
         version: link:../unique-id
-      '@prisma/nextjs-monorepo-workaround-plugin':
-        specifier: ^5.1.1
-        version: 5.1.1
       '@radix-ui/react-dialog':
         specifier: ^1.0.4
         version: 1.0.4(@types/react-dom@18.2.7)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
@@ -2414,24 +2417,12 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.33.1
         version: 2.33.1
-      '@t3-oss/env-nextjs':
-        specifier: ^0.3.1
-        version: 0.3.1(typescript@5.2.2)(zod@3.21.4)
       '@tanstack/react-query':
         specifier: ^4.35.7
         version: 4.35.7(react-dom@18.2.0)(react@18.2.0)
       '@trpc/client':
         specifier: ^10.36.0
         version: 10.36.0(@trpc/server@10.36.0)
-      '@trpc/next':
-        specifier: ^10.36.0
-        version: 10.36.0(@tanstack/react-query@4.35.7)(@trpc/client@10.36.0)(@trpc/react-query@10.36.0)(@trpc/server@10.36.0)(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
-      '@trpc/server':
-        specifier: ^10.36.0
-        version: 10.36.0
-      '@vercel/analytics':
-        specifier: ^1.0.2
-        version: 1.0.2
       '@web3modal/react':
         specifier: ^2.7.1
         version: 2.7.1(react-dom@18.2.0)(react@18.2.0)
@@ -2498,12 +2489,6 @@ importers:
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
-      next:
-        specifier: 13.3.1
-        version: 13.3.1(@babel/core@7.22.17)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
-      next-auth:
-        specifier: 4.22.1
-        version: 4.22.1(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
       node-sql-parser:
         specifier: ^4.11.0
         version: 4.11.0

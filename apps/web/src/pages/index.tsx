@@ -1,19 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import isEqual from 'react-fast-compare'
+import { useAtom, useSetAtom } from 'jotai'
 import { GetStaticProps } from 'next'
 import { useSession } from 'next-auth/react'
 import { EditorApp } from '@penx/app'
+import { SessionProvider } from '@penx/hooks'
+import { sessionAtom, store } from '@penx/store'
 import { WalletConnectProvider } from '~/components/WalletConnectProvider'
 import { loadCatalog } from '~/utils'
 
 const PageEditor = () => {
-  // const { data } = api.user.all.useQuery()
-  // console.log('data=============:', data)
+  const session = useSession()
+  const [sessionValue, setSession] = useAtom(sessionAtom)
 
-  const { data } = useSession()
+  useEffect(() => {
+    if (session.status === 'authenticated') {
+      setSession(session.data as any)
+    }
+  }, [session, sessionValue, setSession])
 
   return (
     <WalletConnectProvider>
-      <EditorApp />
+      <SessionProvider value={session.data as any}>
+        <EditorApp />
+      </SessionProvider>
     </WalletConnectProvider>
   )
 }

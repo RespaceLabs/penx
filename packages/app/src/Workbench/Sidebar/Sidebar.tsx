@@ -9,10 +9,7 @@ import {
   Inbox,
   Trash2,
 } from 'lucide-react'
-import { useSession } from 'next-auth/react'
-import { useAccount } from 'wagmi'
-import { Dot } from 'uikit'
-import { useNodes, useSpaces, useUser } from '@penx/hooks'
+import { useNodes, useSession, useSpaces, useUser } from '@penx/hooks'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import LoginWithGoogleButton from '../../components/LoginWithGoogleButton'
 import { SyncPopover } from '../StatusBar/SyncPopover'
@@ -20,8 +17,6 @@ import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover/SpacePopover'
 import { TreeView } from './TreeView/TreeView'
-import { UserAvatarModal } from './UserAvatarModal/UserAvatarModal'
-import { WalletConnectButton } from './WalletConnectButton'
 
 function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
   const values = Object.values(extensionStore)
@@ -38,7 +33,7 @@ export const Sidebar = () => {
   const [extensionStore] = useAtom(extensionStoreAtom)
   const components = getStatusBarComponents(extensionStore)
   const { nodes, nodeList } = useNodes()
-  const { data, status } = useSession()
+  const session = useSession()
 
   return (
     <Box
@@ -105,7 +100,7 @@ export const Sidebar = () => {
         )}
       </Box>
       <Box px2>
-        {status === 'unauthenticated' && <LoginWithGoogleButton />}
+        {!session && <LoginWithGoogleButton />}
         {/* {!isConnected && <WalletConnectButton size="lg" w-100p />}
         {isConnected && <UserAvatarModal />} */}
         <SyncPopover />

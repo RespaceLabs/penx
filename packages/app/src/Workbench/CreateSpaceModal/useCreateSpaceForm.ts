@@ -1,8 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useSession } from 'next-auth/react'
-import { z } from 'zod'
 import { toast, useModalContext } from 'uikit'
+import { useSession } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
@@ -31,13 +29,13 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
     },
   })
 
-  const { data: session, status } = useSession()
+  const session = useSession()
 
   const onSubmit: SubmitHandler<CreateSpaceValues> = async (data) => {
     try {
       console.log('data:', data)
 
-      if (data.type === SpaceType.CLOUD && status === 'unauthenticated') {
+      if (data.type === SpaceType.CLOUD && !session) {
         toast.info('You need to be logged in to create a cloud space')
         return
       }

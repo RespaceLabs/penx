@@ -1,3 +1,4 @@
+import { Atom, WritableAtom } from 'jotai'
 import {
   RegisterBlockOptions,
   RegisterComponentOptions,
@@ -37,4 +38,23 @@ export type Command = {
   name: string
   pluginId?: string
   handler: () => void
+}
+
+export interface BaseStore {
+  get: <Value>(atom: Atom<Value>) => Value
+  set: <Value_1, Args extends unknown[], Result>(
+    atom: WritableAtom<Value_1, Args, Result>,
+    ...args: Args
+  ) => Result
+}
+export interface Session {
+  user: {
+    name: string
+    email: string
+    image: string
+    id: string
+  }
+  expires: string
+  accessToken: string
+  userId: string
 }

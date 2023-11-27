@@ -1,9 +1,8 @@
 import { isMobile } from 'react-device-detect'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
-import { useSession } from 'next-auth/react'
 import { EditorProvider } from '@penx/editor'
-import { useSpaces } from '@penx/hooks'
+import { useSession, useSpaces } from '@penx/hooks'
 import { routerAtom } from '@penx/store'
 import { CommandPanel } from '../Palette'
 import { AccountSettings } from './AccountSettings/AccountSettings'
@@ -14,7 +13,7 @@ import { Sidebar } from './Sidebar/Sidebar'
 import { SpaceSettings } from './SpaceSettings/SpaceSettings'
 
 export const Workbench = () => {
-  const { status, data } = useSession()
+  const session = useSession()
   const { activeSpace } = useSpaces()
   const { name } = useAtomValue(routerAtom)
 
@@ -25,7 +24,7 @@ export const Workbench = () => {
 
   return (
     <EditorProvider space={activeSpace}>
-      {status === 'authenticated' && <QueryCloudSpaces userId={data.userId} />}
+      {session && <QueryCloudSpaces userId={session.userId} />}
 
       {!isMobile && <CommandPanel />}
       <Box h-100vh toLeft black textSM flex-1 borderRight>

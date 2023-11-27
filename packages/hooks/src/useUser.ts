@@ -14,5 +14,6 @@ export function useQueryUser(userId: string) {
 
 export function useUser() {
   const user = useAtomValue(userAtom)
+
   return user
 }
