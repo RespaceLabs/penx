@@ -67,8 +67,6 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
 
   const token = (await getToken({ req })) as Token
 
-  console.log('===========token:', token)
-
   return createInnerTRPCContext({
     token,
   })

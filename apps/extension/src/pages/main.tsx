@@ -6,7 +6,10 @@ import styles from '~/components/popup/main.module.css'
 
 import '../components/popup/globals.module.css'
 
+import { Box } from '@fower/react'
+
 import { StartSelectEnum } from '~/components/content/helper'
+import { UserProfile } from '~/components/UserProfile'
 
 export function Main() {
   const [tab, setTab] = useState<TabInfo>(null)
@@ -95,7 +98,8 @@ export function Main() {
   }, [])
 
   return (
-    <div className={styles.container}>
+    <Box className={styles.container} p4>
+      <UserProfile />
       {/* your currentUrl is: {tab?.url} */}
       <ul className={styles.ul}>
         <li className={styles.item} onClick={onEnterManually}>
@@ -124,6 +128,6 @@ export function Main() {
           Save to penx
         </button>
       </div>
-    </div>
+    </Box>
   )
 }
