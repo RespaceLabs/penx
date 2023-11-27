@@ -86,6 +86,12 @@ importers:
       '@mozilla/readability':
         specifier: ^0.4.4
         version: 0.4.4
+      '@penx/app':
+        specifier: workspace:*
+        version: link:../../packages/app
+      '@penx/model':
+        specifier: workspace:*
+        version: link:../../packages/model
       '@plasmohq/storage':
         specifier: ^1.8.0
         version: 1.8.0(react@18.2.0)
@@ -125,6 +131,9 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
+      devlop:
+        specifier: ^1.1.0
+        version: 1.1.0
       emoji-mart:
         specifier: ^5.5.2
         version: 5.5.2
@@ -164,9 +173,6 @@ importers:
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
-      nanoid:
-        specifier: ^4.0.2
-        version: 4.0.2
       next:
         specifier: 13.3.1
         version: 13.3.1(@babel/core@7.22.17)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
@@ -2760,6 +2766,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.7
         version: 18.2.7
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -3811,6 +3820,9 @@ importers:
       '@penx/unique-id':
         specifier: workspace:*
         version: link:../unique-id
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
       mitt:
         specifier: ^3.0.0
         version: 3.0.0
@@ -4495,6 +4507,9 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -17858,12 +17873,6 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  /nanoid@4.0.2:
-    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
-    engines: {node: ^14 || ^16 || >=18}
-    hasBin: true
-    dev: false
-
   /napi-build-utils@1.0.2:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
     dev: false
@@ -19212,7 +19221,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
 
   /react-draggable@4.4.5(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-OMHzJdyJbYTZo4uQE393fHcqqPYsEtkjfMgvCHr6rejT+Ezn4OZbNyGH50vv+SunC1RMvwOTSWkEODQLzw1M9g==}
@@ -19837,7 +19845,6 @@ packages:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /schema-utils@2.7.1:
     resolution: {integrity: sha512-SHiNtMOUGWBQJwzISiVYKu82GiV4QYGePp3odlY1tuKO7gPtphAT5R/py0fA6xtbgLL/RvtJZnU9b8s0F1q0Xg==}

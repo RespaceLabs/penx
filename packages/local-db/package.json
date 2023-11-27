@@ -13,9 +13,10 @@
     "@fower/react": "^2.0.0",
     "@penx/constants": "workspace:*",
     "@penx/indexeddb": "workspace:*",
-    "@penx/unique-id": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
+    "@penx/unique-id": "workspace:*",
+    "date-fns": "^2.30.0",
     "mitt": "^3.0.0"
   },
   "devDependencies": {
