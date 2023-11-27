@@ -16,8 +16,6 @@ export async function syncToCloud(): Promise<boolean> {
     await pushAllNodes(space)
     return true
   } else {
-    console.log('diff....')
-
     return await pushByDiff(space)
   }
 }
@@ -82,16 +80,21 @@ export interface Options {
 
 async function submitToServer(space: ISpace, diffed: Partial<Options>) {
   const { password } = space
-
   const { added = [], updated = [], deleted = [] } = diffed
+  const encrypted = space.encrypted && password
+
   const newVersion = await trpc.node.sync.mutate({
     version: space.nodeSnapshot.version,
     spaceId: space.id,
     added: JSON.stringify(
-      added.map((node) => new Node(node).toEncrypted(password)),
+      encrypted
+        ? added.map((node) => new Node(node).toEncrypted(password))
+        : added,
     ),
     updated: JSON.stringify(
-      updated.map((node) => new Node(node).toEncrypted(password)),
+      encrypted
+        ? updated.map((node) => new Node(node).toEncrypted(password))
+        : updated,
     ),
     deleted: JSON.stringify(deleted),
   })

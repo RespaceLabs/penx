@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { INode } from '@penx/model-types'
+import { addMarkdown, addMarkdownInput } from '../service/addMarkdown'
 import { syncNodes, syncNodesInput } from '../service/syncNodes'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
@@ -17,13 +18,8 @@ export const nodeRouter = createTRPCRouter({
   }),
 
   addMarkdown: publicProcedure
-    .input(
-      z.object({
-        spaceId: z.string(),
-        markdown: z.string(),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      //
+    .input(addMarkdownInput)
+    .mutation(({ ctx, input }) => {
+      return addMarkdown(input)
     }),
 })

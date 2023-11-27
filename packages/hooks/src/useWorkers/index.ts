@@ -56,7 +56,11 @@ export function useWorkers() {
         store.setNodes(nodes)
         const [activeNode] = store.getActiveNodes()
         const newActiveNode = nodes.find((n) => n.id === activeNode.id)
-        if (newActiveNode) store.selectNode(newActiveNode)
+        const routerName = store.getRouterName()
+
+        if (newActiveNode && routerName === 'NODE') {
+          store.selectNode(newActiveNode)
+        }
       }
 
       if (event.data === WorkerEvents.PULL_FAILED) {
