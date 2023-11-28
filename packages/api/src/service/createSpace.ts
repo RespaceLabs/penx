@@ -28,7 +28,7 @@ export function createSpace(input: CreateUserInput) {
           name: space.name,
           color: space.color,
           isActive: space.isActive,
-          encrypted: true,
+          encrypted: space.encrypted,
           activeNodeIds: space.activeNodeIds || [],
           nodeSnapshot: space.nodeSnapshot,
           pageSnapshot: space.pageSnapshot,

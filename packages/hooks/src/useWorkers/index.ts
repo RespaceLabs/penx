@@ -3,6 +3,7 @@ import { toast } from 'uikit'
 import { SyncStatus, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { spacesAtom, store, syncStatusAtom } from '@penx/store'
+import { useSession } from '../useSession'
 
 export function useWorkers() {
   const workerRef = useRef<Worker>()
@@ -74,4 +75,15 @@ export function useWorkers() {
       workerRef.current?.terminate()
     }
   }, [])
+
+  const session = useSession()
+
+  useEffect(() => {
+    console.log('--xxx update session:', session)
+
+    workerRef.current?.postMessage({
+      type: WorkerEvents.UPDATE_SESSION,
+      value: session,
+    })
+  }, [session])
 }

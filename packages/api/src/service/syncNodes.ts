@@ -85,15 +85,6 @@ export function syncNodes(input: SyncUserInput) {
         where: { spaceId: input.spaceId },
       })
 
-      // TODO:
-      // const nodeMap = nodes.reduce(
-      //   (acc, cur) => {
-      //     const node = new NodeModel(cur as any)
-      //     return { ...acc, [node.id]: node.hash }
-      //   },
-      //   {} as Record<string, string>,
-      // )
-
       await tx.space.update({
         where: { id: input.spaceId },
         data: {

@@ -20,11 +20,11 @@ export const Workbench = () => {
   const SIDEBAR_WIDTH = 260
   // const SIDEBAR_WIDTH = 600
 
-  console.log('router name==========:', name)
+  // console.log('router name==========:', name)
 
   return (
     <EditorProvider space={activeSpace}>
-      {session && <QueryCloudSpaces userId={session.userId} />}
+      {session && <QueryCloudSpaces />}
 
       {!isMobile && <CommandPanel />}
       <Box h-100vh toLeft black textSM flex-1 borderRight>

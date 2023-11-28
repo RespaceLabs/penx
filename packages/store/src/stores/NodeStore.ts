@@ -79,7 +79,9 @@ export class NodeStore {
     const value = nodeToSlate(node, nodes)
 
     Transforms.insertNodes(editor, value)
+
     const newActiveNodes = this.setFirstActiveNodes(node)
+
     await db.updateSpace(this.store.space.getActiveSpace().id, {
       activeNodeIds: newActiveNodes.map((node) => node.id),
     })

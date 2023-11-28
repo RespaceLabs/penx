@@ -4,14 +4,14 @@ import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
 import { sleep } from '@penx/shared'
+import { Session } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 
 const INTERVAL = 5 * 1000
 // const INTERVAL = 60 * 1000
-let isPolling = true
 
-export async function startPollingPull() {
-  while (isPolling) {
+export async function startPollingPull(session: Session) {
+  while (session) {
     await sync()
     await sleep(INTERVAL)
   }

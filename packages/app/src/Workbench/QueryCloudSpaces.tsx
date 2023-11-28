@@ -13,12 +13,10 @@ interface Props {
 
 type Space = RouterOutputs['space']['all'][0]
 
-export const QueryCloudSpaces = ({ userId }: Props) => {
+export const QueryCloudSpaces = () => {
   const { data } = useQuery(['spaces'], () => trpc.space.mySpaces.query())
 
   const initSpaces = async (spaces: Space[]) => {
-    // console.log('=========xxxspaces::', spaces)
-
     for (const space of spaces) {
       await db.createSpaceByRemote({
         ...space,
@@ -29,6 +27,7 @@ export const QueryCloudSpaces = ({ userId }: Props) => {
       // only create nodes if the space is not encrypted
       if (!space.encrypted) {
         const nodes = await trpc.node.listBySpaceId.query({ spaceId: space.id })
+
         for (const item of nodes) {
           await db.createNode(item as any as INode)
         }

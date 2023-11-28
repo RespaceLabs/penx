@@ -68,9 +68,8 @@ export class SpaceStore {
 
     this.setSpaces(spaces)
     this.store.node.setNodes(nodes)
-    this.store.node.setActiveNodes(activeNodes)
 
-    if (space.isCloud && !nodes.length) {
+    if (space.isCloud && space.encrypted && !nodes.length) {
       this.store.router.routeTo('SET_PASSWORD')
     } else {
       this.store.node.selectNode(activeNodes[0])

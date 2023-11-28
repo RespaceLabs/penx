@@ -5,8 +5,6 @@ export const sessionContext = createContext<Session>({} as Session)
 
 export const SessionProvider = sessionContext.Provider
 
-export function useMenuContext() {}
-
 export function useSession() {
   return useContext(sessionContext)
 }

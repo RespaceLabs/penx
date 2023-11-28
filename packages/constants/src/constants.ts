@@ -17,6 +17,8 @@ export enum SyncStrategy {
 export enum WorkerEvents {
   START_POLLING,
 
+  UPDATE_SESSION,
+
   START_PUSH,
   PUSH_SUCCEEDED,
   PUSH_FAILED,

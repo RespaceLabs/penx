@@ -1,14 +1,12 @@
 import { db } from '@penx/local-db'
 import { sleep } from '@penx/shared'
-import { store } from '@penx/store'
+import { Session, store } from '@penx/store'
 import { syncToCloud } from '@penx/sync'
 
 const INTERVAL = 5 * 1000
-let isPolling = true
 
-export async function startPollingPush() {
-  while (isPolling) {
-    console.log('polling push.....')
+export async function startPollingPush(session: Session) {
+  while (session) {
     try {
       await sync()
     } catch (error) {

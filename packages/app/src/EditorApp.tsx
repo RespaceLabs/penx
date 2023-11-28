@@ -1,6 +1,5 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-// import { useSession } from 'next-auth/react'
 import { isServer } from '@penx/constants'
 import { emitter } from '@penx/event'
 import { useSession } from '@penx/hooks'
