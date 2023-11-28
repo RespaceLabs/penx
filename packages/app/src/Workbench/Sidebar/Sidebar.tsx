@@ -60,13 +60,13 @@ export const Sidebar = () => {
               }}
             />
 
-            <SidebarItem
+            {/* <SidebarItem
               icon={<Inbox size={16} />}
               label="Inbox"
               onClick={() => {
                 store.node.selectInbox()
               }}
-            />
+            /> */}
 
             <SidebarItem
               icon={<Hash size={16} />}
