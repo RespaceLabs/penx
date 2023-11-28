@@ -49,10 +49,10 @@
     "react-hook-form": "^7.44.3",
     "react-textarea-autosize": "^8.5.3",
     "simplebar-react": "^3.2.4",
-    "slate": "0.94.1",
-    "slate-history": "0.93.0",
+    "slate": "0.101.1",
+    "slate-history": "0.100.0",
     "slate-lists": "workspace:*",
-    "slate-react": "^0.98.3",
+    "slate-react": "0.98.4",
     "stook": "^1.17.0",
     "uikit": "workspace:*",
     "use-debounce": "^9.0.4"

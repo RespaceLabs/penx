@@ -21,7 +21,7 @@
     "@penx/editor-shared": "workspace:^",
     "@penx/editor-types": "workspace:^",
     "lodash": "^4.17.21",
-    "slate": "0.94.1",
-    "slate-react": "^0.98.3"
+    "slate": "0.101.1",
+    "slate-react": "0.98.4"
   }
 }

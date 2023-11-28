@@ -42,9 +42,15 @@ export class Node {
   }
 
   get element(): Element[] {
-    return Array.isArray(this.raw.element)
-      ? this.raw.element
-      : [this.raw.element]
+    // make element writable
+    this.raw.element = JSON.parse(JSON.stringify(this.raw.element))
+
+    // override the title
+    if (this.isDaily || this.isDailyRoot || this.isInbox || this.isTrash) {
+      this.raw.element[0].children[0].text = this.title
+    }
+
+    return this.raw.element
   }
 
   get title(): string {

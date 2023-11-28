@@ -26,6 +26,6 @@
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "lodash": "^4.17.21",
-    "slate": "0.94.1"
+    "slate": "0.101.1"
   }
 }

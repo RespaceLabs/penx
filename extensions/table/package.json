@@ -40,10 +40,10 @@
     "lucide-react": "^0.284.0",
     "mitt": "^3.0.0",
     "react-merge-refs": "^2.0.2",
-    "slate": "0.94.1",
-    "slate-history": "0.93.0",
+    "slate": "0.101.1",
+    "slate-history": "0.100.0",
     "slate-lists": "workspace:*",
-    "slate-react": "^0.98.3",
+    "slate-react": "0.98.4",
     "stook": "^1.17.0",
     "uikit": "workspace:*"
   }

@@ -28,9 +28,9 @@
     "@penx/extension-typings": "*",
     "@penx/autoformat": "workspace:*",
     "lodash": "^4.17.21",
-    "slate": "0.94.1",
-    "slate-history": "0.93.0",
+    "slate": "0.101.1",
+    "slate-history": "0.100.0",
     "slate-lists": "workspace:*",
-    "slate-react": "^0.98.3"
+    "slate-react": "0.98.4"
   }
 }

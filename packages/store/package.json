@@ -30,6 +30,6 @@
     "date-fns": "^2.30.0",
     "jotai": "^2.4.2",
     "react-fast-compare": "^3.2.2",
-    "slate": "0.94.1"
+    "slate": "0.101.1"
   }
 }

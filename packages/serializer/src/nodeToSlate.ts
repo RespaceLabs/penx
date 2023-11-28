@@ -74,9 +74,7 @@ export class NodeToSlateSerializer {
             nodeType: node.type,
             parentId,
             collapsed: node.collapsed,
-            children: Array.isArray(node.element)
-              ? node.element
-              : [node.element],
+            children: node.element,
           },
         ]
 
@@ -114,9 +112,7 @@ export class NodeToSlateSerializer {
             nodeType: node.type,
             props: node.props,
             collapsed: node.collapsed,
-            children: Array.isArray(node.element)
-              ? node.element
-              : [node.element],
+            children: node.element,
           },
         ]
 
@@ -130,16 +126,6 @@ export class NodeToSlateSerializer {
       }),
     }
 
-    // override the title
-    if (
-      this.node.isDaily ||
-      this.node.isDailyRoot ||
-      this.node.isInbox ||
-      this.node.isTrash
-    ) {
-      this.node.element[0].children[0].text = this.node.title
-    }
-
     const value: any[] = []
 
     if (isCreateTitle) {
@@ -148,9 +134,7 @@ export class NodeToSlateSerializer {
         type: ELEMENT_TITLE,
         props: this.node.props,
         nodeType: this.node.type,
-        children: Array.isArray(this.node.element)
-          ? this.node.element
-          : [this.node.element],
+        children: this.node.element,
       })
     }
 

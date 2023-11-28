@@ -526,20 +526,20 @@ importers:
         specifier: ^2.0.2
         version: 2.0.2
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-hyperscript:
-        specifier: 0.77.0
-        version: 0.77.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       sonner:
         specifier: ^0.6.2
         version: 0.6.2(react-dom@18.2.0)(react@18.2.0)
@@ -689,17 +689,17 @@ importers:
         specifier: ^6.9.9
         version: 6.9.9(react-dom@18.2.0)(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       uikit:
         specifier: workspace:*
         version: link:../../packages/uikit
@@ -768,17 +768,17 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.195
@@ -862,17 +862,17 @@ importers:
         specifier: ^9.5.2
         version: 9.5.2(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -957,7 +957,7 @@ importers:
         version: link:../../packages/store
       '@udecode/plate-common':
         specifier: ^24.4.0
-        version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
+        version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
       jotai:
         specifier: ^2.4.2
         version: 2.4.2(@types/react@18.2.22)(react@18.2.0)
@@ -971,17 +971,17 @@ importers:
         specifier: ^9.5.2
         version: 9.5.2(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -1041,14 +1041,14 @@ importers:
         specifier: ^0.284.0
         version: 0.284.0(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -1099,14 +1099,14 @@ importers:
         specifier: ^0.292.0
         version: 0.292.0(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       uikit:
         specifier: workspace:*
         version: link:../../packages/uikit
@@ -1173,7 +1173,7 @@ importers:
         version: link:../../packages/shared
       '@udecode/plate-common':
         specifier: ^24.4.0
-        version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
+        version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
       lucide-react:
         specifier: ^0.284.0
         version: 0.284.0(react@18.2.0)
@@ -1184,17 +1184,17 @@ importers:
         specifier: ^1.29.0
         version: 1.29.0
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       uikit:
         specifier: workspace:*
         version: link:../../packages/uikit
@@ -1323,17 +1323,17 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -1402,14 +1402,14 @@ importers:
         specifier: workspace:*
         version: link:../paragraph
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -1463,14 +1463,14 @@ importers:
         specifier: ^9.5.2
         version: 9.5.2(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -1551,17 +1551,17 @@ importers:
         specifier: ^6.9.9
         version: 6.9.9(react-dom@18.2.0)(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       uikit:
         specifier: workspace:*
         version: link:../../packages/uikit
@@ -1639,17 +1639,17 @@ importers:
         specifier: ^0.284.0
         version: 0.284.0(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -1766,17 +1766,17 @@ importers:
         specifier: ^11.0.0
         version: 11.0.0
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       uikit:
         specifier: workspace:*
         version: link:../../packages/uikit
@@ -1836,17 +1836,17 @@ importers:
         specifier: ^0.284.0
         version: 0.284.0(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -1976,17 +1976,17 @@ importers:
         specifier: ^2.0.2
         version: 2.0.2
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -2071,7 +2071,7 @@ importers:
         version: link:../../packages/store
       '@udecode/plate-common':
         specifier: ^24.4.0
-        version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
+        version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
       jotai:
         specifier: ^2.4.2
         version: 2.4.2(@types/react@18.2.22)(react@18.2.0)
@@ -2085,17 +2085,17 @@ importers:
         specifier: ^9.5.2
         version: 9.5.2(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -2246,8 +2246,8 @@ importers:
         specifier: ^8.1.0
         version: 8.1.0
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       superjson:
         specifier: 1.9.1
         version: 1.9.1
@@ -2544,20 +2544,20 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(react@18.2.0)
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-hyperscript:
-        specifier: 0.77.0
-        version: 0.77.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       sonner:
         specifier: ^0.6.2
         version: 0.6.2(react-dom@18.2.0)(react@18.2.0)
@@ -2672,13 +2672,13 @@ importers:
     dependencies:
       '@udecode/plate-common':
         specifier: 24.3.1
-        version: 24.3.1(@babel/core@7.22.17)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
+        version: 24.3.1(@babel/core@7.22.17)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.195
@@ -2926,7 +2926,7 @@ importers:
         version: link:../unique-id
       '@udecode/plate-common':
         specifier: ^24.3.6
-        version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
+        version: 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -2982,17 +2982,17 @@ importers:
         specifier: ^2.0.2
         version: 2.0.2
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-lists:
         specifier: workspace:*
         version: link:../slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -3049,14 +3049,14 @@ importers:
         specifier: workspace:*
         version: link:../model-types
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -3086,14 +3086,14 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -3129,11 +3129,11 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.195
@@ -3169,8 +3169,8 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -3212,11 +3212,11 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.195
@@ -3255,14 +3255,14 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.195
@@ -3516,14 +3516,14 @@ importers:
         specifier: workspace:*
         version: link:../editor-common
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-history:
-        specifier: 0.93.0
-        version: 0.93.0(slate@0.94.1)
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.1)
       slate-react:
         specifier: ^0.98.4
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -3870,11 +3870,11 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     devDependencies:
       '@types/crypto-js':
         specifier: ^4.1.1
@@ -4042,8 +4042,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.195
@@ -4148,14 +4148,14 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-lists:
         specifier: workspace:*
         version: link:../slate-lists
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -4252,11 +4252,11 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
       slate-react:
-        specifier: ^0.98.3
-        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+        specifier: 0.98.4
+        version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       uuid:
         specifier: ^8.3.0
         version: 8.3.0
@@ -4334,8 +4334,8 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2
       slate:
-        specifier: 0.94.1
-        version: 0.94.1
+        specifier: 0.101.1
+        version: 0.101.1
     devDependencies:
       '@types/react':
         specifier: ^18.2.22
@@ -11274,7 +11274,7 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: false
 
-  /@udecode/plate-common@24.3.1(@babel/core@7.22.17)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1):
+  /@udecode/plate-common@24.3.1(@babel/core@7.22.17)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1):
     resolution: {integrity: sha512-LyAIL+z+2eYN/Ge7TM60QwOrhSNHZfi/vfSdUEWxQzqema8Zp+ljmy/4k6LB583O1h68UnZV6l605drGkqJicA==}
     peerDependencies:
       react: '>=16.8.0'
@@ -11284,18 +11284,18 @@ packages:
       slate-hyperscript: '>=0.66.0'
       slate-react: '>=0.95.0'
     dependencies:
-      '@udecode/plate-core': 24.3.1(@babel/core@7.22.17)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/plate-utils': 24.3.1(@babel/core@7.22.17)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/slate': 24.3.1(slate-history@0.93.0)(slate@0.94.1)
-      '@udecode/slate-react': 24.3.1(react-dom@18.2.0)(react@18.2.0)(slate-history@0.93.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/slate-utils': 24.3.1(slate-history@0.93.0)(slate@0.94.1)
+      '@udecode/plate-core': 24.3.1(@babel/core@7.22.17)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/plate-utils': 24.3.1(@babel/core@7.22.17)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/slate': 24.3.1(slate-history@0.100.0)(slate@0.101.1)
+      '@udecode/slate-react': 24.3.1(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/slate-utils': 24.3.1(slate-history@0.100.0)(slate@0.101.1)
       '@udecode/utils': 24.3.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
-      slate-hyperscript: 0.77.0(slate@0.94.1)
-      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
+      slate-hyperscript: 0.100.0(slate@0.101.1)
+      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/template'
@@ -11311,7 +11311,7 @@ packages:
       - xstate
     dev: false
 
-  /@udecode/plate-common@24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1):
+  /@udecode/plate-common@24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1):
     resolution: {integrity: sha512-5HaQQNs/4sCZBUGcJDhVTrU5OBBENLLy3bjdixfFOGydlL/5F0m7XYZoVV/zeltVSwO6GWelhHtYnk/xXn12Pw==}
     peerDependencies:
       react: '>=16.8.0'
@@ -11321,18 +11321,18 @@ packages:
       slate-hyperscript: '>=0.66.0'
       slate-react: '>=0.99.0'
     dependencies:
-      '@udecode/plate-core': 24.4.0(@babel/core@7.22.17)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/plate-utils': 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/slate': 24.3.6(slate-history@0.93.0)(slate@0.94.1)
-      '@udecode/slate-react': 24.4.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.93.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/slate-utils': 24.3.6(slate-history@0.93.0)(slate@0.94.1)
+      '@udecode/plate-core': 24.4.0(@babel/core@7.22.17)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/plate-utils': 24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/slate': 24.3.6(slate-history@0.100.0)(slate@0.101.1)
+      '@udecode/slate-react': 24.4.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/slate-utils': 24.3.6(slate-history@0.100.0)(slate@0.101.1)
       '@udecode/utils': 24.3.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
-      slate-hyperscript: 0.77.0(slate@0.94.1)
-      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
+      slate-hyperscript: 0.100.0(slate@0.101.1)
+      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/template'
@@ -11348,7 +11348,7 @@ packages:
       - xstate
     dev: false
 
-  /@udecode/plate-core@24.3.1(@babel/core@7.22.17)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1):
+  /@udecode/plate-core@24.3.1(@babel/core@7.22.17)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1):
     resolution: {integrity: sha512-T5hQDRDFa6h22H4mZBxoE6aYvFn5ymol4h6yw29Vw4KubDM8tPSGvDLm3UcRfdh51B3TSqP1JjeFQCEmgWqt7w==}
     peerDependencies:
       react: '>=16.8.0'
@@ -11358,9 +11358,9 @@ packages:
       slate-hyperscript: '>=0.66.0'
       slate-react: '>=0.95.0'
     dependencies:
-      '@udecode/slate': 24.3.1(slate-history@0.93.0)(slate@0.94.1)
-      '@udecode/slate-react': 24.3.1(react-dom@18.2.0)(react@18.2.0)(slate-history@0.93.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/slate-utils': 24.3.1(slate-history@0.93.0)(slate@0.94.1)
+      '@udecode/slate': 24.3.1(slate-history@0.100.0)(slate@0.101.1)
+      '@udecode/slate-react': 24.3.1(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/slate-utils': 24.3.1(slate-history@0.100.0)(slate@0.101.1)
       '@udecode/utils': 24.3.0
       '@udecode/zustood': 1.1.3(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(zustand@3.7.2)
       clsx: 1.2.1
@@ -11371,10 +11371,10 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-hotkeys-hook: 4.4.1(react-dom@18.2.0)(react@18.2.0)
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
-      slate-hyperscript: 0.77.0(slate@0.94.1)
-      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
+      slate-hyperscript: 0.100.0(slate@0.101.1)
+      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       use-deep-compare: 1.1.0(react@18.2.0)
       zustand: 3.7.2(react@18.2.0)
     transitivePeerDependencies:
@@ -11391,7 +11391,7 @@ packages:
       - xstate
     dev: false
 
-  /@udecode/plate-core@24.4.0(@babel/core@7.22.17)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1):
+  /@udecode/plate-core@24.4.0(@babel/core@7.22.17)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1):
     resolution: {integrity: sha512-xg/ZzqpnNQmtXQBM02KMBLHczy2LpGQ2HLEjZVXWsHU1YLyiUCyVW/DCi/woPY1dSuSy60ZnVGPKnxs4Ao7zCQ==}
     peerDependencies:
       react: '>=16.8.0'
@@ -11401,9 +11401,9 @@ packages:
       slate-hyperscript: '>=0.66.0'
       slate-react: '>=0.99.0'
     dependencies:
-      '@udecode/slate': 24.3.6(slate-history@0.93.0)(slate@0.94.1)
-      '@udecode/slate-react': 24.4.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.93.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/slate-utils': 24.3.6(slate-history@0.93.0)(slate@0.94.1)
+      '@udecode/slate': 24.3.6(slate-history@0.100.0)(slate@0.101.1)
+      '@udecode/slate-react': 24.4.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/slate-utils': 24.3.6(slate-history@0.100.0)(slate@0.101.1)
       '@udecode/utils': 24.3.0
       '@udecode/zustood': 1.1.3(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(zustand@3.7.2)
       clsx: 1.2.1
@@ -11414,10 +11414,10 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-hotkeys-hook: 4.4.1(react-dom@18.2.0)(react@18.2.0)
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
-      slate-hyperscript: 0.77.0(slate@0.94.1)
-      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
+      slate-hyperscript: 0.100.0(slate@0.101.1)
+      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
       use-deep-compare: 1.1.0(react@18.2.0)
       zustand: 3.7.2(react@18.2.0)
     transitivePeerDependencies:
@@ -11434,7 +11434,7 @@ packages:
       - xstate
     dev: false
 
-  /@udecode/plate-utils@24.3.1(@babel/core@7.22.17)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1):
+  /@udecode/plate-utils@24.3.1(@babel/core@7.22.17)(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1):
     resolution: {integrity: sha512-MWqIZfRrY/T2cKSoGijO5B/ROSbkh2+E/BgkoE17U4jTzso8082i0Nbn1zpMM+lsFo9Zypu7pSqGfvT/LwVcug==}
     peerDependencies:
       react: '>=16.8.0'
@@ -11445,19 +11445,19 @@ packages:
       slate-react: '>=0.95.0'
     dependencies:
       '@radix-ui/react-slot': 1.0.2(@types/react@18.2.22)(react@18.2.0)
-      '@udecode/plate-core': 24.3.1(@babel/core@7.22.17)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/slate': 24.3.1(slate-history@0.93.0)(slate@0.94.1)
-      '@udecode/slate-react': 24.3.1(react-dom@18.2.0)(react@18.2.0)(slate-history@0.93.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/slate-utils': 24.3.1(slate-history@0.93.0)(slate@0.94.1)
+      '@udecode/plate-core': 24.3.1(@babel/core@7.22.17)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/slate': 24.3.1(slate-history@0.100.0)(slate@0.101.1)
+      '@udecode/slate-react': 24.3.1(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/slate-utils': 24.3.1(slate-history@0.100.0)(slate@0.101.1)
       '@udecode/utils': 24.3.0
       clsx: 1.2.1
       lodash: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
-      slate-hyperscript: 0.77.0(slate@0.94.1)
-      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
+      slate-hyperscript: 0.100.0(slate@0.101.1)
+      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/template'
@@ -11473,7 +11473,7 @@ packages:
       - xstate
     dev: false
 
-  /@udecode/plate-utils@24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1):
+  /@udecode/plate-utils@24.4.0(@babel/core@7.22.17)(@types/react@18.2.22)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1):
     resolution: {integrity: sha512-mVMv1YHv8lZLUds/UF0XvF7jX73QWT1ngNGl7O/pgSdz/BfOCbxEXo3RZHRcG/uwx4ltsO0LOFhXtcYLK71qiQ==}
     peerDependencies:
       react: '>=16.8.0'
@@ -11484,19 +11484,19 @@ packages:
       slate-react: '>=0.99.0'
     dependencies:
       '@radix-ui/react-slot': 1.0.2(@types/react@18.2.22)(react@18.2.0)
-      '@udecode/plate-core': 24.4.0(@babel/core@7.22.17)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.93.0)(slate-hyperscript@0.77.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/slate': 24.3.6(slate-history@0.93.0)(slate@0.94.1)
-      '@udecode/slate-react': 24.4.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.93.0)(slate-react@0.98.4)(slate@0.94.1)
-      '@udecode/slate-utils': 24.3.6(slate-history@0.93.0)(slate@0.94.1)
+      '@udecode/plate-core': 24.4.0(@babel/core@7.22.17)(immer@10.0.2)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/slate': 24.3.6(slate-history@0.100.0)(slate@0.101.1)
+      '@udecode/slate-react': 24.4.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.98.4)(slate@0.101.1)
+      '@udecode/slate-utils': 24.3.6(slate-history@0.100.0)(slate@0.101.1)
       '@udecode/utils': 24.3.0
       clsx: 1.2.1
       lodash: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
-      slate-hyperscript: 0.77.0(slate@0.94.1)
-      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
+      slate-hyperscript: 0.100.0(slate@0.101.1)
+      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/template'
@@ -11512,7 +11512,7 @@ packages:
       - xstate
     dev: false
 
-  /@udecode/slate-react@24.3.1(react-dom@18.2.0)(react@18.2.0)(slate-history@0.93.0)(slate-react@0.98.4)(slate@0.94.1):
+  /@udecode/slate-react@24.3.1(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.98.4)(slate@0.101.1):
     resolution: {integrity: sha512-6oTFpy9WlbBU8pvMzLOGewHLHhcg6ZJM5u2m2v/BHo6TMVFjM/SpsTyJbTWiUkP32JFttrEuKIo9PWq4O3BbRQ==}
     peerDependencies:
       react: '>=16.8.0'
@@ -11521,16 +11521,16 @@ packages:
       slate-history: '>=0.93.0'
       slate-react: '>=0.95.0'
     dependencies:
-      '@udecode/slate': 24.3.1(slate-history@0.93.0)(slate@0.94.1)
+      '@udecode/slate': 24.3.1(slate-history@0.100.0)(slate@0.101.1)
       '@udecode/utils': 24.3.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
-      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
+      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     dev: false
 
-  /@udecode/slate-react@24.4.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.93.0)(slate-react@0.98.4)(slate@0.94.1):
+  /@udecode/slate-react@24.4.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.98.4)(slate@0.101.1):
     resolution: {integrity: sha512-qQ+k6j5a5n0NIVGhgCpK8AbAFN+dxYtQLvbQEIoqr4vWtq9zR9PvJTuPurD8UWATt+ngJ7B1gC6bvSwMh8Uikg==}
     peerDependencies:
       react: '>=16.8.0'
@@ -11539,61 +11539,61 @@ packages:
       slate-history: '>=0.93.0'
       slate-react: '>=0.99.0'
     dependencies:
-      '@udecode/slate': 24.3.6(slate-history@0.93.0)(slate@0.94.1)
+      '@udecode/slate': 24.3.6(slate-history@0.100.0)(slate@0.101.1)
       '@udecode/utils': 24.3.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
-      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
+      slate-react: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
     dev: false
 
-  /@udecode/slate-utils@24.3.1(slate-history@0.93.0)(slate@0.94.1):
+  /@udecode/slate-utils@24.3.1(slate-history@0.100.0)(slate@0.101.1):
     resolution: {integrity: sha512-ihxkWEo1Kxj+IIR9zRctYcRq1wqaOdpz43HHkn83LsVtzYjboBaXxuWHN0C7IdmerO3eu8vPom5Xfpg9z5PjdA==}
     peerDependencies:
       slate: '>=0.94.0'
       slate-history: '>=0.93.0'
     dependencies:
-      '@udecode/slate': 24.3.1(slate-history@0.93.0)(slate@0.94.1)
+      '@udecode/slate': 24.3.1(slate-history@0.100.0)(slate@0.101.1)
       '@udecode/utils': 24.3.0
       lodash: 4.17.21
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
     dev: false
 
-  /@udecode/slate-utils@24.3.6(slate-history@0.93.0)(slate@0.94.1):
+  /@udecode/slate-utils@24.3.6(slate-history@0.100.0)(slate@0.101.1):
     resolution: {integrity: sha512-bYyj0UYn6pWF1jqraWNQFxhLnUsPcbgrv6MDDKu6I8RlUkrc/ykGaRSoQLwJdRaRmLc4xivUrOnJXLyMfadqLQ==}
     peerDependencies:
       slate: '>=0.94.0'
       slate-history: '>=0.93.0'
     dependencies:
-      '@udecode/slate': 24.3.6(slate-history@0.93.0)(slate@0.94.1)
+      '@udecode/slate': 24.3.6(slate-history@0.100.0)(slate@0.101.1)
       '@udecode/utils': 24.3.0
       lodash: 4.17.21
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
     dev: false
 
-  /@udecode/slate@24.3.1(slate-history@0.93.0)(slate@0.94.1):
+  /@udecode/slate@24.3.1(slate-history@0.100.0)(slate@0.101.1):
     resolution: {integrity: sha512-5RSbLDoUbDP9Iak7bAwkyH6o4miaWy6aXfkobtC4MMso8mBj6fwo/IKFVlN6+pGBit2CmWhtTAD5Dq6ILUySBg==}
     peerDependencies:
       slate: '>=0.94.0'
       slate-history: '>=0.93.0'
     dependencies:
       '@udecode/utils': 24.3.0
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
     dev: false
 
-  /@udecode/slate@24.3.6(slate-history@0.93.0)(slate@0.94.1):
+  /@udecode/slate@24.3.6(slate-history@0.100.0)(slate@0.101.1):
     resolution: {integrity: sha512-NfIR4Qkndoba/Ncw+nZ4fNPcd/F+mAHtoOqunRtZR5HdOJN1uBGnSK39duvZST/iB78nPueAVG5hrZ3awGcb4w==}
     peerDependencies:
       slate: '>=0.94.0'
       slate-history: '>=0.93.0'
     dependencies:
       '@udecode/utils': 24.3.0
-      slate: 0.94.1
-      slate-history: 0.93.0(slate@0.94.1)
+      slate: 0.101.1
+      slate-history: 0.100.0(slate@0.101.1)
     dev: false
 
   /@udecode/utils@24.3.0:
@@ -16077,6 +16077,10 @@ packages:
     resolution: {integrity: sha512-Rx3CqeqQ19sxUtYV9CU911Vhy8/721wRFnJv3REVGWUmoAcIwzifTsdmJte/MV+0/XpM35LZdQMBGkRIoLPwQA==}
     dev: false
 
+  /immer@10.0.3:
+    resolution: {integrity: sha512-pwupu3eWfouuaowscykeckFmVTpqbzW+rXFCX8rQLkZzM9ftBmU/++Ra+o+L27mz03zJTlyV4UUr+fdKNffo4A==}
+    dev: false
+
   /immer@9.0.21:
     resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
     dev: false
@@ -20107,25 +20111,25 @@ packages:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
 
-  /slate-history@0.93.0(slate@0.94.1):
-    resolution: {integrity: sha512-Gr1GMGPipRuxIz41jD2/rbvzPj8eyar56TVMyJBvBeIpQSSjNISssvGNDYfJlSWM8eaRqf6DAcxMKzsLCYeX6g==}
+  /slate-history@0.100.0(slate@0.101.1):
+    resolution: {integrity: sha512-x5rUuWLNtH97hs9PrFovGgt3Qc5zkTm/5mcUB+0NR/TK923eLax4HsL6xACLHMs245nI6aJElyM1y6hN0y5W/Q==}
     peerDependencies:
       slate: '>=0.65.3'
     dependencies:
       is-plain-object: 5.0.0
-      slate: 0.94.1
+      slate: 0.101.1
     dev: false
 
-  /slate-hyperscript@0.77.0(slate@0.94.1):
-    resolution: {integrity: sha512-M6uRpttwKnosniQORNPYQABHQ9XWC7qaSr/127LWWPjTOR5MSSwrHGrghN81BhZVqpICHrI7jkPA2813cWdHNA==}
+  /slate-hyperscript@0.100.0(slate@0.101.1):
+    resolution: {integrity: sha512-fb2KdAYg6RkrQGlqaIi4wdqz3oa0S4zKNBJlbnJbNOwa23+9FLD6oPVx9zUGqCSIpy+HIpOeqXrg0Kzwh/Ii4A==}
     peerDependencies:
       slate: '>=0.65.3'
     dependencies:
       is-plain-object: 5.0.0
-      slate: 0.94.1
+      slate: 0.101.1
     dev: false
 
-  /slate-react@0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1):
+  /slate-react@0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1):
     resolution: {integrity: sha512-8Of3v9hFuX8rIRc86LuuBhU9t8ps+9ARKL4yyhCrKQYZ93Ep/LFA3GvPGvtf3zYuVadZ8tkhRH8tbHOGNAndLw==}
     peerDependencies:
       react: '>=16.8.0'
@@ -20142,14 +20146,14 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       scroll-into-view-if-needed: 2.2.31
-      slate: 0.94.1
+      slate: 0.101.1
       tiny-invariant: 1.0.6
     dev: false
 
-  /slate@0.94.1:
-    resolution: {integrity: sha512-GH/yizXr1ceBoZ9P9uebIaHe3dC/g6Plpf9nlUwnvoyf6V1UOYrRwkabtOCd3ZfIGxomY4P7lfgLr7FPH8/BKA==}
+  /slate@0.101.1:
+    resolution: {integrity: sha512-k/rVkVb0TEMmaTbkRVJeJzE8lxnyGDc0VC67D91Zrf5hcdHfVaWypBGD25QHCJsndn9Xa0jSJ/xfM2new5E2Zg==}
     dependencies:
-      immer: 9.0.21
+      immer: 10.0.3
       is-plain-object: 5.0.0
       tiny-warning: 1.0.3
     dev: false

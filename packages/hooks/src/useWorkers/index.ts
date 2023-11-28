@@ -79,8 +79,6 @@ export function useWorkers() {
   const session = useSession()
 
   useEffect(() => {
-    console.log('--xxx update session:', session)
-
     workerRef.current?.postMessage({
       type: WorkerEvents.UPDATE_SESSION,
       value: session,

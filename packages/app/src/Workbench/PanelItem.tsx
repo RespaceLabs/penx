@@ -31,6 +31,8 @@ export function PanelItem({ node, index }: Props) {
 
   const content = nodeToSlate(node.raw, nodeList.rawNodes)
 
+  // console.log('==========:', content, nodeList.rawNodes)
+
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
     await nodeService.savePage(node.raw, value[0], value[1])
   }, 1000)
@@ -50,6 +52,7 @@ export function PanelItem({ node, index }: Props) {
             <Box
               mx-auto
               maxW-800
+              mt8
               style={{
                 wordBreak: 'break-all',
               }}
@@ -57,6 +60,7 @@ export function PanelItem({ node, index }: Props) {
               <NodeEditor
                 index={index}
                 plugins={[withBulletPlugin]}
+                // content={[content[1]]}
                 content={content}
                 node={node}
                 onChange={async (value, editor) => {

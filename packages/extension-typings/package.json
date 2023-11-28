@@ -18,8 +18,8 @@
   "dependencies": {
     "@penx/autoformat": "workspace:*",
     "@penx/editor-common": "workspace:*",
-    "slate": "0.94.1",
-    "slate-history": "0.93.0",
+    "slate": "0.101.1",
+    "slate-history": "0.100.0",
     "slate-react": "^0.98.4"
   }
 }
