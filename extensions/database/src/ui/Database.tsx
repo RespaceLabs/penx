@@ -11,7 +11,7 @@ export const Database = ({
   const { databaseId } = element
 
   return (
-    <Box flex-1 {...attributes}>
+    <Box flex-1 {...attributes} contentEditable={false}>
       {children}
       <TableView databaseId={databaseId}>{children}</TableView>
     </Box>

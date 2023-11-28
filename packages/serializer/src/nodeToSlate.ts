@@ -14,8 +14,6 @@ import { INode } from '@penx/model-types'
  * @returns
  */
 export function nodeToSlate(node: INode, allNodes: INode[]) {
-  // console.log('node........:', node)
-
   const serializer = new NodeToSlateSerializer(
     new Node(node),
     allNodes.map((n) => new Node(n)),
@@ -147,7 +145,16 @@ export class NodeToSlateSerializer {
 }
 
 function getDatabaseNodeEditorValue(node: Node) {
+  // console.log('node-------:', node)
+
   const value = [
+    {
+      id: node.id,
+      type: ELEMENT_TITLE,
+      props: node.props,
+      nodeType: node.type,
+      children: node.element,
+    },
     {
       type: ELEMENT_UL,
       children: [
@@ -174,7 +181,6 @@ function getDatabaseNodeEditorValue(node: Node) {
     },
   ]
 
-  console.log('======value:', value)
   return value
 }
 

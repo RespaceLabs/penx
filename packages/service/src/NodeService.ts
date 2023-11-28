@@ -105,9 +105,15 @@ export class NodeService {
     isInReference = false,
   ) => {
     if (title) {
-      node = await db.updateNode(node.id, {
-        element: title.children,
-      })
+      if (this.node.isDatabase) {
+        node = await db.updateNode(node.id, {
+          props: { ...node.props, name: SlateNode.string(title) },
+        })
+      } else {
+        node = await db.updateNode(node.id, {
+          element: title.children,
+        })
+      }
 
       // update space name
       if (this.node.isRootNode) {
@@ -117,7 +123,7 @@ export class NodeService {
       }
     }
 
-    if (ul) {
+    if (ul && !this.node.isDatabase) {
       await this.saveNodes(node.id, ul)
     }
 

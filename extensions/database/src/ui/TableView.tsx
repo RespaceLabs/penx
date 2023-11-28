@@ -16,7 +16,7 @@ export const TableView = ({
   return (
     <DatabaseProvider databaseId={databaseId}>
       <Box>
-        <DatabaseHeader />
+        {/* <DatabaseHeader /> */}
         <TableHeader />
         <TableBody />
         {children}

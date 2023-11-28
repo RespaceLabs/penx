@@ -31,6 +31,7 @@ export const Title = ({
   ].includes(element.nodeType as any)
 
   const isDaily = element.nodeType === NodeType.DAILY
+  const isDatabase = element.nodeType === NodeType.DATABASE
 
   // useFocusTitle(element)
 
@@ -43,6 +44,7 @@ export const Title = ({
       relative
       cursorNotAllowed={disabled}
       mb4
+      toCenterY
       {...attributes}
       // {...nodeProps}
       css={{
@@ -59,6 +61,17 @@ export const Title = ({
         },
       }}
     >
+      {isDatabase && (
+        <Box
+          contentEditable={false}
+          color={element.props?.color || 'black'}
+          mr-4
+          // mb--2
+          scale={90}
+        >
+          #
+        </Box>
+      )}
       {!isDaily && children}
       {isDaily && (
         <Box toCenterY gap2>

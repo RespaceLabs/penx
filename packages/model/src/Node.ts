@@ -46,7 +46,13 @@ export class Node {
     this.raw.element = JSON.parse(JSON.stringify(this.raw.element))
 
     // override the title
-    if (this.isDaily || this.isDailyRoot || this.isInbox || this.isTrash) {
+    if (
+      this.isDaily ||
+      this.isDailyRoot ||
+      this.isInbox ||
+      this.isTrash ||
+      this.isDatabase
+    ) {
       this.raw.element[0].children[0].text = this.title
     }
 
@@ -66,6 +72,7 @@ export class Node {
     if (this.isTrash) return 'Trash'
     if (this.isDatabaseRoot) return 'Tags'
     if (this.isDailyRoot) return 'Daily Notes'
+    if (this.isDatabase) return this.props.name
 
     return this.element[0]?.children?.[0]?.text || this.props.name || ''
   }

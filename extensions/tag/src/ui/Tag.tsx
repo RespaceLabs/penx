@@ -16,7 +16,7 @@ export const Tag = ({
   const node = nodeList.nodeMap.get(element.databaseId)!
 
   async function clickTag() {
-    const database = await db.getDatabaseByName(element.name)
+    const database = await db.getNode(element.databaseId)
     if (database) {
       console.log('=====database:', database)
 
@@ -49,7 +49,7 @@ export const Tag = ({
         color--D4--hover={node?.tagColor}
         onClick={clickTag}
       >
-        # {element.name || node?.tagName}
+        # {node.tagName}
       </Box>
     </Box>
   )

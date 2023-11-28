@@ -68,7 +68,7 @@ export class NodeStore {
     const activeNodes = this.getActiveNodes()
 
     if (index === 0 && isEqual(activeNodes[0], node)) {
-      // console.log('is equal node')
+      console.log('is equal node')
       return
     }
 
