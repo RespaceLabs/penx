@@ -56,7 +56,7 @@ export const Sidebar = () => {
               icon={<CalendarDays size={16} />}
               label="Today"
               onClick={() => {
-                store.selectDailyNote()
+                store.node.selectDailyNote()
               }}
             />
 
@@ -64,7 +64,7 @@ export const Sidebar = () => {
               icon={<Inbox size={16} />}
               label="Inbox"
               onClick={() => {
-                store.selectInbox()
+                store.node.selectInbox()
               }}
             />
 
@@ -72,7 +72,7 @@ export const Sidebar = () => {
               icon={<Hash size={16} />}
               label="Tags"
               onClick={() => {
-                store.selectTagBox()
+                store.node.selectTagBox()
               }}
             />
 

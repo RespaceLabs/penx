@@ -40,7 +40,7 @@ export const NodeItem = memo(
         onClick={() => {
           const nodeService = new NodeService(
             node,
-            store.getNodes().map((node) => new Node(node)),
+            store.node.getNodes().map((node) => new Node(node)),
           )
 
           nodeService.selectNode()

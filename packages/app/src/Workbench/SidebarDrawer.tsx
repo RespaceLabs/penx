@@ -52,7 +52,7 @@ export const DrawerSidebar = () => {
                 icon={<CalendarDays size={16} />}
                 label="Today"
                 onClick={() => {
-                  store.selectDailyNote()
+                  store.node.selectDailyNote()
                   close()
                 }}
               />
@@ -61,7 +61,7 @@ export const DrawerSidebar = () => {
                 icon={<Inbox size={16} />}
                 label="Inbox"
                 onClick={() => {
-                  store.selectInbox()
+                  store.node.selectInbox()
                   close()
                 }}
               />
@@ -70,7 +70,7 @@ export const DrawerSidebar = () => {
                 icon={<Folder size={16} />}
                 label="All Nodes"
                 onClick={() => {
-                  store.selectSpaceNode()
+                  store.node.selectSpaceNode()
                   close()
                 }}
               />

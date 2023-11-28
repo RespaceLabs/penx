@@ -23,7 +23,7 @@ export const DailyNoteNav = ({ element }: { element: TitleElement }) => {
         bgGray200--hover
         transitionColors
         onClick={() => {
-          store.selectDailyNote(subDays(date, 1))
+          store.node.selectDailyNote(subDays(date, 1))
         }}
       >
         Previous day
@@ -37,7 +37,7 @@ export const DailyNoteNav = ({ element }: { element: TitleElement }) => {
         bgGray200--hover
         transitionColors
         onClick={() => {
-          store.selectDailyNote(addDays(date, 1))
+          store.node.selectDailyNote(addDays(date, 1))
         }}
       >
         Next day

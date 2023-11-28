@@ -82,7 +82,7 @@ export const FavoriteBox = ({ nodeList }: Props) => {
       return { ...node.raw, children: newItems }
     })
 
-    store.setNodes(newNodes)
+    store.node.setNodes(newNodes)
 
     await db.updateNode(favoriteNode.id, {
       children: newItems,

@@ -28,7 +28,7 @@ export const SyncPopover: FC<Props> = () => {
 
       if (isSynced) {
         const spaces = await db.listSpaces()
-        store.setSpaces(spaces)
+        store.space.setSpaces(spaces)
       }
 
       setStatus(SyncStatus.NORMAL)

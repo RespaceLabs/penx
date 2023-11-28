@@ -40,7 +40,7 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
         return
       }
 
-      const space = await store.createSpace({
+      const space = await store.space.createSpace({
         name: data.name,
         isCloud: data.type === SpaceType.CLOUD,
         encrypted: data.encrypted,

@@ -16,7 +16,7 @@ export const NewNodeButton: FC<PropsWithChildren<Props>> = () => {
       colorScheme="gray500"
       isSquare
       roundedFull
-      onClick={() => store.createPageNode()}
+      onClick={() => store.node.createPageNode()}
     >
       <Plus />
     </Button>

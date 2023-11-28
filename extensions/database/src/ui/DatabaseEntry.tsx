@@ -11,7 +11,7 @@ export const DatabaseEntry = ({
 }: ElementProps<DatabaseEntryElement>) => {
   async function selectDatabase() {
     const node = await db.getNode(element.databaseId)
-    store.selectNode(node)
+    store.node.selectNode(node)
   }
 
   return (

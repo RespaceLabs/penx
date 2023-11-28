@@ -17,7 +17,7 @@ export const TreeViewHeader = memo(function TreeViewHeader() {
       black
       h-30
       onClick={() => {
-        store.selectSpaceNode()
+        store.node.selectSpaceNode()
       }}
     >
       {/* <Bullet mr-4 /> */}

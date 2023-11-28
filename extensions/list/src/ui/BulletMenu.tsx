@@ -21,7 +21,7 @@ export const BulletMenu = ({ menuId, element }: Props) => {
   }
 
   async function openInNewPanel() {
-    await store.openInNewPanel(element.id)
+    await store.node.openInNewPanel(element.id)
   }
 
   return (

@@ -292,14 +292,14 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
     // reload the editor
     if (reloadNode) {
       const nodes = await db.listNodesBySpaceId(newItems[0].spaceId)
-      const editor = store.getEditor(0)
+      const editor = store.editor.getEditor(0)
       clearEditor(editor)
 
-      const [activeNode] = store.getActiveNodes()
+      const [activeNode] = store.node.getActiveNodes()
 
       const newActiveNode = nodes.find(({ id }) => id === activeNode.id)!
 
-      store.setFirstActiveNodes(newActiveNode)
+      store.node.setFirstActiveNodes(newActiveNode)
 
       const value = nodeToSlate(newActiveNode, nodes)
 
@@ -335,7 +335,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
       }
     })
 
-    store.setNodes(newNodes)
+    store.node.setNodes(newNodes)
   }
 
   async function updateToDB(newItems: TreeItems) {

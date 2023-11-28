@@ -29,7 +29,7 @@ export function SpaceItem({ item, activeSpace }: Props) {
         cursorPointer
         transitionColors
         onClick={async () => {
-          await store.selectSpace(item.id)
+          await store.space.selectSpace(item.id)
         }}
       >
         <Box toCenterY gap2>

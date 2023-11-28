@@ -14,15 +14,15 @@ export class AppService {
       const activeSpace = spaces.find((item) => item.isActive) || spaces[0]
       const nodes = await db.listNodesBySpaceId(activeSpace.id)
 
-      store.setSpaces(spaces)
+      store.space.setSpaces(spaces)
 
       if (nodes.length) {
         const activeNodes = activeSpace.activeNodeIds.map((id) => {
           return nodes.find((n) => n.id === id)!
         })
 
-        store.setNodes(nodes)
-        store.setActiveNodes(activeNodes)
+        store.node.setNodes(nodes)
+        store.node.setActiveNodes(activeNodes)
       }
 
       store.setAppLoading(false)

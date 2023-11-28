@@ -44,7 +44,7 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            store.deleteRow(row.id)
+            store.node.deleteRow(row.id)
           }}
         >
           Delete Row

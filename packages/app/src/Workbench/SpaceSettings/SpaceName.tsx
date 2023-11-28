@@ -24,7 +24,7 @@ export const SpaceName = () => {
               name: e.target.value,
             })
             const spaces = await db.listSpaces()
-            store.setSpaces(spaces)
+            store.space.setSpaces(spaces)
           }}
         />
       </Box>

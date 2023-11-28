@@ -36,12 +36,12 @@ export const QueryCloudSpaces = ({ userId }: Props) => {
     }
 
     const newSpaces = await db.listSpaces()
-    store.setSpaces(newSpaces)
+    store.space.setSpaces(newSpaces)
   }
 
   useEffect(() => {
     if (!data) return
-    const spaces = store.getSpaces()
+    const spaces = store.space.getSpaces()
 
     const newSpaces = data.filter(
       (space) => !spaces.map((i) => i.id).includes(space.id),

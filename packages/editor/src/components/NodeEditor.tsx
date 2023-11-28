@@ -94,7 +94,7 @@ export function NodeEditor({
   const { nodeList, nodes } = useNodes()
   const editor = useCreateEditor(plugins)
 
-  store.setEditor(index, editor)
+  store.editor.setEditor(index, editor)
 
   editor.items = nodes
 

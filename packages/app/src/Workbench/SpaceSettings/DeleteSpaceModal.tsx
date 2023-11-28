@@ -33,9 +33,9 @@ const Footer = () => {
     try {
       if (activeSpace.isCloud) {
         await trpc.space.deleteById.mutate(activeSpace.id)
-        await store.deleteSpace(activeSpace.id)
+        await store.space.deleteSpace(activeSpace.id)
       } else {
-        await store.deleteSpace(activeSpace.id)
+        await store.space.deleteSpace(activeSpace.id)
       }
       close()
     } catch (error) {

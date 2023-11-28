@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Box } from '@fower/react'
-import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { Button, Spinner } from 'uikit'
+import { isServer } from '@penx/constants'
 import { useUser } from '@penx/hooks'
 import { IconGitHub } from '@penx/icons'
 
@@ -11,7 +11,11 @@ export function GitHubAuthButton() {
   const [loading, setLoading] = useState(false)
 
   // Get error message added by next/auth in URL.
-  const searchParams = useSearchParams()
+
+  const searchParams = new URLSearchParams(
+    isServer ? '' : location.search.replace(/^\?/, ''),
+  )
+
   const error = searchParams?.get('error')
 
   useEffect(() => {

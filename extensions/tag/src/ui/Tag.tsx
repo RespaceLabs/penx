@@ -20,7 +20,7 @@ export const Tag = ({
     if (database) {
       console.log('=====database:', database)
 
-      store.selectNode(database)
+      store.node.selectNode(database)
     }
   }
 

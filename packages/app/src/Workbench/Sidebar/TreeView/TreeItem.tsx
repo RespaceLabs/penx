@@ -46,7 +46,7 @@ export const TreeItem = memo(
         {...rest}
         onClick={() => {
           const node = nodeList.getNode(item.id)
-          store.selectNode(node.raw)
+          store.node.selectNode(node.raw)
         }}
       >
         <Box toCenterY gap-2>

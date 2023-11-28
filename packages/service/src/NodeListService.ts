@@ -170,7 +170,7 @@ export class NodeListService {
       children: [...this.favoriteNode.children, node.id],
     })
     const nodes = await db.listNodesBySpaceId(node.spaceId)
-    store.setNodes(nodes)
+    store.node.setNodes(nodes)
   }
 
   async removeFromFavorites(node: Node) {
@@ -179,7 +179,7 @@ export class NodeListService {
       children,
     })
     const nodes = await db.listNodesBySpaceId(node.spaceId)
-    store.setNodes(nodes)
+    store.node.setNodes(nodes)
   }
 
   // TODO: need to improvement

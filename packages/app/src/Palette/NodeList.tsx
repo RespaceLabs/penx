@@ -37,13 +37,13 @@ export function NodeList({ q, setSearch, close }: Props) {
         gap2
         value="Add to node"
         onSelect={() => {
-          store.createNodeToToday(q)
+          store.node.createNodeToToday(q)
           paletteDrawer?.close()
           close()
           setSearch('')
         }}
         onClick={() => {
-          store.createNodeToToday(q)
+          store.node.createNodeToToday(q)
           paletteDrawer?.close()
           close()
           setSearch('')
@@ -60,7 +60,7 @@ export function NodeList({ q, setSearch, close }: Props) {
       {filteredItems.map((node) => {
         const nodeService = new NodeService(
           node,
-          store.getNodes().map((n) => new Node(n)),
+          store.node.getNodes().map((n) => new Node(n)),
         )
         return (
           <CommandItem

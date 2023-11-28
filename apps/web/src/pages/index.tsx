@@ -1,23 +1,26 @@
 import React, { useEffect } from 'react'
-import isEqual from 'react-fast-compare'
-import { useAtom, useSetAtom } from 'jotai'
 import { GetStaticProps } from 'next'
-import { useSession } from 'next-auth/react'
-import { EditorApp } from '@penx/app'
+import { signIn, signOut, useSession } from 'next-auth/react'
+import { appEmitter, EditorApp, isServer } from '@penx/app'
 import { SessionProvider } from '@penx/hooks'
-import { sessionAtom, store } from '@penx/store'
 import { WalletConnectProvider } from '~/components/WalletConnectProvider'
 import { loadCatalog } from '~/utils'
 
+// TODO: move this code to a separate file
+if (!isServer) {
+  const handleSignOut = () => {
+    signOut()
+  }
+  appEmitter.on('SIGN_OUT', handleSignOut)
+
+  const handleSignIn = () => {
+    signIn('google')
+  }
+  appEmitter.on('SIGN_IN_GOOGLE', handleSignIn)
+}
+
 const PageEditor = () => {
   const session = useSession()
-  const [sessionValue, setSession] = useAtom(sessionAtom)
-
-  useEffect(() => {
-    if (session.status === 'authenticated') {
-      setSession(session.data as any)
-    }
-  }, [session, sessionValue, setSession])
 
   return (
     <WalletConnectProvider>

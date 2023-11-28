@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react'
 import { Box, css } from '@fower/react'
-import { signIn } from 'next-auth/react'
-import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { Button, Spinner } from 'uikit'
 import { IconGoogle } from '@penx/icons'
+import { appEmitter } from '../app-emitter'
+import { isServer } from '../common'
 
 export default function LoginWithGoogleButton() {
   const [loading, setLoading] = useState(false)
 
   // Get error message added by next/auth in URL.
-  const searchParams = useSearchParams()
+  const searchParams = new URLSearchParams(
+    isServer ? '' : location.search.replace(/^\?/, ''),
+  )
+
   const error = searchParams?.get('error')
 
   useEffect(() => {
@@ -25,7 +28,7 @@ export default function LoginWithGoogleButton() {
       colorScheme="white"
       onClick={() => {
         setLoading(true)
-        signIn('google')
+        appEmitter.emit('SIGN_IN_GOOGLE')
       }}
       cursorNotAllowed={loading}
       gapX2

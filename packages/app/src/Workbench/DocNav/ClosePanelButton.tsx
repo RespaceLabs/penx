@@ -13,7 +13,7 @@ export const ClosePanelButton = () => {
       colorScheme="gray500"
       isSquare
       onClick={() => {
-        store.closePanel(index)
+        store.node.closePanel(index)
       }}
     >
       <XIcon />

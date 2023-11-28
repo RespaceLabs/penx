@@ -22,6 +22,6 @@ async function sync() {
   const isSynced = await syncToCloud()
   if (isSynced) {
     const spaces = await db.listSpaces()
-    store.setSpaces(spaces)
+    store.space.setSpaces(spaces)
   }
 }

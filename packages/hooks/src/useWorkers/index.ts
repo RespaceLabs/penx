@@ -20,7 +20,7 @@ export function useWorkers() {
         const nodes = await db.listNodesBySpaceId('penx-101')
         const favoriteNodes = await db.getFavoriteNode(space.id)
         const firstNode = await db.getNode(favoriteNodes.children[0])
-        store.setNodes(nodes)
+        store.node.setNodes(nodes)
 
         // TODO:..
         // store.reloadNode(firstNode)
@@ -52,14 +52,13 @@ export function useWorkers() {
         const spaces = await db.listSpaces()
         const activeSpace = await db.getActiveSpace()
         const nodes = await db.listNormalNodes(activeSpace.id)
-        store.setSpaces(spaces)
-        store.setNodes(nodes)
-        const [activeNode] = store.getActiveNodes()
+        store.space.setSpaces(spaces)
+        store.node.setNodes(nodes)
+        const [activeNode] = store.node.getActiveNodes()
         const newActiveNode = nodes.find((n) => n.id === activeNode.id)
-        const routerName = store.getRouterName()
 
-        if (newActiveNode && routerName === 'NODE') {
-          store.selectNode(newActiveNode)
+        if (newActiveNode && store.router.isNode()) {
+          store.node.selectNode(newActiveNode)
         }
       }
 

@@ -23,7 +23,7 @@ export type RouteName =
   | 'SPACE_SETTINGS'
   | 'SET_PASSWORD'
 
-export type RouterStore = {
+export type IRouterStore = {
   name: RouteName
   params: Record<string, any>
 }
@@ -40,13 +40,6 @@ export type Command = {
   handler: () => void
 }
 
-export interface BaseStore {
-  get: <Value>(atom: Atom<Value>) => Value
-  set: <Value_1, Args extends unknown[], Result>(
-    atom: WritableAtom<Value_1, Args, Result>,
-    ...args: Args
-  ) => Result
-}
 export interface Session {
   user: {
     name: string

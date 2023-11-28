@@ -13,6 +13,7 @@ import {
 } from 'uikit'
 import { useSession } from '@penx/hooks'
 import { store } from '@penx/store'
+import { appEmitter } from '../../../app-emitter'
 
 export const UserProfile = () => {
   const session = useSession()
@@ -38,7 +39,7 @@ export const UserProfile = () => {
             <MenuItem
               gap2
               onClick={() => {
-                store.routeTo('ACCOUNT_SETTINGS')
+                store.router.routeTo('ACCOUNT_SETTINGS')
                 close()
               }}
             >
@@ -52,9 +53,7 @@ export const UserProfile = () => {
             <MenuItem
               gap2
               onClick={() => {
-                // TODO:
-                // signOut()
-                console.log('sign out....')
+                appEmitter.emit('SIGN_OUT')
               }}
             >
               <Box gray500>

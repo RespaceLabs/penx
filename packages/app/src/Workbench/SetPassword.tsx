@@ -75,7 +75,7 @@ export const SetPassword = () => {
         },
       })
 
-      store.selectSpace(activeSpace.id)
+      store.space.selectSpace(activeSpace.id)
     } catch (error) {
       console.log('==============error:', error)
       toast.error('Password incorrect')

@@ -63,7 +63,7 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
             opacity-100--$currentSpace--hover
             onClick={(e) => {
               close()
-              store.routeTo('SPACE_SETTINGS')
+              store.router.routeTo('SPACE_SETTINGS')
               e.stopPropagation()
             }}
           >

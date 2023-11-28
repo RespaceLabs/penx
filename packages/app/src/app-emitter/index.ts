@@ -10,6 +10,9 @@ export type ShareEvent = {
 
 type Events = {
   onShare: ShareEvent
+
+  SIGN_IN_GOOGLE: undefined
+  SIGN_OUT: undefined
 }
 
 export const appEmitter = mitt<Events>()

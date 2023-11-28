@@ -85,7 +85,7 @@ export class NodeService {
   }
 
   async selectNode(node?: Node) {
-    store.selectNode(node?.raw || this.node.raw)
+    store.node.selectNode(node?.raw || this.node.raw)
   }
 
   async toggleFolded(id: string, folded: boolean) {
@@ -95,7 +95,7 @@ export class NodeService {
 
     const nodes = await db.listNodesBySpaceId(this.spaceId)
 
-    store.setNodes(nodes)
+    store.node.setNodes(nodes)
   }
 
   savePage = async (
@@ -111,7 +111,7 @@ export class NodeService {
 
       // update space name
       if (this.node.isRootNode) {
-        await store.updateSpace(node.spaceId, {
+        await store.space.updateSpace(node.spaceId, {
           name: SlateNode.string(title),
         })
       }
@@ -123,10 +123,10 @@ export class NodeService {
 
     const nodes = await db.listNormalNodes(this.spaceId)
 
-    store.setNodes(nodes)
+    store.node.setNodes(nodes)
 
     if (!isInReference) {
-      store.setFirstActiveNodes(node)
+      store.node.setFirstActiveNodes(node)
     }
 
     await this.updateSnapshot(node, nodes)

@@ -31,7 +31,7 @@ export const BidirectionalLinkContent = ({
       contentEditable={false}
       onClick={(e) => {
         e.preventDefault()
-        store.selectNode(node?.raw!)
+        store.node.selectNode(node?.raw!)
       }}
     >
       {children}

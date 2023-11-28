@@ -55,7 +55,7 @@ export const EncryptionPassword: FC<Props> = () => {
                 password: e.target.value,
               })
               const spaces = await db.listSpaces()
-              store.setSpaces(spaces)
+              store.space.setSpaces(spaces)
             }}
           />
         )}

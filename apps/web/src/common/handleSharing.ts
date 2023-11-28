@@ -1,5 +1,5 @@
 import { toast } from 'uikit'
-import { appEmitter, ShareEvent } from '@penx/app/src/AppEmitter'
+import { appEmitter, ShareEvent } from '@penx/app'
 import { encryptString } from '@penx/encryption'
 import { copy } from '@penx/shared'
 import { trpc } from '~/utils/api'

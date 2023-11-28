@@ -36,18 +36,18 @@ export function SearchByTag({ q, setSearch, close }: Props) {
     const canSearchALlNodesByTag = /^#(\S)+\s$/.test(q)
     if (!text && !canSearchALlNodesByTag) return tagNodes
 
-    const database = store.getDatabaseByName(tag)!
-    const cells = store
+    const database = store.node.getDatabaseByName(tag)!
+    const cells = store.node
       .getCells(database.id)
       .filter((cell) => {
-        const node = store.findNode(cell.props.ref!)
+        const node = store.node.findNode(cell.props.ref!)
         if (!node) return false
         if (!text) return true
         const str = SlateNode.string(node.element)
         return str.toLowerCase().includes(text.toLowerCase())
       })
       .map((cell) => {
-        const raw = store.findNode(cell.props.ref!)!
+        const raw = store.node.findNode(cell.props.ref!)!
         const node = new Node(raw)
         node.raw.props.name = new Node(database).tagName
         return node
@@ -69,7 +69,7 @@ export function SearchByTag({ q, setSearch, close }: Props) {
       {filteredItems.map((node) => {
         const nodeService = new NodeService(
           node,
-          store.getNodes().map((n) => new Node(n)),
+          store.node.getNodes().map((n) => new Node(n)),
         )
         return (
           <CommandItem

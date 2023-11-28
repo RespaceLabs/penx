@@ -61,7 +61,7 @@ export const TagSelectorContent = ({ close, element }: Props) => {
     onEnter: async (cursor) => {
       let database: INode
       if (!filteredTypes.length) {
-        database = await store.createDatabase(tagName)
+        database = await store.node.createDatabase(tagName)
         selectTag(tagName, database.id)
       } else {
         const name = filteredTypes[cursor]
