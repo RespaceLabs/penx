@@ -4,15 +4,20 @@ import { AddRowBtn } from './AddRowBtn'
 import { TableRow } from './TableRow'
 
 export const TableBody = () => {
-  const { columns, rows, cells } = useDatabaseContext()
+  const { columns, views, rows, cells } = useDatabaseContext()
   if (!columns.length) return null
+
+  // TODO: views[0] is too hack
+  const sortedColumns = views[0].children.map((id) => {
+    return columns.find((col) => col.id === id)!
+  })
 
   return (
     <Box column flex-1>
       {rows.map((row, index) => (
         <TableRow
           key={row.id}
-          columns={columns}
+          columns={sortedColumns}
           row={row}
           cells={cells}
           index={index}

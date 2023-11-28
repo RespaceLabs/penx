@@ -5,8 +5,13 @@ import { AddColumnBtn } from './AddColumnBtn'
 import { ColumnItem } from './ColumnItem/ColumnItem'
 
 export const TableHeader = () => {
-  const { columns } = useDatabaseContext()
+  const { columns, views } = useDatabaseContext()
   if (!columns.length) return null
+
+  // TODO: views[0] is too hack
+  const sortedColumns = views[0].children.map((id) => {
+    return columns.find((col) => col.id === id)!
+  })
 
   return (
     <Box flex-1 toLeft>
@@ -22,7 +27,7 @@ export const TableHeader = () => {
       >
         <Box as="input" type="checkbox" mr--8 />
       </Box>
-      {columns.map((column, index) => (
+      {sortedColumns.map((column, index) => (
         <ColumnItem key={column.id} column={column} index={index} />
       ))}
       <AddColumnBtn />

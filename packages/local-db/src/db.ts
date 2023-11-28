@@ -466,19 +466,20 @@ class DB {
       children: [...(databaseRootNode.children || []), database.id],
     })
 
+    const columns = await this.initColumns(space.id, database.id)
+
     // Create view
     const view = await this.createNode<IViewNode>({
       spaceId: space.id,
       databaseId: database.id,
       parentId: database.id,
       type: NodeType.VIEW,
+      children: columns.map((column) => column.id),
       props: {
         name: 'Table',
-        type: ViewType.View,
+        type: ViewType.Table,
       },
     })
-
-    const columns = await this.initColumns(space.id, database.id)
 
     if (shouldInitCell) {
       const rows = await this.initRows(space.id, database.id)
@@ -488,36 +489,36 @@ class DB {
   }
 
   initColumns = async (spaceId: string, databaseId: string) => {
-    return Promise.all([
-      this.createNode<IColumnNode>({
-        spaceId,
-        parentId: databaseId,
-        databaseId,
-        type: NodeType.COLUMN,
-        props: {
-          name: 'Column 1',
-          description: '',
-          fieldType: FieldType.Text,
-          isPrimary: true,
-          width: 120,
-          config: {},
-        },
-      }),
-      this.createNode<IColumnNode>({
-        spaceId,
-        databaseId,
-        parentId: databaseId,
-        type: NodeType.COLUMN,
-        props: {
-          name: 'Column 2',
-          description: '',
-          fieldType: FieldType.Text,
-          isPrimary: false,
-          config: {},
-          width: 120,
-        },
-      }),
-    ])
+    const mainColumn = await this.createNode<IColumnNode>({
+      spaceId,
+      parentId: databaseId,
+      databaseId,
+      type: NodeType.COLUMN,
+      props: {
+        name: 'Note',
+        description: '',
+        fieldType: FieldType.Text,
+        isPrimary: true,
+        width: 180,
+        config: {},
+      },
+    })
+    const column2 = await this.createNode<IColumnNode>({
+      spaceId,
+      databaseId,
+      parentId: databaseId,
+      type: NodeType.COLUMN,
+      props: {
+        name: 'Description',
+        description: '',
+        fieldType: FieldType.Text,
+        isPrimary: false,
+        config: {},
+        width: 160,
+      },
+    })
+
+    return [mainColumn, column2]
   }
 
   initRows = async (spaceId: string, databaseId: string) => {
@@ -687,6 +688,17 @@ class DB {
       props: {},
     })
 
+    const views = await this.node.select({
+      where: {
+        type: NodeType.VIEW,
+        spaceId: space.id,
+        databaseId,
+      },
+    })
+
+    // TODO: too hack, should pass a view id to find a view
+    const view = views.find((node) => node.props.type === ViewType.Table)!
+
     const columns = await this.node.select({
       where: {
         type: NodeType.COLUMN,
@@ -695,7 +707,12 @@ class DB {
       },
     })
 
-    const promises = columns.map((column, index) =>
+    const sortedColumns = view.children.map((id) => {
+      const column = columns.find((node) => node.id === id)
+      return column!
+    })
+
+    const promises = sortedColumns.map((column, index) =>
       this.createNode<ICellNode>({
         spaceId,
         databaseId,
@@ -724,6 +741,7 @@ class DB {
     const database = databases.find((db) => db.props.name === name)
     if (!database) return
 
+    // Get all database cells
     const cells = await this.node.select({
       where: {
         type: NodeType.CELL,
@@ -732,9 +750,8 @@ class DB {
       },
     })
 
+    // check cell is existed
     const cell = cells.find((cell) => cell.props.ref === ref)
-
-    // console.log('cell:', cell)
 
     if (!cell) {
       await this.addRow(database.id, ref)

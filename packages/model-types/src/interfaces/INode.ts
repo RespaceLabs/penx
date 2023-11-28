@@ -121,7 +121,8 @@ export interface ICellNode extends INode {
 }
 
 export enum ViewType {
-  View = 'View',
+  Table = 'Table',
+  List = 'List',
   Calendar = 'Calendar',
   Gallery = 'Gallery',
   Kanban = 'Kanban',
@@ -130,6 +131,7 @@ export enum ViewType {
 export interface IViewNode extends INode {
   parentId: string // should be database id
   type: NodeType.VIEW
+  children: string[] // sorted columnIds
   props: {
     name: string
     type: ViewType

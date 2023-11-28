@@ -33,7 +33,7 @@ export function PanelItem({ node, index }: Props) {
 
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
     await nodeService.savePage(node.raw, value[0], value[1])
-  }, 1000)
+  }, 400)
 
   return (
     <NodeProvider value={{ index, node, nodeService }}>
