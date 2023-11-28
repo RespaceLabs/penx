@@ -68,23 +68,29 @@ export class NodeStore {
     const activeNodes = this.getActiveNodes()
 
     if (index === 0 && isEqual(activeNodes[0], node)) {
-      console.log('is equal node')
+      // console.log('is equal node')
       return
     }
 
     const editor = this.store.editor.getEditor(index)
-    clearEditor(editor)
 
     const nodes = this.getNodes()
     const value = nodeToSlate(node, nodes)
 
-    Transforms.insertNodes(editor, value)
+    // TODO: the good way  is to clear the editor, but now has bug
+    this.setActiveNodes([])
+    setTimeout(async () => {
+      this.setActiveNodes([node])
 
-    const newActiveNodes = this.setFirstActiveNodes(node)
+      // clearEditor(editor)
+      // Transforms.insertNodes(editor, value)
 
-    await db.updateSpace(this.store.space.getActiveSpace().id, {
-      activeNodeIds: newActiveNodes.map((node) => node.id),
-    })
+      const newActiveNodes = this.setFirstActiveNodes(node)
+
+      await db.updateSpace(this.store.space.getActiveSpace().id, {
+        activeNodeIds: newActiveNodes.map((node) => node.id),
+      })
+    }, 0)
   }
 
   async selectInbox() {

@@ -7,8 +7,8 @@ import { sleep } from '@penx/shared'
 import { Session } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 
-const INTERVAL = 5 * 1000
-// const INTERVAL = 60 * 1000
+// const INTERVAL = 5 * 1000
+const INTERVAL = 60 * 1000
 
 export async function startPollingPull(session: Session) {
   while (session) {
@@ -28,16 +28,16 @@ async function sync() {
   })
 
   const localVersion = space.nodeSnapshot.version
-  console.log(
-    'pull==== local.version',
-    localVersion,
-    'remote.version:',
-    remoteVersion,
-  )
+  // console.log(
+  //   'pull==== local.version',
+  //   localVersion,
+  //   'remote.version:',
+  //   remoteVersion,
+  // )
 
   // TODO: should use diff or websocket
   if (localVersion < remoteVersion) {
-    console.log('pull.......')
+    // console.log('pull.......')
     const nodes = await trpc.node.listBySpaceId.query({
       spaceId: space.id,
     })
@@ -57,8 +57,6 @@ async function sync() {
       const { id, ...rest } = item
       // TODO: need improve code
       if (space.encrypted && space.password) {
-        console.log('pulllxxxxxxxx............')
-
         if (node) {
           await db.updateNode(node.id, {
             ...rest,

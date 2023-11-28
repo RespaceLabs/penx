@@ -147,7 +147,7 @@ export class NodeToSlateSerializer {
 }
 
 function getDatabaseNodeEditorValue(node: Node) {
-  return [
+  const value = [
     {
       type: ELEMENT_UL,
       children: [
@@ -173,6 +173,9 @@ function getDatabaseNodeEditorValue(node: Node) {
       ],
     },
   ]
+
+  console.log('======value:', value)
+  return value
 }
 
 function getDatabaseRootEditorValue(node: Node, nodeMap: Map<string, INode>) {

@@ -25,8 +25,6 @@ export function PanelItem({ node, index }: Props) {
   const { name } = useAtomValue(routerAtom)
   const nodeService = new NodeService(node, nodes)
 
-  // console.log('panel item node-=---====:', node)
-
   const [saving, setSaving] = useState(false)
 
   const content = nodeToSlate(node.raw, nodeList.rawNodes)
@@ -43,7 +41,8 @@ export function PanelItem({ node, index }: Props) {
         <Box
           overflowYAuto
           h={['calc(100vh - 48px)', '100vh']}
-          px={[0, 16, 16, 16, 0]}
+          pl={[0, 16]}
+          pr={[0, 4]}
           py0
         >
           <MobileNav />

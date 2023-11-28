@@ -105,8 +105,6 @@ export class NodeService {
     isInReference = false,
   ) => {
     if (title) {
-      console.log('========xx title:', title)
-
       node = await db.updateNode(node.id, {
         element: title.children,
       })

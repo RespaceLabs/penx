@@ -49,9 +49,9 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
   }
 
   if (diffed.isEqual) {
-    console.log('is equal, no need to push')
+    // console.log('is equal, no need to push')
   } else {
-    console.log('diff:', diffed)
+    // console.log('diff:', diffed)
   }
 
   if (!diffed.isEqual) {

@@ -50,7 +50,11 @@ export class Node {
       this.raw.element[0].children[0].text = this.title
     }
 
-    return this.raw.element
+    // return this.raw.element
+    // TODO:
+    return Array.isArray(this.raw.element)
+      ? this.raw.element
+      : [this.raw.element]
   }
 
   get title(): string {

@@ -21,5 +21,6 @@ export class EditorStore {
     const editors = this.store.get(editorsAtom)
     editors.set(index, editor)
     this.store.set(editorsAtom, editors)
+    ;(window as any).__editor = editors.get(0)
   }
 }
