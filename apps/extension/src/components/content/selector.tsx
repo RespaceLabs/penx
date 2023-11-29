@@ -76,7 +76,7 @@ export function initSelectArea(params: { type: StartSelectEnum }) {
   root.render(<App type={params.type} />)
 }
 
-export function destroySelectArea() {
+export function destroySelectArea(isOpenEditor = false) {
   if (!root) {
     return
   }
@@ -88,4 +88,9 @@ export function destroySelectArea() {
   wrapper?.remove()
 
   document.querySelector(`#${PENX_SANDBOX_BOARD_IFRAME}`)?.classList.add('show')
+  if (isOpenEditor) {
+    initSelectArea({
+      type: StartSelectEnum.draggableEditor,
+    })
+  }
 }

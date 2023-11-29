@@ -1,10 +1,11 @@
 import { XCircle } from 'lucide-react'
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { Rnd } from 'react-rnd'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
 
 import * as styles from '../content.module.css'
+import { docSessionKey } from '../helper'
 
 export interface IDraggableEditorRef {
   onSave: () => Promise<void>
@@ -20,7 +21,9 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     const { destroySelectArea } = props
 
     const handleChange = (event) => {
-      setDoc(event.target.value)
+      const newValue = event.target.value
+      setDoc(newValue)
+      sessionStorage.setItem(docSessionKey, newValue)
     }
 
     const onSubmit = async () => {
@@ -29,6 +32,11 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
         payload: { doc },
       })
     }
+
+    useEffect(() => {
+      const storedDoc = sessionStorage.getItem(docSessionKey)
+      setDoc(storedDoc)
+    }, [])
 
     return (
       <div className={styles.draggableContainer}>

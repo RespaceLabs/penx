@@ -20,6 +20,8 @@ export enum SandBoxMessageType {
 
 export const SandBoxMessageKey = 'sandbox'
 
+export const docSessionKey = 'PENX-DOC'
+
 export enum ClippingTypeEnum {
   // selection content
   area = 'area',
