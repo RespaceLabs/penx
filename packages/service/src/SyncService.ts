@@ -2,7 +2,7 @@ import ky from 'ky'
 import mime from 'mime-types'
 import { Octokit } from 'octokit'
 import { createEditor, Editor } from 'slate'
-import { decryptString, encryptString } from '@penx/encryption'
+import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
@@ -48,7 +48,7 @@ type Content = {
 }
 
 export class SyncService {
-  secretKey: any
+  password: any
 
   private params: SharedParams
 
@@ -107,17 +107,12 @@ export class SyncService {
     this.params = sharedParams
   }
 
-  static async init(
-    space: ISpace,
-    user: User,
-    enabledEncryption: boolean = false,
-  ) {
+  static async init(space: ISpace, user: User) {
     const s = new SyncService()
-    s.enableEncryption = enabledEncryption
     s.nodes = await db.listNodesBySpaceId(space.id)
     s.user = user
     s.space = new Space(space)
-    s.spaceService = new SpaceService(s.nodes)
+    s.spaceService = new SpaceService(space, s.nodes)
 
     const token = await trpc.github.getTokenByUserId.query({
       userId: user.id,
@@ -127,7 +122,7 @@ export class SyncService {
 
     s.app = new Octokit({ auth: token })
 
-    s.secretKey = '123456' + user.address
+    s.password = space.password
 
     return s
   }
@@ -182,7 +177,7 @@ export class SyncService {
         path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
-        content: this.encrypt(JSON.stringify(pageMap[id], null, 2)),
+        content: JSON.stringify(pageMap[id], null, 2),
       })
     }
 
@@ -201,7 +196,7 @@ export class SyncService {
         path: this.getNodePath(id),
         mode: '100644',
         type: 'blob',
-        content: this.encrypt(JSON.stringify(nodes, null, 2)),
+        content: JSON.stringify(nodes, null, 2),
       })
     }
 
@@ -282,7 +277,7 @@ export class SyncService {
       path: this.space.filePath,
       mode: '100644',
       type: 'blob',
-      content: this.encrypt(this.space.stringify(version)),
+      content: this.space.stringify(version),
     } as TreeItem
   }
 
@@ -291,7 +286,7 @@ export class SyncService {
       path: 'nodes.json',
       mode: '100644',
       type: 'blob',
-      content: this.encrypt(JSON.stringify(this.nodes, null, 2)),
+      content: JSON.stringify(this.nodes, null, 2),
     } as TreeItem
   }
 
@@ -735,14 +730,9 @@ export class SyncService {
     return snapshot
   }
 
-  encrypt(str: string) {
-    if (!this.enableEncryption) return str
-    return encryptString(str, this.secretKey)
-  }
-
   decrypt(str: string) {
     if (!this.enableEncryption) return str
-    return decryptString(str, this.secretKey)
+    return decryptString(str, this.password)
   }
 }
 

@@ -1,12 +1,14 @@
 import CryptoJS from 'crypto-js'
 import _ from 'lodash'
-import { db } from '@penx/local-db'
-import { Space } from '@penx/model'
-import { INode, NodeType } from '@penx/model-types'
+import { Node } from '@penx/model'
+import { INode, ISpace, NodeType } from '@penx/model-types'
 import { NodeListService } from './NodeListService'
 
 export class SpaceService {
-  constructor(private nodes: INode[]) {}
+  constructor(
+    private space: ISpace,
+    private nodes: INode[],
+  ) {}
 
   nodeMap = new Map<string, INode>()
 
@@ -50,41 +52,47 @@ export class SpaceService {
     for (const id of nodeList.rootNode.children) {
       const pageNode = this.nodeMap.get(id)!
       const pageNodes = this.getPageNodesFromOneNode(pageNode)
-      pageMap[id] = pageNodes
+      pageMap[id] = this.toEncryptedNodes(pageNodes)
     }
 
     // common database nodes
     for (const id of nodeList.databaseRootNode.children) {
       const databaseNode = this.nodeMap.get(id)!
       const pageNodes = this.nodes.filter((n) => n.parentId === databaseNode.id)
-      pageMap[id] = [databaseNode, ...pageNodes]
+      pageMap[id] = this.toEncryptedNodes([databaseNode, ...pageNodes])
     }
 
     // common daily nodes
     for (const id of nodeList.dailyRootNode.children) {
       const dailyNode = this.nodeMap.get(id)!
       const pageNodes = this.nodes.filter((n) => n.parentId === dailyNode.id)
-      pageMap[id] = [dailyNode, ...pageNodes]
+      pageMap[id] = this.toEncryptedNodes([dailyNode, ...pageNodes])
     }
 
     // space's rootNode
-    pageMap[NodeType.ROOT] = [nodeList.rootNode.raw]
+    pageMap[NodeType.ROOT] = this.toEncryptedNodes([nodeList.rootNode.raw])
 
     // database's rootNode
-    pageMap[NodeType.DATABASE_ROOT] = [nodeList.databaseRootNode.raw]
+    pageMap[NodeType.DATABASE_ROOT] = this.toEncryptedNodes([
+      nodeList.databaseRootNode.raw,
+    ])
 
     // daily's rootNode
-    pageMap[NodeType.DAILY_ROOT] = [nodeList.dailyRootNode.raw]
+    pageMap[NodeType.DAILY_ROOT] = this.toEncryptedNodes([
+      nodeList.dailyRootNode.raw,
+    ])
 
     // favorite node
-    pageMap[NodeType.FAVORITE] = [nodeList.favoriteNode.raw]
+    pageMap[NodeType.FAVORITE] = this.toEncryptedNodes([
+      nodeList.favoriteNode.raw,
+    ])
 
-    pageMap[NodeType.INBOX] = this.getPageNodesFromOneNode(
-      nodeList.inboxNode.raw,
+    pageMap[NodeType.INBOX] = this.toEncryptedNodes(
+      this.getPageNodesFromOneNode(nodeList.inboxNode.raw),
     )
 
-    pageMap[NodeType.TRASH] = this.getPageNodesFromOneNode(
-      nodeList.trashNode.raw,
+    pageMap[NodeType.TRASH] = this.toEncryptedNodes(
+      this.getPageNodesFromOneNode(nodeList.trashNode.raw),
     )
 
     return pageMap
@@ -108,10 +116,19 @@ export class SpaceService {
       for (const id of children) {
         const node = this.nodeMap.get(id)!
         pageNodes.push(node)
+
         if (node.children?.length) loop(node.children)
       }
     }
     loop(node.children)
     return pageNodes
+  }
+
+  private toEncryptedNodes(nodes: INode[]) {
+    return nodes.map((node) => {
+      return this.space.encrypted
+        ? new Node(node).toEncrypted(this.space.password)
+        : node
+    })
   }
 }

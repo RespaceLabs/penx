@@ -1,9 +1,16 @@
 import React, { FC } from 'react'
 import { Box } from '@fower/react'
 import { RefreshCcw } from 'lucide-react'
-import { Divider, Dot, Popover, PopoverContent, PopoverTrigger } from 'uikit'
+import {
+  Divider,
+  Dot,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  toast,
+} from 'uikit'
 import { SyncStatus } from '@penx/constants'
-import { useSyncStatus, useUser } from '@penx/hooks'
+import { useSpaces, useSyncStatus, useUser } from '@penx/hooks'
 import { IconPull, IconPush } from '@penx/icons'
 import { db } from '@penx/local-db'
 import { SyncService } from '@penx/service'
@@ -17,8 +24,13 @@ export const SyncPopover: FC<Props> = () => {
 
   const { isSyncing, isPulling, isFailed, isNormal, status, setStatus } =
     useSyncStatus()
+  const { activeSpace } = useSpaces()
 
   async function pushToCloud() {
+    if (!activeSpace.isCloud) {
+      toast.error('Please select a cloud space')
+      return
+    }
     try {
       setStatus(SyncStatus.PUSHING)
       // const s = await SyncService.init(space, user)
@@ -38,12 +50,16 @@ export const SyncPopover: FC<Props> = () => {
   }
 
   async function pushToGitHub() {
-    const space = await db.getActiveSpace()
-    if (!space) return
+    if (!activeSpace.isCloud) {
+      toast.error('Please select a cloud space')
+      return
+    }
+
+    if (!activeSpace) return
 
     try {
       setStatus(SyncStatus.PUSHING)
-      const s = await SyncService.init(space, user)
+      const s = await SyncService.init(activeSpace.raw, user)
       await s.push()
 
       setStatus(SyncStatus.NORMAL)

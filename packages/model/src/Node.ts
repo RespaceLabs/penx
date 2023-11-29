@@ -177,7 +177,7 @@ export class Node {
       ...this.raw,
       element: encryptString(JSON.stringify(this.element), password),
       props: encryptString(JSON.stringify(this.props), password),
-    }
+    } as any as INode
   }
 
   toDecrypted(password: string) {
@@ -185,6 +185,6 @@ export class Node {
       ...this.raw,
       element: decryptString(JSON.stringify(this.raw.element), password),
       props: decryptString(JSON.stringify(this.raw.props), password),
-    }
+    } as any as INode
   }
 }
