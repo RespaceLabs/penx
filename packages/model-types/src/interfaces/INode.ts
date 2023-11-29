@@ -36,7 +36,7 @@ export interface INode {
   props: {
     date?: string // 2024-01-01
     tag?: string // tag name
-    type?: ViewType
+    viewType?: ViewType
     [key: string]: any
   }
 
@@ -134,7 +134,7 @@ export interface IViewNode extends INode {
   children: string[] // sorted columnIds
   props: {
     name: string
-    type: ViewType
+    viewType: ViewType
     // stackedColumnId: string
   }
 }

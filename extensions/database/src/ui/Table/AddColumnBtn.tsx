@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react'
-import { Box, styled } from '@fower/react'
+import { Box, FowerHTMLProps, styled } from '@fower/react'
 import { CheckCircle2, Clock, Hash, Link, Plus, Text } from 'lucide-react'
 import {
   Popover,
@@ -12,15 +12,19 @@ import { useDatabaseContext } from '../DatabaseContext'
 
 const WrapIcon = styled('div', ['gray500'])
 
-function Item({
-  children,
-  fieldType,
-}: PropsWithChildren<{ fieldType: FieldType }>) {
+interface ItemProps extends PropsWithChildren<FowerHTMLProps<'div'>> {
+  fieldType: FieldType
+}
+
+function Item({ children, fieldType, ...rest }: ItemProps) {
   const { close } = usePopoverContext()
   const ctx = useDatabaseContext()
   async function addColumn() {
-    await ctx.addColumn(fieldType)
-    close()
+    if (fieldType === FieldType.Text) {
+      console.log('========fieldType:', fieldType)
+      await ctx.addColumn(fieldType)
+      close()
+    }
   }
 
   return (
@@ -34,6 +38,7 @@ function Item({
       rounded
       px2
       py2
+      {...rest}
       onClick={addColumn}
     >
       {children}
@@ -50,35 +55,35 @@ function Content() {
         </WrapIcon>
         <Box>Text</Box>
       </Item>
-      <Item fieldType={FieldType.Number}>
+      <Item fieldType={FieldType.Number} cursorNotAllowed opacity-60>
         <WrapIcon>
           <Hash size={16} />
         </WrapIcon>
         <Box>Number</Box>
       </Item>
 
-      <Item fieldType={FieldType.SingleSelect}>
+      <Item fieldType={FieldType.SingleSelect} cursorNotAllowed opacity-60>
         <WrapIcon>
           <CheckCircle2 size={16} />
         </WrapIcon>
         <Box>Select</Box>
       </Item>
 
-      <Item fieldType={FieldType.Text}>
+      <Item fieldType={FieldType.Number} cursorNotAllowed opacity-60>
         <WrapIcon>
           <Link size={16} />
         </WrapIcon>
         <Box>Link</Box>
       </Item>
 
-      <Item fieldType={FieldType.Text}>
+      <Item fieldType={FieldType.Number} cursorNotAllowed opacity-60>
         <WrapIcon>
           <Clock size={16} />
         </WrapIcon>
         <Box>Created At</Box>
       </Item>
 
-      <Item fieldType={FieldType.Text}>
+      <Item fieldType={FieldType.UpdatedAt} cursorNotAllowed opacity-60>
         <WrapIcon>
           <Clock size={16} />
         </WrapIcon>

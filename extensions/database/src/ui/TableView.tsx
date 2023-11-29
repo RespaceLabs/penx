@@ -1,26 +1,17 @@
 import { PropsWithChildren } from 'react'
 import { Box } from '@fower/react'
-import { DatabaseProvider } from './DatabaseContext'
 import { DatabaseHeader } from './DatabaseHeader'
 import { TableBody } from './Table/TableBody'
 import { TableHeader } from './Table/TableHeader'
 
-interface TableViewProps {
-  databaseId: string
-}
+interface TableViewProps {}
 
-export const TableView = ({
-  databaseId,
-  children,
-}: PropsWithChildren<TableViewProps>) => {
+export const TableView = ({}: PropsWithChildren<TableViewProps>) => {
   return (
-    <DatabaseProvider databaseId={databaseId}>
-      <Box>
-        {/* <DatabaseHeader /> */}
-        <TableHeader />
-        <TableBody />
-        {children}
-      </Box>
-    </DatabaseProvider>
+    <Box>
+      {/* <DatabaseHeader /> */}
+      <TableHeader />
+      <TableBody />
+    </Box>
   )
 }

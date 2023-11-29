@@ -1,3 +1,4 @@
+import { arrayMoveImmutable } from 'array-move'
 import { format } from 'date-fns'
 import { Database } from '@penx/indexeddb'
 import { Node, Space } from '@penx/model'
@@ -468,8 +469,8 @@ class DB {
 
     const columns = await this.initColumns(space.id, database.id)
 
-    // Create view
-    const view = await this.createNode<IViewNode>({
+    // init table view
+    const tableView = await this.createNode<IViewNode>({
       spaceId: space.id,
       databaseId: database.id,
       parentId: database.id,
@@ -477,7 +478,20 @@ class DB {
       children: columns.map((column) => column.id),
       props: {
         name: 'Table',
-        type: ViewType.Table,
+        viewType: ViewType.Table,
+      },
+    })
+
+    // init list view
+    const listView = await this.createNode<IViewNode>({
+      spaceId: space.id,
+      databaseId: database.id,
+      parentId: database.id,
+      type: NodeType.VIEW,
+      children: columns.map((column) => column.id),
+      props: {
+        name: 'List',
+        viewType: ViewType.List,
       },
     })
 
@@ -599,6 +613,9 @@ class DB {
         spaceId: space.id,
         databaseId: id,
       },
+
+      sortBy: 'createdAt',
+      orderByDESC: false,
     })
 
     const cells = await this.node.select({
@@ -659,11 +676,11 @@ class DB {
       },
     })
 
-    const view = views.find((node) => node.props.type === ViewType.Table)!
-
-    await this.node.updateByPk(view.id, {
-      children: [...(view!.children || []), column.id],
-    })
+    for (const view of views) {
+      await this.node.updateByPk(view.id, {
+        children: [...view.children, column.id],
+      })
+    }
 
     const rows = await this.node.select({
       where: {
@@ -712,7 +729,7 @@ class DB {
     })
 
     // TODO: too hack, should pass a view id to find a view
-    const view = views.find((node) => node.props.type === ViewType.Table)!
+    const view = views.find((node) => node.props.viewType === ViewType.Table)!
 
     const columns = await this.node.select({
       where: {
@@ -781,13 +798,72 @@ class DB {
       },
     })
 
-    return // TODO:
     for (const cell of cells) {
       if (cell.props.columnId !== columnId) continue
       await this.deleteNode(cell.id)
     }
 
-    console.log('delete column.....')
+    const views = await this.node.select({
+      where: {
+        type: NodeType.VIEW,
+        databaseId: databaseId,
+      },
+    })
+
+    for (const view of views) {
+      await this.node.updateByPk(view.id, {
+        children: view.children.filter((id) => id !== columnId),
+      })
+    }
+
+    await this.deleteNode(columnId)
+  }
+
+  updateColumnName = async (columnId: string, name: string) => {
+    const column = await this.getNode(columnId)
+    await this.updateNode(columnId, {
+      props: { ...column.props, name },
+    })
+  }
+
+  moveColumn = async (
+    databaseId: string,
+    viewId: string,
+    fromIndex: number,
+    toIndex: number,
+  ) => {
+    const views = await this.node.select({
+      where: {
+        type: NodeType.VIEW,
+        databaseId: databaseId,
+      },
+    })
+
+    const view = views.find((node) => node.id === viewId)!
+
+    const columns = await this.node.select({
+      where: {
+        type: NodeType.COLUMN,
+        databaseId,
+      },
+    })
+
+    if (!columns[fromIndex] || !columns[toIndex]) return
+
+    console.log('----view:', view)
+
+    console.log(
+      'fromIndex',
+      fromIndex,
+      'toIndex',
+      toIndex,
+      view.children,
+      arrayMoveImmutable(view.children, fromIndex, toIndex),
+    )
+
+    await this.updateNode(view.id, {
+      children: arrayMoveImmutable(view.children, fromIndex, toIndex),
+    })
   }
 }
 

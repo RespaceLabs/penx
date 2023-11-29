@@ -1,17 +1,11 @@
 import { useState } from 'react'
 import { Box, styled } from '@fower/react'
 import { motion, useMotionValue, useTransform } from 'framer-motion'
-import {
-  MenuItem,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  usePopoverContext,
-} from 'uikit'
+import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { IColumnNode } from '@penx/model-types'
 import { columnWidthMotion } from '../../../columnWidthMotion'
-import { useDatabaseContext } from '../../DatabaseContext'
 import { FieldIcon } from '../FieldIcon'
+import { ColumnMenu } from './ColumnMenu'
 import { ResizeHandle } from './ResizeHandle'
 
 const AnimatedDiv = styled(motion.div)
@@ -57,6 +51,8 @@ export const ColumnItem = ({ column, index }: Props) => {
               h-100p
               flex-1
               toCenterY
+              textSM
+              gray500
               gap2
               px3
               onClick={() => {
@@ -72,37 +68,15 @@ export const ColumnItem = ({ column, index }: Props) => {
             </Box>
           </PopoverTrigger>
           <PopoverContent w-200>
-            <ColumnMenu index={index} columnId={column.id} />
+            <ColumnMenu
+              index={index}
+              columnId={column.id}
+              columnName={column.props.name}
+            />
           </PopoverContent>
         </Popover>
         <ResizeHandle x={x} width={width} column={column} />
       </AnimatedDiv>
-    </>
-  )
-}
-
-interface ColumnMenuProps {
-  index: number
-  columnId: string
-}
-function ColumnMenu({ index, columnId }: ColumnMenuProps) {
-  const { close } = usePopoverContext()
-  const { deleteColumn } = useDatabaseContext()
-  async function removeColumn() {
-    await deleteColumn(columnId)
-    close()
-  }
-  return (
-    <>
-      <MenuItem>Sort ascending</MenuItem>
-      <MenuItem>Sort descending</MenuItem>
-      {index !== 0 && (
-        <>
-          <MenuItem>Move to left</MenuItem>
-          <MenuItem>Move to right</MenuItem>
-          <MenuItem onClick={removeColumn}>Delete Column</MenuItem>
-        </>
-      )}
     </>
   )
 }

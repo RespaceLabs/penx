@@ -1,7 +1,10 @@
 import { Box } from '@fower/react'
 import { ElementProps } from '@penx/extension-typings'
 import { DatabaseElement } from '../types'
+import { DatabaseProvider } from './DatabaseContext'
 import { TableView } from './TableView'
+import { ViewList } from './ViewList'
+import { ViewRenderer } from './ViewRenderer'
 
 export const Database = ({
   attributes,
@@ -13,7 +16,11 @@ export const Database = ({
   return (
     <Box flex-1 {...attributes} contentEditable={false}>
       {children}
-      <TableView databaseId={databaseId}>{children}</TableView>
+
+      <DatabaseProvider databaseId={databaseId}>
+        <ViewList />
+        <ViewRenderer />
+      </DatabaseProvider>
     </Box>
   )
 }

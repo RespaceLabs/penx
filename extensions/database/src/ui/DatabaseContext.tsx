@@ -1,6 +1,8 @@
 import {
   createContext,
+  Dispatch,
   PropsWithChildren,
+  SetStateAction,
   useCallback,
   useContext,
   useEffect,
@@ -23,9 +25,15 @@ export interface IDatabaseContext {
   rows: IRowNode[]
   cells: ICellNode[]
 
+  currentView: IViewNode
+
+  viewIndex: number
+  setViewIndex: Dispatch<SetStateAction<number>>
+  addRow(): Promise<void>
   addColumn(fieldType: FieldType): Promise<void>
   deleteColumn(columnId: string): Promise<void>
-  addRow(): Promise<void>
+  moveColumn(fromIndex: number, toIndex: number): Promise<void>
+  updateColumnName(columnId: string, name: string): Promise<void>
 }
 
 export const databaseContext = createContext<IDatabaseContext>(
@@ -43,10 +51,11 @@ export const DatabaseProvider = ({
   const { Provider } = databaseContext
   const [loading, setLoading] = useState(true)
   const [ctx, setCtx] = useState({} as IDatabaseContext)
+  const [viewIndex, setViewIndex] = useState(0)
 
   const loadDatabase = useCallback(async () => {
     const data = await db.getDatabase(databaseId)
-    console.log('=====data:', data)
+    // console.log('=====data:', data)
     setLoading(false)
     setCtx(data as any)
   }, [databaseId])
@@ -66,16 +75,42 @@ export const DatabaseProvider = ({
     loadDatabase()
   }
 
-  ctx.addColumn = addColumn
-  ctx.deleteColumn = deleteColumn
-  ctx.addRow = addRow
+  async function moveColumn(fromIndex: number, toIndex: number) {
+    const view = ctx.views[viewIndex]
+    await db.moveColumn(databaseId, view.id, fromIndex, toIndex)
+    loadDatabase()
+  }
+
+  async function updateColumnName(columnId: string, name: string) {
+    await db.updateColumnName(columnId, name)
+    loadDatabase()
+  }
 
   useEffect(() => {
     loadDatabase()
   }, [loadDatabase])
 
   if (loading) return null
-  return <Provider value={ctx}>{children}</Provider>
+
+  const currentView = ctx.views[viewIndex]
+
+  return (
+    <Provider
+      value={{
+        ...ctx,
+        viewIndex,
+        currentView,
+        setViewIndex,
+        addRow,
+        addColumn,
+        deleteColumn,
+        moveColumn,
+        updateColumnName,
+      }}
+    >
+      {children}
+    </Provider>
+  )
 }
 
 export function useDatabaseContext() {
