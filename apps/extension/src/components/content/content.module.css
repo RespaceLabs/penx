@@ -163,4 +163,53 @@
   bottom: 0;
   z-index: 2147483646;
 }
+
 /* drag-line end */
+
+/* draggable-editor start */
+.draggableContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 2147483645;
+}
+
+.rndContainer {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #000000;
+}
+
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.editorTop {
+  position: relative;
+  height: 20px;
+}
+
+.editorBottom {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-Content: center;
+  min-height: 30px;
+  max-height: 54px;
+}
+
+.editorBtn {
+  width: 150px;
+  height: 30px;
+  background: #000000;
+  color: #fff;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}
+
+/* draggable-editor end */

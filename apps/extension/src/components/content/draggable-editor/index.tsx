@@ -2,6 +2,8 @@ import { XCircle } from 'lucide-react'
 import React, { forwardRef, useState } from 'react'
 import { Rnd } from 'react-rnd'
 
+import * as styles from '../content.module.css'
+
 export interface IDraggableEditorRef {
   onSave: () => Promise<void>
 }
@@ -24,13 +26,7 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     }
 
     return (
-      <div
-        style={{
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          height: '100vh',
-        }}>
+      <div className={styles.draggableContainer}>
         <Rnd
           default={{
             x: window.innerWidth - 470,
@@ -43,19 +39,9 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
           maxWidth={800}
           maxHeight={480}
           bounds="window"
-          style={{
-            background: '#fff',
-            borderRadius: '8px',
-            border: '1px solid #000000',
-          }}>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              height: '100%',
-            }}>
-            <div style={{ position: 'relative', height: '20px' }}>
+          className={styles.rndContainer}>
+          <div className={styles.editorContainer}>
+            <div className={styles.editorTop}>
               <XCircle
                 style={{ cursor: 'pointer' }}
                 color="#000000"
@@ -79,26 +65,8 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
               placeholder="Enter your content..."
             />
 
-            <div
-              style={{
-                display: 'flex',
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '30px',
-                maxHeight: '54px',
-              }}>
-              <button
-                style={{
-                  width: '150px',
-                  height: '30px',
-                  background: '#000000',
-                  color: '#fff',
-                  borderRadius: '3px',
-                  border: 'none',
-                  cursor: 'pointer',
-                }}
-                onClick={onSubmit}>
+            <div className={styles.editorBottom}>
+              <button className={styles.editorBtn} onClick={onSubmit}>
                 Submit
               </button>
             </div>

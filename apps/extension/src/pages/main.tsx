@@ -127,7 +127,7 @@ export function Main() {
         </li>
 
         <li className={styles.item} onClick={onClipEntirePage}>
-          Clip ClipEntire Page
+          Clip entire page
         </li>
       </ul>
 
