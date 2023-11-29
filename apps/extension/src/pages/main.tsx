@@ -15,6 +15,23 @@ import { UserProfile } from '~/components/UserProfile'
 export function Main() {
   const [tab, setTab] = useState<TabInfo>(null)
 
+  const spacesQuery = trpc.space.mySpaces.useQuery()
+  const addMutation = trpc.node.addMarkdown.useMutation({})
+  console.log('========spacesQuery:', spacesQuery.data)
+
+  const onSubmit = () => {
+    console.log('onsubmit-2', spacesQuery.data)
+
+    return
+    if (spacesQuery.data.length) {
+      addMutation.mutate({
+        spaceId: spacesQuery.data[0].id,
+        markdown: 'Hello World! day-extendsion 2:',
+      })
+      window.close()
+    }
+  }
+
   const getCurrentTab = async () => {
     const [tab] = await chrome.tabs.query({
       active: true,
@@ -89,18 +106,10 @@ export function Main() {
     })
   }
 
-  const onSubmit = () => {
-    console.log('onsubmit')
-  }
-
   useEffect(() => {
     initTabsListener()
     getCurrentTab()
   }, [])
-
-  const spacesQuery = trpc.space.mySpaces.useQuery()
-
-  console.log('========spacesQuery:', spacesQuery.data)
 
   return (
     <Box className={styles.container} p4>
@@ -120,7 +129,7 @@ export function Main() {
         <li
           className={styles.item}
           onClick={() => onAreaSelect(StartSelectEnum.screenShot)}>
-          Screenshot c
+          Screenshot c1
         </li>
 
         <li className={styles.item} onClick={onClipEntirePage}>
