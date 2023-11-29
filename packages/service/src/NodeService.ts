@@ -123,7 +123,7 @@ export class NodeService {
       }
     }
 
-    if (ul && !this.node.isDatabase) {
+    if (ul && !this.node.isDatabase && !this.node.isDatabaseRoot) {
       await this.saveNodes(node.id, ul)
     }
 

@@ -22,6 +22,7 @@ export const DatabaseEntry = ({
         py1
         rounded
         cursorPointer
+        textSM
         transitionColors
         bg--T92={element.props.color}
         bg--T88--hover={element.props.color}

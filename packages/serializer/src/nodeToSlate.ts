@@ -1,4 +1,5 @@
 import {
+  ELEMENT_DATABASE_ENTRY,
   ELEMENT_LI,
   ELEMENT_LIC,
   ELEMENT_TITLE,
@@ -198,7 +199,7 @@ function getDatabaseRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
           collapsed: databaseNode.collapsed,
           children: [
             {
-              type: 'database_entry', // TODO: don't hardcode
+              type: ELEMENT_DATABASE_ENTRY,
               databaseId: databaseNode.id,
               props: databaseNode.props,
               name: databaseNode.props.name,

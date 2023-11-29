@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { Node } from 'slate'
-import { useEditorStatic } from '@penx/editor-common'
+import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
 import { NodeType } from '@penx/model-types'
 import { useFocusTitle } from '../hooks/useFocusTitle'
@@ -15,7 +15,7 @@ export const Title = ({
   children,
   nodeProps,
 }: ElementProps<TitleElement>) => {
-  const editor = useEditorStatic()
+  const editor = useEditor()
   const titleStr = Node.string(element)
   const isPlaceholderShow = !titleStr?.length
   const onlyHasTitle = editor.children.length === 1
@@ -38,41 +38,46 @@ export const Title = ({
   return (
     <Box
       pl5
+      pl9={isDatabase}
       text4XL
       fontMedium
       gray900
       relative
       cursorNotAllowed={disabled}
       mb4
-      toCenterY
       {...attributes}
       // {...nodeProps}
-      css={{
-        '::before': {
-          content: `"Untitled"`,
-          gray200: true,
-          breakNormal: true,
-          display: isPlaceholderShow ? 'block' : 'none',
-          absolute: true,
-          top: '50%',
-          transform: 'translate(0, -50%)',
-          whiteSpace: 'nowrap',
-          cursorText: true,
-        },
-      }}
     >
       {isDatabase && (
-        <Box
-          contentEditable={false}
-          color={element.props?.color || 'black'}
-          mr-4
-          // mb--2
-          scale={90}
-        >
-          #
+        <Box absolute left3 top0 h="1.5em" toCenterY>
+          <Box contentEditable={false} color={element.props?.color || 'black'}>
+            #
+          </Box>
         </Box>
       )}
-      {!isDaily && children}
+      {!isDaily && (
+        <Box
+          h="1.5em"
+          css={{
+            '::before': {
+              content: `"Untitled"`,
+              gray200: true,
+              breakNormal: true,
+              display: isPlaceholderShow ? 'block' : 'none',
+              absolute: true,
+              h: '1.5em',
+              leading: '1.5em',
+              top: 0,
+              // top: '50%',
+              // transform: 'translate(0, -50%)',
+              whiteSpace: 'nowrap',
+              cursorText: true,
+            },
+          }}
+        >
+          {children}
+        </Box>
+      )}
       {isDaily && (
         <Box toCenterY gap2>
           <TaskProgress />
@@ -98,7 +103,7 @@ export const Title = ({
           gray300
           textSM
           fontNormal
-          mt2
+          mt5
           onClick={insertList}
         >
           Write something...
