@@ -9,4 +9,5 @@ export const BACKGROUND_EVENTS = {
   GetPageContent: 'GET_PAGE_CONTENT',
   EndOfGetPageContent: 'ENDOF_GET_PAGECONTENT',
   SCREEN_SHOT: 'background/screen-shot',
+  SUBMIT_CONTENT: 'background/submit-content',
 }

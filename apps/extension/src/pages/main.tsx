@@ -20,8 +20,6 @@ export function Main() {
   console.log('========spacesQuery:', spacesQuery.data)
 
   const onSubmit = () => {
-    console.log('onsubmit-2', spacesQuery.data)
-
     return
     if (spacesQuery.data.length) {
       addMutation.mutate({

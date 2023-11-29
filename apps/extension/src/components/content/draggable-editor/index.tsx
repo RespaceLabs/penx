@@ -2,6 +2,8 @@ import { XCircle } from 'lucide-react'
 import React, { forwardRef, useState } from 'react'
 import { Rnd } from 'react-rnd'
 
+import { BACKGROUND_EVENTS } from '~/common/action'
+
 import * as styles from '../content.module.css'
 
 export interface IDraggableEditorRef {
@@ -21,8 +23,11 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
       setDoc(event.target.value)
     }
 
-    const onSubmit = () => {
-      console.log('Submit doc:', doc)
+    const onSubmit = async () => {
+      const data = await chrome.runtime.sendMessage({
+        type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
+        payload: { doc },
+      })
     }
 
     return (
