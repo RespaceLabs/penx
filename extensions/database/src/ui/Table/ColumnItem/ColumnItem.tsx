@@ -1,9 +1,16 @@
 import { useState } from 'react'
 import { Box, styled } from '@fower/react'
 import { motion, useMotionValue, useTransform } from 'framer-motion'
-import { MenuItem, Popover, PopoverContent, PopoverTrigger } from 'uikit'
+import {
+  MenuItem,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  usePopoverContext,
+} from 'uikit'
 import { IColumnNode } from '@penx/model-types'
 import { columnWidthMotion } from '../../../columnWidthMotion'
+import { useDatabaseContext } from '../../DatabaseContext'
 import { FieldIcon } from '../FieldIcon'
 import { ResizeHandle } from './ResizeHandle'
 
@@ -65,13 +72,37 @@ export const ColumnItem = ({ column, index }: Props) => {
             </Box>
           </PopoverTrigger>
           <PopoverContent w-200>
-            <MenuItem>Move to left</MenuItem>
-            <MenuItem>Move to right</MenuItem>
-            <MenuItem>Delete Column</MenuItem>
+            <ColumnMenu index={index} columnId={column.id} />
           </PopoverContent>
         </Popover>
         <ResizeHandle x={x} width={width} column={column} />
       </AnimatedDiv>
+    </>
+  )
+}
+
+interface ColumnMenuProps {
+  index: number
+  columnId: string
+}
+function ColumnMenu({ index, columnId }: ColumnMenuProps) {
+  const { close } = usePopoverContext()
+  const { deleteColumn } = useDatabaseContext()
+  async function removeColumn() {
+    await deleteColumn(columnId)
+    close()
+  }
+  return (
+    <>
+      <MenuItem>Sort ascending</MenuItem>
+      <MenuItem>Sort descending</MenuItem>
+      {index !== 0 && (
+        <>
+          <MenuItem>Move to left</MenuItem>
+          <MenuItem>Move to right</MenuItem>
+          <MenuItem onClick={removeColumn}>Delete Column</MenuItem>
+        </>
+      )}
     </>
   )
 }

@@ -24,6 +24,7 @@ export interface IDatabaseContext {
   cells: ICellNode[]
 
   addColumn(fieldType: FieldType): Promise<void>
+  deleteColumn(columnId: string): Promise<void>
   addRow(): Promise<void>
 }
 
@@ -45,7 +46,7 @@ export const DatabaseProvider = ({
 
   const loadDatabase = useCallback(async () => {
     const data = await db.getDatabase(databaseId)
-    // console.log('=====data:', data)
+    console.log('=====data:', data)
     setLoading(false)
     setCtx(data as any)
   }, [databaseId])
@@ -60,7 +61,13 @@ export const DatabaseProvider = ({
     loadDatabase()
   }
 
+  async function deleteColumn(columnId: string) {
+    await db.deleteColumn(databaseId, columnId)
+    loadDatabase()
+  }
+
   ctx.addColumn = addColumn
+  ctx.deleteColumn = deleteColumn
   ctx.addRow = addRow
 
   useEffect(() => {

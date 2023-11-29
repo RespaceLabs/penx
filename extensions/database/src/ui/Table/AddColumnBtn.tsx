@@ -89,6 +89,7 @@ function Content() {
 }
 
 interface Props {}
+
 export const AddColumnBtn: FC<Props> = ({}) => {
   return (
     <Box toCenter square-40 borderBottom borderRight borderTop>

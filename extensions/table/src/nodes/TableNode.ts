@@ -53,7 +53,7 @@ export class TableNode {
     })
   }
 
-  removeColumn(cell: TableCellElement) {
+  deleteColumn(cell: TableCellElement) {
     const cellPath = findNodePath(this.editor, cell)!
     this.element.children!.forEach((_, index) => {
       const at = produce(cellPath, (draft) => {

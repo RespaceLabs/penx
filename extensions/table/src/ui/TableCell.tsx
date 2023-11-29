@@ -77,8 +77,8 @@ export const TableCell = ({
     table.removeRow(element)
   }
 
-  const removeColumn = () => {
-    table.removeColumn(element)
+  const deleteColumn = () => {
+    table.deleteColumn(element)
   }
 
   const colClassName = `table-${tableElement.id}-col-${colIndex}`
@@ -118,7 +118,7 @@ export const TableCell = ({
           <PopoverContent p3 toCenterY gap1>
             <IconInsertLeft onClick={() => addColumn()} />
             <IconInsertRight onClick={() => addColumn(true)} />
-            <Trash2 size={20} onClick={() => removeColumn()} />
+            <Trash2 size={20} onClick={() => deleteColumn()} />
           </PopoverContent>
         </Popover>
       </Box>

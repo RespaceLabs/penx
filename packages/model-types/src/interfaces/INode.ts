@@ -36,7 +36,7 @@ export interface INode {
   props: {
     date?: string // 2024-01-01
     tag?: string // tag name
-    restoreId?: string // restore to original
+    type?: ViewType
     [key: string]: any
   }
 

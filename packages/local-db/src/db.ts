@@ -632,6 +632,7 @@ class DB {
   }
 
   addColumn = async (databaseId: string, fieldType: FieldType) => {
+    // return
     const space = await this.getActiveSpace()
     const spaceId = space.id
 
@@ -648,6 +649,20 @@ class DB {
         config: {},
         width: 120,
       },
+    })
+
+    const views = await this.node.select({
+      where: {
+        type: NodeType.VIEW,
+        spaceId: space.id,
+        databaseId: databaseId,
+      },
+    })
+
+    const view = views.find((node) => node.props.type === ViewType.Table)!
+
+    await this.node.updateByPk(view.id, {
+      children: [...(view!.children || []), column.id],
     })
 
     const rows = await this.node.select({
@@ -756,6 +771,23 @@ class DB {
     if (!cell) {
       await this.addRow(database.id, ref)
     }
+  }
+
+  deleteColumn = async (databaseId: string, columnId: string) => {
+    const cells = await this.node.select({
+      where: {
+        type: NodeType.CELL,
+        databaseId,
+      },
+    })
+
+    return // TODO:
+    for (const cell of cells) {
+      if (cell.props.columnId !== columnId) continue
+      await this.deleteNode(cell.id)
+    }
+
+    console.log('delete column.....')
   }
 }
 
