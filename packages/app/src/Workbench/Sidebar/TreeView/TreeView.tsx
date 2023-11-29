@@ -161,7 +161,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
                 overDepth={overDepth}
                 onCollapse={async () => {
                   if (item.children.length) {
-                    handleCollapse(item.id)
+                    handleFolded(item.id)
                   }
                 }}
               />
@@ -249,7 +249,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
     resetState()
   }
 
-  async function handleCollapse(id: UniqueIdentifier) {
+  async function handleFolded(id: UniqueIdentifier) {
     const newItems = setProperty(items, id, 'folded', (value) => {
       return !value
     })
@@ -347,6 +347,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
       const node = nodeList.getNode(item.id)
       if (
         isEqual(parentId, node.parentId) &&
+        isEqual(item.folded, node.folded) &&
         isEqual(children, node.children)
       ) {
         continue
