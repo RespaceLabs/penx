@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import { useSelected } from 'slate-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from 'uikit'
 import { ELEMENT_H5, ELEMENT_P } from '@penx/constants'
+import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
 import { useEditorStatic } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
 import { useNodes } from '@penx/hooks'
@@ -17,10 +18,12 @@ export const Tag = ({
   let selected = useSelected()
   const { nodeList } = useNodes()
   const node = nodeList.nodeMap.get(element.databaseId)!
-
   const editor = useEditorStatic()
-
   const isInDatabase = (editor.children?.[0] as any)?.type === ELEMENT_P
+
+  const menuId = `tag-menu-${element.databaseId}`
+  // console.log('====element:', element)
+  const { show } = useContextMenu(menuId)
 
   async function clickTag() {
     const database = await db.getNode(element.databaseId)
@@ -44,18 +47,13 @@ export const Tag = ({
       color={node?.tagColor}
       color--D4--hover={node?.tagColor}
       onClick={clickTag}
+      onContextMenu={(e) => {
+        if (isInDatabase) return
+        show(e)
+      }}
     >
       # {node.tagName}
     </Box>
-  )
-
-  const tagTooltip = (
-    <Tooltip>
-      <TooltipTrigger>{tagJSX}</TooltipTrigger>
-      <TooltipContent shadow bgWhite black w-400 h-300>
-        <Box gray500>Coming soon...</Box>
-      </TooltipContent>
-    </Tooltip>
   )
 
   return (
@@ -70,7 +68,12 @@ export const Tag = ({
       contentEditable={false}
     >
       {children}
-      {isInDatabase ? tagJSX : tagTooltip}
+      {tagJSX}
+
+      <ContextMenu id={menuId} w-400>
+        <MenuItem>Add to favorite</MenuItem>
+        <Box>GOGO</Box>
+      </ContextMenu>
     </Box>
   )
 }

@@ -21,6 +21,7 @@
     "@floating-ui/react": "^0.25.4",
     "@fower/react": "^2.0.0",
     "@penx/code-block": "workspace:*",
+    "@penx/context-menu": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-shared": "workspace:*",

@@ -9,7 +9,13 @@ import {
   Inbox,
   Trash2,
 } from 'lucide-react'
-import { useNodes, useSession, useSpaces, useUser } from '@penx/hooks'
+import {
+  useDatabase,
+  useNodes,
+  useSession,
+  useSpaces,
+  useUser,
+} from '@penx/hooks'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import LoginWithGoogleButton from '../../components/LoginWithGoogleButton'
 import { SyncPopover } from '../StatusBar/SyncPopover'

@@ -29,7 +29,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { Box } from '@fower/react'
-import { useNodes } from '@penx/hooks'
+import { useDatabase } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { NodeListService } from '@penx/service'
 import { store } from '@penx/store'

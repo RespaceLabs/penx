@@ -40,14 +40,14 @@ export function SearchByTag({ q, setSearch, close }: Props) {
     const cells = store.node
       .getCells(database.id)
       .filter((cell) => {
-        const node = store.node.findNode(cell.props.ref!)
+        const node = store.node.getNode(cell.props.ref!)
         if (!node) return false
         if (!text) return true
         const str = SlateNode.string(node.element)
         return str.toLowerCase().includes(text.toLowerCase())
       })
       .map((cell) => {
-        const raw = store.node.findNode(cell.props.ref!)!
+        const raw = store.node.getNode(cell.props.ref!)!
         const node = new Node(raw)
         node.raw.props.name = new Node(database).tagName
         return node

@@ -8,6 +8,7 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { useDatabase } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import {
   FieldType,
@@ -17,6 +18,7 @@ import {
   IRowNode,
   IViewNode,
 } from '@penx/model-types'
+import { store } from '@penx/store'
 
 export interface IDatabaseContext {
   database: INode
@@ -49,57 +51,46 @@ export const DatabaseProvider = ({
   databaseId,
 }: PropsWithChildren<DatabaseProviderProps>) => {
   const { Provider } = databaseContext
-  const [loading, setLoading] = useState(true)
-  const [ctx, setCtx] = useState({} as IDatabaseContext)
   const [viewIndex, setViewIndex] = useState(0)
+  const database = useDatabase(databaseId)
 
-  const loadDatabase = useCallback(async () => {
-    const data = await db.getDatabase(databaseId)
-    // console.log('=====data:', data)
-    setLoading(false)
-    setCtx(data as any)
-  }, [databaseId])
+  async function reloadNodes() {
+    const nodes = await db.listNodesBySpaceId(database.database.id)
+    store.node.setNodes(nodes)
+  }
 
   async function addColumn(fieldType: FieldType) {
     await db.addColumn(databaseId, fieldType)
-    loadDatabase()
+    reloadNodes()
   }
 
   async function addRow() {
     await db.addRow(databaseId)
-    loadDatabase()
+    reloadNodes()
   }
 
   async function deleteColumn(columnId: string) {
     await db.deleteColumn(databaseId, columnId)
-    loadDatabase()
+    reloadNodes()
   }
 
   async function moveColumn(fromIndex: number, toIndex: number) {
-    const view = ctx.views[viewIndex]
+    const view = database.views[viewIndex]
     await db.moveColumn(databaseId, view.id, fromIndex, toIndex)
-    loadDatabase()
+    reloadNodes()
   }
 
   async function updateColumnName(columnId: string, name: string) {
     await db.updateColumnName(columnId, name)
-    loadDatabase()
+    reloadNodes()
   }
-
-  useEffect(() => {
-    loadDatabase()
-  }, [loadDatabase])
-
-  if (loading) return null
-
-  const currentView = ctx.views[viewIndex]
 
   return (
     <Provider
       value={{
-        ...ctx,
+        ...database,
         viewIndex,
-        currentView,
+        currentView: database.views[viewIndex] as IViewNode,
         setViewIndex,
         addRow,
         addColumn,

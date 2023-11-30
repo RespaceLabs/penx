@@ -31,7 +31,7 @@ import { Box } from '@fower/react'
 import { Transforms } from 'slate'
 import { getProjection, UniqueIdentifier } from '@penx/dnd-projection'
 import { clearEditor } from '@penx/editor-transforms'
-import { useNodes } from '@penx/hooks'
+import { useDatabase, useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode } from '@penx/model-types'
@@ -85,7 +85,6 @@ interface TreeViewProps {
 const indentationWidth = 50
 
 export const TreeView = ({ nodeList }: TreeViewProps) => {
-  const { nodes } = useNodes()
   const items = nodeList.createTree(nodeList.rootNode)
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null)

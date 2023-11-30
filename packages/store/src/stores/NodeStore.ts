@@ -3,11 +3,28 @@ import { format } from 'date-fns'
 import { atom } from 'jotai'
 import { Transforms } from 'slate'
 import { clearEditor } from '@penx/editor-transforms'
+import { ArraySorter } from '@penx/indexeddb'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
-import { INode, ISpace, NodeType } from '@penx/model-types'
+import {
+  ICellNode,
+  IColumnNode,
+  IDatabaseNode,
+  INode,
+  IRowNode,
+  ISpace,
+  IViewNode,
+  NodeType,
+} from '@penx/model-types'
 import { nodeToSlate } from '@penx/serializer'
 import { StoreType } from './store-types'
+
+type FindOptions<T = INode> = {
+  where?: Partial<T>
+  limit?: number
+  orderByDESC?: boolean
+  sortBy?: keyof T
+}
 
 export const nodesAtom = atom<INode[]>([])
 
@@ -39,9 +56,9 @@ export class NodeStore {
     return newActiveNodes
   }
 
-  findNode(id: string) {
+  getNode(id: string) {
     const nodes = this.getNodes()
-    return nodes.find((node) => node.id === id)
+    return nodes.find((node) => node.id === id)!
   }
 
   getDatabaseByName(tagName: string) {
@@ -52,6 +69,55 @@ export class NodeStore {
     )
 
     return databaseNode
+  }
+
+  getDatabase(id: string, nodes: INode[] = []) {
+    const space = this.store.space.getActiveSpace()
+    const database = this.getNode(id) as IDatabaseNode
+    const columns = this.find({
+      where: {
+        type: NodeType.COLUMN,
+        spaceId: space.id,
+        databaseId: id,
+      },
+    }) as IColumnNode[]
+
+    const rows = this.find({
+      where: {
+        type: NodeType.ROW,
+        spaceId: space.id,
+        databaseId: id,
+      },
+      sortBy: 'createdAt',
+      orderByDESC: false,
+    }) as IRowNode[]
+
+    const views = this.find({
+      where: {
+        type: NodeType.VIEW,
+        spaceId: space.id,
+        databaseId: id,
+      },
+
+      sortBy: 'createdAt',
+      orderByDESC: false,
+    }) as IViewNode[]
+
+    const cells = this.find({
+      where: {
+        type: NodeType.CELL,
+        spaceId: space.id,
+        databaseId: id,
+      },
+    }) as ICellNode[]
+
+    return {
+      database,
+      views,
+      columns,
+      rows,
+      cells,
+    }
   }
 
   getCells(databaseId: string) {
@@ -230,5 +296,44 @@ export class NodeStore {
 
   async deleteRow(rowId: string) {
     await db.deleteRow(rowId)
+  }
+
+  find(options: FindOptions = {}): INode[] {
+    const data = this.getNodes()
+    let result: INode[] = []
+
+    // handle where
+    if (Reflect.has(options, 'where') && options.where) {
+      const whereKeys = Object.keys(options.where)
+
+      result = data.filter((item) => {
+        const dataKeys = Object.keys(item)
+
+        const every = whereKeys.every((key) => {
+          return (
+            dataKeys.includes(key) &&
+            (item as any)[key] === (options.where as any)[key]
+          )
+        })
+
+        return every
+      })
+
+      // handle sortBy
+      if (Reflect.has(options, 'sortBy') && options.sortBy) {
+        // sort data
+        result = new ArraySorter<INode>(result).sortBy({
+          desc: Reflect.has(options, 'orderByDESC') && options.orderByDESC,
+          keys: [options.sortBy as string],
+        })
+      }
+
+      if (Reflect.has(options, 'limit') && options.limit) {
+        // slice data
+        result = result.slice(0, +options.limit)
+      }
+    }
+
+    return result
   }
 }
