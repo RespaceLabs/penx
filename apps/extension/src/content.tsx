@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import TurndownService from 'turndown'
 
 import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
+import type { MsgRes } from '~/common/helper'
 import { prepareContent } from '~/common/prepare-content'
-import type { MsgRes } from '~/common/types'
 
 import { StartSelectEnum } from './components/content/helper'
 import { initSelectArea } from './components/content/selector'

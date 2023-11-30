@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
-import type { MsgRes, TabInfo } from '~/common/types'
+import type { MsgRes, TabInfo } from '~/common/helper'
 import styles from '~/components/popup/main.module.css'
 
 import '../components/popup/globals.module.css'

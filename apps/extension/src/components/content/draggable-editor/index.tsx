@@ -4,7 +4,7 @@ import React, { forwardRef, useEffect } from 'react'
 import { Rnd } from 'react-rnd'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
-import { storageDocKey } from '~/common/types'
+import { storageDocKey } from '~/common/helper'
 
 import * as styles from '../content.module.css'
 import { useDoc } from '../hooks'
@@ -30,13 +30,11 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     }
 
     const onSubmit = async () => {
-      console.log('onSubmit get docStorage:', storageDoc)
-
-      return
       const data = await chrome.runtime.sendMessage({
         type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
         payload: { doc },
       })
+      console.log('onSubmit res:', data)
     }
 
     useEffect(() => {

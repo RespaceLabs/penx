@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useStore } from 'stook'
 
-import { storageDocKey } from '~/common/types'
+import { storageDocKey } from '~/common/helper'
 
 export function useDoc() {
   const [doc, setDoc] = useStore<string>(storageDocKey, '')

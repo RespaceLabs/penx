@@ -32,3 +32,6 @@ export interface MsgRes<T extends ActionKeys, I> {
 }
 
 export const storageDocKey = 'PENX-DOC'
+
+export const SUCCESS = 1
+export const FAIL = 1

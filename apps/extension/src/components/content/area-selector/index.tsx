@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react'
 
-import { storageDocKey } from '~/common/types'
+import { storageDocKey } from '~/common/helper'
 
 import * as styles from '../content.module.css'
 import { useDoc, useForceUpdate } from '../hooks'
