@@ -86,6 +86,9 @@ importers:
       '@penx/model':
         specifier: workspace:*
         version: link:../../packages/model
+      '@penx/trpc-client':
+        specifier: workspace:*
+        version: link:../../packages/trpc-client
       '@plasmohq/storage':
         specifier: ^1.8.0
         version: 1.8.0(react@18.2.0)
@@ -224,6 +227,15 @@ importers:
       react-rnd:
         specifier: ^10.4.1
         version: 10.4.1(react-dom@18.2.0)(react@18.2.0)
+      slate:
+        specifier: 0.94.1
+        version: 0.94.1
+      slate-history:
+        specifier: 0.93.0
+        version: 0.93.0(slate@0.94.1)
+      slate-react:
+        specifier: ^0.101.1
+        version: 0.101.1(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -10928,6 +10940,10 @@ packages:
       rxjs: 6.6.7
     dev: true
 
+  /@types/is-hotkey@0.1.10:
+    resolution: {integrity: sha512-RvC8KMw5BCac1NvRRyaHgMMEtBaZ6wh0pyPTBu7izn4Sj/AX9Y4aXU5c7rX8PnM/knsuUpC1IeoBkANtxBypsQ==}
+    dev: false
+
   /@types/is-hotkey@0.1.7:
     resolution: {integrity: sha512-yB5C7zcOM7idwYZZ1wKQ3pTfjA9BbvFqRWvKB46GFddxnJtHwi/b9y84ykQtxQPg5qhdpg4Q/kWU3EGoCTmLzQ==}
 
@@ -10971,6 +10987,10 @@ packages:
 
   /@types/lodash@4.14.195:
     resolution: {integrity: sha512-Hwx9EUgdwf2GLarOjQp5ZH8ZmblzcbTBC2wtQWNKARBSxM9ezRIAUpeDTgoQRAFB0+8CNWXVA9+MaSOzOF3nPg==}
+
+  /@types/lodash@4.14.202:
+    resolution: {integrity: sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==}
+    dev: false
 
   /@types/markdown-it@13.0.1:
     resolution: {integrity: sha512-SUEb8Frsxs3D5Gg9xek6i6EG6XQ5s+O+ZdQzIPESZVZw3Pv3CPQfjCJBI+RgqZd1IBeu18S0Rn600qpPnEK37w==}
@@ -13368,6 +13388,10 @@ packages:
 
   /compute-scroll-into-view@1.0.20:
     resolution: {integrity: sha512-UCB0ioiyj8CRjtrvaceBLqqhZCVP+1B8+NWQhmdsm0VXOJtobBCf1dBQmebCCo34qZmUwZfIH2MZLqNHazrfjg==}
+    dev: false
+
+  /compute-scroll-into-view@3.1.0:
+    resolution: {integrity: sha512-rj8l8pD4bJ1nx+dAkMhV1xB5RuZEyVysfxJqB1pRchh1KVvwOv9b7CGB8ZfjTImVv2oF+sYMUkMZq6Na5Ftmbg==}
     dev: false
 
   /concat-map@0.0.1:
@@ -19940,6 +19964,12 @@ packages:
       compute-scroll-into-view: 1.0.20
     dev: false
 
+  /scroll-into-view-if-needed@3.1.0:
+    resolution: {integrity: sha512-49oNpRjWRvnU8NyGVmUaYG4jtTkNonFZI86MmGRDqBphEK2EXT9gdEUoQPZhuBM8yWHxCWbobltqYO5M4XrUvQ==}
+    dependencies:
+      compute-scroll-into-view: 3.1.0
+    dev: false
+
   /semver@5.7.2:
     resolution: {integrity: sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==}
     hasBin: true
@@ -20135,6 +20165,27 @@ packages:
     dependencies:
       is-plain-object: 5.0.0
       slate: 0.94.1
+    dev: false
+
+  /slate-react@0.101.1(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1):
+    resolution: {integrity: sha512-YMUeqK4gWBguiQXczBWL2H4Y07R8Ux4ZzH22933a/IFr/+1Ue1d1AIcjl6JyF//OqaQN+rGvVfEhqZncDUTwOw==}
+    peerDependencies:
+      react: '>=18.2.0'
+      react-dom: '>=18.2.0'
+      slate: '>=0.99.0'
+    dependencies:
+      '@juggle/resize-observer': 3.4.0
+      '@types/is-hotkey': 0.1.10
+      '@types/lodash': 4.14.202
+      direction: 1.0.4
+      is-hotkey: 0.2.0
+      is-plain-object: 5.0.0
+      lodash: 4.17.21
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      scroll-into-view-if-needed: 3.1.0
+      slate: 0.94.1
+      tiny-invariant: 1.3.1
     dev: false
 
   /slate-react@0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.94.1):
@@ -20760,6 +20811,10 @@ packages:
 
   /tiny-invariant@1.0.6:
     resolution: {integrity: sha512-FOyLWWVjG+aC0UqG76V53yAWdXfH8bO6FNmyZOuUrzDzK8DI3/JRY25UD7+g49JWM1LXwymsKERB+DzI0dTEQA==}
+    dev: false
+
+  /tiny-invariant@1.3.1:
+    resolution: {integrity: sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==}
     dev: false
 
   /tiny-warning@1.0.3:
