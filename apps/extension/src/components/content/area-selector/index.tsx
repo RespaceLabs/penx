@@ -1,3 +1,4 @@
+import { useStorage } from '@plasmohq/storage/hook'
 import classnames from 'classnames'
 import {
   forwardRef,
@@ -8,10 +9,11 @@ import {
   useState,
 } from 'react'
 
+import { storageDocKey } from '~/common/types'
+
 import * as styles from '../content.module.css'
-import { docSessionKey } from '../helper'
+import { useDoc, useForceUpdate } from '../hooks'
 import { transformDOM } from './common/transform-dom'
-import { useForceUpdate } from './hooks'
 
 type Rect = Pick<DOMRect, 'width' | 'height' | 'left' | 'top'>
 
@@ -33,11 +35,8 @@ const AreaSelector = forwardRef<ISelectorRef, ISelectorProps>(
     const [saving, setSaving] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
 
-    /*
-    const onSave = useCallback(async () => {
-      // Implementation
-    }, []);
-    */
+    const [_, setStorageDoc] = useStorage(storageDocKey, '')
+    const { setDoc } = useDoc()
 
     const onScreenshot = useCallback(async () => {
       // Implementation
@@ -58,7 +57,9 @@ const AreaSelector = forwardRef<ISelectorRef, ISelectorProps>(
       const combinedString = (
         Array.from(selectAreaElements) as string[]
       ).reduce((prev, current) => prev + current, '')
-      window.sessionStorage.setItem(docSessionKey, combinedString)
+
+      setStorageDoc(combinedString)
+      setDoc(combinedString)
       props.destroySelectArea(true)
     }, [])
 

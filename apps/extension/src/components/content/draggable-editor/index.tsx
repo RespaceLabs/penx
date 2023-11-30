@@ -1,11 +1,13 @@
+import { useStorage } from '@plasmohq/storage/hook'
 import { XCircle } from 'lucide-react'
-import React, { forwardRef, useEffect, useState } from 'react'
+import React, { forwardRef, useEffect } from 'react'
 import { Rnd } from 'react-rnd'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
+import { storageDocKey } from '~/common/types'
 
 import * as styles from '../content.module.css'
-import { docSessionKey } from '../helper'
+import { useDoc } from '../hooks'
 
 export interface IDraggableEditorRef {
   onSave: () => Promise<void>
@@ -17,16 +19,20 @@ interface DraggableEditorProps {
 
 const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
   function ScreenShotComponent(props, propsRef) {
-    const [doc, setDoc] = useState<string>('')
     const { destroySelectArea } = props
+    const [storageDoc, setStorageDoc] = useStorage(storageDocKey, '')
+    const { doc, setDoc } = useDoc()
 
     const handleChange = (event) => {
       const newValue = event.target.value
       setDoc(newValue)
-      sessionStorage.setItem(docSessionKey, newValue)
+      setStorageDoc(newValue)
     }
 
     const onSubmit = async () => {
+      console.log('onSubmit get docStorage:', storageDoc)
+
+      return
       const data = await chrome.runtime.sendMessage({
         type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
         payload: { doc },
@@ -34,9 +40,10 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     }
 
     useEffect(() => {
-      const storedDoc = sessionStorage.getItem(docSessionKey)
-      setDoc(storedDoc)
-    }, [])
+      if (!doc && storageDoc) {
+        setDoc(storageDoc)
+      }
+    }, [storageDoc])
 
     return (
       <div className={styles.draggableContainer}>

@@ -9,8 +9,8 @@ import React, {
   useState,
 } from 'react'
 
-import { useForceUpdate } from '../area-selector/hooks'
 import * as styles from '../content.module.css'
+import { useForceUpdate } from '../hooks'
 import { blobToBase64, screenShot } from './common/screen-shot'
 import DragLine from './drag-line'
 
