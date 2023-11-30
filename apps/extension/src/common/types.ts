@@ -30,3 +30,5 @@ export interface MsgRes<T extends ActionKeys, I> {
   type: T
   payload: I
 }
+
+export const storageDocKey = 'PENX-DOC'
