@@ -1,5 +1,8 @@
 import { Box } from '@fower/react'
 import { useSelected } from 'slate-react'
+import { Tooltip, TooltipContent, TooltipTrigger } from 'uikit'
+import { ELEMENT_H5, ELEMENT_P } from '@penx/constants'
+import { useEditorStatic } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
 import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
@@ -15,6 +18,10 @@ export const Tag = ({
   const { nodeList } = useNodes()
   const node = nodeList.nodeMap.get(element.databaseId)!
 
+  const editor = useEditorStatic()
+
+  const isInDatabase = (editor.children?.[0] as any)?.type === ELEMENT_P
+
   async function clickTag() {
     const database = await db.getNode(element.databaseId)
     if (database) {
@@ -23,6 +30,33 @@ export const Tag = ({
       store.node.selectNode(database)
     }
   }
+
+  const tagJSX = (
+    <Box
+      contentEditable={false}
+      cursorPointer
+      fontNormal
+      py1
+      px1
+      textXS
+      bg--T92={node?.tagColor}
+      bg--T88--hover={node?.tagColor}
+      color={node?.tagColor}
+      color--D4--hover={node?.tagColor}
+      onClick={clickTag}
+    >
+      # {node.tagName}
+    </Box>
+  )
+
+  const tagTooltip = (
+    <Tooltip>
+      <TooltipTrigger>{tagJSX}</TooltipTrigger>
+      <TooltipContent shadow bgWhite black w-400 h-300>
+        <Box gray500>Coming soon...</Box>
+      </TooltipContent>
+    </Tooltip>
+  )
 
   return (
     <Box
@@ -36,21 +70,7 @@ export const Tag = ({
       contentEditable={false}
     >
       {children}
-      <Box
-        contentEditable={false}
-        cursorPointer
-        fontNormal
-        py1
-        px1
-        textXS
-        bg--T92={node?.tagColor}
-        bg--T88--hover={node?.tagColor}
-        color={node?.tagColor}
-        color--D4--hover={node?.tagColor}
-        onClick={clickTag}
-      >
-        # {node.tagName}
-      </Box>
+      {isInDatabase ? tagJSX : tagTooltip}
     </Box>
   )
 }

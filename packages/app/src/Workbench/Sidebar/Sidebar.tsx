@@ -70,7 +70,7 @@ export const Sidebar = () => {
 
             <SidebarItem
               icon={<Hash size={16} />}
-              label="Tags"
+              label="Meta tags"
               onClick={() => {
                 store.node.selectTagBox()
               }}

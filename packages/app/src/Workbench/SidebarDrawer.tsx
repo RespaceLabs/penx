@@ -1,5 +1,5 @@
 import { Box, styled } from '@fower/react'
-import { CalendarDays, Cloud, Folder, Inbox, Menu } from 'lucide-react'
+import { CalendarDays, Cloud, Folder, Hash, Inbox, Menu } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
 import { useNodes, useSession, useSidebarDrawer, useUser } from '@penx/hooks'
@@ -58,6 +58,14 @@ export const DrawerSidebar = () => {
                 onClick={() => {
                   store.node.selectDailyNote()
                   close()
+                }}
+              />
+
+              <SidebarItem
+                icon={<Hash size={16} />}
+                label="Meta tags"
+                onClick={() => {
+                  store.node.selectTagBox()
                 }}
               />
 
