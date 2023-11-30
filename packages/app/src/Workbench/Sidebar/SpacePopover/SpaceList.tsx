@@ -2,11 +2,12 @@ import { Box } from '@fower/react'
 import { Plus } from 'lucide-react'
 import { Button, modalController, PopoverClose } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { useSpaces } from '@penx/hooks'
+import { useSidebarDrawer, useSpaces } from '@penx/hooks'
 import { SpaceItem } from './SpaceItem'
 
 export const SpaceList = () => {
   const { spaces, activeSpace } = useSpaces()
+  const { close } = useSidebarDrawer()
 
   return (
     <Box toCenterX w-100p p2>
@@ -22,6 +23,7 @@ export const SpaceList = () => {
               w-100p
               onClick={() => {
                 modalController.open(ModalNames.CREATE_SPACE)
+                close?.()
               }}
             >
               <Plus />

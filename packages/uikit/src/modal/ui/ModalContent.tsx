@@ -1,6 +1,6 @@
 import React, { FC, forwardRef } from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
-import { Box, styled } from '@fower/react'
+import { Box, css, styled } from '@fower/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Portal } from '../../portal'
 import { Z_INDEX } from '../constants'
@@ -33,7 +33,7 @@ export const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
               zIndex={Z_INDEX + 1}
             >
               <Box w-100p h-100p toCenter bgTransparent>
-                <RemoveScroll>
+                <RemoveScroll className={css({ toCenter: true, w: '100%' })}>
                   <AnimatedDiv
                     onClick={(e) => {
                       e.stopPropagation()

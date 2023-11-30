@@ -71,7 +71,7 @@ export const SyncPopover: FC<Props> = () => {
   return (
     <Popover placement="top-start">
       <PopoverTrigger asChild>
-        <Box gapX2 toCenterY h-100p>
+        <Box gapX2 toCenterY h-100p inlineFlex>
           <Box toCenterY gap1 rounded cursorPointer px2>
             {isSyncing && (
               <>
@@ -117,9 +117,12 @@ export const SyncPopover: FC<Props> = () => {
               toCenter
               gap1
               bgGray100--hover
-              onClick={async () => {
-                close()
-                pushToCloud()
+              onClick={async (e) => {
+                console.log('l......xxxxxxxxx')
+
+                e.stopPropagation()
+                // close()
+                // pushToCloud()
               }}
             >
               <IconPush square-20 />

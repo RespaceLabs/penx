@@ -18,7 +18,7 @@ export const PCNav = () => {
       toCenterY
       toBetween
       px2
-      display={['none', 'inline-flex', 'inline-flex']}
+      display={['none', 'none', 'inline-flex']}
       w-100p
       bgWhite
       zIndex-10

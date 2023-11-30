@@ -39,7 +39,7 @@ export const Title = ({
     <Box
       pl5
       pl9={isDatabase}
-      text4XL
+      text={[28, 28, 36]}
       fontMedium
       gray900
       relative

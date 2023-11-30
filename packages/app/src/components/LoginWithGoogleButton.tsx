@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Box, css } from '@fower/react'
+import { Box } from '@fower/react'
 import { toast } from 'sonner'
 import { Button, Spinner } from 'uikit'
 import { IconGoogle } from '@penx/icons'
@@ -26,13 +26,13 @@ export default function LoginWithGoogleButton() {
       disabled={loading}
       size="lg"
       colorScheme="white"
+      cursorNotAllowed={loading}
+      gapX2
+      w={['100%', '100%', 240]}
       onClick={() => {
         setLoading(true)
         appEmitter.emit('SIGN_IN_GOOGLE')
       }}
-      cursorNotAllowed={loading}
-      gapX2
-      w-240
     >
       {loading ? (
         <Spinner />

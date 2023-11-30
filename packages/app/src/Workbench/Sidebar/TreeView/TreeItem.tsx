@@ -3,7 +3,7 @@ import isEqual from 'react-fast-compare'
 import { useSortable } from '@dnd-kit/sortable'
 import { Box, CSSObject, FowerHTMLProps } from '@fower/react'
 import { ChevronDown, ChevronRight } from 'lucide-react'
-import { useNodes } from '@penx/hooks'
+import { useNodes, useSidebarDrawer } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
 import { FlattenedItem } from './types'
@@ -25,6 +25,7 @@ export const TreeItem = memo(
     const { nodes, nodeList } = useNodes()
     const node = new Node(item as any)
     const hasChildren = !!item.children.length
+    const { isOpen, close, open } = useSidebarDrawer()
 
     return (
       <Box
@@ -45,6 +46,7 @@ export const TreeItem = memo(
         {...listeners}
         {...rest}
         onClick={() => {
+          close?.()
           const node = nodeList.getNode(item.id)
           store.node.selectNode(node.raw)
         }}

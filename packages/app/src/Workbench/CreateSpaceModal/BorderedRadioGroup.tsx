@@ -22,8 +22,8 @@ export const BorderedRadioGroup = forwardRef<HTMLDivElement, Props>(
             <Radio key={option.value} value={option.value} flex-1>
               {({ checked }) => (
                 <Box
-                  px6
-                  gapX6
+                  px={[12, 12, 24]}
+                  gapX={[8, 8, 20]}
                   transitionAll
                   border
                   borderGray200
@@ -32,7 +32,7 @@ export const BorderedRadioGroup = forwardRef<HTMLDivElement, Props>(
                   borderBrand500={checked}
                   toCenterY
                   flex-1
-                  textXL
+                  text={[16, 16, 24]}
                   py5
                 >
                   <RadioIndicator />

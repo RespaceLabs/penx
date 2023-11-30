@@ -103,7 +103,7 @@ export const Sidebar = () => {
         {!session && <LoginWithGoogleButton />}
         {/* {!isConnected && <WalletConnectButton size="lg" w-100p />}
         {isConnected && <UserAvatarModal />} */}
-        <SyncPopover />
+        {session && <SyncPopover />}
       </Box>
     </Box>
   )

@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
 import { Cloud, KeyRound, Laptop } from 'lucide-react'
 import { PopoverClose, Tag } from 'uikit'
+import { useSidebarDrawer } from '@penx/hooks'
 import { Space } from '@penx/model'
 import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
@@ -13,6 +14,7 @@ interface Props {
 
 export function SpaceItem({ item, activeSpace }: Props) {
   const active = activeSpace.id === item.id
+  const { close } = useSidebarDrawer()
   return (
     <PopoverClose asChild>
       <Box
@@ -29,6 +31,7 @@ export function SpaceItem({ item, activeSpace }: Props) {
         cursorPointer
         transitionColors
         onClick={async () => {
+          close?.()
           await store.space.selectSpace(item.id)
         }}
       >

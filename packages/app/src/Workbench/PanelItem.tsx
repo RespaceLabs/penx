@@ -51,7 +51,7 @@ export function PanelItem({ node, index }: Props) {
             <Box
               mx-auto
               maxW-800
-              mt8
+              mt={[0, 0, 32]}
               style={{
                 wordBreak: 'break-all',
               }}

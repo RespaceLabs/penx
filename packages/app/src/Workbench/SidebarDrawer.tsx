@@ -2,18 +2,22 @@ import { Box, styled } from '@fower/react'
 import { CalendarDays, Cloud, Folder, Inbox, Menu } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
-import { useSidebarDrawer, useUser } from '@penx/hooks'
+import { useNodes, useSession, useSidebarDrawer, useUser } from '@penx/hooks'
 import { store } from '@penx/store'
+import LoginWithGoogleButton from '../components/LoginWithGoogleButton'
 import { FavoriteBox } from './Sidebar/FavoriteBox/FavoriteBox'
 import { SidebarItem } from './Sidebar/SidebarItem'
 import { SpacePopover } from './Sidebar/SpacePopover/SpacePopover'
+import { TreeView } from './Sidebar/TreeView/TreeView'
+import { SyncPopover } from './StatusBar/SyncPopover'
 
 const DrawerOverlay = styled(Drawer.Overlay)
 const DrawerContent = styled(Drawer.Content)
 
 export const DrawerSidebar = () => {
   const { isOpen, close, open } = useSidebarDrawer()
-  const user = useUser()
+  const session = useSession()
+  const { nodes, nodeList } = useNodes()
   return (
     <Drawer.Root
       shouldScaleBackground
@@ -43,11 +47,11 @@ export const DrawerSidebar = () => {
           left-0
           right-0
           zIndex-101
-          overflowHidden
+          // overflowHidden
         >
-          <Box overflowAuto p5>
+          <Box column overflowAuto px5 py2 flex-1>
             <SpacePopover />
-            <Box flex-1>
+            <Box flex-1 mt3>
               <SidebarItem
                 icon={<CalendarDays size={16} />}
                 label="Today"
@@ -57,25 +61,16 @@ export const DrawerSidebar = () => {
                 }}
               />
 
-              <SidebarItem
-                icon={<Inbox size={16} />}
-                label="Inbox"
-                onClick={() => {
-                  store.node.selectInbox()
-                  close()
-                }}
-              />
-
-              <SidebarItem
-                icon={<Folder size={16} />}
-                label="All Nodes"
-                onClick={() => {
-                  store.node.selectSpaceNode()
-                  close()
-                }}
-              />
+              <TreeView nodeList={nodeList} />
 
               {/* <FavoriteBox /> */}
+
+              {/* {!isConnected && <WalletConnectButton size="lg" w-100p />}
+        {isConnected && <UserAvatarModal />} */}
+            </Box>
+            <Box>
+              {!session && <LoginWithGoogleButton />}
+              {session && <SyncPopover />}
             </Box>
           </Box>
         </DrawerContent>
