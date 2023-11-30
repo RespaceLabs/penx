@@ -1,6 +1,7 @@
 export enum StartSelectEnum {
   areaSelect = 'areaSelect',
   screenShot = 'screenShot',
+  draggableEditor = 'draggableEditor',
 }
 
 // selection container id
@@ -18,6 +19,8 @@ export enum SandBoxMessageType {
 }
 
 export const SandBoxMessageKey = 'sandbox'
+
+export const docSessionKey = 'PENX-DOC'
 
 export enum ClippingTypeEnum {
   // selection content

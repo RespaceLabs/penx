@@ -1,5 +1,6 @@
 import { BACKGROUND_EVENTS } from '~/common/action'
 import { parsePreparedContent } from '~/common/parser'
+import { trpc } from '~/common/trpc'
 import type { MsgRes, TabInfo } from '~/common/types'
 
 async function setMessageToFrontEnd(
@@ -57,6 +58,14 @@ chrome.runtime.onMessage.addListener(
               )
               sendResponse(url)
             })
+          })
+          break
+        }
+        case BACKGROUND_EVENTS.SUBMIT_CONTENT: {
+          const addMutation = trpc.node.addMarkdown
+          console.log('request.payload:', {
+            payload: request.payload,
+            addMutation,
           })
           break
         }

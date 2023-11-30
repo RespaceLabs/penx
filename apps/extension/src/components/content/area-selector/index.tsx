@@ -9,11 +9,7 @@ import {
 } from 'react'
 
 import * as styles from '../content.module.css'
-import {
-  PENX_SANDBOX_BOARD_IFRAME,
-  SandBoxMessageKey,
-  SandBoxMessageType,
-} from '../helper'
+import { docSessionKey } from '../helper'
 import { transformDOM } from './common/transform-dom'
 import { useForceUpdate } from './hooks'
 
@@ -24,7 +20,7 @@ export interface ISelectorRef {
 }
 
 interface ISelectorProps {
-  destroySelectArea: () => void
+  destroySelectArea: (isOpenEditor?: boolean) => void
 }
 
 const AreaSelector = forwardRef<ISelectorRef, ISelectorProps>(
@@ -59,31 +55,11 @@ const AreaSelector = forwardRef<ISelectorRef, ISelectorProps>(
       setSaving(true)
       const selections = targetListRef.current.filter((item) => item) || []
       const selectAreaElements = await transformDOM(selections)
-      const HTMLs = Array.from(selectAreaElements)
-
-      console.log('area-selector-onSave', {
-        selectAreaElements,
-        selections,
-        HTMLs,
-      })
-      /*
-      const iframe = document.querySelector(
-        `#${PENX_SANDBOX_BOARD_IFRAME}`,
-      ) as HTMLIFrameElement;
-      iframe.contentWindow?.postMessage(
-        {
-          key: SandBoxMessageKey,
-          action: SandBoxMessageType.getSelectedHtml,
-          data: {
-            HTMLs,
-          },
-        },
-        '*',
-      );
-      iframe.classList.add('show');
-      iframe.focus();
-      */
-      props.destroySelectArea()
+      const combinedString = (
+        Array.from(selectAreaElements) as string[]
+      ).reduce((prev, current) => prev + current, '')
+      window.sessionStorage.setItem(docSessionKey, combinedString)
+      props.destroySelectArea(true)
     }, [])
 
     useImperativeHandle(
@@ -194,7 +170,7 @@ const AreaSelector = forwardRef<ISelectorRef, ISelectorProps>(
             <div
               className={classnames(styles.confirm, 'select-confirm')}
               onClick={onSave}>
-              Confirm selection{targetRectListRef.current.length}
+              Confirm selection
             </div>
           )}
         </div>

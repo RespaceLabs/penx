@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { createRoot, Root } from 'react-dom/client'
 
 import Selector, { ISelectorRef } from './area-selector'
+import DraggableEditor from './draggable-editor'
 import {
   PENX_SANDBOX_BOARD_IFRAME,
   PENX_SELECTION_CONTAINER,
@@ -17,6 +18,7 @@ export const App = (props: IAppProps) => {
   const { type = StartSelectEnum.areaSelect } = props
   const screenShotRef = useRef<IScreenShotRef>(null)
   const selectorRef = useRef<ISelectorRef>(null)
+  const draggableEditorRef = useRef<ISelectorRef>(null)
 
   useEffect(() => {
     setTimeout(() => {
@@ -49,6 +51,13 @@ export const App = (props: IAppProps) => {
       {type === StartSelectEnum.screenShot && (
         <ScreenShot ref={screenShotRef} destroySelectArea={destroySelectArea} />
       )}
+
+      {type === StartSelectEnum.draggableEditor && (
+        <DraggableEditor
+          ref={draggableEditorRef}
+          destroySelectArea={destroySelectArea}
+        />
+      )}
     </>
   )
 }
@@ -67,7 +76,7 @@ export function initSelectArea(params: { type: StartSelectEnum }) {
   root.render(<App type={params.type} />)
 }
 
-export function destroySelectArea() {
+export function destroySelectArea(isOpenEditor = false) {
   if (!root) {
     return
   }
@@ -79,4 +88,9 @@ export function destroySelectArea() {
   wrapper?.remove()
 
   document.querySelector(`#${PENX_SANDBOX_BOARD_IFRAME}`)?.classList.add('show')
+  if (isOpenEditor) {
+    initSelectArea({
+      type: StartSelectEnum.draggableEditor,
+    })
+  }
 }
