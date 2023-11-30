@@ -1,6 +1,7 @@
+import { trpc } from '@penx/trpc-client'
+
 import { BACKGROUND_EVENTS } from '~/common/action'
 import { parsePreparedContent } from '~/common/parser'
-import { trpc } from '~/common/trpc'
 import type { MsgRes, TabInfo } from '~/common/types'
 
 async function setMessageToFrontEnd(
@@ -62,11 +63,16 @@ chrome.runtime.onMessage.addListener(
           break
         }
         case BACKGROUND_EVENTS.SUBMIT_CONTENT: {
-          const addMutation = trpc.node.addMarkdown
-          console.log('request.payload:', {
-            payload: request.payload,
-            addMutation,
-          })
+          /*
+            trpc.node.addMarkdown.mutate({
+              spaceId: spacesQuery.data[0].id,
+              markdown: 'Hello World! day-extendsion 2:',
+            })
+          */
+
+          // console.log('request.payload:', {
+          //   payload: request.payload,
+          // })
           break
         }
       }
