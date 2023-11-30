@@ -1,5 +1,4 @@
 import { BACKGROUND_EVENTS } from '~/common/action'
-import Chrome from '~/common/chrome'
 
 interface IScreenShotOptions {
   width: number
@@ -24,7 +23,7 @@ export async function screenShot(
   options: IScreenShotOptions,
 ): Promise<HTMLCanvasElement> {
   return new Promise((resolve, rejected) => {
-    Chrome.runtime.sendMessage(
+    chrome.runtime.sendMessage(
       {
         type: BACKGROUND_EVENTS.SCREEN_SHOT,
         payload: {},
