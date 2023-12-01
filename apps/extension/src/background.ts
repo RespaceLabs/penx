@@ -1,8 +1,8 @@
 import { trpc } from '@penx/trpc-client'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
+import { FAIL, SUCCESS, type MsgRes, type TabInfo } from '~/common/helper'
 import { parsePreparedContent } from '~/common/parser'
-import type { MsgRes, TabInfo } from '~/common/types'
 
 async function setMessageToFrontEnd(
   type: keyof typeof BACKGROUND_EVENTS | string,
@@ -63,16 +63,22 @@ chrome.runtime.onMessage.addListener(
           break
         }
         case BACKGROUND_EVENTS.SUBMIT_CONTENT: {
-          /*
-            trpc.node.addMarkdown.mutate({
-              spaceId: spacesQuery.data[0].id,
-              markdown: 'Hello World! day-extendsion 2:',
+          try {
+            const mySpaces = await trpc.space.mySpaces.query()
+            const res = await trpc.node.addMarkdown.mutate({
+              spaceId: mySpaces[0].id,
+              markdown: request.payload.doc,
             })
-          */
 
-          // console.log('request.payload:', {
-          //   payload: request.payload,
-          // })
+            console.log('mySpaces-res', {
+              mySpaces,
+              res,
+              data: request.payload.doc,
+            })
+            sendResponse({ msg: 'ok', code: SUCCESS })
+          } catch (error) {
+            sendResponse({ msg: error, code: FAIL })
+          }
           break
         }
       }

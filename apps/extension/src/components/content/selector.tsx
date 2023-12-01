@@ -62,7 +62,8 @@ export const App = (props: IAppProps) => {
   )
 }
 
-let root: Root
+let root: Root | null = null // Initialize root as null
+let isRootMounted = false // Track root mount status
 
 export function initSelectArea(params: { type: StartSelectEnum }) {
   let wrapper = document.querySelector(`#${PENX_SELECTION_CONTAINER}`)
@@ -72,18 +73,23 @@ export function initSelectArea(params: { type: StartSelectEnum }) {
     document.documentElement.appendChild(wrapper)
   }
 
-  root = createRoot(wrapper)
+  if (!root || !isRootMounted) {
+    root = createRoot(wrapper) // Create root if it doesn't exist or is unmounted
+    isRootMounted = true // Set root mount status to true
+  }
+
   root.render(<App type={params.type} />)
 }
 
 export function destroySelectArea(isOpenEditor = false) {
-  if (!root) {
+  if (!root || !isRootMounted) {
     return
   }
 
   const wrapper = document.querySelector(`#${PENX_SELECTION_CONTAINER}`)
 
   root.unmount()
+  isRootMounted = false // Set root mount status to false
 
   wrapper?.remove()
 
