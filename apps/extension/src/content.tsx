@@ -1,6 +1,6 @@
 import styles from 'data-text:./components/content/content.module.css'
 import type { PlasmoCSConfig } from 'plasmo'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import TurndownService from 'turndown'
 
 import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
@@ -71,8 +71,14 @@ const PlasmoOverlay = () => {
     )
 
     const handleShortcut = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.shiftKey && event.keyCode === 75) {
-        initSelectArea({ type: StartSelectEnum.draggableEditor })
+      const shortcutMap = {
+        K: StartSelectEnum.draggableEditor,
+        J: StartSelectEnum.areaSelect,
+        L: StartSelectEnum.screenShot,
+      }
+
+      if (event.ctrlKey && event.shiftKey && shortcutMap[event.key]) {
+        initSelectArea({ type: shortcutMap[event.key] })
       }
     }
 

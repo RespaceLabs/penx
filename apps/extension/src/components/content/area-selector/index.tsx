@@ -12,6 +12,7 @@ import {
 import { storageDocKey } from '~/common/helper'
 
 import * as styles from '../content.module.css'
+import { StartSelectEnum } from '../helper'
 import { useDoc, useForceUpdate } from '../hooks'
 import { transformDOM } from './common/transform-dom'
 
@@ -69,6 +70,7 @@ const AreaSelector = forwardRef<ISelectorRef, ISelectorProps>(
         onSave: async () => {
           onSave()
         },
+        type: StartSelectEnum.areaSelect,
       }),
       [onSave],
     )

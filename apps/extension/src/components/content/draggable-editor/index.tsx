@@ -1,17 +1,16 @@
 import { useStorage } from '@plasmohq/storage/hook'
 import { XCircle } from 'lucide-react'
-import React, { forwardRef, useEffect } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle } from 'react'
 import { Rnd } from 'react-rnd'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
 import { storageDocKey } from '~/common/helper'
 
 import * as styles from '../content.module.css'
+import { StartSelectEnum } from '../helper'
 import { useDoc } from '../hooks'
 
-export interface IDraggableEditorRef {
-  onSave: () => Promise<void>
-}
+export interface IDraggableEditorRef {}
 
 interface DraggableEditorProps {
   destroySelectArea: () => void
@@ -42,6 +41,14 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
         setDoc(storageDoc)
       }
     }, [storageDoc])
+
+    useImperativeHandle(
+      propsRef,
+      () => ({
+        type: StartSelectEnum.areaSelect,
+      }),
+      [],
+    )
 
     return (
       <div className={styles.draggableContainer}>

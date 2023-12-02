@@ -12,13 +12,20 @@ import ScreenShot, { IScreenShotRef } from './screen-shot'
 
 interface IAppProps {
   type?: StartSelectEnum
+  onSelectorMount: (ref: any) => void
 }
 
 export const App = (props: IAppProps) => {
-  const { type = StartSelectEnum.areaSelect } = props
+  const { type = StartSelectEnum.areaSelect, onSelectorMount } = props
   const screenShotRef = useRef<IScreenShotRef>(null)
   const selectorRef = useRef<ISelectorRef>(null)
   const draggableEditorRef = useRef<ISelectorRef>(null)
+
+  const refs = {
+    [StartSelectEnum.areaSelect]: selectorRef,
+    [StartSelectEnum.screenShot]: screenShotRef,
+    [StartSelectEnum.draggableEditor]: draggableEditorRef,
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -37,7 +44,11 @@ export const App = (props: IAppProps) => {
         }
       }
     }
+
     document.addEventListener('keydown', handleKeyDown)
+
+    onSelectorMount(refs[type])
+
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
@@ -63,7 +74,8 @@ export const App = (props: IAppProps) => {
 }
 
 let root: Root | null = null // Initialize root as null
-let isRootMounted = false // Track root mount status
+let isRootMounted: boolean = false // Track root mount status
+let selectorRef = null
 
 export function initSelectArea(params: { type: StartSelectEnum }) {
   let wrapper = document.querySelector(`#${PENX_SELECTION_CONTAINER}`)
@@ -73,12 +85,23 @@ export function initSelectArea(params: { type: StartSelectEnum }) {
     document.documentElement.appendChild(wrapper)
   }
 
+  const onSelectortMount = (ref: any) => {
+    selectorRef = ref
+  }
+
   if (!root || !isRootMounted) {
     root = createRoot(wrapper) // Create root if it doesn't exist or is unmounted
     isRootMounted = true // Set root mount status to true
   }
 
-  root.render(<App type={params.type} />)
+  // If the component exists, destroy it
+  if (selectorRef?.current?.type) {
+    destroySelectArea()
+    selectorRef = null
+    return
+  }
+
+  root.render(<App type={params.type} onSelectorMount={onSelectortMount} />)
 }
 
 export function destroySelectArea(isOpenEditor = false) {
