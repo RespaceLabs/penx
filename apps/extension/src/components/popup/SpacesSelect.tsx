@@ -1,5 +1,4 @@
 import { Box } from '@fower/react'
-import { useStorage } from '@plasmohq/storage/hook'
 import { useEffect, useState } from 'react'
 import {
   Select,
@@ -10,14 +9,14 @@ import {
   SelectValue,
 } from 'uikit'
 
-import { selectedSpaceKey, spacesKey } from '~/common/helper'
+import { useMySpaces, useSelectedSpace } from '../content/hooks'
 
 interface SpacesSelectProps {}
 
 export function SpacesSelect(props: SpacesSelectProps) {
   const [value, setValue] = useState<string>('')
-  const [selectedSpace, setSelectedSpace] = useStorage(selectedSpaceKey, '')
-  const [mySpaces] = useStorage(spacesKey, [])
+  const { selectedSpace, setSelectedSpace } = useSelectedSpace()
+  const { mySpaces } = useMySpaces()
 
   const onChange = (v: string) => {
     setValue(v)

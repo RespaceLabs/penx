@@ -1,14 +1,13 @@
-import { useStorage } from '@plasmohq/storage/hook'
 import { XCircle } from 'lucide-react'
 import React, { forwardRef, useEffect, useImperativeHandle } from 'react'
 import { Rnd } from 'react-rnd'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
-import { selectedSpaceKey, storageDocKey } from '~/common/helper'
+import { SUCCESS } from '~/common/helper'
 
 import * as styles from '../content.module.css'
 import { StartSelectEnum } from '../helper'
-import { useDoc } from '../hooks'
+import { useDoc, useSelectedSpace, useStorageDoc } from '../hooks'
 
 export interface IDraggableEditorRef {}
 
@@ -19,9 +18,9 @@ interface DraggableEditorProps {
 const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
   function ScreenShotComponent(props, propsRef) {
     const { destroySelectArea } = props
-    const [storageDoc, setStorageDoc] = useStorage(storageDocKey, '')
+    const { storageDoc, setStorageDoc } = useStorageDoc()
     const { doc, setDoc } = useDoc()
-    const [selectedSpace] = useStorage(selectedSpaceKey, '')
+    const { selectedSpace } = useSelectedSpace()
 
     const handleChange = (event) => {
       const newValue = event.target.value
@@ -30,12 +29,16 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     }
 
     const onSubmit = async () => {
-      console.log('selectedSpace:', { selectedSpace })
       if (selectedSpace) {
         const data = await chrome.runtime.sendMessage({
           type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
           payload: { doc, spaceId: selectedSpace },
         })
+
+        if (data.code === SUCCESS) {
+          setDoc('')
+          setStorageDoc('')
+        }
         console.log('onSubmit res:', data)
       } else {
         alert('Please select a space')
