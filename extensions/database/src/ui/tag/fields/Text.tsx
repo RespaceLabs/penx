@@ -30,15 +30,15 @@ export const TextCell: FC<CellProps> = memo(function TextCell(props) {
         onChange={onChange}
         className={css({
           border: true,
-          rounded: true,
+          roundedLG: true,
           w: '100%',
           h: '100%',
           outline: 'none',
           resize: 'none',
           fontFamily: 'unset',
-          // textSM: true,
           py: 8,
           px: 8,
+          textBase: true,
         })}
       />
     </Box>

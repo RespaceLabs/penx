@@ -29,7 +29,7 @@ export function PanelItem({ node, index }: Props) {
 
   const content = nodeToSlate(node.raw, nodeList.rawNodes)
 
-  // console.log('==========:', content, nodeList.rawNodes)
+  // console.log('==========:', node, content, nodeList.rawNodes)
 
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
     await nodeService.savePage(node.raw, value[0], value[1])

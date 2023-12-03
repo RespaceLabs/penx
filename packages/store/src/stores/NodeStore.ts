@@ -15,6 +15,7 @@ import {
   ISpace,
   IViewNode,
   NodeType,
+  ViewType,
 } from '@penx/model-types'
 import { nodeToSlate } from '@penx/serializer'
 import { StoreType } from './store-types'
@@ -92,16 +93,15 @@ export class NodeStore {
       orderByDESC: false,
     }) as IRowNode[]
 
-    const views = this.find({
-      where: {
-        type: NodeType.VIEW,
-        spaceId: space.id,
-        databaseId: id,
-      },
-
-      sortBy: 'createdAt',
-      orderByDESC: false,
-    }) as IViewNode[]
+    const views = (
+      this.find({
+        where: {
+          type: NodeType.VIEW,
+          spaceId: space.id,
+          databaseId: id,
+        },
+      }) as IViewNode[]
+    ).sort((a, b) => (a.props.viewType === ViewType.Table ? 0 : 1))
 
     const cells = this.find({
       where: {

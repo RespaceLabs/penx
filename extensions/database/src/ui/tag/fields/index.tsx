@@ -4,12 +4,13 @@ import { db } from '@penx/local-db'
 import { FieldType, ICellNode, IColumnNode } from '@penx/model-types'
 import { store } from '@penx/store'
 import { CreatedAtCell } from './CreatedAt'
+import { NumberCell } from './Number'
 import { TextCell } from './Text'
 import { UpdatedAtCell } from './UpdatedAt'
 
 const cellsMap: Record<FieldType, any> = {
   Text: TextCell,
-  Number: TextCell,
+  Number: NumberCell,
   SingleSelect: TextCell,
   CreatedAt: CreatedAtCell,
   UpdatedAt: UpdatedAtCell,

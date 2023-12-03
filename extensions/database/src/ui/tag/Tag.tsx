@@ -5,6 +5,7 @@ import { ELEMENT_H5, ELEMENT_P } from '@penx/constants'
 import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
 import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
+import { genId } from '@penx/editor-shared'
 import { ElementProps } from '@penx/extension-typings'
 import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
@@ -23,7 +24,7 @@ export const Tag = ({
   const editor = useEditorStatic()
   const isInDatabase = (editor.children?.[0] as any)?.type === ELEMENT_P
 
-  const menuId = `tag-menu-${element.databaseId}`
+  const menuId = `tag-menu-${genId()}`
   const { show } = useContextMenu(menuId)
 
   async function clickTag() {

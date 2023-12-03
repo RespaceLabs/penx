@@ -5,7 +5,7 @@ import { IconSingleLineText } from './IconSingleLineText'
 import { IconSingleSelect } from './IconSingleSelect'
 
 interface Props {
-  index: number
+  index?: number
   fieldType: `${FieldType}`
   size?: number
 }

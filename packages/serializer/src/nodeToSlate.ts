@@ -73,7 +73,11 @@ export class NodeToSlateSerializer {
             nodeType: node.type,
             parentId,
             collapsed: node.collapsed,
-            children: node.element,
+            // children: node.element,
+            // TODO:
+            children: Array.isArray(node.element)
+              ? node.element
+              : [node.element],
           },
         ]
 
