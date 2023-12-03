@@ -54,6 +54,7 @@ export const ROOT_DOMAIN = process.env.NEXT_PUBLIC_ROOT_DOMAIN as string
 
 export enum ModalNames {
   DELETE_NODE,
+  DELETE_COLUMN,
   CREATE_SPACE,
   IMPORT_SPACE,
   DELETE_SPACE,

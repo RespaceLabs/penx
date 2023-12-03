@@ -6,9 +6,11 @@ import {
   ArrowRight,
   ArrowUp,
   Pen,
+  Trash,
   Trash2,
 } from 'lucide-react'
-import { Input, MenuItem, usePopoverContext } from 'uikit'
+import { Input, MenuItem, modalController, usePopoverContext } from 'uikit'
+import { ModalNames } from '@penx/constants'
 import { IColumnNode } from '@penx/model-types'
 import { useDatabaseContext } from '../../DatabaseContext'
 import { EditField } from './EditField'
@@ -22,11 +24,6 @@ export function ColumnMenu({ index, column }: ColumnMenuProps) {
   const ctx = useDatabaseContext()
   const [name, setName] = useState(column.props.name)
   const [isEditField, setIsEditField] = useState(false)
-
-  async function deleteColumn() {
-    await ctx.deleteColumn(column.id)
-    close()
-  }
 
   async function moveColumn(fromIndex: number, toIndex: number) {
     await ctx.moveColumn(fromIndex, toIndex)
@@ -62,12 +59,14 @@ export function ColumnMenu({ index, column }: ColumnMenuProps) {
         />
       </Box>
 
-      <MenuItem gap2 onClick={() => setIsEditField(true)}>
-        <Box>
-          <Pen size={16} />
-        </Box>
-        <Box>Edit Field</Box>
-      </MenuItem>
+      {index !== 0 && (
+        <MenuItem gap2 onClick={() => setIsEditField(true)}>
+          <Box>
+            <Pen size={16} />
+          </Box>
+          <Box>Edit Field</Box>
+        </MenuItem>
+      )}
 
       <MenuItem gap2 cursorNotAllowed opacity-60>
         <Box>
@@ -101,9 +100,15 @@ export function ColumnMenu({ index, column }: ColumnMenuProps) {
             </MenuItem>
           )}
 
-          <MenuItem onClick={deleteColumn} gap2>
+          <MenuItem
+            gap2
+            onClick={() => {
+              modalController.open(ModalNames.DELETE_COLUMN, column.id)
+              close()
+            }}
+          >
             <Box>
-              <Trash2 size={16} />
+              <Trash size={16} />
             </Box>
             <Box>Delete Column</Box>
           </MenuItem>
