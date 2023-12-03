@@ -1,34 +1,17 @@
+import { Box } from '@fower/react'
 import { useEffect, useState } from 'react'
 
 import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
 import type { MsgRes, TabInfo } from '~/common/helper'
+import { StartSelectEnum } from '~/components/content/helper'
 import styles from '~/components/popup/main.module.css'
+import { SpacesSelect } from '~/components/popup/SpacesSelect'
+import { UserProfile } from '~/components/popup/UserProfile'
 
 import '../components/popup/globals.module.css'
 
-import { Box } from '@fower/react'
-
-import { trpc } from '~/common/trpc'
-import { StartSelectEnum } from '~/components/content/helper'
-import { UserProfile } from '~/components/UserProfile'
-
 export function Main() {
   const [tab, setTab] = useState<TabInfo>(null)
-
-  const spacesQuery = trpc.space.mySpaces.useQuery()
-  const addMutation = trpc.node.addMarkdown.useMutation({})
-  console.log('========spacesQuery:', spacesQuery.data)
-
-  const onSubmit = () => {
-    return
-    if (spacesQuery.data.length) {
-      addMutation.mutate({
-        spaceId: spacesQuery.data[0].id,
-        markdown: 'Hello World! day-extendsion 2:',
-      })
-      window.close()
-    }
-  }
 
   const getCurrentTab = async () => {
     const [tab] = await chrome.tabs.query({
@@ -96,9 +79,17 @@ export function Main() {
     })
   }
 
+  const initPopup = async () => {
+    await chrome.runtime.sendMessage({
+      type: BACKGROUND_EVENTS.INT_POPUP,
+      payload: {},
+    })
+  }
+
   useEffect(() => {
     initTabsListener()
     getCurrentTab()
+    initPopup()
   }, [])
 
   return (
@@ -129,11 +120,7 @@ export function Main() {
         </li>
       </ul>
 
-      <div>
-        <button className={styles.saveBtn} onClick={onSubmit}>
-          Save to penx
-        </button>
-      </div>
+      <SpacesSelect />
     </Box>
   )
 }

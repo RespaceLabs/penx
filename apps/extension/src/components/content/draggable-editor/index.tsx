@@ -4,7 +4,7 @@ import React, { forwardRef, useEffect, useImperativeHandle } from 'react'
 import { Rnd } from 'react-rnd'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
-import { storageDocKey } from '~/common/helper'
+import { selectedSpaceKey, storageDocKey } from '~/common/helper'
 
 import * as styles from '../content.module.css'
 import { StartSelectEnum } from '../helper'
@@ -21,6 +21,7 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     const { destroySelectArea } = props
     const [storageDoc, setStorageDoc] = useStorage(storageDocKey, '')
     const { doc, setDoc } = useDoc()
+    const [selectedSpace] = useStorage(selectedSpaceKey, '')
 
     const handleChange = (event) => {
       const newValue = event.target.value
@@ -29,11 +30,16 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     }
 
     const onSubmit = async () => {
-      const data = await chrome.runtime.sendMessage({
-        type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
-        payload: { doc },
-      })
-      console.log('onSubmit res:', data)
+      console.log('selectedSpace:', { selectedSpace })
+      if (selectedSpace) {
+        const data = await chrome.runtime.sendMessage({
+          type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
+          payload: { doc, spaceId: selectedSpace },
+        })
+        console.log('onSubmit res:', data)
+      } else {
+        alert('Please select a space')
+      }
     }
 
     useEffect(() => {
