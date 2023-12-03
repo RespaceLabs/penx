@@ -9,7 +9,7 @@ import { ElementProps } from '@penx/extension-typings'
 import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { store } from '@penx/store'
-import { TagElement } from '../types'
+import { TagElement } from '../../types'
 import { TagForm } from './TagForm'
 
 export const Tag = ({

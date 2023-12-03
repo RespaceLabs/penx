@@ -10,7 +10,7 @@ import { getNodeById } from '@penx/editor-queries'
 import { clearEditor } from '@penx/editor-transforms'
 import { db, emitter } from '@penx/local-db'
 import { Paragraph } from '@penx/paragraph'
-import { Tag } from '@penx/tag'
+import { Tag } from '../../tag/Tag'
 import { CellProps } from './CellProps'
 
 function withCell(editor: Editor) {

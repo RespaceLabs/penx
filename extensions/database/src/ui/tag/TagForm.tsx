@@ -6,7 +6,7 @@ import { useEditorStatic } from '@penx/editor-common'
 import { useDatabase } from '@penx/hooks'
 import { isListContentElement, ListContentElement } from '@penx/list'
 import { ViewType } from '@penx/model-types'
-import { CellField } from './fields'
+import { CellField } from '../fields'
 
 interface Props {
   databaseId: string

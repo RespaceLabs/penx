@@ -3,7 +3,7 @@ import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
 import { ICellNode, IColumnNode, IRowNode } from '@penx/model-types'
 import { store } from '@penx/store'
 import { FIRST_COL_WIDTH } from '../../constants'
-import { IconDrag } from '../icons/IconDrag'
+import { IconDrag } from '../shared/icons/IconDrag'
 import { TableCell } from './Cell'
 
 interface Props {

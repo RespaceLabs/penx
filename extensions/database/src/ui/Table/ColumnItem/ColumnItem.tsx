@@ -4,7 +4,7 @@ import { motion, useMotionValue, useTransform } from 'framer-motion'
 import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { IColumnNode } from '@penx/model-types'
 import { columnWidthMotion } from '../../../columnWidthMotion'
-import { FieldIcon } from '../FieldIcon'
+import { FieldIcon } from '../../shared/FieldIcon'
 import { ColumnMenu } from './ColumnMenu'
 import { ResizeHandle } from './ResizeHandle'
 

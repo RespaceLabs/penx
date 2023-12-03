@@ -20,7 +20,7 @@ import {
   getNodeByPath,
 } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
-import { TagSelectorElement } from '../types'
+import { TagSelectorElement } from '../../types'
 import { TagSelectorContent } from './TagSelectorContent'
 
 export const TagSelector = ({
