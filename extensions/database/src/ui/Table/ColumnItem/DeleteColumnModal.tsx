@@ -2,7 +2,6 @@ import { Box } from '@fower/react'
 import { Trans } from '@lingui/macro'
 import {
   Button,
-  MenuItem,
   Modal,
   ModalClose,
   ModalCloseButton,

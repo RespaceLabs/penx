@@ -1,7 +1,8 @@
 import { Editor, Path, Transforms } from 'slate'
-import { findNodePath, getCurrentNode } from '@penx/editor-queries'
+import { ReactEditor } from 'slate-react'
 import { TEXT_PATH_INDEX } from '../constants'
 import { getListItems, getParentList } from '../lib'
+import { getCurrentNode } from '../queries/getCurrentNode'
 import { getNodeByPath } from '../queries/getNodeByPath'
 import type { ListsSchema } from '../types'
 
@@ -55,7 +56,10 @@ export function moveCursorToPreviousListItem(
 
     if (!collapsed) return false
 
-    const previousListItemPath = findNodePath(editor, previousListItem)!
+    const previousListItemPath = ReactEditor.findPath(
+      editor as any,
+      previousListItem,
+    )!
 
     let handled = false
 

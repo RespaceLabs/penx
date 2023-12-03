@@ -4160,9 +4160,6 @@ importers:
 
   packages/slate-lists:
     dependencies:
-      '@penx/editor-queries':
-        specifier: workspace:^
-        version: link:../editor-queries
       is-hotkey:
         specifier: ^0.2.0
         version: 0.2.0
@@ -4172,9 +4169,6 @@ importers:
       slate-react:
         specifier: 0.98.4
         version: 0.98.4(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
-      uuid:
-        specifier: ^8.3.0
-        version: 8.3.2
     devDependencies:
       '@types/is-hotkey':
         specifier: ^0.1.7
@@ -4185,9 +4179,6 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.7
         version: 18.2.17
-      '@types/uuid':
-        specifier: ^8.3.0
-        version: 8.3.4
       eslint:
         specifier: ^8.42.0
         version: 8.54.0
@@ -11338,10 +11329,6 @@ packages:
   /@types/unist@3.0.2:
     resolution: {integrity: sha512-dqId9J8K/vGi5Zr7oo212BGii5m3q5Hxlkwy3WpYuKPklmBEvsbMYYyLxAQpSffdLl/gdW0XUpKWFvYmyoWCoQ==}
     dev: false
-
-  /@types/uuid@8.3.4:
-    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
-    dev: true
 
   /@types/uuid@9.0.7:
     resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
