@@ -1,6 +1,14 @@
 import React, { FC, PropsWithChildren } from 'react'
 import { Box, FowerHTMLProps, styled } from '@fower/react'
-import { CheckCircle2, Clock, Hash, Link, Plus, Text } from 'lucide-react'
+import {
+  CheckCircle2,
+  Clock,
+  FileType,
+  Hash,
+  Link,
+  Plus,
+  Text,
+} from 'lucide-react'
 import {
   Popover,
   PopoverContent,
@@ -9,8 +17,7 @@ import {
 } from 'uikit'
 import { FieldType } from '@penx/model-types'
 import { useDatabaseContext } from '../DatabaseContext'
-
-const WrapIcon = styled('div', ['gray500'])
+import { FieldIcon } from '../shared/FieldIcon'
 
 interface ItemProps extends PropsWithChildren<FowerHTMLProps<'div'>> {
   fieldType: FieldType
@@ -49,43 +56,26 @@ function Content() {
   return (
     <Box w-200 p2>
       <Item fieldType={FieldType.Text}>
-        <WrapIcon>
-          <Text size={16} />
-        </WrapIcon>
+        <FieldIcon fieldType={FieldType.Text} />
         <Box>Text</Box>
       </Item>
       <Item fieldType={FieldType.Number}>
-        <WrapIcon>
-          <Hash size={16} />
-        </WrapIcon>
+        <FieldIcon fieldType={FieldType.Number} />
         <Box>Number</Box>
       </Item>
 
       <Item fieldType={FieldType.SingleSelect} cursorNotAllowed opacity-60>
-        <WrapIcon>
-          <CheckCircle2 size={16} />
-        </WrapIcon>
+        <FieldIcon fieldType={FieldType.SingleSelect} />
         <Box>Select</Box>
       </Item>
 
       <Item fieldType={FieldType.Number} cursorNotAllowed opacity-60>
-        <WrapIcon>
-          <Link size={16} />
-        </WrapIcon>
-        <Box>Link</Box>
-      </Item>
-
-      <Item fieldType={FieldType.Number} cursorNotAllowed opacity-60>
-        <WrapIcon>
-          <Clock size={16} />
-        </WrapIcon>
+        <FieldIcon fieldType={FieldType.CreatedAt} />
         <Box>Created At</Box>
       </Item>
 
       <Item fieldType={FieldType.UpdatedAt} cursorNotAllowed opacity-60>
-        <WrapIcon>
-          <Clock size={16} />
-        </WrapIcon>
+        <FieldIcon fieldType={FieldType.UpdatedAt} />
         <Box>Updated At</Box>
       </Item>
     </Box>

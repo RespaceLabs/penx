@@ -1,21 +1,30 @@
 import { useState } from 'react'
 import { Box } from '@fower/react'
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Trash2 } from 'lucide-react'
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  Pen,
+  Trash2,
+} from 'lucide-react'
 import { Input, MenuItem, usePopoverContext } from 'uikit'
+import { IColumnNode } from '@penx/model-types'
 import { useDatabaseContext } from '../../DatabaseContext'
+import { EditField } from './EditField'
 
 interface ColumnMenuProps {
   index: number
-  columnId: string
-  columnName: string
+  column: IColumnNode
 }
-export function ColumnMenu({ index, columnId, columnName }: ColumnMenuProps) {
+export function ColumnMenu({ index, column }: ColumnMenuProps) {
   const { close } = usePopoverContext()
   const ctx = useDatabaseContext()
-  const [name, setName] = useState(columnName)
+  const [name, setName] = useState(column.props.name)
+  const [isEditField, setIsEditField] = useState(false)
 
   async function deleteColumn() {
-    await ctx.deleteColumn(columnId)
+    await ctx.deleteColumn(column.id)
     close()
   }
 
@@ -25,8 +34,12 @@ export function ColumnMenu({ index, columnId, columnName }: ColumnMenuProps) {
   }
 
   async function updateColumnName() {
-    await ctx.updateColumnName(columnId, name)
+    await ctx.updateColumnName(column.id, name)
     close()
+  }
+
+  if (isEditField) {
+    return <EditField column={column} onSave={() => setIsEditField(false)} />
   }
 
   return (
@@ -35,6 +48,9 @@ export function ColumnMenu({ index, columnId, columnName }: ColumnMenuProps) {
         <Input
           size="sm"
           value={name}
+          // onBlur={() => {
+          //   updateColumnName()
+          // }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               updateColumnName()
@@ -45,13 +61,21 @@ export function ColumnMenu({ index, columnId, columnName }: ColumnMenuProps) {
           }}
         />
       </Box>
-      <MenuItem gap2>
+
+      <MenuItem gap2 onClick={() => setIsEditField(true)}>
+        <Box>
+          <Pen size={16} />
+        </Box>
+        <Box>Edit Field</Box>
+      </MenuItem>
+
+      <MenuItem gap2 cursorNotAllowed opacity-60>
         <Box>
           <ArrowUp size={16} />
         </Box>
         <Box>Sort ascending</Box>
       </MenuItem>
-      <MenuItem gap2>
+      <MenuItem gap2 cursorNotAllowed opacity-60>
         <Box>
           <ArrowDown size={16} />
         </Box>

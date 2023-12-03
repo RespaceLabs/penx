@@ -63,16 +63,16 @@ export const ColumnItem = ({ column, index }: Props) => {
                 setIsOpen(!isOpen)
               }}
             >
-              <FieldIcon fieldType={column.props.fieldType} index={index} />
-              <Box>{column.props.name}</Box>
+              <FieldIcon
+                fieldType={column.props.fieldType}
+                index={index}
+                size={14}
+              />
+              <Box textSM>{column.props.name}</Box>
             </Box>
           </PopoverTrigger>
           <PopoverContent w-200>
-            <ColumnMenu
-              index={index}
-              columnId={column.id}
-              columnName={column.props.name}
-            />
+            <ColumnMenu index={index} column={column} />
           </PopoverContent>
         </Popover>
         <ResizeHandle x={x} width={width} column={column} />

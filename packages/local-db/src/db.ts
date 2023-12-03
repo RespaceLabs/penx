@@ -244,6 +244,14 @@ class DB {
     return newNode
   }
 
+  updateNodeProps = async (nodeId: string, props: Partial<INode['props']>) => {
+    const newNode = await this.node.updateByPk(nodeId, {
+      props,
+    })
+
+    return newNode
+  }
+
   deleteNode = async (nodeId: string) => {
     const node = await this.getNode(nodeId)
     await this.updateSnapshot(node, 'delete')
