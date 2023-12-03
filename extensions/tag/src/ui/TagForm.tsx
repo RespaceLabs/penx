@@ -51,7 +51,11 @@ export const TagForm = forwardRef<HTMLDivElement, Props>(function TagForm(
   })
 
   return (
-    <Box ref={ref} column p4 gap3>
+    <Box ref={ref} column p6 gap3>
+      <Box fontSemibold textLG>
+        Update Metadata for this Node
+      </Box>
+
       {rowCells.map((cell, index) => {
         if (cell.props.ref === lic.id) return null
 
@@ -59,7 +63,7 @@ export const TagForm = forwardRef<HTMLDivElement, Props>(function TagForm(
 
         return (
           <Box key={cell.id}>
-            <Box mb1>{column.props.name}</Box>
+            <Box mb2>{column.props.name}</Box>
             <CellField index={index} cell={cell} columns={sortedColumns} />
           </Box>
         )

@@ -20,8 +20,7 @@ function Item({ children, fieldType, ...rest }: ItemProps) {
   const { close } = usePopoverContext()
   const ctx = useDatabaseContext()
   async function addColumn() {
-    if (fieldType === FieldType.Text) {
-      console.log('========fieldType:', fieldType)
+    if ([FieldType.Text, FieldType.Number].includes(fieldType)) {
       await ctx.addColumn(fieldType)
       close()
     }
@@ -55,7 +54,7 @@ function Content() {
         </WrapIcon>
         <Box>Text</Box>
       </Item>
-      <Item fieldType={FieldType.Number} cursorNotAllowed opacity-60>
+      <Item fieldType={FieldType.Number}>
         <WrapIcon>
           <Hash size={16} />
         </WrapIcon>
