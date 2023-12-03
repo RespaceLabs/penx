@@ -1,4 +1,3 @@
-import { useStorage } from '@plasmohq/storage/hook'
 import classnames from 'classnames'
 import {
   forwardRef,
@@ -9,10 +8,9 @@ import {
   useState,
 } from 'react'
 
-import { storageDocKey } from '~/common/helper'
-
 import * as styles from '../content.module.css'
-import { useDoc, useForceUpdate } from '../hooks'
+import { StartSelectEnum } from '../helper'
+import { useDoc, useForceUpdate, useStorageDoc } from '../hooks'
 import { transformDOM } from './common/transform-dom'
 
 type Rect = Pick<DOMRect, 'width' | 'height' | 'left' | 'top'>
@@ -35,7 +33,7 @@ const AreaSelector = forwardRef<ISelectorRef, ISelectorProps>(
     const [saving, setSaving] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
 
-    const [_, setStorageDoc] = useStorage(storageDocKey, '')
+    const { setStorageDoc } = useStorageDoc()
     const { setDoc } = useDoc()
 
     const onScreenshot = useCallback(async () => {
@@ -69,6 +67,7 @@ const AreaSelector = forwardRef<ISelectorRef, ISelectorProps>(
         onSave: async () => {
           onSave()
         },
+        type: StartSelectEnum.areaSelect,
       }),
       [onSave],
     )

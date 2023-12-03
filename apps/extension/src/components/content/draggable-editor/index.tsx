@@ -1,17 +1,15 @@
-import { useStorage } from '@plasmohq/storage/hook'
 import { XCircle } from 'lucide-react'
-import React, { forwardRef, useEffect } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle } from 'react'
 import { Rnd } from 'react-rnd'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
-import { storageDocKey } from '~/common/helper'
+import { SUCCESS } from '~/common/helper'
 
 import * as styles from '../content.module.css'
-import { useDoc } from '../hooks'
+import { StartSelectEnum } from '../helper'
+import { useDoc, useSelectedSpace, useStorageDoc } from '../hooks'
 
-export interface IDraggableEditorRef {
-  onSave: () => Promise<void>
-}
+export interface IDraggableEditorRef {}
 
 interface DraggableEditorProps {
   destroySelectArea: () => void
@@ -20,8 +18,9 @@ interface DraggableEditorProps {
 const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
   function ScreenShotComponent(props, propsRef) {
     const { destroySelectArea } = props
-    const [storageDoc, setStorageDoc] = useStorage(storageDocKey, '')
+    const { storageDoc, setStorageDoc } = useStorageDoc()
     const { doc, setDoc } = useDoc()
+    const { selectedSpace } = useSelectedSpace()
 
     const handleChange = (event) => {
       const newValue = event.target.value
@@ -30,11 +29,20 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     }
 
     const onSubmit = async () => {
-      const data = await chrome.runtime.sendMessage({
-        type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
-        payload: { doc },
-      })
-      console.log('onSubmit res:', data)
+      if (selectedSpace) {
+        const data = await chrome.runtime.sendMessage({
+          type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
+          payload: { doc, spaceId: selectedSpace },
+        })
+
+        if (data.code === SUCCESS) {
+          setDoc('')
+          setStorageDoc('')
+        }
+        console.log('onSubmit res:', data)
+      } else {
+        alert('Please select a space')
+      }
     }
 
     useEffect(() => {
@@ -42,6 +50,14 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
         setDoc(storageDoc)
       }
     }, [storageDoc])
+
+    useImperativeHandle(
+      propsRef,
+      () => ({
+        type: StartSelectEnum.areaSelect,
+      }),
+      [],
+    )
 
     return (
       <div className={styles.draggableContainer}>

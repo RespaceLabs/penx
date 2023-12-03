@@ -10,6 +10,7 @@ import React, {
 } from 'react'
 
 import * as styles from '../content.module.css'
+import { StartSelectEnum } from '../helper'
 import { useForceUpdate } from '../hooks'
 import { blobToBase64, screenShot } from './common/screen-shot'
 import DragLine from './drag-line'
@@ -49,10 +50,6 @@ const ScreenShot = forwardRef<IScreenShotRef, IScreenShotProps>(
           ? selectAreaTop + 8
           : selectAreaBottom + 8,
     }
-
-    const onSave = useCallback(async () => {
-      // Implementation
-    }, [])
 
     useEffect(() => {
       if (screenShowAreaIsInit) {
@@ -207,6 +204,7 @@ const ScreenShot = forwardRef<IScreenShotRef, IScreenShotProps>(
       propsRef,
       () => ({
         onSave: onScreenshot,
+        type: StartSelectEnum.screenShot,
       }),
       [onScreenshot],
     )

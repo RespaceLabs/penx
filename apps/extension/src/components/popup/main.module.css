@@ -31,22 +31,3 @@
   background-color: #e1faeb;
   color: #9c27b0;
 }
-
-.saveBtn {
-  width: 150px;
-  height: 30px;
-  background: #262525;
-  color: #fff;
-  border-radius: 3px;
-  border: none;
-  cursor: pointer;
-}
-
-.saveBtn:hover {
-  background: #000000;
-  cursor: pointer;
-}
-
-.saveBtn:active {
-  background: #262525;
-}

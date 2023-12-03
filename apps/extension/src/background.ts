@@ -1,8 +1,18 @@
+import { Storage } from '@plasmohq/storage'
+
 import { trpc } from '@penx/trpc-client'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
-import { FAIL, SUCCESS, type MsgRes, type TabInfo } from '~/common/helper'
+import {
+  FAIL,
+  spacesKey,
+  SUCCESS,
+  type MsgRes,
+  type TabInfo,
+} from '~/common/helper'
 import { parsePreparedContent } from '~/common/parser'
+
+const storage = new Storage()
 
 async function setMessageToFrontEnd(
   type: keyof typeof BACKGROUND_EVENTS | string,
@@ -64,17 +74,27 @@ chrome.runtime.onMessage.addListener(
         }
         case BACKGROUND_EVENTS.SUBMIT_CONTENT: {
           try {
-            const mySpaces = await trpc.space.mySpaces.query()
             const res = await trpc.node.addMarkdown.mutate({
-              spaceId: mySpaces[0].id,
+              spaceId: request.payload.spaceId,
               markdown: request.payload.doc,
             })
 
             console.log('mySpaces-res', {
-              mySpaces,
               res,
               data: request.payload.doc,
             })
+            sendResponse({ msg: 'ok', code: SUCCESS })
+          } catch (error) {
+            sendResponse({ msg: error, code: FAIL })
+          }
+          break
+        }
+        case BACKGROUND_EVENTS.INT_POPUP: {
+          try {
+            const mySpaces = await trpc.space.mySpaces.query()
+            if (mySpaces?.length) {
+              storage.set(spacesKey, mySpaces)
+            }
             sendResponse({ msg: 'ok', code: SUCCESS })
           } catch (error) {
             sendResponse({ msg: error, code: FAIL })

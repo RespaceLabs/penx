@@ -10,4 +10,5 @@ export const BACKGROUND_EVENTS = {
   EndOfGetPageContent: 'ENDOF_GET_PAGECONTENT',
   SCREEN_SHOT: 'background/screen-shot',
   SUBMIT_CONTENT: 'background/submit-content',
+  INT_POPUP: 'background/int_popup',
 }
