@@ -77,7 +77,9 @@ export const ContextMenu = forwardRef<HTMLButtonElement, Props>(function Menu(
     role,
     dismiss,
     listNavigation,
-    typeahead,
+
+    // TODO: should I use this? it block textField
+    // typeahead,
   ])
 
   useEffect(() => {
@@ -177,7 +179,7 @@ export const ContextMenu = forwardRef<HTMLButtonElement, Props>(function Menu(
                       child.props.onClick?.()
                       setIsOpen(false)
                     } else {
-                      child.props.onMouseUpo?.()
+                      child.props.onMouseUp?.()
                     }
                   },
                 }),

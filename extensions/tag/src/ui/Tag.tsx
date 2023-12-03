@@ -1,14 +1,16 @@
 import { Box } from '@fower/react'
 import { useSelected } from 'slate-react'
-import { Tooltip, TooltipContent, TooltipTrigger } from 'uikit'
+import { Input } from 'uikit'
 import { ELEMENT_H5, ELEMENT_P } from '@penx/constants'
 import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
 import { useEditorStatic } from '@penx/editor-common'
+import { findNodePath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { store } from '@penx/store'
 import { TagElement } from '../types'
+import { TagForm } from './TagForm'
 
 export const Tag = ({
   element,
@@ -22,7 +24,6 @@ export const Tag = ({
   const isInDatabase = (editor.children?.[0] as any)?.type === ELEMENT_P
 
   const menuId = `tag-menu-${element.databaseId}`
-  // console.log('====element:', element)
   const { show } = useContextMenu(menuId)
 
   async function clickTag() {
@@ -33,6 +34,8 @@ export const Tag = ({
       store.node.selectNode(database)
     }
   }
+
+  const path = findNodePath(editor, element)!
 
   const tagJSX = (
     <Box
@@ -71,8 +74,7 @@ export const Tag = ({
       {tagJSX}
 
       <ContextMenu id={menuId} w-400>
-        <MenuItem>Add to favorite</MenuItem>
-        <Box>GOGO</Box>
+        <TagForm databaseId={element.databaseId} path={path} />
       </ContextMenu>
     </Box>
   )

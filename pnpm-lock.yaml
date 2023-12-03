@@ -2072,6 +2072,9 @@ importers:
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons
+      '@penx/list':
+        specifier: workspace:*
+        version: link:../list
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
@@ -2093,12 +2096,21 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      lucide-react:
+        specifier: ^0.294.0
+        version: 0.294.0(react@18.2.0)
       mitt:
         specifier: ^3.0.0
         version: 3.0.1
+      react-fast-compare:
+        specifier: ^3.2.2
+        version: 3.2.2
       react-intersection-observer:
         specifier: ^9.5.2
         version: 9.5.3(react@18.2.0)
+      react-textarea-autosize:
+        specifier: ^8.5.3
+        version: 8.5.3(@types/react@18.2.39)(react@18.2.0)
       slate:
         specifier: 0.101.1
         version: 0.101.1
@@ -2117,6 +2129,9 @@ importers:
       uikit:
         specifier: workspace:*
         version: link:../../packages/uikit
+      use-debounce:
+        specifier: ^9.0.4
+        version: 9.0.4(react@18.2.0)
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.195
@@ -18128,6 +18143,14 @@ packages:
 
   /lucide-react@0.292.0(react@18.2.0):
     resolution: {integrity: sha512-rRgUkpEHWpa5VCT66YscInCQmQuPCB1RFRzkkxMxg4b+jaL0V12E3riWWR2Sh5OIiUhCwGW/ZExuEO4Az32E6Q==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /lucide-react@0.294.0(react@18.2.0):
+    resolution: {integrity: sha512-V7o0/VECSGbLHn3/1O67FUgBwWB+hmzshrgDVRJQhMh8uj5D3HBuIvhuAmQTtlupILSplwIZg5FTc4tTKMA2SA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:

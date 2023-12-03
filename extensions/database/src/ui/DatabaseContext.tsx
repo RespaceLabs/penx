@@ -55,7 +55,7 @@ export const DatabaseProvider = ({
   const database = useDatabase(databaseId)
 
   async function reloadNodes() {
-    const nodes = await db.listNodesBySpaceId(database.database.id)
+    const nodes = await db.listNodesBySpaceId(database.database.spaceId)
     store.node.setNodes(nodes)
   }
 

@@ -1,6 +1,5 @@
 import { atom, createStore } from 'jotai'
 import { SyncStatus } from '@penx/constants'
-import { PenxEditor } from '@penx/editor-common'
 import { User } from '@penx/model'
 import { commands } from './constants'
 import { EditorStore } from './stores/EditorStore'
