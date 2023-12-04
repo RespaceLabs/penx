@@ -118,11 +118,9 @@ export const SyncPopover: FC<Props> = () => {
               gap1
               bgGray100--hover
               onClick={async (e) => {
-                console.log('l......xxxxxxxxx')
-
                 e.stopPropagation()
-                // close()
-                // pushToCloud()
+                pushToCloud()
+                close()
               }}
             >
               <IconPush square-20 />

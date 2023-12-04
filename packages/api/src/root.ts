@@ -2,8 +2,9 @@ import { authRouter } from './router/auth'
 import { extensionRouter } from './router/extension'
 import { githubRouter } from './router/github'
 import { nodeRouter } from './router/node'
-import { SharedDocRouter } from './router/SharedDoc'
+import { sharedDocRouter } from './router/shared-doc'
 import { spaceRouter } from './router/space'
+import { spaceInvitationCodeRouter } from './router/space-invitation-code'
 import { themeRouter } from './router/theme'
 import { userRouter } from './router/user'
 import { createTRPCRouter } from './trpc'
@@ -15,8 +16,9 @@ export const appRouter = createTRPCRouter({
   node: nodeRouter,
   theme: themeRouter,
   github: githubRouter,
-  sharedDoc: SharedDocRouter,
+  sharedDoc: sharedDocRouter,
   extension: extensionRouter,
+  spaceInvitationCode: spaceInvitationCodeRouter,
 })
 
 // export type definition of API

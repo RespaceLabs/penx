@@ -103,6 +103,15 @@ model Space {
     @@index([userId])
 }
 
+model SpaceInvitationCode {
+    id        String    @id @default(uuid())
+    used      Boolean   @default(false)
+    code      String @unique
+    createdAt DateTime? @default(now())
+    updatedAt DateTime? @updatedAt
+    @@index([used])
+}
+
 model Node {
     id         String  @id @default(uuid())
     spaceId    String

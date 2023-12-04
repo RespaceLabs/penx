@@ -25,6 +25,7 @@ export default function LoginWithGoogleButton() {
     <Button
       disabled={loading}
       size="lg"
+      mb2
       colorScheme="white"
       cursorNotAllowed={loading}
       gapX2

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
-export const SharedDocRouter = createTRPCRouter({
+export const sharedDocRouter = createTRPCRouter({
   create: publicProcedure
     .input(
       z.object({
