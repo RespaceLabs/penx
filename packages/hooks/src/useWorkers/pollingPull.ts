@@ -1,14 +1,13 @@
 import { WorkerEvents } from '@penx/constants'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
-import { Node } from '@penx/model'
-import { INode, ISpace } from '@penx/model-types'
 import { sleep } from '@penx/shared'
 import { Session } from '@penx/store'
+import { getNodeMap } from '@penx/sync'
 import { trpc } from '@penx/trpc-client'
 
-// const INTERVAL = 5 * 1000
-const INTERVAL = 60 * 1000
+const INTERVAL = 5 * 1000
+// const INTERVAL = 60 * 1000
 
 export async function startPollingPull(session: Session) {
   while (session) {
@@ -97,17 +96,4 @@ async function sync() {
 
     postMessage(WorkerEvents.PULL_SUCCEEDED)
   }
-}
-
-function getNodeMap(nodes: INode[], space: ISpace) {
-  return nodes.reduce(
-    (acc, cur) => {
-      const node = new Node(cur)
-      return {
-        ...acc,
-        [node.id]: node.toHash(space.encrypted, space.password),
-      }
-    },
-    {} as Record<string, string>,
-  )
 }

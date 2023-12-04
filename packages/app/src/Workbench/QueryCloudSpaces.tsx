@@ -5,6 +5,7 @@ import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
+import { getNodeMap } from '@penx/sync'
 import { trpc } from '@penx/trpc-client'
 
 interface Props {
@@ -18,7 +19,7 @@ export const QueryCloudSpaces = () => {
 
   const initSpaces = async (spaces: Space[]) => {
     for (const space of spaces) {
-      await db.createSpaceByRemote({
+      const newSpace = await db.createSpaceByRemote({
         ...space,
         isActive: false,
         isCloud: true,
@@ -30,6 +31,18 @@ export const QueryCloudSpaces = () => {
 
         for (const item of nodes) {
           await db.createNode(item as any as INode)
+        }
+
+        if (nodes.length) {
+          const newNodes = await db.listNodesBySpaceId(space.id)
+
+          // update nodeMap in snapshot
+          await db.updateSpace(space.id, {
+            nodeSnapshot: {
+              ...newSpace.nodeSnapshot,
+              nodeMap: getNodeMap(newNodes, newSpace),
+            },
+          })
         }
       }
     }

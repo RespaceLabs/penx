@@ -74,9 +74,11 @@ chrome.runtime.onMessage.addListener(
         }
         case BACKGROUND_EVENTS.SUBMIT_CONTENT: {
           try {
-            const res = await trpc.node.addMarkdown.mutate({
+            console.log('========request.payload:', request.payload)
+
+            const res = await trpc.node.addNodesToToday.mutate({
               spaceId: request.payload.spaceId,
-              markdown: request.payload.doc,
+              nodes: JSON.stringify(request.payload.nodes),
             })
 
             console.log('mySpaces-res', {

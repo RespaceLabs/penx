@@ -1,7 +1,8 @@
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
-import { INode, ISpace } from '@penx/model-types'
+import { INode, ISpace, NodeType } from '@penx/model-types'
 import { trpc } from '@penx/trpc-client'
+import { getNodeMap } from './getNodeMap'
 
 export async function syncToCloud(): Promise<boolean> {
   const space = await db.getActiveSpace()
@@ -27,6 +28,8 @@ async function pushAllNodes(space: ISpace) {
     added: nodes,
   })
 
+  console.log('push all node to cloud done!!!!')
+
   await db.updateSpace(space.id, {
     nodeSnapshot: {
       version: newVersion,
@@ -39,22 +42,48 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
   const nodes = await db.listNodesBySpaceId(space.id)
 
   const prevNodeMap = space.nodeSnapshot.nodeMap
+
   const curNodeMap = getNodeMap(nodes, space)
+
+  console.log(
+    '========prevNodeMap:',
+    prevNodeMap['c1897e64-cccf-4e47-ba39-dd303587fa62'],
+    'curNodeMap:',
+    curNodeMap['c1897e64-cccf-4e47-ba39-dd303587fa62'],
+  )
 
   const diffed = diffNodeMap(prevNodeMap, curNodeMap)
 
   const nodeMap = new Map<string, INode>()
+
   for (const node of nodes) {
     nodeMap.set(node.id, node)
   }
 
   if (diffed.isEqual) {
-    // console.log('is equal, no need to push')
+    console.log('is equal, no need to push', diffed)
   } else {
-    // console.log('diff:', diffed)
+    console.log('diff:', diffed)
   }
 
   if (!diffed.isEqual) {
+    if (diffed.deleted) {
+      const some = diffed.deleted.some((id) => {
+        const node = nodeMap.get(id)
+        return [
+          NodeType.ROOT,
+          NodeType.INBOX,
+          NodeType.TRASH,
+          NodeType.DAILY_ROOT,
+          NodeType.DAILY,
+        ].includes(node?.type!)
+      })
+
+      if (some) {
+        throw new Error('some bug happened,can not delete this nodes')
+      }
+    }
+
     const newVersion = await submitToServer(space, {
       added: diffed.added.map((id) => nodeMap.get(id)!),
       updated: diffed.updated.map((id) => nodeMap.get(id)!),
@@ -100,19 +129,6 @@ async function submitToServer(space: ISpace, diffed: Partial<Options>) {
   })
 
   return newVersion
-}
-
-function getNodeMap(nodes: INode[], space: ISpace) {
-  return nodes.reduce(
-    (acc, cur) => {
-      const node = new Node(cur)
-      return {
-        ...acc,
-        [node.id]: node.toHash(space.encrypted, space.password),
-      }
-    },
-    {} as Record<string, string>,
-  )
 }
 
 type NodeMap = Record<string, string>

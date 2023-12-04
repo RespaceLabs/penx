@@ -12,7 +12,7 @@ interface Props {
   content?: any[]
   editableProps?: EditableProps
   plugins: ((editor: PenxEditor) => PenxEditor)[]
-  onChange?: (value: Descendant[], editor: Editor) => void
+  onChange?: (value: Descendant[], editor: PenxEditor) => void
   onBlur?: (editor: PenxEditor) => void
 }
 

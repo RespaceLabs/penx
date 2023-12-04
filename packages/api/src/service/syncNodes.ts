@@ -41,9 +41,11 @@ export function syncNodes(input: SyncUserInput) {
       if (input.version < version) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: 'Version invalid',
+          message: `Version invalid, input version: ${input.version}, remote version: ${version}`,
         })
       }
+
+      console.log('gogo.........x')
 
       await tx.node.createMany({
         data: added.map((item) => {

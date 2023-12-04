@@ -135,7 +135,7 @@ export class NodeService {
       store.node.setFirstActiveNodes(node)
     }
 
-    await this.updateSnapshot(node, nodes)
+    // await this.updateSnapshot(node, nodes)
 
     await new NodeCleaner().cleanDeletedNodes()
   }

@@ -42,6 +42,8 @@ export const ListItemContent = memo(
       return isHeading ? 'calc(1.8em + 8px)' : 'calc(1.5em + 8px)'
     }
 
+    // console.log('element', element)
+
     const menuId = `lic-menu-${element.id}`
     const { show } = useContextMenu(menuId)
     const isTask = isCheckListItem(child)

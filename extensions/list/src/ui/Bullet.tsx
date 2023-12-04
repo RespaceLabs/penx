@@ -48,7 +48,7 @@ const BulletContent = memo(
         bg={bgColor}
         onContextMenu={onContextMenu}
         onClick={() => {
-          editor.onClickBullet(nodeId)
+          editor?.onClickBullet?.(nodeId)
         }}
       >
         <Box

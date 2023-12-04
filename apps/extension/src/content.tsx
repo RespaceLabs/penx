@@ -80,7 +80,6 @@ const PlasmoOverlay = () => {
         J: StartSelectEnum.areaSelect,
         L: StartSelectEnum.screenShot,
       }
-      console.log('ee---------')
 
       if (event.ctrlKey && event.shiftKey && shortcutMap[event.key]) {
         initSelectArea({ type: shortcutMap[event.key] })

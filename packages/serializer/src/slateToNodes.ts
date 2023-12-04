@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import { createEditor, Editor, Path, Transforms } from 'slate'
 import { ELEMENT_LI, ELEMENT_LIC } from '@penx/constants'
-import { extractTags } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
 import { INode, NodeType } from '@penx/model-types'
 import { uniqueId } from '@penx/unique-id'
@@ -22,9 +21,9 @@ function isListContentElement(node: any): node is ListContentElement {
 
 // TODO: should handle tags
 export function slateToNodes(
-  node: INode,
   value: any,
-  allNodes: INode[],
+  node?: INode,
+  allNodes: INode[] = [],
 ): INode[] {
   function getNode(id: string) {
     return allNodes.find((n) => n.id === id)
@@ -35,7 +34,7 @@ export function slateToNodes(
 
   const editor = createEditor()
 
-  if (!ul) {
+  if (!ul && title && node) {
     nodes.push({ ...node, element: title.children })
     return nodes
   }
@@ -46,12 +45,14 @@ export function slateToNodes(
     return listItem.children[0].id
   })
 
-  // root node for this node
-  nodes.push({
-    ...node,
-    element: title.children,
-    children: childrenForCurrentNode,
-  })
+  if (node) {
+    // root node for this node
+    nodes.push({
+      ...node,
+      element: title.children,
+      children: childrenForCurrentNode,
+    })
+  }
 
   const listContents = Editor.nodes(editor, {
     at: [],
@@ -59,8 +60,6 @@ export function slateToNodes(
   })
 
   for (const [item, path] of listContents) {
-    // console.log('======item:', item)
-
     // listItem
     const parent = getNodeByPath(
       editor,
@@ -79,7 +78,7 @@ export function slateToNodes(
     // node parentId
     const grandparent = getNodeByPath(editor, path.slice(0, -3))!
 
-    let newParentId = node.id
+    let newParentId = node?.id
 
     if (isListItemElement(grandparent)) {
       newParentId = grandparent.children[0].id
@@ -103,8 +102,8 @@ export function slateToNodes(
       })
     } else {
       nodes.push({
-        id: uniqueId(),
-        spaceId: node.spaceId,
+        id: item?.id || uniqueId(),
+        spaceId: node?.spaceId as any, // TODO: handle spaceId
         parentId: newParentId,
         type: NodeType.COMMON,
         element,

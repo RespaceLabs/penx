@@ -9,22 +9,10 @@ import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
+import { getNodeMap } from '@penx/sync'
 import { trpc } from '@penx/trpc-client'
 
 type ServerNode = RouterOutputs['node']['listBySpaceId'][0]
-
-function getNodeMap(nodes: INode[], space: ISpace) {
-  return nodes.reduce(
-    (acc, cur) => {
-      const node = new Node(cur)
-      return {
-        ...acc,
-        [node.id]: node.toHash(space.encrypted, space.password),
-      }
-    },
-    {} as Record<string, string>,
-  )
-}
 
 export const SetPassword = () => {
   const { activeSpace } = useSpaces()

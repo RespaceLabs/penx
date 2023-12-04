@@ -145,7 +145,7 @@ export function useCreateEditor(fns: WithFns[] = []) {
     },
   } as any)
 
-  const [penxEditor] = useState(() => editor)
+  const [penxEditor] = useState(() => editor as any)
 
   /**
    * TODO: for debug

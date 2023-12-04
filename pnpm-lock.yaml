@@ -113,6 +113,12 @@ importers:
       '@penx/editor':
         specifier: workspace:*
         version: link:../../packages/editor
+      '@penx/editor-common':
+        specifier: workspace:*
+        version: link:../../packages/editor-common
+      '@penx/editor-shared':
+        specifier: workspace:*
+        version: link:../../packages/editor-shared
       '@penx/extension-list':
         specifier: workspace:*
         version: link:../../packages/extension-list
@@ -146,6 +152,9 @@ importers:
       '@penx/paragraph':
         specifier: workspace:*
         version: link:../../extensions/paragraph
+      '@penx/serializer':
+        specifier: workspace:*
+        version: link:../../packages/serializer
       '@penx/storage-estimate':
         specifier: workspace:*
         version: link:../../extensions/storage-estimate

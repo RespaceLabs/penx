@@ -1,8 +1,15 @@
 import { Box } from '@fower/react'
 import { SendHorizontal, X } from 'lucide-react'
-import React, { forwardRef, useEffect, useImperativeHandle } from 'react'
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react'
 import { Rnd } from 'react-rnd'
 import { Button } from 'uikit'
+
+import { slateToNodes } from '@penx/serializer'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
 import { SUCCESS } from '~/common/helper'
@@ -25,22 +32,23 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     const { doc, setDoc } = useDoc()
     const { selectedSpace } = useSelectedSpace()
 
-    const handleChange = (event) => {
-      const newValue = event.target.value
-      setDoc(newValue)
-      setStorageDoc(newValue)
-    }
+    const [value, setValue] = useState([])
 
     const onSubmit = async () => {
       if (selectedSpace) {
+        const nodes = slateToNodes([, value[0]])
         const data = await chrome.runtime.sendMessage({
           type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
-          payload: { doc, spaceId: selectedSpace },
+          payload: {
+            nodes: nodes.map((node) => ({ ...node, spaceId: selectedSpace })),
+            spaceId: selectedSpace,
+          },
         })
 
         if (data.code === SUCCESS) {
           setDoc('')
           setStorageDoc('')
+          destroySelectArea()
         }
         console.log('onSubmit res:', data)
       } else {
@@ -98,23 +106,12 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
             </Box>
 
             <Box flex-1 overflowYAuto>
-              <ContentEditor />
+              <ContentEditor
+                onChange={(value) => {
+                  setValue(value)
+                }}
+              />
             </Box>
-
-            {/* <textarea
-              style={{
-                flex: 4,
-                width: '100%',
-                boxSizing: 'border-box',
-                outline: 'none',
-                border: '1px solid ghostwhite',
-                background: '#f9f9f9',
-                color: '#262626',
-              }}
-              value={doc}
-              onChange={handleChange}
-              placeholder="Enter your content..."
-            /> */}
 
             <Box toRight px5 pb1 pt1>
               <Button
