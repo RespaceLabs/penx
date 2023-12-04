@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import * as styles from '../content.module.css'
+import * as styles from '../content.module.scss'
 
 export type DragDirection = 'top' | 'bottom' | 'left' | 'right'
 

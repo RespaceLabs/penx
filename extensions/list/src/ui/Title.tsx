@@ -33,7 +33,7 @@ export const Title = ({
   const isDaily = element.nodeType === NodeType.DAILY
   const isDatabase = element.nodeType === NodeType.DATABASE
 
-  // useFocusTitle(element)
+  useFocusTitle(element)
 
   return (
     <Box

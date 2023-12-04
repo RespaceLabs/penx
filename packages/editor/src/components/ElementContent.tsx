@@ -24,7 +24,7 @@ export const ElementContent = memo(
 
     return (
       <>
-        {isShow && <SlashTrigger element={element} />}
+        {/* {isShow && <SlashTrigger element={element} />} */}
         <Element
           {...props}
           attributes={attributes}

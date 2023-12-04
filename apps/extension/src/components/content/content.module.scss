@@ -7,7 +7,7 @@
 }
 
 .selectInner {
-  border: 2px dashed #00A82D;
+  border: 2px dashed #00a82d;
   box-sizing: border-box;
   position: absolute;
   width: 100%;
@@ -17,7 +17,7 @@
 }
 
 .selected {
-  border: 2px solid #00A82D;
+  border: 2px solid #00a82d;
 }
 
 .mask {
@@ -43,9 +43,9 @@
   height: 24px;
   line-height: 24px;
   margin-left: 42px;
-  background-color: #00B96B;
+  background-color: #00b96b;
   box-sizing: border-box;
-  border-color: #00B96B;
+  border-color: #00b96b;
   border-radius: 4px;
   cursor: pointer;
   display: inline-block;
@@ -83,7 +83,7 @@
 .area {
   position: absolute;
   background-color: transparent;
-  border: 2px solid #00B96B;
+  border: 2px solid #00b96b;
   box-sizing: border-box;
 }
 
@@ -172,44 +172,18 @@
   bottom: 0;
   left: 0;
   height: 100vh;
-  z-index: 2147483645;
+  z-index: 1000000000000;
 }
 
 .rndContainer {
   background: #fff;
-  border-radius: 8px;
-  border: 1px solid #000000;
-}
-
-.editorContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-}
-
-.editorTop {
-  position: relative;
-  height: 20px;
-}
-
-.editorBottom {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-Content: center;
-  min-height: 30px;
-  max-height: 54px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 16px 70px rgba(0, 0, 0, 0.2);
 }
 
 .editorBtn {
-  width: 150px;
-  height: 30px;
-  background: #000000;
-  color: #fff;
-  border-radius: 3px;
   border: none;
-  cursor: pointer;
 }
 
 /* draggable-editor end */

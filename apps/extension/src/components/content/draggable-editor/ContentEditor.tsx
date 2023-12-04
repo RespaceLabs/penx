@@ -1,12 +1,8 @@
 import { Box } from '@fower/react'
-import { produce } from 'immer'
 import { PropsWithChildren, useEffect, useState } from 'react'
-import { createEditor } from 'slate'
-import { Editable, Slate, withReact } from 'slate-react'
 
 import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_P, ELEMENT_UL } from '@penx/constants'
 import { QuickInputEditor } from '@penx/editor'
-import { ExtensionContext } from '@penx/extension-typings'
 import { useExtensionStore } from '@penx/hooks'
 import { StoreProvider } from '@penx/store'
 
@@ -25,7 +21,7 @@ const content = [
             children: [
               {
                 type: 'p',
-                children: [{ text: 'foo bar...' }],
+                children: [{ text: '' }],
               },
             ],
           },
@@ -39,9 +35,7 @@ export const ContentEditor = () => {
   return (
     <StoreProvider>
       <ExtensionLoader>
-        <Box px2>
-          <QuickInputEditor plugins={[]} content={content} />
-        </Box>
+        <QuickInputEditor plugins={[]} content={content} />
       </ExtensionLoader>
     </StoreProvider>
   )
@@ -64,5 +58,5 @@ function ExtensionLoader({ children }: PropsWithChildren) {
 
   if (!extensionStore.withFns.length) return null
 
-  return <Box>{children}</Box>
+  return <>{children}</>
 }

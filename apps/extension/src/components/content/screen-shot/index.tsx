@@ -9,7 +9,7 @@ import React, {
   useState,
 } from 'react'
 
-import * as styles from '../content.module.css'
+import * as styles from '../content.module.scss'
 import { StartSelectEnum } from '../helper'
 import { useForceUpdate } from '../hooks'
 import { blobToBase64, screenShot } from './common/screen-shot'

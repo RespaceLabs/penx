@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { Descendant, Editor } from 'slate'
-import { Slate } from 'slate-react'
+import { Descendant, Editor, Transforms } from 'slate'
+import { ReactEditor, Slate } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
 import { SetNodeToDecorations } from '@penx/code-block'
 import { PenxEditor } from '@penx/editor-common'
@@ -24,6 +24,13 @@ export function QuickInputEditor({
 }: Props) {
   const editor = useCreateEditor(plugins)
   editor.items = []
+
+  useEffect(() => {
+    setTimeout(() => {
+      Transforms.select(editor, Editor.end(editor, [0]))
+      ReactEditor.focus(editor)
+    }, 50)
+  }, [editor])
 
   return (
     <Slate

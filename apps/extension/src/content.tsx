@@ -1,5 +1,5 @@
 import { fowerStore, Parser } from '@fower/react'
-import styles from 'data-text:./components/content/content.module.css'
+import styles from 'data-text:./components/content/content.module.scss'
 import type { PlasmoCSConfig } from 'plasmo'
 import { useEffect } from 'react'
 import TurndownService from 'turndown'

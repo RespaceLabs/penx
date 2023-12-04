@@ -1,12 +1,13 @@
 import { Box } from '@fower/react'
-import { XCircle } from 'lucide-react'
+import { SendHorizontal, X } from 'lucide-react'
 import React, { forwardRef, useEffect, useImperativeHandle } from 'react'
 import { Rnd } from 'react-rnd'
+import { Button } from 'uikit'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
 import { SUCCESS } from '~/common/helper'
 
-import * as styles from '../content.module.css'
+import * as styles from '../content.module.scss'
 import { StartSelectEnum } from '../helper'
 import { useDoc, useSelectedSpace, useStorageDoc } from '../hooks'
 import { ContentEditor } from './ContentEditor'
@@ -61,32 +62,44 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
       [],
     )
 
+    const boxWidth = 560
+    const boxHeight = 200
+
     return (
-      <div className={styles.draggableContainer}>
+      <Box className={styles.draggableContainer}>
         <Rnd
           default={{
-            x: window.innerWidth - 470,
-            y: 20,
-            width: 450,
-            height: 260,
+            x: window.innerWidth / 2 - boxWidth / 2,
+            y: window.innerHeight * 0.2,
+            width: boxWidth,
+            height: boxHeight,
           }}
-          minWidth={280}
+          minWidth={300}
           minHeight={240}
           maxWidth={800}
           maxHeight={480}
           bounds="window"
           className={styles.rndContainer}>
-          <div className={styles.editorContainer}>
-            <div className={styles.editorTop}>
-              <XCircle
-                style={{ cursor: 'pointer' }}
-                color="#000000"
-                size={20}
-                onClick={() => destroySelectArea()}
-              />
-            </div>
+          <Box px1 py3 column h-100p>
+            <Box pl5 toBetween mb2 pr2>
+              <Box textXL fontMedium>
+                Quick add
+              </Box>
 
-            <ContentEditor />
+              <Box
+                gray400
+                cursorPointer
+                square-28
+                toCenter
+                mt--2
+                onClick={() => destroySelectArea()}>
+                <X size={20} />
+              </Box>
+            </Box>
+
+            <Box flex-1 overflowYAuto>
+              <ContentEditor />
+            </Box>
 
             {/* <textarea
               style={{
@@ -103,14 +116,23 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
               placeholder="Enter your content..."
             /> */}
 
-            <div className={styles.editorBottom}>
-              <button className={styles.editorBtn} onClick={onSubmit}>
-                Submit
-              </button>
-            </div>
-          </div>
+            <Box toRight px5 pb1 pt1>
+              <Button
+                size="sm"
+                variant="light"
+                colorScheme="white"
+                gray600
+                className={styles.editorBtn}
+                onClick={onSubmit}>
+                <Box gray500>
+                  <SendHorizontal size={16} />
+                </Box>
+                <Box>Send to today</Box>
+              </Button>
+            </Box>
+          </Box>
         </Rnd>
-      </div>
+      </Box>
     )
   },
 )
