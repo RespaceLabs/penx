@@ -4,7 +4,6 @@ import {
   setConfig,
   setTheme,
 } from '@fower/react'
-import { db } from '@penx/local-db'
 
 export function initFower() {
   injectGlobalStyle({
@@ -28,11 +27,11 @@ export function initFower() {
   })
 
   setConfig({
-    inline: false,
+    inline: true,
     mode: {
       currentMode: 'light',
       autoDarkMode: {
-        enabled: true,
+        enabled: false,
         mappings: {
           black: 'gray100',
           bgWhite: 'gray900',

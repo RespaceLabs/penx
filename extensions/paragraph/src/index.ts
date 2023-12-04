@@ -1,4 +1,3 @@
-import { CaseSensitive } from 'lucide-react'
 import { ELEMENT_P } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
 import { getEmptyParagraph } from './getEmptyParagraph'

@@ -4,7 +4,8 @@ import { I18nProvider } from '@lingui/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
 import { Session } from 'next-auth'
-import { SessionProvider } from 'next-auth/react'
+import { SessionProvider, signIn, signOut } from 'next-auth/react'
+import 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'uikit'
 import { isServer } from '@penx/constants'
@@ -17,6 +18,8 @@ import 'simplebar-react/dist/simplebar.min.css'
 import 'react-circular-progressbar/dist/styles.css'
 import '../styles/globals.css'
 import '../styles/command.scss'
+import { fowerStore, Parser } from '@fower/react'
+import { appEmitter } from '@penx/app'
 
 // import 'prismjs/themes/prism.css'
 // import 'prismjs/themes/prism.css'
@@ -33,7 +36,27 @@ interface Props<T> extends AppProps<T> {
 const queryClient = new QueryClient()
 
 if (!isServer) {
+  // console.log(
+  //   'store.atomCache:',
+  //   fowerStore.atomCache,
+  //   Array.from(fowerStore.atomCache.values())[0]
+  // )
+
+  // setTimeout(() => {
+  // }, 2000)
+
   initSharing()
+
+  // TODO: move this code to a separate file
+  const handleSignOut = () => {
+    signOut()
+  }
+  appEmitter.on('SIGN_OUT', handleSignOut)
+
+  const handleSignIn = () => {
+    signIn('google')
+  }
+  appEmitter.on('SIGN_IN_GOOGLE', handleSignIn)
 }
 
 function MyApp({ Component, pageProps }: Props<any>) {

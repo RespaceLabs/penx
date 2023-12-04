@@ -1,3 +1,4 @@
+import { Box } from '@fower/react'
 import { XCircle } from 'lucide-react'
 import React, { forwardRef, useEffect, useImperativeHandle } from 'react'
 import { Rnd } from 'react-rnd'
@@ -8,6 +9,7 @@ import { SUCCESS } from '~/common/helper'
 import * as styles from '../content.module.css'
 import { StartSelectEnum } from '../helper'
 import { useDoc, useSelectedSpace, useStorageDoc } from '../hooks'
+import { ContentEditor } from './ContentEditor'
 
 export interface IDraggableEditorRef {}
 
@@ -84,7 +86,9 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
               />
             </div>
 
-            <textarea
+            <ContentEditor />
+
+            {/* <textarea
               style={{
                 flex: 4,
                 width: '100%',
@@ -97,7 +101,7 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
               value={doc}
               onChange={handleChange}
               placeholder="Enter your content..."
-            />
+            /> */}
 
             <div className={styles.editorBottom}>
               <button className={styles.editorBtn} onClick={onSubmit}>

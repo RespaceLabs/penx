@@ -1,3 +1,4 @@
+import { fowerStore, Parser } from '@fower/react'
 import styles from 'data-text:./components/content/content.module.css'
 import type { PlasmoCSConfig } from 'plasmo'
 import { useEffect } from 'react'
@@ -7,8 +8,11 @@ import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
 import type { MsgRes } from '~/common/helper'
 import { prepareContent } from '~/common/prepare-content'
 
+import { initFower } from './common/initFower'
 import { StartSelectEnum } from './components/content/helper'
 import { initSelectArea } from './components/content/selector'
+
+initFower()
 
 export const getStyle = () => {
   const style = document.createElement('style')
@@ -76,6 +80,7 @@ const PlasmoOverlay = () => {
         J: StartSelectEnum.areaSelect,
         L: StartSelectEnum.screenShot,
       }
+      console.log('ee---------')
 
       if (event.ctrlKey && event.shiftKey && shortcutMap[event.key]) {
         initSelectArea({ type: shortcutMap[event.key] })

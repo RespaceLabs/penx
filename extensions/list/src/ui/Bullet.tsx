@@ -44,7 +44,7 @@ const BulletContent = memo(
         toCenter
         roundedFull
         cursorPointer
-        flexShrink-1
+        // flexShrink-1
         bg={bgColor}
         onContextMenu={onContextMenu}
         onClick={() => {

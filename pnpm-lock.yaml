@@ -83,12 +83,84 @@ importers:
       '@penx/app':
         specifier: workspace:*
         version: link:../../packages/app
+      '@penx/auto-format':
+        specifier: workspace:*
+        version: link:../../extensions/auto-format
+      '@penx/bidirectional-link':
+        specifier: workspace:*
+        version: link:../../extensions/bidirectional-link
+      '@penx/block-selector':
+        specifier: workspace:*
+        version: link:../../extensions/block-selector
+      '@penx/blockquote':
+        specifier: workspace:*
+        version: link:../../extensions/blockquote
+      '@penx/check-list':
+        specifier: workspace:*
+        version: link:../../extensions/check-list
+      '@penx/code-block':
+        specifier: workspace:*
+        version: link:../../extensions/code-block
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      '@penx/database':
+        specifier: workspace:*
+        version: link:../../extensions/database
+      '@penx/divider':
+        specifier: workspace:*
+        version: link:../../extensions/divider
+      '@penx/editor':
+        specifier: workspace:*
+        version: link:../../packages/editor
+      '@penx/extension-list':
+        specifier: workspace:*
+        version: link:../../packages/extension-list
+      '@penx/extension-typings':
+        specifier: workspace:*
+        version: link:../../packages/extension-typings
+      '@penx/file':
+        specifier: workspace:*
+        version: link:../../extensions/File
+      '@penx/heading':
+        specifier: workspace:*
+        version: link:../../extensions/heading
+      '@penx/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
+      '@penx/image':
+        specifier: workspace:*
+        version: link:../../extensions/image
+      '@penx/link':
+        specifier: workspace:*
+        version: link:../../extensions/link
+      '@penx/list':
+        specifier: workspace:*
+        version: link:../../extensions/list
+      '@penx/loader':
+        specifier: workspace:*
+        version: link:../../packages/loader
       '@penx/model':
         specifier: workspace:*
         version: link:../../packages/model
+      '@penx/paragraph':
+        specifier: workspace:*
+        version: link:../../extensions/paragraph
+      '@penx/storage-estimate':
+        specifier: workspace:*
+        version: link:../../extensions/storage-estimate
+      '@penx/store':
+        specifier: workspace:*
+        version: link:../../packages/store
+      '@penx/table':
+        specifier: workspace:*
+        version: link:../../extensions/table
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../../packages/trpc-client
+      '@penx/word-count':
+        specifier: workspace:*
+        version: link:../../extensions/word-count
       '@plasmohq/storage':
         specifier: ^1.8.0
         version: 1.9.0(react@18.2.0)
@@ -140,9 +212,6 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
-      devlop:
-        specifier: ^1.1.0
-        version: 1.1.0
       emoji-mart:
         specifier: ^5.5.2
         version: 5.5.2
