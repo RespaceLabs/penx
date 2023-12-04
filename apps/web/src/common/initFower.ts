@@ -4,7 +4,6 @@ import {
   setConfig,
   setTheme,
 } from '@fower/react'
-import { db } from '@penx/local-db'
 
 export function initFower() {
   injectGlobalStyle({
@@ -55,6 +54,18 @@ export function initFower() {
       brand700: '#4338ca',
       brand800: '#5b21b6',
       brand900: '#4c1d95',
+
+      // brand50: '#ecfdf5',
+      // brand100: '#d1fae5',
+      // brand200: '#a7f3d0',
+      // brand300: '#6ee7b7',
+      // brand400: '#34d399',
+      // brand500: '#10b981',
+      // brand600: '#059669',
+      // brand700: '#047857',
+      // brand800: '#065f46',
+      // brand900: '#064e3b',
+      // brand950: '#022c22',
     },
     shadows: {
       popover:

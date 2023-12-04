@@ -4,6 +4,7 @@ import {
   CalendarDays,
   Cloud,
   CloudOff,
+  Fan,
   Folder,
   Hash,
   Inbox,
@@ -23,6 +24,7 @@ import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover/SpacePopover'
 import { TreeView } from './TreeView/TreeView'
+import { UserProfile } from './UserProfile'
 
 function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
   const values = Object.values(extensionStore)
@@ -52,7 +54,6 @@ export const Sidebar = () => {
       gap3
       h-100vh
       overflowAuto
-      pb2
     >
       <Box px2>
         <SpacePopover />
@@ -105,11 +106,16 @@ export const Sidebar = () => {
           </>
         )}
       </Box>
-      <Box px2>
+      <Box px2 toBetween toCenterY>
         {!session && <LoginWithGoogleButton />}
         {/* {!isConnected && <WalletConnectButton size="lg" w-100p />}
         {isConnected && <UserAvatarModal />} */}
-        {session && <SyncPopover />}
+        {session && (
+          <>
+            <SyncPopover />
+            <UserProfile />
+          </>
+        )}
       </Box>
     </Box>
   )

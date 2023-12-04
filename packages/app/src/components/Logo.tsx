@@ -18,14 +18,11 @@ export const Logo = ({
 }: Props) => {
   const content = (
     <>
-      <Box square7 toCenter relative>
-        {/* <PencilOutline/> */}
-        <Pen />
-        <Box absolute w={size * 0.9} h={2} bgBlack roundedFull rotate-45 />
-      </Box>
+      <Box as="img" src="/images/logo-512.png" square={size * 0.9} />
+
       {showText && (
         <Box>
-          <Box textXL black fontBold toCenterY>
+          <Box text={size} black fontBold toCenterY>
             <Box>Pen</Box>
             <Box brand500>X</Box>
           </Box>

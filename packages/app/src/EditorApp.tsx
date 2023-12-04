@@ -9,6 +9,7 @@ import { AppProvider } from './AppProvider'
 import { ClientOnly } from './components/ClientOnly'
 import { HotkeyBinding } from './HotkeyBinding'
 import { UserQuery } from './UserQuery'
+import { HomePage } from './Workbench/HomePage/HomePage'
 import { Workbench } from './Workbench/Workbench'
 import { WorkerStarter } from './WorkerStarter'
 
@@ -34,17 +35,20 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
   }
 
   return (
-    <ClientOnly>
-      <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
-        <StoreProvider>
-          <WorkerStarter />
-          {session && <UserQuery userId={session.userId} />}
-          <HotkeyBinding />
-          <AppProvider>
-            <Workbench />
-          </AppProvider>
-        </StoreProvider>
-      </ErrorBoundary>
-    </ClientOnly>
+    <>
+      <HomePage />
+      <ClientOnly>
+        <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
+          <StoreProvider>
+            <WorkerStarter />
+            {session && <UserQuery userId={session.userId} />}
+            <HotkeyBinding />
+            <AppProvider>
+              <Workbench />
+            </AppProvider>
+          </StoreProvider>
+        </ErrorBoundary>
+      </ClientOnly>
+    </>
   )
 }

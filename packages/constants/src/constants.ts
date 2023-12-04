@@ -4,6 +4,8 @@ export const isServer = typeof window === 'undefined'
 
 export const isProd = process.env.NODE_ENV === 'production'
 
+export const PENX_HOME_STATUS = 'PENX_HOME_STATUS'
+
 export enum SyncScope {
   CURRENT_DOC,
   ALL_CHANGES,

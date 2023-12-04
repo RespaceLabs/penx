@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { LogOut, MoreHorizontal, User } from 'lucide-react'
+import { Home, LogOut, User } from 'lucide-react'
 import {
   Avatar,
   AvatarImage,
@@ -13,34 +13,46 @@ import {
 } from 'uikit'
 import { useSession } from '@penx/hooks'
 import { store } from '@penx/store'
-import { appEmitter } from '../../../app-emitter'
+import { appEmitter } from '../../app-emitter'
 
 export const UserProfile = () => {
   const session = useSession()
-  const { close } = usePopoverContext()
   if (!session) return null
 
   return (
     <Box borderBottom borderGray200--T40 h-40 toCenterY pl4 pr2 toBetween>
-      <Box toCenterY gap2>
-        <Avatar size={24}>
-          <AvatarImage src={session.user.image!} />
-        </Avatar>
-        <Box textSM>{session.user.email}</Box>
-      </Box>
       <Popover>
         <PopoverTrigger>
-          <Button isSquare variant="ghost" size={28} colorScheme="gray600">
-            <MoreHorizontal size={20} />
-          </Button>
+          <Avatar size={24}>
+            <AvatarImage src={session.user.image!} />
+          </Avatar>
         </PopoverTrigger>
-        <PopoverContent>
+        <PopoverContent w-200>
+          <Box toCenterY gap2 px4 py2>
+            <Avatar size={24}>
+              <AvatarImage src={session.user.image!} />
+            </Avatar>
+            <Box textSM>{session.user.email}</Box>
+          </Box>
+
+          <PopoverClose>
+            <MenuItem
+              gap2
+              onClick={() => {
+                appEmitter.emit('OPEN_HOME')
+              }}
+            >
+              <Box gray500>
+                <Home size={16} />
+              </Box>
+              <Box>Open home page</Box>
+            </MenuItem>
+          </PopoverClose>
           <PopoverClose>
             <MenuItem
               gap2
               onClick={() => {
                 store.router.routeTo('ACCOUNT_SETTINGS')
-                close()
               }}
             >
               <Box gray500>
