@@ -270,9 +270,6 @@ export class NodeStore {
 
     const rootNode = nodes.find((n) => new Node(n).isRootNode)!
 
-    // update space root not snapshot
-    await db.updateSnapshot(rootNode, 'update', rootNode)
-
     this.setNodes(nodes)
     this.selectNode(node)
   }

@@ -7,7 +7,7 @@ export function getNodeMap(nodes: INode[], space: ISpace) {
       const node = new Node(cur)
       return {
         ...acc,
-        [node.id]: node.toHash(space.encrypted, space.password),
+        [node.id]: node.toHash(),
       }
     },
     {} as Record<string, string>,

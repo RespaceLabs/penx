@@ -45,8 +45,6 @@ export function syncNodes(input: SyncUserInput) {
         })
       }
 
-      console.log('gogo.........x')
-
       await tx.node.createMany({
         data: added.map((item) => {
           const { openedAt, createdAt, updatedAt, ...rest } = item

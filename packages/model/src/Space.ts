@@ -61,7 +61,6 @@ export class Space {
   toJSON() {
     return {
       ...this.raw,
-      snapshot: this.snapshot.toJSON(),
     }
   }
 

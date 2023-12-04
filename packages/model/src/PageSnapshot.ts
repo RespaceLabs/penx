@@ -1,4 +1,3 @@
-import CryptoJS from 'crypto-js'
 import { ISpace } from '@penx/model-types'
 
 export interface SnapshotDiffResult {
@@ -9,7 +8,6 @@ export interface SnapshotDiffResult {
 }
 
 export class PageSnapshot {
-  // Record<nodeId, md5>
   map: Record<string, string> = {}
 
   version: number
@@ -19,41 +17,16 @@ export class PageSnapshot {
     this.version = space.pageSnapshot.version || 0
   }
 
-  md5Doc = (editorValue: any) => {
-    return CryptoJS.MD5(JSON.stringify(editorValue)).toString()
-  }
-
-  add = (id: string, editorValue: any) => {
-    this.map[id] = this.md5Doc(editorValue)
-  }
-
-  update = (id: string, editorValue: any) => {
-    this.map[id] = this.md5Doc(editorValue)
-  }
-
-  delete = (id: string) => {
-    delete this.map[id]
-  }
-
-  toJSON() {
-    return {
-      version: this.version,
-      pageMap: this.map,
-    }
-  }
-
   updateVersion = (v: number) => {
     this.version = v
   }
 
   diff(
+    localMap: Record<string, string>,
     serverSnapshot: ISpace['pageSnapshot'],
     type: 'PUSH' | 'PULL' = 'PUSH',
   ): SnapshotDiffResult {
-    const { map: localMap } = this
     const { pageMap: serverMap } = serverSnapshot
-    console.log('serverSnapshot--------:', serverSnapshot)
-    console.log('localSnapshot:', this.toJSON())
 
     const localIds = Object.keys(localMap)
     const serverIds = Object.keys(serverMap)

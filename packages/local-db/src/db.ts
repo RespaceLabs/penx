@@ -253,8 +253,6 @@ class DB {
   }
 
   deleteNode = async (nodeId: string) => {
-    const node = await this.getNode(nodeId)
-    await this.updateSnapshot(node, 'delete')
     return this.node.deleteByPk(nodeId)
   }
 
@@ -363,21 +361,6 @@ class DB {
   listNormalNodes = async (spaceId: string) => {
     return this.node.select({
       where: { spaceId },
-    })
-  }
-
-  updateSnapshot = async (
-    node: INode,
-    action: 'add' | 'delete' | 'update',
-    editorValue?: any,
-  ) => {
-    const spaceRaw = await this.getSpace(node.spaceId)
-    const space = new Space(spaceRaw)
-    const nodeModel = new Node(node)
-    space.snapshot[action](nodeModel.snapshotId, editorValue)
-
-    await this.updateSpace(space.id, {
-      pageSnapshot: space.snapshot.toJSON(),
     })
   }
 

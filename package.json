@@ -1,5 +1,5 @@
 {
-  "name": "ink",
+  "name": "penx",
   "private": true,
   "scripts": {
     "build": "turbo run build",

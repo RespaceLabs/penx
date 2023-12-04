@@ -1,5 +1,6 @@
 import CryptoJS from 'crypto-js'
 import _ from 'lodash'
+import { calculateSHA256FromString } from '@penx/encryption'
 import { Node } from '@penx/model'
 import { INode, ISpace, NodeType } from '@penx/model-types'
 import { NodeListService } from './NodeListService'
@@ -102,9 +103,13 @@ export class SpaceService {
     const pageMap = this.getPageMap()
 
     return Object.keys(pageMap).reduce<Record<string, string>>((acc, key) => {
+      const nodes = pageMap[key].map((n) => new Node(n))
+      const nodesHashStr = nodes.map((n) => n.toHash()).join('')
+
       return {
         ...acc,
-        [key]: CryptoJS.MD5(JSON.stringify(pageMap[key])).toString(),
+        // [key]: CryptoJS.MD5(nodesHashStr).toString(),
+        [key]: calculateSHA256FromString(nodesHashStr),
       }
     }, {})
   }

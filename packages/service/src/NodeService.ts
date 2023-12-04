@@ -135,25 +135,7 @@ export class NodeService {
       store.node.setFirstActiveNodes(node)
     }
 
-    // await this.updateSnapshot(node, nodes)
-
     await new NodeCleaner().cleanDeletedNodes()
-  }
-
-  private async updateSnapshot(node: INode, nodes: INode[]) {
-    // update snapshot
-    const nodeService = new NodeService(
-      new Node(node!),
-      nodes.map((n) => new Node(n)),
-    )
-
-    const [rootNode] = nodeService.getParentNodes()
-    const childrenNodes = rootNode.children.map(
-      (id) => new Node(nodeService.nodeMap.get(id)!),
-    )
-
-    // update page snapshot
-    await db.updateSnapshot(rootNode.raw, 'update', childrenNodes)
   }
 
   saveNodes = async (parentId: string, ul: UnorderedListElement) => {

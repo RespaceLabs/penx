@@ -6,8 +6,8 @@ import { Session } from '@penx/store'
 import { getNodeMap } from '@penx/sync'
 import { trpc } from '@penx/trpc-client'
 
-const INTERVAL = 5 * 1000
-// const INTERVAL = 60 * 1000
+// const INTERVAL = 5 * 1000
+const INTERVAL = 60 * 1000
 
 export async function startPollingPull(session: Session) {
   while (session) {
@@ -25,6 +25,8 @@ async function sync() {
   const remoteVersion = await trpc.space.version.query({
     spaceId: space.id,
   })
+
+  // console.log('get remote version....')
 
   const localVersion = space.nodeSnapshot.version
   // console.log(

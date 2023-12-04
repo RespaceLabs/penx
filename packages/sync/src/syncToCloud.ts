@@ -45,13 +45,6 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
 
   const curNodeMap = getNodeMap(nodes, space)
 
-  console.log(
-    '========prevNodeMap:',
-    prevNodeMap['c1897e64-cccf-4e47-ba39-dd303587fa62'],
-    'curNodeMap:',
-    curNodeMap['c1897e64-cccf-4e47-ba39-dd303587fa62'],
-  )
-
   const diffed = diffNodeMap(prevNodeMap, curNodeMap)
 
   const nodeMap = new Map<string, INode>()
@@ -61,9 +54,9 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
   }
 
   if (diffed.isEqual) {
-    console.log('is equal, no need to push', diffed)
+    // console.log('is equal, no need to push', diffed)
   } else {
-    console.log('diff:', diffed)
+    // console.log('diff:', diffed)
   }
 
   if (!diffed.isEqual) {

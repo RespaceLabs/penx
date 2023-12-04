@@ -7,6 +7,8 @@ import { TrpcProvider } from '~/components/TrpcProvider'
 import { useSession } from '~/hooks/useSession'
 import { Main } from '~/pages/main'
 
+import '../components/popup/globals.module.css'
+
 function IndexPopup() {
   const { loading, data } = useSession()
 

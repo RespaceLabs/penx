@@ -461,7 +461,9 @@ export class SyncService {
         return
       }
 
-      const diff = this.space.snapshot.diff(serverSnapshot)
+      const localMap = this.spaceService.getPageMapHash()
+
+      const diff = this.space.snapshot.diff(localMap, serverSnapshot)
 
       console.log('====diff:', diff)
 
@@ -494,10 +496,6 @@ export class SyncService {
     // update ref to GitHub server after commit
     await this.updateRef(commitData.sha)
 
-    await db.updateSpace(this.space.id, {
-      pageSnapshot: this.space.snapshot.toJSON(),
-    })
-
     const pageMapHash = this.spaceService.getPageMapHash()
     const newVersion = this.space.snapshot.version + 1
 
@@ -515,211 +513,6 @@ export class SyncService {
         pageMap: pageMapHash,
       },
     })
-  }
-
-  async pullSingleFile(fileNode: FileNode) {
-    const node = await db.getFile(fileNode.fileId)
-    if (node) return
-
-    const fileRes: any = await this.app.request(
-      'GET /repos/{owner}/{repo}/contents/{path}',
-      {
-        ...this.params,
-        ref: `heads/${this.baseBranchName}`,
-        path: this.getFilePath(fileNode.fileId, fileNode.mime),
-      },
-    )
-
-    const file = base64ToFile(
-      fileRes.data.content,
-      `${fileNode.fileId}.${mime.extension(fileNode.mime)}`,
-      fileNode.mime,
-    )
-
-    await db.createFile({
-      id: fileNode.fileId,
-      spaceId: this.space.id,
-      value: file,
-    })
-  }
-
-  async pullByFileNodes(fileNodes: FileNode[]) {
-    for (const fileNode of fileNodes) {
-      await this.pullSingleFile(fileNode)
-    }
-  }
-
-  async pullAll() {
-    const filesTree = await this.getFilesTreeInfo()
-
-    for (const item of filesTree) {
-      const fileRes: any = await this.app.request(
-        'GET /repos/{owner}/{repo}/contents/{path}',
-        {
-          ...this.params,
-          ref: `heads/${this.baseBranchName}`,
-          path: item.path,
-        },
-      )
-
-      const file = base64ToFile(
-        fileRes.data.content,
-        item.name,
-        mime.lookup(item.name) as string,
-      )
-
-      await db.createFile({
-        id: item.name.split('.')[0],
-        spaceId: this.space.id,
-        value: file,
-      })
-    }
-
-    const pagesTree = await this.getPagesTreeInfo()
-
-    const rootNode = await db.getRootNode(this.space.id)
-    if (rootNode) {
-      console.log('rootNode:', rootNode)
-      await db.deleteNode(rootNode.id)
-    }
-
-    const dailyRootNode = await db.getDailyRootNode(this.space.id)
-    if (dailyRootNode) {
-      console.log('dailyRootNode:', dailyRootNode)
-      await db.deleteNode(dailyRootNode.id)
-    }
-
-    const databaseRootNode = await db.getDatabaseRootNode(this.space.id)
-    if (databaseRootNode) {
-      console.log('databaseRootNode:', databaseRootNode)
-      await db.deleteNode(databaseRootNode.id)
-    }
-
-    const inboxNode = await db.getInboxNode(this.space.id)
-    if (inboxNode) {
-      console.log('indexNode:', inboxNode)
-      await db.deleteNode(inboxNode.id)
-    }
-
-    const favoriteNode = await db.getFavoriteNode(this.space.id)
-    if (favoriteNode) {
-      await db.deleteNode(favoriteNode.id)
-    }
-
-    const trashNode = await db.getTrashNode(this.space.id)
-    if (trashNode) {
-      console.log('trashNode:', trashNode)
-      await db.deleteNode(trashNode.id)
-    }
-
-    for (const item of pagesTree) {
-      const pageRes: any = await this.app.request(
-        'GET /repos/{owner}/{repo}/contents/{path}',
-        {
-          ...this.params,
-          ref: `heads/${this.baseBranchName}`,
-          path: item.path,
-        },
-      )
-
-      const originalContent = this.decrypt(decodeBase64(pageRes.data.content))
-
-      const nodes: INode[] = JSON.parse(originalContent) || []
-
-      for (const item of nodes) {
-        const node = await db.getNode(item.id)
-        if (node) {
-          await db.updateNode(node.id, item)
-        } else {
-          await db.createNode(item)
-        }
-      }
-    }
-  }
-
-  async pullByDiff() {
-    const serverSnapshot = await this.getServerSnapshot()
-
-    if (this.space.snapshot.version >= serverSnapshot.version) {
-      console.log('version is equal, no need to pull!!!')
-      return
-    }
-
-    console.log('serverSnapshot:', serverSnapshot)
-    console.log('this:', this.space.snapshot)
-
-    const diff = this.space.snapshot.diff(serverSnapshot, 'PULL')
-
-    console.log('diff:', diff)
-    // return
-
-    if (diff.isEqual) return
-
-    for (const id of diff.deleted) {
-      await db.deleteNode(id)
-    }
-
-    const list = [
-      ...diff.added.map((id) => ({ id, isAdd: true })),
-      ...diff.updated.map((id) => ({ id, isAdd: false })),
-    ]
-
-    for (const { id, isAdd } of list) {
-      const pageRes: any = await this.app.request(
-        'GET /repos/{owner}/{repo}/contents/{path}',
-        {
-          ...this.params,
-          ref: `heads/${this.baseBranchName}`,
-          path: this.getNodePath(id),
-        },
-      )
-
-      const originalContent = this.decrypt(decodeBase64(pageRes.data.content))
-
-      const nodes: INode[] = JSON.parse(originalContent) || []
-
-      for (const item of nodes) {
-        if (!isAdd) {
-          await db.updateNode(item.id, item)
-        } else {
-          await db.createNode(item)
-        }
-      }
-    }
-
-    // update file node after node updated
-
-    const changes = [...diff.added, ...diff.updated]
-    const nodeIds: string[] = this.changesToNodeIds(changes)
-    const fileNodes = await this.getFileNodesInNodeIds(nodeIds)
-
-    await this.pullByFileNodes(fileNodes)
-  }
-
-  async pull() {
-    try {
-      if (!this.space?.snapshot?.version) {
-        console.log('pull all......')
-        await this.pullAll()
-      } else {
-        console.log('pull by diff......')
-        await this.pullByDiff()
-      }
-
-      await this.pullSpaceInfo()
-
-      // TODO:
-      const nodes = await db.listNormalNodes(this.space.id)
-      // const activeNode = await db.getNode(this.space.activeNodeId!)
-      const spaces = await db.listSpaces()
-
-      store.space.setSpaces(spaces)
-      store.node.setNodes(nodes)
-      // store.reloadNode(activeNode)
-      store.router.toNode()
-    } catch (error) {
-      console.log('pull error', error)
-    }
   }
 
   private async getServerSnapshot(): Promise<ISpace['pageSnapshot']> {

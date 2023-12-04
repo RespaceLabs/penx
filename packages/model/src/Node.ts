@@ -1,6 +1,10 @@
 import CryptoJS from 'crypto-js'
 import { format } from 'date-fns'
-import { decryptString, encryptString } from '@penx/encryption'
+import {
+  calculateSHA256FromString,
+  decryptString,
+  encryptString,
+} from '@penx/encryption'
 import { INode, NodeType } from '@penx/model-types'
 
 type Element = {
@@ -156,7 +160,7 @@ export class Node {
     return this.id
   }
 
-  toHash(encrypted: boolean, password: string): string {
+  toHash(): string {
     const json = [
       this.id,
       this.spaceId,
@@ -169,7 +173,7 @@ export class Node {
       this.children,
     ]
 
-    return CryptoJS.MD5(JSON.stringify(json)).toString()
+    return calculateSHA256FromString(JSON.stringify(json))
   }
 
   toEncrypted(password: string) {

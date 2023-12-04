@@ -79,18 +79,6 @@ export const DeleteSpaceModal = () => {
       <Box textLG fontMedium mb4>
         Delete Space
       </Box>
-      <Box>
-        <Button
-          onClick={() => {
-            trpc.node.addMarkdown.mutate({
-              spaceId: activeSpace.id,
-              markdown: 'Hello World!!!xxxx',
-            })
-          }}
-        >
-          Add Text
-        </Button>
-      </Box>
 
       <Modal name={ModalNames.DELETE_NODE}>
         <ModalTrigger>
