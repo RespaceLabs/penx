@@ -7,7 +7,7 @@ export class Space {
   snapshot: PageSnapshot
 
   constructor(public raw: ISpace) {
-    this.snapshot = new PageSnapshot(raw)
+    this.snapshot = new PageSnapshot(this.raw)
   }
 
   get id() {
@@ -50,6 +50,10 @@ export class Space {
     return `${this.id}/space.json`
   }
 
+  get pageSnapshot() {
+    return this.raw.pageSnapshot
+  }
+
   get updatedAtTimestamp() {
     return new Date(this.raw.updatedAt).valueOf()
   }
@@ -64,10 +68,7 @@ export class Space {
     }
   }
 
-  stringify(version?: number): string {
-    if (typeof version !== 'undefined') {
-      this.snapshot.updateVersion(version)
-    }
+  stringify(): string {
     return JSON.stringify(this.toJSON(), null, 2)
   }
 }

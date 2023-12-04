@@ -8,18 +8,7 @@ export interface SnapshotDiffResult {
 }
 
 export class PageSnapshot {
-  map: Record<string, string> = {}
-
-  version: number
-
-  constructor(public space: ISpace) {
-    this.map = space.pageSnapshot.pageMap || {}
-    this.version = space.pageSnapshot.version || 0
-  }
-
-  updateVersion = (v: number) => {
-    this.version = v
-  }
+  constructor(public space: ISpace) {}
 
   diff(
     localMap: Record<string, string>,

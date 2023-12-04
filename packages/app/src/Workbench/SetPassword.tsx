@@ -56,7 +56,7 @@ export const SetPassword = () => {
       await db.updateSpace(activeSpace.id, {
         password,
         nodeSnapshot: {
-          version: activeSpace.snapshot.version,
+          version: activeSpace.pageSnapshot.version,
           nodeMap: newNodeMap,
         },
       })

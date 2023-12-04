@@ -272,12 +272,12 @@ export class SyncService {
     return this.filesTree
   }
 
-  async createSpaceTreeItem(version: number) {
+  async createSpaceTreeItem() {
     return {
       path: this.space.filePath,
       mode: '100644',
       type: 'blob',
-      content: this.space.stringify(version),
+      content: this.space.stringify(),
     } as TreeItem
   }
 
@@ -416,13 +416,13 @@ export class SyncService {
     const filesTree = await this.createFilesTree()
     tree.push(...filesTree)
 
-    const spaceTreeItem = await this.createSpaceTreeItem(1)
+    const spaceTreeItem = await this.createSpaceTreeItem()
     tree.push(spaceTreeItem)
 
     return tree
   }
 
-  async pushByDiff(diff: SnapshotDiffResult, serverVersion: number) {
+  async pushByDiff(diff: SnapshotDiffResult) {
     let tree: TreeItem[] = []
 
     // space.json existed
@@ -432,7 +432,7 @@ export class SyncService {
 
     tree.push(...pagesTree)
 
-    const spaceTreeItem = await this.createSpaceTreeItem(serverVersion + 1)
+    const spaceTreeItem = await this.createSpaceTreeItem()
     tree.push(spaceTreeItem)
 
     const filesTree = await this.getFilesTreeByDiff(diff)
@@ -456,7 +456,7 @@ export class SyncService {
     } else {
       console.log('serverSnapshot:', serverSnapshot, 'space:', this.space)
 
-      if (this.space.snapshot.version < serverSnapshot.version) {
+      if (this.space.pageSnapshot.version < serverSnapshot.version) {
         console.log('should pull, can not push!!!')
         return
       }
@@ -473,7 +473,7 @@ export class SyncService {
         return
       }
 
-      tree = await this.pushByDiff(diff, serverSnapshot.version)
+      tree = await this.pushByDiff(diff)
     }
 
     console.log('tree------:', tree)
@@ -497,7 +497,7 @@ export class SyncService {
     await this.updateRef(commitData.sha)
 
     const pageMapHash = this.spaceService.getPageMapHash()
-    const newVersion = this.space.snapshot.version + 1
+    const newVersion = this.space.pageSnapshot.version + 1
 
     // update remote snapshot
     await trpc.space.upsertPageSnapshot.mutate({
