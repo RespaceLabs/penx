@@ -32,7 +32,7 @@ export const BorderedRadioGroup = forwardRef<HTMLDivElement, Props>(
                   borderBrand500={checked}
                   toCenterY
                   flex-1
-                  text={[16, 16, 24]}
+                  text={[16, 16, 20]}
                   py5
                 >
                   <RadioIndicator />

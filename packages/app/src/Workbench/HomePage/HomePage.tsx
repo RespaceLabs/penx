@@ -48,7 +48,7 @@ export function HomePage() {
       toBetween
       toCenterX
     >
-      <Box py3>
+      <Box py3 relative zIndex-10>
         <Logo size={32} />
       </Box>
       <Box flex-1 toCenter column mt--80 gap5 px={[20, 0]}>

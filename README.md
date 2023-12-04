@@ -1,37 +1,53 @@
-# PenX
+<div align="center">
 
-# Heading one
+<a href="https://logseq.com" alt="Logseq Logo">
+    <img src="https://www.penx.io/images/logo-512.png" height="120"/></a>
 
-## Heading two
+<h1 style="border-bottom: none">
+    <b>PenX</b><br />
+     A structured note-taking app for personal use
+    <br>
+</h1>
 
-### Heading three
+[Discord](https://discord.gg/a4DXe6AB) | [Website](https://www.penx.io/) | [Issues](https://github.com/penxio/penx/issues)
 
-#### Heading four
+</div>
 
-##### Heading five
+## About PenX
 
-###### Heading six
+PenX is a structured note-taking app designed for personal use. In PenX, Privacy is first important thing. our mission is building a elegant tool to manage personal digital assets, like notes, tasks, ideas, password, documents.
 
-Normal paragraph
+## Features
 
-_italic text_
+- **Local-First** - You own your data, in spite of the cloud
+- **Privacy-First** - Use End-To-End Encryption to sync data
+- **Open Source** - Trust our code, not our words
+- **Version control** - GitHub-Based Version control Out-of-box
 
-**bold text**
+## About the maker
 
-~~strike through text~~
+I'm 0xZion, a freelancer, a full-stack developer, love open-source, now focusing on this application PenX. There's no massive team, no investors, just me currently. If someone is interested in PenX development, can send me a email: 0xzy.penx@gmail.com.
 
-[hyperlink](https://jackhanford.com)
+## Primary tech stack
 
-> A block quote.
+- Next.js
+- TypeScript
+- tRPC
+- Prisma
+- NextAuth.js
+- Slate.js
+- IndexedDB
 
-- bullet list item 0
-- bullet list item 1
-  - item 11
-  - item 22
-    - **aaaaa**
-    - bbbb
-  - item 33
-- bullet list item 2
+## Development
 
-1. ordered list item 1
-1. ordered list item 2
+After clone the repo, in the root dir:
+
+```bash
+yarn install # Install the dependencies
+
+yarn dev # start server
+```
+
+## ⚖️ License
+
+AGPL 3.0

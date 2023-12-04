@@ -72,7 +72,7 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
             End-to-End Encryption password
           </Box>
           <Box gray400 leadingNormal textSM mb2>
-            The password can be update in space settings.
+            The password can be updated in space settings.
           </Box>
           <Controller
             name="password"
