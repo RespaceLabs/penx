@@ -15,6 +15,7 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
   const { control, formState } = form
   const { isValid } = formState
   const encrypted = form.watch('encrypted')
+  const type = form.watch('type')
 
   return (
     <Box as="form" onSubmit={form.onSubmit} column gap4 pt3>
@@ -48,6 +49,24 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
           />
         )}
       />
+
+      {type === SpaceType.CLOUD && (
+        <>
+          <Box mb--6 column gap2>
+            <Box fontMedium>Invitation Code</Box>
+            <Box textSM gray400>
+              Currently cloud space should have a invitation code
+            </Box>
+          </Box>
+          <Controller
+            name="invitationCode"
+            control={control}
+            render={({ field }) => (
+              <Input autoFocus size="lg" placeholder="" {...field} />
+            )}
+          />
+        </>
+      )}
 
       <Box toCenterY gap1>
         <Controller
@@ -84,7 +103,7 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
         </Box>
       )}
 
-      <Box toCenterY gap2 mt2>
+      <Box toCenterY toRight gap2 mt2>
         {showCancel && (
           <ModalClose>
             <Button type="button" size="lg" roundedFull colorScheme="white">

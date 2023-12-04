@@ -1,3 +1,5 @@
+import { TRPCError } from '@trpc/server'
+import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 function generateCode(length: number): string {
@@ -12,6 +14,29 @@ function generateCode(length: number): string {
 }
 
 export const spaceInvitationCodeRouter = createTRPCRouter({
+  checkInvitationCode: protectedProcedure
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+      const result = await ctx.prisma.spaceInvitationCode.findUnique({
+        where: { code: input },
+      })
+      if (!result) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Invitation code not found',
+        })
+      }
+
+      if (result.used) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Invitation code has already been used',
+        })
+      }
+
+      return true
+    }),
+
   generate: protectedProcedure.mutation(async ({ ctx }) => {
     if (ctx.token.email !== '0xyz.penx@gmail.com') {
       throw new Error('Unauthorized')

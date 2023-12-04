@@ -16,6 +16,7 @@ export type CreateSpaceValues = {
   type: SpaceType
   encrypted: boolean
   password: string
+  invitationCode: string
 }
 
 export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
@@ -26,6 +27,7 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
       type: SpaceType.LOCAL,
       encrypted: false,
       password: '',
+      invitationCode: '',
     },
   })
 
@@ -35,9 +37,20 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
     try {
       console.log('data:', data)
 
-      if (data.type === SpaceType.CLOUD && !session) {
-        toast.info('You need to be logged in to create a cloud space')
-        return
+      if (data.type === SpaceType.CLOUD) {
+        if (!session) {
+          toast.info('You need to be logged in to create a cloud space')
+          return
+        }
+
+        try {
+          await trpc.spaceInvitationCode.checkInvitationCode.query(
+            data.invitationCode,
+          )
+        } catch (error) {
+          toast.error((error as any)?.message)
+          return
+        }
       }
 
       const space = await store.space.createSpace({
@@ -53,6 +66,7 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
             userId: session?.userId as string,
             spaceData: JSON.stringify(space),
             encrypted: data.encrypted,
+            invitationCode: data.invitationCode,
             // nodesData: JSON.stringify(nodes),
           })
 
