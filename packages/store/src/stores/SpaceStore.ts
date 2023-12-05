@@ -36,8 +36,8 @@ export class SpaceStore {
     this.store.router.toNode()
     this.store.node.setNodes(nodes)
     this.setSpaces(spaces)
+
     this.store.node.selectNode(activeNodes[0])
-    this.store.node.setActiveNodes(activeNodes)
     return space
   }
 
