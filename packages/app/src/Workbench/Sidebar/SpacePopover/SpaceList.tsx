@@ -4,6 +4,7 @@ import { Button, modalController, PopoverClose } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { useSidebarDrawer, useSpaces } from '@penx/hooks'
 import { SpaceItem } from './SpaceItem'
+import { UploadButton } from './UploadButton'
 
 export const SpaceList = () => {
   const { spaces, activeSpace } = useSpaces()
@@ -30,6 +31,8 @@ export const SpaceList = () => {
               <Box>New Space</Box>
             </Button>
           </PopoverClose>
+
+          <UploadButton />
         </Box>
       </Box>
     </Box>

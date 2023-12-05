@@ -273,6 +273,25 @@ export class NodeStore {
     this.selectNode(todayNode)
   }
 
+  async importSpace(space: ISpace, nodes: INode[] = []) {
+    await db.createSpace(space, false)
+    for (const node of nodes) {
+      await db.createNode(node)
+    }
+
+    const activeNodes = space.activeNodeIds.map((id) => {
+      return nodes.find((n) => n.id === id)!
+    })
+
+    const spaces = await db.listSpaces()
+
+    this.store.router.toNode()
+    this.store.node.setNodes(nodes)
+    this.store.space.setSpaces(spaces)
+    this.store.node.selectNode(activeNodes[0])
+    this.store.node.setActiveNodes(activeNodes)
+  }
+
   async createPageNode(input: Partial<INode> = {}) {
     const space = this.store.space.getActiveSpace()
     const node = await db.createPageNode(
