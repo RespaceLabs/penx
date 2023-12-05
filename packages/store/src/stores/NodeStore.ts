@@ -113,7 +113,7 @@ export class NodeStore {
           databaseId: id,
         },
       }) as IViewNode[]
-    ).sort((a, b) => (a.props.viewType === ViewType.Table ? 0 : 1))
+    ).sort((a, b) => (a.props.viewType === ViewType.Table ? -1 : 1))
 
     const cells = this.find({
       where: {

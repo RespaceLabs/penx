@@ -13,7 +13,7 @@ import { withMarkdown } from './plugins/withMarkdown'
 import { List } from './ui/List'
 import { ListItem } from './ui/ListItem'
 import { SortableListItemContent } from './ui/SortableListItemContent'
-import { Title } from './ui/Title'
+import { Title } from './ui/Title/Title'
 
 export * from './types'
 export * from './guard'
