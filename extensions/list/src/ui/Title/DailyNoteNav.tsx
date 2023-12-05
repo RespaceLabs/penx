@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { addDays, sub, subDays } from 'date-fns'
 import { store } from '@penx/store'
-import { TitleElement } from '../types'
+import { TitleElement } from '../../types'
 
 export const DailyNoteNav = ({ element }: { element: TitleElement }) => {
   const date = new Date(element.props?.date!)
