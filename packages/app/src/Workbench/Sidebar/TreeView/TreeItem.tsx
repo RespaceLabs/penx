@@ -39,6 +39,7 @@ export const TreeItem = memo(
         bgGray200--D4--active
         transitionColors
         gray800
+        w-100p
         mb-1
         pl={depth * 16 + 6}
         css={css}
@@ -90,7 +91,17 @@ export const TreeItem = memo(
             />
           )}
 
-          <Box opacity-40={!node.title}>{node.title || 'Untitled'}</Box>
+          <Box
+            opacity-40={!node.title}
+            flex-1
+            style={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {node.title || 'Untitled'}
+          </Box>
         </Box>
       </Box>
     )

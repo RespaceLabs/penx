@@ -24,6 +24,7 @@ export * from './transforms/insertEmptyListItem'
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     with: [withListsPlugin, withMarkdown, withEditable],
+    // with: [withListsPlugin, withEditable],
     handlers: {
       onKeyDown: onKeyDown,
     },

@@ -57,7 +57,7 @@ export const Title = ({
       )}
       {!isDaily && (
         <Box
-          h="1.5em"
+          leadingNone
           css={{
             '::before': {
               content: `"Untitled"`,

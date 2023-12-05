@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { createRoot, Root } from 'react-dom/client'
 
 import Selector, { ISelectorRef } from './area-selector'
-import DraggableEditor from './draggable-editor'
+import DraggableEditor from './draggable-editor/extensionList'
 import {
   PENX_SANDBOX_BOARD_IFRAME,
   PENX_SELECTION_CONTAINER,

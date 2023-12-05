@@ -16,7 +16,13 @@ export const Breadcrumb = () => {
               cursorPointer
               onClick={() => nodeService.selectNode(node)}
               gray700
+              maxW-160
               black={isLast}
+              style={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
             >
               {node.title || 'Untitled'}
             </Box>

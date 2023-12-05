@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { Button } from 'uikit'
-import { DeleteSpaceModal } from '../Workbench/SpaceSettings/DeleteSpaceModal'
+import { DeleteSpaceModal } from '../Workbench/DeleteSpaceModal'
 import { ExportBtn } from './ExportBtn'
 import { ReloadAppBtn } from './ReloadAppBtn'
 

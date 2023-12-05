@@ -28,6 +28,7 @@ export class SpaceStore {
     const nodes = await db.listNormalNodes(space.id)
 
     space = await db.getSpace(space.id)
+
     const activeNodes = space.activeNodeIds.map((id) => {
       return nodes.find((n) => n.id === id)!
     })

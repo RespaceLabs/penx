@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { useSpaces } from '@penx/hooks'
-import { DeleteSpaceModal } from './DeleteSpaceModal'
+import { DeleteSpaceModal } from '../DeleteSpaceModal'
 import { EncryptionPassword } from './EncryptionPassword'
 import { SpaceName } from './SpaceName'
 
