@@ -39,16 +39,16 @@ export const EditorApp = () => {
     <>
       <HomePage />
       <ClientOnly>
-        <ErrorBoundary fallback={<Fallback />}>
-          <StoreProvider>
+        <StoreProvider>
+          <ErrorBoundary fallback={<Fallback />}>
             <WorkerStarter />
             {session && <UserQuery userId={session.userId} />}
             <HotkeyBinding />
             <AppProvider>
               <Workbench />
             </AppProvider>
-          </StoreProvider>
-        </ErrorBoundary>
+          </ErrorBoundary>
+        </StoreProvider>
       </ClientOnly>
     </>
   )

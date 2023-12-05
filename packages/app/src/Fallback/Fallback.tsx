@@ -1,5 +1,6 @@
 import { Box } from '@fower/react'
 import { ExportBtn } from './ExportBtn'
+import { ReloadAppBtn } from './ReloadAppBtn'
 
 export const Fallback = () => {
   return (
@@ -8,6 +9,7 @@ export const Fallback = () => {
         ⚠️Something went wrong
       </Box>
       <ExportBtn />
+      <ReloadAppBtn />
     </Box>
   )
 }

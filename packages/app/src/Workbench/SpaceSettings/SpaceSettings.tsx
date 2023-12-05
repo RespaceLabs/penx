@@ -6,6 +6,7 @@ import { SpaceName } from './SpaceName'
 
 export function SpaceSettings() {
   const { activeSpace } = useSpaces()
+
   return (
     <Box p10 column gap6>
       <Box text2XL fontBold>

@@ -62,6 +62,18 @@ export class NodeStore {
     return nodes.find((node) => node.id === id)!
   }
 
+  getTodayNode = () => {
+    let nodes = this.getNodes()
+    return nodes.find(
+      (node) => node.props.date === format(new Date(), 'yyyy-MM-dd'),
+    )!
+  }
+
+  getRootNode = () => {
+    let nodes = this.getNodes()
+    return nodes.find((node) => node.type === NodeType.ROOT)!
+  }
+
   getDatabaseByName(tagName: string) {
     const nodes = this.getNodes()
 
@@ -128,12 +140,17 @@ export class NodeStore {
     return cells
   }
 
-  async selectNode(node: INode, index = 0) {
+  async selectNode(node: INode, index = 0, shouldCompare = true) {
     if (!this.store.router.isNode()) this.store.router.toNode()
 
     const activeNodes = this.getActiveNodes()
 
-    if (index === 0 && isEqual(activeNodes[0], node)) {
+    if (
+      shouldCompare &&
+      index === 0 &&
+      isEqual(activeNodes[0], node) &&
+      this.store.router.isNode()
+    ) {
       console.log('is equal node')
       return
     }
