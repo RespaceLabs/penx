@@ -1,14 +1,12 @@
 import { Box } from '@fower/react'
-import { Plus } from 'lucide-react'
-import { Button, modalController, PopoverClose } from 'uikit'
-import { ModalNames } from '@penx/constants'
 import { useSidebarDrawer, useSpaces } from '@penx/hooks'
+import { CreateSpaceBtn } from './CreateSpaceBtn'
+import { ImportFromGithubBtn } from './ImportFromGithubBtn'
 import { SpaceItem } from './SpaceItem'
 import { UploadButton } from './UploadButton'
 
 export const SpaceList = () => {
   const { spaces, activeSpace } = useSpaces()
-  const { close } = useSidebarDrawer()
 
   return (
     <Box toCenterX w-100p p2>
@@ -17,23 +15,9 @@ export const SpaceList = () => {
           <SpaceItem key={item.id} item={item} activeSpace={activeSpace} />
         ))}
         <Box>
-          <PopoverClose asChild>
-            <Button
-              toLeft--i
-              px-14--i
-              variant="ghost"
-              w-100p
-              onClick={() => {
-                modalController.open(ModalNames.CREATE_SPACE)
-                close?.()
-              }}
-            >
-              <Plus size={16} />
-              <Box>New Space</Box>
-            </Button>
-          </PopoverClose>
-
+          <CreateSpaceBtn />
           <UploadButton />
+          <ImportFromGithubBtn />
         </Box>
       </Box>
     </Box>

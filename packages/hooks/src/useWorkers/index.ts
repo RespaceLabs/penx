@@ -7,8 +7,14 @@ import { useSession } from '../useSession'
 
 export function useWorkers() {
   const workerRef = useRef<Worker>()
+  const initedRef = useRef(false)
 
   useEffect(() => {
+    if (initedRef.current) return
+    initedRef.current = true
+
+    console.log('init.............worker')
+
     workerRef.current = new Worker(new URL('./worker.ts', import.meta.url), {
       type: 'module',
     })

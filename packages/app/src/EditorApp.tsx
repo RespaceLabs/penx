@@ -35,6 +35,8 @@ export const EditorApp = () => {
     return null
   }
 
+  // console.log('render........ EditorApp')
+
   return (
     <>
       <HomePage />

@@ -39,6 +39,8 @@ export const SyncPopover: FC<Props> = () => {
       const isSynced = await syncToCloud()
 
       if (isSynced) {
+        console.log('========isSynced!!!')
+
         const spaces = await db.listSpaces()
         store.space.setSpaces(spaces)
       }
