@@ -7,6 +7,7 @@ import { appLoader, useLoaderStatus } from '@penx/loader'
 import { StoreProvider } from '@penx/store'
 import { AppProvider } from './AppProvider'
 import { ClientOnly } from './components/ClientOnly'
+import { Fallback } from './Fallback/Fallback'
 import { HotkeyBinding } from './HotkeyBinding'
 import { UserQuery } from './UserQuery'
 import { HomePage } from './Workbench/HomePage/HomePage'
@@ -24,7 +25,7 @@ if (!isServer) {
   // })
 }
 
-export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
+export const EditorApp = () => {
   const { isLoaded } = useLoaderStatus()
   const session = useSession()
 
@@ -38,7 +39,7 @@ export const EditorApp: FC<PropsWithChildren> = ({ children }) => {
     <>
       <HomePage />
       <ClientOnly>
-        <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
+        <ErrorBoundary fallback={<Fallback />}>
           <StoreProvider>
             <WorkerStarter />
             {session && <UserQuery userId={session.userId} />}

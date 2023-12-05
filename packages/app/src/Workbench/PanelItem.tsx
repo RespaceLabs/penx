@@ -29,8 +29,6 @@ export function PanelItem({ node, index }: Props) {
 
   const content = nodeToSlate(node.raw, nodeList.rawNodes)
 
-  // console.log('==========:', node, content, nodeList.rawNodes)
-
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
     await nodeService.savePage(node.raw, value[0], value[1])
   }, 400)
@@ -43,7 +41,8 @@ export function PanelItem({ node, index }: Props) {
           h={['calc(100vh - 48px)', '100vh']}
           pl={[0, 16]}
           pr={[0, 4]}
-          py0
+          pt0
+          pb-100
         >
           <MobileNav />
           {name === 'NODE' && <PCNav />}

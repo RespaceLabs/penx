@@ -325,32 +325,6 @@ export class SyncService {
     return treeItems
   }
 
-  /**
-   * pull space.json
-   */
-  private async pullSpaceInfo() {
-    const spaceRes: any = await this.app.request(
-      'GET /repos/{owner}/{repo}/contents/{path}',
-      {
-        ...this.params,
-        ref: `heads/${this.baseBranchName}`,
-        path: `${this.space.id}/space.json`,
-      },
-    )
-
-    if (spaceRes.data.content) {
-      const originalContent = this.decrypt(atob(spaceRes.data.content))
-      const space: ISpace = JSON.parse(originalContent)
-      await db.updateSpace(this.space.id, space)
-    }
-  }
-
-  private async reloadSpacesStore() {
-    const spaces = await db.listSpaces()
-    store.set(spacesAtom, spaces)
-    return spaces
-  }
-
   async getFileNodesInNodeIds(nodeIds: string[]) {
     const nodesRaw = await db.listNormalNodes(this.space.id)
     const nodes = nodesRaw.map((n) => new Node(n))
