@@ -28,20 +28,13 @@ export const BulletMenu = ({ menuId, element }: Props) => {
 
   return (
     <ContextMenu id={menuId}>
-      <MenuItem onClick={() => handleItemClick('a')}>Add to favorite</MenuItem>
+      {/* <MenuItem onClick={() => handleItemClick('a')}>Add to favorite</MenuItem> */}
       <MenuItem onClick={openInNewPanel}>Open in new panel</MenuItem>
-      <MenuItem onClick={() => handleItemClick('b')}>Publish</MenuItem>
+      {/* <MenuItem onClick={() => handleItemClick('b')}>Publish</MenuItem> */}
       <MenuItem onClick={() => handleItemClick('c')}>Copy</MenuItem>
       <MenuItem onClick={() => handleItemClick('DELETE')}>Delete</MenuItem>
-      <MenuItem onClick={() => handleItemClick('d')}>Expand all</MenuItem>
-      <div
-        onClick={(e) => {
-          console.log('e.....:', e)
-          handleItemClick('f')
-        }}
-      >
-        Collapse all
-      </div>
+      {/* <MenuItem onClick={() => handleItemClick('d')}>Expand all</MenuItem> */}
+      {/* <MenuItem onClick={() => handleItemClick('d')}> Collapse all</MenuItem> */}
     </ContextMenu>
   )
 }

@@ -19,7 +19,8 @@ export const SpaceList = () => {
         <Box>
           <PopoverClose asChild>
             <Button
-              toLeft
+              toLeft--i
+              px-14--i
               variant="ghost"
               w-100p
               onClick={() => {
@@ -27,7 +28,7 @@ export const SpaceList = () => {
                 close?.()
               }}
             >
-              <Plus />
+              <Plus size={16} />
               <Box>New Space</Box>
             </Button>
           </PopoverClose>

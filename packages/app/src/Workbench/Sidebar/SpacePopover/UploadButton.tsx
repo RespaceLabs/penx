@@ -20,16 +20,16 @@ export const UploadButton = ({ ...rest }: Props) => {
     reader.onload = (event) => {
       const content = event.target?.result
       const data = JSON.parse((content as string) || '{}')
-      console.log('data:', data)
+      // console.log('data:', data)
       // should validate the data
       store.node.importSpace(data.space, data.nodes)
     }
   }
   return (
     <Box {...rest}>
-      <Button variant="ghost" w-100p onClick={handleClick}>
-        <Import size={20} />
-        {!uploading && <Box>Import Space</Box>}
+      <Button variant="ghost" toLeft--i px-14--i w-100p onClick={handleClick}>
+        <Import size={16} />
+        {!uploading && <Box>Import Space from JSON</Box>}
         {uploading && (
           <Box toCenterY gapX2>
             <Spinner />

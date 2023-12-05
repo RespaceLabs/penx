@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { ELEMENT_BIDIRECTIONAL_LINK_CONTENT } from '@penx/constants'
 import { ArraySorter } from '@penx/indexeddb'
 import { db } from '@penx/local-db'
 import { Node, WithFlattenedProps } from '@penx/model'
@@ -137,11 +138,7 @@ export class NodeListService {
   getLinkedReferences(node: Node) {
     const nodes: Node[] = []
 
-    // console.log('get===this.nodes:', this.nodes)
-
     for (const item of this.nodes) {
-      // console.log('x=========item:', item)
-
       if (item.id === node.id) continue
       if (!item.isCommon) continue
 
@@ -150,12 +147,17 @@ export class NodeListService {
           console.log('---ite-mmmmmmm:', item, item.element, item.raw.element)
         }
 
+        // console.log('========item.element:', item, item.element)
+
         const children = item.element.reduce((acc, cur) => {
+          if (!cur.children) return acc
           return [...acc, ...cur.children]
         }, [] as any[])
+
         const some = children.some((i) => {
-          // TODO: too hack
-          return i.type == 'bidirectional_link_content' && i.linkId === node.id
+          return (
+            i.type == ELEMENT_BIDIRECTIONAL_LINK_CONTENT && i.linkId === node.id
+          )
         })
         return some
       }
