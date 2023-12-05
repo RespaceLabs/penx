@@ -22,8 +22,8 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/home/SloganBox.tsx:21
-msgid "An elegant way to write, edit, and collaborate on your markdown content for Static Site"
-msgstr ""
+#~ msgid "An elegant way to write, edit, and collaborate on your markdown content for Static Site"
+#~ msgstr ""
 
 #: src/components/settings/SettingsForm.tsx:79
 #~ msgid "Bio"
