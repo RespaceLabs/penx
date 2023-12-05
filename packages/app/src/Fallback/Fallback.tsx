@@ -1,4 +1,6 @@
 import { Box } from '@fower/react'
+import { Button } from 'uikit'
+import { DeleteSpaceModal } from '../Workbench/SpaceSettings/DeleteSpaceModal'
 import { ExportBtn } from './ExportBtn'
 import { ReloadAppBtn } from './ReloadAppBtn'
 
@@ -10,6 +12,9 @@ export const Fallback = () => {
       </Box>
       <ExportBtn />
       <ReloadAppBtn />
+      <DeleteSpaceModal>
+        <Button>Delete space</Button>
+      </DeleteSpaceModal>
     </Box>
   )
 }

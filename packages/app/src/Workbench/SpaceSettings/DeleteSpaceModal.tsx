@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { PropsWithChildren, useState } from 'react'
 import { Box } from '@fower/react'
 import { Trans } from '@lingui/macro'
 import {
@@ -48,7 +48,7 @@ const Footer = () => {
     <Box>
       <Input
         w-80p
-        placeholder={`Please type ${activeSpace.name} to confirm`}
+        placeholder={`Please type "${activeSpace.name}" to confirm`}
         onChange={(e) => setName(e.target.value)}
       />
       <Box gap3 toCenterY mt4>
@@ -72,8 +72,7 @@ const Footer = () => {
   )
 }
 
-export const DeleteSpaceModal = () => {
-  const { activeSpace } = useSpaces()
+export const DeleteSpaceModal = ({ children }: PropsWithChildren) => {
   return (
     <Box>
       <Box textLG fontMedium mb4>
@@ -81,11 +80,16 @@ export const DeleteSpaceModal = () => {
       </Box>
 
       <Modal name={ModalNames.DELETE_NODE}>
-        <ModalTrigger>
-          <Button variant="outline" colorScheme="red500">
-            Delete entire space
-          </Button>
-        </ModalTrigger>
+        {!children && (
+          <ModalTrigger>
+            <Button variant="outline" colorScheme="red500">
+              Delete entire space
+            </Button>
+          </ModalTrigger>
+        )}
+
+        {!!children && <ModalTrigger>{children}</ModalTrigger>}
+
         <ModalOverlay />
         <ModalContent w={[500]} column gap4>
           <ModalCloseButton />

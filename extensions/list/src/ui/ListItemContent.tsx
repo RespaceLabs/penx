@@ -48,6 +48,8 @@ export const ListItemContent = memo(
     const { show } = useContextMenu(menuId)
     const isTask = isCheckListItem(child)
 
+    // console.log('render.......', Node.string(element))
+
     return (
       <Box
         {...attributes}

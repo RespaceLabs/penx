@@ -1,7 +1,7 @@
 import { memo, useMemo } from 'react'
 import { Box } from '@fower/react'
 import { ChevronDown } from 'lucide-react'
-import { Path, Transforms } from 'slate'
+import { Node, Path, Transforms } from 'slate'
 import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { isListElement } from '../guard'
@@ -58,6 +58,8 @@ interface Props {
 export const Chevron = ({ element, onContextMenu }: Props) => {
   const editor = useEditorStatic()
   const path = findNodePath(editor, element)!
+
+  // console.log('render.......', Node.string(element))
 
   const isChevronVisible = useMemo(() => {
     const prevPath = Path.next(path)

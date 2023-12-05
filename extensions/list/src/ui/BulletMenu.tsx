@@ -1,4 +1,4 @@
-import { Path, Transforms } from 'slate'
+import { Node, Path, Transforms } from 'slate'
 import { ContextMenu, MenuItem } from '@penx/context-menu'
 import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
@@ -23,6 +23,8 @@ export const BulletMenu = ({ menuId, element }: Props) => {
   async function openInNewPanel() {
     await store.node.openInNewPanel(element.id)
   }
+
+  // console.log('bullet menu.............', Node.string(element))
 
   return (
     <ContextMenu id={menuId}>
