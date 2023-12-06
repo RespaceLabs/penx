@@ -25,6 +25,11 @@ msgstr ""
 #~ msgid "An elegant way to write, edit, and collaborate on your markdown content for Static Site"
 #~ msgstr "An elegant way to write, edit, and collaborate on your markdown content for Static Site"
 
+#: ../../packages/app/src/Workbench/DeleteNodeModal.tsx:46
+#: ../../packages/app/src/Workbench/DeleteSpaceModal.tsx:98
+msgid "Are you sure delete it permanently?"
+msgstr "Are you sure delete it permanently?"
+
 #: src/components/settings/SettingsForm.tsx:79
 #~ msgid "Bio"
 #~ msgstr "Bio"
@@ -37,17 +42,31 @@ msgstr ""
 #~ msgid "Buy / Long"
 #~ msgstr "Buy / Long"
 
+#: ../../packages/app/src/Workbench/DeleteNodeModal.tsx:28
+#: ../../packages/app/src/Workbench/DeleteSpaceModal.tsx:57
+msgid "Cancel"
+msgstr "Cancel"
+
 #: src/layouts/BasicLayout/Nav.tsx:20
 #~ msgid "Community"
 #~ msgstr "Community"
 
-#: src/components/WalletConnectButton.tsx:34
-#~ msgid "Connect Wallet"
-#~ msgstr "Connect Wallet"
+#: ../../packages/app/src/Workbench/Sidebar/WalletConnectButton.tsx:68
+msgid "Connect"
+msgstr "Connect"
+
+#: ../../packages/app/src/Workbench/Sidebar/WalletConnectButton.tsx:64
+msgid "Connect Wallet"
+msgstr "Connect Wallet"
 
 #: src/components/WalletConnectButton.tsx:33
 #~ msgid "Connecting..."
 #~ msgstr "Connecting..."
+
+#: ../../packages/app/src/Workbench/DeleteNodeModal.tsx:32
+#: ../../packages/app/src/Workbench/DeleteSpaceModal.tsx:67
+msgid "Delete"
+msgstr "Delete"
 
 #: src/components/WalletConnectButton.tsx:34
 #~ msgid "Disconnect"
@@ -97,6 +116,11 @@ msgstr "Français"
 #: src/components/space/settings/SettingsForm.tsx:39
 #~ msgid "Name"
 #~ msgstr "Name"
+
+#: ../../packages/app/src/Workbench/DeleteNodeModal.tsx:50
+#: ../../packages/app/src/Workbench/DeleteSpaceModal.tsx:102
+msgid "Once deleted, You can't undo this action."
+msgstr "Once deleted, You can't undo this action."
 
 #: src/components/trade/TradePanel/ui/TradePanelForm.tsx:67
 #~ msgid "Order Type"
