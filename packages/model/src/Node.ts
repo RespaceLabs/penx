@@ -57,7 +57,11 @@ export class Node {
       this.isTrash ||
       this.isDatabase
     ) {
-      this.raw.element[0].children[0].text = this.title
+      try {
+        this.raw.element[0].children[0].text = this.title
+      } catch (error) {
+        // console.log(' error:', error, 'raw:', this.raw)
+      }
     }
 
     // return this.raw.element

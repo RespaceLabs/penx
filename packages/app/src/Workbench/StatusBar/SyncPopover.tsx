@@ -66,6 +66,7 @@ export const SyncPopover: FC<Props> = () => {
 
       setStatus(SyncStatus.NORMAL)
     } catch (error) {
+      console.log('==========github push error:', error)
       setStatus(SyncStatus.PUSH_FAILED)
     }
   }
