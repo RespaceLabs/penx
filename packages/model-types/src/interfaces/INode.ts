@@ -62,6 +62,7 @@ export interface INode {
 export enum FieldType {
   Text = 'Text',
   Number = 'Number',
+  Password = 'Password',
   SingleSelect = 'SingleSelect',
   CreatedAt = 'CreatedAt',
   UpdatedAt = 'UpdatedAt',

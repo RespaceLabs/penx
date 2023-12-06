@@ -27,7 +27,9 @@ function Item({ children, fieldType, ...rest }: ItemProps) {
   const { close } = usePopoverContext()
   const ctx = useDatabaseContext()
   async function addColumn() {
-    if ([FieldType.Text, FieldType.Number].includes(fieldType)) {
+    if (
+      [FieldType.Text, FieldType.Number, FieldType.Password].includes(fieldType)
+    ) {
       await ctx.addColumn(fieldType)
       close()
     }
@@ -62,6 +64,11 @@ function Content() {
       <Item fieldType={FieldType.Number}>
         <FieldIcon fieldType={FieldType.Number} />
         <Box>Number</Box>
+      </Item>
+
+      <Item fieldType={FieldType.Password}>
+        <FieldIcon fieldType={FieldType.Password} />
+        <Box>Password</Box>
       </Item>
 
       <Item fieldType={FieldType.SingleSelect} cursorNotAllowed opacity-60>

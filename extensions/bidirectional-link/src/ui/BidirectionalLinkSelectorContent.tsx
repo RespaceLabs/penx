@@ -2,16 +2,8 @@ import { Box } from '@fower/react'
 import { Editor, Element, Node, Path, Transforms } from 'slate'
 import { ELEMENT_BIDIRECTIONAL_LINK_CONTENT } from '@penx/constants'
 import { PenxEditor, useEditorStatic } from '@penx/editor-common'
-import {
-  findNodePath,
-  getCurrentPath,
-  getNodeByPath,
-} from '@penx/editor-queries'
-import { selectEditor } from '@penx/editor-transforms'
-import {
-  BidirectionalLinkContentElement,
-  BidirectionalLinkSelectorElement,
-} from '../types'
+import { findNodePath, getNodeByPath } from '@penx/editor-queries'
+import { BidirectionalLinkContentElement } from '../types'
 import { useKeyDownList } from '../useKeyDownList'
 import { BidirectionalLinkSelectorItem } from './BidirectionalLinkSelectorItem'
 

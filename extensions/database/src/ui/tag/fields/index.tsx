@@ -5,12 +5,14 @@ import { FieldType, ICellNode, IColumnNode } from '@penx/model-types'
 import { store } from '@penx/store'
 import { CreatedAtCell } from './CreatedAt'
 import { NumberCell } from './Number'
+import { PasswordCell } from './Password'
 import { TextCell } from './Text'
 import { UpdatedAtCell } from './UpdatedAt'
 
 const cellsMap: Record<FieldType, any> = {
   Text: TextCell,
   Number: NumberCell,
+  Password: PasswordCell,
   SingleSelect: TextCell,
   CreatedAt: CreatedAtCell,
   UpdatedAt: UpdatedAtCell,
