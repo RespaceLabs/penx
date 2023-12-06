@@ -7,20 +7,20 @@ import { useSession } from '../useSession'
 
 export function useWorkers() {
   const workerRef = useRef<Worker>()
-  const initedRef = useRef(false)
+  // const initedRef = useRef(false)
 
   useEffect(() => {
-    if (initedRef.current) return
-    initedRef.current = true
+    // if (initedRef.current) return
+    // initedRef.current = true
 
-    console.log('init.............worker')
+    console.log('worker init.............')
 
     workerRef.current = new Worker(new URL('./worker.ts', import.meta.url), {
       type: 'module',
     })
 
     workerRef.current.onmessage = async (event: MessageEvent<number>) => {
-      console.log(`WebWorker Response => ${event.data}`)
+      // console.log(`WebWorker Response => ${event.data}`)
 
       if (event.data === WorkerEvents.SYNC_101_SUCCEEDED) {
         const space = await db.getSpace('penx-101')

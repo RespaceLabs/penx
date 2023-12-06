@@ -4,7 +4,8 @@ import { Session } from '@penx/store'
 import { clearNodes } from './clearNodes'
 import { normalizeNodes } from './normalizeNodes'
 import { startPollingPull } from './pollingPull'
-import { startPollingPush } from './pollingPush'
+import { pollingPushToCloud } from './pollingPushToCloud'
+import { pollingPushToGithub } from './pollingPushToGithub'
 import { syncPenx101 } from './syncPenx101'
 
 self.addEventListener('message', async (event) => {
@@ -15,8 +16,10 @@ self.addEventListener('message', async (event) => {
     session = event.data.value
 
     if (session) {
-      startPollingPush(session)
-      startPollingPull(session)
+      // pollingPushToCloud(session)
+      // startPollingPull(session)
+
+      pollingPushToGithub(session)
     }
   }
 

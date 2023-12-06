@@ -27,7 +27,6 @@
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/serializer": "workspace:*",
-    "@penx/sync": "workspace:*",
     "date-fns": "^2.30.0",
     "jotai": "^2.6.0",
     "react-fast-compare": "^3.2.2",

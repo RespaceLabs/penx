@@ -39,6 +39,7 @@
     "crypto-js": "^4.2.0",
     "date-fns": "^2.30.0",
     "diff-match-patch": "^1.0.5",
+    "idb-keyval": "^6.2.1",
     "immer": "^10.0.3",
     "jotai": "^2.6.0",
     "ky": "^1.1.3",

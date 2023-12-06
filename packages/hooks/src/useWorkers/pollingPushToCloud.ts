@@ -5,7 +5,7 @@ import { syncToCloud } from '@penx/sync'
 
 const INTERVAL = 5 * 1000
 
-export async function startPollingPush(session: Session) {
+export async function pollingPushToCloud(session: Session) {
   while (session) {
     try {
       await sync()
@@ -17,6 +17,8 @@ export async function startPollingPush(session: Session) {
 }
 
 async function sync() {
+  // console.log('push to cloud...')
+
   const isSynced = await syncToCloud()
   if (isSynced) {
     const spaces = await db.listSpaces()

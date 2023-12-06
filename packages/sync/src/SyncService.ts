@@ -427,12 +427,18 @@ export class SyncService {
       console.log('push all................:', serverSnapshot)
       tree = await this.pushAll()
     } else {
-      console.log('serverSnapshot:', serverSnapshot, 'space:', this.space)
+      // console.log(
+      //   'serverSnapshot:',
+      //   serverSnapshot,
+      //   'space.pageSnapshot:',
+      //   this.space.pageSnapshot,
+      // )
 
-      if (this.space.pageSnapshot.version < serverSnapshot.version) {
-        console.log('should pull, can not push!!!')
-        return
-      }
+      // github sync is one way sync, so no need to compare version
+      // if (this.space.pageSnapshot.version < serverSnapshot.version) {
+      //   console.log('should pull, can not push!!!')
+      //   return
+      // }
 
       const localMap = this.spaceService.getPageMapHash()
 
