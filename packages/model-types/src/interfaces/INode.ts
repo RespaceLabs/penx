@@ -120,6 +120,10 @@ export interface ICellNode extends INode {
   }
 }
 
+export function isCellNode(node: any): node is ICellNode {
+  return node?.type === NodeType.CELL
+}
+
 export enum ViewType {
   Table = 'Table',
   List = 'List',

@@ -21,7 +21,9 @@ export const CodeBlock = ({
         {...attributes}
       >
         <CodeBlockHeader element={element} />
-        <Box pb6>{children}</Box>
+        <Box pb6 textSM>
+          {children}
+        </Box>
       </Box>
     </CodeBlockProvider>
   )

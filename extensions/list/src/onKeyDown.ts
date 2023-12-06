@@ -1,6 +1,11 @@
 import { Editor, Path } from 'slate'
 import { onKeyDown as onKeyDownList } from 'slate-lists'
 import {
+  ELEMENT_BLOCK_SELECTOR,
+  ELEMENT_CODE_BLOCK,
+  ELEMENT_CODE_LINE,
+} from '@penx/constants'
+import {
   findNodePath,
   getCurrentNode,
   getNodeByPath,
@@ -34,6 +39,12 @@ function onEnterInTitle(editor: Editor) {
 }
 
 export const onKeyDown: OnKeyDown = (editor, e) => {
+  const node = getCurrentNode(editor) as any
+
+  if ([ELEMENT_CODE_LINE, ELEMENT_CODE_BLOCK].includes(node?.type)) {
+    return
+  }
+
   if (e.key === 'Enter') {
     const handled = onEnterInTitle(editor)
 
@@ -45,7 +56,7 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
     const node = getCurrentNode(editor)!
 
     // TODO: handle any
-    if ((node as any).type === 'block_selector') return
+    if ((node as any).type === ELEMENT_BLOCK_SELECTOR) return
   }
 
   // TODO: too hack
@@ -53,7 +64,9 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
     editor.isBlockSelectorOpened ||
     editor.isTagSelectorOpened ||
     editor.isBidirectionalLinkSelector
-  )
+  ) {
     return
+  }
+
   onKeyDownList(editor, e)
 }

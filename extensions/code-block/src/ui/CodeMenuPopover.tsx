@@ -29,7 +29,9 @@ export const CodeMenuPopover: FC<Props> = ({ element }) => {
   return (
     <Popover placement="bottom">
       <PopoverTrigger asChild>
-        <MoreHorizontal size={24} />
+        <Box gray400 cursorPointer>
+          <MoreHorizontal size={20} />
+        </Box>
       </PopoverTrigger>
       <PopoverContent w-260 textSM>
         <Box>

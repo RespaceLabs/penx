@@ -1,5 +1,5 @@
 import { db } from '@penx/local-db'
-import { INode, NodeType } from '@penx/model-types'
+import { INode, isCellNode, NodeType } from '@penx/model-types'
 
 export class NodeCleaner {
   async cleanDeletedNodes() {
@@ -13,6 +13,10 @@ export class NodeCleaner {
     }
 
     for (const node of nodes) {
+      if (isCellNode(node) && !!node.props.ref) {
+        // console.log('cell----........', node.props)
+      }
+
       // TODO: need improvement
       if (
         [

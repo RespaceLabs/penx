@@ -1,4 +1,5 @@
 import { Box } from '@fower/react'
+import { Copy } from 'lucide-react'
 import { Node } from 'slate'
 import { Button, toast } from 'uikit'
 import { IconCopy } from '@penx/icons'
@@ -54,14 +55,14 @@ export const CodeBlockHeader = ({ element }: Props) => {
           py0
           size={24}
           variant="ghost"
-          gray800
+          gray400
           colorScheme="gray500"
           onClick={() => {
             copy(code)
             toast.info('Copied to clipboard')
           }}
         >
-          <IconCopy square-16 />
+          <Copy size={14} />
         </Button>
         <CodeMenuPopover element={element} />
       </Box>

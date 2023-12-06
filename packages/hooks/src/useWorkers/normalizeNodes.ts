@@ -9,10 +9,10 @@ const INTERVAL = 5 * 1000
 let isPolling = true
 
 export async function normalizeNodes() {
-  while (isPolling) {
-    await normalize()
-    await sleep(INTERVAL)
-  }
+  // while (isPolling) {
+  //   await normalize()
+  //   await sleep(INTERVAL)
+  // }
 }
 
 async function normalize() {
