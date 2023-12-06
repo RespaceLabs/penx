@@ -1,3 +1,4 @@
+import { extractTags } from '@penx/editor-common'
 import { db } from '@penx/local-db'
 import { INode, isCellNode, NodeType } from '@penx/model-types'
 
@@ -12,9 +13,17 @@ export class NodeCleaner {
       nodeMap.set(node.id, node)
     }
 
-    for (const node of nodes) {
-      if (isCellNode(node) && !!node.props.ref) {
-        // console.log('cell----........', node.props)
+    for (const item of nodes) {
+      // clean unRefed row
+      if (isCellNode(item) && !!item.props.ref) {
+        const node = nodeMap.get(item.props.ref)!
+        const databaseNode = nodeMap.get(item.databaseId!)
+        const tags = extractTags(node.element)
+        if (!tags.length && databaseNode) {
+          if (!tags.includes(databaseNode.props.name!)) {
+            await db.deleteRow(databaseNode.id, item.props.rowId)
+          }
+        }
       }
 
       // TODO: need improvement
@@ -28,19 +37,19 @@ export class NodeCleaner {
           NodeType.ROW,
           NodeType.VIEW,
           NodeType.CELL,
-        ].includes(node.type)
+        ].includes(item.type)
       ) {
         continue
       }
 
       // if (!Reflect.has(node, 'parentId')) continue
-      if (!node.parentId) continue
+      if (!item.parentId) continue
 
-      const parentNode = nodeMap.get(node.parentId)
+      const parentNode = nodeMap.get(item.parentId)
 
-      if (!parentNode?.children.includes(node.id)) {
-        console.log('=======clear node!!!!', node)
-        await db.deleteNode(node.id)
+      if (!parentNode?.children.includes(item.id)) {
+        console.log('=======clear node!!!!', item)
+        await db.deleteNode(item.id)
       }
     }
   }

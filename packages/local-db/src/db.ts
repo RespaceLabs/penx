@@ -434,10 +434,6 @@ class DB {
     return newNode
   }
 
-  deleteRow = async (rowId: string) => {
-    console.log('deleteRow.......:', rowId)
-  }
-
   createDatabase = async (name: string, shouldInitCell = false) => {
     // const { id = '' } = data
     const space = await this.getActiveSpace()
@@ -808,6 +804,22 @@ class DB {
     }
 
     await this.deleteNode(columnId)
+  }
+
+  deleteRow = async (databaseId: string, rowId: string) => {
+    const cells = await this.node.select({
+      where: {
+        type: NodeType.CELL,
+        databaseId,
+      },
+    })
+
+    for (const cell of cells) {
+      if (cell.props.rowId !== rowId) continue
+      await this.deleteNode(cell.id)
+    }
+
+    await this.deleteNode(rowId)
   }
 
   updateColumnName = async (columnId: string, name: string) => {

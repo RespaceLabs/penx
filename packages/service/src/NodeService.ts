@@ -1,11 +1,5 @@
 import _ from 'lodash'
 import { createEditor, Editor, Node as SlateNode, Transforms } from 'slate'
-import {
-  ELEMENT_LI,
-  ELEMENT_LIC,
-  ELEMENT_TITLE,
-  ELEMENT_UL,
-} from '@penx/constants'
 import { extractTags } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
 import {
@@ -127,6 +121,8 @@ export class NodeService {
       await this.saveNodes(node.id, ul)
     }
 
+    await new NodeCleaner().cleanDeletedNodes()
+
     const nodes = await db.listNormalNodes(this.spaceId)
 
     store.node.setNodes(nodes)
@@ -134,8 +130,6 @@ export class NodeService {
     if (!isInReference) {
       store.node.setFirstActiveNodes(node)
     }
-
-    await new NodeCleaner().cleanDeletedNodes()
   }
 
   saveNodes = async (parentId: string, ul: UnorderedListElement) => {

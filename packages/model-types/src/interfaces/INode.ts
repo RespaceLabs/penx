@@ -34,8 +34,8 @@ export interface INode {
 
   // for dynamic data
   props: {
+    name?: string
     date?: string // 2024-01-01
-    tag?: string // tag name
     viewType?: ViewType
     [key: string]: any
   }
