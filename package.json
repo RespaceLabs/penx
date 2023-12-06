@@ -22,16 +22,16 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-conventional": "^17.7.0",
+    "@commitlint/cli": "^17.8.1",
+    "@commitlint/config-conventional": "^17.8.1",
     "@ianvs/prettier-plugin-sort-imports": "4.1.0",
-    "@turbo/gen": "^1.10.14",
-    "eslint": "^8.49.0",
+    "@turbo/gen": "^1.11.0",
+    "eslint": "^8.55.0",
     "eslint-config-custom": "workspace:*",
     "husky": "^8.0.3",
     "lint-staged": "^13.3.0",
-    "prettier": "^3.0.3",
-    "turbo": "^1.10.14"
+    "prettier": "^3.1.0",
+    "turbo": "^1.11.0"
   },
   "packageManager": "pnpm@8.7.6"
 }

@@ -7,35 +7,35 @@
     "lint": "eslint \"**/*.ts*\""
   },
   "devDependencies": {
-    "@types/node": "^20.7.2",
-    "@types/prismjs": "^1.26.0",
-    "@types/react": "^18.2.22",
-    "@types/react-dom": "^18.2.7",
-    "eslint": "^8.42.0",
+    "@types/node": "^20.10.3",
+    "@types/prismjs": "^1.26.3",
+    "@types/react": "^18.2.42",
+    "@types/react-dom": "^18.2.17",
+    "eslint": "^8.55.0",
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
     "tsconfig": "workspace:*",
-    "typescript": "^5.1.3"
+    "typescript": "^5.3.2"
   },
   "dependencies": {
     "@fower/react": "^2.0.0",
     "@penx/constants": "workspace:*",
+    "@penx/editor-common": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-shared": "workspace:*",
     "@penx/editor-transforms": "workspace:*",
-    "@penx/editor-common": "workspace:*",
-    "@penx/extension-typings": "*",
+    "@penx/extension-typings": "^0.0.0",
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/shared": "workspace:*",
     "lucide-react": "^0.284.0",
     "prismjs": "^1.29.0",
-    "re-resizable": "^6.9.9",
+    "re-resizable": "^6.9.11",
     "slate": "0.101.1",
     "slate-history": "0.100.0",
     "slate-lists": "workspace:*",
-    "slate-react": "0.98.4",
+    "slate-react": "0.101.2",
     "uikit": "workspace:*"
   }
 }

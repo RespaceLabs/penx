@@ -1,4 +1,4 @@
-const nextConfig = require('./next.config.mjs')
+const nextConfig = require('./next.config')
 
 /** @type {import('@lingui/conf').LinguiConfig} */
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
     {
       path: 'src/locales/{locale}',
       // include: ['src/', '../../packages'],
-      exclude: ['**/node_modules/**'],
+      // exclude: ['**/node_modules/**'],
     },
   ],
 }

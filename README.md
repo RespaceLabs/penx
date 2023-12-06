@@ -45,7 +45,7 @@ After clone the repo, in the root dir:
 ```bash
 yarn install # Install the dependencies
 
-yarn dev # start server
+yarn dev # start web service
 ```
 
 ## ⚖️ License
