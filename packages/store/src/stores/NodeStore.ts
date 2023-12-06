@@ -1,8 +1,6 @@
 import isEqual from 'react-fast-compare'
 import { format } from 'date-fns'
 import { atom } from 'jotai'
-import { Transforms } from 'slate'
-import { clearEditor } from '@penx/editor-transforms'
 import { ArraySorter } from '@penx/indexeddb'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
@@ -253,10 +251,6 @@ export class NodeStore {
         type: NodeType.DAILY,
         props: { date: dateStr },
       })
-
-      console.log('goog......')
-
-      // TODO: sync
     }
     const newNodes = await db.listNormalNodes(space.id)
 
@@ -328,7 +322,7 @@ export class NodeStore {
   }
 
   async deleteRow(rowId: string) {
-    await db.deleteRow(rowId)
+    //
   }
 
   find(options: FindOptions = {}): INode[] {

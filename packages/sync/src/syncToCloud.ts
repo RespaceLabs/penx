@@ -69,6 +69,7 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
           NodeType.TRASH,
           NodeType.DAILY_ROOT,
           NodeType.DAILY,
+          NodeType.FAVORITE,
         ].includes(node?.type!)
       })
 

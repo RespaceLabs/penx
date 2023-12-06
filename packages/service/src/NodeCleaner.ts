@@ -19,10 +19,10 @@ export class NodeCleaner {
         const node = nodeMap.get(item.props.ref)!
         const databaseNode = nodeMap.get(item.databaseId!)
         const tags = extractTags(node.element)
-        if (!tags.length && databaseNode) {
-          if (!tags.includes(databaseNode.props.name!)) {
-            await db.deleteRow(databaseNode.id, item.props.rowId)
-          }
+
+        if (databaseNode && !tags.includes(databaseNode.props.name!)) {
+          console.log('clean row', databaseNode.props.name)
+          await db.deleteRow(databaseNode.id, item.props.rowId)
         }
       }
 

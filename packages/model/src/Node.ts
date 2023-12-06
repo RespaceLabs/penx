@@ -76,7 +76,7 @@ export class Node {
     if (this.isTrash) return 'Trash'
     if (this.isDatabaseRoot) return 'Tags'
     if (this.isDailyRoot) return 'Daily Notes'
-    if (this.isDatabase) return this.props.name
+    if (this.isDatabase) return this.props.name || ''
 
     return this.element[0]?.children?.[0]?.text || this.props.name || ''
   }

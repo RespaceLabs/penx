@@ -4,7 +4,6 @@ import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
 import { NodeType } from '@penx/model-types'
 import { useFocusTitle } from '../../hooks/useFocusTitle'
-import { insertEmptyList } from '../../transforms/insertEmptyList'
 import { TitleElement } from '../../types'
 import { CommonTitle } from './CommonTitle'
 import { DailyNoteNav } from './DailyNoteNav'
@@ -13,13 +12,9 @@ import { TagMenu } from './TagMenu'
 import { TaskProgress } from './TaskProgress'
 
 export const Title = (props: ElementProps<TitleElement>) => {
-  const { element, attributes, children, nodeProps } = props
+  const { element, attributes, children } = props
   const editor = useEditor()
   const onlyHasTitle = editor.children.length === 1
-
-  function insertList() {
-    insertEmptyList(editor, { at: [1], select: true })
-  }
 
   const disabled = [
     NodeType.INBOX,

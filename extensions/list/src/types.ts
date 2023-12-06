@@ -6,11 +6,12 @@ import {
   ELEMENT_TITLE,
   ELEMENT_UL,
 } from '@penx/constants'
+import { NodeType } from '@penx/model-types'
 
 export interface TitleElement extends BaseElement {
   id?: string
   type: typeof ELEMENT_TITLE
-  nodeType?: string
+  nodeType?: NodeType
   props?: {
     date: string
     color: string
