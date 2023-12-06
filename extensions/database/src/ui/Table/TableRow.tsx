@@ -1,5 +1,7 @@
 import { Box } from '@fower/react'
+import { Bullet } from 'uikit'
 import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
+import { db } from '@penx/local-db'
 import { ICellNode, IColumnNode, IRowNode } from '@penx/model-types'
 import { store } from '@penx/store'
 import { FIRST_COL_WIDTH } from '../../constants'
@@ -25,6 +27,13 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
   const menuId = `row-${row.id}`
   const { show } = useContextMenu(menuId)
 
+  async function clickBullet() {
+    const primaryCell = rowCells.find((cell) => !!cell.props.ref)
+
+    const node = await db.getNode(primaryCell?.props.ref!)
+    if (node) store.node.selectNode(node)
+  }
+
   return (
     <>
       <ContextMenu id={menuId}>
@@ -42,13 +51,13 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
         >
           Insert below
         </MenuItem>
-        <MenuItem
+        {/* <MenuItem
           onClick={() => {
             store.node.deleteRow(row.id)
           }}
         >
           Delete Row
-        </MenuItem>
+        </MenuItem> */}
       </ContextMenu>
       <Box flex-1 toLeft className="gridRow" onContextMenu={show}>
         <Box
@@ -65,7 +74,13 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
           // borderRight
           flexShrink={0}
         >
-          <IconDrag invisible visible--$gridRow--hover bgTransparent />
+          <Bullet
+            invisible
+            visible--$gridRow--hover
+            bgTransparent
+            onClick={clickBullet}
+          />
+
           <Box as="input" type="checkbox" hidden inlineBlock--$gridRow--hover />
           <Box textXS inlineBlock hidden--$gridRow--hover>
             {(index || 0) + 1}

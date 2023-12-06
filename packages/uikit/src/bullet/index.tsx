@@ -30,7 +30,7 @@ export function Bullet({
       toCenter
       roundedFull
       cursorPointer
-      flexShrink-1
+      flexShrink-0
       border
       borderColor={dashed ? `${innerColor}--T80` : 'transparent'}
       borderDashed

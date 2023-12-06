@@ -6,6 +6,7 @@ import { useAccount, useDisconnect } from 'wagmi'
 import {
   Avatar,
   AvatarFallback,
+  Bullet,
   Button,
   Divider,
   Modal,
@@ -20,7 +21,6 @@ import { useUser } from '@penx/hooks'
 import { IconDisconnect } from '@penx/icons'
 import { getRandomColor } from '@penx/local-db'
 import { useCopyToClipboard } from '@penx/shared'
-import { Bullet } from '../../../components/Bullet'
 import { QrCode } from './QrCode'
 
 interface Props {}

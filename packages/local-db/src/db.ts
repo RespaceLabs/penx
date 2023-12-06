@@ -841,17 +841,6 @@ class DB {
 
     if (!columns[fromIndex] || !columns[toIndex]) return
 
-    console.log('----view:', view)
-
-    console.log(
-      'fromIndex',
-      fromIndex,
-      'toIndex',
-      toIndex,
-      view.children,
-      arrayMoveImmutable(view.children, fromIndex, toIndex),
-    )
-
     await this.updateNode(view.id, {
       children: arrayMoveImmutable(view.children, fromIndex, toIndex),
     })

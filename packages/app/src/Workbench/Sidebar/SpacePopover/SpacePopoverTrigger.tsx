@@ -1,10 +1,9 @@
 import { forwardRef } from 'react'
 import { Box } from '@fower/react'
 import { ChevronsUpDown, Settings } from 'lucide-react'
-import { Button, PopoverTrigger, usePopoverContext } from 'uikit'
+import { Bullet, Button, PopoverTrigger, usePopoverContext } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { store } from '@penx/store'
-import { Bullet } from '../../../components/Bullet'
 
 export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
   function SpacePopoverTrigger({}, ref) {

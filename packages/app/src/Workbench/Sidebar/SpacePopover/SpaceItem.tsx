@@ -1,11 +1,10 @@
 import { Box } from '@fower/react'
 import { Cloud, KeyRound, Laptop } from 'lucide-react'
-import { PopoverClose, Tag } from 'uikit'
+import { Bullet, PopoverClose, Tag } from 'uikit'
 import { useSidebarDrawer } from '@penx/hooks'
 import { Space } from '@penx/model'
 import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
-import { Bullet } from '../../../components/Bullet'
 
 interface Props {
   item: ISpace
