@@ -10,25 +10,28 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
       match: (n) => isTagSelector(n),
     })
 
+  // const hasTagSelector = somePopoverNode()
+  const hasTagSelector = editor.isTagSelectorOpened
+
   const { key } = e
 
   switch (key) {
     case 'ArrowUp':
-      if (somePopoverNode()) {
+      if (hasTagSelector) {
         e.preventDefault()
         keyDownEmitter.emit('ArrowUp')
       }
 
       break
     case 'ArrowDown':
-      if (somePopoverNode()) {
+      if (hasTagSelector) {
         e.preventDefault()
         keyDownEmitter.emit('ArrowDown')
       }
 
       break
     case 'Enter':
-      if (somePopoverNode()) {
+      if (hasTagSelector) {
         e.preventDefault()
         keyDownEmitter.emit('Enter')
       }

@@ -1,8 +1,8 @@
-import { Editor, Element, Node, Transforms } from 'slate'
+import { Editor, Element, Node, Path, Transforms } from 'slate'
 import { isCodeBlock } from '@penx/code-block'
 import { ELEMENT_TAG_SELECTOR } from '@penx/constants'
 import { PenxEditor } from '@penx/editor-common'
-import { getNodeByPath, getText } from '@penx/editor-queries'
+import { findNodePath, getNodeByPath, getText } from '@penx/editor-queries'
 import { insertNodes } from '@penx/editor-transforms'
 import { isTagSelector } from './isTagSelector'
 
@@ -27,13 +27,15 @@ export const withTag = (editor: PenxEditor) => {
   const { insertText, normalizeNode, apply } = editor
 
   editor.insertText = (text) => {
-    const node = getNodeByPath(editor, editor.selection!.focus!.path)
+    // const node = getNodeByPath(editor, editor.selection!.focus!.path)
 
     if (!editor.selection || text !== trigger) {
       return insertText(text)
     }
 
-    if (!shouldOpen(editor)) return insertText(text)
+    if (!shouldOpen(editor)) {
+      return insertText(text)
+    }
 
     // in codeblock
     const codeBlock = Editor.above(editor, {
@@ -46,7 +48,9 @@ export const withTag = (editor: PenxEditor) => {
       match: isTagSelector,
     })
 
-    if (tagSelector?.[0]) return insertText(text)
+    if (tagSelector?.[0]) {
+      return insertText(text)
+    }
 
     insertNodes(editor, {
       type: ELEMENT_TAG_SELECTOR,
@@ -68,6 +72,8 @@ export const withTag = (editor: PenxEditor) => {
     ) {
       console.log('normalizeNode.............')
       Transforms.removeNodes(editor, { at: path })
+
+      // Transforms.removeNodes(editor, { at: Path.next(path) })
 
       editor.isTagSelectorOpened = false
 

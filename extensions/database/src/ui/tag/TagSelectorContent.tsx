@@ -3,7 +3,7 @@ import { Box } from '@fower/react'
 import { Editor, Node, Path, Transforms } from 'slate'
 import { ELEMENT_TAG } from '@penx/constants'
 import { useEditorStatic } from '@penx/editor-common'
-import { findNodePath } from '@penx/editor-queries'
+import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { INode } from '@penx/model-types'
@@ -23,13 +23,25 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   const { nodeList } = useNodes()
   const tagNames = nodeList.tagNodes.map((node) => node.props.name!)
 
+  let text = Node.string(element)
+
+  // TODO: need improvement
+  if (editor.selection?.focus?.path) {
+    const focusedNode = getNodeByPath(editor, editor.selection!.focus!.path)!
+    const focusedNodeText = Node.string(focusedNode)
+    if (focusedNodeText !== text) {
+      text = text + focusedNodeText
+    }
+  }
+
   const filteredTypes = tagNames.filter((item) => {
-    const q = Node.string(element).replace(/^#/, '').toLowerCase()
+    const q = text.replace(/^#/, '').toLowerCase()
     if (!q) return true
     return item.toLowerCase().includes(q)
   })
 
-  const text = Node.string(element)
+  // console.log('=====element:', element, text)
+
   const tagName = text.replace(/^#/, '')
 
   const selectTag = useCallback(
@@ -46,7 +58,22 @@ export const TagSelectorContent = ({ close, element }: Props) => {
         { at: path },
       )
 
-      Transforms.select(editor, Editor.end(editor, Path.parent(path)))
+      // TODO: HACK, for not english text
+      if (editor.selection?.focus?.path) {
+        const node = getNodeByPath(editor, editor.selection!.focus!.path)!
+        const text = Node.string(node)
+
+        if (text?.length) {
+          Transforms.removeNodes(editor, { at: editor.selection.focus.path })
+          Editor.insertNode(editor, { text: '' })
+        }
+      }
+
+      // focus to next node
+      const node = getNodeByPath(editor, Path.next(path))!
+      if (node) {
+        Transforms.select(editor, Editor.start(editor, Path.next(path)))
+      }
 
       setTimeout(() => {
         close()
