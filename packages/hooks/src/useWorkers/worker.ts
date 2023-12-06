@@ -16,8 +16,8 @@ self.addEventListener('message', async (event) => {
     session = event.data.value
 
     if (session) {
-      // pollingPushToCloud(session)
-      // startPollingPull(session)
+      pollingPushToCloud(session)
+      startPollingPull(session)
 
       pollingPushToGithub(session)
     }

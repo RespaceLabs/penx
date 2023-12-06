@@ -444,7 +444,7 @@ export class SyncService {
 
       const diff = this.space.snapshot.diff(localMap, serverSnapshot)
 
-      console.log('====diff:', diff)
+      console.log('====git diff:', diff)
 
       // isEqual, don't push
       if (diff.isEqual) {

@@ -3,7 +3,7 @@ import { sleep } from '@penx/shared'
 import { Session, store } from '@penx/store'
 import { syncToCloud } from '@penx/sync'
 
-const INTERVAL = 5 * 1000
+const INTERVAL = 10 * 1000
 
 export async function pollingPushToCloud(session: Session) {
   while (session) {

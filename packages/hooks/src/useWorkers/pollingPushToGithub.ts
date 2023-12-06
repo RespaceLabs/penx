@@ -6,7 +6,7 @@ import { sleep } from '@penx/shared'
 import { Session } from '@penx/store'
 import { SyncService } from '@penx/sync'
 
-const INTERVAL = 8 * 1000
+const INTERVAL = 5 * 60 * 1000
 
 export async function pollingPushToGithub(session: Session) {
   while (session) {
