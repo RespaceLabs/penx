@@ -39,7 +39,7 @@ export const CodeLangSelect = ({ element }: { element: CodeBlockElement }) => {
 
   return (
     <Select value={lang} onChange={selectLang}>
-      <SelectTrigger h-20 bgGray200--hover rounded px-6 gray400>
+      <SelectTrigger h-20 bgGray200--hover rounded px-6 gray400 textSM>
         <SelectValue leadingNone></SelectValue>
         <SelectIcon size={12} />
       </SelectTrigger>

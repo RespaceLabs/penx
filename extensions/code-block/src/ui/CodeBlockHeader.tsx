@@ -27,7 +27,11 @@ export const CodeBlockHeader = ({ element }: Props) => {
     <Box px2 h10 toBetween toCenterY contentEditable={false}>
       <Box toCenterY gapX2>
         <CodeLangSelect element={element} />
-        {!!title && <Box gray400>{title}</Box>}
+        {!!title && (
+          <Box gray400 textSM>
+            {title}
+          </Box>
+        )}
         {!!highlightingLines?.length && (
           <Box gray400>
             {'{'}

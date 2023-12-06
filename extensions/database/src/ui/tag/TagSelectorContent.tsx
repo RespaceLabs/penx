@@ -2,27 +2,23 @@ import { useCallback } from 'react'
 import { Box } from '@fower/react'
 import { Editor, Node, Path, Transforms } from 'slate'
 import { ELEMENT_TAG } from '@penx/constants'
-import { useEditorStatic } from '@penx/editor-common'
+import { PenxEditor, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { INode } from '@penx/model-types'
 import { store } from '@penx/store'
-import { TagElement } from '../../types'
+import { TagElement, TagSelectorElement } from '../../types'
 import { useKeyDownList } from '../../useKeyDownList'
 import { TagSelectorItem } from './TagSelectorItem'
 
 interface Props {
   close: any
-  element: any
+  element: TagSelectorElement
   containerRef: any
 }
 
-export const TagSelectorContent = ({ close, element }: Props) => {
-  const editor = useEditorStatic()
-  const { nodeList } = useNodes()
-  const tagNames = nodeList.tagNodes.map((node) => node.props.name!)
-
+function getSearchText(editor: PenxEditor, element: TagSelectorElement) {
   let text = Node.string(element)
 
   // TODO: need improvement
@@ -33,6 +29,16 @@ export const TagSelectorContent = ({ close, element }: Props) => {
       text = text + focusedNodeText
     }
   }
+
+  return text
+}
+
+export const TagSelectorContent = ({ close, element }: Props) => {
+  const editor = useEditorStatic()
+  const { nodeList } = useNodes()
+  const tagNames = nodeList.tagNodes.map((node) => node.props.name!)
+
+  const text = getSearchText(editor, element)
 
   const filteredTypes = tagNames.filter((item) => {
     const q = text.replace(/^#/, '').toLowerCase()
@@ -70,8 +76,8 @@ export const TagSelectorContent = ({ close, element }: Props) => {
       }
 
       // focus to next node
-      const node = getNodeByPath(editor, Path.next(path))!
-      if (node) {
+      const nextNode = getNodeByPath(editor, Path.next(path))!
+      if (nextNode) {
         Transforms.select(editor, Editor.start(editor, Path.next(path)))
       }
 

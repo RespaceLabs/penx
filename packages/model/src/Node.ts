@@ -117,6 +117,10 @@ export class Node {
     return this.type === NodeType.DATABASE
   }
 
+  get canRef() {
+    return this.isCommon || this.isDaily
+  }
+
   get collapsed() {
     return this.raw.collapsed
   }

@@ -73,8 +73,10 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
     editor.isTagSelectorOpened ||
     editor.isBidirectionalLinkSelector
   ) {
-    e.preventDefault()
-    return
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      return
+    }
   }
 
   onKeyDownList(editor, e)

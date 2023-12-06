@@ -10,25 +10,27 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
       match: (n) => isBidirectionalLinkSelector(n),
     })
 
+  const isOpened = editor.isBidirectionalLinkSelector
+
   const { key } = e
 
   switch (key) {
     case 'ArrowUp':
-      if (somePopoverNode()) {
+      if (isOpened) {
         e.preventDefault()
         keyDownEmitter.emit('ArrowUp')
       }
 
       break
     case 'ArrowDown':
-      if (somePopoverNode()) {
+      if (isOpened) {
         e.preventDefault()
         keyDownEmitter.emit('ArrowDown')
       }
 
       break
     case 'Enter':
-      if (somePopoverNode()) {
+      if (isOpened) {
         e.preventDefault()
         keyDownEmitter.emit('Enter')
       }

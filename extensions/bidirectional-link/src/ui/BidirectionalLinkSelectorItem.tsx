@@ -43,7 +43,7 @@ export function BidirectionalLinkSelectorItem({
       toCenterY
       leadingNone
     >
-      <Box textBase>{node.title}</Box>
+      <Box textBase>{node.title || 'Untitled'}</Box>
     </Box>
   )
 }
