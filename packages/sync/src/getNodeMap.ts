@@ -1,7 +1,7 @@
 import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
 
-export function getNodeMap(nodes: INode[], space: ISpace) {
+export function getNodeMap(nodes: INode[]) {
   return nodes.reduce(
     (acc, cur) => {
       const node = new Node(cur)

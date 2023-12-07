@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Box } from '@fower/react'
-import { Button, Input, toast } from 'uikit'
+import { Eye, EyeOff } from 'lucide-react'
+import { Button, Input, InputElement, InputGroup, toast } from 'uikit'
 import { RouterOutputs } from '@penx/api'
 import { decryptString } from '@penx/encryption'
 import { useSpaces } from '@penx/hooks'
@@ -15,6 +16,7 @@ type ServerNode = RouterOutputs['node']['listBySpaceId'][0]
 export const SetPassword = () => {
   const { activeSpace } = useSpaces()
   const [password, setPassword] = useState('')
+  const [visible, setVisible] = useState(false)
   const nodesRef = useRef<ServerNode[]>([])
 
   useEffect(() => {
@@ -48,10 +50,7 @@ export const SetPassword = () => {
       }
 
       const newNodes = await db.listNodesBySpaceId(activeSpace.id)
-      const newNodeMap = getNodeMap(newNodes, {
-        ...activeSpace.raw,
-        password,
-      })
+      const newNodeMap = getNodeMap(newNodes)
 
       await db.updateSpace(activeSpace.id, {
         password,
@@ -79,11 +78,25 @@ export const SetPassword = () => {
           We never store your password on our servers at any time, so you will
           need to enter your password on the new device to sync data.
         </Box>
-        <Input
-          placeholder="Enter the password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+
+        <InputGroup>
+          <Input
+            type={visible ? 'text' : 'password'}
+            placeholder="Enter the password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <InputElement gray500 h-100p toCenterY gap1 pr2>
+            <Box
+              cursorPointer
+              scale-110--hover
+              onClick={() => setVisible(!visible)}
+            >
+              {visible && <EyeOff size={16} />}
+              {!visible && <Eye size={16} />}
+            </Box>
+          </InputElement>
+        </InputGroup>
         <Box>
           <Button disabled={!password} onClick={syncToLocal}>
             Confirm and sync data to this device

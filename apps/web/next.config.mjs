@@ -61,6 +61,7 @@ const config = {
     '@penx/sync',
     '@penx/unique-id',
     '@penx/extension-list',
+    '@penx/worker',
     'uikit',
     'slate-lists',
   ],

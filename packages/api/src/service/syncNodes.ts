@@ -58,23 +58,26 @@ export function syncNodes(input: SyncUserInput) {
       for (const item of updated) {
         const { openedAt, createdAt, updatedAt, ...rest } = item
 
-        try {
-          await tx.node.update({
-            where: { id: item.id },
-            data: {
-              ...rest,
-              openedAt: new Date(openedAt),
-            },
-          })
-        } catch (error) {}
+        await tx.node.update({
+          where: { id: item.id },
+          data: {
+            ...rest,
+            openedAt: new Date(openedAt),
+          },
+        })
+
+        // try {
+        // } catch (error) {
+        //   console.log('sycn update error', error)
+        // }
       }
 
       for (const id of deleted) {
-        try {
-          await tx.node.delete({
-            where: { id: id },
-          })
-        } catch (error) {}
+        await tx.node.delete({
+          where: { id: id },
+        })
+        // try {
+        // } catch (error) {}
       }
 
       const newVersion = version + 1

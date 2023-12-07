@@ -40,7 +40,7 @@ export const QueryCloudSpaces = () => {
           await db.updateSpace(space.id, {
             nodeSnapshot: {
               ...newSpace.nodeSnapshot,
-              nodeMap: getNodeMap(newNodes, newSpace),
+              nodeMap: getNodeMap(newNodes),
             },
           })
         }

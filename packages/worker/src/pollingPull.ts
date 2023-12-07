@@ -1,4 +1,5 @@
-import { isProd, WorkerEvents } from '@penx/constants'
+import { get } from 'idb-keyval'
+import { isProd, PENX_SESSION_USER, WorkerEvents } from '@penx/constants'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { sleep } from '@penx/shared'
@@ -9,9 +10,12 @@ import { trpc } from '@penx/trpc-client'
 // const INTERVAL = 5 * 1000
 const INTERVAL = isProd ? 60 * 1000 : 20 * 1000
 
-export async function startPollingPull(session: Session) {
-  while (session) {
-    await sync()
+export async function startPollingPull() {
+  while (true) {
+    const data = await get(PENX_SESSION_USER)
+    if (data) {
+      await sync()
+    }
     await sleep(INTERVAL)
   }
 }
@@ -85,7 +89,7 @@ async function sync() {
     }
 
     const newNodes = await db.listNodesBySpaceId(space.id)
-    const newNodeMap = getNodeMap(newNodes, space)
+    const newNodeMap = getNodeMap(newNodes)
 
     // don't use remote nodeMap
     await db.updateSpace(space.id, {

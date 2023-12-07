@@ -33,7 +33,7 @@ async function pushAllNodes(space: ISpace) {
   await db.updateSpace(space.id, {
     nodeSnapshot: {
       version: newVersion,
-      nodeMap: getNodeMap(nodes, space),
+      nodeMap: getNodeMap(nodes),
     },
   })
 }
@@ -43,7 +43,7 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
 
   const prevNodeMap = space.nodeSnapshot.nodeMap
 
-  const curNodeMap = getNodeMap(nodes, space)
+  const curNodeMap = getNodeMap(nodes)
 
   const diffed = diffNodeMap(prevNodeMap, curNodeMap)
 
@@ -54,7 +54,7 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
   }
 
   if (diffed.isEqual) {
-    // console.log('is equal, no need to push', diffed)
+    console.log('is equal, no need to push', diffed)
   } else {
     console.log('cloud diff:', diffed)
   }
@@ -78,16 +78,20 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
       }
     }
 
-    const newVersion = await submitToServer(space, {
+    const data = {
       added: diffed.added.map((id) => nodeMap.get(id)!),
       updated: diffed.updated.map((id) => nodeMap.get(id)!),
       deleted: diffed.deleted,
-    })
+    }
+
+    console.log('======diffed data:', data)
+
+    const newVersion = await submitToServer(space, data)
 
     await db.updateSpace(space.id, {
       nodeSnapshot: {
         version: newVersion,
-        nodeMap: getNodeMap(nodes, space),
+        nodeMap: getNodeMap(nodes),
       },
     })
 

@@ -1,10 +1,11 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { isServer } from '@penx/constants'
+import { isProd, isServer } from '@penx/constants'
 import { emitter } from '@penx/event'
 import { useSession } from '@penx/hooks'
 import { appLoader, useLoaderStatus } from '@penx/loader'
 import { StoreProvider } from '@penx/store'
+import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
 import { ClientOnly } from './components/ClientOnly'
 import { Fallback } from './Fallback/Fallback'
@@ -12,7 +13,6 @@ import { HotkeyBinding } from './HotkeyBinding'
 import { UserQuery } from './UserQuery'
 import { HomePage } from './Workbench/HomePage/HomePage'
 import { Workbench } from './Workbench/Workbench'
-import { WorkerStarter } from './WorkerStarter'
 
 if (!isServer) {
   appLoader.init()
@@ -23,6 +23,17 @@ if (!isServer) {
   //   // TODO:
   //   store.createDoc()
   // })
+
+  let inited = false
+
+  setTimeout(
+    () => {
+      if (inited) return
+      inited = true
+      runWorker()
+    },
+    isProd ? 5000 : 3000,
+  )
 }
 
 export const EditorApp = () => {
@@ -43,7 +54,6 @@ export const EditorApp = () => {
       <ClientOnly>
         <StoreProvider>
           <ErrorBoundary fallback={<Fallback />}>
-            <WorkerStarter />
             {session && <UserQuery userId={session.userId} />}
             <HotkeyBinding />
             <AppProvider>

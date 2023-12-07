@@ -76,6 +76,7 @@
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/sync": "workspace:*",
+    "@penx/worker": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "@radix-ui/react-dialog": "^1.0.5",

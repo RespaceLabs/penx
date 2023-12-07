@@ -6,12 +6,15 @@ import { sleep } from '@penx/shared'
 import { Session } from '@penx/store'
 import { SyncService } from '@penx/sync'
 
-const INTERVAL = isProd ? 60 * 1000 : 20 * 1000
+const INTERVAL = isProd ? 5 * 60 * 1000 : 20 * 1000
 
-export async function pollingPushToGithub(session: Session) {
-  while (session) {
+export async function pollingPushToGithub() {
+  while (true) {
     try {
-      await sync()
+      const data = await get(PENX_SESSION_USER)
+      if (data) {
+        await sync()
+      }
     } catch (error) {
       console.log('sync error', error)
     }
@@ -32,6 +35,10 @@ async function sync() {
     const activeSpace = await db.getActiveSpace()
 
     if (!activeSpace.isCloud) return
+
+    const nodes = await db.listNodesBySpaceId(activeSpace.id)
+
+    if (!nodes.length) return
 
     postMessage(WorkerEvents.START_PUSH)
 
