@@ -1,9 +1,10 @@
+import { isProd } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { sleep } from '@penx/shared'
 import { Session, store } from '@penx/store'
 import { syncToCloud } from '@penx/sync'
 
-const INTERVAL = 10 * 1000
+const INTERVAL = isProd ? 50 * 1000 : 10 * 1000
 
 export async function pollingPushToCloud(session: Session) {
   while (session) {

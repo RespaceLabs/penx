@@ -1,4 +1,4 @@
-import { WorkerEvents } from '@penx/constants'
+import { isProd, WorkerEvents } from '@penx/constants'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { sleep } from '@penx/shared'
@@ -7,7 +7,7 @@ import { getNodeMap } from '@penx/sync'
 import { trpc } from '@penx/trpc-client'
 
 // const INTERVAL = 5 * 1000
-const INTERVAL = 60 * 1000
+const INTERVAL = isProd ? 60 * 1000 : 20 * 1000
 
 export async function startPollingPull(session: Session) {
   while (session) {

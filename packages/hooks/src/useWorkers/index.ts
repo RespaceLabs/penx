@@ -7,11 +7,11 @@ import { useSession } from '../useSession'
 
 export function useWorkers() {
   const workerRef = useRef<Worker>()
-  // const initedRef = useRef(false)
+  const initedRef = useRef(false)
 
   useEffect(() => {
-    // if (initedRef.current) return
-    // initedRef.current = true
+    if (initedRef.current) return
+    initedRef.current = true
 
     console.log('worker init.............')
 
@@ -79,6 +79,7 @@ export function useWorkers() {
 
     return () => {
       workerRef.current?.terminate()
+      initedRef.current = false
     }
   }, [])
 

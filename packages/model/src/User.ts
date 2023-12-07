@@ -21,6 +21,9 @@ export class User {
   }
 
   get github(): GithubInfo {
+    if (typeof this.raw.github === 'string') {
+      return JSON.parse(this.raw.github)
+    }
     return (this.raw.github || {}) as GithubInfo
   }
 

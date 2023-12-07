@@ -245,7 +245,7 @@ export class SyncService {
       this.filesTree = []
     }
 
-    console.log('this.pagesTree:', this.filesTree)
+    // console.log('this.pagesTree:', this.filesTree)
 
     return this.filesTree
   }
@@ -455,7 +455,7 @@ export class SyncService {
       tree = await this.pushByDiff(diff)
     }
 
-    console.log('tree------:', tree)
+    // console.log('tree------:', tree)
 
     await this.getBaseBranchInfo()
 

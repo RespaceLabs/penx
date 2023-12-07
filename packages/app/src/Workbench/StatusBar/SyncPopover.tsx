@@ -13,9 +13,8 @@ import { SyncStatus } from '@penx/constants'
 import { useSpaces, useSyncStatus, useUser } from '@penx/hooks'
 import { IconPull, IconPush } from '@penx/icons'
 import { db } from '@penx/local-db'
-import { SyncService } from '@penx/service'
 import { store } from '@penx/store'
-import { syncToCloud } from '@penx/sync'
+import { SyncService, syncToCloud } from '@penx/sync'
 
 interface Props {}
 
@@ -33,8 +32,6 @@ export const SyncPopover: FC<Props> = () => {
     }
     try {
       setStatus(SyncStatus.PUSHING)
-      // const s = await SyncService.init(space, user)
-      // await s.push()
 
       const isSynced = await syncToCloud()
 
