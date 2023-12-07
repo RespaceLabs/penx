@@ -1,7 +1,9 @@
 {
   "extends": "tsconfig/react-library.json",
   "compilerOptions": {
-    "lib": ["ESNext", "DOM"]
+    "lib": ["ESNext", "DOM"],
+    "strictPropertyInitialization": false,
+    "strictNullChecks": true
   },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]

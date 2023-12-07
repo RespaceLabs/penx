@@ -10,7 +10,8 @@ import { useInstalledExtensions } from './hooks/useInstalledExtension'
 
 interface ExtensionItemProps {
   selected: boolean
-  extension: RouterOutputs['extension']['all']['0']
+  // extension: RouterOutputs['extension']['all']['0']
+  extension: any
 }
 export function ExtensionItem({ selected, extension }: ExtensionItemProps) {
   const { activeSpace } = useSpaces()

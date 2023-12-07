@@ -29,10 +29,11 @@ async function sync() {
     // console.log('data--------user:', user)
 
     if (!user.github.repo) return
+    const activeSpace = await db.getActiveSpace()
+
+    if (!activeSpace.isCloud) return
 
     postMessage(WorkerEvents.START_PUSH)
-
-    const activeSpace = await db.getActiveSpace()
 
     const s = await SyncService.init(activeSpace, user)
 

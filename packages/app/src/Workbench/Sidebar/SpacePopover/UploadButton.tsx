@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
-import { Import, UploadCloud } from 'lucide-react'
+import { Import } from 'lucide-react'
 import { Button, Spinner } from 'uikit'
 import { store } from '@penx/store'
 

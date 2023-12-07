@@ -7,8 +7,9 @@ import { useExtension } from './hooks/useExtension'
 
 export function ExtensionList() {
   const { extension, setExtension } = useExtension()
-  const { data, isLoading } = useQuery(['marketplace'], () =>
-    trpc.extension.all.query(),
+  const { data, isLoading } = useQuery(
+    ['marketplace'],
+    () => trpc.extension.all.query() as any,
   )
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export function ExtensionList() {
 
   return (
     <Box column gap2 p3>
-      {data.map((item) => (
+      {data.map((item: any) => (
         <ExtensionItem
           key={item.id}
           extension={item}

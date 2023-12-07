@@ -15,7 +15,7 @@ export const ImportFromGithubBtn = () => {
         variant="ghost"
         w-100p
         onClick={() => {
-          modalController.open(ModalNames.CREATE_SPACE)
+          modalController.open(ModalNames.RESTORE_FROM_GITHUB)
           close?.()
         }}
       >

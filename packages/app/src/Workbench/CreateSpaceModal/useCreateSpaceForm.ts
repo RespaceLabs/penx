@@ -20,7 +20,7 @@ export type CreateSpaceValues = {
 }
 
 export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
-  const modalContext = useModalContext()
+  const modalContext = useModalContext<boolean>()
   const form = useForm<CreateSpaceValues>({
     defaultValues: {
       name: '',
