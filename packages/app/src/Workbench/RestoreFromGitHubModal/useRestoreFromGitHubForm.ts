@@ -15,8 +15,10 @@ export function useRestoreFromGitHubForm() {
   const modalContext = useModalContext<boolean>()
   const form = useForm<RestoreFromGitHubValues>({
     defaultValues: {
-      url: 'https://github.com/0x-leen/one-test/tree/e8467290adcc789ebe9d23ea8c55200eea2b6259/b0ce0687-f578-498a-95d0-4c660b95d4a3',
-      password: '123',
+      // url: 'https://github.com/0x-leen/one-test/tree/e8467290adcc789ebe9d23ea8c55200eea2b6259/b0ce0687-f578-498a-95d0-4c660b95d4a3',
+      // password: '123',
+      url: '',
+      password: '',
     },
   })
 

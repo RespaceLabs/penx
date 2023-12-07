@@ -1,6 +1,13 @@
 import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
-import { Button, Checkbox, Input, ModalClose } from 'uikit'
+import {
+  Button,
+  Checkbox,
+  Input,
+  ModalClose,
+  Spinner,
+  useModalContext,
+} from 'uikit'
 import { ISpace } from '@penx/model-types'
 import { BorderedRadioGroup } from '../../components/BorderedRadioGroup'
 import { SpaceType, useCreateSpaceForm } from './useCreateSpaceForm'
@@ -11,6 +18,7 @@ interface Props {
 }
 
 export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
+  const { data: loading } = useModalContext<boolean>()
   const form = useCreateSpaceForm(onSpaceCreated)
   const { control, formState } = form
   const { isValid } = formState
@@ -111,8 +119,15 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
             </Button>
           </ModalClose>
         )}
-        <Button type="submit" size="lg" roundedFull disabled={!isValid} gap2>
-          Create
+        <Button
+          type="submit"
+          size="lg"
+          roundedFull
+          disabled={!isValid || loading}
+          gap2
+        >
+          {loading && <Spinner white square5 />}
+          <Box>Create</Box>
         </Button>
       </Box>
     </Box>

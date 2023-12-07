@@ -20,7 +20,7 @@ export type CreateSpaceValues = {
 }
 
 export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
-  const modalContext = useModalContext<boolean>()
+  const { data: loading, close, setData } = useModalContext<boolean>()
   const form = useForm<CreateSpaceValues>({
     defaultValues: {
       name: '',
@@ -34,54 +34,56 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
   const session = useSession()
 
   const onSubmit: SubmitHandler<CreateSpaceValues> = async (data) => {
-    try {
-      console.log('data:', data)
+    console.log('data:', data)
 
-      if (data.type === SpaceType.CLOUD) {
-        if (!session) {
-          toast.info('You need to be logged in to create a cloud space')
-          return
-        }
-
-        try {
-          await trpc.spaceInvitationCode.checkInvitationCode.query(
-            data.invitationCode,
-          )
-        } catch (error) {
-          toast.error((error as any)?.message)
-          return
-        }
+    setData(true)
+    if (data.type === SpaceType.CLOUD) {
+      if (!session) {
+        toast.info('You need to be logged in to create a cloud space')
+        setData(false)
+        return
       }
 
-      const space = await store.space.createSpace({
-        name: data.name,
-        isCloud: data.type === SpaceType.CLOUD,
-        encrypted: data.encrypted,
-        password: data.password,
-      })
-
-      if (data.type === SpaceType.CLOUD) {
-        try {
-          await trpc.space.create.mutate({
-            userId: session?.userId as string,
-            spaceData: JSON.stringify(space),
-            encrypted: data.encrypted,
-            invitationCode: data.invitationCode,
-            // nodesData: JSON.stringify(nodes),
-          })
-
-          onSpaceCreated?.(space)
-          modalContext?.close?.()
-        } catch (error) {
-          // TODO: if error, show revert local
-        }
-      } else {
-        onSpaceCreated?.(space)
-        modalContext?.close?.()
+      try {
+        await trpc.spaceInvitationCode.checkInvitationCode.query(
+          data.invitationCode,
+        )
+      } catch (error) {
+        toast.error((error as any)?.message)
+        setData(false)
+        return
       }
-    } catch (error) {
-      console.log('error', error)
     }
+
+    const space = await store.space.createSpace({
+      name: data.name,
+      isCloud: data.type === SpaceType.CLOUD,
+      encrypted: data.encrypted,
+      password: data.password,
+    })
+
+    if (data.type === SpaceType.CLOUD) {
+      try {
+        await trpc.space.create.mutate({
+          userId: session?.userId as string,
+          spaceData: JSON.stringify(space),
+          encrypted: data.encrypted,
+          invitationCode: data.invitationCode,
+          // nodesData: JSON.stringify(nodes),
+        })
+
+        onSpaceCreated?.(space)
+        close?.()
+      } catch (error) {
+        // TODO: if error, should revert local
+        await db.deleteSpace(space.id)
+      }
+    } else {
+      onSpaceCreated?.(space)
+      close?.()
+    }
+
+    setData(false)
   }
 
   return { ...form, onSubmit: form.handleSubmit(onSubmit) }
