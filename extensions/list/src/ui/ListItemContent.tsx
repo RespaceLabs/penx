@@ -62,7 +62,6 @@ export const ListItemContent = memo(
         toTop={!isTask}
         px1
         py-2
-        gap2
         {...nodeProps}
         css={css}
         style={style}
@@ -77,7 +76,7 @@ export const ListItemContent = memo(
           contentEditable={false}
           toCenterY
           toRight
-          // flexShrink-1
+          flexShrink-0
           gap-2
           leadingNormal
           h={h()}
@@ -86,12 +85,13 @@ export const ListItemContent = memo(
           text2XL={child?.type === 'h2'}
           textXL={child?.type === 'h3'}
           textLG={child?.type === 'h4'}
+          style={{
+            userSelect: 'none',
+          }}
         >
           <BulletMenu menuId={menuId} element={element} />
 
           <Chevron element={element} onContextMenu={show} />
-
-          {/* <Bullet element={element} onContextMenu={show} /> */}
 
           <Box inlineFlex {...listeners}>
             <Bullet element={element} onContextMenu={show} />
@@ -106,11 +106,27 @@ export const ListItemContent = memo(
   }),
 
   (prev, next) => {
-    const { element: a1, css: b1, style: c1, nodeProps: d1 } = prev
-    const { element: a2, css: b2, style: c2, nodeProps: d2 } = next
+    const {
+      element: a1,
+      css: b1,
+      style: c1,
+      nodeProps: d1,
+      children: f1,
+    } = prev
+    const {
+      element: a2,
+      css: b2,
+      style: c2,
+      nodeProps: d2,
+      children: f2,
+    } = next
 
     const equal =
-      isEqual(a1, a2) && isEqual(b1, b2) && isEqual(c1, c2) && isEqual(d1, d2)
+      isEqual(a1, a2) &&
+      isEqual(b1, b2) &&
+      isEqual(c1, c2) &&
+      isEqual(d1, d2) &&
+      isEqual(f1, f2)
 
     return equal
   },

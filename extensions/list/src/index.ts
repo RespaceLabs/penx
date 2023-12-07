@@ -12,6 +12,7 @@ import { withListsPlugin } from './plugins/withListsPlugin'
 import { withMarkdown } from './plugins/withMarkdown'
 import { List } from './ui/List'
 import { ListItem } from './ui/ListItem'
+import { ListItemContent } from './ui/ListItemContent'
 import { SortableListItemContent } from './ui/SortableListItemContent'
 import { Title } from './ui/Title/Title'
 
@@ -50,6 +51,7 @@ export function activate(ctx: ExtensionContext) {
       {
         type: ELEMENT_LIC,
         component: SortableListItemContent,
+        // component: ListItemContent,
       },
     ],
   })
