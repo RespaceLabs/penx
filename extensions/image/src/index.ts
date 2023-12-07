@@ -12,11 +12,11 @@ export function activate(ctx: ExtensionContext) {
         isVoid: true,
         type: ELEMENT_IMG,
         component: Image,
-        slashCommand: {
-          name: 'Image',
-          description: 'Upload an image',
-          icon: ImageIcon,
-        },
+        // slashCommand: {
+        //   name: 'Image',
+        //   description: 'Upload an image',
+        //   icon: ImageIcon,
+        // },
       },
     ],
   })

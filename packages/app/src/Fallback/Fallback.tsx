@@ -1,7 +1,8 @@
 import { Box } from '@fower/react'
 import { Button } from 'uikit'
+import { isProd } from '@penx/constants'
+import { ExportBtn } from '../components/ExportBtn'
 import { DeleteSpaceModal } from '../Workbench/DeleteSpaceModal'
-import { ExportBtn } from './ExportBtn'
 import { ReloadAppBtn } from './ReloadAppBtn'
 
 export const Fallback = () => {
@@ -10,11 +11,13 @@ export const Fallback = () => {
       <Box textLG gray600>
         ⚠️Something went wrong
       </Box>
-      <ExportBtn />
       <ReloadAppBtn />
-      <DeleteSpaceModal>
-        <Button>Delete space</Button>
-      </DeleteSpaceModal>
+      <ExportBtn />
+      {!isProd && (
+        <DeleteSpaceModal>
+          <Button>Delete space</Button>
+        </DeleteSpaceModal>
+      )}
     </Box>
   )
 }

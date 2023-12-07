@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import { Tag } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { DeleteSpaceModal } from '../DeleteSpaceModal'
+import { ExportToJSON } from '../ExportToJSON'
 import { EncryptionPassword } from './EncryptionPassword'
 import { SpaceName } from './SpaceName'
 
@@ -20,6 +21,7 @@ export function SpaceSettings() {
       </Box>
       <SpaceName />
       {activeSpace.encrypted && <EncryptionPassword />}
+      <ExportToJSON />
       <DeleteSpaceModal />
     </Box>
   )
