@@ -3,9 +3,9 @@ import { css } from '@fower/react'
 import { Editor, Element } from 'slate'
 import { useSelected, useSlateStatic } from 'slate-react'
 import { isCodeBlock } from '@penx/code-block'
+import { useCompositionData } from '@penx/editor-composition'
 import { isCollapsed } from '@penx/editor-queries'
 import { isTable, isTableCell } from '@penx/table'
-import { useCompositionData } from './useCompositionData'
 
 /**
  * Get placeholder className

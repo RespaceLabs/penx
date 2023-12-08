@@ -27,6 +27,7 @@
     "@penx/context-menu": "workspace:*",
     "@penx/dnd-projection": "workspace:*",
     "@penx/editor-common": "workspace:*",
+    "@penx/editor-composition": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
     "@penx/local-db": "workspace:*",

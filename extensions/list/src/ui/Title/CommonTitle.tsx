@@ -1,15 +1,10 @@
+import { useEffect } from 'react'
 import { Box } from '@fower/react'
 import { Node } from 'slate'
 import { useEditor, useEditorStatic } from '@penx/editor-common'
+import { useCompositionData } from '@penx/editor-composition'
 import { ElementProps } from '@penx/extension-typings'
-import { NodeType } from '@penx/model-types'
-import { useFocusTitle } from '../../hooks/useFocusTitle'
-import { insertEmptyList } from '../../transforms/insertEmptyList'
 import { TitleElement } from '../../types'
-import { DailyNoteNav } from './DailyNoteNav'
-import { EmptyTips } from './EmptyTips'
-import { TagMenu } from './TagMenu'
-import { TaskProgress } from './TaskProgress'
 
 export const CommonTitle = ({
   element,
@@ -17,7 +12,8 @@ export const CommonTitle = ({
   nodeProps,
 }: ElementProps<TitleElement>) => {
   const titleStr = Node.string(element)
-  const isPlaceholderShow = !titleStr?.length
+  const { compositionData } = useCompositionData(element.id)
+  const isPlaceholderShow = !titleStr?.length && !compositionData
 
   return (
     <Box

@@ -17,6 +17,8 @@ export type PenxEditor = BaseEditor &
     isTagSelectorOpened: boolean
     isBidirectionalLinkSelector: boolean
 
+    isOnComposition: boolean
+
     nodeToDecorations: Map<any, Range[]>
 
     // save all items to editor

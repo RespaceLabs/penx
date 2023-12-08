@@ -53,7 +53,10 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
 
   if (titleNode) {
     if (e.key === 'Enter') {
-      onEnterInTitle(editor)
+      // handle chinese input
+      if (!editor.isOnComposition) {
+        onEnterInTitle(editor)
+      }
 
       e.preventDefault()
       return
