@@ -78,7 +78,6 @@ export function HomePage() {
               {item}
             </Box>
           ))}
-          B
         </Box>
 
         <Box toCenterX mt6>

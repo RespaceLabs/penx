@@ -12,6 +12,8 @@ export async function syncToCloud(): Promise<boolean> {
   if (space.nodeSnapshot.version === 0) {
     const remoteVersion = await trpc.space.version.query({ spaceId: space.id })
 
+    console.log('sync all to cloud..........')
+
     if (space.nodeSnapshot.version < remoteVersion) return false
     remoteVersion === 0
     await pushAllNodes(space)

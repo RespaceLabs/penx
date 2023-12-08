@@ -33,12 +33,13 @@ async function sync() {
   // console.log('get remote version....')
 
   const localVersion = space.nodeSnapshot.version
-  // console.log(
-  //   'pull==== local.version',
-  //   localVersion,
-  //   'remote.version:',
-  //   remoteVersion,
-  // )
+
+  console.log(
+    'pull==== local.version',
+    localVersion,
+    'remote.version:',
+    remoteVersion,
+  )
 
   // TODO: should use diff or websocket
   if (localVersion < remoteVersion) {

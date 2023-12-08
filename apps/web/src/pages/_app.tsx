@@ -3,12 +3,13 @@ import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
+import { set } from 'idb-keyval'
 import { Session } from 'next-auth'
 import { SessionProvider, signIn, signOut } from 'next-auth/react'
 import 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'uikit'
-import { isServer } from '@penx/constants'
+import { isServer, PENX_SESSION_USER } from '@penx/constants'
 import { initSharing } from '~/common/handleSharing'
 import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
@@ -49,6 +50,7 @@ if (!isServer) {
 
   // TODO: move this code to a separate file
   const handleSignOut = () => {
+    set(PENX_SESSION_USER, null)
     signOut()
   }
   appEmitter.on('SIGN_OUT', handleSignOut)

@@ -540,6 +540,9 @@ importers:
       framer-motion:
         specifier: ^10.16.14
         version: 10.16.14(react-dom@18.2.0)(react@18.2.0)
+      idb-keyval:
+        specifier: ^6.2.1
+        version: 6.2.1
       immer:
         specifier: ^10.0.3
         version: 10.0.3
