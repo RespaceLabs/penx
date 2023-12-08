@@ -25,7 +25,7 @@ export class AppService {
         store.node.setActiveNodes(activeNodes)
       }
 
-      store.setAppLoading(false)
+      store.app.setAppLoading(false)
     } catch (error) {
       console.log('app init error.....:', error)
     }

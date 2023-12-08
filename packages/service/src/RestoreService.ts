@@ -109,29 +109,44 @@ export class RestoreService {
   }
 
   async pull() {
-    await this.pullSpaceInfo()
-    const pagesTree = await this.getPagesTreeInfo()
-
     let nodes: INode[] = []
+    try {
+      await this.pullSpaceInfo()
+      const pagesTree = await this.getPagesTreeInfo()
 
-    for (const item of pagesTree) {
-      const pageRes: any = await this.app.request(
-        'GET /repos/{owner}/{repo}/contents/{path}',
-        {
-          ...this.params,
-          ref: this.commitHash,
-          path: item.path,
-        },
-      )
+      for (const item of pagesTree) {
+        const pageRes: any = await this.app.request(
+          'GET /repos/{owner}/{repo}/contents/{path}',
+          {
+            ...this.params,
+            ref: this.commitHash,
+            path: item.path,
+          },
+        )
 
-      const originalContent = JSON.parse(decodeBase64(pageRes.data.content))
-      nodes = [...nodes, ...originalContent]
+        const originalContent = JSON.parse(decodeBase64(pageRes.data.content))
+        nodes = [...nodes, ...originalContent]
+      }
+    } catch (error) {
+      throw new Error('GitHub backup url is invalid')
     }
 
-    this.nodes = nodes
+    // console.log('=============this.password:', this.password)
 
-    // console.log('=========nodes:', nodes, 'space:', this.space)
+    if (this.password && this.space.encrypted) {
+      try {
+        this.nodes = nodes.map((n) => new Node(n).toDecrypted(this.password))
+      } catch (error) {
+        throw new Error('Password is wrong')
+      }
+    } else {
+      this.nodes = nodes
+    }
+
+    console.log('=========nodes:', this.nodes, 'space:', this.space)
     // return
+
+    this.nodes = this.normalizeNodes(this.nodes)
 
     /**
      * save to local db
@@ -162,9 +177,9 @@ export class RestoreService {
         await db.deleteNode(item.id)
       }
 
-      console.log('=========nodes:', nodes)
+      // console.log('=========nodes:', this.nodes)
 
-      for (const item of nodes) {
+      for (const item of this.nodes) {
         await db.createNode({
           ...item,
         })
@@ -225,6 +240,21 @@ export class RestoreService {
 
   decrypt(str: string) {
     return decryptString(str, this.password)
+  }
+
+  normalizeNodes(nodes: INode[]) {
+    const nodeMap = new Map<string, INode>()
+
+    for (const node of nodes) {
+      nodeMap.set(node.id, node)
+    }
+
+    // rm invalid children
+    for (const item of nodes) {
+      item.children = item.children.filter((id) => nodeMap.get(id))
+    }
+
+    return nodes
   }
 }
 

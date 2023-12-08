@@ -252,7 +252,7 @@ export class NodeStore {
         props: { date: dateStr },
       })
     }
-    const newNodes = await db.listNormalNodes(space.id)
+    const newNodes = await db.listNodesBySpaceId(space.id)
 
     this.setNodes(newNodes)
     this.selectNode(dateNode)
@@ -261,7 +261,7 @@ export class NodeStore {
   async createNodeToToday(text: string) {
     const space = this.store.space.getActiveSpace()
     const { todayNode } = await db.addNodeToToday(space.id, text)
-    const nodes = await db.listNormalNodes(space.id)
+    const nodes = await db.listNodesBySpaceId(space.id)
 
     this.setNodes(nodes)
     this.selectNode(todayNode)
@@ -296,7 +296,7 @@ export class NodeStore {
       },
       space,
     )
-    const nodes = await db.listNormalNodes(space.id)
+    const nodes = await db.listNodesBySpaceId(space.id)
 
     const rootNode = nodes.find((n) => new Node(n).isRootNode)!
 
@@ -315,7 +315,7 @@ export class NodeStore {
       databaseNode = await db.createDatabase(tagName)
     }
 
-    const newNodes = await db.listNormalNodes(databaseNode.spaceId)
+    const newNodes = await db.listNodesBySpaceId(databaseNode.spaceId)
     this.setNodes(newNodes)
 
     return databaseNode

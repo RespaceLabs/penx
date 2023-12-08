@@ -325,7 +325,7 @@ export class SyncService {
   }
 
   async getFileNodesInNodeIds(nodeIds: string[]) {
-    const nodesRaw = await db.listNormalNodes(this.space.id)
+    const nodesRaw = await db.listNodesBySpaceId(this.space.id)
     const nodes = nodesRaw.map((n) => new Node(n))
 
     const fileNodes: FileNode[] = []

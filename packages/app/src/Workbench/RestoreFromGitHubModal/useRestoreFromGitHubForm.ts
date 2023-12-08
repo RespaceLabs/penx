@@ -38,13 +38,15 @@ export function useRestoreFromGitHubForm() {
 
       const newSpace = await restoreService.pull()
 
+      console.log('=========newSpace:', newSpace)
+
       store.space.selectSpace(newSpace.id)
 
       modalContext.close()
       toast.error('Restore successfully')
     } catch (error) {
       console.log('restore error', error)
-      toast.error('Restore fail, please try again')
+      toast.error((error as any).message || 'Restore fail, please try again')
     }
     modalContext.setData(false)
   }

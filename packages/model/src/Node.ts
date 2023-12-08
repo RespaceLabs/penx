@@ -195,8 +195,11 @@ export class Node {
   toDecrypted(password: string) {
     return {
       ...this.raw,
-      element: decryptString(JSON.stringify(this.raw.element), password),
-      props: decryptString(JSON.stringify(this.raw.props), password),
+      // element: decryptString(JSON.stringify(this.raw.element), password),
+      // props: decryptString(JSON.stringify(this.raw.props), password),
+
+      element: JSON.parse(decryptString(this.raw.element as any, password)),
+      props: JSON.parse(decryptString(this.raw.props as any, password)),
     } as any as INode
   }
 }

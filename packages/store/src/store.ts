@@ -2,13 +2,12 @@ import { atom, createStore } from 'jotai'
 import { SyncStatus } from '@penx/constants'
 import { User } from '@penx/model'
 import { commands } from './constants'
+import { AppStore } from './stores/AppStore'
 import { EditorStore } from './stores/EditorStore'
 import { NodeStore } from './stores/NodeStore'
 import { RouterStore } from './stores/RouterStore'
 import { SpaceStore } from './stores/SpaceStore'
 import { Command, ExtensionStore } from './types'
-
-export const appLoadingAtom = atom(true)
 
 export const syncStatusAtom = atom<SyncStatus>(SyncStatus.NORMAL)
 
@@ -24,6 +23,10 @@ export const store = Object.assign(baseStore, {
   get: baseStore.get,
   set: baseStore.set,
 
+  get app() {
+    return new AppStore(this)
+  },
+
   get router() {
     return new RouterStore(this)
   },
@@ -38,14 +41,6 @@ export const store = Object.assign(baseStore, {
 
   get node() {
     return new NodeStore(this)
-  },
-
-  getAppLoading() {
-    return store.get(appLoadingAtom)
-  },
-
-  setAppLoading(loading: boolean) {
-    return store.set(appLoadingAtom, loading)
   },
 
   getUser() {

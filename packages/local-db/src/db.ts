@@ -225,8 +225,11 @@ class DB {
 
   getTodayNode = async (spaceId: string) => {
     let nodes = await this.node.selectByIndexAll('type', NodeType.DAILY)
+
     return nodes.find(
-      (node) => node.props.date === format(new Date(), 'yyyy-MM-dd'),
+      (node) =>
+        node.props.date === format(new Date(), 'yyyy-MM-dd') &&
+        node.spaceId === spaceId,
     )!
   }
 
@@ -305,6 +308,26 @@ class DB {
     return dailyNode
   }
 
+  getOrCreateTodayNode = async (spaceId: string) => {
+    let todayNode = await this.getTodayNode(spaceId)
+
+    console.log('=========todayNode:', todayNode)
+
+    const dailyRootNode = await this.getDailyRootNode(spaceId)
+
+    if (!todayNode) {
+      todayNode = await this.createNode({
+        ...getNewNode({ spaceId, type: NodeType.DAILY }),
+      })
+
+      await this.updateNode(dailyRootNode.id, {
+        children: [...(dailyRootNode.children || []), todayNode.id],
+      })
+    }
+
+    return todayNode
+  }
+
   createInboxNode = async (spaceId: string) => {
     const subNode = await this.node.insert(getNewNode({ spaceId }))
 
@@ -353,12 +376,6 @@ class DB {
   }
 
   listNodesBySpaceId = async (spaceId: string) => {
-    return this.node.select({
-      where: { spaceId },
-    })
-  }
-
-  listNormalNodes = async (spaceId: string) => {
     return this.node.select({
       where: { spaceId },
     })

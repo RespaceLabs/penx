@@ -25,7 +25,7 @@ export class SpaceStore {
     let space = await db.createSpace(input)
     const spaces = await db.listSpaces()
 
-    const nodes = await db.listNormalNodes(space.id)
+    const nodes = await db.listNodesBySpaceId(space.id)
 
     space = await db.getSpace(space.id)
 
@@ -45,7 +45,7 @@ export class SpaceStore {
     await db.deleteSpace(spaceId)
     const spaces = await db.listSpaces()
     const space = await db.getActiveSpace()
-    const nodes = await db.listNormalNodes(space.id)
+    const nodes = await db.listNodesBySpaceId(space.id)
     const activeNodes = space.activeNodeIds.map((id) => {
       return nodes.find((n) => n.id === id)!
     })
@@ -58,10 +58,15 @@ export class SpaceStore {
   }
 
   async selectSpace(id: string) {
+    this.store.app.setAppLoading(true)
     await db.selectSpace(id)
     const spaces = await db.listSpaces()
-    const nodes = await db.listNormalNodes(id)
+    const nodes = await db.listNodesBySpaceId(id)
     const space = await db.getActiveSpace()
+
+    // this.store.space.setSpaces([])
+    // this.store.node.setNodes([])
+    // this.store.node.setActiveNodes([])
 
     let activeNodes = space.activeNodeIds
       .map((id) => {
@@ -69,17 +74,29 @@ export class SpaceStore {
       })
       .filter((n) => !!n)
 
-    this.setSpaces(spaces)
-    this.store.node.setNodes(nodes)
-
     if (space.isCloud && space.encrypted && !nodes.length) {
       this.store.router.routeTo('SET_PASSWORD')
     } else {
       if (!activeNodes.length) {
-        await this.store.node.selectDailyNote()
+        const todayNode = await db.getOrCreateTodayNode(space.id)
+        const nodes = await db.listNodesBySpaceId(id)
+
+        await db.updateSpace(space.id, {
+          activeNodeIds: [todayNode.id],
+        })
+
+        const spaces = await db.listSpaces()
+
+        this.setSpaces(spaces)
+        this.store.node.setNodes(nodes)
+        this.store.node.setActiveNodes([todayNode])
       } else {
-        await this.store.node.selectNode(activeNodes[0])
+        this.setSpaces(spaces)
+        this.store.node.setNodes(nodes)
+        this.store.node.setActiveNodes(activeNodes)
       }
+
+      this.store.app.setAppLoading(false)
     }
     return space
   }

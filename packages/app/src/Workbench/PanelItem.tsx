@@ -27,6 +27,8 @@ export function PanelItem({ node, index }: Props) {
 
   const [saving, setSaving] = useState(false)
 
+  // console.log('node---------:', node)
+
   const content = nodeToSlate(node.raw, nodeList.rawNodes)
 
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {

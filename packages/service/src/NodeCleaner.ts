@@ -3,9 +3,12 @@ import { db } from '@penx/local-db'
 import { INode, isCellNode, NodeType } from '@penx/model-types'
 
 export class NodeCleaner {
-  async cleanDeletedNodes() {
+  async cleanDeletedNodes(nodes: INode[] = []) {
     const space = await db.getActiveSpace()
-    const nodes = await db.listNodesBySpaceId(space.id)
+
+    if (!nodes.length) {
+      nodes = await db.listNodesBySpaceId(space.id)
+    }
 
     const nodeMap = new Map<string, INode>()
 
@@ -14,6 +17,10 @@ export class NodeCleaner {
     }
 
     for (const item of nodes) {
+      if (item?.children?.length) {
+        // TODO: handle empty or invalid children
+      }
+
       // clean unRefed row
       if (isCellNode(item) && !!item.props.ref) {
         const node = nodeMap.get(item.props.ref)!

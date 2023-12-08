@@ -123,7 +123,7 @@ export class NodeService {
 
     await new NodeCleaner().cleanDeletedNodes()
 
-    const nodes = await db.listNormalNodes(this.spaceId)
+    const nodes = await db.listNodesBySpaceId(this.spaceId)
 
     store.node.setNodes(nodes)
 

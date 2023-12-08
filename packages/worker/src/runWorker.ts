@@ -49,7 +49,7 @@ export function runWorker() {
 
       const spaces = await db.listSpaces()
       const activeSpace = await db.getActiveSpace()
-      const nodes = await db.listNormalNodes(activeSpace.id)
+      const nodes = await db.listNodesBySpaceId(activeSpace.id)
       store.space.setSpaces(spaces)
       store.node.setNodes(nodes)
       const [activeNode] = store.node.getActiveNodes()
