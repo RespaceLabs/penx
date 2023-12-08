@@ -90,7 +90,7 @@
     "mitt": "^3.0.1",
     "next": "13.3.1",
     "octokit": "^3.1.2",
-    "plasmo": "^0.83.1",
+    "plasmo": "^0.84.0",
     "prismjs": "^1.29.0",
     "puppeteer-core": "^21.6.0",
     "rc-table": "^7.36.0",
@@ -116,7 +116,7 @@
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.1.0",
     "@plasmohq/rps": "^1.8.7",
-    "@plasmohq/storage": "^1.8.0",
+    "@plasmohq/storage": "^1.9.0",
     "@types/chrome": "0.0.245",
     "@types/node": "^20.10.3",
     "@types/react": "^18.2.42",

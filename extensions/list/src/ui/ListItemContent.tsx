@@ -76,7 +76,7 @@ export const ListItemContent = memo(
           contentEditable={false}
           toCenterY
           toRight
-          flexShrink-0
+          // flexShrink-0
           gap-2
           leadingNormal
           h={h()}

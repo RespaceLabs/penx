@@ -23,34 +23,34 @@ function isSingleLine(nodes: Node[]) {
 export const withMarkdown = (editor: PenxEditor) => {
   const { insertData, insertText } = editor
 
-  editor.insertData = (data: DataTransfer) => {
-    const text = data.getData('text/plain')
+  //   editor.insertData = (data: DataTransfer) => {
+  //     const text = data.getData('text/plain')
 
-    const file = unified().use(markdown).use(slate).processSync(text)
+  //     const file = unified().use(markdown).use(slate).processSync(text)
 
-    if (file.result) {
-      if (isInTitle(editor)) {
-        return insertData(data)
-      }
+  //     if (file.result) {
+  //       if (isInTitle(editor)) {
+  //         return insertData(data)
+  //       }
 
-      const nodes = resultToSlateNode(file.result as any)
+  //       const nodes = resultToSlateNode(file.result as any)
 
-      if (isSingleLine(nodes)) {
-        return insertText(Node.string(nodes[0]))
-      }
+  //       if (isSingleLine(nodes)) {
+  //         return insertText(Node.string(nodes[0]))
+  //       }
 
-      const path = getCurrentPath(editor)!
-      const listItemPath = path.slice(0, path.length - 2)
+  //       const path = getCurrentPath(editor)!
+  //       const listItemPath = path.slice(0, path.length - 2)
 
-      Transforms.insertNodes(editor, nodes, {
-        at: Path.next(listItemPath),
-      })
+  //       Transforms.insertNodes(editor, nodes, {
+  //         at: Path.next(listItemPath),
+  //       })
 
-      return
-    }
+  //       return
+  //     }
 
-    insertData(data)
-  }
+  //     insertData(data)
+  //   }
 
   return editor
 }
