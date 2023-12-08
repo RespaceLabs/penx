@@ -56,6 +56,11 @@ export function HomePage() {
           A structured note-taking app for personal use
         </Box>
 
+        <Box textLG gray600>
+          More than a note-taking app, It could be your personal database with
+          easy input and output.
+        </Box>
+
         <Box toCenter gap2 flexWrap>
           {tags.map((item) => (
             <Box
@@ -73,6 +78,7 @@ export function HomePage() {
               {item}
             </Box>
           ))}
+          B
         </Box>
 
         <Box toCenterX mt6>
