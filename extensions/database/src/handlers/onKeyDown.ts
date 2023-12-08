@@ -31,7 +31,7 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
 
       break
     case 'Enter':
-      if (isOpened) {
+      if (isOpened && !editor.isOnComposition) {
         e.preventDefault()
         keyDownEmitter.emit('Enter')
       }

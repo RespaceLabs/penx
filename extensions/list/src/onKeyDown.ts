@@ -45,6 +45,11 @@ function getTitleNode(editor: PenxEditor): TitleElement | undefined {
 export const onKeyDown: OnKeyDown = (editor, e) => {
   const node = getCurrentNode(editor) as any
 
+  if (editor.isOnComposition) {
+    e.preventDefault()
+    return
+  }
+
   if ([ELEMENT_CODE_LINE, ELEMENT_CODE_BLOCK].includes(node?.type)) {
     return
   }
@@ -53,10 +58,7 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
 
   if (titleNode) {
     if (e.key === 'Enter') {
-      // handle chinese input
-      if (!editor.isOnComposition) {
-        onEnterInTitle(editor)
-      }
+      onEnterInTitle(editor)
 
       e.preventDefault()
       return
