@@ -45,15 +45,17 @@ export function syncNodes(input: SyncUserInput) {
         })
       }
 
-      await tx.node.createMany({
-        data: added.map((item) => {
-          const { openedAt, createdAt, updatedAt, ...rest } = item
-          return {
-            ...rest,
-            openedAt: new Date(openedAt),
-          }
-        }),
-      })
+      if (added.length) {
+        await tx.node.createMany({
+          data: added.map((item) => {
+            const { openedAt, createdAt, updatedAt, ...rest } = item
+            return {
+              ...rest,
+              openedAt: new Date(openedAt),
+            }
+          }),
+        })
+      }
 
       for (const item of updated) {
         const { openedAt, createdAt, updatedAt, ...rest } = item
