@@ -11,27 +11,19 @@ export class PageSnapshot {
   constructor(public space: ISpace) {}
 
   diff(
-    localMap: Record<string, string>,
-    serverSnapshot: ISpace['pageSnapshot'],
-    type: 'PUSH' | 'PULL' = 'PUSH',
+    curPageMap: Record<string, string>,
+    prevPageMap: Record<string, string>,
   ): SnapshotDiffResult {
-    const { pageMap: serverMap } = serverSnapshot
+    const curIds = Object.keys(curPageMap)
+    const prevIds = Object.keys(prevPageMap)
 
-    const localIds = Object.keys(localMap)
-    const serverIds = Object.keys(serverMap)
+    let added = curIds.filter((item) => !prevIds.includes(item))
+    let deleted = prevIds.filter((item) => !curIds.includes(item))
 
-    let added = localIds.filter((item) => !serverIds.includes(item))
-    let deleted = serverIds.filter((item) => !localIds.includes(item))
-
-    // swap
-    if (type === 'PULL') {
-      ;[added, deleted] = [deleted, added]
-    }
-
-    const same = localIds.filter((item) => serverIds.includes(item))
+    const same = curIds.filter((item) => prevIds.includes(item))
     const updated: string[] = []
     for (const id of same) {
-      if (localMap[id] !== serverMap[id]) {
+      if (curPageMap[id] !== prevPageMap[id]) {
         updated.push(id)
       }
     }

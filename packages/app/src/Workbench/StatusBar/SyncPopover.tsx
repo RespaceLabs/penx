@@ -49,10 +49,10 @@ export const SyncPopover: FC<Props> = () => {
   }
 
   async function pushToGitHub() {
-    if (!activeSpace.isCloud) {
-      toast.error('Please select a cloud space')
-      return
-    }
+    // if (!activeSpace.isCloud) {
+    //   toast.error('Please select a cloud space')
+    //   return
+    // }
 
     if (!activeSpace) return
 

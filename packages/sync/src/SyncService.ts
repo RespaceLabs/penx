@@ -421,28 +421,21 @@ export class SyncService {
   async push() {
     let tree: TreeItem[] = []
 
-    const serverSnapshot = await this.getServerSnapshot()
+    const { pageSnapshot } = this.space
 
-    if (serverSnapshot.version === 0) {
-      console.log('push all................:', serverSnapshot)
+    if (
+      !pageSnapshot?.pageMap ||
+      !Object.keys(pageSnapshot.pageMap || {}).length ||
+      pageSnapshot.version === 0
+    ) {
+      console.log('push all................:', pageSnapshot)
       tree = await this.pushAll()
     } else {
-      // console.log(
-      //   'serverSnapshot:',
-      //   serverSnapshot,
-      //   'space.pageSnapshot:',
-      //   this.space.pageSnapshot,
-      // )
+      const { pageMap: prevPageMap, version: prevVersion } = pageSnapshot
 
-      // github sync is one way sync, so no need to compare version
-      // if (this.space.pageSnapshot.version < serverSnapshot.version) {
-      //   console.log('should pull, can not push!!!')
-      //   return
-      // }
+      const curPageMap = this.spaceService.getPageMapHash()
 
-      const localMap = this.spaceService.getPageMapHash()
-
-      const diff = this.space.snapshot.diff(localMap, serverSnapshot)
+      const diff = this.space.snapshot.diff(curPageMap, prevPageMap)
 
       console.log('====git diff:', diff)
 
@@ -475,31 +468,16 @@ export class SyncService {
     // update ref to GitHub server after commit
     await this.updateRef(commitData.sha)
 
-    const pageMapHash = this.spaceService.getPageMapHash()
+    const curPageMap = this.spaceService.getPageMapHash()
     const newVersion = this.space.pageSnapshot.version + 1
-
-    // update remote snapshot
-    await trpc.space.upsertPageSnapshot.mutate({
-      spaceId: this.space.id,
-      version: newVersion,
-      pageMap: JSON.stringify(pageMapHash),
-    })
 
     // update local snapshot
     await db.updateSpace(this.space.id, {
       pageSnapshot: {
         version: newVersion,
-        pageMap: pageMapHash,
+        pageMap: curPageMap,
       },
     })
-  }
-
-  private async getServerSnapshot(): Promise<ISpace['pageSnapshot']> {
-    const snapshot = await trpc.space.getPageSnapshot.query({
-      spaceId: this.space.id,
-    })
-
-    return snapshot
   }
 
   decrypt(str: string) {
