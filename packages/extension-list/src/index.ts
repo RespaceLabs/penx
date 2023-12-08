@@ -27,14 +27,6 @@ export const extensionList = [
     activate: paragraph.activate,
   },
 
-  // {
-  //   id: 'storage-estimate',
-  //   activate: storageEstimate.activate,
-  // },
-  // {
-  //   id: 'word-count',
-  //   activate: wordCount.activate,
-  // },
   {
     id: 'heading',
     activate: heading.activate,
@@ -73,14 +65,14 @@ export const extensionList = [
     activate: link.activate,
   },
   { id: 'bidirectional-link', activate: bidirectionalLink.activate },
-  {
-    id: 'table',
-    activate: table.activate,
-  },
-  {
-    id: 'file',
-    activate: File.activate,
-  },
+  // {
+  //   id: 'table',
+  //   activate: table.activate,
+  // },
+  // {
+  //   id: 'file',
+  //   activate: File.activate,
+  // },
 
   {
     id: 'database',

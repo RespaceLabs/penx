@@ -19,7 +19,6 @@ import { withTag } from './withTag'
 
 export * from './guard'
 export * from './isTag'
-export * from './ui/TableView'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
@@ -42,13 +41,11 @@ export function activate(ctx: ExtensionContext) {
         //   },
         // },
       },
-
       {
         isVoid: true,
         type: ELEMENT_DATABASE_ENTRY,
         component: DatabaseEntry,
       },
-
       {
         isVoid: true,
         type: ELEMENT_LIVE_QUERY,
@@ -58,7 +55,6 @@ export function activate(ctx: ExtensionContext) {
         //   icon: TableIcon,
         // },
       },
-
       {
         isInline: true,
         type: ELEMENT_TAG_SELECTOR,

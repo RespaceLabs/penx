@@ -2,7 +2,6 @@ import { Box } from '@fower/react'
 import { ElementProps } from '@penx/extension-typings'
 import { DatabaseElement } from '../types'
 import { DatabaseProvider } from './DatabaseContext'
-import { TableView } from './TableView'
 import { ViewList } from './ViewList'
 import { ViewRenderer } from './ViewRenderer'
 

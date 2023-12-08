@@ -5,6 +5,7 @@ module.exports = {
   transpilePackages: [
     '@penx/api',
     '@penx/app',
+    '@penx/abb',
     '@penx/constants',
     '@penx/db',
     '@penx/hooks',

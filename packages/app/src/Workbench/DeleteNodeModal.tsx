@@ -24,12 +24,10 @@ const Footer = () => {
   return (
     <Box toCenterY gap3>
       <ModalClose asChild>
-        <Button colorScheme="white">
-          <Trans>Cancel</Trans>
-        </Button>
+        <Button colorScheme="white">Cancel</Button>
       </ModalClose>
       <Button colorScheme="red500" onClick={deleteDoc}>
-        <Trans>Delete</Trans>
+        Delete
       </Button>
     </Box>
   )
@@ -42,13 +40,9 @@ export const DeleteNodeModal = () => {
       <ModalContent w={[500]} column gap4 toCenterX>
         <ModalCloseButton />
 
-        <ModalHeader mb2>
-          <Trans>Are you sure delete it permanently?</Trans>
-        </ModalHeader>
+        <ModalHeader mb2>Are you sure delete it permanently?</ModalHeader>
 
-        <Box>
-          <Trans>Once deleted, You can't undo this action.</Trans>
-        </Box>
+        <Box>Once deleted, You can't undo this action.</Box>
         <Footer />
       </ModalContent>
     </Modal>
