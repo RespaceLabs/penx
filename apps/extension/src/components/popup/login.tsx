@@ -9,7 +9,7 @@ interface LoginProps {
 
 export function Login(props: LoginProps) {
   const onLogin = () => {
-    window.open(process.env.PLASMO_PUBLIC_API_BASE_URL)
+    window.open(process.env.PLASMO_PUBLIC_BASE_URL)
   }
 
   return (

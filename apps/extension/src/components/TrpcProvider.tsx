@@ -16,7 +16,7 @@ export function TrpcProvider({ children, token }: PropsWithChildren<Props>) {
       transformer: superjson,
       links: [
         httpBatchLink({
-          url: `${process.env.PLASMO_PUBLIC_API_BASE_URL}/api/trpc`,
+          url: `${process.env.PLASMO_PUBLIC_BASE_URL}/api/trpc`,
           // You can pass any HTTP headers you wish here
           async headers() {
             return {

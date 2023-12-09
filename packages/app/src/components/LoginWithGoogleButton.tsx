@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Box } from '@fower/react'
 import { toast } from 'sonner'
 import { Button, Spinner } from 'uikit'
+import { BASE_URL, isExtension } from '@penx/constants'
 import { IconGoogle } from '@penx/icons'
 import { appEmitter } from '../app-emitter'
 import { isServer } from '../common'
@@ -31,6 +32,11 @@ export default function LoginWithGoogleButton() {
       gapX2
       w={['100%', '100%', 240]}
       onClick={() => {
+        if (isExtension) {
+          location.href = BASE_URL as string
+          return
+        }
+
         setLoading(true)
         appEmitter.emit('SIGN_IN_GOOGLE')
       }}

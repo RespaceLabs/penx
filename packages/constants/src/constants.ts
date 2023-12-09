@@ -8,6 +8,14 @@ export const PENX_HOME_STATUS = 'PENX_HOME_STATUS'
 
 export const PENX_SESSION_USER = 'PENX_SESSION_USER'
 
+export const PLATFORM =
+  process.env.NEXT_PUBLIC_PLATFORM || process.env.PLASMO_PUBLIC_PLATFORM
+
+export const BASE_URL =
+  process.env.NEXT_PUBLIC_NEXTAUTH_URL || process.env.PLASMO_PUBLIC_BASE_URL
+
+export const isExtension = PLATFORM === 'EXTENSION'
+
 export enum SyncScope {
   CURRENT_DOC,
   ALL_CHANGES,

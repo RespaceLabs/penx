@@ -3,26 +3,11 @@ import { atomWithStorage } from 'jotai/utils'
 import ky from 'ky'
 import { useEffect } from 'react'
 
-interface Session {
-  user: {
-    name: string
-    email: string
-    image: string
-    id: string
-  }
-  expires: string
-  accessToken: string
-  userId: string
-}
-
-type SessionData = {
-  loading: boolean
-  data: Session | null
-}
+import type { Session, SessionContextValue } from '@penx/session'
 
 const KEY = 'PENX_SESSION'
 
-const sessionAtom = atomWithStorage<SessionData>(KEY, {
+const sessionAtom = atomWithStorage<SessionContextValue>(KEY, {
   loading: true,
   data: null,
 })
@@ -31,7 +16,7 @@ const getLocalSession = () => {
   const localSession = localStorage.getItem(KEY)
   if (!localSession) return null
   try {
-    const result = JSON.parse(localSession) as SessionData
+    const result = JSON.parse(localSession) as SessionContextValue
     if (!result.data.accessToken) return null
     const expires = new Date(result.data.expires)
     if (expires.getTime() < new Date().getTime()) return null
@@ -50,12 +35,14 @@ export function useSession() {
 
     // if (!value.data && !localSession?.data?.accessToken) {
     if (!value.data) {
-      ky(`${process.env.PLASMO_PUBLIC_API_BASE_URL}/api/auth/session`)
+      ky(`${process.env.PLASMO_PUBLIC_BASE_URL}/api/auth/session`)
         .json()
         .then((data) => {
           setValue({
             loading: false,
-            data: data as Session,
+            data: Object.keys(data).length
+              ? (data as Session)
+              : (null as Session),
           })
         })
     }
