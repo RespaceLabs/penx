@@ -1,5 +1,6 @@
 import { Box, FowerHTMLProps } from '@fower/react'
 import { Pen } from 'lucide-react'
+import { BASE_URL } from '@penx/constants'
 import { StyledLink } from './StyledLink'
 
 interface Props extends FowerHTMLProps<'div'> {
@@ -18,7 +19,11 @@ export const Logo = ({
 }: Props) => {
   const content = (
     <>
-      <Box as="img" src="/images/logo-512.png" square={size * 0.9} />
+      <Box
+        as="img"
+        src={`${BASE_URL}/images/logo-512.png`}
+        square={size * 0.9}
+      />
 
       {showText && (
         <Box>

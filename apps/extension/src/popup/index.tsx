@@ -5,16 +5,17 @@ import { Spinner } from 'uikit'
 import { Login } from '~/components/popup/login'
 import { TrpcProvider } from '~/components/TrpcProvider'
 import { useSession } from '~/hooks/useSession'
-import { Main } from '~/pages/main'
 
 import '../components/popup/globals.module.css'
+
+import { Popup } from '~/components/popup/Popup'
 
 function IndexPopup() {
   const { loading, data } = useSession()
 
-  if (loading || !data) {
+  if (loading) {
     return (
-      <Box w-100p toCenter>
+      <Box w-300 h-300 toCenter>
         <Spinner />
       </Box>
     )
@@ -31,7 +32,7 @@ function IndexPopup() {
     <>
       {isLogin ? (
         <TrpcProvider token={data.accessToken}>
-          <Main />
+          <Popup />
         </TrpcProvider>
       ) : (
         <Login loginCallback={loginCallback} />

@@ -4510,6 +4510,9 @@ importers:
       '@penx/api':
         specifier: workspace:*
         version: link:../api
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
       '@penx/db':
         specifier: workspace:*
         version: link:../db

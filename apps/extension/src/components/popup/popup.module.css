@@ -1,6 +1,5 @@
 .container {
   width: 300px;
-  height: 420px;
   margin-bottom: 8px;
   font-size: 16px;
   color: #262626;
@@ -17,7 +16,10 @@
   align-items: center;
   height: 32px;
   list-style-type: none;
-  transition: border-color 0.3s, background 0.3s, padding 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition:
+    border-color 0.3s,
+    background 0.3s,
+    padding 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
   border-radius: 8px;
   padding: 8px;
 }
