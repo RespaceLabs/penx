@@ -39,15 +39,3 @@ export type Command = {
   pluginId?: string
   handler: () => void
 }
-
-export interface Session {
-  user: {
-    name: string
-    email: string
-    image: string
-    id: string
-  }
-  expires: string
-  accessToken: string
-  userId: string
-}

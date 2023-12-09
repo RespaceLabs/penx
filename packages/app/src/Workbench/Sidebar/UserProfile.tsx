@@ -11,13 +11,13 @@ import {
   PopoverTrigger,
   usePopoverContext,
 } from 'uikit'
-import { useSession } from '@penx/hooks'
+import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 import { appEmitter } from '../../app-emitter'
 
 export const UserProfile = () => {
-  const session = useSession()
-  if (!session) return null
+  const { loading, data: session } = useSession()
+  if (loading) return null
 
   return (
     <Box borderBottom borderGray200--T40 h-40 toCenterY pl4 pr2 toBetween>

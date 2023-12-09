@@ -2,7 +2,8 @@ import { Box, styled } from '@fower/react'
 import { CalendarDays, Cloud, Folder, Hash, Inbox, Menu } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
-import { useNodes, useSession, useSidebarDrawer } from '@penx/hooks'
+import { useNodes, useSidebarDrawer } from '@penx/hooks'
+import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 import LoginWithGoogleButton from '../components/LoginWithGoogleButton'
 import { FavoriteBox } from './Sidebar/FavoriteBox/FavoriteBox'
@@ -16,7 +17,7 @@ const DrawerContent = styled(Drawer.Content)
 
 export const DrawerSidebar = () => {
   const { isOpen, close, open } = useSidebarDrawer()
-  const session = useSession()
+  const { data: session } = useSession()
   const { nodes, nodeList } = useNodes()
   return (
     <Drawer.Root

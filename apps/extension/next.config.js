@@ -23,6 +23,7 @@ module.exports = {
     '@penx/service',
     '@penx/serializer',
     '@penx/store',
+    '@penx/session',
     '@penx/model-types',
     '@penx/cmdk',
     '@penx/indexeddb',

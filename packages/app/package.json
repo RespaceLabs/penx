@@ -75,6 +75,7 @@
     "@penx/service": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",
+    "@penx/session": "workspace:*",
     "@penx/sync": "workspace:*",
     "@penx/worker": "workspace:*",
     "@penx/trpc-client": "workspace:*",

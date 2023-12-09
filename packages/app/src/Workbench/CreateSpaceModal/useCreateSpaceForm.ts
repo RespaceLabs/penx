@@ -1,8 +1,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast, useModalContext } from 'uikit'
-import { useSession } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
+import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 
@@ -31,7 +31,7 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
     },
   })
 
-  const session = useSession()
+  const { data: session } = useSession()
 
   const onSubmit: SubmitHandler<CreateSpaceValues> = async (data) => {
     console.log('data:', data)

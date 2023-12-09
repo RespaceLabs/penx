@@ -53,6 +53,7 @@
     "@penx/serializer": "workspace:*",
     "@penx/storage-estimate": "workspace:*",
     "@penx/store": "workspace:*",
+    "@penx/session": "workspace:*",
     "@penx/table": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "@penx/word-count": "workspace:*",

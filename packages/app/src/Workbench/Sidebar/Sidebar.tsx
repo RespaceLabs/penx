@@ -10,13 +10,8 @@ import {
   Inbox,
   Trash2,
 } from 'lucide-react'
-import {
-  useDatabase,
-  useNodes,
-  useSession,
-  useSpaces,
-  useUser,
-} from '@penx/hooks'
+import { useNodes } from '@penx/hooks'
+import { useSession } from '@penx/session'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import LoginWithGoogleButton from '../../components/LoginWithGoogleButton'
 import { SyncPopover } from '../StatusBar/SyncPopover'
@@ -41,7 +36,7 @@ export const Sidebar = () => {
   const [extensionStore] = useAtom(extensionStoreAtom)
   const components = getStatusBarComponents(extensionStore)
   const { nodes, nodeList } = useNodes()
-  const session = useSession()
+  const { loading, data: session } = useSession()
 
   return (
     <Box
@@ -107,10 +102,10 @@ export const Sidebar = () => {
         )}
       </Box>
       <Box px2 toBetween toCenterY>
-        {!session && <LoginWithGoogleButton />}
+        {!session && !loading && <LoginWithGoogleButton />}
         {/* {!isConnected && <WalletConnectButton size="lg" w-100p />}
         {isConnected && <UserAvatarModal />} */}
-        {session && (
+        {session && !loading && (
           <>
             <SyncPopover />
             <UserProfile />

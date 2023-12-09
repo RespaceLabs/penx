@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast, useModalContext } from 'uikit'
-import { useSession, useUser } from '@penx/hooks'
+import { useUser } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
 import { RestoreService } from '@penx/service'
@@ -22,7 +22,6 @@ export function useRestoreFromGitHubForm() {
     },
   })
 
-  const session = useSession()
   const user = useUser()
 
   const onSubmit: SubmitHandler<RestoreFromGitHubValues> = async (data) => {

@@ -2,7 +2,8 @@ import { isMobile } from 'react-device-detect'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { EditorProvider } from '@penx/editor'
-import { useSession, useSpaces } from '@penx/hooks'
+import { useSpaces } from '@penx/hooks'
+import { useSession } from '@penx/session'
 import { routerAtom } from '@penx/store'
 import { CommandPanel } from '../Palette'
 import { AccountSettings } from './AccountSettings/AccountSettings'
@@ -13,7 +14,7 @@ import { Sidebar } from './Sidebar/Sidebar'
 import { SpaceSettings } from './SpaceSettings/SpaceSettings'
 
 export const Workbench = () => {
-  const session = useSession()
+  const { data: session } = useSession()
   const { activeSpace } = useSpaces()
   const { name } = useAtomValue(routerAtom)
 
