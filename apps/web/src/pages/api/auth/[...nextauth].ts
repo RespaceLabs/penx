@@ -10,9 +10,13 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
+      httpOptions: {
+        timeout: 10 * 1000,
+      },
     }),
     // ...add more providers here
   ],
+
   session: {
     strategy: 'jwt',
   },

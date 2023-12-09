@@ -15,6 +15,8 @@ import styles from '~/components/popup/popup.module.css'
 import { SpacesSelect } from '~/components/popup/SpacesSelect'
 import { UserProfile } from '~/components/popup/UserProfile'
 
+import { LocalSpacesSelect } from './LocalSpacesSelect'
+
 interface FeatureEntryProps {
   name: string
   type: StartSelectEnum
@@ -134,10 +136,10 @@ export function Popup() {
   }, [])
 
   return (
-    <Box p4 h-280 w-300 column toBetween>
-      <UserProfile />
+    <Box p4 h-300 w-300 column toBetween>
+      {/* <UserProfile /> */}
       {/* your currentUrl is: {tab?.url} */}
-      <Box grid gridTemplateColumns-2 gap2 mt4>
+      <Box grid gridTemplateColumns-2 gap2>
         <FeatureEntry
           name="Write"
           icon={Text}
@@ -149,7 +151,7 @@ export function Popup() {
           type={StartSelectEnum.areaSelect}
         />
         <FeatureEntry
-          name="Screen shot"
+          name="Screen Shot"
           icon={Monitor}
           type={StartSelectEnum.screenShot}
         />
@@ -160,6 +162,7 @@ export function Popup() {
         />
       </Box>
 
+      <LocalSpacesSelect />
       {/* <SpacesSelect /> */}
     </Box>
   )

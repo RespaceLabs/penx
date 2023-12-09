@@ -32,7 +32,7 @@ export function SpacesSelect(props: SpacesSelectProps) {
       <Box pb-10>Save to space:</Box>
       <Select value={value} onChange={(v: string) => onChange(v)}>
         <SelectTrigger bgSlate100 flex-1>
-          <SelectValue placeholder="Select a account"></SelectValue>
+          <SelectValue placeholder="Select a space"></SelectValue>
           <SelectIcon></SelectIcon>
         </SelectTrigger>
         <SelectContent w-200>

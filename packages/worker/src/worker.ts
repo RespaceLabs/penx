@@ -1,6 +1,5 @@
 import { WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
-import { Session } from '@penx/store'
 import { clearNodes } from './clearNodes'
 import { normalizeNodes } from './normalizeNodes'
 import { startPollingPull } from './pollingPull'

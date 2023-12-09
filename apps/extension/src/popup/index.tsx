@@ -8,12 +8,19 @@ import { useSession } from '~/hooks/useSession'
 
 import '../components/popup/globals.module.css'
 
+import { initFower } from '@penx/app'
+import { db } from '@penx/local-db'
+
 import { Popup } from '~/components/popup/Popup'
+import { useDB } from '~/hooks/useDB'
+
+initFower()
 
 function IndexPopup() {
+  const { connected } = useDB()
   const { loading, data } = useSession()
 
-  if (loading) {
+  if (loading || !connected) {
     return (
       <Box w-300 h-300 toCenter>
         <Spinner />
@@ -21,12 +28,16 @@ function IndexPopup() {
     )
   }
 
+  console.log('db:', db.database)
+
   // TODO: should handle token expiration
   const isLogin = data?.userId
 
   const loginCallback = () => {
     console.log('loginCallback')
   }
+
+  return <Popup></Popup>
 
   return (
     <>
