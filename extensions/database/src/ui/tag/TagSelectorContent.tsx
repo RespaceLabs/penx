@@ -112,7 +112,7 @@ export const TagSelectorContent = ({ close, element }: Props) => {
 
   if (!filteredTypes.length) {
     return (
-      <Box py3 px3>
+      <Box py3 px3 textSM>
         Create tag "{text}"
       </Box>
     )

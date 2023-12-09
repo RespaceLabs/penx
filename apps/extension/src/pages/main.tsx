@@ -8,6 +8,8 @@ import styles from '~/components/popup/main.module.css'
 import { SpacesSelect } from '~/components/popup/SpacesSelect'
 import { UserProfile } from '~/components/popup/UserProfile'
 
+SpacesSelect
+
 export function Main() {
   const [tab, setTab] = useState<TabInfo>(null)
 

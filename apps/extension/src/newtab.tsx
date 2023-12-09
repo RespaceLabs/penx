@@ -1,17 +1,15 @@
 import './globals.css'
 
-import { Box } from '@fower/react'
-
-import { NewTabApp } from '@penx/abb'
-import { EditorApp } from '@penx/app'
+import { EditorApp, initFower } from '@penx/app'
 import { SessionProvider } from '@penx/hooks'
+
+initFower()
 
 function IndexNewtab() {
   return (
     <div>
       <SessionProvider value={null}>
         <EditorApp />
-        {/* <NewTabApp /> */}
       </SessionProvider>
     </div>
   )

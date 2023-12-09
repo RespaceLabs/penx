@@ -27,7 +27,6 @@
     "@mozilla/readability": "^0.4.4",
     "@penx/api": "workspace:*",
     "@penx/app": "workspace:*",
-    "@penx/abb": "workspace:*",
     "@penx/auto-format": "workspace:*",
     "@penx/bidirectional-link": "workspace:*",
     "@penx/block-selector": "workspace:*",

@@ -77,9 +77,6 @@ importers:
       '@mozilla/readability':
         specifier: ^0.4.4
         version: 0.4.4
-      '@penx/abb':
-        specifier: workspace:*
-        version: link:../../packages/abb
       '@penx/api':
         specifier: workspace:*
         version: link:../../packages/api
@@ -2169,409 +2166,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../../packages/tsconfig
-      typescript:
-        specifier: ^5.3.2
-        version: 5.3.2
-
-  packages/abb:
-    dependencies:
-      '@dnd-kit/core':
-        specifier: ^6.1.0
-        version: 6.1.0(react-dom@18.2.0)(react@18.2.0)
-      '@dnd-kit/sortable':
-        specifier: ^7.0.2
-        version: 7.0.2(@dnd-kit/core@6.1.0)(react@18.2.0)
-      '@dnd-kit/utilities':
-        specifier: ^3.2.2
-        version: 3.2.2(react@18.2.0)
-      '@emoji-mart/data':
-        specifier: ^1.1.2
-        version: 1.1.2
-      '@emoji-mart/react':
-        specifier: ^1.1.1
-        version: 1.1.1(emoji-mart@5.5.2)(react@18.2.0)
-      '@floating-ui/react':
-        specifier: ^0.25.4
-        version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
-      '@fower/atomic-props':
-        specifier: ^2.0.0
-        version: 2.0.0
-      '@fower/react':
-        specifier: ^2.0.0
-        version: 2.0.0
-      '@hookform/resolvers':
-        specifier: ^3.3.2
-        version: 3.3.2(react-hook-form@7.48.2)
-      '@lingui/core':
-        specifier: 4.1.2
-        version: 4.1.2
-      '@lingui/react':
-        specifier: 4.1.2
-        version: 4.1.2(react@18.2.0)
-      '@octokit/auth-app':
-        specifier: ^6.0.1
-        version: 6.0.1
-      '@octokit/oauth-app':
-        specifier: ^6.0.0
-        version: 6.0.0
-      '@octokit/rest':
-        specifier: ^20.0.2
-        version: 20.0.2
-      '@penx/api':
-        specifier: workspace:*
-        version: link:../api
-      '@penx/cmdk':
-        specifier: workspace:*
-        version: link:../cmdk
-      '@penx/constants':
-        specifier: workspace:*
-        version: link:../constants
-      '@penx/database':
-        specifier: workspace:*
-        version: link:../../extensions/database
-      '@penx/db':
-        specifier: workspace:*
-        version: link:../db
-      '@penx/dnd-projection':
-        specifier: workspace:*
-        version: link:../dnd-projection
-      '@penx/editor':
-        specifier: workspace:*
-        version: link:../editor
-      '@penx/editor-common':
-        specifier: workspace:*
-        version: link:../editor-common
-      '@penx/editor-queries':
-        specifier: workspace:*
-        version: link:../editor-queries
-      '@penx/editor-shared':
-        specifier: workspace:*
-        version: link:../editor-shared
-      '@penx/editor-transforms':
-        specifier: workspace:*
-        version: link:../editor-transforms
-      '@penx/encryption':
-        specifier: workspace:*
-        version: link:../encryption
-      '@penx/event':
-        specifier: workspace:*
-        version: link:../event
-      '@penx/extension-typings':
-        specifier: ^0.0.0
-        version: link:../extension-typings
-      '@penx/hooks':
-        specifier: workspace:*
-        version: link:../hooks
-      '@penx/icons':
-        specifier: workspace:*
-        version: link:../icons
-      '@penx/list':
-        specifier: workspace:*
-        version: link:../../extensions/list
-      '@penx/loader':
-        specifier: workspace:*
-        version: link:../loader
-      '@penx/local-db':
-        specifier: workspace:*
-        version: link:../local-db
-      '@penx/model':
-        specifier: workspace:*
-        version: link:../model
-      '@penx/model-types':
-        specifier: workspace:*
-        version: link:../model-types
-      '@penx/paragraph':
-        specifier: workspace:*
-        version: link:../../extensions/paragraph
-      '@penx/remark-slate':
-        specifier: workspace:*
-        version: link:../remark-slate
-      '@penx/serializer':
-        specifier: workspace:*
-        version: link:../serializer
-      '@penx/service':
-        specifier: workspace:*
-        version: link:../service
-      '@penx/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@penx/store':
-        specifier: workspace:*
-        version: link:../store
-      '@penx/sync':
-        specifier: workspace:*
-        version: link:../sync
-      '@penx/trpc-client':
-        specifier: workspace:*
-        version: link:../trpc-client
-      '@penx/unique-id':
-        specifier: workspace:*
-        version: link:../unique-id
-      '@penx/worker':
-        specifier: workspace:*
-        version: link:../worker
-      '@radix-ui/react-dialog':
-        specifier: ^1.0.5
-        version: 1.0.5(@types/react-dom@18.2.17)(@types/react@18.2.42)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-hover-card':
-        specifier: ^1.0.7
-        version: 1.0.7(@types/react-dom@18.2.17)(@types/react@18.2.42)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-slot':
-        specifier: ^1.0.2
-        version: 1.0.2(@types/react@18.2.42)(react@18.2.0)
-      '@react-pdf/renderer':
-        specifier: ^3.1.14
-        version: 3.1.14(react@18.2.0)
-      '@supabase/supabase-js':
-        specifier: ^2.39.0
-        version: 2.39.0
-      '@tanstack/react-query':
-        specifier: ^4.36.1
-        version: 4.36.1(react-dom@18.2.0)(react@18.2.0)
-      '@trpc/client':
-        specifier: ^10.44.1
-        version: 10.44.1(@trpc/server@10.44.1)
-      '@web3modal/react':
-        specifier: ^2.7.1
-        version: 2.7.1(react-dom@18.2.0)(react@18.2.0)
-      class-variance-authority:
-        specifier: ^0.7.0
-        version: 0.7.0
-      classnames:
-        specifier: ^2.3.2
-        version: 2.3.2
-      clsx:
-        specifier: ^2.0.0
-        version: 2.0.0
-      cookies-next:
-        specifier: ^2.1.2
-        version: 2.1.2
-      crypto-js:
-        specifier: ^4.2.0
-        version: 4.2.0
-      date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0
-      emoji-mart:
-        specifier: ^5.5.2
-        version: 5.5.2
-      emoji-picker-react:
-        specifier: ^4.5.16
-        version: 4.5.16(react@18.2.0)
-      framer-motion:
-        specifier: ^10.16.14
-        version: 10.16.14(react-dom@18.2.0)(react@18.2.0)
-      html5-qrcode:
-        specifier: ^2.3.8
-        version: 2.3.8
-      idb-keyval:
-        specifier: ^6.2.1
-        version: 6.2.1
-      immer:
-        specifier: ^10.0.3
-        version: 10.0.3
-      is-hotkey:
-        specifier: ^0.2.0
-        version: 0.2.0
-      jotai:
-        specifier: ^2.6.0
-        version: 2.6.0(@types/react@18.2.42)(react@18.2.0)
-      jsonwebtoken:
-        specifier: ^9.0.2
-        version: 9.0.2
-      ky:
-        specifier: ^1.1.3
-        version: 1.1.3
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
-      markdown-it:
-        specifier: ^13.0.2
-        version: 13.0.2
-      mime:
-        specifier: ^3.0.0
-        version: 3.0.0
-      mitt:
-        specifier: ^3.0.1
-        version: 3.0.1
-      next:
-        specifier: 13.3.1
-        version: 13.3.1(@babel/core@7.23.5)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
-      node-sql-parser:
-        specifier: ^4.12.0
-        version: 4.12.0
-      octokit:
-        specifier: ^3.1.2
-        version: 3.1.2
-      prismjs:
-        specifier: ^1.29.0
-        version: 1.29.0
-      rc-table:
-        specifier: ^7.36.0
-        version: 7.36.0(react-dom@18.2.0)(react@18.2.0)
-      re-resizable:
-        specifier: ^6.9.11
-        version: 6.9.11(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-circular-progressbar:
-        specifier: ^2.1.0
-        version: 2.1.0(react@18.2.0)
-      react-device-detect:
-        specifier: ^2.2.3
-        version: 2.2.3(react-dom@18.2.0)(react@18.2.0)
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
-      react-error-boundary:
-        specifier: ^4.0.11
-        version: 4.0.11(react@18.2.0)
-      react-fast-compare:
-        specifier: ^3.2.2
-        version: 3.2.2
-      react-hook-form:
-        specifier: ^7.48.2
-        version: 7.48.2(react@18.2.0)
-      react-intersection-observer:
-        specifier: ^9.5.3
-        version: 9.5.3(react@18.2.0)
-      react-qr-code:
-        specifier: ^2.0.12
-        version: 2.0.12(react@18.2.0)
-      remark-parse:
-        specifier: ^11.0.0
-        version: 11.0.0
-      remark-slate:
-        specifier: ^1.8.6
-        version: 1.8.6
-      simplebar-react:
-        specifier: ^3.2.4
-        version: 3.2.4(react@18.2.0)
-      slate:
-        specifier: 0.101.1
-        version: 0.101.1
-      slate-history:
-        specifier: 0.100.0
-        version: 0.100.0(slate@0.101.1)
-      slate-hyperscript:
-        specifier: 0.100.0
-        version: 0.100.0(slate@0.101.1)
-      slate-lists:
-        specifier: workspace:*
-        version: link:../slate-lists
-      slate-react:
-        specifier: 0.101.2
-        version: 0.101.2(react-dom@18.2.0)(react@18.2.0)(slate@0.101.1)
-      sonner:
-        specifier: ^0.6.2
-        version: 0.6.2(react-dom@18.2.0)(react@18.2.0)
-      stook:
-        specifier: ^1.17.0
-        version: 1.17.0
-      superjson:
-        specifier: 1.9.1
-        version: 1.9.1
-      tinykeys:
-        specifier: ^2.1.0
-        version: 2.1.0
-      uikit:
-        specifier: workspace:*
-        version: link:../uikit
-      unified:
-        specifier: ^11.0.4
-        version: 11.0.4
-      use-debounce:
-        specifier: ^9.0.4
-        version: 9.0.4(react@18.2.0)
-      uuid:
-        specifier: ^9.0.1
-        version: 9.0.1
-      vaul:
-        specifier: ^0.7.9
-        version: 0.7.9(@types/react-dom@18.2.17)(@types/react@18.2.42)(react-dom@18.2.0)(react@18.2.0)
-      wagmi:
-        specifier: ^1.4.8
-        version: 1.4.8(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.2)(viem@1.19.11)(zod@3.22.4)
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
-    devDependencies:
-      '@babel/core':
-        specifier: ^7.23.5
-        version: 7.23.5
-      '@lingui/cli':
-        specifier: 4.1.2
-        version: 4.1.2(typescript@5.3.2)
-      '@lingui/loader':
-        specifier: 4.6.0
-        version: 4.6.0(typescript@5.3.2)(webpack@5.89.0)
-      '@lingui/macro':
-        specifier: 4.1.2
-        version: 4.1.2(@lingui/react@4.1.2)(babel-plugin-macros@3.1.0)(typescript@5.3.2)
-      '@lingui/swc-plugin':
-        specifier: 4.0.0
-        version: 4.0.0(@lingui/macro@4.1.2)
-      '@svgr/webpack':
-        specifier: ^8.1.0
-        version: 8.1.0(typescript@5.3.2)
-      '@types/crypto-js':
-        specifier: ^4.2.1
-        version: 4.2.1
-      '@types/is-hotkey':
-        specifier: ^0.1.10
-        version: 0.1.10
-      '@types/jsonwebtoken':
-        specifier: ^9.0.5
-        version: 9.0.5
-      '@types/lodash':
-        specifier: ^4.14.202
-        version: 4.14.202
-      '@types/markdown-it':
-        specifier: ^13.0.7
-        version: 13.0.7
-      '@types/mime':
-        specifier: ^3.0.4
-        version: 3.0.4
-      '@types/node':
-        specifier: ^20.10.3
-        version: 20.10.4
-      '@types/prismjs':
-        specifier: ^1.26.3
-        version: 1.26.3
-      '@types/react':
-        specifier: ^18.2.42
-        version: 18.2.42
-      '@types/react-dom':
-        specifier: ^18.2.17
-        version: 18.2.17
-      '@types/uuid':
-        specifier: ^9.0.7
-        version: 9.0.7
-      autoprefixer:
-        specifier: ^10.4.16
-        version: 10.4.16(postcss@8.4.32)
-      babel-plugin-macros:
-        specifier: ^3.1.0
-        version: 3.1.0
-      dotenv-cli:
-        specifier: ^7.3.0
-        version: 7.3.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-      postcss:
-        specifier: ^8.4.32
-        version: 8.4.32
-      sass:
-        specifier: ^1.69.5
-        version: 1.69.5
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
       typescript:
         specifier: ^5.3.2
         version: 5.3.2
@@ -7448,11 +7042,6 @@ packages:
     engines: {node: '>=16.0.0'}
     dev: true
 
-  /@lingui/babel-plugin-extract-messages@4.6.0:
-    resolution: {integrity: sha512-5endWBnkE7LKIB2I9wLvmyt8tX2AgcvCb7a9eyK4WlS/YJ/rmlXFuzHM6VC0UHHM1LYeV2pgokzOI5i9y/3H0A==}
-    engines: {node: '>=16.0.0'}
-    dev: true
-
   /@lingui/cli@4.1.2(typescript@5.3.2):
     resolution: {integrity: sha512-5xAz+YZ45g5+Qt12GprVcglRjx7Us2XQmUzmO/GVIckIEXq8CAtKVdyveuvtpVxk2GLH30HCGtfIiPfvV11gVw==}
     engines: {node: '>=16.0.0'}
@@ -7492,45 +7081,6 @@ packages:
       - typescript
     dev: true
 
-  /@lingui/cli@4.6.0(typescript@5.3.2):
-    resolution: {integrity: sha512-37MTEg0IkqY90p1NObu3HkMNky7W48L0sxdA+U2Gdf9tDv8wcYMnKdz7M3YFn5BxL07SwiN8j0Yyrbz+bsSKJw==}
-    engines: {node: '>=16.0.0'}
-    hasBin: true
-    dependencies:
-      '@babel/core': 7.23.5
-      '@babel/generator': 7.23.5
-      '@babel/parser': 7.23.5
-      '@babel/runtime': 7.23.5
-      '@babel/types': 7.23.5
-      '@lingui/babel-plugin-extract-messages': 4.6.0
-      '@lingui/conf': 4.6.0(typescript@5.3.2)
-      '@lingui/core': 4.6.0
-      '@lingui/format-po': 4.6.0(typescript@5.3.2)
-      '@lingui/message-utils': 4.6.0
-      babel-plugin-macros: 3.1.0
-      chalk: 4.1.2
-      chokidar: 3.5.1
-      cli-table: 0.3.6
-      commander: 10.0.1
-      convert-source-map: 2.0.0
-      date-fns: 2.30.0
-      esbuild: 0.17.19
-      glob: 7.2.3
-      inquirer: 7.3.3
-      micromatch: 4.0.2
-      normalize-path: 3.0.0
-      ora: 5.4.1
-      pathe: 1.1.1
-      pkg-up: 3.1.0
-      pofile: 1.1.4
-      pseudolocale: 2.0.0
-      ramda: 0.27.2
-      source-map: 0.8.0-beta.0
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: true
-
   /@lingui/conf@4.1.2(typescript@5.3.2):
     resolution: {integrity: sha512-20a4wwnFa+2NHnSentNR8mFTnp2F3zo7/n3FJO5cDQl2oh77Xfb8U3epLAAkoz6wDRLVqTXNlelyCr6+fgVGGA==}
     engines: {node: '>=16.0.0'}
@@ -7544,20 +7094,6 @@ packages:
     transitivePeerDependencies:
       - typescript
 
-  /@lingui/conf@4.6.0(typescript@5.3.2):
-    resolution: {integrity: sha512-k6Gpm0RB+xf1J2gR5pVsG+FwNLTHTUSpThBCF+dYyWowHbDrxfhi/FtQyNS2doT05VYNraQZanXOFbKjdFgF7A==}
-    engines: {node: '>=16.0.0'}
-    dependencies:
-      '@babel/runtime': 7.23.5
-      chalk: 4.1.2
-      cosmiconfig: 8.3.6(typescript@5.3.2)
-      jest-validate: 29.7.0
-      jiti: 1.21.0
-      lodash.get: 4.4.2
-    transitivePeerDependencies:
-      - typescript
-    dev: true
-
   /@lingui/core@4.1.2:
     resolution: {integrity: sha512-d53SYWsBcLvQZh62aEZFq+FJbHi+1CopoNzP5U2Q1xrhbNWNcfE7jbp86XZJICzNbFXDLoU4aCVMMg8p/JBzkw==}
     engines: {node: '>=16.0.0'}
@@ -7565,33 +7101,12 @@ packages:
       '@babel/runtime': 7.23.5
       '@lingui/message-utils': 4.1.2
 
-  /@lingui/core@4.6.0:
-    resolution: {integrity: sha512-waqozTXrCCm/Rc0GLTlri9+kzNGK7q/beoZG9GjsC1g3HRtTiZWdn0pe3L16YVLHhmoJEXYlAfhsbU5g+A3bfg==}
-    engines: {node: '>=16.0.0'}
-    dependencies:
-      '@babel/runtime': 7.23.5
-      '@lingui/message-utils': 4.6.0
-      unraw: 3.0.0
-    dev: true
-
   /@lingui/format-po@4.1.2(typescript@5.3.2):
     resolution: {integrity: sha512-zYDJ9ZK3cY4uTuS7q+bViEW1oSIao/vd7Y49vwi8+OAHalddkCBWjlMs+Cx5lFJ9qoIm+x/jAN0PjIFhsl3DJA==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@lingui/conf': 4.1.2(typescript@5.3.2)
       '@lingui/message-utils': 4.1.2
-      date-fns: 2.30.0
-      pofile: 1.1.4
-    transitivePeerDependencies:
-      - typescript
-    dev: true
-
-  /@lingui/format-po@4.6.0(typescript@5.3.2):
-    resolution: {integrity: sha512-jWvmfOQxbHRyjgqsY0pYeb4BuDK22u3DWss+lBsdvPr3YQYHm7JLX6e/xHwftzD+Wy8zytutQkESL71kFeTUfw==}
-    engines: {node: '>=16.0.0'}
-    dependencies:
-      '@lingui/conf': 4.6.0(typescript@5.3.2)
-      '@lingui/message-utils': 4.6.0
       date-fns: 2.30.0
       pofile: 1.1.4
     transitivePeerDependencies:
@@ -7607,21 +7122,6 @@ packages:
       '@babel/runtime': 7.23.5
       '@lingui/cli': 4.1.2(typescript@5.3.2)
       '@lingui/conf': 4.1.2(typescript@5.3.2)
-      webpack: 5.89.0
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: true
-
-  /@lingui/loader@4.6.0(typescript@5.3.2)(webpack@5.89.0):
-    resolution: {integrity: sha512-5OkcmxrDHzWKsvQza9OLUs41Ljow6QG7NsHJkWAPofRbl9uuSKFwwrePXTKECCIrlQvkSA+t91zbWjnusZ7JLA==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      webpack: ^5.0.0
-    dependencies:
-      '@babel/runtime': 7.23.5
-      '@lingui/cli': 4.6.0(typescript@5.3.2)
-      '@lingui/conf': 4.6.0(typescript@5.3.2)
       webpack: 5.89.0
     transitivePeerDependencies:
       - supports-color
@@ -7650,14 +7150,6 @@ packages:
     engines: {node: '>=16.0.0'}
     dependencies:
       '@messageformat/parser': 5.1.0
-
-  /@lingui/message-utils@4.6.0:
-    resolution: {integrity: sha512-2vHJ61ITxGoyKKyO9DbxZMpnF43kH7j8/+UUu7aUKa18XbOW49qnWwZfB8I9ZGCkPxxh5ILbd3IJ70gF68UbQw==}
-    engines: {node: '>=16.0.0'}
-    dependencies:
-      '@messageformat/parser': 5.1.0
-      js-sha256: 0.10.1
-    dev: true
 
   /@lingui/react@4.1.2(react@18.2.0):
     resolution: {integrity: sha512-FBGggx0Z+iuF2RkjtGM4BfEDTGMoJj2pSObck2xZmgXUcCnBTNL2/uZAeW7RPv5qZRGu2ldMmVZyl62ChDPuBQ==}
@@ -17998,10 +17490,6 @@ packages:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
     engines: {node: '>=10'}
 
-  /js-sha256@0.10.1:
-    resolution: {integrity: sha512-5obBtsz9301ULlsgggLg542s/jqtddfOpV5KJc4hajc9JV8GeY2gZHSVpYBn4nWqAUTJ9v+xwtbJ1mIBgIH5Vw==}
-    dev: true
-
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -22898,10 +22386,6 @@ packages:
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.6.1
     dev: false
-
-  /unraw@3.0.0:
-    resolution: {integrity: sha512-08/DA66UF65OlpUDIQtbJyrqTR0jTAlJ+jsnkQ4jxR7+K5g5YG1APZKQSMCE1vqqmD+2pv6+IdEjmopFatacvg==}
-    dev: true
 
   /unstorage@1.10.1(idb-keyval@6.2.1):
     resolution: {integrity: sha512-rWQvLRfZNBpF+x8D3/gda5nUCQL2PgXy2jNG4U7/Rc9BGEv9+CAJd0YyGCROUBKs9v49Hg8huw3aih5Bf5TAVw==}

@@ -5,7 +5,6 @@ module.exports = {
   transpilePackages: [
     '@penx/api',
     '@penx/app',
-    '@penx/abb',
     '@penx/constants',
     '@penx/db',
     '@penx/hooks',
@@ -16,6 +15,7 @@ module.exports = {
     '@penx/editor-transforms',
     '@penx/editor-types',
     '@penx/editor-common',
+    '@penx/editor-composition',
     '@penx/icons',
     '@penx/shared',
     '@penx/model',
@@ -48,6 +48,7 @@ module.exports = {
     '@penx/sync',
     '@penx/unique-id',
     '@penx/extension-list',
+    '@penx/worker',
     'uikit',
     'slate-lists',
   ],
