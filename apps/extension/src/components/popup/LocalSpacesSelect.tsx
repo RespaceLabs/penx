@@ -1,6 +1,5 @@
 import { Box } from '@fower/react'
 import { Cloud, KeyRound, Laptop } from 'lucide-react'
-import { useEffect, useState } from 'react'
 import {
   Select,
   SelectContent,
@@ -10,10 +9,11 @@ import {
   SelectValue,
 } from 'uikit'
 
-import { useLocalSpaces } from '~/hooks/useLocalSpaces'
+import { useInitLocalSpaces, useLocalSpaces } from '~/hooks/useLocalSpaces'
 
 export function LocalSpacesSelect() {
-  const { loading, activeSpace, spaces, setActiveSpace } = useLocalSpaces()
+  useInitLocalSpaces()
+  const { loading, activeSpaceId, spaces, setActiveSpaceId } = useLocalSpaces()
 
   if (loading) return null
 
@@ -23,10 +23,9 @@ export function LocalSpacesSelect() {
         Add to space
       </Box>
       <Select
-        value={activeSpace.id}
+        value={activeSpaceId}
         onChange={(v: string) => {
-          const space = spaces.find((item) => item.id === v)
-          setActiveSpace(space)
+          setActiveSpaceId(v)
         }}>
         <SelectTrigger bgSlate100 flex-1>
           <SelectValue placeholder="Select a space"></SelectValue>

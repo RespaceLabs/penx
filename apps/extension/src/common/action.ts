@@ -11,4 +11,6 @@ export const BACKGROUND_EVENTS = {
   SCREEN_SHOT: 'background/screen-shot',
   SUBMIT_CONTENT: 'background/submit-content',
   INT_POPUP: 'background/int_popup',
+
+  ADD_NODES_TO_TODAY: 'background/add_nodes_to_today',
 }

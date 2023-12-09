@@ -311,8 +311,6 @@ class DB {
   getOrCreateTodayNode = async (spaceId: string) => {
     let todayNode = await this.getTodayNode(spaceId)
 
-    console.log('=========todayNode:', todayNode)
-
     const dailyRootNode = await this.getDailyRootNode(spaceId)
 
     if (!todayNode) {
@@ -358,7 +356,7 @@ class DB {
     return newNode
   }
 
-  addNodeToToday = async (spaceId: string, text: string) => {
+  addTextToToday = async (spaceId: string, text: string) => {
     const todayNode = await this.getTodayNode(spaceId)
 
     const newNode = await this.node.insert({
@@ -373,6 +371,24 @@ class DB {
       node: newNode,
       todayNode: newTodayNode,
     }
+  }
+
+  addNodesToToday = async (spaceId: string, nodes: INode[]) => {
+    const todayNode = await this.getOrCreateTodayNode(spaceId)
+
+    for (const node of nodes) {
+      await this.createNode({
+        parentId: node.parentId || todayNode.id,
+        ...node,
+      })
+    }
+
+    const newIds = nodes.filter((n) => !n.parentId).map((n) => n.id)
+
+    const newTodayNode = await this.updateNode(todayNode.id, {
+      children: [...(todayNode.children || []), ...newIds],
+    })
+    return newTodayNode
   }
 
   listNodesBySpaceId = async (spaceId: string) => {

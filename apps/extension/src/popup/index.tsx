@@ -28,8 +28,6 @@ function IndexPopup() {
     )
   }
 
-  console.log('db:', db.database)
-
   // TODO: should handle token expiration
   const isLogin = data?.userId
 

@@ -136,7 +136,7 @@ export function Popup() {
   }, [])
 
   return (
-    <Box p4 h-300 w-300 column toBetween>
+    <Box p4 h-360 w-300 column toBetween>
       {/* <UserProfile /> */}
       {/* your currentUrl is: {tab?.url} */}
       <Box grid gridTemplateColumns-2 gap2>

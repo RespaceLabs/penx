@@ -13,6 +13,7 @@ import { slateToNodes } from '@penx/serializer'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
 import { SUCCESS } from '~/common/helper'
+import { useLocalSpaces } from '~/hooks/useLocalSpaces'
 
 import * as styles from '../content.module.scss'
 import { StartSelectEnum } from '../helper'
@@ -30,18 +31,19 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     const { destroySelectArea } = props
     const { storageDoc, setStorageDoc } = useStorageDoc()
     const { doc, setDoc } = useDoc()
-    const { selectedSpace } = useSelectedSpace()
-
+    const { activeSpaceId } = useLocalSpaces()
     const [value, setValue] = useState([])
 
     const onSubmit = async () => {
-      if (selectedSpace) {
+      console.log('..xxxxxxx=======activeSpaceId:', activeSpaceId)
+
+      if (activeSpaceId) {
         const nodes = slateToNodes([, value[0]])
         const data = await chrome.runtime.sendMessage({
           type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
           payload: {
-            nodes: nodes.map((node) => ({ ...node, spaceId: selectedSpace })),
-            spaceId: selectedSpace,
+            nodes: nodes.map((node) => ({ ...node, spaceId: activeSpaceId })),
+            spaceId: activeSpaceId,
           },
         })
 
@@ -124,7 +126,7 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
                 <Box gray500>
                   <SendHorizontal size={16} />
                 </Box>
-                <Box>Send to today</Box>
+                <Box textSM>Send to today</Box>
               </Button>
             </Box>
           </Box>

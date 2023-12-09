@@ -260,7 +260,7 @@ export class NodeStore {
 
   async createNodeToToday(text: string) {
     const space = this.store.space.getActiveSpace()
-    const { todayNode } = await db.addNodeToToday(space.id, text)
+    const { todayNode } = await db.addTextToToday(space.id, text)
     const nodes = await db.listNodesBySpaceId(space.id)
 
     this.setNodes(nodes)

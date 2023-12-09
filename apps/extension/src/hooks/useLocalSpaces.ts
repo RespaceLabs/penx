@@ -1,34 +1,52 @@
+import { Storage } from '@plasmohq/storage'
+import { useStorage } from '@plasmohq/storage/hook'
 import { atom, useAtom } from 'jotai'
 import { useEffect } from 'react'
 
 import { db } from '@penx/local-db'
 import type { ISpace } from '@penx/model-types'
 
+const ACTIVE_SPACE_ID = 'ACTIVE_SPACE_ID'
+
 const spacesAtom = atom<ISpace[]>([])
-const activeSpaceAtom = atom<ISpace>(null as any as ISpace)
 const loadingAtom = atom<boolean>(true)
+
+const storage = new Storage()
+
+export const useInitLocalSpaces = () => {
+  const { setSpaces, setActiveSpaceId, setLoading } = useLocalSpaces()
+  async function loadSpaces() {
+    const spaces = await db.listSpaces()
+    setSpaces(spaces)
+
+    const spaceId = await storage.get(ACTIVE_SPACE_ID)
+
+    if (spaces.length && !spaceId) {
+      const activeSpace = spaces.find((space) => space.isActive)
+      await setActiveSpaceId(activeSpace?.id || spaces[0].id)
+    }
+
+    setLoading(false)
+  }
+
+  // on mounted
+  useEffect(() => {
+    loadSpaces()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+}
 
 export function useLocalSpaces() {
   const [spaces, setSpaces] = useAtom(spacesAtom)
-  const [activeSpace, setActiveSpace] = useAtom(activeSpaceAtom)
+  const [activeSpaceId, setActiveSpaceId] = useStorage<string>(ACTIVE_SPACE_ID)
   const [loading, setLoading] = useAtom(loadingAtom)
-
-  useEffect(() => {
-    console.log('Loading....spaces')
-
-    db.listSpaces().then((spaces) => {
-      setSpaces(spaces)
-      if (spaces.length && !activeSpace) {
-        setActiveSpace(spaces.find((space) => space.isActive) || spaces[0])
-      }
-      setLoading(false)
-    })
-  }, [activeSpace, setSpaces, setLoading, setActiveSpace])
 
   return {
     spaces,
-    activeSpace,
-    setActiveSpace,
+    setSpaces,
+    activeSpaceId,
+    setActiveSpaceId,
     loading,
+    setLoading,
   }
 }

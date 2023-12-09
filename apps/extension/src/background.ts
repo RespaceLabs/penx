@@ -1,5 +1,6 @@
 import { Storage } from '@plasmohq/storage'
 
+import { db } from '@penx/local-db'
 import { trpc } from '@penx/trpc-client'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
@@ -42,69 +43,78 @@ chrome.runtime.onInstalled.addListener(() => {
  * Receive and process events from each page
  */
 chrome.runtime.onMessage.addListener(
-  (
-    request: MsgRes<keyof typeof BACKGROUND_EVENTS, any>,
+  async (
+    message: MsgRes<keyof typeof BACKGROUND_EVENTS, any>,
     sender,
     sendResponse,
   ) => {
-    ;(async () => {
-      console.log('%c=bgjs-onMessage.addListener-0:', 'color:red', request)
-      switch (request.type) {
-        case BACKGROUND_EVENTS.QueryTab: {
-          saveCurrentPage(request.payload)
-          break
-        }
-        case BACKGROUND_EVENTS.SCREEN_SHOT: {
-          console.log(
-            '%c=bgjs-onMessage.addListener-2:',
-            'color:red',
-            BACKGROUND_EVENTS.SCREEN_SHOT,
-          )
-          chrome.tabs.query({ lastFocusedWindow: true }, (res) => {
-            chrome.tabs.captureVisibleTab(res[0].windowId as number, (url) => {
-              console.log(
-                '%c=bgjs-onMessage.addListener-2-1::',
-                'color:red',
-                url,
-              )
-              sendResponse(url)
-            })
-          })
-          break
-        }
-        case BACKGROUND_EVENTS.SUBMIT_CONTENT: {
-          try {
-            console.log('========request.payload:', request.payload)
+    if (!db.database.connection) {
+      await db.database.connect()
+    }
 
-            const res = await trpc.node.addNodesToToday.mutate({
-              spaceId: request.payload.spaceId,
-              nodes: JSON.stringify(request.payload.nodes),
-            })
-
-            console.log('mySpaces-res', {
-              res,
-              data: request.payload.doc,
-            })
-            sendResponse({ msg: 'ok', code: SUCCESS })
-          } catch (error) {
-            sendResponse({ msg: error, code: FAIL })
-          }
-          break
-        }
-        case BACKGROUND_EVENTS.INT_POPUP: {
-          try {
-            const mySpaces = await trpc.space.mySpaces.query()
-            if (mySpaces?.length) {
-              storage.set(spacesKey, mySpaces)
-            }
-            sendResponse({ msg: 'ok', code: SUCCESS })
-          } catch (error) {
-            sendResponse({ msg: error, code: FAIL })
-          }
-          break
-        }
+    console.log('%c=bgjs-onMessage.addListener-0:', 'color:red', message)
+    switch (message.type) {
+      case BACKGROUND_EVENTS.QueryTab: {
+        saveCurrentPage(message.payload)
+        break
       }
-    })()
+      case BACKGROUND_EVENTS.SCREEN_SHOT: {
+        console.log(
+          '%c=bgjs-onMessage.addListener-2:',
+          'color:red',
+          BACKGROUND_EVENTS.SCREEN_SHOT,
+        )
+        chrome.tabs.query({ lastFocusedWindow: true }, (res) => {
+          chrome.tabs.captureVisibleTab(res[0].windowId as number, (url) => {
+            console.log('%c=bgjs-onMessage.addListener-2-1::', 'color:red', url)
+            sendResponse(url)
+          })
+        })
+        break
+      }
+      case BACKGROUND_EVENTS.SUBMIT_CONTENT: {
+        try {
+          console.log('xx========request.payload:', message.payload)
+          const spaceId = message.payload.spaceId
+          const nodes = message.payload.nodes
+
+          await db.addNodesToToday(spaceId, nodes)
+
+          await chrome.runtime.sendMessage({
+            type: BACKGROUND_EVENTS.ADD_NODES_TO_TODAY,
+            payload: {
+              spaceId,
+            },
+          })
+
+          // const res = await trpc.node.addNodesToToday.mutate({
+          //   spaceId: request.payload.spaceId,
+          //   nodes: JSON.stringify(request.payload.nodes),
+          // })
+
+          console.log('mySpaces-res', {
+            data: message.payload.doc,
+          })
+
+          sendResponse({ msg: 'ok', code: SUCCESS })
+        } catch (error) {
+          sendResponse({ msg: error, code: FAIL })
+        }
+        break
+      }
+      case BACKGROUND_EVENTS.INT_POPUP: {
+        try {
+          const mySpaces = await trpc.space.mySpaces.query()
+          if (mySpaces?.length) {
+            storage.set(spacesKey, mySpaces)
+          }
+          sendResponse({ msg: 'ok', code: SUCCESS })
+        } catch (error) {
+          sendResponse({ msg: error, code: FAIL })
+        }
+        break
+      }
+    }
 
     return true
   },
