@@ -13,6 +13,11 @@ const loadingAtom = atom<boolean>(true)
 
 const storage = new Storage()
 
+export async function getActiveSpaceId() {
+  const spaceId = await storage.get(ACTIVE_SPACE_ID)
+  return spaceId
+}
+
 export const useInitLocalSpaces = () => {
   const { setSpaces, setActiveSpaceId, setLoading } = useLocalSpaces()
   async function loadSpaces() {

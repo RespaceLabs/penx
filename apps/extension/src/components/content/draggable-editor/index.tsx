@@ -1,4 +1,5 @@
 import { Box } from '@fower/react'
+import { Storage } from '@plasmohq/storage'
 import { SendHorizontal, X } from 'lucide-react'
 import React, {
   forwardRef,
@@ -13,7 +14,7 @@ import { slateToNodes } from '@penx/serializer'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
 import { SUCCESS } from '~/common/helper'
-import { useLocalSpaces } from '~/hooks/useLocalSpaces'
+import { getActiveSpaceId, useLocalSpaces } from '~/hooks/useLocalSpaces'
 
 import { ContentAppType } from '../constants'
 import * as styles from '../content.module.scss'
@@ -31,29 +32,31 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     const { destroySelectArea } = props
     const { storageDoc, setStorageDoc } = useStorageDoc()
     const { doc, setDoc } = useDoc()
-    const { activeSpaceId } = useLocalSpaces()
     const [value, setValue] = useState([])
 
-    const onSubmit = async () => {
-      if (activeSpaceId) {
-        const nodes = slateToNodes([, value[0]])
-        const data = await chrome.runtime.sendMessage({
-          type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
-          payload: {
-            nodes: nodes.map((node) => ({ ...node, spaceId: activeSpaceId })),
-            spaceId: activeSpaceId,
-          },
-        })
+    const onSubmit = async (editorValue?: any[]) => {
+      const activeSpaceId = await getActiveSpaceId()
 
-        if (data.code === SUCCESS) {
-          setDoc('')
-          setStorageDoc('')
-          destroySelectArea()
-        }
-        console.log('onSubmit res:', data)
-      } else {
+      if (!activeSpaceId) {
         alert('Please select a space')
+        return
       }
+
+      const nodes = slateToNodes([, editorValue[0] || value[0]])
+      const data = await chrome.runtime.sendMessage({
+        type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
+        payload: {
+          nodes: nodes.map((node) => ({ ...node, spaceId: activeSpaceId })),
+          spaceId: activeSpaceId,
+        },
+      })
+
+      if (data.code === SUCCESS) {
+        setDoc('')
+        setStorageDoc('')
+        destroySelectArea()
+      }
+      console.log('onSubmit res:', data)
     }
 
     useEffect(() => {
@@ -74,7 +77,13 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     const boxHeight = 200
 
     return (
-      <Box className={styles.draggableContainer}>
+      <Box
+        className={styles.draggableContainer}
+        style={{
+          fontFamily: ` 'Inter-local', 'Helvetica Neue', Helvetica, Arial, 'Roboto',
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji'`,
+        }}>
         <Rnd
           default={{
             x: window.innerWidth / 2 - boxWidth / 2,
@@ -110,6 +119,12 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
                 onChange={(value) => {
                   setValue(value)
                 }}
+                onKeyDown={(e, editor) => {
+                  const canSave = (e.ctrlKey || e.metaKey) && e.key === 'Enter'
+                  if (canSave) {
+                    onSubmit(editor.children)
+                  }
+                }}
               />
             </Box>
 
@@ -120,7 +135,7 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
                 colorScheme="white"
                 gray600
                 className={styles.editorBtn}
-                onClick={onSubmit}>
+                onClick={() => onSubmit()}>
                 <Box gray500>
                   <SendHorizontal size={16} />
                 </Box>

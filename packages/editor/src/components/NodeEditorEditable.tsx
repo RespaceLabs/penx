@@ -13,10 +13,11 @@ import { ElementContent } from './ElementContent'
 
 interface Props {
   onBlur?: (editor: PenxEditor) => void
+  onKeyDown?: (e: KeyboardEvent<HTMLDivElement>, editor?: PenxEditor) => void
 }
 
 export const NodeEditorEditable = memo(
-  function NodeEditorEditable({ onBlur }: Props) {
+  function NodeEditorEditable({ onBlur, onKeyDown }: Props) {
     // const editor = useEditor()
     const editor = useEditorStatic()
     const { extensionStore } = useExtensionStore()
@@ -41,6 +42,8 @@ export const NodeEditorEditable = memo(
           options: { rules: extensionStore.rules },
         } as any,
       )(e)
+
+      onKeyDown?.(e, editor)
 
       for (const fn of editor.onKeyDownFns) {
         fn(editor, e)

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { KeyboardEvent, useEffect } from 'react'
 import { Descendant, Editor, Transforms } from 'slate'
 import { ReactEditor, Slate } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
@@ -14,12 +14,14 @@ interface Props {
   plugins: ((editor: PenxEditor) => PenxEditor)[]
   onChange?: (value: Descendant[], editor: PenxEditor) => void
   onBlur?: (editor: PenxEditor) => void
+  onKeyDown?: (e: KeyboardEvent<HTMLDivElement>, editor?: PenxEditor) => void
 }
 
 export function QuickInputEditor({
   content = [],
   onChange,
   onBlur,
+  onKeyDown,
   plugins,
 }: Props) {
   const editor = useCreateEditor(plugins)
@@ -43,7 +45,7 @@ export function QuickInputEditor({
       {/* <HoveringToolbar /> */}
       <SetNodeToDecorations />
 
-      <NodeEditorEditable onBlur={onBlur} />
+      <NodeEditorEditable onBlur={onBlur} onKeyDown={onKeyDown} />
     </Slate>
   )
 }

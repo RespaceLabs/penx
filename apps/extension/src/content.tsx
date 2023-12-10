@@ -1,3 +1,4 @@
+import { Box } from '@fower/react'
 import styles from 'data-text:./components/content/content.module.scss'
 import type { PlasmoCSConfig } from 'plasmo'
 import { useEffect } from 'react'
@@ -101,6 +102,11 @@ const PlasmoOverlay = () => {
   }, [])
 
   return <></>
+  // return (
+  //   <Box fixed top0 left0 bottom0 right0 square20 bgAmber200 zIndex-100>
+  //     FOO
+  //   </Box>
+  // )
 }
 
 export default PlasmoOverlay

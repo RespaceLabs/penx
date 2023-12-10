@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { PropsWithChildren, useEffect, useState } from 'react'
+import { KeyboardEvent, PropsWithChildren, useEffect, useState } from 'react'
 import { Descendant } from 'slate'
 
 import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_P, ELEMENT_UL } from '@penx/constants'
@@ -40,9 +40,10 @@ function getDefaultContent() {
 
 interface Props {
   onChange?: (value: Descendant[], editor: PenxEditor) => void
+  onKeyDown?: (e: KeyboardEvent<HTMLDivElement>, editor?: PenxEditor) => void
 }
 
-export const ContentEditor = ({ onChange }: Props) => {
+export const ContentEditor = ({ onChange, onKeyDown }: Props) => {
   return (
     <StoreProvider>
       <ExtensionLoader>
@@ -50,6 +51,7 @@ export const ContentEditor = ({ onChange }: Props) => {
           plugins={[]}
           content={getDefaultContent()}
           onChange={onChange}
+          onKeyDown={onKeyDown}
         />
       </ExtensionLoader>
     </StoreProvider>
