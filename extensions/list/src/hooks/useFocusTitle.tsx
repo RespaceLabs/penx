@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { Editor, Node, Transforms } from 'slate'
 import { ReactEditor } from 'slate-react'
 import { useEditorStatic } from '@penx/editor-common'

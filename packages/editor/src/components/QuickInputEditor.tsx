@@ -4,6 +4,7 @@ import { ReactEditor, Slate } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
 import { SetNodeToDecorations } from '@penx/code-block'
 import { PenxEditor } from '@penx/editor-common'
+import { getNodeByPath } from '@penx/editor-queries'
 import { useCreateEditor } from '../hooks/useCreateEditor'
 import { NodeEditorEditable } from './NodeEditorEditable'
 

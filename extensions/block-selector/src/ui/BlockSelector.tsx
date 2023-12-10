@@ -91,28 +91,27 @@ export const BlockSelector = ({
       </Box>
 
       {isOpen && (
-        <FloatingPortal>
-          <Box
-            ref={refs.setFloating}
-            id="editor-block-selector"
-            style={floatingStyles}
-            w-280
-            maxH-200
-            overflowYAuto
-            shadow="0 0 0 1px rgba(0,0,0,.08),0px 1px 1px rgba(0,0,0,.02),0px 4px 8px -4px rgba(0,0,0,.04),0px 16px 24px -8px rgba(0,0,0,.06)"
-            roundedLG
-            zIndex-10000
-            bgWhite
-            outlineNone
-            {...getFloatingProps({})}
-          >
-            <BlockSelectorContent
-              close={() => setIsOpen(false)}
-              element={element}
-              containerRef={refs.setFloating}
-            />
-          </Box>
-        </FloatingPortal>
+        // <FloatingPortal></FloatingPortal>
+        <Box
+          ref={refs.setFloating}
+          id="editor-block-selector"
+          style={floatingStyles}
+          w-280
+          maxH-200
+          overflowYAuto
+          shadow="0 0 0 1px rgba(0,0,0,.08),0px 1px 1px rgba(0,0,0,.02),0px 4px 8px -4px rgba(0,0,0,.04),0px 16px 24px -8px rgba(0,0,0,.06)"
+          roundedLG
+          zIndex-10000
+          bgWhite
+          outlineNone
+          {...getFloatingProps({})}
+        >
+          <BlockSelectorContent
+            close={() => setIsOpen(false)}
+            element={element}
+            containerRef={refs.setFloating}
+          />
+        </Box>
       )}
     </>
   )

@@ -18,9 +18,6 @@ import {
 export interface HoverCardOptions {
   isDisabled?: boolean
 
-  /**
-   * 初始化时是否打开
-   */
   initialOpened?: boolean
 
   placement?: Placement

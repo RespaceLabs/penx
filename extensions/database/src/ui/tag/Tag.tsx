@@ -31,7 +31,6 @@ export const Tag = ({
     const database = await db.getNode(element.databaseId)
     if (database) {
       console.log('=====database:', database)
-
       store.node.selectNode(database)
     }
   }

@@ -60,10 +60,10 @@ export const extensionList = [
   //   id: 'image',
   //   activate: image.activate,
   // },
-  // {
-  //   id: 'link',
-  //   activate: link.activate,
-  // },
+  {
+    id: 'link',
+    activate: link.activate,
+  },
   // { id: 'bidirectional-link', activate: bidirectionalLink.activate },
   // {
   //   id: 'table',

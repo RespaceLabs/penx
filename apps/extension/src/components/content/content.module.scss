@@ -1,3 +1,10 @@
+div {
+  outline: none !important;
+  font-family: 'Inter-local', 'Helvetica Neue', Helvetica, Arial, 'Roboto',
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+}
+
 #selection-container {
   pointer-events: none;
   position: absolute;
@@ -164,26 +171,6 @@
   z-index: 2147483646;
 }
 
-/* drag-line end */
-
-/* draggable-editor start */
-.draggableContainer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  height: 100vh;
-  z-index: 1000000000000;
-}
-
-.rndContainer {
-  background: #fff;
-  border-radius: 12px;
-  // border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 16px 70px rgba(0, 0, 0, 0.2);
-}
-
 .editorBtn {
   border: none;
 }
-
-/* draggable-editor end */

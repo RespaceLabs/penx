@@ -22,9 +22,6 @@ export interface TooltipContext {
 export interface TooltipProps {
   isDisabled?: boolean
 
-  /**
-   * 初始化时是否打开
-   */
   initialOpened?: boolean
 
   /**
@@ -32,9 +29,6 @@ export interface TooltipProps {
    */
   opened?: boolean
 
-  /**
-   * 放置位置
-   */
   placement?: Placement
 
   children: ReactNode

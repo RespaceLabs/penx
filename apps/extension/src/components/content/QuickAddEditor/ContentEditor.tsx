@@ -9,10 +9,11 @@ import { genId } from '@penx/editor-shared'
 import { useExtensionStore } from '@penx/hooks'
 import { StoreProvider } from '@penx/store'
 
+import { useText } from '../stores/text.store'
 import { extensionList } from './extensionList'
 import { penx } from './penx'
 
-function getDefaultContent() {
+function getDefaultContent(text = '') {
   const content = [
     {
       type: ELEMENT_UL,
@@ -26,7 +27,7 @@ function getDefaultContent() {
               children: [
                 {
                   type: 'p',
-                  children: [{ text: '' }],
+                  children: [{ text }],
                 },
               ],
             },
@@ -44,12 +45,13 @@ interface Props {
 }
 
 export const ContentEditor = ({ onChange, onKeyDown }: Props) => {
+  const { text } = useText()
   return (
     <StoreProvider>
       <ExtensionLoader>
         <QuickInputEditor
           plugins={[]}
-          content={getDefaultContent()}
+          content={getDefaultContent(text)}
           onChange={onChange}
           onKeyDown={onKeyDown}
         />

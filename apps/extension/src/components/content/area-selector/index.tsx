@@ -10,7 +10,7 @@ import {
 
 import { ContentAppType } from '../constants'
 import * as styles from '../content.module.scss'
-import { useDoc, useForceUpdate, useStorageDoc } from '../hooks'
+import { useForceUpdate } from '../hooks'
 import { transformDOM } from './common/transform-dom'
 
 type Rect = Pick<DOMRect, 'width' | 'height' | 'left' | 'top'>
@@ -33,9 +33,6 @@ const AreaSelector = forwardRef<ISelectorRef, ISelectorProps>(
     const [saving, setSaving] = useState(false)
     const ref = useRef<HTMLDivElement>(null)
 
-    const { setStorageDoc } = useStorageDoc()
-    const { setDoc } = useDoc()
-
     const onScreenshot = useCallback(async () => {
       // Implementation
     }, [])
@@ -56,8 +53,6 @@ const AreaSelector = forwardRef<ISelectorRef, ISelectorProps>(
         Array.from(selectAreaElements) as string[]
       ).reduce((prev, current) => prev + current, '')
 
-      setStorageDoc(combinedString)
-      setDoc(combinedString)
       props.destroySelectArea(true)
     }, [])
 
