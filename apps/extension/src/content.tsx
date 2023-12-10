@@ -1,7 +1,7 @@
-import { Box, fowerStore, Parser } from '@fower/react'
 import styles from 'data-text:./components/content/content.module.scss'
 import type { PlasmoCSConfig } from 'plasmo'
 import { useEffect } from 'react'
+import { tinykeys } from 'tinykeys'
 import TurndownService from 'turndown'
 
 import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
@@ -73,32 +73,34 @@ const PlasmoOverlay = () => {
         return true
       },
     )
+  }, [])
 
-    const handleShortcut = (event: KeyboardEvent) => {
-      const shortcutMap = {
-        K: StartSelectEnum.draggableEditor,
-        J: StartSelectEnum.areaSelect,
-        L: StartSelectEnum.screenShot,
-      }
+  useEffect(() => {
+    let unsubscribe = tinykeys(window, {
+      'Shift+D': () => {
+        console.log('open penx....')
+        initSelectArea({ type: StartSelectEnum.draggableEditor })
+      },
 
-      if (event.ctrlKey && event.shiftKey && shortcutMap[event.key]) {
-        initSelectArea({ type: shortcutMap[event.key] })
-      }
-    }
+      'Shift+Space': () => {
+        console.log('Open quick add....')
+        initSelectArea({ type: StartSelectEnum.draggableEditor })
+      },
 
-    document.addEventListener('keydown', handleShortcut)
-
+      // Escape: () => {
+      //   console.log('Open quick add....')
+      //   initSelectArea({ type: StartSelectEnum.draggableEditor })
+      // },
+      // 'Meta+B': () => {
+      //   console.log('META+B')
+      // },
+    })
     return () => {
-      document.removeEventListener('keydown', handleShortcut)
+      unsubscribe()
     }
   }, [])
 
   return <></>
-  // return (
-  //   <Box fixed bgRed500 square10 top0 left0>
-  //     FOO
-  //   </Box>
-  // )
 }
 
 export default PlasmoOverlay
