@@ -1,19 +1,6 @@
-import {
-  composeAtom,
-  injectGlobalStyle,
-  setConfig,
-  setTheme,
-} from '@fower/react'
+import { composeAtom, setConfig, setTheme } from '@fower/react'
 
 export function initFower() {
-  injectGlobalStyle({
-    a: {
-      color: 'brand500',
-      textDecoration: 'none',
-      cursor: 'pointer',
-    },
-  })
-
   composeAtom('heading1', {
     text3XL: true,
     fontSemibold: true,

@@ -35,8 +35,6 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     const [value, setValue] = useState([])
 
     const onSubmit = async () => {
-      console.log('..xxxxxxx=======activeSpaceId:', activeSpaceId)
-
       if (activeSpaceId) {
         const nodes = slateToNodes([, value[0]])
         const data = await chrome.runtime.sendMessage({
