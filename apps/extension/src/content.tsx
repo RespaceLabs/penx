@@ -9,8 +9,8 @@ import type { MsgRes } from '~/common/helper'
 import { prepareContent } from '~/common/prepare-content'
 
 import { initFower } from './common/initFower'
-import { StartSelectEnum } from './components/content/helper'
-import { initSelectArea } from './components/content/selector'
+import { ContentAppType } from './components/content/constants'
+import { initContentApp } from './components/content/ContentApp'
 
 initFower()
 
@@ -59,11 +59,11 @@ const PlasmoOverlay = () => {
             break
 
           case ACTIONS.EnterManually:
-            initSelectArea({ type: request.payload.action as StartSelectEnum })
+            initContentApp({ type: request.payload.action as ContentAppType })
             break
 
           case ACTIONS.AreaSelect:
-            initSelectArea({ type: request.payload.action as StartSelectEnum })
+            initContentApp({ type: request.payload.action as ContentAppType })
             break
 
           default:
@@ -79,17 +79,17 @@ const PlasmoOverlay = () => {
     let unsubscribe = tinykeys(window, {
       'Shift+D': () => {
         console.log('open penx....')
-        initSelectArea({ type: StartSelectEnum.draggableEditor })
+        initContentApp({ type: ContentAppType.draggableEditor })
       },
 
-      'Shift+Space': () => {
-        console.log('Open quick add....')
-        initSelectArea({ type: StartSelectEnum.draggableEditor })
+      'Alt+Space': () => {
+        console.log('open penx....')
+        initContentApp({ type: ContentAppType.draggableEditor })
       },
 
       // Escape: () => {
       //   console.log('Open quick add....')
-      //   initSelectArea({ type: StartSelectEnum.draggableEditor })
+      //   initContentApp({ type: StartSelectEnum.draggableEditor })
       // },
       // 'Meta+B': () => {
       //   console.log('META+B')

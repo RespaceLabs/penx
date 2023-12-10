@@ -1,4 +1,4 @@
-export enum StartSelectEnum {
+export enum ContentAppType {
   areaSelect = 'areaSelect',
   screenShot = 'screenShot',
   draggableEditor = 'draggableEditor',

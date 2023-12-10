@@ -10,7 +10,7 @@ import { useEffect, useState, type ComponentType } from 'react'
 
 import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
 import type { MsgRes, TabInfo } from '~/common/helper'
-import { StartSelectEnum } from '~/components/content/helper'
+import { ContentAppType } from '~/components/content/constants'
 import styles from '~/components/popup/popup.module.css'
 import { SpacesSelect } from '~/components/popup/SpacesSelect'
 import { UserProfile } from '~/components/popup/UserProfile'
@@ -19,12 +19,12 @@ import { LocalSpacesSelect } from './LocalSpacesSelect'
 
 interface FeatureEntryProps {
   name: string
-  type: StartSelectEnum
+  type: ContentAppType
   icon: ComponentType<LucideProps>
 }
 
 function FeatureEntry({ name, type, icon: Icon }: FeatureEntryProps) {
-  const disabled = type !== StartSelectEnum.draggableEditor
+  const disabled = type !== ContentAppType.draggableEditor
   const onAreaSelect = async () => {
     if (disabled) return
     window.close()
@@ -143,22 +143,22 @@ export function Popup() {
         <FeatureEntry
           name="Write"
           icon={Text}
-          type={StartSelectEnum.draggableEditor}
+          type={ContentAppType.draggableEditor}
         />
         <FeatureEntry
           name="Clip Page"
           icon={Scissors}
-          type={StartSelectEnum.areaSelect}
+          type={ContentAppType.areaSelect}
         />
         <FeatureEntry
           name="Screen Shot"
           icon={Monitor}
-          type={StartSelectEnum.screenShot}
+          type={ContentAppType.screenShot}
         />
         <FeatureEntry
           name="Voice"
           icon={Volume2}
-          type={StartSelectEnum.screenShot}
+          type={ContentAppType.screenShot}
         />
       </Box>
 

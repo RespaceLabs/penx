@@ -15,8 +15,8 @@ import { BACKGROUND_EVENTS } from '~/common/action'
 import { SUCCESS } from '~/common/helper'
 import { useLocalSpaces } from '~/hooks/useLocalSpaces'
 
+import { ContentAppType } from '../constants'
 import * as styles from '../content.module.scss'
-import { StartSelectEnum } from '../helper'
 import { useDoc, useSelectedSpace, useStorageDoc } from '../hooks'
 import { ContentEditor } from './ContentEditor'
 
@@ -67,7 +67,7 @@ const DraggableEditor = forwardRef<IDraggableEditorRef, DraggableEditorProps>(
     useImperativeHandle(
       propsRef,
       () => ({
-        type: StartSelectEnum.areaSelect,
+        type: ContentAppType.areaSelect,
       }),
       [],
     )

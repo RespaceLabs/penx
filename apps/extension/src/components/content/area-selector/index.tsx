@@ -8,8 +8,8 @@ import {
   useState,
 } from 'react'
 
+import { ContentAppType } from '../constants'
 import * as styles from '../content.module.scss'
-import { StartSelectEnum } from '../helper'
 import { useDoc, useForceUpdate, useStorageDoc } from '../hooks'
 import { transformDOM } from './common/transform-dom'
 
@@ -67,7 +67,7 @@ const AreaSelector = forwardRef<ISelectorRef, ISelectorProps>(
         onSave: async () => {
           onSave()
         },
-        type: StartSelectEnum.areaSelect,
+        type: ContentAppType.areaSelect,
       }),
       [onSave],
     )

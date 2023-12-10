@@ -9,8 +9,8 @@ import React, {
   useState,
 } from 'react'
 
+import { ContentAppType } from '../constants'
 import * as styles from '../content.module.scss'
-import { StartSelectEnum } from '../helper'
 import { useForceUpdate } from '../hooks'
 import { blobToBase64, screenShot } from './common/screen-shot'
 import DragLine from './drag-line'
@@ -204,7 +204,7 @@ const ScreenShot = forwardRef<IScreenShotRef, IScreenShotProps>(
       propsRef,
       () => ({
         onSave: onScreenshot,
-        type: StartSelectEnum.screenShot,
+        type: ContentAppType.screenShot,
       }),
       [onScreenshot],
     )

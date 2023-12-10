@@ -8,7 +8,7 @@
     },
     "baseUrl": ".",
     "isolatedModules": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "strict": false
   }
 }

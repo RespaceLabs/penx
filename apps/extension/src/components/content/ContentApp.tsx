@@ -2,29 +2,29 @@ import { useEffect, useRef } from 'react'
 import { createRoot, Root } from 'react-dom/client'
 
 import Selector, { ISelectorRef } from './area-selector'
-import DraggableEditor from './draggable-editor'
 import {
+  ContentAppType,
   PENX_SANDBOX_BOARD_IFRAME,
   PENX_SELECTION_CONTAINER,
-  StartSelectEnum,
-} from './helper'
+} from './constants'
+import DraggableEditor from './draggable-editor'
 import ScreenShot, { IScreenShotRef } from './screen-shot'
 
 interface IAppProps {
-  type?: StartSelectEnum
+  type?: ContentAppType
   onSelectorMount: (ref: any) => void
 }
 
-export const App = (props: IAppProps) => {
-  const { type = StartSelectEnum.areaSelect, onSelectorMount } = props
+export const ContentApp = (props: IAppProps) => {
+  const { type = ContentAppType.areaSelect, onSelectorMount } = props
   const screenShotRef = useRef<IScreenShotRef>(null)
   const selectorRef = useRef<ISelectorRef>(null)
   const draggableEditorRef = useRef<ISelectorRef>(null)
 
   const refs = {
-    [StartSelectEnum.areaSelect]: selectorRef,
-    [StartSelectEnum.screenShot]: screenShotRef,
-    [StartSelectEnum.draggableEditor]: draggableEditorRef,
+    [ContentAppType.areaSelect]: selectorRef,
+    [ContentAppType.screenShot]: screenShotRef,
+    [ContentAppType.draggableEditor]: draggableEditorRef,
   }
 
   useEffect(() => {
@@ -35,11 +35,11 @@ export const App = (props: IAppProps) => {
     const handleKeyDown = async (e: KeyboardEvent) => {
       const { key } = e
       if (key === 'Escape' || key === 'Esc') {
-        destroySelectArea()
+        destroyContentApp()
       } else if (key === 'Enter') {
-        if (type === StartSelectEnum.screenShot) {
+        if (type === ContentAppType.screenShot) {
           await screenShotRef.current?.onSave()
-        } else if (type === StartSelectEnum.areaSelect) {
+        } else if (type === ContentAppType.areaSelect) {
           selectorRef.current?.onSave()
         }
       }
@@ -56,17 +56,17 @@ export const App = (props: IAppProps) => {
 
   return (
     <>
-      {type === StartSelectEnum.areaSelect && (
-        <Selector ref={selectorRef} destroySelectArea={destroySelectArea} />
+      {type === ContentAppType.areaSelect && (
+        <Selector ref={selectorRef} destroySelectArea={destroyContentApp} />
       )}
-      {type === StartSelectEnum.screenShot && (
-        <ScreenShot ref={screenShotRef} destroySelectArea={destroySelectArea} />
+      {type === ContentAppType.screenShot && (
+        <ScreenShot ref={screenShotRef} destroySelectArea={destroyContentApp} />
       )}
 
-      {type === StartSelectEnum.draggableEditor && (
+      {type === ContentAppType.draggableEditor && (
         <DraggableEditor
           ref={draggableEditorRef}
-          destroySelectArea={destroySelectArea}
+          destroySelectArea={destroyContentApp}
         />
       )}
     </>
@@ -77,7 +77,7 @@ let root: Root | null = null // Initialize root as null
 let isRootMounted: boolean = false // Track root mount status
 let selectorRef = null
 
-export function initSelectArea(params: { type: StartSelectEnum }) {
+export function initContentApp(params: { type: ContentAppType }) {
   let wrapper = document.querySelector(`#${PENX_SELECTION_CONTAINER}`)
   if (!wrapper) {
     wrapper = document.createElement('div')
@@ -85,7 +85,7 @@ export function initSelectArea(params: { type: StartSelectEnum }) {
     document.documentElement.appendChild(wrapper)
   }
 
-  const onSelectortMount = (ref: any) => {
+  const onSelectorMount = (ref: any) => {
     selectorRef = ref
   }
 
@@ -96,15 +96,17 @@ export function initSelectArea(params: { type: StartSelectEnum }) {
 
   // If the component exists, destroy it
   if (selectorRef?.current?.type) {
-    destroySelectArea()
+    destroyContentApp()
     selectorRef = null
     return
   }
 
-  root.render(<App type={params.type} onSelectorMount={onSelectortMount} />)
+  root.render(
+    <ContentApp type={params.type} onSelectorMount={onSelectorMount} />,
+  )
 }
 
-export function destroySelectArea(isOpenEditor = false) {
+export function destroyContentApp(isOpenEditor = false) {
   if (!root || !isRootMounted) {
     return
   }
@@ -118,8 +120,8 @@ export function destroySelectArea(isOpenEditor = false) {
 
   document.querySelector(`#${PENX_SANDBOX_BOARD_IFRAME}`)?.classList.add('show')
   if (isOpenEditor) {
-    initSelectArea({
-      type: StartSelectEnum.draggableEditor,
+    initContentApp({
+      type: ContentAppType.draggableEditor,
     })
   }
 }
