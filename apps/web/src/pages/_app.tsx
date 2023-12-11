@@ -20,7 +20,7 @@ import 'react-circular-progressbar/dist/styles.css'
 import '../styles/globals.css'
 import '../styles/command.scss'
 import { fowerStore, Parser } from '@fower/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
+// import { SpeedInsights } from '@vercel/speed-insights/next'
 import { appEmitter } from '@penx/app'
 
 // import 'prismjs/themes/prism.css'
@@ -75,7 +75,7 @@ function MyApp({ Component, pageProps }: Props<any>) {
       <SessionProvider session={pageProps.session} refetchInterval={0}>
         <QueryClientProvider client={queryClient}>
           <I18nProvider i18n={i18n}>
-            <SpeedInsights />
+            {/* <SpeedInsights /> */}
             <Layout>
               <Component {...pageProps} />
             </Layout>
