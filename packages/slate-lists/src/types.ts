@@ -20,7 +20,9 @@ export interface ListsSchema {
 
   createListNode(type?: ListType, props?: Partial<Element>): Element
 
-  createListItemNode(props?: Partial<Element>): Element
+  createListItemNode(props?: Partial<Element & { children: any[] }>): Element
 
-  createListItemTextNode(props?: Partial<Element>): Element
+  createListItemTextNode(
+    props?: Partial<Element & { children: any[] }>,
+  ): Element
 }

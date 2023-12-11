@@ -8,6 +8,7 @@ import {
 } from '@penx/constants'
 import { uniqueId } from '@penx/unique-id'
 import { getEmptyElement } from './getEmptyElement'
+import { ListItemElement } from './types'
 
 export const listSchema: ListsSchema = {
   isConvertibleToListTextNode(node: Node) {
@@ -51,7 +52,7 @@ export const listSchema: ListsSchema = {
       type: nodeType,
     }
   },
-  createListItemNode(props: Partial<Element> = {}) {
+  createListItemNode(props: Partial<ListItemElement> = {}) {
     return {
       id: uniqueId(),
       children: [{ text: '' }],

@@ -35,12 +35,12 @@ import { useDatabase, useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
 import { useCreateEditor } from '../hooks/useCreateEditor'
+import { AddBulletBtn } from './AddBulletBtn'
 import ClickablePadding from './ClickablePadding'
 import { DragOverlayPreview } from './DragOverlayPreview'
 import { editorValueToNode } from './editorValueToNode'
 import HoveringToolbar from './HoveringToolbar/HoveringToolbar'
 import { NodeEditorEditable } from './NodeEditorEditable'
-import { ProtectionProvider } from './ProtectionProvider'
 
 interface Props {
   index?: number
@@ -155,6 +155,7 @@ export function NodeEditor({
           strategy={rectSortingStrategy}
         >
           <NodeEditorEditable onBlur={onBlur} />
+          <AddBulletBtn />
 
           {createPortal(
             // <DragOverlay dropAnimation={dropAnimationConfig}>
