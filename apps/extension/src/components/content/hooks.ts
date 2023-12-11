@@ -2,6 +2,8 @@ import { useStorage } from '@plasmohq/storage/hook'
 import React, { useState } from 'react'
 import { useStore } from 'stook'
 
+import { ISpace } from '@penx/model-types'
+
 import { selectedSpaceKey, spacesKey, storageDocKey } from '~/common/helper'
 
 export function useSelectedSpace() {
@@ -10,7 +12,7 @@ export function useSelectedSpace() {
 }
 
 export function useMySpaces() {
-  const [mySpaces, setMySpaces] = useStorage(spacesKey, [])
+  const [mySpaces, setMySpaces] = useStorage<ISpace[]>(spacesKey, [])
   return { mySpaces, setMySpaces }
 }
 

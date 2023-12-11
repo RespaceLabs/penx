@@ -36,7 +36,7 @@ export function SpacesSelect(props: SpacesSelectProps) {
           <SelectIcon></SelectIcon>
         </SelectTrigger>
         <SelectContent w-200>
-          {mySpaces?.map((item) => (
+          {mySpaces.map((item) => (
             <SelectItem key={item.id} value={item.id}>
               {item.name}
             </SelectItem>

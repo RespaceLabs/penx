@@ -3,6 +3,7 @@
   "exclude": ["node_modules"],
   "include": [".plasmo/index.d.ts", "next-env.d.ts", "./**/*.ts", "./**/*.tsx"],
   "compilerOptions": {
+    "strictPropertyInitialization": false,
     "paths": {
       "~/*": ["./src/*"]
     },

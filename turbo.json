@@ -23,7 +23,9 @@
     "PORT",
     "NEXT_PUBLIC_PLATFORM",
     "PLASMO_PUBLIC_PLATFORM",
-    "PLASMO_PUBLIC_BASE_URL"
+    "PLASMO_PUBLIC_BASE_URL",
+    "TWITTER_BEARER_TOKEN",
+    "SCRAPINGBEE_API_KEY"
   ],
   "remoteCache": {
     "signature": true

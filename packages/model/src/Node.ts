@@ -21,13 +21,15 @@ export type WithFlattenedProps<T> = T & {
 }
 
 export class Node {
-  constructor(public raw: INode) {}
+  parentId: string
+
+  constructor(public raw: INode) {
+    this.parentId = this.raw?.parentId || ''
+  }
 
   get id(): string {
     return this.raw?.id || ''
   }
-
-  parentId = this.raw?.parentId || ''
 
   get spaceId(): string {
     return this.raw.spaceId

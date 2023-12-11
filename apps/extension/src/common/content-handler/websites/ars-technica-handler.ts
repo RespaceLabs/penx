@@ -58,7 +58,7 @@ export class ArsTechnicaHandler extends ContentHandler {
       // We place all the content in a span to indicate that a page has been parsed.
       const span = document.createElement('SPAN')
       span.className = 'nextPageContents'
-      span.append(...articleContents)
+      span.append(...(articleContents as any))
       articleBody.append(span)
     }
     pageNumbers.remove()

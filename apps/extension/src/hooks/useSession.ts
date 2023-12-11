@@ -9,7 +9,7 @@ const KEY = 'PENX_SESSION'
 
 const sessionAtom = atomWithStorage<SessionContextValue>(KEY, {
   loading: true,
-  data: null,
+  data: null as any,
 })
 
 const getLocalSession = () => {

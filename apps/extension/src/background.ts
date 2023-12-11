@@ -74,7 +74,7 @@ chrome.runtime.onMessage.addListener(
       }
       case BACKGROUND_EVENTS.SUBMIT_CONTENT: {
         try {
-          console.log('xx========request.payload:', message.payload)
+          console.log('========request.payload:', message.payload)
           const spaceId = message.payload.spaceId
           const nodes = message.payload.nodes
 
@@ -98,6 +98,7 @@ chrome.runtime.onMessage.addListener(
 
           sendResponse({ msg: 'ok', code: SUCCESS })
         } catch (error) {
+          console.log('add Nodes error:', error)
           sendResponse({ msg: error, code: FAIL })
         }
         break
@@ -145,7 +146,7 @@ async function getPageContent(tabInfo: TabInfo) {
     const document = await parsePreparedContent(tabInfo.url, res.document)
     console.log('%c=bgjs-savePage document-3:', 'color:green', {
       document,
-      content: document.content,
+      content: document?.content,
       res,
     })
 

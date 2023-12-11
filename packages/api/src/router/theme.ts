@@ -18,21 +18,21 @@ export const themeRouter = createTRPCRouter({
       return ctx.prisma.theme.findFirst({ where: { spaceId: input.spaceId } })
     }),
 
-  create: publicProcedure
-    .input(
-      z.object({
-        spaceId: z.string().min(1),
-        name: z.string().min(1),
-      }),
-    )
-    .mutation(({ ctx, input }) => {
-      return ctx.prisma.theme.create({
-        data: {
-          ...input,
-          userId: ctx.token.uid,
-        },
-      })
-    }),
+  // create: publicProcedure
+  //   .input(
+  //     z.object({
+  //       spaceId: z.string().min(1),
+  //       name: z.string().min(1),
+  //     }),
+  //   )
+  //   .mutation(({ ctx, input }) => {
+  //     return ctx.prisma.theme.create({
+  //       data: {
+  //         ...input,
+  //         userId: ctx.token.uid,
+  //       },
+  //     })
+  //   }),
 
   update: publicProcedure
     .input(

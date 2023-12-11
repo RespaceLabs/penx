@@ -154,7 +154,7 @@ const formatTimestamp = (timestamp: string) => {
 }
 
 const getTweetsFromResponse = (response: Tweets): Tweet[] => {
-  const tweets = []
+  const tweets: any[] = []
   for (const t of response.data) {
     const media = response.includes.media?.filter(
       (m) => t.attachments?.media_keys?.includes(m.media_key),
@@ -237,7 +237,7 @@ const getTweetIds = async (
       const waitFor = (ms: number) =>
         new Promise((resolve) => setTimeout(resolve, ms))
 
-      const ids = []
+      const ids: any[] = []
 
       // Find the first Show thread button and click it
       const showRepliesButton = Array.from(

@@ -172,7 +172,7 @@ const ScreenShot = forwardRef<IScreenShotRef, IScreenShotProps>(
             blob: res,
           });
           */
-          blobToBase64(res)
+          blobToBase64(res!)
             .then((base64String) => {
               console.log('sendMessageToSandBox-toBlob-2:', {
                 canvas,

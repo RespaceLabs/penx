@@ -1,6 +1,7 @@
+import { IconLogo } from '@penx/icons'
+
 import { trpc } from '~/common/trpc'
 
-import logo from '../../../assets/logo.png'
 import styles from './login.module.css'
 
 interface LoginProps {
@@ -15,7 +16,7 @@ export function Login(props: LoginProps) {
   return (
     <div className={styles.container}>
       <div className={styles.welcome} style={{ marginTop: '20px' }}>
-        <img src={logo} width={100} alt="penx icon" />
+        <IconLogo size={100} />
         <h1>Welcome</h1>
       </div>
       <div className={styles.btnContainer}>

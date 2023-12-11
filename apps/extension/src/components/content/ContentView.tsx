@@ -29,7 +29,7 @@ document.addEventListener('mouseup', async (event) => {
     return
   }
 
-  const selectedText = window.getSelection().toString()
+  const selectedText = window.getSelection()?.toString() as string
 
   if (selectedText !== '') {
     const { pageX: x, pageY: y } = event

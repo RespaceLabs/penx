@@ -10,7 +10,7 @@ export function protectDB() {
   const originalOpen = indexedDB.open
   indexedDB.open = function (name, version) {
     // TODO:
-    if (window.__IS_DB_OPENED__) {
+    if ((window as any).__IS_DB_OPENED__) {
       throw new Error(`IndexedDB is already opened ${name}`)
       // return {} as any // TODO:
     }

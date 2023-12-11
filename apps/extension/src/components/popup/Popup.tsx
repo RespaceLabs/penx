@@ -34,7 +34,7 @@ function FeatureEntry({ name, type, icon: Icon }: FeatureEntryProps) {
       currentWindow: true,
     })
 
-    await chrome.tabs.sendMessage(tab.id, {
+    chrome.tabs.sendMessage(tab.id!, {
       type: ACTIONS.AreaSelect,
       payload: {
         action: type,
@@ -64,7 +64,7 @@ function FeatureEntry({ name, type, icon: Icon }: FeatureEntryProps) {
 }
 
 export function Popup() {
-  const [tab, setTab] = useState<TabInfo>(null)
+  const [tab, setTab] = useState<TabInfo>(null as any)
 
   const getCurrentTab = async () => {
     const [tab] = await chrome.tabs.query({

@@ -146,8 +146,8 @@ function clearExistingBackdrops() {
   console.log('clearExistingBackdrops->')
   const backdropCol = document.querySelectorAll('.webext-acweb-backdrop')
   for (let i = 0; i < backdropCol.length; i++) {
-    const backdropEl = backdropCol[i]
-    backdropEl?.style.setProperty('opacity', '0', 'important')
+    const backdropEl = backdropCol[i] as any
+    backdropEl.style.setProperty('opacity', '0', 'important')
   }
 
   setTimeout(() => {

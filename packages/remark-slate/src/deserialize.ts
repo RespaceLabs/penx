@@ -150,5 +150,5 @@ function persistLeafFormats(
     })
 
     return acc
-  }, {})
+  }, {} as any)
 }

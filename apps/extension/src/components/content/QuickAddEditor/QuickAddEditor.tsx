@@ -24,7 +24,7 @@ interface Props {
 export const QuickAddEditor = forwardRef<HTMLDivElement, Props>(
   function QuickAddEditor({ x, y }, propsRef) {
     const { destroy } = useContentApp()
-    const [value, setValue] = useState([])
+    const [value, setValue] = useState<any[]>([])
 
     const onSubmit = async (editorValue?: any[]) => {
       console.log('value:', value, 'editorValue:', editorValue)
@@ -46,9 +46,14 @@ export const QuickAddEditor = forwardRef<HTMLDivElement, Props>(
         },
       })
 
-      if (data.code === SUCCESS) {
-        destroy()
-      }
+      console.log('======x data:', data)
+
+      destroy()
+
+      // TODO:
+      // if (data.code === SUCCESS) {
+      //   destroy()
+      // }
       console.log('onSubmit res:', data)
     }
 
@@ -63,7 +68,6 @@ export const QuickAddEditor = forwardRef<HTMLDivElement, Props>(
     // console.log('posX:', posX, 'posY:', posY)
     const containerX = useMotionValue(0)
     const containerY = useMotionValue(0)
-    console.log('containerY:', containerY, 'posY:', posY)
 
     return (
       <MotionBox
@@ -117,7 +121,7 @@ export const QuickAddEditor = forwardRef<HTMLDivElement, Props>(
             onKeyDown={(e, editor) => {
               const canSave = (e.ctrlKey || e.metaKey) && e.key === 'Enter'
               if (canSave) {
-                onSubmit(editor.children)
+                onSubmit(editor?.children)
               }
             }}
           />

@@ -46,11 +46,11 @@ export const extensionRouter = createTRPCRouter({
         })
       }
 
-      await ctx.prisma.extension.create({ data: input })
+      // await ctx.prisma.extension.create({ data: input })
 
-      const extensions = await ctx.prisma.extension.findMany({
-        orderBy: { createdAt: 'desc' },
-      })
+      // const extensions = await ctx.prisma.extension.findMany({
+      //   orderBy: { createdAt: 'desc' },
+      // })
       // await client.set(ALL_EXTENSIONS_KEY, JSON.stringify(extensions))
       return true
     }),

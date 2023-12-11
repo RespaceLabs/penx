@@ -23,7 +23,7 @@ class AppLoader {
 
     try {
       const t0 = Date.now()
-      window.penx = penx as any
+      ;(window as any).penx = penx as any
 
       await db.database.connect()
       const t1 = Date.now()
