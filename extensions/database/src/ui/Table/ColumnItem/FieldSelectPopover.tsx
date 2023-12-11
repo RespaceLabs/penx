@@ -9,6 +9,7 @@ import { FieldIcon } from '../../shared/FieldIcon'
 const textMap: Record<string, string> = {
   [FieldType.Text]: 'Text',
   [FieldType.Number]: 'Number',
+  [FieldType.Password]: 'Password',
   [FieldType.SingleSelect]: 'Single Select',
   [FieldType.CreatedAt]: 'Created At',
   [FieldType.UpdatedAt]: 'Updated At',
@@ -42,7 +43,11 @@ export const FieldSelectPopover = forwardRef<HTMLDivElement, Props>(
             <>
               {Object.entries(FieldType)
                 .filter(([_, value]) =>
-                  [FieldType.Text, FieldType.Number].includes(value),
+                  [
+                    FieldType.Text,
+                    FieldType.Number,
+                    FieldType.Password,
+                  ].includes(value),
                 )
                 .map(([key, value]) => (
                   <Item

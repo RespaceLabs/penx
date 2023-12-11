@@ -37,14 +37,15 @@ export const PasswordCell: FC<CellProps> = memo(function PasswordCell(props) {
 
   return (
     <Box ref={ref} w-100p h-100p relative inlineFlex>
-      <InputGroup>
+      <InputGroup flex-1>
         <Input
           type={visible ? 'text' : 'password'}
           variant="unstyled"
           value={value || ''}
           onChange={onChange}
+          flex-1
           px2
-          w-100p
+          // w-100p
           h-100p
         />
         <InputElement gray500 h-100p toCenterY gap1 pr2>
@@ -52,7 +53,7 @@ export const PasswordCell: FC<CellProps> = memo(function PasswordCell(props) {
             cursorPointer
             scale-110--hover
             onClick={() => {
-              copy(cell.props.data)
+              copy(value)
               toast.info('Copied to clipboard')
             }}
           >
