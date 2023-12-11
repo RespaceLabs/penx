@@ -7,7 +7,7 @@ import { api } from '~/utils/api'
 const PageShare = () => {
   const router = useRouter()
   const { id, key } = router.query
-  const sharedDoc = api.sharedDoc.byId.useQuery({ id: id as string })
+  // const sharedDoc = api.sharedDoc.byId.useQuery({ id: id as string })
 
   useEffect(() => {
     // const decryptedText =
