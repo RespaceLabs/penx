@@ -60,6 +60,10 @@ export class NodeListService {
     return favoriteNode
   }
 
+  get favoriteNodeChildren() {
+    return this.getFavorites().map((n) => n.id)
+  }
+
   get rootNodes() {
     if (!this.nodes?.length) return []
     return this.rootNode.children
@@ -89,17 +93,19 @@ export class NodeListService {
   }
 
   createTree(node: Node): TreeItem[] {
-    return node.children.map((id) => {
-      const node = this.nodeMap.get(id)!
+    return node.children
+      .filter((id) => !!this.nodeMap.get(id))
+      .map((id) => {
+        const node = this.nodeMap.get(id)!
 
-      if (!node.children.length) {
-        return { ...node.raw, children: [] }
-      }
-      return {
-        ...node.raw,
-        children: this.createTree(node),
-      }
-    })
+        if (!node.children.length) {
+          return { ...node.raw, children: [] }
+        }
+        return {
+          ...node.raw,
+          children: this.createTree(node),
+        }
+      })
   }
 
   private flattenChildren(
@@ -128,7 +134,10 @@ export class NodeListService {
   }
 
   getFavorites() {
-    return this.favoriteNode.children.map((id) => this.nodeMap.get(id)!)
+    if (!this.favoriteNode?.children) return []
+    return this.favoriteNode.children
+      .map((id) => this.nodeMap.get(id)!)
+      .filter((n) => !!n)
   }
 
   isFavorite(id: string) {

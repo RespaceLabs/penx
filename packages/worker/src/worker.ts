@@ -12,9 +12,9 @@ self.addEventListener('message', async (event) => {
     console.log('===========start polling......')
     await db.database.connect()
 
-    pollingPushToCloud()
-    startPollingPull()
-    pollingPushToGithub()
+    // pollingPushToCloud()
+    // startPollingPull()
+    // pollingPushToGithub()
 
     clearNodes()
     syncPenx101()

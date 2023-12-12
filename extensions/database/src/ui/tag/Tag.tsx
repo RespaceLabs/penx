@@ -55,7 +55,7 @@ export const Tag = ({
         show(e)
       }}
     >
-      # {node.tagName}
+      # {node?.tagName}
     </Box>
   )
 

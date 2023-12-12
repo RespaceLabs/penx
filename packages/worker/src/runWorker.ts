@@ -14,14 +14,7 @@ export function runWorker() {
     // console.log(`WebWorker Response => ${event.data}`)
 
     if (event.data === WorkerEvents.SYNC_101_SUCCEEDED) {
-      const space = await db.getSpace('penx-101')
-      const nodes = await db.listNodesBySpaceId('penx-101')
-      const favoriteNodes = await db.getFavoriteNode(space.id)
-      const firstNode = await db.getNode(favoriteNodes.children[0])
-      store.node.setNodes(nodes)
-
-      // TODO:..
-      // store.reloadNode(firstNode)
+      // Do noting
     }
 
     if (event.data === WorkerEvents.START_PUSH) {

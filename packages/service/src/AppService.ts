@@ -1,4 +1,5 @@
 import { db } from '@penx/local-db'
+import { Node } from '@penx/model'
 import { store } from '@penx/store'
 
 export class AppService {
@@ -17,12 +18,21 @@ export class AppService {
       store.space.setSpaces(spaces)
 
       if (nodes.length) {
-        const activeNodes = activeSpace.activeNodeIds.map((id) => {
-          return nodes.find((n) => n.id === id)!
-        })
+        let activeNodes = activeSpace.activeNodeIds
+          .map((id) => {
+            return nodes.find((n) => n.id === id)!
+          })
+          .filter((n) => !!n)
 
         store.node.setNodes(nodes)
-        store.node.setActiveNodes(activeNodes)
+
+        if (!activeNodes.length) {
+          const rootNode = nodes.find((n) => new Node(n).isRootNode)!
+
+          store.node.selectNode(rootNode)
+        } else {
+          store.node.setActiveNodes(activeNodes)
+        }
       }
 
       store.app.setAppLoading(false)

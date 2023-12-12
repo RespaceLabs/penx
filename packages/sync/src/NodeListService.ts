@@ -128,7 +128,10 @@ export class NodeListService {
   }
 
   getFavorites() {
-    return this.favoriteNode.children.map((id) => this.nodeMap.get(id)!)
+    if (!this.favoriteNode?.children) return []
+    return this.favoriteNode.children
+      .map((id) => this.nodeMap.get(id)!)
+      .filter((n) => !!n)
   }
 
   isFavorite(id: string) {

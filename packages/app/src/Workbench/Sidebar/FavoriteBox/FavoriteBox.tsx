@@ -49,8 +49,8 @@ interface Props {
 
 export const FavoriteBox = ({ nodeList }: Props) => {
   const { favoriteNode } = nodeList
-  const nodes = nodeList.getFavorites().filter((n) => !!n?.id)
-  const items = favoriteNode.children.filter((id) => !!id)
+  const nodes = nodeList.getFavorites()
+  const items = nodeList.favoriteNodeChildren
   const [activeId, setActiveId] = useState<string | null>(null)
 
   const sensors = useSensors(

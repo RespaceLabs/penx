@@ -8,6 +8,8 @@ export const PENX_HOME_STATUS = 'PENX_HOME_STATUS'
 
 export const PENX_SESSION_USER = 'PENX_SESSION_USER'
 
+export const PENX_101 = 'penx-101'
+
 export const PLATFORM =
   process.env.NEXT_PUBLIC_PLATFORM || process.env.PLASMO_PUBLIC_PLATFORM
 

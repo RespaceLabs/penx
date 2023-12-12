@@ -1,3 +1,4 @@
+import { PENX_101 } from '@penx/constants'
 import { ISpace } from '@penx/model-types'
 import { PageSnapshot } from './PageSnapshot'
 import { Settings } from './Settings'
@@ -39,7 +40,7 @@ export class Space {
   }
 
   get isSpace101() {
-    return this.id === 'penx-101'
+    return this.id === PENX_101
   }
 
   get filename() {

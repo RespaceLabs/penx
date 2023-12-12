@@ -85,6 +85,8 @@ interface TreeViewProps {
 const indentationWidth = 50
 
 export const TreeView = ({ nodeList }: TreeViewProps) => {
+  // console.log('=============nodeList:', nodeList)
+
   const items = nodeList.createTree(nodeList.rootNode)
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null)

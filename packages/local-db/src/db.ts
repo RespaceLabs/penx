@@ -1,5 +1,6 @@
 import { arrayMoveImmutable } from 'array-move'
 import { format } from 'date-fns'
+import { PENX_101 } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import { Node, Space } from '@penx/model'
 import {
@@ -54,7 +55,7 @@ class DB {
     if (count === 0) {
       await this.createSpace({ name: 'My Space' })
       space = await this.createSpace({
-        id: 'penx-101',
+        id: PENX_101,
         name: 'PenX 101',
       })
     }

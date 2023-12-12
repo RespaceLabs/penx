@@ -58,15 +58,17 @@ export class SpaceStore {
   }
 
   async selectSpace(id: string) {
-    // this.store.app.setAppLoading(true)
+    this.store.app.setAppLoading(true)
+
     await db.selectSpace(id)
+
     const spaces = await db.listSpaces()
     const nodes = await db.listNodesBySpaceId(id)
     const space = await db.getActiveSpace()
 
-    // this.store.space.setSpaces([])
-    // this.store.node.setNodes([])
-    // this.store.node.setActiveNodes([])
+    this.store.space.setSpaces([])
+    this.store.node.setNodes([])
+    this.store.node.setActiveNodes([])
 
     let activeNodes = space.activeNodeIds
       .map((id) => {
@@ -96,7 +98,7 @@ export class SpaceStore {
         this.store.node.setActiveNodes(activeNodes)
       }
 
-      // this.store.app.setAppLoading(false)
+      this.store.app.setAppLoading(false)
     }
     return space
   }

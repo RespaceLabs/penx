@@ -1,11 +1,11 @@
 import ky from 'ky'
-import { WorkerEvents } from '@penx/constants'
+import { PENX_101, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { INode } from '@penx/model-types'
 import { sleep } from '@penx/shared'
 
-const INTERVAL = 5 * 60 * 1000
-// const INTERVAL = 5 * 1000
+// const INTERVAL = 5 * 60 * 1000
+const INTERVAL = 5 * 1000
 
 let isPolling = true
 
@@ -17,15 +17,14 @@ export async function syncPenx101() {
 }
 
 async function sync() {
-  return
-  const space = await db.getSpace('penx-101')
+  const space = await db.getSpace(PENX_101)
 
   if (!space) return
 
   const favoriteNodes = await db.getFavoriteNode(space.id)
 
   // User visit first time
-  const isOnboarding = !favoriteNodes.children?.length
+  const isOnboarding = !favoriteNodes?.children?.length
 
   try {
     const url =
@@ -33,21 +32,21 @@ async function sync() {
 
     const data: INode[] = await ky(url).json()
 
-    // console.log('data:', data)
-
-    const nodes = await db.listNodesBySpaceId('penx-101')
-
-    for (const node of nodes) {
-      await db.node.deleteByPk(node.id)
-    }
-
     for (const item of data) {
       if (!space) break
-      // console.log('find:', find)
-      await db.createNode({
-        ...item,
-        spaceId: 'penx-101',
-      })
+
+      const node = await db.getNode(item.id)
+      if (node) {
+        await db.updateNode(item.id, {
+          ...item,
+          spaceId: PENX_101,
+        })
+      } else {
+        await db.createNode({
+          ...item,
+          spaceId: PENX_101,
+        })
+      }
     }
 
     console.log('sync 101 done')
@@ -56,6 +55,6 @@ async function sync() {
       postMessage(WorkerEvents.SYNC_101_SUCCEEDED)
     }
   } catch (error) {
-    console.log('error nodes:', error)
+    console.log('sync 101 error :', error)
   }
 }
