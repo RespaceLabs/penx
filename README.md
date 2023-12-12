@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://logseq.com" alt="Logseq Logo">
+<a href="https://www.penx.io" alt="PenX Logo">
     <img src="https://www.penx.io/images/logo-512.png" height="120"/></a>
 
 <h1 style="border-bottom: none">
@@ -9,7 +9,7 @@
     <br>
 </h1>
 
-[Discord](https://discord.gg/a4DXe6AB) | [Website](https://www.penx.io/) | [Issues](https://github.com/penxio/penx/issues)
+[Discord](https://discord.gg/XdpGtfhJ) | [Website](https://www.penx.io/) | [Issues](https://github.com/penxio/penx/issues)
 
 </div>
 
@@ -51,3 +51,5 @@ yarn dev # start web service
 ## ⚖️ License
 
 AGPL 3.0
+
+What Is Open Source Software?
