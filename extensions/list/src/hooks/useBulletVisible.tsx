@@ -25,9 +25,11 @@ export const useBulletVisible = (element: ListContentElement) => {
   })()
 
   const path = findNodePath(editor, element)
-  const isFirstLine = path?.[0] === 1
+
+  const isFirstLine = path?.[1] === 0
   const str = Node.string(element)
   const isFocused = currentElement === element
   const isBulletVisible = !!str || isFocused || isFirstLine
+
   return isBulletVisible
 }

@@ -258,7 +258,6 @@ export class NodeStore {
 
     this.setNodes(newNodes)
     this.selectNode(dateNode)
-    console.log('x====dateStr:', dateStr, 'dateNode:', dateNode)
   }
 
   async createNodeToToday(text: string) {
