@@ -7,14 +7,11 @@ import { useFocusTitle } from '../../hooks/useFocusTitle'
 import { TitleElement } from '../../types'
 import { CommonTitle } from './CommonTitle'
 import { DailyNoteNav } from './DailyNoteNav'
-import { EmptyTips } from './EmptyTips'
 import { TagMenu } from './TagMenu'
 import { TaskProgress } from './TaskProgress'
 
 export const Title = (props: ElementProps<TitleElement>) => {
   const { element, attributes, children } = props
-  const editor = useEditor()
-  const onlyHasTitle = editor.children.length === 1
 
   const disabled = [
     NodeType.INBOX,
@@ -60,8 +57,6 @@ export const Title = (props: ElementProps<TitleElement>) => {
           </Box>
         </Box>
       )}
-
-      {onlyHasTitle && <EmptyTips />}
     </Box>
   )
 }
