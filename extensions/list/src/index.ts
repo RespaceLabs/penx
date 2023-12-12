@@ -4,12 +4,14 @@ import {
   ELEMENT_OL,
   ELEMENT_TITLE,
   ELEMENT_UL,
+  isExtension,
 } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
 import { onKeyDown } from './onKeyDown'
 import { withEditable } from './plugins/withEditable'
 import { withListsPlugin } from './plugins/withListsPlugin'
 import { withMarkdown } from './plugins/withMarkdown'
+import { withPaste } from './plugins/withPaste'
 import { List } from './ui/List'
 import { ListItem } from './ui/ListItem'
 import { ListItemContent } from './ui/ListItemContent'
@@ -24,8 +26,11 @@ export * from './transforms/insertEmptyListItem'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
-    with: [withListsPlugin, withMarkdown, withEditable],
-    // with: [withListsPlugin, withEditable],
+    // for web
+    // with: [withListsPlugin, withMarkdown, withEditable],
+
+    // for extension
+    with: [withListsPlugin, withEditable, withPaste],
     handlers: {
       onKeyDown: onKeyDown,
     },
