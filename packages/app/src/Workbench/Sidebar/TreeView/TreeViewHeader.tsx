@@ -1,8 +1,10 @@
 import { memo } from 'react'
 import { Box } from '@fower/react'
+import { useSidebarDrawer } from '@penx/hooks'
 import { store } from '@penx/store'
 
 export const TreeViewHeader = memo(function TreeViewHeader() {
+  const drawer = useSidebarDrawer()
   return (
     <Box
       toCenterY
@@ -17,6 +19,7 @@ export const TreeViewHeader = memo(function TreeViewHeader() {
       h-30
       onClick={() => {
         store.node.selectSpaceNode()
+        drawer?.close?.()
       }}
     >
       {/* <Bullet mr-4 /> */}

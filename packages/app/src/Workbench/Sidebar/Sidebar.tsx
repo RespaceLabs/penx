@@ -10,7 +10,7 @@ import {
   Inbox,
   Trash2,
 } from 'lucide-react'
-import { useNodes } from '@penx/hooks'
+import { useNodes, useSidebarDrawer } from '@penx/hooks'
 import { useSession } from '@penx/session'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import LoginWithGoogleButton from '../../components/LoginWithGoogleButton'
@@ -37,6 +37,7 @@ export const Sidebar = () => {
   const components = getStatusBarComponents(extensionStore)
   const { nodes, nodeList } = useNodes()
   const { loading, data: session } = useSession()
+  const drawer = useSidebarDrawer()
 
   return (
     <Box

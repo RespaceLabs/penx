@@ -67,6 +67,7 @@ export const DrawerSidebar = () => {
                 label="Meta tags"
                 onClick={() => {
                   store.node.selectTagBox()
+                  close()
                 }}
               />
 
