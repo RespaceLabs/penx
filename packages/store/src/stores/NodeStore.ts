@@ -237,6 +237,7 @@ export class NodeStore {
 
   async selectDailyNote(date: Date = new Date()) {
     const dateStr = format(date, 'yyyy-MM-dd')
+
     const nodes = this.getNodes()
     let dateNode = nodes.find(
       (node) => node.type === NodeType.DAILY && node.props.date === dateStr,
@@ -252,10 +253,12 @@ export class NodeStore {
         props: { date: dateStr },
       })
     }
+
     const newNodes = await db.listNodesBySpaceId(space.id)
 
     this.setNodes(newNodes)
     this.selectNode(dateNode)
+    console.log('x====dateStr:', dateStr, 'dateNode:', dateNode)
   }
 
   async createNodeToToday(text: string) {

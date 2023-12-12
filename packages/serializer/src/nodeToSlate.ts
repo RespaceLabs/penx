@@ -63,34 +63,37 @@ export class NodeToSlateSerializer {
       children: string[],
       parentId: string | null = null,
     ) => {
-      const listItems = children.map((id) => {
-        const node = this.nodeMap.get(id)!
+      const listItems = children
+        // TODO: why get an undefined node, need to check it
+        .filter((id) => !!this.nodeMap.get(id))
+        .map((id) => {
+          const node = this.nodeMap.get(id)!
 
-        const children = [
-          {
-            id: node.id,
-            type: ELEMENT_LIC,
-            nodeType: node.type,
-            parentId,
-            collapsed: node.collapsed,
-            // children: node.element,
-            // TODO:
-            children: Array.isArray(node.element)
-              ? node.element
-              : [node.element],
-          },
-        ]
+          const liChildren = [
+            {
+              id: node.id,
+              type: ELEMENT_LIC,
+              nodeType: node.type,
+              parentId,
+              collapsed: node.collapsed,
+              // children: node.element,
+              // TODO:
+              children: Array.isArray(node.element)
+                ? node.element
+                : [node.element],
+            },
+          ]
 
-        if (node.children) {
-          const ul = childrenToList(node.children, node.id)
-          if (ul) children.push(ul as any)
-        }
+          if (node.children) {
+            const ul = childrenToList(node.children, node.id)
+            if (ul) liChildren.push(ul as any)
+          }
 
-        return {
-          type: ELEMENT_LI,
-          children,
-        }
-      })
+          return {
+            type: ELEMENT_LI,
+            children: liChildren,
+          }
+        })
 
       if (!listItems.length) return null
       return {
@@ -190,30 +193,33 @@ function getDatabaseNodeEditorValue(node: Node) {
 }
 
 function getDatabaseRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
-  const children = node.children.map((id) => {
-    const databaseNode = nodeMap.get(id)!
-    return {
-      type: ELEMENT_LI,
-      children: [
-        {
-          id: databaseNode.id,
-          type: ELEMENT_LIC,
-          nodeType: databaseNode.type,
-          props: databaseNode.props,
-          collapsed: databaseNode.collapsed,
-          children: [
-            {
-              type: ELEMENT_DATABASE_ENTRY,
-              databaseId: databaseNode.id,
-              props: databaseNode.props,
-              name: databaseNode.props.name,
-              children: [{ text: databaseNode.props.name }],
-            },
-          ],
-        },
-      ],
-    }
-  })
+  const children = node.children
+    // TODO: why get an undefined node
+    .filter((id) => nodeMap.get(id))
+    .map((id) => {
+      const databaseNode = nodeMap.get(id)!
+      return {
+        type: ELEMENT_LI,
+        children: [
+          {
+            id: databaseNode.id,
+            type: ELEMENT_LIC,
+            nodeType: databaseNode.type,
+            props: databaseNode.props,
+            collapsed: databaseNode.collapsed,
+            children: [
+              {
+                type: ELEMENT_DATABASE_ENTRY,
+                databaseId: databaseNode.id,
+                props: databaseNode.props,
+                name: databaseNode.props.name,
+                children: [{ text: databaseNode.props.name }],
+              },
+            ],
+          },
+        ],
+      }
+    })
 
   const value: any[] = [
     {
