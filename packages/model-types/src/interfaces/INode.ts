@@ -115,9 +115,7 @@ export interface ICellNode extends INode {
     columnId: string
     rowId: string
     ref: string // ref to a node id
-    fieldType: FieldType
-    // options: Option[]
-    options: any
+    optionIds: string[]
     data: any
   }
 }
@@ -159,6 +157,7 @@ export interface IOptionNode extends INode {
   type: NodeType.OPTION
   props: {
     columnId: string
-    optionIds: string[]
+    name: string
+    color: string
   }
 }

@@ -36,7 +36,9 @@ export const TableCell = memo(
     })
 
     const column = columns.find((c) => c.id === cell.props.columnId)!
-    const { fieldType, rowId, columnId } = cell.props
+    const { rowId, columnId } = cell.props
+    const fieldType = column.props.fieldType
+
     const CellComponent = cellsMap[fieldType as FieldType]
 
     // TODO: get width from store, see ColumnItem
@@ -60,6 +62,6 @@ export const TableCell = memo(
     )
   },
   (prev, next) => {
-    return isEqual({ cell: prev.cell }, { cell: next.cell })
+    return isEqual(prev, next)
   },
 )

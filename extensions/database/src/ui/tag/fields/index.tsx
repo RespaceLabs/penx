@@ -26,7 +26,9 @@ interface Props {
 
 export const CellField = memo(
   function TableCell({ columns, cell, index }: Props) {
-    const { fieldType, rowId, columnId } = cell.props
+    const { rowId, columnId } = cell.props
+    const column = columns.find((c) => c.id === columnId)!
+    const fieldType = column.props.fieldType
     const CellComponent = cellsMap[fieldType as FieldType]
 
     async function updateCell(data: any) {
