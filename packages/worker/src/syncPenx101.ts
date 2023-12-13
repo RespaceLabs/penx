@@ -1,11 +1,11 @@
 import ky from 'ky'
-import { PENX_101, WorkerEvents } from '@penx/constants'
+import { isProd, PENX_101, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
+import { Node } from '@penx/model'
 import { INode } from '@penx/model-types'
 import { sleep } from '@penx/shared'
 
-// const INTERVAL = 5 * 60 * 1000
-const INTERVAL = 5 * 1000
+const INTERVAL = isProd ? 5 * 60 * 1000 : 5 * 1000
 
 let isPolling = true
 
@@ -21,10 +21,12 @@ async function sync() {
 
   if (!space) return
 
-  const favoriteNodes = await db.getFavoriteNode(space.id)
+  const nodes = await db.listNodesBySpaceId(space.id)
 
   // User visit first time
-  const isOnboarding = !favoriteNodes?.children?.length
+  const isOnboarding = !nodes.length
+
+  // console.log('========isOnboarding:', isOnboarding, nodes.length)
 
   try {
     const url =
@@ -32,10 +34,13 @@ async function sync() {
 
     const data: INode[] = await ky(url).json()
 
+    // console.log('data:', data, 'space:', space)
+
     for (const item of data) {
       if (!space) break
 
       const node = await db.getNode(item.id)
+
       if (node) {
         await db.updateNode(item.id, {
           ...item,

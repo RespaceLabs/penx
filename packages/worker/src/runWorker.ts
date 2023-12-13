@@ -1,5 +1,5 @@
 import { toast } from 'uikit'
-import { SyncStatus, WorkerEvents } from '@penx/constants'
+import { PENX_101, SyncStatus, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { spacesAtom, store, syncStatusAtom } from '@penx/store'
 
@@ -14,7 +14,7 @@ export function runWorker() {
     // console.log(`WebWorker Response => ${event.data}`)
 
     if (event.data === WorkerEvents.SYNC_101_SUCCEEDED) {
-      // Do noting
+      store.space.selectSpace(PENX_101)
     }
 
     if (event.data === WorkerEvents.START_PUSH) {
