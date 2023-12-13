@@ -14,10 +14,17 @@ export class AppService {
       const spaces = await db.listSpaces()
       const activeSpace = spaces.find((item) => item.isActive) || spaces[0]
       const nodes = await db.listNodesBySpaceId(activeSpace.id)
-
       store.space.setSpaces(spaces)
 
       if (nodes.length) {
+        const todayNode = await db.getTodayNode(activeSpace.id)
+
+        if (!todayNode) {
+          await this.createAndGoToTodayNode(activeSpace.id)
+          store.app.setAppLoading(false)
+          return
+        }
+
         let activeNodes = activeSpace.activeNodeIds
           .map((id) => {
             return nodes.find((n) => n.id === id)!
@@ -39,5 +46,12 @@ export class AppService {
     } catch (error) {
       console.log('app init error.....:', error)
     }
+  }
+
+  private async createAndGoToTodayNode(spaceId: string) {
+    const todayNode = await db.getOrCreateTodayNode(spaceId)
+    const nodes = await db.listNodesBySpaceId(spaceId)
+    store.node.setNodes(nodes)
+    store.node.selectNode(todayNode)
   }
 }

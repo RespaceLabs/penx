@@ -1,14 +1,11 @@
 import { Box } from '@fower/react'
-import { Node } from 'slate'
-import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
 import { NodeType } from '@penx/model-types'
 import { useFocusTitle } from '../../hooks/useFocusTitle'
 import { TitleElement } from '../../types'
 import { CommonTitle } from './CommonTitle'
-import { DailyNoteNav } from './DailyNoteNav'
+import { DailyTitle } from './DailyTitle'
 import { TagMenu } from './TagMenu'
-import { TaskProgress } from './TaskProgress'
 
 export const Title = (props: ElementProps<TitleElement>) => {
   const { element, attributes, children } = props
@@ -39,24 +36,7 @@ export const Title = (props: ElementProps<TitleElement>) => {
     >
       {isDatabase && <TagMenu element={element} />}
       {!isDaily && <CommonTitle {...props} />}
-      {isDaily && (
-        <Box toCenterY gap2>
-          <TaskProgress />
-          <Box
-            leadingNone
-            column
-            gap2
-            css={{
-              '> div': {
-                'leadingNone--i': true,
-              },
-            }}
-          >
-            {children}
-            {isDaily && <DailyNoteNav element={element} />}
-          </Box>
-        </Box>
-      )}
+      {isDaily && <DailyTitle {...props} />}
     </Box>
   )
 }

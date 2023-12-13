@@ -2,7 +2,6 @@ import { arrayMoveImmutable } from 'array-move'
 import { format } from 'date-fns'
 import { PENX_101 } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
-import { Node, Space } from '@penx/model'
 import {
   FieldType,
   ICellNode,

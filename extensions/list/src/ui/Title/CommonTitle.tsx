@@ -9,7 +9,6 @@ import { TitleElement } from '../../types'
 export const CommonTitle = ({
   element,
   children,
-  nodeProps,
 }: ElementProps<TitleElement>) => {
   const titleStr = Node.string(element)
   const { compositionData } = useCompositionData(element.id)
