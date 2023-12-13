@@ -23,6 +23,8 @@ export const Workbench = () => {
 
   // console.log('router name==========:', name)
 
+  if (!activeSpace) return null
+
   return (
     <EditorProvider space={activeSpace}>
       {session && <QueryCloudSpaces />}

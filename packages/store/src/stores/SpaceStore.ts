@@ -66,7 +66,7 @@ export class SpaceStore {
     const nodes = await db.listNodesBySpaceId(id)
     const space = await db.getActiveSpace()
 
-    this.store.space.setSpaces([])
+    // this.store.space.setSpaces([])
     this.store.node.setNodes([])
     this.store.node.setActiveNodes([])
 
@@ -95,11 +95,11 @@ export class SpaceStore {
       } else {
         this.setSpaces(spaces)
         this.store.node.setNodes(nodes)
-        this.store.node.setActiveNodes(activeNodes)
+        this.store.node.selectNode(activeNodes[0])
       }
-
-      this.store.app.setAppLoading(false)
     }
+
+    this.store.app.setAppLoading(false)
     return space
   }
 

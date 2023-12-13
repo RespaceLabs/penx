@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { RouterOutputs } from '@penx/api'
+import { PENX_101, PENX_101_CLOUD_NAME } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
@@ -24,6 +25,13 @@ export const QueryCloudSpaces = () => {
         isActive: false,
         isCloud: true,
       } as any as ISpace)
+
+      // TODO: this is hard code
+      if (newSpace.name === PENX_101_CLOUD_NAME) {
+        await db.deleteSpace(PENX_101)
+        const spaces = await db.listSpaces()
+        store.space.setSpaces(spaces)
+      }
 
       // only create nodes if the space is not encrypted
       if (!space.encrypted) {

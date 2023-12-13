@@ -19,11 +19,11 @@ export class AppService {
       if (nodes.length) {
         const todayNode = await db.getTodayNode(activeSpace.id)
 
-        // if (!todayNode) {
-        //   await this.createAndGoToTodayNode(activeSpace.id)
-        //   store.app.setAppLoading(false)
-        //   return
-        // }
+        if (!todayNode) {
+          await this.createAndGoToTodayNode(activeSpace.id)
+          store.app.setAppLoading(false)
+          return
+        }
 
         let activeNodes = activeSpace.activeNodeIds
           .map((id) => {

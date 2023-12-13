@@ -10,6 +10,8 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
     const { activeSpace } = useSpaces()
     const { close } = usePopoverContext()
 
+    if (!activeSpace) return null
+
     return (
       <PopoverTrigger asChild>
         <Box
@@ -33,7 +35,7 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
             <Bullet
               size={20}
               innerSize={6}
-              innerColor={activeSpace.color}
+              innerColor={activeSpace?.color}
               mr1
             />
             <Box flex-1 maxW-180>

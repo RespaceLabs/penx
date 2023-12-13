@@ -10,6 +10,8 @@ export const PENX_SESSION_USER = 'PENX_SESSION_USER'
 
 export const PENX_101 = 'penx-101'
 
+export const PENX_101_CLOUD_NAME = 'penx-101-cloud'
+
 export const PLATFORM =
   process.env.NEXT_PUBLIC_PLATFORM || process.env.PLASMO_PUBLIC_PLATFORM
 
