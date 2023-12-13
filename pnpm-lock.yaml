@@ -1870,6 +1870,9 @@ importers:
       '@penx/serializer':
         specifier: workspace:*
         version: link:../../packages/serializer
+      '@penx/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
