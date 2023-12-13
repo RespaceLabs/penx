@@ -431,26 +431,35 @@ export class SyncService {
     ) {
       console.log('push all................:', pageSnapshot)
       tree = await this.pushAll()
+      await this.pushTree(tree)
     } else {
-      const { pageMap: prevPageMap, version: prevVersion } = pageSnapshot
+      try {
+        const { pageMap: prevPageMap, version: prevVersion } = pageSnapshot
 
-      const curPageMap = this.spaceService.getPageMapHash()
+        const curPageMap = this.spaceService.getPageMapHash()
 
-      const diff = this.space.snapshot.diff(curPageMap, prevPageMap)
+        const diff = this.space.snapshot.diff(curPageMap, prevPageMap)
 
-      console.log('====git diff:', diff)
+        console.log('====git diff:', diff)
 
-      // isEqual, don't push
-      if (diff.isEqual) {
-        console.log('diff equal, no need to push')
-        return
+        // isEqual, don't push
+        if (diff.isEqual) {
+          console.log('diff equal, no need to push')
+          return
+        }
+
+        tree = await this.pushByDiff(diff)
+        // console.log('tree------:', tree)
+        await this.pushTree(tree)
+      } catch (error) {
+        console.log('push all by fallback................')
+        tree = await this.pushAll()
+        await this.pushTree(tree)
       }
-
-      tree = await this.pushByDiff(diff)
     }
+  }
 
-    // console.log('tree------:', tree)
-
+  async pushTree(tree: TreeItem[]) {
     await this.getBaseBranchInfo()
 
     // update tree to GitHub before commit
