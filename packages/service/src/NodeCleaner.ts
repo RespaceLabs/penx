@@ -25,7 +25,8 @@ export class NodeCleaner {
       if (isCellNode(item) && !!item.props.ref) {
         const node = nodeMap.get(item.props.ref)!
         const databaseNode = nodeMap.get(item.databaseId!)
-        const tags = extractTags(node.element)
+
+        const tags = extractTags(node?.element)
 
         if (databaseNode && !tags.includes(databaseNode.props.name!)) {
           console.log('clean row', databaseNode.props.name)

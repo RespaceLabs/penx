@@ -56,7 +56,7 @@ async function pushByDiff(space: ISpace): Promise<boolean> {
   }
 
   if (diffed.isEqual) {
-    console.log('is equal, no need to push', diffed)
+    // console.log('is equal, no need to push', diffed)
   } else {
     console.log('cloud diff:', diffed)
   }

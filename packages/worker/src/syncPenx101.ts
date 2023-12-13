@@ -54,7 +54,7 @@ async function sync() {
       }
     }
 
-    console.log('sync 101 done')
+    // console.log('sync 101 done')
 
     if (isOnboarding) {
       postMessage(WorkerEvents.SYNC_101_SUCCEEDED)

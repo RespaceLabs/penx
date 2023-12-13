@@ -3,7 +3,6 @@ import { isProd, PENX_SESSION_USER, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { User } from '@penx/model'
 import { sleep } from '@penx/shared'
-import { Session } from '@penx/store'
 import { SyncService } from '@penx/sync'
 
 const INTERVAL = isProd ? 5 * 60 * 1000 : 20 * 1000

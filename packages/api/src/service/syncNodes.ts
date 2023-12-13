@@ -1,8 +1,7 @@
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
-import { Node, prisma, Space } from '@penx/db'
-import { Node as NodeModel } from '@penx/model'
-import { INode, ISpace, NodeType } from '@penx/model-types'
+import { Node, prisma } from '@penx/db'
+import { INode, NodeType } from '@penx/model-types'
 
 export const syncNodesInput = z.object({
   version: z.number(),

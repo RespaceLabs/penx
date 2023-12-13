@@ -3,7 +3,6 @@ import { isProd, PENX_SESSION_USER, WorkerEvents } from '@penx/constants'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { sleep } from '@penx/shared'
-import { Session } from '@penx/store'
 import { getNodeMap } from '@penx/sync'
 import { trpc } from '@penx/trpc-client'
 

@@ -8,6 +8,7 @@ import {
 } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
 import { onKeyDown } from './onKeyDown'
+import { withCopy } from './plugins/withCopy'
 import { withEditable } from './plugins/withEditable'
 import { withListsPlugin } from './plugins/withListsPlugin'
 import { withMarkdown } from './plugins/withMarkdown'
@@ -27,10 +28,10 @@ export * from './transforms/insertEmptyListItem'
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     // for web
-    with: [withListsPlugin, withMarkdown, withEditable],
+    with: [withListsPlugin, withMarkdown, withEditable, withCopy],
 
     // for extension
-    // with: [withListsPlugin, withEditable, withPaste],
+    // with: [withListsPlugin, withEditable, withPaste, withCopy],
     handlers: {
       onKeyDown: onKeyDown,
     },

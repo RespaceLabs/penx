@@ -22,7 +22,7 @@ export async function pollingPushToCloud() {
 }
 
 async function sync() {
-  console.log('push to cloud...')
+  // console.log('push to cloud...')
 
   const isSynced = await syncToCloud()
   if (isSynced) {
