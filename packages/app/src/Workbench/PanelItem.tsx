@@ -35,6 +35,8 @@ export function PanelItem({ node, index }: Props) {
     await nodeService.savePage(node.raw, value[0], value[1])
   }, 400)
 
+  const w = node.isDatabase ? '100%' : 800
+
   return (
     <NodeProvider value={{ index, node, nodeService }}>
       <Box relative h-100vh flex-1 borderRight>
@@ -51,7 +53,7 @@ export function PanelItem({ node, index }: Props) {
           <Box w-100p>
             <Box
               mx-auto
-              maxW-800
+              maxW={w}
               mt={[0, 0, 32]}
               style={{
                 wordBreak: 'break-all',

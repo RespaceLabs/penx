@@ -155,7 +155,10 @@ export function NodeEditor({
           strategy={rectSortingStrategy}
         >
           <NodeEditorEditable onBlur={onBlur} />
-          <AddBulletBtn />
+
+          {(node.isCommon || node.isRootNode || node.isDaily) && (
+            <AddBulletBtn />
+          )}
 
           {createPortal(
             // <DragOverlay dropAnimation={dropAnimationConfig}>
