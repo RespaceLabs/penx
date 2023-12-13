@@ -17,6 +17,7 @@ export enum NodeType {
   COLUMN = 'COLUMN',
   VIEW = 'VIEW',
   FILTER = 'FILTER',
+  OPTION = 'OPTION',
 }
 
 export interface INode {
@@ -150,5 +151,14 @@ export interface IFilterNode extends INode {
   props: {
     columnId: string
     viewId: string
+  }
+}
+
+export interface IOptionNode extends INode {
+  parentId: string // should be database id
+  type: NodeType.OPTION
+  props: {
+    columnId: string
+    optionIds: string[]
   }
 }

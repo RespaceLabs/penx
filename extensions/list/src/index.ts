@@ -27,10 +27,10 @@ export * from './transforms/insertEmptyListItem'
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     // for web
-    // with: [withListsPlugin, withMarkdown, withEditable],
+    with: [withListsPlugin, withMarkdown, withEditable],
 
     // for extension
-    with: [withListsPlugin, withEditable, withPaste],
+    // with: [withListsPlugin, withEditable, withPaste],
     handlers: {
       onKeyDown: onKeyDown,
     },

@@ -3,7 +3,7 @@ import { PlusIcon } from 'lucide-react'
 import { Editor, Path, Transforms } from 'slate'
 import { useEditorStatic } from '@penx/editor-common'
 import { selectEditor } from '@penx/editor-transforms'
-import { listSchema } from '@penx/list'
+import { insertEmptyList, listSchema } from '@penx/list'
 
 const newListItem = listSchema.createListItemNode({
   children: [
@@ -22,6 +22,12 @@ export function AddBulletBtn() {
   const editor = useEditorStatic()
 
   function addBullet() {
+    if (editor.children.length === 1) {
+      insertEmptyList(editor, { at: [1] })
+      selectEditor(editor, { focus: true, at: [1] })
+      return
+    }
+
     const path = Editor.end(editor, [1]).path
 
     const node = Editor.above(editor, {

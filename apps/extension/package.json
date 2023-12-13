@@ -135,7 +135,6 @@
       "https://*/*"
     ],
     "permissions": [
-      "activeTab",
       "tabs"
     ]
   }
