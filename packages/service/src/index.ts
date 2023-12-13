@@ -1,4 +1,3 @@
-export * from './SpaceService'
 export * from './NodeService'
 export * from './NodeListService'
 export * from './NodeCleaner'

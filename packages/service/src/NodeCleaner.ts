@@ -38,13 +38,23 @@ export class NodeCleaner {
       if (
         [
           NodeType.ROOT,
+
           NodeType.DAILY_ROOT,
+          NodeType.DAILY,
+
           NodeType.DATABASE_ROOT,
           NodeType.DATABASE,
+
+          NodeType.FAVORITE,
+          NodeType.TRASH,
+          NodeType.INBOX,
+
           NodeType.COLUMN,
           NodeType.ROW,
           NodeType.VIEW,
           NodeType.CELL,
+          NodeType.OPTION,
+          NodeType.FILTER,
         ].includes(item.type)
       ) {
         continue
