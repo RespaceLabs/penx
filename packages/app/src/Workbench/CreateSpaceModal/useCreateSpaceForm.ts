@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast, useModalContext } from 'uikit'
+import { PENX_101_CLOUD_NAME } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
 import { useSession } from '@penx/session'
@@ -35,8 +36,13 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
 
   const onSubmit: SubmitHandler<CreateSpaceValues> = async (data) => {
     console.log('data:', data)
+    if (data.name === PENX_101_CLOUD_NAME && data.type === SpaceType.CLOUD) {
+      toast.info('This is a reserved name. Please choose another one.')
+      return
+    }
 
     setData(true)
+
     if (data.type === SpaceType.CLOUD) {
       if (!session) {
         toast.info('You need to be logged in to create a cloud space')

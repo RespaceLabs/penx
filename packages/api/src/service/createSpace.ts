@@ -1,5 +1,6 @@
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
+import { PENX_101_CLOUD_NAME } from '@penx/constants'
 import { prisma } from '@penx/db'
 import { INode, ISpace } from '@penx/model-types'
 import { uniqueId } from '@penx/unique-id'
@@ -18,6 +19,13 @@ export function createSpace(input: CreateUserInput) {
   const { userId, spaceData, nodesData } = input
   const space: ISpace = JSON.parse(spaceData)
   const nodes: INode[] = JSON.parse(nodesData || '[]')
+
+  if (space.name === PENX_101_CLOUD_NAME) {
+    throw new TRPCError({
+      code: 'BAD_REQUEST',
+      message: 'This is a reserved name. Please choose another one.',
+    })
+  }
 
   return prisma.$transaction(
     async (tx) => {
