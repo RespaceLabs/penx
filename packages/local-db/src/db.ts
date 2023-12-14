@@ -595,7 +595,6 @@ class DB {
             props: {
               columnId: column.id,
               rowId: row.id,
-              optionIds: [] as string[],
               data: '',
             },
           }) as ICellNode,
@@ -722,7 +721,6 @@ class DB {
           columnId: column.id,
           rowId: row.id,
           ref: '',
-          optionIds: [],
           data: '',
         },
       })
@@ -775,7 +773,6 @@ class DB {
           columnId: column.id,
           rowId: row.id,
           ref: index === 0 ? ref : '',
-          optionIds: [],
           data: '',
         },
       }),
@@ -864,6 +861,7 @@ class DB {
 
   addOption = async (databaseId: string, columnId: string, name: string) => {
     const space = await this.getActiveSpace()
+
     const option = await this.createNode<IOptionNode>({
       spaceId: space.id,
       databaseId,
@@ -875,7 +873,71 @@ class DB {
         color: getRandomColor(),
       },
     })
+
+    const column = await this.getNode(columnId)
+
+    await this.updateNode(columnId, {
+      props: {
+        ...column.props,
+        optionIds: [...(column.props.optionIds || []), option.id],
+      },
+    })
+
     return option
+  }
+
+  updateColumnOptions = async (
+    columnId: string,
+    options: Array<{
+      id: string
+      name: string
+      color: string
+    }>,
+  ) => {
+    const column = await this.getNode(columnId)
+    const oldOptionIds: string[] = column.props.optionIds || []
+    const newOptionIds = options.map((option) => option.id)
+    const deletedIds = oldOptionIds.filter((id) => !newOptionIds.includes(id))
+
+    for (const id of deletedIds) {
+      // update column
+      await this.updateNode(column.id, {
+        props: {
+          ...column.props,
+          optionIds: newOptionIds,
+        },
+      })
+
+      const cells = await this.node.select({
+        where: {
+          type: NodeType.CELL,
+          databaseId: column.databaseId!,
+        },
+      })
+
+      // delete option
+      for (const cell of cells) {
+        if (!Array.isArray(cell.props.data)) continue
+        if (!cell.props.data.includes(id)) continue
+        await this.updateNode(cell.id, {
+          props: {
+            ...cell.props,
+            data: cell.props.data.filter((id) => id !== id),
+          },
+        })
+      }
+    }
+
+    // update newOptionIds
+    for (const { id, ...rest } of options) {
+      const option = await this.getNode(id)
+      await this.updateNode(id, {
+        props: {
+          ...option.props,
+          ...rest,
+        },
+      })
+    }
   }
 
   moveColumn = async (

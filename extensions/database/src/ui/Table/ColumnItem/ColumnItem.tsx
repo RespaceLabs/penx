@@ -71,7 +71,7 @@ export const ColumnItem = ({ column, index }: Props) => {
               <Box textSM>{column.props.name}</Box>
             </Box>
           </PopoverTrigger>
-          <PopoverContent w-200>
+          <PopoverContent w-240>
             <ColumnMenu index={index} column={column} />
           </PopoverContent>
         </Popover>

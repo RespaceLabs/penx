@@ -9,7 +9,7 @@ import { CreatedAtCell } from './CreatedAt'
 import { MultipleSelect } from './MultipleSelect'
 import { NumberCell } from './Number'
 import { PasswordCell } from './Password'
-import { SingleSelect } from './SingleSelect'
+import { SingleSelectCell } from './SingleSelect'
 import { TextCell } from './Text'
 import { UpdatedAtCell } from './UpdatedAt'
 
@@ -17,7 +17,7 @@ const cellsMap: Record<FieldType, any> = {
   [FieldType.Text]: TextCell,
   [FieldType.Number]: NumberCell,
   [FieldType.Password]: PasswordCell,
-  [FieldType.SingleSelect]: SingleSelect,
+  [FieldType.SingleSelect]: SingleSelectCell,
   [FieldType.MultipleSelect]: MultipleSelect,
   [FieldType.CreatedAt]: CreatedAtCell,
   [FieldType.UpdatedAt]: UpdatedAtCell,
@@ -59,6 +59,7 @@ export const TableCell = memo(
           width={width}
           cell={cell}
           updateCell={updateCell}
+          column={column}
           index={index}
         />
       </motion.div>

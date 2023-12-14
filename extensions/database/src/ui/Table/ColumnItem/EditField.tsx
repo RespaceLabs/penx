@@ -1,9 +1,12 @@
+import { forwardRef } from 'react'
 import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
+import { ChevronDown, X } from 'lucide-react'
 import { Button, Input, usePopoverContext } from 'uikit'
-import { IColumnNode } from '@penx/model-types'
+import { FieldType, IColumnNode, IOptionNode } from '@penx/model-types'
+import { useDatabaseContext } from '../../DatabaseContext'
 import { FieldSelectPopover } from './FieldSelectPopover'
-import { useEditFieldForm } from './useEditFieldForm'
+import { Option, useEditFieldForm } from './useEditFieldForm'
 
 interface EditFieldProps {
   column: IColumnNode
@@ -11,8 +14,10 @@ interface EditFieldProps {
 }
 export function EditField({ column, onSave }: EditFieldProps) {
   const { close } = usePopoverContext()
+  const { options } = useDatabaseContext()
   const form = useEditFieldForm(column)
   const { control, formState } = form
+
   return (
     <Box as="form" p4 column gap3 onSubmit={form.onSubmit}>
       <Box textXS gray500 mb--4>
@@ -27,12 +32,30 @@ export function EditField({ column, onSave }: EditFieldProps) {
       <Box textXS gray500 mb--4>
         Type
       </Box>
+
       <Controller
         name="fieldType"
         control={control}
         rules={{ required: true }}
         render={({ field }) => <FieldSelectPopover {...field} />}
       />
+
+      {column.props.fieldType === FieldType.SingleSelect && (
+        <>
+          <Box textXS gray500>
+            Options
+          </Box>
+          <Box maxH-200 overflowAuto mx--16 px4>
+            <Controller
+              name="options"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => <OptionListField {...field} />}
+            />
+          </Box>
+        </>
+      )}
+
       <Box toCenterY toRight gap2>
         <Button
           type="button"
@@ -49,3 +72,47 @@ export function EditField({ column, onSave }: EditFieldProps) {
     </Box>
   )
 }
+
+interface OptionListFieldProps {
+  value: Option[]
+  onChange: (value: Option[]) => void
+}
+
+const OptionListField = forwardRef<HTMLDivElement, OptionListFieldProps>(
+  function OptionListField({ value, onChange }, ref) {
+    return (
+      <Box column gap2 ref={ref}>
+        {value.map((item, index) => (
+          <Box key={item.id} toCenterY gap1>
+            <Box mr1 circle5 toCenter color--D30={item.color} bg={item.color}>
+              <ChevronDown size={16} />
+            </Box>
+            <Input
+              flex-1
+              size="sm"
+              placeholder=""
+              value={item.name}
+              onChange={(e) => {
+                const newOptions = [...value]
+                newOptions[index].name = e.target.value
+                onChange(newOptions)
+              }}
+            />
+            <Button
+              type="button"
+              isSquare
+              size={24}
+              colorScheme="gray600"
+              variant="ghost"
+              onClick={() => {
+                onChange(value.filter(({ id }) => id !== item.id))
+              }}
+            >
+              <X />
+            </Button>
+          </Box>
+        ))}
+      </Box>
+    )
+  },
+)

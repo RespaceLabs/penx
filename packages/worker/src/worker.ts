@@ -12,8 +12,8 @@ self.addEventListener('message', async (event) => {
     console.log('===========start polling......')
     await db.database.connect()
 
-    pollingPushToCloud()
-    startPollingPull()
+    // pollingPushToCloud()
+    // startPollingPull()
     pollingPushToGithub()
 
     clearNodes()

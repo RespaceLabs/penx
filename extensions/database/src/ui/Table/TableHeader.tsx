@@ -10,9 +10,11 @@ export const TableHeader = () => {
   if (!columns.length) return null
 
   // TODO: views[0] is too hack
-  const sortedColumns = views[0].children.map((id) => {
-    return columns.find((col) => col.id === id)!
-  })
+  const sortedColumns = views[0].children
+    .map((id) => {
+      return columns.find((col) => col.id === id)!
+    })
+    .filter((col) => !!col)
 
   return (
     <Box flex-1 toLeft>

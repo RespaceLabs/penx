@@ -100,6 +100,7 @@ export interface IColumnNode extends INode {
     isPrimary: boolean
     config: any
     width: number
+    optionIds?: string[]
   }
 }
 
@@ -116,7 +117,6 @@ export interface ICellNode extends INode {
     columnId: string
     rowId: string
     ref: string // ref to a node id
-    optionIds: string[]
     data: any
   }
 }

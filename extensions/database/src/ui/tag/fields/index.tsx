@@ -6,6 +6,7 @@ import { store } from '@penx/store'
 import { CreatedAtCell } from './CreatedAt'
 import { NumberCell } from './Number'
 import { PasswordCell } from './Password'
+import { SingleSelectCell } from './SingleSelect'
 import { TextCell } from './Text'
 import { UpdatedAtCell } from './UpdatedAt'
 
@@ -13,7 +14,7 @@ const cellsMap: Record<FieldType, any> = {
   Text: TextCell,
   Number: NumberCell,
   Password: PasswordCell,
-  SingleSelect: TextCell,
+  SingleSelect: SingleSelectCell,
   MultipleSelect: TextCell,
   CreatedAt: CreatedAtCell,
   UpdatedAt: UpdatedAtCell,
@@ -41,7 +42,14 @@ export const CellField = memo(
       store.node.setNodes(nodes)
     }
 
-    return <CellComponent cell={cell} updateCell={updateCell} index={index} />
+    return (
+      <CellComponent
+        cell={cell}
+        updateCell={updateCell}
+        index={index}
+        column={column}
+      />
+    )
   },
   (prev, next) => {
     return isEqual({ cell: prev.cell }, { cell: next.cell })
