@@ -6,18 +6,21 @@ import { db } from '@penx/local-db'
 import { FieldType, ICellNode, IColumnNode } from '@penx/model-types'
 import { columnWidthMotion } from '../../../columnWidthMotion'
 import { CreatedAtCell } from './CreatedAt'
+import { MultipleSelect } from './MultipleSelect'
 import { NumberCell } from './Number'
 import { PasswordCell } from './Password'
+import { SingleSelectCell } from './SingleSelect'
 import { TextCell } from './Text'
 import { UpdatedAtCell } from './UpdatedAt'
 
 const cellsMap: Record<FieldType, any> = {
-  Text: TextCell,
-  Number: NumberCell,
-  Password: PasswordCell,
-  SingleSelect: TextCell,
-  CreatedAt: CreatedAtCell,
-  UpdatedAt: UpdatedAtCell,
+  [FieldType.Text]: TextCell,
+  [FieldType.Number]: NumberCell,
+  [FieldType.Password]: PasswordCell,
+  [FieldType.SingleSelect]: SingleSelectCell,
+  [FieldType.MultipleSelect]: MultipleSelect,
+  [FieldType.CreatedAt]: CreatedAtCell,
+  [FieldType.UpdatedAt]: UpdatedAtCell,
 }
 
 interface Props {

@@ -6,8 +6,8 @@ import { IOptionNode } from '@penx/model-types'
 import { useDatabaseContext } from '../../DatabaseContext'
 import { CellProps } from './CellProps'
 
-export const SingleSelectCell: FC<CellProps> = memo(
-  function SingleSelectCell(props) {
+export const MultipleSelect: FC<CellProps> = memo(
+  function MultipleSelect(props) {
     const { cell, updateCell } = props
     const [q, setQ] = useState('')
     const { addOption, options } = useDatabaseContext()

@@ -10,6 +10,7 @@ import {
   IExtension,
   IFile,
   INode,
+  IOptionNode,
   IRowNode,
   ISpace,
   IViewNode,
@@ -671,7 +672,6 @@ class DB {
   }
 
   addColumn = async (databaseId: string, fieldType: FieldType) => {
-    // return
     const space = await this.getActiveSpace()
     const spaceId = space.id
 
@@ -860,6 +860,22 @@ class DB {
     await this.updateNode(columnId, {
       props: { ...column.props, name },
     })
+  }
+
+  addOption = async (databaseId: string, columnId: string, name: string) => {
+    const space = await this.getActiveSpace()
+    const option = await this.createNode<IOptionNode>({
+      spaceId: space.id,
+      databaseId,
+      parentId: databaseId,
+      type: NodeType.OPTION,
+      props: {
+        columnId,
+        name,
+        color: getRandomColor(),
+      },
+    })
+    return option
   }
 
   moveColumn = async (

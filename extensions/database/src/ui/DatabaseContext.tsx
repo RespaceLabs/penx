@@ -15,6 +15,7 @@ import {
   ICellNode,
   IColumnNode,
   INode,
+  IOptionNode,
   IRowNode,
   IViewNode,
 } from '@penx/model-types'
@@ -26,6 +27,7 @@ export interface IDatabaseContext {
   columns: IColumnNode[]
   rows: IRowNode[]
   cells: ICellNode[]
+  options: IOptionNode[]
 
   currentView: IViewNode
 
@@ -36,6 +38,7 @@ export interface IDatabaseContext {
   deleteColumn(columnId: string): Promise<void>
   moveColumn(fromIndex: number, toIndex: number): Promise<void>
   updateColumnName(columnId: string, name: string): Promise<void>
+  addOption(columnId: string, name: string): Promise<void>
 }
 
 export const databaseContext = createContext<IDatabaseContext>(
@@ -85,6 +88,11 @@ export const DatabaseProvider = ({
     reloadNodes()
   }
 
+  async function addOption(columnId: string, name: string) {
+    await db.addOption(databaseId, columnId, name)
+    reloadNodes()
+  }
+
   return (
     <Provider
       value={{
@@ -97,6 +105,7 @@ export const DatabaseProvider = ({
         deleteColumn,
         moveColumn,
         updateColumnName,
+        addOption,
       }}
     >
       {children}

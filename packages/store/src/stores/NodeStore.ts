@@ -9,6 +9,7 @@ import {
   IColumnNode,
   IDatabaseNode,
   INode,
+  IOptionNode,
   IRowNode,
   ISpace,
   IViewNode,
@@ -121,12 +122,21 @@ export class NodeStore {
       },
     }) as ICellNode[]
 
+    const options = this.find({
+      where: {
+        type: NodeType.OPTION,
+        spaceId: space.id,
+        databaseId: id,
+      },
+    }) as IOptionNode[]
+
     return {
       database,
       views,
       columns,
       rows,
       cells,
+      options,
     }
   }
 

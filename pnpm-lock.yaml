@@ -264,8 +264,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.292.0
-        version: 0.292.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       luxon:
         specifier: ^3.4.4
         version: 3.4.4
@@ -589,8 +589,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       markdown-it:
         specifier: ^13.0.2
         version: 13.0.2
@@ -797,8 +797,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/shared
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
@@ -1155,8 +1155,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/local-db
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       slate:
         specifier: 0.101.1
         version: 0.101.1
@@ -1213,8 +1213,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/local-db
       lucide-react:
-        specifier: ^0.292.0
-        version: 0.292.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       slate:
         specifier: 0.101.1
         version: 0.101.1
@@ -1292,8 +1292,8 @@ importers:
         specifier: ^24.5.2
         version: 24.5.2(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.2)(slate@0.101.1)
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       markdown-it:
         specifier: ^13.0.2
         version: 13.0.2
@@ -1421,6 +1421,9 @@ importers:
       '@udecode/plate-common':
         specifier: ^25.0.1
         version: 25.0.1(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.2)(slate@0.101.1)
+      downshift:
+        specifier: ^8.2.3
+        version: 8.2.3(react@18.2.0)
       framer-motion:
         specifier: ^10.16.14
         version: 10.16.14(react-dom@18.2.0)(react@18.2.0)
@@ -1431,8 +1434,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -1586,8 +1589,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/local-db
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       react-intersection-observer:
         specifier: ^9.5.3
         version: 9.5.3(react@18.2.0)
@@ -1671,8 +1674,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/store
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
@@ -1765,8 +1768,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       slate:
         specifier: 0.101.1
         version: 0.101.1
@@ -1968,8 +1971,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/local-db
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       slate:
         specifier: 0.101.1
         version: 0.101.1
@@ -2102,8 +2105,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -2476,6 +2479,9 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
+      downshift:
+        specifier: ^8.2.3
+        version: 8.2.3(react@18.2.0)
       emoji-mart:
         specifier: ^5.5.2
         version: 5.5.2
@@ -2510,8 +2516,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       markdown-it:
         specifier: ^13.0.2
         version: 13.0.2
@@ -2981,8 +2987,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -4604,8 +4610,8 @@ importers:
         specifier: ^10.16.14
         version: 10.16.14(react-dom@18.2.0)(react@18.2.0)
       lucide-react:
-        specifier: ^0.284.0
-        version: 0.284.0(react@18.2.0)
+        specifier: ^0.295.0
+        version: 0.295.0(react@18.2.0)
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -14830,6 +14836,19 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
+  /downshift@8.2.3(react@18.2.0):
+    resolution: {integrity: sha512-1HkvqaMTZpk24aqnXaRDnT+N5JCbpFpW+dCogB11+x+FCtfkFX0MbAO4vr/JdXi1VYQF174KjNUveBXqaXTPtg==}
+    peerDependencies:
+      react: '>=16.12.0'
+    dependencies:
+      '@babel/runtime': 7.23.5
+      compute-scroll-into-view: 3.1.0
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-is: 18.2.0
+      tslib: 2.6.2
+    dev: false
+
   /duplexify@4.1.2:
     resolution: {integrity: sha512-fz3OjcNCHmRP12MJoZMPglx8m4rrFP8rovnk4vT8Fs+aonZoCwGg10dSsQsfP/E62eZcPTMSMP6686fu9Qlqtw==}
     dependencies:
@@ -18333,14 +18352,6 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
-  /lucide-react@0.284.0(react@18.2.0):
-    resolution: {integrity: sha512-dVSMHYAya/TeY3+vsk+VQJEKNQN2AhIo0+Dp09B2qpzvcBuu93H98YZykFcjIAfmanFiDd8nqfXFR38L757cyQ==}
-    peerDependencies:
-      react: ^16.5.1 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.2.0
-    dev: false
-
   /lucide-react@0.289.0(react@18.2.0):
     resolution: {integrity: sha512-D3/kt5h4KVmO9Bqlhky/szWI3puEU/KJfQWCeX8Zhvx3xx0SQ4t6vbwiK9ORBbiaqXefkBbXjoq7fOBd7s5yXQ==}
     peerDependencies:
@@ -18349,8 +18360,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /lucide-react@0.292.0(react@18.2.0):
-    resolution: {integrity: sha512-rRgUkpEHWpa5VCT66YscInCQmQuPCB1RFRzkkxMxg4b+jaL0V12E3riWWR2Sh5OIiUhCwGW/ZExuEO4Az32E6Q==}
+  /lucide-react@0.295.0(react@18.2.0):
+    resolution: {integrity: sha512-5tQQ8V4Qn9DZscW55OOk9i5z4R0TfJiMjLEwM1P1jqtY5aPD3AnY049Zfb+fyXAa1JcUS5o26Wsl/3dfvTue6w==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
