@@ -14,6 +14,7 @@ const cellsMap: Record<FieldType, any> = {
   Number: NumberCell,
   Password: PasswordCell,
   SingleSelect: TextCell,
+  MultipleSelect: TextCell,
   CreatedAt: CreatedAtCell,
   UpdatedAt: UpdatedAtCell,
 }

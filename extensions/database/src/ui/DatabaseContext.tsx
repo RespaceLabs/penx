@@ -38,7 +38,7 @@ export interface IDatabaseContext {
   deleteColumn(columnId: string): Promise<void>
   moveColumn(fromIndex: number, toIndex: number): Promise<void>
   updateColumnName(columnId: string, name: string): Promise<void>
-  addOption(columnId: string, name: string): Promise<void>
+  addOption(columnId: string, name: string): Promise<IOptionNode>
 }
 
 export const databaseContext = createContext<IDatabaseContext>(
@@ -89,8 +89,9 @@ export const DatabaseProvider = ({
   }
 
   async function addOption(columnId: string, name: string) {
-    await db.addOption(databaseId, columnId, name)
+    const newOption = await db.addOption(databaseId, columnId, name)
     reloadNodes()
+    return newOption
   }
 
   return (

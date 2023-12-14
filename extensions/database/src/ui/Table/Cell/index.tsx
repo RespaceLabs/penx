@@ -9,7 +9,7 @@ import { CreatedAtCell } from './CreatedAt'
 import { MultipleSelect } from './MultipleSelect'
 import { NumberCell } from './Number'
 import { PasswordCell } from './Password'
-import { SingleSelectCell } from './SingleSelect'
+import { SingleSelect } from './SingleSelect'
 import { TextCell } from './Text'
 import { UpdatedAtCell } from './UpdatedAt'
 
@@ -17,7 +17,7 @@ const cellsMap: Record<FieldType, any> = {
   [FieldType.Text]: TextCell,
   [FieldType.Number]: NumberCell,
   [FieldType.Password]: PasswordCell,
-  [FieldType.SingleSelect]: SingleSelectCell,
+  [FieldType.SingleSelect]: SingleSelect,
   [FieldType.MultipleSelect]: MultipleSelect,
   [FieldType.CreatedAt]: CreatedAtCell,
   [FieldType.UpdatedAt]: UpdatedAtCell,
