@@ -29,7 +29,6 @@ export const Title = (props: ElementProps<TitleElement>) => {
       fontMedium
       gray900
       relative
-      cursorNotAllowed={disabled}
       mb4
       {...attributes}
       // {...nodeProps}
