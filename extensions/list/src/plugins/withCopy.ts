@@ -14,6 +14,12 @@ export const withCopy = (editor: PenxEditor) => {
 
       const nodes = Array.from(entries)
 
+      // console.log('==========nodes:', nodes)
+
+      if (nodes.length < 2) {
+        return setFragmentData(data, event)
+      }
+
       const lines = nodes.map((item) => '- ' + Node.string(item[0]))
       // console.log('====nodes:', nodes, lines)
       data.setData('text/plain', lines.join('\n'))
