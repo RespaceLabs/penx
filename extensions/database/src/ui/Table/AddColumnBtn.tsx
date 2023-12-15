@@ -33,7 +33,7 @@ function Item({ children, fieldType, ...rest }: ItemProps) {
         FieldType.Number,
         FieldType.Password,
         FieldType.SingleSelect,
-        // FieldType.MultipleSelect,
+        FieldType.MultipleSelect,
       ].includes(fieldType)
     ) {
       await ctx.addColumn(fieldType)
@@ -82,7 +82,7 @@ function Content() {
         <Box>Single Select</Box>
       </Item>
 
-      <Item fieldType={FieldType.MultipleSelect} cursorNotAllowed opacity-60>
+      <Item fieldType={FieldType.MultipleSelect}>
         <FieldIcon fieldType={FieldType.MultipleSelect} />
         <Box>Multiple Select</Box>
       </Item>

@@ -21,8 +21,8 @@ import { useDatabaseContext } from '../../DatabaseContext'
 import { OptionTag } from '../../shared/OptionTag'
 import { CellProps } from './CellProps'
 
-export const SingleSelectCell: FC<CellProps> = memo(
-  function SingleSelectCell(props) {
+export const MultipleSelectCell: FC<CellProps> = memo(
+  function MultipleSelectCell(props) {
     const { cell } = props
     const { options, deleteCellOption } = useDatabaseContext()
     const [value, setValue] = useState<string[]>(
@@ -43,7 +43,18 @@ export const SingleSelectCell: FC<CellProps> = memo(
     return (
       <Popover>
         <PopoverTrigger asChild>
-          <Box w-100p h-40 p2 border borderNeutral200 roundedXL cursorPointer>
+          <Box
+            gap1
+            toCenterY
+            flexWrap
+            w-100p
+            h-40
+            p2
+            border
+            borderNeutral200
+            roundedXL
+            cursorPointer
+          >
             {items.map((option) => (
               <OptionTag
                 key={option.id}
@@ -56,8 +67,8 @@ export const SingleSelectCell: FC<CellProps> = memo(
             ))}
           </Box>
         </PopoverTrigger>
-        <PopoverContent column useTriggerWidth>
-          <Combobox {...props} setValue={setValue} />
+        <PopoverContent column>
+          <Combobox {...props} value={value} setValue={setValue} />
         </PopoverContent>
       </Popover>
     )
@@ -66,6 +77,7 @@ export const SingleSelectCell: FC<CellProps> = memo(
 
 function Combobox(
   props: CellProps & {
+    value: string[]
     setValue: Dispatch<SetStateAction<string[]>>
   },
 ) {
@@ -119,6 +131,7 @@ function Combobox(
     },
     async onSelectedItemChange({ selectedItem }) {
       let id = selectedItem?.id as string
+
       if (selectedItem?.id === 'CREATE') {
         const newOption = await addOption(
           cell.props.columnId,
@@ -128,8 +141,15 @@ function Combobox(
       }
 
       setTimeout(() => {
-        updateCell([id])
-        props.setValue([id])
+        const oldIds = cell.props.data || []
+        const existed = oldIds.includes(id)
+
+        if (!existed) {
+          const newIds = [...oldIds, id]
+          updateCell(newIds)
+          props.setValue(newIds)
+        }
+
         setInputValue('')
         close()
       }, 10)

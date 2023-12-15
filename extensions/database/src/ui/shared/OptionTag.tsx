@@ -17,6 +17,7 @@ export function OptionTag({
     <Box
       key={option.id}
       className="optionTag"
+      relative
       inlineFlex
       roundedFull
       px2
@@ -33,8 +34,16 @@ export function OptionTag({
       {deletable && (
         <Box
           className="remove-option"
+          absolute
+          top--4
+          right--4
+          toCenter
           hidden
+          circle4
           inlineFlex--$optionTag--hover
+          bg={option?.props.color}
+          bg--T30--hover={option?.props.color}
+          white
           onClick={(e) => {
             e.stopPropagation()
             onDelete?.()

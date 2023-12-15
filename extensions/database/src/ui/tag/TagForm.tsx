@@ -68,9 +68,9 @@ export const TagForm = forwardRef<HTMLDivElement, Props>(function TagForm(
 
             return (
               <Box key={cell.id}>
-                <Box textSM mb2 toCenterY gap1 fontSemibold>
+                <Box mb2 toCenterY gap1 gray600>
                   <FieldIcon fieldType={column.props.fieldType} />
-                  <Box>{column.props.name}</Box>
+                  <Box textXS>{column.props.name}</Box>
                 </Box>
 
                 <CellField index={index} cell={cell} columns={sortedColumns} />

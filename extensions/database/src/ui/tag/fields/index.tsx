@@ -4,6 +4,7 @@ import { db } from '@penx/local-db'
 import { FieldType, ICellNode, IColumnNode } from '@penx/model-types'
 import { store } from '@penx/store'
 import { CreatedAtCell } from './CreatedAt'
+import { MultipleSelectCell } from './MultipleSelect'
 import { NumberCell } from './Number'
 import { PasswordCell } from './Password'
 import { SingleSelectCell } from './SingleSelect'
@@ -15,7 +16,7 @@ const cellsMap: Record<FieldType, any> = {
   Number: NumberCell,
   Password: PasswordCell,
   SingleSelect: SingleSelectCell,
-  MultipleSelect: TextCell,
+  MultipleSelect: MultipleSelectCell,
   CreatedAt: CreatedAtCell,
   UpdatedAt: UpdatedAtCell,
 }

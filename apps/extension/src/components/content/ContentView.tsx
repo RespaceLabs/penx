@@ -114,10 +114,10 @@ export const ContentView = () => {
 
   useEffect(() => {
     let unsubscribe = tinykeys(window, {
-      'Shift+D': () => {
-        console.log('open penx....')
-        setType(ContentAppType.draggableEditor)
-      },
+      // 'Shift+D': () => {
+      //   console.log('open penx....')
+      //   setType(ContentAppType.draggableEditor)
+      // },
 
       'Alt+Space': () => {
         console.log('open penx....')

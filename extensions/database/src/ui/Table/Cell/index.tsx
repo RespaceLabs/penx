@@ -4,9 +4,10 @@ import { css } from '@fower/react'
 import { motion } from 'framer-motion'
 import { db } from '@penx/local-db'
 import { FieldType, ICellNode, IColumnNode } from '@penx/model-types'
+import { store } from '@penx/store'
 import { columnWidthMotion } from '../../../columnWidthMotion'
 import { CreatedAtCell } from './CreatedAt'
-import { MultipleSelect } from './MultipleSelect'
+import { MultipleSelectCell } from './MultipleSelect'
 import { NumberCell } from './Number'
 import { PasswordCell } from './Password'
 import { SingleSelectCell } from './SingleSelect'
@@ -18,7 +19,7 @@ const cellsMap: Record<FieldType, any> = {
   [FieldType.Number]: NumberCell,
   [FieldType.Password]: PasswordCell,
   [FieldType.SingleSelect]: SingleSelectCell,
-  [FieldType.MultipleSelect]: MultipleSelect,
+  [FieldType.MultipleSelect]: MultipleSelectCell,
   [FieldType.CreatedAt]: CreatedAtCell,
   [FieldType.UpdatedAt]: UpdatedAtCell,
 }
@@ -39,7 +40,6 @@ export const TableCell = memo(
     })
 
     const column = columns.find((c) => c.id === cell.props.columnId)!
-    const { rowId, columnId } = cell.props
     const fieldType = column.props.fieldType
 
     const CellComponent = cellsMap[fieldType as FieldType]
@@ -51,6 +51,9 @@ export const TableCell = memo(
       await db.updateNode(cell.id, {
         props: { ...cell.props, data },
       })
+
+      const nodes = await db.listNodesBySpaceId(cell.spaceId)
+      store.node.setNodes(nodes)
     }
 
     return (
