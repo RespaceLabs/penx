@@ -3,9 +3,7 @@ import {
   Dispatch,
   PropsWithChildren,
   SetStateAction,
-  useCallback,
   useContext,
-  useEffect,
   useState,
 } from 'react'
 import { useDatabase } from '@penx/hooks'
@@ -39,6 +37,7 @@ export interface IDatabaseContext {
   moveColumn(fromIndex: number, toIndex: number): Promise<void>
   updateColumnName(columnId: string, name: string): Promise<void>
   addOption(columnId: string, name: string): Promise<IOptionNode>
+  deleteCellOption(cellId: string, optionId: string): Promise<void>
 }
 
 export const databaseContext = createContext<IDatabaseContext>(
@@ -94,6 +93,11 @@ export const DatabaseProvider = ({
     return newOption
   }
 
+  async function deleteCellOption(cellId: string, optionId: string) {
+    await db.deleteCellOption(cellId, optionId)
+    reloadNodes()
+  }
+
   return (
     <Provider
       value={{
@@ -107,6 +111,7 @@ export const DatabaseProvider = ({
         moveColumn,
         updateColumnName,
         addOption,
+        deleteCellOption,
       }}
     >
       {children}

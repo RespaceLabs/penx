@@ -18,12 +18,13 @@ import {
 } from 'uikit'
 import { IOptionNode } from '@penx/model-types'
 import { useDatabaseContext } from '../../DatabaseContext'
+import { OptionTag } from '../../shared/OptionTag'
 import { CellProps } from './CellProps'
 
 export const SingleSelectCell: FC<CellProps> = memo(
   function SingleSelectCell(props) {
     const { cell } = props
-    const { options } = useDatabaseContext()
+    const { options, deleteCellOption } = useDatabaseContext()
     const [value, setValue] = useState<string[]>(
       Array.isArray(cell.props.data) ? cell.props.data : [],
     )
@@ -43,19 +44,15 @@ export const SingleSelectCell: FC<CellProps> = memo(
       <Popover>
         <PopoverTrigger asChild>
           <Box w-100p h-100p p2>
-            {items.map((item) => (
-              <Box
-                key={item.id}
-                inlineFlex
-                roundedFull
-                px2
-                py1
-                textSM
-                color={item?.props.color}
-                bg--T90={item?.props.color}
-              >
-                {item ? item.props.name : ''}
-              </Box>
+            {items.map((option) => (
+              <OptionTag
+                key={option.id}
+                option={option}
+                deletable
+                onDelete={async () => {
+                  await deleteCellOption(cell.id, option.id)
+                }}
+              />
             ))}
           </Box>
         </PopoverTrigger>
@@ -176,18 +173,8 @@ function Combobox(
               {...getItemProps({ item, index })}
             >
               {item.id === 'CREATE' && <Box>Create</Box>}
-              <Box
-                inlineFlex
-                roundedFull
-                px2
-                py1
-                textSM
-                color={item?.props.color}
-                bg--T90={item?.props.color}
-                bgNeutral200={!item?.props.color}
-              >
-                {item ? item.props.name : ''}
-              </Box>
+
+              <OptionTag option={item} />
             </Box>
           ))}
         </Box>

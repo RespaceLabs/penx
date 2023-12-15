@@ -940,6 +940,21 @@ class DB {
     }
   }
 
+  deleteCellOption = async (cellId: string, optionId: string) => {
+    const cell = await this.getNode(cellId)
+
+    const optionIds: string[] = Array.isArray(cell.props.data)
+      ? cell.props.data
+      : []
+
+    await this.updateNode(cell.id, {
+      props: {
+        ...cell.props,
+        data: optionIds.filter((id) => id !== optionId),
+      },
+    })
+  }
+
   moveColumn = async (
     databaseId: string,
     viewId: string,
