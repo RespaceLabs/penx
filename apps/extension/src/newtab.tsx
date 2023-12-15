@@ -1,5 +1,3 @@
-import './globals.css'
-
 import { EditorApp, initFower } from '@penx/app'
 import { db } from '@penx/local-db'
 import { SessionProvider } from '@penx/session'
@@ -8,6 +6,9 @@ import { store } from '@penx/store'
 import { BACKGROUND_EVENTS } from './common/action'
 import { TrpcProvider } from './components/TrpcProvider'
 import { useSession } from './hooks/useSession'
+
+import 'react-datepicker/dist/react-datepicker.css'
+import './globals.css'
 
 initFower()
 
