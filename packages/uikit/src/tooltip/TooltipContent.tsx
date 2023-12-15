@@ -58,6 +58,7 @@ export const TooltipContent = forwardRef<HTMLDivElement, TooltipContentProps>(
             maxW-400
             px3
             py2
+            textXS
             zIndex-10000
             textSM
             bgBlack
