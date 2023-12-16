@@ -6,7 +6,7 @@ import { ColumnItem } from './ColumnItem/ColumnItem'
 import { DeleteColumnModal } from './ColumnItem/DeleteColumnModal'
 
 export const TableHeader = () => {
-  const { columns, views } = useDatabaseContext()
+  const { columns, views, currentView } = useDatabaseContext()
   if (!columns.length) return null
 
   // TODO: views[0] is too hack
@@ -22,7 +22,7 @@ export const TableHeader = () => {
       <Box
         toCenter
         bgWhite
-        h-40
+        h-36
         borderBottom
         borderLeft
         borderTop
@@ -32,7 +32,12 @@ export const TableHeader = () => {
         <Box as="input" type="checkbox" mr--8 />
       </Box>
       {sortedColumns.map((column, index) => (
-        <ColumnItem key={column.id} column={column} index={index} />
+        <ColumnItem
+          key={column.id}
+          column={column}
+          view={currentView}
+          index={index}
+        />
       ))}
       <AddColumnBtn />
     </Box>

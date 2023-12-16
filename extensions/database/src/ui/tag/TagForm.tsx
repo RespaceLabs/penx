@@ -21,7 +21,7 @@ export const TagForm = forwardRef<HTMLDivElement, Props>(function TagForm(
 ) {
   const { columns, views, cells } = useDatabase(databaseId)
   const tableView = views.find(
-    (view) => view.props.viewType === ViewType.Table,
+    (view) => view.props.viewType === ViewType.TABLE,
   )!
 
   const sortedColumns = tableView.children.map(

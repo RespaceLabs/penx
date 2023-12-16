@@ -6,9 +6,9 @@ import {
   Home,
   Key,
   ListChecks,
+  Text,
 } from 'lucide-react'
 import { FieldType } from '@penx/model-types'
-import { IconSingleLineText } from './IconSingleLineText'
 
 interface Props {
   index?: number
@@ -18,14 +18,14 @@ interface Props {
 
 export const FieldIcon = ({ fieldType, size = 16, index }: Props) => {
   const iconsMap: Record<FieldType, any> = {
-    [FieldType.Text]: IconSingleLineText,
-    [FieldType.Number]: Hash,
-    [FieldType.Password]: Key,
-    [FieldType.SingleSelect]: CheckCircle2,
-    [FieldType.MultipleSelect]: ListChecks,
-    [FieldType.Date]: CalendarDays,
-    [FieldType.CreatedAt]: CalendarDays,
-    [FieldType.UpdatedAt]: CalendarDays,
+    [FieldType.TEXT]: Text,
+    [FieldType.NUMBER]: Hash,
+    [FieldType.PASSWORD]: Key,
+    [FieldType.SINGLE_SELECT]: CheckCircle2,
+    [FieldType.MULTIPLE_SELECT]: ListChecks,
+    [FieldType.DATE]: CalendarDays,
+    [FieldType.CREATED_AT]: CalendarDays,
+    [FieldType.UPDATED_AT]: CalendarDays,
   }
   let Icon = iconsMap[fieldType]
 

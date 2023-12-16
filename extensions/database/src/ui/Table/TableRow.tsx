@@ -5,7 +5,6 @@ import { db } from '@penx/local-db'
 import { ICellNode, IColumnNode, IRowNode } from '@penx/model-types'
 import { store } from '@penx/store'
 import { FIRST_COL_WIDTH } from '../../constants'
-import { IconDrag } from '../shared/icons/IconDrag'
 import { TableCell } from './Cell'
 
 interface Props {
@@ -36,7 +35,7 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
 
   return (
     <>
-      <ContextMenu id={menuId}>
+      {/* <ContextMenu id={menuId}>
         <MenuItem
           onClick={() => {
             //
@@ -51,14 +50,14 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
         >
           Insert below
         </MenuItem>
-        {/* <MenuItem
+        <MenuItem
           onClick={() => {
             store.node.deleteRow(row.id)
           }}
         >
           Delete Row
-        </MenuItem> */}
-      </ContextMenu>
+        </MenuItem>
+      </ContextMenu> */}
       <Box flex-1 toLeft className="gridRow" onContextMenu={show}>
         <Box
           className="grid-cell"
@@ -78,6 +77,9 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
             invisible
             visible--$gridRow--hover
             bgTransparent
+            style={{
+              flexShrink: 0,
+            }}
             onClick={clickBullet}
           />
 

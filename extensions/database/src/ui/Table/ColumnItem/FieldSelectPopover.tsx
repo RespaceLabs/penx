@@ -7,12 +7,12 @@ import { FieldType } from '@penx/model-types'
 import { FieldIcon } from '../../shared/FieldIcon'
 
 const textMap: Record<string, string> = {
-  [FieldType.Text]: 'Text',
-  [FieldType.Number]: 'Number',
-  [FieldType.Password]: 'Password',
-  [FieldType.SingleSelect]: 'Single Select',
-  [FieldType.CreatedAt]: 'Created At',
-  [FieldType.UpdatedAt]: 'Updated At',
+  [FieldType.TEXT]: 'Text',
+  [FieldType.NUMBER]: 'Number',
+  [FieldType.PASSWORD]: 'Password',
+  [FieldType.SINGLE_SELECT]: 'Single Select',
+  [FieldType.CREATED_AT]: 'Created At',
+  [FieldType.UPDATED_AT]: 'Updated At',
 }
 
 interface Props {
@@ -44,14 +44,14 @@ export const FieldSelectPopover = forwardRef<HTMLDivElement, Props>(
               {Object.entries(FieldType)
                 .filter(([_, value]) =>
                   [
-                    FieldType.Text,
-                    FieldType.Number,
-                    FieldType.Password,
+                    FieldType.TEXT,
+                    FieldType.NUMBER,
+                    FieldType.PASSWORD,
                   ].includes(value),
                 )
                 .map(([key, value]) => (
                   <Item
-                    fieldType={FieldType.Text}
+                    fieldType={FieldType.TEXT}
                     key={key}
                     onClick={() => {
                       onChange(value)

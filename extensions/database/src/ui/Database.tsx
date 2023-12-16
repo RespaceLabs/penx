@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import { ElementProps } from '@penx/extension-typings'
 import { DatabaseElement } from '../types'
 import { DatabaseProvider } from './DatabaseContext'
+import { AddViewBtn } from './shared/AddViewBtn'
 import { ViewList } from './ViewList'
 import { ViewRenderer } from './ViewRenderer'
 
@@ -17,7 +18,10 @@ export const Database = ({
       {children}
 
       <DatabaseProvider databaseId={databaseId}>
-        <ViewList />
+        <Box toCenterY gap2 mb2>
+          <ViewList />
+          <AddViewBtn />
+        </Box>
         <ViewRenderer />
       </DatabaseProvider>
     </Box>

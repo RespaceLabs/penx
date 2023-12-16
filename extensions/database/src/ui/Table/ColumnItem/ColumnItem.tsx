@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { Box, styled } from '@fower/react'
 import { motion, useMotionValue, useTransform } from 'framer-motion'
 import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
-import { IColumnNode } from '@penx/model-types'
+import { IColumnNode, IViewNode } from '@penx/model-types'
 import { columnWidthMotion } from '../../../columnWidthMotion'
+import { useDatabaseContext } from '../../DatabaseContext'
 import { FieldIcon } from '../../shared/FieldIcon'
 import { ColumnMenu } from './ColumnMenu'
 import { ResizeHandle } from './ResizeHandle'
@@ -13,10 +14,13 @@ const AnimatedDiv = styled(motion.div)
 interface Props {
   index: number
   column: IColumnNode
+  view: IViewNode
 }
 
-export const ColumnItem = ({ column, index }: Props) => {
-  const { width: w = 120 } = column.props
+export const ColumnItem = ({ column, view, index }: Props) => {
+  const viewColumn = view.props.columns.find(({ id }) => id === column.id)!
+
+  const { width: w = 160 } = viewColumn || {}
   const x = useMotionValue(w - 2)
   const width = useTransform(x, (latest) => latest + 2)
 
@@ -31,7 +35,7 @@ export const ColumnItem = ({ column, index }: Props) => {
         borderTop
         borderBottom
         borderRight
-        h-40
+        h-36
         toCenterY
         cursorPointer
         relative
@@ -53,8 +57,8 @@ export const ColumnItem = ({ column, index }: Props) => {
               toCenterY
               textSM
               gray500
-              gap2
-              px3
+              gap1
+              px2
               onClick={() => {
                 setIsOpen(!isOpen)
               }}

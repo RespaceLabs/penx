@@ -40,7 +40,7 @@ export function EditField({ column, onSave }: EditFieldProps) {
         render={({ field }) => <FieldSelectPopover {...field} />}
       />
 
-      {column.props.fieldType === FieldType.SingleSelect && (
+      {column.props.fieldType === FieldType.SINGLE_SELECT && (
         <>
           <Box textXS gray500>
             Options

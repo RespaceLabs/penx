@@ -45,42 +45,42 @@ function Item({ children, fieldType, ...rest }: ItemProps) {
 function Content() {
   return (
     <Box w-200 p2>
-      <Item fieldType={FieldType.Text}>
-        <FieldIcon fieldType={FieldType.Text} />
+      <Item fieldType={FieldType.TEXT}>
+        <FieldIcon fieldType={FieldType.TEXT} />
         <Box>Text</Box>
       </Item>
-      <Item fieldType={FieldType.Number}>
-        <FieldIcon fieldType={FieldType.Number} />
+      <Item fieldType={FieldType.NUMBER}>
+        <FieldIcon fieldType={FieldType.NUMBER} />
         <Box>Number</Box>
       </Item>
 
-      <Item fieldType={FieldType.Password}>
-        <FieldIcon fieldType={FieldType.Password} />
+      <Item fieldType={FieldType.PASSWORD}>
+        <FieldIcon fieldType={FieldType.PASSWORD} />
         <Box>Password</Box>
       </Item>
 
-      <Item fieldType={FieldType.SingleSelect}>
-        <FieldIcon fieldType={FieldType.SingleSelect} />
+      <Item fieldType={FieldType.SINGLE_SELECT}>
+        <FieldIcon fieldType={FieldType.SINGLE_SELECT} />
         <Box>Single Select</Box>
       </Item>
 
-      <Item fieldType={FieldType.MultipleSelect}>
-        <FieldIcon fieldType={FieldType.MultipleSelect} />
+      <Item fieldType={FieldType.MULTIPLE_SELECT}>
+        <FieldIcon fieldType={FieldType.MULTIPLE_SELECT} />
         <Box>Multiple Select</Box>
       </Item>
 
-      <Item fieldType={FieldType.Date}>
-        <FieldIcon fieldType={FieldType.Date} />
+      <Item fieldType={FieldType.DATE}>
+        <FieldIcon fieldType={FieldType.DATE} />
         <Box>Date</Box>
       </Item>
 
-      <Item fieldType={FieldType.CreatedAt}>
-        <FieldIcon fieldType={FieldType.CreatedAt} />
+      <Item fieldType={FieldType.CREATED_AT}>
+        <FieldIcon fieldType={FieldType.CREATED_AT} />
         <Box>Created At</Box>
       </Item>
 
-      <Item fieldType={FieldType.UpdatedAt}>
-        <FieldIcon fieldType={FieldType.UpdatedAt} />
+      <Item fieldType={FieldType.UPDATED_AT}>
+        <FieldIcon fieldType={FieldType.UPDATED_AT} />
         <Box>Updated At</Box>
       </Item>
     </Box>
@@ -91,7 +91,7 @@ interface Props {}
 
 export const AddColumnBtn: FC<Props> = ({}) => {
   return (
-    <Box toCenter square-40 borderBottom borderRight borderTop>
+    <Box toCenter square-36 borderBottom borderRight borderTop>
       <Popover placement="bottom">
         <PopoverTrigger asChild>
           <Box

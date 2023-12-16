@@ -30,8 +30,8 @@ export const Workbench = () => {
       {session && <QueryCloudSpaces />}
 
       {!isMobile && <CommandPanel />}
-      <Box h-100vh toLeft black textSM flex-1 borderRight>
-        <Box w={[0, 0, SIDEBAR_WIDTH]} toLeft>
+      <Box h-100vh toLeft black flex-1>
+        <Box w={[0, 0, SIDEBAR_WIDTH]} toLeft flexShrink-0>
           <Sidebar />
         </Box>
         <Box flex-1>

@@ -16,14 +16,14 @@ import { TextCell } from './Text'
 import { UpdatedAtCell } from './UpdatedAt'
 
 const cellsMap: Record<FieldType, any> = {
-  [FieldType.Text]: TextCell,
-  [FieldType.Number]: NumberCell,
-  [FieldType.Password]: PasswordCell,
-  [FieldType.SingleSelect]: SingleSelectCell,
-  [FieldType.MultipleSelect]: MultipleSelectCell,
-  [FieldType.Date]: DateCell,
-  [FieldType.CreatedAt]: CreatedAtCell,
-  [FieldType.UpdatedAt]: UpdatedAtCell,
+  [FieldType.TEXT]: TextCell,
+  [FieldType.NUMBER]: NumberCell,
+  [FieldType.PASSWORD]: PasswordCell,
+  [FieldType.SINGLE_SELECT]: SingleSelectCell,
+  [FieldType.MULTIPLE_SELECT]: MultipleSelectCell,
+  [FieldType.DATE]: DateCell,
+  [FieldType.CREATED_AT]: CreatedAtCell,
+  [FieldType.UPDATED_AT]: UpdatedAtCell,
 }
 
 interface Props {
@@ -44,7 +44,7 @@ export const TableCell = memo(
     const column = columns.find((c) => c.id === cell.props.columnId)!
     const fieldType = column.props.fieldType
 
-    const CellComponent = cellsMap[fieldType as FieldType]
+    const CellComponent = cellsMap[fieldType as FieldType] ?? TextCell
 
     // TODO: get width from store, see ColumnItem
     const width = columnWidthMotion[column.id]

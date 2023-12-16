@@ -61,14 +61,14 @@ export interface INode {
 }
 
 export enum FieldType {
-  Text = 'Text',
-  Number = 'Number',
-  Password = 'Password',
-  SingleSelect = 'SingleSelect',
-  MultipleSelect = 'MultipleSelect',
-  Date = 'Date',
-  CreatedAt = 'CreatedAt',
-  UpdatedAt = 'UpdatedAt',
+  TEXT = 'TEXT',
+  NUMBER = 'NUMBER',
+  PASSWORD = 'PASSWORD',
+  SINGLE_SELECT = 'SINGLE_SELECT',
+  MULTIPLE_SELECT = 'MULTIPLE_SELECT',
+  DATE = 'DATE',
+  CREATED_AT = 'CREATED_AT',
+  UPDATED_AT = 'UPDATED_AT',
 }
 
 export interface IRootNode extends INode {
@@ -100,7 +100,6 @@ export interface IColumnNode extends INode {
     fieldType: FieldType
     isPrimary: boolean
     config: any
-    width: number
     optionIds?: string[]
   }
 }
@@ -127,11 +126,17 @@ export function isCellNode(node: any): node is ICellNode {
 }
 
 export enum ViewType {
-  Table = 'Table',
-  List = 'List',
-  Calendar = 'Calendar',
-  Gallery = 'Gallery',
-  Kanban = 'Kanban',
+  TABLE = 'TABLE',
+  LIST = 'LIST',
+  CALENDAR = 'CALENDAR',
+  GALLERY = 'GALLERY',
+  KANBAN = 'KANBAN',
+}
+
+export interface ViewColumn {
+  id: string // column id
+  width: number
+  visible: boolean
 }
 
 export interface IViewNode extends INode {
@@ -141,7 +146,8 @@ export interface IViewNode extends INode {
   props: {
     name: string
     viewType: ViewType
-    // stackedColumnId: string
+    columns: ViewColumn[]
+    stackedColumnId?: string
   }
 }
 

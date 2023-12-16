@@ -6,6 +6,7 @@ import { TableHeader } from './Table/TableHeader'
 interface TableViewProps {}
 
 export const TableView = ({}: PropsWithChildren<TableViewProps>) => {
+  // TODO: to handle overflow
   return (
     <Box>
       <TableHeader />

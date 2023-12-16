@@ -13,14 +13,14 @@ import { TextCell } from './Text'
 import { UpdatedAtCell } from './UpdatedAt'
 
 const cellsMap: Record<FieldType, any> = {
-  Text: TextCell,
-  Number: NumberCell,
-  Password: PasswordCell,
-  SingleSelect: SingleSelectCell,
-  MultipleSelect: MultipleSelectCell,
-  Date: DateCell,
-  CreatedAt: CreatedAtCell,
-  UpdatedAt: UpdatedAtCell,
+  [FieldType.TEXT]: TextCell,
+  [FieldType.NUMBER]: NumberCell,
+  [FieldType.PASSWORD]: PasswordCell,
+  [FieldType.SINGLE_SELECT]: SingleSelectCell,
+  [FieldType.MULTIPLE_SELECT]: MultipleSelectCell,
+  [FieldType.DATE]: DateCell,
+  [FieldType.CREATED_AT]: CreatedAtCell,
+  [FieldType.UPDATED_AT]: UpdatedAtCell,
 }
 
 interface Props {

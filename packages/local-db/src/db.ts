@@ -15,6 +15,7 @@ import {
   ISpace,
   IViewNode,
   NodeType,
+  ViewColumn,
   ViewType,
 } from '@penx/model-types'
 import { uniqueId } from '@penx/unique-id'
@@ -493,6 +494,12 @@ class DB {
 
     const columns = await this.initColumns(space.id, database.id)
 
+    const viewColumns: ViewColumn[] = columns.map((column) => ({
+      id: column.id,
+      width: 160,
+      visible: true,
+    }))
+
     // init table view
     const tableView = await this.createNode<IViewNode>({
       spaceId: space.id,
@@ -502,7 +509,8 @@ class DB {
       children: columns.map((column) => column.id),
       props: {
         name: 'Table',
-        viewType: ViewType.Table,
+        viewType: ViewType.TABLE,
+        columns: viewColumns,
       },
     })
 
@@ -515,7 +523,8 @@ class DB {
       children: columns.map((column) => column.id),
       props: {
         name: 'List',
-        viewType: ViewType.List,
+        viewType: ViewType.LIST,
+        columns: viewColumns,
       },
     })
 
@@ -535,9 +544,8 @@ class DB {
       props: {
         name: 'Note',
         description: '',
-        fieldType: FieldType.Text,
+        fieldType: FieldType.TEXT,
         isPrimary: true,
-        width: 180,
         config: {},
       },
     })
@@ -549,10 +557,9 @@ class DB {
       props: {
         name: 'Description',
         description: '',
-        fieldType: FieldType.Text,
+        fieldType: FieldType.TEXT,
         isPrimary: false,
         config: {},
-        width: 160,
       },
     })
 
@@ -670,7 +677,52 @@ class DB {
     return database!
   }
 
+  addView = async (databaseId: string, viewType: ViewType) => {
+    const database = await this.getNode(databaseId)
+
+    const columns = await this.node.select({
+      where: {
+        type: NodeType.COLUMN,
+        spaceId: database.spaceId,
+        databaseId,
+      },
+      sortBy: 'createdAt',
+      orderByDESC: false,
+    })
+
+    const viewColumns: ViewColumn[] = columns.map((column) => ({
+      id: column.id,
+      width: 160,
+      visible: true,
+    }))
+
+    const view = await this.createNode<IViewNode>({
+      spaceId: database.spaceId,
+      databaseId: database.id,
+      parentId: database.id,
+      type: NodeType.VIEW,
+      children: columns.map((column) => column.id),
+      props: {
+        name: viewType.toLowerCase(),
+        viewType: viewType,
+        columns: viewColumns,
+      },
+    })
+    return view
+  }
+
   addColumn = async (databaseId: string, fieldType: FieldType) => {
+    const nameMap: Record<FieldType, string> = {
+      [FieldType.TEXT]: 'Text',
+      [FieldType.NUMBER]: 'Number',
+      [FieldType.PASSWORD]: 'Password',
+      [FieldType.SINGLE_SELECT]: 'Single Select',
+      [FieldType.MULTIPLE_SELECT]: 'Multiple Select',
+      [FieldType.DATE]: 'Date',
+      [FieldType.CREATED_AT]: 'Created At',
+      [FieldType.UPDATED_AT]: 'Updated At',
+    }
+
     const space = await this.getActiveSpace()
     const spaceId = space.id
 
@@ -680,12 +732,11 @@ class DB {
       parentId: databaseId,
       type: NodeType.COLUMN,
       props: {
-        name: fieldType,
+        name: nameMap[fieldType],
         description: '',
         fieldType,
         isPrimary: false,
         config: {},
-        width: 120,
       },
     })
 
@@ -700,7 +751,18 @@ class DB {
     for (const view of views) {
       await this.node.updateByPk(view.id, {
         children: [...view.children, column.id],
-      })
+        props: {
+          ...view.props,
+          columns: [
+            ...view.props.columns,
+            {
+              id: column.id,
+              width: 160,
+              visible: true,
+            },
+          ],
+        },
+      } as IViewNode)
     }
 
     const rows = await this.node.select({
@@ -748,7 +810,7 @@ class DB {
     })
 
     // TODO: too hack, should pass a view id to find a view
-    const view = views.find((node) => node.props.viewType === ViewType.Table)!
+    const view = views.find((node) => node.props.viewType === ViewType.TABLE)!
 
     const columns = await this.node.select({
       where: {

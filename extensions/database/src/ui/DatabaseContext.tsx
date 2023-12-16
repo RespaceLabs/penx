@@ -16,6 +16,7 @@ import {
   IOptionNode,
   IRowNode,
   IViewNode,
+  ViewType,
 } from '@penx/model-types'
 import { store } from '@penx/store'
 
@@ -31,6 +32,7 @@ export interface IDatabaseContext {
 
   viewIndex: number
   setViewIndex: Dispatch<SetStateAction<number>>
+  addView(viewType: ViewType): Promise<void>
   addRow(): Promise<void>
   addColumn(fieldType: FieldType): Promise<void>
   deleteColumn(columnId: string): Promise<void>
@@ -61,13 +63,18 @@ export const DatabaseProvider = ({
     store.node.setNodes(nodes)
   }
 
-  async function addColumn(fieldType: FieldType) {
-    await db.addColumn(databaseId, fieldType)
+  async function addView(viewType: ViewType) {
+    await db.addView(databaseId, viewType)
     reloadNodes()
   }
 
   async function addRow() {
     await db.addRow(databaseId)
+    reloadNodes()
+  }
+
+  async function addColumn(fieldType: FieldType) {
+    await db.addColumn(databaseId, fieldType)
     reloadNodes()
   }
 
@@ -105,6 +112,7 @@ export const DatabaseProvider = ({
         viewIndex,
         currentView: database.views[viewIndex] as IViewNode,
         setViewIndex,
+        addView,
         addRow,
         addColumn,
         deleteColumn,

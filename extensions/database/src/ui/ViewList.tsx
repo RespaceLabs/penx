@@ -5,7 +5,7 @@ export const ViewList = () => {
   const { views, viewIndex, setViewIndex } = useDatabaseContext()
 
   return (
-    <Box flex-1 toLeft gap1 mb2>
+    <Box toCenterY gap1>
       {views.map((view, index) => (
         <Box
           key={view.id}

@@ -43,7 +43,7 @@ export function useEditFieldForm(column: IColumnNode) {
       ...data,
     })
 
-    if ([FieldType.SingleSelect].includes(column.props.fieldType)) {
+    if ([FieldType.SINGLE_SELECT].includes(column.props.fieldType)) {
       await db.updateColumnOptions(column.id, data.options || [])
     }
 
