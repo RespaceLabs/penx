@@ -7,6 +7,9 @@ import {
   type LucideProps,
 } from 'lucide-react'
 import { useEffect, useState, type ComponentType } from 'react'
+import { Button } from 'uikit'
+
+import { Logo } from '@penx/app'
 
 import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
 import type { MsgRes, TabInfo } from '~/common/helper'
@@ -137,6 +140,21 @@ export function Popup() {
 
   return (
     <Box p4 h-360 w-300 column toBetween>
+      <Box toBetween mt--4>
+        <Logo size={28} />
+        <Button
+          colorScheme="neutral600"
+          variant="light"
+          size="sm"
+          text-13--i
+          onClick={() => {
+            chrome.tabs.create({
+              url: './tabs/editor.html',
+            })
+          }}>
+          Open editor
+        </Button>
+      </Box>
       {/* <UserProfile /> */}
       {/* your currentUrl is: {tab?.url} */}
       <Box grid gridTemplateColumns-2 gap2>
