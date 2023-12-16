@@ -1,5 +1,5 @@
 import type { NodeEntry } from 'slate'
-import { Editor, Element, Node, Transforms } from 'slate'
+import { Editor, Node, Transforms } from 'slate'
 import type { ListsSchema } from '../types'
 
 /**
@@ -15,12 +15,19 @@ export function normalizeListItemTextChildren(
     return false
   }
 
-  // for (const [childNode, childPath] of Node.children(editor, path)) {
-  //   if (Element.isElement(childNode) && !Editor.isInline(editor, childNode)) {
-  //     Transforms.unwrapNodes(editor, { at: childPath })
-  //     return true
-  //   }
-  // }
+  for (const [childNode, childPath] of Node.children(editor, path)) {
+    if (!Reflect.has(childNode, 'type') && Reflect.has(childNode, 'text')) {
+      Transforms.wrapNodes(
+        editor,
+        {
+          type: 'p',
+          children: [childNode],
+        } as any,
+        { at: childPath },
+      )
+      return true
+    }
+  }
 
   return false
 }
