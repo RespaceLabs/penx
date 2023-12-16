@@ -1,9 +1,9 @@
 import { ViewType } from '@penx/model-types'
 import { useDatabaseContext } from './DatabaseContext'
-import { GalleryView } from './GalleryView'
-import { KanbanView } from './KanbanView'
-import { ListView } from './ListView'
-import { TableView } from './TableView'
+import { GalleryView } from './views/GalleryView'
+import { KanbanView } from './views/KanbanView'
+import { ListView } from './views/ListView'
+import { TableView } from './views/TableView'
 
 export const ViewRenderer = () => {
   const { currentView } = useDatabaseContext()

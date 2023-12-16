@@ -935,6 +935,13 @@ class DB {
     })
   }
 
+  updateView = async (viewId: string, props: Partial<IViewNode['props']>) => {
+    const view = await this.getNode(viewId)
+    await this.updateNode(viewId, {
+      props: { ...view.props, ...props },
+    })
+  }
+
   addOption = async (databaseId: string, columnId: string, name: string) => {
     const space = await this.getActiveSpace()
 

@@ -29,7 +29,7 @@ export const ViewIcon = ({ viewType, size = 16, index }: Props) => {
 
   if (Icon)
     return (
-      <Box gray500>
+      <Box gray500 inlineFlex>
         <Icon size={size} />
       </Box>
     )

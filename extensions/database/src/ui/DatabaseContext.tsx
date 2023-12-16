@@ -32,6 +32,7 @@ export interface IDatabaseContext {
 
   viewIndex: number
   setViewIndex: Dispatch<SetStateAction<number>>
+
   addView(viewType: ViewType): Promise<void>
   addRow(): Promise<void>
   addColumn(fieldType: FieldType): Promise<void>
@@ -40,6 +41,7 @@ export interface IDatabaseContext {
   updateColumnName(columnId: string, name: string): Promise<void>
   addOption(columnId: string, name: string): Promise<IOptionNode>
   deleteCellOption(cellId: string, optionId: string): Promise<void>
+  updateView(viewId: string, props: Partial<IViewNode['props']>): Promise<void>
 }
 
 export const databaseContext = createContext<IDatabaseContext>(
@@ -105,6 +107,14 @@ export const DatabaseProvider = ({
     reloadNodes()
   }
 
+  async function updateView(
+    viewId: string,
+    props: Partial<IViewNode['props']>,
+  ) {
+    await db.updateView(viewId, props)
+    reloadNodes()
+  }
+
   return (
     <Provider
       value={{
@@ -120,6 +130,7 @@ export const DatabaseProvider = ({
         updateColumnName,
         addOption,
         deleteCellOption,
+        updateView,
       }}
     >
       {children}

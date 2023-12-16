@@ -2,8 +2,8 @@ import { Box } from '@fower/react'
 import { ElementProps } from '@penx/extension-typings'
 import { DatabaseElement } from '../types'
 import { DatabaseProvider } from './DatabaseContext'
-import { AddViewBtn } from './shared/AddViewBtn'
-import { ViewList } from './ViewList'
+import { AddViewBtn } from './ViewNav/AddViewBtn'
+import { ViewList } from './ViewNav/ViewList'
 import { ViewRenderer } from './ViewRenderer'
 
 export const Database = ({

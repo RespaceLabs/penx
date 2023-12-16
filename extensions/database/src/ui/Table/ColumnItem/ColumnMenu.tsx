@@ -108,7 +108,7 @@ export function ColumnMenu({ index, column }: ColumnMenuProps) {
             }}
           >
             <Box>
-              <Trash size={16} />
+              <Trash2 size={16} />
             </Box>
             <Box>Delete Column</Box>
           </MenuItem>
