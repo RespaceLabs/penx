@@ -1,4 +1,5 @@
 import { Box } from '@fower/react'
+import { Divider } from 'uikit'
 import { ElementProps } from '@penx/extension-typings'
 import { DatabaseElement } from '../types'
 import { DatabaseProvider } from './DatabaseContext'
@@ -19,11 +20,12 @@ export const Database = ({
       {children}
 
       <DatabaseProvider databaseId={databaseId}>
-        <Box toCenterY gap2 mb2>
-          <ViewList />
-          <AddViewBtn />
-        </Box>
-        <Box mb1>
+        <Box toCenterY gap8 mb2>
+          <Box toCenterY gap2>
+            <ViewList />
+            <AddViewBtn />
+          </Box>
+          <Divider h-20 orientation="vertical" />
           <ViewToolBar />
         </Box>
         <ViewRenderer />

@@ -1065,12 +1065,12 @@ class DB {
     fromIndex: number,
     toIndex: number,
   ) => {
-    const views = await this.node.select({
+    const views = (await this.node.select({
       where: {
         type: NodeType.VIEW,
         databaseId: databaseId,
       },
-    })
+    })) as IViewNode[]
 
     const view = views.find((node) => node.id === viewId)!
 
@@ -1083,8 +1083,11 @@ class DB {
 
     if (!columns[fromIndex] || !columns[toIndex]) return
 
-    await this.updateNode(view.id, {
-      children: arrayMoveImmutable(view.children, fromIndex, toIndex),
+    await this.updateNode<IViewNode>(view.id, {
+      props: {
+        ...view.props,
+        columns: arrayMoveImmutable(view.props.columns, fromIndex, toIndex),
+      },
     })
   }
 }

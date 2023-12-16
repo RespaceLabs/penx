@@ -28,7 +28,10 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { Box } from '@fower/react'
+import { produce } from 'immer'
 import { Button } from 'uikit'
+import { useDatabase } from '@penx/hooks'
+import { store } from '@penx/store'
 import { useDatabaseContext } from '../../DatabaseContext'
 import { Item } from './Item'
 import { SortableItem } from './SortableItem'
@@ -40,8 +43,8 @@ const measuring: MeasuringConfiguration = {
 }
 
 export const HideFieldOverlay = () => {
-  const { currentView } = useDatabaseContext()
-  const [activeId, setActiveId] = useState<string | null>(null as any)
+  const { currentView, moveColumn } = useDatabaseContext()
+  const [activeId, setActiveId] = useState<string | null>(null)
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -51,19 +54,26 @@ export const HideFieldOverlay = () => {
   )
 
   const viewColumns = currentView.props.columns
-  console.log('==========viewColumns:', viewColumns)
 
-  const items = viewColumns.map((column) => column.id)
+  // const items = viewColumns.map((column) => column.id)
+  const [items, setItems] = useState<string[]>(
+    viewColumns.map((column) => column.id),
+  )
 
-  function handleDragStart(event: DragStartEvent) {
-    const { active } = event
+  function handleDragStart({ active }: DragStartEvent) {
+    if (active) {
+      setActiveId(active.id as string)
+    }
   }
 
-  function handleDragEnd(event: DragEndEvent) {
+  async function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
 
     if (active.id !== over?.id) {
-      //
+      const oldIndex = viewColumns.findIndex((i) => i.id === active.id)
+      const newIndex = viewColumns.findIndex((i) => i.id === over?.id)
+      setItems(arrayMove(items, oldIndex, newIndex))
+      moveColumn(oldIndex, newIndex)
     }
 
     setActiveId(null)
@@ -73,11 +83,12 @@ export const HideFieldOverlay = () => {
     setActiveId(null)
   }
 
-  // const activeItem = activeId ? nodes.find(({ id }) => id === activeId) : null
-  const activeItem = false
+  const activeItem = activeId
+    ? viewColumns.find(({ id }) => id === activeId)
+    : null
 
   return (
-    <Box bgWhite rounded-4 p2 w-200>
+    <Box bgWhite rounded-4 w-200 column>
       <DndContext
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
@@ -97,20 +108,19 @@ export const HideFieldOverlay = () => {
           ))}
         </SortableContext>
 
-        {createPortal(
-          <DragOverlay adjustScale={false}>
+        {/* {createPortal(
+          <DragOverlay>
             {activeId && activeItem && (
-              // <NodeItem node={activeItem} opacity-40 />
-              <Box>GOGO</Box>
+              <Item dragOverlay viewColumn={activeItem} id={activeId} />
             )}
           </DragOverlay>,
           document.body,
-        )}
+        )} */}
       </DndContext>
-      <Box toBetween mt2>
+      {/* <Box toBetween mt2>
         <Button size={28}>Hide all</Button>
         <Button size={28}>Show all</Button>
-      </Box>
+      </Box> */}
     </Box>
   )
 }

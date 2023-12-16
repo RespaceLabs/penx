@@ -20,7 +20,7 @@ export const HideField = () => {
           {count > 0 && count} Hide Fields
         </ToolbarBtn>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent overflowHidden>
         <HideFieldOverlay></HideFieldOverlay>
       </PopoverContent>
     </Popover>

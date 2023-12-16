@@ -16,6 +16,7 @@ import {
   IOptionNode,
   IRowNode,
   IViewNode,
+  ViewColumn,
   ViewType,
 } from '@penx/model-types'
 import { store } from '@penx/store'
@@ -37,10 +38,17 @@ export interface IDatabaseContext {
   updateView(viewId: string, props: Partial<IViewNode['props']>): Promise<void>
   deleteView(viewId: string): Promise<void>
 
+  updateViewColumn(
+    viewId: string,
+    columnId: string,
+    props: Partial<ViewColumn>,
+  ): Promise<void>
+
   addRow(): Promise<void>
   addColumn(fieldType: FieldType): Promise<void>
   deleteColumn(columnId: string): Promise<void>
   moveColumn(fromIndex: number, toIndex: number): Promise<void>
+
   updateColumnName(columnId: string, name: string): Promise<void>
   addOption(columnId: string, name: string): Promise<IOptionNode>
   deleteCellOption(cellId: string, optionId: string): Promise<void>
@@ -82,6 +90,15 @@ export const DatabaseProvider = ({
 
   async function deleteView(viewId: string) {
     await db.deleteView(viewId)
+    reloadNodes()
+  }
+
+  async function updateViewColumn(
+    viewId: string,
+    columnId: string,
+    props: Partial<ViewColumn>,
+  ) {
+    await db.updateViewColumn(viewId, columnId, props)
     reloadNodes()
   }
 
@@ -132,6 +149,7 @@ export const DatabaseProvider = ({
         addView,
         deleteView,
         updateView,
+        updateViewColumn,
         addRow,
         addColumn,
         deleteColumn,

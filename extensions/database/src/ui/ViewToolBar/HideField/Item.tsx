@@ -1,8 +1,10 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { DraggableSyntheticListeners } from '@dnd-kit/core'
 import { Box } from '@fower/react'
 import { Switch } from 'uikit'
 import { IconDrag } from '@penx/icons'
+import { db } from '@penx/local-db'
+import { ViewColumn } from '@penx/model-types'
 import { useDatabaseContext } from '../../DatabaseContext'
 import { FieldIcon } from '../../shared/FieldIcon'
 
@@ -24,12 +26,12 @@ interface Props {
 
   style?: any
 
-  viewColumn: any
+  viewColumn: ViewColumn
 }
 
 export const Item = forwardRef<HTMLDivElement, Props>(
   function Item(props, ref) {
-    const { columns } = useDatabaseContext()
+    const { columns, currentView, updateViewColumn } = useDatabaseContext()
     const {
       viewColumn,
       index,
@@ -42,12 +44,12 @@ export const Item = forwardRef<HTMLDivElement, Props>(
       ...rest
     } = props
 
-    console.log('======column:', columns)
     const column = columns.find((i) => i.id === viewColumn.id)!
-    return <div>gog</div>
+    const [visible, setVisible] = useState(props.viewColumn.visible)
 
-    async function toggleVisible(visible: boolean, id: string) {
-      //
+    async function toggleVisible(visible: boolean) {
+      setVisible(visible)
+      await updateViewColumn(currentView.id, viewColumn.id, { visible })
     }
 
     return (
@@ -55,28 +57,36 @@ export const Item = forwardRef<HTMLDivElement, Props>(
         ref={ref}
         key={viewColumn.id}
         bgWhite
-        py1
+        py2
+        px2
+        rounded
         toBetween
-        shadow={!!dragOverlay}
-        zIndex-10000={dragOverlay}
-        opacity-50={isDragging}
+        // shadow={!!dragOverlay}
+        // zIndex-10000000={!!dragOverlay}
+        shadow={isDragging}
+        zIndex-10000000={isDragging}
+        // opacity-50={isDragging}
         {...rest}
       >
         <Box toLeft gap1>
-          <IconDrag
-            {...attributes}
-            {...(index === 0 ? {} : listeners)}
-            cursorNotAllowed={index === 0}
-            outlineNone--focus
+          <Switch
+            disabled={index === 0}
+            size={12}
+            mr-4
+            checked={visible}
+            onChange={(e) => toggleVisible(e.target.checked)}
           />
-          <FieldIcon size={18} fieldType={column.props.fieldType} />
-          <Box>{column.props.name}</Box>
+          <FieldIcon size={16} fieldType={column.props.fieldType} />
+          <Box textSM gray600>
+            {column.props.name}
+          </Box>
         </Box>
-        <Switch
-          checked={viewColumn.visible}
-          size={12}
-          mr-4
-          onChange={(e) => toggleVisible(e.target.checked, id)}
+
+        <IconDrag
+          {...attributes}
+          {...(index === 0 ? {} : listeners)}
+          cursorNotAllowed={index === 0}
+          outlineNone--focus
         />
       </Box>
     )
