@@ -19,7 +19,7 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
   const rowCells = columns.map((column) => {
     return cells.find(
       (cell) =>
-        cell.props.rowId === row.id && cell.props.columnId === column.id,
+        cell.props.rowId === row.id && cell.props.columnId === column?.id,
     )!
   })
 

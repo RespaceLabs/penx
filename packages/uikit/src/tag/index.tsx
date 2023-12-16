@@ -52,7 +52,7 @@ export const Tag = forwardRef<HTMLDivElement, TagProps>(
         roundedFull
         leadingNone
         color={colorScheme}
-        spaceX1={!!icon}
+        gap1={!!icon}
         css={{
           whiteSpace: 'nowrap',
         }}

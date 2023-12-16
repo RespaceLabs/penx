@@ -24,6 +24,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@floating-ui/react": "^0.25.4",
     "@fower/react": "^2.0.0",
+    "@fower/utils": "^2.0.0",
     "@lingui/macro": "4.1.2",
     "@penx/code-block": "workspace:*",
     "@penx/constants": "workspace:*",

@@ -5,6 +5,7 @@ import { DatabaseProvider } from './DatabaseContext'
 import { AddViewBtn } from './ViewNav/AddViewBtn'
 import { ViewList } from './ViewNav/ViewList'
 import { ViewRenderer } from './ViewRenderer'
+import { ViewToolBar } from './ViewToolBar/ViewToolBar'
 
 export const Database = ({
   attributes,
@@ -21,6 +22,9 @@ export const Database = ({
         <Box toCenterY gap2 mb2>
           <ViewList />
           <AddViewBtn />
+        </Box>
+        <Box mb1>
+          <ViewToolBar />
         </Box>
         <ViewRenderer />
       </DatabaseProvider>

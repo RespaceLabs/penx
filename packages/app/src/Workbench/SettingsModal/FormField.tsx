@@ -35,7 +35,7 @@ export const FormField = forwardRef<HTMLDivElement, FormFieldProps>(
         {showLabel && label && (
           <Box
             toCenterY
-            spaceX1
+            gap1
             mb2={layout === 'vertical'}
             toRight={layout === 'horizontal'}
             pr2={layout !== 'vertical'}

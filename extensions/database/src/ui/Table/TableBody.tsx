@@ -4,11 +4,10 @@ import { AddRowBtn } from './AddRowBtn'
 import { TableRow } from './TableRow'
 
 export const TableBody = () => {
-  const { columns, views, rows, cells } = useDatabaseContext()
+  const { columns, views, rows, cells, currentView } = useDatabaseContext()
   if (!columns.length) return null
 
-  // TODO: views[0] is too hack
-  const sortedColumns = views[0].children.map((id) => {
+  const sortedColumns = currentView.props.columns.map(({ id }) => {
     return columns.find((col) => col.id === id)!
   })
 

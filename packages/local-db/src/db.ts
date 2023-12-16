@@ -750,7 +750,6 @@ class DB {
 
     for (const view of views) {
       await this.node.updateByPk(view.id, {
-        children: [...view.children, column.id],
         props: {
           ...view.props,
           columns: [
@@ -896,16 +895,19 @@ class DB {
       await this.deleteNode(cell.id)
     }
 
-    const views = await this.node.select({
+    const views = (await this.node.select({
       where: {
         type: NodeType.VIEW,
         databaseId: databaseId,
       },
-    })
+    })) as IViewNode[]
 
     for (const view of views) {
-      await this.node.updateByPk(view.id, {
-        children: view.children.filter((id) => id !== columnId),
+      await this.updateNode<IViewNode>(view.id, {
+        props: {
+          ...view.props,
+          columns: view.props.columns.filter(({ id }) => id !== columnId),
+        },
       })
     }
 
