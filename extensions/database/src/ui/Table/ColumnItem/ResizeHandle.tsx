@@ -2,6 +2,7 @@ import { Box, css, styled } from '@fower/react'
 import { motion, MotionValue } from 'framer-motion'
 import { db } from '@penx/local-db'
 import { IColumnNode } from '@penx/model-types'
+import { useDatabaseContext } from '../../DatabaseContext'
 
 interface Props {
   x: MotionValue<number>
@@ -10,13 +11,11 @@ interface Props {
 }
 
 export const ResizeHandle = ({ x, width, column }: Props) => {
+  const { currentView } = useDatabaseContext()
   async function updateWidth() {
     const newWidth = Number(width.get().toFixed(0))
-    await db.updateNode(column.id, {
-      props: {
-        ...column.props,
-        width: newWidth,
-      },
+    await db.updateViewColumn(currentView.id, column.id, {
+      width: newWidth,
     })
   }
 

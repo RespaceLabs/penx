@@ -199,8 +199,8 @@ class DB {
     }
   }
 
-  getNode = (nodeId: string) => {
-    return this.node.selectByPk(nodeId)
+  getNode = <T = INode>(nodeId: string) => {
+    return this.node.selectByPk(nodeId) as any as Promise<T>
   }
 
   getRootNode = async (spaceId: string) => {
@@ -243,7 +243,7 @@ class DB {
     return nodes.find((node) => node.spaceId === spaceId)!
   }
 
-  updateNode = async (nodeId: string, data: Partial<INode>) => {
+  updateNode = async <T = INode>(nodeId: string, data: Partial<T>) => {
     const newNode = await this.node.updateByPk(nodeId, {
       ...data,
       updatedAt: new Date(),
@@ -943,6 +943,21 @@ class DB {
     const view = await this.getNode(viewId)
     await this.updateNode(viewId, {
       props: { ...view.props, ...props },
+    })
+  }
+
+  updateViewColumn = async (
+    viewId: string,
+    columnId: string,
+    props: Partial<ViewColumn>,
+  ) => {
+    const view = await this.getNode<IViewNode>(viewId)
+    const viewColumns = view.props.columns
+    const index = viewColumns.findIndex((column) => column.id === columnId)
+    viewColumns[index] = { ...viewColumns[index], ...props } as ViewColumn
+
+    await this.updateNode<IViewNode>(viewId, {
+      props: { ...view.props, columns: viewColumns },
     })
   }
 
