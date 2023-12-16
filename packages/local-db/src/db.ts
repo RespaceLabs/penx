@@ -935,6 +935,10 @@ class DB {
     })
   }
 
+  deleteView = async (viewId: string) => {
+    await this.deleteNode(viewId)
+  }
+
   updateView = async (viewId: string, props: Partial<IViewNode['props']>) => {
     const view = await this.getNode(viewId)
     await this.updateNode(viewId, {

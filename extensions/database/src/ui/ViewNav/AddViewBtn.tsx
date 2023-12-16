@@ -21,6 +21,7 @@ function Item({ children, viewType, ...rest }: ItemProps) {
   const ctx = useDatabaseContext()
   async function addColumn() {
     await ctx.addView(viewType)
+    ctx.setViewIndex(ctx.views.length)
     close()
   }
 

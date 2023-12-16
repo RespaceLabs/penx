@@ -37,7 +37,7 @@ export const ViewMenu = ({ view, index }: ViewMenuProps) => {
 
 function Content({ view, index }: ViewMenuProps) {
   const { close } = usePopoverContext()
-  const { updateView } = useDatabaseContext()
+  const { updateView, deleteView, setViewIndex } = useDatabaseContext()
   const [name, setName] = useState(view.props.name)
 
   return (
@@ -78,8 +78,10 @@ function Content({ view, index }: ViewMenuProps) {
       <MenuItem
         disabled={index === 0}
         gap2
-        onClick={() => {
+        onClick={async () => {
           if (index === 0) return
+          await deleteView(view.id)
+          setViewIndex(0)
           close()
         }}
       >

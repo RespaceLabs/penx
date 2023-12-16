@@ -34,6 +34,9 @@ export interface IDatabaseContext {
   setViewIndex: Dispatch<SetStateAction<number>>
 
   addView(viewType: ViewType): Promise<void>
+  updateView(viewId: string, props: Partial<IViewNode['props']>): Promise<void>
+  deleteView(viewId: string): Promise<void>
+
   addRow(): Promise<void>
   addColumn(fieldType: FieldType): Promise<void>
   deleteColumn(columnId: string): Promise<void>
@@ -41,7 +44,6 @@ export interface IDatabaseContext {
   updateColumnName(columnId: string, name: string): Promise<void>
   addOption(columnId: string, name: string): Promise<IOptionNode>
   deleteCellOption(cellId: string, optionId: string): Promise<void>
-  updateView(viewId: string, props: Partial<IViewNode['props']>): Promise<void>
 }
 
 export const databaseContext = createContext<IDatabaseContext>(
@@ -67,6 +69,19 @@ export const DatabaseProvider = ({
 
   async function addView(viewType: ViewType) {
     await db.addView(databaseId, viewType)
+    reloadNodes()
+  }
+
+  async function updateView(
+    viewId: string,
+    props: Partial<IViewNode['props']>,
+  ) {
+    await db.updateView(viewId, props)
+    reloadNodes()
+  }
+
+  async function deleteView(viewId: string) {
+    await db.deleteView(viewId)
     reloadNodes()
   }
 
@@ -107,14 +122,6 @@ export const DatabaseProvider = ({
     reloadNodes()
   }
 
-  async function updateView(
-    viewId: string,
-    props: Partial<IViewNode['props']>,
-  ) {
-    await db.updateView(viewId, props)
-    reloadNodes()
-  }
-
   return (
     <Provider
       value={{
@@ -123,6 +130,8 @@ export const DatabaseProvider = ({
         currentView: database.views[viewIndex] as IViewNode,
         setViewIndex,
         addView,
+        deleteView,
+        updateView,
         addRow,
         addColumn,
         deleteColumn,
@@ -130,7 +139,6 @@ export const DatabaseProvider = ({
         updateColumnName,
         addOption,
         deleteCellOption,
-        updateView,
       }}
     >
       {children}
