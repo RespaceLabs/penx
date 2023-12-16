@@ -7,6 +7,7 @@ import { FieldType, ICellNode, IColumnNode } from '@penx/model-types'
 import { store } from '@penx/store'
 import { columnWidthMotion } from '../../../columnWidthMotion'
 import { CreatedAtCell } from './CreatedAt'
+import { DateCell } from './Date'
 import { MultipleSelectCell } from './MultipleSelect'
 import { NumberCell } from './Number'
 import { PasswordCell } from './Password'
@@ -20,6 +21,7 @@ const cellsMap: Record<FieldType, any> = {
   [FieldType.Password]: PasswordCell,
   [FieldType.SingleSelect]: SingleSelectCell,
   [FieldType.MultipleSelect]: MultipleSelectCell,
+  [FieldType.Date]: DateCell,
   [FieldType.CreatedAt]: CreatedAtCell,
   [FieldType.UpdatedAt]: UpdatedAtCell,
 }

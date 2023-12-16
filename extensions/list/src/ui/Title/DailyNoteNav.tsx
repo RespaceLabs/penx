@@ -7,11 +7,7 @@ import { store } from '@penx/store'
 import { TitleElement } from '../../types'
 
 export const DailyNoteNav = ({ element }: { element: TitleElement }) => {
-<<<<<<< HEAD
-  const date = new Date(element.props?.date!)
-=======
   const date = new Date(element.props?.date ?? Date.now())
->>>>>>> 336fbe1 (feat: can select date in title)
 
   return (
     <Box contentEditable={false} textXS fontNormal toCenterY gap1 gray600>
@@ -64,11 +60,7 @@ export const DailyNoteNav = ({ element }: { element: TitleElement }) => {
 }
 
 function GoToDay({ date }: { date: Date }) {
-<<<<<<< HEAD
-  const [startDate, setStartDate] = useState(date)
-=======
   const [startDate, setStartDate] = useState(date || new Date())
->>>>>>> 336fbe1 (feat: can select date in title)
   const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
     { onClick },
     ref,

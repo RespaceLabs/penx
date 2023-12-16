@@ -66,6 +66,7 @@ export enum FieldType {
   Password = 'Password',
   SingleSelect = 'SingleSelect',
   MultipleSelect = 'MultipleSelect',
+  Date = 'Date',
   CreatedAt = 'CreatedAt',
   UpdatedAt = 'UpdatedAt',
 }

@@ -226,8 +226,6 @@ pre[class*='language-'] {
   color: black;
   font-weight: bold;
 }
-<<<<<<< HEAD
-=======
 
 .react-datepicker__day--keyboard-selected {
   background-color: #fff;
@@ -238,4 +236,3 @@ pre[class*='language-'] {
   background-color: #ddd;
   color: black;
 }
->>>>>>> 336fbe1 (feat: can select date in title)

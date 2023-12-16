@@ -1,5 +1,12 @@
 import { Box } from '@fower/react'
-import { CheckCircle2, Hash, Home, Key, ListChecks, Lock } from 'lucide-react'
+import {
+  CalendarDays,
+  CheckCircle2,
+  Hash,
+  Home,
+  Key,
+  ListChecks,
+} from 'lucide-react'
 import { FieldType } from '@penx/model-types'
 import { IconSingleLineText } from './IconSingleLineText'
 
@@ -16,8 +23,9 @@ export const FieldIcon = ({ fieldType, size = 16, index }: Props) => {
     [FieldType.Password]: Key,
     [FieldType.SingleSelect]: CheckCircle2,
     [FieldType.MultipleSelect]: ListChecks,
-    [FieldType.CreatedAt]: Lock,
-    [FieldType.UpdatedAt]: Lock,
+    [FieldType.Date]: CalendarDays,
+    [FieldType.CreatedAt]: CalendarDays,
+    [FieldType.UpdatedAt]: CalendarDays,
   }
   let Icon = iconsMap[fieldType]
 
