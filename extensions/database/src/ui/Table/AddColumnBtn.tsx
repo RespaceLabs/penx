@@ -1,14 +1,6 @@
 import React, { FC, PropsWithChildren } from 'react'
-import { Box, FowerHTMLProps, styled } from '@fower/react'
-import {
-  CheckCircle2,
-  Clock,
-  FileType,
-  Hash,
-  Link,
-  Plus,
-  Text,
-} from 'lucide-react'
+import { Box, FowerHTMLProps } from '@fower/react'
+import { Plus } from 'lucide-react'
 import {
   Popover,
   PopoverContent,
@@ -27,19 +19,8 @@ function Item({ children, fieldType, ...rest }: ItemProps) {
   const { close } = usePopoverContext()
   const ctx = useDatabaseContext()
   async function addColumn() {
-    if (
-      [
-        FieldType.Text,
-        FieldType.Number,
-        FieldType.Password,
-        FieldType.SingleSelect,
-        FieldType.MultipleSelect,
-        FieldType.Date,
-      ].includes(fieldType)
-    ) {
-      await ctx.addColumn(fieldType)
-      close()
-    }
+    await ctx.addColumn(fieldType)
+    close()
   }
 
   return (
@@ -93,12 +74,12 @@ function Content() {
         <Box>Date</Box>
       </Item>
 
-      <Item fieldType={FieldType.CreatedAt} cursorNotAllowed opacity-60>
+      <Item fieldType={FieldType.CreatedAt}>
         <FieldIcon fieldType={FieldType.CreatedAt} />
         <Box>Created At</Box>
       </Item>
 
-      <Item fieldType={FieldType.UpdatedAt} cursorNotAllowed opacity-60>
+      <Item fieldType={FieldType.UpdatedAt}>
         <FieldIcon fieldType={FieldType.UpdatedAt} />
         <Box>Updated At</Box>
       </Item>
@@ -113,7 +94,15 @@ export const AddColumnBtn: FC<Props> = ({}) => {
     <Box toCenter square-40 borderBottom borderRight borderTop>
       <Popover placement="bottom">
         <PopoverTrigger asChild>
-          <Box gray500 cursorPointer w-100p h-100p toCenter>
+          <Box
+            gray500
+            cursorPointer
+            w-100p
+            h-100p
+            toCenter
+            bgNeutral100--hover
+            transitionColors
+          >
             <Plus size={20} />
           </Box>
         </PopoverTrigger>

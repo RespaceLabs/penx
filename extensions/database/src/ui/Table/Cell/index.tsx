@@ -50,7 +50,7 @@ export const TableCell = memo(
     const width = columnWidthMotion[column.id]
 
     async function updateCell(data: any) {
-      await db.updateNode(cell.id, {
+      await db.updateCell(cell.id, {
         props: { ...cell.props, data },
       })
 

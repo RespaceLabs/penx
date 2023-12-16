@@ -1427,6 +1427,9 @@ importers:
       '@udecode/plate-common':
         specifier: ^25.0.1
         version: 25.0.1(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.2)(slate@0.101.1)
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
       downshift:
         specifier: ^8.2.3
         version: 8.2.3(react@18.2.0)

@@ -807,6 +807,20 @@ class DB {
     }
   }
 
+  updateCell = async (cellId: string, data: Partial<ICellNode>) => {
+    const cell = (await this.getNode(cellId)) as ICellNode
+    const newNode = await this.updateNode(cellId, {
+      ...data,
+      updatedAt: new Date(),
+    })
+
+    await this.updateNode(cell.props.rowId, {
+      updatedAt: new Date(),
+    })
+
+    return newNode
+  }
+
   deleteColumn = async (databaseId: string, columnId: string) => {
     const cells = await this.node.select({
       where: {

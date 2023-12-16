@@ -44,6 +44,7 @@
     "@penx/store": "workspace:*",
     "@tanstack/react-query": "^4.36.1",
     "@udecode/plate-common": "^25.0.1",
+    "date-fns": "^2.30.0",
     "downshift": "^8.2.3",
     "framer-motion": "^10.16.14",
     "immer": "^10.0.3",

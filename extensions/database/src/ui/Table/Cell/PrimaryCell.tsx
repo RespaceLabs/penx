@@ -98,7 +98,9 @@ export const PrimaryCell: FC<CellProps> = memo(function PrimaryCell(props) {
         initialValue={value}
         onChange={async (value) => {
           const element: any = value[0]
+
           db.updateNode(nodeId, { element })
+          db.updateCell(cell.id, {}) // update updatedAt
           updateParentEditor(element)
         }}
       >
