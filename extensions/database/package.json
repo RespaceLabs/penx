@@ -43,6 +43,7 @@
     "@penx/paragraph": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",
+    "@penx/indexeddb": "workspace:*",
     "@tanstack/react-query": "^4.36.1",
     "@udecode/plate-common": "^25.0.1",
     "date-fns": "^2.30.0",

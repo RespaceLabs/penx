@@ -91,7 +91,7 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
 
         {rowCells.map((cell, index) => (
           <TableCell
-            key={cell.id}
+            key={cell?.id}
             cell={cell}
             columns={columns}
             index={index}

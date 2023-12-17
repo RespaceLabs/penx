@@ -18,8 +18,8 @@ export const MenuItem = forwardRef<HTMLDivElement, MenuItemProps>(
       <Box
         className="uikit-menu-item"
         ref={ref}
-        px4
-        py3
+        px3
+        py2
         minH9
         toCenterY
         bgWhite

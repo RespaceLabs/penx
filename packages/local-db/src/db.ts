@@ -15,6 +15,7 @@ import {
   ISpace,
   IViewNode,
   NodeType,
+  Sort,
   ViewColumn,
   ViewType,
 } from '@penx/model-types'
@@ -800,13 +801,13 @@ class DB {
       props: {},
     })
 
-    const views = await this.node.select({
+    const views = (await this.node.select({
       where: {
         type: NodeType.VIEW,
         spaceId: space.id,
         databaseId,
       },
-    })
+    })) as IViewNode[]
 
     // TODO: too hack, should pass a view id to find a view
     const view = views.find((node) => node.props.viewType === ViewType.TABLE)!
@@ -819,7 +820,7 @@ class DB {
       },
     })
 
-    const sortedColumns = view.children.map((id) => {
+    const sortedColumns = view.props.columns.map(({ id }) => {
       const column = columns.find((node) => node.id === id)
       return column!
     })
@@ -960,6 +961,32 @@ class DB {
 
     await this.updateNode<IViewNode>(viewId, {
       props: { ...view.props, columns: viewColumns },
+    })
+  }
+
+  addSort = async (viewId: string, columnId: string, props: Partial<Sort>) => {
+    const view = await this.getNode<IViewNode>(viewId)
+    await this.updateNode<IViewNode>(viewId, {
+      props: {
+        ...view.props,
+        sorts: [
+          ...(view.props.sorts || []),
+          {
+            isAscending: true,
+            columnId,
+          },
+        ],
+      },
+    })
+  }
+
+  deleteSort = async (viewId: string, columnId: string) => {
+    const view = await this.getNode<IViewNode>(viewId)
+    await this.updateNode<IViewNode>(viewId, {
+      props: {
+        ...view.props,
+        sorts: view.props.sorts?.filter((s) => s.columnId !== columnId),
+      },
     })
   }
 

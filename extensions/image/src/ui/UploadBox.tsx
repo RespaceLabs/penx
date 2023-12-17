@@ -65,7 +65,7 @@ export const UploadBox = ({
       contentEditable={false}
     >
       <Box>{children}</Box>
-      <Box p4 cursorPointer toCenterY gray400 spaceX2>
+      <Box p4 cursorPointer toCenterY gray400 gap2>
         <ImageIcon size={20} />
 
         <Input

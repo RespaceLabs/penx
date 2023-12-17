@@ -16,6 +16,7 @@ import {
   IOptionNode,
   IRowNode,
   IViewNode,
+  Sort,
   ViewColumn,
   ViewType,
 } from '@penx/model-types'
@@ -48,6 +49,9 @@ export interface IDatabaseContext {
   addColumn(fieldType: FieldType): Promise<void>
   deleteColumn(columnId: string): Promise<void>
   moveColumn(fromIndex: number, toIndex: number): Promise<void>
+
+  addSort(viewId: string, columnId: string, props: Partial<Sort>): Promise<void>
+  deleteSort(viewId: string, columnId: string): Promise<void>
 
   updateColumnName(columnId: string, name: string): Promise<void>
   addOption(columnId: string, name: string): Promise<IOptionNode>
@@ -139,6 +143,20 @@ export const DatabaseProvider = ({
     reloadNodes()
   }
 
+  async function addSort(
+    viewId: string,
+    columnId: string,
+    props: Partial<Sort>,
+  ) {
+    await db.addSort(viewId, columnId, props)
+    reloadNodes()
+  }
+
+  async function deleteSort(viewId: string, columnId: string) {
+    await db.deleteSort(viewId, columnId)
+    reloadNodes()
+  }
+
   return (
     <Provider
       value={{
@@ -157,6 +175,8 @@ export const DatabaseProvider = ({
         updateColumnName,
         addOption,
         deleteCellOption,
+        addSort,
+        deleteSort,
       }}
     >
       {children}

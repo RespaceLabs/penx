@@ -1406,6 +1406,9 @@ importers:
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons
+      '@penx/indexeddb':
+        specifier: workspace:*
+        version: link:../../packages/indexeddb
       '@penx/list':
         specifier: workspace:*
         version: link:../list

@@ -34,6 +34,8 @@ interface Props {
 
 export const TableCell = memo(
   function TableCell({ columns, cell, index }: Props) {
+    if (!cell) return null
+
     const className = css({
       inlineFlex: true,
       bgWhite: true,

@@ -51,7 +51,7 @@ export const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
           bgWhite
           bgGray800--dark
           zIndex={10000}
-          // overflowHidden
+          overflowHidden
           style={{
             position: state.strategy,
             top: state.y ?? 0,

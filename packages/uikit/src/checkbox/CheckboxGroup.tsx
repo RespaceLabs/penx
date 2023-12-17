@@ -24,7 +24,7 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
 
     return (
       <CheckboxGroupProvider value={contextValue}>
-        <Box ref={ref} toLeft spaceX-8 {...(rest as any)}>
+        <Box ref={ref} toLeft gap2 {...(rest as any)}>
           {children}
         </Box>
       </CheckboxGroupProvider>

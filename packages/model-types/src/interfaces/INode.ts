@@ -139,14 +139,20 @@ export interface ViewColumn {
   visible: boolean
 }
 
+export interface Sort {
+  columnId: string // column id
+  isAscending: boolean
+}
+
 export interface IViewNode extends INode {
   parentId: string // should be database id
   type: NodeType.VIEW
-  children: string[] // sorted columnIds
+  children: string[]
   props: {
     name: string
     viewType: ViewType
     columns: ViewColumn[]
+    sorts: Sort[]
     stackedColumnId?: string
   }
 }
