@@ -8,6 +8,9 @@ import { SortItem } from './SortItem'
 
 export const SortField = () => {
   const { currentView } = useDatabaseContext()
+
+  if (!currentView) return null
+
   const { sorts = [] } = currentView.props
 
   return (

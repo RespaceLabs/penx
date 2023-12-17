@@ -108,8 +108,8 @@ export function syncNodes(input: SyncUserInput) {
       return newVersion
     },
     {
-      maxWait: 5000, // default: 2000
-      timeout: 10000, // default: 5000
+      maxWait: 1000 * 60, // default: 2000
+      timeout: 1000 * 60, // default: 5000
     },
   )
 }

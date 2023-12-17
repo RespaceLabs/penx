@@ -109,7 +109,7 @@ export const DatabaseProvider = ({
   }
 
   async function deleteView(viewId: string) {
-    await db.deleteView(viewId)
+    await db.deleteView(databaseId, viewId)
     reloadNodes()
   }
 

@@ -80,6 +80,7 @@ export function ColumnMenu({ index, column }: ColumnMenuProps) {
         </Box>
         <Box>Sort descending</Box>
       </MenuItem>
+
       {index !== 0 && (
         <>
           {index > 1 && (

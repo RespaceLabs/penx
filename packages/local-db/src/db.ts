@@ -490,6 +490,7 @@ class DB {
       props: {
         color: getRandomColor(),
         name,
+        viewIds: [],
       },
     })
 
@@ -536,6 +537,13 @@ class DB {
         sorts: [],
         filters: [],
         groups: [],
+      },
+    })
+
+    await this.updateNode(database.id, {
+      props: {
+        ...database.props,
+        viewIds: [tableView.id, listView.id],
       },
     })
 
@@ -689,7 +697,7 @@ class DB {
   }
 
   addView = async (databaseId: string, viewType: ViewType) => {
-    const database = await this.getNode(databaseId)
+    const database = (await this.getNode(databaseId)) as IDatabaseNode
 
     const columns = await this.node.select({
       where: {
@@ -722,6 +730,14 @@ class DB {
         groups: [],
       },
     })
+
+    await this.updateNode(database.id, {
+      props: {
+        ...database.props,
+        viewIds: [...(database.props.viewIds || []), view.id],
+      },
+    })
+
     return view
   }
 
@@ -953,8 +969,16 @@ class DB {
     })
   }
 
-  deleteView = async (viewId: string) => {
+  deleteView = async (databaseId: string, viewId: string) => {
+    const database = (await this.getNode(databaseId)) as IDatabaseNode
     await this.deleteNode(viewId)
+
+    await this.updateNode(database.id, {
+      props: {
+        ...database.props,
+        viewIds: database.props?.viewIds.filter((id) => id !== viewId),
+      },
+    })
   }
 
   updateView = async (viewId: string, props: Partial<IViewNode['props']>) => {

@@ -9,7 +9,16 @@ export const TableHeader = () => {
   const { columns, views, currentView } = useDatabaseContext()
   if (!columns.length) return null
 
-  const { viewColumns = [] } = currentView.props
+  let { viewColumns = [] } = currentView.props
+
+  // TODO: fallback to old data
+  if (!viewColumns.length) {
+    viewColumns = (currentView.props as any)?.columns.map((i: any) => ({
+      columnId: i.id,
+      ...i,
+    }))
+  }
+
   const sortedColumns = viewColumns
     .map(({ columnId }) => {
       return columns.find((col) => col.id === columnId)!

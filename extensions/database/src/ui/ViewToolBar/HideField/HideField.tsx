@@ -7,6 +7,8 @@ import { HideFieldOverlay } from './HideFieldOverlay'
 
 export const HideField = () => {
   const { currentView } = useDatabaseContext()
+
+  if (!currentView) return null
   const { viewColumns = [] } = currentView.props
   const count = viewColumns.filter((i) => !i.visible).length
 

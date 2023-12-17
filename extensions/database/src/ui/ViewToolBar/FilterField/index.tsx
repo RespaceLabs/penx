@@ -8,9 +8,10 @@ import { FilterItem } from './FilterItem'
 
 export const FilterField = () => {
   const { columns, currentView } = useDatabaseContext()
-  const { filters = [] } = currentView.props
 
   if (!currentView) return null
+
+  const { filters = [] } = currentView.props
 
   return (
     <Popover placement="bottom-start">

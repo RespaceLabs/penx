@@ -10,7 +10,10 @@ import {
   Inbox,
   Trash2,
 } from 'lucide-react'
+import { Button } from 'uikit'
 import { useNodes, useSidebarDrawer } from '@penx/hooks'
+import { db } from '@penx/local-db'
+import { NodeType } from '@penx/model-types'
 import { useSession } from '@penx/session'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import LoginWithGoogleButton from '../../components/LoginWithGoogleButton'

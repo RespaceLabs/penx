@@ -8,7 +8,16 @@ import { TableRow } from './TableRow'
 
 export const TableBody = () => {
   const { columns, rows, cells, currentView } = useDatabaseContext()
-  const { viewColumns = [] } = currentView.props
+  let { viewColumns = [] } = currentView.props
+
+  // TODO: fallback to old data
+  if (!viewColumns.length) {
+    viewColumns = (currentView.props as any)?.columns.map((i: any) => ({
+      columnId: i.id,
+      ...i,
+    }))
+  }
+
   const sortedColumns = viewColumns.map(({ columnId }) => {
     return columns.find((col) => col.id === columnId)!
   })

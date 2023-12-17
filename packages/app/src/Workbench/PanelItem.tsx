@@ -2,14 +2,21 @@ import { useState } from 'react'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { useDebouncedCallback } from 'use-debounce'
+import { Button } from 'uikit'
 import { NodeEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
 import { NodeProvider, useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
+import {
+  IColumnNode,
+  IDatabaseNode,
+  IViewNode,
+  NodeType,
+} from '@penx/model-types'
 import { nodeToSlate } from '@penx/serializer'
 import { NodeService } from '@penx/service'
-import { routerAtom } from '@penx/store'
+import { routerAtom, store } from '@penx/store'
 import { withBulletPlugin } from '../plugins/withBulletPlugin'
 import { MobileNav } from './DocNav/MobileNav'
 import { PCNav } from './DocNav/PCNav'
@@ -39,6 +46,65 @@ export function PanelItem({ node, index }: Props) {
 
   return (
     <NodeProvider value={{ index, node, nodeService }}>
+      {node.isDatabase && (
+        <Button
+          mt2
+          ml2
+          size="sm"
+          onClick={async () => {
+            const activeSpace = store.space.getActiveSpace()
+
+            const views = (await db.node.select({
+              where: {
+                type: NodeType.VIEW,
+                spaceId: activeSpace.id,
+                databaseId: node.id,
+              },
+            })) as IViewNode[]
+
+            const database = (await db.getNode(node.id)) as IDatabaseNode
+
+            await db.updateNode<IDatabaseNode>(node.id, {
+              props: {
+                ...database.props,
+                viewIds: views.map((view) => view.id),
+              },
+            })
+
+            const columns = (await db.node.select({
+              where: {
+                type: NodeType.COLUMN,
+                spaceId: activeSpace.id,
+                databaseId: node.id,
+              },
+              sortBy: 'createdAt',
+              orderByDESC: false,
+            })) as IColumnNode[]
+
+            const primaryColumns = columns.filter((c) => c.props.isPrimary)
+            const notPrimaryColumns = columns.filter((c) => !c.props.isPrimary)
+
+            for (const view of views) {
+              await db.updateView(view.id, {
+                filters: [],
+                groups: [],
+                sorts: [],
+                viewColumns: [...primaryColumns, ...notPrimaryColumns].map(
+                  (c) => ({
+                    columnId: c.id,
+                    width: 160,
+                    visible: true,
+                  }),
+                ),
+              })
+            }
+
+            console.log('======activeSpace:', node, views)
+          }}
+        >
+          Fix space data
+        </Button>
+      )}
       <Box relative h-100vh flex-1>
         <Box
           overflowYAuto

@@ -53,9 +53,16 @@ export const HideFieldOverlay = () => {
     }),
   )
 
-  const viewColumns = currentView.props.viewColumns
+  let { viewColumns = [] } = currentView.props
 
-  // const items = viewColumns.map((column) => column.id)
+  // TODO: fallback to old data
+  if (!viewColumns.length) {
+    viewColumns = (currentView.props as any)?.columns.map((i: any) => ({
+      columnId: i.id,
+      ...i,
+    }))
+  }
+
   const [items, setItems] = useState<string[]>(
     viewColumns.map((column) => column.columnId),
   )

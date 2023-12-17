@@ -8,6 +8,9 @@ import { GroupItem } from './GroupItem'
 
 export const GroupField = () => {
   const { currentView } = useDatabaseContext()
+
+  if (!currentView) return null
+
   const { groups = [] } = currentView.props
 
   return (

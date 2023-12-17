@@ -14,7 +14,18 @@ import { FieldIcon } from '../../shared/FieldIcon'
 
 export const AddGroupBtn = () => {
   const { currentView, columns, addGroup } = useDatabaseContext()
-  const sortedColumns = currentView.props.viewColumns.map(
+
+  let { viewColumns = [] } = currentView.props
+
+  // TODO: fallback to old data
+  if (!viewColumns.length) {
+    viewColumns = (currentView.props as any)?.columns.map((i: any) => ({
+      columnId: i.id,
+      ...i,
+    }))
+  }
+
+  const sortedColumns = viewColumns.map(
     (o) => columns.find((c) => c.id === o.columnId)!,
   )
 
