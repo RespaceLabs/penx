@@ -144,6 +144,39 @@ export interface Sort {
   isAscending: boolean
 }
 
+export enum ConjunctionType {
+  OR = 'OR',
+  AND = 'AND',
+}
+
+export enum OperatorType {
+  IS_EMPTY = 'IS_EMPTY',
+  IS_NOT_EMPTY = 'IS_NOT_EMPTY',
+  CONTAINS = 'CONTAINS',
+  DOES_NOT_CONTAIN = 'DOES_NOT_CONTAIN',
+
+  IS = 'IS',
+  IS_NOT = 'IS_NOT',
+
+  EQUAL = 'EQUAL', // =
+  NOT_EQUAL = 'NOT_EQUAL', //!=
+  LESS_THAN = 'LESS_THAN', // <
+  MORE_THAN = 'MORE_THAN', // >
+
+  LESS_THAN_OR_EQUAL = 'LESS_THAN_OR_EQUAL', // <=
+  MORE_THAN_OR_EQUAL = 'MORE_THAN_OR_EQUAL', // >=
+
+  FILENAME = 'FILENAME',
+  FILETYPE = 'FILETYPE',
+}
+
+export interface Filter {
+  columnId: string // column id
+  conjunction: ConjunctionType
+  operator: OperatorType
+  value: any
+}
+
 export interface IViewNode extends INode {
   parentId: string // should be database id
   type: NodeType.VIEW
@@ -153,6 +186,7 @@ export interface IViewNode extends INode {
     viewType: ViewType
     columns: ViewColumn[]
     sorts: Sort[]
+    filters: Filter[]
     stackedColumnId?: string
   }
 }

@@ -10,7 +10,7 @@ export const HideField = () => {
   const count = currentView.props.columns.filter((i) => !i.visible).length
 
   return (
-    <Popover placement="bottom">
+    <Popover placement="bottom-start">
       <PopoverTrigger>
         <ToolbarBtn
           isHighlight={!!count}

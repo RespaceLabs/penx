@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box } from '@fower/react'
 import { Plus } from 'lucide-react'
 import {
@@ -39,7 +38,7 @@ export const AddSortBtn = () => {
             {sortedColumns
               .filter((i) => {
                 const { sorts = [] } = currentView.props
-                const find = sorts.find((sort) => sort.columnId === i.id)
+                const find = sorts.find((item) => item.columnId === i.id)
                 return !find
               })
               .map((column) => {

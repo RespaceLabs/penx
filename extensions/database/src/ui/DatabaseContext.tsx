@@ -10,6 +10,7 @@ import { useDatabase } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import {
   FieldType,
+  Filter,
   ICellNode,
   IColumnNode,
   INode,
@@ -52,6 +53,13 @@ export interface IDatabaseContext {
 
   addSort(viewId: string, columnId: string, props: Partial<Sort>): Promise<void>
   deleteSort(viewId: string, columnId: string): Promise<void>
+
+  addFilter(
+    viewId: string,
+    columnId: string,
+    props: Partial<Filter>,
+  ): Promise<void>
+  deleteFilter(viewId: string, columnId: string): Promise<void>
 
   updateColumnName(columnId: string, name: string): Promise<void>
   addOption(columnId: string, name: string): Promise<IOptionNode>
@@ -157,6 +165,20 @@ export const DatabaseProvider = ({
     reloadNodes()
   }
 
+  async function addFilter(
+    viewId: string,
+    columnId: string,
+    props: Partial<Filter>,
+  ) {
+    await db.addFilter(viewId, columnId, props)
+    reloadNodes()
+  }
+
+  async function deleteFilter(viewId: string, columnId: string) {
+    await db.deleteFilter(viewId, columnId)
+    reloadNodes()
+  }
+
   return (
     <Provider
       value={{
@@ -177,6 +199,8 @@ export const DatabaseProvider = ({
         deleteCellOption,
         addSort,
         deleteSort,
+        addFilter,
+        deleteFilter,
       }}
     >
       {children}

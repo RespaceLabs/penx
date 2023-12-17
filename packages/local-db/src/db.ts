@@ -3,7 +3,9 @@ import { format } from 'date-fns'
 import { PENX_101 } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import {
+  ConjunctionType,
   FieldType,
+  Filter,
   ICellNode,
   IColumnNode,
   IDatabaseNode,
@@ -15,6 +17,7 @@ import {
   ISpace,
   IViewNode,
   NodeType,
+  OperatorType,
   Sort,
   ViewColumn,
   ViewType,
@@ -512,6 +515,8 @@ class DB {
         name: 'Table',
         viewType: ViewType.TABLE,
         columns: viewColumns,
+        sorts: [],
+        filters: [],
       },
     })
 
@@ -526,6 +531,8 @@ class DB {
         name: 'List',
         viewType: ViewType.LIST,
         columns: viewColumns,
+        sorts: [],
+        filters: [],
       },
     })
 
@@ -707,6 +714,8 @@ class DB {
         name: viewType.toLowerCase(),
         viewType: viewType,
         columns: viewColumns,
+        sorts: [],
+        filters: [],
       },
     })
     return view
@@ -986,6 +995,37 @@ class DB {
       props: {
         ...view.props,
         sorts: view.props.sorts?.filter((s) => s.columnId !== columnId),
+      },
+    })
+  }
+
+  addFilter = async (
+    viewId: string,
+    columnId: string,
+    props: Partial<Filter>,
+  ) => {
+    const view = await this.getNode<IViewNode>(viewId)
+    await this.updateNode<IViewNode>(viewId, {
+      props: {
+        ...view.props,
+        filters: [
+          ...(view.props.filters || []),
+          {
+            ...props,
+            columnId,
+            conjunction: ConjunctionType.AND,
+          } as Filter,
+        ],
+      },
+    })
+  }
+
+  deleteFilter = async (viewId: string, columnId: string) => {
+    const view = await this.getNode<IViewNode>(viewId)
+    await this.updateNode<IViewNode>(viewId, {
+      props: {
+        ...view.props,
+        filters: view.props.filters?.filter((s) => s.columnId !== columnId),
       },
     })
   }

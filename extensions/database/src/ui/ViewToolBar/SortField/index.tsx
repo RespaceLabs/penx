@@ -40,7 +40,10 @@ export const SortField = () => {
         )}
 
         <Divider />
-        <Box p3 toRight>
+        <Box p3 toBetween toCenterY>
+          <Box gray400 textSM>
+            Coming soon
+          </Box>
           <AddSortBtn />
         </Box>
       </PopoverContent>
