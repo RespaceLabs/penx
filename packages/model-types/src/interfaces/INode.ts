@@ -144,6 +144,12 @@ export interface Sort {
   isAscending: boolean
 }
 
+export interface Group {
+  columnId: string // column id
+  isAscending: boolean
+  showEmptyGroup: boolean
+}
+
 export enum ConjunctionType {
   OR = 'OR',
   AND = 'AND',
@@ -186,6 +192,7 @@ export interface IViewNode extends INode {
     viewType: ViewType
     columns: ViewColumn[]
     sorts: Sort[]
+    groups: Group[]
     filters: Filter[]
     stackedColumnId?: string
   }

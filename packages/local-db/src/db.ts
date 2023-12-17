@@ -6,6 +6,7 @@ import {
   ConjunctionType,
   FieldType,
   Filter,
+  Group,
   ICellNode,
   IColumnNode,
   IDatabaseNode,
@@ -517,6 +518,7 @@ class DB {
         columns: viewColumns,
         sorts: [],
         filters: [],
+        groups: [],
       },
     })
 
@@ -533,6 +535,7 @@ class DB {
         columns: viewColumns,
         sorts: [],
         filters: [],
+        groups: [],
       },
     })
 
@@ -716,6 +719,7 @@ class DB {
         columns: viewColumns,
         sorts: [],
         filters: [],
+        groups: [],
       },
     })
     return view
@@ -983,6 +987,7 @@ class DB {
           {
             isAscending: true,
             columnId,
+            ...props,
           },
         ],
       },
@@ -995,6 +1000,38 @@ class DB {
       props: {
         ...view.props,
         sorts: view.props.sorts?.filter((s) => s.columnId !== columnId),
+      },
+    })
+  }
+
+  addGroup = async (
+    viewId: string,
+    columnId: string,
+    props: Partial<Group>,
+  ) => {
+    const view = await this.getNode<IViewNode>(viewId)
+    await this.updateNode<IViewNode>(viewId, {
+      props: {
+        ...view.props,
+        groups: [
+          ...(view.props.groups || []),
+          {
+            showEmptyGroup: false,
+            isAscending: true,
+            columnId,
+            ...props,
+          },
+        ],
+      },
+    })
+  }
+
+  deleteGroup = async (viewId: string, columnId: string) => {
+    const view = await this.getNode<IViewNode>(viewId)
+    await this.updateNode<IViewNode>(viewId, {
+      props: {
+        ...view.props,
+        groups: view.props.groups?.filter((s) => s.columnId !== columnId),
       },
     })
   }

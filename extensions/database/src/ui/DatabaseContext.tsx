@@ -11,6 +11,7 @@ import { db } from '@penx/local-db'
 import {
   FieldType,
   Filter,
+  Group,
   ICellNode,
   IColumnNode,
   INode,
@@ -53,6 +54,13 @@ export interface IDatabaseContext {
 
   addSort(viewId: string, columnId: string, props: Partial<Sort>): Promise<void>
   deleteSort(viewId: string, columnId: string): Promise<void>
+
+  addGroup(
+    viewId: string,
+    columnId: string,
+    props: Partial<Group>,
+  ): Promise<void>
+  deleteGroup(viewId: string, columnId: string): Promise<void>
 
   addFilter(
     viewId: string,
@@ -165,6 +173,20 @@ export const DatabaseProvider = ({
     reloadNodes()
   }
 
+  async function addGroup(
+    viewId: string,
+    columnId: string,
+    props: Partial<Group>,
+  ) {
+    await db.addGroup(viewId, columnId, props)
+    reloadNodes()
+  }
+
+  async function deleteGroup(viewId: string, columnId: string) {
+    await db.deleteGroup(viewId, columnId)
+    reloadNodes()
+  }
+
   async function addFilter(
     viewId: string,
     columnId: string,
@@ -197,8 +219,13 @@ export const DatabaseProvider = ({
         updateColumnName,
         addOption,
         deleteCellOption,
+
         addSort,
         deleteSort,
+
+        addGroup,
+        deleteGroup,
+
         addFilter,
         deleteFilter,
       }}

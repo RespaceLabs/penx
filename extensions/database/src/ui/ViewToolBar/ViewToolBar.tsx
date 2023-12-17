@@ -1,5 +1,6 @@
 import { Box } from '@fower/react'
 import { FilterField } from './FilterField'
+import { GroupField } from './GroupField'
 import { HideField } from './HideField/HideField'
 import { SortField } from './SortField'
 
@@ -9,6 +10,7 @@ export const ViewToolBar = () => {
       <HideField />
       <FilterField />
       <SortField />
+      <GroupField />
     </Box>
   )
 }
