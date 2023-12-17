@@ -134,18 +134,18 @@ export enum ViewType {
 }
 
 export interface ViewColumn {
-  id: string // column id
+  columnId: string
   width: number
   visible: boolean
 }
 
 export interface Sort {
-  columnId: string // column id
+  columnId: string
   isAscending: boolean
 }
 
 export interface Group {
-  columnId: string // column id
+  columnId: string
   isAscending: boolean
   showEmptyGroup: boolean
 }
@@ -190,7 +190,7 @@ export interface IViewNode extends INode {
   props: {
     name: string
     viewType: ViewType
-    columns: ViewColumn[]
+    viewColumns: ViewColumn[]
     sorts: Sort[]
     groups: Group[]
     filters: Filter[]

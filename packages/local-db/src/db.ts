@@ -500,7 +500,7 @@ class DB {
     const columns = await this.initColumns(space.id, database.id)
 
     const viewColumns: ViewColumn[] = columns.map((column) => ({
-      id: column.id,
+      columnId: column.id,
       width: 160,
       visible: true,
     }))
@@ -515,7 +515,7 @@ class DB {
       props: {
         name: 'Table',
         viewType: ViewType.TABLE,
-        columns: viewColumns,
+        viewColumns,
         sorts: [],
         filters: [],
         groups: [],
@@ -532,7 +532,7 @@ class DB {
       props: {
         name: 'List',
         viewType: ViewType.LIST,
-        columns: viewColumns,
+        viewColumns,
         sorts: [],
         filters: [],
         groups: [],
@@ -702,7 +702,7 @@ class DB {
     })
 
     const viewColumns: ViewColumn[] = columns.map((column) => ({
-      id: column.id,
+      columnId: column.id,
       width: 160,
       visible: true,
     }))
@@ -716,7 +716,7 @@ class DB {
       props: {
         name: viewType.toLowerCase(),
         viewType: viewType,
-        columns: viewColumns,
+        viewColumns,
         sorts: [],
         filters: [],
         groups: [],
@@ -754,22 +754,22 @@ class DB {
       },
     })
 
-    const views = await this.node.select({
+    const views = (await this.node.select({
       where: {
         type: NodeType.VIEW,
         spaceId: space.id,
         databaseId: databaseId,
       },
-    })
+    })) as IViewNode[]
 
     for (const view of views) {
       await this.node.updateByPk(view.id, {
         props: {
           ...view.props,
-          columns: [
-            ...view.props.columns,
+          viewColumns: [
+            ...view.props.viewColumns,
             {
-              id: column.id,
+              columnId: column.id,
               width: 160,
               visible: true,
             },
@@ -833,7 +833,7 @@ class DB {
       },
     })
 
-    const sortedColumns = view.props.columns.map(({ id }) => {
+    const sortedColumns = view.props.viewColumns.map(({ columnId: id }) => {
       const column = columns.find((node) => node.id === id)
       return column!
     })
@@ -920,7 +920,9 @@ class DB {
       await this.updateNode<IViewNode>(view.id, {
         props: {
           ...view.props,
-          columns: view.props.columns.filter(({ id }) => id !== columnId),
+          viewColumns: view.props.viewColumns.filter(
+            ({ columnId: id }) => id !== columnId,
+          ),
         },
       })
     }
@@ -968,12 +970,12 @@ class DB {
     props: Partial<ViewColumn>,
   ) => {
     const view = await this.getNode<IViewNode>(viewId)
-    const viewColumns = view.props.columns
-    const index = viewColumns.findIndex((column) => column.id === columnId)
+    const { viewColumns = [] } = view.props
+    const index = viewColumns.findIndex((item) => item.columnId === columnId)
     viewColumns[index] = { ...viewColumns[index], ...props } as ViewColumn
 
     await this.updateNode<IViewNode>(viewId, {
-      props: { ...view.props, columns: viewColumns },
+      props: { ...view.props, viewColumns },
     })
   }
 
@@ -1190,7 +1192,11 @@ class DB {
     await this.updateNode<IViewNode>(view.id, {
       props: {
         ...view.props,
-        columns: arrayMoveImmutable(view.props.columns, fromIndex, toIndex),
+        viewColumns: arrayMoveImmutable(
+          view.props.viewColumns,
+          fromIndex,
+          toIndex,
+        ),
       },
     })
   }

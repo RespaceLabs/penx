@@ -7,7 +7,8 @@ import { HideFieldOverlay } from './HideFieldOverlay'
 
 export const HideField = () => {
   const { currentView } = useDatabaseContext()
-  const count = currentView.props.columns.filter((i) => !i.visible).length
+  const { viewColumns = [] } = currentView.props
+  const count = viewColumns.filter((i) => !i.visible).length
 
   return (
     <Popover placement="bottom-start">

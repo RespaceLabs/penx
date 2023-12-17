@@ -9,9 +9,10 @@ export const TableHeader = () => {
   const { columns, views, currentView } = useDatabaseContext()
   if (!columns.length) return null
 
-  const sortedColumns = currentView.props.columns
-    .map(({ id }) => {
-      return columns.find((col) => col.id === id)!
+  const { viewColumns = [] } = currentView.props
+  const sortedColumns = viewColumns
+    .map(({ columnId }) => {
+      return columns.find((col) => col.id === columnId)!
     })
     .filter((col) => !!col)
 

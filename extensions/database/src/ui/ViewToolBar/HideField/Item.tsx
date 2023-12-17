@@ -44,18 +44,18 @@ export const Item = forwardRef<HTMLDivElement, Props>(
       ...rest
     } = props
 
-    const column = columns.find((i) => i.id === viewColumn.id)!
+    const column = columns.find((i) => i.id === viewColumn.columnId)!
     const [visible, setVisible] = useState(props.viewColumn.visible)
 
     async function toggleVisible(visible: boolean) {
       setVisible(visible)
-      await updateViewColumn(currentView.id, viewColumn.id, { visible })
+      await updateViewColumn(currentView.id, viewColumn.columnId, { visible })
     }
 
     return (
       <Box
         ref={ref}
-        key={viewColumn.id}
+        key={viewColumn.columnId}
         bgWhite
         py2
         px2

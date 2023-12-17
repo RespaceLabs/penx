@@ -18,8 +18,8 @@ interface Props {
 }
 
 export const ColumnItem = ({ column, view, index }: Props) => {
-  const viewColumn = (view.props.columns || []).find(
-    ({ id }) => id === column.id,
+  const viewColumn = (view.props.viewColumns || []).find(
+    ({ columnId: id }) => id === column.id,
   )!
 
   const { width: w = 160 } = viewColumn || {}

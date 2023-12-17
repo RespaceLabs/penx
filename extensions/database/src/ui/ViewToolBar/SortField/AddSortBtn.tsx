@@ -14,8 +14,8 @@ import { FieldIcon } from '../../shared/FieldIcon'
 
 export const AddSortBtn = () => {
   const { currentView, columns, addSort } = useDatabaseContext()
-  const sortedColumns = currentView.props.columns.map(
-    (o) => columns.find((c) => c.id === o.id)!,
+  const sortedColumns = currentView.props.viewColumns.map(
+    (o) => columns.find((c) => c.id === o.columnId)!,
   )
 
   async function selectColumn(column: IColumnNode) {

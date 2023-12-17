@@ -6,18 +6,18 @@ import { useDatabaseContext } from '../../DatabaseContext'
 
 export const AddFilterBtn = () => {
   const { currentView, addFilter } = useDatabaseContext()
-  const { filters = [], columns = [] } = currentView.props
+  const { filters = [], viewColumns: columns = [] } = currentView.props
 
   async function createFilter() {
     const viewColumn = columns.find(
-      (c) => !filters.map((i) => i.columnId).includes(c.id),
+      (c) => !filters.map((i) => i.columnId).includes(c.columnId),
     )!
 
-    const column = columns.find((c) => c.id === viewColumn.id)
+    const column = columns.find((c) => c.columnId === viewColumn.columnId)
 
     // console.log('column', column)
     if (column) {
-      addFilter(currentView.id, column.id, {
+      addFilter(currentView.id, column.columnId, {
         operator: OperatorType.EQUAL,
         value: '',
       })

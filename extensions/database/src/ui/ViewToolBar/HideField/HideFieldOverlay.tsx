@@ -53,11 +53,11 @@ export const HideFieldOverlay = () => {
     }),
   )
 
-  const viewColumns = currentView.props.columns
+  const viewColumns = currentView.props.viewColumns
 
   // const items = viewColumns.map((column) => column.id)
   const [items, setItems] = useState<string[]>(
-    viewColumns.map((column) => column.id),
+    viewColumns.map((column) => column.columnId),
   )
 
   function handleDragStart({ active }: DragStartEvent) {
@@ -70,8 +70,8 @@ export const HideFieldOverlay = () => {
     const { active, over } = event
 
     if (active.id !== over?.id) {
-      const oldIndex = viewColumns.findIndex((i) => i.id === active.id)
-      const newIndex = viewColumns.findIndex((i) => i.id === over?.id)
+      const oldIndex = viewColumns.findIndex((i) => i.columnId === active.id)
+      const newIndex = viewColumns.findIndex((i) => i.columnId === over?.id)
       setItems(arrayMove(items, oldIndex, newIndex))
       moveColumn(oldIndex, newIndex)
     }
@@ -84,7 +84,7 @@ export const HideFieldOverlay = () => {
   }
 
   const activeItem = activeId
-    ? viewColumns.find(({ id }) => id === activeId)
+    ? viewColumns.find(({ columnId: id }) => id === activeId)
     : null
 
   return (
@@ -100,9 +100,9 @@ export const HideFieldOverlay = () => {
         <SortableContext items={items} strategy={rectSortingStrategy}>
           {viewColumns.map((viewColumn, index) => (
             <SortableItem
-              key={viewColumn.id}
+              key={viewColumn.columnId}
               index={index}
-              id={viewColumn.id}
+              id={viewColumn.columnId}
               viewColumn={viewColumn}
             />
           ))}

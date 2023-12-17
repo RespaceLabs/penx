@@ -13,8 +13,8 @@ interface FieldSelectProps {
 export function FieldSelect({ filter, index }: FieldSelectProps) {
   const { currentView, columns } = useDatabaseContext()
 
-  const sortedColumns = currentView.props.columns
-    .map((o) => columns.find((c) => c.id === o.id)!)
+  const sortedColumns = currentView.props.viewColumns
+    .map((o) => columns.find((c) => c.id === o.columnId)!)
     .filter((i) => {
       const { filters = [] } = currentView.props
       const find = filters.find((item) => item.columnId === i.id)
