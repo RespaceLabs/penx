@@ -34,7 +34,7 @@ export const CellField = memo(
     const { rowId, columnId } = cell.props
     const column = columns.find((c) => c.id === columnId)!
     const fieldType = column.props.fieldType
-    const CellComponent = cellsMap[fieldType as FieldType]
+    const CellComponent = cellsMap[fieldType as FieldType] || TextCell
 
     async function updateCell(data: any) {
       await db.updateNode(cell.id, {

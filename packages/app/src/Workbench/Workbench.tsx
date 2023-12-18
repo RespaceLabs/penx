@@ -1,10 +1,12 @@
 import { isMobile } from 'react-device-detect'
+import { ErrorBoundary } from 'react-error-boundary'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { EditorProvider } from '@penx/editor'
 import { useSpaces } from '@penx/hooks'
 import { useSession } from '@penx/session'
 import { routerAtom } from '@penx/store'
+import { Fallback } from '../Fallback/Fallback'
 import { CommandPanel } from '../Palette'
 import { AccountSettings } from './AccountSettings/AccountSettings'
 import { NodePanels } from './NodePanels'
@@ -37,7 +39,11 @@ export const Workbench = () => {
         <Box flex-1>
           {name === 'ACCOUNT_SETTINGS' && <AccountSettings />}
           {name === 'SPACE_SETTINGS' && <SpaceSettings />}
-          {name === 'NODE' && <NodePanels />}
+
+          <ErrorBoundary fallback={<Fallback />}>
+            {name === 'NODE' && <NodePanels />}
+          </ErrorBoundary>
+
           {name === 'SET_PASSWORD' && <SetPassword />}
         </Box>
       </Box>

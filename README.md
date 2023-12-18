@@ -26,7 +26,7 @@ PenX is a structured note-taking app designed for personal use. In PenX, Privacy
 
 ## About the maker
 
-I'm 0xZion, a freelancer, a full-stack developer, love open-source, now focusing on this application PenX. There's no massive team, no investors, just me currently. If someone is interested in PenX development, can send me a email: 0xzy.penx@gmail.com.
+I'm 0xZion, a freelancer, a full-stack developer, love open-source, now focusing on this application PenX. There's no massive team, no investors, just me currently. If someone is interested in PenX development, can send me a email: 0xZion.penx@gmail.com.
 
 ## Primary tech stack
 
