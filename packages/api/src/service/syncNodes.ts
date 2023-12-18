@@ -73,13 +73,13 @@ export function syncNodes(input: SyncUserInput) {
         // }
       }
 
-      for (const id of deleted) {
-        await tx.node.delete({
-          where: { id: id },
-        })
-        // try {
-        // } catch (error) {}
-      }
+      // await tx.node.deleteMany({
+      //   where: {
+      //     id: {
+      //       in: deleted,
+      //     },
+      //   },
+      // })
 
       const newVersion = version + 1
 

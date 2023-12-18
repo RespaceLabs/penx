@@ -1,6 +1,8 @@
 import { createNextApiHandler } from '@trpc/server/adapters/next'
 import { appRouter, createTRPCContext } from '@penx/api'
 
+export const maxDuration = 60 * 2
+
 // export API handler
 export default createNextApiHandler({
   router: appRouter,

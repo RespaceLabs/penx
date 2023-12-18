@@ -137,7 +137,7 @@ export const ContentView = () => {
   //  <Box fixed top0 left0 bottom0 square-500 bgAmber200 zIndex-100>
   return (
     <Box absolute top0 left0>
-      {visible && text && !type && <Thumbnail x={x} y={y} />}
+      {/* {visible && text && !type && <Thumbnail x={x} y={y} />} */}
       {type === ContentAppType.draggableEditor && (
         <QuickAddEditor x={clientX} y={clientY} />
         // <QuickAddEditor />

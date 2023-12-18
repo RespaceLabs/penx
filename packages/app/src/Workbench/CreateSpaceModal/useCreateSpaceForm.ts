@@ -36,10 +36,10 @@ export function useCreateSpaceForm(onSpaceCreated?: (space: ISpace) => void) {
 
   const onSubmit: SubmitHandler<CreateSpaceValues> = async (data) => {
     console.log('data:', data)
-    if (data.name === PENX_101_CLOUD_NAME && data.type === SpaceType.CLOUD) {
-      toast.info('This is a reserved name. Please choose another one.')
-      return
-    }
+    // if (data.name === PENX_101_CLOUD_NAME && data.type === SpaceType.CLOUD) {
+    //   toast.info('This is a reserved name. Please choose another one.')
+    //   return
+    // }
 
     setData(true)
 

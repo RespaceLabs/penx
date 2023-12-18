@@ -20,7 +20,6 @@ async function sync() {
   const space = await db.getSpace(PENX_101)
 
   if (!space) return
-
   const nodes = await db.listNodesBySpaceId(space.id)
 
   // User visit first time
