@@ -101,7 +101,14 @@ export function splitListItem(
       // Split current "list-item-text" element into 2.
       Transforms.splitNodes(editor)
 
-      const node = getCurrentNode(editor)!
+      // const node = getCurrentNode(editor)!
+      // const path = getCurrentPath(editor)!
+
+      const above: any = Editor.above(editor, {
+        at: editor.selection!,
+        match: (n) => Editor.isBlock(editor, n as any),
+      })
+      const node = above[0]
       const path = getCurrentPath(editor)!
 
       const [listItemText] = Editor.nodes(editor, {
