@@ -333,10 +333,6 @@ export class NodeStore {
     return databaseNode
   }
 
-  async deleteRow(rowId: string) {
-    //
-  }
-
   find(options: FindOptions = {}): INode[] {
     const data = this.getNodes()
     let result: INode[] = []

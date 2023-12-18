@@ -76,10 +76,10 @@ function Content({ view, index }: ViewMenuProps) {
       </MenuItem>
 
       <MenuItem
-        disabled={index === 0}
+        // disabled={index === 0}
         gap2
         onClick={async () => {
-          if (index === 0) return
+          // if (index === 0) return
           await deleteView(view.id)
           setViewIndex(0)
           close()

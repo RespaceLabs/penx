@@ -44,67 +44,66 @@ export function PanelItem({ node, index }: Props) {
 
   const w = node.isDatabase ? '100%' : 800
 
+  // return (
+  //   <Button
+  //     mt2
+  //     ml2
+  //     size="sm"
+  //     onClick={async () => {
+  //       const activeSpace = store.space.getActiveSpace()
+
+  //       const views = (await db.node.select({
+  //         where: {
+  //           type: NodeType.VIEW,
+  //           spaceId: activeSpace.id,
+  //           databaseId: node.id,
+  //         },
+  //       })) as IViewNode[]
+
+  //       const database = (await db.getNode(node.id)) as IDatabaseNode
+
+  //       await db.updateNode<IDatabaseNode>(node.id, {
+  //         props: {
+  //           ...database.props,
+  //           viewIds: views.map((view) => view.id),
+  //         },
+  //       })
+
+  //       const columns = (await db.node.select({
+  //         where: {
+  //           type: NodeType.COLUMN,
+  //           spaceId: activeSpace.id,
+  //           databaseId: node.id,
+  //         },
+  //         sortBy: 'createdAt',
+  //         orderByDESC: false,
+  //       })) as IColumnNode[]
+
+  //       const primaryColumns = columns.filter((c) => c.props.isPrimary)
+  //       const notPrimaryColumns = columns.filter((c) => !c.props.isPrimary)
+
+  //       for (const view of views) {
+  //         await db.updateView(view.id, {
+  //           filters: [],
+  //           groups: [],
+  //           sorts: [],
+  //           viewColumns: [...primaryColumns, ...notPrimaryColumns].map((c) => ({
+  //             columnId: c.id,
+  //             width: 160,
+  //             visible: true,
+  //           })),
+  //         })
+  //       }
+
+  //       console.log('======activeSpace:', node, views)
+  //     }}
+  //   >
+  //     Fix space data
+  //   </Button>
+  // )
+
   return (
     <NodeProvider value={{ index, node, nodeService }}>
-      {node.isDatabase && (
-        <Button
-          mt2
-          ml2
-          size="sm"
-          onClick={async () => {
-            const activeSpace = store.space.getActiveSpace()
-
-            const views = (await db.node.select({
-              where: {
-                type: NodeType.VIEW,
-                spaceId: activeSpace.id,
-                databaseId: node.id,
-              },
-            })) as IViewNode[]
-
-            const database = (await db.getNode(node.id)) as IDatabaseNode
-
-            await db.updateNode<IDatabaseNode>(node.id, {
-              props: {
-                ...database.props,
-                viewIds: views.map((view) => view.id),
-              },
-            })
-
-            const columns = (await db.node.select({
-              where: {
-                type: NodeType.COLUMN,
-                spaceId: activeSpace.id,
-                databaseId: node.id,
-              },
-              sortBy: 'createdAt',
-              orderByDESC: false,
-            })) as IColumnNode[]
-
-            const primaryColumns = columns.filter((c) => c.props.isPrimary)
-            const notPrimaryColumns = columns.filter((c) => !c.props.isPrimary)
-
-            for (const view of views) {
-              await db.updateView(view.id, {
-                filters: [],
-                groups: [],
-                sorts: [],
-                viewColumns: [...primaryColumns, ...notPrimaryColumns].map(
-                  (c) => ({
-                    columnId: c.id,
-                    width: 160,
-                    visible: true,
-                  }),
-                ),
-              })
-            }
-
-            console.log('======activeSpace:', node, views)
-          }}
-        >
-          Fix space data
-        </Button>
-      )}
       <Box relative h-100vh flex-1>
         <Box
           overflowYAuto

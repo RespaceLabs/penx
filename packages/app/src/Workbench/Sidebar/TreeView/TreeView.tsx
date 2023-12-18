@@ -118,8 +118,9 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        delay: 100,
-        tolerance: 5,
+        distance: 10,
+        delay: 200,
+        tolerance: 0,
       },
     }),
     useSensor(KeyboardSensor, {

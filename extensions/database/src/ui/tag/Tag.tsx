@@ -1,7 +1,6 @@
 import { Box } from '@fower/react'
 import { useSelected } from 'slate-react'
-import { Input } from 'uikit'
-import { ELEMENT_H5, ELEMENT_P } from '@penx/constants'
+import { ELEMENT_P } from '@penx/constants'
 import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
 import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
@@ -11,6 +10,7 @@ import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { store } from '@penx/store'
 import { TagElement } from '../../types'
+import { DatabaseProvider } from '../DatabaseContext'
 import { TagForm } from './TagForm'
 
 export const Tag = ({
@@ -73,9 +73,11 @@ export const Tag = ({
       {children}
       {tagJSX}
 
-      <ContextMenu id={menuId} w-400>
-        <TagForm databaseId={element.databaseId} path={path} />
-      </ContextMenu>
+      <DatabaseProvider databaseId={element.databaseId}>
+        <ContextMenu id={menuId} w-400>
+          <TagForm databaseId={element.databaseId} path={path} />
+        </ContextMenu>
+      </DatabaseProvider>
     </Box>
   )
 }

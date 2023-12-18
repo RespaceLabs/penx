@@ -96,7 +96,6 @@ export const TreeItem = memo(
             flex-1
             style={{
               whiteSpace: 'nowrap',
-              overflow: 'hidden',
               textOverflow: 'ellipsis',
             }}
           >

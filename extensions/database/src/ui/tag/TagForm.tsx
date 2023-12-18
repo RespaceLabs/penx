@@ -4,8 +4,8 @@ import { Editor, Path } from 'slate'
 import { useEditorStatic } from '@penx/editor-common'
 import { useDatabase } from '@penx/hooks'
 import { isListContentElement, ListContentElement } from '@penx/list'
-import { ViewType } from '@penx/model-types'
-import { DatabaseProvider } from '../DatabaseContext'
+import { mappedByKey } from '@penx/shared'
+import { useDatabaseContext } from '../DatabaseContext'
 import { FieldIcon } from '../shared/FieldIcon'
 import { CellField } from './fields'
 
@@ -19,14 +19,12 @@ export const TagForm = forwardRef<HTMLDivElement, Props>(function TagForm(
   { databaseId, path },
   ref,
 ) {
+  const { currentView } = useDatabaseContext()
   const { columns, views, cells } = useDatabase(databaseId)
-  const tableView = views.find(
-    (view) => view.props.viewType === ViewType.TABLE,
-  )!
 
-  const sortedColumns = tableView.children.map(
-    (id) => columns.find((col) => col.id === id)!,
-  )
+  const columnMap = mappedByKey(columns, 'id')
+  const { viewColumns = [] } = currentView.props
+  const sortedColumns = viewColumns.map(({ columnId }) => columnMap[columnId])
 
   const editor = useEditorStatic()
 
@@ -53,32 +51,28 @@ export const TagForm = forwardRef<HTMLDivElement, Props>(function TagForm(
 
   return (
     <Box ref={ref} column>
-      <DatabaseProvider databaseId={databaseId}>
-        <Box fontSemibold h-48 px6 toCenterY borderBottom>
-          Update Metadata for this Node
-        </Box>
+      <Box fontSemibold h-48 px6 toCenterY borderBottom>
+        Update Metadata for this Node
+      </Box>
 
-        <Box column gap4 p6 maxH-400 overflowYAuto>
-          {rowCells.map((cell, index) => {
-            if (cell.props.ref === lic.id) return null
+      <Box column gap4 p6 maxH-400 overflowYAuto>
+        {rowCells.map((cell, index) => {
+          if (cell.props.ref === lic.id) return null
 
-            const column = columns.find(
-              (col) => col.id === cell.props.columnId,
-            )!
+          const column = columns.find((col) => col.id === cell.props.columnId)!
 
-            return (
-              <Box key={cell.id}>
-                <Box mb2 toCenterY gap1 gray600>
-                  <FieldIcon fieldType={column.props.fieldType} />
-                  <Box textXS>{column.props.name}</Box>
-                </Box>
-
-                <CellField index={index} cell={cell} columns={sortedColumns} />
+          return (
+            <Box key={cell.id}>
+              <Box mb2 toCenterY gap1 gray600>
+                <FieldIcon fieldType={column.props.fieldType} />
+                <Box textXS>{column.props.name}</Box>
               </Box>
-            )
-          })}
-        </Box>
-      </DatabaseProvider>
+
+              <CellField index={index} cell={cell} columns={sortedColumns} />
+            </Box>
+          )
+        })}
+      </Box>
     </Box>
   )
 })

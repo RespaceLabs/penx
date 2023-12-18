@@ -898,6 +898,23 @@ class DB {
     }
   }
 
+  deleteRow = async (databaseId: string, rowId: string) => {
+    await this.node.deleteByPk(rowId)
+
+    const cells = (await this.node.select({
+      where: {
+        type: NodeType.CELL,
+        databaseId,
+      },
+    })) as ICellNode[]
+
+    for (const cell of cells) {
+      if (cell.props.rowId === rowId) {
+        await this.node.deleteByPk(cell.id)
+      }
+    }
+  }
+
   updateCell = async (cellId: string, data: Partial<ICellNode>) => {
     const cell = (await this.getNode(cellId)) as ICellNode
     const newNode = await this.updateNode(cellId, {
@@ -944,22 +961,6 @@ class DB {
     }
 
     await this.deleteNode(columnId)
-  }
-
-  deleteRow = async (databaseId: string, rowId: string) => {
-    const cells = await this.node.select({
-      where: {
-        type: NodeType.CELL,
-        databaseId,
-      },
-    })
-
-    for (const cell of cells) {
-      if (cell.props.rowId !== rowId) continue
-      await this.deleteNode(cell.id)
-    }
-
-    await this.deleteNode(rowId)
   }
 
   updateColumnName = async (columnId: string, name: string) => {

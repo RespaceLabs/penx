@@ -4,6 +4,7 @@ import {
   PropsWithChildren,
   SetStateAction,
   useContext,
+  useMemo,
   useState,
 } from 'react'
 import { useDatabase } from '@penx/hooks'
@@ -14,6 +15,7 @@ import {
   Group,
   ICellNode,
   IColumnNode,
+  IDatabaseNode,
   INode,
   IOptionNode,
   IRowNode,
@@ -25,7 +27,7 @@ import {
 import { store } from '@penx/store'
 
 export interface IDatabaseContext {
-  database: INode
+  database: IDatabaseNode
   views: IViewNode[]
   columns: IColumnNode[]
   rows: IRowNode[]
@@ -48,6 +50,8 @@ export interface IDatabaseContext {
   ): Promise<void>
 
   addRow(): Promise<void>
+  deleteRow(rowId: string): Promise<void>
+
   addColumn(fieldType: FieldType): Promise<void>
   deleteColumn(columnId: string): Promise<void>
   moveColumn(fromIndex: number, toIndex: number): Promise<void>
@@ -127,6 +131,11 @@ export const DatabaseProvider = ({
     reloadNodes()
   }
 
+  async function deleteRow(rowId: string) {
+    await db.deleteRow(databaseId, rowId)
+    reloadNodes()
+  }
+
   async function addColumn(fieldType: FieldType) {
     await db.addColumn(databaseId, fieldType)
     reloadNodes()
@@ -201,18 +210,29 @@ export const DatabaseProvider = ({
     reloadNodes()
   }
 
+  const currentView = useMemo(() => {
+    const { viewIds = [] } = database.database.props
+    const viewId = viewIds[viewIndex]
+    return database.views.find((view) => view.id === viewId)!
+  }, [database, viewIndex])
+
   return (
     <Provider
       value={{
         ...database,
         viewIndex,
-        currentView: database.views[viewIndex] as IViewNode,
+        currentView,
         setViewIndex,
+
         addView,
         deleteView,
         updateView,
+
         updateViewColumn,
+
         addRow,
+        deleteRow,
+
         addColumn,
         deleteColumn,
         moveColumn,

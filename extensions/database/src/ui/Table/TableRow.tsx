@@ -5,6 +5,7 @@ import { db } from '@penx/local-db'
 import { ICellNode, IColumnNode, IRowNode } from '@penx/model-types'
 import { store } from '@penx/store'
 import { FIRST_COL_WIDTH } from '../../constants'
+import { useDatabaseContext } from '../DatabaseContext'
 import { TableCell } from './Cell'
 
 interface Props {
@@ -15,6 +16,8 @@ interface Props {
 }
 
 export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
+  const { deleteRow } = useDatabaseContext()
+
   // TODO: need to improve performance
   const rowCells = columns.map((column) => {
     return cells.find(
@@ -35,7 +38,7 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
 
   return (
     <>
-      {/* <ContextMenu id={menuId}>
+      <ContextMenu id={menuId}>
         <MenuItem
           onClick={() => {
             //
@@ -52,12 +55,12 @@ export const TableRow = ({ columns = [], row, cells = [], index }: Props) => {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            store.node.deleteRow(row.id)
+            deleteRow(row.id)
           }}
         >
           Delete Row
         </MenuItem>
-      </ContextMenu> */}
+      </ContextMenu>
       <Box flex-1 toLeft className="gridRow" onContextMenu={show}>
         <Box
           className="grid-cell"
