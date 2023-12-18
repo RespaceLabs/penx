@@ -57,8 +57,11 @@ export function HomePage() {
         </Box>
 
         <Box textLG gray600>
-          More than a note-taking app, It could be your personal database with
-          easy input and output.
+          More than a note-taking app, It could be your{' '}
+          <Box as="span" fontBold brand500>
+            personal database
+          </Box>{' '}
+          with seamless input and output.
         </Box>
 
         <Box toCenter gap2 flexWrap>
@@ -80,17 +83,36 @@ export function HomePage() {
           ))}
         </Box>
 
-        <Box toCenterX mt6>
+        <Box toCenterX mt6 toCenterY gap2>
           <Button
             size="lg"
-            w-180
+            w-220
             roundedFull
             onClick={() => {
               setVisible(false)
               setCookie(PENX_HOME_STATUS, 'HIDE')
             }}
           >
-            Go to App
+            Go to Web App
+          </Button>
+
+          <Box>Or</Box>
+
+          <Button
+            as="a"
+            variant="outline"
+            noUnderline
+            w-220
+            href="https://chromewebstore.google.com/detail/penx/keodiemnjjlgbnjhdpomlagckkkcjakh"
+            size="lg"
+            roundedFull
+            target="_blank"
+            onClick={() => {
+              setVisible(false)
+              setCookie(PENX_HOME_STATUS, 'HIDE')
+            }}
+          >
+            Install Chrome Extension
           </Button>
         </Box>
       </Box>

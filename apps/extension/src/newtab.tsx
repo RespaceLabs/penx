@@ -14,17 +14,31 @@ initFower()
 
 chrome.runtime.onMessage.addListener(
   async function (message, sender, sendResponse) {
+    if (!db.database.connection) {
+      await db.database.connect()
+    }
+
     if (message.type === BACKGROUND_EVENTS.ADD_NODES_TO_TODAY) {
       const activeSpace = await db.getActiveSpace()
       if (message.payload?.spaceId === activeSpace.id) {
         const nodes = await db.listNodesBySpaceId(activeSpace.id)
         const todayNode = await db.getTodayNode(activeSpace.id)
         store.node.setNodes(nodes)
-        store.node.selectNode(todayNode)
+        if (todayNode) {
+          store.node.selectNode(todayNode)
+        }
       }
     }
   },
 )
+
+async function init() {
+  if (!db.database.connection) {
+    await db.database.connect()
+  }
+}
+
+init()
 
 function IndexNewtab() {
   const session = useSession()

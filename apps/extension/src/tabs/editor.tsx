@@ -14,6 +14,10 @@ initFower()
 
 chrome.runtime.onMessage.addListener(
   async function (message, sender, sendResponse) {
+    if (!db.database.connection) {
+      await db.database.connect()
+    }
+
     if (message.type === BACKGROUND_EVENTS.ADD_NODES_TO_TODAY) {
       const activeSpace = await db.getActiveSpace()
       if (message.payload?.spaceId === activeSpace.id) {
@@ -25,6 +29,14 @@ chrome.runtime.onMessage.addListener(
     }
   },
 )
+
+async function init() {
+  if (!db.database.connection) {
+    await db.database.connect()
+  }
+}
+
+init()
 
 function EditorPage() {
   const session = useSession()

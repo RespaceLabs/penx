@@ -1,7 +1,14 @@
+import { get } from 'idb-keyval'
 import ky from 'ky'
-import { isProd, PENX_101, WorkerEvents } from '@penx/constants'
+import {
+  isProd,
+  PENX_101,
+  PENX_101_CLOUD_NAME,
+  PENX_SESSION_USER,
+  WorkerEvents,
+} from '@penx/constants'
 import { db } from '@penx/local-db'
-import { Node } from '@penx/model'
+import { Node, User } from '@penx/model'
 import { INode } from '@penx/model-types'
 import { sleep } from '@penx/shared'
 
@@ -17,9 +24,25 @@ export async function syncPenx101() {
 }
 
 async function sync() {
-  const space = await db.getSpace(PENX_101)
+  const sessionUser = await get(PENX_SESSION_USER)
 
-  if (!space) return
+  if (sessionUser?.email === '0xyz.penx@gmail.com') {
+    return
+  }
+
+  const space = await db.getSpace(PENX_101)
+  const space101 = await db.getSpace(PENX_101_CLOUD_NAME)
+
+  if (!space && !space101) {
+    await db.createSpace(
+      {
+        id: PENX_101,
+        name: 'PenX 101',
+      },
+      false,
+    )
+  }
+
   const nodes = await db.listNodesBySpaceId(space.id)
 
   // User visit first time

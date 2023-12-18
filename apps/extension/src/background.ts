@@ -78,6 +78,10 @@ chrome.runtime.onMessage.addListener(
           const spaceId = message.payload.spaceId
           const nodes = message.payload.nodes
 
+          const space = await db.getSpace(spaceId)
+
+          // console.log('=======space:', space, 'nodes:', nodes)
+
           await db.addNodesToToday(spaceId, nodes)
 
           await chrome.runtime.sendMessage({

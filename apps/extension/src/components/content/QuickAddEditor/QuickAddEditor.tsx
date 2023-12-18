@@ -27,34 +27,38 @@ export const QuickAddEditor = forwardRef<HTMLDivElement, Props>(
     const [value, setValue] = useState<any[]>([])
 
     const onSubmit = async (editorValue?: any[]) => {
-      console.log('value:', value, 'editorValue:', editorValue)
+      try {
+        const activeSpaceId = await getActiveSpaceId()
 
-      const activeSpaceId = await getActiveSpaceId()
+        if (!activeSpaceId) {
+          alert('Please select a space')
+          return
+        }
 
-      if (!activeSpaceId) {
-        alert('Please select a space')
-        return
+        const nodes = slateToNodes([, editorValue?.[0] || value[0]])
+
+        console.log('content nodes', nodes)
+
+        const data = await chrome.runtime.sendMessage({
+          type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
+          payload: {
+            nodes: nodes.map((node) => ({ ...node, spaceId: activeSpaceId })),
+            spaceId: activeSpaceId,
+          },
+        })
+
+        console.log('======x data:', data)
+
+        destroy()
+
+        // TODO:
+        // if (data.code === SUCCESS) {
+        //   destroy()
+        // }
+        console.log('onSubmit res:', data)
+      } catch (error) {
+        console.log('submit error', error)
       }
-
-      const nodes = slateToNodes([, editorValue?.[0] || value[0]])
-
-      const data = await chrome.runtime.sendMessage({
-        type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
-        payload: {
-          nodes: nodes.map((node) => ({ ...node, spaceId: activeSpaceId })),
-          spaceId: activeSpaceId,
-        },
-      })
-
-      console.log('======x data:', data)
-
-      destroy()
-
-      // TODO:
-      // if (data.code === SUCCESS) {
-      //   destroy()
-      // }
-      console.log('onSubmit res:', data)
     }
 
     const boxWidth = 560

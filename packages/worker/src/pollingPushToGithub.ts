@@ -22,7 +22,7 @@ export async function pollingPushToGithub() {
 }
 
 async function sync() {
-  console.log('push to github...........')
+  // console.log('push to github...........')
   try {
     const data = await get(PENX_SESSION_USER)
     if (!data) return
