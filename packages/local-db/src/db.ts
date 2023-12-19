@@ -490,6 +490,7 @@ class DB {
       props: {
         color: getRandomColor(),
         name,
+        activeViewId: '',
         viewIds: [],
       },
     })
@@ -543,6 +544,7 @@ class DB {
     await this.updateNode(database.id, {
       props: {
         ...database.props,
+        activeViewId: tableView.id,
         viewIds: [tableView.id, listView.id],
       },
     })

@@ -88,6 +88,7 @@ export interface IDatabaseNode extends INode {
   props: {
     name: string // database name, same with tag name
     color: string
+    activeViewId: string
     viewIds: string[]
   }
 }

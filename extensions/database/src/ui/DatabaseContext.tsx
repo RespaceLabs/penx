@@ -36,10 +36,10 @@ export interface IDatabaseContext {
 
   currentView: IViewNode
 
-  viewIndex: number
-  setViewIndex: Dispatch<SetStateAction<number>>
+  activeViewId: string
+  setActiveViewId: Dispatch<SetStateAction<string>>
 
-  addView(viewType: ViewType): Promise<void>
+  addView(viewType: ViewType): Promise<IViewNode>
   updateView(viewId: string, props: Partial<IViewNode['props']>): Promise<void>
   deleteView(viewId: string): Promise<void>
 
@@ -91,8 +91,14 @@ export const DatabaseProvider = ({
   databaseId,
 }: PropsWithChildren<DatabaseProviderProps>) => {
   const { Provider } = databaseContext
-  const [viewIndex, setViewIndex] = useState(0)
   const database = useDatabase(databaseId)
+
+  const [activeViewId, setActiveViewId] = useState(() => {
+    const view = database.views.find(
+      (v) => v.id === database.database.props.activeViewId,
+    )
+    return view?.id || database.views[0].id
+  })
 
   async function reloadNodes() {
     const nodes = await db.listNodesBySpaceId(database.database.spaceId)
@@ -100,8 +106,9 @@ export const DatabaseProvider = ({
   }
 
   async function addView(viewType: ViewType) {
-    await db.addView(databaseId, viewType)
+    const view = await db.addView(databaseId, viewType)
     reloadNodes()
+    return view
   }
 
   async function updateView(
@@ -147,7 +154,7 @@ export const DatabaseProvider = ({
   }
 
   async function moveColumn(fromIndex: number, toIndex: number) {
-    const view = database.views[viewIndex]
+    const view = database.views.find((v) => v.id === activeViewId)!
     await db.moveColumn(databaseId, view.id, fromIndex, toIndex)
     reloadNodes()
   }
@@ -211,18 +218,17 @@ export const DatabaseProvider = ({
   }
 
   const currentView = useMemo(() => {
-    const { viewIds = [] } = database.database.props
-    const viewId = viewIds[viewIndex]
-    return database.views.find((view) => view.id === viewId)!
-  }, [database, viewIndex])
+    return database.views.find((view) => view.id === activeViewId)!
+  }, [database, activeViewId])
 
   return (
     <Provider
       value={{
         ...database,
-        viewIndex,
         currentView,
-        setViewIndex,
+
+        activeViewId,
+        setActiveViewId,
 
         addView,
         deleteView,
