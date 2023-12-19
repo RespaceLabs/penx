@@ -1,6 +1,14 @@
 import { useEffect } from 'react'
 import { Box } from '@fower/react'
 import { Node } from 'slate'
+import {
+  ELEMENT_H1,
+  ELEMENT_H2,
+  ELEMENT_H3,
+  ELEMENT_H4,
+  ELEMENT_H5,
+  ELEMENT_H6,
+} from '@penx/constants'
 import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { useCompositionData } from '@penx/editor-composition'
 import { ElementProps } from '@penx/extension-typings'
@@ -11,8 +19,18 @@ export const CommonTitle = ({
   children,
 }: ElementProps<TitleElement>) => {
   const titleStr = Node.string(element)
+
+  const isHeading = [
+    ELEMENT_H1,
+    ELEMENT_H2,
+    ELEMENT_H3,
+    ELEMENT_H4,
+    ELEMENT_H5,
+    ELEMENT_H6,
+  ].includes((element.children as any)?.[0]?.type || '')
+
   const { compositionData } = useCompositionData(element.id)
-  const isPlaceholderShow = !titleStr?.length && !compositionData
+  const isPlaceholderShow = !titleStr?.length && !compositionData && !isHeading
 
   return (
     <Box

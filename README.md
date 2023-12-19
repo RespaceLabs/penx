@@ -52,5 +52,3 @@ yarn dev # start web service
 ## ⚖️ License
 
 AGPL 3.0
-
-What Is Open Source Software?
