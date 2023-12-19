@@ -83,7 +83,13 @@ export function HomePage() {
           ))}
         </Box>
 
-        <Box toCenterX mt6 toCenterY gap2>
+        <Box
+          toCenterX
+          mt6
+          toCenterY
+          gap2
+          flexDirection={['column', 'column', 'row']}
+        >
           <Button
             size="lg"
             w-220
