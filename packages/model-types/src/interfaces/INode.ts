@@ -196,7 +196,8 @@ export interface IViewNode extends INode {
     sorts: Sort[]
     groups: Group[]
     filters: Filter[]
-    stackedColumnId?: string
+    kanbanColumnId: string // columnId for kanban
+    kanbanOptionIds: string[] // for kanban sorts
   }
 }
 

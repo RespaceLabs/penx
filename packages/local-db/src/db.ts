@@ -701,7 +701,7 @@ class DB {
   addView = async (databaseId: string, viewType: ViewType) => {
     const database = (await this.getNode(databaseId)) as IDatabaseNode
 
-    const columns = await this.node.select({
+    const columns = (await this.node.select({
       where: {
         type: NodeType.COLUMN,
         spaceId: database.spaceId,
@@ -709,13 +709,39 @@ class DB {
       },
       sortBy: 'createdAt',
       orderByDESC: false,
-    })
+    })) as IColumnNode[]
 
     const viewColumns: ViewColumn[] = columns.map((column) => ({
       columnId: column.id,
       width: 160,
       visible: true,
     }))
+
+    let kanbanColumnId = ''
+    let kanbanOptionIds: string[] = []
+
+    if (viewType === ViewType.KANBAN) {
+      let column = columns.find(
+        (c) => c.props.fieldType === FieldType.SINGLE_SELECT,
+      )!
+
+      if (column) {
+        const options = (await this.node.select({
+          where: {
+            type: NodeType.OPTION,
+            databaseId: database.id,
+          },
+        })) as IOptionNode[]
+
+        kanbanOptionIds = options
+          .filter((option) => option.props.columnId === column.id)
+          .map((option) => option.id)
+      } else {
+        column = await this.addColumn(databaseId, FieldType.SINGLE_SELECT)
+      }
+
+      kanbanColumnId = column.id
+    }
 
     const view = await this.createNode<IViewNode>({
       spaceId: database.spaceId,
@@ -730,12 +756,15 @@ class DB {
         sorts: [],
         filters: [],
         groups: [],
+        kanbanColumnId,
+        kanbanOptionIds,
       },
     })
 
     await this.updateNode(database.id, {
       props: {
         ...database.props,
+        activeViewId: view.id,
         viewIds: [...(database.props.viewIds || []), view.id],
       },
     })
@@ -818,6 +847,7 @@ class DB {
         },
       })
     }
+    return column
   }
 
   addRow = async (databaseId: string, ref = '') => {
