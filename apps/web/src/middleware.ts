@@ -11,10 +11,10 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
+  // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:5001)
   const hostname = req.headers
     .get('host')!
-    .replace('.localhost:3000', `.${ROOT_DOMAIN}`)
+    .replace('.localhost:5001', `.${ROOT_DOMAIN}`)
 
   // Get the pathname of the request (e.g. /, /about, /blog/first-post)
   const path = url.pathname
