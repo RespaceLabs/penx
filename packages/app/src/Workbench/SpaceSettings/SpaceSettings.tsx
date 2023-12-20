@@ -11,13 +11,15 @@ export function SpaceSettings() {
 
   return (
     <Box p10 column gap6>
-      <Box toCenterY gap2>
+      <Box toCenterY gap2 flexDirection={['column', 'row']}>
         <Box text2XL fontBold>
           Space Settings
         </Box>
-        <Tag variant="light" colorScheme="gray400">
-          {activeSpace.id}
-        </Tag>
+        <Box>
+          <Tag variant="light" colorScheme="gray400">
+            {activeSpace.id}
+          </Tag>
+        </Box>
       </Box>
       <SpaceName />
       {activeSpace.encrypted && <EncryptionPassword />}

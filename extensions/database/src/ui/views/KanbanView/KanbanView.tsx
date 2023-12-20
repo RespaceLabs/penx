@@ -17,7 +17,6 @@ import {
   pointerWithin,
   rectIntersection,
   TouchSensor,
-  UniqueIdentifier,
   useDroppable,
   useSensor,
   useSensors,
@@ -33,9 +32,12 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { Box } from '@fower/react'
 import { Container, ContainerProps, Item } from './components'
 import { createRange } from './createRange'
 import { coordinateGetter as multipleContainersCoordinateGetter } from './multipleContainersKeyboardCoordinates'
+
+type UniqueIdentifier = string
 
 const animateLayoutChanges: AnimateLayoutChanges = (args) =>
   defaultAnimateLayoutChanges({ ...args, wasDragging: true })
@@ -73,7 +75,7 @@ function DroppableContainer({
   })
   const isOverContainer = over
     ? (id === over.id && active?.data.current?.type !== 'container') ||
-      items.includes(over.id)
+      items.includes(over.id as any)
     : false
 
   return (
@@ -170,9 +172,11 @@ export function KanbanView({
         D: createRange(itemCount, (index) => `D${index + 1}`),
       },
   )
+
   const [containers, setContainers] = useState(
     Object.keys(items) as UniqueIdentifier[],
   )
+
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null)
   const lastOverId = useRef<UniqueIdentifier | null>(null)
   const recentlyMovedToNewContainer = useRef(false)
@@ -224,13 +228,13 @@ export function KanbanView({
               droppableContainers: args.droppableContainers.filter(
                 (container) =>
                   container.id !== overId &&
-                  containerItems.includes(container.id),
+                  containerItems.includes(container.id as any),
               ),
             })[0]?.id
           }
         }
 
-        lastOverId.current = overId
+        lastOverId.current = overId as any
 
         return [{ id: overId }]
       }
@@ -303,7 +307,7 @@ export function KanbanView({
         },
       }}
       onDragStart={({ active }) => {
-        setActiveId(active.id)
+        setActiveId(active.id as any)
         setClonedItems(items)
       }}
       onDragOver={({ active, over }) => {
@@ -313,8 +317,8 @@ export function KanbanView({
           return
         }
 
-        const overContainer = findContainer(overId)
-        const activeContainer = findContainer(active.id)
+        const overContainer = findContainer(overId as string)
+        const activeContainer = findContainer(active.id as string)
 
         if (!overContainer || !activeContainer) {
           return
@@ -324,8 +328,8 @@ export function KanbanView({
           setItems((items) => {
             const activeItems = items[activeContainer]
             const overItems = items[overContainer]
-            const overIndex = overItems.indexOf(overId)
-            const activeIndex = activeItems.indexOf(active.id)
+            const overIndex = overItems.indexOf(overId as string)
+            const activeIndex = activeItems.indexOf(active.id as string)
 
             let newIndex: number
 
@@ -366,21 +370,21 @@ export function KanbanView({
       onDragEnd={({ active, over }) => {
         if (active.id in items && over?.id) {
           setContainers((containers) => {
-            const activeIndex = containers.indexOf(active.id)
-            const overIndex = containers.indexOf(over.id)
+            const activeIndex = containers.indexOf(active.id as string)
+            const overIndex = containers.indexOf(over.id as string)
 
             return arrayMove(containers, activeIndex, overIndex)
           })
         }
 
-        const activeContainer = findContainer(active.id)
+        const activeContainer = findContainer(active.id as string)
 
         if (!activeContainer) {
           setActiveId(null)
           return
         }
 
-        const overId = over?.id
+        const overId = over?.id as string
 
         if (overId == null) {
           setActiveId(null)
@@ -403,13 +407,16 @@ export function KanbanView({
 
           unstable_batchedUpdates(() => {
             setContainers((containers) => [...containers, newContainerId])
-            setItems((items) => ({
-              ...items,
-              [activeContainer]: items[activeContainer].filter(
-                (id) => id !== activeId,
-              ),
-              [newContainerId]: [active.id],
-            }))
+            setItems(
+              (items) =>
+                ({
+                  ...items,
+                  [activeContainer]: items[activeContainer].filter(
+                    (id) => id !== activeId,
+                  ),
+                  [newContainerId]: [active.id],
+                }) as any,
+            )
             setActiveId(null)
           })
           return
@@ -418,7 +425,9 @@ export function KanbanView({
         const overContainer = findContainer(overId)
 
         if (overContainer) {
-          const activeIndex = items[activeContainer].indexOf(active.id)
+          const activeIndex = items[activeContainer].indexOf(
+            active.id as string,
+          )
           const overIndex = items[overContainer].indexOf(overId)
 
           if (activeIndex !== overIndex) {
@@ -439,7 +448,7 @@ export function KanbanView({
       onDragCancel={onDragCancel}
       modifiers={modifiers}
     >
-      <div
+      <Box
         style={{
           display: 'inline-grid',
           boxSizing: 'border-box',
@@ -449,11 +458,7 @@ export function KanbanView({
       >
         <SortableContext
           items={[...containers, PLACEHOLDER_ID]}
-          strategy={
-            vertical
-              ? verticalListSortingStrategy
-              : horizontalListSortingStrategy
-          }
+          strategy={horizontalListSortingStrategy}
         >
           {containers.map((containerId) => (
             <DroppableContainer
@@ -499,7 +504,7 @@ export function KanbanView({
             </DroppableContainer>
           )}
         </SortableContext>
-      </div>
+      </Box>
       {createPortal(
         <DragOverlay adjustScale={adjustScale} dropAnimation={dropAnimation}>
           {activeId
@@ -693,7 +698,7 @@ function SortableItem({
         value: id,
         isDragging,
         isSorting,
-        overIndex: over ? getIndex(over.id) : overIndex,
+        overIndex: over ? getIndex(over.id as string) : overIndex,
         containerId,
       })}
       color={getColor(id)}

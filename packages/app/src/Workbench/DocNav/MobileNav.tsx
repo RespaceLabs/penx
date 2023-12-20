@@ -15,7 +15,7 @@ export const MobileNav = () => {
       px2
       display={['inline-flex', 'inline-flex', 'none']}
       w-100p
-      bgWhite
+      flex-1
       zIndex-10
     >
       <DrawerSidebar />

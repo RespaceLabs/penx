@@ -9,6 +9,7 @@ import { routerAtom } from '@penx/store'
 import { Fallback } from '../Fallback/Fallback'
 import { CommandPanel } from '../Palette'
 import { AccountSettings } from './AccountSettings/AccountSettings'
+import { MobileNav } from './DocNav/MobileNav'
 import { NodePanels } from './NodePanels'
 import { QueryCloudSpaces } from './QueryCloudSpaces'
 import { SetPassword } from './SetPassword'
@@ -37,6 +38,8 @@ export const Workbench = () => {
           <Sidebar />
         </Box>
         <Box flex-1>
+          <MobileNav />
+
           {name === 'ACCOUNT_SETTINGS' && <AccountSettings />}
           {name === 'SPACE_SETTINGS' && <SpaceSettings />}
 

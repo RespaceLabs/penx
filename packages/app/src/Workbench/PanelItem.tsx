@@ -113,7 +113,6 @@ export function PanelItem({ node, index }: Props) {
           pt0
           pb-100
         >
-          <MobileNav />
           {name === 'NODE' && <PCNav />}
           <Box w-100p>
             <Box
