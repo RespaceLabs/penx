@@ -521,6 +521,8 @@ class DB {
         sorts: [],
         filters: [],
         groups: [],
+        kanbanColumnId: '',
+        kanbanOptionIds: [],
       },
     })
 
@@ -538,6 +540,8 @@ class DB {
         sorts: [],
         filters: [],
         groups: [],
+        kanbanColumnId: '',
+        kanbanOptionIds: [],
       },
     })
 

@@ -1,7 +1,7 @@
 import { ViewType } from '@penx/model-types'
 import { useDatabaseContext } from './DatabaseContext'
 import { GalleryView } from './views/GalleryView'
-import { KanbanView } from './views/KanbanView'
+import { KanbanView } from './views/KanbanView/KanbanView'
 import { ListView } from './views/ListView'
 import { TableView } from './views/TableView'
 
