@@ -35,7 +35,7 @@ async function normalize() {
 
     if (!Reflect.has(rows[0].props, 'sort')) {
       console.log('normalize node sort.....')
-      let sort = 0
+      let sort = 1
       for (const item of rows) {
         await db.updateNode<IRowNode>(item.id, {
           props: { ...item.props, sort },

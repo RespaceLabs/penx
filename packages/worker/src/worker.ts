@@ -18,6 +18,6 @@ self.addEventListener('message', async (event) => {
 
     clearNodes()
     syncPenx101()
-    normalizeNodes()
+    // normalizeNodes()
   }
 })

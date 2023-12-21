@@ -854,16 +854,56 @@ class DB {
     return column
   }
 
+  private checkRowsSortNormal(rows: IRowNode[] = []) {
+    if (!rows.length) return true
+    if (!Reflect.has(rows[0]!.props, 'sort')) return false
+
+    const sorts = rows.map((row) => row.props.sort).sort()
+    if (!sorts.every((sort, index) => sort === index + 1)) {
+      return false
+    }
+    return true
+  }
+
+  private async fixRowsSort(rows: IRowNode[] = []) {
+    let sort = 1
+    const sortedRows = rows.sort((a, b) => a.props.sort - b.props.sort)
+
+    for (const item of sortedRows) {
+      await db.updateNode<IRowNode>(item.id, {
+        props: { ...item.props, sort },
+      })
+      sort++
+    }
+  }
+
   addRow = async (databaseId: string, ref = '') => {
     const space = await this.getActiveSpace()
     const spaceId = space.id
+
+    const rows = (await this.node.select({
+      where: {
+        type: NodeType.ROW,
+        spaceId: space.id,
+        databaseId,
+      },
+    })) as IRowNode[]
+
+    const isSortNormal = this.checkRowsSortNormal(rows)
+
+    // fix sort
+    if (!isSortNormal) {
+      await this.fixRowsSort(rows)
+    }
 
     const row = await this.createNode<IRowNode>({
       spaceId,
       databaseId,
       parentId: databaseId,
       type: NodeType.ROW,
-      props: {},
+      props: {
+        sort: rows.length + 1,
+      },
     })
 
     const views = (await this.node.select({
@@ -934,9 +974,8 @@ class DB {
     }
   }
 
+  // TODO: need improve performance
   deleteRow = async (databaseId: string, rowId: string) => {
-    await this.node.deleteByPk(rowId)
-
     const cells = (await this.node.select({
       where: {
         type: NodeType.CELL,
@@ -944,11 +983,36 @@ class DB {
       },
     })) as ICellNode[]
 
+    const primaryCell = cells.find(
+      (cell) => !!cell.props.ref && cell.props.rowId === rowId,
+    )
+
+    const promises: any[] = []
+
+    promises.push(this.node.deleteByPk(rowId))
+
+    //TODO: need to improvement for a node with many refs
+    if (primaryCell) {
+      const ref = primaryCell.props.ref
+      promises.push(this.node.deleteByPk(ref))
+    }
+
     for (const cell of cells) {
       if (cell.props.rowId === rowId) {
-        await this.node.deleteByPk(cell.id)
+        promises.push(this.node.deleteByPk(cell.id))
       }
     }
+
+    await Promise.all(promises)
+
+    const rows = (await this.node.select({
+      where: {
+        type: NodeType.ROW,
+        databaseId,
+      },
+    })) as IRowNode[]
+
+    await this.fixRowsSort(rows)
   }
 
   updateCell = async (cellId: string, data: Partial<ICellNode>) => {

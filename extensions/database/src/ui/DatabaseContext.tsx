@@ -139,7 +139,11 @@ export const DatabaseProvider = ({
   }
 
   async function deleteRow(rowId: string) {
+    const t0 = Date.now()
     await db.deleteRow(databaseId, rowId)
+    const t1 = Date.now()
+    console.log('deleteRow time==========', t1 - t0)
+
     reloadNodes()
   }
 

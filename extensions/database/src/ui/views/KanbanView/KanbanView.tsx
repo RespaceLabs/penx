@@ -56,7 +56,6 @@ const dropAnimation: DropAnimation = {
 type Items = Record<UniqueIdentifier, UniqueIdentifier[]>
 
 interface Props {
-  adjustScale?: boolean
   cancelDrop?: CancelDrop
   containerStyle?: React.CSSProperties
   coordinateGetter?: KeyboardCoordinateGetter
@@ -72,7 +71,6 @@ interface Props {
   wrapperStyle?(args: { index: number }): React.CSSProperties
   itemCount?: number
   handle?: boolean
-  strategy?: SortingStrategy
   modifiers?: Modifiers
   trashable?: boolean
   scrollable?: boolean
@@ -83,20 +81,18 @@ const PLACEHOLDER_ID = 'placeholder'
 const empty: UniqueIdentifier[] = []
 
 export function KanbanView({
-  adjustScale = false,
   cancelDrop,
   handle = false,
   coordinateGetter = multipleContainersCoordinateGetter,
   getItemStyles = () => ({}),
   wrapperStyle = () => ({}),
   modifiers,
-  strategy = verticalListSortingStrategy,
   trashable = false,
   scrollable,
 }: Props) {
   const { currentView, rows, options, columns, cells } = useDatabaseContext()
 
-  console.log('=========rows:', rows)
+  console.log('==============rows:', rows)
 
   const [items, setItems] = useState<Items>(() => {
     const { kanbanColumnId, kanbanOptionIds } = currentView.props
@@ -529,7 +525,7 @@ export function KanbanView({
         </SortableContext>
       </Box>
       {createPortal(
-        <DragOverlay adjustScale={adjustScale} dropAnimation={dropAnimation}>
+        <DragOverlay adjustScale={false} dropAnimation={dropAnimation}>
           {activeId
             ? containers.includes(activeId)
               ? renderContainerDragOverlay(activeId)
