@@ -109,7 +109,9 @@ export interface IColumnNode extends INode {
 export interface IRowNode extends INode {
   parentId: string // should be database id
   type: NodeType.ROW
-  props: {}
+  props: {
+    sort: number
+  }
 }
 
 export interface ICellNode extends INode {

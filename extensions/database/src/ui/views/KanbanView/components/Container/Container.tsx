@@ -1,20 +1,21 @@
 import React, { forwardRef } from 'react'
+import { Box } from '@fower/react'
 import classNames from 'classnames'
 import { Handle, Remove } from '../Item'
 import styles from './Container.module.scss'
 
 export interface Props {
   children: React.ReactNode
-  columns?: number
   label?: string
+  color?: string
   style?: React.CSSProperties
   horizontal?: boolean
   hover?: boolean
+  items: string[]
   handleProps?: React.HTMLAttributes<any>
   scrollable?: boolean
   shadow?: boolean
   placeholder?: boolean
-  unstyled?: boolean
   onClick?(): void
   onRemove?(): void
 }
@@ -22,56 +23,61 @@ export interface Props {
 export const Container = forwardRef<HTMLDivElement, Props>(function Container(
   {
     children,
-    columns = 1,
     handleProps,
     horizontal,
     hover,
     onClick,
     onRemove,
     label,
+    items,
     placeholder,
-    style,
     scrollable,
     shadow,
-    unstyled,
     ...props
   }: Props,
   ref,
 ) {
-  const Component = onClick ? 'button' : 'div'
-
   return (
-    <Component
+    <Box
       {...props}
       ref={ref as any}
-      style={
-        {
-          ...style,
-          '--columns': columns,
-        } as React.CSSProperties
-      }
       className={classNames(
         styles.Container,
-        unstyled && styles.unstyled,
         horizontal && styles.horizontal,
         hover && styles.hover,
         placeholder && styles.placeholder,
         scrollable && styles.scrollable,
         shadow && styles.shadow,
       )}
+      minW-270
+      overflowHidden
+      bgNeutral100
+      m2
+      roundedLG
       onClick={onClick}
       tabIndex={onClick ? 0 : undefined}
     >
       {label ? (
-        <div className={styles.Header}>
-          {label}
-          <div className={styles.Actions}>
+        <Box toCenterY toBetween px2>
+          <Box toCenterY gap2>
+            <Box bg--T60={props.color} roundedFull px2 h-24 textSM toCenter>
+              {label}
+            </Box>
+            <Box>{items?.length}</Box>
+          </Box>
+          <Box toCenterY>
             {onRemove ? <Remove onClick={onRemove} /> : undefined}
             <Handle {...handleProps} />
-          </div>
-        </div>
+          </Box>
+        </Box>
       ) : null}
-      {placeholder ? children : <ul>{children}</ul>}
-    </Component>
+      {placeholder ? (
+        children
+      ) : (
+        <Box column gap2 p2>
+          {children}
+        </Box>
+      )}
+    </Box>
   )
 })
