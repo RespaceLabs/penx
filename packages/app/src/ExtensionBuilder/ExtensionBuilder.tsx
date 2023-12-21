@@ -12,8 +12,8 @@ export function ExtensionBuilder() {
   const [value, setValue] = useState<Manifest>()
   async function runSSE() {
     try {
-      await ky('http://localhost:5001/extension').json()
-      const eventSource = new EventSource('http://localhost:5001/extension-sse')
+      await ky('http://localhost:3000/extension').json()
+      const eventSource = new EventSource('http://localhost:3000/extension-sse')
 
       eventSource.onmessage = async (event) => {
         const data = event.data

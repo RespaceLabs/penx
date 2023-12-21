@@ -15,7 +15,7 @@ export const devServer = {
     app.use(cors())
 
     app.get('/', (req: Request, res: Response) => {
-      const url = 'http://localhost:5001?key=extension-development'
+      const url = 'http://localhost:3000?key=extension-development'
       res.send(`
       <div style="padding: 20%">
         <h1>Penx extension</h1>
