@@ -44,9 +44,9 @@ I'm 0xZion, a freelancer, a full-stack developer, love open-source, now focusing
 After clone the repo, in the root dir:
 
 ```bash
-yarn install # Install the dependencies
+pnpm install # Install the dependencies
 
-yarn dev # start web service
+pnpm dev # start web service
 ```
 
 ## ⚖️ License
