@@ -9,7 +9,7 @@
     <br>
 </h1>
 
-[Discord](https://discord.gg/XdpGtfhJ) | [Website](https://www.penx.io/) | [Issues](https://github.com/penxio/penx/issues)
+[Discord](https://discord.gg/nyVpH9njDu) | [Website](https://www.penx.io/) | [Issues](https://github.com/penxio/penx/issues)
 
 </div>
 
