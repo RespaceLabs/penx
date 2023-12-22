@@ -5,6 +5,7 @@ import {
   Hash,
   Home,
   Key,
+  Link,
   ListChecks,
   Text,
 } from 'lucide-react'
@@ -17,12 +18,14 @@ interface Props {
 }
 
 export const FieldIcon = ({ fieldType, size = 16, index }: Props) => {
-  const iconsMap: Record<FieldType, any> = {
+  const iconsMap: Record<string, any> = {
     [FieldType.TEXT]: Text,
     [FieldType.NUMBER]: Hash,
+    [FieldType.URL]: Link,
     [FieldType.PASSWORD]: Key,
     [FieldType.SINGLE_SELECT]: CheckCircle2,
     [FieldType.MULTIPLE_SELECT]: ListChecks,
+    [FieldType.MARKDOWN]: Text,
     [FieldType.DATE]: CalendarDays,
     [FieldType.CREATED_AT]: CalendarDays,
     [FieldType.UPDATED_AT]: CalendarDays,

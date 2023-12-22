@@ -598,14 +598,18 @@ class DB {
         databaseId,
         parentId: databaseId,
         type: NodeType.ROW,
-        props: {},
+        props: {
+          sort: 1,
+        },
       }),
       this.createNode<IRowNode>({
         spaceId,
         parentId: databaseId,
         type: NodeType.ROW,
         databaseId,
-        props: {},
+        props: {
+          sort: 2,
+        },
       }),
     ])
   }
@@ -777,12 +781,14 @@ class DB {
   }
 
   addColumn = async (databaseId: string, fieldType: FieldType) => {
-    const nameMap: Record<FieldType, string> = {
+    const nameMap: Record<string, string> = {
       [FieldType.TEXT]: 'Text',
       [FieldType.NUMBER]: 'Number',
+      [FieldType.URL]: 'URL',
       [FieldType.PASSWORD]: 'Password',
       [FieldType.SINGLE_SELECT]: 'Single Select',
       [FieldType.MULTIPLE_SELECT]: 'Multiple Select',
+      [FieldType.MARKDOWN]: 'Markdown',
       [FieldType.DATE]: 'Date',
       [FieldType.CREATED_AT]: 'Created At',
       [FieldType.UPDATED_AT]: 'Updated At',
@@ -797,7 +803,7 @@ class DB {
       parentId: databaseId,
       type: NodeType.COLUMN,
       props: {
-        name: nameMap[fieldType],
+        name: nameMap[fieldType] || '',
         description: '',
         fieldType,
         isPrimary: false,

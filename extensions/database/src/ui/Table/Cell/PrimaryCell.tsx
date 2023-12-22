@@ -29,6 +29,7 @@ function withCell(editor: Editor) {
 
 interface Props extends Omit<FowerHTMLProps<'div'>, 'column'> {
   editorAtomicStyle?: string
+  onChange?: (value: any) => void
 }
 
 export const PrimaryCell: FC<CellProps & Props> = memo(
@@ -41,6 +42,7 @@ export const PrimaryCell: FC<CellProps & Props> = memo(
       selected,
       updateCell,
       editorAtomicStyle = '',
+      onChange,
       ...rest
     } = props
     const [value, setValue] = useState<any>(null)
@@ -112,6 +114,8 @@ export const PrimaryCell: FC<CellProps & Props> = memo(
           initialValue={value}
           onChange={async (value) => {
             const element: any = value[0]
+
+            onChange?.(element)
 
             db.updateNode(nodeId, { element })
             db.updateCell(cell.id, {}) // update updatedAt

@@ -3,7 +3,7 @@ import { useDatabaseContext } from './DatabaseContext'
 import { GalleryView } from './views/GalleryView'
 import { KanbanView } from './views/KanbanView/KanbanView'
 import { ListView } from './views/ListView'
-import { TableView } from './views/TableView'
+import { TableView } from './views/TableView/TableView'
 
 export const ViewRenderer = () => {
   const { currentView } = useDatabaseContext()

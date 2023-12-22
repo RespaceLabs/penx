@@ -4,15 +4,18 @@ import { IOptionNode } from '@penx/model-types'
 
 interface Props extends Omit<FowerHTMLProps<'div'>, 'children'> {
   option: IOptionNode
+  showClose?: boolean
   deletable?: boolean
   onDelete?: () => void
 }
 export function OptionTag({
   option,
+  showClose = false,
   deletable = false,
   onDelete,
   ...rest
 }: Props) {
+  const color = option.props.color || 'gray600'
   return (
     <Box
       key={option.id}
@@ -25,9 +28,10 @@ export function OptionTag({
       gap1
       textSM
       toCenterY
+      toBetween
       cursorPointer
-      color={option?.props.color}
-      bg--T90={option?.props.color}
+      color={color}
+      bg--T90={color}
       {...rest}
     >
       <Box>{option ? option.props.name : ''}</Box>
@@ -41,14 +45,20 @@ export function OptionTag({
           hidden
           circle4
           inlineFlex--$optionTag--hover
-          bg={option?.props.color}
-          bg--T30--hover={option?.props.color}
+          bg={color}
+          bg--T30--hover={color}
           white
           onClick={(e) => {
             e.stopPropagation()
             onDelete?.()
           }}
         >
+          <X size={12}></X>
+        </Box>
+      )}
+
+      {showClose && (
+        <Box inlineFlex>
           <X size={12}></X>
         </Box>
       )}

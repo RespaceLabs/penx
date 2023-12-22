@@ -12,7 +12,7 @@ import { SingleSelectCell } from './SingleSelect'
 import { TextCell } from './Text'
 import { UpdatedAtCell } from './UpdatedAt'
 
-const cellsMap: Record<FieldType, any> = {
+const cellsMap: Record<string, any> = {
   [FieldType.TEXT]: TextCell,
   [FieldType.NUMBER]: NumberCell,
   [FieldType.PASSWORD]: PasswordCell,

@@ -16,18 +16,19 @@ import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
 import { useLinguiInit } from '../utils'
 import '@penx/local-db'
+import { fowerStore, Parser } from '@fower/react'
+// import { SpeedInsights } from '@vercel/speed-insights/next'
+import { appEmitter } from '@penx/app'
+// import 'prismjs/themes/prism.css'
+// import 'prismjs/themes/prism.css'
+// import 'prismjs/themes/prism-twilight.css'
+
 import 'simplebar-react/dist/simplebar.min.css'
 import 'react-circular-progressbar/dist/styles.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import '../styles/globals.css'
 import '../styles/command.scss'
-import { fowerStore, Parser } from '@fower/react'
-// import { SpeedInsights } from '@vercel/speed-insights/next'
-import { appEmitter } from '@penx/app'
-
-// import 'prismjs/themes/prism.css'
-// import 'prismjs/themes/prism.css'
-// import 'prismjs/themes/prism-twilight.css'
+import '@glideapps/glide-data-grid/dist/index.css'
 
 initFower()
 
@@ -82,6 +83,7 @@ function MyApp({ Component, pageProps }: Props<any>) {
             {/* <SpeedInsights /> */}
             <Layout>
               <Component {...pageProps} />
+              <div id="portal" />
             </Layout>
             <ToastContainer position="bottom-right" />
           </I18nProvider>

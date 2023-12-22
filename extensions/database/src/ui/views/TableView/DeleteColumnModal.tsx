@@ -10,14 +10,15 @@ import {
   useModalContext,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { useDatabaseContext } from '../../DatabaseContext'
 
-const Footer = () => {
-  const { data, close } = useModalContext<string>()
-  const ctx = useDatabaseContext()
+interface Props {
+  onDeleteColumn: (columnId: string) => Promise<void>
+}
 
+const Footer = ({ onDeleteColumn }: Props) => {
+  const { data: columnId, close } = useModalContext<string>()
   async function deleteColumn() {
-    await ctx.deleteColumn(data)
+    await onDeleteColumn(columnId)
     close()
   }
 
@@ -33,7 +34,7 @@ const Footer = () => {
   )
 }
 
-export const DeleteColumnModal = () => {
+export const DeleteColumnModal = ({ onDeleteColumn }: Props) => {
   return (
     <Modal name={ModalNames.DELETE_COLUMN}>
       <ModalOverlay />
@@ -43,7 +44,7 @@ export const DeleteColumnModal = () => {
         <ModalHeader mb2>Are you sure delete it permanently?</ModalHeader>
 
         <Box>Once deleted, You can't undo this action.</Box>
-        <Footer />
+        <Footer onDeleteColumn={onDeleteColumn} />
       </ModalContent>
     </Modal>
   )

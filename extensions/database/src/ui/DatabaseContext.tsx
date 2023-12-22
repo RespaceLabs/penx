@@ -30,6 +30,7 @@ export interface IDatabaseContext {
   database: IDatabaseNode
   views: IViewNode[]
   columns: IColumnNode[]
+  sortedColumns: IColumnNode[]
   rows: IRowNode[]
   cells: ICellNode[]
   options: IOptionNode[]
@@ -225,11 +226,22 @@ export const DatabaseProvider = ({
     return database.views.find((view) => view.id === activeViewId)!
   }, [database, activeViewId])
 
+  const sortedColumns = useMemo(() => {
+    if (!currentView) return []
+    let { viewColumns = [] } = currentView.props
+    return viewColumns
+      .map(({ columnId }) => {
+        return database.columns.find((col) => col.id === columnId)!
+      })
+      .filter((col) => !!col)
+  }, [currentView, database.columns])
+
   return (
     <Provider
       value={{
         ...database,
         currentView,
+        sortedColumns,
 
         activeViewId,
         setActiveViewId,

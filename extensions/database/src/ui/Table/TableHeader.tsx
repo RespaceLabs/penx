@@ -3,7 +3,6 @@ import { FIRST_COL_WIDTH } from '../../constants'
 import { useDatabaseContext } from '../DatabaseContext'
 import { AddColumnBtn } from './AddColumnBtn'
 import { ColumnItem } from './ColumnItem/ColumnItem'
-import { DeleteColumnModal } from './ColumnItem/DeleteColumnModal'
 
 export const TableHeader = () => {
   const { columns, views, currentView } = useDatabaseContext()
@@ -27,7 +26,6 @@ export const TableHeader = () => {
 
   return (
     <Box flex-1 toLeft>
-      <DeleteColumnModal />
       <Box
         toCenter
         bgWhite
