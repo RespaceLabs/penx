@@ -36,7 +36,13 @@ export function ColumnMenu({ index = 0, column, close }: ColumnMenuProps) {
   }
 
   if (isEditField) {
-    return <EditField column={column} onSave={() => setIsEditField(false)} />
+    return (
+      <EditField
+        close={close}
+        column={column}
+        onSave={() => setIsEditField(false)}
+      />
+    )
   }
 
   return (
