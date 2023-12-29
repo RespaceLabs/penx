@@ -8,7 +8,6 @@ import { uniqueId } from '@penx/unique-id'
 export const CreateSpaceInput = z.object({
   userId: z.string().min(1),
   spaceData: z.string(),
-  invitationCode: z.string(),
   encrypted: z.boolean(),
   nodesData: z.string().optional(),
 })
@@ -29,24 +28,6 @@ export function createSpace(input: CreateUserInput) {
 
   return prisma.$transaction(
     async (tx) => {
-      const result = await tx.spaceInvitationCode.findUnique({
-        where: { code: input.invitationCode },
-      })
-
-      if (!result) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Invitation code not found',
-        })
-      }
-
-      if (result.used) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Invitation code has already been used',
-        })
-      }
-
       await tx.space.create({
         data: {
           id: space.id,
@@ -60,11 +41,6 @@ export function createSpace(input: CreateUserInput) {
           nodeSnapshot: space.nodeSnapshot,
           pageSnapshot: space.pageSnapshot,
         },
-      })
-
-      await tx.spaceInvitationCode.update({
-        where: { code: input.invitationCode },
-        data: { used: true },
       })
 
       await tx.node.createMany({

@@ -58,24 +58,6 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
         )}
       />
 
-      {type === SpaceType.CLOUD && (
-        <>
-          <Box mb--6 column gap2>
-            <Box fontMedium>Invitation Code</Box>
-            <Box textSM gray400>
-              Currently cloud space should have a invitation code
-            </Box>
-          </Box>
-          <Controller
-            name="invitationCode"
-            control={control}
-            render={({ field }) => (
-              <Input autoFocus size="lg" placeholder="" {...field} />
-            )}
-          />
-        </>
-      )}
-
       <Box toCenterY gap1>
         <Controller
           name="encrypted"
