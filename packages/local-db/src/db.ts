@@ -76,6 +76,15 @@ class DB {
     return space!
   }
 
+  getLastModifiedTime = async (spaceId: string): Promise<number> => {
+    const oldNodes = await db.listNodesBySpaceId(spaceId)
+
+    const localLastModifiedTime = Math.max(
+      ...oldNodes.map((n) => n.updatedAt.getTime()),
+    )
+    return localLastModifiedTime
+  }
+
   createSpace = async (data: Partial<ISpace>, initNode = true) => {
     const spaces = await this.listSpaces()
 

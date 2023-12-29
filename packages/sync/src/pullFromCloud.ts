@@ -1,12 +1,10 @@
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
+import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
-import { getNodeMap } from './getNodeMap'
 
-export async function pullFromCloud() {
-  const spaces = await db.listSpaces()
-  const space = spaces.find((s) => s.isActive)!
+export async function pullFromCloud(space: ISpace) {
   if (!space.isCloud) return
   const { password } = space
 

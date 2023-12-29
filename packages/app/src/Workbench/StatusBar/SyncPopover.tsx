@@ -61,7 +61,7 @@ export const SyncPopover: FC<Props> = () => {
     try {
       setStatus(SyncStatus.PULLING)
 
-      await pullFromCloud()
+      await pullFromCloud(activeSpace.raw)
 
       setStatus(SyncStatus.NORMAL)
     } catch (error) {
