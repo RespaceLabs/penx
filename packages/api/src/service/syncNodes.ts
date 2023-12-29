@@ -4,99 +4,52 @@ import { Node, prisma } from '@penx/db'
 import { INode, NodeType } from '@penx/model-types'
 
 export const syncNodesInput = z.object({
-  version: z.number(),
   spaceId: z.string(),
-  added: z.string(),
-  updated: z.string(),
-  deleted: z.string(),
+  nodes: z.string(),
 })
 
 export type SyncUserInput = z.infer<typeof syncNodesInput>
 
 export function syncNodes(input: SyncUserInput) {
-  const added: INode[] = JSON.parse(input.added)
-  const updated: INode[] = JSON.parse(input.updated)
-  const deleted: string[] = JSON.parse(input.deleted)
+  const newNodes: INode[] = JSON.parse(input.nodes)
 
-  // console.log(
-  //   '===========added:',
-  //   added,
-  //   'updated:',
-  //   updated,
-  //   'deleted:',
-  //   deleted,
-  // )
+  if (!newNodes?.length) return true
 
   return prisma.$transaction(
     async (tx) => {
-      const space = await tx.space.findUniqueOrThrow({
-        where: { id: input.spaceId },
-      })
+      let nodes = await tx.node.findMany({ where: { spaceId: input.spaceId } })
 
-      const version = (space?.nodeSnapshot as any)?.version || 0
+      const nodeIdsSet = new Set(nodes.map((node) => node.id))
 
-      console.log('input.version:', input.version, 'space.version:', version)
+      const updatedNodes: INode[] = []
+      const addedNodes: INode[] = []
 
-      if (input.version < version) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: `Version invalid, input version: ${input.version}, remote version: ${version}`,
-        })
+      for (const n of newNodes) {
+        if (nodeIdsSet.has(n.id)) {
+          updatedNodes.push(n)
+        } else {
+          addedNodes.push(n)
+        }
       }
 
-      if (added.length) {
-        await tx.node.createMany({
-          data: added.map((item) => {
-            const { openedAt, createdAt, updatedAt, ...rest } = item
-            return {
-              ...rest,
-              openedAt: new Date(openedAt),
-            }
-          }),
-        })
-      }
+      console.log(
+        '=======updatedNodes:',
+        JSON.stringify(updatedNodes, null, 2),
+        'addedNodes:',
+        JSON.stringify(addedNodes, null, 2),
+      )
 
-      for (const item of updated) {
-        const { openedAt, createdAt, updatedAt, ...rest } = item
+      await tx.node.createMany({ data: addedNodes })
 
-        await tx.node.update({
-          where: { id: item.id },
-          data: {
-            ...rest,
-            openedAt: new Date(openedAt),
-          },
-        })
+      const promises = updatedNodes.map((n) =>
+        tx.node.update({ where: { id: n.id }, data: n }),
+      )
 
-        // try {
-        // } catch (error) {
-        //   console.log('sycn update error', error)
-        // }
-      }
-
-      // await tx.node.deleteMany({
-      //   where: {
-      //     id: {
-      //       in: deleted,
-      //     },
-      //   },
-      // })
-
-      const newVersion = version + 1
+      await Promise.all(promises)
 
       // TODO: should clean no used nodes
-
-      const nodes = await tx.node.findMany({
+      nodes = await tx.node.findMany({
         where: { spaceId: input.spaceId },
-      })
-
-      await tx.space.update({
-        where: { id: input.spaceId },
-        data: {
-          nodeSnapshot: {
-            version: newVersion,
-            nodeMap: {}, // TODO: how to handle encrypted?
-          },
-        },
       })
 
       await cleanDeletedNodes(nodes, async (id) => {
@@ -104,8 +57,7 @@ export function syncNodes(input: SyncUserInput) {
           where: { id },
         })
       })
-
-      return newVersion
+      return true
     },
     {
       maxWait: 1000 * 60, // default: 2000

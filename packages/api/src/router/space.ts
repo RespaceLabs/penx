@@ -15,6 +15,27 @@ export const spaceRouter = createTRPCRouter({
     })
   }),
 
+  lastModifiedTime: protectedProcedure
+    .input(
+      z.object({
+        spaceId: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const node = await ctx.prisma.node.findFirst({
+        where: {
+          spaceId: input.spaceId,
+        },
+        orderBy: {
+          updatedAt: 'desc',
+        },
+        take: 1,
+      })
+
+      if (!node) return null
+      return node.updatedAt
+    }),
+
   version: protectedProcedure
     .input(z.object({ spaceId: z.string() }))
     .query(async ({ ctx, input }) => {

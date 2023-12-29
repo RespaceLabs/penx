@@ -191,19 +191,30 @@ export class NodeService {
       // console.log('=======tags:', tags, element)
 
       if (node) {
-        const node = await db.updateNode(item.id, {
+        const oldHash = new Node(node).toHash()
+        const newHash = new Node({
+          ...node,
           parentId: newParentId,
           element,
           collapsed: !!item.collapsed,
           children,
-        })
+        }).toHash()
 
-        for (const tagName of tags) {
-          await db.createTagRow(tagName, node.id)
-        }
+        if (oldHash !== newHash) {
+          const newNode = await db.updateNode(item.id, {
+            parentId: newParentId,
+            element,
+            collapsed: !!item.collapsed,
+            children,
+          })
 
-        if (tags.length) {
-          emitter.emit('REF_NODE_UPDATED', node)
+          for (const tagName of tags) {
+            await db.createTagRow(tagName, newNode.id)
+          }
+
+          if (tags.length) {
+            emitter.emit('REF_NODE_UPDATED', newNode)
+          }
         }
       } else {
         await db.createNode({
