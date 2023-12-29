@@ -5,6 +5,7 @@ import { emitter } from '@penx/event'
 import { appLoader, useLoaderStatus } from '@penx/loader'
 import { useSession } from '@penx/session'
 import { StoreProvider } from '@penx/store'
+import { trpc } from '@penx/trpc-client'
 import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
 import { ClientOnly } from './components/ClientOnly'
@@ -34,6 +35,24 @@ if (!isServer) {
     },
     isProd ? 5000 : 3000,
   )
+  async function runSSE() {
+    const eventSource = new EventSource(
+      process.env.NEXT_PUBLIC_SPACE_INFO_SSE_URL!,
+    )
+
+    eventSource.onmessage = (event) => {
+      const data = event.data
+      const spaceInfo = JSON.parse(data)
+      console.log('===========spaceInfo:', spaceInfo)
+    }
+
+    eventSource.onerror = (error) => {
+      console.error('SSE error:', error)
+    }
+  }
+
+  console.log('runSSE..............')
+  runSSE()
 }
 
 export const EditorApp = () => {
