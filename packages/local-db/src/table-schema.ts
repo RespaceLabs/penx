@@ -13,7 +13,7 @@ export const tableSchema: TableType[] = [
         unique: false,
       },
     },
-    timestamps: true,
+    timestamps: false,
   },
   {
     name: 'node',
@@ -30,7 +30,7 @@ export const tableSchema: TableType[] = [
         unique: false,
       },
     },
-    timestamps: true,
+    timestamps: false,
   },
 
   {
@@ -45,7 +45,7 @@ export const tableSchema: TableType[] = [
         unique: false,
       },
     },
-    timestamps: true,
+    timestamps: false,
   },
 
   {
@@ -60,6 +60,6 @@ export const tableSchema: TableType[] = [
         unique: false,
       },
     },
-    timestamps: true,
+    timestamps: false,
   },
 ]

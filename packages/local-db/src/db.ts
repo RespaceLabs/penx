@@ -249,11 +249,12 @@ class DB {
   }
 
   updateNode = async <T = INode>(nodeId: string, data: Partial<T>) => {
-    const newNode = await this.node.updateByPk(nodeId, {
-      ...data,
-      updatedAt: new Date(),
-    })
+    const newData: any = data || {}
+    if (!Reflect.has(data, 'updatedAt')) {
+      newData.updatedAt = new Date()
+    }
 
+    const newNode = await this.node.updateByPk(nodeId, newData)
     return newNode
   }
 

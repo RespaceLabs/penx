@@ -17,6 +17,25 @@ export const nodeRouter = createTRPCRouter({
       })
     }),
 
+  pullNodes: protectedProcedure
+    .input(
+      z.object({
+        spaceId: z.string(),
+        lastModifiedTime: z.number(),
+      }),
+    )
+    .query(({ ctx, input }) => {
+      const time = new Date(input.lastModifiedTime)
+      return ctx.prisma.node.findMany({
+        where: {
+          spaceId: input.spaceId,
+          updatedAt: {
+            gt: time,
+          },
+        },
+      })
+    }),
+
   sync: protectedProcedure.input(syncNodesInput).mutation(({ input }) => {
     return syncNodes(input)
   }),
