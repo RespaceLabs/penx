@@ -1,10 +1,11 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import NextAuth from 'next-auth'
-import { JWT } from 'next-auth/jwt'
+import jwt from 'jsonwebtoken'
+import NextAuth, { NextAuthOptions } from 'next-auth'
+import { encode, JWT } from 'next-auth/jwt'
 import GoogleProvider from 'next-auth/providers/google'
 import { prisma } from '@penx/db'
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
@@ -23,14 +24,32 @@ export default NextAuth({
 
   adapter: PrismaAdapter(prisma),
   pages: {
-    signIn: `/`,
-    verifyRequest: `/`,
-    error: '/', // Error code passed in query string as ?error=
+    signIn: `/login`,
+    verifyRequest: `/login`,
+    error: '/login', // Error code passed in query string as ?error=
   },
+  // jwt: {
+  //   maxAge: 30 * 24 * 30 * 60,
+  //   decode: async ({ token, secret }) => {
+  //     console.log('============dencode token', token, 'secret', secret)
+  //     const result = jwt.verify(token!, secret)
+  //     console.log('========result:', result)
+
+  //     return result
+  //   },
+
+  //   encode: async ({ token, secret }) => {
+  //     console.log('encode token', token, 'secret', secret)
+  //     const encoded = jwt.sign(token!, secret, { algorithm: 'HS256' })
+  //     console.log('========encoded:', encoded)
+
+  //     return encoded
+  //   },
+  // },
 
   callbacks: {
     async signIn({ user, account, profile }) {
-      console.log('user, account:', user, 'account:', account)
+      // console.log('============user:', user, 'account:', account)
       // await initSpace(user.id, user.name!)
       return true
     },
@@ -44,12 +63,15 @@ export default NextAuth({
 
       if (account) {
         // Save the access token and refresh token in the JWT on the initial login
-        return {
+        const jwt: JWT = {
           ...token,
-          accessToken: account.access_token,
+          accessToken: account.access_token!,
           expiresAt: Math.floor(Date.now() / 1000 + account.expires_at!),
-          refreshToken: account.refresh_token,
-        } as JWT
+          refreshToken: account.refresh_token!,
+        }
+        // console.log('==============jwt:', jwt)
+
+        return jwt
       }
       return token
     },
@@ -58,7 +80,12 @@ export default NextAuth({
       session.accessToken = token.accessToken as string
       session.userId = token.uid as string
       ;(session.user as any).id = token.uid
+
+      // console.log('session:', session, 'token:', token)
+
       return session
     },
   },
-})
+}
+
+export default NextAuth(authOptions)
