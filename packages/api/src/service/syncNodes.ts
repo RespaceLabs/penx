@@ -1,14 +1,9 @@
-import { TRPCError } from '@trpc/server'
 import Redis from 'ioredis'
 import { z } from 'zod'
 import { Node, prisma } from '@penx/db'
 import { INode, NodeType } from '@penx/model-types'
 
-const redis = new Redis({
-  host: process.env.REDIS_HOST!,
-  port: Number(process.env.REDIS_PORT!),
-  password: process.env.REDIS_PASSWORD!,
-})
+const redis = new Redis(process.env.REDIS_URL!)
 
 export const syncNodesInput = z.object({
   spaceId: z.string(),

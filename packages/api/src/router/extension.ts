@@ -1,12 +1,13 @@
 import { Extension } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
-// import Redis from 'ioredis'
+import Redis from 'ioredis'
 import { z } from 'zod'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
 // const client = new Redis(
 //   'redis://default:72dc8b56f9874af59230b1a08ab5bbb1@able-kangaroo-39064.upstash.io:39064',
 // )
+
 const ALL_EXTENSIONS_KEY = 'extensions:all'
 
 export const extensionRouter = createTRPCRouter({
