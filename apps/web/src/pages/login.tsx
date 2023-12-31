@@ -10,7 +10,7 @@ export default function LoginPage() {
   return (
     <Box column h-100vh>
       <Box mx-auto py8 toCenter>
-        <Logo to="/" />
+        <Logo />
       </Box>
       <Box column flex-1 toCenter>
         <Box

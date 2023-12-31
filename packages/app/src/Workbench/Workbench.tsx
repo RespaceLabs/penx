@@ -17,7 +17,6 @@ import { Sidebar } from './Sidebar/Sidebar'
 import { SpaceSettings } from './SpaceSettings/SpaceSettings'
 
 export const Workbench = () => {
-  const { data: session } = useSession()
   const { activeSpace } = useSpaces()
   const { name } = useAtomValue(routerAtom)
 
@@ -30,7 +29,7 @@ export const Workbench = () => {
 
   return (
     <EditorProvider space={activeSpace}>
-      {session && <QueryCloudSpaces />}
+      {/* {session && <QueryCloudSpaces />} */}
 
       {!isMobile && <CommandPanel />}
       <Box h-100vh toLeft black flex-1>

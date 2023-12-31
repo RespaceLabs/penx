@@ -11,7 +11,7 @@ export function SpaceSettings() {
 
   return (
     <Box p10 column gap6>
-      <Box toCenterY gap2 flexDirection={['column', 'row']}>
+      <Box toLeft toCenterY gap2 flexDirection={['column', 'row']}>
         <Box text2XL fontBold>
           Space Settings
         </Box>

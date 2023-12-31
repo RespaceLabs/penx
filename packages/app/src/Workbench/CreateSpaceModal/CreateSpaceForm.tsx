@@ -9,21 +9,18 @@ import {
   useModalContext,
 } from 'uikit'
 import { ISpace } from '@penx/model-types'
-import { BorderedRadioGroup } from '../../components/BorderedRadioGroup'
-import { SpaceType, useCreateSpaceForm } from './useCreateSpaceForm'
+import { useCreateSpaceForm } from './useCreateSpaceForm'
 
 interface Props {
   showCancel?: boolean
-  onSpaceCreated?: (space: ISpace) => void
 }
 
-export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
+export function CreateSpaceForm({ showCancel = true }: Props) {
   const { data: loading } = useModalContext<boolean>()
-  const form = useCreateSpaceForm(onSpaceCreated)
+  const form = useCreateSpaceForm()
   const { control, formState } = form
   const { isValid } = formState
   const encrypted = form.watch('encrypted')
-  const type = form.watch('type')
 
   return (
     <Box as="form" onSubmit={form.onSubmit} column gap4 pt3>
@@ -36,25 +33,6 @@ export function CreateSpaceForm({ showCancel = true, onSpaceCreated }: Props) {
         rules={{ required: true }}
         render={({ field }) => (
           <Input autoFocus size="lg" placeholder="Name your space" {...field} />
-        )}
-      />
-
-      <Box mb--6 fontMedium>
-        Type
-      </Box>
-      <Controller
-        name="type"
-        control={control}
-        render={({ field }) => (
-          <BorderedRadioGroup
-            options={[
-              { label: 'Local space', value: SpaceType.LOCAL },
-              { label: 'Cloud space', value: SpaceType.CLOUD },
-            ]}
-            {...field}
-            value={field.value}
-            onChange={field.onChange}
-          />
         )}
       />
 
