@@ -166,7 +166,6 @@ export class RestoreService {
       } else {
         await db.createSpace({
           ...this.space,
-          isCloud: false,
           password: this.password,
         })
       }

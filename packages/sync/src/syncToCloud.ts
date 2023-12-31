@@ -6,7 +6,7 @@ import { getNodeMap } from './getNodeMap'
 
 export async function syncToCloud(): Promise<boolean> {
   const space = await db.getActiveSpace()
-  if (!space || !space.isCloud) return false
+  if (!space) return false
 
   const lastModifiedTime = await trpc.space.lastModifiedTime.query({
     spaceId: space.id,

@@ -1,6 +1,5 @@
 import { arrayMoveImmutable } from 'array-move'
 import { format } from 'date-fns'
-import { PENX_101 } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import {
   ConjunctionType,
@@ -55,27 +54,6 @@ class DB {
     return database.useModel<IExtension>('extension')
   }
 
-  init = async () => {
-    let space: ISpace | undefined = undefined
-    const count = await this.space.count()
-    if (count === 0) {
-      await this.createSpace(
-        {
-          id: PENX_101,
-          name: 'PenX 101',
-        },
-        false,
-      )
-
-      space = await this.createSpace({ name: 'My Space' })
-    }
-    if (!space) {
-      space = (await this.space.selectAll())[0]
-    }
-
-    return space!
-  }
-
   getLastModifiedTime = async (spaceId: string): Promise<number> => {
     const oldNodes = await db.listNodesBySpaceId(spaceId)
 
@@ -83,6 +61,69 @@ class DB {
       ...oldNodes.map((n) => n.updatedAt.getTime()),
     )
     return localLastModifiedTime
+  }
+
+  private async initSpaceNodes(space: ISpace) {
+    const spaceId = space.id
+    await this.node.insert(
+      getNewNode(
+        {
+          spaceId,
+          type: NodeType.ROOT,
+        },
+        space.name,
+      ),
+    )
+
+    // init inbox node
+    await this.createInboxNode(space.id)
+
+    // init trash node
+    await this.node.insert(
+      getNewNode({
+        spaceId,
+        type: NodeType.TRASH,
+      }),
+    )
+
+    // init favorite node
+    await this.node.insert(
+      getNewNode({
+        spaceId,
+        type: NodeType.FAVORITE,
+      }),
+    )
+
+    // init database root node
+    await this.node.insert(
+      getNewNode({
+        spaceId,
+        type: NodeType.DATABASE_ROOT,
+      }),
+    )
+
+    // init daily root node
+    const dailyRoot = await this.node.insert(
+      getNewNode({
+        spaceId,
+        type: NodeType.DAILY_ROOT,
+      }),
+    )
+
+    const todayStr = format(new Date(), 'yyyy-MM-dd')
+    const node = await this.createDailyNode(
+      getNewNode({
+        parentId: dailyRoot.id,
+        spaceId,
+        type: NodeType.DAILY,
+        props: { date: todayStr },
+      }),
+    )
+
+    await this.updateSpace(spaceId, {
+      isActive: true,
+      activeNodeIds: [node.id],
+    })
   }
 
   createSpace = async (data: Partial<ISpace>, initNode = true) => {
@@ -96,70 +137,10 @@ class DB {
 
     // insert new space
     const newSpace = getNewSpace(data)
-    const spaceId = newSpace.id
     const space = await this.space.insert(newSpace)
 
     if (initNode) {
-      // init space root node
-      await this.node.insert(
-        getNewNode(
-          {
-            spaceId,
-            type: NodeType.ROOT,
-          },
-          space.name,
-        ),
-      )
-
-      // init inbox node
-      await this.createInboxNode(space.id)
-
-      // init trash node
-      await this.node.insert(
-        getNewNode({
-          spaceId,
-          type: NodeType.TRASH,
-        }),
-      )
-
-      // init favorite node
-      await this.node.insert(
-        getNewNode({
-          spaceId,
-          type: NodeType.FAVORITE,
-        }),
-      )
-
-      // init database root node
-      await this.node.insert(
-        getNewNode({
-          spaceId,
-          type: NodeType.DATABASE_ROOT,
-        }),
-      )
-
-      // init daily root node
-      const dailyRoot = await this.node.insert(
-        getNewNode({
-          spaceId,
-          type: NodeType.DAILY_ROOT,
-        }),
-      )
-
-      const todayStr = format(new Date(), 'yyyy-MM-dd')
-      const node = await this.createDailyNode(
-        getNewNode({
-          parentId: dailyRoot.id,
-          spaceId,
-          type: NodeType.DAILY,
-          props: { date: todayStr },
-        }),
-      )
-
-      await this.updateSpace(spaceId, {
-        isActive: true,
-        activeNodeIds: [node.id],
-      })
+      await this.initSpaceNodes(space)
     }
 
     return space as ISpace

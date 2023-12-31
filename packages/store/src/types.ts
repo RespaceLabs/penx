@@ -22,6 +22,7 @@ export type RouteName =
   | 'ACCOUNT_SETTINGS'
   | 'SPACE_SETTINGS'
   | 'SET_PASSWORD'
+  | 'CREATE_SPACE'
 
 export type IRouterStore = {
   name: RouteName

@@ -9,7 +9,6 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
     sort: 1,
     // version: 0,
     isActive: true,
-    isCloud: false,
     encrypted: false,
     password: '',
     color: getRandomColor(),
