@@ -12,21 +12,6 @@ const sessionAtom = atomWithStorage<SessionContextValue>(KEY, {
   data: null as any,
 })
 
-const getLocalSession = () => {
-  const localSession = localStorage.getItem(KEY)
-  if (!localSession) return null
-  try {
-    const result = JSON.parse(localSession) as SessionContextValue
-    if (!result.data.accessToken) return null
-    const expires = new Date(result.data.expires)
-    if (expires.getTime() < new Date().getTime()) return null
-
-    return result
-  } catch (error) {
-    return null
-  }
-}
-
 export function useSession() {
   const [value, setValue] = useAtom(sessionAtom)
 

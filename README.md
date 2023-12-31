@@ -44,10 +44,17 @@ I'm 0xZion, a freelancer, a full-stack developer, love open-source, now focusing
 After clone the repo, in the root dir:
 
 ```bash
-pnpm install # Install the dependencies
+# Install the dependencies
+pnpm install
 
-pnpm dev # start web service
+# create.env.local by copy .env.local.example
+copy apps/web/.env.local.example apps/web/.env.local
+
+# start web service
+pnpm dev
 ```
+
+Go to: http://localhost:3000/
 
 ## ⚖️ License
 

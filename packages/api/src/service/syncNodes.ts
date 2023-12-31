@@ -12,14 +12,15 @@ export const syncNodesInput = z.object({
 
 export type SyncUserInput = z.infer<typeof syncNodesInput>
 
-export function syncNodes(input: SyncUserInput) {
+export function syncNodes(input: SyncUserInput, userId: string) {
   const newNodes: INode[] = JSON.parse(input.nodes)
+  const { spaceId } = input
 
   if (!newNodes?.length) return true
 
   return prisma.$transaction(
     async (tx) => {
-      let nodes = await tx.node.findMany({ where: { spaceId: input.spaceId } })
+      let nodes = await tx.node.findMany({ where: { spaceId } })
 
       const nodeIdsSet = new Set(nodes.map((node) => node.id))
 
@@ -34,12 +35,12 @@ export function syncNodes(input: SyncUserInput) {
         }
       }
 
-      console.log(
-        '=======updatedNodes:',
-        JSON.stringify(updatedNodes, null, 2),
-        'addedNodes:',
-        JSON.stringify(addedNodes, null, 2),
-      )
+      // console.log(
+      //   '=======updatedNodes:',
+      //   JSON.stringify(updatedNodes, null, 2),
+      //   'addedNodes:',
+      //   JSON.stringify(addedNodes, null, 2),
+      // )
 
       await tx.node.createMany({ data: addedNodes })
 
@@ -51,26 +52,27 @@ export function syncNodes(input: SyncUserInput) {
 
       // TODO: should clean no used nodes
       nodes = await tx.node.findMany({
-        where: { spaceId: input.spaceId },
+        where: { spaceId },
       })
 
       const node = await tx.node.findFirst({
-        where: {
-          spaceId: input.spaceId,
-        },
+        where: { spaceId },
         orderBy: {
           updatedAt: 'desc',
         },
         take: 1,
       })
 
-      redis.publish(
-        'NODES_SYNCED',
-        JSON.stringify({
-          spaceId: input.spaceId,
-          lastModifiedTime: node!.updatedAt.getTime(),
-        }),
-      )
+      const key = 'NODES_SYNCED'
+      const data = {
+        spaceId,
+        userId,
+        lastModifiedTime: node!.updatedAt.getTime(),
+      }
+
+      console.log('==========data:', data)
+
+      redis.publish(key, JSON.stringify(data))
 
       await cleanDeletedNodes(nodes, async (id) => {
         tx.node.delete({

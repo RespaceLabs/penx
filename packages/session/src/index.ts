@@ -7,8 +7,6 @@ export interface Session {
     image: string
     id: string
   }
-  expires: string
-  accessToken: string
   userId: string
 }
 

@@ -36,8 +36,8 @@ export const nodeRouter = createTRPCRouter({
       })
     }),
 
-  sync: protectedProcedure.input(syncNodesInput).mutation(({ input }) => {
-    return syncNodes(input)
+  sync: protectedProcedure.input(syncNodesInput).mutation(({ input, ctx }) => {
+    return syncNodes(input, ctx.token.uid)
   }),
 
   addMarkdown: publicProcedure

@@ -58,30 +58,13 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.uid = user.id
       }
-
-      // Persist the OAuth access_token to the token right after signin
-
-      if (account) {
-        // Save the access token and refresh token in the JWT on the initial login
-        const jwt: JWT = {
-          ...token,
-          accessToken: account.access_token!,
-          expiresAt: Math.floor(Date.now() / 1000 + account.expires_at!),
-          refreshToken: account.refresh_token!,
-        }
-        // console.log('==============jwt:', jwt)
-
-        return jwt
-      }
       return token
     },
-    async session({ session, token, user }) {
+    async session({ session, token, user, ...rest }) {
       // Send properties to the client, like an access_token from a provider.
-      session.accessToken = token.accessToken as string
+
       session.userId = token.uid as string
       ;(session.user as any).id = token.uid
-
-      // console.log('session:', session, 'token:', token)
 
       return session
     },

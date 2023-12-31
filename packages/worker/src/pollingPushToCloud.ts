@@ -5,7 +5,7 @@ import { sleep } from '@penx/shared'
 import { store } from '@penx/store'
 import { syncToCloud } from '@penx/sync'
 
-const INTERVAL = isProd ? 15 * 1000 : 8 * 1000
+const INTERVAL = isProd ? 5 * 1000 : 8 * 1000
 
 export async function pollingPushToCloud() {
   while (true) {

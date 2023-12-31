@@ -1,15 +1,13 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { isProd, isServer } from '@penx/constants'
-import { emitter } from '@penx/event'
 import { appLoader, useLoaderStatus } from '@penx/loader'
 import { db } from '@penx/local-db'
 import { useSession } from '@penx/session'
 import { StoreProvider } from '@penx/store'
-import { pullFromCloud } from '@penx/sync'
-import { trpc } from '@penx/trpc-client'
 import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
+import { runSSE } from './common/runSSE'
 import { ClientOnly } from './components/ClientOnly'
 import { Fallback } from './Fallback/Fallback'
 import { HotkeyBinding } from './HotkeyBinding'
@@ -47,48 +45,12 @@ export const EditorApp = () => {
   const sseInited = useRef(false)
 
   useEffect(() => {
-    async function runSSE() {
-      const eventSource = new EventSource(
-        process.env.NEXT_PUBLIC_SPACE_INFO_SSE_URL!,
-      )
-
-      type SpaceInfo = { spaceId: string; lastModifiedTime: number }
-
-      eventSource.onmessage = async (event) => {
-        const data = event.data
-        const spaceInfo: SpaceInfo = JSON.parse(data)
-        console.log('===========spaceInfo:', spaceInfo)
-
-        if (!spaceInfo?.spaceId) return
-
-        const space = await db.getSpace(spaceInfo.spaceId)
-        if (space) {
-          const localLastModifiedTime = await db.getLastModifiedTime(space.id)
-
-          console.log(
-            'spaceInfo.lastModifiedTime > localLastModifiedTime:',
-            spaceInfo.lastModifiedTime > localLastModifiedTime,
-            spaceInfo.lastModifiedTime,
-            localLastModifiedTime,
-          )
-
-          if (spaceInfo.lastModifiedTime > localLastModifiedTime) {
-            await pullFromCloud(space)
-          }
-        }
-      }
-
-      eventSource.onerror = (error) => {
-        console.error('SSE error:', error)
-      }
-    }
-
-    if (!sseInited.current) {
+    if (!sseInited.current && session?.user) {
       console.log('runSSE..............')
       runSSE()
       sseInited.current = true
     }
-  }, [])
+  }, [session])
 
   if (!isLoaded) {
     return null

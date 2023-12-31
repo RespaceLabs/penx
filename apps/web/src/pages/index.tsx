@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { GetStaticProps } from 'next'
-import { useSession } from 'next-auth/react'
+import { getCsrfToken, useSession } from 'next-auth/react'
 import { EditorApp } from '@penx/app'
 import { SessionProvider } from '@penx/session'
 import { WalletConnectProvider } from '~/components/WalletConnectProvider'

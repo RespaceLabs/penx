@@ -17,8 +17,6 @@ declare module 'next-auth' {
    */
   interface Session extends DefaultSession {
     userId: string
-    expires: string
-    accessToken: string
     user: {
       id: string
     } & DefaultSession['user']
@@ -35,8 +33,5 @@ declare module 'next-auth/jwt' {
     iat: number
     exp: number
     jti: string
-    accessToken: string
-    expiresAt: number
-    refreshToken: string
   }
 }

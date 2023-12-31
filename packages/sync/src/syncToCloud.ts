@@ -12,15 +12,15 @@ export async function syncToCloud(): Promise<boolean> {
     spaceId: space.id,
   })
 
-  console.log('-------lastModifiedTime:', lastModifiedTime)
+  // console.log('-------lastModifiedTime:', lastModifiedTime)
 
   // push all nodes
   if (!lastModifiedTime) {
-    console.log('sync all to cloud..........')
+    // console.log('sync all to cloud..........')
     await pushAllNodes(space)
     return true
   } else {
-    console.log('sync diff to cloud..........')
+    // console.log('sync diff to cloud..........')
     return await pushByDiff(space, lastModifiedTime)
   }
 }

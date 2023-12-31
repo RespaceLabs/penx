@@ -40,7 +40,7 @@ function IndexPopup() {
   return (
     <>
       {isLogin ? (
-        <TrpcProvider token={data.accessToken}>
+        <TrpcProvider token={''}>
           <Popup />
         </TrpcProvider>
       ) : (
