@@ -23,15 +23,7 @@ export const QueryCloudSpaces = () => {
       const newSpace = await db.createSpaceByRemote({
         ...space,
         isActive: false,
-        isCloud: true,
       } as any as ISpace)
-
-      // TODO: this is hard code
-      if (newSpace.name === PENX_101_CLOUD_NAME) {
-        await db.deleteSpace(PENX_101)
-        const spaces = await db.listSpaces()
-        store.space.setSpaces(spaces)
-      }
 
       // only create nodes if the space is not encrypted
       if (!space.encrypted) {

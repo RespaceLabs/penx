@@ -39,19 +39,6 @@ export const UserProfile = () => {
             <MenuItem
               gap2
               onClick={() => {
-                appEmitter.emit('OPEN_HOME')
-              }}
-            >
-              <Box gray500>
-                <Home size={16} />
-              </Box>
-              <Box>Open home page</Box>
-            </MenuItem>
-          </PopoverClose>
-          <PopoverClose>
-            <MenuItem
-              gap2
-              onClick={() => {
                 store.router.routeTo('ACCOUNT_SETTINGS')
               }}
             >

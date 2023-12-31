@@ -1,7 +1,5 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import jwt from 'jsonwebtoken'
 import NextAuth, { NextAuthOptions } from 'next-auth'
-import { encode, JWT } from 'next-auth/jwt'
 import GoogleProvider from 'next-auth/providers/google'
 import { prisma } from '@penx/db'
 
@@ -28,32 +26,8 @@ export const authOptions: NextAuthOptions = {
     verifyRequest: `/login`,
     error: '/login', // Error code passed in query string as ?error=
   },
-  // jwt: {
-  //   maxAge: 30 * 24 * 30 * 60,
-  //   decode: async ({ token, secret }) => {
-  //     console.log('============dencode token', token, 'secret', secret)
-  //     const result = jwt.verify(token!, secret)
-  //     console.log('========result:', result)
-
-  //     return result
-  //   },
-
-  //   encode: async ({ token, secret }) => {
-  //     console.log('encode token', token, 'secret', secret)
-  //     const encoded = jwt.sign(token!, secret, { algorithm: 'HS256' })
-  //     console.log('========encoded:', encoded)
-
-  //     return encoded
-  //   },
-  // },
 
   callbacks: {
-    async signIn({ user, account, profile }) {
-      // console.log('============user:', user, 'account:', account)
-      // await initSpace(user.id, user.name!)
-      return true
-    },
-
     async jwt({ token, account, user, profile }) {
       if (user) {
         token.uid = user.id

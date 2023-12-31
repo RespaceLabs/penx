@@ -33,9 +33,9 @@ export class SpaceStore {
       return nodes.find((n) => n.id === id)!
     })
 
+    this.setSpaces(spaces)
     this.store.router.toNode()
     this.store.node.setNodes(nodes)
-    this.setSpaces(spaces)
 
     this.store.node.selectNode(activeNodes[0])
     return space
@@ -44,8 +44,15 @@ export class SpaceStore {
   async deleteSpace(spaceId: string) {
     await db.deleteSpace(spaceId)
     const spaces = await db.listSpaces()
+
+    if (!spaces.length) {
+      this.setSpaces([])
+      return
+    }
+
     const space = await db.getActiveSpace()
     const nodes = await db.listNodesBySpaceId(space.id)
+
     const activeNodes = space.activeNodeIds.map((id) => {
       return nodes.find((n) => n.id === id)!
     })
@@ -76,7 +83,7 @@ export class SpaceStore {
       })
       .filter((n) => !!n)
 
-    if (space.isCloud && space.encrypted && !nodes.length) {
+    if (space.encrypted && !nodes.length) {
       this.store.router.routeTo('SET_PASSWORD')
     } else {
       if (!activeNodes.length) {

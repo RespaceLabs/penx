@@ -13,8 +13,6 @@ type Events = {
 
   SIGN_IN_GOOGLE: undefined
   SIGN_OUT: undefined
-
-  OPEN_HOME: undefined
 }
 
 export const appEmitter = mitt<Events>()

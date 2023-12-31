@@ -1,15 +1,25 @@
 import React, { useEffect } from 'react'
 import { GetServerSideProps, GetStaticProps } from 'next'
 import { getServerSession } from 'next-auth'
-import { useSession } from 'next-auth/react'
-import { EditorApp, HomePage } from '@penx/app'
+import { getCsrfToken, useSession } from 'next-auth/react'
+import { EditorApp } from '@penx/app'
 import { SessionProvider } from '@penx/session'
 import { WalletConnectProvider } from '~/components/WalletConnectProvider'
-import { loadCatalog } from '~/utils'
 import { authOptions } from './api/auth/[...nextauth]'
 
 const PageEditor = () => {
-  return <HomePage></HomePage>
+  const session = useSession()
+
+  return (
+    <SessionProvider
+      value={{
+        data: session.data as any,
+        loading: session.status === 'loading',
+      }}
+    >
+      <EditorApp />
+    </SessionProvider>
+  )
 }
 
 export default PageEditor
@@ -17,16 +27,18 @@ export default PageEditor
 export const getServerSideProps: GetServerSideProps = async function (context) {
   const session = await getServerSession(context.req, context.res, authOptions)
 
-  if (session) {
+  if (!session) {
     return {
       redirect: {
-        destination: '/editor',
+        destination: '/login',
         permanent: false,
       },
     }
   }
 
   return {
-    props: {},
+    props: {
+      session,
+    },
   }
 }

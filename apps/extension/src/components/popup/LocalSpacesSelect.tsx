@@ -38,8 +38,6 @@ export function LocalSpacesSelect() {
 
               <Box toCenterY gap1 gray600>
                 {item.encrypted && <KeyRound size={16} />}
-                {item.isCloud && <Cloud size={16} />}
-                {!item.isCloud && <Laptop size={16} />}
               </Box>
             </SelectItem>
           ))}

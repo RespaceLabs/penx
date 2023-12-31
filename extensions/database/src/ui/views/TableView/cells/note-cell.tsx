@@ -26,9 +26,16 @@ export const noteCellRenderer: CustomRenderer<NoteCell> = {
   isMatch: (c): c is NoteCell => (c.data as any).kind === 'note-cell',
   draw: (args, cell) => {
     const { ctx, theme, rect } = args
+
     const cellNode = cell.data.data
     const { ref } = cellNode.props
     const node = store.node.getNode(ref)
+
+    if (!node?.element) {
+      drawTextCell(args, 'EMPTY')
+      return true
+    }
+
     const elements = Array.isArray(node.element) ? node.element : [node.element]
 
     const str = elements

@@ -27,10 +27,6 @@ export class Space {
     return this.raw.color
   }
 
-  get isCloud() {
-    return this.raw.isCloud
-  }
-
   get isActive() {
     return this.raw.isActive
   }

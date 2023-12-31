@@ -27,7 +27,6 @@ class AppLoader {
 
       await db.database.connect()
       const t1 = Date.now()
-      await db.init()
 
       const t2 = Date.now()
       const pluginLoader = new ExtensionLoader()
