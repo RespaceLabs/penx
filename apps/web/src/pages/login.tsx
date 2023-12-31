@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import { Box } from '@fower/react'
 import { GetServerSideProps } from 'next'
 import { getServerSession } from 'next-auth'
+import LoginWithGithubButton from '~/components/LoginWithGithubButton'
 import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
 import { Logo } from '~/components/Logo'
 import { authOptions } from './api/auth/[...nextauth]'
@@ -31,6 +32,10 @@ export default function LoginPage() {
             content
           </Box>
           <Box column gap4>
+            <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
+              <LoginWithGithubButton />
+            </Suspense>
+
             <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
               <LoginWithGoogleButton />
             </Suspense>

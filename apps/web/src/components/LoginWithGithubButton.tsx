@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Box } from '@fower/react'
+import { Box, css } from '@fower/react'
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { Button, Spinner } from 'uikit'
-import { IconGoogle } from '@penx/icons'
+import { IconGitHub } from '@penx/icons'
 
-export default function LoginWithGoogleButton() {
+export default function LoginWithGithubButton() {
   const [loading, setLoading] = useState(false)
 
   // Get error message added by next/auth in URL.
@@ -25,7 +25,7 @@ export default function LoginWithGoogleButton() {
       colorScheme="white"
       onClick={() => {
         setLoading(true)
-        signIn('google')
+        signIn('github')
       }}
       cursorNotAllowed={loading}
       gapX2
@@ -35,8 +35,8 @@ export default function LoginWithGoogleButton() {
         <Spinner />
       ) : (
         <>
-          <IconGoogle />
-          <Box>Login with Google</Box>
+          <IconGitHub size={20}></IconGitHub>
+          <Box>Login with GitHub</Box>
         </>
       )}
     </Button>
