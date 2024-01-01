@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: penx_web_ap_container
+    container_name: penx_web_app_container
     ports:
       - "3000:3000" 
     depends_on:
@@ -21,7 +21,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/data:/var/lib/postgresql/data
 
 volumes:
   postgres_data:
