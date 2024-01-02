@@ -16,7 +16,10 @@ export function ExportOldVersionSpaces() {
   const [loading, setLoading] = useState(true)
   const [spaces, setSpaces] = useState<ISpace[]>([])
 
-  useEffect(() => {
+  async function run() {
+    if (!db.database.connection) {
+      await db.database.connect()
+    }
     db.listSpaces().then((spaces) => {
       setSpaces(
         spaces.filter(
@@ -25,6 +28,10 @@ export function ExportOldVersionSpaces() {
       )
       setLoading(false)
     })
+  }
+
+  useEffect(() => {
+    run()
   }, [])
 
   if (loading) return null
