@@ -1,5 +1,4 @@
 import { Box, FowerHTMLProps } from '@fower/react'
-import { Trans } from '@lingui/macro'
 import { useWeb3Modal } from '@web3modal/react'
 import { MoreHorizontal } from 'lucide-react'
 import { useAccount } from 'wagmi'

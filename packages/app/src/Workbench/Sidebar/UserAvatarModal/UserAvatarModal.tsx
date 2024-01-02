@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from 'react'
 import { Box } from '@fower/react'
-import { Trans } from '@lingui/macro'
 import { Eye, MoreHorizontal } from 'lucide-react'
 import { useAccount, useDisconnect } from 'wagmi'
 import {
