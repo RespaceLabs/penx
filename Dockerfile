@@ -4,11 +4,11 @@ FROM node:18.18-alpine
 
 # Update
 RUN apk add --no-cache libc6-compat postgresql
+
 RUN apk update
 
 # Install pnpm
 RUN npm install -g pnpm
-RUN npm install -g prisma
 
 # Configure pnpm global
 ENV PNPM_HOME=/pnpm-test/.pnpm
@@ -29,5 +29,8 @@ RUN chmod +x wait-for-postgres.sh
 # Install dependencies in /app
 RUN pnpm install
 
-# Run dev, as we would via the command line
-CMD sh /app/wait-for-postgres.sh postgres && prisma migrate dev --schema packages/db/prisma/schema.prisma && pnpm dev
+RUN sh /app/wait-for-postgres.sh postgres
+
+RUN pnpm build:web
+
+CMD pnpm start 

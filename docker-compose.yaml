@@ -1,11 +1,13 @@
 version: '3'
 
 services:
-  penx_web_app:
+  penx_web:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: penx_web_app_container
+    container_name: penx_web
+    environment:
+      NEXTAUTH_SECRET: adb6e96b7ec73026c7562eff5f8b95ee
     ports:
       - '3001:3000'
     depends_on:
