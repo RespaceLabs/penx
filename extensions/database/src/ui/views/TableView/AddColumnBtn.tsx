@@ -74,6 +74,11 @@ function Content() {
         <Box>Multiple Select</Box>
       </Item>
 
+      <Item fieldType={FieldType.RATE}>
+        <FieldIcon fieldType={FieldType.SINGLE_SELECT} />
+        <Box>RATE</Box>
+      </Item>
+
       <Item fieldType={FieldType.MARKDOWN}>
         <FieldIcon fieldType={FieldType.MARKDOWN} />
         <Box>Markdown</Box>

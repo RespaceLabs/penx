@@ -26,6 +26,7 @@ import { DateCell } from './cells/date-cell'
 import { MultipleSelectCell } from './cells/multiple-select-cell'
 import { NoteCell } from './cells/note-cell'
 import { PasswordCell } from './cells/password-cell'
+import { RateCell } from './cells/rate-cell'
 import { SingleSelectCell } from './cells/single-select-cell'
 import { SystemDateCell } from './cells/system-date-cell'
 
@@ -100,7 +101,8 @@ export function useTableView() {
       const cellNode = dataRow[indexes[col]]
       const columnNode = columnsMap[indexes[col]]
       const rowNode = rows[row]
-      // console.log('=======column:', column)
+
+      // console.log('==getContent-test: cell:',cell, { data,dataRow,rows,cellNode },'BB:',{columnsMap,indexes,columnNode })
 
       let cellData: any = cellNode.props.data ?? ''
 
@@ -129,6 +131,18 @@ export function useTableView() {
             data: cellNode.props.data,
           },
         } as DateCell
+      }
+
+      if (columnNode.props.fieldType === FieldType.RATE) {
+        return {
+          kind: GridCellKind.Custom,
+          allowOverlay: true,
+          copyData: cellNode.props.data,
+          data: {
+            kind: 'rate-cell',
+            data: cellNode.props.data,
+          },
+        } as RateCell
       }
 
       if (columnNode.props.fieldType === FieldType.PASSWORD) {
