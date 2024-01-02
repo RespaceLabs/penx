@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { Button } from 'uikit'
 import { appEmitter } from '../app-emitter'
 import { Logo } from '../components/Logo'
+import { ExportOldVersionSpaces } from './ExportOldVersionSpaces'
 
 export function HomePage() {
   const { push } = useRouter()
@@ -26,14 +27,9 @@ export function HomePage() {
       bottom0
       right0
       left0
-      zIndex-10000
-      // bgWhite
-      opacity-90
+      bgWhite
       column
       gap4
-      style={{
-        backdropFilter: 'blur(40px)',
-      }}
       toBetween
       toCenterX
     >
@@ -89,6 +85,8 @@ export function HomePage() {
           >
             Login
           </Button>
+
+          <ExportOldVersionSpaces />
 
           {/* <Box>Or</Box> */}
 

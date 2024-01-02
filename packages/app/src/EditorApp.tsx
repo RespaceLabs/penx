@@ -57,6 +57,7 @@ export const EditorApp = () => {
   }
 
   // console.log('render........ EditorApp')
+  if (!session) return null
 
   return (
     <>
@@ -65,7 +66,7 @@ export const EditorApp = () => {
           <ErrorBoundary fallback={<Fallback />}>
             {session && <UserQuery userId={session.userId} />}
             <HotkeyBinding />
-            <SpaceSyncManager userId={session.userId}>
+            <SpaceSyncManager userId={session?.userId}>
               <AppProvider>
                 <Workbench />
               </AppProvider>
