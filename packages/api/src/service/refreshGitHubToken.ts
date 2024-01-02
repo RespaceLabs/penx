@@ -1,6 +1,5 @@
 import { OAuthApp } from '@octokit/oauth-app'
 import queryString from 'query-string'
-import { prisma } from '@penx/db'
 
 // https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/refreshing-user-access-tokens#refreshing-a-user-access-token-with-a-refresh-token
 

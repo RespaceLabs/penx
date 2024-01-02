@@ -20,6 +20,7 @@ export function ExportOldVersionSpaces() {
     if (!db.database.connection) {
       await db.database.connect()
     }
+
     db.listSpaces().then((spaces) => {
       setSpaces(
         spaces.filter(

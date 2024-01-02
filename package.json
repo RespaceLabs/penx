@@ -7,7 +7,7 @@
     "build:packages": "turbo run build --filter=./packages/*",
     "dev": "turbo run dev --filter=@penx/db && turbo run dev --filter=web",
     "dev:web": "turbo run dev --filter=@penx/db && turbo run dev --filter=web",
-    "deploy:web": "docker-compose -p penx-web -f docker-compose.yml up --build -d",
+    "deploy": "docker-compose -p penx-web -f docker-compose.yaml up --build -d",
     "clean": "git clean -xdf node_modules",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
