@@ -23,14 +23,11 @@ WORKDIR /app
 
 # Copy the code into /app
 COPY . .
-RUN mv apps/web/.env.local.example apps/web/.env.local
+RUN mv apps/web/.env.local.example apps/web/.env
 RUN chmod +x wait-for-postgres.sh
 
 # Install dependencies in /app
 RUN pnpm install
-
-# Ensure port 3000 is accessible to our system
-EXPOSE 3000
 
 # Run dev, as we would via the command line
 CMD sh /app/wait-for-postgres.sh postgres && prisma migrate dev --schema packages/db/prisma/schema.prisma && pnpm dev
