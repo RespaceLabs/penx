@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  penx_web_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: penx_web_app_container
+    ports:
+      - "3000:3000" 
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: penx
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: penx
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
