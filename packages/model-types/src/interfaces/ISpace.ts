@@ -11,8 +11,6 @@ export interface ISpace {
 
   isActive: boolean
 
-  isCloud: boolean
-
   activeNodeIds: string[]
 
   encrypted: boolean

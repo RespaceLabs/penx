@@ -5,7 +5,6 @@ import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 
 export async function pullFromCloud(space: ISpace) {
-  if (!space.isCloud) return
   const { password } = space
 
   const remoteLastModifiedTime = await trpc.space.lastModifiedTime.query({

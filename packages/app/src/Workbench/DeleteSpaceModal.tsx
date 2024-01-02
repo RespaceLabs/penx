@@ -31,14 +31,11 @@ const Footer = () => {
     if (!name) return
     setLoading(true)
     try {
-      if (activeSpace.isCloud) {
-        await trpc.space.deleteById.mutate(activeSpace.id)
-        await store.space.deleteSpace(activeSpace.id)
-      } else {
-        await store.space.deleteSpace(activeSpace.id)
-      }
+      await trpc.space.deleteById.mutate(activeSpace.id)
+      await store.space.deleteSpace(activeSpace.id)
       close()
     } catch (error) {
+      console.log('=========error:', error)
       toast.error('Failed to delete space')
     }
 

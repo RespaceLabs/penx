@@ -33,8 +33,6 @@ async function sync() {
     if (!user.github.repo) return
     const activeSpace = await db.getActiveSpace()
 
-    if (!activeSpace.isCloud) return
-
     const nodes = await db.listNodesBySpaceId(activeSpace.id)
 
     if (!nodes.length) return

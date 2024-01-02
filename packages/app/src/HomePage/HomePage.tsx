@@ -1,23 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Box } from '@fower/react'
 import { getCookie, setCookie } from 'cookies-next'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Button } from 'uikit'
-import { PENX_HOME_STATUS } from '@penx/constants'
-import { appEmitter } from '../../app-emitter'
-import { Logo } from '../../components/Logo'
+import { appEmitter } from '../app-emitter'
+import { Logo } from '../components/Logo'
+import { ExportOldVersionSpaces } from './ExportOldVersionSpaces'
 
 export function HomePage() {
-  const [visible, setVisible] = useState(getCookie(PENX_HOME_STATUS) !== 'HIDE')
-
-  useEffect(() => {
-    function handler() {
-      setVisible(true)
-    }
-    appEmitter.on('OPEN_HOME', handler)
-    return () => {
-      appEmitter.off('OPEN_HOME')
-    }
-  }, [])
+  const { push } = useRouter()
 
   const tags = [
     'Local-First',
@@ -35,16 +27,9 @@ export function HomePage() {
       bottom0
       right0
       left0
-      zIndex-10000
-      // bgWhite
-      opacity-90
+      bgWhite
       column
       gap4
-      hidden={!visible}
-      flex={visible}
-      style={{
-        backdropFilter: 'blur(40px)',
-      }}
       toBetween
       toCenterX
     >
@@ -95,16 +80,17 @@ export function HomePage() {
             w-220
             roundedFull
             onClick={() => {
-              setVisible(false)
-              setCookie(PENX_HOME_STATUS, 'HIDE')
+              push('/login')
             }}
           >
-            Go to Web App
+            Login
           </Button>
 
-          <Box>Or</Box>
+          <ExportOldVersionSpaces />
 
-          <Button
+          {/* <Box>Or</Box> */}
+
+          {/* <Button
             as="a"
             variant="outline"
             noUnderline
@@ -113,13 +99,9 @@ export function HomePage() {
             size="lg"
             roundedFull
             target="_blank"
-            onClick={() => {
-              setVisible(false)
-              setCookie(PENX_HOME_STATUS, 'HIDE')
-            }}
           >
             Install Chrome Extension
-          </Button>
+          </Button> */}
         </Box>
       </Box>
     </Box>

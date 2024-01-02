@@ -17,7 +17,7 @@ self.addEventListener('message', async (event) => {
     // pollingPushToGithub()
 
     clearNodes()
-    syncPenx101()
+    // syncPenx101()
     // normalizeNodes()
   }
 })

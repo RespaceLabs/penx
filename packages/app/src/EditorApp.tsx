@@ -2,7 +2,6 @@ import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { isProd, isServer } from '@penx/constants'
 import { appLoader, useLoaderStatus } from '@penx/loader'
-import { db } from '@penx/local-db'
 import { useSession } from '@penx/session'
 import { StoreProvider } from '@penx/store'
 import { runWorker } from '@penx/worker'
@@ -10,9 +9,10 @@ import { AppProvider } from './AppProvider'
 import { runSSE } from './common/runSSE'
 import { ClientOnly } from './components/ClientOnly'
 import { Fallback } from './Fallback/Fallback'
+import { HomePage } from './HomePage/HomePage'
 import { HotkeyBinding } from './HotkeyBinding'
+import { SpaceSyncManager } from './SpaceSyncManager'
 import { UserQuery } from './UserQuery'
-import { HomePage } from './Workbench/HomePage/HomePage'
 import { Workbench } from './Workbench/Workbench'
 
 if (!isServer) {
@@ -57,18 +57,20 @@ export const EditorApp = () => {
   }
 
   // console.log('render........ EditorApp')
+  if (!session) return null
 
   return (
     <>
-      <HomePage />
       <ClientOnly>
         <StoreProvider>
           <ErrorBoundary fallback={<Fallback />}>
             {session && <UserQuery userId={session.userId} />}
             <HotkeyBinding />
-            <AppProvider>
-              <Workbench />
-            </AppProvider>
+            <SpaceSyncManager userId={session?.userId}>
+              <AppProvider>
+                <Workbench />
+              </AppProvider>
+            </SpaceSyncManager>
           </ErrorBoundary>
         </StoreProvider>
       </ClientOnly>

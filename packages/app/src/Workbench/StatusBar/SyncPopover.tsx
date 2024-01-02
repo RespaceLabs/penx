@@ -31,10 +31,6 @@ export const SyncPopover: FC<Props> = () => {
   const { activeSpace } = useSpaces()
 
   async function pushToCloud() {
-    if (!activeSpace.isCloud) {
-      toast.error('Please select a cloud space')
-      return
-    }
     try {
       setStatus(SyncStatus.PUSHING)
 
@@ -54,10 +50,6 @@ export const SyncPopover: FC<Props> = () => {
   }
 
   async function startPullFromCloud() {
-    if (!activeSpace.isCloud) {
-      toast.error('Please select a cloud space')
-      return
-    }
     try {
       setStatus(SyncStatus.PULLING)
 

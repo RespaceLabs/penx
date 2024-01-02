@@ -15,6 +15,18 @@ export const spaceRouter = createTRPCRouter({
     })
   }),
 
+  mySpacesWithNodes: protectedProcedure.query(async ({ ctx }) => {
+    const spaces = await ctx.prisma.space.findMany({
+      where: { userId: ctx.token.uid },
+      orderBy: { createdAt: 'desc' },
+    })
+    const spaceIds = spaces.map((space) => space.id)
+    const nodes = await ctx.prisma.node.findMany({
+      where: { spaceId: { in: spaceIds } },
+    })
+    return { spaces, nodes }
+  }),
+
   lastModifiedTime: protectedProcedure
     .input(
       z.object({
