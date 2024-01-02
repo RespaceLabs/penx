@@ -779,6 +779,7 @@ class DB {
       [FieldType.PASSWORD]: 'Password',
       [FieldType.SINGLE_SELECT]: 'Single Select',
       [FieldType.MULTIPLE_SELECT]: 'Multiple Select',
+      [FieldType.RATE]: 'Rate',
       [FieldType.MARKDOWN]: 'Markdown',
       [FieldType.DATE]: 'Date',
       [FieldType.CREATED_AT]: 'Created At',
