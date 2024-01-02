@@ -73,9 +73,6 @@ const config = {
     locales: ['en', 'ja', 'ko', 'fr', 'pseudo'],
     defaultLocale: 'en',
   },
-  experimental: {
-    swcPlugins: [['@lingui/swc-plugin', {}]],
-  },
   webpack: (config, { isServer }) => {
     // https://stackoverflow.com/questions/64926174/module-not-found-cant-resolve-fs-in-next-js-application
     config.resolve.fallback = {

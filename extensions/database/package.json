@@ -27,7 +27,6 @@
     "@fower/react": "^2.0.0",
     "@fower/utils": "^2.0.0",
     "@glideapps/glide-data-grid": "^5.3.2",
-    "@lingui/macro": "4.1.2",
     "@penx/code-block": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/context-menu": "workspace:*",

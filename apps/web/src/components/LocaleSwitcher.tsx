@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import { Box } from '@fower/react'
-import { msg, t } from '@lingui/macro'
-import { useLingui } from '@lingui/react'
 import { useRouter } from 'next/router'
 import {
   Menu,
@@ -16,13 +14,12 @@ type LOCALES = 'en' | 'ja' | 'ko' | 'fr'
 
 export function LocaleSwitcher() {
   const router = useRouter()
-  const { i18n } = useLingui()
 
   const languages: { [key: string]: string } = {
-    en: t`English`,
-    ja: t`日本語`,
-    ko: t`한국어`,
-    fr: t`Français`,
+    en: `English`,
+    ja: `日本語`,
+    ko: `한국어`,
+    fr: `Français`,
   }
 
   const [locale, setLocale] = useState<LOCALES>(
@@ -56,7 +53,7 @@ export function LocaleSwitcher() {
                     handleChange(locale as any)
                   }}
                 >
-                  {i18n._(languages[locale as unknown as LOCALES])}
+                  {/* {i18n._(languages[locale as unknown as LOCALES])} */}
                 </MenuItem>
               </PopoverClose>
             )

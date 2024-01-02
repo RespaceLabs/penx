@@ -22,8 +22,6 @@
     "@fower/atomic-props": "^2.0.0",
     "@fower/react": "^2.0.0",
     "@hookform/resolvers": "^3.3.2",
-    "@lingui/core": "4.1.2",
-    "@lingui/react": "4.1.2",
     "@mozilla/readability": "^0.4.4",
     "@penx/api": "workspace:*",
     "@penx/app": "workspace:*",

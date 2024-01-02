@@ -1,6 +1,4 @@
 import { Fragment, useEffect } from 'react'
-import { i18n } from '@lingui/core'
-import { I18nProvider } from '@lingui/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
 import { set } from 'idb-keyval'
@@ -14,7 +12,6 @@ import { isServer, PENX_SESSION_USER } from '@penx/constants'
 import { initSharing } from '~/common/handleSharing'
 import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
-import { useLinguiInit } from '../utils'
 import '@penx/local-db'
 import { fowerStore, Parser } from '@fower/react'
 // import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -66,7 +63,6 @@ if (!isServer) {
 }
 
 function MyApp({ Component, pageProps }: Props<any>) {
-  useLinguiInit(pageProps.translation)
   const Layout = Component.Layout ? Component.Layout : Fragment
 
   return (
@@ -79,14 +75,13 @@ function MyApp({ Component, pageProps }: Props<any>) {
 
       <SessionProvider session={pageProps.session} refetchInterval={0}>
         <QueryClientProvider client={queryClient}>
-          <I18nProvider i18n={i18n}>
-            {/* <SpeedInsights /> */}
-            <Layout>
-              <Component {...pageProps} />
-              <div id="portal" />
-            </Layout>
-            <ToastContainer position="bottom-right" />
-          </I18nProvider>
+          {/* <SpeedInsights /> */}
+          <Layout>
+            <Component {...pageProps} />
+            <div id="portal" />
+          </Layout>
+          <ToastContainer position="bottom-right" />
+
           {/* <Analytics /> */}
         </QueryClientProvider>
       </SessionProvider>
