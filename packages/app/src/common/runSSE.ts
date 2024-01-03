@@ -1,4 +1,5 @@
 import { fetchEventSource } from '@microsoft/fetch-event-source'
+import { isSelfHosted } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { pullFromCloud } from '@penx/sync'
 import { trpc } from '@penx/trpc-client'
@@ -32,7 +33,15 @@ async function pull(spaceInfo: SpaceInfo) {
 export async function runSSE() {
   const token = await trpc.user.sseToken.query()
 
-  await fetchEventSource(process.env.NEXT_PUBLIC_SPACE_INFO_SSE_URL!, {
+  console.log('token=======:', token)
+
+  const url = isSelfHosted
+    ? '/api/space-info-sse'
+    : process.env.NEXT_PUBLIC_SPACE_INFO_SSE_URL!
+
+  console.log('sse___URL:', url)
+
+  await fetchEventSource(url, {
     openWhenHidden: true,
     method: 'POST',
     headers: {

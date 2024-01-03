@@ -16,7 +16,7 @@ export default function LoginPage() {
   const showGitHub = providers.includes('GITHUB')
 
   console.log(
-    '========process.env.NEXT_PUBLIC_DEPLOY_MODE:',
+    'xx========process.env.NEXT_PUBLIC_DEPLOY_MODE:',
     process.env.NEXT_PUBLIC_DEPLOY_MODE,
   )
 

@@ -35,7 +35,7 @@ export function LoginForm() {
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
-          <Input size="lg" placeholder="Password" {...field} />
+          <Input type="password" size="lg" placeholder="Password" {...field} />
         )}
       />
 

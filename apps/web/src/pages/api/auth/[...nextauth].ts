@@ -31,7 +31,15 @@ export const authOptions: NextAuthOptions = {
           process.env.SELF_HOSTED_CREDENTIALS as string
         ).split('/')
 
-        console.log('username, password:', username, password)
+        console.log(
+          'process.env.SELF_HOSTED_CREDENTIALS:',
+          process.env.SELF_HOSTED_CREDENTIALS,
+          'username, password:',
+          username,
+          password,
+          'NEXTAUTH_SECRET:',
+          process.env.NEXTAUTH_SECRET,
+        )
 
         if (
           username === credentials!.username &&

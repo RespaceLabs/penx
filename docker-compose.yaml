@@ -4,10 +4,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        NEXTAUTH_SECRET: adb6e96b7ec73026c7562eff5f8b95ee
+        DATABASE_URL: postgresql://postgres:iix4wPiQmWYV7a4m@db.wnvtegeovcmeqcwuheee.supabase.co:5432/postgres
+        REDIS_URL: redis://default:PenX_local_123456@43.154.135.183:6381
+        NEXT_PUBLIC_DEPLOY_MODE: SELF_HOSTED
+        SELF_HOSTED_CREDENTIALS: foo/123456
     container_name: penx_web
-    environment:
-      - NEXTAUTH_SECRET=adb6e96b7ec73026c7562eff5f8b95ee
-      - NEXT_PUBLIC_DEPLOY_MODE=SELF_HOSTED
-      - SELF_HOSTED_CREDENTIALS=foo_bar/123456
     ports:
       - '3000:3000'
