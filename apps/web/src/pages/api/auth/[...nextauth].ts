@@ -1,5 +1,6 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import NextAuth, { NextAuthOptions } from 'next-auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import { prisma } from '@penx/db'
@@ -19,11 +20,49 @@ export const authOptions: NextAuthOptions = {
         timeout: 10 * 1000,
       },
     }),
-    // ...add more providers here
+    CredentialsProvider({
+      name: 'SelfHosted',
+      credentials: {
+        username: { label: 'Username', type: 'text', placeholder: '' },
+        password: { label: 'Password', type: 'password' },
+      },
+      async authorize(credentials, req) {
+        const [username, password] = (
+          process.env.SELF_HOSTED_CREDENTIALS as string
+        ).split('/')
+
+        console.log('username, password:', username, password)
+
+        if (
+          username === credentials!.username &&
+          password === credentials!.password
+        ) {
+          let user = await prisma.user.findFirst({
+            where: { username, password },
+          })
+
+          if (!user) {
+            user = await prisma.user.create({
+              data: { username, password, name: username },
+            })
+          }
+
+          return {
+            id: user.id,
+            name: user.username || user.name,
+            email: user.email || '',
+            image: '',
+          }
+        } else {
+          return null
+        }
+      },
+    }),
   ],
 
   session: {
     strategy: 'jwt',
+    // maxAge: 2592000 * 30,
   },
 
   adapter: PrismaAdapter(prisma),
@@ -46,8 +85,6 @@ export const authOptions: NextAuthOptions = {
       return token
     },
     async session({ session, token, user, ...rest }) {
-      // Send properties to the client, like an access_token from a provider.
-
       session.userId = token.uid as string
       ;(session.user as any).id = token.uid
 

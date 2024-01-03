@@ -8,8 +8,10 @@ services:
     container_name: penx_web
     environment:
       NEXTAUTH_SECRET: adb6e96b7ec73026c7562eff5f8b95ee
+      NEXT_PUBLIC_DEPLOY_MODE: SELF_HOSTED
+      SELF_HOSTED_CREDENTIALS: foo_bar/123456
     ports:
-      - '3001:3000'
+      - '3000:3000'
     depends_on:
       - postgres
 

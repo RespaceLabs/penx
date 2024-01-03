@@ -8,18 +8,18 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
+  // Get the pathname of the request (e.g. /, /about, /blog/first-post)
+  const path = url.pathname
+
   const session = await getToken({ req })
 
-  // if (session && path === '/login') {
-  //   return NextResponse.redirect(new URL('/', req.url))
-  // }
+  if (session && ['/', '/login'].includes(path)) {
+    return NextResponse.redirect(new URL('/editor', req.url))
+  }
 
-  // if (
-  //   (path.startsWith('/spaces') || path.startsWith('/new-space')) &&
-  //   !session
-  // ) {
-  //   return NextResponse.redirect(new URL('/login', req.url))
-  // }
+  if (path.startsWith('/editor') && !session) {
+    return NextResponse.redirect(new URL('/login', req.url))
+  }
 
   return NextResponse.next()
 }

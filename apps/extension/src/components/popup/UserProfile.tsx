@@ -10,7 +10,7 @@ export function UserProfile() {
   return (
     <Box toCenterY gap2>
       <Avatar size={24}>
-        <AvatarImage src={data.user.image!} />
+        <AvatarImage src={data.user?.image || ''} />
       </Avatar>
       <Box textSM>{data.user.email}</Box>
     </Box>

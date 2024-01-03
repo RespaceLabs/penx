@@ -57,6 +57,35 @@ export const userRouter = createTRPCRouter({
     })
   }),
 
+  selfHostedSignIn: publicProcedure
+    .input(
+      z.object({
+        username: z.string(),
+        password: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const [username, password] = (
+        process.env.SELF_HOSTED_CREDENTIALS as string
+      ).split('/')
+
+      if (username === input.username && password === input.password) {
+        let user = await ctx.prisma.user.findFirst({
+          where: { username, password },
+        })
+
+        if (!user) {
+          user = await ctx.prisma.user.create({ data: { username, password } })
+        }
+        return user
+      } else {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'Snapshot not found',
+        })
+      }
+    }),
+
   create: publicProcedure
     .input(
       z.object({

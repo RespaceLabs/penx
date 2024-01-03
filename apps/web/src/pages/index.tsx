@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react'
-import { GetServerSideProps, GetStaticProps } from 'next'
-import { getServerSession } from 'next-auth'
-import { useSession } from 'next-auth/react'
+import React from 'react'
+import { GetStaticProps } from 'next'
 import { EditorApp, HomePage } from '@penx/app'
 import { SessionProvider } from '@penx/session'
 import { WalletConnectProvider } from '~/components/WalletConnectProvider'
@@ -12,20 +10,3 @@ const PageEditor = () => {
 }
 
 export default PageEditor
-
-export const getServerSideProps: GetServerSideProps = async function (context) {
-  const session = await getServerSession(context.req, context.res, authOptions)
-
-  if (session) {
-    return {
-      redirect: {
-        destination: '/editor',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {},
-  }
-}

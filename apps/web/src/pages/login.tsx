@@ -1,12 +1,10 @@
 import { Suspense, useMemo } from 'react'
 import { Box } from '@fower/react'
-import { GetServerSideProps } from 'next'
-import { getServerSession } from 'next-auth'
 import { NEXTAUTH_PROVIDERS } from '@penx/constants'
+import { LoginForm } from '~/components/LoginForm/LoginForm'
 import LoginWithGithubButton from '~/components/LoginWithGithubButton'
 import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
 import { Logo } from '~/components/Logo'
-import { authOptions } from './api/auth/[...nextauth]'
 
 export default function LoginPage() {
   const providers = useMemo(() => {
@@ -16,6 +14,27 @@ export default function LoginPage() {
 
   const showGoogle = providers.includes('GOOGLE')
   const showGitHub = providers.includes('GITHUB')
+
+  const loginEntry = useMemo(() => {
+    if (process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED') {
+      return <LoginForm />
+    }
+
+    return (
+      <Box column gap4>
+        {showGitHub && (
+          <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
+            <LoginWithGithubButton />
+          </Suspense>
+        )}
+        {showGoogle && (
+          <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
+            <LoginWithGoogleButton />
+          </Suspense>
+        )}
+      </Box>
+    )
+  }, [])
 
   return (
     <Box column h-100vh>
@@ -39,37 +58,10 @@ export default function LoginPage() {
           <Box as="p" textCenter mb6 leadingNormal px10 gray500>
             A structured note-taking app for personal use
           </Box>
-          <Box column gap4>
-            {showGitHub && (
-              <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
-                <LoginWithGithubButton />
-              </Suspense>
-            )}
-            {showGoogle && (
-              <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
-                <LoginWithGoogleButton />
-              </Suspense>
-            )}
-          </Box>
+
+          {loginEntry}
         </Box>
       </Box>
     </Box>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async function (context) {
-  const session = await getServerSession(context.req, context.res, authOptions)
-
-  if (session) {
-    return {
-      redirect: {
-        destination: '/editor',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {},
-  }
 }

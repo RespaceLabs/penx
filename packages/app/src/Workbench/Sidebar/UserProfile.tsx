@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import { Home, LogOut, User } from 'lucide-react'
 import {
   Avatar,
+  AvatarFallback,
   AvatarImage,
   Button,
   MenuItem,
@@ -9,7 +10,6 @@ import {
   PopoverClose,
   PopoverContent,
   PopoverTrigger,
-  usePopoverContext,
 } from 'uikit'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
@@ -19,20 +19,25 @@ export const UserProfile = () => {
   const { loading, data: session } = useSession()
   if (loading) return null
 
+  const image = session.user?.image || ''
+  const name = session.user.email || session.user.name
+
   return (
     <Box borderBottom borderGray200--T40 h-40 toCenterY pl4 pr2 toBetween>
       <Popover>
         <PopoverTrigger>
           <Avatar size={24}>
-            <AvatarImage src={session.user.image!} />
+            <AvatarImage src={image} />
+            <AvatarFallback>{name}</AvatarFallback>
           </Avatar>
         </PopoverTrigger>
         <PopoverContent w-200>
           <Box toCenterY gap2 px4 py2>
             <Avatar size={24}>
-              <AvatarImage src={session.user.image!} />
+              <AvatarImage src={image} />
+              <AvatarFallback>{name}</AvatarFallback>
             </Avatar>
-            <Box textSM>{session.user.email}</Box>
+            <Box textSM>{name}</Box>
           </Box>
 
           <PopoverClose>
