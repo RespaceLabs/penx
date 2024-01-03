@@ -3,7 +3,7 @@
 FROM node:18.18-alpine
 
 # Update
-RUN apk add --no-cache libc6-compat postgresql
+RUN apk add --no-cache libc6-compat
 
 RUN apk update
 
@@ -25,15 +25,10 @@ WORKDIR /app
 # Copy the code into /app
 COPY . .
 # RUN mv apps/web/.env.local.example apps/web/.env
-RUN mv .env.selft-hosted .env
-RUN chmod +x wait-for-postgres.sh
+RUN mv .env.self-hosted .env
 
 # Install dependencies in /app
 RUN pnpm install
-
-RUN sh /app/wait-for-postgres.sh postgres
-
-RUN prisma migrate dev --schema packages/db/prisma/schema.prisma
 
 RUN pnpm build:web
 

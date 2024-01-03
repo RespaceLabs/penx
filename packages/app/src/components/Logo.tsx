@@ -21,7 +21,7 @@ export const Logo = ({
     <>
       <Box
         as="img"
-        src={`${BASE_URL}/images/logo-512.png`}
+        src={`${BASE_URL || ''}/images/logo-512.png`}
         square={size * 0.9}
       />
 
