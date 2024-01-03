@@ -1,25 +1,28 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import NextAuth, { NextAuthOptions } from 'next-auth'
+import { Provider } from 'next-auth/providers'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import { prisma } from '@penx/db'
 
-export const authOptions: NextAuthOptions = {
-  // Configure one or more authentication providers
-  providers: [
-    GithubProvider({
-      clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET as string,
-    }),
+const providers: Provider[] = [
+  GithubProvider({
+    clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
+    clientSecret: process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET as string,
+  }),
 
-    GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
-      httpOptions: {
-        timeout: 10 * 1000,
-      },
-    }),
+  GoogleProvider({
+    clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
+    clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
+    httpOptions: {
+      timeout: 10 * 1000,
+    },
+  }),
+]
+
+if (process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED') {
+  providers.push(
     CredentialsProvider({
       name: 'SelfHosted',
       credentials: {
@@ -66,8 +69,12 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
-  ],
+  )
+}
 
+export const authOptions: NextAuthOptions = {
+  // Configure one or more authentication providers
+  providers,
   session: {
     strategy: 'jwt',
     // maxAge: 2592000 * 30,

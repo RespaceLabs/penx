@@ -15,11 +15,6 @@ export default function LoginPage() {
   const showGoogle = providers.includes('GOOGLE')
   const showGitHub = providers.includes('GITHUB')
 
-  console.log(
-    'xx========process.env.NEXT_PUBLIC_DEPLOY_MODE:',
-    process.env.NEXT_PUBLIC_DEPLOY_MODE,
-  )
-
   const loginEntry = useMemo(() => {
     if (process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED') {
       return <LoginForm />
