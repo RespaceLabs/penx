@@ -2,7 +2,6 @@ import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace, NodeType } from '@penx/model-types'
 import { trpc } from '@penx/trpc-client'
-import { getNodeMap } from './getNodeMap'
 
 export async function syncToCloud(): Promise<boolean> {
   const space = await db.getActiveSpace()

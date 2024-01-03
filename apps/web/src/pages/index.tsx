@@ -5,7 +5,6 @@ import { useSession } from 'next-auth/react'
 import { EditorApp, HomePage } from '@penx/app'
 import { SessionProvider } from '@penx/session'
 import { WalletConnectProvider } from '~/components/WalletConnectProvider'
-import { loadCatalog } from '~/utils'
 import { authOptions } from './api/auth/[...nextauth]'
 
 const PageEditor = () => {

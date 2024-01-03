@@ -4,7 +4,6 @@
   "globalEnv": [
     "NEXT_PUBLIC_NEXTAUTH_URL",
     "NEXTAUTH_SECRET",
-    "NEXT_PUBLIC_ROOT_DOMAIN",
     "NEXT_PUBLIC_PROJECT_ID",
     "NODE_ENV",
     "NEXT_PUBLIC_NEXTAUTH_PROVIDERS",
@@ -42,6 +41,7 @@
     "dev": {
       "cache": false,
       "persistent": true
-    }
+    },
+    "start": {}
   }
 }

@@ -36,3 +36,6 @@ yarn-error.log*
 .vercel
 
 key.ts
+
+# docker
+postgres

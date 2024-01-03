@@ -1,6 +1,4 @@
-import { Extension } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
-import Redis from 'ioredis'
 import { z } from 'zod'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 

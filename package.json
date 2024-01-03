@@ -6,7 +6,9 @@
     "build:web": "turbo run build --filter=web...",
     "build:packages": "turbo run build --filter=./packages/*",
     "dev": "turbo run dev --filter=@penx/db && turbo run dev --filter=web",
+    "start": "turbo run start --filter=web...",
     "dev:web": "turbo run dev --filter=@penx/db && turbo run dev --filter=web",
+    "deploy": "docker-compose -p penx-web -f docker-compose.yaml up --build -d",
     "clean": "git clean -xdf node_modules",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
@@ -31,6 +33,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.3.0",
     "prettier": "^3.1.0",
+    "prisma": "5.7.1",
     "turbo": "^1.11.0"
   },
   "packageManager": "pnpm@8.7.6"
