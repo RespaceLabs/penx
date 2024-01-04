@@ -1,9 +1,18 @@
+export enum EditorMode {
+  OUTLINE = 'OUTLINE',
+  BLOCK = 'BLOCK',
+}
+
 export interface ISpace {
   id: string
+
+  userId: string
 
   name: string
 
   description?: string
+
+  editorMode: EditorMode
 
   sort: number
 

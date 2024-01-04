@@ -29,7 +29,10 @@ export function useCreateSpaceForm() {
 
     ctx?.setData?.(true)
 
+    const userId = session?.user?.id ?? ''
+
     const newSpace = getNewSpace({
+      userId,
       name: data.name,
       encrypted: data.encrypted,
       password: data.password,
@@ -37,7 +40,7 @@ export function useCreateSpaceForm() {
 
     try {
       await trpc.space.create.mutate({
-        userId: session?.userId as string,
+        userId,
         spaceData: JSON.stringify(newSpace),
         encrypted: data.encrypted,
         // nodesData: JSON.stringify(nodes),

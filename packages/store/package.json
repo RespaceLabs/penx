@@ -28,7 +28,9 @@
     "@penx/model-types": "workspace:*",
     "@penx/serializer": "workspace:*",
     "date-fns": "^2.30.0",
+    "idb-keyval": "^6.2.1",
     "jotai": "^2.6.0",
+    "keyval": "^1.0.0",
     "react-fast-compare": "^3.2.2",
     "slate": "0.101.1"
   }

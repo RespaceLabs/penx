@@ -1,5 +1,7 @@
 import { arrayMoveImmutable } from 'array-move'
 import { format } from 'date-fns'
+import { get } from 'idb-keyval'
+import { PENX_SESSION_USER_ID } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import {
   ConjunctionType,
@@ -164,8 +166,15 @@ class DB {
     })
   }
 
-  listSpaces = () => {
-    return this.space.selectAll()
+  listSpaces = async () => {
+    const userId = await get(PENX_SESSION_USER_ID)
+    const spaces = await this.space.selectAll()
+    return spaces.filter((space) => {
+      if (Reflect.has(space, 'userId')) {
+        return space.userId === userId
+      }
+      return true
+    })
   }
 
   getSpace = (spaceId: string) => {

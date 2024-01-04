@@ -3956,6 +3956,9 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
+      idb-keyval:
+        specifier: ^6.2.1
+        version: 6.2.1
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -4476,9 +4479,15 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
+      idb-keyval:
+        specifier: ^6.2.1
+        version: 6.2.1
       jotai:
         specifier: ^2.6.0
         version: 2.6.1(@types/react@18.2.46)(react@18.2.0)
+      keyval:
+        specifier: ^1.0.0
+        version: 1.0.0
       react-fast-compare:
         specifier: ^3.2.2
         version: 3.2.2
@@ -18792,6 +18801,10 @@ packages:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
     dependencies:
       json-buffer: 3.0.1
+
+  /keyval@1.0.0:
+    resolution: {integrity: sha512-3cODdwlUNFmAqr/ddjMIkH4yhb8jIUkfttxLiD58cmPWdcqUOAonJfKZSmQftiCfeAlQVqGmGH3QvsrW14BDIQ==}
+    dev: false
 
   /keyvaluestorage-interface@1.0.0:
     resolution: {integrity: sha512-8t6Q3TclQ4uZynJY9IGr2+SsIGwK9JHcO6ootkHCGA0CrQCRy+VkouYNO2xicET6b9al7QKzpebNow+gkpCL8g==}

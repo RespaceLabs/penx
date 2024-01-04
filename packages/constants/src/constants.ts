@@ -6,6 +6,8 @@ export const isProd = process.env.NODE_ENV === 'production'
 
 export const PENX_SESSION_USER = 'PENX_SESSION_USER'
 
+export const PENX_SESSION_USER_ID = 'PENX_SESSION_USER_ID'
+
 export const PENX_101 = 'penx-101'
 
 export const PENX_101_CLOUD_NAME = 'penx-101-cloud'

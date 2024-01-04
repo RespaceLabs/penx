@@ -18,6 +18,7 @@
     "@penx/unique-id": "workspace:*",
     "array-move": "^4.0.0",
     "date-fns": "^2.30.0",
+    "idb-keyval": "^6.2.1",
     "mitt": "^3.0.1"
   },
   "devDependencies": {

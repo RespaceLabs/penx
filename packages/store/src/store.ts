@@ -1,5 +1,6 @@
+import { set } from 'idb-keyval'
 import { atom, createStore } from 'jotai'
-import { SyncStatus } from '@penx/constants'
+import { PENX_SESSION_USER_ID, SyncStatus } from '@penx/constants'
 import { User } from '@penx/model'
 import { commands } from './constants'
 import { AppStore } from './stores/AppStore'
@@ -16,6 +17,8 @@ export const commandsAtom = atom<Command[]>(commands)
 export const extensionStoreAtom = atom<ExtensionStore>({})
 
 export const userAtom = atom<User>({} as User)
+
+export const userIdAtom = atom('')
 
 const baseStore = createStore()
 
@@ -41,6 +44,15 @@ export const store = Object.assign(baseStore, {
 
   get node() {
     return new NodeStore(this)
+  },
+
+  getUserId() {
+    return store.get(userIdAtom)
+  },
+
+  setUserId(userId: string) {
+    set(PENX_SESSION_USER_ID, userId)
+    return store.set(userIdAtom, userId)
   },
 
   getUser() {
