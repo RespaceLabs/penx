@@ -16,6 +16,7 @@ const withPWA = NextPWA({
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  output: 'standalone',
   transpilePackages: [
     '@penx/api',
     '@penx/app',
