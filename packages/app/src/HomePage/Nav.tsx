@@ -30,10 +30,10 @@ export const Nav = () => {
 
   return (
     <Box listNone toCenterY gap6 textBase display={['none', 'flex']}>
-      {navData.map((item) => {
+      {navData.map((item, i) => {
         if (item.isExternal) {
           return (
-            <Box key={item.text}>
+            <Box key={i}>
               <Box
                 as="a"
                 href={item.to}

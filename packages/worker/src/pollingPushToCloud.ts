@@ -8,6 +8,10 @@ import { syncToCloud } from '@penx/sync'
 const INTERVAL = isProd ? 5 * 1000 : 8 * 1000
 
 export async function pollingPushToCloud() {
+  const user = await get(PENX_SESSION_USER)
+
+  if (!user?.id) return
+
   while (true) {
     try {
       const data = await get(PENX_SESSION_USER)

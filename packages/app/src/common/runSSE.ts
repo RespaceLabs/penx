@@ -33,8 +33,6 @@ async function pull(spaceInfo: SpaceInfo) {
 export async function runSSE() {
   const token = await trpc.user.sseToken.query()
 
-  console.log('token=======:', token)
-
   const url = isSelfHosted
     ? '/api/space-info-sse'
     : process.env.NEXT_PUBLIC_SPACE_INFO_SSE_URL!
@@ -52,9 +50,8 @@ export async function runSSE() {
       console.log('=========onopen', response)
     },
     onmessage(ev) {
-      // console.log('===============ev.data:', ev.data)
       const spaceInfo: SpaceInfo = JSON.parse(ev.data)
-      console.log('===========spaceInfo:', spaceInfo)
+      // console.log('===========spaceInfo:', spaceInfo)
       pull(spaceInfo)
     },
     onclose() {
