@@ -7,6 +7,7 @@ import { Button } from 'uikit'
 import { appEmitter } from '../app-emitter'
 import { Logo } from '../components/Logo'
 import { ExportOldVersionSpaces } from './ExportOldVersionSpaces'
+import { Nav } from './Nav'
 
 export function HomePage() {
   const { push } = useRouter()
@@ -33,8 +34,24 @@ export function HomePage() {
       toBetween
       toCenterX
     >
-      <Box py3 relative zIndex-10>
+      <Box
+        toBetween
+        py3
+        w={['98%', '98%', 760, 1080]}
+        relative
+        zIndex-10
+        mx-auto
+      >
         <Logo size={32} />
+        <Box toRight toCenterY gap6>
+          <Nav />
+          <iframe
+            src="https://ghbtns.com/github-btn.html?user=penxio&amp;repo=penx&amp;type=star&amp;count=true&amp;size=large"
+            height={30}
+            width={160}
+            title="GitHub Stars"
+          />
+        </Box>
       </Box>
       <Box flex-1 toCenter column mt--80 gap5 px={[20, 0]}>
         <Box text={[28, 32, 48]} maxW-680 fontBold leadingNone textCenter>
