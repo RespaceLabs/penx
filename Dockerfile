@@ -2,8 +2,6 @@
 # preferred node version chosen here (LTS = 18.18 as of 10/10/23)
 FROM node:18.18-alpine
 
-ENV NEXT_PUBLIC_DEPLOY_MODE SELF_HOSTED
-
 # Update
 RUN apk add --no-cache libc6-compat
 
