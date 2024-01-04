@@ -16,10 +16,6 @@ export const AppProvider: FC<PropsWithChildren> = ({ children }) => {
   const { data: session } = useSession()
 
   useEffect(() => {
-    store.setUserId(session?.user?.id)
-  }, [session])
-
-  useEffect(() => {
     if (!appRef.current.inited) {
       appRef.current.init()
     }

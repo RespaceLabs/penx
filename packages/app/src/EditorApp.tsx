@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { isProd, isServer } from '@penx/constants'
+import { set } from 'idb-keyval'
+import { isProd, isServer, PENX_SESSION_USER_ID } from '@penx/constants'
 import { appLoader, useLoaderStatus } from '@penx/loader'
 import { useSession } from '@penx/session'
 import { StoreProvider } from '@penx/store'
@@ -50,6 +51,8 @@ export const EditorApp = () => {
       runSSE()
       sseInited.current = true
     }
+
+    set(PENX_SESSION_USER_ID, session?.user?.id)
   }, [session])
 
   if (!isLoaded) {

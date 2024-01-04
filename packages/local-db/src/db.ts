@@ -166,12 +166,12 @@ class DB {
     })
   }
 
-  listSpaces = async () => {
-    const userId = await get(PENX_SESSION_USER_ID)
+  listSpaces = async (userId?: string) => {
+    const uid = userId ?? (await get(PENX_SESSION_USER_ID))
     const spaces = await this.space.selectAll()
     return spaces.filter((space) => {
       if (Reflect.has(space, 'userId')) {
-        return space.userId === userId
+        return space.userId === uid
       }
       return true
     })

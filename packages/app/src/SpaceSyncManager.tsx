@@ -49,7 +49,7 @@ export const SpaceSyncManager = ({
 
   async function loadSpaces() {
     const t0 = Date.now()
-    let spaces = await db.listSpaces()
+    let spaces = await db.listSpaces(userId)
 
     // navigator.onLine
 

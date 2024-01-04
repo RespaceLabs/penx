@@ -42,7 +42,7 @@ function EditorPage() {
   const session = useSession()
 
   return (
-    <TrpcProvider token={session?.data?.accessToken}>
+    <TrpcProvider token={''}>
       <SessionProvider value={session}>
         <EditorApp />
       </SessionProvider>

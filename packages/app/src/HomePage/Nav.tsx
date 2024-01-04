@@ -14,7 +14,11 @@ type NavItem = {
 export const Nav = () => {
   const navData: NavItem[] = [
     { text: 'Docs', to: 'https://docs.penx.io/', isExternal: true },
-    { text: 'Self-hosted', to: 'https://docs.penx.io/', isExternal: true },
+    {
+      text: 'Self-hosted',
+      to: 'https://docs.penx.io/self-hosted',
+      isExternal: true,
+    },
     {
       text: 'Feedback',
       to: 'https://github.com/penxio/penx/issues',
