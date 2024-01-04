@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { FormEvent, forwardRef } from 'react'
 import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
 import { ChevronDown, X } from 'lucide-react'
@@ -11,15 +11,20 @@ import { Option, useEditFieldForm } from './useEditFieldForm'
 interface EditFieldProps {
   column: IColumnNode
   onSave: () => void
+  close: () => void
 }
-export function EditField({ column, onSave }: EditFieldProps) {
-  const { close } = usePopoverContext()
+export function EditField({ column, onSave, close }: EditFieldProps) {
   const { options } = useDatabaseContext()
   const form = useEditFieldForm(column)
   const { control, formState } = form
 
+  const onSubmit = async (formState: FormEvent<HTMLDivElement>) => {
+    await form.onSubmit(formState)
+    close()
+  }
+
   return (
-    <Box as="form" p4 column gap3 onSubmit={form.onSubmit}>
+    <Box as="form" p4 column gap3 onSubmit={(formState) => onSubmit(formState)}>
       <Box textXS gray500 mb--4>
         Column Name
       </Box>

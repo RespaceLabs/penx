@@ -49,7 +49,6 @@ export function useEditFieldForm(column: IColumnNode) {
 
     const nodes = await db.listNodesBySpaceId(column.spaceId)
     store.node.setNodes(nodes)
-    close()
   }
 
   return { ...form, onSubmit: form.handleSubmit(onSubmit) }
