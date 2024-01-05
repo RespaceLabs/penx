@@ -23,15 +23,18 @@ export default async function handler(
   }
 
   res.setHeader('Content-Type', 'text/event-stream')
-  res.setHeader('Cache-Control', 'no-cache')
+  res.setHeader('Cache-Control', 'no-cache, no-transform')
   res.setHeader('Connection', 'keep-alive')
+
+  /**
+   * Just add 'Content-Encoding': 'none' in your writeHead stage because default nextJs server compress everything by default.
+   */
+  res.setHeader('Content-Encoding', 'none')
 
   const data = `data: ${JSON.stringify({})}\n\n`
   res.write(data)
 
   const body = (req.body || {}) as BodyInput
-
-  console.log('==========body:', body)
 
   if (!body?.token) {
     res.end()
