@@ -70,14 +70,6 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-model SharedDoc {
-    id        String   @id @default(uuid())
-    title     String?  @db.Text
-    content   String   @db.Text
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
-
 model Space {
     id           String  @id @default(uuid())
     name         String
@@ -103,16 +95,6 @@ model Space {
     userId String?
 
     @@index([userId])
-}
-
-model SpaceInvitationCode {
-    id        String    @id @default(uuid())
-    used      Boolean   @default(false)
-    code      String    @unique
-    createdAt DateTime? @default(now())
-    updatedAt DateTime? @updatedAt
-
-    @@index([used])
 }
 
 model Node {
@@ -151,17 +133,6 @@ model Template {
     updatedAt   DateTime @updatedAt
 }
 
-model InvitationToken {
-    id        String    @id @default(uuid())
-    userId    String
-    spaceId   String
-    roleType  String?
-    token     String?
-    deletedAt DateTime?
-    createdAt DateTime? @default(now())
-    updatedAt DateTime? @updatedAt
-}
-
 model Extension {
     id          String   @id @default(uuid())
     uniqueId    String
@@ -173,4 +144,15 @@ model Extension {
     author      String?
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
+}
+
+model InvitationToken {
+    id        String    @id @default(uuid())
+    userId    String
+    spaceId   String
+    roleType  String?
+    token     String?
+    deletedAt DateTime?
+    createdAt DateTime? @default(now())
+    updatedAt DateTime? @updatedAt
 }

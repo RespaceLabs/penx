@@ -9,7 +9,6 @@ import 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'uikit'
 import { isServer, PENX_SESSION_USER } from '@penx/constants'
-import { initSharing } from '~/common/handleSharing'
 import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
 import '@penx/local-db'
@@ -46,8 +45,6 @@ if (!isServer) {
 
   // setTimeout(() => {
   // }, 2000)
-
-  initSharing()
 
   // TODO: move this code to a separate file
   const handleSignOut = () => {
