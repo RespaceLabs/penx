@@ -1,0 +1,36 @@
+# Deployment environment variables
+
+- `NEXTAUTH_SECRET`: The secret for jwt, you can get it from: https://generate-secret.vercel.app/32
+
+- `DATABASE_URL`: A Postgresql database URL, you can get it from: https://supabase.com
+
+- `REDIS_URL`: A Redis URL for realtime sync between multiple devices, you can get it from: https://upstash.com
+
+- `SELF_HOSTED_CREDENTIALS`: username and password for login, it's format is `{{username}}/{{password}}`
+
+Of course, you can also start your own Postgresql and Redis service, for example:
+
+```bash
+version: '3'
+
+services:
+  redis:
+    image: redis
+    container_name: redis
+    command: redis-server --requirepass {{password}}
+    restart: always
+    ports:
+      - '6379:6379'
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: {{DB_NAME}}
+      POSTGRES_USER: {{USER_NAME}}
+      POSTGRES_PASSWORD: {{PASSWORD}}
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+```

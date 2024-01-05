@@ -70,7 +70,7 @@ export function syncNodes(input: SyncUserInput, userId: string) {
         lastModifiedTime: node!.updatedAt.getTime(),
       }
 
-      console.log('==========data:', data)
+      // console.log('==========data:', data)
 
       redis.publish(key, JSON.stringify(data))
 

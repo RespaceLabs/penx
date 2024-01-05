@@ -1,0 +1,46 @@
+# Docker Compose
+
+This document provides a guide for deploying PenX with Docker Compose.
+
+## Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+## Create docker-compose.yml
+
+To deploy PenX with docker compose, create a docker-compose.yml file:
+
+```yml
+version: '3'
+
+services:
+  penx-self-hosted:
+    image: 0xzion/penx:latest
+    container_name: penx-self-hosted
+    environment:
+      - NEXTAUTH_SECRET={{jwt_secret}}
+      - DATABASE_URL={{postgresql_database_url}}
+      - REDIS_URL={{redis_url}}
+      - SELF_HOSTED_CREDENTIALS=penx/123456 # username and password
+    ports:
+      - '3000:3000'
+```
+
+The environment variables used by PenX are described in [environment-variables](/self-hosted/deployment-env).
+
+## Start the containers
+
+Now, execute `docker-compose up -d` to start PenX service.
+
+```bash
+docker compose up -d
+```
+
+## Upgrading
+
+When a new version of PenX is released, the application can be upgraded with the following commands, run in the directory with the docker-compose.yml file:
+
+```bash
+docker compose pull && docker compose up -d
+```
