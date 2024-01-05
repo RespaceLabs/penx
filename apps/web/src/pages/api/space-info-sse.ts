@@ -31,6 +31,8 @@ export default async function handler(
 
   const body = (req.body || {}) as BodyInput
 
+  console.log('==========body:', body)
+
   if (!body?.token) {
     res.end()
     return
@@ -52,7 +54,7 @@ export default async function handler(
   const CHANNEL = 'NODES_SYNCED'
 
   redis.subscribe(CHANNEL, (_, count) => {
-    // console.log("subscribe count.........:", count);
+    console.log('subscribe count.........:', count)
   })
 
   redis.on('message', async (channel, msg) => {
@@ -75,8 +77,4 @@ export default async function handler(
     // TODO: how to unsubscribe?
     // redis.unsubscribe(CHANNEL);
   })
-
-  // https://github.com/login/oauth/access_token
-  // res.redirect(`/spaces/${spaceId}/git`)
-  res.redirect(`/`)
 }

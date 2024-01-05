@@ -1,0 +1,39 @@
+# Self-Hosted
+
+This document provides a guide for deploying PenX with Docker.
+
+The PenX service is packaged using Docker and published to Docker Hub at [hub.docker.com/r/0xzion/penx](https://hub.docker.com/r/0xzion/penx).
+
+## Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+
+## Docker Run
+
+To start PenX service with docker run, execute the following one command:
+
+```bash
+docker run -d \
+  --name penx-self-hosted \
+  -e NEXTAUTH_SECRET={{jwt_secret}} \
+  -e DATABASE_URL={{postgresql_database_url}} \
+  -e REDIS_URL={{redis_url}} \
+  -e SELF_HOSTED_CREDENTIALS={{username}}/{{password}} \
+  -p 3000:3000 \
+  0xzion/penx:latest
+```
+
+A real world example:
+
+```bash
+docker run -d \
+  --name penx-self-hosted \
+  -e NEXTAUTH_SECRET=adb6e96b7ec73026c7562eff5f8b95ee \
+  -e DATABASE_URL=postgresql://postgres:iix4wPiQmWYV7a4m@db.wnvtegeovcmeqcwuheee.supabase.co:5432/postgres \
+  -e REDIS_URL=redis://default:PenX_local_123456@43.154.135.183:6381 \
+  -e SELF_HOSTED_CREDENTIALS=penx/123456 \
+  -p 3000:3000 \
+  0xzion/penx:latest
+```
+
+The environment variables used by PenX are described in [environment-variables](/self-hosted/deployment-env).

@@ -1,0 +1,8 @@
+{
+  "docker": "Docker",
+  "docker-compose": "Docker Compose",
+  "flyio": "Fly.io",
+  "railway": "Railway",
+  "vercel": "Vercel",
+  "deployment-env": "Deployment env"
+}
