@@ -4,7 +4,9 @@ import { getServerSession } from 'next-auth'
 import { HomePage } from '@penx/app'
 import { authOptions } from './api/auth/[...nextauth]'
 
-const PageEditor = () => {
+const PageEditor = (props: any) => {
+  console.log('pages index props:', props)
+
   return <HomePage></HomePage>
 }
 
@@ -23,6 +25,8 @@ export const getServerSideProps: GetServerSideProps = async function (context) {
   }
 
   return {
-    props: {},
+    props: {
+      session,
+    },
   }
 }

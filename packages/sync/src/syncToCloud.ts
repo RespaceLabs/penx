@@ -50,7 +50,7 @@ export interface Options {
   deleted: string[]
 }
 
-async function submitToServer(space: ISpace, nodes: INode[]) {
+export async function submitToServer(space: ISpace, nodes: INode[]) {
   const { password } = space
   const encrypted = space.encrypted && password
 
@@ -65,5 +65,3 @@ async function submitToServer(space: ISpace, nodes: INode[]) {
     ),
   })
 }
-
-type NodeMap = Record<string, string>

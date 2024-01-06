@@ -46,6 +46,7 @@ export const EditorApp = () => {
   const sseInited = useRef(false)
 
   useEffect(() => {
+    if (!navigator.onLine) return
     if (!sseInited.current && session?.user) {
       console.log('runSSE..............')
       runSSE()
