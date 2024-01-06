@@ -4,6 +4,7 @@ import { db, getNewSpace } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
+import { submitToServer } from '@penx/sync'
 import { trpc } from '@penx/trpc-client'
 
 export type CreateSpaceValues = {
@@ -43,17 +44,21 @@ export function useCreateSpaceForm() {
         userId,
         spaceData: JSON.stringify(newSpace),
         encrypted: data.encrypted,
-        // nodesData: JSON.stringify(nodes),
       })
 
-      await store.space.createSpace(newSpace)
+      const space = await store.space.createSpace(newSpace)
+
+      const nodes = await db.listNodesBySpaceId(space.id)
+      await submitToServer(space, nodes)
 
       ctx?.close?.()
     } catch (error) {
-      //
-    }
+      console.log('========error:', error)
 
-    ctx?.setData?.(false)
+      toast.error('Create space failed!')
+    } finally {
+      ctx?.setData?.(false)
+    }
   }
 
   return { ...form, onSubmit: form.handleSubmit(onSubmit) }
