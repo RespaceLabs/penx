@@ -86,11 +86,6 @@ class MyDocument extends Document {
             color="#5bbad5"
           />
           <link rel="shortcut icon" href="/favicon.ico" />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Poppins"
-            // href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-          />
 
           <style
             data-fower={getAtomIds()}

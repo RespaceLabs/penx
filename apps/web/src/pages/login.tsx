@@ -1,10 +1,13 @@
 import { Suspense, useMemo } from 'react'
 import { Box } from '@fower/react'
+import { GetServerSideProps, GetStaticProps } from 'next'
+import { getServerSession } from 'next-auth'
 import { NEXTAUTH_PROVIDERS } from '@penx/constants'
 import { LoginForm } from '~/components/LoginForm/LoginForm'
 import LoginWithGithubButton from '~/components/LoginWithGithubButton'
 import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
 import { Logo } from '~/components/Logo'
+import { authOptions } from './api/auth/[...nextauth]'
 
 export default function LoginPage() {
   const providers = useMemo(() => {
@@ -64,4 +67,21 @@ export default function LoginPage() {
       </Box>
     </Box>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async function (context) {
+  const session = await getServerSession(context.req, context.res, authOptions)
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/editor',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
 }
