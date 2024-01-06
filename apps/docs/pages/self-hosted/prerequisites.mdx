@@ -1,0 +1,269 @@
+# Prerequisites
+
+## Deployment environment variables
+
+- `NEXTAUTH_SECRET`: The secret for jwt, you can get it from: https://generate-secret.vercel.app/32
+
+- `DATABASE_URL`: A Postgresql database URL, you can get it from: https://supabase.com, after getting a database, you should create a database with the provided [SQL](/deployment-Prerequisites#create-database-tables).
+
+- `REDIS_URL`: A Redis URL for realtime sync between multiple devices, you can get it from: https://upstash.com
+
+- `SELF_HOSTED_CREDENTIALS`: username and password for login, it's format is `{{username}}/{{password}}`
+
+Of course, you can also start your own Postgresql and Redis service, for example:
+
+```bash
+version: '3'
+
+services:
+  redis:
+    image: redis
+    container_name: redis
+    command: redis-server --requirepass {{password}}
+    restart: always
+    ports:
+      - '6379:6379'
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: {{DB_NAME}}
+      POSTGRES_USER: {{USER_NAME}}
+      POSTGRES_PASSWORD: {{PASSWORD}}
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+```
+
+## Create Database tables
+
+After get a postgresql database, you can create tables with these SQL:
+
+```sql
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "address" TEXT,
+    "name" TEXT,
+    "bio" TEXT,
+    "password" TEXT,
+    "avatar" TEXT,
+    "github" JSONB,
+    "username" TEXT,
+    "email" TEXT,
+    "emailVerified" TIMESTAMP(3),
+    "image" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Account" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "provider" TEXT NOT NULL,
+    "providerAccountId" TEXT NOT NULL,
+    "refresh_token" TEXT,
+    "access_token" TEXT,
+    "refresh_token_expires_in" INTEGER,
+    "expires_at" INTEGER,
+    "token_type" TEXT,
+    "scope" TEXT,
+    "id_token" TEXT,
+    "session_state" TEXT,
+    "oauth_token_secret" TEXT,
+    "oauth_token" TEXT,
+
+    CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Session" (
+    "id" TEXT NOT NULL,
+    "sessionToken" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "expires" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "VerificationToken" (
+    "identifier" TEXT NOT NULL,
+    "token" TEXT NOT NULL,
+    "expires" TIMESTAMP(3) NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Space" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "subdomain" TEXT,
+    "customDomain" TEXT,
+    "editorMode" TEXT,
+    "sort" INTEGER NOT NULL DEFAULT 0,
+    "color" TEXT NOT NULL,
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
+    "encrypted" BOOLEAN NOT NULL DEFAULT false,
+    "activeNodeIds" JSONB,
+    "nodeSnapshot" JSONB,
+    "pageSnapshot" JSONB,
+    "deletedAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "userId" TEXT,
+
+    CONSTRAINT "Space_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Node" (
+    "id" TEXT NOT NULL,
+    "spaceId" TEXT NOT NULL,
+    "parentId" TEXT,
+    "databaseId" TEXT,
+    "type" TEXT NOT NULL,
+    "element" JSONB NOT NULL,
+    "props" JSONB,
+    "collapsed" BOOLEAN NOT NULL DEFAULT false,
+    "folded" BOOLEAN NOT NULL DEFAULT true,
+    "children" JSONB,
+    "openedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Node_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Post" (
+    "id" TEXT NOT NULL,
+    "spaceId" TEXT NOT NULL,
+    "nodeId" TEXT NOT NULL,
+    "nodes" JSONB NOT NULL,
+    "password" TEXT,
+    "reviewable" BOOLEAN NOT NULL DEFAULT false,
+    "editable" BOOLEAN NOT NULL DEFAULT false,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Theme" (
+    "id" TEXT NOT NULL,
+    "spaceId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "introduction" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Theme_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Template" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "content" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Template_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Extension" (
+    "id" TEXT NOT NULL,
+    "uniqueId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "version" TEXT NOT NULL,
+    "description" TEXT,
+    "readme" TEXT,
+    "code" TEXT NOT NULL,
+    "author" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Extension_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "InvitationToken" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "spaceId" TEXT NOT NULL,
+    "roleType" TEXT,
+    "token" TEXT,
+    "deletedAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
+
+    CONSTRAINT "InvitationToken_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_address_key" ON "User"("address");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE INDEX "Account_userId_idx" ON "Account"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
+
+-- CreateIndex
+CREATE INDEX "Session_userId_idx" ON "Session"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "VerificationToken_token_key" ON "VerificationToken"("token");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationToken"("identifier", "token");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Space_subdomain_key" ON "Space"("subdomain");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Space_customDomain_key" ON "Space"("customDomain");
+
+-- CreateIndex
+CREATE INDEX "Space_userId_idx" ON "Space"("userId");
+
+-- CreateIndex
+CREATE INDEX "Node_spaceId_idx" ON "Node"("spaceId");
+
+-- CreateIndex
+CREATE INDEX "Node_type_idx" ON "Node"("type");
+
+-- CreateIndex
+CREATE INDEX "Post_spaceId_idx" ON "Post"("spaceId");
+
+-- CreateIndex
+CREATE INDEX "Post_nodeId_idx" ON "Post"("nodeId");
+
+-- AddForeignKey
+ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Space" ADD CONSTRAINT "Space_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+```

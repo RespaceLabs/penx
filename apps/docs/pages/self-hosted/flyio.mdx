@@ -1,6 +1,10 @@
-# Fly.io
+# Deploy to Fly.io
 
 You can deploy PenX to [Fly.io](https://fly.io).
+
+## Prerequisites
+
+Before deployment, Please read the [Prerequisites](/self-hosted/prerequisites) carefully.
 
 ## Configure your Fly app
 
@@ -44,4 +48,12 @@ in your terminal, navigate to the directory where fly.toml is located and run `f
 
 ```bash
 fly launch --copy-config
+```
+
+## Upgrade
+
+If new version PenX is released, you can upgrade it easily by `flyctl deploy`:
+
+```bash
+flyctl deploy
 ```

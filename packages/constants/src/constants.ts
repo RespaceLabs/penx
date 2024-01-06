@@ -12,8 +12,7 @@ export const PENX_101 = 'penx-101'
 
 export const PENX_101_CLOUD_NAME = 'penx-101-cloud'
 
-export const isSelfHosted =
-  process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED'
+export const isSelfHosted = process.env.NEXT_PUBLIC_DEPLOY_MODE !== 'PLATFORM'
 
 export const NEXTAUTH_PROVIDERS = process.env.NEXT_PUBLIC_NEXTAUTH_PROVIDERS
 
