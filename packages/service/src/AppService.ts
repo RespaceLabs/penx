@@ -1,9 +1,32 @@
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
+import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
+import { trpc } from '@penx/trpc-client'
+import { syncFromCloud } from '../../sync/src'
 
 export class AppService {
   inited = false
+
+  private async tryToSync(space: ISpace) {
+    const time = await trpc.space.nodesLastUpdatedAt.query({
+      spaceId: space.id,
+    })
+
+    if (time) {
+      await db.updateSpace(space.id, {
+        nodesLastUpdatedAt: time,
+      })
+    }
+
+    // TODO: handle empty remote time
+    if (!time) return
+
+    const localLastUpdatedAt = await db.getLastUpdatedAt(space.id)
+    if (localLastUpdatedAt < time.getTime()) {
+      await syncFromCloud(space)
+    }
+  }
 
   async init() {
     console.log('app init...')
@@ -13,8 +36,15 @@ export class AppService {
     try {
       const spaces = await db.listSpaces()
       const activeSpace = spaces.find((item) => item.isActive) || spaces[0]
+
+      if (navigator.onLine) {
+        await this.tryToSync(activeSpace)
+      }
+
       const nodes = await db.listNodesBySpaceId(activeSpace.id)
       store.space.setSpaces(spaces)
+
+      // get nodesLastUpdatedAt and try to pull from cloud
 
       if (nodes.length) {
         const todayNode = await db.getTodayNode(activeSpace.id)

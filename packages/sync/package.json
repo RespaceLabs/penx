@@ -25,8 +25,6 @@
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/serializer": "workspace:*",
-    "@penx/service": "workspace:*",
-    "@penx/store": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "lodash": "^4.17.21",
     "mime-types": "^2.1.35",

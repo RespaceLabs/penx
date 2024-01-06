@@ -1,10 +1,8 @@
 import _ from 'lodash'
 import { ELEMENT_BIDIRECTIONAL_LINK_CONTENT } from '@penx/constants'
 import { ArraySorter } from '@penx/indexeddb'
-import { db } from '@penx/local-db'
 import { Node, WithFlattenedProps } from '@penx/model'
 import { INode, NodeType } from '@penx/model-types'
-import { store } from '@penx/store'
 
 interface TreeItem extends Omit<INode, 'children'> {
   children: TreeItem[]
@@ -168,23 +166,6 @@ export class NodeListService {
       if (isLinked()) nodes.push(item)
     }
     return nodes.sort((a, b) => a.updatedAt.getTime() - b.updatedAt.getTime())
-  }
-
-  async addToFavorites(node: Node) {
-    await db.updateNode(this.favoriteNode.id, {
-      children: [...this.favoriteNode.children, node.id],
-    })
-    const nodes = await db.listNodesBySpaceId(node.spaceId)
-    store.node.setNodes(nodes)
-  }
-
-  async removeFromFavorites(node: Node) {
-    const children = this.favoriteNode.children.filter((id) => id !== node.id)
-    await db.updateNode(this.favoriteNode.id, {
-      children,
-    })
-    const nodes = await db.listNodesBySpaceId(node.spaceId)
-    store.node.setNodes(nodes)
   }
 
   // TODO: need to improvement

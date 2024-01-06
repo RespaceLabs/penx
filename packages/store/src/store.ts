@@ -1,5 +1,4 @@
 import { atom, createStore } from 'jotai'
-import { SyncStatus } from '@penx/constants'
 import { User } from '@penx/model'
 import { commands } from './constants'
 import { AppStore } from './stores/AppStore'
@@ -7,9 +6,8 @@ import { EditorStore } from './stores/EditorStore'
 import { NodeStore } from './stores/NodeStore'
 import { RouterStore } from './stores/RouterStore'
 import { SpaceStore } from './stores/SpaceStore'
+import { SyncStore } from './stores/SyncStore'
 import { Command, ExtensionStore } from './types'
-
-export const syncStatusAtom = atom<SyncStatus>(SyncStatus.NORMAL)
 
 export const commandsAtom = atom<Command[]>(commands)
 
@@ -43,6 +41,10 @@ export const store = Object.assign(baseStore, {
 
   get node() {
     return new NodeStore(this)
+  },
+
+  get sync() {
+    return new SyncStore(this)
   },
 
   getUserId() {

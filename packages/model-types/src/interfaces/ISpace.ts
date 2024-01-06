@@ -38,6 +38,11 @@ export interface ISpace {
     pageMap: Record<string, string>
   }
 
+  /**
+   * nodes last updated time
+   */
+  nodesLastUpdatedAt?: Date
+
   createdAt: Date
 
   updatedAt: Date

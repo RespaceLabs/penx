@@ -1,6 +1,6 @@
 import { atomWithStorage } from 'jotai/utils'
+import { StoreType } from '../store-types'
 import { IRouterStore, RouteName } from '../types'
-import { StoreType } from './store-types'
 
 export const routerAtom = atomWithStorage('Router', {
   name: 'NODE',

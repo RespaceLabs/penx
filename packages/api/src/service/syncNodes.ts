@@ -16,7 +16,7 @@ export function syncNodes(input: SyncUserInput, userId: string) {
   const newNodes: INode[] = JSON.parse(input.nodes)
   const { spaceId } = input
 
-  if (!newNodes?.length) return true
+  if (!newNodes?.length) return null
 
   return prisma.$transaction(
     async (tx) => {
@@ -79,7 +79,14 @@ export function syncNodes(input: SyncUserInput, userId: string) {
           where: { id },
         })
       })
-      return true
+
+      const lastNode = await tx.node.findFirst({
+        where: { spaceId: input.spaceId },
+        orderBy: { updatedAt: 'desc' },
+        take: 1,
+      })
+
+      return lastNode?.updatedAt ?? null
     },
     {
       maxWait: 1000 * 60, // default: 2000
@@ -103,10 +110,10 @@ async function cleanDeletedNodes(
     if (
       [
         NodeType.DATABASE,
-        NodeType.COLUMN,
-        NodeType.ROW,
-        NodeType.VIEW,
-        NodeType.CELL,
+        // NodeType.COLUMN,
+        // NodeType.ROW,
+        // NodeType.VIEW,
+        // NodeType.CELL,
         NodeType.ROOT,
         NodeType.DAILY_ROOT,
         NodeType.DATABASE_ROOT,

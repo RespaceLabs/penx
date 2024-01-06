@@ -17,7 +17,7 @@ import {
   ViewType,
 } from '@penx/model-types'
 import { nodeToSlate } from '@penx/serializer'
-import { StoreType } from './store-types'
+import { StoreType } from '../store-types'
 
 type FindOptions<T = INode> = {
   where?: Partial<T>

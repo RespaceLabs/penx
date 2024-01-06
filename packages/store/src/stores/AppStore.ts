@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { StoreType } from './store-types'
+import { StoreType } from '../store-types'
 
 export const appLoadingAtom = atom(true)
 

@@ -29,10 +29,10 @@ li {
   margin: 0;
 }
 
-div,
+/* div,
 span {
   line-height: 1;
-}
+} */
 
 html {
   scroll-padding-top: 120px; /* height of your navbar */

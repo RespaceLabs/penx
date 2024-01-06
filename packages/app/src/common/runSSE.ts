@@ -1,7 +1,7 @@
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { isSelfHosted } from '@penx/constants'
 import { db } from '@penx/local-db'
-import { pullFromCloud } from '@penx/sync'
+import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 
 type SpaceInfo = {
@@ -15,17 +15,17 @@ async function pull(spaceInfo: SpaceInfo) {
 
   const space = await db.getSpace(spaceInfo.spaceId)
   if (space) {
-    const localLastModifiedTime = await db.getLastModifiedTime(space.id)
+    const localLastUpdatedAt = await db.getLastUpdatedAt(space.id)
 
     console.log(
       'spaceInfo.lastModifiedTime > localLastModifiedTime:',
-      spaceInfo.lastModifiedTime > localLastModifiedTime,
+      spaceInfo.lastModifiedTime > localLastUpdatedAt,
       spaceInfo.lastModifiedTime,
-      localLastModifiedTime,
+      localLastUpdatedAt,
     )
 
-    if (spaceInfo.lastModifiedTime > localLastModifiedTime) {
-      await pullFromCloud(space)
+    if (spaceInfo.lastModifiedTime > localLastUpdatedAt) {
+      await store.sync.pullFromCloud(space)
     }
   }
 }

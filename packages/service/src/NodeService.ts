@@ -132,6 +132,8 @@ export class NodeService {
     if (!isInReference) {
       store.node.setFirstActiveNodes(node)
     }
+
+    await store.sync.pushToCloud()
   }
 
   saveNodes = async (parentId: string, ul: UnorderedListElement) => {

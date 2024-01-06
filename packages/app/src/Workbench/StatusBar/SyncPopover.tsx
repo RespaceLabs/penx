@@ -9,7 +9,6 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  toast,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -18,9 +17,8 @@ import { SyncStatus } from '@penx/constants'
 import { useSpaces, useSyncStatus, useUser } from '@penx/hooks'
 import { IconPull, IconPush } from '@penx/icons'
 import { db } from '@penx/local-db'
-import { useSession } from '@penx/session'
 import { store } from '@penx/store'
-import { pullFromCloud, SyncService, syncToCloud } from '@penx/sync'
+import { SyncService } from '@penx/sync'
 
 interface Props {}
 
@@ -30,40 +28,7 @@ export const SyncPopover: FC<Props> = () => {
     useSyncStatus()
   const { activeSpace } = useSpaces()
 
-  async function pushToCloud() {
-    try {
-      setStatus(SyncStatus.PUSHING)
-
-      const isSynced = await syncToCloud()
-
-      if (isSynced) {
-        console.log('========isSynced!!!')
-
-        const spaces = await db.listSpaces()
-        store.space.setSpaces(spaces)
-      }
-
-      setStatus(SyncStatus.NORMAL)
-    } catch (error) {
-      setStatus(SyncStatus.PUSH_FAILED)
-    }
-  }
-
-  async function startPullFromCloud() {
-    try {
-      setStatus(SyncStatus.PULLING)
-
-      await pullFromCloud(activeSpace.raw)
-
-      setStatus(SyncStatus.NORMAL)
-    } catch (error) {
-      setStatus(SyncStatus.PULL_FAILED)
-    }
-  }
-
   async function pushToGitHub() {
-    if (!activeSpace) return
-
     try {
       setStatus(SyncStatus.PUSHING)
       const s = await SyncService.init(activeSpace.raw, user)
@@ -120,7 +85,7 @@ export const SyncPopover: FC<Props> = () => {
               toBetween
               onClick={async (e) => {
                 e.stopPropagation()
-                pushToCloud()
+                store.sync.pushToCloud()
                 close()
               }}
             >
@@ -148,7 +113,7 @@ export const SyncPopover: FC<Props> = () => {
               toCenterY
               onClick={async (e) => {
                 e.stopPropagation()
-                startPullFromCloud()
+                store.sync.pullFromCloud()
                 close()
               }}
             >

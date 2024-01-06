@@ -25,6 +25,7 @@
     "@penx/indexeddb": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/model": "workspace:*",
+    "@penx/sync": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/serializer": "workspace:*",
     "date-fns": "^2.30.0",

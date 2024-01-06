@@ -1,6 +1,6 @@
 import { atom } from 'jotai'
 import { PenxEditor } from '@penx/editor-common'
-import { StoreType } from './store-types'
+import { StoreType } from '../store-types'
 
 export const editorsAtom = atom<Map<number, PenxEditor>>(new Map())
 

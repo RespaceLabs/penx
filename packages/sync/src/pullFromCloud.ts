@@ -1,15 +1,10 @@
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
-import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 
-export async function pullFromCloud(space: ISpace) {
+export async function syncFromCloud(space: ISpace) {
   const { password } = space
-
-  const remoteLastModifiedTime = await trpc.space.lastModifiedTime.query({
-    spaceId: space.id,
-  })
 
   const oldNodes = await db.listNodesBySpaceId(space.id)
 
@@ -17,19 +12,14 @@ export async function pullFromCloud(space: ISpace) {
     ...oldNodes.map((n) => n.updatedAt.getTime()),
   )
 
-  console.log(
-    '====Local=lastModifiedTime:',
-    localLastModifiedTime,
-    'remoteLastModifiedTime:',
-    remoteLastModifiedTime?.getTime(),
-  )
-
   const newRemoteNodes = await trpc.node.pullNodes.query({
     spaceId: space.id,
     lastModifiedTime: localLastModifiedTime,
   })
 
-  console.log('=========newRemoteNodes:', newRemoteNodes)
+  if (!newRemoteNodes.length) return
+
+  // console.log('=========newRemoteNodes:', newRemoteNodes)
 
   const encrypted = space.encrypted && space.password
 
@@ -59,9 +49,11 @@ export async function pullFromCloud(space: ISpace) {
     }
   }
 
-  const newNodes = await db.listNodesBySpaceId(space.id)
+  const localLastUpdatedAt = await db.getLastUpdatedAt(space.id)
 
-  store.node.setNodes(newNodes)
-  store.node.selectDailyNote()
+  await db.updateSpace(space.id, {
+    nodesLastUpdatedAt: new Date(localLastUpdatedAt),
+  })
+
   return
 }

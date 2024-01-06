@@ -13,8 +13,6 @@ export const AppProvider: FC<PropsWithChildren> = ({ children }) => {
   const appRef = useRef(new AppService())
   const { Provider } = appContext
 
-  const { data: session } = useSession()
-
   useEffect(() => {
     if (!appRef.current.inited) {
       appRef.current.init()

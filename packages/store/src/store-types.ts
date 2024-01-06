@@ -1,9 +1,10 @@
 import { Atom, WritableAtom } from 'jotai'
-import type { AppStore } from './AppStore'
-import type { EditorStore } from './EditorStore'
-import type { NodeStore } from './NodeStore'
-import type { RouterStore } from './RouterStore'
-import type { SpaceStore } from './SpaceStore'
+import type { AppStore } from './stores/AppStore'
+import type { EditorStore } from './stores/EditorStore'
+import type { NodeStore } from './stores/NodeStore'
+import type { RouterStore } from './stores/RouterStore'
+import type { SpaceStore } from './stores/SpaceStore'
+import type { SyncStore } from './stores/SyncStore'
 
 export type StoreType = {
   get: <Value>(atom: Atom<Value>) => Value
@@ -17,4 +18,5 @@ export type StoreType = {
   node: NodeStore
   editor: EditorStore
   app: AppStore
+  sync: SyncStore
 }

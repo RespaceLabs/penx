@@ -44,6 +44,7 @@ export const Tag = ({
       fontNormal
       py1
       px1
+      leadingNone
       textXS
       bg--T92={node?.tagColor}
       bg--T88--hover={node?.tagColor}

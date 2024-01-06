@@ -39,7 +39,7 @@ export const noteCellRenderer: CustomRenderer<NoteCell> = {
     const elements = Array.isArray(node.element) ? node.element : [node.element]
 
     const str = elements
-      .map((n) => {
+      .map((n: any) => {
         if (Array.isArray(n.children)) {
           return n.children.reduce((acc: string, n: any) => {
             if (n?.type === 'tag') {

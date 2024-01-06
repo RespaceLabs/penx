@@ -7,20 +7,18 @@ export async function syncToCloud(): Promise<boolean> {
   const space = await db.getActiveSpace()
   if (!space) return false
 
-  const lastModifiedTime = await trpc.space.lastModifiedTime.query({
-    spaceId: space.id,
-  })
+  const nodesLastUpdatedAt = space.nodesLastUpdatedAt
 
   // console.log('-------lastModifiedTime:', lastModifiedTime)
 
   // push all nodes
-  if (!lastModifiedTime) {
+  if (!nodesLastUpdatedAt) {
     // console.log('sync all to cloud..........')
     await pushAllNodes(space)
     return true
   } else {
     // console.log('sync diff to cloud..........')
-    return await pushByDiff(space, lastModifiedTime)
+    return await pushByDiff(space, nodesLastUpdatedAt)
   }
 }
 
@@ -31,16 +29,20 @@ async function pushAllNodes(space: ISpace) {
 
 async function pushByDiff(
   space: ISpace,
-  lastModifiedTime: Date,
+  nodesLastUpdatedAt: Date,
 ): Promise<boolean> {
   const nodes = await db.listNodesBySpaceId(space.id)
 
   const newNodes = nodes.filter(
-    (n) => n.updatedAt.getTime() > lastModifiedTime.getTime(),
+    (n) => n.updatedAt.getTime() > nodesLastUpdatedAt.getTime(),
   )
 
-  console.log('=====newNodes:', newNodes)
+  // console.log('=====newNodes:', newNodes)
+
+  if (!newNodes.length) return true
+
   await submitToServer(space, newNodes)
+
   return true
 }
 
@@ -54,9 +56,7 @@ export async function submitToServer(space: ISpace, nodes: INode[]) {
   const { password } = space
   const encrypted = space.encrypted && password
 
-  if (!nodes.length) return
-
-  await trpc.node.sync.mutate({
+  const time = await trpc.node.sync.mutate({
     spaceId: space.id,
     nodes: JSON.stringify(
       encrypted
@@ -64,4 +64,10 @@ export async function submitToServer(space: ISpace, nodes: INode[]) {
         : nodes,
     ),
   })
+
+  if (time) {
+    await db.updateSpace(space.id, {
+      nodesLastUpdatedAt: time,
+    })
+  }
 }

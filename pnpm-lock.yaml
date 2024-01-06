@@ -4476,6 +4476,9 @@ importers:
       '@penx/serializer':
         specifier: workspace:*
         version: link:../serializer
+      '@penx/sync':
+        specifier: workspace:*
+        version: link:../sync
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -4540,12 +4543,6 @@ importers:
       '@penx/serializer':
         specifier: workspace:*
         version: link:../serializer
-      '@penx/service':
-        specifier: workspace:*
-        version: link:../service
-      '@penx/store':
-        specifier: workspace:*
-        version: link:../store
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../trpc-client

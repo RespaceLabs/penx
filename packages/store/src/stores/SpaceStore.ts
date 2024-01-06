@@ -1,7 +1,7 @@
 import { atom } from 'jotai'
 import { db } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
-import { StoreType } from './store-types'
+import { StoreType } from '../store-types'
 
 export const spacesAtom = atom<ISpace[]>([])
 
