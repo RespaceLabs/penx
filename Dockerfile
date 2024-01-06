@@ -13,7 +13,7 @@ COPY . .
 # Environment variables must be redefined at run time
 ARG NEXTAUTH_SECRET=adb6e96b7ec73026c7562eff5f8b95ee
 ENV NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
-ARG DATABASE_URL=postgresql://postgres:iix4wPiQmWYV7a4m@db.wnvtegeovcmeqcwuheee.supabase.co:5432/postgres
+ARG DATABASE_URL=postgresql://postgres:a73F4EXMWYpFxpxH@db.xwjwmhepndygekdrxasp.supabase.co:5432/postgres
 ENV DATABASE_URL=${DATABASE_URL}
 ARG REDIS_URL=redis://default:PenX_local_123456@43.154.135.183:6381
 ENV REDIS_URL=${REDIS_URL}
@@ -48,7 +48,7 @@ COPY --from=installer --chown=nextjs:nodejs /app/apps/web/public ./apps/web/publ
 # Environment variables must be redefined at run time
 ARG NEXTAUTH_SECRET=adb6e96b7ec73026c7562eff5f8b95ee
 ENV NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
-ARG DATABASE_URL=postgresql://postgres:iix4wPiQmWYV7a4m@db.wnvtegeovcmeqcwuheee.supabase.co:5432/postgres
+ARG DATABASE_URL=postgresql://postgres:a73F4EXMWYpFxpxH@db.xwjwmhepndygekdrxasp.supabase.co:5432/postgres
 ENV DATABASE_URL=${DATABASE_URL}
 ARG REDIS_URL=redis://default:PenX_local_123456@43.154.135.183:6381
 ENV REDIS_URL=${REDIS_URL}
