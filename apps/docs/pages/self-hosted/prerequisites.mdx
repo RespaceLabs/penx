@@ -142,6 +142,22 @@ CREATE TABLE "Node" (
 );
 
 -- CreateTable
+CREATE TABLE "Post" (
+    "id" TEXT NOT NULL,
+    "spaceId" TEXT NOT NULL,
+    "nodeId" TEXT NOT NULL,
+    "nodes" JSONB NOT NULL,
+    "password" TEXT,
+    "reviewable" BOOLEAN NOT NULL DEFAULT false,
+    "editable" BOOLEAN NOT NULL DEFAULT false,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Theme" (
     "id" TEXT NOT NULL,
     "spaceId" TEXT NOT NULL,
@@ -228,6 +244,18 @@ CREATE UNIQUE INDEX "Space_customDomain_key" ON "Space"("customDomain");
 
 -- CreateIndex
 CREATE INDEX "Space_userId_idx" ON "Space"("userId");
+
+-- CreateIndex
+CREATE INDEX "Node_spaceId_idx" ON "Node"("spaceId");
+
+-- CreateIndex
+CREATE INDEX "Node_type_idx" ON "Node"("type");
+
+-- CreateIndex
+CREATE INDEX "Post_spaceId_idx" ON "Post"("spaceId");
+
+-- CreateIndex
+CREATE INDEX "Post_nodeId_idx" ON "Post"("nodeId");
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
