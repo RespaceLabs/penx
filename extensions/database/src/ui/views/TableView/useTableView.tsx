@@ -7,7 +7,6 @@ import {
   GridColumn,
   GridColumnIcon,
   Item,
-  Rectangle,
 } from '@glideapps/glide-data-grid'
 import { format } from 'date-fns'
 import { produce } from 'immer'
@@ -73,7 +72,9 @@ export function useTableView() {
     deleteColumn,
     options,
   } = useDatabaseContext()
+  const columnsMap = mappedByKey(columns, 'id')
   let { viewColumns = [] } = currentView.props
+  const [cols, setCols] = useState(getCols(columns, viewColumns))
 
   const data = rows.map((row, i) => {
     return columns.reduce(
@@ -90,8 +91,6 @@ export function useTableView() {
     )
   })
 
-  const columnsMap = mappedByKey(columns, 'id')
-
   const getContent = useCallback(
     (cell: Item): GridCell => {
       const [col, row] = cell
@@ -101,9 +100,6 @@ export function useTableView() {
       const cellNode = dataRow[indexes[col]]
       const columnNode = columnsMap[indexes[col]]
       const rowNode = rows[row]
-
-      // console.log('==getContent-test: cell:',cell, { data,dataRow,rows,cellNode },'BB:',{columnsMap,indexes,columnNode })
-
       let cellData: any = cellNode.props.data ?? ''
 
       function getKind(): any {
@@ -234,19 +230,12 @@ export function useTableView() {
     [data, rows, options, viewColumns, columnsMap],
   )
 
-  const [cols, setCols] = useState(getCols(columns, viewColumns))
-
-  useEffect(() => {
-    const newCols = getCols(columns, viewColumns)
-    if (!isEqual(cols, newCols)) {
-      setCols(newCols)
-    }
-  }, [columns, viewColumns])
-
-  const onCellEdited = useCallback(
-    async ([colIndex, rowIndex]: Item, newValue: EditableGridCell) => {
-      console.log('==========onCellEdited: newValue:', newValue)
-
+  const setCellValue = useCallback(
+    async (
+      [colIndex, rowIndex]: Item,
+      newValue: EditableGridCell,
+    ): Promise<void> => {
+      console.log('%c=setCellValue', 'color:red', newValue)
       const row = rows[rowIndex]
       const column = sortedColumns[colIndex]
 
@@ -271,6 +260,13 @@ export function useTableView() {
     },
     [cells, rows, sortedColumns],
   )
+
+  useEffect(() => {
+    const newCols = getCols(columns, viewColumns)
+    if (!isEqual(cols, newCols)) {
+      setCols(newCols)
+    }
+  }, [columns, viewColumns])
 
   function onColumnResize(
     column: GridColumn,
@@ -306,9 +302,9 @@ export function useTableView() {
   )
 
   return {
-    cols: cols,
+    cols,
     getContent,
-    onCellEdited,
+    setCellValue,
     onColumnResize,
     onColumnResizeEnd,
     onDeleteColumn,
