@@ -1,8 +1,9 @@
-import { PropsWithChildren, useCallback, useState } from 'react'
+import { PropsWithChildren, useCallback, useRef, useState } from 'react'
 import { useLayer } from 'react-laag'
 import { Box, css } from '@fower/react'
 import {
   DataEditor,
+  DataEditorRef,
   GridCell,
   GridCellKind,
   GridColumn,
@@ -16,6 +17,7 @@ import { AddColumnBtn } from './AddColumnBtn'
 import { cellRenderers } from './cells'
 import { ColumnMenu } from './ColumnMenu'
 import { DeleteColumnModal } from './DeleteColumnModal'
+import { useUndoRedo } from './use-undo-redo'
 import { useTableView } from './useTableView'
 
 export const TableView = () => {
@@ -24,7 +26,7 @@ export const TableView = () => {
   const {
     cols,
     getContent,
-    onCellEdited,
+    setCellValue,
     onColumnResize,
     onColumnResizeEnd,
     onDeleteColumn,
@@ -58,16 +60,27 @@ export const TableView = () => {
     setMenu({ col, bounds })
   }, [])
 
+  const gridRef = useRef<DataEditorRef>(null)
+  const {
+    gridSelection,
+    onGridSelectionChange,
+    onCellEdited,
+    undo,
+    canRedo,
+    canUndo,
+    redo,
+  } = useUndoRedo(gridRef, getContent, setCellValue)
+
   return (
     <Box>
       {/* <Box mb2>
         <TableHeader />
         <TableBody />
       </Box> */}
-
       <DeleteColumnModal onDeleteColumn={onDeleteColumn} />
 
       <DataEditor
+        ref={gridRef}
         className={css('roundedXL shadowPopover')}
         columns={cols}
         rows={rows.length}
@@ -84,11 +97,12 @@ export const TableView = () => {
         customRenderers={cellRenderers}
         getCellContent={getContent}
         onCellEdited={onCellEdited}
+        gridSelection={gridSelection ?? undefined}
+        onGridSelectionChange={onGridSelectionChange}
         onColumnResize={onColumnResize}
         onColumnResizeEnd={onColumnResizeEnd}
         onHeaderMenuClick={onHeaderMenuClick}
         onCellContextMenu={(cell, e) => {
-          // console.log('cell-------:, cell:', cell, e)
           e.preventDefault()
         }}
         onHeaderClicked={() => {

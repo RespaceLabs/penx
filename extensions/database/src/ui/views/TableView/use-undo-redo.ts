@@ -57,7 +57,6 @@ interface EditAction {
 
 function reducer(state: ReducerState, action: Action) {
   const newState = { ...state }
-
   switch (action.type) {
     case 'undo':
       if (state.canUndo) {
