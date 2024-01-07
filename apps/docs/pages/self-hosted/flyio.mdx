@@ -14,7 +14,7 @@ Save the following snippet into a file named fly.toml somewhere on your computer
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 
 app = "penx" # you can use your app name
-primary_region = "sin"
+primary_region = "atl"
 
 [build]
   image = "0xzion/penx:latest"
@@ -49,6 +49,14 @@ in your terminal, navigate to the directory where fly.toml is located and run `f
 ```bash
 fly launch --copy-config
 ```
+
+## Real world example
+
+When deployed successfully, you should get a URL like:
+
+https://penx.fly.dev/
+
+This a real world example, you can test it by: penx/123456
 
 ## Upgrade
 
