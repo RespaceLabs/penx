@@ -5,6 +5,7 @@ import { normalizeNodes } from './normalizeNodes'
 import { startPollingPull } from './pollingPull'
 import { pollingPushToCloud } from './pollingPushToCloud'
 import { pollingPushToGithub } from './pollingPushToGithub'
+import { runKeeperSSE } from './runKeeperSSE'
 import { syncPenx101 } from './syncPenx101'
 
 self.addEventListener('message', async (event) => {
@@ -15,6 +16,8 @@ self.addEventListener('message', async (event) => {
     pollingPushToCloud()
     // startPollingPull()
     // pollingPushToGithub()
+
+    runKeeperSSE()
 
     clearNodes()
     // syncPenx101()

@@ -59,9 +59,10 @@ export const ListItemContent = memo(
         leadingNormal
         textBase
         relative
+        h-100p
         toTop={!isTask}
         px1
-        py-2
+        py0
         {...nodeProps}
         css={css}
         style={style}

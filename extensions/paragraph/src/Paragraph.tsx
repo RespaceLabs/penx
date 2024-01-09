@@ -25,6 +25,7 @@ export const Paragraph = ({
       gray900
       textBase={!isInTitle}
       relative
+      h-100p
       {...attributes}
       {...nodeProps}
     >

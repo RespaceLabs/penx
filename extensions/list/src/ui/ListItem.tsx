@@ -19,6 +19,7 @@ export const ListItem = ({
       data-type="list-item"
       {...attributes}
       {...nodeProps}
+      py0
       m0
       relative
       pl0={path.length > 2}

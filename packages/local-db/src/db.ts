@@ -365,7 +365,7 @@ class DB {
   }
 
   addTextToToday = async (spaceId: string, text: string) => {
-    const todayNode = await this.getTodayNode(spaceId)
+    const todayNode = await this.getOrCreateTodayNode(spaceId)
 
     const newNode = await this.node.insert({
       ...getNewNode({ spaceId }, text),
@@ -397,6 +397,10 @@ class DB {
       children: [...(todayNode.children || []), ...newIds],
     })
     return newTodayNode
+  }
+
+  listNodes = async () => {
+    return this.node.selectAll()
   }
 
   listNodesBySpaceId = async (spaceId: string) => {
