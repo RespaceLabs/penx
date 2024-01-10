@@ -66,7 +66,7 @@ export class NodeCleaner {
       const parentNode = nodeMap.get(item.parentId)
 
       if (!parentNode?.children.includes(item.id)) {
-        console.log('=======clear node!!!!', item)
+        console.log('=======clear node!!!!', item, JSON.stringify(item.element))
         await db.deleteNode(item.id)
       }
     }

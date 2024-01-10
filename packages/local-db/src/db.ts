@@ -301,6 +301,7 @@ class DB {
     const dailyNode = await this.node.insert({
       ...getNewNode({ spaceId: node.spaceId!, type: NodeType.DAILY }),
       ...node,
+      parentId: dailyRootNode.id,
       collapsed: true,
       children: [subNode.id],
     })
@@ -319,15 +320,12 @@ class DB {
   getOrCreateTodayNode = async (spaceId: string) => {
     let todayNode = await this.getTodayNode(spaceId)
 
-    const dailyRootNode = await this.getDailyRootNode(spaceId)
-
     if (!todayNode) {
-      todayNode = await this.createNode({
-        ...getNewNode({ spaceId, type: NodeType.DAILY }),
-      })
+      const dateStr = format(new Date(), 'yyyy-MM-dd')
 
-      await this.updateNode(dailyRootNode.id, {
-        children: [...(dailyRootNode.children || []), todayNode.id],
+      todayNode = await db.createDailyNode({
+        spaceId,
+        props: { date: dateStr },
       })
     }
 

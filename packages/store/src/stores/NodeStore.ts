@@ -253,13 +253,10 @@ export class NodeStore {
       (node) => node.type === NodeType.DAILY && node.props.date === dateStr,
     )
     const space = this.store.space.getActiveSpace()
-    const dailyRoot = await db.getDailyRootNode(space.id)
 
     if (!dateNode) {
       dateNode = await db.createDailyNode({
-        parentId: dailyRoot.id,
         spaceId: space.id,
-        type: NodeType.DAILY,
         props: { date: dateStr },
       })
     }
