@@ -88,6 +88,7 @@ export interface BlockElement {
    * should be shown in slash command list
    */
   slashCommand?: {
+    in: ('OUTLINER' | 'BLOCK')[]
     name: string
     description?: string
     icon?: any

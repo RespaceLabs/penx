@@ -1,3 +1,4 @@
+import { Minus } from 'lucide-react'
 import { ELEMENT_HR } from '@penx/constants'
 import { setNodes } from '@penx/editor-transforms'
 import { ExtensionContext } from '@penx/extension-typings'
@@ -12,12 +13,15 @@ export function activate(ctx: ExtensionContext) {
         isVoid: true,
         type: ELEMENT_HR,
         component: Divider,
-        // slashCommand: {
-        //   name: 'Divider',
-        //   afterInvokeCommand(editor) {
-        //     insertEmptyParagraph(editor)
-        //   },
-        // },
+        slashCommand: {
+          // in: ['BLOCK'],
+          in: [],
+          name: 'Divider',
+          icon: Minus,
+          afterInvokeCommand(editor) {
+            insertEmptyParagraph(editor)
+          },
+        },
       },
     ],
     autoformatRules: [

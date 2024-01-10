@@ -3,8 +3,9 @@ import { Box, FowerHTMLProps } from '@fower/react'
 import { ChevronRight } from 'lucide-react'
 import { useDebouncedCallback } from 'use-debounce'
 import { NodeEditor } from '@penx/editor'
+import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { isAstChange } from '@penx/editor-queries'
-import { useDatabase, useNodes } from '@penx/hooks'
+import { useDatabase, useNodes, useSpaces } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { NodeToSlateSerializer } from '@penx/serializer'
 import { NodeService } from '@penx/service'
@@ -20,11 +21,13 @@ const ReferenceItem = memo(function ReferenceItem({
   const { nodes } = useNodes()
   const nodeService = new NodeService(node, nodes)
   const parentNodes = nodeService.getParentNodes().slice(0, -1)
+  const editor = useEditorStatic()
+  const { activeSpace } = useSpaces()
 
-  const serializer = new NodeToSlateSerializer(node, nodes)
+  const serializer = new NodeToSlateSerializer(node, nodes, editor.isOutliner)
 
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
-    nodeService.savePage(
+    nodeService.saveOutlinerEditor(
       nodeService.parentNode?.raw!,
       null as any,
       value[0],
@@ -58,6 +61,7 @@ const ReferenceItem = memo(function ReferenceItem({
 
       <NodeEditor
         plugins={[withBulletPlugin]}
+        isOutliner={activeSpace.isOutliner}
         content={serializer.getEditorValue([node], false)}
         node={node}
         onChange={(value, editor) => {

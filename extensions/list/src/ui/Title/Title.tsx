@@ -1,4 +1,5 @@
 import { Box } from '@fower/react'
+import { useEditor } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
 import { NodeType } from '@penx/model-types'
 import { useFocusTitle } from '../../hooks/useFocusTitle'
@@ -9,6 +10,7 @@ import { TagMenu } from './TagMenu'
 
 export const Title = (props: ElementProps<TitleElement>) => {
   const { element, attributes, children } = props
+  const editor = useEditor()
 
   const disabled = [
     NodeType.INBOX,
@@ -23,7 +25,7 @@ export const Title = (props: ElementProps<TitleElement>) => {
 
   return (
     <Box
-      pl5
+      pl5={editor.isOutliner}
       pl9={isDatabase}
       text={[28, 28, 36]}
       fontMedium

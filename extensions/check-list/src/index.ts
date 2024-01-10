@@ -20,6 +20,7 @@ export function activate(ctx: ExtensionContext) {
         component: CheckListItem,
         placeholder: '',
         slashCommand: {
+          in: ['OUTLINER', 'BLOCK'],
           name: 'To-do',
           icon: CheckSquare2,
           description: 'Track tasks with to-do list',

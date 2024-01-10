@@ -8,7 +8,8 @@ import {
   Spinner,
   useModalContext,
 } from 'uikit'
-import { ISpace } from '@penx/model-types'
+import { EditorMode, ISpace } from '@penx/model-types'
+import { BorderedRadioGroup } from '../../components/BorderedRadioGroup'
 import { useCreateSpaceForm } from './useCreateSpaceForm'
 
 interface Props {
@@ -33,6 +34,25 @@ export function CreateSpaceForm({ showCancel = true }: Props) {
         rules={{ required: true }}
         render={({ field }) => (
           <Input autoFocus size="lg" placeholder="Name your space" {...field} />
+        )}
+      />
+
+      <Box mb--6 fontMedium>
+        Editor mode
+      </Box>
+      <Controller
+        name="editorMode"
+        control={control}
+        render={({ field }) => (
+          <BorderedRadioGroup
+            options={[
+              { label: 'Block', value: EditorMode.BLOCK },
+              { label: 'Outliner', value: EditorMode.OUTLINER },
+            ]}
+            {...field}
+            value={field.value}
+            onChange={field.onChange}
+          />
         )}
       />
 

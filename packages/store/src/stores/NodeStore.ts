@@ -5,6 +5,7 @@ import { ArraySorter } from '@penx/indexeddb'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import {
+  EditorMode,
   ICellNode,
   IColumnNode,
   IDatabaseNode,
@@ -166,7 +167,9 @@ export class NodeStore {
     const editor = this.store.editor.getEditor(index)
 
     const nodes = this.getNodes()
-    const value = nodeToSlate(node, nodes)
+    const activeSpace = this.store.space.getActiveSpace()
+    const isOutliner = activeSpace.editorMode === EditorMode.OUTLINER
+    const value = nodeToSlate(node, nodes, isOutliner)
 
     // TODO: the good way  is to clear the editor, but now has bug
     this.setActiveNodes([])

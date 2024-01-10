@@ -13,6 +13,8 @@ export type PenxEditor = BaseEditor &
     onBlurFns: any
     onClickBullet: any
 
+    isOutliner: boolean
+
     isBlockSelectorOpened: boolean
     isTagSelectorOpened: boolean
     isBidirectionalLinkSelector: boolean

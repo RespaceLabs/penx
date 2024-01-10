@@ -24,6 +24,13 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
     (item) => {
       const { type, slashCommand } = extensionStore.elementMaps[item]
       if (!slashCommand) return false
+      if (editor.isOutliner && !slashCommand.in.includes('OUTLINER')) {
+        return false
+      }
+
+      if (!editor.isOutliner && !slashCommand.in.includes('BLOCK')) {
+        return false
+      }
       const q = Node.string(element).replace(/^\//, '').toLowerCase()
       if (!q) return true
       return (

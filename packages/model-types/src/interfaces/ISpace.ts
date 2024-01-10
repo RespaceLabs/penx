@@ -1,5 +1,5 @@
 export enum EditorMode {
-  OUTLINE = 'OUTLINE',
+  OUTLINER = 'OUTLINER',
   BLOCK = 'BLOCK',
 }
 

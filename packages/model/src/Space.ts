@@ -1,5 +1,5 @@
 import { PENX_101 } from '@penx/constants'
-import { ISpace } from '@penx/model-types'
+import { EditorMode, ISpace } from '@penx/model-types'
 import { PageSnapshot } from './PageSnapshot'
 import { Settings } from './Settings'
 import { GithubInfo } from './User'
@@ -29,6 +29,10 @@ export class Space {
 
   get isActive() {
     return this.raw.isActive
+  }
+
+  get isOutliner() {
+    return this.raw.editorMode === EditorMode.OUTLINER
   }
 
   get encrypted() {

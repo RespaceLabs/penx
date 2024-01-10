@@ -12,9 +12,10 @@ import { NodeType } from '@penx/model-types'
 import { isTitle } from './guard'
 import { insertEmptyList } from './transforms/insertEmptyList'
 import { insertEmptyListItem } from './transforms/insertEmptyListItem'
+import { insertEmptyParagraph } from './transforms/insertEmptyParagraph'
 import { TitleElement } from './types'
 
-function onEnterInTitle(editor: Editor) {
+function onEnterInTitle(editor: PenxEditor) {
   // handle enter key on title
   const node = getCurrentNode(editor)!
   const path = findNodePath(editor, node)!
@@ -22,6 +23,11 @@ function onEnterInTitle(editor: Editor) {
   const nextPath = Path.next(parentPath)
   const onlyHasTitle = editor.children.length === 1
   const at = onlyHasTitle ? nextPath : [...nextPath, 0]
+
+  if (!editor.isOutliner) {
+    insertEmptyParagraph(editor, { select: true, at })
+    return true
+  }
 
   if (onlyHasTitle) {
     insertEmptyList(editor, { select: true, at })

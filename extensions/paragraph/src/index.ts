@@ -1,3 +1,4 @@
+import { Text } from 'lucide-react'
 import { ELEMENT_P } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
 import { getEmptyParagraph } from './getEmptyParagraph'
@@ -12,10 +13,11 @@ export function activate(ctx: ExtensionContext) {
         component: Paragraph,
         // placeholder: "Type '/' to browse options",
         placeholder: '',
-        // slashCommand: {
-        //   name: 'Text',
-        //   icon: CaseSensitive,
-        // },
+        slashCommand: {
+          in: ['BLOCK'],
+          name: 'Text',
+          icon: Text,
+        },
       },
     ],
   })

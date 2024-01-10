@@ -93,34 +93,65 @@ export class NodeService {
     store.node.setNodes(nodes)
   }
 
-  savePage = async (
+  private async saveTitle(node: INode, title: TitleElement) {
+    if (!title) return
+    if (this.node.isDatabase) {
+      node = await db.updateNode(node.id, {
+        props: { ...node.props, name: SlateNode.string(title) },
+      })
+    } else {
+      node = await db.updateNode(node.id, {
+        element: title.children,
+      })
+    }
+
+    // update space name
+    if (this.node.isRootNode) {
+      await store.space.updateSpace(node.spaceId, {
+        name: SlateNode.string(title),
+      })
+    }
+  }
+
+  saveBlockEditor = async (
+    node: INode,
+    value: any[] = [],
+    isInReference = false,
+  ) => {
+    const [title, ...elements] = value
+    this.saveTitle(node, title)
+
+    if (this.node.isDatabase || this.node.isDatabaseRoot) {
+      return
+    }
+
+    await this.saveBlockNodes(node.id, elements)
+
+    await new NodeCleaner().cleanDeletedNodes()
+
+    const nodes = await db.listNodesBySpaceId(this.spaceId)
+
+    store.node.setNodes(nodes)
+
+    if (!isInReference) {
+      store.node.setFirstActiveNodes(node)
+    }
+
+    await store.sync.pushToCloud()
+  }
+
+  saveOutlinerEditor = async (
     node: INode,
     title: TitleElement,
     ul?: UnorderedListElement,
     isInReference = false,
   ) => {
     if (node.spaceId === PENX_101) return
-    if (title) {
-      if (this.node.isDatabase) {
-        node = await db.updateNode(node.id, {
-          props: { ...node.props, name: SlateNode.string(title) },
-        })
-      } else {
-        node = await db.updateNode(node.id, {
-          element: title.children,
-        })
-      }
 
-      // update space name
-      if (this.node.isRootNode) {
-        await store.space.updateSpace(node.spaceId, {
-          name: SlateNode.string(title),
-        })
-      }
-    }
+    this.saveTitle(node, title)
 
     if (ul && !this.node.isDatabase && !this.node.isDatabaseRoot) {
-      await this.saveNodes(node.id, ul)
+      await this.saveOutlinerNodes(node.id, ul)
     }
 
     await new NodeCleaner().cleanDeletedNodes()
@@ -136,7 +167,42 @@ export class NodeService {
     await store.sync.pushToCloud()
   }
 
-  saveNodes = async (parentId: string, ul: UnorderedListElement) => {
+  saveBlockNodes = async (parentId: string, elements: any[]) => {
+    await db.updateNode(this.node.id, {
+      children: elements.map((n) => n.id),
+    })
+
+    for (const item of elements) {
+      const node = await db.getNode(item.id)
+
+      const tags = extractTags([item])
+
+      if (node) {
+        const newNode = await db.updateNode(item.id, {
+          element: [item],
+          children: [], // TODO:
+        })
+
+        for (const tagName of tags) {
+          await db.createTagRow(tagName, newNode.id)
+        }
+
+        if (tags.length) {
+          emitter.emit('REF_NODE_UPDATED', newNode)
+        }
+      } else {
+        await db.createNode({
+          id: item.id,
+          parentId,
+          spaceId: this.spaceId,
+          element: [item],
+          children: [], // TODO:
+        })
+      }
+    }
+  }
+
+  saveOutlinerNodes = async (parentId: string, ul: UnorderedListElement) => {
     const editor = createEditor()
     Transforms.insertNodes(editor, ul)
 

@@ -26,6 +26,7 @@ export function activate(ctx: ExtensionContext) {
         type: ELEMENT_CODE_BLOCK,
         component: CodeBlock,
         slashCommand: {
+          in: ['BLOCK', 'OUTLINER'],
           name: 'Code Block',
           description: 'Capture a code snippet',
           icon: CodeIcon,

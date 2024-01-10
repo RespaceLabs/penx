@@ -24,6 +24,7 @@ export * from './guard'
 export * from './listSchema'
 export * from './transforms/insertEmptyList'
 export * from './transforms/insertEmptyListItem'
+export * from './transforms/insertEmptyParagraph'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({

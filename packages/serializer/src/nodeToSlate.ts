@@ -14,10 +14,15 @@ import { INode } from '@penx/model-types'
  * @param allNodes
  * @returns
  */
-export function nodeToSlate(node: INode, allNodes: INode[]) {
+export function nodeToSlate(
+  node: INode,
+  allNodes: INode[],
+  isOutliner: boolean,
+) {
   const serializer = new NodeToSlateSerializer(
     new Node(node),
     allNodes.map((n) => new Node(n)),
+    isOutliner,
   )
   return serializer.getEditorValue()
 }
@@ -30,6 +35,7 @@ export class NodeToSlateSerializer {
   constructor(
     private node: Node,
     public allNodes: Node[],
+    private isOutliner: boolean,
   ) {
     for (const item of allNodes) {
       this.nodeMap.set(item.id, item.raw)
@@ -59,6 +65,47 @@ export class NodeToSlateSerializer {
       return getDatabaseRootEditorValue(this.node, this.nodeMap)
     }
 
+    if (this.isOutliner) {
+      return this.getOutlinerContent(childrenNodes, isCreateTitle)
+    }
+
+    return this.getBlockContent(isCreateTitle)
+  }
+
+  getBlockContent(isCreateTitle = true) {
+    const value: any[] = []
+
+    if (isCreateTitle) {
+      value.push({
+        id: this.node.id,
+        type: ELEMENT_TITLE,
+        props: this.node.props,
+        nodeType: this.node.type,
+        children: this.node.element,
+      })
+    }
+
+    for (const id of this.node.children) {
+      const node = new Node(this.nodeMap.get(id)!)
+      if (node.isCommon) {
+        const element = Array.isArray(node.element)
+          ? node.element[0]
+          : node.element
+
+        value.push({
+          ...element,
+          id: node.id,
+        })
+      }
+    }
+
+    return value
+  }
+
+  getOutlinerContent(
+    childrenNodes: Node[] = this.childrenNodes,
+    isCreateTitle = true,
+  ) {
     const childrenToList = (
       children: string[],
       parentId: string | null = null,

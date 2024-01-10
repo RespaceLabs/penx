@@ -46,6 +46,7 @@ interface Props {
   index?: number
   content: any[]
   node: Node
+  isOutliner: boolean
   editableProps?: EditableProps
   plugins: ((editor: PenxEditor) => PenxEditor)[]
   onChange?: (value: Descendant[], editor: Editor) => void
@@ -81,7 +82,7 @@ const dropAnimationConfig: DropAnimation = {
   },
 }
 
-export type UniqueIdentifier = string
+type UniqueIdentifier = string
 
 export function NodeEditor({
   content,
@@ -89,6 +90,7 @@ export function NodeEditor({
   onChange,
   onBlur,
   plugins,
+  isOutliner,
   index = 0,
 }: Props) {
   const { nodeList, nodes } = useNodes()
@@ -97,6 +99,8 @@ export function NodeEditor({
   store.editor.setEditor(index, editor)
 
   editor.items = nodes
+
+  editor.isOutliner = isOutliner
 
   // console.log('editor node======:', node)
 
