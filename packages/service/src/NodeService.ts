@@ -95,11 +95,13 @@ export class NodeService {
 
   private async saveTitle(node: INode, title: TitleElement) {
     if (!title) return
+
     if (this.node.isDatabase) {
       node = await db.updateNode(node.id, {
         props: { ...node.props, name: SlateNode.string(title) },
       })
     } else {
+      // console.log('===========title.children:', title.children, title)
       node = await db.updateNode(node.id, {
         element: title.children,
       })
@@ -119,7 +121,7 @@ export class NodeService {
     isInReference = false,
   ) => {
     const [title, ...elements] = value
-    this.saveTitle(node, title)
+    await this.saveTitle(node, title)
 
     if (this.node.isDatabase || this.node.isDatabaseRoot) {
       return
@@ -148,7 +150,7 @@ export class NodeService {
   ) => {
     if (node.spaceId === PENX_101) return
 
-    this.saveTitle(node, title)
+    await this.saveTitle(node, title)
 
     if (ul && !this.node.isDatabase && !this.node.isDatabaseRoot) {
       await this.saveOutlinerNodes(node.id, ul)

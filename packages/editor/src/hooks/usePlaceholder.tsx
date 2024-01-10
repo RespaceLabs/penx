@@ -15,7 +15,8 @@ import { isTable, isTableCell } from '@penx/table'
  */
 export function usePlaceholder(
   element: any,
-  placeholder = "Type '/' to browse options",
+  // placeholder = "Type '/' to browse options",
+  placeholder = '',
 ) {
   const { compositionData } = useCompositionData(element.id)
   const selected = useSelected()

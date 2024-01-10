@@ -85,6 +85,12 @@ export class NodeToSlateSerializer {
       })
     }
 
+    // console.log('========this.node:', this.node)
+
+    // console.log('=======isCreateTitle:', isCreateTitle, 'value:', value)
+
+    // return value
+
     for (const id of this.node.children) {
       const node = new Node(this.nodeMap.get(id)!)
       if (node.isCommon) {
