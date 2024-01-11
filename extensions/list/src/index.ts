@@ -1,3 +1,4 @@
+import { Editor, Element, Transforms } from 'slate'
 import {
   ELEMENT_LI,
   ELEMENT_LIC,
@@ -6,6 +7,7 @@ import {
   ELEMENT_UL,
   isExtension,
 } from '@penx/constants'
+import { getCurrentPath, getNodeByPath } from '@penx/editor-queries'
 import { ExtensionContext } from '@penx/extension-typings'
 import { onKeyDown } from './onKeyDown'
 import { withCopy } from './plugins/withCopy'
@@ -13,6 +15,7 @@ import { withEditable } from './plugins/withEditable'
 import { withListsPlugin } from './plugins/withListsPlugin'
 import { withMarkdown } from './plugins/withMarkdown'
 import { withPaste } from './plugins/withPaste'
+import { insertEmptyList } from './transforms/insertEmptyList'
 import { List } from './ui/List'
 import { ListItem } from './ui/ListItem'
 import { ListItemContent } from './ui/ListItemContent'
@@ -42,7 +45,6 @@ export function activate(ctx: ExtensionContext) {
         component: Title,
         placeholder: 'Untitled',
       },
-
       {
         type: ELEMENT_UL,
         component: List,
@@ -59,6 +61,37 @@ export function activate(ctx: ExtensionContext) {
         type: ELEMENT_LIC,
         component: SortableListItemContent,
         // component: ListItemContent,
+      },
+    ],
+    autoformatRules: [
+      {
+        mode: 'block',
+        type: ELEMENT_LI,
+        match: ['* ', '+ ', '- '],
+        // preFormat: clearBlockFormat,
+        format: (editor) => {
+          const block = Editor.above(editor, {
+            match: (n) => Editor.isBlock(editor, n as Element),
+          })
+
+          const at = block ? block[1] : []
+          Transforms.removeNodes(editor, { at })
+          insertEmptyList(editor, { select: true })
+        },
+      },
+      {
+        mode: 'block',
+        type: ELEMENT_LI,
+        match: ['1. ', '1) '],
+        format: (editor) => {
+          const block = Editor.above(editor, {
+            match: (n) => Editor.isBlock(editor, n as Element),
+          })
+
+          const at = block ? block[1] : []
+          Transforms.removeNodes(editor, { at })
+          insertEmptyList(editor, { select: true })
+        },
       },
     ],
   })

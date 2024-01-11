@@ -34,6 +34,9 @@ export function moveCursorToPreviousListItem(
 
     const node = getCurrentNode(editor) as any
 
+    // TODO: hack for block editor
+    if (!(editor as any).isOutliner) return handled
+
     Editor.withoutNormalizing(editor, () => {
       // TODO: too hack
       if (node?.type !== 'p') {

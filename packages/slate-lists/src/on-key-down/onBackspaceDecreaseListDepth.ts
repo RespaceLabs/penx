@@ -1,7 +1,11 @@
 import type { KeyboardEvent } from 'react'
 import { isHotkey } from 'is-hotkey'
 import type { Editor } from 'slate'
-import { isAtStartOfListItem, isDeleteBackwardAllowed } from '../lib'
+import {
+  getListItems,
+  isAtStartOfListItem,
+  isDeleteBackwardAllowed,
+} from '../lib'
 import { ListsEditor } from '../ListsEditor'
 import { decreaseDepth } from '../transformations'
 import { moveCursorToPreviousListItem } from '../transformations/moveCursorToPreviousListItem'
