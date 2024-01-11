@@ -91,6 +91,10 @@ export class Node {
     return this.type === NodeType.COMMON
   }
 
+  get isList() {
+    return this.type === NodeType.LIST
+  }
+
   get isTrash() {
     return this.type === NodeType.TRASH
   }

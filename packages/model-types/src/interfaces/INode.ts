@@ -1,6 +1,6 @@
 export enum NodeType {
   ROOT = 'ROOT',
-  COMMON = 'COMMON',
+
   INBOX = 'INBOX',
   TRASH = 'TRASH',
   FAVORITE = 'FAVORITE',
@@ -10,6 +10,10 @@ export enum NodeType {
 
   // Database
   DATABASE_ROOT = 'DATABASE_ROOT',
+
+  COMMON = 'COMMON',
+
+  LIST = 'LIST',
 
   DATABASE = 'DATABASE',
   CELL = 'CELL',

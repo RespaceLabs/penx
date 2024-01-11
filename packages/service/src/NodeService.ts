@@ -5,6 +5,7 @@ import { extractTags } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
 import {
   isListContentElement,
+  isListElement,
   isListItemElement,
   ListItemElement,
   TitleElement,
@@ -179,11 +180,17 @@ export class NodeService {
 
       const tags = extractTags([item])
 
+      const isList = isListElement(item)
+
       if (node) {
         const newNode = await db.updateNode(item.id, {
           element: [item],
           children: [], // TODO:
         })
+
+        if (isList) {
+          await this.saveOutlinerNodes(item.id, item as any)
+        }
 
         for (const tagName of tags) {
           await db.createTagRow(tagName, newNode.id)
@@ -193,13 +200,28 @@ export class NodeService {
           emitter.emit('REF_NODE_UPDATED', newNode)
         }
       } else {
-        await db.createNode({
-          id: item.id,
-          parentId,
-          spaceId: this.spaceId,
-          element: [item],
-          children: [], // TODO:
-        })
+        if (isList) {
+          console.log('1111111111111-000')
+
+          await db.createNode({
+            id: item.id,
+            parentId,
+            type: NodeType.LIST,
+            spaceId: this.spaceId,
+            element: [item],
+            children: [], // TODO:
+          })
+          await this.saveOutlinerNodes(item.id, item as any)
+          console.log('list element:', item)
+        } else {
+          await db.createNode({
+            id: item.id,
+            parentId,
+            spaceId: this.spaceId,
+            element: [item],
+            children: [], // TODO:
+          })
+        }
       }
     }
   }
@@ -213,7 +235,7 @@ export class NodeService {
     })
 
     // update root node's children
-    await db.updateNode(this.node.id, {
+    await db.updateNode(parentId, {
       children: childrenForCurrentNode,
     })
 

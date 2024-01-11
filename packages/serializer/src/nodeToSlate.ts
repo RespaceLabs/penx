@@ -102,16 +102,27 @@ export class NodeToSlateSerializer {
           ...element,
           id: node.id,
         })
+        continue
+      }
+
+      if (node.isList) {
+        const childrenNodes = node.raw.children.map((id) => {
+          return new Node(this.nodeMap.get(id)!)
+        })
+
+        const ul = this.nodeToListElement(childrenNodes)
+
+        value.push({
+          ...ul,
+          id: node.id,
+        })
       }
     }
 
     return value
   }
 
-  getOutlinerContent(
-    childrenNodes: Node[] = this.childrenNodes,
-    isCreateTitle = true,
-  ) {
+  private nodeToListElement(childrenNodes: Node[]) {
     const childrenToList = (
       children: string[],
       parentId: string | null = null,
@@ -184,7 +195,13 @@ export class NodeToSlateSerializer {
         }
       }),
     }
+    return content
+  }
 
+  getOutlinerContent(
+    childrenNodes: Node[] = this.childrenNodes,
+    isCreateTitle = true,
+  ) {
     const value: any[] = []
 
     if (isCreateTitle) {
@@ -196,6 +213,8 @@ export class NodeToSlateSerializer {
         children: this.node.element,
       })
     }
+
+    const content = this.nodeToListElement(childrenNodes)
 
     if (childrenNodes.length) {
       value.push(content)
