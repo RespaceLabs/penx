@@ -75,13 +75,12 @@ export class NodeListService {
     return this.nodes.filter((n) => n.type === NodeType.DATABASE)
   }
 
-  get normalNodes() {
-    // TODO:
-    return this.nodes
-  }
-
   get trashedNodes() {
     return this.nodes.filter((node) => node.isTrash)
+  }
+
+  get pageNodes() {
+    return this.rootNode.children.map((id) => this.nodeMap.get(id)!)
   }
 
   getNode(id: string) {

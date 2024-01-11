@@ -11,7 +11,7 @@ import {
   Trash2,
 } from 'lucide-react'
 import { Button } from 'uikit'
-import { useNodes, useSidebarDrawer } from '@penx/hooks'
+import { useNodes, useSidebarDrawer, useSpaces } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { NodeType } from '@penx/model-types'
 import { useSession } from '@penx/session'
@@ -21,6 +21,7 @@ import { SyncPopover } from '../StatusBar/SyncPopover'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover/SpacePopover'
+import { PageList } from './TreeView/PageList'
 import { TreeView } from './TreeView/TreeView'
 import { UserProfile } from './UserProfile'
 
@@ -37,6 +38,7 @@ function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
 
 export const Sidebar = () => {
   const [extensionStore] = useAtom(extensionStoreAtom)
+  const { activeSpace } = useSpaces()
   const components = getStatusBarComponents(extensionStore)
   const { nodes, nodeList } = useNodes()
   const { loading, data: session } = useSession()
@@ -101,7 +103,8 @@ export const Sidebar = () => {
         {!!nodes.length && (
           <>
             <FavoriteBox nodeList={nodeList} />
-            <TreeView nodeList={nodeList} />
+            {activeSpace.isOutliner && <TreeView nodeList={nodeList} />}
+            {!activeSpace.isOutliner && <PageList />}
           </>
         )}
       </Box>

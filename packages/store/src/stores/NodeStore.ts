@@ -308,9 +308,8 @@ export class NodeStore {
       },
       space,
     )
-    const nodes = await db.listNodesBySpaceId(space.id)
 
-    const rootNode = nodes.find((n) => new Node(n).isRootNode)!
+    const nodes = await db.listNodesBySpaceId(space.id)
 
     this.setNodes(nodes)
     this.selectNode(node)

@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { PaletteDrawer } from '../PaletteDrawer'
+import { NewNodeButton } from '../Sidebar/TreeView/NewNodeButton'
 import { DrawerSidebar } from '../SidebarDrawer'
-import { NewNodeButton } from './NewNodeButton'
 import { QRScanner } from './QRScanner'
 
 export const MobileNav = () => {

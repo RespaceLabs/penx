@@ -5,7 +5,6 @@ import { Breadcrumb } from './Breadcrumb'
 import { ClosePanelButton } from './ClosePanelButton'
 import { FavoriteButton } from './FavoriteButton'
 import { MorePopover } from './MorePopover'
-import { NewNodeButton } from './NewNodeButton'
 import { SharePopover } from './SharePopover'
 
 export const PCNav = () => {
@@ -26,7 +25,6 @@ export const PCNav = () => {
     >
       <Breadcrumb />
       <Box>
-        <NewNodeButton />
         {/* <SharePopover /> */}
         <FavoriteButton />
         <ClosePanelButton />

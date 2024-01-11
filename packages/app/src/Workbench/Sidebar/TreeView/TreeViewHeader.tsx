@@ -1,14 +1,19 @@
 import { memo } from 'react'
 import { Box } from '@fower/react'
-import { useSidebarDrawer } from '@penx/hooks'
+import { Bullet } from 'uikit'
+import { useSidebarDrawer, useSpaces } from '@penx/hooks'
 import { store } from '@penx/store'
+import { NewNodeButton } from './NewNodeButton'
 
 export const TreeViewHeader = memo(function TreeViewHeader() {
+  const { activeSpace } = useSpaces()
   const drawer = useSidebarDrawer()
   return (
     <Box
       toCenterY
-      px2
+      toBetween
+      pl2
+      pr1
       mb-1
       textSM
       fontSemibold
@@ -18,12 +23,17 @@ export const TreeViewHeader = memo(function TreeViewHeader() {
       black
       h-30
       onClick={() => {
+        if (!activeSpace.isOutliner) return
         store.node.selectSpaceNode()
         drawer?.close?.()
       }}
     >
-      {/* <Bullet mr-4 /> */}
-      <Box>ALL NODES</Box>
+      <Box toCenterY gap2>
+        <Bullet mr-4 />
+        {activeSpace.isOutliner && <Box>ALL NODES</Box>}
+        {!activeSpace.isOutliner && <Box>ALL PAGES</Box>}
+      </Box>
+      <NewNodeButton size={24} p1 roundedLG />
     </Box>
   )
 })

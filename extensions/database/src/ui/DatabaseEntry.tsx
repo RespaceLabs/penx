@@ -20,6 +20,7 @@ export const DatabaseEntry = ({
         inlineFlex
         px2
         py1
+        my1
         rounded
         cursorPointer
         textSM

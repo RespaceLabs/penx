@@ -1,14 +1,16 @@
 import React, { FC, PropsWithChildren } from 'react'
+import { FowerHTMLProps } from '@fower/react'
 import { Plus } from 'lucide-react'
 import { useAccount } from 'wagmi'
-import { Button } from 'uikit'
+import { Button, ButtonProps } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { store } from '@penx/store'
-import { trpc } from '@penx/trpc-client'
 
-interface Props {}
+interface Props extends ButtonProps, FowerHTMLProps<'button'> {
+  //
+}
 
-export const NewNodeButton: FC<PropsWithChildren<Props>> = () => {
+export const NewNodeButton: FC<PropsWithChildren<Props>> = ({ ...rest }) => {
   return (
     <Button
       size="sm"
@@ -16,7 +18,11 @@ export const NewNodeButton: FC<PropsWithChildren<Props>> = () => {
       colorScheme="gray500"
       isSquare
       roundedFull
-      onClick={() => store.node.createPageNode()}
+      onClick={(e) => {
+        e.stopPropagation()
+        store.node.createPageNode()
+      }}
+      {...rest}
     >
       <Plus />
     </Button>
