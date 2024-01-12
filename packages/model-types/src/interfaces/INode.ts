@@ -83,6 +83,9 @@ export enum FieldType {
 
 export interface IRootNode extends INode {
   type: NodeType.ROOT
+  props: {
+    catalogue: any
+  }
 }
 
 export interface IDailyRootNode extends INode {

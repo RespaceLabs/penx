@@ -11,6 +11,7 @@ import {
   IDatabaseNode,
   INode,
   IOptionNode,
+  IRootNode,
   IRowNode,
   ISpace,
   IViewNode,
@@ -71,7 +72,8 @@ export class NodeStore {
 
   getRootNode = () => {
     let nodes = this.getNodes()
-    return nodes.find((node) => node.type === NodeType.ROOT)!
+    const node = nodes.find((node) => node.type === NodeType.ROOT)!
+    return node as IRootNode
   }
 
   getDatabaseByName(tagName: string) {
@@ -218,9 +220,22 @@ export class NodeStore {
 
   async deleteNode(id: string) {
     const space = this.store.space.getActiveSpace()
+    const node = this.store.node.getNode(id)
     await db.deleteNode(id)
+    if (node.parentId) {
+      // update parentNode children
+      const parentNode = this.store.node.getNode(node.parentId)
+      await db.updateNode(node.parentId, {
+        children: parentNode.children.filter(
+          (childId) => childId !== id && this.store.node.getNode(childId),
+        ),
+      })
+    }
+
     const nodes = await db.listNodesBySpaceId(space.id)
+    const todayNode = await db.getOrCreateTodayNode(space.id)
     this.setNodes(nodes)
+    this.selectNode(todayNode)
   }
 
   async openInNewPanel(nodeId: string) {
@@ -313,6 +328,7 @@ export class NodeStore {
 
     this.setNodes(nodes)
     this.selectNode(node)
+    return node
   }
 
   async createDatabase(tagName: string) {

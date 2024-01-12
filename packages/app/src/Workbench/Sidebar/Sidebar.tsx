@@ -18,6 +18,7 @@ import { useSession } from '@penx/session'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import LoginWithGoogleButton from '../../components/LoginWithGoogleButton'
 import { SyncPopover } from '../StatusBar/SyncPopover'
+import { CatalogueBox } from './CatalogueBox/CatalogueBox'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover/SpacePopover'
@@ -103,8 +104,10 @@ export const Sidebar = () => {
         {!!nodes.length && (
           <>
             <FavoriteBox nodeList={nodeList} />
-            {activeSpace.isOutliner && <TreeView nodeList={nodeList} />}
+
+            {!activeSpace.isOutliner && <CatalogueBox />}
             {!activeSpace.isOutliner && <PageList />}
+            {activeSpace.isOutliner && <TreeView nodeList={nodeList} />}
           </>
         )}
       </Box>

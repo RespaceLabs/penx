@@ -19,6 +19,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
     "@penx/constants": "workspace:*",
+    "@penx/catalogue": "workspace:*",
     "@penx/encryption": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
     "@penx/local-db": "workspace:*",

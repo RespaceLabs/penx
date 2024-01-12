@@ -7,6 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
+import { store } from '@penx/store'
 
 export const MorePopover = () => {
   return (
@@ -25,6 +26,17 @@ export const MorePopover = () => {
         <MenuItem gap2 onClick={async () => {}}>
           <LogOut size={18} />
           <Box>Export</Box>
+        </MenuItem>
+
+        <MenuItem
+          gap2
+          onClick={async () => {
+            const [node] = store.node.getActiveNodes()
+            store.node.deleteNode(node.id)
+          }}
+        >
+          <Trash2 size={18} />
+          <Box>Delete node</Box>
         </MenuItem>
       </PopoverContent>
     </Popover>

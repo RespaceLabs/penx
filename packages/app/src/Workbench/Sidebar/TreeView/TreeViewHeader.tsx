@@ -24,6 +24,7 @@ export const TreeViewHeader = memo(function TreeViewHeader() {
       h-30
       onClick={() => {
         if (!activeSpace.isOutliner) return
+
         store.node.selectSpaceNode()
         drawer?.close?.()
       }}

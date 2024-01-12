@@ -44,6 +44,7 @@
     "@octokit/oauth-app": "^6.0.0",
     "@octokit/rest": "^20.0.2",
     "@penx/api": "workspace:*",
+    "@penx/catalogue": "workspace:*",
     "@penx/cmdk": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/database": "workspace:*",

@@ -2,6 +2,7 @@ import { atom, createStore } from 'jotai'
 import { User } from '@penx/model'
 import { commands } from './constants'
 import { AppStore } from './stores/AppStore'
+import { CatalogueStore } from './stores/CatalogueStore'
 import { EditorStore } from './stores/EditorStore'
 import { NodeStore } from './stores/NodeStore'
 import { RouterStore } from './stores/RouterStore'
@@ -41,6 +42,10 @@ export const store = Object.assign(baseStore, {
 
   get node() {
     return new NodeStore(this)
+  },
+
+  get catalogue() {
+    return new CatalogueStore(this)
   },
 
   get sync() {

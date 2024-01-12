@@ -44,9 +44,10 @@ export function syncNodes(input: SyncUserInput, userId: string) {
 
       await tx.node.createMany({ data: addedNodes })
 
-      const promises = updatedNodes.map((n) =>
-        tx.node.update({ where: { id: n.id }, data: n }),
-      )
+      const promises = updatedNodes.map((n) => {
+        console.log('========n:', n)
+        return tx.node.update({ where: { id: n.id }, data: n })
+      })
 
       await Promise.all(promises)
 

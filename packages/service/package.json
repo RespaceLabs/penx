@@ -23,6 +23,7 @@
   "dependencies": {
     "@penx/autoformat": "workspace:*",
     "@penx/constants": "workspace:*",
+    "@penx/catalogue": "workspace:*",
     "@penx/editor-common": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/encryption": "workspace:*",

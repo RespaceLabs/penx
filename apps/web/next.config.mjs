@@ -22,6 +22,7 @@ const config = {
     '@penx/app',
     '@penx/constants',
     '@penx/db',
+    '@penx/catalogue',
     '@penx/hooks',
     '@penx/local-db',
     '@penx/editor',

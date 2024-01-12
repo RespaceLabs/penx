@@ -22,10 +22,7 @@ export function getNewNode(input: Input, text = ''): INode {
       },
     ],
 
-    props: {
-      name,
-      ...rest.props,
-    },
+    props: rest.props || {},
     collapsed: false,
     folded: true,
     children: [],

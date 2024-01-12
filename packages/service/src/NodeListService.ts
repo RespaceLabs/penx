@@ -3,7 +3,7 @@ import { ELEMENT_BIDIRECTIONAL_LINK_CONTENT } from '@penx/constants'
 import { ArraySorter } from '@penx/indexeddb'
 import { db } from '@penx/local-db'
 import { Node, WithFlattenedProps } from '@penx/model'
-import { INode, NodeType } from '@penx/model-types'
+import { INode, IRootNode, NodeType } from '@penx/model-types'
 import { store } from '@penx/store'
 
 interface TreeItem extends Omit<INode, 'children'> {
@@ -80,7 +80,9 @@ export class NodeListService {
   }
 
   get pageNodes() {
-    return this.rootNode.children.map((id) => this.nodeMap.get(id)!)
+    return this.rootNode.children
+      .map((id) => this.nodeMap.get(id)!)
+      .filter((n) => !!n)
   }
 
   getNode(id: string) {

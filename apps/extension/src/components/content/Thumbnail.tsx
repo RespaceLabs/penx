@@ -1,6 +1,5 @@
 import { Box, FowerHTMLProps } from '@fower/react'
 import { FC, forwardRef, useCallback, useMemo } from 'react'
-import { mergeRefs } from 'react-merge-refs'
 
 import { IconLogo, IconLogoLight } from '@penx/icons'
 
