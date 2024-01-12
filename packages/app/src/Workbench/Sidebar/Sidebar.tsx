@@ -106,7 +106,7 @@ export const Sidebar = () => {
             <FavoriteBox nodeList={nodeList} />
 
             {!activeSpace.isOutliner && <CatalogueBox />}
-            {!activeSpace.isOutliner && <PageList />}
+            {/* {!activeSpace.isOutliner && <PageList />} */}
             {activeSpace.isOutliner && <TreeView nodeList={nodeList} />}
           </>
         )}

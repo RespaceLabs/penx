@@ -5,6 +5,8 @@ import {
   defaultDropAnimation,
   DndContext,
   DragEndEvent,
+  DragMoveEvent,
+  DragOverEvent,
   DragOverlay,
   DragStartEvent,
   DropAnimation,
@@ -16,6 +18,7 @@ import {
   useSensors,
 } from '@dnd-kit/core'
 import {
+  arrayMove,
   rectSortingStrategy,
   SortableContext,
   sortableKeyboardCoordinates,
@@ -31,8 +34,13 @@ import { store } from '@penx/store'
 import { CatalogueBoxHeader } from './CatalogueBoxHeader'
 import { CatalogueItem } from './CatalogueItem'
 import { SortableTreeItem } from './SortableTreeItem'
-import { TreeItem, TreeItems } from './types'
-import { flattenTree, removeChildrenOf, setProperty } from './utilities'
+import { FlattenedItem, TreeItem, TreeItems } from './types'
+import {
+  buildTree,
+  flattenTree,
+  removeChildrenOf,
+  setProperty,
+} from './utilities'
 
 const indentationWidth = 50
 
@@ -87,6 +95,8 @@ export const CatalogueBox = () => {
     return removeChildrenOf(flattenedTree, foldedItems)
   }, [tree.nodes])
 
+  // console.log('======activeId && overId:', activeId, 'overId:', overId)
+
   const projected =
     activeId && overId
       ? getProjection(
@@ -125,6 +135,8 @@ export const CatalogueBox = () => {
         collisionDetection={closestCenter}
         measuring={measuring}
         onDragStart={handleDragStart}
+        onDragMove={handleDragMove}
+        onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
         onDragCancel={handleDragCancel}
       >
@@ -177,12 +189,58 @@ export const CatalogueBox = () => {
 
   function handleDragStart({ active: { id: activeId } }: DragStartEvent) {
     setActiveId(activeId as string)
+    setOverId(activeId as string)
 
     document.body.style.setProperty('cursor', 'grabbing')
   }
 
+  function handleDragMove({ delta }: DragMoveEvent) {
+    setOffsetLeft(delta.x)
+  }
+
+  function handleDragOver({ over }: DragOverEvent) {
+    setOverId((over?.id as any) ?? null)
+  }
+
   function handleDragEnd({ active, over }: DragEndEvent) {
-    // TODO:
+    resetState()
+
+    if (!projected || !over) return
+
+    const activeId = active.id as string
+    const overId = over.id as string
+
+    const isOverChildren = checkIsOverChildren(activeId, overId)
+    if (isOverChildren) return
+
+    const activeNode = findNode(activeId)
+
+    const isOverSame =
+      activeId === overId && activeNode.depth === projected.depth
+
+    // is over same no need to move
+    if (isOverSame) return
+
+    const { depth, parentId } = projected
+
+    const clonedItems: FlattenedItem[] = JSON.parse(
+      JSON.stringify(flattenTree(tree.nodes)),
+    )
+    const overIndex = clonedItems.findIndex(({ id }) => id === over.id)
+    const activeIndex = clonedItems.findIndex(({ id }) => id === active.id)
+
+    const activeTreeItem = clonedItems[activeIndex]
+
+    clonedItems[activeIndex] = {
+      ...activeTreeItem,
+      depth,
+      parentId: parentId as any,
+    }
+
+    const sortedItems = arrayMove(clonedItems, activeIndex, overIndex)
+    const newItems = buildTree(sortedItems)
+
+    updateItemsState(newItems)
   }
 
   function handleDragCancel() {
@@ -197,6 +255,15 @@ export const CatalogueBox = () => {
     tree.nodes = newItems
 
     updateItemsState(tree.toJSON())
+  }
+
+  /**
+   * find node in flattenedItems
+   * @param nodeId
+   * @returns
+   */
+  function findNode(nodeId: string) {
+    return flattenedItems.find(({ id }) => id === nodeId)!
   }
 
   async function updateItemsState(catalogue: ICatalogueNode[]) {
@@ -217,6 +284,15 @@ export const CatalogueBox = () => {
     })
 
     store.node.setNodes(newNodes)
+  }
+
+  function checkIsOverChildren(activeId: string, overId: string) {
+    const activeNode = tree.findNode(activeId)!
+    const overNode = tree.findNode(overId)!
+    const childrenNodes = tree.flatten(undefined, activeNode.children || [])
+
+    const find = childrenNodes.find(({ id }) => id === overNode.id)
+    return !!find
   }
 
   function resetState() {

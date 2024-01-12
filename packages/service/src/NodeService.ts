@@ -200,10 +200,9 @@ export class NodeService {
           emitter.emit('REF_NODE_UPDATED', newNode)
         }
       } else {
+        let newNode: INode
         if (isList) {
-          console.log('1111111111111-000')
-
-          await db.createNode({
+          newNode = await db.createNode({
             id: item.id,
             parentId,
             type: NodeType.LIST,
@@ -211,16 +210,20 @@ export class NodeService {
             element: [item],
             children: [], // TODO:
           })
+
           await this.saveOutlinerNodes(item.id, item as any)
-          console.log('list element:', item)
         } else {
-          await db.createNode({
+          newNode = await db.createNode({
             id: item.id,
             parentId,
             spaceId: this.spaceId,
             element: [item],
             children: [], // TODO:
           })
+        }
+
+        for (const tagName of tags) {
+          await db.createTagRow(tagName, newNode.id)
         }
       }
     }

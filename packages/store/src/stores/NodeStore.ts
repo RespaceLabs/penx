@@ -166,12 +166,11 @@ export class NodeStore {
       return
     }
 
-    const editor = this.store.editor.getEditor(index)
-
-    const nodes = this.getNodes()
-    const activeSpace = this.store.space.getActiveSpace()
-    const isOutliner = activeSpace.editorMode === EditorMode.OUTLINER
-    const value = nodeToSlate(node, nodes, isOutliner)
+    // const editor = this.store.editor.getEditor(index)
+    // const nodes = this.getNodes()
+    // const activeSpace = this.store.space.getActiveSpace()
+    // const isOutliner = activeSpace.editorMode === EditorMode.OUTLINER
+    // const value = nodeToSlate(node, nodes, isOutliner)
 
     // TODO: the good way  is to clear the editor, but now has bug
     this.setActiveNodes([])

@@ -8,8 +8,9 @@ import {
 } from '@glideapps/glide-data-grid'
 import { Node } from 'slate'
 import { Bullet } from 'uikit'
-import { db } from '@penx/local-db'
-import { ICellNode, IColumnNode } from '@penx/model-types'
+import { Node as NodeModel } from '@penx/model'
+import { EditorMode, ICellNode, IColumnNode } from '@penx/model-types'
+import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
 import { PrimaryCell } from '../../../Table/Cell/PrimaryCell'
 
@@ -64,8 +65,20 @@ export const noteCellRenderer: CustomRenderer<NoteCell> = {
       let newValue = value
 
       async function clickBullet() {
-        const node = await db.getNode(cellNode.props.ref!)
-        if (node) store.node.selectNode(node)
+        const node = store.node.getNode(cellNode.props.ref!)
+        const space = store.space.getActiveSpace()
+        const isOutliner = space.editorMode === EditorMode.OUTLINER
+        if (isOutliner) {
+          node && store.node.selectNode(node)
+        } else {
+          const nodes = store.node.getNodes()
+          const nodeService = new NodeService(
+            new NodeModel(node),
+            nodes.map((n) => new NodeModel(n)),
+          )
+          const parentNodes = nodeService.getParentNodes()
+          store.node.selectNode(parentNodes[0].raw)
+        }
       }
       return (
         <Box w-300 toCenterY>

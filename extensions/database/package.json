@@ -40,6 +40,8 @@
     "@penx/icons": "workspace:*",
     "@penx/indexeddb": "workspace:*",
     "@penx/list": "workspace:*",
+    "@penx/model": "workspace:*",
+    "@penx/service": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/paragraph": "workspace:*",

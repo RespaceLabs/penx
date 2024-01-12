@@ -1434,12 +1434,18 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      '@penx/model':
+        specifier: workspace:*
+        version: link:../../packages/model
       '@penx/model-types':
         specifier: workspace:*
         version: link:../../packages/model-types
       '@penx/paragraph':
         specifier: workspace:*
         version: link:../paragraph
+      '@penx/service':
+        specifier: workspace:*
+        version: link:../../packages/service
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared

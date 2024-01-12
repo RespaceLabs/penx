@@ -19,13 +19,13 @@ function onEnterInTitle(editor: PenxEditor) {
   // handle enter key on title
   const node = getCurrentNode(editor)!
   const path = findNodePath(editor, node)!
-  const parentPath = Path.parent(path)
-  const nextPath = Path.next(parentPath)
+  const titlePath = Path.parent(path)
+  const nextPath = Path.next(titlePath)
   const onlyHasTitle = editor.children.length === 1
   const at = onlyHasTitle ? nextPath : [...nextPath, 0]
 
   if (!editor.isOutliner) {
-    insertEmptyParagraph(editor, { select: true, at })
+    insertEmptyParagraph(editor, { select: true, at: nextPath })
     return true
   }
 

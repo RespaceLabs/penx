@@ -93,6 +93,7 @@ export class NodeToSlateSerializer {
 
     for (const id of this.node.children) {
       const node = new Node(this.nodeMap.get(id)!)
+      if (!node) continue
       if (node.isCommon) {
         const element = Array.isArray(node.element)
           ? node.element[0]
@@ -106,9 +107,14 @@ export class NodeToSlateSerializer {
       }
 
       if (node.isList) {
-        const childrenNodes = node.raw.children.map((id) => {
-          return new Node(this.nodeMap.get(id)!)
-        })
+        const childrenNodes = node.raw.children
+          .map((id) => {
+            const node = this.nodeMap.get(id)!
+            // TODO: why get an undefined node
+            if (!node) return undefined
+            return new Node(node)
+          })
+          .filter((n) => !!n) as Node[]
 
         const ul = this.nodeToListElement(childrenNodes)
 
