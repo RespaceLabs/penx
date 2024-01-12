@@ -2809,9 +2809,6 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../model-types
-      '@penx/store':
-        specifier: workspace:*
-        version: link:../store
       mitt:
         specifier: ^3.0.0
         version: 3.0.1

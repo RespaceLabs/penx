@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@penx/local-db": "workspace:*",
-    "@penx/store": "workspace:*",
     "@penx/model-types": "workspace:*",
     "mitt": "^3.0.0"
   }
