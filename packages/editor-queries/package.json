@@ -20,7 +20,7 @@
     "@penx/editor-shared": "workspace:^",
     "@penx/editor-types": "workspace:^",
     "lodash": "^4.17.21",
-    "slate": "0.101.1",
-    "slate-react": "0.101.2"
+    "slate": "0.101.5",
+    "slate-react": "0.101.5"
   }
 }

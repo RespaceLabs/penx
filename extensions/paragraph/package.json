@@ -24,10 +24,10 @@
     "@penx/extension-typings": "^0.0.0",
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
-    "lucide-react": "^0.295.0",
-    "slate": "0.101.1",
+    "lucide-react": "^0.309.0",
+    "slate": "0.101.5",
     "slate-history": "0.100.0",
     "slate-lists": "workspace:*",
-    "slate-react": "0.101.2"
+    "slate-react": "0.101.5"
   }
 }

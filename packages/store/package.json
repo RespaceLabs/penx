@@ -34,6 +34,6 @@
     "jotai": "^2.6.0",
     "keyval": "^1.0.0",
     "react-fast-compare": "^3.2.2",
-    "slate": "0.101.1"
+    "slate": "0.101.5"
   }
 }

@@ -19,6 +19,6 @@
   "dependencies": {
     "@penx/unique-id": "workspace:*",
     "react-fast-compare": "^3.2.2",
-    "slate": "0.101.1"
+    "slate": "0.101.5"
   }
 }

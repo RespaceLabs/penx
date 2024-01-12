@@ -32,13 +32,13 @@
     "@penx/model-types": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",
-    "lucide-react": "^0.295.0",
+    "lucide-react": "^0.309.0",
     "prismjs": "^1.29.0",
     "re-resizable": "^6.9.11",
-    "slate": "0.101.1",
+    "slate": "0.101.5",
     "slate-history": "0.100.0",
     "slate-lists": "workspace:*",
-    "slate-react": "0.101.2",
+    "slate-react": "0.101.5",
     "uikit": "workspace:*"
   }
 }

@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "is-hotkey": "^0.2.0",
-    "slate": "0.101.1",
-    "slate-react": "0.101.2"
+    "slate": "0.101.5",
+    "slate-react": "0.101.5"
   }
 }

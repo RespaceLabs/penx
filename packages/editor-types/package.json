@@ -20,8 +20,8 @@
     "@penx/editor-shared": "workspace:^",
     "@penx/extension-typings": "^0.0.0",
     "lodash": "^4.17.21",
-    "slate": "0.101.1",
+    "slate": "0.101.5",
     "slate-history": "0.100.0",
-    "slate-react": "0.101.2"
+    "slate-react": "0.101.5"
   }
 }

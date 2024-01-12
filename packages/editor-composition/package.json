@@ -17,7 +17,7 @@
     "@penx/constants": "workspace:*",
     "@penx/editor-common": "workspace:*",
     "@penx/editor-queries": "workspace:*",
-    "slate": "0.101.1",
+    "slate": "0.101.5",
     "stook": "^1.17.0"
   }
 }

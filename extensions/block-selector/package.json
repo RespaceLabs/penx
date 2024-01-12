@@ -38,10 +38,10 @@
     "lodash": "^4.17.21",
     "mitt": "^3.0.1",
     "react-intersection-observer": "^9.5.3",
-    "slate": "0.101.1",
+    "slate": "0.101.5",
     "slate-history": "0.100.0",
     "slate-lists": "workspace:*",
-    "slate-react": "0.101.2",
+    "slate-react": "0.101.5",
     "stook": "^1.17.0",
     "uikit": "workspace:*"
   }

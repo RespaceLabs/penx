@@ -28,7 +28,7 @@
     "crypto-js": "^4.2.0",
     "date-fns": "^2.30.0",
     "diff-match-patch": "^1.0.5",
-    "slate": "0.101.1",
-    "slate-react": "0.101.2"
+    "slate": "0.101.5",
+    "slate-react": "0.101.5"
   }
 }

@@ -37,13 +37,13 @@
     "framer-motion": "^10.16.14",
     "immer": "^10.0.3",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.295.0",
+    "lucide-react": "^0.309.0",
     "mitt": "^3.0.1",
     "react-merge-refs": "^2.1.1",
-    "slate": "0.101.1",
+    "slate": "0.101.5",
     "slate-history": "0.100.0",
     "slate-lists": "workspace:*",
-    "slate-react": "0.101.2",
+    "slate-react": "0.101.5",
     "stook": "^1.17.0",
     "uikit": "workspace:*"
   }
