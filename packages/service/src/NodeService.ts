@@ -301,7 +301,7 @@ export class NodeService {
 
         if (oldHash !== newHash) {
           const newNode = await db.updateNode(item.id, {
-            type: isOutliner ? NodeType.COMMON : NodeType.LIST_ITEM,
+            // type: isOutliner ? NodeType.COMMON : NodeType.LIST_ITEM,
             parentId: newParentId,
             element,
             collapsed: !!item.collapsed,

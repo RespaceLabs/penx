@@ -20,6 +20,7 @@ export const Title = (props: ElementProps<TitleElement>) => {
 
   const isDaily = element.nodeType === NodeType.DAILY
   const isDatabase = element.nodeType === NodeType.DATABASE
+  const isDailyRoot = element.nodeType === NodeType.DAILY_ROOT
 
   useFocusTitle(element)
 
@@ -27,6 +28,7 @@ export const Title = (props: ElementProps<TitleElement>) => {
     <Box
       pl5={editor.isOutliner}
       pl9={isDatabase}
+      pl4={isDailyRoot && !editor.isOutliner}
       text={[28, 28, 36]}
       fontMedium
       gray900

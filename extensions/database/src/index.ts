@@ -1,5 +1,6 @@
 import { TableIcon } from 'lucide-react'
 import {
+  ELEMENT_DAILY_ENTRY,
   ELEMENT_DATABASE,
   ELEMENT_DATABASE_ENTRY,
   ELEMENT_LIVE_QUERY,
@@ -9,6 +10,7 @@ import {
 import { ExtensionContext } from '@penx/extension-typings'
 import { onBlur } from './handlers/onBlur'
 import { onKeyDown } from './handlers/onKeyDown'
+import { DailyEntry } from './ui/DailyEntry'
 import { Database } from './ui/Database'
 import { DatabaseEntry } from './ui/DatabaseEntry'
 import { LiveQuery } from './ui/LiveQuery/LiveQuery'
@@ -45,6 +47,12 @@ export function activate(ctx: ExtensionContext) {
         isVoid: true,
         type: ELEMENT_DATABASE_ENTRY,
         component: DatabaseEntry,
+      },
+
+      {
+        isVoid: true,
+        type: ELEMENT_DAILY_ENTRY,
+        component: DailyEntry,
       },
       {
         isVoid: true,

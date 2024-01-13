@@ -33,6 +33,7 @@ export function createSpace(input: CreateUserInput) {
           id: space.id,
           subdomain: uniqueId(),
           userId,
+          editorMode: space.editorMode,
           name: space.name,
           color: space.color,
           isActive: space.isActive,

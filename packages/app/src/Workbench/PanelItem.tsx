@@ -34,7 +34,12 @@ export function PanelItem({ node, index }: Props) {
 
   // console.log('--------=======node:', node, 'isOutliner:', isOutliner)
 
-  const content = nodeToSlate(node.raw, nodeList.rawNodes, isOutliner)
+  const content = nodeToSlate(
+    node.raw,
+    nodeList.rawNodes,
+    isOutliner,
+    activeSpace,
+  )
 
   // console.log('======content:', content)
 
@@ -81,7 +86,7 @@ export function PanelItem({ node, index }: Props) {
                 // content={[content[1]]}
                 content={content}
                 node={node}
-                isOutliner={activeSpace.isOutliner}
+                isOutliner={isOutliner}
                 onChange={async (value, editor) => {
                   if (isAstChange(editor)) {
                     if (saving) return

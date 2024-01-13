@@ -1,5 +1,6 @@
 import { BaseElement } from 'slate'
 import {
+  ELEMENT_DAILY_ENTRY,
   ELEMENT_DATABASE,
   ELEMENT_DATABASE_ENTRY,
   ELEMENT_LIVE_QUERY,
@@ -24,6 +25,13 @@ export interface DatabaseEntryElement extends BaseCustomElement {
   props: {
     color: string
     name: string
+  }
+}
+
+export interface DailyEntryElement extends BaseCustomElement {
+  type: typeof ELEMENT_DAILY_ENTRY
+  props: {
+    date: string
   }
 }
 

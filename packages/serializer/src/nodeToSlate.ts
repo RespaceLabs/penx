@@ -1,11 +1,12 @@
 import {
+  ELEMENT_DAILY_ENTRY,
   ELEMENT_DATABASE_ENTRY,
   ELEMENT_LI,
   ELEMENT_LIC,
   ELEMENT_TITLE,
   ELEMENT_UL,
 } from '@penx/constants'
-import { Node } from '@penx/model'
+import { Node, Space } from '@penx/model'
 import { INode } from '@penx/model-types'
 
 /**
@@ -18,11 +19,13 @@ export function nodeToSlate(
   node: INode,
   allNodes: INode[],
   isOutliner: boolean,
+  space?: Space,
 ) {
   const serializer = new NodeToSlateSerializer(
     new Node(node),
     allNodes.map((n) => new Node(n)),
     isOutliner,
+    space,
   )
   return serializer.getEditorValue()
 }
@@ -36,6 +39,7 @@ export class NodeToSlateSerializer {
     private node: Node,
     public allNodes: Node[],
     private isOutliner: boolean,
+    private space?: Space,
   ) {
     for (const item of allNodes) {
       this.nodeMap.set(item.id, item.raw)
@@ -63,6 +67,10 @@ export class NodeToSlateSerializer {
 
     if (this.node.isDatabaseRoot) {
       return getDatabaseRootEditorValue(this.node, this.nodeMap)
+    }
+
+    if (this.node.isDailyRoot && !this.space?.isOutliner) {
+      return getDailyRootEditorValue(this.node, this.nodeMap)
     }
 
     if (this.isOutliner) {
@@ -138,6 +146,8 @@ export class NodeToSlateSerializer {
         .filter((id) => !!this.nodeMap.get(id))
         .map((id) => {
           const node = this.nodeMap.get(id)!
+
+          // console.log('=======          log:', node)
 
           const liChildren = [
             {
@@ -231,8 +241,6 @@ export class NodeToSlateSerializer {
 }
 
 function getDatabaseNodeEditorValue(node: Node) {
-  // console.log('node-------:', node)
-
   const value = [
     {
       id: node.id,
@@ -309,6 +317,59 @@ function getDatabaseRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
         {
           type: 'p',
           children: [{ text: 'Tags' }],
+        },
+      ],
+    },
+  ]
+
+  if (node.children.length) {
+    value.push({
+      type: ELEMENT_UL,
+      children,
+    })
+  }
+
+  return value
+}
+
+function getDailyRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
+  const children = node.children
+    // TODO: why get an undefined node
+    .filter((id) => nodeMap.get(id))
+    .map((id) => {
+      const node = nodeMap.get(id)!
+
+      return {
+        type: ELEMENT_LI,
+        children: [
+          {
+            id: node.id,
+            type: ELEMENT_LIC,
+            nodeType: node.type,
+            props: node.props,
+            collapsed: node.collapsed,
+            children: [
+              {
+                type: ELEMENT_DAILY_ENTRY,
+                props: node.props,
+                children: [{ text: '' }],
+              },
+            ],
+          },
+        ],
+      }
+    })
+
+  const value: any[] = [
+    {
+      id: node.id,
+      type: ELEMENT_TITLE,
+      props: node.props,
+      nodeType: node.type,
+      children: [
+        {
+          type: 'p',
+          children: [{ text: 'Daily notes' }],
         },
       ],
     },

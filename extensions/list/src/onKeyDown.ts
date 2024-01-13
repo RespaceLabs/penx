@@ -37,14 +37,17 @@ function onEnterInTitle(editor: PenxEditor) {
   return true
 }
 
-function getTitleNode(editor: PenxEditor): TitleElement | undefined {
+function getParentNode(editor: PenxEditor) {
   const node = getCurrentNode(editor)!
-  const path = findNodePath(editor, node)
-  if (!path) return undefined
 
+  const path = findNodePath(editor, node)!
   const parentPath = Path.parent(path)
   const parentNode = getNodeByPath(editor, parentPath)
+  return parentNode!
+}
 
+function getTitleNode(editor: PenxEditor): TitleElement | undefined {
+  const parentNode = getParentNode(editor)
   return isTitle(parentNode) ? parentNode : undefined
 }
 
@@ -56,7 +59,15 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
     return
   }
 
+  const parentNode = getParentNode(editor)
+
   if ([ELEMENT_CODE_LINE, ELEMENT_CODE_BLOCK].includes(node?.type)) {
+    e.preventDefault()
+    return
+  }
+
+  if ([NodeType.DAILY].includes((parentNode as any)?.nodeType)) {
+    e.preventDefault()
     return
   }
 
@@ -64,13 +75,24 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
 
   if (titleNode) {
     if (e.key === 'Enter') {
+      if (
+        [NodeType.DAILY_ROOT, NodeType.DATABASE_ROOT].includes(
+          titleNode.nodeType!,
+        )
+      ) {
+        e.preventDefault()
+        return
+      }
+
       onEnterInTitle(editor)
 
       e.preventDefault()
       return
     } else {
       if (
-        [NodeType.DAILY, NodeType.DATABASE_ROOT].includes(titleNode.nodeType!)
+        [NodeType.DAILY, NodeType.DAILY_ROOT, NodeType.DATABASE_ROOT].includes(
+          titleNode.nodeType!,
+        )
       ) {
         e.preventDefault()
         return

@@ -3,12 +3,13 @@ import isEqual from 'react-fast-compare'
 import { mergeRefs } from 'react-merge-refs'
 import { useSortable } from '@dnd-kit/sortable'
 import { Box, CSSObject } from '@fower/react'
-import { Node } from 'slate'
 import { isCheckListItem } from '@penx/check-list'
 import { useContextMenu } from '@penx/context-menu'
 import { TElement, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
+import { NodeType } from '@penx/model-types'
+import { store } from '@penx/store'
 import { ListContentElement } from '../types'
 import { Bullet } from './Bullet'
 import { BulletMenu } from './BulletMenu'
@@ -42,13 +43,11 @@ export const ListItemContent = memo(
       return isHeading ? 'calc(1.8em + 8px)' : 'calc(1.5em + 8px)'
     }
 
-    // console.log('element', element)
-
     const menuId = `lic-menu-${element.id}`
     const { show } = useContextMenu(menuId)
     const isTask = isCheckListItem(child)
 
-    // console.log('render.......', Node.string(element))
+    const draggable = (element as any)?.nodeType !== NodeType.DAILY
 
     return (
       <Box
@@ -94,7 +93,7 @@ export const ListItemContent = memo(
 
           <Chevron element={element} onContextMenu={show} />
 
-          <Box inlineFlex {...listeners}>
+          <Box inlineFlex {...(draggable ? listeners : {})}>
             <Bullet element={element} onContextMenu={show} />
           </Box>
         </Box>

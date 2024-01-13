@@ -1,4 +1,3 @@
-import CryptoJS from 'crypto-js'
 import { format } from 'date-fns'
 import {
   calculateSHA256FromString,

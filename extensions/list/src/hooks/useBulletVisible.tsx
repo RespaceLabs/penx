@@ -1,6 +1,8 @@
 import { Editor, Node } from 'slate'
 import { useEditor } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
+import { EditorMode, NodeType } from '@penx/model-types'
+import { store } from '@penx/store'
 import { listSchema } from '../listSchema'
 import { ListContentElement } from '../types'
 
@@ -30,6 +32,14 @@ export const useBulletVisible = (element: ListContentElement) => {
   const str = Node.string(element)
   const isFocused = currentElement === element
   const isBulletVisible = !!str || isFocused || isFirstLine
+  const activeSpace = store.space.getActiveSpace()
+
+  if (
+    (element as any)?.nodeType === NodeType.DAILY &&
+    activeSpace.editorMode === EditorMode.BLOCK
+  ) {
+    return true
+  }
 
   return isBulletVisible
 }
