@@ -14,6 +14,7 @@ export enum NodeType {
   COMMON = 'COMMON',
 
   LIST = 'LIST',
+  LIST_ITEM = 'LIST_ITEM',
 
   DATABASE = 'DATABASE',
   CELL = 'CELL',

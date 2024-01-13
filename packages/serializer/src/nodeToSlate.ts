@@ -94,7 +94,7 @@ export class NodeToSlateSerializer {
     for (const id of this.node.children) {
       const node = new Node(this.nodeMap.get(id)!)
       if (!node) continue
-      if (node.isCommon) {
+      if (node.isCommon || node.isListItem) {
         const element = Array.isArray(node.element)
           ? node.element[0]
           : node.element

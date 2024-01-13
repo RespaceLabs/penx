@@ -28,20 +28,18 @@ export function PanelItem({ node, index }: Props) {
   const nodeService = new NodeService(node, nodes)
   const { activeSpace } = useSpaces()
 
-  // console.log('--------=======node:', node)
-
   const [saving, setSaving] = useState(false)
 
-  const content = nodeToSlate(
-    node.raw,
-    nodeList.rawNodes,
-    activeSpace.isOutliner,
-  )
+  const isOutliner = activeSpace.isOutliner || node.isListItem
+
+  // console.log('--------=======node:', node, 'isOutliner:', isOutliner)
+
+  const content = nodeToSlate(node.raw, nodeList.rawNodes, isOutliner)
 
   // console.log('======content:', content)
 
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
-    if (activeSpace.isOutliner) {
+    if (isOutliner) {
       await nodeService.saveOutlinerEditor(node.raw, value[0], value[1])
     } else {
       await nodeService.saveBlockEditor(node.raw, value)

@@ -20,6 +20,8 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
   const editor = useEditorStatic()
   const { extensionStore } = useExtensionStore()
 
+  // console.log('-------====editor.node:', editor)
+
   const filteredTypes = Object.keys(extensionStore.elementMaps).filter(
     (item) => {
       const { type, slashCommand } = extensionStore.elementMaps[item]

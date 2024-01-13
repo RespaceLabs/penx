@@ -100,7 +100,7 @@ export function NodeEditor({
 
   editor.items = nodes
 
-  editor.isOutliner = isOutliner
+  editor.isOutliner = isOutliner || node.isListItem
 
   // console.log('editor node======:', node)
 
@@ -185,7 +185,7 @@ export function NodeEditor({
   }
 
   function handleDragEnd({ active, over }: DragEndEvent) {
-    // resetState()
+    resetState()
 
     console.log('active:', active.id, 'over:', over?.id)
 
@@ -195,7 +195,7 @@ export function NodeEditor({
     // console.log('protected============:', projected)
 
     if (activeId === overId) {
-      console.log('same........')
+      // console.log('same........')
       return
     }
 
@@ -232,8 +232,6 @@ export function NodeEditor({
 
       setItems(newItems)
     }
-
-    resetState()
   }
 
   function checkIsOverChildren(activePath: Path, overId: string) {

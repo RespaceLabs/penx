@@ -10,6 +10,7 @@ export const Breadcrumb = () => {
     <Box toCenterY>
       {parentNodes.map((node, index) => {
         const isLast = index === parentNodes.length - 1
+        if (node.isList) return null
         return (
           <Box key={node.id} toCenterY>
             <Box

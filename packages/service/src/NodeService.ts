@@ -189,7 +189,7 @@ export class NodeService {
         })
 
         if (isList) {
-          await this.saveOutlinerNodes(item.id, item as any)
+          await this.saveOutlinerNodes(item.id, item as any, false)
         }
 
         for (const tagName of tags) {
@@ -229,7 +229,11 @@ export class NodeService {
     }
   }
 
-  saveOutlinerNodes = async (parentId: string, ul: UnorderedListElement) => {
+  saveOutlinerNodes = async (
+    parentId: string,
+    ul: UnorderedListElement,
+    isOutliner = true,
+  ) => {
     const editor = createEditor()
     Transforms.insertNodes(editor, ul)
 
@@ -297,6 +301,7 @@ export class NodeService {
 
         if (oldHash !== newHash) {
           const newNode = await db.updateNode(item.id, {
+            type: isOutliner ? NodeType.COMMON : NodeType.LIST_ITEM,
             parentId: newParentId,
             element,
             collapsed: !!item.collapsed,
@@ -314,6 +319,7 @@ export class NodeService {
       } else {
         await db.createNode({
           id: item.id,
+          type: isOutliner ? NodeType.COMMON : NodeType.LIST_ITEM,
           parentId: newParentId,
           spaceId: this.spaceId,
           collapsed: !!item.collapsed,

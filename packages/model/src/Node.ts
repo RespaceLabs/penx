@@ -95,6 +95,10 @@ export class Node {
     return this.type === NodeType.LIST
   }
 
+  get isListItem() {
+    return this.type === NodeType.LIST_ITEM
+  }
+
   get isTrash() {
     return this.type === NodeType.TRASH
   }
