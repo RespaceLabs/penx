@@ -77,7 +77,12 @@ export const noteCellRenderer: CustomRenderer<NoteCell> = {
             nodes.map((n) => new NodeModel(n)),
           )
           const parentNodes = nodeService.getParentNodes()
-          store.node.selectNode(parentNodes[0].raw)
+
+          if (parentNodes[0].isDailyRoot) {
+            store.node.selectNode(parentNodes[1].raw)
+          } else {
+            store.node.selectNode(parentNodes[0].raw)
+          }
         }
       }
       return (
@@ -89,7 +94,10 @@ export const noteCellRenderer: CustomRenderer<NoteCell> = {
             style={{
               flexShrink: 0,
             }}
-            onClick={clickBullet}
+            onClick={(e) => {
+              e.stopPropagation()
+              clickBullet()
+            }}
           />
           <PrimaryCell
             index={0}

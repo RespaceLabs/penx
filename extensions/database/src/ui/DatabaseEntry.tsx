@@ -19,7 +19,7 @@ export const DatabaseEntry = ({
       <Box
         inlineFlex
         px2
-        py1
+        py-2
         my1
         rounded
         cursorPointer
