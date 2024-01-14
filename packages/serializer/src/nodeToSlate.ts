@@ -19,13 +19,13 @@ export function nodeToSlate(
   node: INode,
   allNodes: INode[],
   isOutliner: boolean,
-  space?: Space,
+  isOutlinerSpace?: boolean,
 ) {
   const serializer = new NodeToSlateSerializer(
     new Node(node),
     allNodes.map((n) => new Node(n)),
     isOutliner,
-    space,
+    isOutlinerSpace,
   )
   return serializer.getEditorValue()
 }
@@ -39,7 +39,7 @@ export class NodeToSlateSerializer {
     private node: Node,
     public allNodes: Node[],
     private isOutliner: boolean,
-    private space?: Space,
+    private isOutlinerSpace?: boolean,
   ) {
     for (const item of allNodes) {
       this.nodeMap.set(item.id, item.raw)
@@ -69,7 +69,7 @@ export class NodeToSlateSerializer {
       return getDatabaseRootEditorValue(this.node, this.nodeMap)
     }
 
-    if (this.node.isDailyRoot && !this.space?.isOutliner) {
+    if (this.node.isDailyRoot && !this?.isOutlinerSpace) {
       return getDailyRootEditorValue(this.node, this.nodeMap)
     }
 

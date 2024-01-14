@@ -17,14 +17,13 @@ export const Paragraph = ({
 
   const isInTitle = node?.type === 'title'
 
-  // console.log('render.......', Node.string(element))
-
   return (
     <Box
       leadingNormal
       gray900
       textBase={!isInTitle}
       relative
+      py-2
       h-100p
       {...attributes}
       {...nodeProps}

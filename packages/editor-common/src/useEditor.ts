@@ -21,6 +21,8 @@ export type PenxEditor = BaseEditor &
 
     isOnComposition: boolean
 
+    isReadonly: boolean
+
     nodeToDecorations: Map<any, Range[]>
 
     // save all items to editor

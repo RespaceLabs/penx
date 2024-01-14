@@ -3,8 +3,32 @@ import { Editor, Transforms } from 'slate'
 import { Editable, RenderElementProps, Slate } from 'slate-react'
 import { ElementProps } from '@penx/extension-typings'
 import { useExtensionStore } from '@penx/hooks'
+import { Node } from '@penx/model'
+import { INode } from '@penx/model-types'
 import { Paragraph } from '@penx/paragraph'
+import { StoreProvider } from '@penx/store'
 import { useCreateEditor } from '../hooks/useCreateEditor'
+import { NodeEditorEditable } from './NodeEditorEditable'
+
+interface Props {
+  content: any[]
+  nodes: INode[]
+}
+
+export function ReadOnlyEditor({ content, nodes }: Props) {
+  const editor = useCreateEditor()
+
+  editor.isReadonly = true
+  editor.items = nodes.map((n) => new Node(n))
+
+  return (
+    <StoreProvider>
+      <Slate editor={editor} initialValue={content}>
+        <NodeEditorEditable />
+      </Slate>
+    </StoreProvider>
+  )
+}
 
 function EditorElement(props: ElementProps) {
   const { extensionStore } = useExtensionStore()
@@ -15,39 +39,4 @@ function EditorElement(props: ElementProps) {
     extensionStore.elementMaps[type] || {}
 
   return <Element {...props} />
-}
-
-interface Props {
-  content: any[]
-}
-
-export function ReadOnlyEditor({ content }: Props) {
-  const editor = useCreateEditor()
-
-  const renderElement = useCallback((p: RenderElementProps) => {
-    return <EditorElement {...p} />
-  }, [])
-  useEffect(() => {
-    // Delete all entries leaving 1 empty node
-    Transforms.delete(editor, {
-      at: {
-        anchor: Editor.start(editor, []),
-        focus: Editor.end(editor, []),
-      },
-    })
-
-    // Removes empty node
-    Transforms.removeNodes(editor, {
-      at: [0],
-    })
-
-    // Insert array of children nodes
-    Transforms.insertNodes(editor, content)
-  }, [content, editor])
-
-  return (
-    <Slate editor={editor} initialValue={content}>
-      <Editable readOnly renderElement={renderElement} />
-    </Slate>
-  )
 }

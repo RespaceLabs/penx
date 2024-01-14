@@ -75,7 +75,7 @@ export const Bullet = ({ element, onContextMenu }: Props) => {
   const { collapsed = false } = element
   const isBulletVisible = useBulletVisible(element)
   const tagNames = extractTags(element.children)
-  const tagNodes = editor.items.filter((n) => n.type === NodeType.DATABASE)
+  const tagNodes = editor.items?.filter((n) => n.type === NodeType.DATABASE)
 
   let colors: string[] = []
 

@@ -18,7 +18,7 @@ export const MorePopover = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent w-260 column>
-        <MenuItem gap2 onClick={async () => {}}>
+        {/* <MenuItem gap2 onClick={async () => {}}>
           <StarOff size={18} />
           <Box>Remove from Favorites</Box>
         </MenuItem>
@@ -26,7 +26,7 @@ export const MorePopover = () => {
         <MenuItem gap2 onClick={async () => {}}>
           <LogOut size={18} />
           <Box>Export</Box>
-        </MenuItem>
+        </MenuItem> */}
 
         <MenuItem
           gap2

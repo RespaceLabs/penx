@@ -45,7 +45,7 @@ export function syncNodes(input: SyncUserInput, userId: string) {
       await tx.node.createMany({ data: addedNodes })
 
       const promises = updatedNodes.map((n) => {
-        console.log('========n:', n)
+        // console.log('========n:', n)
         return tx.node.update({ where: { id: n.id }, data: n })
       })
 
@@ -130,7 +130,7 @@ async function cleanDeletedNodes(
     const children = (parentNode?.children || []) as string
 
     if (!children.includes(node.id)) {
-      console.log('=======clear node!!!!', node)
+      console.log('=======clear node!!!!', node, JSON.stringify(node.element))
       await deleteNode(node.id)
     }
   }

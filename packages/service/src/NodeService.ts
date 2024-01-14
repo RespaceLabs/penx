@@ -137,7 +137,8 @@ export class NodeService {
     store.node.setNodes(nodes)
 
     if (!isInReference) {
-      store.node.setFirstActiveNodes(node)
+      const newNode = nodes.find((item) => item.id === node.id)!
+      store.node.setFirstActiveNodes(newNode)
     }
 
     await store.sync.pushToCloud()

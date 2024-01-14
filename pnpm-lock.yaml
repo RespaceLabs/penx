@@ -502,6 +502,9 @@ importers:
       '@penx/model':
         specifier: workspace:*
         version: link:../../packages/model
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../../packages/model-types
       '@penx/serializer':
         specifier: workspace:*
         version: link:../../packages/serializer

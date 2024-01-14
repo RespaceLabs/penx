@@ -18,10 +18,11 @@ export const Tag = ({
   attributes,
   children,
 }: ElementProps<TagElement>) => {
+  const editor = useEditorStatic()
+
   let selected = useSelected()
   const { nodeList } = useNodes()
   const node = nodeList.nodeMap.get(element.databaseId)!
-  const editor = useEditorStatic()
   const isInDatabase = (editor.children?.[0] as any)?.type === ELEMENT_P
 
   const menuId = `tag-menu-${genId()}`
@@ -59,6 +60,14 @@ export const Tag = ({
       # {node?.tagName}
     </Box>
   )
+
+  if (editor.isReadonly) {
+    return (
+      <Box inlineFlex bgGray200 textXS py-2 px1 rounded>
+        # {element.name}
+      </Box>
+    )
+  }
 
   return (
     <Box

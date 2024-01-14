@@ -13,9 +13,8 @@ import { NodeService } from '@penx/service'
 import { routerAtom, store } from '@penx/store'
 import { withAutoNodeId } from '../plugins/withAutoNodeId'
 import { withBulletPlugin } from '../plugins/withBulletPlugin'
-import { MobileNav } from './DocNav/MobileNav'
-import { PCNav } from './DocNav/PCNav'
 import { LinkedReferences } from './LinkedReferences'
+import { PCNav } from './NodeNav/PCNav'
 
 interface Props {
   index: number
@@ -38,7 +37,7 @@ export function PanelItem({ node, index }: Props) {
     node.raw,
     nodeList.rawNodes,
     isOutliner,
-    activeSpace,
+    activeSpace.isOutliner,
   )
 
   // console.log('======content:', content)

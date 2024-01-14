@@ -11,22 +11,23 @@ datasource db {
 }
 
 model User {
-    id            String    @id @default(uuid())
-    address       String?   @unique // wallet address
+    id            String      @id @default(uuid())
+    address       String?     @unique // wallet address
     name          String? // nickname
     bio           String?
     password      String?
     avatar        String?
     github        Json?
     username      String?
-    email         String?   @unique
+    email         String?     @unique
     emailVerified DateTime?
     image         String?
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime    @updatedAt
     accounts      Account[]
     sessions      Session[]
     spaces        Space[]
+    SiteSpace     SiteSpace[]
 }
 
 model Account {
@@ -115,6 +116,66 @@ model Node {
 
     @@index([spaceId])
     @@index([type])
+}
+
+model SiteSpace {
+    id           String  @id @default(uuid())
+    name         String
+    description  String? @db.Text
+    subdomain    String? @unique
+    customDomain String? @unique
+    editorMode   String?
+    color        String
+
+    activeNodeIds Json?
+
+    nodeSnapshot Json?
+    pageSnapshot Json?
+
+    deletedAt DateTime?
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+
+    user   User?   @relation(fields: [userId], references: [id])
+    userId String?
+
+    @@index([userId])
+}
+
+model SiteNode {
+    id          String  @id @default(uuid())
+    siteSpaceId String
+    parentId    String?
+    databaseId  String?
+    type        String
+    element     Json
+    props       Json?
+    collapsed   Boolean @default(false)
+    folded      Boolean @default(true)
+    children    Json?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([siteSpaceId])
+    @@index([type])
+}
+
+model PublishedNode {
+    id         String    @id @default(uuid())
+    spaceId    String
+    nodeId     String    @unique
+    nodes      Json
+    password   String?
+    reviewable Boolean   @default(false)
+    editable   Boolean   @default(false)
+    expiresAt  DateTime?
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+
+    @@unique([spaceId, nodeId])
+    @@index([spaceId])
+    @@index([nodeId])
 }
 
 model Post {

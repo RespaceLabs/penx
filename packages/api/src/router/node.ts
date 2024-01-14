@@ -40,6 +40,66 @@ export const nodeRouter = createTRPCRouter({
     return syncNodes(input, ctx.token.uid)
   }),
 
+  getPublishedNode: publicProcedure
+    .input(
+      z.object({
+        nodeId: z.string(),
+        spaceId: z.string(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const node = await ctx.prisma.publishedNode.findFirst({
+        where: {
+          nodeId: input.nodeId,
+          spaceId: input.spaceId,
+        },
+        select: {
+          id: true,
+          nodeId: true,
+          nodes: true,
+        },
+      })
+      return node
+    }),
+
+  publishNode: publicProcedure
+    .input(
+      z.object({
+        nodeId: z.string(),
+        spaceId: z.string(),
+        nodesData: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      async function findNode(nodeId: string) {
+        return await ctx.prisma.publishedNode.findFirst({
+          where: { nodeId },
+          select: {
+            id: true,
+            nodeId: true,
+            nodes: true,
+          },
+        })
+      }
+      let node = await findNode(input.nodeId)
+
+      const nodes = JSON.parse(input.nodesData)
+      if (!node) {
+        await ctx.prisma.publishedNode.create({
+          data: {
+            nodeId: input.nodeId,
+            spaceId: input.spaceId,
+            nodes,
+          },
+        })
+      } else {
+        await ctx.prisma.publishedNode.update({
+          where: { nodeId: input.nodeId },
+          data: { nodes },
+        })
+      }
+    }),
+
   addMarkdown: publicProcedure
     .input(addMarkdownInput)
     .mutation(({ ctx, input }) => {

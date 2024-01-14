@@ -102,6 +102,8 @@ export function NodeEditor({
 
   editor.isOutliner = isOutliner || node.isListItem
 
+  editor.isReadonly = false
+
   // console.log('editor node======:', node)
 
   const indentationWidth = 50

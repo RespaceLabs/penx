@@ -38,6 +38,7 @@
     "@penx/indexeddb": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/model": "workspace:*",
+    "@penx/model-types": "workspace:*",
     "@penx/serializer": "workspace:*",
     "@penx/session": "workspace:*",
     "@penx/shared": "workspace:*",
