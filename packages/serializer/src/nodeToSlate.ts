@@ -336,9 +336,12 @@ function getDailyRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
   const children = node.children
     // TODO: why get an undefined node
     .filter((id) => nodeMap.get(id))
-    .map((id) => {
-      const node = nodeMap.get(id)!
-
+    .map((id) => nodeMap.get(id)!)
+    .sort(
+      (a, b) =>
+        new Date(a.props.date!).getTime() - new Date(b.props.date!).getTime(),
+    )
+    .map((node) => {
       return {
         type: ELEMENT_LI,
         children: [
