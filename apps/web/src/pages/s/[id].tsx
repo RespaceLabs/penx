@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from 'react'
 import { Box } from '@fower/react'
 import { GetServerSideProps } from 'next'
+import { PublishedTableView } from '@penx/database'
 import { prisma, PublishedNode } from '@penx/db'
 import { ReadOnlyEditor } from '@penx/editor'
 import { INode } from '@penx/model-types'
@@ -18,6 +19,16 @@ export default function PagePublishedNode({ nodeId, publishedNode }: Props) {
   const nodes = publishedNode.nodes as unknown as INode[]
   const node = nodes.find(({ id }) => id === nodeId)!
   const content = nodeToSlate(node, nodes, false)
+
+  console.log('=====node:', nodes)
+
+  if (node.type === 'DATABASE') {
+    return (
+      <ClientOnly>
+        <PublishedTableView nodes={nodes} />
+      </ClientOnly>
+    )
+  }
 
   // TODO: handle ClientOnly
   return (

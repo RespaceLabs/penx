@@ -99,12 +99,14 @@ function Content({ node }: ContentProps) {
           size="sm"
           colorScheme="white"
           onClick={async () => {
-            const childrenNodes = nodeList.flattenNode(node).map((n) => n.raw)
+            const databaseNodes = store.node.find({
+              where: { databaseId: node.id },
+            })
 
             await trpc.node.publishNode.mutate({
               nodeId: node.id,
               spaceId: node.spaceId,
-              nodesData: JSON.stringify([node.raw, ...childrenNodes]),
+              nodesData: JSON.stringify([node.raw, ...databaseNodes]),
             })
             refetch()
           }}

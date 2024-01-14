@@ -28,6 +28,7 @@
     "@penx/app": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/db": "workspace:*",
+    "@penx/database": "workspace:*",
     "@penx/editor": "workspace:*",
     "@penx/editor-common": "workspace:*",
     "@penx/editor-queries": "workspace:*",

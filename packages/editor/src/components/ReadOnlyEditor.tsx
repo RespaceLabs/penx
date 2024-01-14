@@ -24,7 +24,7 @@ export function ReadOnlyEditor({ content, nodes }: Props) {
   return (
     <StoreProvider>
       <Slate editor={editor} initialValue={content}>
-        <NodeEditorEditable />
+        <NodeEditorEditable readOnly />
       </Slate>
     </StoreProvider>
   )

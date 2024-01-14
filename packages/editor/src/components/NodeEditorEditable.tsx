@@ -12,12 +12,13 @@ import { useOnDOMBeforeInput } from '../hooks/useOnDOMBeforeInput'
 import { ElementContent } from './ElementContent'
 
 interface Props {
+  readOnly?: boolean
   onBlur?: (editor: PenxEditor) => void
   onKeyDown?: (e: KeyboardEvent<HTMLDivElement>, editor?: PenxEditor) => void
 }
 
 export const NodeEditorEditable = memo(
-  function NodeEditorEditable({ onBlur, onKeyDown }: Props) {
+  function NodeEditorEditable({ onBlur, onKeyDown, readOnly = false }: Props) {
     // const editor = useEditor()
     const editor = useEditorStatic()
     const { extensionStore } = useExtensionStore()
@@ -61,6 +62,7 @@ export const NodeEditorEditable = memo(
       <Editable
         className={css('black outlineNone')}
         autoFocus={false}
+        readOnly={readOnly}
         renderLeaf={(props) => <Leaf {...props} />}
         renderElement={renderElement}
         decorate={decorate as any} //

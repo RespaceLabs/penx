@@ -130,6 +130,26 @@ export class Node {
     return this.type === NodeType.DATABASE
   }
 
+  get isView() {
+    return this.type === NodeType.VIEW
+  }
+
+  get isRow() {
+    return this.type === NodeType.ROW
+  }
+
+  get isColumn() {
+    return this.type === NodeType.COLUMN
+  }
+
+  get isCell() {
+    return this.type === NodeType.CELL
+  }
+
+  get isOption() {
+    return this.type === NodeType.OPTION
+  }
+
   get canRef() {
     return this.isCommon || this.isDaily
   }

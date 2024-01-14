@@ -21,6 +21,7 @@ import { withTag } from './withTag'
 
 export * from './guard'
 export * from './isTag'
+export * from './ui/views/TableView/PublishedTableView'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
