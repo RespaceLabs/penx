@@ -16,7 +16,7 @@ export const ViewToolBar = () => {
       <FilterField />
       <SortField />
       <GroupField />
-      {currentView.props.viewType === ViewType.TABLE && <TableField />}
+      {/* {currentView.props.viewType === ViewType.TABLE && <TableField />} */}
     </Box>
   )
 }

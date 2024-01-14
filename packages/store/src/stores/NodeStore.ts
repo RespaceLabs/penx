@@ -185,7 +185,7 @@ export class NodeStore {
       await db.updateSpace(this.store.space.getActiveSpace().id, {
         activeNodeIds: newActiveNodes.map((node) => node.id),
       })
-    }, 0)
+    }, 20)
   }
 
   async selectInbox() {
