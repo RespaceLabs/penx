@@ -31,8 +31,6 @@ export function PanelItem({ node, index }: Props) {
 
   const isOutliner = activeSpace.isOutliner || node.isListItem
 
-  // console.log('--------=======node:', node, 'isOutliner:', isOutliner)
-
   const content = nodeToSlate(
     node.raw,
     nodeList.rawNodes,

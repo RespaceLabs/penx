@@ -247,7 +247,16 @@ function getDatabaseNodeEditorValue(node: Node) {
       type: ELEMENT_TITLE,
       props: node.props,
       nodeType: node.type,
-      children: node.element,
+      children: [
+        {
+          type: 'p',
+          children: [
+            {
+              text: node.title,
+            },
+          ],
+        },
+      ],
     },
     {
       type: ELEMENT_UL,

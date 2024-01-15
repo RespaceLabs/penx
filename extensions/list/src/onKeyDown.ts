@@ -39,8 +39,10 @@ function onEnterInTitle(editor: PenxEditor) {
 
 function getParentNode(editor: PenxEditor) {
   const node = getCurrentNode(editor)!
-
   const path = findNodePath(editor, node)!
+
+  if (!path) return null
+
   const parentPath = Path.parent(path)
   const parentNode = getNodeByPath(editor, parentPath)
   return parentNode!
@@ -62,7 +64,7 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
   const parentNode = getParentNode(editor)
 
   if ([ELEMENT_CODE_LINE, ELEMENT_CODE_BLOCK].includes(node?.type)) {
-    e.preventDefault()
+    // e.preventDefault()
     return
   }
 

@@ -22,6 +22,7 @@ export const ELEMENT_CODE_LINE = 'code_line'
 export const ELEMENT_DATABASE = 'database'
 export const ELEMENT_LIVE_QUERY = 'live_query'
 export const ELEMENT_DATABASE_ENTRY = 'database_entry'
+export const ELEMENT_DATABASE_CONTAINER = 'database_container'
 
 export const ELEMENT_DAILY_ENTRY = 'daily_entry'
 

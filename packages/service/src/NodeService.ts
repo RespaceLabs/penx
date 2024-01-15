@@ -176,12 +176,16 @@ export class NodeService {
       children: elements.map((n) => n.id),
     })
 
+    console.log('========elements:', elements)
+
     for (const item of elements) {
       const node = await db.getNode(item.id)
 
       const tags = extractTags([item])
 
       const isList = isListElement(item)
+
+      console.log('===========node:', node)
 
       if (node) {
         const newNode = await db.updateNode(item.id, {

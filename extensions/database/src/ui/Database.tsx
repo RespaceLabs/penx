@@ -28,7 +28,7 @@ export const Database = ({
           <Divider h-20 orientation="vertical" />
           <ViewToolBar />
         </Box>
-        <ViewRenderer />
+        <ViewRenderer element={element} />
       </DatabaseProvider>
     </Box>
   )

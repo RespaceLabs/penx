@@ -36,6 +36,7 @@
     "@penx/remark-slate": "workspace:*",
     "@penx/serializer": "workspace:*",
     "@penx/shared": "workspace:*",
+    "@penx/model": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "date-fns": "^2.30.0",

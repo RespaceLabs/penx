@@ -26,9 +26,13 @@ function ListItem({ row }: ListItemProps) {
     (cell) => !!cell.props.ref && cell.props.rowId === row.id,
   )!
 
-  const column = columns.find(
-    (column) => column.id === primaryCell.props.columnId,
-  )!
+  return null
+
+  console.log('======primaryCell:', primaryCell)
+
+  const column = !primaryCell
+    ? columns[0]
+    : columns.find((column) => column.id === primaryCell.props.columnId)!
 
   async function clickBullet() {
     const node = await db.getNode(primaryCell?.props.ref!)

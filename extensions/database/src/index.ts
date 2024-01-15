@@ -2,16 +2,21 @@ import { TableIcon } from 'lucide-react'
 import {
   ELEMENT_DAILY_ENTRY,
   ELEMENT_DATABASE,
+  ELEMENT_DATABASE_CONTAINER,
   ELEMENT_DATABASE_ENTRY,
   ELEMENT_LIVE_QUERY,
   ELEMENT_TAG,
   ELEMENT_TAG_SELECTOR,
 } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
+import { db } from '@penx/local-db'
+import { DataSource } from '@penx/model-types'
+import { store } from '@penx/store'
 import { onBlur } from './handlers/onBlur'
 import { onKeyDown } from './handlers/onKeyDown'
 import { DailyEntry } from './ui/DailyEntry'
 import { Database } from './ui/Database'
+import { DatabaseContainer } from './ui/DatabaseContainer'
 import { DatabaseEntry } from './ui/DatabaseEntry'
 import { LiveQuery } from './ui/LiveQuery/LiveQuery'
 import { Tag } from './ui/tag/Tag'
@@ -33,21 +38,35 @@ export function activate(ctx: ExtensionContext) {
     elements: [
       {
         isVoid: true,
-        type: ELEMENT_DATABASE,
-        component: Database,
-        // slashCommand: {
-        //   name: 'Database',
-        //   icon: TableIcon,
-        //   async beforeInvokeCommand(editor) {
-        //     console.log('before.............')
-        //     return db.createDatabase('')
-        //   },
-        // },
-      },
-      {
-        isVoid: true,
         type: ELEMENT_DATABASE_ENTRY,
         component: DatabaseEntry,
+      },
+
+      {
+        isVoid: true,
+        type: ELEMENT_DATABASE_CONTAINER,
+        component: DatabaseContainer,
+        slashCommand: {
+          in: ['BLOCK', 'BLOCK'],
+          name: 'Database',
+          icon: TableIcon,
+          async beforeInvokeCommand(editor) {
+            const node = await db.createDatabase(
+              'Untitled',
+              DataSource.COMMON,
+              true,
+            )
+            const newNodes = await db.listNodesBySpaceId(node.spaceId)
+            store.node.setNodes(newNodes)
+            return node
+          },
+        },
+      },
+
+      {
+        isVoid: true,
+        type: ELEMENT_DATABASE,
+        component: Database,
       },
 
       {

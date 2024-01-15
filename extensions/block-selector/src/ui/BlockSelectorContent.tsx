@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import { Box } from '@fower/react'
 import { Editor, Element, Node, Path, Transforms } from 'slate'
 import { ListsEditor } from 'slate-lists'
+import { ELEMENT_DATABASE_CONTAINER } from '@penx/constants'
 import { TElement, useEditorStatic } from '@penx/editor-common'
 import { selectEditor } from '@penx/editor-transforms'
 import { useExtensionStore } from '@penx/hooks'
@@ -81,7 +82,6 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
       // image,divider...
       if (elementInfo.isVoid) {
         Transforms.removeNodes(editor, { at })
-
         const node: INode = await slashCommand?.beforeInvokeCommand?.(editor)
 
         const props = {
@@ -89,31 +89,30 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
           children: [{ text: '' }],
         } as TElement & { [key: string]: any }
 
-        if (node?.type === NodeType.DATABASE) {
-          props.id = node.id
+        if (elementType === ELEMENT_DATABASE_CONTAINER) {
           props.databaseId = node.id
+          props.maxHeight = 300
         }
 
         Transforms.insertNodes(editor, props, { at })
 
-        const next = Path.next(Path.parent(at))
+        if (editor.isOutliner) {
+          const next = Path.next(Path.parent(at))
 
-        // create new empty list item node
-        Transforms.insertNodes(
-          editor,
-          ListsEditor.createListItemTextNode(editor, {
-            children: [
-              {
-                type: 'p',
-                children: [{ text: '' }],
-              } as TElement,
-            ],
-          }),
-          {
-            at: next,
-            select: true,
-          },
-        )
+          // create new empty list item node
+          Transforms.insertNodes(
+            editor,
+            ListsEditor.createListItemTextNode(editor, {
+              children: [
+                {
+                  type: 'p',
+                  children: [{ text: '' }],
+                } as TElement,
+              ],
+            }),
+            { at: next, select: true },
+          )
+        }
       } else {
         // p,h1,h2,h3,h4...
         Transforms.setNodes(

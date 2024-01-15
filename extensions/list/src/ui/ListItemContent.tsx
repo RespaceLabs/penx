@@ -14,6 +14,7 @@ import { ListContentElement } from '../types'
 import { Bullet } from './Bullet'
 import { BulletMenu } from './BulletMenu'
 import { Chevron } from './Chevron'
+import { DeleteDatabaseModal } from './DeleteDatabaseModal'
 
 interface Props extends ElementProps<ListContentElement> {
   style?: CSSProperties
@@ -50,58 +51,61 @@ export const ListItemContent = memo(
     const draggable = (element as any)?.nodeType !== NodeType.DAILY
 
     return (
-      <Box
-        {...attributes}
-        ref={mergeRefs([ref, attributes.ref])}
-        data-type="list-item-content"
-        m0
-        leadingNormal
-        textBase
-        relative
-        h-100p
-        toTop={!isTask}
-        px1
-        py0
-        {...nodeProps}
-        css={css}
-        style={style}
-        className="nodeContent"
-      >
+      <>
+        <DeleteDatabaseModal />
         <Box
-          absolute
-          top-0={!isTask}
-          top--1={isTask}
-          w-40
-          left--40
-          contentEditable={false}
-          toCenterY
-          toRight
-          // flexShrink-0
-          gap-2
+          {...attributes}
+          ref={mergeRefs([ref, attributes.ref])}
+          data-type="list-item-content"
+          m0
           leadingNormal
-          h={h()}
-          textSM
-          text3XL={child?.type === 'h1'}
-          text2XL={child?.type === 'h2'}
-          textXL={child?.type === 'h3'}
-          textLG={child?.type === 'h4'}
-          style={{
-            userSelect: 'none',
-          }}
+          textBase
+          relative
+          h-100p
+          toTop={!isTask}
+          px1
+          py0
+          {...nodeProps}
+          css={css}
+          style={style}
+          className="nodeContent"
         >
-          <BulletMenu menuId={menuId} element={element} />
+          <Box
+            absolute
+            top-0={!isTask}
+            top--1={isTask}
+            w-40
+            left--40
+            contentEditable={false}
+            toCenterY
+            toRight
+            // flexShrink-0
+            gap-2
+            leadingNormal
+            h={h()}
+            textSM
+            text3XL={child?.type === 'h1'}
+            text2XL={child?.type === 'h2'}
+            textXL={child?.type === 'h3'}
+            textLG={child?.type === 'h4'}
+            style={{
+              userSelect: 'none',
+            }}
+          >
+            <BulletMenu menuId={menuId} element={element} />
 
-          <Chevron element={element} onContextMenu={show} />
+            <Chevron element={element} onContextMenu={show} />
 
-          <Box inlineFlex {...(draggable ? listeners : {})}>
-            <Bullet element={element} onContextMenu={show} />
+            <Box inlineFlex {...(draggable ? listeners : {})}>
+              <Bullet element={element} onContextMenu={show} />
+            </Box>
+          </Box>
+
+          <Box flex-1 pl1 leadingNormal>
+            {children}
           </Box>
         </Box>
-
-        <Box flex-1 pl1 leadingNormal>
-          {children}
-        </Box>
-      </Box>
+      </>
     )
   }),
 

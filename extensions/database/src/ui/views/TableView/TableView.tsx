@@ -10,6 +10,8 @@ import {
   Item,
   Rectangle,
 } from '@glideapps/glide-data-grid'
+import { ELEMENT_DATABASE_CONTAINER } from '@penx/constants'
+import { DatabaseContainerElement, DatabaseElement } from '../../../types'
 import { useDatabaseContext } from '../../DatabaseContext'
 import { TableBody } from '../../Table/TableBody'
 import { TableHeader } from '../../Table/TableHeader'
@@ -20,7 +22,13 @@ import { DeleteColumnModal } from './DeleteColumnModal'
 import { useUndoRedo } from './use-undo-redo'
 import { useTableView } from './useTableView'
 
-export const TableView = () => {
+interface Props {
+  element: DatabaseElement | DatabaseContainerElement
+}
+
+export const TableView = ({ element }: Props) => {
+  const isDatabaseContainer = element.type === ELEMENT_DATABASE_CONTAINER
+
   const { rows, sortedColumns } = useDatabaseContext()
 
   const {
@@ -87,8 +95,7 @@ export const TableView = () => {
         freezeColumns={1}
         smoothScrollX
         smoothScrollY
-        // height={200}
-        height={`calc(100vh - 300px)`}
+        height={isDatabaseContainer ? 300 : `calc(100vh - 300px)`}
         width={`calc(100vw - 360px)`}
         rowMarkers="number"
         getCellsForSelection={true}

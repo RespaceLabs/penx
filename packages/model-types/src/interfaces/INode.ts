@@ -97,6 +97,11 @@ export interface IDatabaseRootNode extends INode {
   type: NodeType.DATABASE_ROOT
 }
 
+export enum DataSource {
+  TAG = 'TAG',
+  COMMON = 'COMMON',
+}
+
 export interface IDatabaseNode extends INode {
   type: NodeType.DATABASE
   props: {
@@ -104,6 +109,7 @@ export interface IDatabaseNode extends INode {
     color: string
     activeViewId: string
     viewIds: string[]
+    dataSource: DataSource
   }
 }
 

@@ -1,11 +1,16 @@
 import { ViewType } from '@penx/model-types'
+import { DatabaseContainerElement, DatabaseElement } from '../types'
 import { useDatabaseContext } from './DatabaseContext'
 import { GalleryView } from './views/GalleryView'
 import { KanbanView } from './views/KanbanView/KanbanView'
 import { ListView } from './views/ListView'
 import { TableView } from './views/TableView/TableView'
 
-export const ViewRenderer = () => {
+interface Props {
+  element: DatabaseElement | DatabaseContainerElement
+}
+
+export const ViewRenderer = ({ element }: Props) => {
   const { currentView } = useDatabaseContext()
 
   if (!currentView) return null
@@ -22,5 +27,5 @@ export const ViewRenderer = () => {
     return <GalleryView />
   }
 
-  return <TableView />
+  return <TableView element={element} />
 }

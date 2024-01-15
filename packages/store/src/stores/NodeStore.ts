@@ -5,6 +5,7 @@ import { ArraySorter } from '@penx/indexeddb'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import {
+  DataSource,
   EditorMode,
   ICellNode,
   IColumnNode,
@@ -330,15 +331,19 @@ export class NodeStore {
     return node
   }
 
-  async createDatabase(tagName: string) {
+  async createDatabase(
+    name: string,
+    dataSource: DataSource = DataSource.TAG,
+    shouldInitCell = false,
+  ) {
     const nodes = this.getNodes()
 
     let databaseNode = nodes.find(
-      (node) => node.type === NodeType.DATABASE && node.props.name === tagName,
+      (node) => node.type === NodeType.DATABASE && node.props.name === name,
     )
 
     if (!databaseNode) {
-      databaseNode = await db.createDatabase(tagName)
+      databaseNode = await db.createDatabase(name, dataSource, shouldInitCell)
     }
 
     const newNodes = await db.listNodesBySpaceId(databaseNode.spaceId)

@@ -5,6 +5,7 @@ import { PENX_SESSION_USER_ID } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import {
   ConjunctionType,
+  DataSource,
   FieldType,
   Filter,
   Group,
@@ -477,7 +478,11 @@ class DB {
     return newNode
   }
 
-  createDatabase = async (name: string, shouldInitCell = false) => {
+  createDatabase = async (
+    name: string,
+    dataSource: DataSource = DataSource.TAG,
+    shouldInitCell = false,
+  ) => {
     // const { id = '' } = data
     const space = await this.getActiveSpace()
     const databaseRootNode = await this.getDatabaseRootNode(space.id)
@@ -489,6 +494,7 @@ class DB {
       type: NodeType.DATABASE,
       props: {
         color: getRandomColor(),
+        dataSource,
         name,
         activeViewId: '',
         viewIds: [],
@@ -567,7 +573,7 @@ class DB {
       databaseId,
       type: NodeType.COLUMN,
       props: {
-        name: 'Note',
+        name: 'Name',
         description: '',
         fieldType: FieldType.TEXT,
         isPrimary: true,
@@ -580,9 +586,9 @@ class DB {
       parentId: databaseId,
       type: NodeType.COLUMN,
       props: {
-        name: 'Description',
+        name: 'Type',
         description: '',
-        fieldType: FieldType.TEXT,
+        fieldType: FieldType.SINGLE_SELECT,
         isPrimary: false,
         config: {},
       },
@@ -1330,6 +1336,26 @@ class DB {
           toIndex,
         ),
       },
+    })
+  }
+
+  deleteDatabase = async (node: INode) => {
+    const nodes = await this.node.select({
+      where: { databaseId: node.id },
+    })
+
+    let promises: Promise<any>[] = []
+
+    for (const item of nodes) {
+      promises.push(this.node.deleteByPk(item.id))
+    }
+
+    await Promise.all(promises)
+
+    const databaseRoot = await this.getDatabaseRootNode(node.spaceId)
+
+    await this.updateNode(databaseRoot.id, {
+      children: databaseRoot.children?.filter((id) => id !== node.id),
     })
   }
 }

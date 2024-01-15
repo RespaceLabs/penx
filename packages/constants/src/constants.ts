@@ -79,6 +79,7 @@ export enum SettingsType {
 export enum ModalNames {
   DELETE_NODE,
   DELETE_COLUMN,
+  DELETE_DATABASE,
   CREATE_SPACE,
   RESTORE_FROM_GITHUB,
   IMPORT_SPACE,

@@ -4,7 +4,7 @@ import {
   decryptString,
   encryptString,
 } from '@penx/encryption'
-import { INode, NodeType } from '@penx/model-types'
+import { DataSource, INode, NodeType } from '@penx/model-types'
 
 type Element = {
   id: string
@@ -128,6 +128,11 @@ export class Node {
 
   get isDatabase() {
     return this.type === NodeType.DATABASE
+  }
+
+  get isTagDatabase() {
+    // TODO: too hack
+    return this.props.dataSource !== DataSource.COMMON
   }
 
   get isView() {

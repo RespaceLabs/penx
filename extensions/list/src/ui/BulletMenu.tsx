@@ -1,8 +1,10 @@
 import { Node, Path, Transforms } from 'slate'
-import { toast } from 'uikit'
+import { modalController, toast } from 'uikit'
+import { ModalNames } from '@penx/constants'
 import { ContextMenu, MenuItem } from '@penx/context-menu'
 import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
+import { IDatabaseNode, NodeType } from '@penx/model-types'
 import { useCopyToClipboard } from '@penx/shared'
 import { store } from '@penx/store'
 import { ListContentElement } from '../types'
@@ -19,7 +21,12 @@ export const BulletMenu = ({ menuId, element }: Props) => {
 
   function handleItemClick(type: string) {
     if (type === 'DELETE') {
-      Transforms.removeNodes(editor, { at: Path.parent(path) })
+      if (element.nodeType === NodeType.DATABASE) {
+        const database = editor.items.find((i) => i.id === element.id)!
+        modalController.open(ModalNames.DELETE_DATABASE, database)
+      } else {
+        Transforms.removeNodes(editor, { at: Path.parent(path) })
+      }
     }
   }
 
