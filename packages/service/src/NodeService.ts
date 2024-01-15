@@ -176,16 +176,12 @@ export class NodeService {
       children: elements.map((n) => n.id),
     })
 
-    console.log('========elements:', elements)
-
     for (const item of elements) {
       const node = await db.getNode(item.id)
 
       const tags = extractTags([item])
 
       const isList = isListElement(item)
-
-      console.log('===========node:', node)
 
       if (node) {
         const newNode = await db.updateNode(item.id, {
@@ -216,7 +212,7 @@ export class NodeService {
             children: [], // TODO:
           })
 
-          await this.saveOutlinerNodes(item.id, item as any)
+          await this.saveOutlinerNodes(item.id, item as any, false)
         } else {
           newNode = await db.createNode({
             id: item.id,
@@ -305,13 +301,15 @@ export class NodeService {
         }).toHash()
 
         if (oldHash !== newHash) {
-          const newNode = await db.updateNode(item.id, {
+          const updateData: Partial<INode> = {
             // type: isOutliner ? NodeType.COMMON : NodeType.LIST_ITEM,
             parentId: newParentId,
             element,
             collapsed: !!item.collapsed,
             children,
-          })
+          }
+
+          const newNode = await db.updateNode(item.id, updateData)
 
           for (const tagName of tags) {
             await db.createTagRow(tagName, newNode.id)

@@ -46,7 +46,7 @@ export function PanelItem({ node, index }: Props) {
     } else {
       await nodeService.saveBlockEditor(node.raw, value)
     }
-  }, 400)
+  }, 100)
 
   const w = node.isDatabase ? '100%' : 800
 
