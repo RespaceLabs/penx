@@ -27,6 +27,7 @@ async function addText(text: string) {
 
 export async function runKeeperSSE() {
   if (isProd) return
+  return
 
   const eventSource = new EventSource(url)
   console.info('Listening on SEE', eventSource)

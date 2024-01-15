@@ -5,6 +5,7 @@ import { Cloud, Copy } from 'lucide-react'
 import { Button, Popover, PopoverContent, PopoverTrigger, toast } from 'uikit'
 import { useNodeContext, useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
+import { INode } from '@penx/model-types'
 import { NodeService } from '@penx/service'
 import { useCopyToClipboard } from '@penx/shared'
 import { store } from '@penx/store'
@@ -99,14 +100,20 @@ function Content({ node }: ContentProps) {
           size="sm"
           colorScheme="white"
           onClick={async () => {
-            const databaseNodes = store.node.find({
-              where: { databaseId: node.id },
-            })
+            let childrenNodes: INode[] = []
+
+            if (node.isDatabase) {
+              childrenNodes = store.node.find({
+                where: { databaseId: node.id },
+              })
+            } else {
+              childrenNodes = nodeList.flattenNode(node).map((n) => n.raw)
+            }
 
             await trpc.node.publishNode.mutate({
               nodeId: node.id,
               spaceId: node.spaceId,
-              nodesData: JSON.stringify([node.raw, ...databaseNodes]),
+              nodesData: JSON.stringify([node.raw, ...childrenNodes]),
             })
             refetch()
           }}
