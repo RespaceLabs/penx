@@ -12,24 +12,24 @@ import { format } from 'date-fns'
 import { produce } from 'immer'
 import { db } from '@penx/local-db'
 import {
+  DataSource,
   FieldType,
   ICellNode,
   IColumnNode,
+  IDatabaseNode,
   IOptionNode,
   IRowNode,
   IViewNode,
   ViewColumn,
 } from '@penx/model-types'
 import { mappedByKey } from '@penx/shared'
-import { store } from '@penx/store'
-import { useDatabaseContext } from '../../DatabaseContext'
-import { DateCell } from './cells/date-cell'
-import { MultipleSelectCell } from './cells/multiple-select-cell'
-import { NoteCell } from './cells/note-cell'
-import { PasswordCell } from './cells/password-cell'
-import { RateCell } from './cells/rate-cell'
-import { SingleSelectCell } from './cells/single-select-cell'
-import { SystemDateCell } from './cells/system-date-cell'
+import { DateCell } from '../cells/date-cell'
+import { MultipleSelectCell } from '../cells/multiple-select-cell'
+import { NoteCell } from '../cells/note-cell'
+import { PasswordCell } from '../cells/password-cell'
+import { RateCell } from '../cells/rate-cell'
+import { SingleSelectCell } from '../cells/single-select-cell'
+import { SystemDateCell } from '../cells/system-date-cell'
 
 function getCols(columns: IColumnNode[], viewColumns: ViewColumn[]) {
   const sortedColumns = viewColumns
@@ -64,6 +64,7 @@ function getCols(columns: IColumnNode[], viewColumns: ViewColumn[]) {
 }
 
 interface Params {
+  database: IDatabaseNode
   rows: IRowNode[]
   columns: IColumnNode[]
   cells: ICellNode[]
@@ -73,7 +74,18 @@ interface Params {
 }
 
 export function usePublishedTableView(params: Params) {
-  const { columns, rows, cells, currentView, sortedColumns, options } = params
+  const {
+    database,
+    columns,
+    rows,
+    cells,
+    currentView,
+    sortedColumns,
+    options,
+  } = params
+
+  const isTagDataSource = database.props.dataSource === DataSource.TAG
+
   const columnsMap = mappedByKey(columns, 'id')
   let { viewColumns = [] } = currentView.props
   const [cols, setCols] = useState(getCols(columns, viewColumns))
@@ -207,7 +219,7 @@ export function usePublishedTableView(params: Params) {
         } as SystemDateCell
       }
 
-      if (col === 0) {
+      if (col === 0 && isTagDataSource) {
         return {
           kind: GridCellKind.Custom,
           allowOverlay: false,

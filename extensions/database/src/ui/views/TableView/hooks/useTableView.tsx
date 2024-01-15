@@ -12,6 +12,7 @@ import { format } from 'date-fns'
 import { produce } from 'immer'
 import { db } from '@penx/local-db'
 import {
+  DataSource,
   FieldType,
   ICellNode,
   IColumnNode,
@@ -20,14 +21,14 @@ import {
 } from '@penx/model-types'
 import { mappedByKey } from '@penx/shared'
 import { store } from '@penx/store'
-import { useDatabaseContext } from '../../DatabaseContext'
-import { DateCell } from './cells/date-cell'
-import { MultipleSelectCell } from './cells/multiple-select-cell'
-import { NoteCell } from './cells/note-cell'
-import { PasswordCell } from './cells/password-cell'
-import { RateCell } from './cells/rate-cell'
-import { SingleSelectCell } from './cells/single-select-cell'
-import { SystemDateCell } from './cells/system-date-cell'
+import { useDatabaseContext } from '../../../DatabaseContext'
+import { DateCell } from '../cells/date-cell'
+import { MultipleSelectCell } from '../cells/multiple-select-cell'
+import { NoteCell } from '../cells/note-cell'
+import { PasswordCell } from '../cells/password-cell'
+import { RateCell } from '../cells/rate-cell'
+import { SingleSelectCell } from '../cells/single-select-cell'
+import { SystemDateCell } from '../cells/system-date-cell'
 
 function getCols(columns: IColumnNode[], viewColumns: ViewColumn[]) {
   const sortedColumns = viewColumns
@@ -64,6 +65,7 @@ function getCols(columns: IColumnNode[], viewColumns: ViewColumn[]) {
 
 export function useTableView() {
   const {
+    database,
     columns,
     rows,
     cells,
@@ -71,10 +73,15 @@ export function useTableView() {
     sortedColumns,
     deleteColumn,
     options,
+    addRow,
   } = useDatabaseContext()
+
+  const isTagDataSource = database.props.dataSource === DataSource.TAG
+
   const columnsMap = mappedByKey(columns, 'id')
   let { viewColumns = [] } = currentView.props
   const [cols, setCols] = useState(getCols(columns, viewColumns))
+  const [rowsNum, setRowsNum] = useState(rows.length)
 
   const data = rows.map((row, i) => {
     return columns.reduce(
@@ -97,10 +104,21 @@ export function useTableView() {
       const dataRow = data[row]
 
       const indexes: string[] = viewColumns.map((c) => c.columnId)
-      const cellNode = dataRow[indexes[col]]
       const columnNode = columnsMap[indexes[col]]
       const rowNode = rows[row]
-      let cellData: any = cellNode.props.data ?? ''
+
+      function getCellData() {
+        if (!dataRow) return ''
+        const cellNode = dataRow[indexes[col]]
+        if (!cellNode) return ''
+        let cellData: any = cellNode.props.data ?? ''
+
+        if (columnNode.props.fieldType === FieldType.NUMBER) {
+          cellData = cellData?.toString()
+        }
+
+        return cellData
+      }
 
       function getKind(): any {
         const maps: Record<any, GridCellKind> = {
@@ -111,6 +129,7 @@ export function useTableView() {
 
         return maps[columnNode.props.fieldType] || GridCellKind.Text
       }
+      const cellData = getCellData()
 
       if (columnNode.props.fieldType === FieldType.DATE) {
         return {
@@ -124,7 +143,7 @@ export function useTableView() {
           },
           data: {
             kind: 'date-cell',
-            data: cellNode.props.data,
+            data: cellData,
           },
         } as DateCell
       }
@@ -133,10 +152,10 @@ export function useTableView() {
         return {
           kind: GridCellKind.Custom,
           allowOverlay: true,
-          copyData: cellNode.props.data,
+          copyData: cellData,
           data: {
             kind: 'rate-cell',
-            data: cellNode.props.data,
+            data: cellData,
           },
         } as RateCell
       }
@@ -145,10 +164,10 @@ export function useTableView() {
         return {
           kind: GridCellKind.Custom,
           allowOverlay: true,
-          copyData: cellNode.props.data,
+          copyData: cellData,
           data: {
             kind: 'password-cell',
-            data: cellNode.props.data,
+            data: cellData,
           },
         } as PasswordCell
       }
@@ -158,9 +177,7 @@ export function useTableView() {
           columnNode.props.fieldType,
         )
       ) {
-        const ids: string[] = Array.isArray(cellNode.props.data)
-          ? cellNode.props.data
-          : []
+        const ids: string[] = Array.isArray(cellData) ? cellData : []
 
         const cellOptions = ids.map((id) => options.find((o) => o.id === id)!)
 
@@ -202,21 +219,17 @@ export function useTableView() {
         } as SystemDateCell
       }
 
-      if (col === 0) {
+      if (col === 0 && isTagDataSource) {
         return {
           kind: GridCellKind.Custom,
           allowOverlay: true,
           copyData: 'TODO',
           data: {
             kind: 'note-cell',
-            data: cellNode,
+            data: dataRow ? dataRow[indexes[col]] : null,
             column: columnNode,
           },
         } as NoteCell
-      }
-
-      if (columnNode.props.fieldType === FieldType.NUMBER) {
-        cellData = cellData?.toString()
       }
 
       return {
@@ -227,7 +240,7 @@ export function useTableView() {
         displayData: cellData,
       }
     },
-    [data, rows, options, viewColumns, columnsMap],
+    [data, rows, options, viewColumns, columnsMap, isTagDataSource],
   )
 
   const setCellValue = useCallback(
@@ -260,13 +273,6 @@ export function useTableView() {
     },
     [cells, rows, sortedColumns],
   )
-
-  useEffect(() => {
-    const newCols = getCols(columns, viewColumns)
-    if (!isEqual(cols, newCols)) {
-      setCols(newCols)
-    }
-  }, [columns, viewColumns])
 
   function onColumnResize(
     column: GridColumn,
@@ -301,12 +307,30 @@ export function useTableView() {
     [cols, deleteColumn],
   )
 
+  const onRowAppended = useCallback(() => {
+    setRowsNum((num) => num + 1)
+    addRow()
+  }, [addRow])
+
+  useEffect(() => {
+    const newCols = getCols(columns, viewColumns)
+    // TODO: has bug when resize columns;f
+    if (!isEqual(cols, newCols)) {
+      setCols(newCols)
+    }
+    // TODO: don't add cols to deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columns, viewColumns])
+
   return {
+    rows,
+    rowsNum,
     cols,
     getContent,
     setCellValue,
     onColumnResize,
     onColumnResizeEnd,
     onDeleteColumn,
+    onRowAppended,
   }
 }

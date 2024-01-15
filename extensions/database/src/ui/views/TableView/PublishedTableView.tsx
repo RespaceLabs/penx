@@ -19,10 +19,8 @@ import {
   IViewNode,
   ViewType,
 } from '@penx/model-types'
-import { useDatabaseContext } from '../../DatabaseContext'
 import { cellRenderers } from './cells'
-import { ColumnMenu } from './ColumnMenu'
-import { usePublishedTableView } from './usePublishedTableView'
+import { usePublishedTableView } from './hooks/usePublishedTableView'
 
 interface Props {
   nodes: INode[]
@@ -54,6 +52,7 @@ export const PublishedTableView = ({ nodes }: Props) => {
 
   const { cols, getContent, onColumnResize, onColumnResizeEnd } =
     usePublishedTableView({
+      database,
       rows,
       columns,
       cells,
