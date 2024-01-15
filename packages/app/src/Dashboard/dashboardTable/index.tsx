@@ -15,6 +15,7 @@ export const defaultProps: Partial<DataEditorProps> = {
   smoothScrollY: true,
   getCellsForSelection: true,
   width: '100%',
+  height: '100%',
 }
 
 export interface IDashboardTable {
@@ -120,7 +121,7 @@ export function DashboardTable({ spaceNodes }: IDashboardTable) {
   }, [spaceNodes])
 
   return (
-    <Box>
+    <Box h="100%">
       <DataEditor
         {...defaultProps}
         ref={ref}

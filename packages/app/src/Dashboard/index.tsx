@@ -66,7 +66,13 @@ export function Dashboard({ userId }: { userId: string }) {
   return (
     <Box flex toCenterX h="100vh">
       <SpacesContext.Provider value={{ spaceNodes, setSpaceNodes }}>
-        <Box w="256px" h="100%" bg="#efefef" boxSizing="border-box">
+        <Box
+          w="256px"
+          minH="100%"
+          h="auto"
+          boxSizing="border-box"
+          borderRight-1
+        >
           <Box h="40px" toCenter borderBottom-1 borderGray300>
             <h4>Dashboard</h4>
           </Box>
