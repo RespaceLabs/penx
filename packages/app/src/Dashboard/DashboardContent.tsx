@@ -7,7 +7,7 @@ export function DashboardContent() {
   const { spaceNodes } = useContext(SpacesContext)
 
   return (
-    <Box h="100%" flexGrow={1} bg="#ececec" boxSizing="border-box" pt="40px">
+    <Box h="100%" flexGrow={1} boxSizing="border-box" pt="40px">
       {spaceNodes.length ? (
         <DashboardTable spaceNodes={spaceNodes} />
       ) : (
