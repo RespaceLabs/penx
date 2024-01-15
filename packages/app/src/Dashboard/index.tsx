@@ -45,6 +45,9 @@ export function Dashboard({ userId }: { userId: string }) {
   const [spaceNodes, setSpaceNodes] = useState<INode[]>([])
 
   async function loadSpaces(userId: string) {
+    if (!db.database.connection) {
+      await db.database.connect()
+    }
     let spaces = await db.listSpaces(userId)
     if (!spaces?.length) {
       const cloudSpaces = await loadCloudSpaces()
