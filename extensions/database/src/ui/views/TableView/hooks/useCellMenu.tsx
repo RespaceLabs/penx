@@ -1,13 +1,13 @@
 import { PropsWithChildren, useCallback, useRef, useState } from 'react'
 import { useLayer } from 'react-laag'
-import { Box, css } from '@fower/react'
-import { Rectangle } from '@glideapps/glide-data-grid'
-import { IColumnNode } from '@penx/model-types'
-import { ColumnMenu } from '../ColumnMenu'
+import { Box } from '@fower/react'
+import { Item, Rectangle } from '@glideapps/glide-data-grid'
+import { IRowNode } from '@penx/model-types'
+import { CellMenu } from '../CellMenu'
 
-export const useColumnMenu = (columns: IColumnNode[]) => {
+export const useCellMenu = () => {
   const [menu, setMenu] = useState<{
-    col: number
+    row: IRowNode
     bounds: Rectangle
   }>()
 
@@ -30,23 +30,19 @@ export const useColumnMenu = (columns: IColumnNode[]) => {
     },
   })
 
-  const columnMenuUI = (
+  const cellMenuUI = (
     <>
       {isOpen &&
         renderLayer(
           <Box {...layerProps} shadowPopover bgWhite roundedLG overflowHidden>
-            <ColumnMenu
-              index={menu.col}
-              column={columns[menu.col]}
-              close={() => setMenu(undefined)}
-            />
+            <CellMenu row={menu.row} close={() => setMenu(undefined)} />
           </Box>,
         )}
     </>
   )
 
   return {
-    setColumnMenu: setMenu,
-    columnMenuUI,
+    setCellMenu: setMenu,
+    cellMenuUI,
   }
 }

@@ -12,6 +12,7 @@ import { useDatabaseContext } from '../../DatabaseContext'
 import { AddColumnBtn } from './AddColumnBtn'
 import { cellRenderers } from './cells'
 import { DeleteColumnModal } from './DeleteColumnModal'
+import { useCellMenu } from './hooks/useCellMenu'
 import { useColumnMenu } from './hooks/useColumnMenu'
 import { useTableView } from './hooks/useTableView'
 import { useUndoRedo } from './use-undo-redo'
@@ -21,7 +22,7 @@ interface Props {
 }
 
 export const TableView = ({ element }: Props) => {
-  const { database, sortedColumns } = useDatabaseContext()
+  const { database, rows, sortedColumns } = useDatabaseContext()
 
   const isDatabaseContainer = element.type === ELEMENT_DATABASE_CONTAINER
   const isTagDataSource = database.props.dataSource === DataSource.TAG
@@ -49,6 +50,7 @@ export const TableView = ({ element }: Props) => {
   } = useUndoRedo(gridRef, getContent, setCellValue)
 
   const { setColumnMenu, columnMenuUI } = useColumnMenu(sortedColumns)
+  const { setCellMenu, cellMenuUI } = useCellMenu()
 
   const onHeaderMenuClick = useCallback(
     (col: number, bounds: Rectangle) => {
@@ -84,8 +86,8 @@ export const TableView = ({ element }: Props) => {
         onColumnResizeEnd={onColumnResizeEnd}
         onHeaderMenuClick={onHeaderMenuClick}
         onCellContextMenu={(cell, e) => {
-          console.log('e----xxx:', cell)
-
+          // console.log('cell:', cell, e)
+          setCellMenu({ row: rows[cell[1]], bounds: e.bounds })
           e.preventDefault()
         }}
         onHeaderClicked={() => {
@@ -103,6 +105,7 @@ export const TableView = ({ element }: Props) => {
         }
         onRowAppended={onRowAppended}
       />
+      {cellMenuUI}
       {columnMenuUI}
     </Box>
   )
