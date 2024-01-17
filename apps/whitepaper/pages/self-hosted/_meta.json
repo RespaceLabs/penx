@@ -1,0 +1,8 @@
+{
+  "prerequisites": "Prerequisites",
+  "docker": "Docker",
+  "docker-compose": "Docker Compose",
+  "flyio": "Fly.io",
+  "railway": "Railway",
+  "vercel": "Vercel"
+}

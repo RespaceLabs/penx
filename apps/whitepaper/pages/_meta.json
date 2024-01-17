@@ -1,0 +1,10 @@
+{
+  "index": "Introduction",
+  "self-hosted": "Self-hosted deployment",
+  "contact": {
+    "title": "Contact ↗",
+    "type": "page",
+    "href": "https://discord.gg/nyVpH9njDu",
+    "newWindow": true
+  }
+}
