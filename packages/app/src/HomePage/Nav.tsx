@@ -44,7 +44,7 @@ export const Nav = () => {
           toCenter
           px2
         >
-          Get Early Rewards & Bounty
+          Get Early Rewards & Bounty Tasks
         </Box>
       ),
       to: 'https://whitepaper.penx.io/get-early-rewards',
