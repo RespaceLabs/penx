@@ -5,7 +5,7 @@ import { IconDiscord } from '@penx/icons'
 import { StyledLink } from '../components/StyledLink'
 
 type NavItem = {
-  text?: string
+  text?: ReactNode
   icon?: ReactNode
   to: string
   isExternal?: boolean
@@ -26,8 +26,34 @@ export const Nav = () => {
     },
 
     {
+      text: 'Whitepaper',
+      to: 'https://whitepaper.penx.io/',
+      isExternal: true,
+    },
+
+    {
+      text: (
+        <Box
+          brand500
+          textSM
+          fontSemibold
+          border
+          borderBrand500
+          roundedFull
+          h-32
+          toCenter
+          px2
+        >
+          Get Early Rewards & Bounty
+        </Box>
+      ),
+      to: 'https://whitepaper.penx.io/get-early-rewards',
+      isExternal: true,
+    },
+
+    {
       icon: <IconDiscord black />,
-      to: 'https://github.com/penxio/penx/issues',
+      to: 'https://discord.gg/nyVpH9njDu',
       isExternal: true,
     },
   ]
@@ -61,7 +87,7 @@ export const Nav = () => {
         }
 
         return (
-          <Box key={item.text}>
+          <Box key={i}>
             <StyledLink href={item.to} gray600 brand500--hover transitionCommon>
               {item.text}
             </StyledLink>

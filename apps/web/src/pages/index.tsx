@@ -5,8 +5,6 @@ import { HomePage } from '@penx/app'
 import { authOptions } from './api/auth/[...nextauth]'
 
 const PageEditor = (props: any) => {
-  console.log('pages index props:', props)
-
   return <HomePage></HomePage>
 }
 

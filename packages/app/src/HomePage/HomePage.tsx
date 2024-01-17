@@ -45,12 +45,6 @@ export function HomePage() {
         <Logo size={32} />
         <Box toRight toCenterY gap6>
           <Nav />
-          <iframe
-            src="https://ghbtns.com/github-btn.html?user=penxio&amp;repo=penx&amp;type=star&amp;count=true&amp;size=large"
-            height={30}
-            width={160}
-            title="GitHub Stars"
-          />
         </Box>
       </Box>
       <Box flex-1 toCenter column mt--80 gap5 px={[20, 0]}>
@@ -104,6 +98,13 @@ export function HomePage() {
           </Button>
 
           <ExportOldVersionSpaces />
+
+          <iframe
+            src="https://ghbtns.com/github-btn.html?user=penxio&amp;repo=penx&amp;type=star&amp;count=true&amp;size=large"
+            height={30}
+            width={160}
+            title="GitHub Stars"
+          />
 
           {/* <Box>Or</Box> */}
 
