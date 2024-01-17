@@ -1,1 +1,1 @@
-# PenX Docs
+# PenX Whitepaper

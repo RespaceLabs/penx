@@ -11,7 +11,7 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: 'https://github.com/penxio/penx',
   footer: {
-    text: 'PenX Docs',
+    text: 'PenX Whitepaper',
   },
 }
 
