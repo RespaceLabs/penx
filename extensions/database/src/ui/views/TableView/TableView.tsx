@@ -85,11 +85,15 @@ export const TableView = ({ element }: Props) => {
         onColumnResize={onColumnResize}
         onColumnResizeEnd={onColumnResizeEnd}
         onHeaderMenuClick={onHeaderMenuClick}
-        onCellContextMenu={(cell, e) => {
-          // console.log('cell:', cell, e)
-          setCellMenu({ row: rows[cell[1]], bounds: e.bounds })
-          e.preventDefault()
-        }}
+        onCellContextMenu={
+          isTagDataSource
+            ? undefined
+            : (cell, e) => {
+                // console.log('cell:', cell, e)
+                setCellMenu({ row: rows[cell[1]], bounds: e.bounds })
+                e.preventDefault()
+              }
+        }
         onHeaderClicked={() => {
           // console.log('click')
         }}
@@ -103,9 +107,9 @@ export const TableView = ({ element }: Props) => {
                 hint: 'New row...',
               }
         }
-        onRowAppended={onRowAppended}
+        onRowAppended={isTagDataSource ? undefined : onRowAppended}
       />
-      {cellMenuUI}
+      {!isTagDataSource && cellMenuUI}
       {columnMenuUI}
     </Box>
   )

@@ -40,7 +40,7 @@ export const Nav = () => {
           border
           borderBrand500
           roundedFull
-          h-32
+          h-36
           toCenter
           px2
         >

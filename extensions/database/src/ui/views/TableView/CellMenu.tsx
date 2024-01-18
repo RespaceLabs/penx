@@ -37,7 +37,7 @@ export function CellMenu({ row, close }: ColumnMenuProps) {
           <Box>
             <Trash2 size={16} />
           </Box>
-          <Box>Delete Column</Box>
+          <Box>Delete</Box>
         </MenuItem>
       </>
     </>
