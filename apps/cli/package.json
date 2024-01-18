@@ -1,6 +1,6 @@
 {
   "name": "penx-cli",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "bin": {
     "penx": "./dist/cli.js"
   },
@@ -16,6 +16,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@types/yargs": "^17.0.10",
     "axios": "^1.2.0",
