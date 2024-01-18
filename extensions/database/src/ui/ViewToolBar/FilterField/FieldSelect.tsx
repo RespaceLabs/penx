@@ -11,7 +11,7 @@ interface FieldSelectProps {
   index: number // filter index
 }
 export function FieldSelect({ filter, index }: FieldSelectProps) {
-  const { currentView, columns } = useDatabaseContext()
+  const { currentView, updateFilter, columns } = useDatabaseContext()
 
   const sortedColumns = currentView.props.viewColumns
     .map((o) => columns.find((c) => c.id === o.columnId)!)
@@ -24,7 +24,7 @@ export function FieldSelect({ filter, index }: FieldSelectProps) {
   const column = mappedByKey(columns)[filter.columnId]
 
   function onSelectField(column: IColumnNode) {
-    console.log('select filter', column)
+    updateFilter(currentView.id, filter.columnId, column.id)
   }
 
   return (
