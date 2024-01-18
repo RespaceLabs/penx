@@ -86,10 +86,10 @@ export function PanelItem({ node, index }: Props) {
                 isOutliner={isOutliner}
                 onChange={async (value, editor) => {
                   if (isAstChange(editor)) {
-                    if (saving) return
-                    setSaving(true)
+                    // if (saving) return
+                    // setSaving(true)
                     await debouncedSaveNodes(value)
-                    setSaving(false)
+                    // setSaving(false)
                   }
                 }}
               />
