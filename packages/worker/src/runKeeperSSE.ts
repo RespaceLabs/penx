@@ -1,9 +1,8 @@
-import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { isProd } from '@penx/constants'
 import { db } from '@penx/local-db'
 
-// const url = 'http://localhost:6543/keeper-sse'
-const url = 'http://127.0.0.1:6543/keeper-sse'
+// const url = 'http://localhost:65432/keeper-sse'
+const url = 'http://127.0.0.1:65432/keeper-sse'
 
 enum EventType {
   ADD_TEXT = 'ADD_TEXT',
@@ -27,7 +26,6 @@ async function addText(text: string) {
 
 export async function runKeeperSSE() {
   if (isProd) return
-  return
 
   const eventSource = new EventSource(url)
   console.info('Listening on SEE', eventSource)

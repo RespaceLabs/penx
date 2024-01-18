@@ -1,0 +1,48 @@
+{
+  "name": "penx-cli",
+  "version": "0.1.16",
+  "bin": {
+    "penx": "./dist/cli.js"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "pretest": "npm run build",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@types/yargs": "^17.0.10",
+    "axios": "^1.2.0",
+    "chalk": "^4.1.2",
+    "fs-jetpack": "^5.0.0",
+    "immer": "^9.0.15",
+    "ink": "^3.2.0",
+    "ink-spinner": "^4.0.3",
+    "inquirer": "^8.2.4",
+    "node-fetch": "^2.7.0",
+    "ora": "^5.4.1",
+    "react": "^18.2.0",
+    "ts-retry-promise": "^0.7.0",
+    "yargs": "^17.6.0"
+  },
+  "devDependencies": {
+    "@ava/typescript": "^3.0.1",
+    "@sindresorhus/tsconfig": "^3.0.1",
+    "@types/inquirer": "^8.2.10",
+    "@types/node": "^18.19.8",
+    "@types/node-fetch": "^2.6.11",
+    "@types/react": "^18.0.26",
+    "@types/yargs-parser": "^21.0.3",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "ink-testing-library": "^3.0.0",
+    "prettier": "^2.8.8",
+    "typescript": "^5.3.3"
+  }
+}
