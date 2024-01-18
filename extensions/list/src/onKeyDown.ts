@@ -68,11 +68,6 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
     return
   }
 
-  if ([NodeType.DAILY].includes((parentNode as any)?.nodeType)) {
-    e.preventDefault()
-    return
-  }
-
   const titleNode = getTitleNode(editor)
 
   if (titleNode) {
@@ -101,6 +96,11 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
         e.preventDefault()
         return
       }
+    }
+  } else {
+    if ([NodeType.DAILY].includes((parentNode as any)?.nodeType)) {
+      e.preventDefault()
+      return
     }
   }
 

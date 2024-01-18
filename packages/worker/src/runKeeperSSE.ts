@@ -1,8 +1,10 @@
+import ky from 'ky'
 import { isProd } from '@penx/constants'
 import { db } from '@penx/local-db'
 
 // const url = 'http://localhost:65432/keeper-sse'
-const url = 'http://127.0.0.1:65432/keeper-sse'
+const agentHost = 'http://127.0.0.1:65432'
+const url = `${agentHost}/keeper-sse`
 
 enum EventType {
   ADD_TEXT = 'ADD_TEXT',
@@ -24,17 +26,27 @@ async function addText(text: string) {
   await db.addTextToToday(space.id, text)
 }
 
+async function isAgentAlive() {
+  try {
+    await ky.get(agentHost).json()
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
 export async function runKeeperSSE() {
-  if (isProd) return
+  const isAlive = await isAgentAlive()
+  if (isAlive) {
+    const eventSource = new EventSource(url)
+    // console.info('Listening on SEE', eventSource)
+    eventSource.onmessage = async (ev) => {
+      const event: Event = JSON.parse(ev.data)
+      // console.log('===event:', event)
 
-  const eventSource = new EventSource(url)
-  console.info('Listening on SEE', eventSource)
-  eventSource.onmessage = async (ev) => {
-    const event: Event = JSON.parse(ev.data)
-    console.log('===event:', event)
-
-    if (event.eventType === EventType.ADD_TEXT) {
-      await addText(event.data)
+      if (event.eventType === EventType.ADD_TEXT) {
+        await addText(event.data)
+      }
     }
   }
 }
