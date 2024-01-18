@@ -78,9 +78,11 @@ export const onKeyDown: OnKeyDown = (editor, e) => {
   if (titleNode) {
     if (e.key === 'Enter') {
       if (
-        [NodeType.DAILY_ROOT, NodeType.DATABASE_ROOT].includes(
-          titleNode.nodeType!,
-        )
+        [
+          NodeType.DAILY_ROOT,
+          NodeType.DATABASE_ROOT,
+          NodeType.DATABASE,
+        ].includes(titleNode.nodeType!)
       ) {
         e.preventDefault()
         return
