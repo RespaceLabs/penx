@@ -15,9 +15,9 @@
     "@types/react": "^18.2.42",
     "@types/react-dom": "^18.2.17",
     "eslint": "^8.55.0",
-    "eslint-config-custom": "workspace:*",
+    "@penx/eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
-    "tsconfig": "workspace:*",
+    "@penx/tsconfig": "workspace:*",
     "typescript": "^5.3.2"
   },
   "dependencies": {
@@ -49,7 +49,7 @@
     "octokit": "^3.1.2",
     "react-fast-compare": "^3.2.2",
     "slate": "0.101.5",
-    "slate-lists": "workspace:*",
+    "@penx/slate-lists": "workspace:*",
     "slate-react": "0.101.5",
     "stook": "^1.17.0",
     "uikit": "workspace:*",

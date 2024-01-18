@@ -9,8 +9,8 @@
   "devDependencies": {
     "@types/crypto-js": "^4.2.1",
     "eslint": "^8.55.0",
-    "eslint-config-custom": "workspace:*",
-    "tsconfig": "workspace:*",
+    "@penx/eslint-config-custom": "workspace:*",
+    "@penx/tsconfig": "workspace:*",
     "typescript": "^5.3.2"
   },
   "dependencies": {
