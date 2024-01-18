@@ -60,7 +60,8 @@ export const SetPassword = () => {
         },
       })
 
-      store.space.selectSpace(activeSpace.id)
+      // store.space.selectSpace(activeSpace.id)
+      store.node.selectDailyNote()
     } catch (error) {
       console.log('==============error:', error)
       toast.error('Password incorrect')

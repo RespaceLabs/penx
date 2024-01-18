@@ -37,7 +37,10 @@ export const SpaceSyncManager = ({
       }
 
       for (const node of result.nodes) {
-        await db.createNode(node as any)
+        const space = result.spaces.find((s) => s.id === node.spaceId)!
+        if (!space.encrypted) {
+          await db.createNode(node as any)
+        }
       }
 
       return await db.listSpaces()

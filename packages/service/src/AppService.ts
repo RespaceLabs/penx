@@ -23,7 +23,8 @@ export class AppService {
     if (!time) return
 
     const localLastUpdatedAt = await db.getLastUpdatedAt(space.id)
-    if (localLastUpdatedAt < time.getTime()) {
+
+    if (localLastUpdatedAt && localLastUpdatedAt < time.getTime()) {
       await syncFromCloud(space)
     }
   }

@@ -60,6 +60,8 @@ class DB {
   getLastUpdatedAt = async (spaceId: string): Promise<number> => {
     const oldNodes = await db.listNodesBySpaceId(spaceId)
 
+    if (!oldNodes.length) return 0
+
     const at = Math.max(...oldNodes.map((n) => n.updatedAt.getTime()))
     return at
   }

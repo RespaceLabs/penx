@@ -85,6 +85,7 @@ export class SpaceStore {
 
     if (space.encrypted && !nodes.length) {
       this.store.router.routeTo('SET_PASSWORD')
+      this.setSpaces(spaces)
     } else {
       if (!activeNodes.length) {
         const todayNode = await db.getOrCreateTodayNode(space.id)
