@@ -51,6 +51,6 @@ module.exports = {
     '@penx/extension-list',
     '@penx/worker',
     'uikit',
-    'slate-lists',
+    '@penx/slate-lists',
   ],
 }

@@ -1,5 +1,4 @@
 import { Editor, Path } from 'slate'
-import { onKeyDown as onKeyDownList } from 'slate-lists'
 import { ELEMENT_CODE_BLOCK, ELEMENT_CODE_LINE } from '@penx/constants'
 import { PenxEditor } from '@penx/editor-common'
 import {
@@ -9,6 +8,7 @@ import {
 } from '@penx/editor-queries'
 import { OnKeyDown } from '@penx/extension-typings'
 import { NodeType } from '@penx/model-types'
+import { onKeyDown as onKeyDownList } from '@penx/slate-lists'
 import { isTitle } from './guard'
 import { insertEmptyList } from './transforms/insertEmptyList'
 import { insertEmptyListItem } from './transforms/insertEmptyListItem'

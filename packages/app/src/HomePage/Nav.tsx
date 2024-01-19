@@ -47,7 +47,7 @@ export const Nav = () => {
           Get Early Rewards & Bounty Tasks
         </Box>
       ),
-      to: 'https://whitepaper.penx.io/get-early-rewards',
+      to: 'https://whitepaper.penx.io/bounty',
       isExternal: true,
     },
 

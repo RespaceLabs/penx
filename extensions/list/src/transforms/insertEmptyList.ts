@@ -1,6 +1,6 @@
 import { Editor, Transforms } from 'slate'
-import { ListType } from 'slate-lists'
 import { NodeInsertNodesOptions } from 'slate/dist/interfaces/transforms/node'
+import { ListType } from '@penx/slate-lists'
 import { getEmptyElement } from '../getEmptyElement'
 import { listSchema } from '../listSchema'
 import { ListItemElement } from '../types'

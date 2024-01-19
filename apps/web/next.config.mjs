@@ -67,7 +67,7 @@ const config = {
     '@penx/extension-list',
     '@penx/worker',
     'uikit',
-    'slate-lists',
+    '@penx/slate-lists',
   ],
   i18n: {
     // These are all the locales you want to support in

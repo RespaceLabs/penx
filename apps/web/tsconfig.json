@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/nextjs.json",
+  "extends": "@penx/tsconfig/nextjs.json",
   "compilerOptions": {
     "strict": true,
     "baseUrl": ".",

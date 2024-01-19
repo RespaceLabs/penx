@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import { createEditor, Editor, Element, Point, Range, Transforms } from 'slate'
 import { withHistory } from 'slate-history'
-import { withListsReact } from 'slate-lists'
 import { withReact } from 'slate-react'
 import { withAutoformat } from '@penx/autoformat'
 import { ELEMENT_CODE_LINE, ELEMENT_LIC, ELEMENT_P } from '@penx/constants'
@@ -13,6 +12,7 @@ import {
 } from '@penx/editor-queries'
 import { useExtensionStore } from '@penx/hooks'
 import { getEmptyParagraph, isParagraph } from '@penx/paragraph'
+import { withListsReact } from '@penx/slate-lists'
 import { isTable } from '@penx/table'
 
 type WithFns = (editor: PenxEditor) => PenxEditor
