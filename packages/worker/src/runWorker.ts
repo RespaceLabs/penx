@@ -1,6 +1,7 @@
 import { toast } from 'uikit'
 import { PENX_101, SyncStatus, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
+import { Node } from '@penx/model'
 import { spacesAtom, store, syncStatusAtom } from '@penx/store'
 
 export function runWorker() {
@@ -56,6 +57,18 @@ export function runWorker() {
     if (event.data === WorkerEvents.PULL_FAILED) {
       store.set(syncStatusAtom, SyncStatus.PULL_FAILED)
       toast.error('Pull failed')
+    }
+
+    if (event.data === WorkerEvents.ADD_TEXT_SUCCEEDED) {
+      const activeSpace = store.space.getActiveSpace()
+      const nodes = await db.listNodesBySpaceId(activeSpace.id)
+      const activeNode = store.node.getActiveNodes()[0]
+
+      store.node.setNodes(nodes)
+
+      if (new Node(activeNode).isTodayNode) {
+        store.node.selectDailyNote()
+      }
     }
   }
 

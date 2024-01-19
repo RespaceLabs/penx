@@ -3,7 +3,7 @@ import { isProd, PENX_SESSION_USER, WorkerEvents } from '@penx/constants'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { sleep } from '@penx/shared'
-import { getNodeMap, pullFromCloud } from '@penx/sync'
+import { getNodeMap } from '@penx/sync'
 import { trpc } from '@penx/trpc-client'
 
 // const INTERVAL = 5 * 1000
@@ -21,6 +21,6 @@ export async function startPollingPull() {
 
 async function sync() {
   const activeSpace = await db.getActiveSpace()
-  await pullFromCloud(activeSpace)
+  // await pullFromCloud(activeSpace)
   postMessage(WorkerEvents.PULL_SUCCEEDED)
 }

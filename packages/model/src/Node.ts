@@ -114,6 +114,13 @@ export class Node {
     return this.type === NodeType.DAILY
   }
 
+  get isTodayNode() {
+    return (
+      this.type === NodeType.DAILY &&
+      this.props.date === format(new Date(), 'yyyy-MM-dd')
+    )
+  }
+
   get isRootNode() {
     return this.type === NodeType.ROOT
   }

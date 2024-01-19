@@ -1,5 +1,5 @@
 import ky from 'ky'
-import { isProd } from '@penx/constants'
+import { isProd, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 
 // const url = 'http://localhost:65432/keeper-sse'
@@ -46,6 +46,7 @@ export async function runKeeperSSE() {
 
       if (event.eventType === EventType.ADD_TEXT) {
         await addText(event.data)
+        postMessage(WorkerEvents.ADD_TEXT_SUCCEEDED)
       }
     }
   }
