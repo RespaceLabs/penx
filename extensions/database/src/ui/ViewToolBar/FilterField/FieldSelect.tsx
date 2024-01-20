@@ -23,10 +23,6 @@ export function FieldSelect({ filter, index }: FieldSelectProps) {
 
   const column = mappedByKey(columns)[filter.columnId]
 
-  function onSelectField(column: IColumnNode) {
-    updateFilter(currentView.id, filter.columnId, column.id)
-  }
-
   return (
     <Popover>
       <PopoverTrigger>
@@ -65,7 +61,7 @@ export function FieldSelect({ filter, index }: FieldSelectProps) {
                 toBetween
                 toCenterY
                 onClick={() => {
-                  onSelectField(item)
+                  updateFilter(currentView.id, filter.columnId, item.id)
                   close()
                 }}
               >

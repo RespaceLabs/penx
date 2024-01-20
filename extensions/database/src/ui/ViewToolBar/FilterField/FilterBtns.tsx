@@ -4,7 +4,7 @@ import { Button } from 'uikit'
 import { OperatorType } from '@penx/model-types'
 import { useDatabaseContext } from '../../DatabaseContext'
 
-export const AddFilterBtn = () => {
+export const FilterBtns = () => {
   const { currentView, addFilter } = useDatabaseContext()
   const { filters = [], viewColumns: columns = [] } = currentView.props
 
@@ -14,8 +14,6 @@ export const AddFilterBtn = () => {
     )!
 
     const column = columns.find((c) => c.columnId === viewColumn.columnId)
-
-    // console.log('column', column)
     if (column) {
       addFilter(currentView.id, column.columnId, {
         operator: OperatorType.EQUAL,
@@ -24,15 +22,31 @@ export const AddFilterBtn = () => {
     }
   }
 
+  async function onApplyFilter() {
+    console.log('%c=onApplyFilter==DarkGreen', 'color:red')
+  }
+
   return (
-    <Button
-      size="sm"
-      variant="light"
-      colorScheme="gray500"
-      onClick={createFilter}
-    >
-      <Plus size={16} />
-      <Box>Add filter</Box>
-    </Button>
+    <>
+      <Button
+        size="sm"
+        variant="light"
+        colorScheme="gray500"
+        onClick={createFilter}
+      >
+        <Plus size={16} />
+        <Box>Add filter</Box>
+      </Button>
+      <Box gray400 textSM>
+        <Button
+          size="sm"
+          variant="light"
+          colorScheme="gray500"
+          onClick={onApplyFilter}
+        >
+          Apply filter
+        </Button>
+      </Box>
+    </>
   )
 }

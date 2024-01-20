@@ -10,11 +10,7 @@ interface FieldSelectProps {
 }
 
 export function OperatorSelect({ index, filter }: FieldSelectProps) {
-  const { currentView } = useDatabaseContext()
-
-  function onSelectOperator(operator: OperatorType) {
-    //
-  }
+  const { currentView, updateFilter } = useDatabaseContext()
 
   return (
     <Popover>
@@ -46,7 +42,12 @@ export function OperatorSelect({ index, filter }: FieldSelectProps) {
                 toBetween
                 selected={type === filter.operator}
                 onClick={() => {
-                  onSelectOperator(type as any)
+                  updateFilter(
+                    currentView.id,
+                    filter.columnId,
+                    filter.columnId,
+                    { operator: type as OperatorType },
+                  )
                   close()
                 }}
               >

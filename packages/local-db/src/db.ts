@@ -1212,6 +1212,7 @@ class DB {
       filters[filterIndex] = {
         ...filters[filterIndex],
         columnId: newColumnId,
+        ...props,
       } as Filter
     }
 

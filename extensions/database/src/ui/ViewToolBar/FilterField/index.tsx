@@ -3,7 +3,7 @@ import { Filter } from 'lucide-react'
 import { Divider, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { useDatabaseContext } from '../../DatabaseContext'
 import { ToolbarBtn } from '../ToolbarBtn'
-import { AddFilterBtn } from './AddFilterBtn'
+import { FilterBtns } from './FilterBtns'
 import { FilterItem } from './FilterItem'
 
 export const FilterField = () => {
@@ -45,10 +45,7 @@ export const FilterField = () => {
           )}
           <Divider />
           <Box p3 toBetween toCenterY>
-            <Box gray400 textSM>
-              Coming soon
-            </Box>
-            <AddFilterBtn></AddFilterBtn>
+            <FilterBtns />
           </Box>
         </Box>
       </PopoverContent>

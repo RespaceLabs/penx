@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import isEqual from 'react-fast-compare'
 import {
   EditableGridCell,
@@ -16,6 +16,7 @@ import {
   FieldType,
   ICellNode,
   IColumnNode,
+  INode,
   IOptionNode,
   ViewColumn,
 } from '@penx/model-types'
@@ -29,6 +30,7 @@ import { PasswordCell } from '../cells/password-cell'
 import { RateCell } from '../cells/rate-cell'
 import { SingleSelectCell } from '../cells/single-select-cell'
 import { SystemDateCell } from '../cells/system-date-cell'
+import { TableSearch } from './TableSearch'
 
 function getCols(columns: IColumnNode[], viewColumns: ViewColumn[]) {
   const sortedColumns = viewColumns
@@ -83,26 +85,40 @@ export function useTableView() {
   const [cols, setCols] = useState(getCols(columns, viewColumns))
   const [rowsNum, setRowsNum] = useState(rows.length)
 
-  const data = rows.map((row, i) => {
-    return columns.reduce(
-      (acc, col) => {
-        // need to improvement performance
-        const cell = cells.find(
-          (c) => c.props.columnId === col.id && c.props.rowId === row.id,
-        )!
+  const indexes = useMemo(() => {
+    return viewColumns.map((c) => c.columnId)
+  }, [viewColumns])
 
-        return { ...acc, [col.id]: cell }
-      },
-      {} as Record<string, ICellNode>,
-    )
-  })
+  const data = useMemo(() => {
+    const dataSource: INode[] = []
+
+    const data = rows.map((row, i) => {
+      return columns.reduce(
+        (acc, col) => {
+          // need to improvement performance
+          const cell = cells.find(
+            (c) => c.props.columnId === col.id && c.props.rowId === row.id,
+          )!
+
+          dataSource.push(cell)
+
+          return { ...acc, [col.id]: cell }
+        },
+        {} as Record<string, ICellNode>,
+      )
+    })
+
+    new TableSearch(dataSource, indexes)
+
+    return data
+  }, [columns, indexes])
 
   const getContent = useCallback(
     (cell: Item): GridCell => {
       const [col, row] = cell
       const dataRow = data[row]
 
-      const indexes: string[] = viewColumns.map((c) => c.columnId)
+      const cellNode = dataRow[indexes[col]]
       const columnNode = columnsMap[indexes[col]]
       const rowNode = rows[row]
 
