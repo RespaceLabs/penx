@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { Home, LogOut, User } from 'lucide-react'
+import { DatabaseBackup, Home, LogOut, User } from 'lucide-react'
 import {
   Avatar,
   AvatarFallback,
@@ -27,7 +27,7 @@ export const UserProfile = () => {
       <Popover>
         <PopoverTrigger>
           <Avatar size={24}>
-            <AvatarImage src={image} />
+            <AvatarImage src={image} flexShrink-0 />
             <AvatarFallback>{name}</AvatarFallback>
           </Avatar>
         </PopoverTrigger>
@@ -53,6 +53,21 @@ export const UserProfile = () => {
               <Box>Account settings</Box>
             </MenuItem>
           </PopoverClose>
+
+          <PopoverClose>
+            <MenuItem
+              gap2
+              onClick={() => {
+                store.router.routeTo('SYNC_SERVER')
+              }}
+            >
+              <Box gray500>
+                <DatabaseBackup size={16} />
+              </Box>
+              <Box>Sync servers</Box>
+            </MenuItem>
+          </PopoverClose>
+
           <PopoverClose>
             <MenuItem
               gap2

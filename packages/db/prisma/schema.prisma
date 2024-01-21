@@ -11,23 +11,24 @@ datasource db {
 }
 
 model User {
-    id            String      @id @default(uuid())
-    address       String?     @unique // wallet address
+    id            String       @id @default(uuid())
+    address       String?      @unique // wallet address
     name          String? // nickname
     bio           String?
     password      String?
     avatar        String?
     github        Json?
     username      String?
-    email         String?     @unique
+    email         String?      @unique
     emailVerified DateTime?
     image         String?
-    createdAt     DateTime    @default(now())
-    updatedAt     DateTime    @updatedAt
+    createdAt     DateTime     @default(now())
+    updatedAt     DateTime     @updatedAt
     accounts      Account[]
     sessions      Session[]
     spaces        Space[]
     SiteSpace     SiteSpace[]
+    SyncServer    SyncServer[]
 }
 
 model Account {
@@ -69,6 +70,40 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model SyncServer {
+    id          String    @id @default(uuid())
+    name        String
+    url         String
+    token       String    @unique
+    description String?   @db.Text
+    region      String?
+    runnerType  String?
+    machineIp   String?
+    heartbeatAt DateTime?
+    deletedAt   DateTime?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+
+    user   User?   @relation(fields: [userId], references: [id])
+    userId String?
+
+    @@index([userId])
+}
+
+model Runner {
+    id          String    @id @default(uuid())
+    userId      Int
+    name        String?
+    runnerType  String?
+    machineIp   String?
+    heartbeatAt DateTime?
+    deletedAt   DateTime?
+    createdAt   DateTime? @default(now())
+    updatedAt   DateTime? @updatedAt
+
+    @@index([userId])
 }
 
 model Space {

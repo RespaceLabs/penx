@@ -23,6 +23,7 @@ export type RouteName =
   | 'SPACE_SETTINGS'
   | 'SET_PASSWORD'
   | 'CREATE_SPACE'
+  | 'SYNC_SERVER'
 
 export type IRouterStore = {
   name: RouteName

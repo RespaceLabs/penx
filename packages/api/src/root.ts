@@ -3,6 +3,7 @@ import { extensionRouter } from './router/extension'
 import { githubRouter } from './router/github'
 import { nodeRouter } from './router/node'
 import { spaceRouter } from './router/space'
+import { syncServerRouter } from './router/syncServer'
 import { themeRouter } from './router/theme'
 import { userRouter } from './router/user'
 import { createTRPCRouter } from './trpc'
@@ -15,6 +16,7 @@ export const appRouter = createTRPCRouter({
   theme: themeRouter,
   github: githubRouter,
   extension: extensionRouter,
+  syncServer: syncServerRouter,
 })
 
 // export type definition of API
