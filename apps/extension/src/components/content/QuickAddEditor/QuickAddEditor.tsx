@@ -38,7 +38,7 @@ export const QuickAddEditor = forwardRef<HTMLDivElement, Props>(
         },
       })
 
-      console.log('======x data:', data)
+      // console.log('======x data:', data)
 
       destroy()
 
