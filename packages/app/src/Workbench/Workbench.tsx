@@ -8,6 +8,7 @@ import { useSession } from '@penx/session'
 import { routerAtom } from '@penx/store'
 import { Fallback } from '../Fallback/Fallback'
 import { CommandPanel } from '../Palette'
+import { SyncServer } from '../SyncServer/SyncServer'
 import { AccountSettings } from './AccountSettings/AccountSettings'
 import { MobileNav } from './NodeNav/MobileNav'
 import { NodePanels } from './NodePanels'
@@ -47,6 +48,7 @@ export const Workbench = () => {
           </ErrorBoundary>
 
           {name === 'SET_PASSWORD' && <SetPassword />}
+          {name === 'SYNC_SERVER' && <SyncServer />}
         </Box>
       </Box>
     </EditorProvider>

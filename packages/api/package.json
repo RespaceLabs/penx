@@ -32,6 +32,7 @@
     "ioredis": "^5.3.2",
     "jsonwebtoken": "^9.0.2",
     "mitt": "^3.0.1",
+    "nanoid": "^5.0.4",
     "next-auth": "^4.24.5",
     "octokit": "^3.1.2",
     "query-string": "^8.1.0",

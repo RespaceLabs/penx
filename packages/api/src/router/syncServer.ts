@@ -1,25 +1,29 @@
 import { TRPCError } from '@trpc/server'
+import { nanoid } from 'nanoid'
 import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 export const syncServerRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.space.findMany({ orderBy: { createdAt: 'desc' } })
+    return ctx.prisma.syncServer.findMany({ orderBy: { createdAt: 'desc' } })
   }),
 
   create: protectedProcedure
     .input(
       z.object({
-        id: z.string(),
-        name: z.string().min(1).optional(),
-        subdomain: z.string().min(1).optional(),
-        description: z.string().min(1).optional(),
-        catalogue: z.string().min(1).optional(),
+        name: z.string().min(1),
+        type: z.string().min(1),
       }),
     )
     .mutation(({ ctx, input }) => {
-      const { id, ...data } = input
-      return ctx.prisma.space.update({ where: { id }, data })
+      return ctx.prisma.syncServer.create({
+        data: {
+          token: nanoid(),
+          url: '',
+          ...input,
+          userId: ctx.token.uid,
+        },
+      })
     }),
 
   deleteById: protectedProcedure
