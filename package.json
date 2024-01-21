@@ -34,7 +34,7 @@
     "@ianvs/prettier-plugin-sort-imports": "4.1.0",
     "@turbo/gen": "^1.11.0",
     "eslint": "^8.55.0",
-    "@penx/eslint-config-custom": "workspace:*",
+    "eslint-config-custom": "workspace:*",
     "husky": "^8.0.3",
     "lint-staged": "^13.3.0",
     "prettier": "^3.1.0",

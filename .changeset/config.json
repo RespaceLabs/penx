@@ -68,7 +68,7 @@
     "@penx/sync",
     "@penx/constants",
     "@penx/editor-leaf",
-    "@penx/eslint-config-custom",
+    "eslint-config-custom",
     "@penx/indexeddb",
     "@penx/serializer",
     "@penx/trpc-client",

@@ -1,7 +1,7 @@
 {
   "name": "extension",
   "displayName": "PenX",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A structured note-taking app for personal use.",
   "scripts": {
     "start": "next start",

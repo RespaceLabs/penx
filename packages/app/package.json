@@ -23,7 +23,7 @@
     "autoprefixer": "^10.4.16",
     "babel-plugin-macros": "^3.1.0",
     "dotenv-cli": "^7.3.0",
-    "@penx/eslint-config-custom": "workspace:*",
+    "eslint-config-custom": "workspace:*",
     "postcss": "^8.4.32",
     "sass": "^1.69.5",
     "@penx/tsconfig": "workspace:*",

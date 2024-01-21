@@ -73,38 +73,28 @@ chrome.runtime.onMessage.addListener(
         break
       }
       case BACKGROUND_EVENTS.SUBMIT_CONTENT: {
+        console.log('========request.payload:', message.payload)
+        const nodes = message.payload.nodes
+
         try {
-          console.log('========request.payload:', message.payload)
-          const spaceId = message.payload.spaceId
-          const nodes = message.payload.nodes
-
-          const space = await db.getSpace(spaceId)
-
-          // console.log('=======space:', space, 'nodes:', nodes)
-
-          await db.addNodesToToday(spaceId, nodes)
-
-          await chrome.runtime.sendMessage({
-            type: BACKGROUND_EVENTS.ADD_NODES_TO_TODAY,
-            payload: {
-              spaceId,
+          const response = await fetch('http://localhost:65432/add-nodes', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
             },
+            body: JSON.stringify({ nodes }),
           })
 
-          // const res = await trpc.node.addNodesToToday.mutate({
-          //   spaceId: request.payload.spaceId,
-          //   nodes: JSON.stringify(request.payload.nodes),
-          // })
-
-          console.log('mySpaces-res', {
-            data: message.payload.doc,
-          })
-
+          await response.json()
           sendResponse({ msg: 'ok', code: SUCCESS })
-        } catch (error) {
-          console.log('add Nodes error:', error)
-          sendResponse({ msg: error, code: FAIL })
+        } catch (error: any) {
+          if (error.code === 'ECONNREFUSED') {
+            sendResponse({ msg: error, code: FAIL })
+          } else {
+            sendResponse({ msg: error, code: FAIL })
+          }
         }
+
         break
       }
       case BACKGROUND_EVENTS.INT_POPUP: {

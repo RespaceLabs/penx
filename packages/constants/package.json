@@ -9,7 +9,7 @@
   "devDependencies": {
     "@types/node": "^20.10.3",
     "eslint": "^8.55.0",
-    "@penx/eslint-config-custom": "workspace:*",
+    "eslint-config-custom": "workspace:*",
     "@penx/tsconfig": "workspace:*",
     "typescript": "^5.3.2"
   }

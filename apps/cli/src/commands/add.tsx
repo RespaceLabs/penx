@@ -35,7 +35,7 @@ class Command {
       await response.json()
     } catch (error: any) {
       if (error.code === 'ECONNREFUSED') {
-        console.error(chalk.red('Please download and start PenX agent'))
+        console.error(chalk.red('PenX agent is not running, Please download and run PenX agent'))
       }
     }
   }

@@ -1,7 +1,7 @@
 import ky from 'ky'
 import { isProd, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
-import { INode } from '@penx/model-types'
+import { EditorMode, INode } from '@penx/model-types'
 
 // const url = 'http://localhost:65432/agent-sse'
 const agentHost = 'http://127.0.0.1:65432'
@@ -9,8 +9,7 @@ const sseURL = `${agentHost}/agent-sse`
 const addNodesSuccessfullyURL = `${agentHost}/add-nodes-successfully`
 
 enum EventType {
-  ADD_TEXT = 'ADD_TEXT',
-  ADD_NODE = 'ADD_NODE',
+  ADD_NODES = 'ADD_NODES',
 }
 
 type Event<T = any> = {
@@ -19,7 +18,7 @@ type Event<T = any> = {
 }
 
 type AddTextEvent = {
-  eventType: EventType.ADD_TEXT
+  eventType: EventType.ADD_NODES
   data: string
 }
 
@@ -41,13 +40,18 @@ export async function runAgentSSE() {
       const event: Event = JSON.parse(ev.data)
       // console.log('===event:', event)
 
-      if (event.eventType === EventType.ADD_TEXT) {
+      if (event.eventType === EventType.ADD_NODES) {
         const space = await db.getActiveSpace()
+        const isOutliner = space?.editorMode === EditorMode.OUTLINER
+
         const newNodes = event.data.map((item: any) => {
           const node = JSON.parse(item.nodeData) as INode
+
           return {
             ...node,
             spaceId: space.id,
+            children: isOutliner ? node.children : [],
+            parentId: isOutliner ? node.parentId : undefined,
             openedAt: new Date(node.openedAt),
             createdAt: new Date(node.createdAt),
             updatedAt: new Date(node.updatedAt),

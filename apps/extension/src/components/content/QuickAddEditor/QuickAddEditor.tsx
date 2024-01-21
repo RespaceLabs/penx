@@ -27,38 +27,28 @@ export const QuickAddEditor = forwardRef<HTMLDivElement, Props>(
     const [value, setValue] = useState<any[]>([])
 
     const onSubmit = async (editorValue?: any[]) => {
-      try {
-        const activeSpaceId = await getActiveSpaceId()
+      const nodes = slateToNodes([, editorValue?.[0] || value[0]])
 
-        if (!activeSpaceId) {
-          alert('Please select a space')
-          return
-        }
+      console.log('content nodes', nodes)
 
-        const nodes = slateToNodes([, editorValue?.[0] || value[0]])
+      const data = await chrome.runtime.sendMessage({
+        type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
+        payload: {
+          nodes,
+        },
+      })
 
-        console.log('content nodes', nodes)
+      console.log('======x data:', data)
 
-        const data = await chrome.runtime.sendMessage({
-          type: BACKGROUND_EVENTS.SUBMIT_CONTENT,
-          payload: {
-            nodes: nodes.map((node) => ({ ...node, spaceId: activeSpaceId })),
-            spaceId: activeSpaceId,
-          },
-        })
+      destroy()
 
-        console.log('======x data:', data)
-
+      // TODO:
+      if (data.code === SUCCESS) {
         destroy()
-
-        // TODO:
-        // if (data.code === SUCCESS) {
-        //   destroy()
-        // }
-        console.log('onSubmit res:', data)
-      } catch (error) {
-        console.log('submit error', error)
+      } else {
+        alert('PenX agent is not running, Please download and run PenX agent')
       }
+      console.log('onSubmit res:', data)
     }
 
     const boxWidth = 560
