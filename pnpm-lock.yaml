@@ -1519,9 +1519,15 @@ importers:
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
       react-datepicker:
         specifier: ^4.24.0
         version: 4.25.0(react-dom@18.2.0)(react@18.2.0)
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
       react-fast-compare:
         specifier: ^3.2.2
         version: 3.2.2
@@ -1586,9 +1592,6 @@ importers:
       eslint:
         specifier: ^8.55.0
         version: 8.56.0
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
       typescript:
         specifier: ^5.3.2
         version: 5.3.3

@@ -139,10 +139,10 @@ export function Popup() {
   }, [])
 
   return (
-    <Box p4 h-360 w-300 column toBetween>
+    <Box p4 h-280 w-300 column toBetween>
       <Box toBetween mt--4>
         <Logo size={28} />
-        <Button
+        {/* <Button
           colorScheme="neutral600"
           variant="light"
           size="sm"
@@ -153,7 +153,7 @@ export function Popup() {
             })
           }}>
           Open editor
-        </Button>
+        </Button> */}
       </Box>
       {/* <UserProfile /> */}
       {/* your currentUrl is: {tab?.url} */}
@@ -180,7 +180,7 @@ export function Popup() {
         />
       </Box>
 
-      <LocalSpacesSelect />
+      {/* <LocalSpacesSelect /> */}
       {/* <SpacesSelect /> */}
     </Box>
   )

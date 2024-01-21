@@ -58,6 +58,8 @@
     "lucide-react": "^0.309.0",
     "marked": "^11.1.0",
     "mitt": "^3.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-datepicker": "^4.24.0",
     "react-fast-compare": "^3.2.2",
     "react-hook-form": "^7.48.2",

@@ -92,7 +92,7 @@
     "mitt": "^3.0.1",
     "next": "13.3.1",
     "octokit": "^3.1.2",
-    "plasmo": "^0.84.0",
+    "plasmo": "^0.84.1",
     "prismjs": "^1.29.0",
     "puppeteer-core": "^21.6.0",
     "rc-table": "^7.36.0",
