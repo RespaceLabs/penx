@@ -91,7 +91,6 @@ export function useTableView() {
           (c) => c.props.columnId === col.id && c.props.rowId === row.id,
         )!
 
-        let data: any = cell.props.data ?? ''
         return { ...acc, [col.id]: cell }
       },
       {} as Record<string, ICellNode>,

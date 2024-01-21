@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { Import } from 'lucide-react'
 import { Button, Spinner } from 'uikit'
+import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 
 interface Props extends FowerHTMLProps<'div'> {}
@@ -9,6 +10,8 @@ interface Props extends FowerHTMLProps<'div'> {}
 export const UploadButton = ({ ...rest }: Props) => {
   const [uploading, setUploading] = useState(false)
   const hiddenFileInput = useRef<HTMLInputElement>(null)
+  const { data: session } = useSession()
+  const userId = session?.user?.id ?? ''
 
   const handleClick = () => {
     hiddenFileInput.current?.click?.()
@@ -20,9 +23,14 @@ export const UploadButton = ({ ...rest }: Props) => {
     reader.onload = (event) => {
       const content = event.target?.result
       const data = JSON.parse((content as string) || '{}')
-      // console.log('data:', data)
       // should validate the data
-      store.node.importSpace(data.space, data.nodes)
+      store.node.importSpace(
+        {
+          ...data.space,
+          userId,
+        },
+        data.nodes,
+      )
     }
   }
   return (

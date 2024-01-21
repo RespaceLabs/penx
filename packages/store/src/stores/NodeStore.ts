@@ -306,11 +306,11 @@ export class NodeStore {
 
     const spaces = await db.listSpaces()
 
+    this.store.space.setSpaces(spaces)
     this.store.router.toNode()
     this.store.node.setNodes(nodes)
-    this.store.space.setSpaces(spaces)
-    this.store.node.selectNode(activeNodes[0])
     this.store.node.setActiveNodes(activeNodes)
+    this.store.node.selectNode(activeNodes[0])
   }
 
   async createPageNode(input: Partial<INode> = {}) {
