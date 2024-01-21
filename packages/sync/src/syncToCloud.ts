@@ -1,3 +1,4 @@
+import ky from 'ky'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace, NodeType } from '@penx/model-types'
@@ -9,15 +10,17 @@ export async function syncToCloud(): Promise<boolean> {
 
   const nodesLastUpdatedAt = space.nodesLastUpdatedAt
 
+  console.log('=========nodesLastUpdatedAt:', nodesLastUpdatedAt)
+
   // console.log('-------lastModifiedTime:', lastModifiedTime)
 
   // push all nodes
   if (!nodesLastUpdatedAt) {
-    // console.log('sync all to cloud..........')
+    console.log('sync all to cloud..........')
     await pushAllNodes(space)
     return true
   } else {
-    // console.log('sync diff to cloud..........')
+    console.log('sync diff to cloud..........')
     return await pushByDiff(space, nodesLastUpdatedAt)
   }
 }
@@ -37,7 +40,7 @@ async function pushByDiff(
     (n) => n.updatedAt.getTime() > nodesLastUpdatedAt.getTime(),
   )
 
-  // console.log('=====newNodes:', newNodes)
+  console.log('=====newNodes:', newNodes)
 
   if (!newNodes.length) return true
 
@@ -56,18 +59,32 @@ export async function submitToServer(space: ISpace, nodes: INode[]) {
   const { password } = space
   const encrypted = space.encrypted && password
 
-  const time = await trpc.node.sync.mutate({
-    spaceId: space.id,
-    nodes: JSON.stringify(
-      encrypted
-        ? nodes.map((node) => new Node(node).toEncrypted(password))
-        : nodes,
-    ),
-  })
+  // const time = await trpc.node.sync.mutate({
+  //   spaceId: space.id,
+  //   nodes: JSON.stringify(
+  //     encrypted
+  //       ? nodes.map((node) => new Node(node).toEncrypted(password))
+  //       : nodes,
+  //   ),
+  // })
+
+  const { time } = await ky
+    .post('http://localhost:4000/push-nodes', {
+      json: {
+        userId: space.userId,
+        spaceId: space.id,
+        nodes: encrypted
+          ? nodes.map((node) => new Node(node).toEncrypted(password))
+          : nodes,
+      },
+    })
+    .json<{ time: string }>()
+
+  console.log('time========:', time)
 
   if (time) {
     await db.updateSpace(space.id, {
-      nodesLastUpdatedAt: time,
+      nodesLastUpdatedAt: new Date(time),
     })
   }
 }

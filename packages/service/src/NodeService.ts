@@ -1,3 +1,4 @@
+import isEqual from 'react-fast-compare'
 import _ from 'lodash'
 import { createEditor, Editor, Node as SlateNode, Transforms } from 'slate'
 import { PENX_101 } from '@penx/constants'
@@ -102,10 +103,14 @@ export class NodeService {
         props: { ...node.props, name: SlateNode.string(title) },
       })
     } else {
-      // console.log('===========title.children:', title.children, title)
-      node = await db.updateNode(node.id, {
-        element: title.children,
-      })
+      const oldHash = new Node(node).toHash()
+      const newHash = new Node({ ...node, element: title.children }).toHash()
+
+      if (oldHash !== newHash) {
+        console.log('==title==oldHash:', oldHash)
+
+        node = await db.updateNode(node.id, { element: title.children })
+      }
     }
 
     // update space name
@@ -172,9 +177,12 @@ export class NodeService {
   }
 
   saveBlockNodes = async (parentId: string, elements: any[]) => {
-    await db.updateNode(this.node.id, {
-      children: elements.map((n) => n.id),
-    })
+    const nodeChildren = elements.map((n) => n.id)
+    if (!isEqual(this.node.children, nodeChildren)) {
+      await db.updateNode(this.node.id, {
+        children: nodeChildren,
+      })
+    }
 
     for (const item of elements) {
       const node = await db.getNode(item.id)
@@ -184,21 +192,29 @@ export class NodeService {
       const isList = isListElement(item)
 
       if (node) {
-        const newNode = await db.updateNode(item.id, {
+        const oldHash = new Node(node).toHash()
+        const newHash = new Node({
+          ...node,
           element: [item],
-          children: [], // TODO:
-        })
+        }).toHash()
+
+        if (oldHash !== newHash) {
+          const newNode = await db.updateNode(item.id, {
+            element: [item],
+            children: [], // TODO:
+          })
+
+          for (const tagName of tags) {
+            await db.createTagRow(tagName, newNode.id)
+          }
+
+          if (tags.length) {
+            emitter.emit('REF_NODE_UPDATED', newNode)
+          }
+        }
 
         if (isList) {
           await this.saveOutlinerNodes(item.id, item as any, false)
-        }
-
-        for (const tagName of tags) {
-          await db.createTagRow(tagName, newNode.id)
-        }
-
-        if (tags.length) {
-          emitter.emit('REF_NODE_UPDATED', newNode)
         }
       } else {
         let newNode: INode
@@ -242,10 +258,13 @@ export class NodeService {
       return listItem.children[0].id
     })
 
-    // update root node's children
-    await db.updateNode(parentId, {
-      children: childrenForCurrentNode,
-    })
+    const parentNode = await db.getNode(parentId)
+    if (!isEqual(parentNode.children, childrenForCurrentNode)) {
+      // update root node's children
+      await db.updateNode(parentId, {
+        children: childrenForCurrentNode,
+      })
+    }
 
     const listContents = Editor.nodes(editor, {
       at: [],
