@@ -1,10 +1,12 @@
 import ky from 'ky'
 import { isProd, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
+import { INode } from '@penx/model-types'
 
-// const url = 'http://localhost:65432/keeper-sse'
+// const url = 'http://localhost:65432/agent-sse'
 const agentHost = 'http://127.0.0.1:65432'
-const url = `${agentHost}/keeper-sse`
+const sseURL = `${agentHost}/agent-sse`
+const addNodesSuccessfullyURL = `${agentHost}/add-nodes-successfully`
 
 enum EventType {
   ADD_TEXT = 'ADD_TEXT',
@@ -21,11 +23,6 @@ type AddTextEvent = {
   data: string
 }
 
-async function addText(text: string) {
-  const space = await db.getActiveSpace()
-  await db.addTextToToday(space.id, text)
-}
-
 async function isAgentAlive() {
   try {
     await ky.get(agentHost).json()
@@ -35,18 +32,35 @@ async function isAgentAlive() {
   }
 }
 
-export async function runKeeperSSE() {
+export async function runAgentSSE() {
   const isAlive = await isAgentAlive()
   if (isAlive) {
-    const eventSource = new EventSource(url)
+    const eventSource = new EventSource(sseURL)
     // console.info('Listening on SEE', eventSource)
     eventSource.onmessage = async (ev) => {
       const event: Event = JSON.parse(ev.data)
       // console.log('===event:', event)
 
       if (event.eventType === EventType.ADD_TEXT) {
-        await addText(event.data)
+        const space = await db.getActiveSpace()
+        const newNodes = event.data.map((item: any) => {
+          const node = JSON.parse(item.nodeData) as INode
+          return {
+            ...node,
+            spaceId: space.id,
+            openedAt: new Date(node.openedAt),
+            createdAt: new Date(node.createdAt),
+            updatedAt: new Date(node.updatedAt),
+          } as INode
+        })
+
+        console.log('=====newNodes:', newNodes)
+
+        await db.addNodesToToday(space.id, newNodes)
+
         postMessage(WorkerEvents.ADD_TEXT_SUCCEEDED)
+
+        await ky.get(addNodesSuccessfullyURL).json()
       }
     }
   }
