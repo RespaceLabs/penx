@@ -62,7 +62,7 @@ class DB {
 
     if (!oldNodes.length) return 0
 
-    const at = Math.max(...oldNodes.map((n) => n.updatedAt.getTime()))
+    const at = Math.max(...oldNodes.map((n) => new Date(n.updatedAt).getTime()))
     return at
   }
 

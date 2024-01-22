@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useRef } from 'react'
+import { FC, PropsWithChildren, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { set } from 'idb-keyval'
 import { isProd, isServer, PENX_SESSION_USER_ID } from '@penx/constants'
@@ -7,7 +7,6 @@ import { useSession } from '@penx/session'
 import { StoreProvider } from '@penx/store'
 import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
-import { runSSE } from './common/runSSE'
 import { ClientOnly } from './components/ClientOnly'
 import { Fallback } from './Fallback/Fallback'
 import { HomePage } from './HomePage/HomePage'
@@ -43,16 +42,8 @@ export const EditorApp = () => {
   const { data: session } = useSession()
 
   // console.log('======session:', session)
-  const sseInited = useRef(false)
 
   useEffect(() => {
-    if (!navigator.onLine) return
-    if (!sseInited.current && session?.user) {
-      console.log('runSSE..............')
-      runSSE()
-      sseInited.current = true
-    }
-
     set(PENX_SESSION_USER_ID, session?.user?.id)
   }, [session])
 

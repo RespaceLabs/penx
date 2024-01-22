@@ -30,21 +30,25 @@ export const SpaceSyncManager = ({
 
       if (!remoteSpaces?.length) return
 
-      const result = await trpc.space.mySpacesWithNodes.query()
+      for (const space of remoteSpaces) {
+        const { syncServer, createdAt, updatedAt, ...rest } = space
 
-      for (const space of result.spaces) {
-        await db.createSpace(space as any, false)
+        await db.createSpace(
+          {
+            ...(rest as any),
+            createdAt: new Date(createdAt),
+            updatedAt: new Date(updatedAt),
+            syncServerUrl: syncServer?.url,
+          },
+          false,
+        )
       }
 
-      for (const node of result.nodes) {
-        const space = result.spaces.find((s) => s.id === node.spaceId)!
-        if (!space.encrypted) {
-          await db.createNode(node as any)
-        }
-      }
+      const spaces = await db.listSpaces()
 
-      return await db.listSpaces()
+      return spaces
     } catch (error) {
+      console.log('========error:', error)
     } finally {
       setSyncing(false)
     }

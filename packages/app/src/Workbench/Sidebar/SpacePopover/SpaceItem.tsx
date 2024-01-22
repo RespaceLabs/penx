@@ -31,7 +31,9 @@ export function SpaceItem({ item, activeSpace }: Props) {
         transitionColors
         onClick={async () => {
           close?.()
+          if (activeSpace.id === item.id) return
           await store.space.selectSpace(item.id)
+          console.log('========runSSE...:')
         }}
       >
         <Box toCenterY gap2>

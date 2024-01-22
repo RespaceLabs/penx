@@ -38,6 +38,9 @@ export interface ISpace {
     pageMap: Record<string, string>
   }
 
+  syncServerUrl?: string
+  syncServerJwtToken?: string
+
   /**
    * nodes last updated time
    */

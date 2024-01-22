@@ -43,13 +43,20 @@ export function useCreateSpaceForm() {
     })
 
     try {
-      await trpc.space.create.mutate({
+      const space = await trpc.space.create.mutate({
         userId,
         spaceData: JSON.stringify(newSpace),
         encrypted: data.encrypted,
       })
 
-      await store.space.createSpace(newSpace)
+      const syncServer = await trpc.syncServer.byId.query({
+        id: space.syncServerId!,
+      })
+
+      await store.space.createSpace({
+        ...newSpace,
+        syncServerUrl: syncServer.url!,
+      })
 
       ctx?.close?.()
     } catch (error) {

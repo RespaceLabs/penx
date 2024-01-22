@@ -1,6 +1,7 @@
+import ky from 'ky'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
-import { ISpace } from '@penx/model-types'
+import { INode, ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 import { syncFromCloud } from '../../sync/src'
@@ -42,8 +43,25 @@ export class AppService {
         await this.tryToSync(activeSpace)
       }
 
-      const nodes = await db.listNodesBySpaceId(activeSpace.id)
+      let nodes = await db.listNodesBySpaceId(activeSpace.id)
       store.space.setSpaces(spaces)
+
+      // console.log('=======nodes:', nodes)
+
+      if (!nodes.length) {
+        const url = `${activeSpace.syncServerUrl}/get-all-nodes`
+        nodes = await ky
+          .post(url, { json: { spaceId: activeSpace.id } })
+          .json<INode[]>()
+
+        for (const node of nodes) {
+          await db.createNode({
+            ...node,
+            createdAt: new Date(node.createdAt),
+            updatedAt: new Date(node.updatedAt),
+          })
+        }
+      }
 
       // get nodesLastUpdatedAt and try to pull from cloud
 

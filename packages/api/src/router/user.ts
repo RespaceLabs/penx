@@ -1,5 +1,4 @@
 import { TRPCError } from '@trpc/server'
-import jwt from 'jsonwebtoken'
 import { z } from 'zod'
 import { GithubInfo } from '@penx/model'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
@@ -50,12 +49,6 @@ export const userRouter = createTRPCRouter({
 
       return users
     }),
-
-  sseToken: protectedProcedure.query(async ({ ctx, input }) => {
-    return jwt.sign({ sub: ctx.token.uid }, process.env.NEXTAUTH_SECRET!, {
-      expiresIn: '30 days',
-    })
-  }),
 
   selfHostedSignIn: publicProcedure
     .input(

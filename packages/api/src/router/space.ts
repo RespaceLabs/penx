@@ -12,19 +12,27 @@ export const spaceRouter = createTRPCRouter({
     return ctx.prisma.space.findMany({
       where: { userId: ctx.token.uid },
       orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        editorMode: true,
+        sort: true,
+        color: true,
+        isActive: true,
+        encrypted: true,
+        activeNodeIds: true,
+        pageSnapshot: true,
+        createdAt: true,
+        updatedAt: true,
+        userId: true,
+        syncServer: {
+          select: {
+            url: true,
+          },
+        },
+      },
     })
-  }),
-
-  mySpacesWithNodes: protectedProcedure.query(async ({ ctx }) => {
-    const spaces = await ctx.prisma.space.findMany({
-      where: { userId: ctx.token.uid },
-      orderBy: { createdAt: 'desc' },
-    })
-    const spaceIds = spaces.map((space) => space.id)
-    const nodes = await ctx.prisma.node.findMany({
-      where: { spaceId: { in: spaceIds } },
-    })
-    return { spaces, nodes }
   }),
 
   nodesLastUpdatedAt: protectedProcedure

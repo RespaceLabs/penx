@@ -1,7 +1,7 @@
+import ky from 'ky'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
-import { ISpace } from '@penx/model-types'
-import { trpc } from '@penx/trpc-client'
+import { INode, ISpace } from '@penx/model-types'
 
 export async function syncFromCloud(space: ISpace) {
   const { password } = space
@@ -9,17 +9,21 @@ export async function syncFromCloud(space: ISpace) {
   const oldNodes = await db.listNodesBySpaceId(space.id)
 
   const localLastModifiedTime = Math.max(
-    ...oldNodes.map((n) => n.updatedAt.getTime()),
+    ...oldNodes.map((n) => new Date(n.updatedAt).getTime()),
   )
 
-  const newRemoteNodes = await trpc.node.pullNodes.query({
-    spaceId: space.id,
-    lastModifiedTime: localLastModifiedTime,
-  })
+  console.log('======localLastModifiedTime:', localLastModifiedTime)
+
+  const newRemoteNodes = await ky
+    .post(`${space.syncServerUrl}/get-pullable-nodes`, {
+      json: {
+        spaceId: space.id,
+        lastModifiedTime: localLastModifiedTime,
+      },
+    })
+    .json<INode[]>()
 
   if (!newRemoteNodes.length) return
-
-  // console.log('=========newRemoteNodes:', newRemoteNodes)
 
   const encrypted = space.encrypted && space.password
 
@@ -31,7 +35,7 @@ export async function syncFromCloud(space: ISpace) {
         await db.updateNode(item.id, {
           ...item,
           element: JSON.parse(decryptString(item.element as string, password)),
-          props: JSON.parse(decryptString(item.props as string, password)),
+          props: JSON.parse(decryptString(item.props as any, password)),
         } as any)
       } else {
         await db.updateNode(existedNode.id, item)
@@ -41,7 +45,7 @@ export async function syncFromCloud(space: ISpace) {
         await db.createNode({
           ...item,
           element: JSON.parse(decryptString(item.element as string, password)),
-          props: JSON.parse(decryptString(item.props as string, password)),
+          props: JSON.parse(decryptString(item.props as any, password)),
         } as any)
       } else {
         await db.createNode(item as any)

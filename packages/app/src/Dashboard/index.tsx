@@ -8,28 +8,6 @@ import { trpc } from '@penx/trpc-client'
 import { DashboardContent } from './DashboardContent'
 import { SpacesRender } from './SpacesRender'
 
-async function loadCloudSpaces(): Promise<ISpace[] | undefined> {
-  try {
-    const remoteSpaces = await trpc.space.mySpaces.query()
-
-    if (!remoteSpaces?.length) return
-
-    const result = await trpc.space.mySpacesWithNodes.query()
-
-    for (const space of result.spaces) {
-      await db.createSpace(space as any, false)
-    }
-
-    for (const node of result.nodes) {
-      await db.createNode(node as any)
-    }
-
-    return await db.listSpaces()
-  } catch (error) {
-  } finally {
-  }
-}
-
 interface SpacesContextProps {
   spaceNodes: INode[]
   setSpaceNodes: React.Dispatch<React.SetStateAction<INode[]>>
@@ -49,16 +27,9 @@ export function Dashboard({ userId }: { userId: string }) {
       await db.database.connect()
     }
     let spaces = await db.listSpaces(userId)
-    if (!spaces?.length) {
-      const cloudSpaces = await loadCloudSpaces()
-      if (cloudSpaces?.length) {
-        spaces = cloudSpaces
-      }
-    } else {
-      const newNodes = await db.listNodesBySpaceId(spaces[0].id)
-      setSpaceNodes(newNodes.length ? newNodes : [])
-    }
 
+    const newNodes = await db.listNodesBySpaceId(spaces[0].id)
+    setSpaceNodes(newNodes.length ? newNodes : [])
     setSpaces(spaces)
   }
 

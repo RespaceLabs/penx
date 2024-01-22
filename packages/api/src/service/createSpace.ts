@@ -44,7 +44,7 @@ export function createSpace(input: CreateUserInput) {
         })
       }
 
-      await tx.space.create({
+      return await tx.space.create({
         data: {
           id: space.id,
           subdomain: uniqueId(),
@@ -61,8 +61,6 @@ export function createSpace(input: CreateUserInput) {
           pageSnapshot: space.pageSnapshot,
         },
       })
-
-      return space
     },
     {
       maxWait: 5000, // default: 2000

@@ -1,4 +1,5 @@
 import { TRPCError } from '@trpc/server'
+import jwt from 'jsonwebtoken'
 import { nanoid } from 'nanoid'
 import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
@@ -7,6 +8,37 @@ export const syncServerRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.syncServer.findMany({ orderBy: { createdAt: 'desc' } })
   }),
+
+  byId: publicProcedure
+    .input(z.object({ id: z.string().min(1) }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.syncServer.findUniqueOrThrow({
+        where: { id: input.id },
+        select: {
+          id: true,
+          url: true,
+        },
+      })
+    }),
+
+  jwtToken: protectedProcedure
+    .input(z.object({ spaceId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const space = await ctx.prisma.space.findFirstOrThrow({
+        where: { id: input.spaceId },
+        select: {
+          id: true,
+          syncServer: { select: { token: true } },
+        },
+      })
+
+      // TODO: handle expiresIn
+      return jwt.sign({ sub: ctx.token.uid }, space.syncServer?.token!)
+
+      // return jwt.sign({ sub: ctx.token.uid }, process.env.NEXTAUTH_SECRET!, {
+      //   expiresIn: '30 days',
+      // })
+    }),
 
   create: protectedProcedure
     .input(

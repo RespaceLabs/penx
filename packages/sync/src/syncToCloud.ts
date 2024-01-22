@@ -68,8 +68,10 @@ export async function submitToServer(space: ISpace, nodes: INode[]) {
   //   ),
   // })
 
+  if (!space.syncServerUrl) return
+
   const { time } = await ky
-    .post('http://localhost:4000/push-nodes', {
+    .post(`${space.syncServerUrl}/push-nodes`, {
       json: {
         userId: space.userId,
         spaceId: space.id,

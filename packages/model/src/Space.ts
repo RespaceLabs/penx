@@ -27,6 +27,10 @@ export class Space {
     return this.raw.color
   }
 
+  get syncServerUrl() {
+    return this.raw.syncServerUrl || ''
+  }
+
   get isActive() {
     return this.raw.isActive
   }

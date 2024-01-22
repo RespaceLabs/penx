@@ -49,6 +49,7 @@ export class SyncStore {
       await syncFromCloud(activeSpace)
 
       const newNodes = await db.listNodesBySpaceId(activeSpace.id)
+
       this.store.node.setNodes(newNodes)
       this.store.node.selectDailyNote()
       this.setStatus(SyncStatus.NORMAL)

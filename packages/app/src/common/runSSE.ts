@@ -1,6 +1,8 @@
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { isSelfHosted } from '@penx/constants'
 import { db } from '@penx/local-db'
+import { Space } from '@penx/model'
+import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
 import { trpc } from '@penx/trpc-client'
 
@@ -30,12 +32,16 @@ async function pull(spaceInfo: SpaceInfo) {
   }
 }
 
-export async function runSSE() {
+export async function runSSE(space: Space) {
   const token = await trpc.user.sseToken.query()
 
-  const url = isSelfHosted ? '/api/sse' : process.env.NEXT_PUBLIC_SSE_URL!
+  if (!space.syncServerUrl) return
 
-  console.log('sse___URL:', url)
+  const url = isSelfHosted ? '/api/sse' : `${space.syncServerUrl}/sse`
+
+  console.log('============url:', url)
+
+  const controller = new AbortController()
 
   await fetchEventSource(url, {
     openWhenHidden: true,
@@ -44,6 +50,7 @@ export async function runSSE() {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ token }),
+    signal: controller.signal,
     async onopen(response) {
       console.log('=========onopen', response)
     },
