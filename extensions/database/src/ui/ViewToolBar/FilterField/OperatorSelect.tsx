@@ -2,16 +2,17 @@ import { Box } from '@fower/react'
 import { ChevronDown } from 'lucide-react'
 import { Menu, MenuItem, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { Filter, OperatorType } from '@penx/model-types'
-import { useDatabaseContext } from '../../DatabaseContext'
 
 interface FieldSelectProps {
   filter: Filter
-  index: number
+  updateFilter: (
+    columnId: string,
+    newColumnId: string,
+    props?: Partial<Filter>,
+  ) => void
 }
 
-export function OperatorSelect({ index, filter }: FieldSelectProps) {
-  const { currentView, updateFilter } = useDatabaseContext()
-
+export function OperatorSelect({ filter, updateFilter }: FieldSelectProps) {
   return (
     <Popover>
       <PopoverTrigger>
@@ -42,12 +43,9 @@ export function OperatorSelect({ index, filter }: FieldSelectProps) {
                 toBetween
                 selected={type === filter.operator}
                 onClick={() => {
-                  updateFilter(
-                    currentView.id,
-                    filter.columnId,
-                    filter.columnId,
-                    { operator: type as OperatorType },
-                  )
+                  updateFilter(filter.columnId, filter.columnId, {
+                    operator: type as OperatorType,
+                  })
                   close()
                 }}
               >

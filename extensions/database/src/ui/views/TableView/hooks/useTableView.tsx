@@ -81,18 +81,19 @@ export function useTableView() {
   const isTagDataSource = database.props.dataSource === DataSource.TAG
 
   const columnsMap = mappedByKey(columns, 'id')
-  let { viewColumns = [] } = currentView.props
+  let { viewColumns = [], filters = [] } = currentView.props
   const [cols, setCols] = useState(getCols(columns, viewColumns))
   const [rowsNum, setRowsNum] = useState(rows.length)
+
+  const [tableQuery, setTableQuery] = useState<any>('')
 
   const indexes = useMemo(() => {
     return viewColumns.map((c) => c.columnId)
   }, [viewColumns])
 
   const data = useMemo(() => {
-    const dataSource: INode[] = []
-
-    const data = rows.map((row, i) => {
+    let dataSource: INode[] = []
+    const initializedData = rows.map((row, i) => {
       return columns.reduce(
         (acc, col) => {
           // need to improvement performance
@@ -108,16 +109,44 @@ export function useTableView() {
       )
     })
 
-    new TableSearch(dataSource, indexes)
+    if (!filters.length) {
+      return initializedData
+    }
 
-    return data
-  }, [columns, indexes])
+    const tableSearch = TableSearch.initTableSearch(dataSource)
+
+    const { rowKeys } = tableSearch.search(filters)
+    const filterData = rows.reduce((acc: Record<string, ICellNode>[], row) => {
+      if (rowKeys.includes(row.id)) {
+        const rowData = columns.reduce(
+          (rowData, col) => {
+            const cell = cells.find(
+              (c) => c.props.columnId === col.id && c.props.rowId === row.id,
+            )!
+
+            rowData[col.id] = cell
+            return rowData
+          },
+          {} as Record<string, ICellNode>,
+        )
+
+        acc.push(rowData)
+      }
+
+      return acc
+    }, [])
+
+    setRowsNum(filterData.length)
+
+    return filterData
+  }, [indexes, filters, rows])
 
   const getContent = useCallback(
     (cell: Item): GridCell => {
       const [col, row] = cell
       const dataRow = data[row]
-
+      // TODO: debug test
+      // console.log('%c=cell-render', 'color:red', [col, row], { data, dataRow, indexes_col: indexes[col] })
       const cellNode = dataRow[indexes[col]]
       const columnNode = columnsMap[indexes[col]]
       const rowNode = rows[row]
@@ -263,7 +292,6 @@ export function useTableView() {
       [colIndex, rowIndex]: Item,
       newValue: EditableGridCell,
     ): Promise<void> => {
-      console.log('%c=setCellValue', 'color:red', newValue)
       const row = rows[rowIndex]
       const column = sortedColumns[colIndex]
 

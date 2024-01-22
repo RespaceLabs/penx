@@ -1,4 +1,6 @@
-import { INode } from '@penx/model-types'
+import { ICellNodePopps, INode } from '@penx/model-types'
+import { Filter, OperatorType } from '@penx/model-types/src/interfaces/INode'
+import { generateNoteCellText } from './cells/note-cell'
 
 interface ISearchNode {
   id: string
@@ -6,47 +8,62 @@ interface ISearchNode {
 }
 
 export class TableSearch {
+  private static instance: TableSearch
   searchNodes: Map<string, ISearchNode[]>
-  viewColumnsMap: Map<string, string>
   dataSourceMap: Map<string, INode>
 
-  constructor(dataSource: INode[], viewColumnsIndexes: string[]) {
-    this.viewColumnsMap = viewColumnsIndexes.reduce((map, val) => {
-      map.set(val, val)
-      return map
-    }, new Map<string, string>())
+  constructor(dataSource: INode[]) {
     this.dataSourceMap = new Map<string, INode>()
     // Indexes that store different fields
     this.searchNodes = new Map<string, ISearchNode[]>()
 
-    const columnKey = viewColumnsIndexes.length ? viewColumnsIndexes[0] : ''
-    this.initialize(dataSource, columnKey)
+    this.initialize(dataSource)
   }
 
-  initialize(dataSource: INode[], columnKey: string): void {
-    if (!columnKey && !dataSource.length) {
+  public static initTableSearch(dataSource: INode[]) {
+    if (!this.instance) {
+      this.instance = new TableSearch(dataSource)
+    }
+
+    return this.instance
+  }
+
+  public static getInstance(): TableSearch {
+    return this.instance
+  }
+
+  initialize(dataSource: INode[]): void {
+    if (!dataSource.length) {
       return
     }
 
     const spaceNode = dataSource[0]
-    const keys = Object.keys(spaceNode)
-    console.log('%c=initialize===>1', 'color:red', { spaceNode, keys })
+    const keys = Object.keys(spaceNode ? spaceNode : [])
 
     dataSource.forEach((item) => {
       this.dataSourceMap.set(item.id, item)
+
       keys.forEach((property) => {
         let text = ''
-        if (typeof (item as any)[property] === 'object') {
-          text = JSON.stringify((item as any)[property])
-        } else if (typeof (item as any)[property] === 'boolean') {
-          text = (item as any)[property].toString()
+
+        if (property === 'props') {
+          const cellNodeProps = (item as any)[property] as ICellNodePopps
+          text = cellNodeProps?.ref
+            ? generateNoteCellText(cellNodeProps.ref, false)
+            : cellNodeProps?.data
+          this.insert(cellNodeProps.columnId, text.trim(), item.id)
         } else {
-          text = (item as any)[property]
+          const propertyValue = (item as any)[property]
+          if (typeof propertyValue === 'object') {
+            text = JSON.stringify(propertyValue)
+          } else if (typeof propertyValue === 'boolean') {
+            text = propertyValue.toString()
+          } else {
+            text = propertyValue
+          }
         }
 
-        this.insert(property, text, item.id)
-
-        console.log('%c=final=====>', 'color:MediumBlue	', this.searchNodes)
+        this.insert(property, text.trim(), item.id)
       })
     })
   }
@@ -60,10 +77,51 @@ export class TableSearch {
     }
   }
 
-  fuzzySearch(property: string, text: string) {
-    const regex = new RegExp(text, 'i')
+  search(filters: Filter[]): { cellnodes: INode[]; rowKeys: string[] } {
+    const cellnodes: INode[] = []
+    const rowKeys: string[] = []
+    filters.forEach((item) => {
+      if (item.operator === OperatorType.EQUAL) {
+        const { rowsKey, nodes } = this.exactMatch(item)
+        cellnodes.push(...nodes)
+        rowKeys.push(...rowsKey)
+      } else if (item.operator === OperatorType.CONTAINS) {
+        const { rowsKey, nodes } = this.fuzzySearch(item)
+        cellnodes.push(...nodes)
+        rowKeys.push(...rowsKey)
+      }
+    })
 
-    // data.filter(item => regex.test(item[property]));
-    return []
+    return { cellnodes, rowKeys }
+  }
+
+  fuzzySearch(filter: Filter): { nodes: INode[]; rowsKey: string[] } {
+    const nodeCollector = this.searchNodes.get(filter.columnId) || []
+    const regex = new RegExp(filter.value, 'i')
+    const matchIds = nodeCollector.filter((item) => {
+      return regex.test(item.text)
+    })
+
+    const nodes = matchIds.map((item) =>
+      this.dataSourceMap.get(item.id),
+    ) as INode[]
+
+    return {
+      nodes,
+      rowsKey: nodes.map((item) => item.props?.rowId),
+    }
+  }
+
+  exactMatch(filter: Filter): { nodes: INode[]; rowsKey: string[] } {
+    const nodeCollector = this.searchNodes.get(filter.columnId) || []
+    const matchIds = nodeCollector.filter((item) => item.text === filter.value)
+    const nodes = matchIds.map((item) =>
+      this.dataSourceMap.get(item.id),
+    ) as INode[]
+
+    return {
+      nodes,
+      rowsKey: nodes.map((item) => item.props?.rowId),
+    }
   }
 }

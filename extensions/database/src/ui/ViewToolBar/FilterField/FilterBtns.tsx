@@ -1,29 +1,27 @@
 import { Box } from '@fower/react'
 import { Plus } from 'lucide-react'
-import { Button } from 'uikit'
-import { OperatorType } from '@penx/model-types'
+import { Button, usePopoverContext } from 'uikit'
+import { Filter, IViewNode, ViewColumn } from '@penx/model-types'
 import { useDatabaseContext } from '../../DatabaseContext'
 
-export const FilterBtns = () => {
-  const { currentView, addFilter } = useDatabaseContext()
-  const { filters = [], viewColumns: columns = [] } = currentView.props
+interface IFilterBtns {
+  filters: Filter[]
+  viewColumns: ViewColumn[]
+  currentView: IViewNode
+  addFilter: () => void
+}
 
-  async function createFilter() {
-    const viewColumn = columns.find(
-      (c) => !filters.map((i) => i.columnId).includes(c.columnId),
-    )!
-
-    const column = columns.find((c) => c.columnId === viewColumn.columnId)
-    if (column) {
-      addFilter(currentView.id, column.columnId, {
-        operator: OperatorType.EQUAL,
-        value: '',
-      })
-    }
-  }
+export const FilterBtns = ({
+  addFilter,
+  currentView,
+  filters,
+}: IFilterBtns) => {
+  const { appleyFilter } = useDatabaseContext()
+  const { close } = usePopoverContext()
 
   async function onApplyFilter() {
-    console.log('%c=onApplyFilter==DarkGreen', 'color:red')
+    await appleyFilter(currentView.id, filters)
+    close()
   }
 
   return (
@@ -32,7 +30,7 @@ export const FilterBtns = () => {
         size="sm"
         variant="light"
         colorScheme="gray500"
-        onClick={createFilter}
+        onClick={addFilter}
       >
         <Plus size={16} />
         <Box>Add filter</Box>

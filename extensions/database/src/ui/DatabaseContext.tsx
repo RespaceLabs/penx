@@ -73,6 +73,7 @@ export interface IDatabaseContext {
     props: Partial<Filter>,
   ): Promise<void>
   deleteFilter(viewId: string, columnId: string): Promise<void>
+  appleyFilter(viewId: string, filters: Filter[]): Promise<void>
 
   updateFilter(
     viewId: string,
@@ -229,6 +230,11 @@ export const DatabaseProvider = ({
     reloadNodes()
   }
 
+  async function appleyFilter(viewId: string, filters: Filter[]) {
+    await db.appleyFilter(viewId, filters)
+    reloadNodes()
+  }
+
   async function updateFilter(
     viewId: string,
     columnId: string,
@@ -287,6 +293,7 @@ export const DatabaseProvider = ({
 
         addFilter,
         deleteFilter,
+        appleyFilter,
         updateFilter,
       }}
     >

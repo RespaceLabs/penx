@@ -1234,6 +1234,16 @@ class DB {
     })
   }
 
+  appleyFilter = async (viewId: string, filters: Filter[]) => {
+    const view = await this.getNode<IViewNode>(viewId)
+    await this.updateNode<IViewNode>(viewId, {
+      props: {
+        ...view.props,
+        filters,
+      },
+    })
+  }
+
   addOption = async (databaseId: string, columnId: string, name: string) => {
     const space = await this.getActiveSpace()
 
