@@ -13,12 +13,12 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@prisma/client": "^5.7.1",
-    "prisma": "^5.7.1"
+    "@prisma/client": "^5.8.1"
   },
   "devDependencies": {
     "@types/node": "^20.10.3",
     "dotenv-cli": "^7.3.0",
+    "prisma": "^5.8.1",
     "typescript": "^5.3.2"
   }
 }

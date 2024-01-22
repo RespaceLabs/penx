@@ -107,28 +107,27 @@ model Runner {
 }
 
 model Space {
-    id           String  @id @default(uuid())
-    name         String
-    description  String? @db.Text
-    subdomain    String? @unique
-    customDomain String? @unique
-    editorMode   String?
-    sort         Int     @default(0)
-    color        String
-    isActive     Boolean @default(true)
-    encrypted    Boolean @default(false)
-
+    id            String    @id @default(uuid())
+    name          String
+    description   String?   @db.Text
+    subdomain     String?   @unique
+    customDomain  String?   @unique
+    editorMode    String?
+    sort          Int       @default(0)
+    color         String
+    isActive      Boolean   @default(true)
+    encrypted     Boolean   @default(false)
+    password      String?
     activeNodeIds Json?
+    nodeSnapshot  Json?
+    pageSnapshot  Json?
+    deletedAt     DateTime?
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
 
-    nodeSnapshot Json?
-    pageSnapshot Json?
-
-    deletedAt DateTime?
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
-
-    user   User?   @relation(fields: [userId], references: [id])
-    userId String?
+    user         User?   @relation(fields: [userId], references: [id])
+    userId       String?
+    syncServerId String?
 
     @@index([userId])
 }
