@@ -30,7 +30,7 @@ import { PasswordCell } from '../cells/password-cell'
 import { RateCell } from '../cells/rate-cell'
 import { SingleSelectCell } from '../cells/single-select-cell'
 import { SystemDateCell } from '../cells/system-date-cell'
-import { TableSearch } from './TableSearch'
+import { TableSearch } from '../TableSearch'
 
 function getCols(columns: IColumnNode[], viewColumns: ViewColumn[]) {
   const sortedColumns = viewColumns
