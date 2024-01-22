@@ -8,11 +8,11 @@ import {
   ModalTrigger,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { CreateSyncServerForm } from './CreateSyncServerForm'
+import { SyncServerForm } from './SyncServerForm'
 
-export const CreateSyncServerModal = () => {
+export const SyncServerModal = () => {
   return (
-    <Modal>
+    <Modal name={ModalNames.SYNC_SERVER}>
       <ModalTrigger>
         <Button>Create sync server</Button>
       </ModalTrigger>
@@ -24,7 +24,7 @@ export const CreateSyncServerModal = () => {
             Create sync server
           </Box>
         </Box>
-        <CreateSyncServerForm />
+        <SyncServerForm />
       </ModalContent>
     </Modal>
   )

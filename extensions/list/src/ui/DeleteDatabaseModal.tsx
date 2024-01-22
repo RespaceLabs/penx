@@ -19,7 +19,7 @@ interface Props {
 }
 
 const Footer = () => {
-  const { data } = useModalContext<Node>()
+  const { modalData: data } = useModalContext<Node>()
   async function deleteColumn() {
     await db.deleteDatabase(data.raw)
     store.node.selectDailyNote()

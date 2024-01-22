@@ -26,6 +26,20 @@ export const syncServerRouter = createTRPCRouter({
       })
     }),
 
+  update: protectedProcedure
+    .input(
+      z.object({
+        id: z.string().min(1),
+        name: z.string().min(1).optional(),
+        url: z.string().min(1).optional(),
+        type: z.string().min(1).optional(),
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      const { id, ...data } = input
+      return ctx.prisma.syncServer.update({ where: { id }, data })
+    }),
+
   deleteById: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {

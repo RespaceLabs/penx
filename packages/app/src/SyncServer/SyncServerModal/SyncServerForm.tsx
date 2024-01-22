@@ -3,13 +3,13 @@ import { Box } from '@fower/react'
 import { Button, Input, ModalClose, Spinner, useModalContext } from 'uikit'
 import { SyncServerType } from '@penx/constants'
 import { BorderedRadioGroup } from '../../components/BorderedRadioGroup'
-import { useCreateSyncServerForm } from './useCreateSyncServerForm'
+import { SyncServerModalData, useSyncServerForm } from './useSyncServerForm'
 
 interface Props {}
 
-export function CreateSyncServerForm({}: Props) {
-  const { data: loading } = useModalContext<boolean>()
-  const form = useCreateSyncServerForm()
+export function SyncServerForm({}: Props) {
+  const { data } = useModalContext<SyncServerModalData>()
+  const form = useSyncServerForm()
   const { control, formState } = form
   const { isValid } = formState
 
@@ -52,6 +52,27 @@ export function CreateSyncServerForm({}: Props) {
         )}
       />
 
+      {data.isEditing && (
+        <>
+          <Box mb--6 fontMedium>
+            Sync server URL
+          </Box>
+          <Controller
+            name="url"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <Input
+                autoFocus
+                size="lg"
+                placeholder="Sync server url"
+                {...field}
+              />
+            )}
+          />
+        </>
+      )}
+
       <Box toCenterY toRight gap2 mt2>
         <ModalClose>
           <Button type="button" size="lg" roundedFull colorScheme="white">
@@ -63,10 +84,10 @@ export function CreateSyncServerForm({}: Props) {
           type="submit"
           size="lg"
           roundedFull
-          disabled={!isValid || loading}
+          disabled={!isValid || data.isLoading}
           gap2
         >
-          {loading && <Spinner white square5 />}
+          {data.isLoading && <Spinner white square5 />}
           <Box>Create</Box>
         </Button>
       </Box>

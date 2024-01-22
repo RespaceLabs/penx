@@ -9,7 +9,7 @@ export interface ModalState<T = any> {
 export interface ModalContext<T = any> {
   state: ModalState<T>
 
-  data: T
+  modalData: T
 
   setState: Dispatch<React.SetStateAction<ModalState<T>>>
 

@@ -1,7 +1,8 @@
 import { Box } from '@fower/react'
 import { useQuery } from '@tanstack/react-query'
 import { Pencil } from 'lucide-react'
-import { Button, Spinner } from 'uikit'
+import { Button, modalController, Spinner } from 'uikit'
+import { ModalNames } from '@penx/constants'
 import { trpc } from '@penx/trpc-client'
 
 export function SyncServerList() {
@@ -27,7 +28,18 @@ export function SyncServerList() {
               {item.token}
             </Box>
 
-            <Button isSquare size={28} variant="light">
+            <Button
+              isSquare
+              size={28}
+              variant="light"
+              onClick={() => {
+                modalController.open(ModalNames.SYNC_SERVER, {
+                  isEditing: true,
+                  isLoading: false,
+                  syncServer: item,
+                })
+              }}
+            >
               <Pencil size={16}></Pencil>
             </Button>
           </Box>
