@@ -13,9 +13,6 @@ import { SyncServerForm } from './SyncServerForm'
 export const SyncServerModal = () => {
   return (
     <Modal name={ModalNames.SYNC_SERVER}>
-      <ModalTrigger>
-        <Button>Create sync server</Button>
-      </ModalTrigger>
       <ModalOverlay />
       <ModalContent w={['96%', 600]} px={[20, 32]} py20>
         <ModalCloseButton />

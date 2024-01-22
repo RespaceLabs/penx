@@ -31,7 +31,7 @@ export const syncServerRouter = createTRPCRouter({
       z.object({
         id: z.string().min(1),
         name: z.string().min(1).optional(),
-        url: z.string().min(1).optional(),
+        url: z.string().optional(),
         type: z.string().min(1).optional(),
       }),
     )

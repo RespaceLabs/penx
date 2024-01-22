@@ -49,10 +49,7 @@ export function useCreateSpaceForm() {
         encrypted: data.encrypted,
       })
 
-      const space = await store.space.createSpace(newSpace)
-
-      const nodes = await db.listNodesBySpaceId(space.id)
-      await submitToServer(space, nodes)
+      await store.space.createSpace(newSpace)
 
       ctx?.close?.()
     } catch (error) {

@@ -1,6 +1,7 @@
 import { TRPCError } from '@trpc/server'
+import { nanoid } from 'nanoid'
 import { z } from 'zod'
-import { PENX_101_CLOUD_NAME } from '@penx/constants'
+import { PENX_101_CLOUD_NAME, SyncServerType } from '@penx/constants'
 import { prisma } from '@penx/db'
 import { INode, ISpace } from '@penx/model-types'
 import { uniqueId } from '@penx/unique-id'
@@ -9,15 +10,13 @@ export const CreateSpaceInput = z.object({
   userId: z.string().min(1),
   spaceData: z.string(),
   encrypted: z.boolean(),
-  nodesData: z.string().optional(),
 })
 
 export type CreateUserInput = z.infer<typeof CreateSpaceInput>
 
 export function createSpace(input: CreateUserInput) {
-  const { userId, spaceData, nodesData } = input
+  const { userId, spaceData } = input
   const space: ISpace = JSON.parse(spaceData)
-  const nodes: INode[] = JSON.parse(nodesData || '[]')
 
   if (space.name === PENX_101_CLOUD_NAME) {
     throw new TRPCError({
@@ -28,6 +27,23 @@ export function createSpace(input: CreateUserInput) {
 
   return prisma.$transaction(
     async (tx) => {
+      const syncServer = await tx.syncServer.findFirst({
+        where: {
+          type: SyncServerType.OFFICIAL,
+          url: { not: '' },
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      })
+
+      if (!syncServer) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Sync server not found.',
+        })
+      }
+
       await tx.space.create({
         data: {
           id: space.id,
@@ -38,17 +54,12 @@ export function createSpace(input: CreateUserInput) {
           color: space.color,
           isActive: space.isActive,
           encrypted: space.encrypted,
+          password: nanoid(),
           activeNodeIds: space.activeNodeIds || [],
+          syncServerId: syncServer.id,
           nodeSnapshot: space.nodeSnapshot,
           pageSnapshot: space.pageSnapshot,
         },
-      })
-
-      await tx.node.createMany({
-        data: nodes.map((node) => {
-          const { openedAt, createdAt, updatedAt, ...rest } = node
-          return { ...rest }
-        }),
       })
 
       return space

@@ -60,7 +60,6 @@ export function SyncServerForm({}: Props) {
           <Controller
             name="url"
             control={control}
-            rules={{ required: true }}
             render={({ field }) => (
               <Input
                 autoFocus
