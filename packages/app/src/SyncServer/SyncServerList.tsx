@@ -4,6 +4,7 @@ import { Pencil } from 'lucide-react'
 import { Button, modalController, Spinner } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { api, trpc } from '@penx/trpc-client'
+import { DeleteSyncServerModal } from './DeleteSyncServerModal'
 
 export function SyncServerList() {
   const { isLoading, data = [] } = trpc.syncServer.mySyncServers.useQuery()
@@ -40,6 +41,7 @@ export function SyncServerList() {
             >
               <Pencil size={16}></Pencil>
             </Button>
+            <DeleteSyncServerModal syncServerId={item.id} />
           </Box>
         ))}
       </Box>

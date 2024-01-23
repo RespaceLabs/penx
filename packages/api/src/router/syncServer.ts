@@ -117,9 +117,6 @@ export const syncServerRouter = createTRPCRouter({
   deleteById: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.$transaction(async (tx) => {
-        await tx.node.deleteMany({ where: { spaceId: input } })
-        return ctx.prisma.space.delete({ where: { id: input } })
-      })
+      return ctx.prisma.syncServer.delete({ where: { id: input } })
     }),
 })

@@ -22,6 +22,7 @@ export function SyncServerForm({}: Props) {
       <Controller
         name="name"
         control={control}
+        defaultValue=""
         rules={{ required: true }}
         render={({ field }) => (
           <Input
@@ -39,6 +40,7 @@ export function SyncServerForm({}: Props) {
       <Controller
         name="type"
         control={control}
+        rules={{ required: true }}
         render={({ field }) => (
           <BorderedRadioGroup
             options={[
