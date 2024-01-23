@@ -38,6 +38,7 @@ export interface ISpace {
     pageMap: Record<string, string>
   }
 
+  syncServerId?: string
   syncServerUrl?: string
   syncServerAccessToken?: string
 

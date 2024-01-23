@@ -11,7 +11,7 @@ export function SpaceSettings() {
   const { activeSpace } = useSpaces()
 
   return (
-    <Box p10 column gap6>
+    <Box p10 column gap10>
       <Box toLeft toCenterY gap2 flexDirection={['column', 'row']}>
         <Box text2XL fontBold>
           Space Settings

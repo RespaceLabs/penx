@@ -27,6 +27,10 @@ export class Space {
     return this.raw.color
   }
 
+  get syncServerId() {
+    return this.raw.syncServerId || ''
+  }
+
   get syncServerUrl() {
     return this.raw.syncServerUrl || ''
   }

@@ -51,6 +51,7 @@ export function useCreateSpaceForm() {
 
       await store.space.createSpace({
         ...newSpace,
+        syncServerId: space.syncServerId as string,
         syncServerUrl: space.syncServerUrl as string,
         syncServerAccessToken: space.syncServerAccessToken as string,
       })

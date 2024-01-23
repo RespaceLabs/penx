@@ -7,6 +7,31 @@ export const syncServerRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.syncServer.findMany({
       orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        name: true,
+        url: true,
+        description: true,
+        region: true,
+        type: true,
+      },
+    })
+  }),
+
+  runningSyncServers: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.syncServer.findMany({
+      where: {
+        url: { not: '' },
+      },
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        name: true,
+        url: true,
+        description: true,
+        region: true,
+        type: true,
+      },
     })
   }),
 
@@ -14,6 +39,14 @@ export const syncServerRouter = createTRPCRouter({
     return ctx.prisma.syncServer.findMany({
       where: { userId: ctx.token.uid },
       orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        name: true,
+        url: true,
+        description: true,
+        region: true,
+        type: true,
+      },
     })
   }),
 
