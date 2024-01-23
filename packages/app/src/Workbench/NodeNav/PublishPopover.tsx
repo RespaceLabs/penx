@@ -9,7 +9,7 @@ import { INode } from '@penx/model-types'
 import { NodeService } from '@penx/service'
 import { useCopyToClipboard } from '@penx/shared'
 import { store } from '@penx/store'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 export const PublishPopover = () => {
   const { node } = useNodeContext()
@@ -49,7 +49,7 @@ function Content({ node }: ContentProps) {
   const url = process.env.NEXT_PUBLIC_NEXTAUTH_URL + `/s/${node?.id}`
 
   const { isLoading, data, refetch } = useQuery(['publish_node'], () =>
-    trpc.node.getPublishedNode.query({
+    api.node.getPublishedNode.query({
       nodeId: node.id,
       spaceId: node.spaceId,
     }),
@@ -110,7 +110,7 @@ function Content({ node }: ContentProps) {
               childrenNodes = nodeList.flattenNode(node).map((n) => n.raw)
             }
 
-            await trpc.node.publishNode.mutate({
+            await api.node.publishNode.mutate({
               nodeId: node.id,
               spaceId: node.spaceId,
               nodesData: JSON.stringify([node.raw, ...childrenNodes]),

@@ -3,11 +3,11 @@ import { useQuery } from '@tanstack/react-query'
 import { Pencil } from 'lucide-react'
 import { Button, modalController, Spinner } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 export function SyncServerList() {
   const { isLoading, data = [] } = useQuery(['syncServers'], () =>
-    trpc.syncServer.all.query(),
+    api.syncServer.mySyncServers.query(),
   )
 
   if (isLoading) {

@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useModalContext } from 'uikit'
 import type { RouterOutputs } from '@penx/api'
 import { SyncServerType } from '@penx/constants'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 type SyncServer = RouterOutputs['syncServer']['all']['0']
 
@@ -33,12 +33,12 @@ export function useSyncServerForm() {
 
     try {
       if (data.isEditing) {
-        await trpc.syncServer.update.mutate({
+        await api.syncServer.update.mutate({
           ...values,
           id: data.syncServer?.id as string,
         })
       } else {
-        await trpc.syncServer.create.mutate(values)
+        await api.syncServer.create.mutate(values)
       }
 
       close?.()

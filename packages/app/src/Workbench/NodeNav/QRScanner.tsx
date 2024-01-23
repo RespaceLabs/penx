@@ -7,7 +7,7 @@ import { ModalNames } from '@penx/constants'
 import { db, getNewSpace } from '@penx/local-db'
 import { User } from '@penx/model'
 import { store } from '@penx/store'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 export const QRScanner: React.FC = () => {
   const [visible, setVisible] = useState(false)
@@ -21,7 +21,7 @@ export const QRScanner: React.FC = () => {
 
   async function syncSpaces(address: string) {
     try {
-      const data = await trpc.user.byAddress.query({ address })
+      const data = await api.user.byAddress.query({ address })
       const user = new User(data)
       store.setUser(user)
 

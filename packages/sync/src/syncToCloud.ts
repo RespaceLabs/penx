@@ -3,7 +3,7 @@ import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace, NodeType } from '@penx/model-types'
 import { SyncServerClient } from '@penx/sync-server-client'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 export async function syncToCloud(): Promise<boolean> {
   const space = await db.getActiveSpace()

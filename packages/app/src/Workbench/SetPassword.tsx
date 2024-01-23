@@ -9,7 +9,7 @@ import { db } from '@penx/local-db'
 import { INode } from '@penx/model-types'
 import { store } from '@penx/store'
 import { getNodeMap } from '@penx/sync'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 type ServerNode = RouterOutputs['node']['listBySpaceId'][0]
 
@@ -20,7 +20,7 @@ export const SetPassword = () => {
   const nodesRef = useRef<ServerNode[]>([])
 
   useEffect(() => {
-    trpc.node.listBySpaceId.query({ spaceId: activeSpace.id }).then((data) => {
+    api.node.listBySpaceId.query({ spaceId: activeSpace.id }).then((data) => {
       // console.log('======data:', data)
       nodesRef.current = data
     })
@@ -29,7 +29,7 @@ export const SetPassword = () => {
   async function syncToLocal() {
     // fallback
     if (!nodesRef.current.length) {
-      nodesRef.current = await trpc.node.listBySpaceId.query({
+      nodesRef.current = await api.node.listBySpaceId.query({
         spaceId: activeSpace.id,
       })
     }

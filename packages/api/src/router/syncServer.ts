@@ -1,4 +1,3 @@
-import { TRPCError } from '@trpc/server'
 import jwt from 'jsonwebtoken'
 import { nanoid } from 'nanoid'
 import { z } from 'zod'
@@ -6,7 +5,16 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 export const syncServerRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.syncServer.findMany({ orderBy: { createdAt: 'desc' } })
+    return ctx.prisma.syncServer.findMany({
+      orderBy: { createdAt: 'desc' },
+    })
+  }),
+
+  mySyncServers: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.syncServer.findMany({
+      where: { userId: ctx.token.uid },
+      orderBy: { createdAt: 'desc' },
+    })
   }),
 
   byId: publicProcedure

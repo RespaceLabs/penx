@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Box } from '@fower/react'
 import { useQuery } from '@tanstack/react-query'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 import { ExtensionItem } from './ExtensionItem'
 import { useExtension } from './hooks/useExtension'
 
@@ -9,7 +9,7 @@ export function ExtensionList() {
   const { extension, setExtension } = useExtension()
   const { data, isLoading } = useQuery(
     ['marketplace'],
-    () => trpc.extension.all.query() as any,
+    () => api.extension.all.query() as any,
   )
 
   useEffect(() => {

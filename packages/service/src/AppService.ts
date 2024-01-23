@@ -3,14 +3,14 @@ import { Node } from '@penx/model'
 import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
 import { SyncServerClient } from '@penx/sync-server-client'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 import { syncFromCloud } from '../../sync/src'
 
 export class AppService {
   inited = false
 
   private async tryToSync(space: ISpace) {
-    const time = await trpc.space.nodesLastUpdatedAt.query({
+    const time = await api.space.nodesLastUpdatedAt.query({
       spaceId: space.id,
     })
 

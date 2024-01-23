@@ -13,7 +13,7 @@ import {
 import { useUser } from '@penx/hooks'
 import { User } from '@penx/model'
 import { store } from '@penx/store'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 interface Props {}
 
@@ -40,7 +40,7 @@ export function DisconnectPopover({}: Props) {
                 onClick={async () => {
                   setLoading(true)
                   try {
-                    const user = await trpc.user.disconnectRepo.mutate({
+                    const user = await api.user.disconnectRepo.mutate({
                       userId: id,
                     })
                     store.setUser(new User(user))

@@ -4,7 +4,7 @@ import { useAtom } from 'jotai'
 import { db } from '@penx/local-db'
 import { INode, ISpace } from '@penx/model-types'
 import { spacesAtom } from '@penx/store'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 import { DashboardContent } from './DashboardContent'
 import { SpacesRender } from './SpacesRender'
 

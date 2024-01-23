@@ -7,7 +7,7 @@ import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
 import { nodeToSlate } from '@penx/serializer'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 import { SpaceService } from './SpaceService'
 
 export type TreeItem = {
@@ -114,7 +114,7 @@ export class SyncService {
     s.space = new Space(space)
     s.spaceService = new SpaceService(space, s.nodes)
 
-    const token = await trpc.github.getTokenByUserId.query({
+    const token = await api.github.getTokenByUserId.query({
       userId: user.id,
     })
 

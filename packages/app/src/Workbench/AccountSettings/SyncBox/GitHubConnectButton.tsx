@@ -4,7 +4,7 @@ import { Button, Spinner, toast } from 'uikit'
 import { useUser } from '@penx/hooks'
 import { User } from '@penx/model'
 import { store } from '@penx/store'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 interface Props {
   installationId: number
@@ -18,7 +18,7 @@ export function GitHubConnectButton({ installationId, repo }: Props) {
   async function connect() {
     setLoading(true)
     try {
-      const user = await trpc.user.connectRepo.mutate({
+      const user = await api.user.connectRepo.mutate({
         userId: id,
         installationId,
         repo,

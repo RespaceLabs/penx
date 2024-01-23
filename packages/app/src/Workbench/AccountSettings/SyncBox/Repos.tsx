@@ -5,7 +5,7 @@ import { LockKeyhole } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import { Card, Spinner } from 'uikit'
 import { useSpaces } from '@penx/hooks'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 import { GitHubConnectButton } from './GitHubConnectButton'
 
 interface Props {
@@ -21,7 +21,7 @@ export function Repos({ installationId, q, token }: Props) {
     refetch,
     isFetching,
   } = useQuery(['searchRepo'], () =>
-    trpc.github.searchRepo.query({
+    api.github.searchRepo.query({
       q,
       installationId: Number(installationId),
       token,

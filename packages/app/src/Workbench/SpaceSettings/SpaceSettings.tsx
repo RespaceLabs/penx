@@ -5,6 +5,7 @@ import { DeleteSpaceModal } from '../DeleteSpaceModal'
 import { ExportToJSON } from '../ExportToJSON'
 import { EncryptionPassword } from './EncryptionPassword'
 import { SpaceName } from './SpaceName'
+import { SyncServerSelect } from './SyncServerSelect'
 
 export function SpaceSettings() {
   const { activeSpace } = useSpaces()
@@ -22,6 +23,8 @@ export function SpaceSettings() {
         </Box>
       </Box>
       <SpaceName />
+      <SyncServerSelect />
+
       {activeSpace.encrypted && <EncryptionPassword />}
       <ExportToJSON />
       <DeleteSpaceModal />

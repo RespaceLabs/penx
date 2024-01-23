@@ -8,7 +8,7 @@ import { db } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
 import { useSession } from '@penx/session'
 import { appLoadingAtom, spacesAtom, store, StoreProvider } from '@penx/store'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 import { CreateSpaceForm } from './Workbench/CreateSpaceModal/CreateSpaceForm'
 
 interface Props {
@@ -26,7 +26,7 @@ export const SpaceSyncManager = ({
   async function loadCloudSpaces(): Promise<ISpace[] | undefined> {
     try {
       setSyncing(true)
-      const remoteSpaces = await trpc.space.mySpaces.query()
+      const remoteSpaces = await api.space.mySpaces.query()
 
       // console.log('=======remoteSpaces:', remoteSpaces)
 

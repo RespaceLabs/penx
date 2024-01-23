@@ -1,9 +1,10 @@
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
+import { createTRPCReact } from '@trpc/react-query'
 import superjson from 'superjson'
 import type { AppRouter } from '@penx/api'
 import { BASE_URL } from '@penx/constants'
 
-export const trpc = createTRPCProxyClient<AppRouter>({
+export const api = createTRPCProxyClient<AppRouter>({
   transformer: superjson,
   links: [
     httpBatchLink({
@@ -11,3 +12,5 @@ export const trpc = createTRPCProxyClient<AppRouter>({
     }),
   ],
 })
+
+export const trpc = createTRPCReact<AppRouter>()

@@ -6,7 +6,7 @@ import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
 import { getNodeMap } from '@penx/sync'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 interface Props {
   userId: string
@@ -15,7 +15,7 @@ interface Props {
 type Space = RouterOutputs['space']['all'][0]
 
 export const QueryCloudSpaces = () => {
-  const { data } = useQuery(['spaces'], () => trpc.space.mySpaces.query())
+  const { data } = useQuery(['spaces'], () => api.space.mySpaces.query())
 
   const initSpaces = async (spaces: Space[]) => {
     for (const space of spaces) {
@@ -26,7 +26,7 @@ export const QueryCloudSpaces = () => {
 
       // only create nodes if the space is not encrypted
       if (!space.encrypted) {
-        const nodes = await trpc.node.listBySpaceId.query({ spaceId: space.id })
+        const nodes = await api.node.listBySpaceId.query({ spaceId: space.id })
 
         for (const item of nodes) {
           await db.createNode(item as any as INode)

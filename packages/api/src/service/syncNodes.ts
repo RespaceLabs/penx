@@ -1,6 +1,6 @@
 import Redis from 'ioredis'
 import { z } from 'zod'
-import { Node, prisma } from '@penx/db'
+import { Node, prisma, PublishedNode } from '@penx/db'
 import { INode, NodeType } from '@penx/model-types'
 
 const redis = new Redis(process.env.REDIS_URL!)

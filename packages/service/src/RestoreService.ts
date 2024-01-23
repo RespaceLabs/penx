@@ -5,7 +5,7 @@ import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 import { uniqueId } from '@penx/unique-id'
 
 export type TreeItem = {
@@ -95,7 +95,7 @@ export class RestoreService {
     s.commitHash = commitHash
     s.spaceId = arr[arr.length - 1]
 
-    const token = await trpc.github.getTokenByUserId.query({
+    const token = await api.github.getTokenByUserId.query({
       userId: user.id,
     })
 

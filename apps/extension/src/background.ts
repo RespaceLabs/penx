@@ -1,7 +1,7 @@
 import { Storage } from '@plasmohq/storage'
 
 import { db } from '@penx/local-db'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 import { BACKGROUND_EVENTS } from '~/common/action'
 import {
@@ -99,7 +99,7 @@ chrome.runtime.onMessage.addListener(
       }
       case BACKGROUND_EVENTS.INT_POPUP: {
         try {
-          const mySpaces = await trpc.space.mySpaces.query()
+          const mySpaces = await api.space.mySpaces.query()
           if (mySpaces?.length) {
             storage.set(spacesKey, mySpaces)
           }

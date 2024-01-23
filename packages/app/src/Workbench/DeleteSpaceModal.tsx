@@ -18,7 +18,7 @@ import { ModalNames } from '@penx/constants'
 import { useSpaces } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 const Footer = () => {
   const { close } = useModalContext<Node>()
@@ -30,7 +30,7 @@ const Footer = () => {
     if (!name) return
     setLoading(true)
     try {
-      await trpc.space.deleteById.mutate(activeSpace.id)
+      await api.space.deleteById.mutate(activeSpace.id)
       await store.space.deleteSpace(activeSpace.id)
       close()
     } catch (error) {

@@ -5,7 +5,7 @@ import { EditorMode, ISpace } from '@penx/model-types'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 import { submitToServer } from '@penx/sync'
-import { trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
 
 export type CreateSpaceValues = {
   name: string
@@ -43,7 +43,7 @@ export function useCreateSpaceForm() {
     })
 
     try {
-      const space = await trpc.space.create.mutate({
+      const space = await api.space.create.mutate({
         userId,
         spaceData: JSON.stringify(newSpace),
         encrypted: data.encrypted,
