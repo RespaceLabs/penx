@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { RouterOutputs } from '@penx/api'
-import { PENX_101, PENX_101_CLOUD_NAME } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
@@ -59,7 +58,8 @@ export const QueryCloudSpaces = () => {
       (space) => !spaces.map((i) => i.id).includes(space.id),
     )
 
-    initSpaces(newSpaces)
+    // TODO:
+    initSpaces(newSpaces as any)
   }, [data])
 
   return null
