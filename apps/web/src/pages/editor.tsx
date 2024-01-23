@@ -22,22 +22,3 @@ const PageEditor = () => {
 }
 
 export default PageEditor
-
-export const getServerSideProps: GetServerSideProps = async function (context) {
-  const session = await getServerSession(context.req, context.res, authOptions)
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {
-      session,
-    },
-  }
-}

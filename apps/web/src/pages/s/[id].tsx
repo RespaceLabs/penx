@@ -1,4 +1,3 @@
-import { FC, PropsWithChildren } from 'react'
 import { Box } from '@fower/react'
 import { GetServerSideProps } from 'next'
 import { PublishedTableView } from '@penx/database'
