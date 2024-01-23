@@ -31,7 +31,7 @@ export const Workbench = () => {
 
   return (
     <EditorProvider space={activeSpace}>
-      {/* {session && <QueryCloudSpaces />} */}
+      {session && <QueryCloudSpaces />}
 
       {!isMobile && <CommandPanel />}
       <Box h-100vh toLeft black flex-1>

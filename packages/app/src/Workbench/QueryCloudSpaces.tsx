@@ -1,49 +1,21 @@
 import { useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import { RouterOutputs } from '@penx/api'
 import { db } from '@penx/local-db'
-import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
-import { getNodeMap } from '@penx/sync'
-import { api } from '@penx/trpc-client'
+import { trpc } from '@penx/trpc-client'
 
-interface Props {
-  userId: string
-}
-
-type Space = RouterOutputs['space']['all'][0]
+type Space = RouterOutputs['space']['mySpaces'][0]
 
 export const QueryCloudSpaces = () => {
-  const { data } = useQuery(['spaces'], () => api.space.mySpaces.query())
+  const { data } = trpc.space.mySpaces.useQuery()
 
   const initSpaces = async (spaces: Space[]) => {
     for (const space of spaces) {
-      const newSpace = await db.createSpaceByRemote({
+      await db.createSpaceByRemote({
         ...space,
         isActive: false,
       } as any as ISpace)
-
-      // only create nodes if the space is not encrypted
-      if (!space.encrypted) {
-        const nodes = await api.node.listBySpaceId.query({ spaceId: space.id })
-
-        for (const item of nodes) {
-          await db.createNode(item as any as INode)
-        }
-
-        if (nodes.length) {
-          const newNodes = await db.listNodesBySpaceId(space.id)
-
-          // update nodeMap in snapshot
-          await db.updateSpace(space.id, {
-            nodeSnapshot: {
-              ...newSpace.nodeSnapshot,
-              nodeMap: getNodeMap(newNodes),
-            },
-          })
-        }
-      }
     }
 
     const newSpaces = await db.listSpaces()
@@ -58,7 +30,6 @@ export const QueryCloudSpaces = () => {
       (space) => !spaces.map((i) => i.id).includes(space.id),
     )
 
-    // TODO:
     initSpaces(newSpaces as any)
   }, [data])
 
