@@ -1,7 +1,7 @@
-import ky from 'ky'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
-import { INode, ISpace } from '@penx/model-types'
+import { ISpace } from '@penx/model-types'
+import { SyncServerClient } from '@penx/sync-server-client'
 
 export async function syncFromCloud(space: ISpace) {
   const { password } = space
@@ -14,14 +14,8 @@ export async function syncFromCloud(space: ISpace) {
 
   console.log('======localLastModifiedTime:', localLastModifiedTime)
 
-  const newRemoteNodes = await ky
-    .post(`${space.syncServerUrl}/get-pullable-nodes`, {
-      json: {
-        spaceId: space.id,
-        lastModifiedTime: localLastModifiedTime,
-      },
-    })
-    .json<INode[]>()
+  const client = new SyncServerClient(space)
+  const newRemoteNodes = await client.getPullableNodes(localLastModifiedTime)
 
   if (!newRemoteNodes.length) return
 

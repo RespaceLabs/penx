@@ -2,6 +2,7 @@ import ky from 'ky'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace, NodeType } from '@penx/model-types'
+import { SyncServerClient } from '@penx/sync-server-client'
 import { trpc } from '@penx/trpc-client'
 
 export async function syncToCloud(): Promise<boolean> {
@@ -56,31 +57,9 @@ export interface Options {
 }
 
 export async function submitToServer(space: ISpace, nodes: INode[]) {
-  const { password } = space
-  const encrypted = space.encrypted && password
-
-  // const time = await trpc.node.sync.mutate({
-  //   spaceId: space.id,
-  //   nodes: JSON.stringify(
-  //     encrypted
-  //       ? nodes.map((node) => new Node(node).toEncrypted(password))
-  //       : nodes,
-  //   ),
-  // })
-
   if (!space.syncServerUrl) return
-
-  const { time } = await ky
-    .post(`${space.syncServerUrl}/push-nodes`, {
-      json: {
-        userId: space.userId,
-        spaceId: space.id,
-        nodes: encrypted
-          ? nodes.map((node) => new Node(node).toEncrypted(password))
-          : nodes,
-      },
-    })
-    .json<{ time: string }>()
+  const client = new SyncServerClient(space)
+  const { time } = await client.pushNodes(nodes)
 
   console.log('time========:', time)
 

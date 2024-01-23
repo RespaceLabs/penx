@@ -28,20 +28,12 @@ export const SpaceSyncManager = ({
       setSyncing(true)
       const remoteSpaces = await trpc.space.mySpaces.query()
 
+      // console.log('=======remoteSpaces:', remoteSpaces)
+
       if (!remoteSpaces?.length) return
 
       for (const space of remoteSpaces) {
-        const { syncServer, createdAt, updatedAt, ...rest } = space
-
-        await db.createSpace(
-          {
-            ...(rest as any),
-            createdAt: new Date(createdAt),
-            updatedAt: new Date(updatedAt),
-            syncServerUrl: syncServer?.url,
-          },
-          false,
-        )
+        await db.createSpace(space as any, false)
       }
 
       const spaces = await db.listSpaces()

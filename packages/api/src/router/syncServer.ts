@@ -21,7 +21,7 @@ export const syncServerRouter = createTRPCRouter({
       })
     }),
 
-  jwtToken: protectedProcedure
+  accessToken: protectedProcedure
     .input(z.object({ spaceId: z.string() }))
     .query(async ({ ctx, input }) => {
       const space = await ctx.prisma.space.findFirstOrThrow({

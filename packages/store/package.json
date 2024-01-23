@@ -29,6 +29,7 @@
     "@penx/model-types": "workspace:*",
     "@penx/serializer": "workspace:*",
     "@penx/sync": "workspace:*",
+    "@penx/sync-server-client": "workspace:*",
     "date-fns": "^2.30.0",
     "idb-keyval": "^6.2.1",
     "jotai": "^2.6.0",

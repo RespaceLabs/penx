@@ -25,6 +25,7 @@
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/serializer": "workspace:*",
+    "@penx/sync-server-client": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "ky": "^1.1.3",
     "lodash": "^4.17.21",

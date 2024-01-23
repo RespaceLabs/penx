@@ -39,7 +39,7 @@ export interface ISpace {
   }
 
   syncServerUrl?: string
-  syncServerJwtToken?: string
+  syncServerAccessToken?: string
 
   /**
    * nodes last updated time

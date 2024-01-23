@@ -49,13 +49,10 @@ export function useCreateSpaceForm() {
         encrypted: data.encrypted,
       })
 
-      const syncServer = await trpc.syncServer.byId.query({
-        id: space.syncServerId!,
-      })
-
       await store.space.createSpace({
         ...newSpace,
-        syncServerUrl: syncServer.url!,
+        syncServerUrl: space.syncServerUrl as string,
+        syncServerAccessToken: space.syncServerAccessToken as string,
       })
 
       ctx?.close?.()

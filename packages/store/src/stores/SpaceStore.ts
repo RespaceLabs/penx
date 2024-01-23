@@ -2,6 +2,7 @@ import { atom } from 'jotai'
 import ky from 'ky'
 import { db } from '@penx/local-db'
 import { INode, ISpace } from '@penx/model-types'
+import { SyncServerClient } from '@penx/sync-server-client'
 import { StoreType } from '../store-types'
 
 export const spacesAtom = atom<ISpace[]>([])
@@ -76,17 +77,11 @@ export class SpaceStore {
     const space = await db.getActiveSpace()
 
     if (!nodes.length) {
-      const url = `${space.syncServerUrl}/get-all-nodes`
-      nodes = await ky
-        .post(url, { json: { spaceId: space.id } })
-        .json<INode[]>()
+      const client = new SyncServerClient(space)
+      nodes = await client.getAllNodes()
 
       for (const node of nodes) {
-        await db.createNode({
-          ...node,
-          createdAt: new Date(node.createdAt),
-          updatedAt: new Date(node.updatedAt),
-        })
+        await db.createNode(node)
       }
     }
 

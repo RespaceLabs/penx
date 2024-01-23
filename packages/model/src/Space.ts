@@ -31,6 +31,10 @@ export class Space {
     return this.raw.syncServerUrl || ''
   }
 
+  get syncServerAccessToken() {
+    return this.raw.syncServerAccessToken || ''
+  }
+
   get isActive() {
     return this.raw.isActive
   }

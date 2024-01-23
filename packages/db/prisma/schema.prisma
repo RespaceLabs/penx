@@ -118,7 +118,6 @@ model Space {
     color         String
     isActive      Boolean   @default(true)
     encrypted     Boolean   @default(false)
-    password      String?
     activeNodeIds Json?
     nodeSnapshot  Json?
     pageSnapshot  Json?

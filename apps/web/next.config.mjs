@@ -63,6 +63,7 @@ const config = {
     '@penx/editor-leaf',
     '@penx/trpc-client',
     '@penx/sync',
+    '@penx/sync-server-client',
     '@penx/unique-id',
     '@penx/extension-list',
     '@penx/worker',
