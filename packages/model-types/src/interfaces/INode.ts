@@ -134,15 +134,17 @@ export interface IRowNode extends INode {
   }
 }
 
+export interface ICellNodePopps {
+  columnId: string
+  rowId: string
+  ref: string // ref to a node id
+  data: any
+}
+
 export interface ICellNode extends INode {
   parentId: string // should be database id
   type: NodeType.CELL
-  props: {
-    columnId: string
-    rowId: string
-    ref: string // ref to a node id
-    data: any
-  }
+  props: ICellNodePopps
 }
 
 export function isCellNode(node: any): node is ICellNode {

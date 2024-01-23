@@ -1,5 +1,4 @@
-import isEqual from 'react-fast-compare'
-import { Box, css, FowerHTMLProps } from '@fower/react'
+import { Box } from '@fower/react'
 import {
   CustomCell,
   CustomRenderer,
@@ -22,40 +21,53 @@ interface NoteCellProps {
 
 export type NoteCell = CustomCell<NoteCellProps>
 
+const getTextFromChildren = (children: any[], renderTag: boolean) => {
+  if (!renderTag) {
+    const notRenderTagChildren = children.filter(
+      (item: any) => item?.type !== 'tag',
+    ) as { text: string; type?: string }[]
+    return notRenderTagChildren.map((item) => item.text).join('')
+  }
+
+  return children.reduce((acc: string, child: any) => {
+    if (child?.type === 'tag') {
+      return acc + ('#' + child?.name || '')
+    }
+    return acc + Node.string(child)
+  }, '')
+}
+
+export const generateNoteCellText = (ref: string, renderTag = true): string => {
+  const node = store.node.getNode(ref)
+
+  if (!node?.element) {
+    return 'EMPTY'
+  }
+
+  const elements = Array.isArray(node.element) ? node.element : [node.element]
+
+  const text = elements
+    .map((element: any) => {
+      if (Array.isArray(element.children)) {
+        return getTextFromChildren(element.children, renderTag)
+      } else {
+        return Node.string(element)
+      }
+    })
+    .join('')
+
+  return text
+}
+
 export const noteCellRenderer: CustomRenderer<NoteCell> = {
   kind: GridCellKind.Custom,
   isMatch: (c): c is NoteCell => (c.data as any).kind === 'note-cell',
   draw: (args, cell) => {
-    const { ctx, theme, rect } = args
-
     const cellNode = cell.data.data
     const { ref } = cellNode.props
-    const node = store.node.getNode(ref)
+    const text = generateNoteCellText(ref)
+    drawTextCell(args, text)
 
-    if (!node?.element) {
-      drawTextCell(args, 'EMPTY')
-      return true
-    }
-
-    const elements = Array.isArray(node.element) ? node.element : [node.element]
-
-    const str = elements
-      .map((n: any) => {
-        if (Array.isArray(n.children)) {
-          return n.children.reduce((acc: string, n: any) => {
-            if (n?.type === 'tag') {
-              return acc + ('#' + n?.name || '')
-            }
-            return acc + Node.string(n)
-          }, '')
-        } else {
-          return Node.string(n)
-        }
-      })
-      .join('')
-    // console.log('node=======:', node.element, 'str==:', str)
-
-    drawTextCell(args, str)
     return true
   },
   provideEditor: () => ({

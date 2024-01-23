@@ -3,29 +3,25 @@ import { Check, ChevronDown } from 'lucide-react'
 import { Menu, MenuItem, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { Filter, IColumnNode } from '@penx/model-types'
 import { mappedByKey } from '@penx/shared'
-import { useDatabaseContext } from '../../DatabaseContext'
 import { FieldIcon } from '../../shared/FieldIcon'
 
 interface FieldSelectProps {
   filter: Filter
-  index: number // filter index
+  columns: IColumnNode[]
+  sortedColumns: IColumnNode[]
+  updateFilter: (
+    columnId: string,
+    newColumnId: string,
+    props?: Partial<Filter>,
+  ) => void
 }
-export function FieldSelect({ filter, index }: FieldSelectProps) {
-  const { currentView, columns } = useDatabaseContext()
-
-  const sortedColumns = currentView.props.viewColumns
-    .map((o) => columns.find((c) => c.id === o.columnId)!)
-    .filter((i) => {
-      const { filters = [] } = currentView.props
-      const find = filters.find((item) => item.columnId === i.id)
-      return !find
-    })
-
+export function FieldSelect({
+  sortedColumns,
+  filter,
+  columns,
+  updateFilter,
+}: FieldSelectProps) {
   const column = mappedByKey(columns)[filter.columnId]
-
-  function onSelectField(column: IColumnNode) {
-    console.log('select filter', column)
-  }
 
   return (
     <Popover>
@@ -65,7 +61,7 @@ export function FieldSelect({ filter, index }: FieldSelectProps) {
                 toBetween
                 toCenterY
                 onClick={() => {
-                  onSelectField(item)
+                  updateFilter(filter.columnId, item.id)
                   close()
                 }}
               >

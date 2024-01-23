@@ -43,23 +43,14 @@ export function DashboardTable({ spaceNodes }: IDashboardTable) {
         const colData = columns[col]
         const target = rowData[colData.id as keyof INode]
 
-        if (Array.isArray(target)) {
+        if (typeof target === 'object') {
           const data = JSON.stringify(target)
           return {
             kind: GridCellKind.Text,
             allowOverlay: true,
             readonly: false,
             displayData: data,
-            data: data,
-          }
-        } else if (typeof target === 'object') {
-          const data = JSON.stringify(target)
-          return {
-            kind: GridCellKind.Text,
-            allowOverlay: true,
-            readonly: false,
-            displayData: data,
-            data: data,
+            data,
           }
         } else {
           return {

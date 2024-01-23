@@ -73,6 +73,14 @@ export interface IDatabaseContext {
     props: Partial<Filter>,
   ): Promise<void>
   deleteFilter(viewId: string, columnId: string): Promise<void>
+  appleyFilter(viewId: string, filters: Filter[]): Promise<void>
+
+  updateFilter(
+    viewId: string,
+    columnId: string,
+    newColumnId: string,
+    props?: Partial<Filter>,
+  ): Promise<void>
 
   updateColumnName(columnId: string, name: string): Promise<void>
   addOption(columnId: string, name: string): Promise<IOptionNode>
@@ -222,6 +230,21 @@ export const DatabaseProvider = ({
     reloadNodes()
   }
 
+  async function appleyFilter(viewId: string, filters: Filter[]) {
+    await db.appleyFilter(viewId, filters)
+    reloadNodes()
+  }
+
+  async function updateFilter(
+    viewId: string,
+    columnId: string,
+    newColumnId: string,
+    props?: Partial<Filter>,
+  ) {
+    await db.updateFilter(viewId, columnId, newColumnId, props)
+    reloadNodes()
+  }
+
   const currentView = useMemo(() => {
     return database.views.find((view) => view.id === activeViewId)!
   }, [database, activeViewId])
@@ -270,6 +293,8 @@ export const DatabaseProvider = ({
 
         addFilter,
         deleteFilter,
+        appleyFilter,
+        updateFilter,
       }}
     >
       {children}

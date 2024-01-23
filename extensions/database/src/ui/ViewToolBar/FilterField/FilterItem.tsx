@@ -1,28 +1,43 @@
+import { ChangeEvent } from 'react'
 import { Box } from '@fower/react'
 import { CloseButton, Input } from 'uikit'
-import { Filter } from '@penx/model-types'
-import { useDatabaseContext } from '../../DatabaseContext'
+import { Filter, IColumnNode, IViewNode } from '@penx/model-types'
 import { FieldSelect } from './FieldSelect'
 import { OperatorSelect } from './OperatorSelect'
 
 interface Props {
-  index: number
   filter: Filter
+  columns: IColumnNode[]
+  sortedColumns: IColumnNode[]
+  deleteFilter: (columnId: string) => void
+  updateFilter: (columnId: string, newColumnId: string) => void
+  onChangeValue: (val: ChangeEvent<HTMLInputElement>, columnId: string) => void
 }
 
-export const FilterItem = ({ index, filter }: Props) => {
-  const { deleteFilter, currentView } = useDatabaseContext()
-
-  async function removeFilter() {
-    deleteFilter(currentView.id, filter.columnId)
-  }
-
+export const FilterItem = ({
+  filter,
+  deleteFilter,
+  updateFilter,
+  onChangeValue,
+  columns,
+  sortedColumns,
+}: Props) => {
   return (
     <Box toCenterY toBetween gap2>
-      <FieldSelect index={index} filter={filter}></FieldSelect>
-      <OperatorSelect index={index} filter={filter}></OperatorSelect>
-      <Input size="sm" flex-1 />
-      <CloseButton size={20} onClick={() => removeFilter()}></CloseButton>
+      <FieldSelect
+        filter={filter}
+        columns={columns}
+        updateFilter={updateFilter}
+        sortedColumns={sortedColumns}
+      />
+      <OperatorSelect filter={filter} updateFilter={updateFilter} />
+      <Input
+        size="sm"
+        flex-1
+        value={filter?.value}
+        onChange={(e) => onChangeValue(e, filter.columnId)}
+      />
+      <CloseButton size={20} onClick={() => deleteFilter(filter.columnId)} />
     </Box>
   )
 }

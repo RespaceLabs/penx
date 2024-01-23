@@ -1199,12 +1199,47 @@ class DB {
     })
   }
 
+  updateFilter = async (
+    viewId: string,
+    columnId: string,
+    newColumnId: string,
+    props?: Partial<Filter>,
+  ) => {
+    const view = await this.getNode<IViewNode>(viewId)
+    const filters = view.props.filters
+    const filterIndex = filters.findIndex((item) => item.columnId === columnId)
+    if (filterIndex >= 0) {
+      filters[filterIndex] = {
+        ...filters[filterIndex],
+        columnId: newColumnId,
+        ...props,
+      } as Filter
+    }
+
+    await this.updateNode<IViewNode>(viewId, {
+      props: {
+        ...view.props,
+        filters,
+      },
+    })
+  }
+
   deleteFilter = async (viewId: string, columnId: string) => {
     const view = await this.getNode<IViewNode>(viewId)
     await this.updateNode<IViewNode>(viewId, {
       props: {
         ...view.props,
         filters: view.props.filters?.filter((s) => s.columnId !== columnId),
+      },
+    })
+  }
+
+  appleyFilter = async (viewId: string, filters: Filter[]) => {
+    const view = await this.getNode<IViewNode>(viewId)
+    await this.updateNode<IViewNode>(viewId, {
+      props: {
+        ...view.props,
+        filters,
       },
     })
   }
