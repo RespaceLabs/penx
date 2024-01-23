@@ -27,6 +27,7 @@ export const spaceRouter = createTRPCRouter({
         createdAt: true,
         updatedAt: true,
         userId: true,
+        syncServerId: true,
         syncServer: {
           select: {
             url: true,
@@ -94,10 +95,11 @@ export const spaceRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        name: z.string().min(1).optional(),
-        subdomain: z.string().min(1).optional(),
-        description: z.string().min(1).optional(),
-        catalogue: z.string().min(1).optional(),
+        syncServerId: z.string().optional(),
+        name: z.string().optional(),
+        subdomain: z.string().optional(),
+        description: z.string().optional(),
+        catalogue: z.string().optional(),
       }),
     )
     .mutation(({ ctx, input }) => {

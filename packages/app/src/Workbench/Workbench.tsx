@@ -20,6 +20,7 @@ import { SpaceSettings } from './SpaceSettings/SpaceSettings'
 export const Workbench = () => {
   const { activeSpace } = useSpaces()
   const { name } = useAtomValue(routerAtom)
+  const { data: session } = useSession()
 
   const SIDEBAR_WIDTH = 260
   // const SIDEBAR_WIDTH = 600

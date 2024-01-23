@@ -29,7 +29,12 @@ export const SyncServerSelect = () => {
     const syncServer = data.find((item) => item.id === serverId)!
     try {
       const accessToken = await api.syncServer.accessToken.query({
-        spaceId: activeSpace.id,
+        syncServerId: syncServer.id,
+      })
+
+      await api.space.update.mutate({
+        id: activeSpace.id,
+        syncServerId: syncServer.id,
       })
 
       await db.updateSpace(activeSpace.id, {

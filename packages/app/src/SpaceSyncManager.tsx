@@ -28,7 +28,7 @@ export const SpaceSyncManager = ({
       setSyncing(true)
       const remoteSpaces = await api.space.mySpaces.query()
 
-      // console.log('=======remoteSpaces:', remoteSpaces)
+      console.log('=======remoteSpaces:', remoteSpaces)
 
       if (!remoteSpaces?.length) return
 

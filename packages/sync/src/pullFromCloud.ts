@@ -17,6 +17,8 @@ export async function syncFromCloud(space: ISpace) {
   const client = new SyncServerClient(space)
   const newRemoteNodes = await client.getPullableNodes(localLastModifiedTime)
 
+  // console.log('=========newRemoteNodes:', newRemoteNodes)
+
   if (!newRemoteNodes.length) return
 
   const encrypted = space.encrypted && space.password

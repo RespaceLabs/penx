@@ -44,6 +44,7 @@ export const syncServerRouter = createTRPCRouter({
         name: true,
         url: true,
         description: true,
+        token: true,
         region: true,
         type: true,
       },
@@ -63,18 +64,18 @@ export const syncServerRouter = createTRPCRouter({
     }),
 
   accessToken: protectedProcedure
-    .input(z.object({ spaceId: z.string() }))
+    .input(
+      z.object({
+        syncServerId: z.string(),
+      }),
+    )
     .query(async ({ ctx, input }) => {
-      const space = await ctx.prisma.space.findFirstOrThrow({
-        where: { id: input.spaceId },
-        select: {
-          id: true,
-          syncServer: { select: { token: true } },
-        },
+      const syncServer = await ctx.prisma.syncServer.findFirstOrThrow({
+        where: { id: input.syncServerId },
       })
 
       // TODO: handle expiresIn
-      return jwt.sign({ sub: ctx.token.uid }, space.syncServer?.token!)
+      return jwt.sign({ sub: ctx.token.uid }, syncServer.token!)
 
       // return jwt.sign({ sub: ctx.token.uid }, process.env.NEXTAUTH_SECRET!, {
       //   expiresIn: '30 days',

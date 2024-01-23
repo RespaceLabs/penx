@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useModalContext } from 'uikit'
 import type { RouterOutputs } from '@penx/api'
 import { SyncServerType } from '@penx/constants'
-import { api } from '@penx/trpc-client'
+import { api, trpc } from '@penx/trpc-client'
 
 type SyncServer = RouterOutputs['syncServer']['all']['0']
 
@@ -19,6 +19,7 @@ export type CreateSpaceValues = {
 }
 
 export function useSyncServerForm() {
+  const { refetch } = trpc.syncServer.mySyncServers.useQuery()
   const { data, setData, close } = useModalContext<SyncServerModalData>()
   const form = useForm<CreateSpaceValues>({
     defaultValues: {
@@ -40,6 +41,7 @@ export function useSyncServerForm() {
       } else {
         await api.syncServer.create.mutate(values)
       }
+      refetch()
 
       close?.()
     } catch (error) {
