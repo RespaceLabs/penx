@@ -67,7 +67,6 @@
     "react-laag": "^2.0.5",
     "react-responsive-carousel": "^3.2.23",
     "react-textarea-autosize": "^8.5.3",
-    "simplebar-react": "^3.2.4",
     "slate": "0.101.5",
     "slate-history": "0.100.0",
     "@penx/slate-lists": "workspace:*",

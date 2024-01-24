@@ -126,7 +126,6 @@
     "react-qr-code": "^2.0.12",
     "remark-parse": "^11.0.0",
     "remark-slate": "^1.8.6",
-    "simplebar-react": "^3.2.4",
     "slate": "0.101.5",
     "slate-history": "0.100.0",
     "slate-hyperscript": "0.100.0",
