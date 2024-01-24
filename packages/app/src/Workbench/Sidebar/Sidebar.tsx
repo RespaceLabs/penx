@@ -4,6 +4,7 @@ import {
   CalendarDays,
   Cloud,
   CloudOff,
+  Database,
   Fan,
   Folder,
   Hash,
@@ -78,8 +79,8 @@ export const Sidebar = () => {
             /> */}
 
             <SidebarItem
-              icon={<Hash size={16} />}
-              label="Meta tags"
+              icon={<Database size={16} />}
+              label="Databases"
               onClick={() => {
                 store.node.selectTagBox()
               }}

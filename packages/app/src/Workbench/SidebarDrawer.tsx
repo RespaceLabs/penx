@@ -1,5 +1,13 @@
 import { Box, styled } from '@fower/react'
-import { CalendarDays, Cloud, Folder, Hash, Inbox, Menu } from 'lucide-react'
+import {
+  CalendarDays,
+  Cloud,
+  Database,
+  Folder,
+  Hash,
+  Inbox,
+  Menu,
+} from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
 import { useNodes, useSidebarDrawer } from '@penx/hooks'
@@ -63,8 +71,8 @@ export const DrawerSidebar = () => {
               />
 
               <SidebarItem
-                icon={<Hash size={16} />}
-                label="Meta tags"
+                icon={<Database size={16} />}
+                label="Databases"
                 onClick={() => {
                   store.node.selectTagBox()
                   close()
