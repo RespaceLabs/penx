@@ -22,7 +22,15 @@ export async function syncToCloud(): Promise<boolean> {
     return true
   } else {
     console.log('sync diff to cloud..........')
-    return await pushByDiff(space, nodesLastUpdatedAt)
+    try {
+      return await pushByDiff(space, nodesLastUpdatedAt)
+    } catch (error: any) {
+      if (error.message === 'NODES_BROKEN') {
+        await pushAllNodes(space)
+        return true
+      }
+      return false
+    }
   }
 }
 

@@ -33,39 +33,39 @@ async function isAgentAlive() {
 
 export async function runAgentSSE() {
   const isAlive = await isAgentAlive()
-  if (isAlive) {
-    const eventSource = new EventSource(sseURL)
-    // console.info('Listening on SEE', eventSource)
-    eventSource.onmessage = async (ev) => {
-      const event: Event = JSON.parse(ev.data)
-      // console.log('===event:', event)
+  if (!isAlive) return
 
-      if (event.eventType === EventType.ADD_NODES) {
-        const space = await db.getActiveSpace()
-        const isOutliner = space?.editorMode === EditorMode.OUTLINER
+  const eventSource = new EventSource(sseURL)
+  // console.info('Listening on SEE', eventSource)
+  eventSource.onmessage = async (ev) => {
+    const event: Event = JSON.parse(ev.data)
+    // console.log('===event:', event)
 
-        const newNodes = event.data.map((item: any) => {
-          const node = JSON.parse(item.nodeData) as INode
+    if (event.eventType === EventType.ADD_NODES) {
+      const space = await db.getActiveSpace()
+      const isOutliner = space?.editorMode === EditorMode.OUTLINER
 
-          return {
-            ...node,
-            spaceId: space.id,
-            children: isOutliner ? node.children : [],
-            parentId: isOutliner ? node.parentId : undefined,
-            openedAt: new Date(node.openedAt),
-            createdAt: new Date(node.createdAt),
-            updatedAt: new Date(node.updatedAt),
-          } as INode
-        })
+      const newNodes = event.data.map((item: any) => {
+        const node = JSON.parse(item.nodeData) as INode
 
-        console.log('=====newNodes:', newNodes)
+        return {
+          ...node,
+          spaceId: space.id,
+          children: isOutliner ? node.children : [],
+          parentId: isOutliner ? node.parentId : undefined,
+          openedAt: new Date(node.openedAt),
+          createdAt: new Date(node.createdAt),
+          updatedAt: new Date(node.updatedAt),
+        } as INode
+      })
 
-        await db.addNodesToToday(space.id, newNodes)
+      console.log('=====newNodes:', newNodes)
 
-        postMessage(WorkerEvents.ADD_TEXT_SUCCEEDED)
+      await db.addNodesToToday(space.id, newNodes)
 
-        await ky.get(addNodesSuccessfullyURL).json()
-      }
+      postMessage(WorkerEvents.ADD_TEXT_SUCCEEDED)
+
+      await ky.get(addNodesSuccessfullyURL).json()
     }
   }
 }
