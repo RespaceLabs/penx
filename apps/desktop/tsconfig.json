@@ -13,7 +13,7 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "~/*": ["src/*"]
     },
     "forceConsistentCasingInFileNames": true
   },

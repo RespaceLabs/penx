@@ -13,10 +13,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fower/react": "^2.0.0",
+    "@penx/app": "workspace:*",
+    "@penx/icons": "workspace:*",
     "@tauri-apps/api": "^1.5.3",
     "next": "13.3.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "uikit": "workspace:*"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.5.9",

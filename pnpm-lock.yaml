@@ -126,6 +126,15 @@ importers:
 
   apps/desktop:
     dependencies:
+      '@fower/react':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@penx/app':
+        specifier: workspace:*
+        version: link:../../packages/app
+      '@penx/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
       '@tauri-apps/api':
         specifier: ^1.5.3
         version: 1.5.3
@@ -138,6 +147,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      uikit:
+        specifier: workspace:*
+        version: link:../../packages/uikit
     devDependencies:
       '@tauri-apps/cli':
         specifier: ^1.5.9
@@ -2579,15 +2591,6 @@ importers:
       '@microsoft/fetch-event-source':
         specifier: ^2.0.1
         version: 2.0.1
-      '@octokit/auth-app':
-        specifier: ^6.0.1
-        version: 6.0.1
-      '@octokit/oauth-app':
-        specifier: ^6.0.0
-        version: 6.0.0
-      '@octokit/rest':
-        specifier: ^20.0.2
-        version: 20.0.2
       '@penx/api':
         specifier: workspace:*
         version: link:../api
