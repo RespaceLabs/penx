@@ -20,8 +20,8 @@ export class TableSearch {
     this.initialize(dataSource)
   }
 
-  public static initTableSearch(dataSource: INode[]) {
-    if (!this.instance) {
+  public static initTableSearch(dataSource: INode[], isRebuild = false) {
+    if (isRebuild || !this.instance) {
       this.instance = new TableSearch(dataSource)
     }
 

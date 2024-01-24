@@ -22,7 +22,7 @@ interface Props {
 }
 
 export const TableView = ({ element }: Props) => {
-  const { database, rows, sortedColumns } = useDatabaseContext()
+  const { database, sortedColumns } = useDatabaseContext()
 
   const isDatabaseContainer = element.type === ELEMENT_DATABASE_CONTAINER
   const isTagDataSource = database.props.dataSource === DataSource.TAG
@@ -30,6 +30,7 @@ export const TableView = ({ element }: Props) => {
   const {
     rowsNum,
     cols,
+    filterRows,
     getContent,
     setCellValue,
     onColumnResize,
@@ -89,8 +90,7 @@ export const TableView = ({ element }: Props) => {
           isTagDataSource
             ? undefined
             : (cell, e) => {
-                // console.log('cell:', cell, e)
-                setCellMenu({ row: rows[cell[1]], bounds: e.bounds })
+                setCellMenu({ row: filterRows[cell[1]], bounds: e.bounds })
                 e.preventDefault()
               }
         }
