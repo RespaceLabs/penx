@@ -2,6 +2,13 @@ import ky from 'ky'
 import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
 
+type Response<T> = {
+  success: boolean
+  data: T
+  errorCode: string
+  errorMessage: string
+}
+
 export class SyncServerClient {
   constructor(private space: ISpace) {}
 
@@ -55,7 +62,7 @@ export class SyncServerClient {
     const { password } = space
     const encrypted = space.encrypted && password
     const url = `${this.baseURL}/push-nodes`
-    return await ky
+    const res = await ky
       .post(url, {
         json: {
           token: this.token,
@@ -65,6 +72,17 @@ export class SyncServerClient {
             : nodes,
         },
       })
-      .json<{ time: string }>()
+      .json<Response<string>>()
+
+    if (res.success)
+      return {
+        time: res.data,
+      }
+
+    if (res.errorCode === 'NODES_BROKEN') {
+      throw new Error(res.errorCode)
+    }
+
+    throw new Error('UNKNOWN_ERROR')
   }
 }
