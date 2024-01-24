@@ -17,7 +17,7 @@ self.addEventListener('message', async (event) => {
     // startPollingPull()
     // pollingPushToGithub()
 
-    runAgentSSE()
+    // runAgentSSE()
 
     clearNodes()
     // syncPenx101()
