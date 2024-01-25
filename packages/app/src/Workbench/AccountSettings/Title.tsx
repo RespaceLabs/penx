@@ -9,7 +9,7 @@ type Props = {
 export const Title = ({ text, icon: Icon }: Props) => {
   return (
     <Box toCenterY fontBold mt8 mb3 gap3>
-      {Icon && <Icon square4 />}
+      {Icon && <Icon />}
       <Box>{text}</Box>
     </Box>
   )
