@@ -280,10 +280,10 @@ export const DatabaseProvider = ({
       })
     })
 
-    TableSearch.initTableSearch(dataSource, true)
+    TableSearch.initTableSearch(dataSource, databaseId, true)
   }, [database, databaseId])
 
-  const generateFilter = (): IFilterResult => {
+  const generateFilter = (databaseId: string): IFilterResult => {
     let dataSource: INode[] = []
     const { rows, columns, cells } = database
     const { filters = [] } = currentView.props
@@ -308,10 +308,10 @@ export const DatabaseProvider = ({
       return { cellNodesMapList: initializedData, filterRows: rows }
     }
 
-    const tableSearch = TableSearch.initTableSearch(dataSource)
+    const tableSearch = TableSearch.initTableSearch(dataSource, databaseId)
     const filterRows: IRowNode[] = []
 
-    const { rowKeys } = tableSearch.search(filters)
+    const { rowKeys } = tableSearch.search(filters, databaseId)
     const cellNodesMapList = rows.reduce(
       (acc: Record<string, ICellNode>[], row) => {
         if (rowKeys.includes(row.id)) {
@@ -344,7 +344,7 @@ export const DatabaseProvider = ({
     <Provider
       value={{
         ...database,
-        filterResult: generateFilter(),
+        filterResult: generateFilter(databaseId),
         updateRowsIndexes,
         currentView,
         sortedColumns,
