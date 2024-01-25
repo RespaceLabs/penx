@@ -132,9 +132,18 @@ importers:
       '@penx/app':
         specifier: workspace:*
         version: link:../../packages/app
+      '@penx/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons
+      '@penx/store':
+        specifier: workspace:*
+        version: link:../../packages/store
+      '@penx/trpc-client':
+        specifier: workspace:*
+        version: link:../../packages/trpc-client
       '@tauri-apps/api':
         specifier: ^1.5.3
         version: 1.5.3
@@ -786,6 +795,9 @@ importers:
       next-pwa:
         specifier: ^5.6.0
         version: 5.6.0(@babel/core@7.23.5)(next@13.3.1)(webpack@5.89.0)
+      nextjs-cors:
+        specifier: ^2.2.0
+        version: 2.2.0(next@13.3.1)
       nextjs-google-analytics:
         specifier: ^2.3.3
         version: 2.3.3(next@13.3.1)(react@18.2.0)
@@ -21734,6 +21746,15 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
+    dev: false
+
+  /nextjs-cors@2.2.0(next@13.3.1):
+    resolution: {integrity: sha512-FZu/A+L59J4POJNqwXYyCPDvsLDeu5HjSBvytzS6lsrJeDz5cmnH45zV+VoNic0hjaeER9xGaiIjZIWzEHnxQg==}
+    peerDependencies:
+      next: ^8.1.1-canary.54 || ^9.0.0 || ^10.0.0-0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
+    dependencies:
+      cors: 2.8.5
+      next: 13.3.1(@babel/core@7.23.5)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
     dev: false
 
   /nextjs-google-analytics@2.3.3(next@13.3.1)(react@18.2.0):

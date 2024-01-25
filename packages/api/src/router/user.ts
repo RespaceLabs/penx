@@ -1,4 +1,5 @@
 import { TRPCError } from '@trpc/server'
+import jwt from 'jsonwebtoken'
 import { z } from 'zod'
 import { GithubInfo } from '@penx/model'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
@@ -79,7 +80,7 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
-  create: publicProcedure
+  create: protectedProcedure
     .input(
       z.object({
         address: z.string(),
@@ -92,6 +93,40 @@ export const userRouter = createTRPCRouter({
         user = await ctx.prisma.user.create({ data: { address } })
       }
       return user
+    }),
+
+  loginByPersonalToken: publicProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      console.log('==========input===:', input)
+
+      const token = await ctx.prisma.personalToken.findUnique({
+        where: { value: input },
+      })
+      if (!token) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Invalid personal token',
+        })
+      }
+
+      const user = await ctx.prisma.user.findUniqueOrThrow({
+        where: { id: token.userId },
+        select: {
+          id: true,
+          address: true,
+          name: true,
+          avatar: true,
+          image: true,
+        },
+      })
+
+      return {
+        token: jwt.sign({ sub: user.id }, process.env.NEXTAUTH_SECRET!, {
+          expiresIn: '365d',
+        }),
+        user,
+      }
     }),
 
   update: protectedProcedure
