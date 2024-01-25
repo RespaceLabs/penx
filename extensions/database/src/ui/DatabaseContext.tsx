@@ -3,6 +3,7 @@ import {
   Dispatch,
   PropsWithChildren,
   SetStateAction,
+  useCallback,
   useContext,
   useMemo,
   useState,
@@ -16,6 +17,7 @@ import {
   ICellNode,
   IColumnNode,
   IDatabaseNode,
+  IFilterResult,
   INode,
   IOptionNode,
   IRowNode,
@@ -25,6 +27,7 @@ import {
   ViewType,
 } from '@penx/model-types'
 import { store } from '@penx/store'
+import { TableSearch } from './views/TableView/TableSearch'
 
 export interface IDatabaseContext {
   database: IDatabaseNode
@@ -34,8 +37,10 @@ export interface IDatabaseContext {
   rows: IRowNode[]
   cells: ICellNode[]
   options: IOptionNode[]
-
   currentView: IViewNode
+
+  filterResult: IFilterResult
+  updateRowsIndexes: () => void
 
   activeViewId: string
   setActiveViewId: Dispatch<SetStateAction<string>>
@@ -259,10 +264,88 @@ export const DatabaseProvider = ({
       .filter((col) => !!col)
   }, [currentView, database.columns])
 
+  const updateRowsIndexes = useCallback(() => {
+    const { rows, columns } = database
+    const dataSource: INode[] = []
+    const cells = store.node.getCells(databaseId)
+
+    rows.forEach((row) => {
+      columns.forEach((col) => {
+        const cell = cells.find(
+          (c) => c.props.columnId === col.id && c.props.rowId === row.id,
+        )
+        if (cell) {
+          dataSource.push(cell)
+        }
+      })
+    })
+
+    TableSearch.initTableSearch(dataSource, databaseId, true)
+  }, [database, databaseId])
+
+  const generateFilter = (databaseId: string): IFilterResult => {
+    let dataSource: INode[] = []
+    const { rows, columns, cells } = database
+    const { filters = [] } = currentView.props
+
+    const initializedData = rows.map((row) => {
+      return columns.reduce(
+        (acc, col) => {
+          // need to improvement performance
+          const cell = cells.find(
+            (c) => c.props.columnId === col.id && c.props.rowId === row.id,
+          )!
+
+          dataSource.push(cell)
+
+          return { ...acc, [col.id]: cell }
+        },
+        {} as Record<string, ICellNode>,
+      )
+    })
+
+    if (!filters.length) {
+      return { cellNodesMapList: initializedData, filterRows: rows }
+    }
+
+    const tableSearch = TableSearch.initTableSearch(dataSource, databaseId)
+    const filterRows: IRowNode[] = []
+
+    const { rowKeys } = tableSearch.search(filters, databaseId)
+    const cellNodesMapList = rows.reduce(
+      (acc: Record<string, ICellNode>[], row) => {
+        if (rowKeys.includes(row.id)) {
+          filterRows.push(row)
+
+          const rowData = columns.reduce(
+            (rowData, col) => {
+              const cell = cells.find(
+                (c) => c.props.columnId === col.id && c.props.rowId === row.id,
+              )!
+
+              rowData[col.id] = cell
+              return rowData
+            },
+            {} as Record<string, ICellNode>,
+          )
+
+          acc.push(rowData)
+        }
+
+        return acc
+      },
+      [],
+    )
+
+    return { cellNodesMapList, filterRows }
+  }
+
   return (
     <Provider
       value={{
         ...database,
+        filterResult: generateFilter(databaseId),
+        updateRowsIndexes,
         currentView,
         sortedColumns,
 

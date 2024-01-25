@@ -14,10 +14,7 @@ import { db } from '@penx/local-db'
 import {
   DataSource,
   FieldType,
-  ICellNode,
   IColumnNode,
-  INode,
-  IOptionNode,
   ViewColumn,
 } from '@penx/model-types'
 import { mappedByKey } from '@penx/shared'
@@ -30,7 +27,6 @@ import { PasswordCell } from '../cells/password-cell'
 import { RateCell } from '../cells/rate-cell'
 import { SingleSelectCell } from '../cells/single-select-cell'
 import { SystemDateCell } from '../cells/system-date-cell'
-import { TableSearch } from '../TableSearch'
 
 function getCols(columns: IColumnNode[], viewColumns: ViewColumn[]) {
   const sortedColumns = viewColumns
@@ -70,86 +66,32 @@ export function useTableView() {
     database,
     columns,
     rows,
+    filterResult: { filterRows = [], cellNodesMapList = [] },
     cells,
     currentView,
     sortedColumns,
     deleteColumn,
     options,
     addRow,
+    updateRowsIndexes,
   } = useDatabaseContext()
 
   const isTagDataSource = database.props.dataSource === DataSource.TAG
 
   const columnsMap = mappedByKey(columns, 'id')
-  let { viewColumns = [], filters = [] } = currentView.props
+  let { viewColumns = [] } = currentView.props
   const [cols, setCols] = useState(getCols(columns, viewColumns))
-  const [rowsNum, setRowsNum] = useState(rows.length)
-
-  const [tableQuery, setTableQuery] = useState<any>('')
 
   const indexes = useMemo(() => {
     return viewColumns.map((c) => c.columnId)
   }, [viewColumns])
 
-  const data = useMemo(() => {
-    let dataSource: INode[] = []
-    const initializedData = rows.map((row, i) => {
-      return columns.reduce(
-        (acc, col) => {
-          // need to improvement performance
-          const cell = cells.find(
-            (c) => c.props.columnId === col.id && c.props.rowId === row.id,
-          )!
-
-          dataSource.push(cell)
-
-          return { ...acc, [col.id]: cell }
-        },
-        {} as Record<string, ICellNode>,
-      )
-    })
-
-    if (!filters.length) {
-      return initializedData
-    }
-
-    const tableSearch = TableSearch.initTableSearch(dataSource)
-
-    const { rowKeys } = tableSearch.search(filters)
-    const filterData = rows.reduce((acc: Record<string, ICellNode>[], row) => {
-      if (rowKeys.includes(row.id)) {
-        const rowData = columns.reduce(
-          (rowData, col) => {
-            const cell = cells.find(
-              (c) => c.props.columnId === col.id && c.props.rowId === row.id,
-            )!
-
-            rowData[col.id] = cell
-            return rowData
-          },
-          {} as Record<string, ICellNode>,
-        )
-
-        acc.push(rowData)
-      }
-
-      return acc
-    }, [])
-
-    setRowsNum(filterData.length)
-
-    return filterData
-  }, [indexes, filters, rows])
-
   const getContent = useCallback(
     (cell: Item): GridCell => {
       const [col, row] = cell
-      const dataRow = data[row]
-      // TODO: debug test
-      // console.log('%c=cell-render', 'color:red', [col, row], { data, dataRow, indexes_col: indexes[col] })
-      const cellNode = dataRow[indexes[col]]
+      const dataRow = cellNodesMapList[row]
       const columnNode = columnsMap[indexes[col]]
-      const rowNode = rows[row]
+      const rowNode = filterRows[row]
 
       function getCellData() {
         if (!dataRow) return ''
@@ -284,38 +226,47 @@ export function useTableView() {
         displayData: cellData,
       }
     },
-    [data, rows, options, viewColumns, columnsMap, isTagDataSource],
+    [
+      cellNodesMapList,
+      filterRows,
+      options,
+      viewColumns,
+      columnsMap,
+      isTagDataSource,
+    ],
   )
 
-  const setCellValue = useCallback(
-    async (
-      [colIndex, rowIndex]: Item,
-      newValue: EditableGridCell,
-    ): Promise<void> => {
-      const row = rows[rowIndex]
-      const column = sortedColumns[colIndex]
+  const setCellValue = async (
+    [colIndex, rowIndex]: Item,
+    newValue: EditableGridCell,
+  ): Promise<void> => {
+    const row = filterRows[rowIndex]
+    const column = sortedColumns[colIndex]
 
-      // need to improvement performance
-      const cell = cells.find(
-        (c) => c.props.columnId === column.id && c.props.rowId === row.id,
-      )!
+    // need to improvement performance
+    const cell = cells.find(
+      (c) => c.props.columnId === column.id && c.props.rowId === row.id,
+    )
 
-      let data: any = newValue.data
+    if (!cell) {
+      return
+    }
 
-      // for custom cells
-      if (typeof data === 'object') {
-        data = data.data
-      }
+    let data: any = newValue.data
 
-      await db.updateCell(cell.id, {
-        props: { ...cell.props, data },
-      })
+    // for custom cells
+    if (typeof data === 'object') {
+      data = data.data
+    }
 
-      const nodes = await db.listNodesBySpaceId(cell.spaceId)
-      store.node.setNodes(nodes)
-    },
-    [cells, rows, sortedColumns],
-  )
+    await db.updateCell(cell.id, {
+      props: { ...cell.props, data },
+    })
+
+    const nodes = await db.listNodesBySpaceId(cell.spaceId)
+    store.node.setNodes(nodes)
+    updateRowsIndexes()
+  }
 
   function onColumnResize(
     column: GridColumn,
@@ -351,7 +302,8 @@ export function useTableView() {
   )
 
   const onRowAppended = useCallback(() => {
-    setRowsNum((num) => num + 1)
+    // TODO: RowsNum Should be based on rows? Otherwise there will be bugs in the filtering
+    // setRowsNum((num) => num + 1)
     addRow()
   }, [addRow])
 
@@ -367,7 +319,8 @@ export function useTableView() {
 
   return {
     rows,
-    rowsNum,
+    filterRows,
+    rowsNum: cellNodesMapList.length,
     cols,
     getContent,
     setCellValue,

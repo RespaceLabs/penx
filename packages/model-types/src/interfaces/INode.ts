@@ -102,6 +102,11 @@ export enum DataSource {
   COMMON = 'COMMON',
 }
 
+export interface IFilterResult {
+  cellNodesMapList: Record<string, ICellNode>[]
+  filterRows: IRowNode[]
+}
+
 export interface IDatabaseNode extends INode {
   type: NodeType.DATABASE
   props: {

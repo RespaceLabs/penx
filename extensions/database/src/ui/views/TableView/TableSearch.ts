@@ -9,20 +9,31 @@ interface ISearchNode {
 
 export class TableSearch {
   private static instance: TableSearch
-  searchNodes: Map<string, ISearchNode[]>
-  dataSourceMap: Map<string, INode>
+  searchNodes: Map<string, Map<string, ISearchNode[]>>
+  dataSourceMap: Map<string, Map<string, INode>>
 
-  constructor(dataSource: INode[]) {
-    this.dataSourceMap = new Map<string, INode>()
-    // Indexes that store different fields
-    this.searchNodes = new Map<string, ISearchNode[]>()
+  constructor(dataSource: INode[], databaseId: string) {
+    this.dataSourceMap = new Map()
+    this.searchNodes = new Map()
 
-    this.initialize(dataSource)
+    this.initialize(dataSource, databaseId)
   }
 
-  public static initTableSearch(dataSource: INode[]) {
+  public static initTableSearch(
+    dataSource: INode[],
+    databaseId: string,
+    isRebuild = false,
+  ) {
     if (!this.instance) {
-      this.instance = new TableSearch(dataSource)
+      this.instance = new TableSearch(dataSource, databaseId)
+    } else if (this.instance && !this.instance.dataSourceMap.has(databaseId)) {
+      this.instance.initialize(dataSource, databaseId)
+    } else if (isRebuild) {
+      if (this.instance.dataSourceMap.has(databaseId)) {
+        this.instance.dataSourceMap.delete(databaseId)
+        this.instance.searchNodes.delete(databaseId)
+      }
+      this.instance.initialize(dataSource, databaseId)
     }
 
     return this.instance
@@ -32,16 +43,29 @@ export class TableSearch {
     return this.instance
   }
 
-  initialize(dataSource: INode[]): void {
+  private initialize(dataSource: INode[], databaseId: string): void {
     if (!dataSource.length) {
       return
     }
+
+    if (!this.dataSourceMap.has(databaseId)) {
+      this.dataSourceMap.set(databaseId, new Map())
+    }
+
+    if (!this.searchNodes.has(databaseId)) {
+      this.searchNodes.set(databaseId, new Map())
+    }
+
+    const searchNodesInner = this.searchNodes.get(databaseId) as Map<
+      string,
+      ISearchNode[]
+    >
 
     const spaceNode = dataSource[0]
     const keys = Object.keys(spaceNode ? spaceNode : [])
 
     dataSource.forEach((item) => {
-      this.dataSourceMap.set(item.id, item)
+      this.dataSourceMap.get(databaseId)?.set(item.id, item)
 
       keys.forEach((property) => {
         let text = ''
@@ -51,7 +75,12 @@ export class TableSearch {
           text = cellNodeProps?.ref
             ? generateNoteCellText(cellNodeProps.ref, false)
             : cellNodeProps?.data
-          this.insert(cellNodeProps.columnId, text.trim(), item.id)
+          this.insert(
+            cellNodeProps.columnId,
+            text.trim(),
+            item.id,
+            searchNodesInner,
+          )
         } else {
           const propertyValue = (item as any)[property]
           if (typeof propertyValue === 'object') {
@@ -63,30 +92,49 @@ export class TableSearch {
           }
         }
 
-        this.insert(property, text.trim(), item.id)
+        this.insert(property, text.trim(), item.id, searchNodesInner)
       })
     })
   }
 
-  insert(property: string, text: string, id: string) {
-    const searchNode = this.searchNodes.get(property)
+  private insert(
+    property: string,
+    text: string,
+    id: string,
+    searchNodesInner: Map<string, ISearchNode[]>,
+  ) {
+    const searchNode = searchNodesInner.get(property)
     if (searchNode) {
       searchNode.push({ id, text })
     } else {
-      this.searchNodes.set(property, [{ id, text }])
+      searchNodesInner.set(property, [{ id, text }])
     }
   }
 
-  search(filters: Filter[]): { cellnodes: INode[]; rowKeys: string[] } {
+  public search(
+    filters: Filter[],
+    databaseId: string,
+  ): { cellnodes: INode[]; rowKeys: string[] } {
     const cellnodes: INode[] = []
     const rowKeys: string[] = []
+
+    if (
+      !this.searchNodes.has(databaseId) ||
+      !this.dataSourceMap.has(databaseId)
+    ) {
+      return {
+        cellnodes: [],
+        rowKeys: [],
+      }
+    }
+
     filters.forEach((item) => {
       if (item.operator === OperatorType.EQUAL) {
-        const { rowsKey, nodes } = this.exactMatch(item)
+        const { rowsKey, nodes } = this.exactMatch(item, databaseId)
         cellnodes.push(...nodes)
         rowKeys.push(...rowsKey)
       } else if (item.operator === OperatorType.CONTAINS) {
-        const { rowsKey, nodes } = this.fuzzySearch(item)
+        const { rowsKey, nodes } = this.fuzzySearch(item, databaseId)
         cellnodes.push(...nodes)
         rowKeys.push(...rowsKey)
       }
@@ -95,33 +143,58 @@ export class TableSearch {
     return { cellnodes, rowKeys }
   }
 
-  fuzzySearch(filter: Filter): { nodes: INode[]; rowsKey: string[] } {
-    const nodeCollector = this.searchNodes.get(filter.columnId) || []
-    const regex = new RegExp(filter.value, 'i')
-    const matchIds = nodeCollector.filter((item) => {
-      return regex.test(item.text)
-    })
+  private getFilteredNodes(
+    nodeCollector: ISearchNode[],
+    dataSourceMap: Map<string, INode>,
+    processNode: (item: ISearchNode) => boolean,
+  ): { nodes: INode[]; rowsKey: string[] } {
+    const matchIds = nodeCollector.filter(processNode)
 
-    const nodes = matchIds.map((item) =>
-      this.dataSourceMap.get(item.id),
-    ) as INode[]
+    const nodes = matchIds.map((item) => dataSourceMap.get(item.id)) as INode[]
 
     return {
       nodes,
-      rowsKey: nodes.map((item) => item.props?.rowId),
+      rowsKey: nodes.map((item) => item.props?.rowId || ''),
     }
   }
 
-  exactMatch(filter: Filter): { nodes: INode[]; rowsKey: string[] } {
-    const nodeCollector = this.searchNodes.get(filter.columnId) || []
-    const matchIds = nodeCollector.filter((item) => item.text === filter.value)
-    const nodes = matchIds.map((item) =>
-      this.dataSourceMap.get(item.id),
-    ) as INode[]
+  private fuzzySearch(
+    filter: Filter,
+    databaseId: string,
+  ): { nodes: INode[]; rowsKey: string[] } {
+    const dataSourceMap = this.dataSourceMap.get(databaseId) as Map<
+      string,
+      INode
+    >
+    const searchNodes = this.searchNodes.get(databaseId) as Map<
+      string,
+      ISearchNode[]
+    >
+    const nodeCollector = searchNodes.get(filter.columnId) || []
 
-    return {
-      nodes,
-      rowsKey: nodes.map((item) => item.props?.rowId),
-    }
+    return this.getFilteredNodes(nodeCollector, dataSourceMap, (item) =>
+      new RegExp(filter.value, 'i').test(item.text),
+    )
+  }
+
+  private exactMatch(
+    filter: Filter,
+    databaseId: string,
+  ): { nodes: INode[]; rowsKey: string[] } {
+    const dataSourceMap = this.dataSourceMap.get(databaseId) as Map<
+      string,
+      INode
+    >
+    const searchNodes = this.searchNodes.get(databaseId) as Map<
+      string,
+      ISearchNode[]
+    >
+    const nodeCollector = searchNodes.get(filter.columnId) || []
+
+    return this.getFilteredNodes(
+      nodeCollector,
+      dataSourceMap,
+      (item) => item.text === filter.value,
+    )
   }
 }
