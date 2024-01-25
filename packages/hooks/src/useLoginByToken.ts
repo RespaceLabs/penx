@@ -1,4 +1,6 @@
+import { set } from 'idb-keyval'
 import { toast } from 'uikit'
+import { PENX_SESSION_USER } from '@penx/constants'
 import { store } from '@penx/store'
 import { api } from '@penx/trpc-client'
 
@@ -17,6 +19,7 @@ export function useLoginByToken() {
 
       console.log('========payload:', payload)
       store.setToken(payload.token)
+      set(PENX_SESSION_USER, payload.user)
     } catch (error) {
       toast.warning('Please input a valid token')
       throw new Error('')

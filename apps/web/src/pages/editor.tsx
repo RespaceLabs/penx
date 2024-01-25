@@ -4,10 +4,14 @@ import { getServerSession } from 'next-auth'
 import { useSession } from 'next-auth/react'
 import { EditorApp } from '@penx/app'
 import { SessionProvider } from '@penx/session'
+import { api, trpc } from '@penx/trpc-client'
 import { authOptions } from './api/auth/[...nextauth]'
 
 const PageEditor = () => {
   const session = useSession()
+
+  const { isLoading, data } = trpc.space.mySpaces.useQuery()
+  console.log('======x===data:', data)
 
   return (
     <SessionProvider

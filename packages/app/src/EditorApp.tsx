@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { set } from 'idb-keyval'
 import {
@@ -47,8 +47,6 @@ export const EditorApp = () => {
   const { isLoaded } = useLoaderStatus()
   const { data: session } = useSession()
 
-  // console.log('======session:', session)
-
   useEffect(() => {
     set(PENX_SESSION_USER_ID, session?.user?.id)
   }, [session])
@@ -61,20 +59,18 @@ export const EditorApp = () => {
   if (!session) return null
 
   return (
-    <TrpcProvider>
-      <ClientOnly>
-        <StoreProvider>
-          <ErrorBoundary fallback={<Fallback />}>
-            {session && <UserQuery userId={session.userId} />}
-            <HotkeyBinding />
-            <SpaceSyncManager userId={session?.userId}>
-              <AppProvider>
-                <Workbench />
-              </AppProvider>
-            </SpaceSyncManager>
-          </ErrorBoundary>
-        </StoreProvider>
-      </ClientOnly>
-    </TrpcProvider>
+    <ClientOnly>
+      <StoreProvider>
+        <ErrorBoundary fallback={<Fallback />}>
+          {session && <UserQuery userId={session.userId} />}
+          <HotkeyBinding />
+          <SpaceSyncManager userId={session?.userId}>
+            <AppProvider>
+              <Workbench />
+            </AppProvider>
+          </SpaceSyncManager>
+        </ErrorBoundary>
+      </StoreProvider>
+    </ClientOnly>
   )
 }

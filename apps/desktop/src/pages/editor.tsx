@@ -1,8 +1,7 @@
 import { Box } from '@fower/react'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Button } from 'uikit'
-import { trpc } from '@penx/trpc-client'
+import { api, trpc } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
 
 export default function PageEditor() {

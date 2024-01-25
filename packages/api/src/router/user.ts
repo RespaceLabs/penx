@@ -98,8 +98,6 @@ export const userRouter = createTRPCRouter({
   loginByPersonalToken: publicProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      console.log('==========input===:', input)
-
       const token = await ctx.prisma.personalToken.findUnique({
         where: { value: input },
       })

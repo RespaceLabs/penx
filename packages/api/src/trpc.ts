@@ -9,6 +9,7 @@
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
 import { initTRPC, TRPCError } from '@trpc/server'
 import { type CreateNextContextOptions } from '@trpc/server/adapters/next'
+import jwt from 'jsonwebtoken'
 import { Session } from 'next-auth'
 import { getToken } from 'next-auth/jwt'
 import superjson from 'superjson'
@@ -65,7 +66,22 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
 export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   const { req, res } = opts
 
-  const token = (await getToken({ req })) as Token
+  let token = (await getToken({ req })) as Token
+
+  if (!token) {
+    const authorization = req.headers['authorization'] || ''
+
+    try {
+      const decoded = jwt.verify(
+        authorization,
+        process.env.NEXTAUTH_SECRET!,
+      ) as any
+      token = {
+        ...decoded,
+        uid: decoded.sub,
+      }
+    } catch (error) {}
+  }
 
   return createInnerTRPCContext({
     token,

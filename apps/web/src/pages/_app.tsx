@@ -1,5 +1,4 @@
 import { Fragment, useEffect } from 'react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
 import { set } from 'idb-keyval'
 import { Session } from 'next-auth'
@@ -25,6 +24,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../styles/globals.css'
 import '../styles/command.scss'
 import '@glideapps/glide-data-grid/dist/index.css'
+import { TrpcProvider } from '@penx/trpc-client'
 
 initFower()
 
@@ -34,7 +34,6 @@ interface Props<T> extends AppProps<T> {
     session: Session
   }
 }
-const queryClient = new QueryClient()
 
 if (!isServer) {
   // console.log(
@@ -71,7 +70,7 @@ function MyApp({ Component, pageProps }: Props<any>) {
       <GoogleAnalytics trackPageViews />
 
       <SessionProvider session={pageProps.session} refetchInterval={0}>
-        <QueryClientProvider client={queryClient}>
+        <TrpcProvider>
           {/* <SpeedInsights /> */}
           <Layout>
             <Component {...pageProps} />
@@ -80,7 +79,7 @@ function MyApp({ Component, pageProps }: Props<any>) {
           <ToastContainer position="bottom-right" />
 
           {/* <Analytics /> */}
-        </QueryClientProvider>
+        </TrpcProvider>
       </SessionProvider>
     </>
   )

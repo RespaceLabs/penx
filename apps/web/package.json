@@ -45,6 +45,7 @@
     "@penx/shared": "workspace:*",
     "@penx/slate-lists": "workspace:*",
     "@penx/store": "workspace:*",
+    "@penx/trpc-client": "workspace:^",
     "@penx/unique-id": "workspace:*",
     "@prisma/client": "^5.6.0",
     "@prisma/nextjs-monorepo-workaround-plugin": "^5.6.0",

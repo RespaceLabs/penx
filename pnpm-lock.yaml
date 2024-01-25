@@ -669,6 +669,9 @@ importers:
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
+      '@penx/trpc-client':
+        specifier: workspace:^
+        version: link:../../packages/trpc-client
       '@penx/unique-id':
         specifier: workspace:*
         version: link:../../packages/unique-id
