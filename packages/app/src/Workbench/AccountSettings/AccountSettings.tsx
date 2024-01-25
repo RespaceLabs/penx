@@ -1,4 +1,5 @@
 import { Box } from '@fower/react'
+import { PersonalToken } from './PersonalToken'
 import { SyncBox } from './SyncBox/SyncBox'
 
 export function AccountSettings() {
@@ -7,6 +8,7 @@ export function AccountSettings() {
       <Box text2XL mb4 fontBold>
         Account Settings
       </Box>
+      <PersonalToken />
       <SyncBox />
     </Box>
   )

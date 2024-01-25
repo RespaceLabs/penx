@@ -72,6 +72,16 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
+model PersonalToken {
+    id          String    @id @default(uuid())
+    userId      String
+    value       String    @unique
+    type        String?
+    description String?
+    createdAt   DateTime? @default(now())
+    updatedAt   DateTime? @updatedAt
+}
+
 model SyncServer {
     id          String    @id @default(uuid())
     name        String
