@@ -7,9 +7,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
+import { useSpaces } from '@penx/hooks'
 import { store } from '@penx/store'
 
 export const MorePopover = () => {
+  const { activeSpace } = useSpaces()
   return (
     <Popover placement="bottom-end">
       <PopoverTrigger asChild>
@@ -32,7 +34,11 @@ export const MorePopover = () => {
           gap2
           onClick={async () => {
             const [node] = store.node.getActiveNodes()
-            store.node.deleteNode(node.id)
+            if (activeSpace.isOutliner) {
+              store.node.deleteNode(node.id)
+            } else {
+              store.catalogue.deleteNode(node.id)
+            }
           }}
         >
           <Trash2 size={18} />
