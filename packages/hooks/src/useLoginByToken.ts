@@ -1,4 +1,5 @@
 import { toast } from 'uikit'
+import { store } from '@penx/store'
 import { api } from '@penx/trpc-client'
 
 export function useLoginByToken() {
@@ -15,6 +16,7 @@ export function useLoginByToken() {
       const payload = await api.user.loginByPersonalToken.mutate(token)
 
       console.log('========payload:', payload)
+      store.setToken(payload.token)
     } catch (error) {
       toast.warning('Please input a valid token')
       throw new Error('')

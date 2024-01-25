@@ -1,4 +1,5 @@
 import { atom, createStore } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
 import { User } from '@penx/model'
 import { commands } from './constants'
 import { AppStore } from './stores/AppStore'
@@ -17,6 +18,8 @@ export const extensionStoreAtom = atom<ExtensionStore>({})
 export const userAtom = atom<User>({} as User)
 
 export const userIdAtom = atom('')
+
+export const tokenAtom = atomWithStorage('PENX_TOKEN', '')
 
 const baseStore = createStore()
 
@@ -66,5 +69,13 @@ export const store = Object.assign(baseStore, {
 
   setUser(user: User) {
     return store.set(userAtom, user)
+  },
+
+  getToken() {
+    return store.get(tokenAtom)
+  },
+
+  setToken(token: string) {
+    return store.set(tokenAtom, token)
   },
 })

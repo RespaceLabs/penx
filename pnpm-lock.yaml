@@ -129,9 +129,15 @@ importers:
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
+      '@penx/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@penx/app':
         specifier: workspace:*
         version: link:../../packages/app
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
       '@penx/hooks':
         specifier: workspace:*
         version: link:../../packages/hooks
@@ -4906,6 +4912,9 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../model-types
+      '@penx/store':
+        specifier: workspace:*
+        version: link:../store
       '@penx/unique-id':
         specifier: workspace:*
         version: link:../unique-id
