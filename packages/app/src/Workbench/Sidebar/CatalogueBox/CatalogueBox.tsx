@@ -150,6 +150,7 @@ export const CatalogueBox = () => {
               item.id === overId && projected ? projected.depth : item.depth
 
             const node = nodeList.getNode(item.id)
+            if (!node) return null
             return (
               <SortableTreeItem
                 key={item.id}
