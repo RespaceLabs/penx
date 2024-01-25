@@ -1,9 +1,6 @@
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { httpBatchLink } from '@trpc/client'
 import { set } from 'idb-keyval'
-import superjson from 'superjson'
 import {
   BASE_URL,
   isProd,
@@ -13,7 +10,7 @@ import {
 import { appLoader, useLoaderStatus } from '@penx/loader'
 import { useSession } from '@penx/session'
 import { StoreProvider } from '@penx/store'
-import { trpc } from '@penx/trpc-client'
+import { TrpcProvider } from '@penx/trpc-client'
 import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
 import { ClientOnly } from './components/ClientOnly'
@@ -52,18 +49,6 @@ export const EditorApp = () => {
 
   // console.log('======session:', session)
 
-  const [queryClient] = useState(() => new QueryClient())
-  const [trpcClient] = useState(() =>
-    trpc.createClient({
-      transformer: superjson,
-      links: [
-        httpBatchLink({
-          url: `${BASE_URL}/api/trpc`,
-        }),
-      ],
-    }),
-  )
-
   useEffect(() => {
     set(PENX_SESSION_USER_ID, session?.user?.id)
   }, [session])
@@ -76,7 +61,7 @@ export const EditorApp = () => {
   if (!session) return null
 
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+    <TrpcProvider>
       <ClientOnly>
         <StoreProvider>
           <ErrorBoundary fallback={<Fallback />}>
@@ -90,6 +75,6 @@ export const EditorApp = () => {
           </ErrorBoundary>
         </StoreProvider>
       </ClientOnly>
-    </trpc.Provider>
+    </TrpcProvider>
   )
 }
