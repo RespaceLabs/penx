@@ -1,24 +1,31 @@
 import { Box } from '@fower/react'
-import { Button, Popover, PopoverContent, PopoverTrigger, toast } from 'uikit'
+import {
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  toast,
+  usePopoverContext,
+} from 'uikit'
 import { PersonalToken } from '@penx/db'
+import { api, trpc } from '@penx/trpc-client'
 
 type Props = {
   token: PersonalToken
 }
 
 export const DeleteTokenPopover = ({ token }: Props) => {
-  async function deleteToken(close: any) {
-    // const toaster = toast.loading('Delete...')
-    // try {
-    //   await apiService.deleteToken({ id: token.id })
-    //   Refetcher.refetchTokens({ where: { userId: user.id } })
-    //   toaster.update('Deleted', { type: 'success' })
-    //   close()
-    // } catch (error) {
-    //   if (isApiError(error)) {
-    //     toaster.update(error.message, { type: 'error' })
-    //   }
-    // }
+  const { refetch } = trpc.personalToken.myPersonalTokens.useQuery()
+  const { close } = usePopoverContext()
+
+  async function deleteToken(close: () => void) {
+    try {
+      await api.personalToken.deleteById.mutate(token.id)
+      await refetch()
+      close()
+    } catch (error) {
+      toast.error('Failed to delete token')
+    }
   }
   return (
     <Popover placement="bottom-end">
@@ -27,14 +34,14 @@ export const DeleteTokenPopover = ({ token }: Props) => {
           Delete
         </Button>
       </PopoverTrigger>
-      <PopoverContent p5 w-200>
+      <PopoverContent p5 w-260>
         {({ close }) => (
           <Box>
             <Box mb4 leadingNormal>
               Are you sure you want to delete this personal token?
             </Box>
             <Box>
-              <Box toCenterY toRight spaceX2>
+              <Box toCenterY toRight gap2>
                 <Button
                   colorScheme="white"
                   size="sm"

@@ -16,8 +16,8 @@ function TokenList() {
   return (
     <Box column gap2 mt6>
       {data.map((item) => (
-        <Box key={item.id} toCenterY toBetween columnGap-12>
-          <Box toCenterY spaceX2>
+        <Box key={item.id} toCenterY toBetween gap3>
+          <Box toCenterY gap2>
             <Box>{item.description}</Box>
             <Box gray600>{item.value}</Box>
           </Box>
@@ -61,7 +61,7 @@ export const PersonalToken = () => {
       <Title text="PERSONAL TOKEN" icon={Code} />
 
       <Box>
-        <Box spaceY2 mb4>
+        <Box column mb4 gap3>
           <Box>
             This is your personal API key. Your personal API key has access to
             all the data.
