@@ -23,6 +23,7 @@
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@prisma/client": "^5.6.0",
+    "@penx/store": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "@trpc/next": "^10.44.1",
     "@trpc/client": "^10.44.1",
