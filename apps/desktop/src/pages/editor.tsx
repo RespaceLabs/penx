@@ -1,26 +1,29 @@
-import { Box } from '@fower/react'
-import { useRouter } from 'next/router'
-import { Button } from 'uikit'
-import { api, trpc } from '@penx/trpc-client'
-import { ClientOnly } from '~/components/ClientOnly'
+import { useEffect, useState } from 'react'
+import { get } from 'idb-keyval'
+import { EditorApp } from '@penx/app'
+import { PENX_SESSION_USER } from '@penx/constants'
+import { SessionProvider } from '@penx/session'
 
 export default function PageEditor() {
-  const { push } = useRouter()
-  const { isLoading, data } = trpc.space.mySpaces.useQuery()
-  console.log('isLoading', isLoading, 'data', data)
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<any>(null)
+  useEffect(() => {
+    get(PENX_SESSION_USER).then((user) => {
+      setUser(user)
+      setLoading(false)
+    })
+  }, [])
+
+  if (loading) return null
 
   return (
-    <>
-      <ClientOnly>
-        <Box>Editor</Box>
-        <Button
-          onClick={() => {
-            push('/')
-          }}
-        >
-          Home
-        </Button>
-      </ClientOnly>
-    </>
+    <SessionProvider
+      value={{
+        data: { user, userId: user?.id },
+        loading,
+      }}
+    >
+      <EditorApp />
+    </SessionProvider>
   )
 }

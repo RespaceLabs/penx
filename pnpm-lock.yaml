@@ -144,6 +144,9 @@ importers:
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons
+      '@penx/session':
+        specifier: workspace:*
+        version: link:../../packages/session
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
@@ -166,6 +169,9 @@ importers:
         specifier: workspace:*
         version: link:../../packages/uikit
     devDependencies:
+      '@penx/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
       '@tauri-apps/cli':
         specifier: ^1.5.9
         version: 1.5.9

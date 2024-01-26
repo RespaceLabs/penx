@@ -19,6 +19,7 @@
     "@penx/app": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
+    "@penx/session": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "@tauri-apps/api": "^1.5.3",
@@ -28,6 +29,7 @@
     "uikit": "workspace:*"
   },
   "devDependencies": {
+    "@penx/tsconfig": "workspace:*",
     "@tauri-apps/cli": "^1.5.9",
     "@types/node": "^20",
     "@types/react": "^18",
