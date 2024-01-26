@@ -156,6 +156,9 @@ importers:
       '@tauri-apps/api':
         specifier: ^1.5.3
         version: 1.5.3
+      jotai:
+        specifier: ^2.6.0
+        version: 2.6.0(@types/react@18.2.48)(react@18.2.0)
       next:
         specifier: 13.3.1
         version: 13.3.1(@babel/core@7.23.5)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
