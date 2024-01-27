@@ -1,0 +1,11 @@
+{
+  "extends": "@penx/tsconfig/react-library.json",
+  "compilerOptions": {
+    "declarationMap": false,
+    "declaration": false,
+    "strictPropertyInitialization": false,
+    "lib": ["ESNext", "DOM"]
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}

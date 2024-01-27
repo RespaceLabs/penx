@@ -37,7 +37,6 @@
     "react-hook-form": "^7.48.2",
     "uikit": "workspace:*",
     "use-debounce": "^9.0.4",
-    "wagmi": "^1.4.8",
     "zod": "^3.22.4"
   }
 }

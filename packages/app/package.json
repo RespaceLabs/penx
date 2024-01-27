@@ -75,6 +75,7 @@
     "@penx/trpc-client": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "@penx/worker": "workspace:*",
+    "@penx/wagmi": "workspace:*",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-hover-card": "^1.0.7",
     "@radix-ui/react-slot": "^1.0.2",
@@ -82,7 +83,6 @@
     "@supabase/supabase-js": "^2.39.0",
     "@tanstack/react-query": "^4.36.1",
     "@trpc/client": "^10.44.1",
-    "@web3modal/react": "^2.7.1",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
@@ -137,7 +137,6 @@
     "use-debounce": "^9.0.4",
     "uuid": "^9.0.1",
     "vaul": "^0.7.9",
-    "wagmi": "^1.4.8",
     "zod": "^3.22.4"
   }
 }

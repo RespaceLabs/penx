@@ -34,15 +34,15 @@ if (process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED') {
           process.env.SELF_HOSTED_CREDENTIALS as string
         ).split('/')
 
-        console.log(
-          'process.env.SELF_HOSTED_CREDENTIALS:',
-          process.env.SELF_HOSTED_CREDENTIALS,
-          'username, password:',
-          username,
-          password,
-          'NEXTAUTH_SECRET:',
-          process.env.NEXTAUTH_SECRET,
-        )
+        // console.log(
+        //   'process.env.SELF_HOSTED_CREDENTIALS:',
+        //   process.env.SELF_HOSTED_CREDENTIALS,
+        //   'username, password:',
+        //   username,
+        //   password,
+        //   'NEXTAUTH_SECRET:',
+        //   process.env.NEXTAUTH_SECRET,
+        // )
 
         if (
           username === credentials!.username &&
@@ -95,12 +95,17 @@ export const authOptions: NextAuthOptions = {
 
     async jwt({ token, account, user, profile }) {
       if (user) {
+        // console.log('jwt==========:', user)
         token.uid = user.id
+        token.address = (user as any).address
       }
       return token
     },
     async session({ session, token, user, ...rest }) {
+      // console.log('session==========:', session, 'user:', user)
+
       session.userId = token.uid as string
+      session.address = token.address as string
       ;(session.user as any).id = token.uid
 
       return session

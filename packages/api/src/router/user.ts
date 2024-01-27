@@ -95,6 +95,20 @@ export const userRouter = createTRPCRouter({
       return user
     }),
 
+  updateAddress: protectedProcedure
+    .input(
+      z.object({
+        address: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { address } = input
+      return ctx.prisma.user.update({
+        where: { id: ctx.token.uid },
+        data: { address },
+      })
+    }),
+
   loginByPersonalToken: publicProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {

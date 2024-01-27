@@ -58,7 +58,7 @@ function AddTokenForm() {
 export const PersonalToken = () => {
   return (
     <Box>
-      <Title text="PERSONAL TOKEN" icon={Code} />
+      <Title text="PERSONAL TOKEN" />
 
       <Box>
         <Box column mb4 gap3>

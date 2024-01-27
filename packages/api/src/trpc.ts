@@ -19,6 +19,7 @@ import { prisma } from '@penx/db'
 type Token = {
   name: string
   uid: string
+  address: string
   email: string
   sub: string
   iat: number

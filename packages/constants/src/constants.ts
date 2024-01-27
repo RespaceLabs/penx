@@ -96,3 +96,12 @@ export enum SyncServerType {
   PUBLIC = 'PUBLIC',
   PRIVATE = 'PRIVATE',
 }
+
+export const NETWORK = process.env.NEXT_PUBLIC_NETWORK
+
+export enum NetworkNames {
+  MAINNET = 'MAINNET',
+  SEPOLIA = 'SEPOLIA',
+  TEST = 'TEST',
+  DEVELOP = 'DEVELOP',
+}
