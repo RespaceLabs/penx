@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "declaration": true,
+    "declarationMap": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es2020"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2020",
+    "paths": {
+      "@utils/*": ["./utils/*"],
+      "@abi/*": ["./abi/*"],
+      "@test/*": ["./test/*"]
+    }
+  },
+
+  "include": [
+    "hardhat.config.ts",
+    "./scripts",
+    "./utils",
+    "./deploy",
+    "./abi",
+    "./test",
+    "typechain/**/*",
+    "wagmi.config.ts",
+    "index.d.ts"
+  ]
+}

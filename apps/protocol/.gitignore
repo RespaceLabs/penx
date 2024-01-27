@@ -1,0 +1,17 @@
+node_modules
+.env
+.DS_Store
+.deps
+.VSCodeCounter
+coverage
+coverage.json
+typechain
+typechain-types
+
+# Hardhat files
+cache
+artifacts
+
+types
+test/generated.ts
+abi

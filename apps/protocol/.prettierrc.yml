@@ -1,0 +1,25 @@
+bracketSpacing: true
+plugins:
+  - "prettier-plugin-solidity"
+printWidth: 120
+proseWrap: "always"
+singleQuote: true 
+semi: false
+tabWidth: 2
+trailingComma: "all"
+
+overrides:
+  - files: "*.sol"
+    options:
+      semi: true 
+      compiler: "0.8.17"
+      singleQuote: false 
+      parser: "solidity-parse"
+      tabWidth: 4
+  - files: "*.ts"
+    options:
+      importOrder: ["<THIRD_PARTY_MODULES>", "^[./]"]
+      importOrderParserPlugins: ["typescript"]
+      importOrderSeparation: true
+      importOrderSortSpecifiers: true
+      parser: "typescript"

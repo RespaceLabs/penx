@@ -1,3 +1,4 @@
 {
-  "search.followSymlinks": false
+  "search.followSymlinks": false,
+  "cSpell.enableFiletypes": ["solidity"]
 }
