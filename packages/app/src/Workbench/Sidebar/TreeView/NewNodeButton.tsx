@@ -1,7 +1,6 @@
 import React, { FC, PropsWithChildren } from 'react'
 import { FowerHTMLProps } from '@fower/react'
 import { Plus } from 'lucide-react'
-import { useAccount } from 'wagmi'
 import { Button, ButtonProps } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { store } from '@penx/store'

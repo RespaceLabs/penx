@@ -23,7 +23,6 @@ export const WalletConnectButton = (props: Props) => {
   return (
     <Button
       type="button"
-      textSM
       roundedFull
       size="sm"
       fontSemibold
@@ -31,11 +30,11 @@ export const WalletConnectButton = (props: Props) => {
       {...props}
     >
       <Box display={['none', 'none', 'inline-flex']}>
-        {props.children ? props.children : 'Connect'}
+        {props.children ? props.children : 'Connect to mint'}
       </Box>
 
       <Box display={['inline-flex', 'inline-flex', 'none']}>
-        {props.children ? props.children : 'Connect'}
+        {props.children ? props.children : 'Connect to mint'}
       </Box>
     </Button>
   )

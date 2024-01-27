@@ -21,6 +21,7 @@
     "@penx/constants": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "@tanstack/react-query": "^4.36.1",
+    "@wagmi/core": "^2.6.1",
     "@web3modal/wagmi": "4.0.0-alpha.3",
     "encoding": "^0.1.13",
     "pino": "^8.17.2",

@@ -11,7 +11,15 @@ import { HardhatRuntimeEnvironment } from 'hardhat/types'
 
 type LibraryName = 'PermissionFlag' | 'LibDiamond'
 
-type ContractName = LibraryName | 'Multicall3' | 'DiamondCutFacet'
+type ContractName =
+  | LibraryName
+  | 'Diamond'
+  | 'DiamondInit'
+  | 'Multicall3'
+  | 'DiamondCutFacet'
+  | 'DiamondLoupeFacet'
+  | 'BelieverFacet'
+  | 'Believer'
 
 type DependencyContracts = Record<ContractName, Deployment>
 

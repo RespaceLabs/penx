@@ -18,10 +18,12 @@ const config = {
   reactStrictMode: true,
   output: 'standalone',
   transpilePackages: [
+    '@penx/abi',
     '@penx/api',
     '@penx/app',
     '@penx/constants',
     '@penx/db',
+    '@penx/math',
     '@penx/catalogue',
     '@penx/hooks',
     '@penx/local-db',
