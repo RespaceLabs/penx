@@ -8,6 +8,7 @@
     "build:packages": "turbo run build --filter=./packages/*",
     "build:web": "turbo run build --filter=web...",
     "build:docs": "turbo run build --filter=docs...",
+    "build:desktop": "turbo run build --filter=desktop...",
     "start": "turbo run start --filter=web...",
     "deploy": "docker-compose -p penx-web -f docker-compose.yaml up --build -d",
     "clean": "git clean -xdf node_modules",
