@@ -156,6 +156,9 @@ importers:
       '@tauri-apps/api':
         specifier: ^1.5.3
         version: 1.5.3
+      idb-keyval:
+        specifier: ^6.2.1
+        version: 6.2.1
       jotai:
         specifier: ^2.6.0
         version: 2.6.0(@types/react@18.2.48)(react@18.2.0)
