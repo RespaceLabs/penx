@@ -9,6 +9,7 @@ import { PENX_SESSION_USER } from '@penx/constants'
 import { store } from '@penx/store'
 import { TrpcProvider } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
+import '@glideapps/glide-data-grid/dist/index.css'
 
 initFower()
 

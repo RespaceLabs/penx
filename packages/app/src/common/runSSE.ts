@@ -50,7 +50,7 @@ export async function runSSE(space: Space) {
     },
     onmessage(ev) {
       const spaceInfo: SpaceInfo = JSON.parse(ev.data)
-      console.log('===========spaceInfo:', spaceInfo)
+      // console.log('===========spaceInfo:', spaceInfo)
       pull(spaceInfo)
     },
     onclose() {
