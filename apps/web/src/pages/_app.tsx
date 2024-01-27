@@ -36,15 +36,6 @@ interface Props<T> extends AppProps<T> {
 }
 
 if (!isServer) {
-  // console.log(
-  //   'store.atomCache:',
-  //   fowerStore.atomCache,
-  //   Array.from(fowerStore.atomCache.values())[0]
-  // )
-
-  // setTimeout(() => {
-  // }, 2000)
-
   // TODO: move this code to a separate file
   const handleSignOut = () => {
     set(PENX_SESSION_USER, null)

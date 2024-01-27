@@ -8,6 +8,7 @@ import { appEmitter, initFower } from '@penx/app'
 import { PENX_SESSION_USER } from '@penx/constants'
 import { store } from '@penx/store'
 import { TrpcProvider } from '@penx/trpc-client'
+import { ClientOnly } from '~/components/ClientOnly'
 
 initFower()
 
@@ -25,11 +26,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       appEmitter.off('SIGN_OUT', handleSignOut)
     }
   }, [])
+
   return (
-    <TrpcProvider>
-      <ToastContainer position="bottom-right" />
-      <Component {...pageProps} />
-    </TrpcProvider>
+    <ClientOnly>
+      <TrpcProvider>
+        <ToastContainer position="bottom-right" />
+        <Component {...pageProps} />
+      </TrpcProvider>
+    </ClientOnly>
   )
 }
 
