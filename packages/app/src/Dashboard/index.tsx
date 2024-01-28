@@ -1,26 +1,47 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
 import { db } from '@penx/local-db'
-import { INode, ISpace } from '@penx/model-types'
+import { Filter, INode, ISpace } from '@penx/model-types'
 import { spacesAtom } from '@penx/store'
-import { api } from '@penx/trpc-client'
 import { DashboardContent } from './DashboardContent'
 import { SpacesRender } from './SpacesRender'
+
+export interface DashboradViewColumn {
+  name: string
+  fieldType: string
+}
 
 interface SpacesContextProps {
   spaceNodes: INode[]
   setSpaceNodes: React.Dispatch<React.SetStateAction<INode[]>>
+  activeSpace: ISpace
+  setActiveSpace: React.Dispatch<React.SetStateAction<ISpace>>
+  viewColumns: DashboradViewColumn[]
+  setViewColumns: React.Dispatch<React.SetStateAction<DashboradViewColumn[]>>
+  filtersDb: Filter[]
+  setFiltersDb: React.Dispatch<React.SetStateAction<Filter[]>>
 }
 
 export const SpacesContext = createContext<SpacesContextProps>({
   spaceNodes: [],
   setSpaceNodes: () => {},
+  activeSpace: {} as ISpace,
+  setActiveSpace: () => {},
+  viewColumns: [],
+  setViewColumns: () => {},
+  filtersDb: [],
+  setFiltersDb: () => {},
 })
 
 export function Dashboard({ userId }: { userId: string }) {
   const [spaces, setSpaces] = useAtom(spacesAtom)
   const [spaceNodes, setSpaceNodes] = useState<INode[]>([])
+  const [viewColumns, setViewColumns] = useState<DashboradViewColumn[]>([])
+  const [activeSpace, setActiveSpace] = useState<ISpace>(
+    null as unknown as ISpace,
+  )
+  const [filtersDb, setFiltersDb] = useState<Filter[]>([])
 
   async function loadSpaces(userId: string) {
     if (!db.database.connection) {
@@ -28,10 +49,33 @@ export function Dashboard({ userId }: { userId: string }) {
     }
     let spaces = await db.listSpaces(userId)
 
-    const newNodes = await db.listNodesBySpaceId(spaces[0].id)
-    setSpaceNodes(newNodes.length ? newNodes : [])
-    setSpaces(spaces)
+    if (spaces.length) {
+      const newNodes = await db.listNodesBySpaceId(spaces[0].id)
+      setSpaceNodes(newNodes.length ? newNodes : [])
+      generateSortedColumns(newNodes)
+      setSpaces(spaces)
+    }
   }
+
+  const generateSortedColumns = useCallback(
+    (sNodes: INode[]) => {
+      const spaceNode = sNodes[0]
+      const columns: DashboradViewColumn[] = []
+      for (const key in spaceNode) {
+        if (spaceNode.hasOwnProperty(key)) {
+          const column = {
+            name: key,
+            fieldType: key,
+          }
+
+          columns.push(column)
+        }
+      }
+
+      setViewColumns(columns)
+    },
+    [spaceNodes],
+  )
 
   useEffect(() => {
     loadSpaces(userId)
@@ -39,7 +83,18 @@ export function Dashboard({ userId }: { userId: string }) {
 
   return (
     <Box flex toCenterX h="100vh">
-      <SpacesContext.Provider value={{ spaceNodes, setSpaceNodes }}>
+      <SpacesContext.Provider
+        value={{
+          spaceNodes,
+          setSpaceNodes,
+          activeSpace,
+          setActiveSpace,
+          viewColumns,
+          setViewColumns,
+          filtersDb,
+          setFiltersDb,
+        }}
+      >
         <Box
           w="256px"
           minH="100%"
@@ -57,7 +112,7 @@ export function Dashboard({ userId }: { userId: string }) {
           <SpacesRender spaces={spaces} />
         </Box>
 
-        <DashboardContent />
+        <DashboardContent activeSpace={activeSpace} />
       </SpacesContext.Provider>
     </Box>
   )

@@ -11,10 +11,12 @@ export class TableSearch {
   private static instance: TableSearch
   searchNodes: Map<string, Map<string, ISearchNode[]>>
   dataSourceMap: Map<string, Map<string, INode>>
+  isDatabaseId: boolean
 
-  constructor(dataSource: INode[], databaseId: string) {
+  constructor(dataSource: INode[], databaseId: string, isDatabaseId: boolean) {
     this.dataSourceMap = new Map()
     this.searchNodes = new Map()
+    this.isDatabaseId = isDatabaseId
 
     this.initialize(dataSource, databaseId)
   }
@@ -22,10 +24,11 @@ export class TableSearch {
   public static initTableSearch(
     dataSource: INode[],
     databaseId: string,
+    isDatabaseId = true,
     isRebuild = false,
   ) {
     if (!this.instance) {
-      this.instance = new TableSearch(dataSource, databaseId)
+      this.instance = new TableSearch(dataSource, databaseId, isDatabaseId)
     } else if (this.instance && !this.instance.dataSourceMap.has(databaseId)) {
       this.instance.initialize(dataSource, databaseId)
     } else if (isRebuild) {
@@ -66,18 +69,18 @@ export class TableSearch {
 
     dataSource.forEach((item) => {
       this.dataSourceMap.get(databaseId)?.set(item.id, item)
-
       keys.forEach((property) => {
         let text = ''
 
-        if (property === 'props') {
+        if (this.isDatabaseId && property === 'props') {
           const cellNodeProps = (item as any)[property] as ICellNodePopps
           text = cellNodeProps?.ref
             ? generateNoteCellText(cellNodeProps.ref, false)
             : cellNodeProps?.data
+
           this.insert(
             cellNodeProps.columnId,
-            text.trim(),
+            text ? text.trim() : 'EMPTY',
             item.id,
             searchNodesInner,
           )
@@ -92,7 +95,12 @@ export class TableSearch {
           }
         }
 
-        this.insert(property, text.trim(), item.id, searchNodesInner)
+        this.insert(
+          property,
+          text ? text.trim() : 'EMPTY',
+          item.id,
+          searchNodesInner,
+        )
       })
     })
   }
@@ -151,10 +159,19 @@ export class TableSearch {
     const matchIds = nodeCollector.filter(processNode)
 
     const nodes = matchIds.map((item) => dataSourceMap.get(item.id)) as INode[]
+    const rowsKey = nodes.reduce((result: string[], item: INode) => {
+      if (item.props?.rowId) {
+        result.push(item.props?.rowId)
+      } else if (!this.isDatabaseId) {
+        result.push(item.id)
+      }
+
+      return result
+    }, [])
 
     return {
       nodes,
-      rowsKey: nodes.map((item) => item.props?.rowId || ''),
+      rowsKey,
     }
   }
 
