@@ -11,8 +11,8 @@ interface Props {
 }
 
 export function SpacesRender({ spaces }: Props) {
-  const [activeSpace, setActiveSpace] = useState<ISpace>()
-  const { setSpaceNodes } = useContext(SpacesContext)
+  const { setSpaceNodes, setActiveSpace, activeSpace } =
+    useContext(SpacesContext)
 
   const onSpaceItem = async (item: ISpace) => {
     setActiveSpace(item)
