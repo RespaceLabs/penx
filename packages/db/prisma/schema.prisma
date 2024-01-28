@@ -15,8 +15,9 @@ model User {
     address       String?      @unique // wallet address
     name          String? // nickname
     bio           String?
-    password      String?
     avatar        String?
+    password      String?
+    roleType      String?
     github        Json?
     username      String?
     email         String?      @unique
@@ -82,6 +83,21 @@ model PersonalToken {
     updatedAt   DateTime? @updatedAt
 }
 
+model Task {
+    id          String    @id @default(uuid())
+    userId      String
+    title       String
+    status      String
+    description String?
+    tags        String?
+    figmaUrl    String?
+    issueUrl    String?
+    usdReward   Int
+    tokenReward Int
+    createdAt   DateTime? @default(now())
+    updatedAt   DateTime? @updatedAt
+}
+
 model SyncServer {
     id          String    @id @default(uuid())
     name        String
@@ -105,7 +121,8 @@ model SyncServer {
 
 model Runner {
     id          String    @id @default(uuid())
-    userId      Int
+    userId      String
+    Space       Space[]
     name        String?
     type        String?
     machineIp   String?
@@ -139,6 +156,8 @@ model Space {
     userId       String?
     syncServerId String?
     syncServer   SyncServer? @relation(fields: [syncServerId], references: [id])
+    Runner       Runner?     @relation(fields: [runnerId], references: [id])
+    runnerId     String?
 
     @@index([userId])
 }

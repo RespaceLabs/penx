@@ -5,6 +5,7 @@ import { nodeRouter } from './router/node'
 import { personalTokenRouter } from './router/personalToken'
 import { spaceRouter } from './router/space'
 import { syncServerRouter } from './router/syncServer'
+import { taskRouter } from './router/task'
 import { themeRouter } from './router/theme'
 import { userRouter } from './router/user'
 import { createTRPCRouter } from './trpc'
@@ -19,6 +20,7 @@ export const appRouter = createTRPCRouter({
   extension: extensionRouter,
   syncServer: syncServerRouter,
   personalToken: personalTokenRouter,
+  task: taskRouter,
 })
 
 // export type definition of API
