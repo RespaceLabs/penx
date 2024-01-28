@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -8,6 +9,7 @@ contract PenxPoint is ERC20, Ownable {
   constructor() ERC20("PenX point Token", "PXP") {}
 
   function mint(address to, uint256 amount) external onlyOwner {
+    console.log("===============to:", to, "amount:", amount);
     _mint(to, amount);
   }
 

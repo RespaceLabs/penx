@@ -2766,6 +2766,9 @@ importers:
       '@microsoft/fetch-event-source':
         specifier: ^2.0.1
         version: 2.0.1
+      '@penx/abi':
+        specifier: workspace:*
+        version: link:../abi
       '@penx/api':
         specifier: workspace:*
         version: link:../api
@@ -2826,6 +2829,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
+      '@penx/math':
+        specifier: workspace:*
+        version: link:../math
       '@penx/model':
         specifier: workspace:*
         version: link:../model

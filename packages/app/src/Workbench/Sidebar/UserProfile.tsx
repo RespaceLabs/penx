@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { DatabaseBackup, Home, LogOut, User } from 'lucide-react'
+import { DatabaseBackup, Home, LogOut, User, Wallet } from 'lucide-react'
 import {
   Avatar,
   AvatarFallback,
@@ -51,6 +51,20 @@ export const UserProfile = () => {
                 <User size={16} />
               </Box>
               <Box>Account settings</Box>
+            </MenuItem>
+          </PopoverClose>
+
+          <PopoverClose>
+            <MenuItem
+              gap2
+              onClick={() => {
+                store.router.routeTo('WEB3_PROFILE')
+              }}
+            >
+              <Box gray500>
+                <Wallet size={16} />
+              </Box>
+              <Box>Web3 profile</Box>
             </MenuItem>
           </PopoverClose>
 

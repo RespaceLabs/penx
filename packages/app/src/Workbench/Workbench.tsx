@@ -16,6 +16,7 @@ import { QueryCloudSpaces } from './QueryCloudSpaces'
 import { SetPassword } from './SetPassword'
 import { Sidebar } from './Sidebar/Sidebar'
 import { SpaceSettings } from './SpaceSettings/SpaceSettings'
+import { Web3Profile } from './Web3Profile/Web3Profile'
 
 export const Workbench = () => {
   const { activeSpace } = useSpaces()
@@ -50,6 +51,7 @@ export const Workbench = () => {
 
           {name === 'SET_PASSWORD' && <SetPassword />}
           {name === 'SYNC_SERVER' && <SyncServer />}
+          {name === 'WEB3_PROFILE' && <Web3Profile />}
         </Box>
       </Box>
     </EditorProvider>

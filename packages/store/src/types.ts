@@ -24,6 +24,7 @@ export type RouteName =
   | 'SET_PASSWORD'
   | 'CREATE_SPACE'
   | 'SYNC_SERVER'
+  | 'WEB3_PROFILE'
 
 export type IRouterStore = {
   name: RouteName

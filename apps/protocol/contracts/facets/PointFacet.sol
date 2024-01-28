@@ -5,12 +5,6 @@ import "hardhat/console.sol";
 import "../tokens/Believer.sol";
 import "../interfaces/IBeliever.sol";
 
-contract PointFacetFacet {
-  Believer private immutable believer;
-
-  constructor(Believer _believer) {
-    believer = _believer;
-  }
-
+contract PointFacet {
   receive() external payable {}
 }
