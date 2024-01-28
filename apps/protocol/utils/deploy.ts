@@ -20,6 +20,7 @@ type ContractName =
   | 'DiamondLoupeFacet'
   | 'BelieverFacet'
   | 'Believer'
+  | 'PenxPoint'
 
 type DependencyContracts = Record<ContractName, Deployment>
 

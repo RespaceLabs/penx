@@ -15,3 +15,5 @@ artifacts
 types
 test/generated.ts
 abi
+
+deployments
