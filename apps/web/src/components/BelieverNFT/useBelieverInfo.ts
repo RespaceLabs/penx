@@ -11,8 +11,6 @@ export function useBelieverInfo() {
     functionName: 'getTokenInfo',
   })
 
-  console.log('============rest:', rest)
-
   return {
     ...rest,
     data: data ? new BelieverNFT(data) : null,

@@ -22,6 +22,7 @@ type ContractName =
   | 'Believer'
   | 'PenxPoint'
   | 'PointFacet'
+  | 'DaoVault'
 
 type DependencyContracts = Record<ContractName, Deployment>
 

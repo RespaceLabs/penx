@@ -1,12 +1,13 @@
 import { Box } from '@fower/react'
-import { Button, Spinner } from 'uikit'
+import { Button, Spinner, toast } from 'uikit'
 import { believerFacetAbi } from '@penx/abi'
 import { addressMap, useWriteContract } from '@penx/wagmi'
 import { useBelieverInfo } from './useBelieverInfo'
 
 export function MintButton() {
   const { data: nft } = useBelieverInfo()
-  const { writeContract, isLoading, data, error, isError } = useWriteContract()
+  const { writeContract, writeContractAsync, isLoading, data, error, isError } =
+    useWriteContract()
 
   return (
     <Button
@@ -17,12 +18,16 @@ export function MintButton() {
       colorScheme="cyan500"
       disabled={isLoading}
       onClick={async () => {
-        writeContract({
-          address: addressMap.Diamond,
-          abi: believerFacetAbi,
-          functionName: 'mintBelieverNFT',
-          value: nft!.currentPrice,
-        })
+        try {
+          await writeContractAsync({
+            address: addressMap.Diamond,
+            abi: believerFacetAbi,
+            functionName: 'mintBelieverNFT',
+            value: nft!.currentPrice,
+          })
+        } catch (error: any) {
+          toast.info(error.message)
+        }
       }}
     >
       {isLoading && <Spinner white />}

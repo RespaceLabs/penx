@@ -254,6 +254,7 @@ export const believerFacetAbi = [
     type: 'constructor',
     inputs: [
       { name: '_believer', internalType: 'contract Believer', type: 'address' },
+      { name: '_daoVault', internalType: 'contract DaoVault', type: 'address' },
     ],
   },
   {
@@ -288,6 +289,32 @@ export const believerFacetAbi = [
     type: 'function',
     inputs: [],
     name: 'mintBelieverNFT',
+    outputs: [],
+  },
+  { stateMutability: 'payable', type: 'receive' },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// DaoVault
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const daoVaultAbi = [
+  { stateMutability: 'payable', type: 'fallback' },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'getBalance',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'recipient', internalType: 'address payable', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferETH',
     outputs: [],
   },
   { stateMutability: 'payable', type: 'receive' },
@@ -2455,6 +2482,13 @@ export const penxPointAbi = [
 
 export const pointFacetAbi = [
   { stateMutability: 'payable', type: 'fallback' },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [],
+    name: 'accountPoint',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
   { stateMutability: 'payable', type: 'receive' },
 ] as const
 

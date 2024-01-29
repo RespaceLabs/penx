@@ -17,6 +17,7 @@ contract Believer is ERC721, IBeliever {
   constructor() ERC721("PenX Believer NFT", "PXB") {}
 
   function mintNFT(uint256 value, address account) external {
+    console.log("=========believer", address(this));
     require(currentSupply < MAX_SUPPLY, "Maximum supply reached");
     require(value >= getCurrentPrice(), "Insufficient payment");
 
@@ -31,7 +32,6 @@ contract Believer is ERC721, IBeliever {
   }
 
   function getTokenInfo() public view returns (BelieverNFTInfo memory info) {
-    
     return BelieverNFTInfo(MAX_SUPPLY, currentSupply, getCurrentPrice(), MIN_PRICE, MAX_PRICE);
   }
 }

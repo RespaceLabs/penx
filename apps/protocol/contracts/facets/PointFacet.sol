@@ -7,4 +7,8 @@ contract PointFacet {
   receive() external payable {}
 
   fallback() external payable {}
+
+  function accountPoint() external pure returns (uint256) {
+    return 100;
+  }
 }
