@@ -31,6 +31,7 @@ contract Believer is ERC721, IBeliever {
   }
 
   function getTokenInfo() public view returns (BelieverNFTInfo memory info) {
+    
     return BelieverNFTInfo(MAX_SUPPLY, currentSupply, getCurrentPrice(), MIN_PRICE, MAX_PRICE);
   }
 }

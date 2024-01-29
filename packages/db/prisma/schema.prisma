@@ -86,14 +86,14 @@ model PersonalToken {
 model Task {
     id          String    @id @default(uuid())
     userId      String
-    title       String
-    status      String
-    description String?
-    tags        String?
-    figmaUrl    String?
-    issueUrl    String?
-    usdReward   Int
-    tokenReward Int
+    title       String // text
+    status      String  // single select
+    description String? // markdown
+    tags        String? // multi select
+    figmaUrl    String?  // url
+    issueUrl    String? // url
+    usdReward   Int  // number
+    tokenReward Int // number
     createdAt   DateTime? @default(now())
     updatedAt   DateTime? @updatedAt
 }

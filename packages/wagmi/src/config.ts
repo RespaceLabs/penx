@@ -18,6 +18,7 @@ const metadata = {
 // Create wagmiConfig
 export const wagmiConfig = defaultWagmiConfig({
   chains: [getChain(), mainnet, sepolia], // required
+  // chains: [hardhat, mainnet, sepolia], // required
   // chains: [getChain()], // required
   projectId, // required
   metadata, // required

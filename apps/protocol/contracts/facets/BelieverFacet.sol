@@ -23,6 +23,7 @@ contract BelieverFacet is IBeliever {
   }
 
   function getTokenInfo() external view returns (BelieverNFTInfo memory info) {
-    return believer.getTokenInfo();
+    info = believer.getTokenInfo();
+    return info;
   }
 }

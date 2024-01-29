@@ -8,6 +8,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract PenxPoint is ERC20, Ownable {
   constructor() ERC20("PenX point Token", "PXP") {}
 
+  receive() external payable {}
+
+  fallback() external payable {}
+
   function mint(address to, uint256 amount) external onlyOwner {
     console.log("===============to:", to, "amount:", amount);
     _mint(to, amount);

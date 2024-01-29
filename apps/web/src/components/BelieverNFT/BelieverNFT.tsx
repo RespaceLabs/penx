@@ -53,15 +53,7 @@ export function BelieverNFT() {
       <Box grid gridTemplateColumns-4 gap4 mt10>
         {list.map((item) => (
           <Box key={item} column gap2>
-            <Box
-              shadowPopover
-              rounded2XL
-              toCenter
-              h-250
-              w-250
-              bgRed100
-              overflowHidden
-            >
+            <Box shadowPopover rounded2XL toCenter h-250 w-250 overflowHidden>
               <Box
                 w-100p
                 h-100p
