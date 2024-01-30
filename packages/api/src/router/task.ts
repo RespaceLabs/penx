@@ -41,6 +41,7 @@ export const taskRouter = createTRPCRouter({
       return ctx.prisma.task.create({
         data: {
           ...input,
+          claimStage: 'INIT',
         },
       })
     }),
