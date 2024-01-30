@@ -1,24 +1,27 @@
-import jwt from 'jsonwebtoken'
 import { nanoid } from 'nanoid'
 import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 export const taskRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.syncServer.findMany({
-      orderBy: { createdAt: 'desc' },
+    return ctx.prisma.task.findMany({
+      // TODO: debug
+      // orderBy: { createdAt: 'desc' },
+    })
+  }),
+
+  myTask: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.task.findMany({
+      where: { userId: ctx.token.uid },
+      // orderBy: { createdAt: 'desc' },
     })
   }),
 
   byId: publicProcedure
     .input(z.object({ id: z.string().min(1) }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.syncServer.findUniqueOrThrow({
+      return ctx.prisma.task.findUniqueOrThrow({
         where: { id: input.id },
-        select: {
-          id: true,
-          url: true,
-        },
       })
     }),
 
@@ -44,19 +47,24 @@ export const taskRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string().min(1),
-        name: z.string().min(1).optional(),
-        url: z.string().optional(),
-        type: z.string().min(1).optional(),
+        title: z.string().min(1),
+        status: z.string().min(1),
+        description: z.string().optional(),
+        tags: z.string().optional(),
+        figmaUrl: z.string().optional(),
+        issueUrl: z.string().optional(),
+        usdReward: z.number(),
+        tokenReward: z.number(),
       }),
     )
     .mutation(({ ctx, input }) => {
       const { id, ...data } = input
-      return ctx.prisma.syncServer.update({ where: { id }, data })
+      return ctx.prisma.task.update({ where: { id }, data })
     }),
 
   deleteById: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.syncServer.delete({ where: { id: input } })
+      return ctx.prisma.task.delete({ where: { id: input } })
     }),
 })

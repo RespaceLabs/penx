@@ -72,6 +72,20 @@ export const UserProfile = () => {
             <MenuItem
               gap2
               onClick={() => {
+                store.router.routeTo('TASK_BOARD')
+              }}
+            >
+              <Box gray500>
+                <DatabaseBackup size={16} />
+              </Box>
+              <Box>Task board</Box>
+            </MenuItem>
+          </PopoverClose>
+
+          <PopoverClose>
+            <MenuItem
+              gap2
+              onClick={() => {
                 store.router.routeTo('SYNC_SERVER')
               }}
             >

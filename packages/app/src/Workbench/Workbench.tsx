@@ -9,6 +9,7 @@ import { routerAtom } from '@penx/store'
 import { Fallback } from '../Fallback/Fallback'
 import { CommandPanel } from '../Palette'
 import { SyncServer } from '../SyncServer/SyncServer'
+import { TaskBoard } from '../TaskBoard'
 import { AccountSettings } from './AccountSettings/AccountSettings'
 import { MobileNav } from './NodeNav/MobileNav'
 import { NodePanels } from './NodePanels'
@@ -52,6 +53,7 @@ export const Workbench = () => {
           {name === 'SET_PASSWORD' && <SetPassword />}
           {name === 'SYNC_SERVER' && <SyncServer />}
           {name === 'WEB3_PROFILE' && <Web3Profile />}
+          {name === 'TASK_BOARD' && <TaskBoard />}
         </Box>
       </Box>
     </EditorProvider>
