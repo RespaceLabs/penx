@@ -25,6 +25,7 @@ export type RouteName =
   | 'CREATE_SPACE'
   | 'SYNC_SERVER'
   | 'WEB3_PROFILE'
+  | 'TASK_BOARD'
 
 export type IRouterStore = {
   name: RouteName

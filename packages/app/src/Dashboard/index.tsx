@@ -47,7 +47,7 @@ export function Dashboard({ userId }: { userId: string }) {
     if (!db.database.connection) {
       await db.database.connect()
     }
-    let spaces = await db.listSpaces(userId)
+    const spaces = await db.listSpaces(userId)
 
     if (spaces.length) {
       const newNodes = await db.listNodesBySpaceId(spaces[0].id)

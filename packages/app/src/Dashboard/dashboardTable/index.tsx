@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Box } from '@fower/react'
 import DataEditor, {
   DataEditorProps,
@@ -10,7 +10,7 @@ import DataEditor, {
 } from '@glideapps/glide-data-grid'
 import { INode } from '@penx/model-types'
 
-export const defaultProps: Partial<DataEditorProps> = {
+const defaultProps: Partial<DataEditorProps> = {
   smoothScrollX: true,
   smoothScrollY: true,
   getCellsForSelection: true,
@@ -30,10 +30,10 @@ interface IColumns {
 }
 
 export function DashboardTable({ spaceNodes }: IDashboardTable) {
-  const [numRows, setNumRows] = React.useState<number>(0)
+  const [numRows, setNumRows] = useState<number>(0)
   const [columns, setColumns] = useState<IColumns[]>([])
 
-  const ref = React.useRef<DataEditorRef>(null)
+  const ref = useRef<DataEditorRef>(null)
 
   const getContent = useCallback(
     (cell: Item): GridCell => {
@@ -80,13 +80,11 @@ export function DashboardTable({ spaceNodes }: IDashboardTable) {
       const spaceNode = sNodes[0]
       for (const key in spaceNode) {
         if (spaceNode.hasOwnProperty(key)) {
-          const column = {
+          columns.push({
             title: key,
             id: key,
             hasMenu: false,
-          }
-
-          columns.push(column)
+          })
         }
       }
 
