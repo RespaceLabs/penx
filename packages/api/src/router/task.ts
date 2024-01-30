@@ -1,19 +1,17 @@
-import { nanoid } from 'nanoid'
 import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 export const taskRouter = createTRPCRouter({
   all: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.task.findMany({
-      // TODO: debug
-      // orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: 'asc' },
     })
   }),
 
   myTask: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.task.findMany({
       where: { userId: ctx.token.uid },
-      // orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: 'desc' },
     })
   }),
 
@@ -28,17 +26,21 @@ export const taskRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        name: z.string().min(1),
-        type: z.string().min(1),
+        userId: z.string(),
+        title: z.string(),
+        status: z.string(),
+        description: z.string().optional(),
+        tags: z.string().optional(),
+        figmaUrl: z.string().optional(),
+        issueUrl: z.string().optional(),
+        usdReward: z.number(),
+        tokenReward: z.number(),
       }),
     )
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.syncServer.create({
+      return ctx.prisma.task.create({
         data: {
-          token: nanoid(),
-          url: '',
           ...input,
-          userId: ctx.token.uid,
         },
       })
     }),
@@ -47,8 +49,8 @@ export const taskRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string().min(1),
-        title: z.string().min(1),
-        status: z.string().min(1),
+        title: z.string(),
+        status: z.string(),
         description: z.string().optional(),
         tags: z.string().optional(),
         figmaUrl: z.string().optional(),

@@ -80,13 +80,11 @@ export function DashboardTable({ spaceNodes }: IDashboardTable) {
       const spaceNode = sNodes[0]
       for (const key in spaceNode) {
         if (spaceNode.hasOwnProperty(key)) {
-          const column = {
+          columns.push({
             title: key,
             id: key,
             hasMenu: false,
-          }
-
-          columns.push(column)
+          })
         }
       }
 
