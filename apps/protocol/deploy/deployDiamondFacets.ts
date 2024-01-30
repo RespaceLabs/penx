@@ -2,7 +2,15 @@ import { ethers } from 'hardhat'
 import { getSelectors, FacetCutAction, getAllAlreadySelectors, getSelectorsExcludeAlready } from '../utils/diamond'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 
-const facetDependencies = ['Diamond', 'DiamondCutFacet', 'DiamondLoupeFacet', 'BelieverFacet', 'PointFacet']
+const facetDependencies = [
+  'Diamond',
+  'DiamondCutFacet',
+  'DiamondLoupeFacet',
+  'BelieverFacet',
+  'PointFacet',
+  'TaskFacet',
+  'VaultFacet',
+]
 
 const func = async (hre: HardhatRuntimeEnvironment) => {
   if (hre.network.name != 'localhost' && hre.network.name != 'hardhat') {

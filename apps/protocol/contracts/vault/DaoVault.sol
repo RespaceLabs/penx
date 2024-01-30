@@ -14,5 +14,7 @@ contract DaoVault {
 
   function transferETH(address payable recipient, uint amount) external {
     recipient.transfer(amount);
+    // (bool success, ) = recipient.call{ value: amount }(new bytes(0));
+    // require(success, "SET");
   }
 }

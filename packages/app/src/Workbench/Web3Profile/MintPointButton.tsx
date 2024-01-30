@@ -12,7 +12,7 @@ import {
 
 export function MintPointButton() {
   const { address } = useAccount()
-  const { writeContract, isError, error } = useWriteContract()
+  const { writeContract } = useWriteContract()
 
   return (
     <Box toCenterY gap2>

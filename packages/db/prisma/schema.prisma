@@ -87,13 +87,14 @@ model Task {
     id          String    @id @default(uuid())
     userId      String
     title       String // text
-    status      String  // single select
+    status      String // single select
     description String? // markdown
     tags        String? // multi select
-    figmaUrl    String?  // url
+    figmaUrl    String? // url
     issueUrl    String? // url
-    usdReward   Int  // number
+    usdReward   Int // number
     tokenReward Int // number
+    claimStage  String // single select
     createdAt   DateTime? @default(now())
     updatedAt   DateTime? @updatedAt
 }

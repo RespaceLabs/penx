@@ -23,6 +23,8 @@ type ContractName =
   | 'PenxPoint'
   | 'PointFacet'
   | 'DaoVault'
+  | 'TaskFacet'
+  | 'VaultFacet'
 
 type DependencyContracts = Record<ContractName, Deployment>
 

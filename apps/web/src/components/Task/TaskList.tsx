@@ -1,7 +1,9 @@
 import { Box, styled } from '@fower/react'
 import { Gem } from 'lucide-react'
+import { it } from 'node:test'
 import { Button } from 'uikit'
 import { IconToken } from '../IconToken'
+import { ClaimButton } from './ClaimButton'
 
 const RewardWrapper = styled(Box, [
   'h-32',
@@ -46,14 +48,7 @@ export function TaskList() {
                 </RewardWrapper>
               </Box>
             </Box>
-            <Button
-              variant="outline"
-              colorScheme="brand500"
-              roundedFull
-              border-2
-            >
-              Claim rewards
-            </Button>
+            <ClaimButton taskId={i.toString()} />
           </Box>
         ))}
       </Box>
