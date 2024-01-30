@@ -29,7 +29,7 @@ export const Logo = ({
 
       {showText && (
         <Box>
-          <Box text={size} black fontBold toCenterY>
+          <Box text={size} fontBold toCenterY>
             <Box>Pen</Box>
             <Box brand500>X</Box>
           </Box>

@@ -21,20 +21,13 @@ export const WalletConnectButton = (props: Props) => {
   }
 
   return (
-    <Button
-      type="button"
-      roundedFull
-      size="sm"
-      fontSemibold
-      onClick={onClick}
-      {...props}
-    >
+    <Button type="button" roundedFull fontSemibold onClick={onClick} {...props}>
       <Box display={['none', 'none', 'inline-flex']}>
-        {props.children ? props.children : 'Connect to mint'}
+        {props.children ? props.children : 'Connect wallet'}
       </Box>
 
       <Box display={['inline-flex', 'inline-flex', 'none']}>
-        {props.children ? props.children : 'Connect to mint'}
+        {props.children ? props.children : 'Connect wallet'}
       </Box>
     </Button>
   )

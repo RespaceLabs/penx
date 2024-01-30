@@ -46,7 +46,11 @@ export function BelieverNFT() {
           </Box>
           <NFTBasicInfo />
           {isConnected && <MintButton />}
-          {!isConnected && <WalletConnectButton size={56} w-300 />}
+          {!isConnected && (
+            <WalletConnectButton size={56} w-300>
+              Connect to mint
+            </WalletConnectButton>
+          )}
         </Box>
         <PriceChart />
       </Box>
