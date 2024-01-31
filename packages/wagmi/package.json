@@ -21,13 +21,19 @@
     "@penx/constants": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "@tanstack/react-query": "^4.36.1",
-    "@wagmi/core": "^2.6.1",
-    "@web3modal/wagmi": "4.0.0-alpha.3",
+    "@wagmi/core": "^1.4.13",
+    "@web3modal/core": "^3.5.7",
+    "@web3modal/siwe": "^3.5.7",
+    "@web3modal/wagmi": "^3.5.7",
+    "bufferutil": "^4.0.8",
     "encoding": "^0.1.13",
+    "next-auth": "^4.24.5",
     "pino": "^8.17.2",
     "pino-pretty": "^10.3.1",
+    "siwe": "^2.1.4",
     "uikit": "workspace:*",
-    "viem": "^2.5.0",
-    "wagmi": "^2.5.4"
+    "utf-8-validate": "^6.0.3",
+    "viem": "^1.21.4",
+    "wagmi": "^1.4.13"
   }
 }

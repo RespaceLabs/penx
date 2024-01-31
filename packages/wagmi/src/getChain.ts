@@ -1,5 +1,5 @@
 import { Chain } from 'viem'
-import { hardhat } from 'wagmi/chains'
+import { hardhat, mainnet } from 'wagmi/chains'
 import { NETWORK, NetworkNames } from '@penx/constants'
 import { addressMap } from './address'
 

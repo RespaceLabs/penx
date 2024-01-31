@@ -1,23 +1,19 @@
 import { Box } from '@fower/react'
+import { useAccount, useBalance, useContractRead } from 'wagmi'
 import { penxPointAbi, pointFacetAbi } from '@penx/abi'
 import { precision } from '@penx/math'
-import {
-  addressMap,
-  useAccount,
-  useBalance,
-  useReadContract,
-} from '@penx/wagmi'
+import { addressMap } from '@penx/wagmi'
 
 export function MyPoint() {
   const { address } = useAccount()
-  const { data, ...rest } = useReadContract({
+  const { data, ...rest } = useContractRead({
     address: addressMap.PenxPoint,
     abi: penxPointAbi,
     functionName: 'balanceOf',
     args: [address!],
   })
 
-  const { data: point } = useReadContract({
+  const { data: point } = useContractRead({
     address: addressMap.Diamond,
     abi: pointFacetAbi,
     functionName: 'accountPoint',

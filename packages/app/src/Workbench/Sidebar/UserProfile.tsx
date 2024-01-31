@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Box } from '@fower/react'
 import { DatabaseBackup, Home, LogOut, User, Wallet } from 'lucide-react'
 import {
@@ -17,10 +18,18 @@ import { appEmitter } from '../../app-emitter'
 
 export const UserProfile = () => {
   const { loading, data: session } = useSession()
+  const name = useMemo(() => {
+    if (session.user.email) return session.user.email
+    if (session.user.name) return session.user.email
+    if (session.address) {
+      return `${session.address.slice(0, 6)}...${session.address.slice(-4)}`
+    }
+    return 'Unknown'
+  }, [session])
+
   if (loading) return null
 
   const image = session.user?.image || ''
-  const name = session.user.email || session.user.name
 
   return (
     <Box borderBottom borderGray200--T40 h-40 toCenterY pl4 pr2 toBetween>
@@ -28,14 +37,14 @@ export const UserProfile = () => {
         <PopoverTrigger>
           <Avatar size={24}>
             <AvatarImage src={image} flexShrink-0 />
-            <AvatarFallback>{name}</AvatarFallback>
+            <AvatarFallback>{name.slice(3, 4)}</AvatarFallback>
           </Avatar>
         </PopoverTrigger>
         <PopoverContent w-200>
           <Box toCenterY gap2 px4 py2>
             <Avatar size={24}>
               <AvatarImage src={image} />
-              <AvatarFallback>{name}</AvatarFallback>
+              <AvatarFallback>{name.slice(3, 4)}</AvatarFallback>
             </Avatar>
             <Box textSM>{name}</Box>
           </Box>

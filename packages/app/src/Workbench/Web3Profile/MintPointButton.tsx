@@ -1,18 +1,13 @@
 import { Box } from '@fower/react'
+import { writeContract } from '@wagmi/core'
+import { useAccount } from 'wagmi'
 import { Button } from 'uikit'
 import { daoVaultAbi, erc20Abi, penxPointAbi } from '@penx/abi'
 import { precision } from '@penx/math'
-import {
-  addressMap,
-  useAccount,
-  useReadContract,
-  useWriteContract,
-  writeContract,
-} from '@penx/wagmi'
+import { addressMap } from '@penx/wagmi'
 
 export function MintPointButton() {
   const { address } = useAccount()
-  const { writeContract } = useWriteContract()
 
   return (
     <Box toCenterY gap2>

@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { useAccount } from 'wagmi'
@@ -8,7 +7,7 @@ interface Props extends FowerHTMLProps<'button'>, ButtonProps {}
 
 export const WalletConnectButton = (props: Props) => {
   const { open } = useWeb3Modal()
-  const { isConnected, address } = useAccount()
+  const { isConnected } = useAccount()
 
   async function onOpen() {
     await open()
@@ -21,14 +20,15 @@ export const WalletConnectButton = (props: Props) => {
   }
 
   return (
-    <Button type="button" roundedFull fontSemibold onClick={onClick} {...props}>
-      <Box display={['none', 'none', 'inline-flex']}>
-        {props.children ? props.children : 'Connect wallet'}
-      </Box>
-
-      <Box display={['inline-flex', 'inline-flex', 'none']}>
-        {props.children ? props.children : 'Connect wallet'}
-      </Box>
+    <Button
+      type="button"
+      textSM
+      roundedFull
+      fontSemibold
+      onClick={onClick}
+      {...props}
+    >
+      {props.children ? props.children : 'Connect'}
     </Button>
   )
 }

@@ -1,7 +1,7 @@
 import { Box, FowerHTMLProps } from '@fower/react'
+import { useAccount, useDisconnect } from 'wagmi'
 import { Button } from 'uikit'
 import { IconDisconnect } from '@penx/icons'
-import { useAccount, useDisconnect } from '@penx/wagmi'
 
 interface DisconnectButtonProps extends FowerHTMLProps<'button'> {}
 

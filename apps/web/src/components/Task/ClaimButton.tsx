@@ -1,14 +1,14 @@
-import { Box, styled } from '@fower/react'
+import { writeContract } from '@wagmi/core'
+import { useAccount } from 'wagmi'
 import { Button, toast } from 'uikit'
 import { taskFacetAbi } from '@penx/abi'
-import { addressMap, useAccount, useWriteContract } from '@penx/wagmi'
+import { addressMap } from '@penx/wagmi'
 
 interface ClaimButtonProps {
   taskId: string
 }
 
 export function ClaimButton({ taskId }: ClaimButtonProps) {
-  const { writeContractAsync } = useWriteContract()
   const { isConnected } = useAccount()
   return (
     <Button
@@ -22,7 +22,7 @@ export function ClaimButton({ taskId }: ClaimButtonProps) {
 
         console.log('=======taskId:', taskId)
         try {
-          await writeContractAsync({
+          await writeContract({
             address: addressMap.Diamond,
             abi: taskFacetAbi,
             functionName: 'createClaimReward',

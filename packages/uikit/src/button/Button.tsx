@@ -46,7 +46,8 @@ export const Button: BoxComponent<'button', ButtonProps> = forwardRef(
         className="uikit-button"
         inlineFlex
         leadingNone
-        toCenter
+        toCenterX
+        toCenterY
         outlineNone
         cursorPointer
         roundedMD

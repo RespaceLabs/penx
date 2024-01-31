@@ -17,6 +17,7 @@ declare module 'next-auth' {
    */
   interface Session extends DefaultSession {
     userId: string
+    chainId: number
     address: string
     user: {
       id: string

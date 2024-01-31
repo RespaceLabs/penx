@@ -21,24 +21,27 @@ export default function LoginWithGoogleButton() {
   return (
     <Button
       disabled={loading}
-      size="lg"
+      size={56}
       colorScheme="white"
+      cursorNotAllowed={loading}
+      gapX2
+      w-240
+      toBetween
       onClick={() => {
         setLoading(true)
         signIn('google')
       }}
-      cursorNotAllowed={loading}
-      gapX2
-      w-240
     >
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <IconGoogle />
-          <Box>Login with Google</Box>
-        </>
-      )}
+      {loading && <Spinner />}
+      <IconGoogle size={24} />
+      <Box column gap1>
+        <Box textBase fontSemibold>
+          Login with Google
+        </Box>
+        <Box gray800 textXS fontLight>
+          Suitable for web2 users
+        </Box>
+      </Box>
     </Button>
   )
 }

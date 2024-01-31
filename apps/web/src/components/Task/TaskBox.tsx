@@ -1,19 +1,17 @@
 import { Box } from '@fower/react'
 import { Gem } from 'lucide-react'
+import { useAccount, useContractRead } from 'wagmi'
 import { daoVaultAbi, penxPointAbi } from '@penx/abi'
-import { DisconnectButton, Logo } from '@penx/app'
+import { Logo } from '@penx/app'
 import { precision } from '@penx/math'
-import {
-  addressMap,
-  useAccount,
-  useReadContract,
-  WalletConnectButton,
-} from '@penx/wagmi'
+import { addressMap } from '@penx/wagmi'
+import { DisconnectButton } from '../DisconnectButton'
+import { WalletConnectButton } from '../WalletConnectButton'
 import { TaskFilter } from './TaskFilter'
 import { TaskList } from './TaskList'
 
 function VaultBalance() {
-  const { data } = useReadContract({
+  const { data } = useContractRead({
     address: addressMap.DaoVault,
     abi: daoVaultAbi,
     functionName: 'getBalance',
@@ -25,7 +23,7 @@ function PointBalance() {
   const { address } = useAccount()
   console.log('=======address:', address)
 
-  const { data, isLoading, error } = useReadContract({
+  const { data, isLoading, error } = useContractRead({
     address: addressMap.PenxPoint,
     abi: penxPointAbi,
     functionName: 'balanceOf',

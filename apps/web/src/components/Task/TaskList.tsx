@@ -1,7 +1,7 @@
 import { Box, styled } from '@fower/react'
 import { Gem } from 'lucide-react'
-import { it } from 'node:test'
-import { Button } from 'uikit'
+import { Button, Spinner } from 'uikit'
+import { trpc } from '@penx/trpc-client'
 import { IconToken } from '../IconToken'
 import { ClaimButton } from './ClaimButton'
 
@@ -16,13 +16,19 @@ const RewardWrapper = styled(Box, [
 ])
 
 export function TaskList() {
-  const list = Array(40)
-    .fill(0)
-    .map((_, i) => i)
+  const { isLoading, data = [] } = trpc.task.all.useQuery()
+
+  if (isLoading) {
+    return (
+      <Box minH-60vh toCenter>
+        <Spinner />
+      </Box>
+    )
+  }
   return (
     <Box>
       <Box column gap4>
-        {list.map((_, i) => (
+        {data.map((item, i) => (
           <Box
             key={i}
             py5
@@ -33,18 +39,37 @@ export function TaskList() {
           >
             <Box column gap2>
               <Box textXL fontSemibold>
-                Mind Network Crescendo | Testnet Launch
+                {item.title}
+              </Box>
+              <Box column gap2>
+                {item.issueUrl && (
+                  <Box toCenterY gap2 gray800>
+                    <Box>GitHub issue:</Box>
+                    <Box gray500 as="a" href={item.issueUrl}>
+                      {item.issueUrl}
+                    </Box>
+                  </Box>
+                )}
+
+                {item.figmaUrl && (
+                  <Box toCenterY gap2 gray800>
+                    <Box>Figma:</Box>
+                    <Box as="a" gray500 href={item.figmaUrl}>
+                      {item.figmaUrl}
+                    </Box>
+                  </Box>
+                )}
               </Box>
               <Box toCenterY gap2>
                 <RewardWrapper bgAmber200>
                   <IconToken size={20} token="USDT" />
-                  <Box>50 USDT</Box>
+                  <Box>{item.usdReward} USDT</Box>
                 </RewardWrapper>
                 <RewardWrapper bgCyan200>
                   <Box square4>
                     <Gem size={16}></Gem>
                   </Box>
-                  <Box>50 PXP</Box>
+                  <Box>{item.tokenReward} PXP</Box>
                 </RewardWrapper>
               </Box>
             </Box>

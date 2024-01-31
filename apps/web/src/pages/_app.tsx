@@ -1,19 +1,17 @@
 import { Fragment, useEffect } from 'react'
 import { Analytics } from '@vercel/analytics/react'
-import { set } from 'idb-keyval'
 import { Session } from 'next-auth'
 import { SessionProvider, signIn, signOut } from 'next-auth/react'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'uikit'
-import { isServer, PENX_SESSION_USER } from '@penx/constants'
+import { isServer } from '@penx/constants'
 import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
 import '@penx/local-db'
 import { fowerStore, Parser } from '@fower/react'
 // import { SpeedInsights } from '@vercel/speed-insights/next'
-import { appEmitter } from '@penx/app'
 // import 'prismjs/themes/prism.css'
 // import 'prismjs/themes/prism.css'
 // import 'prismjs/themes/prism-twilight.css'
@@ -25,6 +23,10 @@ import '../styles/globals.css'
 import '../styles/command.scss'
 import '@glideapps/glide-data-grid/dist/index.css'
 import { TrpcProvider } from '@penx/trpc-client'
+import { ClientOnly } from '~/components/ClientOnly'
+import { EventHandler } from '~/components/EventHandler'
+import { SiweModal } from '~/components/SiweModal'
+import { WalletConnectProvider } from '~/components/WalletConnectProvider'
 
 initFower()
 
@@ -37,16 +39,6 @@ interface Props<T> extends AppProps<T> {
 
 if (!isServer) {
   // TODO: move this code to a separate file
-  const handleSignOut = () => {
-    set(PENX_SESSION_USER, null)
-    signOut()
-  }
-  appEmitter.on('SIGN_OUT', handleSignOut)
-
-  const handleSignIn = () => {
-    signIn('google')
-  }
-  appEmitter.on('SIGN_IN_GOOGLE', handleSignIn)
 }
 
 function MyApp({ Component, pageProps }: Props<any>) {
@@ -60,18 +52,24 @@ function MyApp({ Component, pageProps }: Props<any>) {
       />
       <GoogleAnalytics trackPageViews />
 
-      <SessionProvider session={pageProps.session} refetchInterval={0}>
-        <TrpcProvider>
-          {/* <SpeedInsights /> */}
-          <Layout>
-            <Component {...pageProps} />
-            <div id="portal" />
-          </Layout>
-          <ToastContainer position="bottom-right" />
+      <ClientOnly>
+        <WalletConnectProvider>
+          <SessionProvider session={pageProps.session} refetchInterval={0}>
+            <TrpcProvider>
+              <SiweModal />
+              <EventHandler />
+              {/* <SpeedInsights /> */}
+              <Layout>
+                <Component {...pageProps} />
+                <div id="portal" />
+              </Layout>
+              <ToastContainer position="bottom-right" />
 
-          {/* <Analytics /> */}
-        </TrpcProvider>
-      </SessionProvider>
+              {/* <Analytics /> */}
+            </TrpcProvider>
+          </SessionProvider>
+        </WalletConnectProvider>
+      </ClientOnly>
     </>
   )
 }

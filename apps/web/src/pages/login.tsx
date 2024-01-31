@@ -1,10 +1,12 @@
 import { Suspense, useMemo } from 'react'
 import { Box } from '@fower/react'
+import { Wallet } from 'lucide-react'
 import { NEXTAUTH_PROVIDERS } from '@penx/constants'
 import { LoginForm } from '~/components/LoginForm/LoginForm'
 import LoginWithGithubButton from '~/components/LoginWithGithubButton'
 import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
 import { Logo } from '~/components/Logo'
+import { WalletConnectButton } from '~/components/WalletConnectButton'
 
 export default function LoginPage() {
   const providers = useMemo(() => {
@@ -32,6 +34,17 @@ export default function LoginPage() {
             <LoginWithGoogleButton />
           </Suspense>
         )}
+        <WalletConnectButton size={56} rounded2XL colorScheme="white" toBetween>
+          <Wallet />
+          <Box column gap1>
+            <Box textBase fontSemibold>
+              Login with Wallet
+            </Box>
+            <Box gray800 textXS fontLight>
+              For web3 users and builders
+            </Box>
+          </Box>
+        </WalletConnectButton>
       </Box>
     )
   }, [showGoogle, showGitHub])

@@ -1,7 +1,8 @@
 import { Box } from '@fower/react'
-import { DisconnectButton } from '@penx/app'
-import { useAccount, WalletConnectButton } from '@penx/wagmi'
+import { useAccount } from 'wagmi'
+import { DisconnectButton } from '../DisconnectButton'
 import { Logo } from '../Logo'
+import { WalletConnectButton } from '../WalletConnectButton'
 import { MintButton } from './MintButton'
 import { NFTBasicInfo } from './NFTBasicInfo'
 import { PriceChart } from './PriceChart'
@@ -46,11 +47,15 @@ export function BelieverNFT() {
           </Box>
           <NFTBasicInfo />
           {isConnected && <MintButton />}
-          {!isConnected && (
+          {/* {!isConnected && (
             <WalletConnectButton size={56} w-300>
               Connect to mint
             </WalletConnectButton>
-          )}
+          )} */}
+
+          <WalletConnectButton size={56} w-300>
+            Connect to mint
+          </WalletConnectButton>
         </Box>
         <PriceChart />
       </Box>

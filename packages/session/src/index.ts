@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react'
 
 export interface Session {
+  address: string
   user: {
     name: string
     email: string

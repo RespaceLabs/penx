@@ -89,6 +89,7 @@ export enum ModalNames {
   DELETE_SPACE,
   LOGIN_SUCCESS,
   SYNC_DETECTOR,
+  SIWE,
 }
 
 export enum RoleType {

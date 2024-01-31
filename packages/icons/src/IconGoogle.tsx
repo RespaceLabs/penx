@@ -3,13 +3,7 @@ import { iconify } from 'uikit'
 export const IconGoogle = iconify({
   displayName: 'IconGoogle',
   viewBox: '0 0 35 35',
-  // viewBox: '0 0 16 16',
   fill: 'currentColor',
-  atomicProps: {
-    square: 16,
-    cursorGrab: true,
-    gray500: true,
-  },
   path: (
     <>
       <path
