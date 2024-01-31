@@ -1,4 +1,5 @@
 import { User as IUser } from '@prisma/client'
+import { RoleType } from '@penx/constants'
 
 export type GithubInfo = {
   installationId: number
@@ -45,5 +46,9 @@ export class User {
 
   get isSyncWorks() {
     return !!this.repo
+  }
+
+  get isAdmin() {
+    return this.raw.roleType === RoleType.ADMIN
   }
 }

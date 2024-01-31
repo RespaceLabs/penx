@@ -230,9 +230,9 @@ export function useTableView() {
       cellNodesMapList,
       filterRows,
       options,
-      viewColumns,
       columnsMap,
       isTagDataSource,
+      indexes,
     ],
   )
 

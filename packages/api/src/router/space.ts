@@ -37,11 +37,16 @@ export const spaceRouter = createTRPCRouter({
       },
     })
 
+    // console.log('==========spaces:', spaces)
+
     return spaces.map(({ syncServer, ...space }) => {
-      const syncServerAccessToken = jwt.sign(
-        { sub: ctx.token.uid },
-        syncServer?.token as string,
-      )
+      let syncServerAccessToken = ''
+      if (syncServer?.token) {
+        syncServerAccessToken = jwt.sign(
+          { sub: ctx.token.uid },
+          syncServer?.token as string,
+        )
+      }
       return {
         ...space,
         syncServerAccessToken,

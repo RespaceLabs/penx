@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Box } from '@fower/react'
+import { Box, css } from '@fower/react'
 import DataEditor, {
   CompactSelection,
   DataEditorProps,
@@ -26,14 +26,14 @@ const excludeProperty = ['id', 'userId', 'createdAt', 'updatedAt']
 
 const taskTypeMap: Record<string, FieldType> = {
   title: FieldType.TEXT,
-  status: FieldType.TEXT,
-  description: FieldType.TEXT,
-  tags: FieldType.TEXT,
-  figmaUrl: FieldType.TEXT,
-  issueUrl: FieldType.TEXT,
+  status: FieldType.SINGLE_SELECT,
+  description: FieldType.MARKDOWN,
+  tags: FieldType.MULTIPLE_SELECT,
+  figmaUrl: FieldType.URL,
+  issueUrl: FieldType.URL,
   usdReward: FieldType.NUMBER,
   tokenReward: FieldType.NUMBER,
-  claimStage: FieldType.TEXT,
+  claimStage: FieldType.SINGLE_SELECT,
 }
 
 const defaultProps: Partial<DataEditorProps> = {
@@ -224,6 +224,7 @@ export function TaskBoardTable() {
 
       <DataEditor
         {...defaultProps}
+        className={css('roundedXL shadowPopover')}
         rowSelect="single"
         rowSelectionMode="auto"
         gridSelection={selection}

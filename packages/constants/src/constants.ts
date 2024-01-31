@@ -91,6 +91,11 @@ export enum ModalNames {
   SYNC_DETECTOR,
 }
 
+export enum RoleType {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
+
 export enum SyncServerType {
   OFFICIAL = 'OFFICIAL',
   PUBLIC = 'PUBLIC',
