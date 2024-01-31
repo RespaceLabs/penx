@@ -33,6 +33,7 @@ const taskTypeMap: Record<string, FieldType> = {
   issueUrl: FieldType.TEXT,
   usdReward: FieldType.NUMBER,
   tokenReward: FieldType.NUMBER,
+  claimStage: FieldType.TEXT,
 }
 
 const defaultProps: Partial<DataEditorProps> = {
@@ -53,6 +54,7 @@ const initialData = {
   issueUrl: '',
   usdReward: 0,
   tokenReward: 0,
+  claimStage: '',
 } as Task
 
 export function TaskBoardTable() {
@@ -137,6 +139,7 @@ export function TaskBoardTable() {
           issueUrl: task.issueUrl?.toString() || '',
           usdReward: Number(task.usdReward),
           tokenReward: Number(task.tokenReward),
+          claimStage: task.claimStage,
         })
       } catch (error) {
         console.error('modify error:', error)

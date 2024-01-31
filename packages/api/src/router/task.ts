@@ -35,13 +35,13 @@ export const taskRouter = createTRPCRouter({
         issueUrl: z.string().optional(),
         usdReward: z.number(),
         tokenReward: z.number(),
+        claimStage: z.string(),
       }),
     )
     .mutation(({ ctx, input }) => {
       return ctx.prisma.task.create({
         data: {
           ...input,
-          claimStage: 'INIT',
         },
       })
     }),
@@ -58,6 +58,7 @@ export const taskRouter = createTRPCRouter({
         issueUrl: z.string().optional(),
         usdReward: z.number(),
         tokenReward: z.number(),
+        claimStage: z.string(),
       }),
     )
     .mutation(({ ctx, input }) => {
