@@ -78,6 +78,10 @@ export class TableSearch {
             ? generateNoteCellText(cellNodeProps.ref, false)
             : cellNodeProps?.data
 
+          if (typeof text === 'object') {
+            text = JSON.stringify(text)
+          }
+
           this.insert(
             cellNodeProps.columnId,
             text ? text.trim() : 'EMPTY',

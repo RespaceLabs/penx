@@ -10,31 +10,12 @@ import DataEditor, {
   GridSelection,
   Item,
 } from '@glideapps/glide-data-grid'
+import { cellCommonRenderers } from '@penx/database/src/ui/views/TableView/cells-common'
+import { SingleSelectCell } from '@penx/database/src/ui/views/TableView/cells-common/single-select-cell'
 import { Task } from '@penx/db'
 import { FieldType } from '@penx/model-types'
 import { api } from '@penx/trpc-client'
 import { useTaskBoard } from './useTaskBoard'
-
-interface IColumns {
-  title: string
-  id: string
-  hasMenu?: boolean
-  dataType?: FieldType
-}
-
-const excludeProperty = ['id', 'userId', 'createdAt', 'updatedAt']
-
-const taskTypeMap: Record<string, FieldType> = {
-  title: FieldType.TEXT,
-  status: FieldType.SINGLE_SELECT,
-  description: FieldType.MARKDOWN,
-  tags: FieldType.MULTIPLE_SELECT,
-  figmaUrl: FieldType.URL,
-  issueUrl: FieldType.URL,
-  usdReward: FieldType.NUMBER,
-  tokenReward: FieldType.NUMBER,
-  claimStage: FieldType.SINGLE_SELECT,
-}
 
 const defaultProps: Partial<DataEditorProps> = {
   smoothScrollX: true,
@@ -57,11 +38,34 @@ const initialData = {
   claimStage: '',
 } as Task
 
+interface TaskOptions {
+  id: string
+  name: string
+  color: string
+}
+
+const statusOptions: TaskOptions[] = [
+  {
+    id: '1',
+    name: 'test3',
+    color: 'yellow500',
+  },
+  {
+    id: '2',
+    name: 'test2',
+    color: 'sky500',
+  },
+  {
+    id: '3',
+    name: 'test3',
+    color: 'sky500',
+  },
+]
+
 export function TaskBoardTable() {
-  const { tasks, setTasks, fetchTasks } = useTaskBoard()
+  const { columns, tasks, setTasks, fetchTasks } = useTaskBoard()
   const ref = useRef<DataEditorRef>(null)
   const [numRows, setNumRows] = useState<number>(0)
-  const [columns, setColumns] = useState<IColumns[]>([])
   const [selection, setSelection] = useState<GridSelection>({
     columns: CompactSelection.empty(),
     rows: CompactSelection.empty(),
@@ -77,9 +81,9 @@ export function TaskBoardTable() {
         const [col, row] = cell
         const rowData = tasks[row]
         const colData = columns[col]
-        const target = rowData[colData.id as keyof Task]
-        if (typeof target === 'object') {
-          const data = JSON.stringify(target)
+        const cellData = rowData[colData.id as keyof Task]
+        if (typeof cellData === 'object') {
+          const data = JSON.stringify(cellData)
           return {
             kind: GridCellKind.Text,
             allowOverlay: true,
@@ -94,16 +98,34 @@ export function TaskBoardTable() {
                 kind: GridCellKind.Number,
                 allowOverlay: true,
                 readonly: false,
-                displayData: target.toString(),
-                data: Number(target),
+                displayData: cellData.toString(),
+                data: Number(cellData),
               }
+
+            case FieldType.SINGLE_SELECT:
+              const ids: string[] = JSON.parse(cellData as string)
+              const cellOptions = ids.map(
+                (id) => statusOptions.find((o) => o.id === id)!,
+              )
+
+              return {
+                kind: GridCellKind.Custom,
+                allowOverlay: true,
+                data: {
+                  kind: 'single-select-cell',
+                  options: cellOptions,
+                  data: ids,
+                  dataSource: statusOptions,
+                },
+              } as SingleSelectCell
+
             default:
               return {
                 kind: GridCellKind.Text,
                 allowOverlay: true,
                 readonly: false,
-                displayData: target ? target.toString() : '',
-                data: target ? target.toString() : '',
+                displayData: cellData ? cellData.toString() : '',
+                data: cellData ? cellData.toString() : '',
               }
           }
         }
@@ -117,7 +139,7 @@ export function TaskBoardTable() {
         }
       }
     },
-    [columns],
+    [tasks],
   )
 
   const onCellEdited = useCallback(
@@ -149,41 +171,14 @@ export function TaskBoardTable() {
 
       return true
     },
-    [columns, tasks],
+    [tasks],
   )
 
-  const generateColumns = useCallback((tasks: Task[]) => {
-    if (tasks.length) {
-      const columns = []
-      const task = tasks[0]
-      for (const key in task) {
-        if (task.hasOwnProperty(key) && !excludeProperty.includes(key)) {
-          columns.push({
-            title: key,
-            id: key,
-            hasMenu: false,
-            dataType: taskTypeMap[key] || FieldType.TEXT,
-          })
-        }
-      }
-
-      setColumns(columns)
-    }
-  }, [])
-
-  const onRowAppended = useCallback(
-    async (tasks: Task[]) => {
-      await api.task.create.mutate(initialData as any)
-      await fetchTasks()
-      setTasks([...tasks, initialData])
-    },
-    [numRows],
-  )
-
-  const onAdd = useCallback(() => {
-    ref.current?.appendRow(0, false)
-    onRowAppended(tasks)
-  }, [ref, tasks])
+  const onRowAppended = useCallback(async () => {
+    await api.task.create.mutate(initialData as any)
+    await fetchTasks()
+    ref.current?.appendRow(0, true)
+  }, [ref])
 
   const onDeleteRow = useCallback(async () => {
     const { rows } = selection
@@ -205,7 +200,6 @@ export function TaskBoardTable() {
   }, [selection])
 
   useEffect(() => {
-    generateColumns(tasks)
     setNumRows(tasks.length)
   }, [tasks])
 
@@ -213,12 +207,12 @@ export function TaskBoardTable() {
     <Box h="100%">
       <Box flex pb1>
         <h4>Task board</h4>
-        <Box as="button" cursor="pointer" ml5 onClick={onAdd}>
+        <Box as="button" cursor="pointer" ml5 onClick={onRowAppended}>
           Append
         </Box>
 
         <Box as="button" cursor="pointer" ml5 onClick={onDeleteRow}>
-          delete row
+          Delete row
         </Box>
       </Box>
 
@@ -227,14 +221,15 @@ export function TaskBoardTable() {
         className={css('roundedXL shadowPopover')}
         rowSelect="single"
         rowSelectionMode="auto"
-        gridSelection={selection}
+        rowMarkers="both"
         ref={ref}
+        gridSelection={selection}
         columns={columns}
+        rows={numRows}
         getCellContent={getContent}
         onCellEdited={onCellEdited}
         onGridSelectionChange={onSelection}
-        rowMarkers={'both'}
-        rows={numRows}
+        customRenderers={cellCommonRenderers}
         // onRowAppended={onRowAppended}
       />
     </Box>

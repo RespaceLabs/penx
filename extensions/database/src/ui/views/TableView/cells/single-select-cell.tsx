@@ -257,7 +257,11 @@ function Combobox({
                 )}
 
                 <OptionTag
-                  option={item}
+                  option={{
+                    id: item?.props?.columnId,
+                    name: item?.props?.name,
+                    color: item?.props?.color,
+                  }}
                   showClose={currentIds.includes(item.id)}
                 />
               </Box>

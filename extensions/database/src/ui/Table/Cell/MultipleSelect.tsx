@@ -47,7 +47,11 @@ export const MultipleSelectCell: FC<CellProps> = memo(
             {items.map((option) => (
               <OptionTag
                 key={option.id}
-                option={option}
+                option={{
+                  id: option?.props?.columnId,
+                  name: option?.props?.name,
+                  color: option?.props?.color,
+                }}
                 deletable
                 onDelete={async () => {
                   await deleteCellOption(cell.id, option.id)
@@ -183,7 +187,13 @@ function Combobox(
             >
               {item.id === 'CREATE' && <Box>Create</Box>}
 
-              <OptionTag option={item} />
+              <OptionTag
+                option={{
+                  id: item?.props?.columnId,
+                  name: item?.props?.name,
+                  color: item?.props?.color,
+                }}
+              />
             </Box>
           ))}
         </Box>
