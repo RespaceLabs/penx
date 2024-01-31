@@ -45,6 +45,7 @@ const modal = createWeb3Modal({
 // const ethereumClient = new EthereumClient(wagmiConfig, chains)
 
 const config = createConfig({
+  // autoConnect: false,
   autoConnect: true,
   publicClient: createPublicClient({
     chain: getChain(),

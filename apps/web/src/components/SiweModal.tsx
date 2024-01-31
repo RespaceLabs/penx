@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Box } from '@fower/react'
 import { getCsrfToken, signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { SiweMessage } from 'siwe'
 import { useAccount, useDisconnect, useNetwork, useSignMessage } from 'wagmi'
 import {
@@ -21,6 +22,17 @@ export function SiweModal() {
   const { chain } = useNetwork()
   const { data, status } = useSession()
   const [loading, setLoading] = useState(false)
+  const { push, pathname } = useRouter()
+
+  // console.log(
+  //   '=====isConnected, address:',
+  //   isConnected,
+  //   address,
+  //   'data:',
+  //   data,
+  //   'status:',
+  //   status,
+  // )
 
   const handleLogin = useCallback(async () => {
     setLoading(true)
@@ -39,19 +51,25 @@ export function SiweModal() {
       })
       await signIn('credentials', {
         message: JSON.stringify(message),
-        redirect: true,
+        redirect: false,
         signature,
         callbackUrl: '/editor',
       })
-      // setLoading(false)
+
+      if (pathname === '/login') {
+        push('/')
+      }
+
+      modalController.close(ModalNames.SIWE)
     } catch (error: any) {
+      console.log('===========login=error:', error)
       toast.error(error?.message || 'Something went wrong')
       setLoading(false)
     }
-  }, [address, chain, signMessageAsync])
+  }, [address, chain, signMessageAsync, push, pathname])
 
   useEffect(() => {
-    if (isConnected && !data && status !== 'loading') {
+    if (isConnected && !data && status == 'unauthenticated') {
       modalController.open(ModalNames.SIWE)
     }
   }, [isConnected, data, handleLogin, status])
@@ -59,7 +77,7 @@ export function SiweModal() {
   const shortenAddress = `${address?.slice(0, 18)}...${address?.slice(-4)}`
 
   return (
-    <Modal name={ModalNames.SIWE}>
+    <Modal name={ModalNames.SIWE} closeOnOverlayClick={false}>
       <ModalOverlay />
       <ModalContent w={['96%', 360]} px={[20, 20]} py0 column gap4>
         <Box column toCenterX>

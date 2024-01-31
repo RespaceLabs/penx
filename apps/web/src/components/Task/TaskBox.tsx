@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { Gem } from 'lucide-react'
+import { Gem, Wallet } from 'lucide-react'
 import { useAccount, useContractRead } from 'wagmi'
 import { daoVaultAbi, penxPointAbi } from '@penx/abi'
 import { Logo } from '@penx/app'
@@ -37,7 +37,9 @@ function PointBalance() {
 }
 
 export function TaskBox() {
-  const { isConnected } = useAccount()
+  const { isConnected, address } = useAccount()
+
+  console.log('====== isConnected, address :', isConnected, address)
 
   return (
     <Box maxW-1120 mx-auto p5 column>
@@ -57,7 +59,25 @@ export function TaskBox() {
         </Box>
 
         <Box>
-          {!isConnected && <WalletConnectButton />}
+          {!isConnected && (
+            <WalletConnectButton
+              size={56}
+              rounded2XL
+              colorScheme="white"
+              toBetween
+            >
+              <Wallet />
+              <Box column gap1>
+                <Box textBase fontSemibold>
+                  Login with Wallet
+                </Box>
+                <Box gray800 textXS fontLight>
+                  For web3 users and builders
+                </Box>
+              </Box>
+            </WalletConnectButton>
+          )}
+
           <DisconnectButton />
         </Box>
       </Box>

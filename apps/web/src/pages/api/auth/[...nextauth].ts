@@ -113,6 +113,8 @@ providers.push(
       },
     },
     async authorize(credentials, req) {
+      console.log('authorize=siwe===============')
+
       try {
         if (!credentials?.message) {
           throw new Error('SiweMessage is undefined')
@@ -177,6 +179,7 @@ export const authOptions: NextAuthOptions = {
         token.uid = user.id
         token.address = (user as any).address
       }
+
       return token
     },
     async session({ session, token, user, ...rest }) {

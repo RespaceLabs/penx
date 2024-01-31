@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { Box } from '@fower/react'
 import { DatabaseBackup, Home, LogOut, User, Wallet } from 'lucide-react'
+import { useDisconnect } from 'wagmi'
 import {
   Avatar,
   AvatarFallback,
@@ -17,6 +18,7 @@ import { store } from '@penx/store'
 import { appEmitter } from '../../app-emitter'
 
 export const UserProfile = () => {
+  const { disconnect, disconnectAsync } = useDisconnect()
   const { loading, data: session } = useSession()
   const name = useMemo(() => {
     if (session.user.email) return session.user.email
@@ -108,8 +110,12 @@ export const UserProfile = () => {
           <PopoverClose>
             <MenuItem
               gap2
-              onClick={() => {
-                appEmitter.emit('SIGN_OUT')
+              onClick={async () => {
+                await disconnectAsync()
+                // disconnect()
+                setTimeout(() => {
+                  appEmitter.emit('SIGN_OUT')
+                }, 0)
               }}
             >
               <Box gray500>
