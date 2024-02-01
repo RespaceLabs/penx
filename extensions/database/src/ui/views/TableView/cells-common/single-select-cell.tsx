@@ -13,29 +13,34 @@ import {
 } from '@glideapps/glide-data-grid'
 import { useCombobox } from 'downshift'
 import { Check } from 'lucide-react'
-import { Input, Portal } from 'uikit'
 import { IColumnNode, IOptionNode } from '@penx/model-types'
 import { useDatabaseContext } from '../../../DatabaseContext'
 import { OptionTag } from '../../../shared/OptionTag'
-import { roundedRect } from './draw-fns'
+import { roundedRect } from '../cells/draw-fns'
 
-interface MultipleSelectCellProps {
-  kind: 'multiple-select-cell'
+interface TaskOptions {
+  id: string
+  name: string
+  color: string
+}
+
+interface SingleSelectCellProps {
+  kind: 'single-select-cell'
   readonly?: boolean
-  column: IColumnNode
-  options: IOptionNode[]
-  data: string[] // options ids
+  dataSource: TaskOptions[]
+  options: TaskOptions[]
+  data: string[]
 }
 
 const tagHeight = 20
 const innerPad = 6
 
-export type MultipleSelectCell = CustomCell<MultipleSelectCellProps>
+export type SingleSelectCell = CustomCell<SingleSelectCellProps>
 
-export const multipleSelectCellRenderer: CustomRenderer<MultipleSelectCell> = {
+export const singleSelectCellRenderer: CustomRenderer<SingleSelectCell> = {
   kind: GridCellKind.Custom,
-  isMatch: (c): c is MultipleSelectCell =>
-    (c.data as any).kind === 'multiple-select-cell',
+  isMatch: (c): c is SingleSelectCell =>
+    (c.data as any).kind === 'single-select-cell',
   draw: (args, cell) => {
     const { ctx, theme, rect } = args
     const { options = [] } = cell.data
@@ -58,8 +63,8 @@ export const multipleSelectCellRenderer: CustomRenderer<MultipleSelectCell> = {
       (drawArea.height - rows * tagHeight - (rows - 1) * innerPad) / 2
     for (const option of options) {
       const colors: any = fowerStore.config.theme.colors
-      const color = colors[option.props.color]
-      const tagName = option.props.name
+      const color = colors[option.color]
+      const tagName = option.name
 
       ctx.font = `12px ${theme.fontFamily}`
       const metrics = measureTextCached(tagName, ctx)
@@ -108,12 +113,12 @@ export const multipleSelectCellRenderer: CustomRenderer<MultipleSelectCell> = {
         onFinishedEditing,
       } = p
 
-      const { column } = value.data
+      const { dataSource } = value.data
       // console.log('date value=====:', value)
 
       return (
         <Combobox
-          column={column}
+          dataSource={dataSource}
           onFinishedEditing={onFinishedEditing}
           value={value}
           onChange={onChange}
@@ -124,24 +129,21 @@ export const multipleSelectCellRenderer: CustomRenderer<MultipleSelectCell> = {
 }
 
 interface ComboboxProps {
-  column: IColumnNode
-  value: MultipleSelectCell
-  onChange: (newValue: MultipleSelectCell) => void
+  dataSource: TaskOptions[]
+  value: SingleSelectCell
+  onChange: (newValue: SingleSelectCell) => void
   onFinishedEditing: (
-    newValue?: MultipleSelectCell,
+    newValue?: SingleSelectCell,
     movement?: readonly [-1 | 0 | 1, -1 | 0 | 1],
   ) => void
 }
+
 function Combobox({
-  column,
+  dataSource,
   value,
   onChange,
   onFinishedEditing,
 }: ComboboxProps) {
-  const { addOption, options } = useDatabaseContext()
-  const optionIds = column.props.optionIds || []
-  const columnOptions = optionIds.map((o) => options.find((o2) => o2.id === o)!)
-
   const currentIds = value.data.data || []
 
   function getOptionsFilter(inputValue: string) {
@@ -154,93 +156,12 @@ function Combobox({
     }
   }
 
-  const [items, setItems] = useState(columnOptions)
-  const [inputValue, setInputValue] = useState('')
-  const {
-    isOpen,
-    getToggleButtonProps,
-    getLabelProps,
-    getMenuProps,
-    getInputProps,
-    highlightedIndex,
-    getItemProps,
-    selectedItem,
-  } = useCombobox({
-    inputValue: inputValue,
-    onInputValueChange({ inputValue = '' }) {
-      setInputValue(inputValue!)
-      const find = columnOptions.find((o) => o.props.name === inputValue)
-      const filteredItems = columnOptions.filter(getOptionsFilter(inputValue))
-      if (!find && inputValue) {
-        filteredItems.push({
-          id: 'CREATE',
-          props: { name: inputValue },
-        } as IOptionNode)
-      }
-      setItems(filteredItems)
-    },
-    items,
-    itemToString(item) {
-      return item ? item.props.name : ''
-    },
-    async onSelectedItemChange({ selectedItem }) {
-      let id = selectedItem?.id as string
-      if (selectedItem?.id === 'CREATE') {
-        const newOption = await addOption(column.id, selectedItem.props.name)
-        id = newOption.id
-      }
-
-      let newIds = value.data.data || []
-      const existed = newIds.includes(id)
-
-      if (!existed) {
-        newIds = [...newIds, id]
-      } else {
-        newIds = newIds.filter((id2) => id2 !== id)
-      }
-
-      const newValue: MultipleSelectCell = {
-        ...value,
-        data: {
-          ...value.data,
-          data: newIds,
-        },
-      }
-
-      setInputValue('')
-      onChange(newValue)
-      onFinishedEditing(newValue)
-    },
-  })
-
   return (
     <Box>
-      <Input
-        placeholder="Find or create option"
-        size="sm"
-        variant="unstyled"
-        px2
-        autoFocus
-        borderBottom
-        roundedNone
-        {...getInputProps({
-          onChange: (e: any) => {
-            setInputValue(e.target.value)
-          },
-        })}
-      />
-
       <Box>
-        {!items.length && (
-          <Box toCenter p1 gray400 textSM>
-            No options
-          </Box>
-        )}
-        <Box p1 maxH-300 overflowAuto {...getMenuProps()}>
-          {items.map((item, index) => (
+        <Box p1 maxH-300 overflowAuto>
+          {dataSource.map((item, index) => (
             <Box
-              bgNeutral100={highlightedIndex === index}
-              bgNeutral100--T10={selectedItem === item}
               cursorPointer
               py-6
               px2
@@ -249,28 +170,19 @@ function Combobox({
               toBetween
               gap2
               key={item.id}
-              {...getItemProps({ item, index })}
             >
               <Box toCenterY gap2>
-                {item.id === 'CREATE' && (
-                  <Box textXS gray400>
-                    Create
-                  </Box>
-                )}
-
                 <OptionTag
-                  option={{
-                    id: item?.props?.columnId,
-                    name: item?.props?.name,
-                    color: item?.props?.color,
-                  }}
+                  option={item}
                   showClose={currentIds.includes(item.id)}
                 />
               </Box>
 
-              <Box inlineFlex gray500>
-                {currentIds.includes(item.id) && <Check size={14} />}
-              </Box>
+              {currentIds.includes(item.id) && (
+                <Box inlineFlex gray500>
+                  <Check size={14} />
+                </Box>
+              )}
             </Box>
           ))}
         </Box>

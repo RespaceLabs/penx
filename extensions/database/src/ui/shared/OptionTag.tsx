@@ -1,13 +1,19 @@
 import { Box, FowerHTMLProps } from '@fower/react'
 import { X } from 'lucide-react'
-import { IOptionNode } from '@penx/model-types'
+
+interface IOption {
+  id: string
+  name: string
+  color: string
+}
 
 interface Props extends Omit<FowerHTMLProps<'div'>, 'children'> {
-  option: IOptionNode
+  option: IOption
   showClose?: boolean
   deletable?: boolean
   onDelete?: () => void
 }
+
 export function OptionTag({
   option,
   showClose = false,
@@ -15,7 +21,7 @@ export function OptionTag({
   onDelete,
   ...rest
 }: Props) {
-  const color = option.props.color || 'gray600'
+  const color = option.color || 'gray600'
   return (
     <Box
       key={option.id}
@@ -34,7 +40,7 @@ export function OptionTag({
       bg--T90={color}
       {...rest}
     >
-      <Box>{option ? option.props.name : ''}</Box>
+      <Box>{option ? option.name : ''}</Box>
       {deletable && (
         <Box
           className="remove-option"

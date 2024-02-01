@@ -164,8 +164,16 @@ export function useTableView() {
         )
       ) {
         const ids: string[] = Array.isArray(cellData) ? cellData : []
-
         const cellOptions = ids.map((id) => options.find((o) => o.id === id)!)
+
+        /*
+        console.log('%c=FieldType.SINGLE_SELECT','color:green',{
+          cellOptions,
+          options,
+          columnNode,
+          cellOptions_map:cellOptions.map((o) => o.id)
+        })
+        */
 
         return {
           kind: GridCellKind.Custom,
