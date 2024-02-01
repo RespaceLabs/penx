@@ -15,7 +15,7 @@ import { SingleSelectCell } from '@penx/database/src/ui/views/TableView/cells-co
 import { Task } from '@penx/db'
 import { FieldType } from '@penx/model-types'
 import { api } from '@penx/trpc-client'
-import { useTaskBoard } from './useTaskBoard'
+import { taskTypeMap, useTaskBoard } from './useTaskBoard'
 
 const defaultProps: Partial<DataEditorProps> = {
   smoothScrollX: true,
@@ -38,30 +38,6 @@ const initialData = {
   claimStage: '',
 } as Task
 
-interface TaskOptions {
-  id: string
-  name: string
-  color: string
-}
-
-const statusOptions: TaskOptions[] = [
-  {
-    id: '1',
-    name: 'test3',
-    color: 'yellow500',
-  },
-  {
-    id: '2',
-    name: 'test2',
-    color: 'sky500',
-  },
-  {
-    id: '3',
-    name: 'test3',
-    color: 'sky500',
-  },
-]
-
 export function TaskBoardTable() {
   const { columns, tasks, setTasks, fetchTasks } = useTaskBoard()
   const ref = useRef<DataEditorRef>(null)
@@ -74,6 +50,13 @@ export function TaskBoardTable() {
   const onSelection = (gridSelection: GridSelection) => {
     setSelection(gridSelection)
   }
+
+  const updateCellFn = useCallback(
+    (cell: Item, newValue: string) => {
+      onCellEdited(cell, { data: newValue } as EditableGridCell)
+    },
+    [tasks],
+  )
 
   const getContent = useCallback(
     (cell: Item): GridCell => {
@@ -103,19 +86,15 @@ export function TaskBoardTable() {
               }
 
             case FieldType.SINGLE_SELECT:
-              const ids: string[] = JSON.parse(cellData as string)
-              const cellOptions = ids.map(
-                (id) => statusOptions.find((o) => o.id === id)!,
-              )
-
               return {
                 kind: GridCellKind.Custom,
                 allowOverlay: true,
                 data: {
                   kind: 'single-select-cell',
-                  options: cellOptions,
-                  data: ids,
-                  dataSource: statusOptions,
+                  value: cellData,
+                  dataSource: taskTypeMap[colData.id]?.options || [],
+                  cell,
+                  updateCellFn,
                 },
               } as SingleSelectCell
 
@@ -150,6 +129,7 @@ export function TaskBoardTable() {
 
       tasks[cell[1]] = task
       setTasks([...tasks])
+
       try {
         await api.task.update.mutate({
           id: task.id,
