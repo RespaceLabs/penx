@@ -1,5 +1,7 @@
 import { OAuthApp } from '@octokit/oauth-app'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { getToken } from 'next-auth/jwt'
+import { Octokit } from 'octokit'
 import { prisma } from '@penx/db'
 import { GithubInfo } from '@penx/model'
 
@@ -26,21 +28,29 @@ export default async function handler(
 
   const userId = req.query.state as string
 
-  console.log('token=========authentication:', userId, authentication)
+  const oct = new Octokit({ auth: authentication.token })
+
+  const user = await oct.request('GET /user', {
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28',
+    },
+  })
+
+  // console.log('token=========authentication:', userId, authentication)
 
   await prisma.user.update({
     where: { id: userId },
     data: {
-      github: {
+      taskGithub: {
+        accountId: user.data.id,
+        login: user.data.login,
         token: authentication.token,
         refreshToken: (authentication as any).refreshToken,
         tokenExpiresAt: (authentication as any).expiresAt,
         refreshTokenExpiresAt: (authentication as any).refreshTokenExpiresAt,
-      } as GithubInfo,
+      },
     },
   })
 
-  // https://github.com/login/oauth/access_token
-  // res.redirect(`/spaces/${spaceId}/git`)
-  res.redirect(`/`)
+  res.redirect(`/tasks`)
 }

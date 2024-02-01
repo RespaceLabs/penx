@@ -5,8 +5,8 @@ import { Logo } from '@penx/app'
 import { DisconnectButton } from '../DisconnectButton'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { TaskFilter } from './TaskFilter'
+import { TaskHeader } from './TaskHeader'
 import { TaskList } from './TaskList'
-import { TaskProfile } from './TaskProfile'
 
 export function TaskBox() {
   const { isConnected, address } = useAccount()
@@ -52,7 +52,7 @@ export function TaskBox() {
         </Box>
       </Box>
 
-      <TaskProfile></TaskProfile>
+      <TaskHeader></TaskHeader>
 
       <Box mt10>
         <TaskFilter />

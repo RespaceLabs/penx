@@ -21,6 +21,16 @@ export const userRouter = createTRPCRouter({
       return user!
     }),
 
+  me: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.prisma.user.findUnique({
+      where: { id: ctx.token.uid },
+    })
+
+    if (!user) new TRPCError({ code: 'NOT_FOUND' })
+
+    return user!
+  }),
+
   byAddress: protectedProcedure
     .input(z.object({ address: z.string() }))
     .query(async ({ ctx, input }) => {
@@ -185,6 +195,13 @@ export const userRouter = createTRPCRouter({
         data: { github: github },
       })
     }),
+
+  disconnectTaskGithub: protectedProcedure.mutation(async ({ ctx }) => {
+    return ctx.prisma.user.update({
+      where: { id: ctx.token.uid },
+      data: { taskGithub: {} },
+    })
+  }),
 
   disconnectRepo: protectedProcedure
     .input(z.object({ userId: z.string() }))
