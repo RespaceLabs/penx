@@ -10,9 +10,18 @@ interface IColumns {
   dataType?: FieldType
 }
 
+interface TaskOptions {
+  id: string
+  name: string
+  color: string
+}
+
 const excludeProperty = ['id', 'userId', 'createdAt', 'updatedAt']
 
-const taskTypeMap: Record<string, { title: string; type: FieldType }> = {
+export const taskTypeMap: Record<
+  string,
+  { title: string; type: FieldType; options?: TaskOptions[] }
+> = {
   title: {
     title: 'title',
     type: FieldType.TEXT,
@@ -20,6 +29,23 @@ const taskTypeMap: Record<string, { title: string; type: FieldType }> = {
   status: {
     title: 'status',
     type: FieldType.SINGLE_SELECT,
+    options: [
+      {
+        id: '1',
+        name: 'status1',
+        color: 'yellow500',
+      },
+      {
+        id: '2',
+        name: 'status2',
+        color: 'sky500',
+      },
+      {
+        id: '3',
+        name: 'status3',
+        color: 'sky500',
+      },
+    ],
   },
   description: {
     title: 'description',
@@ -48,6 +74,23 @@ const taskTypeMap: Record<string, { title: string; type: FieldType }> = {
   claimStage: {
     title: 'claim stage',
     type: FieldType.SINGLE_SELECT,
+    options: [
+      {
+        id: '1',
+        name: 'claim1',
+        color: 'yellow500',
+      },
+      {
+        id: '2',
+        name: 'claim2',
+        color: 'sky500',
+      },
+      {
+        id: '3',
+        name: 'claim3',
+        color: 'sky500',
+      },
+    ],
   },
 }
 

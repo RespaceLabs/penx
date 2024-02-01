@@ -1,20 +1,15 @@
-import { useState } from 'react'
 import { transparentize } from '@fower/color-helper'
 import { Box, fowerStore } from '@fower/react'
 import {
   CustomCell,
   CustomRenderer,
-  drawTextCell,
   getMiddleCenterBias,
   GridCellKind,
+  Item,
   measureTextCached,
   Rectangle,
-  TextCellEntry,
 } from '@glideapps/glide-data-grid'
-import { useCombobox } from 'downshift'
 import { Check } from 'lucide-react'
-import { IColumnNode, IOptionNode } from '@penx/model-types'
-import { useDatabaseContext } from '../../../DatabaseContext'
 import { OptionTag } from '../../../shared/OptionTag'
 import { roundedRect } from '../cells/draw-fns'
 
@@ -28,8 +23,9 @@ interface SingleSelectCellProps {
   kind: 'single-select-cell'
   readonly?: boolean
   dataSource: TaskOptions[]
-  options: TaskOptions[]
-  data: string[]
+  value: string
+  cell: Item
+  updateCellFn: (cell: Item, newValue: string) => void
 }
 
 const tagHeight = 20
@@ -43,7 +39,9 @@ export const singleSelectCellRenderer: CustomRenderer<SingleSelectCell> = {
     (c.data as any).kind === 'single-select-cell',
   draw: (args, cell) => {
     const { ctx, theme, rect } = args
-    const { options = [] } = cell.data
+    const { value, dataSource } = cell.data
+    const ids: string[] = value ? value.toString().split(',') : []
+    const options = ids.map((id) => dataSource.find((o) => o.id === id)!)
 
     const drawArea: Rectangle = {
       x: rect.x + theme.cellHorizontalPadding,
@@ -105,23 +103,15 @@ export const singleSelectCellRenderer: CustomRenderer<SingleSelectCell> = {
   provideEditor: () => ({
     disablePadding: true,
     editor: (p) => {
-      const {
-        onChange,
-        value,
-        forceEditMode,
-        validatedSelection,
-        onFinishedEditing,
-      } = p
-
-      const { dataSource } = value.data
-      // console.log('date value=====:', value)
+      const { onChange, value, onFinishedEditing } = p
+      const { dataSource, updateCellFn } = value.data
 
       return (
         <Combobox
           dataSource={dataSource}
           onFinishedEditing={onFinishedEditing}
           value={value}
-          onChange={onChange}
+          updateCellFn={updateCellFn}
         />
       )
     },
@@ -131,7 +121,7 @@ export const singleSelectCellRenderer: CustomRenderer<SingleSelectCell> = {
 interface ComboboxProps {
   dataSource: TaskOptions[]
   value: SingleSelectCell
-  onChange: (newValue: SingleSelectCell) => void
+  updateCellFn: (cell: Item, newValue: string) => void
   onFinishedEditing: (
     newValue?: SingleSelectCell,
     movement?: readonly [-1 | 0 | 1, -1 | 0 | 1],
@@ -141,26 +131,22 @@ interface ComboboxProps {
 function Combobox({
   dataSource,
   value,
-  onChange,
   onFinishedEditing,
+  updateCellFn,
 }: ComboboxProps) {
-  const currentIds = value.data.data || []
+  const { value: currentId, cell } = value.data
+  const currentIds = [currentId]
 
-  function getOptionsFilter(inputValue: string) {
-    const lowerCasedInputValue = inputValue.toLowerCase()
-    return (item: IOptionNode) => {
-      return (
-        !inputValue ||
-        item.props.name.toLowerCase().includes(lowerCasedInputValue)
-      )
-    }
+  function onSelectedItemChange(option: TaskOptions) {
+    updateCellFn(cell, currentId === option.id ? '' : option.id)
+    onFinishedEditing()
   }
 
   return (
     <Box>
       <Box>
         <Box p1 maxH-300 overflowAuto>
-          {dataSource.map((item, index) => (
+          {dataSource.map((item) => (
             <Box
               cursorPointer
               py-6
@@ -170,6 +156,7 @@ function Combobox({
               toBetween
               gap2
               key={item.id}
+              onClick={() => onSelectedItemChange(item)}
             >
               <Box toCenterY gap2>
                 <OptionTag
