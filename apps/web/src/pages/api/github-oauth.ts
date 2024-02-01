@@ -12,6 +12,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const code = req.query.code as string
+  const type = req.query.type as string
 
   console.log('github auth code----------', code)
 

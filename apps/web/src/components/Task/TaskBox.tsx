@@ -1,45 +1,15 @@
 import { Box } from '@fower/react'
 import { Gem, Wallet } from 'lucide-react'
-import { useAccount, useContractRead } from 'wagmi'
-import { daoVaultAbi, penxPointAbi } from '@penx/abi'
+import { useAccount } from 'wagmi'
 import { Logo } from '@penx/app'
-import { precision } from '@penx/math'
-import { addressMap } from '@penx/wagmi'
 import { DisconnectButton } from '../DisconnectButton'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { TaskFilter } from './TaskFilter'
 import { TaskList } from './TaskList'
-
-function VaultBalance() {
-  const { data } = useContractRead({
-    address: addressMap.DaoVault,
-    abi: daoVaultAbi,
-    functionName: 'getBalance',
-  })
-  return <Box>Vault balance: {!!data && precision.toTokenDecimal(data)}</Box>
-}
-
-function PointBalance() {
-  const { address } = useAccount()
-  console.log('=======address:', address)
-
-  const { data, isLoading, error } = useContractRead({
-    address: addressMap.PenxPoint,
-    abi: penxPointAbi,
-    functionName: 'balanceOf',
-    args: [address!],
-  })
-
-  console.log('======balanceOf==data:', data, 'error:', error)
-  if (isLoading) return null
-
-  return <Box>Point balance: {precision.toTokenDecimal(data!)}</Box>
-}
+import { TaskProfile } from './TaskProfile'
 
 export function TaskBox() {
   const { isConnected, address } = useAccount()
-
-  console.log('====== isConnected, address :', isConnected, address)
 
   return (
     <Box maxW-1120 mx-auto p5 column>
@@ -82,8 +52,7 @@ export function TaskBox() {
         </Box>
       </Box>
 
-      <VaultBalance></VaultBalance>
-      {isConnected && <PointBalance></PointBalance>}
+      <TaskProfile></TaskProfile>
 
       <Box mt10>
         <TaskFilter />
