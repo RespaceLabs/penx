@@ -3,20 +3,18 @@ import { Node } from '@penx/model'
 import { ISpace } from '@penx/model-types'
 import { store } from '@penx/store'
 import { SyncServerClient } from '@penx/sync-server-client'
-import { api } from '@penx/trpc-client'
 import { syncFromCloud } from '../../sync/src'
 
 export class AppService {
   inited = false
 
   private async tryToSync(space: ISpace) {
-    const time = await api.space.nodesLastUpdatedAt.query({
-      spaceId: space.id,
-    })
+    const client = new SyncServerClient(space)
+    const time = await client.getNodesLastUpdatedAt()
 
     if (time) {
       await db.updateSpace(space.id, {
-        nodesLastUpdatedAt: time,
+        nodesLastUpdatedAt: new Date(time),
       })
     }
 
@@ -25,7 +23,7 @@ export class AppService {
 
     const localLastUpdatedAt = await db.getLastUpdatedAt(space.id)
 
-    if (localLastUpdatedAt && localLastUpdatedAt < time.getTime()) {
+    if (localLastUpdatedAt && localLastUpdatedAt < time) {
       await syncFromCloud(space)
     }
   }
@@ -46,9 +44,11 @@ export class AppService {
       let nodes = await db.listNodesBySpaceId(activeSpace.id)
       store.space.setSpaces(spaces)
 
-      // console.log('appService=======nodes:', nodes)
+      console.log('appService=======nodes:', nodes)
 
       if (!nodes.length) {
+        console.log('========activeSpace:', activeSpace)
+
         const client = new SyncServerClient(activeSpace)
         nodes = await client.getAllNodes()
 

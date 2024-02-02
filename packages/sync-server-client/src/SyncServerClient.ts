@@ -13,15 +13,17 @@ export class SyncServerClient {
   constructor(private space: ISpace) {}
 
   get baseURL() {
-    return `${this.space.syncServerUrl}`
+    return this.space.syncServerUrl || ''
   }
 
   get token() {
-    return `${this.space.syncServerAccessToken}`
+    return this.space.syncServerAccessToken || ''
   }
 
   getAllNodes = async () => {
-    const url = `${this.baseURL}/get-all-nodes`
+    if (!this.baseURL) return []
+
+    const url = `${this.baseURL}/getAllNodes`
     const nodes = await ky
       .post(url, {
         json: {
@@ -38,8 +40,22 @@ export class SyncServerClient {
     }))
   }
 
+  getNodesLastUpdatedAt = async () => {
+    const url = `${this.baseURL}/getNodesLastUpdatedAt`
+    const res = await ky
+      .post(url, {
+        json: {
+          token: this.token,
+          spaceId: this.space.id,
+        },
+      })
+      .json<{ updatedAt: number | null }>()
+
+    return res.updatedAt
+  }
+
   getPullableNodes = async (localLastModifiedTime: number) => {
-    const url = `${this.baseURL}/get-pullable-nodes`
+    const url = `${this.baseURL}/getPullableNodes`
     const nodes = await ky
       .post(url, {
         json: {
@@ -61,7 +77,7 @@ export class SyncServerClient {
     const { space } = this
     const { password } = space
     const encrypted = space.encrypted && password
-    const url = `${this.baseURL}/push-nodes`
+    const url = `${this.baseURL}/pushNodes`
     const res = await ky
       .post(url, {
         json: {
