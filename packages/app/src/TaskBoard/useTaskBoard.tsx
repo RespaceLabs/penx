@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { type GridColumn } from '@glideapps/glide-data-grid'
 import { Task } from '@penx/db'
 import { FieldType } from '@penx/model-types'
 import { api } from '@penx/trpc-client'
@@ -8,6 +9,7 @@ interface IColumns {
   id: string
   hasMenu?: boolean
   dataType?: FieldType
+  width?: number
 }
 
 interface TaskOptions {
@@ -54,6 +56,23 @@ export const taskTypeMap: Record<
   tags: {
     title: 'tags',
     type: FieldType.MULTIPLE_SELECT,
+    options: [
+      {
+        id: '1',
+        name: 'tags1',
+        color: 'yellow500',
+      },
+      {
+        id: '2',
+        name: 'tags2',
+        color: 'sky500',
+      },
+      {
+        id: '3',
+        name: 'tags3',
+        color: 'sky500',
+      },
+    ],
   },
   figmaUrl: {
     title: 'figma url',
@@ -124,6 +143,19 @@ export const useTaskBoard = () => {
     }
   }, [])
 
+  const onColumnResize = useCallback((column: GridColumn, newSize: number) => {
+    setColumns((preColumns) => {
+      const index = preColumns.findIndex((ci) => ci.id === column.id)
+      const newArray = [...preColumns]
+      newArray.splice(index, 1, {
+        ...preColumns[index],
+        width: newSize,
+      })
+
+      return newArray
+    })
+  }, [])
+
   useEffect(() => {
     fetchTasks().then((data) => {
       generateColumns(data)
@@ -135,5 +167,6 @@ export const useTaskBoard = () => {
     columns,
     setTasks,
     fetchTasks,
+    onColumnResize,
   }
 }
