@@ -19,29 +19,31 @@ interface TaskOptions {
   color: string
 }
 
-interface SingleSelectCellProps {
-  kind: 'single-select-cell'
+interface SelectCellProps {
+  kind: 'select-cell'
   readonly?: boolean
   dataSource: TaskOptions[]
   value: string
   cell: Item
+  isMultiple?: boolean
   updateCellFn: (cell: Item, newValue: string) => void
 }
 
 const tagHeight = 20
 const innerPad = 6
 
-export type SingleSelectCell = CustomCell<SingleSelectCellProps>
+export type SelectCell = CustomCell<SelectCellProps>
 
-export const singleSelectCellRenderer: CustomRenderer<SingleSelectCell> = {
+export const selectCellRenderer: CustomRenderer<SelectCell> = {
   kind: GridCellKind.Custom,
-  isMatch: (c): c is SingleSelectCell =>
-    (c.data as any).kind === 'single-select-cell',
+  isMatch: (c): c is SelectCell => (c.data as any).kind === 'select-cell',
   draw: (args, cell) => {
     const { ctx, theme, rect } = args
-    const { value, dataSource } = cell.data
+    const { value, dataSource, isMultiple } = cell.data
     const ids: string[] = value ? value.toString().split(',') : []
-    const options = ids.map((id) => dataSource.find((o) => o.id === id)!)
+    const options = ids
+      .map((id) => dataSource.find((o) => o.id === id)!)
+      .filter(Boolean)
 
     const drawArea: Rectangle = {
       x: rect.x + theme.cellHorizontalPadding,
@@ -120,10 +122,10 @@ export const singleSelectCellRenderer: CustomRenderer<SingleSelectCell> = {
 
 interface ComboboxProps {
   dataSource: TaskOptions[]
-  value: SingleSelectCell
+  value: SelectCell
   updateCellFn: (cell: Item, newValue: string) => void
   onFinishedEditing: (
-    newValue?: SingleSelectCell,
+    newValue?: SelectCell,
     movement?: readonly [-1 | 0 | 1, -1 | 0 | 1],
   ) => void
 }
@@ -134,45 +136,57 @@ function Combobox({
   onFinishedEditing,
   updateCellFn,
 }: ComboboxProps) {
-  const { value: currentId, cell } = value.data
-  const currentIds = [currentId]
+  const { value: currentId, cell, isMultiple = false } = value.data
+  const currentIds = currentId ? currentId.split(',') : []
 
   function onSelectedItemChange(option: TaskOptions) {
-    updateCellFn(cell, currentId === option.id ? '' : option.id)
+    if (isMultiple) {
+      const isIn = currentIds.includes(option.id)
+      if (!isIn) {
+        currentIds.push(option.id)
+      } else {
+        const indexToDelete = currentIds.indexOf(option.id)
+        if (indexToDelete !== -1) {
+          currentIds.splice(indexToDelete, 1)
+        }
+      }
+
+      updateCellFn(cell, currentIds.join(','))
+    } else {
+      updateCellFn(cell, currentId === option.id ? '' : option.id)
+    }
     onFinishedEditing()
   }
 
   return (
     <Box>
-      <Box>
-        <Box p1 maxH-300 overflowAuto>
-          {dataSource.map((item) => (
-            <Box
-              cursorPointer
-              py-6
-              px2
-              rounded
-              toCenterY
-              toBetween
-              gap2
-              key={item.id}
-              onClick={() => onSelectedItemChange(item)}
-            >
-              <Box toCenterY gap2>
-                <OptionTag
-                  option={item}
-                  showClose={currentIds.includes(item.id)}
-                />
-              </Box>
-
-              {currentIds.includes(item.id) && (
-                <Box inlineFlex gray500>
-                  <Check size={14} />
-                </Box>
-              )}
+      <Box p1 maxH-300 overflowAuto>
+        {dataSource.map((item) => (
+          <Box
+            cursorPointer
+            py-6
+            px2
+            rounded
+            toCenterY
+            toBetween
+            gap2
+            key={item.id}
+            onClick={() => onSelectedItemChange(item)}
+          >
+            <Box toCenterY gap2>
+              <OptionTag
+                option={item}
+                showClose={currentIds.includes(item.id)}
+              />
             </Box>
-          ))}
-        </Box>
+
+            {currentIds.includes(item.id) && (
+              <Box inlineFlex gray500>
+                <Check size={14} />
+              </Box>
+            )}
+          </Box>
+        ))}
       </Box>
     </Box>
   )

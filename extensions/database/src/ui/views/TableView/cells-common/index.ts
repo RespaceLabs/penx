@@ -1,3 +1,3 @@
-import { singleSelectCellRenderer } from './single-select-cell'
+import { selectCellRenderer } from './select-cell'
 
-export const cellCommonRenderers = [singleSelectCellRenderer]
+export const cellCommonRenderers = [selectCellRenderer]

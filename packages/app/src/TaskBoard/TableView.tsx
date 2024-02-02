@@ -11,7 +11,7 @@ import DataEditor, {
   Item,
 } from '@glideapps/glide-data-grid'
 import { cellCommonRenderers } from '@penx/database/src/ui/views/TableView/cells-common'
-import { SingleSelectCell } from '@penx/database/src/ui/views/TableView/cells-common/single-select-cell'
+import { SelectCell } from '@penx/database/src/ui/views/TableView/cells-common/select-cell'
 import { Task } from '@penx/db'
 import { FieldType } from '@penx/model-types'
 import { api } from '@penx/trpc-client'
@@ -39,7 +39,8 @@ const initialData = {
 } as Task
 
 export function TaskBoardTable() {
-  const { columns, tasks, setTasks, fetchTasks } = useTaskBoard()
+  const { columns, tasks, setTasks, fetchTasks, onColumnResize } =
+    useTaskBoard()
   const ref = useRef<DataEditorRef>(null)
   const [numRows, setNumRows] = useState<number>(0)
   const [selection, setSelection] = useState<GridSelection>({
@@ -86,17 +87,20 @@ export function TaskBoardTable() {
               }
 
             case FieldType.SINGLE_SELECT:
+            case FieldType.MULTIPLE_SELECT:
               return {
                 kind: GridCellKind.Custom,
                 allowOverlay: true,
                 data: {
-                  kind: 'single-select-cell',
+                  kind: 'select-cell',
                   value: cellData,
                   dataSource: taskTypeMap[colData.id]?.options || [],
                   cell,
+                  isMultiple:
+                    colData.dataType === FieldType.SINGLE_SELECT ? false : true,
                   updateCellFn,
                 },
-              } as SingleSelectCell
+              } as SelectCell
 
             default:
               return {
@@ -210,6 +214,7 @@ export function TaskBoardTable() {
         onCellEdited={onCellEdited}
         onGridSelectionChange={onSelection}
         customRenderers={cellCommonRenderers}
+        onColumnResize={onColumnResize}
         // onRowAppended={onRowAppended}
       />
     </Box>
