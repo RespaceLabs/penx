@@ -6,13 +6,13 @@ import { DashboardFilter } from './dashboardFilter'
 import { DashboardTable } from './dashboardTable'
 
 export function DashboardContent({ activeSpace }: { activeSpace: ISpace }) {
-  const { spaceNodes } = useContext(SpacesContext)
+  const { spaceNodes, filtersDb } = useContext(SpacesContext)
 
   if (!activeSpace?.id) return null
 
   return (
     <Box h="100%" flexGrow={1} boxSizing="border-box" pt="40px">
-      {spaceNodes.length ? (
+      {spaceNodes.length || filtersDb.length ? (
         <>
           <Box toCenterY gap1>
             <DashboardFilter />

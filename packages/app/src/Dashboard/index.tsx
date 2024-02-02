@@ -7,7 +7,7 @@ import { spacesAtom } from '@penx/store'
 import { DashboardContent } from './DashboardContent'
 import { SpacesRender } from './SpacesRender'
 
-export interface DashboradViewColumn {
+export interface DashboardViewColumn {
   name: string
   fieldType: string
 }
@@ -17,8 +17,8 @@ interface SpacesContextProps {
   setSpaceNodes: React.Dispatch<React.SetStateAction<INode[]>>
   activeSpace: ISpace
   setActiveSpace: React.Dispatch<React.SetStateAction<ISpace>>
-  viewColumns: DashboradViewColumn[]
-  setViewColumns: React.Dispatch<React.SetStateAction<DashboradViewColumn[]>>
+  viewColumns: DashboardViewColumn[]
+  setViewColumns: React.Dispatch<React.SetStateAction<DashboardViewColumn[]>>
   filtersDb: Filter[]
   setFiltersDb: React.Dispatch<React.SetStateAction<Filter[]>>
 }
@@ -37,7 +37,7 @@ export const SpacesContext = createContext<SpacesContextProps>({
 export function Dashboard({ userId }: { userId: string }) {
   const [spaces, setSpaces] = useAtom(spacesAtom)
   const [spaceNodes, setSpaceNodes] = useState<INode[]>([])
-  const [viewColumns, setViewColumns] = useState<DashboradViewColumn[]>([])
+  const [viewColumns, setViewColumns] = useState<DashboardViewColumn[]>([])
   const [activeSpace, setActiveSpace] = useState<ISpace>(
     null as unknown as ISpace,
   )
@@ -60,7 +60,7 @@ export function Dashboard({ userId }: { userId: string }) {
   const generateSortedColumns = useCallback(
     (sNodes: INode[]) => {
       const spaceNode = sNodes[0]
-      const columns: DashboradViewColumn[] = []
+      const columns: DashboardViewColumn[] = []
       for (const key in spaceNode) {
         if (spaceNode.hasOwnProperty(key)) {
           const column = {

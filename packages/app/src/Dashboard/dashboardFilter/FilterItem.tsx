@@ -3,12 +3,12 @@ import { Box } from '@fower/react'
 import { CloseButton, Input } from 'uikit'
 import { OperatorSelect } from '@penx/database/src/ui/ViewToolBar/FilterField/OperatorSelect'
 import { Filter } from '@penx/model-types'
-import { DashboradViewColumn } from '..'
+import { DashboardViewColumn } from '..'
 import { FieldSelect } from './FieldSelect'
 
 interface Props {
   filter: Filter
-  sortedColumns: DashboradViewColumn[]
+  sortedColumns: DashboardViewColumn[]
   deleteFilter: (columnId: string) => void
   updateFilter: (columnId: string, newColumnId: string) => void
   onChangeValue: (val: ChangeEvent<HTMLInputElement>, columnId: string) => void
