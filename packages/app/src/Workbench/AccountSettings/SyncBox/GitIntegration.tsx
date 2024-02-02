@@ -5,7 +5,7 @@ import { useDebouncedCallback } from 'use-debounce'
 import { Input } from 'uikit'
 import { RouterOutputs } from '@penx/api'
 import { useUser } from '@penx/hooks'
-import { api } from '@penx/trpc-client'
+import { api, trpc } from '@penx/trpc-client'
 import { GithubConnectedBox } from './GitHubConnectedBox'
 import { GithubInstallationSelect } from './GitHubInstallationSelect'
 import { Repos } from './Repos'
@@ -16,12 +16,9 @@ interface Props {
 
 export function GitIntegration({ github }: Props) {
   const user = useUser()
-
-  const { data: installations } = useQuery(['appInstallations'], () =>
-    api.github.appInstallations.query({
-      token: github?.token!,
-    }),
-  )
+  const { data: installations } = trpc.github.appInstallations.useQuery({
+    token: github?.token!,
+  })
 
   const [installationId, setInstallationId] = useState<number>()
   const [q, setQ] = useState<string>('')

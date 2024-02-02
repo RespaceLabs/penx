@@ -22,7 +22,7 @@ export const UserProfile = () => {
   const { loading, data: session } = useSession()
   const name = useMemo(() => {
     if (session.user.email) return session.user.email
-    if (session.user.name) return session.user.email
+    if (session.user.name) return session.user.name
     if (session.address) {
       return `${session.address.slice(0, 6)}...${session.address.slice(-4)}`
     }

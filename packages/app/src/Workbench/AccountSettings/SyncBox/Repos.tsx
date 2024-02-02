@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { LockKeyhole } from 'lucide-react'
 import { Card, Spinner } from 'uikit'
 import { useSpaces } from '@penx/hooks'
-import { api } from '@penx/trpc-client'
+import { trpc } from '@penx/trpc-client'
 import { GitHubConnectButton } from './GitHubConnectButton'
 
 interface Props {
@@ -19,13 +19,11 @@ export function Repos({ installationId, q, token }: Props) {
     isLoading,
     refetch,
     isFetching,
-  } = useQuery(['searchRepo'], () =>
-    api.github.searchRepo.query({
-      q,
-      installationId: Number(installationId),
-      token,
-    }),
-  )
+  } = trpc.github.searchRepo.useQuery({
+    q,
+    installationId: Number(installationId),
+    token,
+  })
 
   useEffect(() => {
     refetch()

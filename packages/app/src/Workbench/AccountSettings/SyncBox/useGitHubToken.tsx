@@ -1,14 +1,14 @@
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useUser } from '@penx/hooks'
-import { api } from '@penx/trpc-client'
+import { trpc } from '@penx/trpc-client'
 
 export function useGitHubToken() {
   const { id } = useUser()
 
-  const { data: github, ...rest } = useQuery(['githubToken'], () =>
-    api.github.githubInfo.query({ userId: id }),
-  )
+  const { data: github, ...rest } = trpc.github.githubInfo.useQuery({
+    userId: id,
+  })
 
   const isTokenValid = useMemo(() => {
     if (!github) return false

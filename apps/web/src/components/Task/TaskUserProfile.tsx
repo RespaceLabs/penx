@@ -1,7 +1,6 @@
 import { Box } from '@fower/react'
-import { useQuery } from '@tanstack/react-query'
 import ky from 'ky'
-import { useAccount, useContractRead } from 'wagmi'
+import { useAccount, useContractRead, useQuery } from 'wagmi'
 import { Avatar, AvatarFallback, AvatarImage, Button, Skeleton } from 'uikit'
 import { penxPointAbi } from '@penx/abi'
 import { IconGitHub } from '@penx/icons'
