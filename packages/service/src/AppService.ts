@@ -9,6 +9,7 @@ export class AppService {
   inited = false
 
   private async tryToSync(space: ISpace) {
+    if (!space.syncServerUrl) return
     const client = new SyncServerClient(space)
     const time = await client.getNodesLastUpdatedAt()
 
@@ -38,7 +39,9 @@ export class AppService {
       const activeSpace = spaces.find((item) => item.isActive) || spaces[0]
 
       if (navigator.onLine) {
-        await this.tryToSync(activeSpace)
+        try {
+          await this.tryToSync(activeSpace)
+        } catch (error) {}
       }
 
       let nodes = await db.listNodesBySpaceId(activeSpace.id)
