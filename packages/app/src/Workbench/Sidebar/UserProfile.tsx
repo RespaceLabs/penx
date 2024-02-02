@@ -39,14 +39,14 @@ export const UserProfile = () => {
         <PopoverTrigger>
           <Avatar size={24}>
             <AvatarImage src={image} flexShrink-0 />
-            <AvatarFallback>{name.slice(3, 4)}</AvatarFallback>
+            <AvatarFallback>{name}</AvatarFallback>
           </Avatar>
         </PopoverTrigger>
         <PopoverContent w-200>
           <Box toCenterY gap2 px4 py2>
             <Avatar size={24}>
               <AvatarImage src={image} />
-              <AvatarFallback>{name.slice(3, 4)}</AvatarFallback>
+              <AvatarFallback>{name}</AvatarFallback>
             </Avatar>
             <Box textSM>{name}</Box>
           </Box>
