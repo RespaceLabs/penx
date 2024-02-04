@@ -1,7 +1,13 @@
+import { SiweModal } from '~/components/SiweModal'
 import { TaskBox } from '~/components/Task/TaskBox'
 
 function PageTasks() {
-  return <TaskBox />
+  return (
+    <>
+      <SiweModal />
+      <TaskBox />
+    </>
+  )
 }
 
 export default PageTasks

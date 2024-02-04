@@ -6,6 +6,7 @@ import { LoginForm } from '~/components/LoginForm/LoginForm'
 import LoginWithGithubButton from '~/components/LoginWithGithubButton'
 import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
 import { Logo } from '~/components/Logo'
+import { SiweModal } from '~/components/SiweModal'
 import { WalletConnectButton } from '~/components/WalletConnectButton'
 
 export default function LoginPage() {
@@ -24,6 +25,7 @@ export default function LoginPage() {
 
     return (
       <Box column gap4>
+        <SiweModal />
         {showGitHub && (
           <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
             <LoginWithGithubButton />

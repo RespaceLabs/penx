@@ -25,7 +25,6 @@ import '@glideapps/glide-data-grid/dist/index.css'
 import { TrpcProvider } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
 import { EventHandler } from '~/components/EventHandler'
-import { SiweModal } from '~/components/SiweModal'
 import { WalletConnectProvider } from '~/components/WalletConnectProvider'
 
 initFower()
@@ -56,7 +55,6 @@ function MyApp({ Component, pageProps }: Props<any>) {
         <WalletConnectProvider>
           <SessionProvider session={pageProps.session} refetchInterval={0}>
             <TrpcProvider>
-              <SiweModal />
               <EventHandler />
               {/* <SpeedInsights /> */}
               <Layout>
