@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@fower/react": "^2.0.0",
-    "@glideapps/glide-data-grid": "^6.0.1",
+    "@glideapps/glide-data-grid": "^6.0.3",
     "@penx/api": "workspace:*",
     "@penx/app": "workspace:*",
     "@penx/constants": "workspace:*",
