@@ -1,6 +1,6 @@
 import { Box, styled } from '@fower/react'
 import { Gem } from 'lucide-react'
-import { Button, Spinner } from 'uikit'
+import { Button, Divider, Spinner } from 'uikit'
 import { trpc } from '@penx/trpc-client'
 import { IconToken } from '../IconToken'
 import { ClaimButton } from './ClaimButton'
@@ -41,22 +41,18 @@ export function TaskList() {
               <Box textXL fontSemibold>
                 {item.title}
               </Box>
-              <Box column gap2>
+              <Box gap2 toCenterY>
                 {item.issueUrl && (
-                  <Box toCenterY gap2 gray800>
-                    <Box>GitHub issue:</Box>
-                    <Box gray500 as="a" href={item.issueUrl}>
-                      {item.issueUrl}
-                    </Box>
+                  <Box gray500 as="a" href={item.issueUrl}>
+                    GitHub issue
                   </Box>
                 )}
 
+                <Divider orientation="vertical" h-16 />
+
                 {item.figmaUrl && (
-                  <Box toCenterY gap2 gray800>
-                    <Box>Figma:</Box>
-                    <Box as="a" gray500 href={item.figmaUrl}>
-                      {item.figmaUrl}
-                    </Box>
+                  <Box as="a" gray500 href={item.figmaUrl}>
+                    Figma
                   </Box>
                 )}
               </Box>
