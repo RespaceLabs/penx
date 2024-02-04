@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { type GridColumn } from '@glideapps/glide-data-grid'
+import { GridColumnIcon, type GridColumn } from '@glideapps/glide-data-grid'
 import { Task } from '@penx/db'
 import { FieldType } from '@penx/model-types'
 import { api } from '@penx/trpc-client'
@@ -133,6 +133,7 @@ export const useTaskBoard = () => {
           columns.push({
             title: taskTypeMap[key].title || key,
             id: key,
+            // icon: GridColumnIcon.HeaderUri,
             hasMenu: false,
             dataType: taskTypeMap[key].type || FieldType.TEXT,
           })

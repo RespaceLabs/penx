@@ -39,7 +39,7 @@ export const selectCellRenderer: CustomRenderer<SelectCell> = {
   isMatch: (c): c is SelectCell => (c.data as any).kind === 'select-cell',
   draw: (args, cell) => {
     const { ctx, theme, rect } = args
-    const { value, dataSource, isMultiple } = cell.data
+    const { value, dataSource } = cell.data
     const ids: string[] = value ? value.toString().split(',') : []
     const options = ids
       .map((id) => dataSource.find((o) => o.id === id)!)

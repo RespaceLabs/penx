@@ -2,11 +2,11 @@ import { Box } from '@fower/react'
 import { Check, ChevronDown } from 'lucide-react'
 import { Menu, MenuItem, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { Filter, IColumnNode } from '@penx/model-types'
-import { DashboradViewColumn } from '..'
+import { DashboardViewColumn } from '..'
 
 interface FieldSelectProps {
   filter: Filter
-  sortedColumns: DashboradViewColumn[]
+  sortedColumns: DashboardViewColumn[]
   updateFilter: (
     columnId: string,
     newColumnId: string,

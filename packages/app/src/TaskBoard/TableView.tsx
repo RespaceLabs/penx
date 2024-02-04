@@ -38,6 +38,14 @@ const initialData = {
   claimStage: '',
 } as Task
 
+function openWebsite(url: string) {
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    url = 'https://' + url
+  }
+
+  window.open(url, '_blank')
+}
+
 export function TaskBoardTable() {
   const { columns, tasks, setTasks, fetchTasks, onColumnResize } =
     useTaskBoard()
@@ -102,13 +110,32 @@ export function TaskBoardTable() {
                 },
               } as SelectCell
 
+            case FieldType.URL:
+              const url = cellData ? cellData.toString() : ''
+
+              return {
+                kind: GridCellKind.Uri,
+                data: url,
+                allowOverlay: true,
+                readonly: false,
+                hoverEffect: true,
+                onClickUri: (a) => {
+                  if (url) {
+                    openWebsite(url)
+                    a.preventDefault()
+                  }
+                },
+              }
+
             default:
+              const text = cellData ? cellData.toString() : ''
+
               return {
                 kind: GridCellKind.Text,
                 allowOverlay: true,
                 readonly: false,
-                displayData: cellData ? cellData.toString() : '',
-                data: cellData ? cellData.toString() : '',
+                displayData: text,
+                data: text,
               }
           }
         }
@@ -215,7 +242,6 @@ export function TaskBoardTable() {
         onGridSelectionChange={onSelection}
         customRenderers={cellCommonRenderers}
         onColumnResize={onColumnResize}
-        // onRowAppended={onRowAppended}
       />
     </Box>
   )
