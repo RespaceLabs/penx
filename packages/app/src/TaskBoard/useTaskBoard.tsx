@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { GridColumnIcon, type GridColumn } from '@glideapps/glide-data-grid'
+import { type GridColumn } from '@glideapps/glide-data-grid'
 import { Task } from '@penx/db'
 import { FieldType } from '@penx/model-types'
 import { api } from '@penx/trpc-client'
@@ -9,7 +9,7 @@ interface IColumns {
   id: string
   hasMenu?: boolean
   dataType?: FieldType
-  width?: number
+  width?: number | string
 }
 
 interface TaskOptions {
@@ -22,11 +22,12 @@ const excludeProperty = ['id', 'userId', 'createdAt', 'updatedAt']
 
 export const taskTypeMap: Record<
   string,
-  { title: string; type: FieldType; options?: TaskOptions[] }
+  { title: string; type: FieldType; width?: number; options?: TaskOptions[] }
 > = {
   title: {
     title: 'title',
     type: FieldType.TEXT,
+    width: 150,
   },
   status: {
     title: 'status',
@@ -48,10 +49,12 @@ export const taskTypeMap: Record<
         color: 'sky500',
       },
     ],
+    width: 80,
   },
   description: {
     title: 'description',
     type: FieldType.MARKDOWN,
+    width: 150,
   },
   tags: {
     title: 'tags',
@@ -73,14 +76,17 @@ export const taskTypeMap: Record<
         color: 'sky500',
       },
     ],
+    width: 160,
   },
   figmaUrl: {
     title: 'figma url',
     type: FieldType.URL,
+    width: 150,
   },
   issueUrl: {
     title: 'issue url',
     type: FieldType.URL,
+    width: 150,
   },
   usdReward: {
     title: 'usd reward',
@@ -110,6 +116,7 @@ export const taskTypeMap: Record<
         color: 'sky500',
       },
     ],
+    width: 80,
   },
 }
 
@@ -133,8 +140,8 @@ export const useTaskBoard = () => {
           columns.push({
             title: taskTypeMap[key].title || key,
             id: key,
-            // icon: GridColumnIcon.HeaderUri,
             hasMenu: false,
+            width: taskTypeMap[key].width || 'auto',
             dataType: taskTypeMap[key].type || FieldType.TEXT,
           })
         }

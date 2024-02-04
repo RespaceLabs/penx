@@ -127,6 +127,16 @@ export function TaskBoardTable() {
                 },
               }
 
+            case FieldType.MARKDOWN:
+              const markdownText = cellData ? cellData.toString() : ''
+
+              return {
+                kind: GridCellKind.Markdown,
+                data: markdownText,
+                allowOverlay: true,
+                readonly: false,
+              }
+
             default:
               const text = cellData ? cellData.toString() : ''
 
