@@ -23,7 +23,7 @@
     "@penx/extension-typings": "^0.0.0",
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
-    "lucide-react": "^0.309.0",
+    "lucide-react": "^0.321.0",
     "react-intersection-observer": "^9.5.3",
     "slate": "0.101.5",
     "slate-history": "0.100.0",

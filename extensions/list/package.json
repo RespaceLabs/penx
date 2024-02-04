@@ -40,7 +40,7 @@
     "@penx/store": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "date-fns": "^2.30.0",
-    "lucide-react": "^0.289.0",
+    "lucide-react": "^0.321.0",
     "mitt": "^3.0.1",
     "react-circular-progressbar": "^2.1.0",
     "react-datepicker": "^4.24.0",

@@ -23,7 +23,7 @@
     "@penx/editor-transforms": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
     "@penx/local-db": "workspace:*",
-    "lucide-react": "^0.309.0",
+    "lucide-react": "^0.321.0",
     "slate": "0.101.5",
     "slate-history": "0.100.0",
     "slate-react": "0.101.5",

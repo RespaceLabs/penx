@@ -55,7 +55,7 @@
     "framer-motion": "^10.16.14",
     "immer": "^10.0.3",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.309.0",
+    "lucide-react": "^0.321.0",
     "marked": "^11.1.0",
     "mitt": "^3.0.1",
     "react": "^18.2.0",

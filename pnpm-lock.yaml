@@ -130,8 +130,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       '@glideapps/glide-data-grid':
-        specifier: ^6.0.1
-        version: 6.0.1(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
+        specifier: ^6.0.3
+        version: 6.0.3(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
       '@penx/api':
         specifier: workspace:*
         version: link:../../packages/api
@@ -210,10 +210,10 @@ importers:
         version: 13.3.1(@babel/core@7.23.5)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
       nextra:
         specifier: latest
-        version: 2.13.2(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
+        version: 2.13.3(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
       nextra-theme-docs:
         specifier: latest
-        version: 2.13.2(next@13.3.1)(nextra@2.13.2)(react-dom@18.2.0)(react@18.2.0)
+        version: 2.13.3(next@13.3.1)(nextra@2.13.3)(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -453,8 +453,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       luxon:
         specifier: ^3.4.4
         version: 3.4.4
@@ -728,8 +728,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       '@glideapps/glide-data-grid':
-        specifier: ^6.0.1
-        version: 6.0.1(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
+        specifier: ^6.0.3
+        version: 6.0.3(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
       '@hookform/resolvers':
         specifier: ^3.3.2
         version: 3.3.2(react-hook-form@7.48.2)
@@ -935,8 +935,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       markdown-it:
         specifier: ^13.0.2
         version: 13.0.2
@@ -1117,10 +1117,10 @@ importers:
         version: 13.3.1(@babel/core@7.23.5)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
       nextra:
         specifier: latest
-        version: 2.13.2(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
+        version: 2.13.3(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
       nextra-theme-docs:
         specifier: latest
-        version: 2.13.2(next@13.3.1)(nextra@2.13.2)(react-dom@18.2.0)(react@18.2.0)
+        version: 2.13.3(next@13.3.1)(nextra@2.13.3)(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -1447,8 +1447,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/local-db
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       slate:
         specifier: 0.101.5
         version: 0.101.5
@@ -1505,8 +1505,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/local-db
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       slate:
         specifier: 0.101.5
         version: 0.101.5
@@ -1587,8 +1587,8 @@ importers:
         specifier: ^24.5.2
         version: 24.5.2(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       markdown-it:
         specifier: ^13.0.2
         version: 13.0.2
@@ -1660,8 +1660,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       '@glideapps/glide-data-grid':
-        specifier: ^6.0.1
-        version: 6.0.1(lodash@4.17.21)(marked@11.1.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
+        specifier: ^6.0.3
+        version: 6.0.3(lodash@4.17.21)(marked@11.1.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
       '@penx/code-block':
         specifier: workspace:*
         version: link:../code-block
@@ -1750,8 +1750,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       marked:
         specifier: ^11.1.0
         version: 11.1.0
@@ -1862,8 +1862,8 @@ importers:
         specifier: workspace:*
         version: link:../paragraph
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       slate:
         specifier: 0.101.5
         version: 0.101.5
@@ -1935,8 +1935,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
@@ -2008,8 +2008,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/local-db
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       react-intersection-observer:
         specifier: ^9.5.3
         version: 9.5.3(react@18.2.0)
@@ -2096,8 +2096,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/store
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
@@ -2190,8 +2190,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       slate:
         specifier: 0.101.5
         version: 0.101.5
@@ -2311,8 +2311,8 @@ importers:
         specifier: ^2.30.0
         version: 2.30.0
       lucide-react:
-        specifier: ^0.289.0
-        version: 0.289.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -2402,8 +2402,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/slate-lists
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       slate:
         specifier: 0.101.5
         version: 0.101.5
@@ -2536,8 +2536,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -2782,8 +2782,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       '@glideapps/glide-data-grid':
-        specifier: ^6.0.1
-        version: 6.0.1(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
+        specifier: ^6.0.3
+        version: 6.0.3(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
       '@hookform/resolvers':
         specifier: ^3.3.2
         version: 3.3.2(react-hook-form@7.48.2)
@@ -2983,8 +2983,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       markdown-it:
         specifier: ^13.0.2
         version: 13.0.2
@@ -3476,8 +3476,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -5203,8 +5203,8 @@ importers:
         specifier: ^10.16.14
         version: 10.16.14(react-dom@18.2.0)(react@18.2.0)
       lucide-react:
-        specifier: ^0.309.0
-        version: 0.309.0(react@18.2.0)
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -8227,8 +8227,8 @@ packages:
       string-hash: 1.1.3
     dev: false
 
-  /@glideapps/glide-data-grid@6.0.1(lodash@4.17.21)(marked@11.1.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0):
-    resolution: {integrity: sha512-iaLwjge3/2jEuBufEf6loppeLrLbIlAP4TEIqICJ9ielXB7tl3rCNEGzH5hpr8MFBLafYd3HhHT4NtC+quLq1w==}
+  /@glideapps/glide-data-grid@6.0.3(lodash@4.17.21)(marked@11.1.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0):
+    resolution: {integrity: sha512-YXKggiNOaEemf0jP0jORq2EQKz+zXms+6mGzZc+q0mLMjmgzzoGLOQC1uYcynXSj1R61bd27JcPFsoH+Gj37Vg==}
     peerDependencies:
       lodash: ^4.17.19
       marked: ^4.0.10
@@ -8248,8 +8248,8 @@ packages:
       - supports-color
     dev: false
 
-  /@glideapps/glide-data-grid@6.0.1(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0):
-    resolution: {integrity: sha512-iaLwjge3/2jEuBufEf6loppeLrLbIlAP4TEIqICJ9ielXB7tl3rCNEGzH5hpr8MFBLafYd3HhHT4NtC+quLq1w==}
+  /@glideapps/glide-data-grid@6.0.3(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0):
+    resolution: {integrity: sha512-YXKggiNOaEemf0jP0jORq2EQKz+zXms+6mGzZc+q0mLMjmgzzoGLOQC1uYcynXSj1R61bd27JcPFsoH+Gj37Vg==}
     peerDependencies:
       lodash: ^4.17.19
       marked: ^4.0.10
@@ -23624,16 +23624,8 @@ packages:
   /lru_map@0.3.3:
     resolution: {integrity: sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==}
 
-  /lucide-react@0.289.0(react@18.2.0):
-    resolution: {integrity: sha512-D3/kt5h4KVmO9Bqlhky/szWI3puEU/KJfQWCeX8Zhvx3xx0SQ4t6vbwiK9ORBbiaqXefkBbXjoq7fOBd7s5yXQ==}
-    peerDependencies:
-      react: ^16.5.1 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.2.0
-    dev: false
-
-  /lucide-react@0.309.0(react@18.2.0):
-    resolution: {integrity: sha512-zNVPczuwFrCfksZH3zbd1UDE6/WYhYAdbe2k7CImVyPAkXLgIwbs6eXQ4loigqDnUFjyFYCI5jZ1y10Kqal0dg==}
+  /lucide-react@0.321.0(react@18.2.0):
+    resolution: {integrity: sha512-Fi9VahIna6642U+2nAGSjnXwUBV3WyfFFPQq4yi3w30jtqxDLfSyiYCtCYCYQZ2KWNZc1MDI+rcsa0t+ChdYpw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -25150,11 +25142,11 @@ packages:
       fsevents: 2.3.3
     dev: false
 
-  /nextra-theme-docs@2.13.2(next@13.3.1)(nextra@2.13.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-yE4umXaImp1/kf/sFciPj2+EFrNSwd9Db26hi98sIIiujzGf3+9eUgAz45vF9CwBw50FSXxm1QGRcY+slQ4xQQ==}
+  /nextra-theme-docs@2.13.3(next@13.3.1)(nextra@2.13.3)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-B6xrnR86Gg4GzV56AomSwtmvSyAvnJz1xKOGGav1XKxkwvC8QeI17jdt/CqiKyIObJ+5bLqSFiKhaAZ5DYQP3g==}
     peerDependencies:
       next: '>=9.5.3'
-      nextra: 2.13.2
+      nextra: 2.13.3
       react: '>=16.13.1'
       react-dom: '>=16.13.1'
     dependencies:
@@ -25170,15 +25162,15 @@ packages:
       next: 13.3.1(@babel/core@7.23.5)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
       next-seo: 6.4.0(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
       next-themes: 0.2.1(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
-      nextra: 2.13.2(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
+      nextra: 2.13.3(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.22.4
     dev: false
 
-  /nextra@2.13.2(next@13.3.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-pIgOSXNUqTz1laxV4ChFZOU7lzJAoDHHaBPj8L09PuxrLKqU1BU/iZtXAG6bQeKCx8EPdBsoXxEuENnL9QGnGA==}
+  /nextra@2.13.3(next@13.3.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-OBVuyQKh+oqrbVt0AosgNYnuReWuNrtJVEN7q18b/oEg2wEpuiq3UJfmIvGgOdNYc3zv3OYrzbcq7IhwtdHHEw==}
     engines: {node: '>=16'}
     peerDependencies:
       next: '>=9.5.3'

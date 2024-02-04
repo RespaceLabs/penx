@@ -31,7 +31,7 @@
     "@penx/paragraph": "workspace:*",
     "@penx/shared": "workspace:*",
     "@udecode/plate-common": "^24.5.2",
-    "lucide-react": "^0.309.0",
+    "lucide-react": "^0.321.0",
     "markdown-it": "^13.0.2",
     "prismjs": "^1.29.0",
     "slate": "0.101.5",

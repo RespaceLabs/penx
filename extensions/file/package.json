@@ -29,7 +29,7 @@
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/shared": "workspace:*",
-    "lucide-react": "^0.309.0",
+    "lucide-react": "^0.321.0",
     "prismjs": "^1.29.0",
     "re-resizable": "^6.9.11",
     "slate": "0.101.5",

@@ -31,7 +31,7 @@
     "@penx/local-db": "workspace:*",
     "@penx/shared": "workspace:*",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.309.0",
+    "lucide-react": "^0.321.0",
     "slate": "0.101.5",
     "slate-history": "0.100.0",
     "@penx/slate-lists": "workspace:*",
