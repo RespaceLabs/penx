@@ -67,7 +67,8 @@ export function PanelItem({ node, index }: Props) {
           pt0
           pb-100
         >
-          {name === 'NODE' && <PCNav />}
+          {(node.isCommon || node.isRootNode || node.isDaily) &&
+            name === 'NODE' && <PCNav />}
           <Box w-100p>
             <Box
               mx-auto
