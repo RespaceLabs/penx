@@ -54,7 +54,7 @@ copy apps/web/.env.local.example apps/web/.env.local
 pnpm dev
 ```
 
-Go to: http://localhost:3000/
+Go to: http://localhost:3000
 
 ## ⚖️ License
 
