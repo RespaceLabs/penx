@@ -164,10 +164,10 @@ export class TableSearch {
 
     const nodes = matchIds.map((item) => dataSourceMap.get(item.id)) as INode[]
     const rowsKey = nodes.reduce((result: string[], item: INode) => {
-      if (item.props?.rowId) {
-        result.push(item.props?.rowId)
-      } else if (!this.isDatabaseId) {
+      if (!this.isDatabaseId) {
         result.push(item.id)
+      } else if (item.props?.rowId) {
+        result.push(item.props?.rowId)
       }
 
       return result

@@ -7,6 +7,7 @@ import DataEditor, {
   GridCell,
   GridCellKind,
   Item,
+  type GridColumn,
 } from '@glideapps/glide-data-grid'
 import { INode } from '@penx/model-types'
 
@@ -27,6 +28,7 @@ interface IColumns {
   id: string
   hasMenu?: boolean
   dataType?: 'Bubble' | 'Image' | 'DatePicker' | 'Number' | 'SingleDropdown'
+  width?: number
 }
 
 export function DashboardTable({ spaceNodes }: IDashboardTable) {
@@ -104,6 +106,19 @@ export function DashboardTable({ spaceNodes }: IDashboardTable) {
     [columns],
   )
 
+  const onColumnResize = useCallback((column: GridColumn, newSize: number) => {
+    setColumns((preColumns) => {
+      const index = preColumns.findIndex((ci) => ci.id === column.id)
+      const newArray = [...preColumns]
+      newArray.splice(index, 1, {
+        ...preColumns[index],
+        width: newSize,
+      })
+
+      return newArray
+    })
+  }, [])
+
   useEffect(() => {
     generateColumns(spaceNodes)
     setNumRows(spaceNodes.length)
@@ -118,6 +133,7 @@ export function DashboardTable({ spaceNodes }: IDashboardTable) {
         getCellContent={getContent}
         onCellEdited={onCellEdited}
         rowMarkers={'both'}
+        onColumnResize={onColumnResize}
         rows={numRows}
       />
     </Box>
