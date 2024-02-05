@@ -296,7 +296,9 @@ export const DatabaseProvider = ({
             (c) => c.props.columnId === col.id && c.props.rowId === row.id,
           )!
 
-          dataSource.push(cell)
+          if (cell) {
+            dataSource.push(cell)
+          }
 
           return { ...acc, [col.id]: cell }
         },

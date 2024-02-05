@@ -22,15 +22,15 @@ export const ElementContent = memo(
 
     const { className, isShow } = usePlaceholder(element, placeholder)
 
+    {
+      /* {isShow && <SlashTrigger element={element} />} */
+    }
     return (
-      <>
-        {/* {isShow && <SlashTrigger element={element} />} */}
-        <Element
-          {...props}
-          attributes={attributes}
-          nodeProps={{ className: isMobile ? '' : className }}
-        />
-      </>
+      <Element
+        {...props}
+        attributes={attributes}
+        nodeProps={{ className: isMobile ? '' : className }}
+      />
     )
   },
   (prev, next) => {
