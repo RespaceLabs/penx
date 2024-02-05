@@ -2,6 +2,7 @@ import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
 import {
   Button,
+  Checkbox,
   Input,
   ModalClose,
   Spinner,
@@ -9,52 +10,62 @@ import {
   useModalContext,
 } from 'uikit'
 import { ISpace } from '@penx/model-types'
+import { useActiveSpace } from '../VersionControl/hooks/useActiveSpace'
+import { RestoreFromGitHubModalData } from '../VersionControl/types'
 import { useRestoreFromGitHubForm } from './useRestoreFromGitHubForm'
 
 export function RestoreFromGitHubForm() {
-  const { data: loading } = useModalContext<boolean>()
+  const { data } = useModalContext<RestoreFromGitHubModalData>()
   const form = useRestoreFromGitHubForm()
+  const { space } = useActiveSpace()
   const { control, formState } = form
   const { isValid } = formState
+  const { loading } = data
 
   return (
     <Box as="form" onSubmit={form.onSubmit} column gap4 pt3>
-      <Box mb--6 column gap2>
-        <Box fontMedium>GitHub backup url with space ID and commit hash</Box>
-        <Box textSM gray400 leadingTight>
-          eg:
-          https://github.com/penxio/penx-101/tree/42577be7d9fe2d259c913d000a0b58d686784ff9/3264fdaa-6e48-4ca5-bb1f-4e553bb5d78b
+      <Box mb--6 column gap2 mb4>
+        <Box toCenterY gap1>
+          <Box>Commit hash:</Box>
+          <Box fontMedium>{data.commitHash}</Box>
+        </Box>
+        <Box toCenterY gap1>
+          <Box>Space name:</Box>
+          <Box fontMedium>{space.name}</Box>
         </Box>
       </Box>
-      <Controller
-        name="url"
+      {/* <Controller
+        name="isOverride"
         control={control}
-        rules={{ required: true }}
         render={({ field }) => (
-          <Input
-            autoFocus
-            size="lg"
-            placeholder="GitHub backup url with space ID and commit hash"
-            {...field}
-          />
+          <Checkbox
+            checked={field.value}
+            onChange={(e) => {
+              field.onChange(e.target.checked)
+            }}
+          >
+            Is override the existed space?
+          </Checkbox>
         )}
-      />
+      /> */}
 
-      <Box>
-        <Box mb2 fontMedium>
-          End-to-End Encryption password
+      {space.encrypted && (
+        <Box>
+          <Box mb2 fontMedium>
+            End-to-End Encryption password
+          </Box>
+          <Box gray400 leadingNormal textSM mb2>
+            If this space is encrypted, password will be required to decrypt it.
+          </Box>
+          <Controller
+            name="password"
+            control={control}
+            render={({ field }) => (
+              <Input size="lg" type="password" placeholder="" {...field} />
+            )}
+          />
         </Box>
-        <Box gray400 leadingNormal textSM mb2>
-          If this space is encrypted, password will be required to decrypt it.
-        </Box>
-        <Controller
-          name="password"
-          control={control}
-          render={({ field }) => (
-            <Input size="lg" type="password" placeholder="" {...field} />
-          )}
-        />
-      </Box>
+      )}
 
       <Box toCenterY toRight gap2 mt2>
         <ModalClose>

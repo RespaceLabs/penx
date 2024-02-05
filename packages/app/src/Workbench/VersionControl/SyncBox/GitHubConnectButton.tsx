@@ -24,7 +24,7 @@ export function GitHubConnectButton({ installationId, repo }: Props) {
         repo,
       })
 
-      store.setUser(new User(user))
+      store.user.setUser(new User(user))
     } catch (error) {
       toast.warning('Connect GitHub failed')
     }

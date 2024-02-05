@@ -1,6 +1,6 @@
+import { set } from 'idb-keyval'
 import { atom, createStore } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
-import { User } from '@penx/model'
 import { commands } from './constants'
 import { AppStore } from './stores/AppStore'
 import { CatalogueStore } from './stores/CatalogueStore'
@@ -9,17 +9,15 @@ import { NodeStore } from './stores/NodeStore'
 import { RouterStore } from './stores/RouterStore'
 import { SpaceStore } from './stores/SpaceStore'
 import { SyncStore } from './stores/SyncStore'
+import { UserStore } from './stores/UserStore'
 import { Command, ExtensionStore } from './types'
 
 export const commandsAtom = atom<Command[]>(commands)
 
 export const extensionStoreAtom = atom<ExtensionStore>({})
 
-export const userAtom = atom<User>({} as User)
-
-export const userIdAtom = atom('')
-
-export const tokenAtom = atomWithStorage('PENX_TOKEN', '')
+const PENX_TOKEN = 'PENX_TOKEN'
+export const tokenAtom = atomWithStorage(PENX_TOKEN, '')
 
 const baseStore = createStore()
 
@@ -55,20 +53,8 @@ export const store = Object.assign(baseStore, {
     return new SyncStore(this)
   },
 
-  getUserId() {
-    return store.get(userIdAtom)
-  },
-
-  setUserId(userId: string) {
-    return store.set(userIdAtom, userId)
-  },
-
-  getUser() {
-    return store.get(userAtom)
-  },
-
-  setUser(user: User) {
-    return store.set(userAtom, user)
+  get user() {
+    return new UserStore(this)
   },
 
   getToken() {
@@ -76,6 +62,7 @@ export const store = Object.assign(baseStore, {
   },
 
   setToken(token: string) {
+    set(PENX_TOKEN, token)
     return store.set(tokenAtom, token)
   },
 })

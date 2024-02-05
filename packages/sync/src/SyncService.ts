@@ -451,7 +451,7 @@ export class SyncService {
 
         // isEqual, don't push
         if (diff.isEqual) {
-          console.log('diff equal, no need to push')
+          console.log('diff equal, no need to push========')
           return
         }
 

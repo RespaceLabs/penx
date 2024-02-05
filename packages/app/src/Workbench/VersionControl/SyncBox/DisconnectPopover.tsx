@@ -43,7 +43,7 @@ export function DisconnectPopover({}: Props) {
                     const user = await api.user.disconnectRepo.mutate({
                       userId: id,
                     })
-                    store.setUser(new User(user))
+                    store.user.setUser(new User(user))
                     close()
                   } catch (error) {
                     toast.warning('Disconnect GitHub failed')

@@ -10,8 +10,8 @@ export const api = createTRPCProxyClient<AppRouter>({
   links: [
     httpBatchLink({
       url: `${BASE_URL}/api/trpc`,
-      headers() {
-        return getHeaders()
+      async headers() {
+        return await getHeaders()
       },
     }),
   ],

@@ -1,7 +1,6 @@
 import { Box } from '@fower/react'
-import { useSidebarDrawer, useSpaces } from '@penx/hooks'
+import { useSpaces } from '@penx/hooks'
 import { CreateSpaceBtn } from './CreateSpaceBtn'
-import { ImportFromGithubBtn } from './ImportFromGithubBtn'
 import { SpaceItem } from './SpaceItem'
 import { UploadButton } from './UploadButton'
 
@@ -17,7 +16,6 @@ export const SpaceList = () => {
         <Box>
           <CreateSpaceBtn />
           <UploadButton />
-          <ImportFromGithubBtn />
         </Box>
       </Box>
     </Box>

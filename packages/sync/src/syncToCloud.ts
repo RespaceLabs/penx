@@ -23,6 +23,8 @@ export async function syncToCloud(): Promise<boolean> {
     try {
       return await pushByDiff(space, nodesLastUpdatedAt)
     } catch (error: any) {
+      console.log('sync error===============:', error)
+
       if (error.message === 'NODES_BROKEN') {
         await pushAllNodes(space)
         return true
@@ -43,11 +45,11 @@ async function pushByDiff(
 ): Promise<boolean> {
   const nodes = await db.listNodesBySpaceId(space.id)
 
-  const newNodes = nodes.filter(
-    (n) => n.updatedAt.getTime() > nodesLastUpdatedAt.getTime(),
-  )
+  const newNodes = nodes.filter((n) => {
+    return new Date(n.updatedAt).getTime() > nodesLastUpdatedAt.getTime()
+  })
 
-  console.log('=====newNodes:', newNodes)
+  // console.log('=====newNodes:', newNodes)
 
   if (!newNodes.length) return true
 

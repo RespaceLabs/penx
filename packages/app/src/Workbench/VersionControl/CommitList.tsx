@@ -1,70 +1,44 @@
-import { forwardRef, useRef, useState } from 'react'
-import DatePicker from 'react-datepicker'
 import { Box } from '@fower/react'
-import { useQuery } from '@tanstack/react-query'
-import { endOfDay, format, startOfDay } from 'date-fns'
-import { CalendarDays } from 'lucide-react'
-import { Octokit } from 'octokit'
-import { useUser } from '@penx/hooks'
-
-const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
-  { onClick },
-  ref,
-) {
-  return (
-    <Box ref={ref} gray500 inlineFlex cursorPointer ml2 onClick={onClick}>
-      <CalendarDays size={20} />
-    </Box>
-  )
-})
+import { Avatar, AvatarImage, Button, modalController } from 'uikit'
+import { ModalNames } from '@penx/constants'
+import { Commit, RestoreFromGitHubModalData } from './types'
 
 interface CommitListProps {
-  token: string
+  commits: Commit[]
 }
 
-export function CommitList({ token }: CommitListProps) {
-  const [date, setDate] = useState(new Date())
-  const user = useUser()
-  // console.log('========date:', date, startOfDay(date))
-
-  const octoRef = useRef(new Octokit({ auth: token }))
-
-  const { data } = useQuery(['commits', token, date.toISOString()], () =>
-    octoRef.current.request('GET /repos/{owner}/{repo}/commits', {
-      owner: user.repoOwner,
-      repo: user.repoName,
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-      since: startOfDay(date).toISOString(),
-      until: endOfDay(date).toISOString(),
-    }),
-  )
-
-  console.log('=========data:', data?.data)
-
+export function CommitList({ commits }: CommitListProps) {
   return (
-    <Box>
-      <DatePicker
-        selected={date}
-        onChange={(date) => {
-          console.log('date=========:', date)
-          setDate(date!)
-        }}
-        // customInput={<CustomInput />}
-      />
-      <Box>GOGO: {token}</Box>
-      {data && (
-        <Box>
-          <Box></Box>
-          {data.data.map((commit) => (
-            <Box key={commit.sha}>
-              <Box>{commit.commit.message}</Box>
-              <Box>{commit.sha}</Box>
+    <Box column gap4>
+      {commits.map((commit) => (
+        <Box key={commit.sha} toBetween toCenterY>
+          <Box column gap1>
+            <Box textBase>{commit.commit.message}</Box>
+            <Box toCenterY gap1 gray500>
+              <Avatar size={16}>
+                <AvatarImage src={commit.author?.avatar_url} />
+              </Avatar>
+              <Box textXS>{commit.author?.login}</Box>
+              <Box textXS ml2>
+                {commit.sha}
+              </Box>
             </Box>
-          ))}
+          </Box>
+          <Button
+            colorScheme="white"
+            size="sm"
+            roundedFull
+            onClick={() => {
+              //
+              modalController.open(ModalNames.RESTORE_FROM_GITHUB, {
+                commitHash: commit.sha,
+              } as RestoreFromGitHubModalData)
+            }}
+          >
+            Restore this version
+          </Button>
         </Box>
-      )}
+      ))}
     </Box>
   )
 }

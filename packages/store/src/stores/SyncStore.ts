@@ -30,7 +30,7 @@ export class SyncStore {
       const isSynced = await syncToCloud()
 
       if (isSynced) {
-        console.log('========isSynced!!!')
+        // console.log('========isSynced!!!')
 
         const spaces = await db.listSpaces()
         this.store.space.setSpaces(spaces)

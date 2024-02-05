@@ -1,6 +1,9 @@
-export function getHeaders() {
-  const token = localStorage.getItem('PENX_TOKEN')
+import { get } from 'idb-keyval'
+
+export async function getHeaders() {
+  const token = await get('PENX_TOKEN')
+
   return {
-    Authorization: !token ? '' : JSON.parse(token),
+    Authorization: !token ? '' : token,
   }
 }

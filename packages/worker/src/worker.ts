@@ -15,7 +15,7 @@ self.addEventListener('message', async (event) => {
 
     // pollingPushToCloud()
     // startPollingPull()
-    // pollingPushToGithub()
+    pollingPushToGithub()
 
     // runAgentSSE()
 

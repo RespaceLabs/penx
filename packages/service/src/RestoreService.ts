@@ -1,12 +1,10 @@
 import mime from 'mime-types'
 import { Octokit } from 'octokit'
-import { createEditor, Editor } from 'slate'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
 import { api } from '@penx/trpc-client'
-import { uniqueId } from '@penx/unique-id'
 
 export type TreeItem = {
   path: string
@@ -86,20 +84,23 @@ export class RestoreService {
     this.params = sharedParams
   }
 
-  static async init(user: User, url: string, password: string) {
+  static async init(
+    user: User,
+    space: Space,
+    commitHash: string,
+    password: string,
+  ) {
     const s = new RestoreService()
     s.user = user
 
-    const arr = url.split('/')
-    const commitHash = arr[arr.length - 2]
     s.commitHash = commitHash
-    s.spaceId = arr[arr.length - 1]
+    s.spaceId = space.id
 
     const token = await api.github.getTokenByUserId.query({
       userId: user.id,
     })
 
-    s.setSharedParams(arr[3], arr[4])
+    s.setSharedParams(user.repoOwner, user.repoName)
 
     s.app = new Octokit({ auth: token })
 
@@ -142,9 +143,6 @@ export class RestoreService {
     } else {
       this.nodes = nodes
     }
-
-    console.log('=========nodes:', this.nodes, 'space:', this.space)
-    // return
 
     this.nodes = this.normalizeNodes(this.nodes)
 

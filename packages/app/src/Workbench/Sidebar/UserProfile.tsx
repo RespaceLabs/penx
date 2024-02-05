@@ -20,13 +20,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
+import { useUser } from '@penx/hooks'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 import { appEmitter } from '../../app-emitter'
 
 export const UserProfile = () => {
+  const user = useUser()
+
   const { disconnect, disconnectAsync } = useDisconnect()
   const { loading, data: session } = useSession()
+
   const name = useMemo(() => {
     if (session.user.email) return session.user.email
     if (session.user.name) return session.user.name
@@ -82,11 +86,11 @@ export const UserProfile = () => {
               <Box gray500>
                 <GitCompare size={16} />
               </Box>
-              <Box>Version Control</Box>
+              <Box>GitHub backup</Box>
             </MenuItem>
           </PopoverClose>
 
-          <PopoverClose>
+          {/* <PopoverClose>
             <MenuItem
               gap2
               onClick={() => {
@@ -98,21 +102,23 @@ export const UserProfile = () => {
               </Box>
               <Box>Web3 profile</Box>
             </MenuItem>
-          </PopoverClose>
+          </PopoverClose> */}
 
-          <PopoverClose>
-            <MenuItem
-              gap2
-              onClick={() => {
-                store.router.routeTo('TASK_BOARD')
-              }}
-            >
-              <Box gray500>
-                <DatabaseBackup size={16} />
-              </Box>
-              <Box>Task board</Box>
-            </MenuItem>
-          </PopoverClose>
+          {user.isAdmin && (
+            <PopoverClose>
+              <MenuItem
+                gap2
+                onClick={() => {
+                  store.router.routeTo('TASK_BOARD')
+                }}
+              >
+                <Box gray500>
+                  <DatabaseBackup size={16} />
+                </Box>
+                <Box>Task board</Box>
+              </MenuItem>
+            </PopoverClose>
+          )}
 
           <PopoverClose>
             <MenuItem

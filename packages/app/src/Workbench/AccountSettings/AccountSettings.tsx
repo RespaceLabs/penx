@@ -1,5 +1,4 @@
 import { Box } from '@fower/react'
-import { AccountBinding } from './AccountBinding'
 import { PersonalToken } from './PersonalToken'
 
 export function AccountSettings() {
@@ -10,7 +9,6 @@ export function AccountSettings() {
       </Box>
 
       <PersonalToken />
-      <AccountBinding />
     </Box>
   )
 }

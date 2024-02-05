@@ -192,7 +192,7 @@ export const userRouter = createTRPCRouter({
 
       return ctx.prisma.user.update({
         where: { id: userId },
-        data: { github: github },
+        data: { github },
       })
     }),
 
@@ -218,7 +218,7 @@ export const userRouter = createTRPCRouter({
 
       return ctx.prisma.user.update({
         where: { id: userId },
-        data: { github: JSON.stringify(github) },
+        data: { github },
       })
     }),
 })

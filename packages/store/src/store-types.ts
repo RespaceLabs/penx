@@ -6,6 +6,7 @@ import type { NodeStore } from './stores/NodeStore'
 import type { RouterStore } from './stores/RouterStore'
 import type { SpaceStore } from './stores/SpaceStore'
 import type { SyncStore } from './stores/SyncStore'
+import type { UserStore } from './stores/UserStore'
 
 export type StoreType = {
   get: <Value>(atom: Atom<Value>) => Value
@@ -21,4 +22,5 @@ export type StoreType = {
   editor: EditorStore
   app: AppStore
   sync: SyncStore
+  user: UserStore
 }

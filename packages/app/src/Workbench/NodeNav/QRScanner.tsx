@@ -23,7 +23,7 @@ export const QRScanner: React.FC = () => {
     try {
       const data = await api.user.byAddress.query({ address })
       const user = new User(data)
-      store.setUser(user)
+      store.user.setUser(user)
 
       // const space = await db.getSpace(user.spaceIds[0])
 

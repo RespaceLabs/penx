@@ -45,39 +45,43 @@ export const SyncPopover: FC<Props> = () => {
     }
   }
 
+  const triggerJSX = (
+    <Box gapX2 toCenterY h-100p inlineFlex textSM>
+      <Box toCenterY gap1 rounded cursorPointer px2>
+        {isSyncing && (
+          <>
+            <Box animateSpin={isSyncing} inlineFlex>
+              <RefreshCcw size={16} />
+            </Box>
+            <Box gray400>{isPulling ? 'Pulling' : 'Pushing'}</Box>
+          </>
+        )}
+        {isNormal && (
+          <>
+            <Dot type="success" />
+            <Box gray400>Synced</Box>
+          </>
+        )}
+        {isFailed && (
+          <>
+            <Dot type="error" />
+            {status === SyncStatus.PUSH_FAILED && (
+              <Box gray400>Push failed</Box>
+            )}
+            {status === SyncStatus.PULL_FAILED && (
+              <Box gray400>Pull failed</Box>
+            )}
+          </>
+        )}
+      </Box>
+    </Box>
+  )
+
+  if (!user.repo) return triggerJSX
+
   return (
     <Popover placement="top-start">
-      <PopoverTrigger asChild>
-        <Box gapX2 toCenterY h-100p inlineFlex textSM>
-          <Box toCenterY gap1 rounded cursorPointer px2>
-            {isSyncing && (
-              <>
-                <Box animateSpin={isSyncing} inlineFlex>
-                  <RefreshCcw size={16} />
-                </Box>
-                <Box gray400>{isPulling ? 'Pulling' : 'Pushing'}</Box>
-              </>
-            )}
-            {isNormal && (
-              <>
-                <Dot type="success" />
-                <Box gray400>Synced</Box>
-              </>
-            )}
-            {isFailed && (
-              <>
-                <Dot type="error" />
-                {status === SyncStatus.PUSH_FAILED && (
-                  <Box gray400>Push failed</Box>
-                )}
-                {status === SyncStatus.PULL_FAILED && (
-                  <Box gray400>Pull failed</Box>
-                )}
-              </>
-            )}
-          </Box>
-        </Box>
-      </PopoverTrigger>
+      <PopoverTrigger asChild>{triggerJSX}</PopoverTrigger>
       <PopoverContent w-200 gray600>
         {({ close }) => (
           <>

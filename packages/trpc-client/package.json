@@ -29,6 +29,7 @@
     "@trpc/next": "^10.44.1",
     "@trpc/react-query": "^10.44.1",
     "@trpc/server": "^10.44.1",
+    "idb-keyval": "^6.2.1",
     "nanoid": "^5.0.4",
     "superjson": "1.9.1",
     "zod": "^3.22.4"

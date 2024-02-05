@@ -44,18 +44,22 @@ export const Workbench = () => {
         <Box flex-1>
           <MobileNav />
 
-          {name === 'ACCOUNT_SETTINGS' && <AccountSettings />}
-          {name === 'SPACE_SETTINGS' && <SpaceSettings />}
-
           <ErrorBoundary fallback={<Fallback />}>
             {name === 'NODE' && <NodePanels />}
-          </ErrorBoundary>
 
-          {name === 'SET_PASSWORD' && <SetPassword />}
-          {name === 'SYNC_SERVER' && <SyncServer />}
-          {name === 'WEB3_PROFILE' && <Web3Profile />}
-          {name === 'TASK_BOARD' && <TaskBoard />}
-          {name === 'VERSION_CONTROL' && <VersionControl />}
+            {name !== 'NODE' && (
+              <Box h-100vh overflowYAuto>
+                {name === 'ACCOUNT_SETTINGS' && <AccountSettings />}
+                {name === 'SPACE_SETTINGS' && <SpaceSettings />}
+
+                {name === 'SET_PASSWORD' && <SetPassword />}
+                {name === 'SYNC_SERVER' && <SyncServer />}
+                {name === 'WEB3_PROFILE' && <Web3Profile />}
+                {name === 'TASK_BOARD' && <TaskBoard />}
+                {name === 'VERSION_CONTROL' && <VersionControl />}
+              </Box>
+            )}
+          </ErrorBoundary>
         </Box>
       </Box>
     </EditorProvider>

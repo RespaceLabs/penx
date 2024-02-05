@@ -17,10 +17,10 @@ import { db } from '@penx/local-db'
 import { NodeType } from '@penx/model-types'
 import { useSession } from '@penx/session'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
-import LoginWithGoogleButton from '../../components/LoginWithGoogleButton'
 import { SyncPopover } from '../StatusBar/SyncPopover'
 import { CatalogueBox } from './CatalogueBox/CatalogueBox'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
+import { SetupGitHubButton } from './SetupGitHubButton'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover/SpacePopover'
 import { PageList } from './TreeView/PageList'
@@ -112,10 +112,11 @@ export const Sidebar = () => {
           </>
         )}
       </Box>
+
+      <Box px4>
+        <SetupGitHubButton />
+      </Box>
       <Box px2 toBetween toCenterY>
-        {!session && !loading && <LoginWithGoogleButton />}
-        {/* {!isConnected && <WalletConnectButton size="lg" w-100p />}
-        {isConnected && <UserAvatarModal />} */}
         {session && !loading && (
           <>
             <SyncPopover />
