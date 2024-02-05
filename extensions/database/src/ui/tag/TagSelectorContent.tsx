@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Box } from '@fower/react'
 import { Editor, Node, Path, Transforms } from 'slate'
 import { ELEMENT_TAG } from '@penx/constants'
@@ -17,6 +17,8 @@ interface Props {
   element: TagSelectorElement
   containerRef: any
 }
+
+const listItemIdPrefix = 'type-list-item-'
 
 function getSearchText(editor: PenxEditor, element: TagSelectorElement) {
   let text = Node.string(element)
@@ -39,16 +41,15 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   const tagNames = nodeList.tagNodes.map((node) => node.props.name!)
 
   const text = getSearchText(editor, element)
-
-  const filteredTypes = tagNames.filter((item) => {
-    const q = text.replace(/^#/, '').toLowerCase()
-    if (!q) return true
-    return item.toLowerCase().includes(q)
-  })
-
-  // console.log('=====element:', element, text)
-
   const tagName = text.replace(/^#/, '')
+
+  const filteredTypes = useMemo(() => {
+    const q = text.replace(/^#/, '').toLowerCase()
+
+    return tagNames.filter((item) => {
+      return item.toLowerCase().includes(q) && item.toLowerCase() !== 'untitled'
+    })
+  }, [tagNames, text])
 
   const selectTag = useCallback(
     (tagName: any, databaseId: string) => {
@@ -88,8 +89,6 @@ export const TagSelectorContent = ({ close, element }: Props) => {
     [editor, close, element],
   )
 
-  const listItemIdPrefix = 'type-list-item-'
-
   const { cursor } = useKeyDownList({
     onEnter: async (cursor) => {
       let database: INode
@@ -113,7 +112,7 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   if (!filteredTypes.length) {
     return (
       <Box py3 px3 textSM>
-        Create tag "{text}"
+        Create tag &quot;{text}&quot;
       </Box>
     )
   }
