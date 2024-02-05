@@ -59,18 +59,19 @@ export const DailyNoteNav = ({ element }: { element: TitleElement }) => {
   )
 }
 
+const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
+  { onClick },
+  ref,
+) {
+  return (
+    <Box ref={ref} gray500 inlineFlex cursorPointer ml2 onClick={onClick}>
+      <CalendarDays size={20} />
+    </Box>
+  )
+})
+
 function GoToDay({ date }: { date: Date }) {
   const [startDate, setStartDate] = useState(date || new Date())
-  const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
-    { onClick },
-    ref,
-  ) {
-    return (
-      <Box ref={ref} gray500 inlineFlex cursorPointer ml2 onClick={onClick}>
-        <CalendarDays size={20} />
-      </Box>
-    )
-  })
   return (
     <DatePicker
       selected={startDate}

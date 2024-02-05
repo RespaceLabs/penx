@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
-import { MyPoint } from './MyPoint'
 import { SyncBox } from './SyncBox/SyncBox'
+import { VersionRestore } from './VersionRestore'
 
 export function VersionControl() {
   return (
@@ -13,8 +13,10 @@ export function VersionControl() {
 
       <Box>
         <SyncBox />
-        {/* <MyPoint /> */}
-        {/* <MintPointButton /> */}
+
+        <Box pt10>
+          <VersionRestore />
+        </Box>
       </Box>
     </Box>
   )
