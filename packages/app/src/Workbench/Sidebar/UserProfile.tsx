@@ -1,6 +1,13 @@
 import { useMemo } from 'react'
 import { Box } from '@fower/react'
-import { DatabaseBackup, Home, LogOut, User, Wallet } from 'lucide-react'
+import {
+  DatabaseBackup,
+  GitCompare,
+  Home,
+  LogOut,
+  User,
+  Wallet,
+} from 'lucide-react'
 import { useDisconnect } from 'wagmi'
 import {
   Avatar,
@@ -62,6 +69,20 @@ export const UserProfile = () => {
                 <User size={16} />
               </Box>
               <Box>Account settings</Box>
+            </MenuItem>
+          </PopoverClose>
+
+          <PopoverClose>
+            <MenuItem
+              gap2
+              onClick={() => {
+                store.router.routeTo('VERSION_CONTROL')
+              }}
+            >
+              <Box gray500>
+                <GitCompare size={16} />
+              </Box>
+              <Box>Version Control</Box>
             </MenuItem>
           </PopoverClose>
 

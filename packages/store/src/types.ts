@@ -26,6 +26,7 @@ export type RouteName =
   | 'SYNC_SERVER'
   | 'WEB3_PROFILE'
   | 'TASK_BOARD'
+  | 'VERSION_CONTROL'
 
 export type IRouterStore = {
   name: RouteName

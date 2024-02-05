@@ -28,11 +28,15 @@ export const SyncPopover: FC<Props> = () => {
     useSyncStatus()
   const { activeSpace } = useSpaces()
 
-  async function pushToGitHub() {
+  async function pushToGitHub(isAll = false) {
     try {
       setStatus(SyncStatus.PUSHING)
       const s = await SyncService.init(activeSpace.raw, user)
-      await s.push()
+      if (isAll) {
+        await s.pushAll()
+      } else {
+        await s.push()
+      }
 
       setStatus(SyncStatus.NORMAL)
     } catch (error) {
@@ -74,10 +78,10 @@ export const SyncPopover: FC<Props> = () => {
           </Box>
         </Box>
       </PopoverTrigger>
-      <PopoverContent w-190 gray600>
+      <PopoverContent w-200 gray600>
         {({ close }) => (
           <>
-            <MenuItem
+            {/* <MenuItem
               h-36
               px0
               py0
@@ -103,10 +107,11 @@ export const SyncPopover: FC<Props> = () => {
                   PenX cloud sync is in early stage, you need to push manually.
                 </TooltipContent>
               </Tooltip>
-            </MenuItem>
-            <Divider />
+            </MenuItem> */}
 
-            <MenuItem
+            {/* <Divider /> */}
+
+            {/* <MenuItem
               h-36
               px0
               py0
@@ -131,8 +136,9 @@ export const SyncPopover: FC<Props> = () => {
                   PenX cloud sync is in early stage, you need to pull manually.
                 </TooltipContent>
               </Tooltip>
-            </MenuItem>
-            <Divider />
+            </MenuItem> */}
+
+            {/* <Divider /> */}
 
             <MenuItem
               h-36
@@ -149,7 +155,34 @@ export const SyncPopover: FC<Props> = () => {
                   <Box h-100p w-100p toCenterY toBetween px3>
                     <Box toCenterY gap2>
                       <IconPush square-18 />
-                      <Box>Push to GitHub</Box>
+                      <Box>Push diff to GitHub</Box>
+                    </Box>
+                    <Github size={16} />
+                  </Box>
+                </TooltipTrigger>
+                <TooltipContent maxW-280 leadingNormal>
+                  PenX GitHub backup will run every 5 minute, and you run it
+                  manually.
+                </TooltipContent>
+              </Tooltip>
+            </MenuItem>
+
+            <MenuItem
+              h-36
+              px0
+              py0
+              toCenterY
+              onClick={async () => {
+                close()
+                pushToGitHub(true)
+              }}
+            >
+              <Tooltip placement="right">
+                <TooltipTrigger asChild>
+                  <Box h-100p w-100p toCenterY toBetween px3>
+                    <Box toCenterY gap2>
+                      <IconPush square-18 />
+                      <Box>Push all to GitHub</Box>
                     </Box>
                     <Github size={16} />
                   </Box>

@@ -1,9 +1,6 @@
 import { Box } from '@fower/react'
-import { Button } from 'uikit'
-import { ClientOnly } from '../../components/ClientOnly'
 import { AccountBinding } from './AccountBinding'
 import { PersonalToken } from './PersonalToken'
-import { SyncBox } from './SyncBox/SyncBox'
 
 export function AccountSettings() {
   return (
@@ -14,7 +11,6 @@ export function AccountSettings() {
 
       <PersonalToken />
       <AccountBinding />
-      <SyncBox />
     </Box>
   )
 }

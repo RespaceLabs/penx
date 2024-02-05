@@ -17,6 +17,7 @@ import { QueryCloudSpaces } from './QueryCloudSpaces'
 import { SetPassword } from './SetPassword'
 import { Sidebar } from './Sidebar/Sidebar'
 import { SpaceSettings } from './SpaceSettings/SpaceSettings'
+import { VersionControl } from './VersionControl/VersionControl'
 import { Web3Profile } from './Web3Profile/Web3Profile'
 
 export const Workbench = () => {
@@ -54,6 +55,7 @@ export const Workbench = () => {
           {name === 'SYNC_SERVER' && <SyncServer />}
           {name === 'WEB3_PROFILE' && <Web3Profile />}
           {name === 'TASK_BOARD' && <TaskBoard />}
+          {name === 'VERSION_CONTROL' && <VersionControl />}
         </Box>
       </Box>
     </EditorProvider>

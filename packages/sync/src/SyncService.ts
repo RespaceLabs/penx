@@ -63,6 +63,8 @@ export class SyncService {
 
   private baseBranchSha: string
 
+  isPushAll = true
+
   spacesDir = 'spaces'
 
   filesTree: Content[]
@@ -139,14 +141,13 @@ export class SyncService {
 
   private async commit(treeSha: string) {
     const parentSha = this.baseBranchSha
-
-    const msg = `update nodes`
+    const msg = this.isPushAll ? 'Push all nodes' : 'Push nodes by diff'
 
     const commit = await this.app.request(
       'POST /repos/{owner}/{repo}/git/commits',
       {
         ...this.params,
-        message: `[PenX] ${msg}`,
+        message: `${msg}`,
         parents: [parentSha],
         tree: treeSha,
       },
@@ -381,7 +382,7 @@ export class SyncService {
     return tree
   }
 
-  async pushAll() {
+  async getAllTree() {
     let tree: TreeItem[] = []
 
     const nodesTree = await this.createTreeForNewDir()
@@ -393,10 +394,11 @@ export class SyncService {
     const spaceTreeItem = await this.createSpaceTreeItem()
     tree.push(spaceTreeItem)
 
+    this.isPushAll = true
     return tree
   }
 
-  async pushByDiff(diff: SnapshotDiffResult) {
+  async getTreeByDiff(diff: SnapshotDiffResult) {
     let tree: TreeItem[] = []
 
     // space.json existed
@@ -416,7 +418,18 @@ export class SyncService {
       const penx101 = await this.createPenx101TreeItem()
       tree.push(penx101)
     }
+
+    this.isPushAll = false
     return tree
+  }
+
+  getDiff() {
+    const { pageSnapshot } = this.space
+    const { pageMap: prevPageMap } = pageSnapshot
+    const curPageMap = this.spaceService.getPageMapHash()
+
+    const diff = this.space.snapshot.diff(curPageMap, prevPageMap)
+    return diff
   }
 
   async push() {
@@ -430,17 +443,11 @@ export class SyncService {
       pageSnapshot.version === 0
     ) {
       console.log('push all................:', pageSnapshot)
-      tree = await this.pushAll()
+      tree = await this.getAllTree()
       await this.pushTree(tree)
     } else {
       try {
-        const { pageMap: prevPageMap, version: prevVersion } = pageSnapshot
-
-        const curPageMap = this.spaceService.getPageMapHash()
-
-        const diff = this.space.snapshot.diff(curPageMap, prevPageMap)
-
-        console.log('====git diff:', diff)
+        const diff = this.getDiff()
 
         // isEqual, don't push
         if (diff.isEqual) {
@@ -448,15 +455,32 @@ export class SyncService {
           return
         }
 
-        tree = await this.pushByDiff(diff)
+        tree = await this.getTreeByDiff(diff)
         // console.log('tree------:', tree)
         await this.pushTree(tree)
       } catch (error) {
         console.log('push all by fallback................')
-        tree = await this.pushAll()
+        tree = await this.getAllTree()
         await this.pushTree(tree)
       }
     }
+  }
+
+  async pushAll() {
+    const diff = this.getDiff()
+
+    // isEqual, don't push
+    if (diff.isEqual) {
+      console.log('diff equal, no need to push all')
+      return
+    }
+
+    let tree: TreeItem[] = []
+    tree = await this.getAllTree()
+
+    console.log('========push all tree:', tree)
+
+    await this.pushTree(tree)
   }
 
   async pushTree(tree: TreeItem[]) {
