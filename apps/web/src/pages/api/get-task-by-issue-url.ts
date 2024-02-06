@@ -24,7 +24,7 @@ export default async function handler(
     })
   } else {
     res.json({
-      ok: false,
+      ok: true,
       data: task,
     })
   }
