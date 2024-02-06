@@ -1,0 +1,4 @@
+{
+  "setup": "Setup GitHub backup",
+  "restore": "Restore from GitHub"
+}
