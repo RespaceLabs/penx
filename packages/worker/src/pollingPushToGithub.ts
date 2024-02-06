@@ -5,19 +5,19 @@ import { User } from '@penx/model'
 import { sleep } from '@penx/shared'
 import { SyncService } from '@penx/sync'
 
-const INTERVAL = isProd ? 5 * 60 * 1000 : 10 * 1000
+const INTERVAL = isProd ? 10 * 60 * 1000 : 10 * 1000
+
+let count = 0
+let interval = 10
 
 export async function pollingPushToGithub() {
   while (true) {
-    try {
-      const data = await get(PENX_SESSION_USER)
+    const data = await get(PENX_SESSION_USER)
 
-      if (data) {
-        await sync()
-      }
-    } catch (error) {
-      console.log('sync error', error)
+    if (data) {
+      await sync()
     }
+
     await sleep(INTERVAL)
   }
 }
@@ -42,13 +42,23 @@ async function sync() {
 
     const s = await SyncService.init(activeSpace, user)
 
-    console.log('start github push.............')
+    // console.log('start github push.............')
 
-    await s.push()
+    const value = count % interval
+
+    // console.log('value==========:', value)
+
+    if (value === interval - 1) {
+      await s.pushAll()
+    } else {
+      await s.push()
+    }
     postMessage(WorkerEvents.PUSH_SUCCEEDED)
   } catch (error) {
     console.log('push to github error========', error)
 
     postMessage(WorkerEvents.PUSH_FAILED)
   }
+
+  count++
 }
