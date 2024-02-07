@@ -94,6 +94,7 @@ model Task {
     tags        String?
     figmaUrl    String?
     issueUrl    String?
+    prUrl       String?
     usdReward   Int
     tokenReward Int
     claimStage  String

@@ -146,6 +146,7 @@
     "eslint-config-custom": "workspace:*",
     "postcss": "^8.4.32",
     "sass": "^1.69.5",
+    "smee-client": "^2.0.1",
     "typescript": "^5.3.2"
   }
 }
