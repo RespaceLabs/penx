@@ -35,18 +35,23 @@ export const taskTypeMap: Record<
     options: [
       {
         id: '1',
-        name: 'status1',
+        name: 'Available',
         color: 'yellow500',
       },
       {
         id: '2',
-        name: 'status2',
+        name: 'Doing',
         color: 'sky500',
       },
       {
         id: '3',
-        name: 'status3',
-        color: 'sky500',
+        name: 'Reviewing',
+        color: 'purple500',
+      },
+      {
+        id: '4',
+        name: 'Completed',
+        color: 'green500',
       },
     ],
     width: 80,
@@ -62,57 +67,58 @@ export const taskTypeMap: Record<
     options: [
       {
         id: '1',
-        name: 'tags1',
+        name: 'Slate.js',
         color: 'yellow500',
       },
       {
         id: '2',
-        name: 'tags2',
+        name: 'Rust',
         color: 'sky500',
       },
       {
         id: '3',
-        name: 'tags3',
+        name: 'Backend',
         color: 'sky500',
       },
     ],
     width: 160,
   },
   figmaUrl: {
-    title: 'figma url',
+    title: 'Figma URL',
     type: FieldType.URL,
     width: 150,
   },
   issueUrl: {
-    title: 'issue url',
+    title: 'Issue URL',
+    type: FieldType.URL,
+    width: 150,
+  },
+
+  prUrl: {
+    title: 'PR URL',
     type: FieldType.URL,
     width: 150,
   },
   usdReward: {
-    title: 'usd reward',
+    title: 'USD reward',
     type: FieldType.NUMBER,
   },
   tokenReward: {
-    title: 'token reward',
+    title: 'Token reward',
     type: FieldType.NUMBER,
   },
   claimStage: {
-    title: 'claim stage',
+    title: 'Claim stage',
     type: FieldType.SINGLE_SELECT,
     options: [
       {
         id: '1',
-        name: 'claim1',
+        name: 'Pending',
         color: 'yellow500',
       },
       {
         id: '2',
-        name: 'claim2',
-        color: 'sky500',
-      },
-      {
-        id: '3',
-        name: 'claim3',
+        name: 'Claimable',
         color: 'sky500',
       },
     ],
