@@ -8,10 +8,6 @@ export const PENX_SESSION_USER = 'PENX_SESSION_USER'
 
 export const PENX_SESSION_USER_ID = 'PENX_SESSION_USER_ID'
 
-export const PENX_101 = 'penx-101'
-
-export const PENX_101_CLOUD_NAME = 'penx-101-cloud'
-
 export const isSelfHosted = process.env.NEXT_PUBLIC_DEPLOY_MODE !== 'PLATFORM'
 
 export const NEXTAUTH_PROVIDERS = process.env.NEXT_PUBLIC_NEXTAUTH_PROVIDERS
@@ -52,8 +48,6 @@ export enum WorkerEvents {
   START_PULL,
   PULL_SUCCEEDED,
   PULL_FAILED,
-
-  SYNC_101_SUCCEEDED,
 
   ADD_TEXT_SUCCEEDED,
 }

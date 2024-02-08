@@ -1,7 +1,6 @@
 import mime from 'mime-types'
 import { Octokit } from 'octokit'
 import { createEditor, Editor } from 'slate'
-import { PENX_101 } from '@penx/constants'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
@@ -83,10 +82,6 @@ export class SyncService {
 
   get filesDir() {
     return this.space.id + '/files'
-  }
-
-  get isPenx101() {
-    return this.user.repoName === PENX_101
   }
 
   getNodePath(id: string) {

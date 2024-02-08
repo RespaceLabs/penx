@@ -6,7 +6,6 @@ import { startPollingPull } from './pollingPull'
 import { pollingPushToCloud } from './pollingPushToCloud'
 import { pollingPushToGithub } from './pollingPushToGithub'
 import { runAgentSSE } from './runAgentSSE'
-import { syncPenx101 } from './syncPenx101'
 
 self.addEventListener('message', async (event) => {
   if (event.data === WorkerEvents.START_POLLING) {
@@ -20,7 +19,6 @@ self.addEventListener('message', async (event) => {
     // runAgentSSE()
 
     clearNodes()
-    // syncPenx101()
     // normalizeNodes()
   }
 })

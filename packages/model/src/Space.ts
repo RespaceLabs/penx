@@ -1,4 +1,3 @@
-import { PENX_101 } from '@penx/constants'
 import { EditorMode, ISpace } from '@penx/model-types'
 import { PageSnapshot } from './PageSnapshot'
 import { Settings } from './Settings'
@@ -49,10 +48,6 @@ export class Space {
 
   get encrypted() {
     return this.raw.encrypted
-  }
-
-  get isSpace101() {
-    return this.id === PENX_101
   }
 
   get filename() {
