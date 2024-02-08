@@ -101,4 +101,5 @@ const config = {
 }
 
 // export default withPWA(million.next(config))
-export default isDev ? config : withPWA(config)
+// export default isDev ? config : withPWA(config)
+export default config
