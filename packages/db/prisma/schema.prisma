@@ -112,6 +112,9 @@ model SyncServer {
     type        String?
     machineIp   String?
     heartbeatAt DateTime?
+    userCount   Int       @default(0)
+    spaceCount  Int       @default(0)
+    nodeCount   Int       @default(0)
     deletedAt   DateTime?
     createdAt   DateTime  @default(now())
     updatedAt   DateTime  @updatedAt
