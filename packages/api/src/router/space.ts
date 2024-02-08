@@ -83,7 +83,6 @@ export const spaceRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        syncServerId: z.string().optional(),
         name: z.string().optional(),
         subdomain: z.string().optional(),
         description: z.string().optional(),
@@ -147,6 +146,30 @@ export const spaceRouter = createTRPCRouter({
             pageMap: JSON.parse(pageMap),
           },
         },
+      })
+    }),
+
+  updateSyncServer: protectedProcedure
+    .input(
+      z.object({
+        spaceId: z.string(),
+        syncServerId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { spaceId, syncServerId } = input
+      await ctx.prisma.space.update({
+        where: { id: spaceId },
+        data: { syncServerId },
+      })
+
+      const count = await ctx.prisma.space.count({
+        where: { syncServerId },
+      })
+
+      await ctx.prisma.syncServer.update({
+        where: { id: syncServerId },
+        data: { spaceCount: count },
       })
     }),
 })

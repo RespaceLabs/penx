@@ -25,9 +25,7 @@ export function createSpace(input: CreateUserInput) {
           type: SyncServerType.OFFICIAL,
           url: { not: '' },
         },
-        orderBy: {
-          createdAt: 'desc',
-        },
+        orderBy: { createdAt: 'desc' },
       })
 
       if (!syncServer) {
@@ -55,6 +53,16 @@ export function createSpace(input: CreateUserInput) {
           pageSnapshot: space.pageSnapshot,
         },
       })
+
+      const count = await tx.space.count({
+        where: { syncServerId: syncServer.id },
+      })
+
+      await tx.syncServer.update({
+        where: { id: syncServer.id },
+        data: { spaceCount: count },
+      })
+
       return {
         ...newSpace,
         syncServerAccessToken,
