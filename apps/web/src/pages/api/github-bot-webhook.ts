@@ -22,9 +22,3 @@ export default async function handler(
     hello: 'world',
   })
 }
-
-const a = {
-  key: `
-
-  `,
-}
