@@ -277,15 +277,6 @@ export class SyncService {
     } as TreeItem
   }
 
-  async createPenx101TreeItem() {
-    return {
-      path: 'nodes.json',
-      mode: '100644',
-      type: 'blob',
-      content: JSON.stringify(this.nodes, null, 2),
-    } as TreeItem
-  }
-
   async createFileTreeItem(file: IFile) {
     const content = await fileToBase64(file.value)
 
@@ -408,11 +399,6 @@ export class SyncService {
 
     const filesTree = await this.getFilesTreeByDiff(diff)
     tree.push(...filesTree)
-
-    if (this.isPenx101) {
-      const penx101 = await this.createPenx101TreeItem()
-      tree.push(penx101)
-    }
 
     this.isPushAll = false
     return tree

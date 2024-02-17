@@ -1,6 +1,5 @@
 import { Box } from '@fower/react'
-import { writeContract } from '@wagmi/core'
-import { useAccount } from 'wagmi'
+import { useAccount, useWriteContract } from 'wagmi'
 import { Button } from 'uikit'
 import { daoVaultAbi, erc20Abi, penxPointAbi } from '@penx/abi'
 import { precision } from '@penx/math'
@@ -8,12 +7,13 @@ import { addressMap } from '@penx/wagmi'
 
 export function MintPointButton() {
   const { address } = useAccount()
+  const { writeContractAsync } = useWriteContract()
 
   return (
     <Box toCenterY gap2>
       <Button
         onClick={async () => {
-          writeContract({
+          writeContractAsync({
             address: addressMap.PenxPoint,
             abi: penxPointAbi,
             functionName: 'mint',
@@ -26,7 +26,7 @@ export function MintPointButton() {
 
       <Button
         onClick={async () => {
-          writeContract({
+          writeContractAsync({
             address: addressMap.DaoVault,
             abi: daoVaultAbi,
             functionName: 'transferETH',

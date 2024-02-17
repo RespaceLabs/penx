@@ -5,7 +5,9 @@ import { Button, ButtonProps } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { store } from '@penx/store'
 
-interface Props extends ButtonProps, FowerHTMLProps<'button'> {
+interface Props
+  extends ButtonProps,
+    Omit<FowerHTMLProps<'button'>, 'children'> {
   //
 }
 

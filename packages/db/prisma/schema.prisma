@@ -102,6 +102,23 @@ model Task {
     updatedAt   DateTime? @updatedAt
 }
 
+model Bounty {
+    id          String    @id @default(uuid())
+    userId      String
+    title       String
+    status      String
+    description String?
+    tags        String?
+    figmaUrl    String?
+    issueUrl    String?
+    prUrl       String?
+    usdReward   Int
+    tokenReward Int
+    claimStage  String
+    createdAt   DateTime? @default(now())
+    updatedAt   DateTime? @updatedAt
+}
+
 model SyncServer {
     id          String    @id @default(uuid())
     name        String

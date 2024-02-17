@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { useContractWrite } from 'wagmi'
+import { useWriteContract } from 'wagmi'
 import { Button, Spinner, toast } from 'uikit'
 import { believerFacetAbi } from '@penx/abi'
 import { addressMap } from '@penx/wagmi'
@@ -8,12 +8,7 @@ import { useBelieverInfo } from './useBelieverInfo'
 export function MintButton() {
   return null
   const { data: nft } = useBelieverInfo()
-  const { writeAsync, isLoading, data, error, isError } = useContractWrite({
-    address: addressMap.Diamond,
-    abi: believerFacetAbi,
-    functionName: 'mintBelieverNFT',
-    value: nft!.currentPrice,
-  })
+  const { writeContractAsync, isLoading } = useWriteContract()
 
   return (
     <Button
@@ -25,7 +20,12 @@ export function MintButton() {
       disabled={isLoading}
       onClick={async () => {
         try {
-          await writeAsync()
+          await writeContractAsync({
+            address: addressMap.Diamond,
+            abi: believerFacetAbi,
+            functionName: 'mintBelieverNFT',
+            value: nft!.currentPrice,
+          })
         } catch (error: any) {
           toast.info(error.message)
         }
