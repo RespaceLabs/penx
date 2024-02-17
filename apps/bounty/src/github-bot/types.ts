@@ -1,3 +1,8 @@
+export type Reward = {
+  amount: number
+  token: string
+}
+
 export type User = {
   login: string
   id: number

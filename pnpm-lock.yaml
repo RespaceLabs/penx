@@ -1515,9 +1515,6 @@ importers:
       sass:
         specifier: ^1.69.5
         version: 1.69.5
-      smee-client:
-        specifier: ^2.0.1
-        version: 2.0.1
       typescript:
         specifier: ^5.3.2
         version: 5.3.3

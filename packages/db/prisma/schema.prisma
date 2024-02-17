@@ -112,7 +112,6 @@ model Bounty {
     issueUrl    String?
     prUrl       String?
     rewards     Json?
-    stage       String
     createdAt   DateTime? @default(now())
     updatedAt   DateTime? @updatedAt
 }
