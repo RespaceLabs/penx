@@ -104,17 +104,15 @@ model Task {
 
 model Bounty {
     id          String    @id @default(uuid())
-    userId      String
+    address     String? // wallet address
     title       String
     status      String
     description String?
     tags        String?
-    figmaUrl    String?
     issueUrl    String?
     prUrl       String?
-    usdReward   Int
-    tokenReward Int
-    claimStage  String
+    rewards     Json?
+    stage       String
     createdAt   DateTime? @default(now())
     updatedAt   DateTime? @updatedAt
 }
