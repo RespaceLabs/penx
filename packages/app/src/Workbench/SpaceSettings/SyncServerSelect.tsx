@@ -32,8 +32,8 @@ export const SyncServerSelect = () => {
         syncServerId: syncServer.id,
       })
 
-      await api.space.update.mutate({
-        id: activeSpace.id,
+      await api.space.updateSyncServer.mutate({
+        spaceId: activeSpace.id,
         syncServerId: syncServer.id,
       })
 

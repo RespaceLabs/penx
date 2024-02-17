@@ -3,7 +3,7 @@ import { Box } from '@fower/react'
 import { getCsrfToken, signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { SiweMessage } from 'siwe'
-import { useAccount, useDisconnect, useNetwork, useSignMessage } from 'wagmi'
+import { useAccount, useChainId, useDisconnect, useSignMessage } from 'wagmi'
 import {
   Button,
   Modal,
@@ -19,7 +19,7 @@ export function SiweModal() {
   const { isConnected, address = '' } = useAccount()
   const { disconnect } = useDisconnect()
   const { signMessageAsync } = useSignMessage()
-  const { chain } = useNetwork()
+  const chainId = useChainId()
   const { data, status } = useSession()
   const [loading, setLoading] = useState(false)
   const { push, pathname } = useRouter()
@@ -43,7 +43,7 @@ export function SiweModal() {
         statement: 'Sign in with Ethereum to PenX.',
         uri: window.location.origin,
         version: '1',
-        chainId: chain?.id,
+        chainId: chainId,
         nonce: await getCsrfToken(),
       })
       const signature = await signMessageAsync({
@@ -66,7 +66,7 @@ export function SiweModal() {
       toast.error(error?.message || 'Something went wrong')
       setLoading(false)
     }
-  }, [address, chain, signMessageAsync, push, pathname])
+  }, [address, chainId, signMessageAsync, push, pathname])
 
   useEffect(() => {
     if (isConnected && !data && status == 'unauthenticated') {

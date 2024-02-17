@@ -39,7 +39,7 @@ export const ContextMenu = forwardRef<HTMLButtonElement, Props>(function Menu(
   const listItemsRef = useRef<Array<HTMLButtonElement | null>>([])
   const listContentRef = useRef(
     Children.map(children, (child) =>
-      isValidElement(child) ? child.props.label : null,
+      isValidElement(child) ? (child.props as any).label : null,
     ) as Array<string | null>,
   )
   const allowMouseUpCloseRef = useRef(false)
@@ -176,10 +176,10 @@ export const ContextMenu = forwardRef<HTMLButtonElement, Props>(function Menu(
                   },
                   onMouseUp() {
                     if ((child.type as any)?.isMenuItem) {
-                      child.props.onClick?.()
+                      ;(child.props as any).onClick?.()
                       setIsOpen(false)
                     } else {
-                      child.props.onMouseUp?.()
+                      ;(child.props as any).onMouseUp?.()
                     }
                   },
                 }),

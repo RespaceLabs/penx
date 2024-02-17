@@ -13,10 +13,24 @@ type NavItem = {
 
 export const Nav = () => {
   const navData: NavItem[] = [
-    { text: 'Docs', to: 'https://docs.penx.io/', isExternal: true },
     {
-      text: 'Self-hosted',
-      to: 'https://docs.penx.io/self-hosted',
+      text: 'Bounty tasks',
+      to: '/tasks',
+    },
+    {
+      text: 'Believer NFTs',
+      to: '/believer-nft',
+    },
+
+    {
+      text: 'Whitepaper',
+      to: 'https://whitepaper.penx.io',
+      isExternal: true,
+    },
+
+    {
+      text: 'Downloads',
+      to: 'https://github.com/penxio/penx/releases',
       isExternal: true,
     },
     {
@@ -24,42 +38,11 @@ export const Nav = () => {
       to: 'https://github.com/penxio/penx/issues',
       isExternal: true,
     },
-
-    {
-      text: 'Whitepaper',
-      to: 'https://whitepaper.penx.io/',
-      isExternal: true,
-    },
-
-    {
-      text: (
-        <Box
-          brand500
-          textSM
-          fontSemibold
-          border
-          borderBrand500
-          roundedFull
-          h-36
-          toCenter
-          px2
-        >
-          Get Early Rewards & Bounty Tasks
-        </Box>
-      ),
-      to: 'https://whitepaper.penx.io/bounty',
-      isExternal: true,
-    },
-
-    {
-      icon: <IconDiscord black />,
-      to: 'https://discord.gg/nyVpH9njDu',
-      isExternal: true,
-    },
+    { text: 'Docs', to: 'https://docs.penx.io/', isExternal: true },
   ]
 
   return (
-    <Box listNone toCenterY gap6 textBase display={['none', 'flex']}>
+    <Box listNone toCenterY gap6 textBase>
       {navData.map((item, i) => {
         if (item.isExternal) {
           return (
@@ -88,7 +71,13 @@ export const Nav = () => {
 
         return (
           <Box key={i}>
-            <StyledLink href={item.to} gray600 brand500--hover transitionCommon>
+            <StyledLink
+              href={item.to}
+              gray600
+              brand500--hover
+              transitionCommon
+              noUnderline
+            >
               {item.text}
             </StyledLink>
           </Box>

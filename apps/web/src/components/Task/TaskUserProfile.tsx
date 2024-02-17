@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
+import { useQuery } from '@tanstack/react-query'
 import ky from 'ky'
-import { useAccount, useContractRead, useQuery } from 'wagmi'
+import { useAccount, useReadContract } from 'wagmi'
 import { Avatar, AvatarFallback, AvatarImage, Button, Skeleton } from 'uikit'
 import { penxPointAbi } from '@penx/abi'
 import { IconGitHub } from '@penx/icons'
@@ -68,7 +69,7 @@ function GitHubInfo({ githubAccountId }: GitHubInfoProps) {
 function PointBalance() {
   const { address } = useAccount()
 
-  const { data, isLoading, error } = useContractRead({
+  const { data, isLoading, error } = useReadContract({
     address: addressMap.PenxPoint,
     abi: penxPointAbi,
     functionName: 'balanceOf',

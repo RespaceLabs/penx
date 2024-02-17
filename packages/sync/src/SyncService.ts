@@ -1,7 +1,6 @@
 import mime from 'mime-types'
 import { Octokit } from 'octokit'
 import { createEditor, Editor } from 'slate'
-import { PENX_101 } from '@penx/constants'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
@@ -83,10 +82,6 @@ export class SyncService {
 
   get filesDir() {
     return this.space.id + '/files'
-  }
-
-  get isPenx101() {
-    return this.user.repoName === PENX_101
   }
 
   getNodePath(id: string) {
@@ -282,15 +277,6 @@ export class SyncService {
     } as TreeItem
   }
 
-  async createPenx101TreeItem() {
-    return {
-      path: 'nodes.json',
-      mode: '100644',
-      type: 'blob',
-      content: JSON.stringify(this.nodes, null, 2),
-    } as TreeItem
-  }
-
   async createFileTreeItem(file: IFile) {
     const content = await fileToBase64(file.value)
 
@@ -413,11 +399,6 @@ export class SyncService {
 
     const filesTree = await this.getFilesTreeByDiff(diff)
     tree.push(...filesTree)
-
-    if (this.isPenx101) {
-      const penx101 = await this.createPenx101TreeItem()
-      tree.push(penx101)
-    }
 
     this.isPushAll = false
     return tree

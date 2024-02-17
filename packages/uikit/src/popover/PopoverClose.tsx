@@ -15,7 +15,7 @@ export const PopoverClose = forwardRef<HTMLDivElement, PopoverCloseProps>(
     if (asChild && isValidElement(children)) {
       rest.onClick = (e) => {
         props.onClick?.(e)
-        children.props.onClick?.(e)
+        ;(children.props as any).onClick?.(e)
         ctx?.close?.()
       }
       return cloneElement(children, rest || {})

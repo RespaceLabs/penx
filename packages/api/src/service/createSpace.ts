@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server'
 import jwt from 'jsonwebtoken'
 import { z } from 'zod'
-import { PENX_101_CLOUD_NAME, SyncServerType } from '@penx/constants'
+import { SyncServerType } from '@penx/constants'
 import { prisma } from '@penx/db'
 import { ISpace } from '@penx/model-types'
 import { uniqueId } from '@penx/unique-id'
@@ -18,13 +18,6 @@ export function createSpace(input: CreateUserInput) {
   const { userId, spaceData } = input
   const space: ISpace = JSON.parse(spaceData)
 
-  if (space.name === PENX_101_CLOUD_NAME) {
-    throw new TRPCError({
-      code: 'BAD_REQUEST',
-      message: 'This is a reserved name. Please choose another one.',
-    })
-  }
-
   return prisma.$transaction(
     async (tx) => {
       const syncServer = await tx.syncServer.findFirst({
@@ -32,9 +25,7 @@ export function createSpace(input: CreateUserInput) {
           type: SyncServerType.OFFICIAL,
           url: { not: '' },
         },
-        orderBy: {
-          createdAt: 'desc',
-        },
+        orderBy: { createdAt: 'desc' },
       })
 
       if (!syncServer) {
@@ -62,6 +53,16 @@ export function createSpace(input: CreateUserInput) {
           pageSnapshot: space.pageSnapshot,
         },
       })
+
+      const count = await tx.space.count({
+        where: { syncServerId: syncServer.id },
+      })
+
+      await tx.syncServer.update({
+        where: { id: syncServer.id },
+        data: { spaceCount: count },
+      })
+
       return {
         ...newSpace,
         syncServerAccessToken,

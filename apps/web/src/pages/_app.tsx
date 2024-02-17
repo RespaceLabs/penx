@@ -23,9 +23,9 @@ import '../styles/globals.css'
 import '../styles/command.scss'
 import '@glideapps/glide-data-grid/dist/index.css'
 import { TrpcProvider } from '@penx/trpc-client'
+import { WalletConnectProvider } from '@penx/wagmi'
 import { ClientOnly } from '~/components/ClientOnly'
 import { EventHandler } from '~/components/EventHandler'
-import { WalletConnectProvider } from '~/components/WalletConnectProvider'
 
 initFower()
 

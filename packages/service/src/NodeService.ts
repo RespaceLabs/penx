@@ -1,7 +1,6 @@
 import isEqual from 'react-fast-compare'
 import _ from 'lodash'
 import { createEditor, Editor, Node as SlateNode, Transforms } from 'slate'
-import { PENX_101 } from '@penx/constants'
 import { extractTags } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
 import {
@@ -155,8 +154,6 @@ export class NodeService {
     ul?: UnorderedListElement,
     isInReference = false,
   ) => {
-    if (node.spaceId === PENX_101) return
-
     await this.saveTitle(node, title)
 
     if (ul && !this.node.isDatabase && !this.node.isDatabaseRoot) {
