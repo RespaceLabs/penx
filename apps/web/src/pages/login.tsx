@@ -2,6 +2,7 @@ import { Suspense, useMemo } from 'react'
 import { Box } from '@fower/react'
 import { Wallet } from 'lucide-react'
 import { NEXTAUTH_PROVIDERS } from '@penx/constants'
+import { ClientOnly } from '~/components/ClientOnly'
 import { LoginForm } from '~/components/LoginForm/LoginForm'
 import LoginWithGithubButton from '~/components/LoginWithGithubButton'
 import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
@@ -25,7 +26,7 @@ export default function LoginPage() {
 
     return (
       <Box column gap4>
-        <SiweModal />
+        {/* <SiweModal /> */}
         {showGitHub && (
           <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
             <LoginWithGithubButton />
@@ -36,17 +37,24 @@ export default function LoginPage() {
             <LoginWithGoogleButton />
           </Suspense>
         )}
-        <WalletConnectButton size={56} rounded2XL colorScheme="white" toBetween>
-          <Wallet />
-          <Box column gap1>
-            <Box textBase fontSemibold>
-              Login with Wallet
+        <ClientOnly>
+          <WalletConnectButton
+            size={56}
+            rounded2XL
+            colorScheme="white"
+            toBetween
+          >
+            <Wallet />
+            <Box column gap1>
+              <Box textBase fontSemibold>
+                Login with Wallet
+              </Box>
+              <Box gray800 textXS fontLight>
+                For web3 users and builders
+              </Box>
             </Box>
-            <Box gray800 textXS fontLight>
-              For web3 users and builders
-            </Box>
-          </Box>
-        </WalletConnectButton>
+          </WalletConnectButton>
+        </ClientOnly>
       </Box>
     )
   }, [showGoogle, showGitHub])

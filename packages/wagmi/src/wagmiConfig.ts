@@ -1,5 +1,5 @@
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
-import { createStorage } from 'wagmi'
+import { cookieStorage, createStorage } from 'wagmi'
 import { mainnet, sepolia } from 'wagmi/chains'
 import { getChain } from './getChain'
 
@@ -19,6 +19,10 @@ const metadata = {
 export const wagmiConfig = defaultWagmiConfig({
   // chains: [mainnet, sepolia], // required
   chains: [getChain()], // required
+  ssr: true,
+  storage: createStorage({
+    storage: cookieStorage,
+  }),
   projectId, // required
   metadata, // required
   enableWalletConnect: true, // Optional - true by default
