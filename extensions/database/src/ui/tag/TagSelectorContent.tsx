@@ -7,6 +7,7 @@ import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { INode } from '@penx/model-types'
+import { getEmptyParagraph } from '@penx/paragraph'
 import { store } from '@penx/store'
 import { TagElement, TagSelectorElement } from '../../types'
 import { useKeyDownList } from '../../useKeyDownList'
@@ -19,6 +20,8 @@ interface Props {
 }
 
 const listItemIdPrefix = 'type-list-item-'
+
+const TRANSLATOR = 'translator'
 
 function getSearchText(editor: PenxEditor, element: TagSelectorElement) {
   let text = Node.string(element)
@@ -46,9 +49,10 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   const filteredTypes = useMemo(() => {
     const q = text.replace(/^#/, '').toLowerCase()
 
-    return tagNames.filter((item) => {
+    let tags = tagNames.filter((item) => {
       return item.toLowerCase().includes(q) && item.toLowerCase() !== 'untitled'
     })
+    return tags
   }, [tagNames, text])
 
   const selectTag = useCallback(
@@ -76,10 +80,21 @@ export const TagSelectorContent = ({ close, element }: Props) => {
         }
       }
 
-      // focus to next node
-      const nextNode = getNodeByPath(editor, Path.next(path))!
-      if (nextNode) {
-        Transforms.select(editor, Editor.start(editor, Path.next(path)))
+      if (tagName === TRANSLATOR) {
+        Transforms.insertNodes(
+          editor,
+          getEmptyParagraph('This is Translate result'),
+          {
+            at: Path.next(Path.parent(path)),
+          },
+        )
+      } else {
+        // focus to next node
+        const nextNode = getNodeByPath(editor, Path.next(path))!
+
+        if (nextNode) {
+          Transforms.select(editor, Editor.start(editor, Path.next(path)))
+        }
       }
 
       setTimeout(() => {
