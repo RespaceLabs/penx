@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { Box } from '@fower/react'
 import { ExternalLink } from 'lucide-react'
-import { IconDiscord } from '@penx/icons'
+import { IconDiscord, IconGitHub, IconTwitter } from '@penx/icons'
 import { StyledLink } from '../components/StyledLink'
 
 type NavItem = {
@@ -11,38 +11,27 @@ type NavItem = {
   isExternal?: boolean
 }
 
-export const Nav = () => {
+export const SocialNav = () => {
   const navData: NavItem[] = [
     {
-      text: 'Bounty tasks',
-      to: '/tasks',
-    },
-    {
-      text: 'Believer NFTs',
-      to: '/believer-nft',
-    },
-
-    {
-      text: 'Whitepaper',
-      to: 'https://whitepaper.penx.io',
-      isExternal: true,
-    },
-
-    {
-      text: 'Downloads',
-      to: 'https://github.com/penxio/penx/releases',
+      icon: <IconDiscord black />,
+      to: 'https://discord.gg/nyVpH9njDu',
       isExternal: true,
     },
     {
-      text: 'Feedback',
-      to: 'https://github.com/penxio/penx/issues',
+      icon: <IconTwitter fillBlack />,
+      to: 'https://twitter.com/0xzion_eth',
       isExternal: true,
     },
-    { text: 'Docs', to: 'https://docs.penx.io/', isExternal: true },
+    {
+      icon: <IconGitHub black />,
+      to: 'https://github.com/penxio/penx',
+      isExternal: true,
+    },
   ]
 
   return (
-    <Box listNone toCenterY gap6 textBase>
+    <Box listNone toCenterY gap6 textBase display={['none', 'flex']}>
       {navData.map((item, i) => {
         if (item.isExternal) {
           return (
@@ -71,13 +60,7 @@ export const Nav = () => {
 
         return (
           <Box key={i}>
-            <StyledLink
-              href={item.to}
-              gray600
-              brand500--hover
-              transitionCommon
-              noUnderline
-            >
+            <StyledLink href={item.to} gray600 brand500--hover transitionCommon>
               {item.text}
             </StyledLink>
           </Box>

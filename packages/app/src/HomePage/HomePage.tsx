@@ -8,6 +8,7 @@ import { appEmitter } from '../app-emitter'
 import { Logo } from '../components/Logo'
 import { ExportOldVersionSpaces } from './ExportOldVersionSpaces'
 import { Nav } from './Nav'
+import { SocialNav } from './SocialNav'
 
 export function HomePage() {
   const { push } = useRouter()
@@ -37,14 +38,19 @@ export function HomePage() {
       <Box
         toBetween
         py3
-        w={['98%', '98%', 760, 1080]}
+        w={['98%', '98%', 760, 1120]}
         relative
         zIndex-10
+        px={[20, 20, 0]}
         mx-auto
       >
-        <Logo size={32} />
-        <Box toRight toCenterY gap6>
+        <Box toCenterY gap8>
+          <Logo size={32} />
           <Nav />
+        </Box>
+
+        <Box toCenterY gap2 display={['none', 'none', 'flex']}>
+          <SocialNav />
         </Box>
       </Box>
       <Box flex-1 toCenter column mt--80 gap5 px={[20, 0]}>
@@ -52,12 +58,11 @@ export function HomePage() {
           A structured note-taking app for personal use
         </Box>
 
-        <Box textLG gray600>
-          More than a note-taking app, It could be your{' '}
-          <Box as="span" fontBold brand500>
-            personal database
-          </Box>{' '}
-          with seamless input and output.
+        <Box textLG gray500 maxW-680 textCenter>
+          PenX is a structured note-taking app designed for personal use. In
+          PenX, Privacy is first important thing. our mission is building a
+          elegant tool to manage personal digital assets, like notes, tasks,
+          ideas, password, document.
         </Box>
 
         <Box toCenter gap2 flexWrap>
@@ -86,6 +91,8 @@ export function HomePage() {
           gap2
           flexDirection={['column', 'column', 'row']}
         >
+          <ExportOldVersionSpaces />
+
           <Button
             size="lg"
             w-220
@@ -94,17 +101,8 @@ export function HomePage() {
               push('/login')
             }}
           >
-            Login
+            Launch App
           </Button>
-
-          <ExportOldVersionSpaces />
-
-          <iframe
-            src="https://ghbtns.com/github-btn.html?user=penxio&amp;repo=penx&amp;type=star&amp;count=true&amp;size=large"
-            height={30}
-            width={160}
-            title="GitHub Stars"
-          />
 
           {/* <Box>Or</Box> */}
 
