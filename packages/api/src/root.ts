@@ -1,4 +1,5 @@
 import { authRouter } from './router/auth'
+import { bountyRouter } from './router/bounty'
 import { extensionRouter } from './router/extension'
 import { githubRouter } from './router/github'
 import { nodeRouter } from './router/node'
@@ -21,6 +22,7 @@ export const appRouter = createTRPCRouter({
   syncServer: syncServerRouter,
   personalToken: personalTokenRouter,
   task: taskRouter,
+  bounty: bountyRouter,
 })
 
 // export type definition of API

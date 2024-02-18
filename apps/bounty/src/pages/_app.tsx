@@ -47,18 +47,16 @@ function MyApp({ Component, pageProps }: Props<any>) {
 
       <ClientOnly>
         <WalletConnectProvider>
-          <SessionProvider session={pageProps.session} refetchInterval={0}>
-            <TrpcProvider>
-              {/* <SpeedInsights /> */}
-              <Layout>
-                <Component {...pageProps} />
-                <div id="portal" />
-              </Layout>
-              <ToastContainer position="bottom-right" />
+          <TrpcProvider>
+            {/* <SpeedInsights /> */}
+            <Layout>
+              <Component {...pageProps} />
+              <div id="portal" />
+            </Layout>
+            <ToastContainer position="bottom-right" />
 
-              {/* <Analytics /> */}
-            </TrpcProvider>
-          </SessionProvider>
+            {/* <Analytics /> */}
+          </TrpcProvider>
         </WalletConnectProvider>
       </ClientOnly>
     </>
