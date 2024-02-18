@@ -9,6 +9,7 @@ import { db } from '@penx/local-db'
 import { INode } from '@penx/model-types'
 import { getEmptyParagraph } from '@penx/paragraph'
 import { store } from '@penx/store'
+import { api, trpc } from '@penx/trpc-client'
 import { TagElement, TagSelectorElement } from '../../types'
 import { useKeyDownList } from '../../useKeyDownList'
 import { TagSelectorItem } from './TagSelectorItem'
@@ -36,6 +37,13 @@ function getSearchText(editor: PenxEditor, element: TagSelectorElement) {
   }
 
   return text
+}
+
+function getBlockText(editor: PenxEditor, element: TagSelectorElement) {
+  const path = findNodePath(editor, element)!
+  const node = getNodeByPath(editor, Path.parent(path))!
+  let text = Node.string(node)
+  return text.replace(/#$/, '').trim()
 }
 
 export const TagSelectorContent = ({ close, element }: Props) => {
@@ -81,13 +89,21 @@ export const TagSelectorContent = ({ close, element }: Props) => {
       }
 
       if (tagName === TRANSLATOR) {
-        Transforms.insertNodes(
-          editor,
-          getEmptyParagraph('This is Translate result'),
-          {
-            at: Path.next(Path.parent(path)),
-          },
-        )
+        const blockText = getBlockText(editor, element)
+
+        api.translator.googleTranslate
+          .query({
+            text: blockText,
+            from: 'auto',
+            to: 'en',
+          })
+          .then((res) => {
+            // console.log('=======res:', res)
+            Transforms.insertNodes(editor, getEmptyParagraph(res.text), {
+              at: Path.next(Path.parent(path)),
+              select: true,
+            })
+          })
       } else {
         // focus to next node
         const nextNode = getNodeByPath(editor, Path.next(path))!

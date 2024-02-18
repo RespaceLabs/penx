@@ -8,6 +8,7 @@ import { spaceRouter } from './router/space'
 import { syncServerRouter } from './router/syncServer'
 import { taskRouter } from './router/task'
 import { themeRouter } from './router/theme'
+import { translatorRouter } from './router/translator'
 import { userRouter } from './router/user'
 import { createTRPCRouter } from './trpc'
 
@@ -23,6 +24,7 @@ export const appRouter = createTRPCRouter({
   personalToken: personalTokenRouter,
   task: taskRouter,
   bounty: bountyRouter,
+  translator: translatorRouter,
 })
 
 // export type definition of API

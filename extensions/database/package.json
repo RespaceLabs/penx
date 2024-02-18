@@ -42,6 +42,7 @@
     "@penx/list": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/service": "workspace:*",
+    "@penx/trpc-client": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/paragraph": "workspace:*",
