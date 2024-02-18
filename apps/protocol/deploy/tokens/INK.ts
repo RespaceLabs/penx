@@ -1,7 +1,7 @@
 import { DeployFunctionOptions, createDeployFunction } from '../../utils/deploy'
 
 export const options: DeployFunctionOptions = {
-  contractName: 'PenxPoint',
+  contractName: 'INK',
 }
 
 export default createDeployFunction(options)

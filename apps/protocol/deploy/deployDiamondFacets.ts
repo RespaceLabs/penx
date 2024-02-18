@@ -8,7 +8,7 @@ const facetDependencies = [
   'DiamondLoupeFacet',
   'BelieverFacet',
   'PointFacet',
-  'TaskFacet',
+  'BountyFacet',
   'VaultFacet',
 ]
 

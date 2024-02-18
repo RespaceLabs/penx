@@ -1,6 +1,6 @@
 import { useAccount, useWriteContract } from 'wagmi'
 import { Button, toast } from 'uikit'
-import { taskFacetAbi } from '@penx/abi'
+import { bountyFacetAbi } from '@penx/abi'
 import { addressMap } from '@penx/wagmi'
 
 interface ClaimButtonProps {
@@ -24,7 +24,7 @@ export function ClaimButton({ taskId }: ClaimButtonProps) {
         try {
           await writeContractAsync({
             address: addressMap.Diamond,
-            abi: taskFacetAbi,
+            abi: bountyFacetAbi,
             functionName: 'createClaimReward',
             args: [taskId],
           })

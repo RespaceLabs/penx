@@ -5,4 +5,6 @@ import "../vault/DaoVault.sol";
 
 interface IVault {
   function getDaoVault() external view returns (DaoVault);
+
+  function getDaoVaultAddress() external view returns (address);
 }

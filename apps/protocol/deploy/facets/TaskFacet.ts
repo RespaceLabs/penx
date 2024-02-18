@@ -1,10 +1,10 @@
 import { DeployFunctionOptions, createDeployFunction } from '../../utils/deploy'
 
 export const options: DeployFunctionOptions = {
-  contractName: 'TaskFacet',
-  dependencyNames: ['PenxPoint'],
+  contractName: 'BountyFacet',
+  dependencyNames: ['INK'],
   getDeployArgs({ dependencyContracts }) {
-    return [dependencyContracts.PenxPoint.address]
+    return [dependencyContracts.INK.address]
   },
 }
 

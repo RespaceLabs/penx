@@ -18,4 +18,8 @@ contract VaultFacet {
   function getDaoVault() external view returns (DaoVault) {
     return daoVault;
   }
+
+  function getDaoVaultAddress() external view returns (address) {
+    return address(daoVault);
+  }
 }

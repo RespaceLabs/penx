@@ -1,5 +1,4 @@
-import { Box, FowerHTMLProps } from '@fower/react'
-import { useWeb3Modal } from '@web3modal/wagmi/react'
+import { FowerHTMLProps } from '@fower/react'
 import { useAccount, useDisconnect } from 'wagmi'
 import {
   Button,
@@ -9,6 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
+import { PointBalance } from './PointBalance'
 
 interface Props
   extends Omit<FowerHTMLProps<'button'>, 'children'>,
@@ -32,7 +32,7 @@ export const WalletProfile = (props: Props) => {
         </Button>
       </PopoverTrigger>
       <PopoverContent w-280 p4 column toCenter gap4>
-        <Box text4XL>0 PENX</Box>
+        <PointBalance />
         <PopoverClose>
           <Button
             type="button"

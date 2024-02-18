@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import ky from 'ky'
 import { useAccount, useReadContract } from 'wagmi'
 import { Avatar, AvatarFallback, AvatarImage, Button, Skeleton } from 'uikit'
-import { penxPointAbi } from '@penx/abi'
+import { inkAbi } from '@penx/abi'
 import { IconGitHub } from '@penx/icons'
 import { precision } from '@penx/math'
 import { api, trpc } from '@penx/trpc-client'
@@ -70,8 +70,8 @@ function PointBalance() {
   const { address } = useAccount()
 
   const { data, isLoading, error } = useReadContract({
-    address: addressMap.PenxPoint,
-    abi: penxPointAbi,
+    address: addressMap.INK,
+    abi: inkAbi,
     functionName: 'balanceOf',
     args: [address!],
   })

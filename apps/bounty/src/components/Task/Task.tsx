@@ -6,9 +6,9 @@ import { useAccount } from 'wagmi'
 import { Button, Spinner } from 'uikit'
 import { trpc } from '@penx/trpc-client'
 import { WalletConnectButton } from '../WalletConnectButton'
+import { WalletProfile } from '../WalletProfile'
 import { BountyLogo } from './BountyLogo'
 import { ClaimButton } from './ClaimButton'
-import { WalletProfile } from './WalletProfile'
 
 type Reward = {
   amount: string
@@ -16,14 +16,11 @@ type Reward = {
 }
 
 const Task = () => {
+  const { isConnected } = useAccount()
   const { query } = useRouter()
   const id = query.id as string
 
   const { data, isLoading, isError } = trpc.bounty.byId.useQuery({ id })
-
-  const { isConnected } = useAccount()
-
-  console.log('=====isConnected:', isConnected)
 
   if (isLoading) {
     return (
@@ -96,7 +93,9 @@ const Task = () => {
             </Box>
           ))}
         </Box>
-        {isConnected && <ClaimButton bountyId={data.id} />}
+        {isConnected && (
+          <ClaimButton bountyId={data.id} address={data.address || ''} />
+        )}
         {!isConnected && (
           <WalletConnectButton size={48}>
             Connect wallet to claim

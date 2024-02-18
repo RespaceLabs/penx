@@ -6,7 +6,7 @@ import { Comment, Issue, IssueCommentEvent, Reward } from './types'
 
 // const claimReg = /\/claim\s+#(\d+)\s.*/i
 const claimReg = /\/claim\s+#(\d+)\s+(0x[0-9a-fA-F]{40})/
-const bountyReg = /^\/bounty(\d+)?(USDT)?(\d+)?(PENX)?/i
+const bountyReg = /^\/bounty(\d+)?(USDT)?(\d+)?(INK)?/i
 const logins = ['0xzion']
 
 export async function createIssueComment(event: IssueCommentEvent) {
@@ -151,16 +151,16 @@ async function handleApprove(issue: Issue, comment: Comment) {
 
 function getRewards(comment = ''): Reward[] {
   const usdtReg = /\/bounty.*\D(\d+)USDT/i
-  const penxReg = /\/bounty.*\D(\d+)PENX/i
+  const inkReg = /\/bounty.*\D(\d+)INK/i
   let rewards: Reward[] = []
   const usdtRegResult = comment.match(usdtReg)
   if (usdtRegResult) {
     rewards.push({ amount: Number(usdtRegResult[1]), token: 'USDT' })
   }
 
-  const penxRegResult = comment.match(penxReg)
-  if (penxRegResult) {
-    rewards.push({ amount: Number(penxRegResult[1]), token: 'PENX' })
+  const inkRegResult = comment.match(inkReg)
+  if (inkRegResult) {
+    rewards.push({ amount: Number(inkRegResult[1]), token: 'INK' })
   }
 
   return rewards
