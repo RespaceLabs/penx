@@ -6,7 +6,6 @@ import { addressMap } from '@penx/wagmi'
 import { useBelieverInfo } from './useBelieverInfo'
 
 export function MintButton() {
-  return null
   const { data: nft } = useBelieverInfo()
   const { writeContractAsync, isLoading } = useWriteContract()
 

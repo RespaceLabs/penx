@@ -22,6 +22,8 @@ const urls = [
 
 export function BelieverNFT() {
   const { isConnected } = useAccount()
+  console.log('=====isConnected:', isConnected)
+
   const list = Array(1000)
     .fill('')
     .map((_, i) => i)
@@ -47,15 +49,11 @@ export function BelieverNFT() {
           </Box>
           <NFTBasicInfo />
           {isConnected && <MintButton />}
-          {/* {!isConnected && (
+          {!isConnected && (
             <WalletConnectButton size={56} w-300>
               Connect to mint
             </WalletConnectButton>
-          )} */}
-
-          <WalletConnectButton size={56} w-300>
-            Connect to mint
-          </WalletConnectButton>
+          )}
         </Box>
         <PriceChart />
       </Box>
