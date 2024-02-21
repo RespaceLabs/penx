@@ -82,7 +82,7 @@ const Task = () => {
               {reward.token === 'USDT' && (
                 <Box as="img" src="/images/USDT.svg" square6 />
               )}
-              {reward.token === 'PENX' && (
+              {reward.token === 'INK' && (
                 <Box inlineFlex>
                   <Gem size={20}></Gem>
                 </Box>
@@ -94,7 +94,11 @@ const Task = () => {
           ))}
         </Box>
         {isConnected && (
-          <ClaimButton bountyId={data.id} address={data.address || ''} />
+          <ClaimButton
+            bountyId={data.id}
+            address={data.address || ''}
+            status={data.status}
+          />
         )}
         {!isConnected && (
           <WalletConnectButton size={48}>

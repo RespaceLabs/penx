@@ -14,7 +14,7 @@ export async function createIssueComment(event: IssueCommentEvent) {
   console.log('=============isBountyIssue:', isBountyIssue(issue, comment))
 
   if (isBountyIssue(issue, comment)) {
-    console.log('==========comment:', comment)
+    // console.log('==========comment:', comment)
 
     const rewards = getRewards(comment.body)
     console.log('======rewards:', rewards)
@@ -63,14 +63,6 @@ async function handleBounty(issue: Issue, rewards: Reward[]) {
         status: 'available',
       },
     })
-
-    await app.request('PATCH /repos/{owner}/{repo}/issues/{issue_number}', {
-      owner: 'penxio',
-      repo: process.env.GITHUB_BOT_TARGET_REPO!,
-      issue_number: issue.number,
-      labels: Array.from(new Set([...issue.labels, '💎 Bounty'])),
-      headers: { 'X-GitHub-Api-Version': '2022-11-28' },
-    })
   } else {
     bounty = await prisma.bounty.update({
       where: { id: bounty.id },
@@ -82,6 +74,14 @@ async function handleBounty(issue: Issue, rewards: Reward[]) {
       },
     })
   }
+
+  await app.request('PATCH /repos/{owner}/{repo}/issues/{issue_number}', {
+    owner: 'penxio',
+    repo: process.env.GITHUB_BOT_TARGET_REPO!,
+    issue_number: issue.number,
+    labels: Array.from(new Set([...issue.labels, '💎 Bounty'])),
+    headers: { 'X-GitHub-Api-Version': '2022-11-28' },
+  })
 
   await app.request(
     'POST /repos/{owner}/{repo}/issues/{issue_number}/comments',

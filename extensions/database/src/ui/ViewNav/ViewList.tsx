@@ -10,12 +10,14 @@ export const ViewList = () => {
   const { views, database, activeViewId, setActiveViewId } =
     useDatabaseContext()
   const { viewIds = [] } = database.props
+
   const viewMap = mappedByKey(views, 'id')
   const sortedViews = viewIds.map((viewId) => viewMap[viewId])
 
   return (
     <Box toCenterY gap1>
       {sortedViews.map((view, index) => {
+        if (!view) return null
         const active = activeViewId === view.id
         return (
           <Box
