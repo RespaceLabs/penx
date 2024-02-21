@@ -14,6 +14,7 @@ const config = {
   transpilePackages: [
     '@penx/abi',
     '@penx/math',
+    '@penx/constants',
     '@penx/wagmi',
     '@penx/icons',
     'uikit',

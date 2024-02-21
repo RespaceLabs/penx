@@ -1033,6 +1033,9 @@ importers:
       '@penx/abi':
         specifier: workspace:*
         version: link:../../packages/abi
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons

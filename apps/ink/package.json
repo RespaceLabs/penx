@@ -25,6 +25,7 @@
     "@octokit/oauth-app": "^6.0.0",
     "@octokit/rest": "^20.0.2",
     "@penx/abi": "workspace:*",
+    "@penx/constants": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/math": "workspace:*",
     "@penx/trpc-client": "workspace:^",
