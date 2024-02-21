@@ -1,13 +1,10 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 import { Session } from 'next-auth'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import 'next-auth/react'
 import type { AppProps } from 'next/app'
-import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
-import '@penx/local-db'
 import '../styles/globals.css'
-import { TrpcProvider } from '@penx/trpc-client'
 
 initFower()
 
@@ -29,15 +26,12 @@ function MyApp({ Component, pageProps }: Props<any>) {
       />
       <GoogleAnalytics trackPageViews />
 
-      <TrpcProvider>
-        {/* <SpeedInsights /> */}
-        <Layout>
-          <Component {...pageProps} />
-          <div id="portal" />
-        </Layout>
-      </TrpcProvider>
+      <Layout>
+        <Component {...pageProps} />
+        <div id="portal" />
+      </Layout>
     </>
   )
 }
 
-export default api.withTRPC(MyApp)
+export default MyApp

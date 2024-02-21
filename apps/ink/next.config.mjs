@@ -1,5 +1,3 @@
-import { PrismaPlugin } from '@prisma/nextjs-monorepo-workaround-plugin'
-import million from 'million/compiler'
 import NextPWA from 'next-pwa'
 // Importing env files here to validate on build
 // import runtimeCaching from 'next-pwa/cache'
@@ -39,10 +37,6 @@ const config = {
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     })
-
-    if (isServer) {
-      config.plugins = [...config.plugins, new PrismaPlugin()]
-    }
 
     return config
   },

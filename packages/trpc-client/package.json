@@ -18,7 +18,6 @@
   "dependencies": {
     "@penx/api": "workspace:*",
     "@penx/constants": "workspace:*",
-    "@penx/db": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",

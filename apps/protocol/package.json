@@ -12,7 +12,6 @@
     "cov": "hardhat coverage",
     "export": "hardhat export",
     "typechain": "hardhat typechain",
-    "postinstall": "pnpm typechain",
     "clean": "rimraf ./artifacts ./cache ./coverage ./types ./coverage.json && pnpm run typechain"
   },
   "devDependencies": {
