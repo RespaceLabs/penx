@@ -986,6 +986,343 @@ importers:
         specifier: 5.2.2
         version: 5.2.2
 
+  apps/ink:
+    dependencies:
+      '@dnd-kit/core':
+        specifier: ^6.1.0
+        version: 6.1.0(react-dom@18.2.0)(react@18.2.0)
+      '@dnd-kit/sortable':
+        specifier: ^7.0.2
+        version: 7.0.2(@dnd-kit/core@6.1.0)(react@18.2.0)
+      '@dnd-kit/utilities':
+        specifier: ^3.2.2
+        version: 3.2.2(react@18.2.0)
+      '@emoji-mart/data':
+        specifier: ^1.1.2
+        version: 1.1.2
+      '@emoji-mart/react':
+        specifier: ^1.1.1
+        version: 1.1.1(emoji-mart@5.5.2)(react@18.2.0)
+      '@floating-ui/react':
+        specifier: ^0.25.4
+        version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
+      '@fower/atomic-props':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@fower/react':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@glideapps/glide-data-grid':
+        specifier: ^6.0.3
+        version: 6.0.3(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
+      '@hookform/resolvers':
+        specifier: ^3.3.2
+        version: 3.3.2(react-hook-form@7.48.2)
+      '@next-auth/prisma-adapter':
+        specifier: ^1.0.7
+        version: 1.0.7(@prisma/client@5.6.0)(next-auth@4.24.5)
+      '@octokit/auth-app':
+        specifier: ^6.0.1
+        version: 6.0.1
+      '@octokit/oauth-app':
+        specifier: ^6.0.0
+        version: 6.0.0
+      '@octokit/rest':
+        specifier: ^20.0.2
+        version: 20.0.2
+      '@penx/abi':
+        specifier: workspace:*
+        version: link:../../packages/abi
+      '@penx/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
+      '@penx/math':
+        specifier: workspace:*
+        version: link:../../packages/math
+      '@penx/trpc-client':
+        specifier: workspace:^
+        version: link:../../packages/trpc-client
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../../packages/unique-id
+      '@penx/wagmi':
+        specifier: workspace:*
+        version: link:../../packages/wagmi
+      '@prisma/client':
+        specifier: ^5.6.0
+        version: 5.6.0(prisma@5.6.0)
+      '@prisma/nextjs-monorepo-workaround-plugin':
+        specifier: ^5.6.0
+        version: 5.6.0
+      '@t3-oss/env-nextjs':
+        specifier: ^0.3.1
+        version: 0.3.1(typescript@5.3.3)(zod@3.22.4)
+      '@tanstack/react-query':
+        specifier: ^4.36.1
+        version: 4.36.1(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)
+      '@trpc/client':
+        specifier: ^10.44.1
+        version: 10.44.1(@trpc/server@10.44.1)
+      '@trpc/next':
+        specifier: ^10.44.1
+        version: 10.44.1(@tanstack/react-query@4.36.1)(@trpc/client@10.44.1)(@trpc/react-query@10.44.1)(@trpc/server@10.44.1)(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
+      '@trpc/server':
+        specifier: ^10.44.1
+        version: 10.44.1
+      '@vercel/analytics':
+        specifier: ^1.1.1
+        version: 1.1.1
+      '@vercel/speed-insights':
+        specifier: ^1.0.1
+        version: 1.0.1
+      '@wagmi/core':
+        specifier: ^2.6.5
+        version: 2.6.5(@types/react@18.2.48)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+      '@web3modal/core':
+        specifier: ^4.0.5
+        version: 4.0.5(@types/react@18.2.48)(react@18.2.0)
+      '@web3modal/siwe':
+        specifier: ^4.0.5
+        version: 4.0.5(@types/react@18.2.48)
+      '@web3modal/wagmi':
+        specifier: ^4.0.5
+        version: 4.0.5(@types/react@18.2.48)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(viem@2.7.10)
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
+      classnames:
+        specifier: ^2.3.2
+        version: 2.3.2
+      clsx:
+        specifier: ^2.0.0
+        version: 2.0.0
+      cookies-next:
+        specifier: ^2.1.2
+        version: 2.1.2
+      crypto-js:
+        specifier: ^4.2.0
+        version: 4.2.0
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
+      dexie:
+        specifier: ^3.2.4
+        version: 3.2.4
+      dexie-react-hooks:
+        specifier: ^1.1.7
+        version: 1.1.7(@types/react@18.2.48)(dexie@3.2.4)(react@18.2.0)
+      emoji-mart:
+        specifier: ^5.5.2
+        version: 5.5.2
+      emoji-picker-react:
+        specifier: ^4.5.16
+        version: 4.5.16(react@18.2.0)
+      ethers:
+        specifier: ^6.10.0
+        version: 6.10.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+      framer-motion:
+        specifier: ^10.16.14
+        version: 10.16.14(react-dom@18.2.0)(react@18.2.0)
+      idb-keyval:
+        specifier: ^6.2.1
+        version: 6.2.1
+      immer:
+        specifier: ^10.0.3
+        version: 10.0.3
+      ioredis:
+        specifier: ^5.3.2
+        version: 5.3.2
+      is-hotkey:
+        specifier: ^0.2.0
+        version: 0.2.0
+      jotai:
+        specifier: ^2.6.0
+        version: 2.6.0(@types/react@18.2.48)(react@18.2.0)
+      jsonwebtoken:
+        specifier: ^9.0.2
+        version: 9.0.2
+      ky:
+        specifier: ^1.1.3
+        version: 1.1.3
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lucide-react:
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
+      markdown-it:
+        specifier: ^13.0.2
+        version: 13.0.2
+      million:
+        specifier: ^2.6.4
+        version: 2.6.4
+      mime:
+        specifier: ^3.0.0
+        version: 3.0.0
+      mitt:
+        specifier: ^3.0.1
+        version: 3.0.1
+      next:
+        specifier: 13.3.1
+        version: 13.3.1(@babel/core@7.23.5)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
+      next-auth:
+        specifier: 4.24.5
+        version: 4.24.5(next@13.3.1)(react-dom@18.2.0)(react@18.2.0)
+      next-pwa:
+        specifier: ^5.6.0
+        version: 5.6.0(@babel/core@7.23.5)(next@13.3.1)(webpack@5.89.0)
+      nextjs-cors:
+        specifier: ^2.2.0
+        version: 2.2.0(next@13.3.1)
+      nextjs-google-analytics:
+        specifier: ^2.3.3
+        version: 2.3.3(next@13.3.1)(react@18.2.0)
+      octokit:
+        specifier: ^3.1.2
+        version: 3.1.2
+      prismjs:
+        specifier: ^1.29.0
+        version: 1.29.0
+      rc-table:
+        specifier: ^7.36.0
+        version: 7.36.0(react-dom@18.2.0)(react@18.2.0)
+      re-resizable:
+        specifier: ^6.9.11
+        version: 6.9.11(react-dom@18.2.0)(react@18.2.0)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-circular-progressbar:
+        specifier: ^2.1.0
+        version: 2.1.0(react@18.2.0)
+      react-datepicker:
+        specifier: ^4.24.0
+        version: 4.24.0(react-dom@18.2.0)(react@18.2.0)
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-fast-compare:
+        specifier: ^3.2.2
+        version: 3.2.2
+      react-hook-form:
+        specifier: ^7.48.2
+        version: 7.48.2(react@18.2.0)
+      react-intersection-observer:
+        specifier: ^9.5.3
+        version: 9.5.3(react@18.2.0)
+      react-merge-refs:
+        specifier: ^2.1.1
+        version: 2.1.1
+      simplebar-react:
+        specifier: ^3.2.4
+        version: 3.2.4(react@18.2.0)
+      siwe:
+        specifier: ^2.1.4
+        version: 2.1.4(ethers@6.10.0)
+      slate:
+        specifier: 0.101.5
+        version: 0.101.5
+      slate-history:
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.5)
+      slate-hyperscript:
+        specifier: 0.100.0
+        version: 0.100.0(slate@0.101.5)
+      slate-react:
+        specifier: 0.101.5
+        version: 0.101.5(react-dom@18.2.0)(react@18.2.0)(slate@0.101.5)
+      sonner:
+        specifier: ^0.6.2
+        version: 0.6.2(react-dom@18.2.0)(react@18.2.0)
+      stook:
+        specifier: ^1.17.0
+        version: 1.17.0
+      superjson:
+        specifier: 1.9.1
+        version: 1.9.1
+      uikit:
+        specifier: workspace:*
+        version: link:../../packages/uikit
+      use-debounce:
+        specifier: ^9.0.4
+        version: 9.0.4(react@18.2.0)
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
+      viem:
+        specifier: ^2.7.10
+        version: 2.7.10(typescript@5.3.3)(zod@3.22.4)
+      wagmi:
+        specifier: ^2.5.7
+        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.48)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+    devDependencies:
+      '@babel/core':
+        specifier: ^7.23.5
+        version: 7.23.5
+      '@penx/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
+      '@svgr/webpack':
+        specifier: ^8.1.0
+        version: 8.1.0(typescript@5.3.3)
+      '@types/crypto-js':
+        specifier: ^4.2.1
+        version: 4.2.1
+      '@types/is-hotkey':
+        specifier: ^0.1.10
+        version: 0.1.10
+      '@types/jsonwebtoken':
+        specifier: ^9.0.5
+        version: 9.0.5
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.14.202
+      '@types/markdown-it':
+        specifier: ^13.0.7
+        version: 13.0.7
+      '@types/mime':
+        specifier: ^3.0.4
+        version: 3.0.4
+      '@types/node':
+        specifier: ^20.10.3
+        version: 20.11.19
+      '@types/react':
+        specifier: ^18.2.42
+        version: 18.2.48
+      '@types/react-dom':
+        specifier: ^18.2.17
+        version: 18.2.17
+      '@types/uuid':
+        specifier: ^9.0.7
+        version: 9.0.7
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.16(postcss@8.4.32)
+      babel-plugin-macros:
+        specifier: ^3.1.0
+        version: 3.1.0
+      dotenv-cli:
+        specifier: ^7.3.0
+        version: 7.3.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-custom
+      postcss:
+        specifier: ^8.4.32
+        version: 8.4.32
+      sass:
+        specifier: ^1.69.5
+        version: 1.69.5
+      smee-client:
+        specifier: ^2.0.1
+        version: 2.0.1
+      typescript:
+        specifier: ^5.3.2
+        version: 5.3.3
+
   apps/protocol:
     dependencies:
       '@chainlink/contracts':

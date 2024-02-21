@@ -1,0 +1,23 @@
+{
+  "name": "PenX",
+  "short_name": "PenX",
+  "description": "PenX",
+  "icons": [
+    {
+      "src": "/images/logo-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#1d2020",
+  "orientation": "portrait",
+  "display": "standalone",
+  "scope": "/pages/",
+  "theme_color": "#1d2020"
+}
