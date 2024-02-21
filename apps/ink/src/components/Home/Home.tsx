@@ -4,7 +4,6 @@ import { Logo } from '../Logo'
 import { SocialNav } from '../SocialNav'
 import { HowToGet } from './HowToGet'
 import { Main } from './Main'
-import { WalletProfile } from './WalletProfile'
 
 export function Home() {
   return (
