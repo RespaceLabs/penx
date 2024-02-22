@@ -1,11 +1,47 @@
 import { Chain } from 'viem'
-import { hardhat, mainnet } from 'wagmi/chains'
+import { hardhat, mainnet, sepolia } from 'wagmi/chains'
 import { NETWORK, NetworkNames } from '@penx/constants'
 import { addressMap } from './address'
 
 export const DEVELOP_RPC_URL = process.env.NEXT_PUBLIC_DEVELOP_RPC_URL as string
 
+const SEPOLIA_RPC = process.env.NEXT_PUBLIC_SEPOLIA_RPC as string
+
 export function getChain(): Chain {
+  if (NETWORK === NetworkNames.SEPOLIA) {
+    // return sepolia
+    return {
+      id: 11_155_111,
+      name: 'Sepolia',
+      nativeCurrency: { name: 'Sepolia Ether', symbol: 'SEP', decimals: 18 },
+      rpcUrls: {
+        default: {
+          // http: ['https://rpc.sepolia.org'],
+          http: [SEPOLIA_RPC],
+        },
+      },
+      blockExplorers: {
+        default: {
+          name: 'Etherscan',
+          url: 'https://sepolia.etherscan.io',
+          apiUrl: 'https://api-sepolia.etherscan.io/api',
+        },
+      },
+      contracts: {
+        multicall3: {
+          address: '0xca11bde05977b3631167028862be2a173976ca11',
+          blockCreated: 751532,
+        },
+        ensRegistry: { address: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e' },
+        ensUniversalResolver: {
+          address: '0xBaBC7678D7A63104f1658c11D6AE9A21cdA09725',
+          blockCreated: 5_043_334,
+        },
+      },
+      testnet: true,
+    }
+  }
+
   const devHardhat: Chain = {
     ...hardhat,
     rpcUrls: {

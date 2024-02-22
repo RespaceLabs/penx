@@ -15,6 +15,8 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/37784886'],
 }
 
+// console.log('========getChain():', getChain())
+
 // Create wagmiConfig
 export const wagmiConfig = defaultWagmiConfig({
   // chains: [mainnet, sepolia], // required

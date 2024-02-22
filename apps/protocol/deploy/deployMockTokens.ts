@@ -4,9 +4,6 @@ import { precision } from '@utils/precision'
 import { tokens } from '../config/tokens'
 
 const func: DeployFunction = async ({ getNamedAccounts, deployments, network }) => {
-  if (network.name != 'localhost' && network.name != 'hardhat') {
-    return
-  }
   const { deploy, log } = deployments
   const { deployer } = await getNamedAccounts()
 

@@ -1,3 +1,4 @@
+/* eslint-disable turbo/no-undeclared-env-vars */
 import 'tsconfig-paths/register'
 import { resolve } from 'path'
 import { HardhatUserConfig } from 'hardhat/config'
@@ -21,7 +22,7 @@ const config: HardhatUserConfig = {
   },
 
   gasReporter: {
-    enabled: false,
+    enabled: true,
   },
 
   networks: {
@@ -35,6 +36,17 @@ const config: HardhatUserConfig = {
     },
     localhost: {
       saveDeployments: false,
+    },
+    sepolia: {
+      url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ETH_SEPOLIA_API_KEY}`,
+      accounts: [process.env.SEPOLIA_ACCOUNT_PRIVATE_KEY!],
+      blockGasLimit: 10000000,
+      // verify: {
+      //   etherscan: {
+      //     apiUrl: "https://api-sepolia.arbiscan.io/",
+      //     apiKey: `${sepoliaApiKey}`,
+      //   },
+      // },
     },
   },
 

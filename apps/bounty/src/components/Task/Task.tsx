@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box } from '@fower/react'
 import { Gem } from 'lucide-react'
 import { useRouter } from 'next/router'
+// import { createPublicClient } from '@penx/wagmi'
+import { createPublicClient, erc20Abi, http } from 'viem'
+import { sepolia } from 'viem/chains'
 import { useAccount } from 'wagmi'
 import { Button, Spinner } from 'uikit'
 import { trpc } from '@penx/trpc-client'
+import { addressMap } from '@penx/wagmi'
 import { InkBalance } from '../InkBalance'
 import { UsdtBalance } from '../UsdtBalance'
 import { WalletConnectButton } from '../WalletConnectButton'
@@ -18,7 +22,7 @@ type Reward = {
 }
 
 const Task = () => {
-  const { isConnected } = useAccount()
+  const { isConnected, address } = useAccount()
   const { query } = useRouter()
   const id = query.id as string
 
