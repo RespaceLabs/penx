@@ -1,4 +1,4 @@
-import { FowerHTMLProps } from '@fower/react'
+import { Box, FowerHTMLProps } from '@fower/react'
 import { useAccount, useDisconnect } from 'wagmi'
 import {
   Button,
@@ -8,7 +8,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
-import { PointBalance } from './PointBalance'
+import { InkBalance } from './InkBalance'
+import { UsdtBalance } from './UsdtBalance'
 
 interface Props
   extends Omit<FowerHTMLProps<'button'>, 'children'>,
@@ -31,8 +32,11 @@ export const WalletProfile = (props: Props) => {
           {address.slice(0, 6)}...{address.slice(-4)}
         </Button>
       </PopoverTrigger>
-      <PopoverContent w-280 p4 column toCenter gap4>
-        <PointBalance />
+      <PopoverContent p4 column gap4 minW-280>
+        <Box column gap2>
+          <InkBalance />
+          <UsdtBalance />
+        </Box>
         <PopoverClose>
           <Button
             type="button"

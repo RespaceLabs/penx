@@ -5,6 +5,8 @@ import { useRouter } from 'next/router'
 import { useAccount } from 'wagmi'
 import { Button, Spinner } from 'uikit'
 import { trpc } from '@penx/trpc-client'
+import { InkBalance } from '../InkBalance'
+import { UsdtBalance } from '../UsdtBalance'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { WalletProfile } from '../WalletProfile'
 import { BountyLogo } from './BountyLogo'
@@ -46,7 +48,11 @@ const Task = () => {
     <Box toCenter h-100vh>
       <Box toBetween toCenterY absolute top0 w-100p px4 py2>
         <BountyLogo />
-        <WalletProfile />
+        <Box toCenterY gap4>
+          <UsdtBalance />
+          <InkBalance />
+          <WalletProfile />
+        </Box>
       </Box>
       <Box w-600 toCenter column gap4>
         <Box>
