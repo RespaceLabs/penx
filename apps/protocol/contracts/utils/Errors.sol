@@ -7,6 +7,8 @@ library Errors {
   error UnknownError(bytes msg);
   error BlockNumberInvalid();
   error InvalidRoleAccess(address account, bytes32 role);
+  error InvalidRoleName(bytes32 role);
+  error ExecutionFeeNotEnough();
 
   // transfer
   error BalanceNotEnough(address account, address token);

@@ -19,6 +19,9 @@ const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
   namedAccounts: {
     deployer: 0,
+    keeper: {
+      default: '0x5B7342B3b138bea7F6a2d157718acCc90BeF8f9D',
+    },
   },
 
   gasReporter: {

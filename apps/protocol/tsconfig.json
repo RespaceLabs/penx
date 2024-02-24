@@ -22,7 +22,6 @@
       "@test/*": ["./test/*"]
     }
   },
-
   "include": [
     "hardhat.config.ts",
     "./scripts",
@@ -30,6 +29,7 @@
     "./deploy",
     "./abi",
     "./test",
+    "./config",
     "typechain/**/*",
     "wagmi.config.ts",
     "index.d.ts"

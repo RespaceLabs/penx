@@ -9,7 +9,7 @@ import {
 } from 'hardhat-deploy/types'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 
-type LibraryName = 'PermissionFlag' | 'LibDiamond' | 'TransferUtils'
+type LibraryName = 'PermissionFlag' | 'LibDiamond' | 'TransferUtils' | 'RoleAccessControl'
 
 type ContractName =
   | LibraryName
@@ -25,6 +25,7 @@ type ContractName =
   | 'DaoVault'
   | 'BountyFacet'
   | 'VaultFacet'
+  | 'RoleAccessControlFacet'
 
 type DependencyContracts = Record<ContractName, Deployment>
 
