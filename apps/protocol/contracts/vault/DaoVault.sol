@@ -28,7 +28,7 @@ contract DaoVault {
 
   function transferToken(address token, address receiver, uint256 amount) external {
     console.log("token==========:", token, "receiver:", receiver);
-    require(IERC20(token).transfer(receiver, amount), "USDT transfer failed");
+    require(IERC20(token).transfer(receiver, amount), "transfer failed");
   }
 
   function transferOut(address token, address receiver, uint256 amount) external {

@@ -414,6 +414,17 @@ export const daoVaultAbi = [
     name: 'transferOut',
     outputs: [],
   },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'token', internalType: 'address', type: 'address' },
+      { name: 'receiver', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferToken',
+    outputs: [],
+  },
   { stateMutability: 'payable', type: 'receive' },
 ] as const
 
@@ -1240,6 +1251,7 @@ export const errorsAbi = [
     name: 'BalanceNotEnough',
   },
   { type: 'error', inputs: [], name: 'BlockNumberInvalid' },
+  { type: 'error', inputs: [], name: 'ExecutionFeeNotEnough' },
   {
     type: 'error',
     inputs: [
@@ -1247,6 +1259,11 @@ export const errorsAbi = [
       { name: 'role', internalType: 'bytes32', type: 'bytes32' },
     ],
     name: 'InvalidRoleAccess',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'role', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'InvalidRoleName',
   },
   {
     type: 'error',
@@ -2250,6 +2267,50 @@ export const inkAbi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// IRoleAccessControl
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const iRoleAccessControlAbi = [
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'grantRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'hasRole',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'revokeAllRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'revokeRole',
+    outputs: [],
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // IVault
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2851,6 +2912,64 @@ export const pointFacetAbi = [
     outputs: [],
   },
   { stateMutability: 'payable', type: 'receive' },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// RoleAccessControlFacet
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const roleAccessControlFacetAbi = [
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'InvalidRoleAccess',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'role', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'InvalidRoleName',
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'grantRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'hasRole',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'revokeAllRole',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'role', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'revokeRole',
+    outputs: [],
+  },
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

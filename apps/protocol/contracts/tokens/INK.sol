@@ -21,7 +21,6 @@ contract INK is ERC20 {
 
   function mint(address to, uint256 amount) public {
     require(msg.sender == owner, "Only owner can mint tokens");
-
     _mint(to, amount);
   }
 }

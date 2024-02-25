@@ -16,9 +16,11 @@ const MyInk = () => {
 
   if (isLoading) return null
 
+  console.log('===========data:', data)
+
   return (
     <Box toCenterY>
-      <Box>Owner: </Box>
+      <Box>My: </Box>
       <Box>
         {!!data && precision.toTokenDecimal(data)}
         INK

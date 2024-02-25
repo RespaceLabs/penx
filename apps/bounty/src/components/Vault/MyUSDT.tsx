@@ -18,7 +18,7 @@ const MyUSDT = () => {
 
   return (
     <Box toCenterY>
-      <Box>Owner: </Box>
+      <Box>My: </Box>
       <Box>
         {!!data && precision.toTokenDecimal(data)}
         USDT

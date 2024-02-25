@@ -3,6 +3,7 @@ import { Box } from '@fower/react'
 import { useAccount } from 'wagmi'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { WalletProfile } from '../WalletProfile'
+import { DepositFromVault } from './DepositFromVault'
 import MintInk from './MintInk'
 import MintUSDT from './MintUSDT'
 import MyInk from './MyInk'
@@ -19,11 +20,12 @@ const Vault = () => {
       {isConnected && (
         <Box column gap4>
           <VaultInk></VaultInk>
+          <VaultUSDT></VaultUSDT>
           <MyInk></MyInk>
           <MyUSDT></MyUSDT>
-          <VaultUSDT></VaultUSDT>
           <MintInk />
           <MintUSDT></MintUSDT>
+          <DepositFromVault />
         </Box>
       )}
     </Box>
