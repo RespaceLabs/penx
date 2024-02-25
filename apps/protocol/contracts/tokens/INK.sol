@@ -12,6 +12,8 @@ contract INK is ERC20 {
 
     owner = msg.sender;
 
+    console.log("==========owner:", owner);
+
     _mint(owner, initialSupply);
   }
 
