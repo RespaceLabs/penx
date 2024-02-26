@@ -1286,6 +1286,9 @@ importers:
       '@wagmi/cli':
         specifier: ^2.1.0
         version: 2.1.0(typescript@5.3.3)
+      big.js:
+        specifier: ^6.2.1
+        version: 6.2.1
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -1326,6 +1329,9 @@ importers:
       '@typechain/hardhat':
         specifier: ^8.0.0
         version: 8.0.3(@typechain/ethers-v6@0.4.3)(ethers@6.10.0)(hardhat@2.19.4)(typechain@8.3.2)
+      '@types/big.js':
+        specifier: ^6.2.0
+        version: 6.2.2
       '@types/chai':
         specifier: ^4.3.5
         version: 4.3.11

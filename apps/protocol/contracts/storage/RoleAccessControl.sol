@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+import "hardhat/console.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "../utils/Errors.sol";
 
@@ -24,7 +25,13 @@ library RoleAccessControl {
     }
   }
 
+  function getRoles(address account) internal view returns (EnumerableSet.Bytes32Set storage) {
+    Props storage props = load();
+    return props.accountRoles[account];
+  }
+
   function checkRole(bytes32 role) internal view {
+    console.log("=========msg.sender role:", msg.sender);
     if (!hasRole(msg.sender, role)) {
       revert Errors.InvalidRoleAccess(msg.sender, role);
     }

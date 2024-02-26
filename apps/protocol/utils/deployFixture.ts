@@ -1,6 +1,6 @@
 import { ethers, deployments } from 'hardhat'
 import { precision } from './precision'
-import { BountyFacet, DaoVault, Diamond, INK, MockToken } from '../types'
+import { BountyFacet, DaoVault, Diamond, INK, MockToken, RoleAccessControlFacet } from '../types'
 
 export type Fixture = Awaited<ReturnType<typeof deployFixture>>
 
@@ -31,22 +31,28 @@ export async function deployFixture() {
     signer8,
     signer9,
   ] = accountList
-  const usdt = await ethers.getContract<MockToken>('USDT')
-  const usdc = await ethers.getContract<MockToken>('USDC')
-  const dai = await ethers.getContract<MockToken>('DAI')
 
-  const ink = await ethers.getContract<INK>('INK')
+  const [usdt, usdc, dai, ink, daoVault] = await Promise.all([
+    ethers.getContract<MockToken>('USDT'),
+    ethers.getContract<MockToken>('USDC'),
+    ethers.getContract<MockToken>('DAI'),
+    ethers.getContract<INK>('INK'),
+    ethers.getContract('DaoVault') as Promise<DaoVault>,
+  ])
 
   const diamond = await ethers.getContract<Diamond>('Diamond')
   const diamondAddr = await diamond.getAddress()
 
-  const bountyFacet = (await ethers.getContractAt('BountyFacet', diamondAddr)) as unknown as BountyFacet
-
-  const daoVault = (await ethers.getContractAt('DaoVault', diamondAddr)) as unknown as DaoVault
-
   // await usdt.mint(user0.address, precision.token(1_000_000, 6))
   // await usdc.mint(user0.address, precision.token(1_000_000, 6))
   // await dai.mint(user0.address, precision.token(1_000_000))
+
+  const [inkAddress, daoVaultAddress, bountyFacet, roleAccessControlFacet] = await Promise.all([
+    ink.getAddress(),
+    daoVault.getAddress(),
+    ethers.getContractAt('BountyFacet', diamondAddr) as unknown as Promise<BountyFacet>,
+    ethers.getContractAt('RoleAccessControlFacet', diamondAddr) as unknown as Promise<RoleAccessControlFacet>,
+  ])
 
   return {
     getContract: async (name: string) => {
@@ -84,7 +90,14 @@ export async function deployFixture() {
     usdc,
     dai,
     ink,
+
     daoVault,
+
     bountyFacet,
+    roleAccessControlFacet,
+
+    // address
+    inkAddress,
+    daoVaultAddress,
   }
 }

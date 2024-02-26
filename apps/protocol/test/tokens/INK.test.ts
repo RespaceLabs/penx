@@ -19,7 +19,7 @@ describe('INK Test', function () {
     expect(supply).to.be.equal(initialSupply)
   })
 
-  it.only('Mint successfully by deployer', async () => {
+  it('Mint successfully by deployer', async () => {
     const mintAmount = precision.token(100)
     const { deployer, user0, user1 } = f.accounts
 
@@ -30,7 +30,7 @@ describe('INK Test', function () {
     expect(supply).to.be.equal(initialSupply + mintAmount)
   })
 
-  it.only('Mint failed by not deployer', async () => {
+  it('Mint failed by not deployer', async () => {
     const mintAmount = precision.token(100)
     const { user0, user1 } = f.accounts
     // TODO:

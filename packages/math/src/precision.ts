@@ -7,10 +7,7 @@ function isInt(v: any) {
 
 export enum Decimals {
   TOKEN = 18,
-  // DISCOUNT = 3,
-  DISCOUNT = 5,
   RATE = 5,
-  LEVERAGE = 5,
   PRICE = 8,
   USD = 6,
 }

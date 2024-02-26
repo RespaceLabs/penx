@@ -16,7 +16,7 @@ export const getRoles = async (hre: HardhatRuntimeEnvironment): Promise<RolesCon
     hardhat: [
       {
         account: deployer,
-        roles: ['CONFIG', 'KEEPER'],
+        roles: ['ADMIN', 'CONFIG', 'KEEPER'],
       },
       {
         account: account0,

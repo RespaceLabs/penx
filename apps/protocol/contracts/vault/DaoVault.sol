@@ -1,14 +1,22 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "hardhat/console.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "../utils/TransferUtils.sol";
 import "../utils/RoleKeys.sol";
 import "../utils/Errors.sol";
+import "../storage/RoleAccessControl.sol";
 
 contract DaoVault {
   using SafeERC20 for IERC20;
+
+  address public owner;
+
+  constructor() {
+    owner = msg.sender;
+  }
 
   receive() external payable {}
 
@@ -35,6 +43,10 @@ contract DaoVault {
     if (receiver == address(this)) {
       revert Errors.AddressSelfNotSupported(receiver);
     }
+
+    // console.log("transfer=========msg.sender:", msg.sender);
+    require(msg.sender == owner, "Only owner can transfer");
+
     TransferUtils.transfer(token, receiver, amount);
     tokenBalances[token] = IERC20(token).balanceOf(address(this));
   }
