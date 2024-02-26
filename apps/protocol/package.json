@@ -46,7 +46,7 @@
   "dependencies": {
     "@chainlink/contracts": "^0.6.1",
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
-    "@openzeppelin/contracts": "^4.9.2",
+    "@openzeppelin/contracts": "^5.0.1",
     "@types/ethereumjs-abi": "^0.6.5",
     "@uniswap/hardhat-v3-deploy": "^0.1.1",
     "@uniswap/v3-core": "^1.0.1",

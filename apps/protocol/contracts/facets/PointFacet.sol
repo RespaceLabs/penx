@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 import "hardhat/console.sol";
 
-contract PointFacet is Ownable {
+contract PointFacet {
   receive() external payable {}
 
   fallback() external payable {}

@@ -38,8 +38,10 @@ type AfterDeployArgs = {
 
 type GetDeployArgs = ({
   dependencyContracts,
+  namedAccounts,
 }: {
   dependencyContracts: DependencyContracts
+  namedAccounts: Record<string, string>
 }) => Promise<DeployOptionsBase['args']> | DeployOptionsBase['args']
 
 export type DeployFunctionOptions = {
@@ -57,9 +59,10 @@ export function createDeployFunction(options: DeployFunctionOptions) {
   const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const { getNamedAccounts, deployments } = hre
     const { deploy, get } = deployments
-    const { deployer } = await getNamedAccounts()
+    const namedAccounts = await getNamedAccounts()
+    const { deployer } = namedAccounts
     const libraries = await getLibraries(hre.deployments, libraryNames)
-    const args = await getArgs(hre.deployments, options)
+    const args = await getArgs(hre.deployments, namedAccounts, options)
 
     let deployedContract
 
@@ -99,7 +102,11 @@ export function createDeployFunction(options: DeployFunctionOptions) {
   return func
 }
 
-async function getArgs(deployments: DeploymentsExtension, options: DeployFunctionOptions) {
+async function getArgs(
+  deployments: DeploymentsExtension,
+  namedAccounts: Record<string, string>,
+  options: DeployFunctionOptions,
+) {
   const { dependencyNames = [], getDeployArgs } = options
   const dependencyContracts = {} as DependencyContracts
 
@@ -114,7 +121,7 @@ async function getArgs(deployments: DeploymentsExtension, options: DeployFunctio
   let args: DeployOptionsBase['args'] = []
 
   if (getDeployArgs) {
-    args = (await getDeployArgs({ dependencyContracts }))!
+    args = (await getDeployArgs({ dependencyContracts, namedAccounts }))!
   }
   return args
 }
