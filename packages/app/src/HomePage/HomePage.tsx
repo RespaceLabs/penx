@@ -7,6 +7,7 @@ import { Button } from 'uikit'
 import { appEmitter } from '../app-emitter'
 import { Logo } from '../components/Logo'
 import { ExportOldVersionSpaces } from './ExportOldVersionSpaces'
+import { Footer } from './Footer'
 import { Nav } from './Nav'
 import { SocialNav } from './SocialNav'
 
@@ -23,22 +24,11 @@ export function HomePage() {
   ]
 
   return (
-    <Box
-      fixed
-      top0
-      bottom0
-      right0
-      left0
-      bgWhite
-      column
-      gap4
-      toBetween
-      toCenterX
-    >
+    <Box bgWhite column gap4 toBetween toCenterX>
       <Box
         toBetween
         py3
-        w={['98%', '98%', 760, 1120]}
+        w={['98%', '98%', 760, 1300]}
         relative
         zIndex-10
         px={[20, 20, 0]}
@@ -46,23 +36,76 @@ export function HomePage() {
       >
         <Box toCenterY gap8>
           <Logo size={32} />
-          <Nav />
         </Box>
 
-        <Box toCenterY gap2 display={['none', 'none', 'flex']}>
+        <Nav />
+
+        <Box toCenterY gap10 display={['none', 'none', 'flex']}>
           <SocialNav />
+
+          <Button
+            // size="lg"
+            variant="outline"
+            roundedFull
+            onClick={() => {
+              push('/login')
+            }}
+          >
+            Launch App
+          </Button>
         </Box>
       </Box>
-      <Box flex-1 toCenter column mt--80 gap5 px={[20, 0]}>
-        <Box text={[28, 32, 48]} maxW-680 fontBold leadingNone textCenter>
-          A structured note-taking app for personal use
+      <Box flex-1 toCenter column gap8 px={[20, 0]}>
+        <Box
+          text={[28, 50, 70]}
+          maxW-760
+          fontBlack
+          leadingNone
+          textCenter
+          black
+          mt={[120]}
+          p0
+        >
+          The{' '}
+          <Box
+            as="span"
+            transparent
+            inlineFlex
+            bgClipText
+            bgGradientX={['brand500', 'fuchsia500', 'indigo500']}
+          >
+            Second Brain
+          </Box>{' '}
+          App for{' '}
+          <Box
+            as="span"
+            relative
+            // black
+            inlineFlex
+            css={{
+              '&:after': {
+                content: '""',
+                position: 'absolute',
+                bottom: -2,
+                left: 0,
+                width: '100%',
+                height: '7px',
+                roundedFull: true,
+                // background: 'brand500',
+                backgroundImage:
+                  'linear-gradient(to right, rgb(107, 55, 255), rgb(59, 130, 246))',
+              },
+            }}
+          >
+            Web3
+          </Box>{' '}
+          users
         </Box>
 
-        <Box textLG gray500 maxW-680 textCenter>
-          PenX is a structured note-taking app designed for personal use. In
-          PenX, Privacy is first important thing. our mission is building a
-          elegant tool to manage personal digital assets, like notes, tasks,
-          ideas, password, document.
+        <Box textLG neutral500 maxW-640 textCenter leadingNormal>
+          A structured Note-taking app for personal use. An elegant tool
+          designed to help you capture, organize, and store your thoughts,
+          ideas, and information.
         </Box>
 
         <Box toCenter gap2 flexWrap>
@@ -84,41 +127,24 @@ export function HomePage() {
           ))}
         </Box>
 
-        <Box
-          toCenterX
-          mt6
-          toCenterY
-          gap2
-          flexDirection={['column', 'column', 'row']}
-        >
-          <ExportOldVersionSpaces />
-
+        <Box>
           <Button
-            size="lg"
-            w-220
+            size={56}
+            // colorScheme="black"
+            bgGradientX={['brand500', 'fuchsia600']}
+            bgGradientX--hover={['brand400', 'fuchsia500']}
             roundedFull
+            w-240
             onClick={() => {
               push('/login')
             }}
           >
             Launch App
           </Button>
-
-          {/* <Box>Or</Box> */}
-
-          {/* <Button
-            as="a"
-            variant="outline"
-            noUnderline
-            w-220
-            href="https://chromewebstore.google.com/detail/penx/keodiemnjjlgbnjhdpomlagckkkcjakh"
-            size="lg"
-            roundedFull
-            target="_blank"
-          >
-            Install Chrome Extension
-          </Button> */}
         </Box>
+
+        <Box as="img" src="/images/editor.png" w-1200 />
+        <Footer></Footer>
       </Box>
     </Box>
   )
