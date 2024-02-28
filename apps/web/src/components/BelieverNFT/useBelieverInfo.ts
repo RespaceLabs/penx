@@ -4,8 +4,6 @@ import { BelieverNFT } from '@penx/model'
 import { addressMap } from '@penx/wagmi'
 
 export function useBelieverInfo() {
-  console.log('==============addressMap.Diamond:', addressMap.Diamond)
-
   const { data, ...rest } = useReadContract({
     address: addressMap.Diamond,
     // address: addressMap.BelieverFacet,

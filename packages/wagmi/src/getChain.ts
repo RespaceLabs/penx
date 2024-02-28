@@ -9,7 +9,6 @@ export function getChain(): Chain {
 
   // return sepolia
   if (NETWORK === NetworkNames.SEPOLIA) {
-    // return sepolia
     return {
       id: 11_155_111,
       name: 'Sepolia',
