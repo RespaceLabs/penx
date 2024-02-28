@@ -54,37 +54,40 @@ export async function deployFixture() {
     ethers.getContractAt('RoleAccessControlFacet', diamondAddr) as unknown as Promise<RoleAccessControlFacet>,
   ])
 
+  const accounts = {
+    deployer,
+    keeper,
+
+    wallet,
+    user0,
+    user1,
+    user2,
+    user3,
+    user4,
+    user5,
+    user6,
+    user7,
+    user8,
+    signer0,
+    signer1,
+    signer2,
+    signer3,
+    signer4,
+    signer5,
+    signer6,
+    signer7,
+    signer8,
+    signer9,
+    signers: [signer0, signer1, signer2, signer3, signer4, signer5, signer6],
+  }
+
   return {
     getContract: async (name: string) => {
       return await ethers.getContractAt(name, diamondAddr)
     },
 
-    accounts: {
-      deployer,
-      keeper,
-
-      wallet,
-      user0,
-      user1,
-      user2,
-      user3,
-      user4,
-      user5,
-      user6,
-      user7,
-      user8,
-      signer0,
-      signer1,
-      signer2,
-      signer3,
-      signer4,
-      signer5,
-      signer6,
-      signer7,
-      signer8,
-      signer9,
-      signers: [signer0, signer1, signer2, signer3, signer4, signer5, signer6],
-    },
+    accounts,
+    ...accounts,
 
     usdt,
     usdc,

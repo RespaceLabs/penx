@@ -3,7 +3,7 @@ import { DeployFunctionOptions, createDeployFunction } from '../../utils/deploy'
 export const options: DeployFunctionOptions = {
   contractName: 'DaoVault',
   libraryNames: ['TransferUtils'],
-  getDeployArgs({ dependencyContracts, namedAccounts }) {
+  getDeployArgs({ namedAccounts }) {
     return [namedAccounts.deployer]
   },
 }
