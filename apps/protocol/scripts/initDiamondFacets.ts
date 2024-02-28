@@ -1,23 +1,9 @@
 import { ethers } from 'hardhat'
 import { getSelectors, FacetCutAction, getAllAlreadySelectors, getSelectorsExcludeAlready } from '../utils/diamond'
-import { HardhatRuntimeEnvironment } from 'hardhat/types'
 
-const facetDependencies = [
-  'Diamond',
-  'DiamondCutFacet',
-  'DiamondLoupeFacet',
+const facetDependencies = ['PointFacet', 'BelieverFacet', 'BountyFacet', 'VaultFacet', 'RoleAccessControlFacet']
 
-  'RoleAccessControlFacet',
-  'BelieverFacet',
-  'PointFacet',
-  'BountyFacet',
-  'VaultFacet',
-]
-
-const func = async (hre: HardhatRuntimeEnvironment) => {
-  if (hre.network.name != 'localhost' && hre.network.name != 'hardhat') {
-    return
-  }
+async function main() {
   const diamond = await ethers.getContract('Diamond')
   const diamondAddr = await diamond.getAddress()
   console.log('diamondAddr', diamondAddr)
@@ -26,10 +12,11 @@ const func = async (hre: HardhatRuntimeEnvironment) => {
   let facets = []
   let total = 0
   const diamondCutFacet = await ethers.getContractAt('DiamondCutFacet', diamondAddr)
-  for (var i = 3; i < facetDependencies.length; i++) {
+  for (var i = 0; i < facetDependencies.length; i++) {
     const contract = await ethers.getContract(facetDependencies[i])
     const functionSelectors = getSelectorsExcludeAlready(contract, alreadySelectors)
     if (functionSelectors.length == 0) {
+      console.log('ignore contract with functionSelectors.length == 0', await contract.getAddress())
       continue
     }
     facets.push({
@@ -38,8 +25,9 @@ const func = async (hre: HardhatRuntimeEnvironment) => {
       functionSelectors: functionSelectors,
     })
     total += functionSelectors.length
-    if (total > 30 || (total > 0 && i == facetDependencies.length - 1)) {
-      const tx = await diamondCutFacet.diamondCut(facets, ethers.ZeroAddress, '0x', { gasLimit: 20000000 })
+    if (total > 100 || (total > 0 && i == facetDependencies.length - 1)) {
+      console.log('add facets', facets)
+      const tx = await diamondCutFacet.diamondCut(facets, ethers.ZeroAddress, '0x', { gasLimit: 8000000 })
       const receipt = await tx.wait()
       if (!receipt.status) {
         throw Error(`Diamond init failed: ${tx.hash}`)
@@ -50,6 +38,11 @@ const func = async (hre: HardhatRuntimeEnvironment) => {
   }
 }
 
-func.tags = ['DiamondFacets']
-func.dependencies = facetDependencies
-export default func
+main()
+  .then(() => {
+    process.exit(0)
+  })
+  .catch((ex) => {
+    console.error(ex)
+    process.exit(1)
+  })

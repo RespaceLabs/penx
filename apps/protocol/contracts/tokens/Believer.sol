@@ -7,9 +7,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "../interfaces/IBeliever.sol";
 
 contract Believer is ERC721, IBeliever {
-  uint256 public constant MAX_SUPPLY = 1000;
-  uint256 public constant MIN_PRICE = 0.2 ether;
-  uint256 public constant MAX_PRICE = 2 ether;
+  uint256 public constant MAX_SUPPLY = 1024;
+  uint256 public constant MIN_PRICE = 0.1 ether;
+  uint256 public constant MAX_PRICE = 3 ether;
   uint256 public constant PRICE_INCREMENT = (MAX_PRICE - MIN_PRICE) / MAX_SUPPLY;
 
   uint256 private currentSupply = 0;

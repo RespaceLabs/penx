@@ -11,7 +11,7 @@ const Title: FC<PropsWithChildren> = ({ children }) => {
 
 export default function PageHome() {
   useEffect(() => {
-    nft(1000, 0.2, 2)
+    nft(1024, 0.1, 3)
   }, [])
 
   return (

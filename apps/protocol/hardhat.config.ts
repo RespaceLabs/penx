@@ -43,7 +43,7 @@ const config: HardhatUserConfig = {
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ETH_SEPOLIA_API_KEY}`,
       accounts: [process.env.SEPOLIA_ACCOUNT_PRIVATE_KEY!],
-      blockGasLimit: 10000000,
+      blockGasLimit: 100000000,
       // verify: {
       //   etherscan: {
       //     apiUrl: "https://api-sepolia.arbiscan.io/",

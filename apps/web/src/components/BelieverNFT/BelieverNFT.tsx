@@ -24,7 +24,7 @@ export function BelieverNFT() {
   const { isConnected } = useAccount()
   console.log('=====isConnected:', isConnected)
 
-  const list = Array(1000)
+  const list = Array(1024)
     .fill('')
     .map((_, i) => i)
 

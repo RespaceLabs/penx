@@ -1,14 +1,13 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.18;
 
-import "hardhat/console.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "../utils/Errors.sol";
 
 library RoleAccessControl {
   using EnumerableSet for EnumerableSet.Bytes32Set;
 
-  bytes32 internal constant ACCESS_CONTROL_KEY = keccak256(abi.encode("penxio.storage.AccessControl"));
+  bytes32 internal constant ACCESS_CONTROL_KEY = keccak256(abi.encode("penx.io.storage.AccessControl"));
 
   bytes32 constant ROLE_ADMIN = "ADMIN";
   bytes32 constant ROLE_CONFIG = "CONFIG";
@@ -25,13 +24,7 @@ library RoleAccessControl {
     }
   }
 
-  function getRoles(address account) internal view returns (EnumerableSet.Bytes32Set storage) {
-    Props storage props = load();
-    return props.accountRoles[account];
-  }
-
   function checkRole(bytes32 role) internal view {
-    console.log("=========msg.sender role:", msg.sender);
     if (!hasRole(msg.sender, role)) {
       revert Errors.InvalidRoleAccess(msg.sender, role);
     }

@@ -97,10 +97,18 @@ export enum SyncServerType {
   PRIVATE = 'PRIVATE',
 }
 
-export const NETWORK = process.env.NEXT_PUBLIC_NETWORK
-
 export enum NetworkNames {
   MAINNET = 'MAINNET',
   SEPOLIA = 'SEPOLIA',
   DEVELOP = 'DEVELOP',
+  LOCAL = 'LOCAL',
+}
+
+export const NETWORK = process.env.NEXT_PUBLIC_NETWORK as NetworkNames
+
+export const RPC_URL_MAP: Record<NetworkNames, string> = {
+  [NetworkNames.LOCAL]: process.env.NEXT_PUBLIC_LOCAL_RPC_URL!,
+  [NetworkNames.DEVELOP]: process.env.NEXT_PUBLIC_DEVELOP_RPC_URL!,
+  [NetworkNames.SEPOLIA]: process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL!,
+  [NetworkNames.MAINNET]: process.env.NEXT_PUBLIC_DEVELOP_RPC_URL!,
 }

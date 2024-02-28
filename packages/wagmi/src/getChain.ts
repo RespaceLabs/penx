@@ -1,13 +1,13 @@
 import { Chain } from 'viem'
 import { hardhat, mainnet, sepolia } from 'wagmi/chains'
-import { NETWORK, NetworkNames } from '@penx/constants'
+import { NETWORK, NetworkNames, RPC_URL_MAP } from '@penx/constants'
 import { addressMap } from './address'
 
-export const DEVELOP_RPC_URL = process.env.NEXT_PUBLIC_DEVELOP_RPC_URL as string
-
-const SEPOLIA_RPC = process.env.NEXT_PUBLIC_SEPOLIA_RPC as string
-
 export function getChain(): Chain {
+  const RPC_URL = RPC_URL_MAP[NETWORK]
+  console.log('===========NETWORK:', NETWORK)
+
+  // return sepolia
   if (NETWORK === NetworkNames.SEPOLIA) {
     // return sepolia
     return {
@@ -17,7 +17,7 @@ export function getChain(): Chain {
       rpcUrls: {
         default: {
           // http: ['https://rpc.sepolia.org'],
-          http: [SEPOLIA_RPC],
+          http: [RPC_URL],
         },
       },
       blockExplorers: {
@@ -45,8 +45,8 @@ export function getChain(): Chain {
   const devHardhat: Chain = {
     ...hardhat,
     rpcUrls: {
-      default: { http: [DEVELOP_RPC_URL] },
-      public: { http: [DEVELOP_RPC_URL] },
+      default: { http: [RPC_URL] },
+      public: { http: [RPC_URL] },
     },
     contracts: {
       multicall3: {
