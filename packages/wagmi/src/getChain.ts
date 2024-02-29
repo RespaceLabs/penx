@@ -5,7 +5,6 @@ import { addressMap } from './address'
 
 export function getChain(): Chain {
   const RPC_URL = RPC_URL_MAP[NETWORK]
-  console.log('===========NETWORK:', NETWORK)
 
   // return sepolia
   if (NETWORK === NetworkNames.SEPOLIA) {

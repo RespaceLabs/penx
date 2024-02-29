@@ -1,3 +1,5 @@
+import { EditorApp } from './EditorApp'
+
 export * from './common'
 export * from './EditorApp'
 export * from './Dashboard'
@@ -9,3 +11,5 @@ export * from './NewTabApp'
 export * from './components/Logo'
 export * from './HomePage/HomePage'
 export * from './DesktopHome'
+
+export default EditorApp
