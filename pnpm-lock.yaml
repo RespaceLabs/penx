@@ -2422,7 +2422,7 @@ importers:
         version: 4.36.1(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)
       '@udecode/plate-common':
         specifier: ^25.0.1
-        version: 25.0.1(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
+        version: 25.0.1(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
       classnames:
         specifier: ^2.3.2
         version: 2.3.2
@@ -2495,6 +2495,12 @@ importers:
       use-debounce:
         specifier: ^9.0.4
         version: 9.0.4(react@18.2.0)
+      viem:
+        specifier: ^2.7.10
+        version: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      wagmi:
+        specifier: ^2.5.7
+        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)
     devDependencies:
       '@penx/tsconfig':
         specifier: workspace:*
@@ -16308,7 +16314,7 @@ packages:
       - xstate
     dev: false
 
-  /@udecode/plate-common@25.0.1(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5):
+  /@udecode/plate-common@25.0.1(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5):
     resolution: {integrity: sha512-eajam97XzZlNianSo+oNm9XeJmPkn9/8asVs3NYxB6jeRBbG1qZ+vT20PNvMQD8uGksMvpEKfSm/i3oZNMPZQA==}
     peerDependencies:
       react: '>=16.8.0'
@@ -16318,8 +16324,8 @@ packages:
       slate-hyperscript: '>=0.66.0'
       slate-react: '>=0.99.0'
     dependencies:
-      '@udecode/plate-core': 25.0.1(@babel/core@7.23.5)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
-      '@udecode/plate-utils': 25.0.1(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
+      '@udecode/plate-core': 25.0.1(@babel/core@7.23.5)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
+      '@udecode/plate-utils': 25.0.1(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
       '@udecode/slate': 25.0.0(slate-history@0.100.0)(slate@0.101.5)
       '@udecode/slate-react': 25.0.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
       '@udecode/slate-utils': 25.0.0(slate-history@0.100.0)(slate@0.101.5)
@@ -16359,7 +16365,7 @@ packages:
       '@udecode/slate-react': 24.3.1(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
       '@udecode/slate-utils': 24.3.1(slate-history@0.100.0)(slate@0.101.5)
       '@udecode/utils': 24.3.0
-      '@udecode/zustood': 1.1.3(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(zustand@3.7.2)
+      '@udecode/zustood': 1.1.3(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)(zustand@3.7.2)
       clsx: 1.2.1
       is-hotkey: 0.2.0
       jotai: 1.7.2(@babel/core@7.23.5)(immer@10.0.3)(react@18.2.0)
@@ -16402,7 +16408,7 @@ packages:
       '@udecode/slate-react': 24.4.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
       '@udecode/slate-utils': 24.3.6(slate-history@0.100.0)(slate@0.101.5)
       '@udecode/utils': 24.3.0
-      '@udecode/zustood': 1.1.3(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(zustand@3.7.2)
+      '@udecode/zustood': 1.1.3(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)(zustand@3.7.2)
       clsx: 1.2.1
       is-hotkey: 0.2.0
       jotai: 1.7.2(@babel/core@7.23.5)(immer@10.0.3)(react@18.2.0)
@@ -16431,7 +16437,7 @@ packages:
       - xstate
     dev: false
 
-  /@udecode/plate-core@25.0.1(@babel/core@7.23.5)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5):
+  /@udecode/plate-core@25.0.1(@babel/core@7.23.5)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5):
     resolution: {integrity: sha512-0+1RJMJ7YeXdZ66EJB17KY4b9BjQ/w8arMY8ZTEzUnp9Qgph/BUha9vP0JnJ604+ZszwQqX0RdIpFbQ4B1c1lw==}
     peerDependencies:
       react: '>=16.8.0'
@@ -16445,7 +16451,7 @@ packages:
       '@udecode/slate-react': 25.0.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
       '@udecode/slate-utils': 25.0.0(slate-history@0.100.0)(slate@0.101.5)
       '@udecode/utils': 24.3.0
-      '@udecode/zustood': 1.1.3(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(zustand@3.7.2)
+      '@udecode/zustood': 1.1.3(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)(zustand@3.7.2)
       clsx: 1.2.1
       is-hotkey: 0.2.0
       jotai: 1.7.2(@babel/core@7.23.5)(immer@10.0.3)(react@18.2.0)
@@ -16552,7 +16558,7 @@ packages:
       - xstate
     dev: false
 
-  /@udecode/plate-utils@25.0.1(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5):
+  /@udecode/plate-utils@25.0.1(@babel/core@7.23.5)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5):
     resolution: {integrity: sha512-kn0I5JmMxjczmU7/YkSoKTcTsOp1O/YLNh9iLTgtLTsI8wBXwshHYgqsvbG/qu9Mt9L9GkHp4LpXZoK/vLNiLA==}
     peerDependencies:
       react: '>=16.8.0'
@@ -16563,7 +16569,7 @@ packages:
       slate-react: '>=0.99.0'
     dependencies:
       '@radix-ui/react-slot': 1.0.2(@types/react@18.2.42)(react@18.2.0)
-      '@udecode/plate-core': 25.0.1(@babel/core@7.23.5)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
+      '@udecode/plate-core': 25.0.1(@babel/core@7.23.5)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)(slate-history@0.100.0)(slate-hyperscript@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
       '@udecode/slate': 25.0.0(slate-history@0.100.0)(slate@0.101.5)
       '@udecode/slate-react': 25.0.0(react-dom@18.2.0)(react@18.2.0)(slate-history@0.100.0)(slate-react@0.101.5)(slate@0.101.5)
       '@udecode/slate-utils': 25.0.0(slate-history@0.100.0)(slate@0.101.5)
@@ -16721,13 +16727,13 @@ packages:
     resolution: {integrity: sha512-/Y2lh/Ih1wx4zN35Ky2Z1G1/5f7cSAS7F6dkhrcbJUnDF0srTidoEIRabK+og/yIK/MCEFfOsQGetoV7Ert5hg==}
     dev: false
 
-  /@udecode/zustood@1.1.3(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)(zustand@3.7.2):
+  /@udecode/zustood@1.1.3(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)(zustand@3.7.2):
     resolution: {integrity: sha512-f3mxHDaOF+q2XvDh/mMvLhCNs0LfCLhIBl8jGmvZT/i3WWq7YujzGXgnbK8mxIkun9irfe6wlPhg9sTIB9Gnug==}
     peerDependencies:
       zustand: '>=3.5.10'
     dependencies:
       immer: 9.0.15
-      react-tracked: 1.7.11(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)
+      react-tracked: 1.7.11(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)
       zustand: 3.7.2(react@18.2.0)
     transitivePeerDependencies:
       - react
@@ -16956,6 +16962,50 @@ packages:
       - zod
     dev: false
 
+  /@wagmi/connectors@4.1.14(@types/react@18.2.42)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10):
+    resolution: {integrity: sha512-e8I89FsNBtzhIilU3nqmgMR9xvSgCfmkWLz9iCKBTqyitbK5EJU7WTEtjjYFm1v2J//JeAwaA2XEKtG9BLR9jQ==}
+    peerDependencies:
+      '@wagmi/core': 2.6.5
+      typescript: '>=5.0.4'
+      viem: 2.x
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@coinbase/wallet-sdk': 3.9.1
+      '@metamask/sdk': 0.14.3(@types/react@18.2.42)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)
+      '@safe-global/safe-apps-provider': 0.18.1(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      '@safe-global/safe-apps-sdk': 8.1.0(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      '@wagmi/core': 2.6.5(@types/react@18.2.42)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)
+      '@walletconnect/ethereum-provider': 2.11.1(@types/react@18.2.42)(react@18.2.0)
+      '@walletconnect/modal': 2.6.2(@types/react@18.2.42)(react@18.2.0)
+      typescript: 5.3.3
+      viem: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@types/react'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - bufferutil
+      - encoding
+      - react
+      - react-dom
+      - react-native
+      - rollup
+      - supports-color
+      - utf-8-validate
+      - zod
+    dev: false
+
   /@wagmi/connectors@4.1.14(@types/react@18.2.48)(@wagmi/core@2.6.5)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.10):
     resolution: {integrity: sha512-e8I89FsNBtzhIilU3nqmgMR9xvSgCfmkWLz9iCKBTqyitbK5EJU7WTEtjjYFm1v2J//JeAwaA2XEKtG9BLR9jQ==}
     peerDependencies:
@@ -17040,6 +17090,32 @@ packages:
       - react-native
       - rollup
       - supports-color
+      - utf-8-validate
+      - zod
+    dev: false
+
+  /@wagmi/core@2.6.5(@types/react@18.2.42)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10):
+    resolution: {integrity: sha512-DLyrc0o+dx05oIhBJuxnS7ekS5e6rB5mytlqPme+Km7aLdeBdcfYB4yJyYCyWoi93OLa7M5sbflTttz3o56bKw==}
+    peerDependencies:
+      '@tanstack/query-core': '>=5.0.0'
+      typescript: '>=5.0.4'
+      viem: 2.x
+    peerDependenciesMeta:
+      '@tanstack/query-core':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      eventemitter3: 5.0.1
+      mipd: 0.0.5(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      typescript: 5.3.3
+      viem: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      zustand: 4.4.1(@types/react@18.2.42)(immer@10.0.3)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - immer
+      - react
       - utf-8-validate
       - zod
     dev: false
@@ -30142,7 +30218,7 @@ packages:
       - '@types/react'
     dev: false
 
-  /react-tracked@1.7.11(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0):
+  /react-tracked@1.7.11(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0):
     resolution: {integrity: sha512-+XXv4dJH7NnLtSD/cPVL9omra4A3KRK91L33owevXZ81r7qF/a9DdCsVZa90jMGht/V1Ym9sasbmidsJykhULQ==}
     peerDependencies:
       react: '>=16.8.0'
@@ -30158,8 +30234,9 @@ packages:
       proxy-compare: 2.4.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+      react-native: 0.73.4(@babel/core@7.23.5)(@babel/preset-env@7.23.8)(react@18.2.0)
       scheduler: 0.23.0
-      use-context-selector: 1.4.1(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0)
+      use-context-selector: 1.4.1(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0)
     dev: false
 
   /react@18.2.0:
@@ -33346,7 +33423,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /use-context-selector@1.4.1(react-dom@18.2.0)(react@18.2.0)(scheduler@0.23.0):
+  /use-context-selector@1.4.1(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(scheduler@0.23.0):
     resolution: {integrity: sha512-Io2ArvcRO+6MWIhkdfMFt+WKQX+Vb++W8DS2l03z/Vw/rz3BclKpM0ynr4LYGyU85Eke+Yx5oIhTY++QR0ZDoA==}
     peerDependencies:
       react: '>=16.8.0'
@@ -33361,6 +33438,7 @@ packages:
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+      react-native: 0.73.4(@babel/core@7.23.5)(@babel/preset-env@7.23.8)(react@18.2.0)
       scheduler: 0.23.0
     dev: false
 
@@ -33797,6 +33875,50 @@ packages:
       typescript: 5.3.3
       use-sync-external-store: 1.2.0(react@18.2.0)
       viem: 2.7.10(typescript@5.3.3)(zod@3.22.4)
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@tanstack/query-core'
+      - '@types/react'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - bufferutil
+      - encoding
+      - immer
+      - react-dom
+      - react-native
+      - rollup
+      - supports-color
+      - utf-8-validate
+      - zod
+    dev: false
+
+  /wagmi@2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.42)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10):
+    resolution: {integrity: sha512-xSuteMXFKvra4xDddqZbZv/gQlcg3X+To5AoZW7WoAm0iVlF8/vEGpQzCWy6KZs2z1szxPrr0YnH3Zr1Qj4E/A==}
+    peerDependencies:
+      '@tanstack/react-query': '>=5.0.0'
+      react: '>=18'
+      typescript: '>=5.0.4'
+      viem: 2.x
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)
+      '@wagmi/connectors': 4.1.14(@types/react@18.2.42)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)
+      '@wagmi/core': 2.6.5(@types/react@18.2.42)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)
+      react: 18.2.0
+      typescript: 5.3.3
+      use-sync-external-store: 1.2.0(react@18.2.0)
+      viem: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
