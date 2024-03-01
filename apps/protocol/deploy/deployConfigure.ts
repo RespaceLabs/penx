@@ -4,10 +4,6 @@ import { getRoles } from '../config/getRoles'
 import { DeployFunction } from 'hardhat-deploy/types'
 
 const func: DeployFunction = async (hre) => {
-  if (hre.network.name != 'localhost' && hre.network.name != 'hardhat') {
-    return
-  }
-
   const rolesConfig = await getRoles(hre)
 
   const diamond = await ethers.getContract('Diamond')

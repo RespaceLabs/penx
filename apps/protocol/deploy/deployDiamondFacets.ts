@@ -15,9 +15,6 @@ const facetDependencies = [
 ]
 
 const func = async (hre: HardhatRuntimeEnvironment) => {
-  if (hre.network.name != 'localhost' && hre.network.name != 'hardhat') {
-    return
-  }
   const diamond = await ethers.getContract('Diamond')
   const diamondAddr = await diamond.getAddress()
   console.log('diamondAddr', diamondAddr)
