@@ -45,7 +45,6 @@ const func: DeployFunction = async (hre) => {
 
   // mint token to daoVault
   const daoVaultAddress = await daoVault.getAddress()
-  console.log('==========daoVaultAddress:', daoVaultAddress)
 
   await usdt.mint(daoVaultAddress, precision.token(1_000_000, 6))
   await dai.mint(daoVaultAddress, precision.token(1_000_000, 18))
