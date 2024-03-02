@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+import "hardhat/console.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "../storage/UuidCreator.sol";
 
@@ -9,10 +10,10 @@ library Bounty {
 
   bytes32 public constant BOUNTY_ID_KEY = keccak256("BOUNTY_ID_KEY");
 
-  using EnumerableSet for EnumerableSet.AddressSet;
   using EnumerableSet for EnumerableSet.UintSet;
 
   struct Store {
+    EnumerableSet.UintSet requestIds;
     mapping(uint256 => Request) requests;
   }
 
@@ -36,6 +37,8 @@ library Bounty {
     self.requests[requestId].bountyId = bountyId;
     self.requests[requestId].recipient = recipient;
 
+    self.requestIds.add(requestId);
+
     return requestId;
   }
 
@@ -44,8 +47,15 @@ library Bounty {
     return self.requests[requestId];
   }
 
+  function getIds() external view returns (uint256[] memory) {
+    Store storage self = load();
+    return self.requestIds.values();
+  }
+
   function remove(uint256 requestId) external {
     Store storage self = load();
+
+    self.requestIds.remove(requestId);
     delete self.requests[requestId];
   }
 }

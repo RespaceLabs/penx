@@ -13,7 +13,7 @@ describe('BountyFacet', function () {
     f = await deployFixture()
   })
 
-  it('Claim bounty successfully', async () => {
+  it.only('Claim bounty successfully', async () => {
     const bountyId = '1-2-3'
 
     const usdtAmount = precision.token(100, 6)
@@ -28,6 +28,10 @@ describe('BountyFacet', function () {
 
     await f.bountyFacet.connect(f.user2).createClaimBountyRequest(bountyId)
 
+    let ids = await f.bountyFacet.getRequestIds()
+
+    expect(ids.length).to.be.equal(1)
+
     const inkOfDaoVaultPrev = await f.ink.balanceOf(f.daoVaultAddress)
     const inkOfUser2Prev = await f.ink.balanceOf(f.user2)
     const usdtOfUser2Prev = await f.usdt.balanceOf(f.user2)
@@ -41,6 +45,9 @@ describe('BountyFacet', function () {
     expect(inkOfDaoVaultPrev).to.be.equal(inkOfDaoVaultNext + inkAmount)
     expect(inkOfUser2Prev).to.be.equal(inkOfUser2Next - inkAmount)
     expect(usdtOfUser2Prev).to.be.equal(usdtOfUser2Next - usdtAmount)
+
+    ids = await f.bountyFacet.getRequestIds()
+    expect(ids.length).to.be.equal(0)
   })
 
   it('Claim bounty failed because of no permission', async () => {

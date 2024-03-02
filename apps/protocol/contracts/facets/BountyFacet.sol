@@ -56,6 +56,10 @@ contract BountyFacet {
     emit ClaimBountyFilledEvent(requestId, claimRequest);
   }
 
+  function getRequestIds() external view returns (uint256[] memory) {
+    return Bounty.getIds();
+  }
+
   function getLastUuid() external view returns (uint256) {
     return UuidCreator.getId(Bounty.BOUNTY_ID_KEY);
   }
