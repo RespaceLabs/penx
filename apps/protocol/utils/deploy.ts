@@ -9,7 +9,7 @@ import {
 } from 'hardhat-deploy/types'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 
-type LibraryName = 'PermissionFlag' | 'LibDiamond' | 'TransferUtils' | 'RoleAccessControl'
+type LibraryName = 'PermissionFlag' | 'LibDiamond' | 'UuidCreator' | 'RoleAccessControl' | 'Bounty'
 
 type ContractName =
   | LibraryName

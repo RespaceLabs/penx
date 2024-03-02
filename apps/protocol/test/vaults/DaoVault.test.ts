@@ -79,11 +79,11 @@ describe('DaoVault', function () {
   })
 
   it('TransferERC20Token no permission', async () => {
-    const { deployer, user0, user1 } = f.accounts
-    await f.ink.connect(deployer).transfer(f.daoVault, precision.token(100))
+    const { deployer, user0 } = f.accounts
+    await f.ink.connect(deployer).transfer(f.daoVault, precision.token(100, 18))
 
     await expect(
-      f.daoVault.connect(f.user0).transferERC20Token(f.inkAddress, user0, precision.token(20)),
+      f.daoVault.connect(f.user3).transferERC20Token(f.inkAddress, user0, precision.token(20, 18)),
     ).to.be.revertedWithCustomError(f.daoVault, 'AccessControlUnauthorizedAccount')
   })
 })

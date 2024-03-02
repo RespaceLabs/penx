@@ -1,7 +1,8 @@
 import { DeployFunctionOptions, createDeployFunction } from '../../utils/deploy'
 
 export const options: DeployFunctionOptions = {
-  contractName: 'TransferUtils',
+  contractName: 'Bounty',
+  libraryNames: ['UuidCreator'],
 }
 
 export default createDeployFunction(options)

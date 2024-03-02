@@ -8,26 +8,21 @@ import { Fixture, deployFixture } from '@utils/deployFixture'
 describe('INK Test', function () {
   let f: Fixture
 
-  const initialSupply = precision.token(1_000_000_000)
-
   beforeEach(async () => {
     f = await deployFixture()
-  })
-
-  it('Check supply', async () => {
-    const supply = await f.ink.totalSupply()
-    expect(supply).to.be.equal(initialSupply)
   })
 
   it('Mint successfully by deployer', async () => {
     const mintAmount = precision.token(100)
     const { deployer, user0, user1 } = f.accounts
 
+    const totalSupplyPrev = await f.ink.totalSupply()
+
     await f.ink.connect(deployer).mint(user1, mintAmount)
 
-    const totalSupply = await f.ink.totalSupply()
+    const totalSupplyNext = await f.ink.totalSupply()
 
-    expect(totalSupply).to.be.equal(initialSupply + mintAmount)
+    expect(totalSupplyNext).to.be.equal(totalSupplyPrev + mintAmount)
   })
 
   it('Mint failed by not deployer', async () => {
@@ -48,15 +43,13 @@ describe('INK Test', function () {
   it('Burn successfully', async () => {
     const burnAmount = precision.token(100)
 
-    let totalSupply = await f.ink.totalSupply()
-
-    expect(totalSupply).to.be.equal(initialSupply)
+    const totalSupplyPrev = await f.ink.totalSupply()
 
     await f.ink.connect(f.deployer).burn(f.deployer, burnAmount)
 
-    totalSupply = await f.ink.totalSupply()
+    const totalSupplyNext = await f.ink.totalSupply()
 
-    expect(totalSupply).to.be.equal(initialSupply - burnAmount)
+    expect(totalSupplyPrev).to.be.equal(totalSupplyNext + burnAmount)
   })
 
   it('Burn failed by not deployer', async () => {

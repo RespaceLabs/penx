@@ -32,7 +32,7 @@ contract DaoVault is AccessControl {
     recipient.transfer(amount);
   }
 
-  function transferERC20Token(address token, address receiver, uint256 amount) external onlyRole(KEEPER_ROLE) {
-    require(IERC20(token).transfer(receiver, amount), "transfer failed");
+  function transferERC20Token(address token, address recipient, uint256 amount) external onlyRole(KEEPER_ROLE) {
+    require(IERC20(token).transfer(recipient, amount), "transfer failed");
   }
 }
