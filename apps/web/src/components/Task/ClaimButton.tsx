@@ -25,7 +25,7 @@ export function ClaimButton({ taskId }: ClaimButtonProps) {
           await writeContractAsync({
             address: addressMap.Diamond,
             abi: bountyFacetAbi,
-            functionName: 'createClaimReward',
+            functionName: 'createClaimBountyRequest',
             args: [taskId],
           })
         } catch (error) {
