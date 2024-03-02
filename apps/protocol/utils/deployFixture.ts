@@ -41,13 +41,13 @@ export async function deployFixture() {
   ])
 
   const diamond = await ethers.getContract<Diamond>('Diamond')
-  const diamondAddr = await diamond.getAddress()
+  const diamondAddress = await diamond.getAddress()
 
   const [inkAddress, daoVaultAddress, bountyFacet, roleAccessControlFacet] = await Promise.all([
     ink.getAddress(),
     daoVault.getAddress(),
-    ethers.getContractAt('BountyFacet', diamondAddr) as unknown as Promise<BountyFacet>,
-    ethers.getContractAt('RoleAccessControlFacet', diamondAddr) as unknown as Promise<RoleAccessControlFacet>,
+    ethers.getContractAt('BountyFacet', diamondAddress) as unknown as Promise<BountyFacet>,
+    ethers.getContractAt('RoleAccessControlFacet', diamondAddress) as unknown as Promise<RoleAccessControlFacet>,
   ])
 
   // mint token to daoVault
@@ -85,7 +85,7 @@ export async function deployFixture() {
 
   return {
     getContract: async (name: string) => {
-      return await ethers.getContractAt(name, diamondAddr)
+      return await ethers.getContractAt(name, diamondAddress)
     },
 
     accounts,
@@ -104,5 +104,6 @@ export async function deployFixture() {
     // address
     inkAddress,
     daoVaultAddress,
+    diamondAddress,
   }
 }

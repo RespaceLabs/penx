@@ -1,8 +1,6 @@
 import { expect, assert } from 'chai'
 import { precision } from '@utils/precision'
 import { HardhatEthersSigner } from '@nomicfoundation/hardhat-ethers/signers'
-import { ethers } from 'hardhat'
-import { Contract } from 'ethers'
 import { Fixture, deployFixture } from '@utils/deployFixture'
 
 describe('DaoVault', function () {
@@ -12,34 +10,80 @@ describe('DaoVault', function () {
     f = await deployFixture()
   })
 
-  it('TransferToken', async () => {
-    const { deployer, user0, user1 } = f.accounts
-    await f.ink.connect(deployer).transfer(f.daoVault, precision.token(100))
+  it('TransferETH successfully', async () => {
+    const { deployer } = f.accounts
 
-    let balanceOfDaoVault = await f.ink.balanceOf(f.daoVaultAddress)
-    console.log('===========balanceOfDaoVault:', precision.toTokenDecimal(balanceOfDaoVault))
+    let ethBalance = await f.daoVault.getBalance()
 
-    let balanceOfUser0 = await f.ink.balanceOf(user0)
-    console.log('===========balanceOfUser0:', precision.toTokenDecimal(balanceOfUser0))
+    expect(ethBalance).to.equal(BigInt(0))
 
-    // const roles = await f.roleAccessControlFacet.hasRole(deployer, ethers.encodeBytes32String('KEEPER'))
-    // console.log('========role from faucet:', roles, 'deployer:', await deployer.getAddress())
+    await deployer.sendTransaction({
+      to: f.daoVaultAddress,
+      value: precision.token(1, 18),
+    })
 
-    await f.daoVault.connect(deployer).transferOut(f.inkAddress, user0, precision.token(20))
+    ethBalance = await f.daoVault.getBalance()
 
-    balanceOfDaoVault = await f.ink.balanceOf(f.daoVaultAddress)
-    console.log('===========balanceOfDaoVault:', precision.toTokenDecimal(balanceOfDaoVault))
+    expect(ethBalance).to.equal(precision.token(1, 18))
 
-    balanceOfUser0 = await f.ink.balanceOf(user0)
-    console.log('===========balanceOfUser0:', precision.toTokenDecimal(balanceOfUser0))
+    await f.daoVault.connect(f.deployer).transferETH(f.user1, precision.token(6, 17))
+
+    ethBalance = await f.daoVault.getBalance()
+
+    expect(ethBalance).to.equal(precision.token(4, 17))
   })
 
-  it('TransferToken no permission', async () => {
+  it('TransferETH no permission', async () => {
+    const { deployer } = f.accounts
+
+    await deployer.sendTransaction({
+      to: f.daoVaultAddress,
+      value: precision.token(1, 18),
+    })
+
+    const ethBalance = await f.daoVault.getBalance()
+
+    expect(ethBalance).to.equal(precision.token(1, 18))
+
+    await expect(f.daoVault.connect(f.keeper).transferETH(f.user1, precision.token(1))).to.be.revertedWithCustomError(
+      f.daoVault,
+      'AccessControlUnauthorizedAccount',
+    )
+
+    await expect(f.daoVault.connect(f.user0).transferETH(f.user1, precision.token(1))).to.be.revertedWithCustomError(
+      f.daoVault,
+      'AccessControlUnauthorizedAccount',
+    )
+
+    await expect(
+      f.daoVault.connect(f.deployer).transferETH(f.user1, precision.token(1)),
+    ).to.be.not.revertedWithCustomError(f.daoVault, 'AccessControlUnauthorizedAccount')
+  })
+
+  it('TransferERC20Token successfully', async () => {
+    const { deployer, user3 } = f.accounts
+
+    let inkOfDaoVault = await f.ink.balanceOf(f.daoVaultAddress)
+    let inkOfUser3 = await f.ink.balanceOf(user3)
+
+    expect(inkOfUser3).to.equal(BigInt(0))
+
+    await f.daoVault.connect(f.keeper).transferERC20Token(f.inkAddress, user3, precision.token(100, 18))
+
+    inkOfUser3 = await f.ink.balanceOf(user3)
+
+    const inkOfDaoVaultNow = await f.ink.balanceOf(f.daoVaultAddress)
+
+    expect(inkOfUser3).to.equal(precision.token(100, 18))
+    expect(inkOfDaoVaultNow).to.equal(inkOfDaoVault - precision.token(100, 18))
+  })
+
+  it('TransferERC20Token no permission', async () => {
     const { deployer, user0, user1 } = f.accounts
     await f.ink.connect(deployer).transfer(f.daoVault, precision.token(100))
 
     await expect(
-      f.daoVault.connect(user0).transferOut(f.inkAddress, user0, precision.token(20)),
-    ).to.be.revertedWithCustomError(f.daoVault, 'OwnableUnauthorizedAccount')
+      f.daoVault.connect(f.user0).transferERC20Token(f.inkAddress, user0, precision.token(20)),
+    ).to.be.revertedWithCustomError(f.daoVault, 'AccessControlUnauthorizedAccount')
   })
 })

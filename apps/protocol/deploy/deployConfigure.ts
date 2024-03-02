@@ -5,7 +5,7 @@ import { DeployFunction } from 'hardhat-deploy/types'
 
 const func: DeployFunction = async (hre) => {
   const rolesConfig = await getRoles(hre)
-
+  const { deployer, keeper } = await hre.getNamedAccounts()
   const diamond = await ethers.getContract('Diamond')
   const diamondAddr = await diamond.getAddress()
 
@@ -33,6 +33,8 @@ const func: DeployFunction = async (hre) => {
 
   /** Config DaoVault role */
   await daoVault.grantRole(ethers.encodeBytes32String('KEEPER_ROLE'), diamondAddr)
+  await daoVault.grantRole(ethers.encodeBytes32String('KEEPER_ROLE'), deployer)
+  await daoVault.grantRole(ethers.encodeBytes32String('KEEPER_ROLE'), keeper)
 }
 
 func.id = 'Configure'

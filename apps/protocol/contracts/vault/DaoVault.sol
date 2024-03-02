@@ -17,6 +17,7 @@ contract DaoVault is AccessControl {
 
   constructor() {
     _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+    _grantRole(ADMIN_ROLE, msg.sender);
   }
 
   receive() external payable {}

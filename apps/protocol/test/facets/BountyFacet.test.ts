@@ -13,7 +13,7 @@ describe('BountyFacet', function () {
     f = await deployFixture()
   })
 
-  it.only('Claim bounty successfully', async () => {
+  it('Claim bounty successfully', async () => {
     const bountyId = '1-2-3'
     const usdtAmount = precision.token(100, 6)
     const inkAmount = precision.token(50, 18)
