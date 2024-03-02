@@ -20,7 +20,7 @@ const MyUSDT = () => {
     <Box toCenterY>
       <Box>My: </Box>
       <Box>
-        {!!data && precision.toTokenDecimal(data)}
+        {!!data && precision.toTokenDecimal(data, 6)}
         USDT
       </Box>
     </Box>

@@ -20,7 +20,7 @@ const MintInk = () => {
             await writeContractAsync({
               address: addressMap.INK,
               abi: erc20Abi,
-              functionName: 'increaseAllowance',
+              functionName: 'approve',
               args: [address!, amount],
             })
 

@@ -17,6 +17,8 @@ createWeb3Modal({
   enableAnalytics: true, // Optional - defaults to your Cloud configuration
 })
 
+console.log('=========wagmiConfig:', wagmiConfig)
+
 export function WalletConnectProvider({
   children,
   initialState,

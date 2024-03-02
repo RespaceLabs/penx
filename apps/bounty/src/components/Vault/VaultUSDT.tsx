@@ -19,7 +19,7 @@ const VaultUSDT = () => {
     <Box toCenterY>
       <Box>Vault: </Box>
       <Box>
-        {!!data && precision.toTokenDecimal(data)}
+        {!!data && precision.toTokenDecimal(data, 6)}
         USDT
       </Box>
     </Box>

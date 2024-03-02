@@ -8,14 +8,14 @@ interface Props extends FowerHTMLProps<'div'> {}
 
 export const UsdtBalance = (props: Props) => {
   const { address } = useAccount()
-  const { data, isLoading } = useReadContract({
+  const { data, isLoading, isError } = useReadContract({
     address: addressMap.USDT,
     abi: erc20Abi,
     functionName: 'balanceOf',
     args: [address!],
   })
 
-  console.log('data', data)
+  // console.log('====data', data, 'isError:', isError, 'isLoading:', isLoading)
 
   return (
     <Box textXL toCenterY gap2>

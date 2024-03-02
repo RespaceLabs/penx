@@ -16,12 +16,12 @@ const MintUSDT = () => {
     <Box>
       <Button
         onClick={async () => {
-          const amount = precision.token(10_000)
+          const amount = precision.token(10_000, 6)
 
           await writeContractAsync({
             address: tokenAddress,
             abi: erc20Abi,
-            functionName: 'increaseAllowance',
+            functionName: 'approve',
             args: [address!, amount],
           })
 

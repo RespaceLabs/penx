@@ -30,13 +30,18 @@ export const DepositFromVault = () => {
   const { writeContractAsync } = useWriteContract()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log('=======data.token:', data.token)
+
     try {
       await writeContractAsync({
         address: addressMap.DaoVault,
         abi: daoVaultAbi,
-        // functionName: 'transferToken',
-        functionName: 'transferOut',
-        args: [data.token, address!, precision.token(data.amount)],
+        functionName: 'transferERC20Token',
+        args: [
+          data.token,
+          address!,
+          precision.token(data.amount, data.token === addressMap.INK ? 18 : 6),
+        ],
       })
       console.log('===========data:', data)
     } catch (error) {

@@ -53,8 +53,12 @@ const Task = () => {
       <Box toBetween toCenterY absolute top0 w-100p px4 py2>
         <BountyLogo />
         <Box toCenterY gap4>
-          <UsdtBalance />
-          <InkBalance />
+          {isConnected && (
+            <>
+              <UsdtBalance />
+              <InkBalance />
+            </>
+          )}
           <WalletProfile />
         </Box>
       </Box>

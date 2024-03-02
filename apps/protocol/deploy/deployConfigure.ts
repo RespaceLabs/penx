@@ -1,7 +1,8 @@
 import { ethers } from 'hardhat'
-import { DaoVault, RoleAccessControlFacet } from '../types'
+import { DaoVault, INK, MockToken, RoleAccessControlFacet } from '../types'
 import { getRoles } from '../config/getRoles'
 import { DeployFunction } from 'hardhat-deploy/types'
+import { precision } from '@utils/precision'
 
 const func: DeployFunction = async (hre) => {
   const rolesConfig = await getRoles(hre)
@@ -14,7 +15,13 @@ const func: DeployFunction = async (hre) => {
     diamondAddr,
   )) as unknown as RoleAccessControlFacet
 
-  const daoVault = (await ethers.getContract('DaoVault')) as unknown as DaoVault
+  const [usdt, usdc, dai, ink, daoVault] = await Promise.all([
+    ethers.getContract<MockToken>('USDT'),
+    ethers.getContract<MockToken>('USDC'),
+    ethers.getContract<MockToken>('DAI'),
+    ethers.getContract<INK>('INK'),
+    ethers.getContract('DaoVault') as Promise<DaoVault>,
+  ])
 
   /** Config diamond roles */
   for (const { account, roles } of rolesConfig) {
@@ -35,6 +42,15 @@ const func: DeployFunction = async (hre) => {
   await daoVault.grantRole(ethers.encodeBytes32String('KEEPER_ROLE'), diamondAddr)
   await daoVault.grantRole(ethers.encodeBytes32String('KEEPER_ROLE'), deployer)
   await daoVault.grantRole(ethers.encodeBytes32String('KEEPER_ROLE'), keeper)
+
+  // mint token to daoVault
+  const daoVaultAddress = await daoVault.getAddress()
+  console.log('==========daoVaultAddress:', daoVaultAddress)
+
+  // await usdt.mint(daoVaultAddress, precision.token(1_000_000, 6))
+  // await dai.mint(daoVaultAddress, precision.token(1_000_000, 18))
+  // await usdc.mint(daoVaultAddress, precision.token(1_000_000, 6))
+  // await ink.mint(daoVaultAddress, precision.token(1_000_000, 18))
 }
 
 func.id = 'Configure'

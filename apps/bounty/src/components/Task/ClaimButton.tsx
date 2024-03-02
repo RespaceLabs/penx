@@ -43,7 +43,7 @@ export function ClaimButton({ bountyId, address, status }: ClaimButtonProps) {
           await writeContractAsync({
             address: addressMap.Diamond,
             abi: bountyFacetAbi,
-            functionName: 'createClaimReward',
+            functionName: 'createClaimBountyRequest',
             args: [bountyId],
           })
         } catch (error) {
