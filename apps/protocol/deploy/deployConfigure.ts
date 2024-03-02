@@ -1,12 +1,10 @@
 import { ethers } from 'hardhat'
-import { RoleAccessControlFacet } from '../types'
+import { DaoVault, RoleAccessControlFacet } from '../types'
 import { getRoles } from '../config/getRoles'
 import { DeployFunction } from 'hardhat-deploy/types'
 
 const func: DeployFunction = async (hre) => {
   const rolesConfig = await getRoles(hre)
-
-  // console.log('========rolesConfig:', rolesConfig)
 
   const diamond = await ethers.getContract('Diamond')
   const diamondAddr = await diamond.getAddress()
@@ -16,6 +14,9 @@ const func: DeployFunction = async (hre) => {
     diamondAddr,
   )) as unknown as RoleAccessControlFacet
 
+  const daoVault = (await ethers.getContract('DaoVault')) as unknown as DaoVault
+
+  /** Config diamond roles */
   for (const { account, roles } of rolesConfig) {
     for (const role of roles) {
       const isHasRole = await roleAccessControlFacet.hasRole(account, ethers.encodeBytes32String(role))
@@ -29,6 +30,9 @@ const func: DeployFunction = async (hre) => {
   }
 
   console.log('config role end!!!!')
+
+  /** Config DaoVault role */
+  await daoVault.grantRole(ethers.encodeBytes32String('KEEPER_ROLE'), diamondAddr)
 }
 
 func.id = 'Configure'

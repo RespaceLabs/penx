@@ -5,15 +5,19 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import "../utils/TransferUtils.sol";
 import "../utils/RoleKeys.sol";
 import "../utils/Errors.sol";
 import "../storage/RoleAccessControl.sol";
 
-contract DaoVault is Ownable {
+contract DaoVault is AccessControl {
   using SafeERC20 for IERC20;
 
-  constructor(address initialOwner) Ownable(initialOwner) {}
+  bytes32 public constant ADMIN_ROLE = "ADMIN_ROLE";
+  bytes32 public constant KEEPER_ROLE = "KEEPER_ROLE";
+
+  constructor() {
+    _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+  }
 
   receive() external payable {}
 
@@ -23,35 +27,11 @@ contract DaoVault is Ownable {
     return address(this).balance;
   }
 
-  function transferETH(address payable recipient, uint amount) external {
+  function transferETH(address payable recipient, uint amount) external onlyRole(ADMIN_ROLE) {
     recipient.transfer(amount);
-    // (bool success, ) = recipient.call{ value: amount }(new bytes(0));
-    // require(success, "SET");
   }
 
-  mapping(address => uint256) public tokenBalances;
-
-  function transferToken(address token, address receiver, uint256 amount) external {
-    // console.log("token==========:", token, "receiver:", receiver);
+  function transferERC20Token(address token, address receiver, uint256 amount) external onlyRole(KEEPER_ROLE) {
     require(IERC20(token).transfer(receiver, amount), "transfer failed");
-  }
-
-  function transferOut(address token, address receiver, uint256 amount) external onlyOwner {
-    if (receiver == address(this)) {
-      revert Errors.AddressSelfNotSupported(receiver);
-    }
-
-    // console.log("transfer=========msg.sender:", msg.sender);
-    // require(msg.sender == owner, "Only owner can transfer");
-
-    TransferUtils.transfer(token, receiver, amount);
-    tokenBalances[token] = IERC20(token).balanceOf(address(this));
-  }
-
-  function getTransferInAmount(address token) external returns (uint256) {
-    uint256 prevBalance = tokenBalances[token];
-    uint256 nextBalance = IERC20(token).balanceOf(address(this));
-    tokenBalances[token] = nextBalance;
-    return nextBalance - prevBalance;
   }
 }

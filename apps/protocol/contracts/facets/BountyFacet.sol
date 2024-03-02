@@ -46,7 +46,7 @@ contract BountyFacet {
       //   ink.balanceOf(IVault(address(this)).getDaoVaultAddress())
       // );
 
-      IVault(address(this)).getDaoVault().transferToken(reward.token, to, reward.amount);
+      IVault(address(this)).getDaoVault().transferERC20Token(reward.token, to, reward.amount);
     }
 
     emit ClaimRewardFilled(bountyId);
