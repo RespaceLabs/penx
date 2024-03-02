@@ -20,12 +20,12 @@ const Vault = () => {
       {isConnected && (
         <Box column gap4>
           <VaultInk></VaultInk>
-          {/* <VaultUSDT></VaultUSDT>
+          <VaultUSDT></VaultUSDT>
           <MyInk></MyInk>
           <MyUSDT></MyUSDT>
           <MintInk />
           <MintUSDT></MintUSDT>
-          <DepositFromVault /> */}
+          <DepositFromVault />
         </Box>
       )}
     </Box>

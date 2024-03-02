@@ -34,7 +34,7 @@ export function MyPoint() {
     <Box column gap2>
       <Box gray500>My Points</Box>
       <Box text3XL fontBold>
-        {precision.toTokenDecimal(data)} PXP
+        {precision.toDecimal(data)} PXP
       </Box>
     </Box>
   )

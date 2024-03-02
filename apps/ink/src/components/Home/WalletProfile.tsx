@@ -44,7 +44,7 @@ export const WalletProfile = (props: Props) => {
             {address!.slice(0, 6)}...{address!.slice(-4)}
           </Box>
 
-          <Box>( {!!data && precision.toTokenDecimal(data)} INK )</Box>
+          <Box>( {!!data && precision.toDecimal(data)} INK )</Box>
         </Button>
       </PopoverTrigger>
       <PopoverContent w-280 p4 column toCenter gap4>

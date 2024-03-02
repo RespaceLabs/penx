@@ -21,7 +21,7 @@ export const UsdtBalance = (props: Props) => {
     <Box textXL toCenterY gap2>
       <Box as="img" src="/images/USDT.svg" square6 />
       {isLoading && <Box>Loading...</Box>}
-      {!isLoading && <Box>{precision.toTokenDecimal(data!)}</Box>}
+      {!isLoading && <Box>{precision.toDecimal(data!, 6)}</Box>}
       <Box>USDT</Box>
     </Box>
   )

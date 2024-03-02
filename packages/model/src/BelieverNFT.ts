@@ -24,15 +24,15 @@ export class BelieverNFT {
   }
 
   get currentPriceDecimal() {
-    return precision.toTokenDecimal(this.raw.currentPrice)
+    return precision.toDecimal(this.raw.currentPrice)
   }
 
   get minPriceDecimal() {
-    return precision.toTokenDecimal(this.raw.minPrice)
+    return precision.toDecimal(this.raw.minPrice)
   }
 
   get maxPriceDecimal() {
-    return precision.toTokenDecimal(this.raw.maxPrice)
+    return precision.toDecimal(this.raw.maxPrice)
   }
 
   get percentFormatted() {

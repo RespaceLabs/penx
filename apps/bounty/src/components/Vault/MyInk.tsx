@@ -22,7 +22,7 @@ const MyInk = () => {
     <Box toCenterY>
       <Box>My: </Box>
       <Box>
-        {!!data && precision.toTokenDecimal(data)}
+        {!!data && precision.toDecimal(data)}
         INK
       </Box>
     </Box>

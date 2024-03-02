@@ -34,13 +34,9 @@ export const precision = {
     return BigInt(parseInt(times(Math.pow(10, decimal), value) as any, 10))
   },
 
-  toDecimal(value: bigint, decimals: number) {
+  toDecimal(value: bigint, decimals: number = Decimals.TOKEN) {
     if (!value) return 0
     return div(value.toString(), Math.pow(10, decimals))
-  },
-
-  toTokenDecimal(value: bigint) {
-    return div(value.toString(), Math.pow(10, Decimals.TOKEN))
   },
 
   toRateDecimal(value: bigint) {

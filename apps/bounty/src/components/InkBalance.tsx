@@ -22,7 +22,7 @@ export const InkBalance = (props: Props) => {
         <Gem size={20}></Gem>
       </Box>
       {isLoading && <Box>Loading...</Box>}
-      {!isLoading && <Box>{precision.toTokenDecimal(data!)}</Box>}
+      {!isLoading && <Box>{precision.toDecimal(data!)}</Box>}
       <Box>INK</Box>
     </Box>
   )

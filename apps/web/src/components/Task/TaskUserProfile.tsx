@@ -87,7 +87,7 @@ function PointBalance() {
   return (
     <Box toCenterY gap2>
       <Box fontBold text2XL>
-        {precision.toTokenDecimal(data!)} PXP
+        {precision.toDecimal(data!)} PXP
       </Box>
 
       <Box textSM gray800 gray500>

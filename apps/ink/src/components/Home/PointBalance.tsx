@@ -16,7 +16,7 @@ export const PointBalance = () => {
   return (
     <Box text3XL toCenterY gap2>
       {isLoading && <Box>Loading...</Box>}
-      {!!data && <Box>{precision.toTokenDecimal(data)}</Box>}
+      {!!data && <Box>{precision.toDecimal(data)}</Box>}
       <Box>INK</Box>
     </Box>
   )

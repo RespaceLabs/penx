@@ -31,7 +31,7 @@ const VaultInk = () => {
     <Box toCenterY>
       <Box>Vault: </Box>
       <Box>
-        {!!data && precision.toTokenDecimal(data)}
+        {!!data && precision.toDecimal(data)}
         INK
       </Box>
     </Box>
