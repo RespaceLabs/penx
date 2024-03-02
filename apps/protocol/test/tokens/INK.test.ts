@@ -39,7 +39,7 @@ describe('INK Test', function () {
     )
   })
 
-  it.only('Mint failed when Exceeding max supply', async () => {
+  it('Mint failed when Exceeding max supply', async () => {
     const mintAmount = precision.token(10_000_000_000)
 
     await expect(f.ink.connect(f.deployer).mint(f.user1, mintAmount)).to.be.revertedWith('Exceeds max supply')

@@ -11,16 +11,16 @@ export const getRoles = async (hre: HardhatRuntimeEnvironment): Promise<RolesCon
 
   const [account0, account1, account2, account3, account4] = await hre.getUnnamedAccounts()
 
-  console.log(
-    '===========deployer:',
-    deployer,
-    'account1:',
-    account1,
-    'keeper:',
-    keeper,
-    'hre.network.name:',
-    hre.network.name,
-  )
+  // console.log(
+  //   '===========deployer:',
+  //   deployer,
+  //   'account1:',
+  //   account1,
+  //   'keeper:',
+  //   keeper,
+  //   'hre.network.name:',
+  //   hre.network.name,
+  // )
 
   const config: Record<string, RolesConfig> = {
     hardhat: [
@@ -29,14 +29,14 @@ export const getRoles = async (hre: HardhatRuntimeEnvironment): Promise<RolesCon
         roles: ['ADMIN', 'CONFIG', 'KEEPER'],
       },
       {
-        account: account0,
-        roles: ['CONFIG', 'KEEPER'],
+        account: keeper,
+        roles: ['KEEPER'],
       },
     ],
     sepolia: [
       {
         account: deployer,
-        roles: ['CONFIG', 'KEEPER'],
+        roles: ['ADMIN', 'CONFIG', 'KEEPER'],
       },
       {
         account: keeper,

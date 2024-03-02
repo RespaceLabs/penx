@@ -43,16 +43,18 @@ export async function deployFixture() {
   const diamond = await ethers.getContract<Diamond>('Diamond')
   const diamondAddr = await diamond.getAddress()
 
-  // await usdt.mint(user0.address, precision.token(1_000_000, 6))
-  // await usdc.mint(user0.address, precision.token(1_000_000, 6))
-  // await dai.mint(user0.address, precision.token(1_000_000))
-
   const [inkAddress, daoVaultAddress, bountyFacet, roleAccessControlFacet] = await Promise.all([
     ink.getAddress(),
     daoVault.getAddress(),
     ethers.getContractAt('BountyFacet', diamondAddr) as unknown as Promise<BountyFacet>,
     ethers.getContractAt('RoleAccessControlFacet', diamondAddr) as unknown as Promise<RoleAccessControlFacet>,
   ])
+
+  // mint token to daoVault
+  await usdt.mint(daoVaultAddress, precision.token(1_000_000, 6))
+  await dai.mint(daoVaultAddress, precision.token(1_000_000, 18))
+  await usdc.mint(daoVaultAddress, precision.token(1_000_000, 6))
+  await ink.mint(daoVaultAddress, precision.token(1_000_000, 18))
 
   const accounts = {
     deployer,

@@ -5,6 +5,7 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "../interfaces/IVault.sol";
 import "../tokens/INK.sol";
+import "../storage/RoleAccessControl.sol";
 
 contract BountyFacet {
   using SafeERC20 for IERC20;
@@ -28,21 +29,22 @@ contract BountyFacet {
   fallback() external payable {}
 
   function createClaimReward(string memory bountyId) external payable {
-    console.log("===========bountyId:", bountyId, msg.sender);
+    // console.log("===========bountyId:", bountyId, msg.sender);
     emit ClaimRewardCreated(bountyId, msg.sender);
   }
 
   function executeClaimReward(string memory bountyId, address payable to, RewardParam[] calldata rewards) external {
-    console.log("claim===========bountyId:", bountyId, to);
+    RoleAccessControl.checkRole(RoleAccessControl.ROLE_KEEPER);
+
     for (uint256 i; i < rewards.length; i++) {
       RewardParam memory reward = rewards[i];
 
-      console.log(
-        "===========reward:",
-        reward.token,
-        reward.amount,
-        ink.balanceOf(IVault(address(this)).getDaoVaultAddress())
-      );
+      // console.log(
+      //   "===========reward:",
+      //   reward.token,
+      //   reward.amount,
+      //   ink.balanceOf(IVault(address(this)).getDaoVaultAddress())
+      // );
 
       IVault(address(this)).getDaoVault().transferToken(reward.token, to, reward.amount);
     }

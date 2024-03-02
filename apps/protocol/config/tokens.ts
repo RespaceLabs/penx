@@ -1,7 +1,7 @@
 export const tokens = [
   {
     name: 'USDT',
-    decimals: 18,
+    decimals: 6,
   },
   {
     name: 'USDC',

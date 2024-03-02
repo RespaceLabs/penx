@@ -32,7 +32,7 @@ contract DaoVault is Ownable {
   mapping(address => uint256) public tokenBalances;
 
   function transferToken(address token, address receiver, uint256 amount) external {
-    console.log("token==========:", token, "receiver:", receiver);
+    // console.log("token==========:", token, "receiver:", receiver);
     require(IERC20(token).transfer(receiver, amount), "transfer failed");
   }
 

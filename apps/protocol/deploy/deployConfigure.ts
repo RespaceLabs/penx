@@ -6,6 +6,8 @@ import { DeployFunction } from 'hardhat-deploy/types'
 const func: DeployFunction = async (hre) => {
   const rolesConfig = await getRoles(hre)
 
+  // console.log('========rolesConfig:', rolesConfig)
+
   const diamond = await ethers.getContract('Diamond')
   const diamondAddr = await diamond.getAddress()
 
@@ -16,11 +18,11 @@ const func: DeployFunction = async (hre) => {
 
   for (const { account, roles } of rolesConfig) {
     for (const role of roles) {
-      if (await roleAccessControlFacet.hasRole(account, ethers.encodeBytes32String(role))) {
-        console.log('=======ignore with account role exists', role)
-      } else {
-        console.log('==========grantRole......')
+      const isHasRole = await roleAccessControlFacet.hasRole(account, ethers.encodeBytes32String(role))
 
+      // isHasRole && console.log('=======ignore with account role exists', role)
+      if (!isHasRole) {
+        // console.log('==========grantRole......')
         await roleAccessControlFacet.grantRole(account, ethers.encodeBytes32String(role))
       }
     }

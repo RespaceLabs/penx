@@ -16,4 +16,4 @@ types
 test/generated.ts
 abi
 
-# deployments
+deployments/localhost

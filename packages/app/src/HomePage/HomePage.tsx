@@ -97,9 +97,8 @@ export function HomePage() {
               },
             }}
           >
-            Web3
+            Geeks
           </Box>{' '}
-          users
         </Box>
 
         <Box textLG neutral500 maxW-640 textCenter leadingNormal>
