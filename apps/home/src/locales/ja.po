@@ -1,0 +1,180 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-06-16 16:26+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ja\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/components/settings/SettingsForm.tsx:81
+#~ msgid "A brief summary of who you are. Accepts basic markdown."
+#~ msgstr ""
+
+#: src/layouts/BasicLayout/Nav.tsx:18
+#~ msgid "About"
+#~ msgstr ""
+
+#: src/components/home/SloganBox.tsx:21
+#~ msgid "An elegant way to write, edit, and collaborate on your markdown content for Static Site"
+#~ msgstr ""
+
+#: ../../packages/app/src/Workbench/DeleteNodeModal.tsx:46
+#: ../../packages/app/src/Workbench/DeleteSpaceModal.tsx:98
+msgid "Are you sure delete it permanently?"
+msgstr ""
+
+#: src/components/settings/SettingsForm.tsx:79
+#~ msgid "Bio"
+#~ msgstr ""
+
+#: src/components/space/git/GitHubSettingsForm.tsx:41
+#~ msgid "Branch"
+#~ msgstr ""
+
+#: src/components/trade/TradePanel/ui/DirectionSelect.tsx:33
+#~ msgid "Buy / Long"
+#~ msgstr ""
+
+#: ../../packages/app/src/Workbench/DeleteNodeModal.tsx:28
+#: ../../packages/app/src/Workbench/DeleteSpaceModal.tsx:57
+msgid "Cancel"
+msgstr ""
+
+#: src/layouts/BasicLayout/Nav.tsx:20
+#~ msgid "Community"
+#~ msgstr ""
+
+#: ../../packages/app/src/Workbench/Sidebar/WalletConnectButton.tsx:68
+msgid "Connect"
+msgstr ""
+
+#: ../../packages/app/src/Workbench/Sidebar/WalletConnectButton.tsx:64
+msgid "Connect Wallet"
+msgstr ""
+
+#: src/components/WalletConnectButton.tsx:33
+#~ msgid "Connecting..."
+#~ msgstr ""
+
+#: ../../packages/app/src/Workbench/DeleteNodeModal.tsx:32
+#: ../../packages/app/src/Workbench/DeleteSpaceModal.tsx:67
+msgid "Delete"
+msgstr ""
+
+#: src/components/WalletConnectButton.tsx:34
+#~ msgid "Disconnect"
+#~ msgstr ""
+
+#: src/layouts/BasicLayout/Nav.tsx:19
+#~ msgid "Docs"
+#~ msgstr ""
+
+#: src/components/space/git/GitHubSettingsForm.tsx:29
+#~ msgid "Docs dir"
+#~ msgstr ""
+
+#: src/components/overview/SpaceStats.tsx:24
+#~ msgid "Documents"
+#~ msgstr ""
+
+#: src/components/LocaleSwitcher.tsx:22
+msgid "English"
+msgstr ""
+
+#: src/components/LocaleSwitcher.tsx:25
+msgid "Français"
+msgstr ""
+
+#: src/pages/spaces/[spaceId]/git.tsx:10
+#~ msgid "GitHub integration"
+#~ msgstr ""
+
+#: src/layouts/BasicLayout/Nav.tsx:24
+#~ msgid "Issue"
+#~ msgstr ""
+
+#: src/components/LaunchAppButton.tsx:9
+#~ msgid "Launch App"
+#~ msgstr ""
+
+#: src/components/trade/TradePanel/ui/TradePanelForm.tsx:58
+#~ msgid "Limit Price"
+#~ msgstr ""
+
+#: src/components/trade/TradePanel/ui/TradePanelForm.tsx:104
+#~ msgid "Long"
+#~ msgstr ""
+
+#: src/components/settings/SettingsForm.tsx:60
+#: src/components/space/settings/SettingsForm.tsx:39
+#~ msgid "Name"
+#~ msgstr ""
+
+#: ../../packages/app/src/Workbench/DeleteNodeModal.tsx:50
+#: ../../packages/app/src/Workbench/DeleteSpaceModal.tsx:102
+msgid "Once deleted, You can't undo this action."
+msgstr ""
+
+#: src/components/trade/TradePanel/ui/TradePanelForm.tsx:67
+#~ msgid "Order Type"
+#~ msgstr ""
+
+#: src/components/home/SloganBox.tsx:14
+#~ msgid "Powered by"
+#~ msgstr ""
+
+#: src/components/trade/TradePanel/ui/DirectionSelect.tsx:34
+#~ msgid "Sell / Short"
+#~ msgstr ""
+
+#: src/components/space/settings/SettingsForm.tsx:40
+#~ msgid "Space display name."
+#~ msgstr ""
+
+#: src/layouts/BasicLayout/Nav.tsx:18
+#~ msgid "Stats"
+#~ msgstr ""
+
+#: src/components/space/settings/SettingsForm.tsx:53
+#: src/components/space/settings/SettingsForm.tsx:54
+#~ msgid "Subdomain"
+#~ msgstr ""
+
+#: src/components/trade/TradePanel/ui/TradePanelForm.tsx:134
+#~ msgid "Take Profit / Stop Loss"
+#~ msgstr ""
+
+#: src/components/space/git/GitHubSettingsForm.tsx:42
+#~ msgid "The branch will be synchronized."
+#~ msgstr ""
+
+#: src/components/space/git/GitHubSettingsForm.tsx:30
+#~ msgid "The directory where your docs will be synchronized"
+#~ msgstr ""
+
+#: src/components/trade/TradePanel/ui/TradePanelForm.tsx:90
+#~ msgid "Use"
+#~ msgstr ""
+
+#: src/components/home/SloganBox.tsx:41
+#~ msgid "Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration."
+#~ msgstr ""
+
+#: src/components/settings/SettingsForm.tsx:62
+#~ msgid "What do you want to be known as? This can be either you personally, or the name of a project you’re looking to create."
+#~ msgstr ""
+
+#: src/components/LocaleSwitcher.tsx:24
+msgid "한국어"
+msgstr ""
+
+#: src/components/LocaleSwitcher.tsx:23
+msgid "日本語"
+msgstr ""
