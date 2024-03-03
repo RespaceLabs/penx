@@ -994,33 +994,12 @@ importers:
 
   apps/home:
     dependencies:
-      '@dnd-kit/core':
-        specifier: ^6.1.0
-        version: 6.1.0(react-dom@18.2.0)(react@18.2.0)
-      '@dnd-kit/sortable':
-        specifier: ^7.0.2
-        version: 7.0.2(@dnd-kit/core@6.1.0)(react@18.2.0)
-      '@dnd-kit/utilities':
-        specifier: ^3.2.2
-        version: 3.2.2(react@18.2.0)
-      '@emoji-mart/data':
-        specifier: ^1.1.2
-        version: 1.1.2
-      '@emoji-mart/react':
-        specifier: ^1.1.1
-        version: 1.1.1(emoji-mart@5.5.2)(react@18.2.0)
-      '@floating-ui/react':
-        specifier: ^0.25.4
-        version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/atomic-props':
         specifier: ^2.0.0
         version: 2.0.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
-      '@glideapps/glide-data-grid':
-        specifier: ^6.0.3
-        version: 6.0.3(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
       '@hookform/resolvers':
         specifier: ^3.3.2
         version: 3.3.2(react-hook-form@7.48.2)
@@ -1045,69 +1024,18 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
-      '@penx/database':
-        specifier: workspace:*
-        version: link:../../extensions/database
       '@penx/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@penx/editor':
-        specifier: workspace:*
-        version: link:../../packages/editor
-      '@penx/editor-common':
-        specifier: workspace:*
-        version: link:../../packages/editor-common
-      '@penx/editor-queries':
-        specifier: workspace:*
-        version: link:../../packages/editor-queries
-      '@penx/editor-shared':
-        specifier: workspace:*
-        version: link:../../packages/editor-shared
-      '@penx/encryption':
-        specifier: workspace:*
-        version: link:../../packages/encryption
-      '@penx/hooks':
-        specifier: workspace:*
-        version: link:../../packages/hooks
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons
-      '@penx/indexeddb':
-        specifier: workspace:*
-        version: link:../../packages/indexeddb
-      '@penx/local-db':
-        specifier: workspace:*
-        version: link:../../packages/local-db
       '@penx/math':
         specifier: workspace:*
         version: link:../../packages/math
-      '@penx/model':
-        specifier: workspace:*
-        version: link:../../packages/model
-      '@penx/model-types':
-        specifier: workspace:*
-        version: link:../../packages/model-types
-      '@penx/serializer':
-        specifier: workspace:*
-        version: link:../../packages/serializer
-      '@penx/session':
-        specifier: workspace:*
-        version: link:../../packages/session
-      '@penx/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      '@penx/slate-lists':
-        specifier: workspace:*
-        version: link:../../packages/slate-lists
-      '@penx/store':
-        specifier: workspace:*
-        version: link:../../packages/store
       '@penx/trpc-client':
         specifier: workspace:^
         version: link:../../packages/trpc-client
-      '@penx/unique-id':
-        specifier: workspace:*
-        version: link:../../packages/unique-id
       '@penx/wagmi':
         specifier: workspace:*
         version: link:../../packages/wagmi
@@ -1120,18 +1048,6 @@ importers:
       '@prisma/nextjs-monorepo-workaround-plugin':
         specifier: ^5.6.0
         version: 5.6.0
-      '@radix-ui/react-hover-card':
-        specifier: ^1.0.7
-        version: 1.0.7(@types/react-dom@18.2.17)(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-slot':
-        specifier: ^1.0.2
-        version: 1.0.2(@types/react@18.2.48)(react@18.2.0)
-      '@react-pdf/renderer':
-        specifier: ^3.1.14
-        version: 3.1.14(react@18.2.0)
-      '@supabase/supabase-js':
-        specifier: ^2.39.0
-        version: 2.39.0
       '@t3-oss/env-nextjs':
         specifier: ^0.3.1
         version: 0.3.1(typescript@5.3.3)(zod@3.22.4)
@@ -1177,9 +1093,6 @@ importers:
       cookies-next:
         specifier: ^2.1.2
         version: 2.1.2
-      crypto-js:
-        specifier: ^4.2.0
-        version: 4.2.0
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -1189,12 +1102,6 @@ importers:
       dexie-react-hooks:
         specifier: ^1.1.7
         version: 1.1.7(@types/react@18.2.48)(dexie@3.2.4)(react@18.2.0)
-      emoji-mart:
-        specifier: ^5.5.2
-        version: 5.5.2
-      emoji-picker-react:
-        specifier: ^4.5.16
-        version: 4.5.16(react@18.2.0)
       ethers:
         specifier: ^6.10.0
         version: 6.10.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
@@ -1228,15 +1135,6 @@ importers:
       lucide-react:
         specifier: ^0.321.0
         version: 0.321.0(react@18.2.0)
-      markdown-it:
-        specifier: ^13.0.2
-        version: 13.0.2
-      million:
-        specifier: ^2.6.4
-        version: 2.6.4
-      mime:
-        specifier: ^3.0.0
-        version: 3.0.0
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -1258,24 +1156,12 @@ importers:
       octokit:
         specifier: ^3.1.2
         version: 3.1.2
-      prismjs:
-        specifier: ^1.29.0
-        version: 1.29.0
-      rc-table:
-        specifier: ^7.36.0
-        version: 7.36.0(react-dom@18.2.0)(react@18.2.0)
-      re-resizable:
-        specifier: ^6.9.11
-        version: 6.9.11(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
       react-circular-progressbar:
         specifier: ^2.1.0
         version: 2.1.0(react@18.2.0)
-      react-datepicker:
-        specifier: ^4.24.0
-        version: 4.24.0(react-dom@18.2.0)(react@18.2.0)
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
@@ -1297,18 +1183,6 @@ importers:
       siwe:
         specifier: ^2.1.4
         version: 2.1.4(ethers@6.10.0)
-      slate:
-        specifier: 0.101.5
-        version: 0.101.5
-      slate-history:
-        specifier: 0.100.0
-        version: 0.100.0(slate@0.101.5)
-      slate-hyperscript:
-        specifier: 0.100.0
-        version: 0.100.0(slate@0.101.5)
-      slate-react:
-        specifier: 0.101.5
-        version: 0.101.5(react-dom@18.2.0)(react@18.2.0)(slate@0.101.5)
       sonner:
         specifier: ^0.6.2
         version: 0.6.2(react-dom@18.2.0)(react@18.2.0)
@@ -1346,9 +1220,6 @@ importers:
       '@svgr/webpack':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.3.3)
-      '@types/crypto-js':
-        specifier: ^4.2.1
-        version: 4.2.1
       '@types/is-hotkey':
         specifier: ^0.1.10
         version: 0.1.10
@@ -1358,12 +1229,6 @@ importers:
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
-      '@types/markdown-it':
-        specifier: ^13.0.7
-        version: 13.0.7
-      '@types/mime':
-        specifier: ^3.0.4
-        version: 3.0.4
       '@types/node':
         specifier: ^20.11.19
         version: 20.11.19

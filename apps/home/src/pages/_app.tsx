@@ -1,16 +1,14 @@
 import { Fragment, useEffect } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import { Session } from 'next-auth'
-import { SessionProvider, signIn, signOut } from 'next-auth/react'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import 'next-auth/react'
+import { fowerStore, Parser } from '@fower/react'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'uikit'
 import { isServer } from '@penx/constants'
 import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
-import '@penx/local-db'
-import { fowerStore, Parser } from '@fower/react'
 // import { SpeedInsights } from '@vercel/speed-insights/next'
 // import 'prismjs/themes/prism.css'
 // import 'prismjs/themes/prism.css'
@@ -53,18 +51,16 @@ function MyApp({ Component, pageProps }: Props<any>) {
 
       <ClientOnly>
         <WalletConnectProvider>
-          <SessionProvider session={pageProps.session} refetchInterval={0}>
-            <TrpcProvider>
-              {/* <SpeedInsights /> */}
-              <Layout>
-                <Component {...pageProps} />
-                <div id="portal" />
-              </Layout>
-              <ToastContainer position="bottom-right" />
+          <TrpcProvider>
+            {/* <SpeedInsights /> */}
+            <Layout>
+              <Component {...pageProps} />
+              <div id="portal" />
+            </Layout>
+            <ToastContainer position="bottom-right" />
 
-              {/* <Analytics /> */}
-            </TrpcProvider>
-          </SessionProvider>
+            {/* <Analytics /> */}
+          </TrpcProvider>
         </WalletConnectProvider>
       </ClientOnly>
     </>
