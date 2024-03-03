@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/', req.url))
   }
 
-  const shouldLogin = path.startsWith('/') || path.startsWith('/dashboard')
+  const shouldLogin = ['/', '/dashboard'].includes(path)
 
   if (shouldLogin && !session) {
     return NextResponse.redirect(new URL('/login', req.url))
