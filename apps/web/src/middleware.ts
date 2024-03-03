@@ -8,14 +8,11 @@ export async function middleware(req: NextRequest) {
 
   const session = await getToken({ req })
 
-  if (session && ['/', '/login'].includes(path)) {
-    return NextResponse.redirect(new URL('/editor', req.url))
+  if (session && ['/login'].includes(path)) {
+    return NextResponse.redirect(new URL('/', req.url))
   }
 
-  const shouldLogin =
-    path.startsWith('/editor') ||
-    path.startsWith('/dashboard') ||
-    path.startsWith('/s/')
+  const shouldLogin = path.startsWith('/') || path.startsWith('/dashboard')
 
   if (shouldLogin && !session) {
     return NextResponse.redirect(new URL('/login', req.url))
@@ -25,5 +22,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/login', '/dashboard', '/editor', '/s/(.*)'],
+  matcher: ['/', '/login', '/dashboard', '/s/(.*)'],
 }

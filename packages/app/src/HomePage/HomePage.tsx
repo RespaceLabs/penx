@@ -1,12 +1,7 @@
-import { useEffect, useState } from 'react'
 import { Box } from '@fower/react'
-import { getCookie, setCookie } from 'cookies-next'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Button } from 'uikit'
-import { appEmitter } from '../app-emitter'
 import { Logo } from '../components/Logo'
-import { ExportOldVersionSpaces } from './ExportOldVersionSpaces'
 import { Footer } from './Footer'
 import { Nav } from './Nav'
 import { SocialNav } from './SocialNav'
@@ -48,10 +43,10 @@ export function HomePage() {
             variant="outline"
             roundedFull
             onClick={() => {
-              push('/login')
+              window.open('https://app.penx.io/login')
             }}
           >
-            Launch App
+            Get early access
           </Button>
         </Box>
       </Box>
@@ -135,10 +130,10 @@ export function HomePage() {
             roundedFull
             w-240
             onClick={() => {
-              push('/login')
+              window.open('https://app.penx.io/login')
             }}
           >
-            Launch App
+            Get early access
           </Button>
         </Box>
 
