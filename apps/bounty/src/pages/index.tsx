@@ -1,12 +1,12 @@
 import React from 'react'
 import { Box } from '@fower/react'
 
-const PageEditor = () => {
+const PageHome = () => {
   return (
-    <Box>
-      <Box>Home....</Box>
+    <Box h-100vh toCenterY>
+      <Box>wip....</Box>
     </Box>
   )
 }
 
-export default PageEditor
+export default PageHome
