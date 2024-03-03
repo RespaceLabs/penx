@@ -584,6 +584,20 @@ class DB {
       },
     })
     if (isTodo) {
+      const source = await this.createNode<IColumnNode>({
+        spaceId,
+        databaseId,
+        parentId: databaseId,
+        type: NodeType.COLUMN,
+        props: {
+          name: 'Source',
+          description: '',
+          fieldType: FieldType.NODE_ID,
+          isPrimary: false,
+          config: {},
+        },
+      })
+
       const createdAt = await this.createNode<IColumnNode>({
         spaceId,
         databaseId,
@@ -612,7 +626,7 @@ class DB {
         },
       })
 
-      return [mainColumn, createdAt, updatedAt]
+      return [mainColumn, source, createdAt, updatedAt]
     }
     const column2 = await this.createNode<IColumnNode>({
       spaceId,
@@ -924,7 +938,7 @@ class DB {
     }
   }
 
-  addRow = async (databaseId: string, ref = '') => {
+  addRow = async (databaseId: string, ref = '', source = '') => {
     const space = await this.getActiveSpace()
     const spaceId = space.id
 
@@ -987,12 +1001,46 @@ class DB {
           columnId: column.id,
           rowId: row.id,
           ref: index === 0 ? ref : '',
-          data: '',
+          data: source && index === 1 ? source : '',
         },
       }),
     )
 
     await Promise.all(promises)
+  }
+
+  createTodoRow = async (ref = '', sourceId = '') => {
+    const space = await this.getActiveSpace()
+    const databases = await this.node.select({
+      where: { type: NodeType.DATABASE, spaceId: space.id },
+    })
+
+    let todoDatabase = databases.find(
+      (db) => db.props.name === TODO_DATABASE_NAME,
+    )
+
+    if (!todoDatabase) {
+      todoDatabase = await this.createDatabase(
+        TODO_DATABASE_NAME,
+        DataSource.COMMON,
+      )
+    }
+
+    // Get all database cells
+    const cells = await this.node.select({
+      where: {
+        type: NodeType.CELL,
+        spaceId: space.id,
+        databaseId: todoDatabase.id,
+      },
+    })
+
+    // check cell is existed
+    const cell = cells.find((cell) => cell.props.ref === ref)
+
+    if (!cell) {
+      await this.addRow(todoDatabase.id, ref, sourceId)
+    }
   }
 
   createTagRow = async (name: string, ref = '') => {

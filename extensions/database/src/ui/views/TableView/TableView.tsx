@@ -5,7 +5,7 @@ import {
   DataEditorRef,
   Rectangle,
 } from '@glideapps/glide-data-grid'
-import { ELEMENT_DATABASE_CONTAINER } from '@penx/constants'
+import { ELEMENT_DATABASE_CONTAINER, TODO_DATABASE_NAME } from '@penx/constants'
 import { DataSource } from '@penx/model-types'
 import { DatabaseContainerElement, DatabaseElement } from '../../../types'
 import { useDatabaseContext } from '../../DatabaseContext'
@@ -26,6 +26,8 @@ export const TableView = ({ element }: Props) => {
 
   const isDatabaseContainer = element.type === ELEMENT_DATABASE_CONTAINER
   const isTagDataSource = database.props.dataSource === DataSource.TAG
+  const isTodo = database.props.name === TODO_DATABASE_NAME
+  const canNewRow = !isTodo && !isTagDataSource
 
   const {
     rowsNum,
@@ -98,18 +100,18 @@ export const TableView = ({ element }: Props) => {
           // console.log('click')
         }}
         trailingRowOptions={
-          isTagDataSource
-            ? {}
-            : {
+          canNewRow
+            ? {
                 // How to get the trailing row to look right
                 sticky: true,
                 tint: true,
                 hint: 'New row...',
               }
+            : {}
         }
-        onRowAppended={isTagDataSource ? undefined : onRowAppended}
+        onRowAppended={canNewRow ? onRowAppended : undefined}
       />
-      {!isTagDataSource && cellMenuUI}
+      {!canNewRow && cellMenuUI}
       {columnMenuUI}
     </Box>
   )

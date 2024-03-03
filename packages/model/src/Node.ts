@@ -1,4 +1,5 @@
 import { format } from 'date-fns'
+import { ELEMENT_TODO, TODO_DATABASE_NAME } from '@penx/constants'
 import {
   calculateSHA256FromString,
   decryptString,
@@ -81,7 +82,10 @@ export class Node {
     if (this.isTrash) return 'Trash'
     if (this.isDatabaseRoot) return 'Databases'
     if (this.isDailyRoot) return 'Daily Notes'
-    if (this.isDatabase) return this.props.name || ''
+    if (this.isDatabase) {
+      if (this.isTodoDatabase) return 'PenX Todos'
+      return this.props.name || ''
+    }
 
     return this.element[0]?.children?.[0]?.text || this.props.name || ''
   }
@@ -160,6 +164,14 @@ export class Node {
 
   get isOption() {
     return this.type === NodeType.OPTION
+  }
+
+  get isTodoElement() {
+    return this.element?.[0].type === ELEMENT_TODO
+  }
+
+  get isTodoDatabase() {
+    return this.isDatabase && this.raw.props.name === TODO_DATABASE_NAME
   }
 
   get canRef() {

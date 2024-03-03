@@ -98,9 +98,11 @@ export class NodeService {
     if (!title) return
 
     if (this.node.isDatabase) {
-      node = await db.updateNode(node.id, {
-        props: { ...node.props, name: SlateNode.string(title) },
-      })
+      if (!this.node.isTodoDatabase) {
+        node = await db.updateNode(node.id, {
+          props: { ...node.props, name: SlateNode.string(title) },
+        })
+      }
     } else {
       const oldHash = new Node(node).toHash()
       const newHash = new Node({ ...node, element: title.children }).toHash()
@@ -188,8 +190,6 @@ export class NodeService {
 
       const isList = isListElement(item)
 
-      console.log('node=======:', node)
-
       if (node) {
         const oldHash = new Node(node).toHash()
         const newHash = new Node({
@@ -202,6 +202,23 @@ export class NodeService {
             element: [item],
             children: [], // TODO:
           })
+
+          const node = new Node(newNode)
+          if (node.isTodoElement) {
+            const nodeService = new NodeService(node, this.allNodes)
+
+            let sourceId = ''
+            const parentNodes = nodeService.getParentNodes()
+            if (parentNodes.length) {
+              if (parentNodes[0].isDailyRoot) {
+                sourceId = parentNodes[1].id
+              } else {
+                sourceId = parentNodes[0].id
+              }
+            }
+
+            await db.createTodoRow(node.id, sourceId)
+          }
 
           for (const tagName of tags) {
             await db.createTagRow(tagName, newNode.id)
@@ -236,6 +253,23 @@ export class NodeService {
             element: [item],
             children: [], // TODO:
           })
+        }
+
+        const node = new Node(newNode)
+        if (node.isTodoElement) {
+          const nodeService = new NodeService(node, this.allNodes)
+          const parentNodes = nodeService.getParentNodes()
+
+          let sourceId = ''
+          if (parentNodes.length) {
+            if (parentNodes[0].isDailyRoot) {
+              sourceId = parentNodes[1].id
+            } else {
+              sourceId = parentNodes[0].id
+            }
+          }
+
+          await db.createTodoRow(node.id, sourceId)
         }
 
         for (const tagName of tags) {

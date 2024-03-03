@@ -75,7 +75,10 @@ export enum FieldType {
   IMAGE = 'IMAGE',
   RATE = 'RATE',
 
+  NODE_ID = 'NODE_ID',
+
   SINGLE_SELECT = 'SINGLE_SELECT',
+
   MULTIPLE_SELECT = 'MULTIPLE_SELECT',
   DATE = 'DATE',
   CREATED_AT = 'CREATED_AT',

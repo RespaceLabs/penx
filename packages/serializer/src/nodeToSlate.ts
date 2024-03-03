@@ -293,6 +293,7 @@ function getDatabaseRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
     .filter((id) => nodeMap.get(id))
     .map((id) => {
       const databaseNode = nodeMap.get(id)!
+      const node = new Node(databaseNode)
       return {
         type: ELEMENT_LI,
         children: [
@@ -307,7 +308,7 @@ function getDatabaseRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
                 type: ELEMENT_DATABASE_ENTRY,
                 databaseId: databaseNode.id,
                 props: databaseNode.props,
-                name: databaseNode.props.name,
+                name: node.title,
                 children: [{ text: databaseNode.props.name }],
               },
             ],

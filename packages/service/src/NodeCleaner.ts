@@ -1,3 +1,4 @@
+import { TODO_DATABASE_NAME } from '@penx/constants'
 import { extractTags } from '@penx/editor-common'
 import { db } from '@penx/local-db'
 import { INode, isCellNode, NodeType } from '@penx/model-types'
@@ -26,10 +27,18 @@ export class NodeCleaner {
         const node = nodeMap.get(item.props.ref)!
         const databaseNode = nodeMap.get(item.databaseId!)
 
+        if (databaseNode?.props.name === TODO_DATABASE_NAME) {
+          if (!node) {
+            console.log('clean todo row...', databaseNode.props.name)
+            await db.deleteRow(databaseNode.id, item.props.rowId)
+          }
+          continue
+        }
+
         const tags = extractTags(node?.element)
 
         if (databaseNode && !tags.includes(databaseNode.props.name!)) {
-          console.log('clean row', databaseNode.props.name)
+          console.log('clean tag row...', databaseNode.props.name)
           await db.deleteRow(databaseNode.id, item.props.rowId)
         }
       }

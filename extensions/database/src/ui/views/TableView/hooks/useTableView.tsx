@@ -10,6 +10,7 @@ import {
 } from '@glideapps/glide-data-grid'
 import { format } from 'date-fns'
 import { produce } from 'immer'
+import { TODO_DATABASE_NAME } from '@penx/constants'
 import { db } from '@penx/local-db'
 import {
   DataSource,
@@ -77,6 +78,7 @@ export function useTableView() {
   } = useDatabaseContext()
 
   const isTagDataSource = database.props.dataSource === DataSource.TAG
+  const isTodo = database.props.name === TODO_DATABASE_NAME
 
   const columnsMap = mappedByKey(columns, 'id')
   let { viewColumns = [] } = currentView.props
@@ -213,7 +215,7 @@ export function useTableView() {
         } as SystemDateCell
       }
 
-      if (col === 0 && isTagDataSource) {
+      if (col === 0 && (isTagDataSource || isTodo)) {
         return {
           kind: GridCellKind.Custom,
           allowOverlay: true,
@@ -228,8 +230,8 @@ export function useTableView() {
 
       return {
         kind: getKind(),
-        allowOverlay: true,
-        readonly: false,
+        allowOverlay: FieldType.NODE_ID !== columnNode.props.fieldType,
+        readonly: FieldType.NODE_ID === columnNode.props.fieldType,
         data: cellData,
         displayData: cellData,
       }
@@ -240,6 +242,7 @@ export function useTableView() {
       options,
       columnsMap,
       isTagDataSource,
+      isTodo,
       indexes,
     ],
   )

@@ -107,8 +107,6 @@ export const DatabaseProvider = ({
   const { Provider } = databaseContext
   const database = useDatabase(databaseId)
 
-  console.log('x========database:', database)
-
   const [activeViewId, setActiveViewId] = useState(() => {
     const view = database.views.find(
       (v) => v.id === database.database.props.activeViewId,
