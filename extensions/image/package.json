@@ -9,7 +9,7 @@
   "devDependencies": {
     "@types/node": "^20.10.3",
     "@types/prismjs": "^1.26.3",
-    "@types/react": "^18.2.42",
+    "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.17",
     "eslint": "^8.55.0",
     "eslint-config-custom": "workspace:*",
@@ -32,7 +32,7 @@
     "@penx/model-types": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/store": "workspace:*",
-    "lucide-react": "^0.321.0",
+    "lucide-react": "^0.344.0",
     "prismjs": "^1.29.0",
     "re-resizable": "^6.9.11",
     "slate": "0.101.5",

@@ -10,7 +10,7 @@
     "@penx/tsconfig": "workspace:*",
     "@types/lodash": "^4.14.202",
     "@types/mime-types": "^2.1.4",
-    "@types/react": "^18.2.42",
+    "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.17",
     "eslint": "^8.55.0",
     "eslint-config-custom": "workspace:*",

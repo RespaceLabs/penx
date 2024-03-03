@@ -7,7 +7,7 @@
     "lint": "eslint \"**/*.ts*\""
   },
   "devDependencies": {
-    "@types/react": "^18.2.42",
+    "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.17",
     "eslint": "^8.55.0",
     "eslint-config-custom": "workspace:*",
@@ -22,7 +22,7 @@
     "@penx/extension-typings": "^0.0.0",
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
-    "lucide-react": "^0.321.0",
+    "lucide-react": "^0.344.0",
     "slate": "0.101.5",
     "slate-history": "0.100.0",
     "slate-react": "0.101.5"

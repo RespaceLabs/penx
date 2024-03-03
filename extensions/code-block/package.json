@@ -9,7 +9,7 @@
   "devDependencies": {
     "@types/markdown-it": "^13.0.7",
     "@types/prismjs": "^1.26.3",
-    "@types/react": "^18.2.42",
+    "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.17",
     "eslint": "^8.55.0",
     "eslint-config-custom": "workspace:*",
@@ -31,7 +31,7 @@
     "@penx/paragraph": "workspace:*",
     "@penx/shared": "workspace:*",
     "@udecode/plate-common": "^24.5.2",
-    "lucide-react": "^0.321.0",
+    "lucide-react": "^0.344.0",
     "markdown-it": "^13.0.2",
     "prismjs": "^1.29.0",
     "slate": "0.101.5",

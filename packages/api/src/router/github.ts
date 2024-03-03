@@ -88,7 +88,7 @@ export const githubRouter = createTRPCRouter({
           avatarUrl: i.account?.avatar_url,
         }))
       } catch (error) {
-        console.log('token==========:', input.token)
+        // console.log('token==========:', input.token)
         console.log('GET /user/installations error:', error)
         return []
       }

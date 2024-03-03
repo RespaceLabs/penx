@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
 import {
   CalendarDays,
+  CheckCircle2,
   Cloud,
   CloudOff,
   Database,
@@ -77,6 +78,14 @@ export const Sidebar = () => {
                 store.node.selectInbox()
               }}
             /> */}
+
+            <SidebarItem
+              icon={<CheckCircle2 size={16} />}
+              label="To-dos"
+              onClick={() => {
+                store.node.selectTagBox()
+              }}
+            />
 
             <SidebarItem
               icon={<Database size={16} />}

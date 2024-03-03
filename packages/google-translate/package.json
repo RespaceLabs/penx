@@ -9,7 +9,7 @@
   "devDependencies": {
     "@penx/tsconfig": "workspace:*",
     "@types/qs": "^6.9.11",
-    "@types/react": "^18.2.22",
+    "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.7",
     "eslint": "^8.42.0",
     "eslint-config-custom": "workspace:*",
