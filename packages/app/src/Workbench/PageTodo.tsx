@@ -6,16 +6,11 @@ import { RouterOutputs } from '@penx/api'
 import { decryptString } from '@penx/encryption'
 import { useSpaces } from '@penx/hooks'
 import { db } from '@penx/local-db'
-import { INode } from '@penx/model-types'
 import { store } from '@penx/store'
-import { getNodeMap } from '@penx/sync'
-import { api } from '@penx/trpc-client'
 
 export const PageTodo = () => {
   useEffect(() => {
     //
-    const today = store.node.getTodoNodes()
-    console.log('=======today:', today)
   }, [])
   return (
     <Box>

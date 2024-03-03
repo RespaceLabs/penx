@@ -1,7 +1,7 @@
 import { arrayMoveImmutable } from 'array-move'
 import { format } from 'date-fns'
 import { get } from 'idb-keyval'
-import { PENX_SESSION_USER_ID } from '@penx/constants'
+import { PENX_SESSION_USER_ID, TODO_DATABASE_NAME } from '@penx/constants'
 import { Database } from '@penx/indexeddb'
 import {
   ConjunctionType,
@@ -127,6 +127,8 @@ class DB {
       isActive: true,
       activeNodeIds: [node.id],
     })
+
+    await this.createDatabase(TODO_DATABASE_NAME, DataSource.COMMON)
   }
 
   createSpace = async (data: Partial<ISpace>, initNode = true) => {
@@ -485,12 +487,10 @@ class DB {
     dataSource: DataSource = DataSource.TAG,
     shouldInitCell = false,
   ) => {
-    // const { id = '' } = data
     const space = await this.getActiveSpace()
     const databaseRootNode = await this.getDatabaseRootNode(space.id)
 
     const database = await this.createNode<IDatabaseNode>({
-      // id,
       parentId: databaseRootNode.id,
       spaceId: space.id,
       type: NodeType.DATABASE,
@@ -507,7 +507,8 @@ class DB {
       children: [...(databaseRootNode.children || []), database.id],
     })
 
-    const columns = await this.initColumns(space.id, database.id)
+    const isTodo = name === TODO_DATABASE_NAME
+    const columns = await this.initColumns(space.id, database.id, isTodo)
 
     const viewColumns: ViewColumn[] = columns.map((column) => ({
       columnId: column.id,
@@ -568,7 +569,7 @@ class DB {
     return database
   }
 
-  initColumns = async (spaceId: string, databaseId: string) => {
+  initColumns = async (spaceId: string, databaseId: string, isTodo = false) => {
     const mainColumn = await this.createNode<IColumnNode>({
       spaceId,
       parentId: databaseId,
@@ -582,6 +583,37 @@ class DB {
         config: {},
       },
     })
+    if (isTodo) {
+      const createdAt = await this.createNode<IColumnNode>({
+        spaceId,
+        databaseId,
+        parentId: databaseId,
+        type: NodeType.COLUMN,
+        props: {
+          name: 'Created At',
+          description: '',
+          fieldType: FieldType.CREATED_AT,
+          isPrimary: false,
+          config: {},
+        },
+      })
+
+      const updatedAt = await this.createNode<IColumnNode>({
+        spaceId,
+        databaseId,
+        parentId: databaseId,
+        type: NodeType.COLUMN,
+        props: {
+          name: 'Updated At',
+          description: '',
+          fieldType: FieldType.UPDATED_AT,
+          isPrimary: false,
+          config: {},
+        },
+      })
+
+      return [mainColumn, createdAt, updatedAt]
+    }
     const column2 = await this.createNode<IColumnNode>({
       spaceId,
       databaseId,
