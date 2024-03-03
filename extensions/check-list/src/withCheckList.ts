@@ -1,4 +1,4 @@
-import { ELEMENT_CHECK_LIST_ITEM } from '@penx/constants'
+import { ELEMENT_TODO } from '@penx/constants'
 import { PenxEditor } from '@penx/editor-common'
 import { CheckListItemElement } from './types'
 
@@ -8,14 +8,12 @@ export const withCheckList = (editor: PenxEditor) => {
     if (operation.type === 'split_node') {
       const { properties } = operation
 
-      if (
-        (properties as CheckListItemElement).type === ELEMENT_CHECK_LIST_ITEM
-      ) {
+      if ((properties as CheckListItemElement).type === ELEMENT_TODO) {
         return apply({
           ...operation,
           properties: {
             ...properties,
-            type: ELEMENT_CHECK_LIST_ITEM,
+            type: ELEMENT_TODO,
             checked: false,
           } as CheckListItemElement,
         })

@@ -188,6 +188,8 @@ export class NodeService {
 
       const isList = isListElement(item)
 
+      console.log('node=======:', node)
+
       if (node) {
         const oldHash = new Node(node).toHash()
         const newHash = new Node({

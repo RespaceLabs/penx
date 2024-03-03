@@ -1,13 +1,13 @@
 import { CheckSquare2 } from 'lucide-react'
 import { Editor } from 'slate'
-import { ELEMENT_CHECK_LIST_ITEM } from '@penx/constants'
+import { ELEMENT_TODO } from '@penx/constants'
 import { setNodes } from '@penx/editor-transforms'
 import { ExtensionContext } from '@penx/extension-typings'
 import { CheckListItem } from './CheckListItem'
 import { CheckListItemElement } from './types'
 import { withCheckList } from './withCheckList'
 
-export { ELEMENT_CHECK_LIST_ITEM }
+export { ELEMENT_TODO }
 
 export * from './types'
 
@@ -16,7 +16,7 @@ export function activate(ctx: ExtensionContext) {
     with: withCheckList,
     elements: [
       {
-        type: ELEMENT_CHECK_LIST_ITEM,
+        type: ELEMENT_TODO,
         component: CheckListItem,
         placeholder: '',
         slashCommand: {
@@ -30,18 +30,18 @@ export function activate(ctx: ExtensionContext) {
     autoformatRules: [
       {
         mode: 'block',
-        type: ELEMENT_CHECK_LIST_ITEM,
+        type: ELEMENT_TODO,
         match: '[] ',
       },
       {
         mode: 'block',
-        type: ELEMENT_CHECK_LIST_ITEM,
+        type: ELEMENT_TODO,
         match: '[x] ',
         format: (editor) => {
           setNodes(
             editor,
             {
-              type: ELEMENT_CHECK_LIST_ITEM,
+              type: ELEMENT_TODO,
               checked: true,
             } as CheckListItemElement,
             { match: (n: any) => Editor.isBlock(editor, n) },

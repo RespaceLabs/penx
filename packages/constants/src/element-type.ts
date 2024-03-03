@@ -14,7 +14,7 @@ export const ELEMENT_BLOCK_SELECTOR = 'block_selector'
 
 export const ELEMENT_BLOCKQUOTE = 'blockquote'
 
-export const ELEMENT_CHECK_LIST_ITEM = 'check_list_item'
+export const ELEMENT_TODO = 'todo'
 
 export const ELEMENT_CODE_BLOCK = 'code_block'
 export const ELEMENT_CODE_LINE = 'code_line'

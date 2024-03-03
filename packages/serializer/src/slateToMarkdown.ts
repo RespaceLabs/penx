@@ -59,7 +59,7 @@ export function slateToMarkdown(nodes: any) {
   //       output.push(str)
   //       continue
   //     }
-  //     if (node.type === ElementType.check_list_item) {
+  //     if (node.type === ElementType.todo) {
   //       const x = node.checked ? 'x' : ' '
   //       output.push(`- [${x}] ` + Node.string(node))
   //       continue

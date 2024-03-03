@@ -27,8 +27,7 @@ export enum ElementType {
   hr = 'hr',
   blockquote = 'blockquote',
 
-  check_list = 'check_list',
-  check_list_item = 'check_list_item',
+  todo = 'todo',
 
   notice = 'notice',
 
