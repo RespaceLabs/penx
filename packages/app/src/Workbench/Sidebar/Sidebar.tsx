@@ -64,7 +64,7 @@ export const Sidebar = () => {
         {!!nodes.length && (
           <Box column gap-1 flex-1 mt3>
             <SidebarItem
-              icon={<CalendarDays size={16} />}
+              icon={<CalendarDays size={18} />}
               label="Today"
               onClick={() => {
                 store.node.selectDailyNote()
@@ -72,7 +72,7 @@ export const Sidebar = () => {
             />
 
             {/* <SidebarItem
-              icon={<Inbox size={16} />}
+              icon={<Inbox size={18} />}
               label="Inbox"
               onClick={() => {
                 store.node.selectInbox()
@@ -80,15 +80,15 @@ export const Sidebar = () => {
             /> */}
 
             <SidebarItem
-              icon={<CheckCircle2 size={16} />}
-              label="To-dos"
+              icon={<CheckCircle2 size={18} />}
+              label="Todos"
               onClick={() => {
-                store.node.selectTagBox()
+                store.router.routeTo('TODOS')
               }}
             />
 
             <SidebarItem
-              icon={<Database size={16} />}
+              icon={<Database size={18} />}
               label="Databases"
               onClick={() => {
                 store.node.selectTagBox()
@@ -100,7 +100,7 @@ export const Sidebar = () => {
             ))}
 
             {/* <SidebarItem
-          icon={<Trash2 size={16} />}
+          icon={<Trash2 size={18} />}
           label="Trash"
           onClick={() => {
             store.selectTrash()

@@ -87,6 +87,10 @@ export class NodeStore {
     return databaseNode
   }
 
+  getTodoNodes() {
+    return []
+  }
+
   getDatabase(id: string, nodes: INode[] = []) {
     const space = this.store.space.getActiveSpace()
     const database = this.getNode(id) as IDatabaseNode

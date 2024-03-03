@@ -32,7 +32,7 @@ export const SidebarItem = ({
     >
       <Box toCenterY gap2>
         <Box inlineFlex>{icon}</Box>
-        <Box textSM>{label}</Box>
+        <Box textBase>{label}</Box>
       </Box>
       {children}
     </Box>

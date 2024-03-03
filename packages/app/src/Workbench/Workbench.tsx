@@ -13,6 +13,7 @@ import { TaskBoard } from '../TaskBoard'
 import { AccountSettings } from './AccountSettings/AccountSettings'
 import { MobileNav } from './NodeNav/MobileNav'
 import { NodePanels } from './NodePanels'
+import { PageTodo } from './PageTodo'
 import { QueryCloudSpaces } from './QueryCloudSpaces'
 import { SetPassword } from './SetPassword'
 import { Sidebar } from './Sidebar/Sidebar'
@@ -50,6 +51,7 @@ export const Workbench = () => {
             {name !== 'NODE' && (
               <Box h-100vh overflowYAuto>
                 {name === 'ACCOUNT_SETTINGS' && <AccountSettings />}
+                {name === 'TODOS' && <PageTodo />}
                 {name === 'SPACE_SETTINGS' && <SpaceSettings />}
 
                 {name === 'SET_PASSWORD' && <SetPassword />}

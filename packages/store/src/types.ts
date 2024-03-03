@@ -19,6 +19,7 @@ export type ExtensionStore = Record<
 export type RouteName =
   | 'TRASH'
   | 'NODE'
+  | 'TODOS'
   | 'ACCOUNT_SETTINGS'
   | 'SPACE_SETTINGS'
   | 'SET_PASSWORD'
