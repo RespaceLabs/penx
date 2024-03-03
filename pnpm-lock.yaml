@@ -167,6 +167,9 @@ importers:
       '@penx/wagmi':
         specifier: workspace:*
         version: link:../../packages/wagmi
+      '@penx/widget':
+        specifier: workspace:*
+        version: link:../../packages/widget
       '@prisma/client':
         specifier: ^5.6.0
         version: 5.6.0(prisma@5.6.0)
@@ -777,6 +780,9 @@ importers:
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../../packages/trpc-client
+      '@penx/widget':
+        specifier: workspace:*
+        version: link:../../packages/widget
       '@penx/word-count':
         specifier: workspace:*
         version: link:../../extensions/word-count
@@ -1036,9 +1042,6 @@ importers:
       '@penx/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@penx/app':
-        specifier: workspace:*
-        version: link:../../packages/app
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
@@ -1108,6 +1111,9 @@ importers:
       '@penx/wagmi':
         specifier: workspace:*
         version: link:../../packages/wagmi
+      '@penx/widget':
+        specifier: workspace:*
+        version: link:../../packages/widget
       '@prisma/client':
         specifier: ^5.6.0
         version: 5.6.0(prisma@5.6.0)
@@ -1427,6 +1433,9 @@ importers:
       '@penx/wagmi':
         specifier: workspace:*
         version: link:../../packages/wagmi
+      '@penx/widget':
+        specifier: workspace:*
+        version: link:../../packages/widget
       '@t3-oss/env-nextjs':
         specifier: ^0.3.1
         version: 0.3.1(typescript@5.3.3)(zod@3.22.4)
@@ -4011,6 +4020,9 @@ importers:
       '@penx/wagmi':
         specifier: workspace:*
         version: link:../wagmi
+      '@penx/widget':
+        specifier: workspace:*
+        version: link:../widget
       '@penx/worker':
         specifier: workspace:*
         version: link:../worker
@@ -6499,6 +6511,49 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      typescript:
+        specifier: ^5.3.2
+        version: 5.3.3
+
+  packages/widget:
+    dependencies:
+      '@fower/atomic-props':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@fower/react':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@fower/utils':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@penx/icons':
+        specifier: workspace:*
+        version: link:../icons
+      lucide-react:
+        specifier: ^0.321.0
+        version: 0.321.0(react@18.2.0)
+    devDependencies:
+      '@penx/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/react':
+        specifier: ^18.2.42
+        version: 18.2.48
+      '@types/react-dom':
+        specifier: ^18.2.17
+        version: 18.2.17
+      eslint:
+        specifier: ^8.55.0
+        version: 8.55.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
       typescript:
         specifier: ^5.3.2
         version: 5.3.3

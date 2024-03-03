@@ -10,7 +10,6 @@ const config = {
   transpilePackages: [
     '@penx/abi',
     '@penx/api',
-    '@penx/app',
     '@penx/constants',
     '@penx/db',
     '@penx/math',

@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { useRouter } from 'next/router'
 import { Button } from 'uikit'
-import { Logo } from '../components/Logo'
+import { Logo } from '@penx/widget'
 import { Footer } from './Footer'
 import { Nav } from './Nav'
 import { SocialNav } from './SocialNav'

@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { Gem, Wallet } from 'lucide-react'
 import { useAccount } from 'wagmi'
-import { Logo } from '@penx/app'
+import { Logo } from '@penx/widget'
 import { DisconnectButton } from '../DisconnectButton'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { TaskFilter } from './TaskFilter'

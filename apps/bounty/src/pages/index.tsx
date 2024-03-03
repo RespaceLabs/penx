@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box } from '@fower/react'
-import { HomePage } from '@penx/app'
 
 const PageEditor = () => {
   return (

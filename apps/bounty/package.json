@@ -50,6 +50,7 @@
     "@penx/trpc-client": "workspace:^",
     "@penx/unique-id": "workspace:*",
     "@penx/wagmi": "workspace:*",
+    "@penx/widget": "workspace:*",
     "@prisma/client": "^5.6.0",
     "@prisma/nextjs-monorepo-workaround-plugin": "^5.6.0",
     "@radix-ui/react-hover-card": "^1.0.7",

@@ -49,6 +49,7 @@
     "@penx/constants": "workspace:*",
     "@penx/database": "workspace:*",
     "@penx/db": "workspace:*",
+    "@penx/widget": "workspace:*",
     "@penx/dnd-projection": "workspace:*",
     "@penx/editor": "workspace:*",
     "@penx/editor-common": "workspace:*",

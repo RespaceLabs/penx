@@ -56,6 +56,7 @@ const nextConfig = {
     '@penx/unique-id',
     '@penx/extension-list',
     '@penx/worker',
+    '@penx/widget',
     'uikit',
     '@penx/slate-lists',
   ],

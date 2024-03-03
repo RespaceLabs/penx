@@ -1,12 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
-import { getCookie, setCookie } from 'cookies-next'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { Button } from 'uikit'
-import { appEmitter } from '../app-emitter'
-import { Logo } from '../components/Logo'
-import { StyledLink } from '../components/StyledLink'
+import { Logo } from '@penx/widget'
+import { StyledLink } from '../StyledLink'
 import { Nav } from './Nav'
 
 export function Footer() {

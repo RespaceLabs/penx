@@ -9,7 +9,7 @@ import {
 import { useEffect, useState, type ComponentType } from 'react'
 import { Button } from 'uikit'
 
-import { Logo } from '@penx/app'
+import { Logo } from '@penx/widget'
 
 import { ACTIONS, BACKGROUND_EVENTS } from '~/common/action'
 import type { MsgRes, TabInfo } from '~/common/helper'

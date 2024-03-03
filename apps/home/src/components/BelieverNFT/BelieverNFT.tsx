@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { useAccount } from 'wagmi'
+import { Logo } from '@penx/widget'
 import { DisconnectButton } from '../DisconnectButton'
-import { Logo } from '../Logo'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { MintButton } from './MintButton'
 import { NFTBasicInfo } from './NFTBasicInfo'

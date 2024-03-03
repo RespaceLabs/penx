@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { Box } from '@fower/react'
 import { ExternalLink } from 'lucide-react'
 import { IconDiscord, IconGitHub, IconTwitter } from '@penx/icons'
-import { StyledLink } from '../components/StyledLink'
+import { StyledLink } from '../StyledLink'
 
 type NavItem = {
   text?: ReactNode

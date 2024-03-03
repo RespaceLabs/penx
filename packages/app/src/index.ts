@@ -8,8 +8,6 @@ export * from './Workbench/PageSettingsPopover'
 export * from './Marketplace/Marketplace'
 export * from './app-emitter'
 export * from './NewTabApp'
-export * from './components/Logo'
-export * from './HomePage/HomePage'
 export * from './DesktopHome'
 
 export default EditorApp

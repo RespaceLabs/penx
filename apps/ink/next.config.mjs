@@ -15,6 +15,7 @@ const config = {
     '@penx/constants',
     '@penx/wagmi',
     '@penx/icons',
+    '@penx/widget',
     'uikit',
   ],
   i18n: {

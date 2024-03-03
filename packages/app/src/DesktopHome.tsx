@@ -3,7 +3,7 @@ import { Box } from '@fower/react'
 import { useRouter } from 'next/router'
 import { Button, Input } from 'uikit'
 import { useLoginByToken } from '@penx/hooks'
-import { Logo } from './components/Logo'
+import { Logo } from '@penx/widget'
 
 export function DesktopHome() {
   const [token, setToken] = useState('')
