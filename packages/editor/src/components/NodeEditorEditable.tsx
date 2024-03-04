@@ -13,12 +13,18 @@ import { ElementContent } from './ElementContent'
 
 interface Props {
   readOnly?: boolean
+  editorAtomicStyle?: string
   onBlur?: (editor: PenxEditor) => void
   onKeyDown?: (e: KeyboardEvent<HTMLDivElement>, editor?: PenxEditor) => void
 }
 
 export const NodeEditorEditable = memo(
-  function NodeEditorEditable({ onBlur, onKeyDown, readOnly = false }: Props) {
+  function NodeEditorEditable({
+    onBlur,
+    editorAtomicStyle = '',
+    onKeyDown,
+    readOnly = false,
+  }: Props) {
     // const editor = useEditor()
     const editor = useEditorStatic()
     const { extensionStore } = useExtensionStore()
@@ -53,14 +59,17 @@ export const NodeEditorEditable = memo(
 
     const blur = (e: FocusEvent<HTMLDivElement, globalThis.Element>) => {
       onBlur?.(editor)
-      for (const fn of editor.onBlurFns) {
-        fn(editor, e)
+
+      if (editor?.onBlurFns) {
+        for (const fn of editor.onBlurFns) {
+          fn(editor, e)
+        }
       }
     }
 
     return (
       <Editable
-        className={css('black outlineNone')}
+        className={css('black outlineNone ' + editorAtomicStyle)}
         autoFocus={false}
         readOnly={readOnly}
         renderLeaf={(props) => <Leaf {...props} />}

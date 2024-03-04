@@ -4,7 +4,7 @@ import { Editor, Node, Path, Transforms } from 'slate'
 import { createPublicClient, http } from 'viem'
 import { mainnet } from 'viem/chains'
 import { usePublicClient } from 'wagmi'
-import { ELEMENT_TAG } from '@penx/constants'
+import { ELEMENT_TAG, TODO_DATABASE_NAME } from '@penx/constants'
 import { PenxEditor, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { useNodes } from '@penx/hooks'
@@ -58,7 +58,9 @@ function getBlockText(editor: PenxEditor, element: TagSelectorElement) {
 export const TagSelectorContent = ({ close, element }: Props) => {
   const editor = useEditorStatic()
   const { nodeList } = useNodes()
-  const tagNames = nodeList.tagNodes.map((node) => node.props.name!)
+  const tagNames = nodeList.tagNodes
+    .map((node) => node.props.name!)
+    .filter((name) => name !== TODO_DATABASE_NAME)
 
   const text = getSearchText(editor, element)
   const tagName = text.replace(/^#/, '')

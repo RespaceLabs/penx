@@ -31,8 +31,8 @@ export const TreeViewHeader = memo(function TreeViewHeader() {
     >
       <Box toCenterY gap2>
         <Bullet mr-4 />
-        {activeSpace.isOutliner && <Box>ALL NODES</Box>}
-        {!activeSpace.isOutliner && <Box>ALL PAGES</Box>}
+        {activeSpace.isOutliner && <Box>All nodes</Box>}
+        {!activeSpace.isOutliner && <Box>All pages</Box>}
       </Box>
       <NewNodeButton size={24} p1 roundedLG />
     </Box>

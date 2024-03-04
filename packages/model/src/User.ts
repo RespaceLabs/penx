@@ -17,6 +17,10 @@ export class User {
     return this.raw?.id as string
   }
 
+  get username() {
+    return this.raw?.name || this.raw.username
+  }
+
   get address() {
     return this.raw.address
   }

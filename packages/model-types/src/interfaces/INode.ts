@@ -142,17 +142,20 @@ export interface IRowNode extends INode {
   }
 }
 
-export interface ICellNodePopps {
+export interface ICellNodeProps {
   columnId: string
   rowId: string
   ref: string // ref to a node id
   data: any
+
+  // for Todo
+  isTodoSource?: boolean
 }
 
 export interface ICellNode extends INode {
   parentId: string // should be database id
   type: NodeType.CELL
-  props: ICellNodePopps
+  props: ICellNodeProps
 }
 
 export function isCellNode(node: any): node is ICellNode {

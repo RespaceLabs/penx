@@ -89,12 +89,12 @@ export const TableView = ({ element }: Props) => {
         onColumnResizeEnd={onColumnResizeEnd}
         onHeaderMenuClick={onHeaderMenuClick}
         onCellContextMenu={
-          isTagDataSource
-            ? undefined
-            : (cell, e) => {
+          canNewRow
+            ? (cell, e) => {
                 setCellMenu({ row: filterRows[cell[1]], bounds: e.bounds })
                 e.preventDefault()
               }
+            : undefined
         }
         onHeaderClicked={() => {
           // console.log('click')
@@ -111,7 +111,7 @@ export const TableView = ({ element }: Props) => {
         }
         onRowAppended={canNewRow ? onRowAppended : undefined}
       />
-      {!canNewRow && cellMenuUI}
+      {canNewRow && cellMenuUI}
       {columnMenuUI}
     </Box>
   )

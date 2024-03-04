@@ -9,21 +9,23 @@ export const checkboxDefaultRender = ({
   const atomicProps: any = {}
   if (!!checked) {
     atomicProps.borderColor = colorScheme
-    // atomicProps.bg = colorScheme
-    atomicProps.color = colorScheme
+    atomicProps.bg = colorScheme
+    atomicProps.color = 'white'
   }
 
   return (
     <Box
       toCenter
-      square-16
-      rounded-6
+      square-18
+      roundedFull
       border-1
-      borderGray600={!checked}
+      borderGray400={!checked}
+      bgBrand500={checked}
+      // white={}
       {...atomicProps}
     >
       <Check
-        size={20}
+        size={12}
         style={{
           strokeWidth: '2px',
           display: checked ? 'block' : 'none',

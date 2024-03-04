@@ -1002,6 +1002,7 @@ class DB {
           rowId: row.id,
           ref: index === 0 ? ref : '',
           data: source && index === 1 ? source : '',
+          isTodoSource: !!source && index === 1,
         },
       }),
     )

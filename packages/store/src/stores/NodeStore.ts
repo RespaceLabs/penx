@@ -1,6 +1,7 @@
 import isEqual from 'react-fast-compare'
 import { format } from 'date-fns'
 import { atom } from 'jotai'
+import { TODO_DATABASE_NAME } from '@penx/constants'
 import { ArraySorter } from '@penx/indexeddb'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
@@ -10,6 +11,7 @@ import {
   ICellNode,
   IColumnNode,
   IDatabaseNode,
+  IDatabaseRootNode,
   INode,
   IOptionNode,
   IRootNode,
@@ -27,6 +29,12 @@ type FindOptions<T = INode> = {
   limit?: number
   orderByDESC?: boolean
   sortBy?: keyof T
+}
+
+export type TodoRecord = {
+  row: IRowNode
+  sourceNode: Node
+  todoNode: Node
 }
 
 export const nodesAtom = atom<INode[]>([])
@@ -75,6 +83,18 @@ export class NodeStore {
     let nodes = this.getNodes()
     const node = nodes.find((node) => node.type === NodeType.ROOT)!
     return node as IRootNode
+  }
+
+  getDatabaseRootNode = () => {
+    const nodes = this.getNodes()
+    return nodes.find(
+      (node) => node.type === NodeType.DATABASE_ROOT,
+    ) as IDatabaseRootNode
+  }
+
+  getDatabaseNodes = () => {
+    const node = this.getDatabaseRootNode()
+    return node.children.map((id) => this.getNode(id) as IDatabaseNode)
   }
 
   getDatabaseByName(tagName: string) {
@@ -150,6 +170,38 @@ export class NodeStore {
       (node) => node.type === NodeType.CELL && node.parentId === databaseId,
     )
     return cells
+  }
+
+  getTodos() {
+    let records: TodoRecord[] = []
+
+    const todo = this.getDatabaseByName(TODO_DATABASE_NAME)
+    const database = this.getDatabase(todo!.id)
+
+    for (const row of database.rows) {
+      const rowCells = database.cells.filter((c) => c.props.rowId === row.id)!
+
+      const sourceCell = rowCells.find((c) => c.props.isTodoSource)
+      if (!sourceCell) continue
+
+      const sourceNode = this.getNode(sourceCell.props.data)
+      if (!sourceNode) continue
+
+      const todoCell = rowCells.find((c) => !!c.props.ref)
+
+      if (!todoCell) continue
+
+      const todoNode = this.getNode(todoCell.props.ref)
+
+      if (!todoNode) continue
+
+      records.push({
+        row,
+        sourceNode: new Node(sourceNode),
+        todoNode: new Node(todoNode),
+      })
+    }
+    return records
   }
 
   async selectNode(node: INode, index = 0, shouldCompare = true) {

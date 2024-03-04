@@ -13,7 +13,7 @@ import { TaskBoard } from '../TaskBoard'
 import { AccountSettings } from './AccountSettings/AccountSettings'
 import { MobileNav } from './NodeNav/MobileNav'
 import { NodePanels } from './NodePanels'
-import { PageTodo } from './PageTodo'
+import { PageTodo } from './PageTodo/PageTodo'
 import { QueryCloudSpaces } from './QueryCloudSpaces'
 import { SetPassword } from './SetPassword'
 import { Sidebar } from './Sidebar/Sidebar'
@@ -42,7 +42,7 @@ export const Workbench = () => {
         <Box w={[0, 0, SIDEBAR_WIDTH]} toLeft flexShrink-0>
           <Sidebar />
         </Box>
-        <Box flex-1>
+        <Box flex-1 relative>
           <MobileNav />
 
           <ErrorBoundary fallback={<Fallback />}>

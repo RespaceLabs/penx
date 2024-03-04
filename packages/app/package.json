@@ -46,6 +46,7 @@
     "@penx/api": "workspace:*",
     "@penx/catalogue": "workspace:*",
     "@penx/cmdk": "workspace:*",
+    "@penx/editor-leaf": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/database": "workspace:*",
     "@penx/db": "workspace:*",

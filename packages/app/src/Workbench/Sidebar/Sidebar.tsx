@@ -20,6 +20,7 @@ import { useSession } from '@penx/session'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import { SyncPopover } from '../StatusBar/SyncPopover'
 import { CatalogueBox } from './CatalogueBox/CatalogueBox'
+import { DatabaseList } from './DatabaseList'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { SetupGitHubButton } from './SetupGitHubButton'
 import { SidebarItem } from './SidebarItem'
@@ -87,13 +88,13 @@ export const Sidebar = () => {
               }}
             />
 
-            <SidebarItem
+            {/* <SidebarItem
               icon={<Database size={18} />}
               label="Databases"
               onClick={() => {
                 store.node.selectTagBox()
               }}
-            />
+            /> */}
 
             {components.map((C, i) => (
               <C key={i} />
@@ -108,6 +109,10 @@ export const Sidebar = () => {
         /> */}
           </Box>
         )}
+      </Box>
+
+      <Box px4 mt2>
+        <DatabaseList />
       </Box>
 
       <Box flex-1 zIndex-1 overflowYAuto px2>

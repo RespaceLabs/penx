@@ -1,4 +1,4 @@
-import { ICellNodePopps, INode } from '@penx/model-types'
+import { ICellNodeProps, INode } from '@penx/model-types'
 import { Filter, OperatorType } from '@penx/model-types/src/interfaces/INode'
 import { generateNoteCellText } from './cells/note-cell'
 
@@ -73,7 +73,7 @@ export class TableSearch {
         let text = ''
 
         if (this.isDatabaseId && property === 'props') {
-          const cellNodeProps = (item as any)[property] as ICellNodePopps
+          const cellNodeProps = (item as any)[property] as ICellNodeProps
           text = cellNodeProps?.ref
             ? generateNoteCellText(cellNodeProps.ref, false)
             : cellNodeProps?.data
