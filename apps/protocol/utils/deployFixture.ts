@@ -1,6 +1,6 @@
 import { ethers, deployments } from 'hardhat'
 import { precision } from './precision'
-import { BountyFacet, DaoVault, Diamond, INK, MockToken, RoleAccessControlFacet } from '../types'
+import { BountyFacet, DaoVault, Diamond, INK, MockToken, PasswordManager, RoleAccessControlFacet } from '../types'
 
 export type Fixture = Awaited<ReturnType<typeof deployFixture>>
 
@@ -32,12 +32,13 @@ export async function deployFixture() {
     signer9,
   ] = accountList
 
-  const [usdt, usdc, dai, ink, daoVault] = await Promise.all([
+  const [usdt, usdc, dai, ink, daoVault, passwordManager] = await Promise.all([
     ethers.getContract<MockToken>('USDT'),
     ethers.getContract<MockToken>('USDC'),
     ethers.getContract<MockToken>('DAI'),
     ethers.getContract<INK>('INK'),
-    ethers.getContract('DaoVault') as Promise<DaoVault>,
+    ethers.getContract<DaoVault>('DaoVault'),
+    ethers.getContract<PasswordManager>('PasswordManager'),
   ])
 
   const diamond = await ethers.getContract<Diamond>('Diamond')
@@ -97,6 +98,7 @@ export async function deployFixture() {
     ink,
 
     daoVault,
+    passwordManager,
 
     bountyFacet,
     roleAccessControlFacet,

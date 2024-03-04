@@ -26,6 +26,7 @@ type ContractName =
   | 'BountyFacet'
   | 'VaultFacet'
   | 'RoleAccessControlFacet'
+  | 'PasswordManager'
 
 type DependencyContracts = Record<ContractName, Deployment>
 
