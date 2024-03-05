@@ -8,6 +8,8 @@ export const PENX_SESSION_USER = 'PENX_SESSION_USER'
 
 export const PENX_SESSION_USER_ID = 'PENX_SESSION_USER_ID'
 
+export const MASTER_PASSWORD = 'MASTER_PASSWORD'
+
 export const TODO_DATABASE_NAME = '__TODO__'
 
 export const isSelfHosted = process.env.NEXT_PUBLIC_DEPLOY_MODE !== 'PLATFORM'

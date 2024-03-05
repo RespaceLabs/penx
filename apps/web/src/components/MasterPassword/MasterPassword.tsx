@@ -3,8 +3,9 @@ import { Box } from '@fower/react'
 import { get, set } from 'idb-keyval'
 import { Check, Eye, PencilLine } from 'lucide-react'
 import { Button, Input } from 'uikit'
+import { MASTER_PASSWORD } from '@penx/constants'
 import { PasswordOnChain } from './PasswordOnChain'
-import { MASTER_PASSWORD, useMasterPassword } from './useMasterPassword'
+import { useMasterPassword } from './useMasterPassword'
 
 interface Props {}
 
@@ -15,10 +16,10 @@ export const MasterPassword: FC<Props> = () => {
 
   useEffect(() => {
     get(MASTER_PASSWORD).then((value) => {
-      setMasterPassword((state) => ({
-        ...state,
+      setMasterPassword({
+        blur: !!value,
         value,
-      }))
+      })
     })
   }, [setMasterPassword])
 

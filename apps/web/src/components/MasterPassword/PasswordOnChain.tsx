@@ -10,10 +10,11 @@ import {
 } from 'wagmi'
 import { Button, toast } from 'uikit'
 import { passwordManagerAbi } from '@penx/abi'
+import { MASTER_PASSWORD } from '@penx/constants'
 import { decryptString, encryptString } from '@penx/encryption'
 import { addressMap } from '@penx/wagmi'
 import { WalletConnectButton } from '../WalletConnectButton'
-import { MASTER_PASSWORD, useMasterPassword } from './useMasterPassword'
+import { useMasterPassword } from './useMasterPassword'
 
 interface Props {}
 

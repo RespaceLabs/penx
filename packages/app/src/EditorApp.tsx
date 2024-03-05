@@ -54,7 +54,7 @@ export const EditorApp = () => {
     return null
   }
 
-  // console.log('render........ EditorApp')
+  console.log('render........ EditorApp....')
   if (!session) return null
 
   return (
