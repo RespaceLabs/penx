@@ -22,9 +22,9 @@
     "@penx/trpc-client": "workspace:*",
     "@tanstack/react-query": "^4.36.1",
     "@wagmi/core": "^2.6.5",
-    "@web3modal/core": "^4.0.5",
-    "@web3modal/siwe": "^4.0.5",
-    "@web3modal/wagmi": "^4.0.5",
+    "@web3modal/core": "^4.0.13",
+    "@web3modal/siwe": "^4.0.13",
+    "@web3modal/wagmi": "^4.0.13",
     "bufferutil": "^4.0.8",
     "encoding": "^0.1.13",
     "next-auth": "^4.24.5",
@@ -33,7 +33,7 @@
     "siwe": "^2.1.4",
     "uikit": "workspace:*",
     "utf-8-validate": "^6.0.3",
-    "viem": "^2.7.10",
+    "viem": "^2.7.19",
     "wagmi": "^2.5.7"
   }
 }

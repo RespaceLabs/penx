@@ -34,6 +34,8 @@ async function sync() {
     if (!user.github.repo) return
     const activeSpace = await db.getActiveSpace()
 
+    if (!activeSpace) return
+
     const nodes = await db.listNodesBySpaceId(activeSpace.id)
 
     if (!nodes.length) return

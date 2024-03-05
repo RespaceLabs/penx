@@ -1,5 +1,5 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import type { SIWESession } from '@web3modal/core'
+import type { SIWESession } from '@web3modal/siwe'
 import { ethers } from 'ethers'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import { Provider } from 'next-auth/providers'

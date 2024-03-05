@@ -75,7 +75,7 @@
     "stook": "^1.17.0",
     "uikit": "workspace:*",
     "use-debounce": "^9.0.4",
-    "viem": "^2.7.10",
+    "viem": "^2.7.19",
     "wagmi": "^2.5.7"
   }
 }

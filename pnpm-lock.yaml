@@ -199,16 +199,16 @@ importers:
         version: 1.0.1
       '@wagmi/core':
         specifier: ^2.6.5
-        version: 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       '@web3modal/core':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)(react@18.2.0)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(react@18.2.0)
       '@web3modal/siwe':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2)
       '@web3modal/wagmi':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(viem@2.7.10)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(lit@3.1.0)(valtio@1.11.2)(viem@2.7.19)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -372,11 +372,11 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^2.7.10
-        version: 2.7.10(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^2.7.19
+        version: 2.7.19(typescript@5.3.3)(zod@3.22.4)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -1062,16 +1062,16 @@ importers:
         version: 1.0.1
       '@wagmi/core':
         specifier: ^2.6.5
-        version: 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       '@web3modal/core':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)(react@18.2.0)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(react@18.2.0)
       '@web3modal/siwe':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2)
       '@web3modal/wagmi':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(viem@2.7.10)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(lit@3.1.0)(valtio@1.11.2)(viem@2.7.19)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -1196,11 +1196,11 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^2.7.10
-        version: 2.7.10(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^2.7.19
+        version: 2.7.19(typescript@5.3.3)(zod@3.22.4)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -1318,16 +1318,16 @@ importers:
         version: 1.0.1
       '@wagmi/core':
         specifier: ^2.6.5
-        version: 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       '@web3modal/core':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)(react@18.2.0)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(react@18.2.0)
       '@web3modal/siwe':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2)
       '@web3modal/wagmi':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(viem@2.7.10)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(lit@3.1.0)(valtio@1.11.2)(viem@2.7.19)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -1464,11 +1464,11 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^2.7.10
-        version: 2.7.10(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^2.7.19
+        version: 2.7.19(typescript@5.3.3)(zod@3.22.4)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -1836,16 +1836,16 @@ importers:
         version: 1.0.1
       '@wagmi/core':
         specifier: ^2.6.5
-        version: 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       '@web3modal/core':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)(react@18.2.0)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(react@18.2.0)
       '@web3modal/siwe':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2)
       '@web3modal/wagmi':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(viem@2.7.10)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(lit@3.1.0)(valtio@1.11.2)(viem@2.7.19)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -2009,11 +2009,11 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^2.7.10
-        version: 2.7.10(typescript@5.3.3)(zod@3.22.4)
+        specifier: ^2.7.19
+        version: 2.7.19(typescript@5.3.3)(zod@3.22.4)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -2779,11 +2779,11 @@ importers:
         specifier: ^9.0.4
         version: 9.0.4(react@18.2.0)
       viem:
-        specifier: ^2.7.10
-        version: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+        specifier: ^2.7.19
+        version: 2.7.19(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)
+        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)
     devDependencies:
       '@penx/tsconfig':
         specifier: workspace:*
@@ -3917,7 +3917,7 @@ importers:
         version: 10.44.1(@trpc/server@10.44.1)
       '@wagmi/core':
         specifier: ^2.6.5
-        version: 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -4079,7 +4079,7 @@ importers:
         version: 0.7.9(@types/react-dom@18.2.17)(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -6317,16 +6317,16 @@ importers:
         version: 4.36.1(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)
       '@wagmi/core':
         specifier: ^2.6.5
-        version: 2.6.5(@types/react@18.2.48)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.10)
+        version: 2.6.5(@types/react@18.2.48)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.19)
       '@web3modal/core':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.48)(react@18.2.0)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.48)(react@18.2.0)
       '@web3modal/siwe':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.48)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.48)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2)
       '@web3modal/wagmi':
-        specifier: ^4.0.5
-        version: 4.0.5(@types/react@18.2.48)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(viem@2.7.10)
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.48)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(lit@3.1.0)(valtio@1.11.2)(viem@2.7.19)
       bufferutil:
         specifier: ^4.0.8
         version: 4.0.8
@@ -6352,11 +6352,11 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
       viem:
-        specifier: ^2.7.10
-        version: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+        specifier: ^2.7.19
+        version: 2.7.19(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.48)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.10)
+        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.48)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.19)
     devDependencies:
       '@penx/tsconfig':
         specifier: workspace:*
@@ -16902,7 +16902,7 @@ packages:
       - bufferutil
       - utf-8-validate
 
-  /@wagmi/connectors@4.1.14(@types/react@18.2.48)(@wagmi/core@2.6.5)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.10):
+  /@wagmi/connectors@4.1.14(@types/react@18.2.48)(@wagmi/core@2.6.5)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.19):
     resolution: {integrity: sha512-e8I89FsNBtzhIilU3nqmgMR9xvSgCfmkWLz9iCKBTqyitbK5EJU7WTEtjjYFm1v2J//JeAwaA2XEKtG9BLR9jQ==}
     peerDependencies:
       '@wagmi/core': 2.6.5
@@ -16916,11 +16916,11 @@ packages:
       '@metamask/sdk': 0.14.3(@types/react@18.2.48)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(utf-8-validate@6.0.3)
       '@safe-global/safe-apps-provider': 0.18.1(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
       '@safe-global/safe-apps-sdk': 8.1.0(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
-      '@wagmi/core': 2.6.5(@types/react@18.2.48)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.10)
+      '@wagmi/core': 2.6.5(@types/react@18.2.48)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.19)
       '@walletconnect/ethereum-provider': 2.11.1(@types/react@18.2.48)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.2.0)(utf-8-validate@6.0.3)
       '@walletconnect/modal': 2.6.2(@types/react@18.2.48)(react@18.2.0)
       typescript: 5.3.3
-      viem: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      viem: 2.7.19(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -16946,7 +16946,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/connectors@4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4):
+  /@wagmi/connectors@4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4):
     resolution: {integrity: sha512-e8I89FsNBtzhIilU3nqmgMR9xvSgCfmkWLz9iCKBTqyitbK5EJU7WTEtjjYFm1v2J//JeAwaA2XEKtG9BLR9jQ==}
     peerDependencies:
       '@wagmi/core': 2.6.5
@@ -16960,11 +16960,11 @@ packages:
       '@metamask/sdk': 0.14.3(@types/react@18.2.61)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)
       '@safe-global/safe-apps-provider': 0.18.1(typescript@5.3.3)(zod@3.22.4)
       '@safe-global/safe-apps-sdk': 8.1.0(typescript@5.3.3)(zod@3.22.4)
-      '@wagmi/core': 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+      '@wagmi/core': 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       '@walletconnect/ethereum-provider': 2.11.1(@types/react@18.2.61)(react@18.2.0)
       '@walletconnect/modal': 2.6.2(@types/react@18.2.61)(react@18.2.0)
       typescript: 5.3.3
-      viem: 2.7.10(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.7.19(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -16990,7 +16990,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/connectors@4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10):
+  /@wagmi/connectors@4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19):
     resolution: {integrity: sha512-e8I89FsNBtzhIilU3nqmgMR9xvSgCfmkWLz9iCKBTqyitbK5EJU7WTEtjjYFm1v2J//JeAwaA2XEKtG9BLR9jQ==}
     peerDependencies:
       '@wagmi/core': 2.6.5
@@ -17004,11 +17004,11 @@ packages:
       '@metamask/sdk': 0.14.3(@types/react@18.2.61)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)
       '@safe-global/safe-apps-provider': 0.18.1(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
       '@safe-global/safe-apps-sdk': 8.1.0(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
-      '@wagmi/core': 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)
+      '@wagmi/core': 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)
       '@walletconnect/ethereum-provider': 2.11.1(@types/react@18.2.61)(react@18.2.0)
       '@walletconnect/modal': 2.6.2(@types/react@18.2.61)(react@18.2.0)
       typescript: 5.3.3
-      viem: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      viem: 2.7.19(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -17034,7 +17034,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@2.6.5(@types/react@18.2.48)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.10):
+  /@wagmi/core@2.6.5(@types/react@18.2.48)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.19):
     resolution: {integrity: sha512-DLyrc0o+dx05oIhBJuxnS7ekS5e6rB5mytlqPme+Km7aLdeBdcfYB4yJyYCyWoi93OLa7M5sbflTttz3o56bKw==}
     peerDependencies:
       '@tanstack/query-core': '>=5.0.0'
@@ -17049,7 +17049,7 @@ packages:
       eventemitter3: 5.0.1
       mipd: 0.0.5(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
       typescript: 5.3.3
-      viem: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      viem: 2.7.19(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
       zustand: 4.4.1(@types/react@18.2.48)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
@@ -17060,7 +17060,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10):
+  /@wagmi/core@2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19):
     resolution: {integrity: sha512-DLyrc0o+dx05oIhBJuxnS7ekS5e6rB5mytlqPme+Km7aLdeBdcfYB4yJyYCyWoi93OLa7M5sbflTttz3o56bKw==}
     peerDependencies:
       '@tanstack/query-core': '>=5.0.0'
@@ -17075,7 +17075,7 @@ packages:
       eventemitter3: 5.0.1
       mipd: 0.0.5(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
       typescript: 5.3.3
-      viem: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      viem: 2.7.19(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
       zustand: 4.4.1(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
@@ -17086,7 +17086,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4):
+  /@wagmi/core@2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4):
     resolution: {integrity: sha512-DLyrc0o+dx05oIhBJuxnS7ekS5e6rB5mytlqPme+Km7aLdeBdcfYB4yJyYCyWoi93OLa7M5sbflTttz3o56bKw==}
     peerDependencies:
       '@tanstack/query-core': '>=5.0.0'
@@ -17101,7 +17101,7 @@ packages:
       eventemitter3: 5.0.1
       mipd: 0.0.5(typescript@5.3.3)(zod@3.22.4)
       typescript: 5.3.3
-      viem: 2.7.10(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.7.19(typescript@5.3.3)(zod@3.22.4)
       zustand: 4.4.1(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
@@ -17544,185 +17544,191 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@web3modal/common@4.0.5:
-    resolution: {integrity: sha512-RQKyqJi3T+Ti57XEkb/4dYbrWMdGduZUacb1k+5H7GU4+Ev3HXjOdp2bcPqfEyr1DYKD/IsW/q/0oqXatwEeUQ==}
+  /@web3modal/common@4.0.13:
+    resolution: {integrity: sha512-71fVfEy9k7B6xVgswY220Xy4Tl4iCINc1E4mr2P5NfEPkSwhmXm/oO2QBIpefml/cJ7Zt4oFbta8NzyN+V5bQw==}
     dependencies:
       dayjs: 1.11.10
     dev: false
 
-  /@web3modal/core@4.0.5(@types/react@18.2.48)(react@18.2.0):
-    resolution: {integrity: sha512-1QQHa8aNF1KX6ZAKBUU6UE4kwIa9x3FWX7Ak9eER/bTvmgyu2abJe3IwWPEt++nAjbvMKbIO6cATUXfSVk1Zyw==}
+  /@web3modal/core@4.0.13(@types/react@18.2.48)(react@18.2.0):
+    resolution: {integrity: sha512-8zCu+oZ3xwCQtUevjP09BPCkvJo2tRnBcOzMDhkFzqty2nTE4GBuaI2Bgp/gcrLJNN/RLPQ8BcEdrV2k95MOIg==}
     dependencies:
-      '@web3modal/common': 4.0.5
-      '@web3modal/wallet': 4.0.5
+      '@web3modal/common': 4.0.13
+      '@web3modal/wallet': 4.0.13
       valtio: 1.11.2(@types/react@18.2.48)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - react
     dev: false
 
-  /@web3modal/core@4.0.5(@types/react@18.2.61)(react@18.2.0):
-    resolution: {integrity: sha512-1QQHa8aNF1KX6ZAKBUU6UE4kwIa9x3FWX7Ak9eER/bTvmgyu2abJe3IwWPEt++nAjbvMKbIO6cATUXfSVk1Zyw==}
+  /@web3modal/core@4.0.13(@types/react@18.2.61)(react@18.2.0):
+    resolution: {integrity: sha512-8zCu+oZ3xwCQtUevjP09BPCkvJo2tRnBcOzMDhkFzqty2nTE4GBuaI2Bgp/gcrLJNN/RLPQ8BcEdrV2k95MOIg==}
     dependencies:
-      '@web3modal/common': 4.0.5
-      '@web3modal/wallet': 4.0.5
+      '@web3modal/common': 4.0.13
+      '@web3modal/wallet': 4.0.13
       valtio: 1.11.2(@types/react@18.2.61)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - react
     dev: false
 
-  /@web3modal/polyfills@4.0.5:
-    resolution: {integrity: sha512-2jnu4CEVnhatq/Bzyk4IgkPVGY3GgD13hZAPCx8mztZzPkrbKrSKfuq2KTVuTjw392DPp7EMmxmm8SSFnjwzuA==}
+  /@web3modal/polyfills@4.0.13:
+    resolution: {integrity: sha512-Pvb2uF18+h3r+kKa6ELn5Vg7lQRNoBmZ9GuH//AY1lX6AII75hPH78hKh78EscZctVFInbVxx8RBTFwfbXUzQA==}
     dependencies:
       buffer: 6.0.3
     dev: false
 
-  /@web3modal/scaffold-react@4.0.5(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-4JQhLHH+IRjpsRbVtt2skaxzTKYqpLTr7zTMZyTECgOXpWyOtTCN0vgc2YatWbct972sZlJ0V8llIwDiGodHgA==}
+  /@web3modal/scaffold-react@4.0.13(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)(valtio@1.11.2):
+    resolution: {integrity: sha512-275GNgj7sYYdhP1V3u5xaoxirIgumvAORkSguj2qahrc911NTfWP1foXaCE1cMj4TolV8r2esok8Jmh5r4SETg==}
     peerDependencies:
       react: '>=17'
       react-dom: '>=17'
     dependencies:
-      '@web3modal/scaffold': 4.0.5(@types/react@18.2.48)(react@18.2.0)
+      '@web3modal/scaffold': 4.0.13(@types/react@18.2.48)(react@18.2.0)(valtio@1.11.2)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
+      - valtio
     dev: false
 
-  /@web3modal/scaffold-react@4.0.5(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-4JQhLHH+IRjpsRbVtt2skaxzTKYqpLTr7zTMZyTECgOXpWyOtTCN0vgc2YatWbct972sZlJ0V8llIwDiGodHgA==}
+  /@web3modal/scaffold-react@4.0.13(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0)(valtio@1.11.2):
+    resolution: {integrity: sha512-275GNgj7sYYdhP1V3u5xaoxirIgumvAORkSguj2qahrc911NTfWP1foXaCE1cMj4TolV8r2esok8Jmh5r4SETg==}
     peerDependencies:
       react: '>=17'
       react-dom: '>=17'
     dependencies:
-      '@web3modal/scaffold': 4.0.5(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/scaffold': 4.0.13(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
+      - valtio
     dev: false
 
-  /@web3modal/scaffold-utils@4.0.5(@types/react@18.2.48)(react@18.2.0):
-    resolution: {integrity: sha512-FUjtpnf22TEgYpsG6oom1YtyDeydkWFmdXxf+xbnp+SlxuMpff9iF22bWIw1uM5eZYFQH3nIyDozCbOD/grQ+Q==}
+  /@web3modal/scaffold-utils@4.0.13(@types/react@18.2.48)(react@18.2.0):
+    resolution: {integrity: sha512-V/iJ0ec92oZSBopxWaPpy8k2HZ4kUihhGDXfV11A9GQVIg7+JY2m+Q8vUBrgHExmb38GZWgqAGUeG/YlTdLmQw==}
     dependencies:
-      '@web3modal/polyfills': 4.0.5
-      '@web3modal/scaffold': 4.0.5(@types/react@18.2.48)(react@18.2.0)
+      '@web3modal/core': 4.0.13(@types/react@18.2.48)(react@18.2.0)
+      '@web3modal/polyfills': 4.0.13
       valtio: 1.11.2(@types/react@18.2.48)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - react
     dev: false
 
-  /@web3modal/scaffold-utils@4.0.5(@types/react@18.2.61)(react@18.2.0):
-    resolution: {integrity: sha512-FUjtpnf22TEgYpsG6oom1YtyDeydkWFmdXxf+xbnp+SlxuMpff9iF22bWIw1uM5eZYFQH3nIyDozCbOD/grQ+Q==}
+  /@web3modal/scaffold-utils@4.0.13(@types/react@18.2.61)(react@18.2.0):
+    resolution: {integrity: sha512-V/iJ0ec92oZSBopxWaPpy8k2HZ4kUihhGDXfV11A9GQVIg7+JY2m+Q8vUBrgHExmb38GZWgqAGUeG/YlTdLmQw==}
     dependencies:
-      '@web3modal/polyfills': 4.0.5
-      '@web3modal/scaffold': 4.0.5(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/core': 4.0.13(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/polyfills': 4.0.13
       valtio: 1.11.2(@types/react@18.2.61)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - react
     dev: false
 
-  /@web3modal/scaffold-vue@4.0.5(@types/react@18.2.48)(react@18.2.0)(vue@3.3.4):
-    resolution: {integrity: sha512-FrFDoqGRATPfNYdYug6vX0g79HdL8u08QcC3ZTix1yv2iYz424X7tSm+zQ0FBh7DnZPMYIximSNy1jrEw1wPoQ==}
+  /@web3modal/scaffold-vue@4.0.13(@types/react@18.2.48)(react@18.2.0)(valtio@1.11.2)(vue@3.3.4):
+    resolution: {integrity: sha512-G50zVC4vqd//bNDc8+K08EmAUs9pXSgmWj8CarPu4X5x69p0dMPXzDuTMQJ/Lw2WZ2WBvycwY8dyvvzI6Ff1Xw==}
     peerDependencies:
       vue: '>=3'
     dependencies:
-      '@web3modal/scaffold': 4.0.5(@types/react@18.2.48)(react@18.2.0)
+      '@web3modal/scaffold': 4.0.13(@types/react@18.2.48)(react@18.2.0)(valtio@1.11.2)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@types/react'
       - react
+      - valtio
     dev: false
 
-  /@web3modal/scaffold-vue@4.0.5(@types/react@18.2.61)(react@18.2.0)(vue@3.3.4):
-    resolution: {integrity: sha512-FrFDoqGRATPfNYdYug6vX0g79HdL8u08QcC3ZTix1yv2iYz424X7tSm+zQ0FBh7DnZPMYIximSNy1jrEw1wPoQ==}
+  /@web3modal/scaffold-vue@4.0.13(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2)(vue@3.3.4):
+    resolution: {integrity: sha512-G50zVC4vqd//bNDc8+K08EmAUs9pXSgmWj8CarPu4X5x69p0dMPXzDuTMQJ/Lw2WZ2WBvycwY8dyvvzI6Ff1Xw==}
     peerDependencies:
       vue: '>=3'
     dependencies:
-      '@web3modal/scaffold': 4.0.5(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/scaffold': 4.0.13(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@types/react'
       - react
+      - valtio
     dev: false
 
-  /@web3modal/scaffold@4.0.5(@types/react@18.2.48)(react@18.2.0):
-    resolution: {integrity: sha512-K2j/fmUAPyZ6M5DvOAf88qcubrB//ulkOIS1ZX7R7g8isp9z7AtWn2c0b/O+l9CEeiKn0ZSIa7VF7GrUFDZ8vQ==}
-    dependencies:
-      '@web3modal/common': 4.0.5
-      '@web3modal/core': 4.0.5(@types/react@18.2.48)(react@18.2.0)
-      '@web3modal/ui': 4.0.5
-      lit: 3.1.0
-    transitivePeerDependencies:
-      - '@types/react'
-      - react
-    dev: false
-
-  /@web3modal/scaffold@4.0.5(@types/react@18.2.61)(react@18.2.0):
-    resolution: {integrity: sha512-K2j/fmUAPyZ6M5DvOAf88qcubrB//ulkOIS1ZX7R7g8isp9z7AtWn2c0b/O+l9CEeiKn0ZSIa7VF7GrUFDZ8vQ==}
-    dependencies:
-      '@web3modal/common': 4.0.5
-      '@web3modal/core': 4.0.5(@types/react@18.2.61)(react@18.2.0)
-      '@web3modal/ui': 4.0.5
-      lit: 3.1.0
-    transitivePeerDependencies:
-      - '@types/react'
-      - react
-    dev: false
-
-  /@web3modal/siwe@4.0.5(@types/react@18.2.48):
-    resolution: {integrity: sha512-JxYoM0rvgekpvd2Wyw1mtq7mbv8JBsbP22K5Evf4ZUupVAgoeNHDGCBKK8nKwdwMuc2AfsAcdNqx+rwS6N9WLQ==}
+  /@web3modal/scaffold@4.0.13(@types/react@18.2.48)(react@18.2.0)(valtio@1.11.2):
+    resolution: {integrity: sha512-ur543j3KunFUIoSAT4GGwAX0GxVPHNkuCEUGJL52KSfXG6rqHlPoVMeGyZKN4Mo2FyQCh76vFgm9Vv2GribuDQ==}
     peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-      vue:
+      '@web3modal/siwe':
         optional: true
     dependencies:
-      '@web3modal/core': 4.0.5(@types/react@18.2.48)(react@18.2.0)
-      '@web3modal/scaffold-utils': 4.0.5(@types/react@18.2.48)(react@18.2.0)
+      '@web3modal/common': 4.0.13
+      '@web3modal/core': 4.0.13(@types/react@18.2.48)(react@18.2.0)
+      '@web3modal/ui': 4.0.13
+      lit: 3.1.0
     optionalDependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      vue: 3.3.4
+      '@web3modal/siwe': 4.0.13(@types/react@18.2.48)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2)
     transitivePeerDependencies:
       - '@types/react'
+      - react
+      - valtio
     dev: false
 
-  /@web3modal/siwe@4.0.5(@types/react@18.2.61):
-    resolution: {integrity: sha512-JxYoM0rvgekpvd2Wyw1mtq7mbv8JBsbP22K5Evf4ZUupVAgoeNHDGCBKK8nKwdwMuc2AfsAcdNqx+rwS6N9WLQ==}
+  /@web3modal/scaffold@4.0.13(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2):
+    resolution: {integrity: sha512-ur543j3KunFUIoSAT4GGwAX0GxVPHNkuCEUGJL52KSfXG6rqHlPoVMeGyZKN4Mo2FyQCh76vFgm9Vv2GribuDQ==}
     peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-      vue:
+      '@web3modal/siwe':
         optional: true
     dependencies:
-      '@web3modal/core': 4.0.5(@types/react@18.2.61)(react@18.2.0)
-      '@web3modal/scaffold-utils': 4.0.5(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/common': 4.0.13
+      '@web3modal/core': 4.0.13(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/ui': 4.0.13
+      lit: 3.1.0
     optionalDependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      vue: 3.3.4
+      '@web3modal/siwe': 4.0.13(@types/react@18.2.61)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2)
     transitivePeerDependencies:
       - '@types/react'
+      - react
+      - valtio
     dev: false
 
-  /@web3modal/ui@4.0.5:
-    resolution: {integrity: sha512-IGNzHtRWZjbjv/8s7kbVknrlV/R0OrVTmlrQMa4H16kEuInWBZkKjfJ6zlqEKNrhppJ01Ft11h4d3NWscu47fg==}
+  /@web3modal/siwe@4.0.13(@types/react@18.2.48)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2):
+    resolution: {integrity: sha512-wMEOJxgWQK97mdI5IWAR4uA8NHLOjOM3PabiQYEw7hKACwK4C2bJTS1Lp6ddO3a3P2WU4GxrtoqBnpbc6Z+XgQ==}
+    peerDependencies:
+      lit: '>=3'
+      valtio: '>=1 <2'
+    dependencies:
+      '@web3modal/core': 4.0.13(@types/react@18.2.48)(react@18.2.0)
+      '@web3modal/scaffold-utils': 4.0.13(@types/react@18.2.48)(react@18.2.0)
+      lit: 3.1.0
+      valtio: 1.11.2(@types/react@18.2.48)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - react
+    dev: false
+
+  /@web3modal/siwe@4.0.13(@types/react@18.2.61)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2):
+    resolution: {integrity: sha512-wMEOJxgWQK97mdI5IWAR4uA8NHLOjOM3PabiQYEw7hKACwK4C2bJTS1Lp6ddO3a3P2WU4GxrtoqBnpbc6Z+XgQ==}
+    peerDependencies:
+      lit: '>=3'
+      valtio: '>=1 <2'
+    dependencies:
+      '@web3modal/core': 4.0.13(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/scaffold-utils': 4.0.13(@types/react@18.2.61)(react@18.2.0)
+      lit: 3.1.0
+      valtio: 1.11.2(@types/react@18.2.61)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - react
+    dev: false
+
+  /@web3modal/ui@4.0.13:
+    resolution: {integrity: sha512-G2SBYI1e7jIOjtbk5E/CoN0TyHj4mFG0L0FAsqJWGDONbwq+rYEA7pjyIY5Tobh7vgadQZvrANb5KUJfI6tCZQ==}
     dependencies:
       lit: 3.1.0
       qrcode: 1.5.3
     dev: false
 
-  /@web3modal/wagmi@4.0.5(@types/react@18.2.48)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(viem@2.7.10):
-    resolution: {integrity: sha512-uUwhpv3gnq0SmXwO1YdbTVSZfZfgjEdp7lsc6u+Uoxv5Bw5XFkIV6FsSlQFk7SU3So+GEGa/u9iNejnl40hQUA==}
+  /@web3modal/wagmi@4.0.13(@types/react@18.2.48)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(lit@3.1.0)(valtio@1.11.2)(viem@2.7.19):
+    resolution: {integrity: sha512-i7ui3K5BM7hDH/Y7QDVz1hgshZf9p9IGI9cpDrkjUQ4ow8C+1rHfFAi3uJd4OdGmwXVG1ewkHlzWgDCKZnhLuQ==}
     peerDependencies:
       '@wagmi/connectors': '>=4.0.0'
       '@wagmi/core': '>=2.0.0'
@@ -17737,25 +17743,27 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@wagmi/connectors': 4.1.14(@types/react@18.2.48)(@wagmi/core@2.6.5)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.10)
-      '@wagmi/core': 2.6.5(@types/react@18.2.48)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.10)
-      '@web3modal/polyfills': 4.0.5
-      '@web3modal/scaffold': 4.0.5(@types/react@18.2.48)(react@18.2.0)
-      '@web3modal/scaffold-react': 4.0.5(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
-      '@web3modal/scaffold-utils': 4.0.5(@types/react@18.2.48)(react@18.2.0)
-      '@web3modal/scaffold-vue': 4.0.5(@types/react@18.2.48)(react@18.2.0)(vue@3.3.4)
-      viem: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      '@wagmi/connectors': 4.1.14(@types/react@18.2.48)(@wagmi/core@2.6.5)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.19)
+      '@wagmi/core': 2.6.5(@types/react@18.2.48)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.19)
+      '@web3modal/polyfills': 4.0.13
+      '@web3modal/scaffold': 4.0.13(@types/react@18.2.48)(react@18.2.0)(valtio@1.11.2)
+      '@web3modal/scaffold-react': 4.0.13(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)(valtio@1.11.2)
+      '@web3modal/scaffold-utils': 4.0.13(@types/react@18.2.48)(react@18.2.0)
+      '@web3modal/scaffold-vue': 4.0.13(@types/react@18.2.48)(react@18.2.0)(valtio@1.11.2)(vue@3.3.4)
+      viem: 2.7.19(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
     optionalDependencies:
-      '@web3modal/siwe': 4.0.5(@types/react@18.2.48)
+      '@web3modal/siwe': 4.0.13(@types/react@18.2.48)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@types/react'
+      - lit
+      - valtio
     dev: false
 
-  /@web3modal/wagmi@4.0.5(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(viem@2.7.10):
-    resolution: {integrity: sha512-uUwhpv3gnq0SmXwO1YdbTVSZfZfgjEdp7lsc6u+Uoxv5Bw5XFkIV6FsSlQFk7SU3So+GEGa/u9iNejnl40hQUA==}
+  /@web3modal/wagmi@4.0.13(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(lit@3.1.0)(valtio@1.11.2)(viem@2.7.19):
+    resolution: {integrity: sha512-i7ui3K5BM7hDH/Y7QDVz1hgshZf9p9IGI9cpDrkjUQ4ow8C+1rHfFAi3uJd4OdGmwXVG1ewkHlzWgDCKZnhLuQ==}
     peerDependencies:
       '@wagmi/connectors': '>=4.0.0'
       '@wagmi/core': '>=2.0.0'
@@ -17770,25 +17778,27 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@wagmi/connectors': 4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
-      '@wagmi/core': 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
-      '@web3modal/polyfills': 4.0.5
-      '@web3modal/scaffold': 4.0.5(@types/react@18.2.61)(react@18.2.0)
-      '@web3modal/scaffold-react': 4.0.5(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0)
-      '@web3modal/scaffold-utils': 4.0.5(@types/react@18.2.61)(react@18.2.0)
-      '@web3modal/scaffold-vue': 4.0.5(@types/react@18.2.61)(react@18.2.0)(vue@3.3.4)
-      viem: 2.7.10(typescript@5.3.3)(zod@3.22.4)
+      '@wagmi/connectors': 4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
+      '@wagmi/core': 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
+      '@web3modal/polyfills': 4.0.13
+      '@web3modal/scaffold': 4.0.13(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2)
+      '@web3modal/scaffold-react': 4.0.13(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0)(valtio@1.11.2)
+      '@web3modal/scaffold-utils': 4.0.13(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/scaffold-vue': 4.0.13(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2)(vue@3.3.4)
+      viem: 2.7.19(typescript@5.3.3)(zod@3.22.4)
     optionalDependencies:
-      '@web3modal/siwe': 4.0.5(@types/react@18.2.61)
+      '@web3modal/siwe': 4.0.13(@types/react@18.2.61)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@types/react'
+      - lit
+      - valtio
     dev: false
 
-  /@web3modal/wallet@4.0.5:
-    resolution: {integrity: sha512-rw9LtXX7azOjpV/WWh2KRG4zlvXW+tE+QRxl0b12S4WgQXLoteqzAFiumvg/H4fBf73WFJ6Bos3g7Mf4M8Dp6A==}
+  /@web3modal/wallet@4.0.13:
+    resolution: {integrity: sha512-Luqnu/zYWruBk4w5cQM6I8fxKvVJ8b5TiMm7r0PNTyKuS5MNIeVE6BBtT5PR/S1q5XM5BKh/nQ8DBky8GhuSPA==}
     dependencies:
       zod: 3.22.4
     dev: false
@@ -33616,8 +33626,8 @@ packages:
       - utf-8-validate
       - zod
 
-  /viem@2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3):
-    resolution: {integrity: sha512-mpm/A3Rbq6hhRovOw6btkrLeDe0DlEGLoCmO2LCbH/MuTQgLNd0cWJSIov9TL/8/Pz+qC2e+bh9zohQnKA+6PQ==}
+  /viem@2.7.19(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3):
+    resolution: {integrity: sha512-UOMeqy+8p2709ra2j9HEOL1NfjsXZzlJ8gwR6YO/zXH8KIZvyzW07t4iQARF5+ShVZ/7+/1ec8oPjVi1M//33A==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
@@ -33639,8 +33649,8 @@ packages:
       - zod
     dev: false
 
-  /viem@2.7.10(typescript@5.3.3)(zod@3.22.4):
-    resolution: {integrity: sha512-mpm/A3Rbq6hhRovOw6btkrLeDe0DlEGLoCmO2LCbH/MuTQgLNd0cWJSIov9TL/8/Pz+qC2e+bh9zohQnKA+6PQ==}
+  /viem@2.7.19(typescript@5.3.3)(zod@3.22.4):
+    resolution: {integrity: sha512-UOMeqy+8p2709ra2j9HEOL1NfjsXZzlJ8gwR6YO/zXH8KIZvyzW07t4iQARF5+ShVZ/7+/1ec8oPjVi1M//33A==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
@@ -33708,7 +33718,7 @@ packages:
       '@vue/shared': 3.3.4
     dev: false
 
-  /wagmi@2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.48)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.10):
+  /wagmi@2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.48)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.19):
     resolution: {integrity: sha512-xSuteMXFKvra4xDddqZbZv/gQlcg3X+To5AoZW7WoAm0iVlF8/vEGpQzCWy6KZs2z1szxPrr0YnH3Zr1Qj4E/A==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -33720,12 +33730,12 @@ packages:
         optional: true
     dependencies:
       '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)
-      '@wagmi/connectors': 4.1.14(@types/react@18.2.48)(@wagmi/core@2.6.5)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.10)
-      '@wagmi/core': 2.6.5(@types/react@18.2.48)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.10)
+      '@wagmi/connectors': 4.1.14(@types/react@18.2.48)(@wagmi/core@2.6.5)(bufferutil@4.0.8)(encoding@0.1.13)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.19)
+      '@wagmi/core': 2.6.5(@types/react@18.2.48)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(utf-8-validate@6.0.3)(viem@2.7.19)
       react: 18.2.0
       typescript: 5.3.3
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      viem: 2.7.19(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -33752,7 +33762,7 @@ packages:
       - zod
     dev: false
 
-  /wagmi@2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4):
+  /wagmi@2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4):
     resolution: {integrity: sha512-xSuteMXFKvra4xDddqZbZv/gQlcg3X+To5AoZW7WoAm0iVlF8/vEGpQzCWy6KZs2z1szxPrr0YnH3Zr1Qj4E/A==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -33764,12 +33774,12 @@ packages:
         optional: true
     dependencies:
       '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)
-      '@wagmi/connectors': 4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
-      '@wagmi/core': 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)(zod@3.22.4)
+      '@wagmi/connectors': 4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
+      '@wagmi/core': 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       react: 18.2.0
       typescript: 5.3.3
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 2.7.10(typescript@5.3.3)(zod@3.22.4)
+      viem: 2.7.19(typescript@5.3.3)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -33796,7 +33806,7 @@ packages:
       - zod
     dev: false
 
-  /wagmi@2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10):
+  /wagmi@2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19):
     resolution: {integrity: sha512-xSuteMXFKvra4xDddqZbZv/gQlcg3X+To5AoZW7WoAm0iVlF8/vEGpQzCWy6KZs2z1szxPrr0YnH3Zr1Qj4E/A==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -33808,12 +33818,12 @@ packages:
         optional: true
     dependencies:
       '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)
-      '@wagmi/connectors': 4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)
-      '@wagmi/core': 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.10)
+      '@wagmi/connectors': 4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)
+      '@wagmi/core': 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)
       react: 18.2.0
       typescript: 5.3.3
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 2.7.10(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
+      viem: 2.7.19(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@6.0.3)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'

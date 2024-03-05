@@ -28,7 +28,7 @@ import { appEmitter } from '../../app-emitter'
 export const UserProfile = () => {
   const user = useUser()
 
-  const { disconnect, disconnectAsync } = useDisconnect()
+  // const { disconnect, disconnectAsync } = useDisconnect()
   const { loading, data: session } = useSession()
 
   const name = useMemo(() => {
@@ -138,7 +138,7 @@ export const UserProfile = () => {
             <MenuItem
               gap2
               onClick={async () => {
-                await disconnectAsync()
+                // await disconnectAsync()
                 // disconnect()
                 setTimeout(() => {
                   appEmitter.emit('SIGN_OUT')
