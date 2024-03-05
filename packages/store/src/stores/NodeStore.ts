@@ -176,7 +176,9 @@ export class NodeStore {
     let records: TodoRecord[] = []
 
     const todo = this.getDatabaseByName(TODO_DATABASE_NAME)
-    const database = this.getDatabase(todo!.id)
+    if (!todo) return []
+
+    const database = this.getDatabase(todo.id)
 
     for (const row of database.rows) {
       const rowCells = database.cells.filter((c) => c.props.rowId === row.id)!
