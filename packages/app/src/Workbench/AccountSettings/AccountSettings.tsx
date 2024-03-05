@@ -1,4 +1,5 @@
 import { Box } from '@fower/react'
+import { MasterPassword } from './MasterPassword'
 import { PersonalToken } from './PersonalToken'
 
 export function AccountSettings() {
@@ -7,6 +8,8 @@ export function AccountSettings() {
       <Box text2XL mb4 fontBold>
         Account Settings
       </Box>
+
+      <MasterPassword />
 
       <PersonalToken />
     </Box>
