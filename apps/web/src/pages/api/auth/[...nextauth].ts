@@ -1,6 +1,5 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import type { SIWESession } from '@web3modal/siwe'
-import { ethers } from 'ethers'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import { Provider } from 'next-auth/providers'
 import CredentialsProvider from 'next-auth/providers/credentials'
@@ -44,58 +43,6 @@ const providers: Provider[] = [
     },
   }),
 ]
-
-if (process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED') {
-  providers
-    .push
-    // CredentialsProvider({
-    //   name: 'SelfHosted',
-    //   credentials: {
-    //     username: { label: 'Username', type: 'text', placeholder: '' },
-    //     password: { label: 'Password', type: 'password' },
-    //   },
-    //   async authorize(credentials, req) {
-    //     const [username, password] = (
-    //       process.env.SELF_HOSTED_CREDENTIALS as string
-    //     ).split('/')
-
-    //     // console.log(
-    //     //   'process.env.SELF_HOSTED_CREDENTIALS:',
-    //     //   process.env.SELF_HOSTED_CREDENTIALS,
-    //     //   'username, password:',
-    //     //   username,
-    //     //   password,
-    //     //   'NEXTAUTH_SECRET:',
-    //     //   process.env.NEXTAUTH_SECRET,
-    //     // )
-
-    //     if (
-    //       username === credentials!.username &&
-    //       password === credentials!.password
-    //     ) {
-    //       let user = await prisma.user.findFirst({
-    //         where: { username, password },
-    //       })
-
-    //       if (!user) {
-    //         user = await prisma.user.create({
-    //           data: { username, password, name: username },
-    //         })
-    //       }
-
-    //       return {
-    //         id: user.id,
-    //         name: user.username || user.name,
-    //         email: user.email || '',
-    //         image: '',
-    //       }
-    //     } else {
-    //       return null
-    //     }
-    //   },
-    // }),
-    ()
-}
 
 providers.push(
   CredentialsProvider({

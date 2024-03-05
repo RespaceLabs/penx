@@ -10,8 +10,6 @@ import { api } from '@penx/trpc-client'
 export type CreateSpaceValues = {
   name: string
   editorMode: EditorMode
-  encrypted: boolean
-  password: string
 }
 
 export function useCreateSpaceForm() {
@@ -20,8 +18,6 @@ export function useCreateSpaceForm() {
     defaultValues: {
       name: '',
       editorMode: EditorMode.BLOCK,
-      encrypted: false,
-      password: '',
     },
   })
 
@@ -38,15 +34,12 @@ export function useCreateSpaceForm() {
       userId,
       editorMode: data.editorMode,
       name: data.name,
-      encrypted: data.encrypted,
-      password: data.password,
     })
 
     try {
       const space = await api.space.create.mutate({
         userId,
         spaceData: JSON.stringify(newSpace),
-        encrypted: data.encrypted,
       })
 
       await store.space.createSpace({

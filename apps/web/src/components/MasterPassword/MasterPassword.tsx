@@ -30,8 +30,8 @@ export const MasterPassword: FC<Props> = () => {
           Master password
         </Box>
         <Box textCenter gray600 leadingNormal textSM>
-          The password to encrypt you data, please remember it, and don't forget
-          it!
+          The password to encrypt you data, please remember it, and don{`'`}t
+          forget it!
         </Box>
       </Box>
 

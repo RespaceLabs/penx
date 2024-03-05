@@ -8,7 +8,7 @@ import {
   Spinner,
   useModalContext,
 } from 'uikit'
-import { EditorMode, ISpace } from '@penx/model-types'
+import { EditorMode } from '@penx/model-types'
 import { BorderedRadioGroup } from '../../components/BorderedRadioGroup'
 import { useCreateSpaceForm } from './useCreateSpaceForm'
 
@@ -21,7 +21,6 @@ export function CreateSpaceForm({ showCancel = true }: Props) {
   const form = useCreateSpaceForm()
   const { control, formState } = form
   const { isValid } = formState
-  const encrypted = form.watch('encrypted')
 
   return (
     <Box as="form" onSubmit={form.onSubmit} column gap4 pt3>
@@ -55,41 +54,6 @@ export function CreateSpaceForm({ showCancel = true }: Props) {
           />
         )}
       />
-
-      <Box toCenterY gap1>
-        <Controller
-          name="encrypted"
-          control={control}
-          render={({ field }) => (
-            <Checkbox
-              onChange={(e) => {
-                field.onChange(e.target.checked)
-              }}
-              checked={field.value}
-            >
-              Enable End-to-End Encryption
-            </Checkbox>
-          )}
-        />
-      </Box>
-
-      {encrypted && (
-        <Box>
-          <Box mb2 fontMedium>
-            End-to-End Encryption password
-          </Box>
-          <Box gray400 leadingNormal textSM mb2>
-            The password can be updated in space settings.
-          </Box>
-          <Controller
-            name="password"
-            control={control}
-            render={({ field }) => (
-              <Input size="lg" type="password" placeholder="" {...field} />
-            )}
-          />
-        </Box>
-      )}
 
       <Box toCenterY toRight gap2 mt2>
         {showCancel && (

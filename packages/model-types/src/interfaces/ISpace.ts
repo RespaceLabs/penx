@@ -22,10 +22,6 @@ export interface ISpace {
 
   activeNodeIds: string[]
 
-  encrypted: boolean
-
-  password: string
-
   // for cloud
   nodeSnapshot: {
     version: number

@@ -9,7 +9,6 @@ import { uniqueId } from '@penx/unique-id'
 export const CreateSpaceInput = z.object({
   userId: z.string().min(1),
   spaceData: z.string(),
-  encrypted: z.boolean(),
 })
 
 export type CreateUserInput = z.infer<typeof CreateSpaceInput>
@@ -46,7 +45,6 @@ export function createSpace(input: CreateUserInput) {
           name: space.name,
           color: space.color,
           isActive: space.isActive,
-          encrypted: space.encrypted,
           activeNodeIds: space.activeNodeIds || [],
           syncServerId: syncServer.id,
           nodeSnapshot: space.nodeSnapshot,
