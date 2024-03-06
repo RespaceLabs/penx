@@ -37,24 +37,6 @@ export default function LoginPage() {
             <LoginWithGoogleButton />
           </Suspense>
         )}
-        <ClientOnly>
-          <WalletConnectButton
-            size={56}
-            rounded2XL
-            colorScheme="white"
-            toBetween
-          >
-            <Wallet />
-            <Box column gap1>
-              <Box textBase fontSemibold>
-                Login with Wallet
-              </Box>
-              <Box gray800 textXS fontLight>
-                For web3 users and builders
-              </Box>
-            </Box>
-          </WalletConnectButton>
-        </ClientOnly>
       </Box>
     )
   }, [showGoogle, showGitHub])

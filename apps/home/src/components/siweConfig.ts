@@ -2,7 +2,7 @@ import type {
   SIWECreateMessageArgs,
   SIWESession,
   SIWEVerifyMessageArgs,
-} from '@web3modal/core'
+} from '@web3modal/siwe'
 import { createSIWEConfig } from '@web3modal/siwe'
 import { getCsrfToken, getSession, signIn, signOut } from 'next-auth/react'
 import { SiweMessage } from 'siwe'

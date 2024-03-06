@@ -1,17 +1,15 @@
+import { createSIWEConfig } from '@web3modal/siwe'
 import type {
   SIWECreateMessageArgs,
   SIWESession,
   SIWEVerifyMessageArgs,
 } from '@web3modal/siwe'
-import { createSIWEConfig } from '@web3modal/siwe'
 import { getCsrfToken, getSession, signIn, signOut } from 'next-auth/react'
 import { SiweMessage } from 'siwe'
 
 export const siweConfig = createSIWEConfig({
-  createMessage: ({ nonce, address, chainId }: SIWECreateMessageArgs) => {
-    console.log('=== nonce, address, chainId :', nonce, address, chainId)
-
-    return new SiweMessage({
+  createMessage: ({ nonce, address, chainId }: SIWECreateMessageArgs) =>
+    new SiweMessage({
       version: '1',
       domain: window.location.host,
       uri: window.location.origin,
@@ -20,12 +18,9 @@ export const siweConfig = createSIWEConfig({
       nonce,
       // Human-readable ASCII assertion that the user will sign, and it must not contain `\n`.
       statement: 'Sign in With Ethereum.',
-    }).prepareMessage()
-  },
+    }).prepareMessage(),
   getNonce: async () => {
     const nonce = await getCsrfToken()
-    console.log('======nonce:', nonce)
-
     if (!nonce) {
       throw new Error('Failed to get nonce!')
     }
@@ -48,8 +43,12 @@ export const siweConfig = createSIWEConfig({
         message,
         redirect: false,
         signature,
-        callbackUrl: '/protected',
+        callbackUrl: '/',
       })
+
+      if (success?.ok) {
+        window.location.href = '/'
+      }
 
       return Boolean(success?.ok)
     } catch (error) {

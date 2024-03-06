@@ -1,8 +1,9 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import type { SIWESession } from '@web3modal/siwe'
+import { ethers } from 'ethers'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import { Provider } from 'next-auth/providers'
-import CredentialsProvider from 'next-auth/providers/credentials'
+import credentialsProvider from 'next-auth/providers/credentials'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import { getCsrfToken } from 'next-auth/react'
@@ -29,116 +30,126 @@ async function createUser(address: string) {
   return user
 }
 
-const providers: Provider[] = [
-  GithubProvider({
-    clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
-    clientSecret: process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET as string,
-  }),
+export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+  const nextAuthSecret = process.env['NEXTAUTH_SECRET']
+  if (!nextAuthSecret) {
+    throw new Error('NEXTAUTH_SECRET is not set')
+  }
+  // Get your projectId on https://cloud.walletconnect.com
+  const projectId = process.env['NEXT_PUBLIC_PROJECT_ID']
+  if (!projectId) {
+    throw new Error('NEXT_PUBLIC_PROJECT_ID is not set')
+  }
 
-  GoogleProvider({
-    clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
-    clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
-    httpOptions: {
-      timeout: 10 * 1000,
-    },
-  }),
-]
+  const providers: Provider[] = []
 
-providers.push(
-  CredentialsProvider({
-    name: 'Ethereum',
-    credentials: {
-      message: {
-        label: 'Message',
-        type: 'text',
-        placeholder: '0x0',
+  providers.push(
+    ...[
+      GithubProvider({
+        clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
+        clientSecret: process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET as string,
+      }),
+
+      GoogleProvider({
+        clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
+        clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
+        httpOptions: {
+          timeout: 10 * 1000,
+        },
+      }),
+    ],
+  )
+
+  const isWeb3 = req.url?.includes('/api/auth/callback/credentials')
+
+  providers.push(
+    credentialsProvider({
+      name: 'Ethereum',
+      credentials: {
+        message: {
+          label: 'Message',
+          type: 'text',
+          placeholder: '0x0',
+        },
+        signature: {
+          label: 'Signature',
+          type: 'text',
+          placeholder: '0x0',
+        },
       },
-      signature: {
-        label: 'Signature',
-        type: 'text',
-        placeholder: '0x0',
-      },
-    },
-    async authorize(credentials, req) {
-      console.log('authorize=siwe===============')
-
-      try {
-        if (!credentials?.message) {
-          throw new Error('SiweMessage is undefined')
-        }
-
-        const siwe = new SiweMessage(JSON.parse(credentials.message || '{}'))
-
-        const nextAuthUrl = new URL(process.env.NEXT_PUBLIC_NEXTAUTH_URL!)
-
-        const nonce = await getCsrfToken({ req })
-
-        const result = await siwe.verify({
-          signature: credentials?.signature || '',
-          domain: nextAuthUrl.host,
-          nonce,
-        })
-
-        if (result.success) {
-          const { address } = siwe
-          const user = await createUser(address)
-
-          return {
-            id: user.id,
-            address,
+      async authorize(credentials) {
+        try {
+          if (!credentials?.message) {
+            throw new Error('SiweMessage is undefined')
           }
+          const siwe = new SiweMessage(credentials.message)
+          const provider = new ethers.JsonRpcProvider(
+            `https://rpc.walletconnect.com/v1?chainId=eip155:${siwe.chainId}&projectId=${projectId}`,
+          )
+          const nonce = await getCsrfToken({ req: { headers: req.headers } })
+          const result = await siwe.verify(
+            {
+              signature: credentials?.signature || '',
+              nonce,
+            },
+            { provider },
+          )
+
+          if (result.success) {
+            const { address } = siwe
+            const user = await createUser(address)
+
+            return { id: user.id, address, user }
+          }
+
+          return null
+        } catch (e) {
+          return null
+        }
+      },
+    }),
+  )
+
+  return await NextAuth(req, res, {
+    // https://next-auth.js.org/configuration/providers/oauth
+    providers,
+
+    session: {
+      strategy: 'jwt',
+    },
+
+    adapter: PrismaAdapter(prisma),
+    pages: {
+      signIn: `/login/web2`,
+      verifyRequest: `/login/web2`,
+      error: '/login/web2', // Error code passed in query string as ?error=
+    },
+
+    callbacks: {
+      async signIn({ user, account, profile }) {
+        // await initSpace(user.id, user.name!)
+        return true
+      },
+
+      async jwt({ token, account, user, profile }) {
+        if (user) {
+          // console.log('jwt==========:', user)
+          token.uid = user.id
+          token.address = (user as any).address
         }
 
-        return null
-      } catch (e) {
-        console.log('eeeeeeeeeeeee======:', e)
+        return token
+      },
+      session({ session, token }) {
+        session.userId = token.uid as string
+        session.address = token.address as string
 
-        return null
-      }
+        if (session?.user) {
+          ;(session.user as any).id = token.uid
+        }
+
+        return session
+      },
     },
-  }),
-)
-
-export const authOptions: NextAuthOptions = {
-  // Configure one or more authentication providers
-  providers,
-  session: {
-    strategy: 'jwt',
-    // maxAge: 2592000 * 30,
-  },
-
-  adapter: PrismaAdapter(prisma),
-  pages: {
-    signIn: `/login`,
-    verifyRequest: `/login`,
-    error: '/login', // Error code passed in query string as ?error=
-  },
-
-  callbacks: {
-    async signIn({ user, account, profile }) {
-      // await initSpace(user.id, user.name!)
-      return true
-    },
-
-    async jwt({ token, account, user, profile }) {
-      if (user) {
-        // console.log('jwt==========:', user)
-        token.uid = user.id
-        token.address = (user as any).address
-      }
-
-      return token
-    },
-    async session({ session, token, user, ...rest }) {
-      // console.log('session==========:', session, 'user:', user)
-
-      session.userId = token.uid as string
-      session.address = token.address as string
-      ;(session.user as any).id = token.uid
-
-      return session
-    },
-  },
+  })
 }
-
-export default NextAuth(authOptions)

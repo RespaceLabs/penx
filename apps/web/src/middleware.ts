@@ -8,19 +8,19 @@ export async function middleware(req: NextRequest) {
 
   const session = await getToken({ req })
 
-  if (session && ['/login'].includes(path)) {
+  if (session && ['/login/web3', '/login/web2'].includes(path)) {
     return NextResponse.redirect(new URL('/', req.url))
   }
 
   const shouldLogin = ['/', '/dashboard', 'password'].includes(path)
 
   if (shouldLogin && !session) {
-    return NextResponse.redirect(new URL('/login', req.url))
+    return NextResponse.redirect(new URL('/login/web3', req.url))
   }
 
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/', '/login', '/dashboard', '/s/(.*)'],
+  matcher: ['/', '/login/web3', '/login/web2', '/dashboard', '/s/(.*)'],
 }
