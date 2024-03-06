@@ -1,13 +1,6 @@
 import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
-import {
-  Button,
-  Checkbox,
-  Input,
-  ModalClose,
-  Spinner,
-  useModalContext,
-} from 'uikit'
+import { Button, Input, ModalClose, Spinner, useModalContext } from 'uikit'
 import { EditorMode } from '@penx/model-types'
 import { BorderedRadioGroup } from '../../components/BorderedRadioGroup'
 import { useCreateSpaceForm } from './useCreateSpaceForm'

@@ -4,7 +4,6 @@ import { db, getNewSpace } from '@penx/local-db'
 import { EditorMode, ISpace } from '@penx/model-types'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
-import { submitToServer } from '@penx/sync'
 import { api } from '@penx/trpc-client'
 
 export type CreateSpaceValues = {
