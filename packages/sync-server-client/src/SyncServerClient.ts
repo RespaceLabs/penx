@@ -1,4 +1,5 @@
 import ky from 'ky'
+import { getPassword } from '@penx/master-password'
 import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
 
@@ -75,17 +76,16 @@ export class SyncServerClient {
 
   pushNodes = async (nodes: INode[]) => {
     const { space } = this
-    const { password } = space
-    const encrypted = space.encrypted && password
+    const password = await getPassword()
+    if (!password) throw new Error('master password not found')
+
     const url = `${this.baseURL}/pushNodes`
     const res = await ky
       .post(url, {
         json: {
           token: this.token,
           spaceId: space.id,
-          nodes: encrypted
-            ? nodes.map((node) => new Node(node).toEncrypted(password))
-            : nodes,
+          nodes: nodes.map((node) => new Node(node).toEncrypted(password)),
         },
       })
       .json<Response<string>>()

@@ -1,1 +1,2 @@
-export * from './SyncServerClient'
+export * from './getPassword'
+export * from './setPassword'
