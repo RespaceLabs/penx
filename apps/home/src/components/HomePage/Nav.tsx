@@ -13,7 +13,8 @@ export const Nav = () => {
   const navData: NavItem[] = [
     {
       text: 'Bounty tasks',
-      to: '/tasks',
+      to: 'https://github.com/penxio/penx/issues?q=is%3Aissue+is%3Aopen+label%3A%22%F0%9F%92%8E+Bounty%22',
+      isExternal: true,
     },
     {
       text: 'Believer NFTs',

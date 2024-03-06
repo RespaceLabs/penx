@@ -43,7 +43,7 @@ export function HomePage() {
             variant="outline"
             roundedFull
             onClick={() => {
-              window.open('https://app.penx.io/login')
+              window.open('https://app.penx.io/login/web3')
             }}
           >
             Get early access
@@ -130,7 +130,7 @@ export function HomePage() {
             roundedFull
             w-240
             onClick={() => {
-              window.open('https://app.penx.io/login')
+              window.open('https://app.penx.io/login/web3')
             }}
           >
             Get early access
