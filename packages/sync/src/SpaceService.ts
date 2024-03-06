@@ -6,15 +6,13 @@ import { NodeListService } from './NodeListService'
 
 export class SpaceService {
   constructor(
-    private space: ISpace,
     private nodes: INode[],
+    private password: string,
   ) {}
 
   nodeMap = new Map<string, INode>()
 
   /**
-   *
-   * @param encrypted if create a map for diff, make it false
    *
    * split nodes[] to pageMap, so we can store it github
    * node[]
@@ -41,7 +39,7 @@ export class SpaceService {
    * }
    * @returns
    */
-  getPageMap = (encrypted = true) => {
+  getPageMap = () => {
     const { nodes } = this
     let pageMap: Record<string, INode[]> = {}
 
@@ -55,7 +53,7 @@ export class SpaceService {
     for (const id of nodeList.rootNode.children) {
       const pageNode = this.nodeMap.get(id)!
       const pageNodes = this.getPageNodesFromOneNode(pageNode)
-      pageMap[id] = encrypted ? this.toEncryptedNodes(pageNodes) : pageNodes
+      pageMap[id] = this.toEncryptedNodes(pageNodes)
     }
 
     // common database nodes
@@ -63,7 +61,7 @@ export class SpaceService {
       const databaseNode = this.nodeMap.get(id)!
       const pageNodes = this.nodes.filter((n) => n.parentId === databaseNode.id)
       const nodes = [databaseNode, ...pageNodes]
-      pageMap[id] = encrypted ? this.toEncryptedNodes(nodes) : nodes
+      pageMap[id] = this.toEncryptedNodes(nodes)
     }
 
     // common daily nodes
@@ -71,46 +69,40 @@ export class SpaceService {
       const dailyNode = this.nodeMap.get(id)!
       const pageNodes = this.nodes.filter((n) => n.parentId === dailyNode.id)
       const nodes = [dailyNode, ...pageNodes]
-      pageMap[id] = encrypted ? this.toEncryptedNodes(nodes) : nodes
+      pageMap[id] = this.toEncryptedNodes(nodes)
     }
 
     // space's rootNode
-    pageMap[NodeType.ROOT] = encrypted
-      ? this.toEncryptedNodes([nodeList.rootNode.raw])
-      : [nodeList.rootNode.raw]
+    pageMap[NodeType.ROOT] = this.toEncryptedNodes([nodeList.rootNode.raw])
 
     // database's rootNode
-    pageMap[NodeType.DATABASE_ROOT] = encrypted
-      ? this.toEncryptedNodes([nodeList.databaseRootNode.raw])
-      : [nodeList.databaseRootNode.raw]
+    pageMap[NodeType.DATABASE_ROOT] = this.toEncryptedNodes([
+      nodeList.databaseRootNode.raw,
+    ])
 
     // daily's rootNode
-    pageMap[NodeType.DAILY_ROOT] = encrypted
-      ? this.toEncryptedNodes([nodeList.dailyRootNode.raw])
-      : [nodeList.dailyRootNode.raw]
+    pageMap[NodeType.DAILY_ROOT] = this.toEncryptedNodes([
+      nodeList.dailyRootNode.raw,
+    ])
 
     // favorite node
-    pageMap[NodeType.FAVORITE] = encrypted
-      ? this.toEncryptedNodes([nodeList.favoriteNode.raw])
-      : [nodeList.favoriteNode.raw]
+    pageMap[NodeType.FAVORITE] = this.toEncryptedNodes([
+      nodeList.favoriteNode.raw,
+    ])
 
-    pageMap[NodeType.INBOX] = encrypted
-      ? this.toEncryptedNodes(
-          this.getPageNodesFromOneNode(nodeList.inboxNode.raw),
-        )
-      : this.getPageNodesFromOneNode(nodeList.inboxNode.raw)
+    pageMap[NodeType.INBOX] = this.toEncryptedNodes(
+      this.getPageNodesFromOneNode(nodeList.inboxNode.raw),
+    )
 
-    pageMap[NodeType.TRASH] = encrypted
-      ? this.toEncryptedNodes(
-          this.getPageNodesFromOneNode(nodeList.trashNode.raw),
-        )
-      : this.getPageNodesFromOneNode(nodeList.trashNode.raw)
+    pageMap[NodeType.TRASH] = this.toEncryptedNodes(
+      this.getPageNodesFromOneNode(nodeList.trashNode.raw),
+    )
 
     return pageMap
   }
 
   getPageMapHash() {
-    const pageMap = this.getPageMap(false)
+    const pageMap = this.getPageMap()
 
     return Object.keys(pageMap).reduce<Record<string, string>>((acc, key) => {
       const nodes = pageMap[key].map((n) => new Node(n))
@@ -142,9 +134,7 @@ export class SpaceService {
 
   private toEncryptedNodes(nodes: INode[]) {
     return nodes.map((node) => {
-      return this.space.encrypted
-        ? new Node(node).toEncrypted(this.space.password)
-        : node
+      return new Node(node).toEncrypted(this.password)
     })
   }
 }

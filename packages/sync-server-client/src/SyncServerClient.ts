@@ -1,4 +1,5 @@
 import ky from 'ky'
+import { decryptString } from '@penx/encryption'
 import { getPassword } from '@penx/master-password'
 import { Node } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
@@ -21,8 +22,16 @@ export class SyncServerClient {
     return this.space.syncServerAccessToken || ''
   }
 
+  toRaw = (value: any, password: string) => {
+    return typeof value === 'object'
+      ? value
+      : JSON.parse(decryptString(value as string, password))
+  }
+
   getAllNodes = async () => {
     if (!this.baseURL) return []
+
+    const password = await getPassword()
 
     const url = `${this.baseURL}/getAllNodes`
     const nodes = await ky
@@ -36,6 +45,8 @@ export class SyncServerClient {
 
     return nodes.map((node) => ({
       ...node,
+      element: this.toRaw(node.element as string, password),
+      props: this.toRaw(node.props as any, password),
       createdAt: new Date(node.createdAt),
       updatedAt: new Date(node.updatedAt),
     }))
@@ -56,6 +67,7 @@ export class SyncServerClient {
   }
 
   getPullableNodes = async (localLastModifiedTime: number) => {
+    const password = await getPassword()
     const url = `${this.baseURL}/getPullableNodes`
     const nodes = await ky
       .post(url, {
@@ -69,6 +81,8 @@ export class SyncServerClient {
 
     return nodes.map((node) => ({
       ...node,
+      element: this.toRaw(node.element as string, password),
+      props: this.toRaw(node.props as any, password),
       createdAt: new Date(node.createdAt),
       updatedAt: new Date(node.updatedAt),
     }))

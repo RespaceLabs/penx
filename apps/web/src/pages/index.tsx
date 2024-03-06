@@ -11,7 +11,7 @@ const PageEditor = () => {
 
   if (session?.status === 'loading') return null
 
-  console.log('=========session:', session)
+  // console.log('=========session:', session)
 
   return (
     <SessionProvider

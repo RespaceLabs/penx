@@ -3,7 +3,6 @@ import { Tag } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { DeleteSpaceModal } from '../DeleteSpaceModal'
 import { ExportToJSON } from '../ExportToJSON'
-import { EncryptionPassword } from './EncryptionPassword'
 import { SpaceName } from './SpaceName'
 import { SyncServerSelect } from './SyncServerSelect'
 
@@ -25,7 +24,6 @@ export function SpaceSettings() {
       <SpaceName />
       <SyncServerSelect />
 
-      {activeSpace.encrypted && <EncryptionPassword />}
       <ExportToJSON />
       <DeleteSpaceModal />
     </Box>

@@ -24,6 +24,8 @@ export class AppService {
 
     const localLastUpdatedAt = await db.getLastUpdatedAt(space.id)
 
+    console.log('==========localLastUpdatedAt:', localLastUpdatedAt)
+
     if (localLastUpdatedAt && localLastUpdatedAt < time) {
       await syncFromCloud(space)
     }
@@ -41,13 +43,15 @@ export class AppService {
       if (navigator.onLine) {
         try {
           await this.tryToSync(activeSpace)
-        } catch (error) {}
+        } catch (error) {
+          console.log('========try to sync error', error)
+        }
       }
 
       let nodes = await db.listNodesBySpaceId(activeSpace.id)
       store.space.setSpaces(spaces)
 
-      console.log('appService=======nodes:', nodes)
+      // console.log('appService=======nodes:', nodes)
 
       if (!nodes.length) {
         console.log('========activeSpace:', activeSpace)

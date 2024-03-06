@@ -22,7 +22,6 @@ export type RouteName =
   | 'TODOS'
   | 'ACCOUNT_SETTINGS'
   | 'SPACE_SETTINGS'
-  | 'SET_PASSWORD'
   | 'CREATE_SPACE'
   | 'SYNC_SERVER'
   | 'WEB3_PROFILE'

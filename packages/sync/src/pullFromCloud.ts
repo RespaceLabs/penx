@@ -1,11 +1,11 @@
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
+import { getPassword } from '@penx/master-password'
 import { ISpace } from '@penx/model-types'
 import { SyncServerClient } from '@penx/sync-server-client'
 
 export async function syncFromCloud(space: ISpace) {
-  const { password } = space
-
+  const password = await getPassword()
   const oldNodes = await db.listNodesBySpaceId(space.id)
 
   const localLastModifiedTime = Math.max(
@@ -21,31 +21,19 @@ export async function syncFromCloud(space: ISpace) {
 
   if (!newRemoteNodes.length) return
 
-  const encrypted = space.encrypted && space.password
+  const toRaw = (value: any, password: string) => {
+    return typeof value === 'object'
+      ? value
+      : JSON.parse(decryptString(value as string, password))
+  }
 
   for (const item of newRemoteNodes) {
     const existedNode = oldNodes.find((n) => n.id === item.id)
 
     if (existedNode) {
-      if (encrypted) {
-        await db.updateNode(item.id, {
-          ...item,
-          element: JSON.parse(decryptString(item.element as string, password)),
-          props: JSON.parse(decryptString(item.props as any, password)),
-        } as any)
-      } else {
-        await db.updateNode(existedNode.id, item)
-      }
+      await db.updateNode(item.id, item as any)
     } else {
-      if (encrypted) {
-        await db.createNode({
-          ...item,
-          element: JSON.parse(decryptString(item.element as string, password)),
-          props: JSON.parse(decryptString(item.props as any, password)),
-        } as any)
-      } else {
-        await db.createNode(item as any)
-      }
+      await db.createNode(item as any)
     }
   }
 

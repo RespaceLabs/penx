@@ -134,14 +134,10 @@ export class RestoreService {
 
     // console.log('=============this.password:', this.password)
 
-    if (this.password && this.space.encrypted) {
-      try {
-        this.nodes = nodes.map((n) => new Node(n).toDecrypted(this.password))
-      } catch (error) {
-        throw new Error('Password is wrong')
-      }
-    } else {
-      this.nodes = nodes
+    try {
+      this.nodes = nodes.map((n) => new Node(n).toDecrypted(this.password))
+    } catch (error) {
+      throw new Error('Password is wrong')
     }
 
     this.nodes = this.normalizeNodes(this.nodes)
@@ -157,14 +153,12 @@ export class RestoreService {
 
         await db.createSpace({
           ...this.space,
-          password: this.password,
           pageSnapshot: currentSpace.pageSnapshot,
           nodeSnapshot: currentSpace.nodeSnapshot,
         })
       } else {
         await db.createSpace({
           ...this.space,
-          password: this.password,
         })
       }
 

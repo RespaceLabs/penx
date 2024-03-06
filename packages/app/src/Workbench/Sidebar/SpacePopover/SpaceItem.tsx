@@ -40,9 +40,6 @@ export function SpaceItem({ item, activeSpace }: Props) {
           <Bullet size={20} innerSize={6} innerColor={item.color} />
           <Box>{item.name}</Box>
         </Box>
-        <Box toCenterY gap1 gray600>
-          {item.encrypted && <KeyRound size={16} />}
-        </Box>
       </Box>
     </PopoverClose>
   )

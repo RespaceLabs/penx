@@ -95,28 +95,23 @@ export class SpaceStore {
       })
       .filter((n) => !!n)
 
-    if (space.encrypted && !nodes.length) {
-      this.store.router.routeTo('SET_PASSWORD')
+    if (!activeNodes.length) {
+      const todayNode = await db.getOrCreateTodayNode(space.id)
+      const nodes = await db.listNodesBySpaceId(id)
+
+      await db.updateSpace(space.id, {
+        activeNodeIds: [todayNode.id],
+      })
+
+      const spaces = await db.listSpaces()
+
       this.setSpaces(spaces)
+      this.store.node.setNodes(nodes)
+      this.store.node.setActiveNodes([todayNode])
     } else {
-      if (!activeNodes.length) {
-        const todayNode = await db.getOrCreateTodayNode(space.id)
-        const nodes = await db.listNodesBySpaceId(id)
-
-        await db.updateSpace(space.id, {
-          activeNodeIds: [todayNode.id],
-        })
-
-        const spaces = await db.listSpaces()
-
-        this.setSpaces(spaces)
-        this.store.node.setNodes(nodes)
-        this.store.node.setActiveNodes([todayNode])
-      } else {
-        this.setSpaces(spaces)
-        this.store.node.setNodes(nodes)
-        this.store.node.selectNode(activeNodes[0])
-      }
+      this.setSpaces(spaces)
+      this.store.node.setNodes(nodes)
+      this.store.node.selectNode(activeNodes[0])
     }
 
     this.store.app.setAppLoading(false)

@@ -9,7 +9,6 @@ import {
   Switch,
   useModalContext,
 } from 'uikit'
-import { ISpace } from '@penx/model-types'
 import { useActiveSpace } from '../VersionControl/hooks/useActiveSpace'
 import { RestoreFromGitHubModalData } from '../VersionControl/types'
 import { useRestoreFromGitHubForm } from './useRestoreFromGitHubForm'
@@ -48,24 +47,6 @@ export function RestoreFromGitHubForm() {
           </Checkbox>
         )}
       /> */}
-
-      {space.encrypted && (
-        <Box>
-          <Box mb2 fontMedium>
-            End-to-End Encryption password
-          </Box>
-          <Box gray400 leadingNormal textSM mb2>
-            If this space is encrypted, password will be required to decrypt it.
-          </Box>
-          <Controller
-            name="password"
-            control={control}
-            render={({ field }) => (
-              <Input size="lg" type="password" placeholder="" {...field} />
-            )}
-          />
-        </Box>
-      )}
 
       <Box toCenterY toRight gap2 mt2>
         <ModalClose>

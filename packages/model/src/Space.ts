@@ -18,10 +18,6 @@ export class Space {
     return this.raw.name
   }
 
-  get password() {
-    return this.raw.password || ''
-  }
-
   get color() {
     return this.raw.color
   }
@@ -44,10 +40,6 @@ export class Space {
 
   get isOutliner() {
     return this.raw.editorMode === EditorMode.OUTLINER
-  }
-
-  get encrypted() {
-    return this.raw.encrypted
   }
 
   get filename() {

@@ -1,5 +1,4 @@
 import { Box } from '@fower/react'
-import { Cloud, KeyRound, Laptop } from 'lucide-react'
 import {
   Select,
   SelectContent,
@@ -35,10 +34,6 @@ export function LocalSpacesSelect() {
           {spaces?.map((item) => (
             <SelectItem key={item.id} value={item.id} toBetween>
               <Box flex-1>{item.name}</Box>
-
-              <Box toCenterY gap1 gray600>
-                {item.encrypted && <KeyRound size={16} />}
-              </Box>
             </SelectItem>
           ))}
         </SelectContent>
