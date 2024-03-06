@@ -71,8 +71,6 @@ export class SyncService {
 
   commitSha: string
 
-  enableEncryption: boolean = false
-
   get baseBranchName() {
     return 'main'
   }
@@ -108,6 +106,8 @@ export class SyncService {
     const s = new SyncService()
     s.password = await getPassword()
     s.nodes = await db.listNodesBySpaceId(space.id)
+
+    // console.log('============s.password:', s.password)
 
     s.user = user
     s.space = new Space(space)
@@ -409,6 +409,8 @@ export class SyncService {
     const { pageMap: prevPageMap } = pageSnapshot
     const curPageMap = this.spaceService.getPageMapHash()
 
+    // console.log('=======prevPageMap:', prevPageMap, 'curPageMap:', curPageMap)
+
     const diff = this.space.snapshot.diff(curPageMap, prevPageMap)
     return diff
   }
@@ -429,6 +431,8 @@ export class SyncService {
     } else {
       try {
         const diff = this.getDiff()
+
+        // console.log('github diff--------:', diff)
 
         // isEqual, don't push
         if (diff.isEqual) {
@@ -465,6 +469,8 @@ export class SyncService {
   }
 
   async pushTree(tree: TreeItem[]) {
+    console.log('===========push tree....')
+
     await this.getBaseBranchInfo()
 
     // update tree to GitHub before commit
@@ -486,6 +492,8 @@ export class SyncService {
     const curPageMap = this.spaceService.getPageMapHash()
     const newVersion = this.space.pageSnapshot.version + 1
 
+    console.log('====update pageSnapshot========curPageMap:', curPageMap)
+
     // update local snapshot
     await db.updateSpace(this.space.id, {
       pageSnapshot: {
@@ -494,21 +502,6 @@ export class SyncService {
       },
     })
   }
-
-  decrypt(str: string) {
-    if (!this.enableEncryption) return str
-    return decryptString(str, this.password)
-  }
-}
-
-function decodeBase64(base64String: string): string {
-  const decodedArray = new Uint8Array(
-    atob(base64String)
-      .split('')
-      .map((char) => char.charCodeAt(0)),
-  )
-  const decoder = new TextDecoder('utf-8')
-  return decoder.decode(decodedArray)
 }
 
 function fileToBase64(file: File): Promise<string> {
@@ -532,29 +525,4 @@ function fileToBase64(file: File): Promise<string> {
 function getFileExtension(fileName: string): string {
   const fileExtension: string = fileName.split('.').pop()?.toLowerCase() || ''
   return fileExtension
-}
-
-function base64ToFile(
-  base64String: string,
-  fileName: string,
-  mimeType: string,
-): File {
-  const byteCharacters = atob(base64String)
-  const byteArrays: Uint8Array[] = []
-
-  for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-    const slice = byteCharacters.slice(offset, offset + 512)
-
-    const byteNumbers = new Array(slice.length)
-    for (let i = 0; i < slice.length; i++) {
-      byteNumbers[i] = slice.charCodeAt(i)
-    }
-
-    const byteArray = new Uint8Array(byteNumbers)
-    byteArrays.push(byteArray)
-  }
-
-  const blob = new Blob(byteArrays, { type: mimeType })
-
-  return new File([blob], fileName, { type: mimeType })
 }

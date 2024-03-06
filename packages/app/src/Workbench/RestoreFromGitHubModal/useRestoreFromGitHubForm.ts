@@ -20,7 +20,6 @@ export function useRestoreFromGitHubForm() {
   const form = useForm<RestoreFromGitHubValues>({
     defaultValues: {
       isOverride: false,
-      password: '',
     },
   })
 
@@ -35,7 +34,6 @@ export function useRestoreFromGitHubForm() {
         user,
         space,
         data.commitHash,
-        values.password,
       )
 
       const newSpace = await restoreService.pull()

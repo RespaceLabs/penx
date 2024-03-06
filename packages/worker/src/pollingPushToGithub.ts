@@ -50,11 +50,13 @@ async function sync() {
 
     // console.log('value==========:', value)
 
-    if (value === interval - 1) {
-      await s.pushAll()
-    } else {
-      await s.push()
-    }
+    await s.push()
+
+    // if (value === interval - 1) {
+    //   await s.pushAll()
+    // } else {
+    //   await s.push()
+    // }
     postMessage(WorkerEvents.PUSH_SUCCEEDED)
   } catch (error) {
     console.log('push to github error========', error)

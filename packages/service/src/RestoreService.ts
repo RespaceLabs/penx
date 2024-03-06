@@ -2,6 +2,7 @@ import mime from 'mime-types'
 import { Octokit } from 'octokit'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
+import { getPassword } from '@penx/master-password'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
 import { api } from '@penx/trpc-client'
@@ -84,12 +85,7 @@ export class RestoreService {
     this.params = sharedParams
   }
 
-  static async init(
-    user: User,
-    space: Space,
-    commitHash: string,
-    password: string,
-  ) {
+  static async init(user: User, space: Space, commitHash: string) {
     const s = new RestoreService()
     s.user = user
 
@@ -104,7 +100,7 @@ export class RestoreService {
 
     s.app = new Octokit({ auth: token })
 
-    s.password = password
+    s.password = await getPassword()
 
     return s
   }
@@ -132,11 +128,12 @@ export class RestoreService {
       throw new Error('GitHub backup url is invalid')
     }
 
-    // console.log('=============this.password:', this.password)
+    console.log('xx=============this.password:', this.password, 'nodes:', nodes)
 
     try {
       this.nodes = nodes.map((n) => new Node(n).toDecrypted(this.password))
     } catch (error) {
+      console.log('=========error:', error)
       throw new Error('Password is wrong')
     }
 

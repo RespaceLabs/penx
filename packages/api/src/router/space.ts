@@ -99,55 +99,6 @@ export const spaceRouter = createTRPCRouter({
       return ctx.prisma.space.delete({ where: { id: input } })
     }),
 
-  getPageSnapshot: protectedProcedure
-    .input(
-      z.object({
-        spaceId: z.string(),
-      }),
-    )
-    .query(async ({ ctx, input }) => {
-      const { spaceId } = input
-      const space = await ctx.prisma.space.findFirstOrThrow({
-        where: { id: spaceId },
-      })
-
-      if (!(space.pageSnapshot as any)?.pageMap) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Snapshot not found',
-        })
-      }
-
-      return {
-        version: (space.pageSnapshot as any).version as any as number,
-        pageMap: (space.pageSnapshot as any).pageMap as any as Record<
-          string,
-          string
-        >,
-      }
-    }),
-
-  upsertPageSnapshot: protectedProcedure
-    .input(
-      z.object({
-        spaceId: z.string(),
-        version: z.number(),
-        pageMap: z.string(),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const { spaceId, version, pageMap } = input
-      return ctx.prisma.space.update({
-        where: { id: spaceId },
-        data: {
-          pageSnapshot: {
-            version,
-            pageMap: JSON.parse(pageMap),
-          },
-        },
-      })
-    }),
-
   updateSyncServer: protectedProcedure
     .input(
       z.object({
