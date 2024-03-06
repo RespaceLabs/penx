@@ -1,34 +1,21 @@
-import { Suspense, useMemo } from 'react'
+import { useMemo } from 'react'
 import { Box } from '@fower/react'
-import { Wallet } from 'lucide-react'
-import { NEXTAUTH_PROVIDERS } from '@penx/constants'
+import { ArrowRight, Wallet } from 'lucide-react'
+import { useRouter } from 'next/router'
 import { ClientOnly } from '~/components/ClientOnly'
-import { LoginForm } from '~/components/LoginForm/LoginForm'
 import { Logo } from '~/components/Logo'
-import { SiweModal } from '~/components/SiweModal'
 import { WalletConnectButton } from '~/components/WalletConnectButton'
 
 export default function LoginPage() {
-  const providers = useMemo(() => {
-    if (!NEXTAUTH_PROVIDERS) return []
-    return (NEXTAUTH_PROVIDERS || '').split(',')
-  }, [])
-
-  const showGoogle = providers.includes('GOOGLE')
-  const showGitHub = providers.includes('GITHUB')
-
+  const { push } = useRouter()
   const loginEntry = useMemo(() => {
-    if (process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED') {
-      return <LoginForm />
-    }
-
     return (
-      <Box column gap4>
+      <Box column gap2 toCenterX>
         {/* <SiweModal /> */}
         <ClientOnly>
           <WalletConnectButton
             size={56}
-            rounded2XL
+            roundedFull
             colorScheme="white"
             toBetween
           >
@@ -42,10 +29,22 @@ export default function LoginPage() {
               </Box>
             </Box>
           </WalletConnectButton>
+
+          <Box
+            toCenterY
+            gap2
+            gray400
+            gray600--hover
+            cursorPointer
+            onClick={() => push('/login/web2')}
+          >
+            <Box textSM>Login with Google, GitHub</Box>
+            <ArrowRight size={16}></ArrowRight>
+          </Box>
         </ClientOnly>
       </Box>
     )
-  }, [])
+  }, [push])
 
   return (
     <Box column h-100vh>

@@ -31,14 +31,9 @@ export default function LoginWithGithubButton() {
       gapX2
       w-240
     >
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <IconGitHub size={20}></IconGitHub>
-          <Box>Login with GitHub</Box>
-        </>
-      )}
+      {loading ? <Spinner /> : <IconGitHub size={20} />}
+
+      <Box>Login with GitHub</Box>
     </Button>
   )
 }

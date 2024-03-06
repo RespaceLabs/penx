@@ -1,16 +1,16 @@
 import { Suspense, useMemo } from 'react'
 import { Box } from '@fower/react'
-import { Wallet } from 'lucide-react'
+import { Redo } from 'lucide-react'
+import { useRouter } from 'next/router'
 import { NEXTAUTH_PROVIDERS } from '@penx/constants'
-import { ClientOnly } from '~/components/ClientOnly'
 import { LoginForm } from '~/components/LoginForm/LoginForm'
 import LoginWithGithubButton from '~/components/LoginWithGithubButton'
 import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
 import { Logo } from '~/components/Logo'
-import { SiweModal } from '~/components/SiweModal'
-import { WalletConnectButton } from '~/components/WalletConnectButton'
 
 export default function LoginPage() {
+  const { push } = useRouter()
+
   const providers = useMemo(() => {
     if (!NEXTAUTH_PROVIDERS) return []
     return (NEXTAUTH_PROVIDERS || '').split(',')
@@ -25,7 +25,7 @@ export default function LoginPage() {
     }
 
     return (
-      <Box column gap4>
+      <Box column gap4 toCenterX>
         {/* <SiweModal /> */}
         {showGitHub && (
           <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
@@ -37,9 +37,21 @@ export default function LoginPage() {
             <LoginWithGoogleButton />
           </Suspense>
         )}
+
+        <Box
+          toCenterY
+          gap2
+          gray400
+          gray600--hover
+          cursorPointer
+          onClick={() => push('/login/web3')}
+        >
+          <Redo size={16}></Redo>
+          <Box textSM>Back to web3 login</Box>
+        </Box>
       </Box>
     )
-  }, [showGoogle, showGitHub])
+  }, [showGoogle, showGitHub, push])
 
   return (
     <Box column h-100vh>
@@ -57,13 +69,6 @@ export default function LoginPage() {
           mt--200
           w={['100%', '100%', 480]}
         >
-          <Box as="h1" fontBold>
-            Welcome to PenX
-          </Box>
-          <Box as="p" textCenter mb6 leadingNormal px10 gray500>
-            A structured note-taking app for personal use
-          </Box>
-
           {loginEntry}
         </Box>
       </Box>
