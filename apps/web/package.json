@@ -102,7 +102,6 @@
     "rc-table": "^7.36.0",
     "re-resizable": "^6.9.11",
     "react": "^18.2.0",
-    "react-chrono": "^2.5.1",
     "react-circular-progressbar": "^2.1.0",
     "react-datepicker": "^4.24.0",
     "react-dom": "^18.2.0",

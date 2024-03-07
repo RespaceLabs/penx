@@ -28,6 +28,11 @@ export const Nav = () => {
     },
 
     {
+      text: 'Roadmap',
+      to: '/roadmap',
+    },
+
+    {
       text: 'Downloads',
       to: 'https://github.com/penxio/penx/releases',
       isExternal: true,

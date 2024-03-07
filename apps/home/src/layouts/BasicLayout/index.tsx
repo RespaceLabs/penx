@@ -13,10 +13,10 @@ export const BasicLayout: FC<PropsWithChildren> = ({ children }) => {
       <Box
         toBetween
         py3
-        w={['98%', '98%', 760, 1300]}
+        w={['98%', '98%', '100%']}
         relative
         zIndex-10
-        px={[20, 20, 0]}
+        px={[20, 20, 20, 20]}
         mx-auto
       >
         <Box toCenterY gap8>
