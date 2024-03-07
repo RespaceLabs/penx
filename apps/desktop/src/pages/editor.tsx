@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { EditorApp } from '@penx/app'
 import { PENX_SESSION_USER } from '@penx/constants'
 import { SessionProvider } from '@penx/session'
+import { MasterPasswordProvider } from '~/components/MasterPasswordLogin/MasterPasswordProvider'
 
 export default function PageEditor() {
   const [loading, setLoading] = useState(true)
@@ -29,11 +30,13 @@ export default function PageEditor() {
   return (
     <SessionProvider
       value={{
-        data: { user, userId: user?.id },
+        data: { user, userId: user?.id, address: user.address },
         loading,
       }}
     >
-      <EditorApp />
+      <MasterPasswordProvider>
+        <EditorApp />
+      </MasterPasswordProvider>
     </SessionProvider>
   )
 }

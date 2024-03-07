@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react'
 import { Box } from '@fower/react'
 import { useSession } from 'next-auth/react'
 import { SessionProvider } from '@penx/session'
-import { MasterPasswordProvider } from '~/components/MasterPasswordProvider'
+import { MasterPasswordProvider } from '~/components/MasterPasswordLogin/MasterPasswordProvider'
 
 const LazyEditorApp = lazy(() => import('@penx/app'))
 

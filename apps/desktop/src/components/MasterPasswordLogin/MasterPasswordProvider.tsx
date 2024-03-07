@@ -3,7 +3,7 @@ import { Box } from '@fower/react'
 import { useQuery } from '@tanstack/react-query'
 import { get } from 'idb-keyval'
 import { MASTER_PASSWORD } from '@penx/constants'
-import { MasterPasswordLogin } from './MasterPasswordLogin/MasterPasswordLogin'
+import { MasterPasswordLogin } from './MasterPasswordLogin'
 
 export function MasterPasswordProvider({ children }: PropsWithChildren) {
   const { data, isLoading, refetch } = useQuery(['masterPassword'], async () =>

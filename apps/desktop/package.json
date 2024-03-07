@@ -18,6 +18,7 @@
     "@penx/api": "workspace:*",
     "@penx/app": "workspace:*",
     "@penx/constants": "workspace:*",
+    "@penx/local-db": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/session": "workspace:*",

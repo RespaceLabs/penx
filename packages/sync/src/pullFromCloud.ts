@@ -8,14 +8,19 @@ export async function syncFromCloud(space: ISpace) {
   const password = await getPassword()
   const oldNodes = await db.listNodesBySpaceId(space.id)
 
+  console.log('===========oldNodes:', oldNodes)
+
   const localLastModifiedTime = Math.max(
     ...oldNodes.map((n) => new Date(n.updatedAt).getTime()),
+    0,
   )
 
   console.log('======localLastModifiedTime:', localLastModifiedTime)
 
   const client = new SyncServerClient(space)
   const newRemoteNodes = await client.getPullableNodes(localLastModifiedTime)
+
+  console.log('======newRemoteNodes:', newRemoteNodes)
 
   // console.log('=========newRemoteNodes:', newRemoteNodes)
 
