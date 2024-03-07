@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
-import { DesktopHome } from '@penx/app'
+import { DesktopHome } from '~/components/DesktopHome'
 
 const inter = Inter({ subsets: ['latin'] })
 

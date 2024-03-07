@@ -526,12 +526,27 @@ importers:
 
   apps/desktop:
     dependencies:
+      '@fower/atomic-props':
+        specifier: ^2.0.0
+        version: 2.0.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
       '@glideapps/glide-data-grid':
         specifier: ^6.0.3
         version: 6.0.3(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
+      '@octokit/auth-app':
+        specifier: ^6.0.1
+        version: 6.0.1
+      '@octokit/oauth-app':
+        specifier: ^6.0.0
+        version: 6.0.0
+      '@octokit/rest':
+        specifier: ^20.0.2
+        version: 20.0.2
+      '@penx/abi':
+        specifier: workspace:*
+        version: link:../../packages/abi
       '@penx/api':
         specifier: workspace:*
         version: link:../../packages/api
@@ -541,6 +556,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
+      '@penx/encryption':
+        specifier: workspace:*
+        version: link:../../packages/encryption
       '@penx/hooks':
         specifier: workspace:*
         version: link:../../packages/hooks
@@ -559,15 +577,30 @@ importers:
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../../packages/trpc-client
+      '@penx/wagmi':
+        specifier: workspace:*
+        version: link:../../packages/wagmi
+      '@penx/widget':
+        specifier: workspace:*
+        version: link:../../packages/widget
+      '@tanstack/react-query':
+        specifier: ^4.36.1
+        version: 4.36.1(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)
       '@tauri-apps/api':
         specifier: ^1.5.3
         version: 1.5.3
+      '@web3modal/wagmi':
+        specifier: ^4.0.13
+        version: 4.0.13(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(lit@3.1.0)(valtio@1.11.2)(viem@2.7.19)
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
       jotai:
         specifier: ^2.6.0
         version: 2.6.0(@types/react@18.2.61)(react@18.2.0)
+      lucide-react:
+        specifier: ^0.344.0
+        version: 0.344.0(react@18.2.0)
       next:
         specifier: 13.3.1
         version: 13.3.1(@babel/core@7.23.5)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
@@ -580,6 +613,9 @@ importers:
       uikit:
         specifier: workspace:*
         version: link:../../packages/uikit
+      wagmi:
+        specifier: ^2.5.7
+        version: 2.5.7(@tanstack/react-query@4.36.1)(@types/react@18.2.61)(immer@10.0.3)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)
     devDependencies:
       '@penx/tsconfig':
         specifier: workspace:*

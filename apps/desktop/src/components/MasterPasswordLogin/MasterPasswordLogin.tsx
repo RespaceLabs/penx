@@ -2,10 +2,16 @@ import { FC, useState } from 'react'
 import { Box } from '@fower/react'
 import { useQuery } from '@tanstack/react-query'
 import { set } from 'idb-keyval'
-import { Button, Input, InputElement, InputGroup, Spinner, toast } from 'uikit'
+import { Button, Input, InputGroup, Spinner, toast } from 'uikit'
 import { MASTER_PASSWORD } from '@penx/constants'
 import { db } from '@penx/local-db'
-import { api, trpc } from '@penx/trpc-client'
+import { api } from '@penx/trpc-client'
+
+declare module '@fower/atomic-props' {
+  export interface AtomicProps {
+    shadowPopover?: boolean
+  }
+}
 
 interface Props {
   refetch: any
@@ -54,15 +60,6 @@ export const MasterPasswordLogin: FC<Props> = ({ refetch }) => {
             setValue(e.target.value)
           }}
         />
-
-        {!isLoading && !isNewUser && (
-          <InputElement w-190>
-            <Button variant="light" size="lg" w-180 roundedFull column gap-2>
-              <Box textSM>Recover</Box>
-              <Box text-10>Recover from blockchain</Box>
-            </Button>
-          </InputElement>
-        )}
       </InputGroup>
 
       <Box toCenterY gap2 toCenterX>
