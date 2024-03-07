@@ -94,6 +94,7 @@ export class NodeStore {
 
   getDatabaseNodes = () => {
     const node = this.getDatabaseRootNode()
+    if (!node?.children) return []
     return node.children.map((id) => this.getNode(id) as IDatabaseNode)
   }
 
