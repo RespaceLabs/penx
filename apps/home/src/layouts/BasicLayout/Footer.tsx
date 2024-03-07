@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { Logo } from '@penx/widget'
-import { StyledLink } from '../StyledLink'
+import { StyledLink } from '~/components/StyledLink'
 import { Nav } from './Nav'
 
 export function Footer() {

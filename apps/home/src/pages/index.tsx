@@ -1,8 +1,11 @@
 import React from 'react'
 import { HomePage } from '~/components/HomePage/HomePage'
+import { BasicLayout } from '~/layouts/BasicLayout'
 
-const PageEditor = () => {
+const Page = () => {
   return <HomePage></HomePage>
 }
 
-export default PageEditor
+Page.Layout = BasicLayout
+
+export default Page

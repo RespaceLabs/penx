@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Box } from '@fower/react'
-import { StyledLink } from '../StyledLink'
+import { StyledLink } from '~/components/StyledLink'
 
 type NavItem = {
   text?: ReactNode
