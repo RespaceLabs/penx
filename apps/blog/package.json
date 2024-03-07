@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "node ./scripts/gen-rss.js && next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "next": "13.3.1",
+    "nextra": "^2.13.4",
+    "nextra-theme-blog": "^2.13.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rss": "^1.2.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.61",
+    "@types/react-dom": "^18.2.17",
+    "typescript": "^5.3.2"
+  }
+}
