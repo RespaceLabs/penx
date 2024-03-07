@@ -80,6 +80,20 @@ export const UserProfile = () => {
             <MenuItem
               gap2
               onClick={() => {
+                window.open('/password')
+              }}
+            >
+              <Box gray500>
+                <User size={16} />
+              </Box>
+              <Box>Master password</Box>
+            </MenuItem>
+          </PopoverClose>
+
+          <PopoverClose>
+            <MenuItem
+              gap2
+              onClick={() => {
                 store.router.routeTo('VERSION_CONTROL')
               }}
             >
