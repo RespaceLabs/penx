@@ -1,9 +1,7 @@
 import { Fragment, useEffect } from 'react'
-import { Analytics } from '@vercel/analytics/react'
 import { Session } from 'next-auth'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import 'next-auth/react'
-import { fowerStore, Parser } from '@fower/react'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'uikit'
 import { isServer } from '@penx/constants'
@@ -21,9 +19,6 @@ import '../styles/globals.css'
 import '../styles/command.scss'
 import '@glideapps/glide-data-grid/dist/index.css'
 import { TrpcProvider } from '@penx/trpc-client'
-import { ClientOnly } from '~/components/ClientOnly'
-// import { WalletConnectProvider } from '@penx/wagmi'
-import { WalletConnectProvider } from '~/components/WalletConnectProvider'
 
 initFower()
 
@@ -49,20 +44,16 @@ function MyApp({ Component, pageProps }: Props<any>) {
       />
       <GoogleAnalytics trackPageViews />
 
-      <ClientOnly>
-        <WalletConnectProvider>
-          <TrpcProvider>
-            {/* <SpeedInsights /> */}
-            <Layout>
-              <Component {...pageProps} />
-              <div id="portal" />
-            </Layout>
-            <ToastContainer position="bottom-right" />
+      <TrpcProvider>
+        {/* <SpeedInsights /> */}
+        <Layout>
+          <Component {...pageProps} />
+          <div id="portal" />
+        </Layout>
+        <ToastContainer position="bottom-right" />
 
-            {/* <Analytics /> */}
-          </TrpcProvider>
-        </WalletConnectProvider>
-      </ClientOnly>
+        {/* <Analytics /> */}
+      </TrpcProvider>
     </>
   )
 }
