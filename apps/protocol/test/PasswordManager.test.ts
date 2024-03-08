@@ -25,7 +25,7 @@ describe('PasswordManager', function () {
     expect(password).to.be.equal('123456')
   })
 
-  it.only('password signing', async () => {
+  it('password signing', async () => {
     const rawPassword = '123456'
     const message = f.deployer.address
     const signature = await f.deployer.signMessage(message)

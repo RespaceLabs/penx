@@ -548,7 +548,7 @@ export const believerFacetAbi = [
       { name: '_code', internalType: 'uint256', type: 'uint256' },
       { name: '_addr', internalType: 'address', type: 'address' },
     ],
-    name: 'setReferralCode',
+    name: 'registerReferralCode',
     outputs: [],
   },
   {

@@ -10,10 +10,9 @@ const func: DeployFunction = async (hre) => {
   const diamond = await ethers.getContract('Diamond')
   const diamondAddr = await diamond.getAddress()
 
-  const roleAccessControlFacet = (await ethers.getContractAt(
-    'RoleAccessControlFacet',
-    diamondAddr,
-  )) as unknown as RoleAccessControlFacet
+  const [roleAccessControlFacet] = await Promise.all([
+    ethers.getContractAt('RoleAccessControlFacet', diamondAddr) as unknown as Promise<RoleAccessControlFacet>,
+  ])
 
   const [usdt, usdc, dai, ink, daoVault] = await Promise.all([
     ethers.getContract<MockToken>('USDT'),

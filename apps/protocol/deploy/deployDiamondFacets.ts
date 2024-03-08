@@ -6,9 +6,7 @@ const facetDependencies = [
   'Diamond',
   'DiamondCutFacet',
   'DiamondLoupeFacet',
-
   'RoleAccessControlFacet',
-  'BelieverFacet',
   'PointFacet',
   'BountyFacet',
   'VaultFacet',

@@ -137,7 +137,7 @@ export function SetReferral() {
                   await writeContractAsync({
                     address: addressMap.Diamond,
                     abi: believerFacetAbi,
-                    functionName: 'setReferralCode',
+                    functionName: 'registerReferralCode',
                     args: [BigInt(code), address!],
                   })
 

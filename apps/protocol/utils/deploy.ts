@@ -9,7 +9,14 @@ import {
 } from 'hardhat-deploy/types'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 
-type LibraryName = 'PermissionFlag' | 'LibDiamond' | 'UuidCreator' | 'RoleAccessControl' | 'Bounty'
+type LibraryName =
+  | 'PermissionFlag'
+  | 'LibDiamond'
+  | 'UuidCreator'
+  | 'RoleAccessControl'
+  | 'Bounty'
+  | 'BelieverReferrals'
+  | 'CalUtils'
 
 type ContractName =
   | LibraryName
@@ -18,10 +25,10 @@ type ContractName =
   | 'Multicall3'
   | 'DiamondCutFacet'
   | 'DiamondLoupeFacet'
-  | 'Believer'
+  | 'CalUtils'
+  | 'BelieverNFT'
   | 'INK'
   | 'DaoVault'
-  | 'BelieverFacet'
   | 'PointFacet'
   | 'BountyFacet'
   | 'VaultFacet'

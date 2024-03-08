@@ -1,7 +1,7 @@
 import { ethers } from 'hardhat'
 import { getSelectors, FacetCutAction, getAllAlreadySelectors, getSelectorsExcludeAlready } from '../utils/diamond'
 
-const facetDependencies = ['PointFacet', 'BelieverFacet', 'BountyFacet', 'VaultFacet', 'RoleAccessControlFacet']
+const facetDependencies = ['PointFacet', 'BountyFacet', 'VaultFacet', 'RoleAccessControlFacet']
 
 async function main() {
   const diamond = await ethers.getContract('Diamond')

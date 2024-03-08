@@ -1,7 +1,7 @@
 import { ethers, deployments } from 'hardhat'
 import { precision } from './precision'
 import {
-  BelieverFacet,
+  BelieverNFT,
   BountyFacet,
   DaoVault,
   Diamond,
@@ -41,24 +41,24 @@ export async function deployFixture() {
     signer9,
   ] = accountList
 
-  const [usdt, usdc, dai, ink, daoVault, passwordManager] = await Promise.all([
+  const [usdt, usdc, dai, ink, daoVault, believerNFT, passwordManager] = await Promise.all([
     ethers.getContract<MockToken>('USDT'),
     ethers.getContract<MockToken>('USDC'),
     ethers.getContract<MockToken>('DAI'),
     ethers.getContract<INK>('INK'),
     ethers.getContract<DaoVault>('DaoVault'),
+    ethers.getContract<BelieverNFT>('BelieverNFT'),
     ethers.getContract<PasswordManager>('PasswordManager'),
   ])
 
   const diamond = await ethers.getContract<Diamond>('Diamond')
   const diamondAddress = await diamond.getAddress()
 
-  const [inkAddress, daoVaultAddress, bountyFacet, roleAccessControlFacet, believerFacet] = await Promise.all([
+  const [inkAddress, daoVaultAddress, bountyFacet, roleAccessControlFacet] = await Promise.all([
     ink.getAddress(),
     daoVault.getAddress(),
     ethers.getContractAt('BountyFacet', diamondAddress) as unknown as Promise<BountyFacet>,
     ethers.getContractAt('RoleAccessControlFacet', diamondAddress) as unknown as Promise<RoleAccessControlFacet>,
-    ethers.getContractAt('BelieverFacet', diamondAddress) as unknown as Promise<BelieverFacet>,
   ])
 
   // mint token to daoVault
@@ -108,11 +108,11 @@ export async function deployFixture() {
     ink,
 
     daoVault,
+    believerNFT,
     passwordManager,
 
     bountyFacet,
     roleAccessControlFacet,
-    believerFacet,
 
     // address
     inkAddress,

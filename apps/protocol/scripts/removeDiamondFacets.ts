@@ -8,7 +8,7 @@ import {
 } from '../utils/diamond'
 import { ZeroAddress } from 'ethers'
 
-const removeFacets = ['PointFacet', 'BelieverFacet', 'BountyFacet', 'VaultFacet', 'RoleAccessControlFacet']
+const removeFacets = ['PointFacet', 'BountyFacet', 'VaultFacet', 'RoleAccessControlFacet']
 
 async function main() {
   const diamond = await ethers.getContract('Diamond')

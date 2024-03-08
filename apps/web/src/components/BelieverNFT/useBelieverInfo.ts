@@ -6,7 +6,6 @@ import { addressMap } from '@penx/wagmi'
 export function useBelieverInfo() {
   const { data, ...rest } = useReadContract({
     address: addressMap.Diamond,
-    // address: addressMap.BelieverFacet,
     // address: addressMap.Believer,
     abi: believerFacetAbi,
     functionName: 'getTokenInfo',
