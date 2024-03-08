@@ -487,11 +487,76 @@ export const believerFacetAbi = [
     ],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '_addr', internalType: 'address', type: 'address' }],
+    name: 'getUserInfo',
+    outputs: [
+      {
+        name: '',
+        internalType: 'struct BelieverFacet.InviteInfo',
+        type: 'tuple',
+        components: [
+          { name: 'code', internalType: 'uint256', type: 'uint256' },
+          { name: 'inviter', internalType: 'address', type: 'address' },
+        ],
+      },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'invites',
+    outputs: [
+      { name: 'code', internalType: 'uint256', type: 'uint256' },
+      { name: 'user', internalType: 'address', type: 'address' },
+      { name: 'inviter', internalType: 'address', type: 'address' },
+    ],
+  },
+  {
     stateMutability: 'payable',
     type: 'function',
     inputs: [],
     name: 'mintBelieverNFT',
     outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_newCode', internalType: 'uint256', type: 'uint256' },
+      { name: '_addr', internalType: 'address', type: 'address' },
+    ],
+    name: 'modifyInviteCode',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_user', internalType: 'address', type: 'address' },
+      { name: '_code', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'setInviter',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_code', internalType: 'uint256', type: 'uint256' },
+      { name: '_addr', internalType: 'address', type: 'address' },
+    ],
+    name: 'setReferralCode',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'userInviteInfo',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   { stateMutability: 'payable', type: 'receive' },
 ] as const

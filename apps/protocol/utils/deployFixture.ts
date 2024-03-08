@@ -1,6 +1,15 @@
 import { ethers, deployments } from 'hardhat'
 import { precision } from './precision'
-import { BountyFacet, DaoVault, Diamond, INK, MockToken, PasswordManager, RoleAccessControlFacet } from '../types'
+import {
+  BelieverFacet,
+  BountyFacet,
+  DaoVault,
+  Diamond,
+  INK,
+  MockToken,
+  PasswordManager,
+  RoleAccessControlFacet,
+} from '../types'
 
 export type Fixture = Awaited<ReturnType<typeof deployFixture>>
 
@@ -44,11 +53,12 @@ export async function deployFixture() {
   const diamond = await ethers.getContract<Diamond>('Diamond')
   const diamondAddress = await diamond.getAddress()
 
-  const [inkAddress, daoVaultAddress, bountyFacet, roleAccessControlFacet] = await Promise.all([
+  const [inkAddress, daoVaultAddress, bountyFacet, roleAccessControlFacet, believerFacet] = await Promise.all([
     ink.getAddress(),
     daoVault.getAddress(),
     ethers.getContractAt('BountyFacet', diamondAddress) as unknown as Promise<BountyFacet>,
     ethers.getContractAt('RoleAccessControlFacet', diamondAddress) as unknown as Promise<RoleAccessControlFacet>,
+    ethers.getContractAt('BelieverFacet', diamondAddress) as unknown as Promise<BelieverFacet>,
   ])
 
   // mint token to daoVault
@@ -102,6 +112,7 @@ export async function deployFixture() {
 
     bountyFacet,
     roleAccessControlFacet,
+    believerFacet,
 
     // address
     inkAddress,
