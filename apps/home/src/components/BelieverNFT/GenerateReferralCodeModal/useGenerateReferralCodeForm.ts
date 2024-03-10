@@ -27,8 +27,6 @@ export function useGenerateReferralCodeForm() {
 
   const { refetch, data } = useReadContract({})
 
-  console.log('=========data:', data, data === zeroAddress)
-
   const { writeContractAsync } = useWriteContract()
 
   const onSubmit: SubmitHandler<Values> = async (values) => {

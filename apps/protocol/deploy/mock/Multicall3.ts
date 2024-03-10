@@ -1,8 +1,6 @@
 import { DeployFunction } from 'hardhat-deploy/types'
 
 const func: DeployFunction = async ({ getNamedAccounts, deployments, network }) => {
-  console.log('=========network.name:', network.name)
-
   if (!['localhost', 'hardhat'].includes(network.name)) {
     return
   }
