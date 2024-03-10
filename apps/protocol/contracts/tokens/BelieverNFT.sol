@@ -8,19 +8,19 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "../vault/DaoVault.sol";
 
 contract BelieverNFT is ERC721, ERC721URIStorage {
-  uint256 public constant MAX_SUPPLY = 1024;
-  uint256 public constant MIN_PRICE = 0.1 ether;
-  uint256 public constant MAX_PRICE = 3 ether;
-  uint256 public constant PRICE_INCREMENT = (MAX_PRICE - MIN_PRICE) / MAX_SUPPLY;
+  uint256 private constant MAX_SUPPLY = 1024;
+  uint256 private constant MIN_PRICE = 0.1 ether;
+  uint256 private constant MAX_PRICE = 3 ether;
+  uint256 private constant PRICE_INCREMENT = (MAX_PRICE - MIN_PRICE) / MAX_SUPPLY;
 
   uint256 private currentSupply = 0;
 
-  uint256 constant referrerRewardRate = 10;
-  uint256 constant referralsDiscountRate = 10;
+  uint256 private constant referrerRewardRate = 10;
+  uint256 private constant referralsDiscountRate = 10;
 
-  mapping(address => string) codes;
+  mapping(address => string) private codes;
 
-  mapping(string => User) users;
+  mapping(string => User) private users;
 
   struct User {
     address referrer;
