@@ -1,4 +1,4 @@
-import { expect, assert } from 'chai'
+import { expect } from 'chai'
 import { ethers } from 'hardhat'
 import { Fixture, deployFixture } from '@utils/deployFixture'
 
@@ -45,7 +45,8 @@ describe('believerFacet', function () {
     )
   })
 
-  it('Mint believer NFT with empty code', async () => {
+  it.only('Mint believer NFT with empty code', async () => {
+    const baseURI = 'https://www.penx.io/api/believer-nft/'
     const { user2 } = f.accounts
 
     const { currentSupply, currentPrice } = await f.believerNFT.getTokenInfo()
@@ -59,6 +60,10 @@ describe('believerFacet', function () {
       value: currentPrice,
     })
 
+    const tokenURIOnChain = await f.believerNFT.tokenURI(1)
+
+    expect(tokenURIOnChain).to.equal(baseURI + '1')
+
     const vaultEthNext = await f.daoVault.getBalance()
     const user2EthNext = await ethers.provider.getBalance(user2)
 
@@ -70,7 +75,7 @@ describe('believerFacet', function () {
     expect(tokenInfo.currentSupply).to.be.equal(currentSupply + 1n)
   })
 
-  it.only('Mint believer NFT with valid referral code', async () => {
+  it('Mint believer NFT with valid referral code', async () => {
     const { deployer, user1, user2 } = f.accounts
 
     const { currentSupply, currentPrice } = await f.believerNFT.getTokenInfo()
@@ -107,5 +112,34 @@ describe('believerFacet', function () {
     const tokenInfo = await f.believerNFT.getTokenInfo()
 
     expect(tokenInfo.currentSupply).to.be.equal(currentSupply + 1n)
+  })
+
+  it.only('Mint two believer NFTs consecutively', async () => {
+    const { user2 } = f.accounts
+    const code = '' // Empty code
+
+    const info1 = await f.believerNFT.getTokenInfo()
+
+    await f.believerNFT.connect(user2).mintNFT(code, {
+      value: info1.currentPrice,
+    })
+
+    await expect(
+      f.believerNFT.connect(user2).mintNFT(code, {
+        value: info1.currentPrice,
+      }),
+    ).to.be.revertedWith('Insufficient payment')
+
+    const info2 = await f.believerNFT.getTokenInfo()
+
+    expect(info2.currentSupply).to.be.equal(info1.currentSupply + 1n)
+
+    await f.believerNFT.connect(user2).mintNFT(code, {
+      value: info2.currentPrice,
+    })
+
+    const info3 = await f.believerNFT.getTokenInfo()
+
+    expect(info3.currentSupply).to.be.equal(info1.currentSupply + 2n)
   })
 })
