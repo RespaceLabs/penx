@@ -1,10 +1,14 @@
 import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
 import { Button, Input, Spinner, useModalContext } from 'uikit'
-import { useGenerateReferralCodeForm } from './useGenerateReferralCodeForm'
+import {
+  GenerateCodeModalData,
+  useGenerateReferralCodeForm,
+} from './useGenerateReferralCodeForm'
 
 export function GenerateReferralCodeForm() {
-  const { data: loading } = useModalContext<boolean>()
+  const { data } = useModalContext<GenerateCodeModalData>()
+  const { loading, code } = data
   const form = useGenerateReferralCodeForm()
   const { control, formState } = form
   const { isValid } = formState
@@ -36,7 +40,8 @@ export function GenerateReferralCodeForm() {
           gap2
         >
           {loading && <Spinner white square5 />}
-          <Box>Generate</Box>
+
+          <Box>{code ? 'Generate code' : 'Update code'}</Box>
         </Button>
       </Box>
     </Box>

@@ -1,16 +1,18 @@
 import { useInterval } from 'react-use'
 import { Box } from '@fower/react'
-import { Copy } from 'lucide-react'
+import { Copy, Pen } from 'lucide-react'
 import {
+  Button,
   Modal,
   ModalCloseButton,
   ModalContent,
+  modalController,
   ModalOverlay,
   toast,
   useModalContext,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { useCopyToClipboard } from '@penx/shared'
+import { sleep, useCopyToClipboard } from '@penx/shared'
 import { useReferralCode } from '../hooks/useReferralCode'
 
 export const MyReferralLink = () => {
@@ -19,28 +21,40 @@ export const MyReferralLink = () => {
   const myCode = code || 'waiting...'
   const url = `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/believer-nft?ref=${myCode}`
 
-  console.log('x=======data:', code, 'isLoading:', isLoading)
-
-  useInterval(
-    () => {
-      refetch()
-    },
-    !code ? 2000 : null,
-  )
+  useInterval(() => refetch, !code ? 2000 : null)
 
   return (
     <Box bgGray100 border py3 px4 rounded2XL toBetween toCenterY fontBold my10>
       <Box>{url}</Box>
-      <Box
-        inlineFlex
-        gray600
-        cursorPointer
-        onClick={() => {
-          copy(url)
-          toast.info('Copied to clipboard')
-        }}
-      >
-        <Copy size={20} />
+      <Box toCenterY gap-1>
+        <Button
+          size="sm"
+          isSquare
+          variant="ghost"
+          colorScheme="gray600"
+          onClick={() => {
+            copy(url)
+            toast.info('Copied to clipboard')
+          }}
+        >
+          <Copy size={20} />
+        </Button>
+        <Button
+          size="sm"
+          isSquare
+          variant="ghost"
+          colorScheme="gray600"
+          onClick={async () => {
+            modalController.close(ModalNames.MY_REFERRALS)
+            await sleep(200)
+            modalController.open(ModalNames.GENERATE_REFERRAL_CODE, {
+              loading: false,
+              code: myCode,
+            })
+          }}
+        >
+          <Pen size={20} />
+        </Button>
       </Box>
     </Box>
   )

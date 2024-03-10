@@ -8,15 +8,20 @@ import { ModalNames } from '@penx/constants'
 import { sleep } from '@penx/shared'
 import { addressMap, client, wagmiConfig } from '@penx/wagmi'
 
-export type CreateSpaceValues = {
+export type Values = {
+  code: string
+}
+
+export type GenerateCodeModalData = {
+  loading: boolean
   code: string
 }
 
 export function useGenerateReferralCodeForm() {
-  const ctx = useModalContext<boolean>()
-  const form = useForm<CreateSpaceValues>({
+  const ctx = useModalContext<GenerateCodeModalData>()
+  const form = useForm<Values>({
     defaultValues: {
-      code: '',
+      code: ctx.data?.code || '',
     },
   })
 
@@ -26,8 +31,8 @@ export function useGenerateReferralCodeForm() {
 
   const { writeContractAsync } = useWriteContract()
 
-  const onSubmit: SubmitHandler<CreateSpaceValues> = async (values) => {
-    ctx?.setData?.(true)
+  const onSubmit: SubmitHandler<Values> = async (values) => {
+    ctx?.setData?.({ ...ctx.data, loading: true })
 
     try {
       const referrer = await readContract(wagmiConfig, {
@@ -38,8 +43,8 @@ export function useGenerateReferralCodeForm() {
       })
 
       if (referrer !== zeroAddress) {
-        toast.success('This code is already used by someone else')
-        ctx?.setData?.(false)
+        toast.success('This code is already used')
+        ctx?.setData?.({ ...ctx.data, loading: false })
         return
       }
 
@@ -50,14 +55,14 @@ export function useGenerateReferralCodeForm() {
         args: [values.code],
       })
       await sleep(2000)
-      toast.success('Mint Believer NFT successfully!')
+      toast.success('Set referral code successfully')
       ctx.close()
       modalController.open(ModalNames.MY_REFERRALS)
     } catch (error: any) {
       toast.info(error.shortMessage || error.message)
     }
 
-    ctx?.setData?.(false)
+    ctx?.setData?.({ ...ctx.data, loading: false })
   }
 
   return { ...form, onSubmit: form.handleSubmit(onSubmit) }
