@@ -1,9 +1,9 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
   title: 'PenX blog',
-  author: '0xZion',
+  author: 'Zion',
   headerTitle: 'PenX thoughts',
-  description: 'Random thoughts from 0xZion',
+  description: 'Random thoughts from Zion',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://blog.penx.io',
