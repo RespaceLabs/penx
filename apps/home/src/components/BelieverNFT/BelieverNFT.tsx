@@ -1,7 +1,5 @@
 import { Box } from '@fower/react'
 import { useAccount } from 'wagmi'
-import { Logo } from '@penx/widget'
-import { DisconnectButton } from '../DisconnectButton'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { BelieverNFTNav } from './BelieverNFTNav'
 import { GenerateReferralCodeModalModal } from './GenerateReferralCodeModal/GenerateReferralCodeModalModal'

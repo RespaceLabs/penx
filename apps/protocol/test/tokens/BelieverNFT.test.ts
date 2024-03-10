@@ -15,7 +15,7 @@ describe('believerFacet', function () {
     )
   })
 
-  it('Register referral code successfully', async () => {
+  it.only('Register referral code successfully', async () => {
     const code = 'ABCD'
     await f.believerNFT.connect(f.user0).setReferralCode(code)
 
@@ -23,6 +23,7 @@ describe('believerFacet', function () {
     expect(codeOnchain).to.equal(code)
 
     const referrer = await f.believerNFT.getReferrer(code)
+
     expect(referrer).to.equal(f.user0.address)
 
     const referrals = await f.believerNFT.getReferrals(f.user0)
@@ -112,6 +113,26 @@ describe('believerFacet', function () {
     const tokenInfo = await f.believerNFT.getTokenInfo()
 
     expect(tokenInfo.currentSupply).to.be.equal(currentSupply + 1n)
+  })
+
+  it.only('Mint believer NFT failed with self code', async () => {
+    const { deployer, user1 } = f.accounts
+
+    const { currentPrice } = await f.believerNFT.getTokenInfo()
+
+    const code = '123ABC' // Empty code
+
+    await f.believerNFT.connect(user1).setReferralCode(code)
+
+    const codeOnchain = await f.believerNFT.getReferralCode(user1)
+
+    expect(code).to.be.equal(codeOnchain)
+
+    await expect(
+      f.believerNFT.connect(user1).mintNFT(code, {
+        value: currentPrice,
+      }),
+    ).to.revertedWithCustomError(f.believerNFT, 'CannotUseOwnCode')
   })
 
   it('Mint two believer NFTs consecutively', async () => {

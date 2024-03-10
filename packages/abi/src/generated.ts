@@ -168,6 +168,14 @@ export const believerNftAbi = [
   {
     type: 'error',
     inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'code', internalType: 'string', type: 'string' },
+    ],
+    name: 'CannotUseOwnCode',
+  },
+  {
+    type: 'error',
+    inputs: [
       { name: 'sender', internalType: 'address', type: 'address' },
       { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
       { name: 'owner', internalType: 'address', type: 'address' },

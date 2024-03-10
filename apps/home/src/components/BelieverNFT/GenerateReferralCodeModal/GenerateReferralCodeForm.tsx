@@ -8,7 +8,8 @@ import {
 
 export function GenerateReferralCodeForm() {
   const { data } = useModalContext<GenerateCodeModalData>()
-  const { loading, code } = data
+  const loading = data?.loading
+  const code = data?.code
   const form = useGenerateReferralCodeForm()
   const { control, formState } = form
   const { isValid } = formState

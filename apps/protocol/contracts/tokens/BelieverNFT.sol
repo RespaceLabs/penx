@@ -38,6 +38,7 @@ contract BelieverNFT is ERC721, ERC721URIStorage {
   DaoVault private immutable daoVault;
 
   error ReferralCodeExisted(address account, string code);
+  error CannotUseOwnCode(address account, string code);
 
   event NFTMinted(address indexed owner, uint256 indexed tokenId);
 
@@ -59,6 +60,10 @@ contract BelieverNFT is ERC721, ERC721URIStorage {
     currentSupply++;
 
     address account = getReferrer(code);
+
+    if (account == msg.sender) {
+      revert CannotUseOwnCode(msg.sender, code);
+    }
 
     emit NFTMinted(msg.sender, tokenId);
 
