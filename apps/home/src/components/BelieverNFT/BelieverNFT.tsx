@@ -5,6 +5,7 @@ import { DisconnectButton } from '../DisconnectButton'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { BelieverNFTNav } from './BelieverNFTNav'
 import { GenerateReferralCodeModalModal } from './GenerateReferralCodeModal/GenerateReferralCodeModalModal'
+import { InviteInfo } from './InviteInfo'
 import { MintButton } from './MintButton'
 import { MyReferralsModal } from './MyReferralsModal/MyReferralsModal'
 import { NFTBasicInfo } from './NFTBasicInfo'
@@ -63,6 +64,9 @@ export function BelieverNFT() {
             PenX Believer NFT
           </Box>
           <NFTBasicInfo />
+
+          <InviteInfo />
+
           {isConnected && <MintButton />}
           {!isConnected && (
             <WalletConnectButton size={56} w-300>
