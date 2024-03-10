@@ -88,6 +88,10 @@ export enum ModalNames {
   LOGIN_SUCCESS,
   SYNC_DETECTOR,
   SIWE,
+
+  GENERATE_REFERRAL_CODE,
+
+  MY_REFERRALS,
 }
 
 export enum RoleType {

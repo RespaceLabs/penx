@@ -28,7 +28,7 @@ export function MintButton() {
           })
           toast.success('Mint Believer NFT successfully!')
         } catch (error: any) {
-          toast.info(error.message)
+          toast.info(error.shortMessage || error.message)
         }
       }}
     >

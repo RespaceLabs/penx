@@ -465,13 +465,6 @@ export const believerNftAbi = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [{ name: 'code', internalType: 'string', type: 'string' }],
-    name: 'registerReferralCode',
-    outputs: [],
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
     inputs: [
       { name: 'from', internalType: 'address', type: 'address' },
       { name: 'to', internalType: 'address', type: 'address' },
@@ -500,6 +493,13 @@ export const believerNftAbi = [
       { name: 'approved', internalType: 'bool', type: 'bool' },
     ],
     name: 'setApprovalForAll',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'code', internalType: 'string', type: 'string' }],
+    name: 'setReferralCode',
     outputs: [],
   },
   {

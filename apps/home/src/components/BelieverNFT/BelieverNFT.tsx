@@ -3,7 +3,10 @@ import { useAccount } from 'wagmi'
 import { Logo } from '@penx/widget'
 import { DisconnectButton } from '../DisconnectButton'
 import { WalletConnectButton } from '../WalletConnectButton'
+import { BelieverNFTNav } from './BelieverNFTNav'
+import { GenerateReferralCodeModalModal } from './GenerateReferralCodeModal/GenerateReferralCodeModalModal'
 import { MintButton } from './MintButton'
+import { MyReferralsModal } from './MyReferralsModal/MyReferralsModal'
 import { NFTBasicInfo } from './NFTBasicInfo'
 import { PriceChart } from './PriceChart'
 
@@ -33,7 +36,6 @@ const urls = [
 
 export function BelieverNFT() {
   const { isConnected } = useAccount()
-  console.log('=====isConnected:', isConnected)
 
   const list = Array(1024)
     .fill('')
@@ -41,8 +43,11 @@ export function BelieverNFT() {
 
   return (
     <Box maxW-1200 m-auto pt4 relative>
-      <DisconnectButton absolute right0 top-10 />
-      <Box toBetween toCenterY>
+      <GenerateReferralCodeModalModal />
+      <MyReferralsModal />
+      <BelieverNFTNav />
+
+      <Box toBetween toCenterY mt20>
         <Box>
           <Box text2XL fontBold gray500 mb4>
             What Believer NFT can do?
@@ -54,7 +59,6 @@ export function BelieverNFT() {
           </Box>
         </Box>
         <Box mb10 toCenter column gap4>
-          <Logo mb20 />
           <Box text5XL fontBold>
             PenX Believer NFT
           </Box>

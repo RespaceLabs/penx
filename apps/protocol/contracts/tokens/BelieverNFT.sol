@@ -107,7 +107,7 @@ contract BelieverNFT is ERC721, ERC721URIStorage {
     return codes[account];
   }
 
-  function registerReferralCode(string calldata code) external {
+  function setReferralCode(string calldata code) external {
     uint length = bytes(code).length;
 
     require(length > 3, "Code length should greater then 3");

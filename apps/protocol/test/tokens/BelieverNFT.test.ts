@@ -10,14 +10,14 @@ describe('believerFacet', function () {
   })
 
   it('Register referral code failed with invalid length', async () => {
-    await expect(f.believerNFT.connect(f.user0).registerReferralCode('ABC')).to.be.revertedWith(
+    await expect(f.believerNFT.connect(f.user0).setReferralCode('ABC')).to.be.revertedWith(
       'Code length should greater then 3',
     )
   })
 
   it('Register referral code successfully', async () => {
     const code = 'ABCD'
-    await f.believerNFT.connect(f.user0).registerReferralCode(code)
+    await f.believerNFT.connect(f.user0).setReferralCode(code)
 
     const codeOnchain = await f.believerNFT.getReferralCode(f.user0)
     expect(codeOnchain).to.equal(code)
@@ -32,20 +32,20 @@ describe('believerFacet', function () {
 
   it('Register referral code failed because of existing', async () => {
     const code = 'ABCD'
-    await f.believerNFT.connect(f.user0).registerReferralCode(code)
+    await f.believerNFT.connect(f.user0).setReferralCode(code)
 
-    await expect(f.believerNFT.connect(f.user0).registerReferralCode(code)).to.be.revertedWithCustomError(
+    await expect(f.believerNFT.connect(f.user0).setReferralCode(code)).to.be.revertedWithCustomError(
       f.believerNFT,
       'ReferralCodeExisted',
     )
 
-    await expect(f.believerNFT.connect(f.user1).registerReferralCode(code)).to.be.revertedWithCustomError(
+    await expect(f.believerNFT.connect(f.user1).setReferralCode(code)).to.be.revertedWithCustomError(
       f.believerNFT,
       'ReferralCodeExisted',
     )
   })
 
-  it.only('Mint believer NFT with empty code', async () => {
+  it('Mint believer NFT with empty code', async () => {
     const baseURI = 'https://www.penx.io/api/believer-nft/'
     const { user2 } = f.accounts
 
@@ -82,7 +82,7 @@ describe('believerFacet', function () {
 
     const code = '123ABC' // Empty code
 
-    await f.believerNFT.connect(user1).registerReferralCode(code)
+    await f.believerNFT.connect(user1).setReferralCode(code)
 
     const codeOnchain = await f.believerNFT.getReferralCode(user1)
 
@@ -114,7 +114,7 @@ describe('believerFacet', function () {
     expect(tokenInfo.currentSupply).to.be.equal(currentSupply + 1n)
   })
 
-  it.only('Mint two believer NFTs consecutively', async () => {
+  it('Mint two believer NFTs consecutively', async () => {
     const { user2 } = f.accounts
     const code = '' // Empty code
 

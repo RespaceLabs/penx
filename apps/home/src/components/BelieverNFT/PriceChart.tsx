@@ -3,9 +3,8 @@ import { useBelieverInfo } from './useBelieverInfo'
 
 export function PriceChart() {
   const { data } = useBelieverInfo()
-  console.log('=======data:', data)
 
-  if (!data) return null
+  if (!data) return <div></div>
 
   return (
     <Box inlineFlex column>
