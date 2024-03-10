@@ -1,9 +1,7 @@
 // import 'prismjs/components/prism-python'
 import { writeFileSync } from 'fs'
 import { join } from 'path'
-import { langs } from './src/plugins/code/langs'
-
-console.log('soo', langs)
+import { langs } from '@penx/code-block/src/langs'
 
 const str = Object.keys(langs)
   .filter((key) => key !== 'html')

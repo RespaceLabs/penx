@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { useWriteContract } from 'wagmi'
 import { Button, Spinner, toast } from 'uikit'
-import { believerFacetAbi } from '@penx/abi'
+import { believerNftAbi } from '@penx/abi'
 import { addressMap } from '@penx/wagmi'
 import { useBelieverInfo } from './useBelieverInfo'
 
@@ -20,11 +20,13 @@ export function MintButton() {
       onClick={async () => {
         try {
           await writeContractAsync({
-            address: addressMap.Diamond,
-            abi: believerFacetAbi,
-            functionName: 'mintBelieverNFT',
+            address: addressMap.BelieverNFT,
+            abi: believerNftAbi,
+            functionName: 'mintNFT',
+            args: [''],
             value: nft!.currentPrice,
           })
+          toast.success('Mint Believer NFT successfully!')
         } catch (error: any) {
           toast.info(error.message)
         }

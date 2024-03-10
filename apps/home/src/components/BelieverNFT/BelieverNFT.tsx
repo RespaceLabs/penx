@@ -6,7 +6,6 @@ import { WalletConnectButton } from '../WalletConnectButton'
 import { MintButton } from './MintButton'
 import { NFTBasicInfo } from './NFTBasicInfo'
 import { PriceChart } from './PriceChart'
-import { SetReferral } from './SetReferral'
 
 const urls = [
   '/images/nft/penx-believer-nft-1.png',
@@ -69,8 +68,6 @@ export function BelieverNFT() {
         </Box>
         <PriceChart />
       </Box>
-
-      {isConnected && <SetReferral />}
 
       <Box grid gridTemplateColumns-4 gap4 mt10>
         {list.map((item) => (

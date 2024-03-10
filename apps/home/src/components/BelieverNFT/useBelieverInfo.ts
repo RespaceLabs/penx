@@ -1,13 +1,12 @@
 import { useReadContract } from 'wagmi'
-import { believerAbi, believerFacetAbi } from '@penx/abi'
+import { believerNftAbi } from '@penx/abi'
 import { BelieverNFT } from '@penx/model'
 import { addressMap } from '@penx/wagmi'
 
 export function useBelieverInfo() {
   const { data, ...rest } = useReadContract({
-    address: addressMap.Diamond,
-    // address: addressMap.Believer,
-    abi: believerFacetAbi,
+    address: addressMap.BelieverNFT,
+    abi: believerNftAbi,
     functionName: 'getTokenInfo',
   })
 
