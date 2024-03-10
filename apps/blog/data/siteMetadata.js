@@ -2,7 +2,7 @@
 const siteMetadata = {
   title: 'PenX blog',
   author: '0xZion',
-  headerTitle: 'Random thoughts',
+  headerTitle: 'PenX thoughts',
   description: 'Random thoughts from 0xZion',
   language: 'en-us',
   theme: 'system', // system, dark or light
