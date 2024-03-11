@@ -1,9 +1,9 @@
-import { createSIWEConfig } from '@web3modal/siwe'
 import type {
   SIWECreateMessageArgs,
   SIWESession,
   SIWEVerifyMessageArgs,
 } from '@web3modal/siwe'
+import { createSIWEConfig } from '@web3modal/siwe'
 import { getCsrfToken, getSession, signIn, signOut } from 'next-auth/react'
 import { SiweMessage } from 'siwe'
 
@@ -43,12 +43,8 @@ export const siweConfig = createSIWEConfig({
         message,
         redirect: false,
         signature,
-        callbackUrl: '/',
+        callbackUrl: '/protected',
       })
-
-      if (success?.ok) {
-        window.location.href = '/'
-      }
 
       return Boolean(success?.ok)
     } catch (error) {

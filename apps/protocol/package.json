@@ -33,7 +33,7 @@
     "@types/node": "^20.4.5",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.3.1",
-    "ethers": "^6.6.4",
+    "ethers": "^6.10.0",
     "fs-jetpack": "^5.1.0",
     "hardhat-gas-reporter": "^1.0.9",
     "mathjs": "^11.9.1",

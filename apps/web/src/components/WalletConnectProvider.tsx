@@ -18,11 +18,11 @@ const config: Web3ModalOptions<any> = {
   enableAnalytics: true, // Optional - defaults to your Cloud configuration
 }
 
-if (!isServer) {
-  if (location.pathname.includes('/login/web3')) {
-    config.siweConfig = siweConfig
-  }
-}
+// if (!isServer) {
+//   if (location.pathname.includes('/login/web3')) {
+//     config.siweConfig = siweConfig
+//   }
+// }
 
 // Create modal
 createWeb3Modal(config)

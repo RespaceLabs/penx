@@ -16,9 +16,10 @@ export const WalletConnectButton = (props: Props) => {
   }
 
   function onClick() {
-    if (!isConnected) {
-      onOpen()
-    }
+    onOpen()
+    // if (!isConnected) {
+    //   onOpen()
+    // }
   }
 
   return (

@@ -60,8 +60,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     ],
   )
 
-  const isWeb3 = req.url?.includes('/api/auth/callback/credentials')
-
   providers.push(
     credentialsProvider({
       name: 'Ethereum',
@@ -82,7 +80,10 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           if (!credentials?.message) {
             throw new Error('SiweMessage is undefined')
           }
-          const siwe = new SiweMessage(credentials.message)
+
+          // const siwe = new SiweMessage(credentials.message)
+          const siwe = new SiweMessage(JSON.parse(credentials.message))
+
           const provider = new ethers.JsonRpcProvider(
             `https://rpc.walletconnect.com/v1?chainId=eip155:${siwe.chainId}&projectId=${projectId}`,
           )
@@ -104,6 +105,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
           return null
         } catch (e) {
+          console.log('=========eeee:', e)
+
           return null
         }
       },

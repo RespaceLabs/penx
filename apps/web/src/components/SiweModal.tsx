@@ -35,28 +35,32 @@ export function SiweModal() {
   // )
 
   const handleLogin = useCallback(async () => {
+    console.log('========chainId:', chainId)
+
     setLoading(true)
     try {
       const message = new SiweMessage({
-        domain: window.location.host,
-        address: address,
-        statement: 'Sign in with Ethereum to PenX.',
-        uri: window.location.origin,
         version: '1',
-        chainId: chainId,
+        statement: 'Sign in with Ethereum to PenX.',
+        domain: window.location.host,
+        uri: window.location.origin,
+        address,
+        chainId,
         nonce: await getCsrfToken(),
       })
+
       const signature = await signMessageAsync({
         message: message.prepareMessage(),
       })
+
       await signIn('credentials', {
         message: JSON.stringify(message),
         redirect: false,
         signature,
-        callbackUrl: '/editor',
+        callbackUrl: '/',
       })
 
-      if (pathname === '/login') {
+      if (pathname === '/login/web3') {
         push('/')
       }
 
