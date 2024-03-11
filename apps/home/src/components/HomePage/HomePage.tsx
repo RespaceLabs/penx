@@ -68,7 +68,24 @@ export function HomePage() {
           ideas, and information.
         </Box>
 
-        <Box toCenter gap2 flexWrap>
+        <Box
+          black
+          brand500
+          brand600--hover
+          noUnderline
+          px4
+          py2
+          textLG
+          roundedFull
+          // bgNeutral100
+          as="a"
+          href="https://blog.penx.io/blog/why-build-penx"
+          target="_blank"
+        >
+          Why we build PenX?
+        </Box>
+
+        {/* <Box toCenter gap2 flexWrap>
           {tags.map((item) => (
             <Box
               key={item}
@@ -85,7 +102,7 @@ export function HomePage() {
               {item}
             </Box>
           ))}
-        </Box>
+        </Box> */}
 
         <Box>
           <Button
