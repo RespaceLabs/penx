@@ -171,6 +171,7 @@ class DB {
 
   listSpaces = async (userId?: string) => {
     const uid = userId ?? (await get(PENX_SESSION_USER_ID))
+
     const spaces = await this.space.selectAll()
     return spaces.filter((space) => {
       if (Reflect.has(space, 'userId')) {
@@ -186,6 +187,7 @@ class DB {
 
   getActiveSpace = async () => {
     const spaces = await this.listSpaces()
+
     const space = spaces.find((space) => space.isActive)
     return space!
   }
@@ -488,6 +490,7 @@ class DB {
     shouldInitCell = false,
   ) => {
     const space = await this.getActiveSpace()
+
     const databaseRootNode = await this.getDatabaseRootNode(space.id)
 
     const database = await this.createNode<IDatabaseNode>({

@@ -30,7 +30,11 @@ export default function PageEditor() {
   return (
     <SessionProvider
       value={{
-        data: { user, userId: user?.id, address: user?.address },
+        data: {
+          user,
+          userId: user?.id,
+          address: user?.address,
+        },
         loading,
       }}
     >

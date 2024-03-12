@@ -47,7 +47,9 @@ export const EditorApp = () => {
   const { data: session } = useSession()
 
   useEffect(() => {
-    set(PENX_SESSION_USER_ID, session?.user?.id)
+    if (session?.userId) {
+      set(PENX_SESSION_USER_ID, session?.userId)
+    }
   }, [session])
 
   if (!isLoaded) {

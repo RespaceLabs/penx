@@ -100,7 +100,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
             const { address } = siwe
             const user = await createUser(address)
 
-            return { id: user.id, address, user }
+            return user
           }
 
           return null
@@ -134,23 +134,40 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         return true
       },
 
-      async jwt({ token, account, user, profile }) {
+      async jwt({ token, account, user, profile, trigger, session }) {
+        if (trigger === 'update' && session?.earlyAccessCode) {
+          token.earlyAccessCode = session?.earlyAccessCode
+        }
+
         if (user) {
           token.uid = user.id
           token.address = (user as any).address
+
+          user.image
+
           token.earlyAccessCode = (user as any).earlyAccessCode
+
+          console.log(
+            '=====token.earlyAccessCode:',
+            token.earlyAccessCode,
+            'user--:',
+            user,
+            user.user,
+          )
+          token.email = (user as any).email
         }
+
+        console.log('=======token:', token, 'user:', user, 'account:', account)
 
         return token
       },
-      session({ session, token }) {
+      session({ session, token, user }) {
+        console.log('session=======token:', token, 'user:', user)
+
         session.userId = token.uid as string
         session.address = token.address as string
         session.earlyAccessCode = token.earlyAccessCode as string
-
-        if (session?.user) {
-          ;(session.user as any).id = token.uid
-        }
+        session.email = token.email as string
 
         return session
       },

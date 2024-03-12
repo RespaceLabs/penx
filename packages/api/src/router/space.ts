@@ -75,7 +75,7 @@ export const spaceRouter = createTRPCRouter({
   create: protectedProcedure
     .input(CreateSpaceInput)
     .mutation(({ ctx, input }) => {
-      return createSpace(input)
+      return createSpace(input, ctx.token.uid)
     }),
 
   update: protectedProcedure

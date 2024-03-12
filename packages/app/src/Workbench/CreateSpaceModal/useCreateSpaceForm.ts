@@ -27,7 +27,7 @@ export function useCreateSpaceForm() {
 
     ctx?.setData?.(true)
 
-    const userId = session?.user?.id ?? ''
+    const userId = session?.userId
 
     const newSpace = getNewSpace({
       userId,
@@ -37,7 +37,6 @@ export function useCreateSpaceForm() {
 
     try {
       const space = await api.space.create.mutate({
-        userId,
         spaceData: JSON.stringify(newSpace),
       })
 

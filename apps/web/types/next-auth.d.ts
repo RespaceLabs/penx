@@ -20,6 +20,7 @@ declare module 'next-auth' {
     chainId: number
     address: string
     earlyAccessCode: string
+    email: string
     user: {
       id: string
     } & DefaultSession['user']

@@ -221,4 +221,17 @@ export const userRouter = createTRPCRouter({
         data: { github },
       })
     }),
+
+  isEarlyAccessCodeValid: protectedProcedure
+    .input(
+      z.object({
+        code: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findFirst({
+        where: { id: ctx.token.uid, earlyAccessCode: input.code },
+      })
+      return !!user
+    }),
 })

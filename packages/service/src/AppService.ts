@@ -36,16 +36,10 @@ export class AppService {
 
     this.inited = true
 
-    try {
-    } catch (error) {
-      console.log('app init error.....:', error)
-    }
     const spaces = await db.listSpaces()
     const activeSpace = spaces.find((item) => item.isActive) || spaces[0]
 
     if (navigator.onLine) {
-      console.log('=================222222')
-
       try {
         await this.tryToSync(activeSpace)
       } catch (error) {
@@ -70,8 +64,6 @@ export class AppService {
         await db.createNode(node)
       }
     }
-
-    console.log('----111111111111111112', nodes)
 
     // get nodesLastUpdatedAt and try to pull from cloud
 

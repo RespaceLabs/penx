@@ -7,14 +7,13 @@ import { ISpace } from '@penx/model-types'
 import { uniqueId } from '@penx/unique-id'
 
 export const CreateSpaceInput = z.object({
-  userId: z.string().min(1),
   spaceData: z.string(),
 })
 
 export type CreateUserInput = z.infer<typeof CreateSpaceInput>
 
-export function createSpace(input: CreateUserInput) {
-  const { userId, spaceData } = input
+export function createSpace(input: CreateUserInput, userId: string) {
+  const { spaceData } = input
   const space: ISpace = JSON.parse(spaceData)
 
   return prisma.$transaction(
