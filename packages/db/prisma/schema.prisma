@@ -12,26 +12,27 @@ datasource db {
 }
 
 model User {
-    id            String       @id @default(uuid())
-    address       String?      @unique // wallet address
-    name          String? // nickname
-    bio           String?
-    avatar        String?
-    password      String?
-    roleType      String?
-    github        Json?
-    taskGithub    Json? // github binding for task
-    username      String?
-    email         String?      @unique
-    emailVerified DateTime?
-    image         String?
-    createdAt     DateTime     @default(now())
-    updatedAt     DateTime     @updatedAt
-    accounts      Account[]
-    sessions      Session[]
-    spaces        Space[]
-    SiteSpace     SiteSpace[]
-    SyncServer    SyncServer[]
+    id              String       @id @default(uuid())
+    address         String?      @unique // wallet address
+    name            String? // nickname
+    bio             String?
+    avatar          String?
+    password        String?
+    roleType        String?
+    github          Json?
+    taskGithub      Json? // github binding for task
+    username        String?
+    email           String?      @unique
+    emailVerified   DateTime?
+    image           String?
+    earlyAccessCode String?
+    createdAt       DateTime     @default(now())
+    updatedAt       DateTime     @updatedAt
+    accounts        Account[]
+    sessions        Session[]
+    spaces          Space[]
+    SiteSpace       SiteSpace[]
+    SyncServer      SyncServer[]
 }
 
 model Account {

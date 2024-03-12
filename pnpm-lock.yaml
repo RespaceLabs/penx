@@ -2001,14 +2001,14 @@ importers:
         specifier: ^2.6.5
         version: 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
       '@web3modal/core':
-        specifier: ^4.0.13
-        version: 4.0.13(@types/react@18.2.61)(react@18.2.0)
+        specifier: ^4.1.0
+        version: 4.1.0(@types/react@18.2.61)(react@18.2.0)
       '@web3modal/siwe':
-        specifier: ^4.0.13
-        version: 4.0.13(@types/react@18.2.61)(lit@3.1.2)(react@18.2.0)(valtio@1.11.2)
+        specifier: ^4.1.0
+        version: 4.1.0(@types/react@18.2.61)(lit@3.1.2)(react@18.2.0)(valtio@1.11.2)
       '@web3modal/wagmi':
-        specifier: ^4.0.13
-        version: 4.0.13(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(lit@3.1.2)(valtio@1.11.2)(viem@2.7.19)
+        specifier: ^4.1.0
+        version: 4.1.0(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(lit@3.1.2)(valtio@1.11.2)(viem@2.7.19)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -18745,6 +18745,12 @@ packages:
       dayjs: 1.11.10
     dev: false
 
+  /@web3modal/common@4.1.0:
+    resolution: {integrity: sha512-9BUoIYEEW2Zf69OYLculsdhjjqNkXho3gN7HkKyDJ2T1NVnMkf+YuSJwaQGGK4TLR+y+IiSkvYqPHJFXJXKYVg==}
+    dependencies:
+      dayjs: 1.11.10
+    dev: false
+
   /@web3modal/core@4.0.13(@types/react@18.2.48)(react@18.2.0):
     resolution: {integrity: sha512-8zCu+oZ3xwCQtUevjP09BPCkvJo2tRnBcOzMDhkFzqty2nTE4GBuaI2Bgp/gcrLJNN/RLPQ8BcEdrV2k95MOIg==}
     dependencies:
@@ -18767,8 +18773,25 @@ packages:
       - react
     dev: false
 
+  /@web3modal/core@4.1.0(@types/react@18.2.61)(react@18.2.0):
+    resolution: {integrity: sha512-MJG8djPg0eMKTLjDMvYcoVay4u5t3CuhRkTYuKr5EZA0xKhf5m0s/toblYGP059ZkuD21qO7hLz/CmyeBqusUg==}
+    dependencies:
+      '@web3modal/common': 4.1.0
+      '@web3modal/wallet': 4.1.0
+      valtio: 1.11.2(@types/react@18.2.61)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - react
+    dev: false
+
   /@web3modal/polyfills@4.0.13:
     resolution: {integrity: sha512-Pvb2uF18+h3r+kKa6ELn5Vg7lQRNoBmZ9GuH//AY1lX6AII75hPH78hKh78EscZctVFInbVxx8RBTFwfbXUzQA==}
+    dependencies:
+      buffer: 6.0.3
+    dev: false
+
+  /@web3modal/polyfills@4.1.0:
+    resolution: {integrity: sha512-TdSeTjtmsOHt/P76bxokelCd5h3bNgDZsy1ucjJPCKVkLjp/eSsLaYOjqENDLi+bOMDNn69x1UtDVHbfaLJZFw==}
     dependencies:
       buffer: 6.0.3
     dev: false
@@ -18801,6 +18824,20 @@ packages:
       - valtio
     dev: false
 
+  /@web3modal/scaffold-react@4.1.0(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0)(valtio@1.11.2):
+    resolution: {integrity: sha512-Xj01CeFYMLt6POGuG7cSNGe4qpJKzZJ5gCgBSHWiB7I4c1Lhnl3UyX52UY6DHBNoFMiMm/rSa8LqYmtQ3FimdA==}
+    peerDependencies:
+      react: '>=17'
+      react-dom: '>=17'
+    dependencies:
+      '@web3modal/scaffold': 4.1.0(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - valtio
+    dev: false
+
   /@web3modal/scaffold-utils@4.0.13(@types/react@18.2.48)(react@18.2.0):
     resolution: {integrity: sha512-V/iJ0ec92oZSBopxWaPpy8k2HZ4kUihhGDXfV11A9GQVIg7+JY2m+Q8vUBrgHExmb38GZWgqAGUeG/YlTdLmQw==}
     dependencies:
@@ -18817,6 +18854,17 @@ packages:
     dependencies:
       '@web3modal/core': 4.0.13(@types/react@18.2.61)(react@18.2.0)
       '@web3modal/polyfills': 4.0.13
+      valtio: 1.11.2(@types/react@18.2.61)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - react
+    dev: false
+
+  /@web3modal/scaffold-utils@4.1.0(@types/react@18.2.61)(react@18.2.0):
+    resolution: {integrity: sha512-WZuUI6tYmCBb5D3vKXNJVju9WFMipCSLMKPklfasuuLSexSsLE01INT6LnWdEANtGQ6rMezsK3j8yEBM4h9FhQ==}
+    dependencies:
+      '@web3modal/core': 4.1.0(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/polyfills': 4.1.0
       valtio: 1.11.2(@types/react@18.2.61)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
@@ -18842,6 +18890,19 @@ packages:
       vue: '>=3'
     dependencies:
       '@web3modal/scaffold': 4.0.13(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2)
+      vue: 3.3.4
+    transitivePeerDependencies:
+      - '@types/react'
+      - react
+      - valtio
+    dev: false
+
+  /@web3modal/scaffold-vue@4.1.0(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2)(vue@3.3.4):
+    resolution: {integrity: sha512-oe4HTasDjAVD2hDmmOJWS/8FaKTm1Vrt6zDG9Fj6tb/hF4i63EeWj0kNBQ9zL6bQsVfuo6wPzhDRxjBL+W9sMg==}
+    peerDependencies:
+      vue: '>=3'
+    dependencies:
+      '@web3modal/scaffold': 4.1.0(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@types/react'
@@ -18879,6 +18940,24 @@ packages:
       lit: 3.1.0
     optionalDependencies:
       '@web3modal/siwe': 4.0.13(@types/react@18.2.61)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2)
+    transitivePeerDependencies:
+      - '@types/react'
+      - react
+      - valtio
+    dev: false
+
+  /@web3modal/scaffold@4.1.0(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2):
+    resolution: {integrity: sha512-BZdE+T65jmm1hLwXjayZZVGim4LU8acUuKUbzvnHHQrop/oaM4cQbAhRdLll6xpWK4hDfvb+Ep9PBu/1IiLDHg==}
+    peerDependenciesMeta:
+      '@web3modal/siwe':
+        optional: true
+    dependencies:
+      '@web3modal/common': 4.1.0
+      '@web3modal/core': 4.1.0(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/ui': 4.1.0
+      lit: 3.1.0
+    optionalDependencies:
+      '@web3modal/siwe': 4.1.0(@types/react@18.2.61)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2)
     transitivePeerDependencies:
       - '@types/react'
       - react
@@ -18947,8 +19026,46 @@ packages:
       - react
     dev: false
 
+  /@web3modal/siwe@4.1.0(@types/react@18.2.61)(lit@3.1.0)(react@18.2.0)(valtio@1.11.2):
+    resolution: {integrity: sha512-tFxIA2DyJ6160heEsIyD7sJrBelAsoUdtM8R1yi2Z3+u3pu6I8x2DxnYOGRMetvu+nf6dUFYWoLcJR5PK5Y2Xg==}
+    peerDependencies:
+      lit: '>=3'
+      valtio: '>=1 <2'
+    dependencies:
+      '@web3modal/core': 4.1.0(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/scaffold-utils': 4.1.0(@types/react@18.2.61)(react@18.2.0)
+      lit: 3.1.0
+      valtio: 1.11.2(@types/react@18.2.61)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - react
+    dev: false
+    optional: true
+
+  /@web3modal/siwe@4.1.0(@types/react@18.2.61)(lit@3.1.2)(react@18.2.0)(valtio@1.11.2):
+    resolution: {integrity: sha512-tFxIA2DyJ6160heEsIyD7sJrBelAsoUdtM8R1yi2Z3+u3pu6I8x2DxnYOGRMetvu+nf6dUFYWoLcJR5PK5Y2Xg==}
+    peerDependencies:
+      lit: '>=3'
+      valtio: '>=1 <2'
+    dependencies:
+      '@web3modal/core': 4.1.0(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/scaffold-utils': 4.1.0(@types/react@18.2.61)(react@18.2.0)
+      lit: 3.1.2
+      valtio: 1.11.2(@types/react@18.2.61)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - react
+    dev: false
+
   /@web3modal/ui@4.0.13:
     resolution: {integrity: sha512-G2SBYI1e7jIOjtbk5E/CoN0TyHj4mFG0L0FAsqJWGDONbwq+rYEA7pjyIY5Tobh7vgadQZvrANb5KUJfI6tCZQ==}
+    dependencies:
+      lit: 3.1.0
+      qrcode: 1.5.3
+    dev: false
+
+  /@web3modal/ui@4.1.0:
+    resolution: {integrity: sha512-Cz2bWrLz0yMjxq1IrHFlLcpdHEqFuo52KYPPgvKqfILj57JRsaPyjzGUYn3OU5g6VMm4rxTJJGyntFanRuuuiA==}
     dependencies:
       lit: 3.1.0
       qrcode: 1.5.3
@@ -19024,8 +19141,49 @@ packages:
       - valtio
     dev: false
 
+  /@web3modal/wagmi@4.1.0(@types/react@18.2.61)(@wagmi/connectors@4.1.14)(@wagmi/core@2.6.5)(lit@3.1.2)(valtio@1.11.2)(viem@2.7.19):
+    resolution: {integrity: sha512-A57tLWGBgjH7PMcv+9qPQthWHhcZVNtNs9weoa1HCETocq5Jgv+N/PLlFe+Vph3GX8XmxHU4IMs8tznqP0KL6w==}
+    peerDependencies:
+      '@wagmi/connectors': '>=4.0.0'
+      '@wagmi/core': '>=2.0.0'
+      viem: '>=2.0.0'
+    peerDependenciesMeta:
+      '@web3modal/siwe':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      '@wagmi/connectors': 4.1.14(@types/react@18.2.61)(@wagmi/core@2.6.5)(react-dom@18.2.0)(react-native@0.73.4)(react@18.2.0)(rollup@2.79.1)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
+      '@wagmi/core': 2.6.5(@types/react@18.2.61)(immer@10.0.3)(react@18.2.0)(typescript@5.3.3)(viem@2.7.19)(zod@3.22.4)
+      '@web3modal/polyfills': 4.1.0
+      '@web3modal/scaffold': 4.1.0(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2)
+      '@web3modal/scaffold-react': 4.1.0(@types/react@18.2.61)(react-dom@18.2.0)(react@18.2.0)(valtio@1.11.2)
+      '@web3modal/scaffold-utils': 4.1.0(@types/react@18.2.61)(react@18.2.0)
+      '@web3modal/scaffold-vue': 4.1.0(@types/react@18.2.61)(react@18.2.0)(valtio@1.11.2)(vue@3.3.4)
+      viem: 2.7.19(typescript@5.3.3)(zod@3.22.4)
+    optionalDependencies:
+      '@web3modal/siwe': 4.1.0(@types/react@18.2.61)(lit@3.1.2)(react@18.2.0)(valtio@1.11.2)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      vue: 3.3.4
+    transitivePeerDependencies:
+      - '@types/react'
+      - lit
+      - valtio
+    dev: false
+
   /@web3modal/wallet@4.0.13:
     resolution: {integrity: sha512-Luqnu/zYWruBk4w5cQM6I8fxKvVJ8b5TiMm7r0PNTyKuS5MNIeVE6BBtT5PR/S1q5XM5BKh/nQ8DBky8GhuSPA==}
+    dependencies:
+      zod: 3.22.4
+    dev: false
+
+  /@web3modal/wallet@4.1.0:
+    resolution: {integrity: sha512-HDh+sJ/bVOMJ+xiCqFjr4cMWwJbaqy3E9/dzukMuHVTsJhrXWObrWi5UPNB5gKb4c8/SPSd9Y81zKhG9FL2lOg==}
     dependencies:
       zod: 3.22.4
     dev: false

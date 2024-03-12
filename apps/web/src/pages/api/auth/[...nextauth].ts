@@ -136,9 +136,9 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
       async jwt({ token, account, user, profile }) {
         if (user) {
-          // console.log('jwt==========:', user)
           token.uid = user.id
           token.address = (user as any).address
+          token.earlyAccessCode = (user as any).earlyAccessCode
         }
 
         return token
@@ -146,6 +146,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       session({ session, token }) {
         session.userId = token.uid as string
         session.address = token.address as string
+        session.earlyAccessCode = token.earlyAccessCode as string
 
         if (session?.user) {
           ;(session.user as any).id = token.uid

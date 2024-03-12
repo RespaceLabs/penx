@@ -19,6 +19,7 @@ declare module 'next-auth' {
     userId: string
     chainId: number
     address: string
+    earlyAccessCode: string
     user: {
       id: string
     } & DefaultSession['user']
@@ -31,6 +32,8 @@ declare module 'next-auth/jwt' {
     name: string
     uid: string
     address: string
+    address: string
+    earlyAccessCode: string
     email: string
     sub: string
     iat: number
