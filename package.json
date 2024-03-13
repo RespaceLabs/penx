@@ -41,7 +41,7 @@
     "lint-staged": "^13.3.0",
     "prettier": "^3.1.0",
     "prisma": "^5.6.0",
-    "turbo": "^1.11.3"
+    "turbo": "^1.12.5"
   },
   "packageManager": "pnpm@8.7.6"
 }
