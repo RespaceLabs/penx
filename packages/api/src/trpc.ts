@@ -67,7 +67,7 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
 export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   const { req, res } = opts
 
-  let token = (await getToken({ req })) as Token
+  let token = (await getToken({ req })) as any
 
   if (!token) {
     const authorization = req.headers['authorization'] || ''
