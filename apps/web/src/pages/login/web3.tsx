@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Box } from '@fower/react'
 import { ArrowRight, Wallet } from 'lucide-react'
 import { useRouter } from 'next/router'
+import { run } from '@penx/mnemonic'
 import { ClientOnly } from '~/components/ClientOnly'
 import { Logo } from '~/components/Logo'
 import { SiweModal } from '~/components/SiweModal'
@@ -9,6 +10,12 @@ import { WalletConnectButton } from '~/components/WalletConnectButton'
 
 export default function LoginPage() {
   const { push } = useRouter()
+
+  useEffect(() => {
+    run()
+    console.log('==xxx=========..')
+  }, [])
+
   const loginEntry = useMemo(() => {
     return (
       <Box column gap2 toCenterX>
