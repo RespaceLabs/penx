@@ -135,14 +135,21 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       },
 
       async jwt({ token, account, user, profile, trigger, session }) {
-        if (trigger === 'update' && session?.earlyAccessCode) {
-          token.earlyAccessCode = session?.earlyAccessCode
+        if (trigger === 'update') {
+          if (session?.earlyAccessCode) {
+            token.earlyAccessCode = session?.earlyAccessCode
+          }
+
+          if (session?.publicKey) {
+            token.publicKey = session?.publicKey
+          }
         }
 
         if (user) {
           token.uid = user.id
           token.address = (user as any).address
           token.earlyAccessCode = (user as any).earlyAccessCode
+          token.publicKey = (user as any).publicKey
           token.email = (user as any).email
         }
 
@@ -152,6 +159,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         session.userId = token.uid as string
         session.address = token.address as string
         session.earlyAccessCode = token.earlyAccessCode as string
+        session.publicKey = token.publicKey as string
         session.email = token.email as string
 
         return session

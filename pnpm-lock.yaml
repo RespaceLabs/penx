@@ -4009,6 +4009,9 @@ importers:
       '@penx/math':
         specifier: workspace:*
         version: link:../math
+      '@penx/mnemonic':
+        specifier: workspace:*
+        version: link:../mnemonic
       '@penx/model':
         specifier: workspace:*
         version: link:../model
@@ -5652,6 +5655,9 @@ importers:
 
   packages/mnemonic:
     dependencies:
+      '@penx/encryption':
+        specifier: workspace:*
+        version: link:../encryption
       bip39:
         specifier: ^3.1.0
         version: 3.1.0
@@ -5664,6 +5670,9 @@ importers:
       hdkey:
         specifier: ^2.1.0
         version: 2.1.0
+      idb-keyval:
+        specifier: ^6.2.1
+        version: 6.2.1
     devDependencies:
       '@penx/tsconfig':
         specifier: workspace:*

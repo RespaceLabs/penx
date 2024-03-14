@@ -8,9 +8,10 @@ import {
   PENX_SESSION_USER_ID,
 } from '@penx/constants'
 import { appLoader, useLoaderStatus } from '@penx/loader'
+import { getMnemonicFromLocal } from '@penx/mnemonic'
 import { useSession } from '@penx/session'
-import { StoreProvider } from '@penx/store'
-import { TrpcProvider } from '@penx/trpc-client'
+import { store, StoreProvider } from '@penx/store'
+import { api, TrpcProvider } from '@penx/trpc-client'
 import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
 import { ClientOnly } from './components/ClientOnly'
@@ -45,12 +46,23 @@ if (!isServer) {
 export const EditorApp = () => {
   const { isLoaded } = useLoaderStatus()
   const { data: session } = useSession()
+  console.log('============session:', session)
 
   useEffect(() => {
     if (session?.userId) {
       set(PENX_SESSION_USER_ID, session?.userId)
     }
   }, [session])
+
+  useEffect(() => {
+    initMnemonicToStore()
+  }, [])
+
+  async function initMnemonicToStore() {
+    const secret = await api.user.getMySecret.query()
+    const mnemonic = await getMnemonicFromLocal(secret)
+    store.user.setMnemonic(mnemonic)
+  }
 
   if (!isLoaded) {
     return null

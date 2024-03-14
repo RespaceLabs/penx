@@ -8,6 +8,8 @@ export const userLoadingAtom = atom<boolean>(false)
 
 export const userIdAtom = atom('')
 
+export const mnemonicAtom = atom('')
+
 export class UserStore {
   constructor(private store: StoreType) {}
 
@@ -33,5 +35,13 @@ export class UserStore {
 
   setUser(user: User) {
     return this.store.set(userAtom, user)
+  }
+
+  getMnemonic() {
+    return this.store.get(mnemonicAtom)
+  }
+
+  setMnemonic(value: string) {
+    return this.store.set(mnemonicAtom, value)
   }
 }

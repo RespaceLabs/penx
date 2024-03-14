@@ -1,5 +1,6 @@
 import { TRPCError } from '@trpc/server'
 import jwt from 'jsonwebtoken'
+import { nanoid } from 'nanoid'
 import { z } from 'zod'
 import { GithubInfo } from '@penx/model'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
@@ -40,6 +41,20 @@ export const userRouter = createTRPCRouter({
 
       return user
     }),
+
+  getMySecret: protectedProcedure.query(async ({ ctx, input }) => {
+    const { secret } = await ctx.prisma.user.findUniqueOrThrow({
+      where: { id: ctx.token.uid },
+      select: { secret: true },
+    })
+
+    if (secret) return secret
+    const user = await ctx.prisma.user.update({
+      where: { id: ctx.token.uid },
+      data: { secret: nanoid() },
+    })
+    return user.secret!
+  }),
 
   search: protectedProcedure
     .input(z.object({ q: z.string() }))
@@ -106,16 +121,22 @@ export const userRouter = createTRPCRouter({
     }),
 
   updateAddress: protectedProcedure
-    .input(
-      z.object({
-        address: z.string(),
-      }),
-    )
+    .input(z.object({ address: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { address } = input
       return ctx.prisma.user.update({
         where: { id: ctx.token.uid },
         data: { address },
+      })
+    }),
+
+  updatePublicKey: protectedProcedure
+    .input(z.object({ publicKey: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const { publicKey } = input
+      return ctx.prisma.user.update({
+        where: { id: ctx.token.uid },
+        data: { publicKey },
       })
     }),
 

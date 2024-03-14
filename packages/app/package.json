@@ -45,6 +45,7 @@
     "@penx/abi": "workspace:*",
     "@penx/api": "workspace:*",
     "@penx/catalogue": "workspace:*",
+    "@penx/mnemonic": "workspace:*",
     "@penx/cmdk": "workspace:*",
     "@penx/editor-leaf": "workspace:*",
     "@penx/constants": "workspace:*",

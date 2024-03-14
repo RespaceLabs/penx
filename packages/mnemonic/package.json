@@ -15,9 +15,11 @@
     "typescript": "^5.3.2"
   },
   "dependencies": {
+    "@penx/encryption": "workspace:*",
     "bip39": "^3.1.0",
     "eciesjs": "^0.4.6",
     "ethereumjs-util": "^7.1.5",
-    "hdkey": "^2.1.0"
+    "hdkey": "^2.1.0",
+    "idb-keyval": "^6.2.1"
   }
 }
