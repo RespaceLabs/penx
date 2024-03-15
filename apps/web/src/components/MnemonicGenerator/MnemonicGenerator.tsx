@@ -41,7 +41,7 @@ export function MnemonicGenerator({ children }: PropsWithChildren) {
   }, [data, initMnemonic])
 
   useEffect(() => {
-    if (!data?.secret) return
+    if (!data?.userId) return
     initMnemonicToStore(data.secret)
   }, [data])
 

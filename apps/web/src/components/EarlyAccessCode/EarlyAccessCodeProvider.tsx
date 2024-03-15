@@ -6,6 +6,10 @@ import { EarlyAccessCode } from './EarlyAccessCode'
 export function EarlyAccessCodeProvider({ children }: PropsWithChildren) {
   const { data } = useSession()
 
+  if (process.env.NEXT_PUBLIC_IS_EARLY_STAGE !== 'true') {
+    return <>{children}</>
+  }
+
   if (!data?.earlyAccessCode) {
     return (
       <Box h-100vh toCenter>

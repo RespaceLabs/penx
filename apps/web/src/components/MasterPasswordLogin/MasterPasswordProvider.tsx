@@ -6,6 +6,7 @@ import { MASTER_PASSWORD } from '@penx/constants'
 import { MasterPasswordLogin } from './MasterPasswordLogin'
 
 export function MasterPasswordProvider({ children }: PropsWithChildren) {
+  return <>{children}</>
   const { data, isLoading, refetch } = useQuery(['masterPassword'], async () =>
     get(MASTER_PASSWORD),
   )
