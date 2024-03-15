@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@fower/react'
 import { useSession } from 'next-auth/react'
 import { SessionProvider } from '@penx/session'
-import { MasterPassword } from '~/components/MasterPassword/MasterPassword'
+import { RecoveryPhrase } from '~/components/RecoveryPhrase/RecoveryPhrase'
 
 const PagePassword = () => {
   const session = useSession()
@@ -15,7 +15,7 @@ const PagePassword = () => {
       }}
     >
       <Box h-100vh toCenter>
-        <MasterPassword></MasterPassword>
+        <RecoveryPhrase></RecoveryPhrase>
       </Box>
     </SessionProvider>
   )

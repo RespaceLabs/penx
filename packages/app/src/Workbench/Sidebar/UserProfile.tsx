@@ -80,13 +80,13 @@ export const UserProfile = () => {
             <MenuItem
               gap2
               onClick={() => {
-                window.open('/password')
+                window.open('/recovery-phrase')
               }}
             >
               <Box gray500>
                 <User size={16} />
               </Box>
-              <Box>Master password</Box>
+              <Box>Recovery Phrase</Box>
             </MenuItem>
           </PopoverClose>
 
