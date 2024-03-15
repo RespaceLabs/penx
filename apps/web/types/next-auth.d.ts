@@ -21,6 +21,7 @@ declare module 'next-auth' {
     address: string
     earlyAccessCode: string
     publicKey: string
+    secret: string
     email: string
     user: {
       id: string
@@ -37,6 +38,7 @@ declare module 'next-auth/jwt' {
     address: string
     earlyAccessCode: string
     publicKey: string
+    secret: string
     email: string
     sub: string
     iat: number

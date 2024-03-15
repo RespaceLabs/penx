@@ -22,11 +22,10 @@ class AppLoader {
     // }
 
     try {
-      const t0 = Date.now()
+      const t1 = Date.now()
       ;(window as any).penx = penx as any
 
       await db.database.connect()
-      const t1 = Date.now()
 
       const t2 = Date.now()
       const pluginLoader = new ExtensionLoader()
@@ -34,7 +33,7 @@ class AppLoader {
 
       const t3 = Date.now()
 
-      console.log('appLoader loaded time t3-t0', t3 - t0)
+      console.log('appLoader loaded time t3-t0', t2 - t1)
 
       this.emitter.emit('loaded', true)
 

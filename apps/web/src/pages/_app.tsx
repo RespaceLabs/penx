@@ -22,6 +22,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../styles/globals.css'
 import '../styles/command.scss'
 import '@glideapps/glide-data-grid/dist/index.css'
+import { StoreProvider } from '@penx/store'
 import { TrpcProvider } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
 import { EventHandler } from '~/components/EventHandler'
@@ -52,23 +53,25 @@ function MyApp({ Component, pageProps }: Props<any>) {
       />
       <GoogleAnalytics trackPageViews />
 
-      <ClientOnly>
-        <WalletConnectProvider>
-          <SessionProvider session={pageProps.session} refetchInterval={0}>
-            <TrpcProvider>
-              <EventHandler />
-              {/* <SpeedInsights /> */}
-              <Layout>
-                <Component {...pageProps} />
-                <div id="portal" />
-              </Layout>
-              <ToastContainer position="bottom-right" />
+      <StoreProvider>
+        <ClientOnly>
+          <WalletConnectProvider>
+            <SessionProvider session={pageProps.session} refetchInterval={0}>
+              <TrpcProvider>
+                <EventHandler />
+                {/* <SpeedInsights /> */}
+                <Layout>
+                  <Component {...pageProps} />
+                  <div id="portal" />
+                </Layout>
+                <ToastContainer position="bottom-right" />
 
-              {/* <Analytics /> */}
-            </TrpcProvider>
-          </SessionProvider>
-        </WalletConnectProvider>
-      </ClientOnly>
+                {/* <Analytics /> */}
+              </TrpcProvider>
+            </SessionProvider>
+          </WalletConnectProvider>
+        </ClientOnly>
+      </StoreProvider>
     </>
   )
 }

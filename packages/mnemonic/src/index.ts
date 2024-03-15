@@ -25,7 +25,6 @@ export async function getMnemonicFromLocal(secret: string) {
   const key = calculateSHA256FromString(secret)
   const encryptedMnemonic = await get(key)
   const mnemonic = decryptString(encryptedMnemonic, key)
-  // console.log('=========mnemonic:', mnemonic)
   return mnemonic
 }
 

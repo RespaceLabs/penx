@@ -1,17 +1,9 @@
 import { FC, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { set } from 'idb-keyval'
-import {
-  BASE_URL,
-  isProd,
-  isServer,
-  PENX_SESSION_USER_ID,
-} from '@penx/constants'
+import { isProd, isServer, PENX_SESSION_USER_ID } from '@penx/constants'
 import { appLoader, useLoaderStatus } from '@penx/loader'
-import { getMnemonicFromLocal } from '@penx/mnemonic'
 import { useSession } from '@penx/session'
-import { store, StoreProvider } from '@penx/store'
-import { api, TrpcProvider } from '@penx/trpc-client'
 import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
 import { ClientOnly } from './components/ClientOnly'
@@ -54,16 +46,6 @@ export const EditorApp = () => {
     }
   }, [session])
 
-  useEffect(() => {
-    initMnemonicToStore()
-  }, [])
-
-  async function initMnemonicToStore() {
-    const secret = await api.user.getMySecret.query()
-    const mnemonic = await getMnemonicFromLocal(secret)
-    store.user.setMnemonic(mnemonic)
-  }
-
   if (!isLoaded) {
     return null
   }
@@ -72,17 +54,15 @@ export const EditorApp = () => {
 
   return (
     <ClientOnly>
-      <StoreProvider>
-        <ErrorBoundary fallback={<Fallback />}>
-          {session && <UserQuery userId={session.userId} />}
-          <HotkeyBinding />
-          <SpaceSyncManager userId={session?.userId}>
-            <AppProvider>
-              <Workbench />
-            </AppProvider>
-          </SpaceSyncManager>
-        </ErrorBoundary>
-      </StoreProvider>
+      <ErrorBoundary fallback={<Fallback />}>
+        {session && <UserQuery userId={session.userId} />}
+        <HotkeyBinding />
+        <SpaceSyncManager userId={session?.userId}>
+          <AppProvider>
+            <Workbench />
+          </AppProvider>
+        </SpaceSyncManager>
+      </ErrorBoundary>
     </ClientOnly>
   )
 }

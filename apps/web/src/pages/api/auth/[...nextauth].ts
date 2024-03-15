@@ -8,7 +8,7 @@ import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import { getCsrfToken } from 'next-auth/react'
 import { SiweMessage } from 'siwe'
-import { prisma } from '@penx/db'
+import { prisma, User } from '@penx/db'
 
 async function createUser(address: string) {
   let user = await prisma.user.findUnique({ where: { address } })
@@ -146,11 +146,13 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         }
 
         if (user) {
-          token.uid = user.id
-          token.address = (user as any).address
-          token.earlyAccessCode = (user as any).earlyAccessCode
-          token.publicKey = (user as any).publicKey
-          token.email = (user as any).email
+          const penxUser = user as User
+          token.uid = penxUser.id
+          token.address = penxUser.address as string
+          token.earlyAccessCode = penxUser.earlyAccessCode as string
+          token.publicKey = penxUser.publicKey as string
+          token.secret = penxUser.secret as string
+          token.email = penxUser.email as string
         }
 
         return token
@@ -160,6 +162,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         session.address = token.address as string
         session.earlyAccessCode = token.earlyAccessCode as string
         session.publicKey = token.publicKey as string
+        session.secret = token.secret as string
         session.email = token.email as string
 
         return session
