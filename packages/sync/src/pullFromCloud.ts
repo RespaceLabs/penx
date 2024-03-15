@@ -1,9 +1,8 @@
 import { db } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
-import { store } from '@penx/store'
 import { SyncServerClient } from '@penx/sync-server-client'
 
-export async function syncFromCloud(space: ISpace) {
+export async function syncFromCloud(space: ISpace, mnemonic: string) {
   const oldNodes = await db.listNodesBySpaceId(space.id)
 
   console.log('===========oldNodes:', oldNodes)
@@ -15,7 +14,6 @@ export async function syncFromCloud(space: ISpace) {
 
   console.log('======localLastModifiedTime:', localLastModifiedTime)
 
-  const mnemonic = store.user.getMnemonic()
   const client = new SyncServerClient(space, mnemonic)
   const newRemoteNodes = await client.getPullableNodes(localLastModifiedTime)
 

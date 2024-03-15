@@ -27,8 +27,8 @@ export async function pollingPushToCloud() {
 
 async function sync() {
   // console.log('push to cloud...')
-
-  const isSynced = await syncToCloud()
+  const mnemonic = store.user.getMnemonic()
+  const isSynced = await syncToCloud(mnemonic)
   if (isSynced) {
     const spaces = await db.listSpaces()
     store.space.setSpaces(spaces)

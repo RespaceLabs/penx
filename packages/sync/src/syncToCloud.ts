@@ -1,10 +1,9 @@
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace, NodeType } from '@penx/model-types'
-import { store } from '@penx/store'
 import { SyncServerClient } from '@penx/sync-server-client'
 
-export async function syncToCloud(): Promise<boolean> {
+export async function syncToCloud(mnemonic: string): Promise<boolean> {
   console.log('syncToCloud......')
 
   const space = await db.getActiveSpace()
@@ -19,17 +18,17 @@ export async function syncToCloud(): Promise<boolean> {
   // push all nodes
   if (!nodesLastUpdatedAt) {
     console.log('sync all to cloud..........')
-    await pushAllNodes(space)
+    await pushAllNodes(space, mnemonic)
     return true
   } else {
     console.log('sync diff to cloud..........')
     try {
-      return await pushByDiff(space, nodesLastUpdatedAt)
+      return await pushByDiff(space, nodesLastUpdatedAt, mnemonic)
     } catch (error: any) {
       console.log('sync error===============:', error)
 
       if (error.message === 'NODES_BROKEN') {
-        await pushAllNodes(space)
+        await pushAllNodes(space, mnemonic)
         return true
       }
       return false
@@ -37,14 +36,15 @@ export async function syncToCloud(): Promise<boolean> {
   }
 }
 
-async function pushAllNodes(space: ISpace) {
+async function pushAllNodes(space: ISpace, mnemonic: string) {
   const nodes = await db.listNodesBySpaceId(space.id)
-  await submitToServer(space, nodes)
+  await submitToServer(space, nodes, mnemonic)
 }
 
 async function pushByDiff(
   space: ISpace,
   nodesLastUpdatedAt: Date,
+  mnemonic: string,
 ): Promise<boolean> {
   const nodes = await db.listNodesBySpaceId(space.id)
 
@@ -54,7 +54,7 @@ async function pushByDiff(
 
   if (!newNodes.length) return true
 
-  await submitToServer(space, newNodes)
+  await submitToServer(space, newNodes, mnemonic)
 
   return true
 }
@@ -65,8 +65,11 @@ export interface Options {
   deleted: string[]
 }
 
-export async function submitToServer(space: ISpace, nodes: INode[]) {
-  const mnemonic = store.user.getMnemonic()
+export async function submitToServer(
+  space: ISpace,
+  nodes: INode[],
+  mnemonic: string,
+) {
   if (!space.syncServerUrl || !mnemonic) return
   const client = new SyncServerClient(space, mnemonic)
   const { time } = await client.pushNodes(nodes)

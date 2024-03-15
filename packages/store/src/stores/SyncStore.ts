@@ -27,7 +27,7 @@ export class SyncStore {
     try {
       this.setStatus(SyncStatus.PUSHING)
 
-      const isSynced = await syncToCloud()
+      const isSynced = await syncToCloud(this.store.user.getMnemonic())
 
       if (isSynced) {
         // console.log('========isSynced!!!')

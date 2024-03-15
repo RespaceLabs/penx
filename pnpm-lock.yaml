@@ -6284,9 +6284,6 @@ importers:
       '@penx/serializer':
         specifier: workspace:*
         version: link:../serializer
-      '@penx/store':
-        specifier: workspace:*
-        version: link:../store
       '@penx/sync-server-client':
         specifier: workspace:*
         version: link:../sync-server-client
