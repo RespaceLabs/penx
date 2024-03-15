@@ -1,11 +1,9 @@
-import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
-import { getPassword } from '@penx/master-password'
 import { ISpace } from '@penx/model-types'
+import { store } from '@penx/store'
 import { SyncServerClient } from '@penx/sync-server-client'
 
 export async function syncFromCloud(space: ISpace) {
-  const password = await getPassword()
   const oldNodes = await db.listNodesBySpaceId(space.id)
 
   console.log('===========oldNodes:', oldNodes)
@@ -17,7 +15,8 @@ export async function syncFromCloud(space: ISpace) {
 
   console.log('======localLastModifiedTime:', localLastModifiedTime)
 
-  const client = new SyncServerClient(space)
+  const mnemonic = store.user.getMnemonic()
+  const client = new SyncServerClient(space, mnemonic)
   const newRemoteNodes = await client.getPullableNodes(localLastModifiedTime)
 
   console.log('======newRemoteNodes:', newRemoteNodes)
@@ -25,12 +24,6 @@ export async function syncFromCloud(space: ISpace) {
   // console.log('=========newRemoteNodes:', newRemoteNodes)
 
   if (!newRemoteNodes.length) return
-
-  const toRaw = (value: any, password: string) => {
-    return typeof value === 'object'
-      ? value
-      : JSON.parse(decryptString(value as string, password))
-  }
 
   for (const item of newRemoteNodes) {
     const existedNode = oldNodes.find((n) => n.id === item.id)

@@ -10,7 +10,8 @@ export class AppService {
 
   private async tryToSync(space: ISpace) {
     if (!space.syncServerUrl) return
-    const client = new SyncServerClient(space)
+    const mnemonic = store.user.getMnemonic()
+    const client = new SyncServerClient(space, mnemonic)
     const time = await client.getNodesLastUpdatedAt()
 
     if (time) {
@@ -55,7 +56,8 @@ export class AppService {
     if (!nodes.length) {
       console.log('========activeSpace:', activeSpace)
 
-      const client = new SyncServerClient(activeSpace)
+      const mnemonic = store.user.getMnemonic()
+      const client = new SyncServerClient(activeSpace, mnemonic)
       nodes = await client.getAllNodes()
 
       // console.log('all nodes======:', nodes)

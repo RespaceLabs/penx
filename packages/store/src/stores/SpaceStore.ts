@@ -77,7 +77,8 @@ export class SpaceStore {
     const space = await db.getActiveSpace()
 
     if (!nodes.length) {
-      const client = new SyncServerClient(space)
+      const mnemonic = this.store.user.getMnemonic()
+      const client = new SyncServerClient(space, mnemonic)
       nodes = await client.getAllNodes()
 
       for (const node of nodes) {
