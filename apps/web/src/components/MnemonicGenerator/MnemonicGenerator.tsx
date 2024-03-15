@@ -2,9 +2,7 @@ import { PropsWithChildren, useCallback, useEffect, useRef } from 'react'
 import { Box } from '@fower/react'
 import { useSession } from 'next-auth/react'
 import { Spinner, toast } from 'uikit'
-import { useMnemonic } from '@penx/hooks'
 import {
-  getMnemonicFromLocal,
   getNewMnemonic,
   getPublicKey,
   setMnemonicToLocal,
@@ -15,7 +13,6 @@ import { api } from '@penx/trpc-client'
 export function MnemonicGenerator({ children }: PropsWithChildren) {
   const { data, update } = useSession()
   const doingRef = useRef(false)
-  const { mnemonic } = useMnemonic()
 
   const initMnemonic = useCallback(async () => {
     try {
@@ -24,7 +21,7 @@ export function MnemonicGenerator({ children }: PropsWithChildren) {
       await setMnemonicToLocal(secret!, mnemonic)
       const publicKey = getPublicKey(mnemonic)
       await api.user.updatePublicKey.mutate({ publicKey })
-      await update({ publicKey })
+      await update({ publicKey, secret })
       store.user.setMnemonic(mnemonic)
     } catch (error) {
       // TODO: handle error
@@ -40,17 +37,6 @@ export function MnemonicGenerator({ children }: PropsWithChildren) {
     initMnemonic()
   }, [data, initMnemonic])
 
-  useEffect(() => {
-    if (!data?.userId) return
-    initMnemonicToStore(data.secret)
-  }, [data])
-
-  async function initMnemonicToStore(secret: string) {
-    let mySecret = secret || (await api.user.getMySecret.query())
-    const mnemonic = await getMnemonicFromLocal(mySecret)
-    store.user.setMnemonic(mnemonic)
-  }
-
   if (!data?.publicKey) {
     return (
       <Box h-100vh toCenter>
@@ -61,8 +47,6 @@ export function MnemonicGenerator({ children }: PropsWithChildren) {
       </Box>
     )
   }
-
-  if (!mnemonic) return null
 
   return <>{children}</>
 }

@@ -46,7 +46,9 @@ export class SyncStore {
     const activeSpace = space || this.store.space.getActiveSpace()
     try {
       this.setStatus(SyncStatus.PULLING)
-      await syncFromCloud(activeSpace)
+
+      const mnemonic = this.store.user.getMnemonic()
+      await syncFromCloud(activeSpace, mnemonic)
 
       const newNodes = await db.listNodesBySpaceId(activeSpace.id)
 

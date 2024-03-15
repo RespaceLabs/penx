@@ -131,12 +131,17 @@ export const userRouter = createTRPCRouter({
     }),
 
   updatePublicKey: protectedProcedure
-    .input(z.object({ publicKey: z.string() }))
+    .input(
+      z.object({
+        publicKey: z.string(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const { publicKey } = input
       return ctx.prisma.user.update({
         where: { id: ctx.token.uid },
         data: { publicKey },
+        select: { publicKey: true, secret: true },
       })
     }),
 

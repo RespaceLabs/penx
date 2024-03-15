@@ -28,7 +28,8 @@ export class AppService {
     console.log('==========localLastUpdatedAt:', localLastUpdatedAt)
 
     if (typeof localLastUpdatedAt === 'number' && localLastUpdatedAt < time) {
-      await syncFromCloud(space)
+      const mnemonic = store.user.getMnemonic()
+      await syncFromCloud(space, mnemonic)
     }
   }
 

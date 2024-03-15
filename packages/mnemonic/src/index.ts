@@ -22,10 +22,15 @@ export async function setMnemonicToLocal(secret: string, mnemonic: string) {
 }
 
 export async function getMnemonicFromLocal(secret: string) {
-  const key = calculateSHA256FromString(secret)
-  const encryptedMnemonic = await get(key)
-  const mnemonic = decryptString(encryptedMnemonic, key)
-  return mnemonic
+  try {
+    const key = calculateSHA256FromString(secret)
+    const encryptedMnemonic = await get(key)
+    if (!encryptedMnemonic) return ''
+    const mnemonic = decryptString(encryptedMnemonic, key)
+    return mnemonic
+  } catch (error) {
+    return ''
+  }
 }
 
 export function getPublicKey(mnemonic: string) {
