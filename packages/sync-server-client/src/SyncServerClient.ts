@@ -1,7 +1,9 @@
 import ky from 'ky'
-import { decryptString } from '@penx/encryption'
-import { getPassword } from '@penx/master-password'
-import { Node } from '@penx/model'
+import {
+  decryptByMnemonic,
+  encryptByPublicKey,
+  getPublicKey,
+} from '@penx/mnemonic'
 import { INode, ISpace } from '@penx/model-types'
 
 type Response<T> = {
@@ -12,7 +14,10 @@ type Response<T> = {
 }
 
 export class SyncServerClient {
-  constructor(private space: ISpace) {}
+  constructor(
+    private space: ISpace,
+    private mnemonic: string,
+  ) {}
 
   get baseURL() {
     return this.space.syncServerUrl || ''
@@ -22,16 +27,14 @@ export class SyncServerClient {
     return this.space.syncServerAccessToken || ''
   }
 
-  toRaw = (value: any, password: string) => {
+  toRaw = (value: any) => {
     return typeof value === 'object'
       ? value
-      : JSON.parse(decryptString(value as string, password))
+      : JSON.parse(decryptByMnemonic(value as string, this.mnemonic))
   }
 
   getAllNodes = async () => {
     if (!this.baseURL) return []
-
-    const password = await getPassword()
 
     const url = `${this.baseURL}/getAllNodes`
     const nodes = await ky
@@ -45,8 +48,8 @@ export class SyncServerClient {
 
     return nodes.map((node) => ({
       ...node,
-      element: this.toRaw(node.element as string, password),
-      props: this.toRaw(node.props as any, password),
+      element: this.toRaw(node.element as string),
+      props: this.toRaw(node.props as any),
       createdAt: new Date(node.createdAt),
       updatedAt: new Date(node.updatedAt),
     }))
@@ -67,7 +70,6 @@ export class SyncServerClient {
   }
 
   getPullableNodes = async (localLastModifiedTime: number) => {
-    const password = await getPassword()
     const url = `${this.baseURL}/getPullableNodes`
     const nodes = await ky
       .post(url, {
@@ -81,25 +83,31 @@ export class SyncServerClient {
 
     return nodes.map((node) => ({
       ...node,
-      element: this.toRaw(node.element as string, password),
-      props: this.toRaw(node.props as any, password),
+      element: this.toRaw(node.element as string),
+      props: this.toRaw(node.props as any),
       createdAt: new Date(node.createdAt),
       updatedAt: new Date(node.updatedAt),
     }))
   }
 
   pushNodes = async (nodes: INode[]) => {
-    const { space } = this
-    const password = await getPassword()
-    if (!password) throw new Error('master password not found')
+    console.log('pushNodes..........==.', nodes)
 
+    const { space } = this
     const url = `${this.baseURL}/pushNodes`
+    const publicKey = getPublicKey(this.mnemonic)
+    const encryptedNodes = nodes.map((node) => ({
+      ...node,
+      element: encryptByPublicKey(JSON.stringify(node.element), publicKey),
+      props: encryptByPublicKey(JSON.stringify(node.props), publicKey),
+    }))
+
     const res = await ky
       .post(url, {
         json: {
           token: this.token,
           spaceId: space.id,
-          nodes: nodes.map((node) => new Node(node).toEncrypted(password)),
+          nodes: encryptedNodes,
         },
       })
       .json<Response<string>>()

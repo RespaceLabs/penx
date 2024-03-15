@@ -27,6 +27,7 @@
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/serializer": "workspace:*",
+    "@penx/store": "workspace:*",
     "@penx/sync-server-client": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "crypto-js": "^4.2.0",

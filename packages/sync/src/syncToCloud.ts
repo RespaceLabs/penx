@@ -1,9 +1,12 @@
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, ISpace, NodeType } from '@penx/model-types'
+import { store } from '@penx/store'
 import { SyncServerClient } from '@penx/sync-server-client'
 
 export async function syncToCloud(): Promise<boolean> {
+  console.log('syncToCloud......')
+
   const space = await db.getActiveSpace()
   if (!space) return false
 
@@ -49,8 +52,6 @@ async function pushByDiff(
     return new Date(n.updatedAt).getTime() > nodesLastUpdatedAt.getTime()
   })
 
-  // console.log('=====newNodes:', newNodes)
-
   if (!newNodes.length) return true
 
   await submitToServer(space, newNodes)
@@ -65,8 +66,9 @@ export interface Options {
 }
 
 export async function submitToServer(space: ISpace, nodes: INode[]) {
-  if (!space.syncServerUrl) return
-  const client = new SyncServerClient(space)
+  const mnemonic = store.user.getMnemonic()
+  if (!space.syncServerUrl || !mnemonic) return
+  const client = new SyncServerClient(space, mnemonic)
   const { time } = await client.pushNodes(nodes)
 
   console.log('time========:', time)

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@penx/encryption": "workspace:*",
+    "@penx/mnemonic": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/master-password": "workspace:*",
