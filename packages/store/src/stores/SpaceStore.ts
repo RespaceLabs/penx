@@ -69,54 +69,64 @@ export class SpaceStore {
   async selectSpace(id: string) {
     this.store.app.setAppLoading(true)
 
-    await db.selectSpace(id)
-
-    const spaces = await db.listSpaces()
-    let nodes = await db.listNodesBySpaceId(id)
-
-    const space = await db.getActiveSpace()
-
-    if (!nodes.length) {
-      const mnemonic = this.store.user.getMnemonic()
-      const client = new SyncServerClient(space, mnemonic)
-      nodes = await client.getAllNodes()
-
-      for (const node of nodes) {
-        await db.createNode(node)
-      }
-    }
-
-    // this.store.space.setSpaces([])
-    this.store.node.setNodes([])
-    this.store.node.setActiveNodes([])
-
-    let activeNodes = space.activeNodeIds
-      .map((id) => {
-        return nodes.find((n) => n.id === id)!
-      })
-      .filter((n) => !!n)
-
-    if (!activeNodes.length) {
-      const todayNode = await db.getOrCreateTodayNode(space.id)
-      const nodes = await db.listNodesBySpaceId(id)
-
-      await db.updateSpace(space.id, {
-        activeNodeIds: [todayNode.id],
-      })
+    try {
+      await db.selectSpace(id)
 
       const spaces = await db.listSpaces()
+      let nodes = await db.listNodesBySpaceId(id)
 
-      this.setSpaces(spaces)
-      this.store.node.setNodes(nodes)
-      this.store.node.setActiveNodes([todayNode])
-    } else {
-      this.setSpaces(spaces)
-      this.store.node.setNodes(nodes)
-      this.store.node.selectNode(activeNodes[0])
+      const space = await db.getActiveSpace()
+
+      if (!nodes.length) {
+        const mnemonic = this.store.user.getMnemonic()
+        console.log('select space======mnemonic:', mnemonic)
+        try {
+          const client = new SyncServerClient(space, mnemonic)
+          nodes = await client.getAllNodes()
+
+          for (const node of nodes) {
+            await db.createNode(node)
+          }
+        } catch (error) {
+          console.log('sync server error', error)
+        }
+      }
+
+      // this.store.space.setSpaces([])
+      this.store.node.setNodes([])
+      this.store.node.setActiveNodes([])
+
+      let activeNodes = space.activeNodeIds
+        .map((id) => {
+          return nodes.find((n) => n.id === id)!
+        })
+        .filter((n) => !!n)
+
+      if (!activeNodes.length) {
+        const todayNode = await db.getOrCreateTodayNode(space.id)
+        const nodes = await db.listNodesBySpaceId(id)
+
+        await db.updateSpace(space.id, {
+          activeNodeIds: [todayNode.id],
+        })
+
+        const spaces = await db.listSpaces()
+
+        this.setSpaces(spaces)
+        this.store.node.setNodes(nodes)
+        this.store.node.setActiveNodes([todayNode])
+      } else {
+        this.setSpaces(spaces)
+        this.store.node.setNodes(nodes)
+        this.store.node.selectNode(activeNodes[0])
+      }
+
+      this.store.app.setAppLoading(false)
+      return space
+    } catch (error) {
+      // TODO: fallback to old data
+      this.store.app.setAppLoading(false)
     }
-
-    this.store.app.setAppLoading(false)
-    return space
   }
 
   async updateSpace(id: string, data: Partial<ISpace>) {

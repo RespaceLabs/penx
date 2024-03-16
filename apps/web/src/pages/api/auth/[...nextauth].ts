@@ -143,6 +143,10 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           if (session?.publicKey) {
             token.publicKey = session?.publicKey
           }
+
+          if (session?.secret) {
+            token.secret = session?.secret
+          }
         }
 
         if (user) {

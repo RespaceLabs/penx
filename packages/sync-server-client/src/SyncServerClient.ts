@@ -52,23 +52,27 @@ export class SyncServerClient {
   getAllNodes = async () => {
     if (!this.baseURL) return []
 
-    const url = `${this.baseURL}/getAllNodes`
-    const nodes = await ky
-      .post(url, {
-        json: {
-          token: this.token,
-          spaceId: this.space.id,
-        },
-      })
-      .json<INode[]>()
+    try {
+      const url = `${this.baseURL}/getAllNodes`
+      const nodes = await ky
+        .post(url, {
+          json: {
+            token: this.token,
+            spaceId: this.space.id,
+          },
+        })
+        .json<INode[]>()
 
-    return nodes.map((node) => ({
-      ...node,
-      element: this.toRaw(node.element as string),
-      props: this.toRaw(node.props as any),
-      createdAt: new Date(node.createdAt),
-      updatedAt: new Date(node.updatedAt),
-    }))
+      return nodes.map((node) => ({
+        ...node,
+        element: this.toRaw(node.element as string),
+        props: this.toRaw(node.props as any),
+        createdAt: new Date(node.createdAt),
+        updatedAt: new Date(node.updatedAt),
+      }))
+    } catch (error) {
+      return []
+    }
   }
 
   getNodesLastUpdatedAt = async () => {
@@ -86,24 +90,28 @@ export class SyncServerClient {
   }
 
   getPullableNodes = async (localLastModifiedTime: number) => {
-    const url = `${this.baseURL}/getPullableNodes`
-    const nodes = await ky
-      .post(url, {
-        json: {
-          token: this.token,
-          spaceId: this.space.id,
-          lastModifiedTime: localLastModifiedTime,
-        },
-      })
-      .json<INode[]>()
+    try {
+      const url = `${this.baseURL}/getPullableNodes`
+      const nodes = await ky
+        .post(url, {
+          json: {
+            token: this.token,
+            spaceId: this.space.id,
+            lastModifiedTime: localLastModifiedTime,
+          },
+        })
+        .json<INode[]>()
 
-    return nodes.map((node) => ({
-      ...node,
-      element: this.toRaw(node.element as string),
-      props: this.toRaw(node.props as any),
-      createdAt: new Date(node.createdAt),
-      updatedAt: new Date(node.updatedAt),
-    }))
+      return nodes.map((node) => ({
+        ...node,
+        element: this.toRaw(node.element as string),
+        props: this.toRaw(node.props as any),
+        createdAt: new Date(node.createdAt),
+        updatedAt: new Date(node.updatedAt),
+      }))
+    } catch (error) {
+      return []
+    }
   }
 
   pushNodes = async (nodes: INode[]) => {

@@ -34,69 +34,77 @@ export class AppService {
   }
 
   async init() {
-    console.log('app init...')
+    try {
+      console.log('app init...')
 
-    this.inited = true
+      this.inited = true
 
-    const spaces = await db.listSpaces()
-    const activeSpace = spaces.find((item) => item.isActive) || spaces[0]
+      const spaces = await db.listSpaces()
+      const activeSpace = spaces.find((item) => item.isActive) || spaces[0]
 
-    if (navigator.onLine) {
-      try {
-        await this.tryToSync(activeSpace)
-      } catch (error) {
-        console.log('========try to sync error', error)
+      if (navigator.onLine) {
+        try {
+          await this.tryToSync(activeSpace)
+        } catch (error) {
+          console.log('========try to sync error', error)
+        }
       }
+
+      let nodes = await db.listNodesBySpaceId(activeSpace.id)
+      store.space.setSpaces(spaces)
+
+      // console.log('appService=======nodes:', nodes)
+
+      if (!nodes.length) {
+        console.log('========activeSpace:', activeSpace)
+
+        const mnemonic = store.user.getMnemonic()
+        console.log('========mnemonic:', mnemonic)
+
+        const client = new SyncServerClient(activeSpace, mnemonic)
+        nodes = await client.getAllNodes()
+
+        // console.log('all nodes======:', nodes)
+
+        for (const node of nodes) {
+          await db.createNode(node)
+        }
+      }
+
+      // get nodesLastUpdatedAt and try to pull from cloud
+
+      if (nodes.length) {
+        const todayNode = await db.getTodayNode(activeSpace.id)
+
+        if (!todayNode) {
+          await this.createAndGoToTodayNode(activeSpace.id)
+          store.app.setAppLoading(false)
+          return
+        }
+
+        let activeNodes = activeSpace.activeNodeIds
+          .map((id) => {
+            return nodes.find((n) => n.id === id)!
+          })
+          .filter((n) => !!n)
+
+        store.node.setNodes(nodes)
+
+        if (!activeNodes.length) {
+          const rootNode = nodes.find((n) => new Node(n).isRootNode)!
+
+          store.node.selectNode(rootNode)
+        } else {
+          store.node.setActiveNodes(activeNodes)
+        }
+      }
+
+      store.app.setAppLoading(false)
+    } catch (error) {
+      console.log('===========error:', error)
+      // TODO: fallback to old data
+      store.app.setAppLoading(false)
     }
-
-    let nodes = await db.listNodesBySpaceId(activeSpace.id)
-    store.space.setSpaces(spaces)
-
-    // console.log('appService=======nodes:', nodes)
-
-    if (!nodes.length) {
-      console.log('========activeSpace:', activeSpace)
-
-      const mnemonic = store.user.getMnemonic()
-      const client = new SyncServerClient(activeSpace, mnemonic)
-      nodes = await client.getAllNodes()
-
-      // console.log('all nodes======:', nodes)
-
-      for (const node of nodes) {
-        await db.createNode(node)
-      }
-    }
-
-    // get nodesLastUpdatedAt and try to pull from cloud
-
-    if (nodes.length) {
-      const todayNode = await db.getTodayNode(activeSpace.id)
-
-      if (!todayNode) {
-        await this.createAndGoToTodayNode(activeSpace.id)
-        store.app.setAppLoading(false)
-        return
-      }
-
-      let activeNodes = activeSpace.activeNodeIds
-        .map((id) => {
-          return nodes.find((n) => n.id === id)!
-        })
-        .filter((n) => !!n)
-
-      store.node.setNodes(nodes)
-
-      if (!activeNodes.length) {
-        const rootNode = nodes.find((n) => new Node(n).isRootNode)!
-
-        store.node.selectNode(rootNode)
-      } else {
-        store.node.setActiveNodes(activeNodes)
-      }
-    }
-
-    store.app.setAppLoading(false)
   }
 
   private async createAndGoToTodayNode(spaceId: string) {

@@ -37,7 +37,7 @@ export function MnemonicGenerator({ children }: PropsWithChildren) {
     initMnemonic()
   }, [data, initMnemonic])
 
-  if (!data?.publicKey) {
+  if (!data?.publicKey || !data?.secret) {
     return (
       <Box h-100vh toCenter>
         <Box toCenterY gap2>

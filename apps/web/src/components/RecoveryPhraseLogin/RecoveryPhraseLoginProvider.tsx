@@ -9,7 +9,7 @@ import { store } from '@penx/store'
 import { RecoveryPhraseLogin } from './RecoveryPhraseLogin'
 
 export function RecoveryPhraseLoginProvider({ children }: PropsWithChildren) {
-  const { data: session, update } = useSession()
+  const { data: session } = useSession()
 
   const { data, isLoading, refetch } = useQuery(
     ['mnemonic', session?.secret],
@@ -18,7 +18,7 @@ export function RecoveryPhraseLoginProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (data) {
-      // console.log('monic========data:', data)
+      console.log('monic========data:', data)
       store.user.setMnemonic(data)
     }
   }, [data])
