@@ -194,6 +194,12 @@ export class Node {
     return this.raw.children
   }
 
+  get isToday() {
+    const today = format(new Date(), 'yyyy-MM-dd')
+    const nodeDate = format(new Date(this.createdAt), 'yyyy-MM-dd')
+    return today === nodeDate
+  }
+
   get createdAt() {
     return this.raw.createdAt
   }

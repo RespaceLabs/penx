@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from 'react'
 import { useAtomValue, useSetAtom } from 'jotai'
-import { db } from '@penx/local-db'
 import { Space } from '@penx/model'
 import { spacesAtom } from '@penx/store'
 

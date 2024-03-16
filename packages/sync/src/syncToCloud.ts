@@ -25,7 +25,7 @@ async function fallbackForMnemonic(
 
   try {
     const originElement = decryptByMnemonic(remoteRootNode.element, mnemonic)
-    console.log('====originElement:', originElement)
+    // console.log('====originElement:', originElement)
 
     return false
   } catch (error) {

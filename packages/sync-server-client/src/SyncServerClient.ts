@@ -115,8 +115,6 @@ export class SyncServerClient {
   }
 
   pushNodes = async (nodes: INode[]) => {
-    console.log('pushNodes..........==.', nodes)
-
     const { space } = this
     const url = `${this.baseURL}/pushNodes`
     const publicKey = getPublicKey(this.mnemonic)

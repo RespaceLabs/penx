@@ -1,9 +1,7 @@
 import { PropsWithChildren, useEffect } from 'react'
 import { Box } from '@fower/react'
 import { useQuery } from '@tanstack/react-query'
-import { get } from 'idb-keyval'
 import { useSession } from 'next-auth/react'
-import { MASTER_PASSWORD } from '@penx/constants'
 import { getMnemonicFromLocal } from '@penx/mnemonic'
 import { store } from '@penx/store'
 import { RecoveryPhraseLogin } from './RecoveryPhraseLogin'
@@ -18,7 +16,7 @@ export function RecoveryPhraseLoginProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (data) {
-      console.log('monic========data:', data)
+      // console.log('monic========data:', data)
       store.user.setMnemonic(data)
     }
   }, [data])

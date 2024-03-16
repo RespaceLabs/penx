@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Box } from '@fower/react'
 import { store, TodoRecord } from '@penx/store'
+import { useTodoFilter } from './hooks/useTodoFilter'
 import { TodoItem } from './TodoItem'
 
-export const TodoList = () => {
+export const AllTodos = () => {
+  const { filter, setFilter } = useTodoFilter()
   const [records, setRows] = useState<TodoRecord[]>([])
   useEffect(() => {
     const records = store.node.getTodos()
