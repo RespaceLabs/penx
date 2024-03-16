@@ -30,10 +30,14 @@ export function useRestoreFromGitHubForm() {
     try {
       console.log('data:', values, 'space:', space)
 
+      const mnemonic = store.user.getMnemonic()
+      // console.log('==========mnemonic:', mnemonic)
+
       const restoreService = await RestoreService.init(
         user,
         space,
         data.commitHash,
+        mnemonic,
       )
 
       const newSpace = await restoreService.pull()

@@ -1,8 +1,7 @@
 import mime from 'mime-types'
 import { Octokit } from 'octokit'
-import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
-import { getPassword } from '@penx/master-password'
+import { decryptByMnemonic } from '@penx/mnemonic'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
 import { api } from '@penx/trpc-client'
@@ -44,11 +43,11 @@ type Content = {
 }
 
 export class RestoreService {
-  password: any
+  mnemonic: string
 
   private params: SharedParams
 
-  private user: User
+  user: User
 
   nodes: INode[]
 
@@ -85,7 +84,12 @@ export class RestoreService {
     this.params = sharedParams
   }
 
-  static async init(user: User, space: Space, commitHash: string) {
+  static async init(
+    user: User,
+    space: Space,
+    commitHash: string,
+    mnemonic: string,
+  ) {
     const s = new RestoreService()
     s.user = user
 
@@ -100,7 +104,7 @@ export class RestoreService {
 
     s.app = new Octokit({ auth: token })
 
-    s.password = await getPassword()
+    s.mnemonic = mnemonic
 
     return s
   }
@@ -128,13 +132,17 @@ export class RestoreService {
       throw new Error('GitHub backup url is invalid')
     }
 
-    console.log('xx=============this.password:', this.password, 'nodes:', nodes)
-
     try {
-      this.nodes = nodes.map((n) => new Node(n).toDecrypted(this.password))
+      this.nodes = nodes.map<INode>((n) => ({
+        ...n,
+        element: JSON.parse(
+          decryptByMnemonic(n.element as string, this.mnemonic),
+        ),
+        props: JSON.parse(decryptByMnemonic(n.props as any, this.mnemonic)),
+      }))
     } catch (error) {
       console.log('=========error:', error)
-      throw new Error('Password is wrong')
+      throw new Error('Recover phrase is wrong')
     }
 
     this.nodes = this.normalizeNodes(this.nodes)
@@ -224,10 +232,6 @@ export class RestoreService {
     console.log('this.pagesTree:', this.filesTree)
 
     return this.filesTree
-  }
-
-  decrypt(str: string) {
-    return decryptString(str, this.password)
   }
 
   normalizeNodes(nodes: INode[]) {

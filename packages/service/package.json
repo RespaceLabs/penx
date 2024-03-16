@@ -28,6 +28,7 @@
     "@penx/editor-queries": "workspace:*",
     "@penx/encryption": "workspace:*",
     "@penx/master-password": "workspace:*",
+    "@penx/mnemonic": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
     "@penx/indexeddb": "workspace:*",
     "@penx/list": "workspace:*",

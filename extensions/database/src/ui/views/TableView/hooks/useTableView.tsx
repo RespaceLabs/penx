@@ -204,7 +204,9 @@ export function useTableView() {
           allowOverlay: false,
           readonly: true,
           copyData: format(
-            isCreatedAt ? rowNode.createdAt : rowNode.updatedAt,
+            isCreatedAt
+              ? new Date(rowNode.createdAt)
+              : new Date(rowNode.updatedAt),
             'yyyy-MM-dd HH:mm:ss',
           ),
           data: {

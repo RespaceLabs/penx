@@ -1,10 +1,6 @@
 import { format } from 'date-fns'
 import { ELEMENT_TODO, TODO_DATABASE_NAME } from '@penx/constants'
-import {
-  calculateSHA256FromString,
-  decryptString,
-  encryptString,
-} from '@penx/encryption'
+import { calculateSHA256FromString } from '@penx/encryption'
 import { DataSource, INode, NodeType } from '@penx/model-types'
 
 type Element = {
@@ -235,24 +231,5 @@ export class Node {
     ]
 
     return calculateSHA256FromString(JSON.stringify(json))
-  }
-
-  toEncrypted(password: string) {
-    return {
-      ...this.raw,
-      element: encryptString(JSON.stringify(this.element), password),
-      props: encryptString(JSON.stringify(this.props), password),
-    } as any as INode
-  }
-
-  toDecrypted(password: string) {
-    return {
-      ...this.raw,
-      // element: decryptString(JSON.stringify(this.raw.element), password),
-      // props: decryptString(JSON.stringify(this.raw.props), password),
-
-      element: JSON.parse(decryptString(this.raw.element as any, password)),
-      props: JSON.parse(decryptString(this.raw.props as any, password)),
-    } as any as INode
   }
 }

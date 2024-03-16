@@ -21,6 +21,10 @@ export class User {
     return this.raw?.name || this.raw.username
   }
 
+  get publicKey() {
+    return this.raw?.publicKey as string
+  }
+
   get address() {
     return this.raw.address
   }

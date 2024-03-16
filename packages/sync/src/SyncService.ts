@@ -1,9 +1,7 @@
 import mime from 'mime-types'
 import { Octokit } from 'octokit'
 import { createEditor, Editor } from 'slate'
-import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
-import { getPassword } from '@penx/master-password'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
 import { nodeToSlate } from '@penx/serializer'
@@ -104,14 +102,11 @@ export class SyncService {
 
   static async init(space: ISpace, user: User) {
     const s = new SyncService()
-    s.password = await getPassword()
     s.nodes = await db.listNodesBySpaceId(space.id)
-
-    // console.log('============s.password:', s.password)
 
     s.user = user
     s.space = new Space(space)
-    s.spaceService = new SpaceService(s.nodes, s.password)
+    s.spaceService = new SpaceService(s.nodes, user.publicKey)
 
     const token = await api.github.getTokenByUserId.query({
       userId: user.id,

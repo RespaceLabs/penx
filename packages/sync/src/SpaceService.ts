@@ -1,14 +1,14 @@
-import CryptoJS from 'crypto-js'
 import _ from 'lodash'
 import { calculateSHA256FromString } from '@penx/encryption'
+import { encryptByPublicKey } from '@penx/mnemonic'
 import { Node } from '@penx/model'
-import { INode, ISpace, NodeType } from '@penx/model-types'
+import { INode, NodeType } from '@penx/model-types'
 import { NodeListService } from './NodeListService'
 
 export class SpaceService {
   constructor(
     private nodes: INode[],
-    private password: string,
+    private publicKey: string,
   ) {}
 
   nodeMap = new Map<string, INode>()
@@ -139,9 +139,17 @@ export class SpaceService {
     return pageNodes
   }
 
-  private toEncryptedNodes(nodes: INode[]) {
-    return nodes.map((node) => {
-      return new Node(node).toEncrypted(this.password)
-    })
+  private toEncryptedNodes(nodes: INode[]): INode[] {
+    return nodes.map((node) => ({
+      ...node,
+      element: encryptByPublicKey(
+        JSON.stringify(node.element),
+        this.publicKey,
+      ) as any,
+      props: encryptByPublicKey(
+        JSON.stringify(node.props),
+        this.publicKey,
+      ) as any,
+    }))
   }
 }

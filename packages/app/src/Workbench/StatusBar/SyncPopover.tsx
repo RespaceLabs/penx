@@ -31,7 +31,9 @@ export const SyncPopover: FC<Props> = () => {
   async function pushToGitHub(isAll = false) {
     try {
       setStatus(SyncStatus.PUSHING)
-      const s = await SyncService.init(activeSpace.raw, user)
+      const mnemonic = store.user.getMnemonic()
+      console.log('=========mnemonic:', mnemonic)
+      const s = await SyncService.init(activeSpace.raw, user, mnemonic)
       if (isAll) {
         await s.pushAll()
       } else {
