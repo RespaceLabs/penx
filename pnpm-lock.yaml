@@ -6275,6 +6275,9 @@ importers:
       '@penx/master-password':
         specifier: workspace:*
         version: link:../master-password
+      '@penx/mnemonic':
+        specifier: workspace:*
+        version: link:../mnemonic
       '@penx/model':
         specifier: workspace:*
         version: link:../model

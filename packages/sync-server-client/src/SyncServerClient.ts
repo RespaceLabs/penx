@@ -33,6 +33,22 @@ export class SyncServerClient {
       : JSON.parse(decryptByMnemonic(value as string, this.mnemonic))
   }
 
+  getNode = async (nodeId: string) => {
+    if (!this.baseURL) throw new Error('no sync server url')
+
+    const url = `${this.baseURL}/getNode`
+    const node = await ky
+      .post(url, {
+        json: {
+          token: this.token,
+          spaceId: this.space.id,
+          nodeId,
+        },
+      })
+      .json<INode>()
+    return node
+  }
+
   getAllNodes = async () => {
     if (!this.baseURL) return []
 

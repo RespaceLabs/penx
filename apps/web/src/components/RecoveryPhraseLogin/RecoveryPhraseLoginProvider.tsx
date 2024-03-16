@@ -18,6 +18,7 @@ export function RecoveryPhraseLoginProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (data) {
+      // console.log('monic========data:', data)
       store.user.setMnemonic(data)
     }
   }, [data])
