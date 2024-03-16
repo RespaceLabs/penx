@@ -20,7 +20,6 @@
     "@penx/mnemonic": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
-    "@penx/master-password": "workspace:*",
     "ky": "^1.1.3"
   }
 }

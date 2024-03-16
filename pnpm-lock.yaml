@@ -5597,37 +5597,6 @@ importers:
         specifier: ^5.3.2
         version: 5.3.3
 
-  packages/master-password:
-    dependencies:
-      '@penx/constants':
-        specifier: workspace:*
-        version: link:../constants
-      idb-keyval:
-        specifier: ^6.2.1
-        version: 6.2.1
-    devDependencies:
-      '@penx/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/react':
-        specifier: ^18.2.61
-        version: 18.2.61
-      '@types/react-dom':
-        specifier: ^18.2.7
-        version: 18.2.17
-      eslint:
-        specifier: ^8.42.0
-        version: 8.55.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      typescript:
-        specifier: ^5.1.3
-        version: 5.3.3
-
   packages/math:
     dependencies:
       '@ethersproject/bignumber':
@@ -5958,9 +5927,6 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
-      '@penx/master-password':
-        specifier: workspace:*
-        version: link:../master-password
       '@penx/mnemonic':
         specifier: workspace:*
         version: link:../mnemonic
@@ -6275,9 +6241,6 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
-      '@penx/master-password':
-        specifier: workspace:*
-        version: link:../master-password
       '@penx/mnemonic':
         specifier: workspace:*
         version: link:../mnemonic
@@ -6354,9 +6317,6 @@ importers:
       '@penx/encryption':
         specifier: workspace:*
         version: link:../encryption
-      '@penx/master-password':
-        specifier: workspace:*
-        version: link:../master-password
       '@penx/mnemonic':
         specifier: workspace:*
         version: link:../mnemonic

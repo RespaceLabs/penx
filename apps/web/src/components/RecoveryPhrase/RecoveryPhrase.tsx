@@ -1,15 +1,12 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { Box } from '@fower/react'
 import { useQuery } from '@tanstack/react-query'
-import { get, set } from 'idb-keyval'
 import { Check, Copy, Eye, PencilLine } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { Button, Input, toast } from 'uikit'
-import { MASTER_PASSWORD } from '@penx/constants'
 import { getMnemonicFromLocal, getNewMnemonic } from '@penx/mnemonic'
 import { useCopyToClipboard } from '@penx/shared'
 import { PasswordOnChain } from './PasswordOnChain'
-import { useMasterPassword } from './useMasterPassword'
 
 interface Props {}
 

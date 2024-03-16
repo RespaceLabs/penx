@@ -16,7 +16,6 @@ const nextConfig = {
     '@penx/catalogue',
     '@penx/hooks',
     '@penx/local-db',
-    '@penx/master-password',
     '@penx/wagmi',
     '@penx/editor',
     '@penx/editor-queries',

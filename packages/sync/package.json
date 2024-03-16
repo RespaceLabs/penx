@@ -24,7 +24,6 @@
     "@penx/indexeddb": "workspace:*",
     "@penx/mnemonic": "workspace:*",
     "@penx/local-db": "workspace:*",
-    "@penx/master-password": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/serializer": "workspace:*",

@@ -32,8 +32,8 @@ export const SyncPopover: FC<Props> = () => {
     try {
       setStatus(SyncStatus.PUSHING)
       const mnemonic = store.user.getMnemonic()
-      console.log('=========mnemonic:', mnemonic)
-      const s = await SyncService.init(activeSpace.raw, user, mnemonic)
+      // console.log('=========mnemonic:', mnemonic)
+      const s = await SyncService.init(activeSpace.raw, user)
       if (isAll) {
         await s.pushAll()
       } else {
