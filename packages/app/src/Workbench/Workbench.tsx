@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { EditorProvider } from '@penx/editor'
 import { useSpaces } from '@penx/hooks'
 import { useSession } from '@penx/session'
@@ -24,7 +26,10 @@ export const Workbench = () => {
   const { activeSpace } = useSpaces()
   const { name } = useAtomValue(routerAtom)
   const { data: session } = useSession()
-
+  const [sidebarOpen, setSideBarOpen] = useState(true)
+  const handleViewSidebar = () => {
+    setSideBarOpen(!sidebarOpen)
+  }
   const SIDEBAR_WIDTH = 260
   // const SIDEBAR_WIDTH = 600
 
@@ -38,8 +43,22 @@ export const Workbench = () => {
 
       {!isMobile && <CommandPanel />}
       <Box h-100vh toLeft black flex-1>
-        <Box w={[0, 0, SIDEBAR_WIDTH]} toLeft flexShrink-0>
-          <Sidebar />
+        <Box toCenterY>
+          <Box
+            w={sidebarOpen ? [0, 0, SIDEBAR_WIDTH] : 0}
+            toLeft
+            flexShrink-0
+            transition="width 0.3s"
+          >
+            <Sidebar />
+          </Box>
+          <Box onClick={handleViewSidebar} cursor="pointer">
+            {sidebarOpen ? (
+              <ChevronLeft color="#484848" />
+            ) : (
+              <ChevronRight color="#484848" />
+            )}
+          </Box>
         </Box>
         <Box flex-1 relative>
           <MobileNav />
