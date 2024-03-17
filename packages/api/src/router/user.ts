@@ -1,9 +1,13 @@
 import { TRPCError } from '@trpc/server'
+import Redis from 'ioredis'
 import jwt from 'jsonwebtoken'
 import { nanoid } from 'nanoid'
 import { z } from 'zod'
+import { CliLoginStatus } from '@penx/constants'
 import { GithubInfo } from '@penx/model'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
+
+const redis = new Redis(process.env.REDIS_URL!)
 
 export const userRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -254,10 +258,23 @@ export const userRouter = createTRPCRouter({
         code: z.string(),
       }),
     )
-    .mutation(async ({ ctx, input }) => {
+    .query(async ({ ctx, input }) => {
       const user = await ctx.prisma.user.findFirst({
         where: { id: ctx.token.uid, earlyAccessCode: input.code },
       })
       return !!user
+    }),
+
+  confirmCLILogin: protectedProcedure
+    .input(z.object({ token: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      await redis.set(
+        `cli-login:${input.token}`,
+        JSON.stringify({
+          userId: ctx.token.uid,
+          status: CliLoginStatus.CONFIRMED,
+        }),
+      )
+      return true
     }),
 })

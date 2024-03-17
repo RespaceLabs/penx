@@ -30,6 +30,8 @@
     "inquirer": "^8.2.4",
     "node-fetch": "^2.7.0",
     "ora": "^5.4.1",
+    "nanoid": "^3.3.4",
+    "open": "^8.4.2",
     "react": "^18.2.0",
     "ts-retry-promise": "^0.7.0",
     "yargs": "^17.6.0"

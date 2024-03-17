@@ -120,3 +120,9 @@ export const RPC_URL_MAP: Record<NetworkNames, string> = {
   [NetworkNames.SEPOLIA]: process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL!,
   [NetworkNames.MAINNET]: process.env.NEXT_PUBLIC_DEVELOP_RPC_URL!,
 }
+
+export enum CliLoginStatus {
+  CANCELED = 'CANCELED',
+  CONFIRMED = 'CONFIRMED',
+  INIT = 'INIT',
+}

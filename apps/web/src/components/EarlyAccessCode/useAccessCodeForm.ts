@@ -18,7 +18,7 @@ export function useAccessCodeForm() {
   const onSubmit: SubmitHandler<Values> = async ({ code }) => {
     setLoading(true)
     try {
-      const isValid = await api.user.isEarlyAccessCodeValid.mutate({ code })
+      const isValid = await api.user.isEarlyAccessCodeValid.query({ code })
 
       if (isValid) {
         await update({ earlyAccessCode: code })

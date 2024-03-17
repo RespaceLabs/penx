@@ -598,9 +598,15 @@ importers:
       inquirer:
         specifier: ^8.2.4
         version: 8.2.4
+      nanoid:
+        specifier: ^3.3.4
+        version: 3.3.7
       node-fetch:
         specifier: ^2.7.0
         version: 2.7.0
+      open:
+        specifier: ^8.4.2
+        version: 8.4.2
       ora:
         specifier: ^5.4.1
         version: 5.4.1

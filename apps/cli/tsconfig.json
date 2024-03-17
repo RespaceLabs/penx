@@ -8,6 +8,8 @@
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "outDir": "dist",
     "rootDir": "src",
     "resolveJsonModule": true,
