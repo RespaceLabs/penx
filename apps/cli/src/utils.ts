@@ -1,15 +1,7 @@
 import os from 'os'
 import { join } from 'path'
 import jetpack from 'fs-jetpack'
-
-type User = any // TODO: handle user type
-
-interface Config {
-  token: string
-  user: User
-}
-
-type Env = 'local' | 'dev' | 'prod'
+import { Env, User, Config } from './types'
 
 export function getBaseURL(env: Env): string {
   if (env === 'local') return 'http://localhost:3000'
@@ -27,9 +19,18 @@ export function getConfigPath() {
   return configPath
 }
 
-export function writeTokenToLocal(token: string, user: User) {
+export function writeTokenToLocal(env: Env, token: string, user: User) {
   const configPath = getConfigPath()
-  jetpack.write(configPath, { token, user })
+  jetpack.write(configPath, { env, token, user })
+}
+
+export function writeConfig(config: Partial<Config>) {
+  const configPath = getConfigPath()
+  const currentConfig = readConfig()
+  jetpack.write(configPath, {
+    ...currentConfig,
+    ...config,
+  })
 }
 
 export function readConfig(): Config {

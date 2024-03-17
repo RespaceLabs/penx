@@ -20,6 +20,9 @@
     "access": "public"
   },
   "dependencies": {
+    "@inquirer/prompts": "^4.3.0",
+    "@inquirer/select": "^2.2.0",
+    "@trpc/client": "^10.45.1",
     "@types/yargs": "^17.0.10",
     "axios": "^1.2.0",
     "chalk": "^4.1.2",
@@ -28,11 +31,12 @@
     "ink": "^3.2.0",
     "ink-spinner": "^4.0.3",
     "inquirer": "^8.2.4",
-    "node-fetch": "^2.7.0",
-    "ora": "^5.4.1",
     "nanoid": "^3.3.4",
+    "node-fetch": "^2.7.0",
     "open": "^8.4.2",
+    "ora": "^5.4.1",
     "react": "^18.2.0",
+    "superjson": "1.9.1",
     "ts-retry-promise": "^0.7.0",
     "yargs": "^17.6.0"
   },

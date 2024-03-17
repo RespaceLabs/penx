@@ -1,14 +1,9 @@
-import { TRPCError } from '@trpc/server'
 import jwt from 'jsonwebtoken'
 import { z } from 'zod'
 import { createSpace, CreateSpaceInput } from '../service/createSpace'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 export const spaceRouter = createTRPCRouter({
-  all: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.space.findMany({ orderBy: { createdAt: 'desc' } })
-  }),
-
   mySpaces: protectedProcedure.query(async ({ ctx }) => {
     const spaces = await ctx.prisma.space.findMany({
       where: { userId: ctx.token.uid },

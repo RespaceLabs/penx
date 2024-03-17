@@ -7,6 +7,7 @@ import open from 'open'
 import ora from 'ora'
 import { sleep, getBaseURL, writeTokenToLocal } from '../utils'
 import { LoginSuccess } from '../ui/LoginSuccess'
+import { getTRPC } from '../trpc'
 
 type Args = {
   env?: string[]
@@ -33,6 +34,7 @@ class Command {
     const url = `${baseURL}/cli-login?token=${cliToken}`
     open(url)
 
+    const trpc = await getTRPC(env as any)
     console.log(`Logging, ${url}`)
     const spinner = ora('Please confirm login in the browser...').start()
 
@@ -53,11 +55,8 @@ class Command {
       }
     }
 
-    const res = await fetch(`${baseURL}/api/cli-auth/get-user?token=${cliToken}`)
-
-    const user = await res.json()
-
-    writeTokenToLocal('TODO: token', user)
+    const { token, user } = await trpc.user.loginByCliToken.mutate(cliToken)
+    writeTokenToLocal(env as any, token, user)
 
     spinner.succeed('Login successfully')
 

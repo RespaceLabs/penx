@@ -19,7 +19,9 @@ class Command {
   handler = async (args: ArgumentsCamelCase<Args>) => {
     const { text = [] } = args
     const textStr = text.join(' ').trim()
-    // console.log('=======textStr:', textStr)
+    console.log('=======textStr:', textStr)
+
+    return
 
     try {
       const response = await fetch('http://localhost:65432/add-text', {

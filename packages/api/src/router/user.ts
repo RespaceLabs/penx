@@ -181,6 +181,31 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
+  loginByCliToken: publicProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const value = await redis.get(`cli-login:${input}`)
+      const { userId, status } = JSON.parse(value!)
+
+      if (!userId || status !== CliLoginStatus.CONFIRMED) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Please confirm login in web',
+        })
+      }
+
+      const user = await ctx.prisma.user.findUniqueOrThrow({
+        where: { id: userId },
+      })
+
+      return {
+        token: jwt.sign({ sub: user.id }, process.env.NEXTAUTH_SECRET!, {
+          expiresIn: '365d',
+        }),
+        user,
+      }
+    }),
+
   update: protectedProcedure
     .input(
       z.object({
