@@ -38,7 +38,7 @@ if (!isServer) {
 export const EditorApp = () => {
   const { isLoaded } = useLoaderStatus()
   const { data: session } = useSession()
-  console.log('============session:', session)
+  // console.log('============session:', session)
 
   useEffect(() => {
     if (session?.userId) {

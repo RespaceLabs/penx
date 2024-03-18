@@ -44,6 +44,8 @@ export class AppService {
 
       if (navigator.onLine) {
         try {
+          console.log('tryToSync................')
+
           await this.tryToSync(activeSpace)
         } catch (error) {
           console.log('========try to sync error', error)
