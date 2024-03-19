@@ -52,12 +52,21 @@ export const Workbench = () => {
           >
             <Sidebar />
           </Box>
-          <Box onClick={handleViewSidebar} cursor="pointer">
-            {sidebarOpen ? (
-              <ChevronLeft color="#484848" />
-            ) : (
-              <ChevronRight color="#484848" />
-            )}
+          <Box h-100vh>
+            <Box
+              onClick={handleViewSidebar}
+              cursor="pointer"
+              mt-14px
+              bgZinc100--T40
+              roundedBottomRightFull
+              roundedTopRightFull
+            >
+              {sidebarOpen ? (
+                <ChevronLeft color="#484848" />
+              ) : (
+                <ChevronRight color="#484848" />
+              )}
+            </Box>
           </Box>
         </Box>
         <Box flex-1 relative>
