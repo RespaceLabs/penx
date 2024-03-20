@@ -3,6 +3,7 @@ import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { useDebouncedCallback } from 'use-debounce'
 import { Button } from 'uikit'
+import { EDITOR_NAV_WIDTH } from '@penx/constants'
 import { NodeEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
 import { NodeProvider, useNodes, useSpaces } from '@penx/hooks'
@@ -59,7 +60,7 @@ export function PanelItem({ node, index }: Props) {
       <Box relative h-100vh flex-1>
         <Box
           overflowYAuto
-          h={['calc(100vh - 48px)', '100vh']}
+          h={[`calc(100vh - ${EDITOR_NAV_WIDTH}px)`, '100vh']}
           pl={[0, 16]}
           pr={[0, 4]}
           pt0

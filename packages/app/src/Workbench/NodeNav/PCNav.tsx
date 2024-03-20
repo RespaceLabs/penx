@@ -1,4 +1,5 @@
 import { Box } from '@fower/react'
+import { EDITOR_NAV_WIDTH } from '@penx/constants'
 import { useNodeContext } from '@penx/hooks'
 import { PaletteDrawer } from '../PaletteDrawer'
 import { Breadcrumb } from './Breadcrumb'
@@ -12,7 +13,7 @@ export const PCNav = () => {
 
   return (
     <Box
-      h-48
+      h={EDITOR_NAV_WIDTH}
       sticky
       top0
       toCenterY

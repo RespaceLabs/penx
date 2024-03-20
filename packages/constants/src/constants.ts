@@ -10,6 +10,8 @@ export const PENX_SESSION_USER_ID = 'PENX_SESSION_USER_ID'
 
 export const TODO_DATABASE_NAME = '__TODO__'
 
+export const EDITOR_NAV_WIDTH = 44
+
 export const isSelfHosted = process.env.NEXT_PUBLIC_DEPLOY_MODE !== 'PLATFORM'
 
 export const NEXTAUTH_PROVIDERS = process.env.NEXT_PUBLIC_NEXTAUTH_PROVIDERS

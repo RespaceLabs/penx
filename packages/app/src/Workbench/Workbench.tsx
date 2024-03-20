@@ -4,6 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { ChevronLeft, ChevronRight, MenuIcon } from 'lucide-react'
+import { EDITOR_NAV_WIDTH } from '@penx/constants'
 import { EditorProvider } from '@penx/editor'
 import { useSpaces } from '@penx/hooks'
 import { useSession } from '@penx/session'
@@ -43,7 +44,7 @@ export const Workbench = () => {
 
       {!isMobile && <CommandPanel />}
       <Box h-100vh toLeft black flex-1>
-        <Box toCenterY>
+        <Box toLeft>
           <Box
             w={sidebarOpen ? [0, 0, SIDEBAR_WIDTH] : 0}
             toLeft
@@ -52,13 +53,12 @@ export const Workbench = () => {
           >
             <Sidebar />
           </Box>
-          <Box h-100vh>
+          <Box h={EDITOR_NAV_WIDTH} toCenterY>
             <Box
               onClick={handleViewSidebar}
               cursorPointer
               neutral500
-              mt1
-              ml1
+              ml2
               square6
               toCenter
               rounded
