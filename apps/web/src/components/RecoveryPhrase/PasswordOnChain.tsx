@@ -10,16 +10,13 @@ import {
 } from 'wagmi'
 import { Button, toast } from 'uikit'
 import { passwordManagerAbi } from '@penx/abi'
-import { MASTER_PASSWORD } from '@penx/constants'
 import { decryptString, encryptString } from '@penx/encryption'
 import { addressMap } from '@penx/wagmi'
 import { WalletConnectButton } from '../WalletConnectButton'
-import { useMasterPassword } from './useMasterPassword'
 
 interface Props {}
 
 export const PasswordOnChain: FC<Props> = () => {
-  const { masterPassword, setMasterPassword } = useMasterPassword()
   const { isConnected, address } = useAccount()
   const { signMessageAsync } = useSignMessage()
   const { data = '', error } = useReadContract({
@@ -34,15 +31,15 @@ export const PasswordOnChain: FC<Props> = () => {
   async function uploadPassword() {
     try {
       const signature = await signMessageAsync({ message: address! })
-      const rawPassword = await get(MASTER_PASSWORD)
-      const encrypted = encryptString(rawPassword, signature)
+      // TODO:
+      // const encrypted = encryptString(rawPassword, signature)
 
-      await writeContractAsync({
-        address: addressMap.PasswordManager,
-        abi: passwordManagerAbi,
-        functionName: 'setPassword',
-        args: [encrypted],
-      })
+      // await writeContractAsync({
+      //   address: addressMap.PasswordManager,
+      //   abi: passwordManagerAbi,
+      //   functionName: 'setPassword',
+      //   args: [encrypted],
+      // })
     } catch (error) {}
   }
 
@@ -53,12 +50,12 @@ export const PasswordOnChain: FC<Props> = () => {
       const rawPassword = decryptString(data, signature)
 
       if (rawPassword) {
-        setMasterPassword({
-          value: rawPassword,
-          blur: false,
-        })
-        await set(MASTER_PASSWORD, rawPassword)
-        toast.success('Password recovered')
+        // TODO:
+        // setMasterPassword({
+        //   value: rawPassword,
+        //   blur: false,
+        // })
+        // toast.success('Password recovered')
       } else {
         // TODO: handle error
       }
