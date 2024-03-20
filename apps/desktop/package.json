@@ -1,11 +1,10 @@
 {
   "name": "desktop",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
-    "build": "next build && next export",
-    "export": "next export",
+    "build": "next build",
     "start": "next start",
     "tauri": "tauri",
     "build:app": "tauri build",
