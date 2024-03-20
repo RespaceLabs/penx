@@ -48,10 +48,6 @@ chrome.runtime.onMessage.addListener(
     sender,
     sendResponse,
   ) => {
-    if (!db.database.connection) {
-      await db.database.connect()
-    }
-
     console.log('%c=bgjs-onMessage.addListener-0:', 'color:red', message)
     switch (message.type) {
       case BACKGROUND_EVENTS.QueryTab: {

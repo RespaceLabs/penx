@@ -23,7 +23,6 @@
     "@penx/editor-transforms": "workspace:*",
     "@penx/event": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
-    "@penx/indexeddb": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",

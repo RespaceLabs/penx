@@ -35,18 +35,18 @@ export const UploadBox = ({
 
     try {
       const hash = await calculateSHA256FromFile(file)
-      let fileInfo = await db.getFile(hash)
+      // let fileInfo = await db.getFile(hash)
 
-      if (!fileInfo) {
-        fileInfo = await db.createFile({
-          id: hash,
-          spaceId: activeSpace.id,
-          value: file,
-        })
-      }
+      // if (!fileInfo) {
+      //   fileInfo = await db.createFile({
+      //     id: hash,
+      //     spaceId: activeSpace.id,
+      //     value: file,
+      //   })
+      // }
 
-      setFileNode({ fileId: fileInfo.id, mime: file.type })
-      setUploading(false)
+      // setFileNode({ fileId: fileInfo.id, mime: file.type })
+      // setUploading(false)
     } catch (error) {
       setUploading(false)
       toast.error('Upload image failed')

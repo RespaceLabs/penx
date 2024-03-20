@@ -33,7 +33,6 @@
     "@penx/encryption": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
-    "@penx/indexeddb": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/math": "workspace:*",
     "@penx/model": "workspace:*",

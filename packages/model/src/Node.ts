@@ -44,7 +44,7 @@ export class Node {
   }
 
   get element(): Element[] {
-    // make element writable
+    // TODO: make element writable, why not override it directly?
     this.raw.element = JSON.parse(JSON.stringify(this.raw.element))
 
     // override the title

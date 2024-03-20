@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { Box } from '@fower/react'
-import { ArraySorter } from '@penx/indexeddb'
 import { IRowNode } from '@penx/model-types'
 import { useDatabaseContext } from '../DatabaseContext'
 import { AddRowBtn } from './AddRowBtn'

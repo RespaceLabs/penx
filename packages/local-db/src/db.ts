@@ -1,8 +1,8 @@
 import { arrayMoveImmutable } from 'array-move'
 import { format } from 'date-fns'
+import Dexie, { Table } from 'dexie'
 import { get } from 'idb-keyval'
 import { PENX_SESSION_USER_ID, TODO_DATABASE_NAME } from '@penx/constants'
-import { Database } from '@penx/indexeddb'
 import {
   ConjunctionType,
   DataSource,
@@ -11,11 +11,13 @@ import {
   Group,
   ICellNode,
   IColumnNode,
+  IDailyRootNode,
   IDatabaseNode,
   IExtension,
   IFile,
   INode,
   IOptionNode,
+  IRootNode,
   IRowNode,
   ISpace,
   IViewNode,
@@ -29,36 +31,24 @@ import { uniqueId } from '@penx/unique-id'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { getRandomColor } from './getRandomColor'
-import { tableSchema } from './table-schema'
 
-const database = new Database({
-  version: 1,
-  name: 'PenxDB',
-  // indexedDB: isServer ? undefined : window.indexedDB,
-  tables: tableSchema,
-})
+export class PenxDB extends Dexie {
+  space!: Table<ISpace, string>
+  node!: Table<INode, string>
+  extension!: Table<IExtension, string>
 
-class DB {
-  database = database
-
-  get space() {
-    return database.useModel<ISpace>('space')
-  }
-
-  get node() {
-    return database.useModel<INode>('node')
-  }
-
-  get file() {
-    return database.useModel<IFile>('file')
-  }
-
-  get extension() {
-    return database.useModel<IExtension>('extension')
+  constructor() {
+    // super('PenxDB')
+    super('penx-local')
+    this.version(1).stores({
+      // Primary key and indexed props
+      space: 'id, name, userId',
+      node: 'id, spaceId, databaseId, type, date',
+    })
   }
 
   getLastUpdatedAt = async (spaceId: string): Promise<number> => {
-    const oldNodes = await db.listNodesBySpaceId(spaceId)
+    const oldNodes = await this.listNodesBySpaceId(spaceId)
 
     if (!oldNodes.length) return 0
 
@@ -68,7 +58,7 @@ class DB {
 
   private async initSpaceNodes(space: ISpace) {
     const spaceId = space.id
-    await this.node.insert(
+    await this.node.add(
       getNewNode(
         {
           spaceId,
@@ -82,7 +72,7 @@ class DB {
     await this.createInboxNode(space.id)
 
     // init trash node
-    await this.node.insert(
+    await this.node.add(
       getNewNode({
         spaceId,
         type: NodeType.TRASH,
@@ -90,7 +80,7 @@ class DB {
     )
 
     // init favorite node
-    await this.node.insert(
+    await this.node.add(
       getNewNode({
         spaceId,
         type: NodeType.FAVORITE,
@@ -98,7 +88,7 @@ class DB {
     )
 
     // init database root node
-    await this.node.insert(
+    await this.node.add(
       getNewNode({
         spaceId,
         type: NodeType.DATABASE_ROOT,
@@ -106,7 +96,7 @@ class DB {
     )
 
     // init daily root node
-    const dailyRoot = await this.node.insert(
+    const dailyRoot = await this.createNode(
       getNewNode({
         spaceId,
         type: NodeType.DAILY_ROOT,
@@ -142,7 +132,8 @@ class DB {
 
     // insert new space
     const newSpace = getNewSpace(data)
-    const space = await this.space.insert(newSpace)
+    const spaceId = await this.space.add(newSpace)
+    const space = (await this.space.get(spaceId))!
 
     if (initNode) {
       await this.initSpaceNodes(space)
@@ -152,19 +143,19 @@ class DB {
   }
 
   createSpaceByRemote = async (data: Partial<ISpace>) => {
-    return await this.space.insert(data)
+    return await this.createSpace(data)
   }
 
   selectSpace = async (spaceId: string) => {
     const spaces = await this.listSpaces()
 
     for (const space of spaces) {
-      await this.space.updateByPk(space.id, {
+      await this.space.update(space.id, {
         isActive: false,
       })
     }
 
-    return await this.space.updateByPk(spaceId, {
+    return await this.space.update(spaceId, {
       isActive: true,
     })
   }
@@ -172,17 +163,14 @@ class DB {
   listSpaces = async (userId?: string) => {
     const uid = userId ?? (await get(PENX_SESSION_USER_ID))
 
-    const spaces = await this.space.selectAll()
-    return spaces.filter((space) => {
-      if (Reflect.has(space, 'userId')) {
-        return space.userId === uid
-      }
-      return true
-    })
+    console.log('=========uid:', uid)
+
+    const spaces = await this.space.where({ userId: uid }).toArray()
+    return spaces
   }
 
   getSpace = (spaceId: string) => {
-    return this.space.selectByPk(spaceId) as any as Promise<ISpace>
+    return this.space.get(spaceId) as any as Promise<ISpace>
   }
 
   getActiveSpace = async () => {
@@ -193,7 +181,7 @@ class DB {
   }
 
   updateSpace = (spaceId: string, space: Partial<ISpace>) => {
-    return this.space.updateByPk(spaceId, space)
+    return this.space.update(spaceId, space)
   }
 
   deleteSpace = async (spaceId: string) => {
@@ -201,7 +189,7 @@ class DB {
     for (const node of nodes) {
       await this.deleteNode(node.id)
     }
-    await this.space.deleteByPk(spaceId)
+    await this.space.delete(spaceId)
     const spaces = await this.listSpaces()
     if (spaces.length) {
       await this.updateSpace(spaces?.[0]?.id!, { isActive: true })
@@ -209,61 +197,93 @@ class DB {
   }
 
   getNode = <T = INode>(nodeId: string) => {
-    return this.node.selectByPk(nodeId) as any as Promise<T>
+    return this.node.get(nodeId) as any as Promise<T>
   }
 
   getRootNode = async (spaceId: string) => {
-    let nodes = await this.node.selectByIndexAll('type', NodeType.ROOT)
-    return nodes.find((node) => node.spaceId === spaceId)!
+    const node = await this.node
+      .where({
+        type: NodeType.ROOT,
+        spaceId,
+      })
+      .first()
+    return node as IRootNode
   }
 
   getDatabaseRootNode = async (spaceId: string) => {
-    let nodes = await this.node.selectByIndexAll('type', NodeType.DATABASE_ROOT)
-    return nodes.find((node) => node.spaceId === spaceId)!
+    const node = await this.node
+      .where({
+        type: NodeType.DATABASE_ROOT,
+        spaceId,
+      })
+      .first()
+    return node as IDatabaseNode
   }
 
   getDailyRootNode = async (spaceId: string) => {
-    let nodes = await this.node.selectByIndexAll('type', NodeType.DAILY_ROOT)
-    return nodes.find((node) => node.spaceId === spaceId)!
+    const node = await this.node
+      .where({
+        type: NodeType.DAILY_ROOT,
+        spaceId,
+      })
+      .first()
+    return node as IDailyRootNode
   }
 
   getInboxNode = async (spaceId: string) => {
-    let nodes = await this.node.selectByIndexAll('type', NodeType.INBOX)
-    return nodes.find((node) => node.spaceId === spaceId)!
+    const node = await this.node
+      .where({
+        type: NodeType.INBOX,
+        spaceId,
+      })
+      .first()
+    return node as INode
   }
 
   getTrashNode = async (spaceId: string) => {
-    let nodes = await this.node.selectByIndexAll('type', NodeType.TRASH)
-    return nodes.find((node) => node.spaceId === spaceId)!
+    const node = await this.node
+      .where({
+        type: NodeType.TRASH,
+        spaceId,
+      })
+      .first()
+    return node as INode
   }
 
   getTodayNode = async (spaceId: string) => {
-    let nodes = await this.node.selectByIndexAll('type', NodeType.DAILY)
+    let nodes = await this.node
+      .where({
+        type: NodeType.DAILY,
+        spaceId,
+      })
+      .toArray()
 
     return nodes.find(
-      (node) =>
-        node.props.date === format(new Date(), 'yyyy-MM-dd') &&
-        node.spaceId === spaceId,
+      (node) => node.props.date === format(new Date(), 'yyyy-MM-dd'),
     )!
   }
 
   getFavoriteNode = async (spaceId: string) => {
-    let nodes = await this.node.selectByIndexAll('type', NodeType.FAVORITE)
+    let nodes = await this.node
+      .where({
+        type: NodeType.FAVORITE,
+      })
+      .toArray()
     return nodes.find((node) => node.spaceId === spaceId)!
   }
 
-  updateNode = async <T = INode>(nodeId: string, data: Partial<T>) => {
+  updateNode = async <T extends INode>(nodeId: string, data: Partial<T>) => {
     const newData: any = data || {}
     if (!Reflect.has(data, 'updatedAt')) {
       newData.updatedAt = new Date()
     }
 
-    const newNode = await this.node.updateByPk(nodeId, newData)
-    return newNode
+    await this.node.update(nodeId, newData)
+    return this.node.get(nodeId) as any as Promise<T>
   }
 
   updateNodeProps = async (nodeId: string, props: Partial<INode['props']>) => {
-    const newNode = await this.node.updateByPk(nodeId, {
+    const newNode = await this.node.update(nodeId, {
       props,
     })
 
@@ -271,11 +291,11 @@ class DB {
   }
 
   deleteNode = async (nodeId: string) => {
-    return this.node.deleteByPk(nodeId)
+    return this.node.delete(nodeId)
   }
 
   getSpaceNode = async (spaceId: string) => {
-    const spaceNodes = await db.node.selectByIndexAll('type', NodeType.ROOT)
+    const spaceNodes = await this.node.where({ type: NodeType.ROOT }).toArray()
     const spaceNode = spaceNodes.find((node) => node.spaceId === spaceId)
     return spaceNode!
   }
@@ -283,9 +303,9 @@ class DB {
   createPageNode = async (node: Partial<INode>, space: ISpace) => {
     const { spaceId = '' } = node
 
-    const subNode = await this.node.insert(getNewNode({ spaceId }))
+    const subNode = await this.createNode(getNewNode({ spaceId }))
 
-    const newNode = await this.node.insert({
+    const newNode = await this.createNode({
       ...getNewNode({ spaceId: node.spaceId! }),
       ...node,
       children: [subNode.id],
@@ -303,9 +323,9 @@ class DB {
   createDailyNode = async (node: Partial<INode>) => {
     const { spaceId = '' } = node
     const dailyRootNode = await this.getDailyRootNode(spaceId)
-    const subNode = await this.node.insert(getNewNode({ spaceId }))
+    const subNode = await this.createNode(getNewNode({ spaceId }))
 
-    const dailyNode = await this.node.insert({
+    const dailyNode = await this.createNode({
       ...getNewNode({ spaceId: node.spaceId!, type: NodeType.DAILY }),
       ...node,
       parentId: dailyRootNode.id,
@@ -330,7 +350,7 @@ class DB {
     if (!todayNode) {
       const dateStr = format(new Date(), 'yyyy-MM-dd')
 
-      todayNode = await db.createDailyNode({
+      todayNode = await this.createDailyNode({
         spaceId,
         props: { date: dateStr },
       })
@@ -340,9 +360,9 @@ class DB {
   }
 
   createInboxNode = async (spaceId: string) => {
-    const subNode = await this.node.insert(getNewNode({ spaceId }))
+    const subNode = await this.createNode(getNewNode({ spaceId }))
 
-    const inboxNode = await this.node.insert({
+    const inboxNode = await this.createNode({
       ...getNewNode({ spaceId, type: NodeType.INBOX }),
       children: [subNode.id],
     })
@@ -353,16 +373,16 @@ class DB {
   createNode = async <T extends INode>(
     node: Partial<T> & { spaceId: string },
   ): Promise<T> => {
-    const newNode = await this.node.insert({
+    const newNodeId = await this.node.add({
       ...getNewNode({ spaceId: node.spaceId! }),
       ...node,
     })
 
-    return newNode as T
+    return this.node.get(newNodeId) as any as Promise<T>
   }
 
   createTextNode = async (spaceId: string, text: string) => {
-    const newNode = await this.node.insert({
+    const newNode = await this.createNode({
       ...getNewNode({ spaceId }, text),
     })
 
@@ -372,7 +392,7 @@ class DB {
   addTextToToday = async (spaceId: string, text: string) => {
     const todayNode = await this.getOrCreateTodayNode(spaceId)
 
-    const newNode = await this.node.insert({
+    const newNode = await this.createNode({
       ...getNewNode({ spaceId }, text),
     })
 
@@ -404,84 +424,54 @@ class DB {
     return newTodayNode
   }
 
-  listNodes = async () => {
-    return this.node.selectAll()
-  }
-
-  listNodesBySpaceId = async (spaceId: string) => {
-    return this.node.select({
-      where: { spaceId },
-    })
+  listNodesBySpaceId = (spaceId: string) => {
+    return this.node.where({ spaceId }).toArray()
   }
 
   listNodesByIds = (nodeIds: string[]) => {
-    const promises = nodeIds.map((id) => this.node.selectByPk(id))
-    return Promise.all(promises) as any as Promise<INode[]>
+    return this.node.where('id').anyOf(nodeIds).toArray()
   }
 
   deleteNodeByIds = (nodeIds: string[]) => {
-    const promises = nodeIds.map((id) => this.node.deleteByPk(id))
-    return Promise.all(promises)
+    return this.node.where('id').anyOf(nodeIds).delete()
   }
 
   createExtension(extension: IExtension) {
-    return this.extension.insert(extension)
+    return this.extension.add(extension)
   }
 
   getExtension = (extensionId: string) => {
-    return this.extension.selectByPk(extensionId)
+    return this.extension.get(extensionId)
   }
 
   updateExtension = (extensionId: string, plugin: Partial<IExtension>) => {
-    return this.extension.updateByPk(extensionId, plugin)
+    return this.extension.update(extensionId, plugin)
   }
 
   installExtension = async (extension: Partial<IExtension>) => {
-    const list = await this.extension.select({
-      where: {
+    const list = await this.extension
+      .where({
         spaceId: extension.spaceId!,
         slug: extension.slug!,
-      },
-    })
+      })
+      .toArray()
 
     if (list?.length) {
       const ext = list[0]!
-      return this.extension.updateByPk(ext.id, {
+      return this.extension.update(ext.id, {
         ...ext,
         ...extension,
       })
     }
 
-    return this.extension.insert({
+    return this.extension.add({
       id: uniqueId(),
       ...extension,
-    })
+    } as IExtension)
   }
 
-  listExtensions = async () => {
-    return (await this.extension.selectAll()) as IExtension[]
-  }
-
-  createFile(file: Partial<IFile>) {
-    return this.file.insert({
-      id: uniqueId(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      ...file,
-    })
-  }
-
-  getFile = (id: string) => {
-    return this.file.selectByPk(id)
-  }
-
-  updateFile = async (fileId: string, data: Partial<IFile>) => {
-    const newNode = await this.file.updateByPk(fileId, {
-      ...data,
-      updatedAt: new Date(),
-    })
-
-    return newNode
+  listExtensions = () => {
+    return this.extension.toArray()
   }
 
   createDatabase = async (
@@ -702,44 +692,37 @@ class DB {
   getDatabase = async (id: string) => {
     const space = await this.getActiveSpace()
     const database = await this.getNode(id)
-    const columns = await this.node.select({
-      where: {
+    const columns = await this.node
+      .where({
         type: NodeType.COLUMN,
         spaceId: space.id,
         databaseId: id,
-      },
-      sortBy: 'createdAt',
-      orderByDESC: false,
-    })
+      })
+      .toArray()
 
-    const rows = await this.node.select({
-      where: {
+    const rows = await this.node
+      .where({
         type: NodeType.ROW,
         spaceId: space.id,
         databaseId: id,
-      },
-      sortBy: 'createdAt',
-      orderByDESC: false,
-    })
+      })
+      .toArray()
 
-    const views = await this.node.select({
-      where: {
+    const views = await this.node
+      .where({
         type: NodeType.VIEW,
         spaceId: space.id,
         databaseId: id,
-      },
+      })
+      .toArray()
 
-      sortBy: 'createdAt',
-      orderByDESC: false,
-    })
-
-    const cells = await this.node.select({
-      where: {
+    const cells = await this.node
+      .where({
         type: NodeType.CELL,
         spaceId: space.id,
         databaseId: id,
-      },
-    })
+      })
+      .toArray()
 
     return {
       database,
@@ -752,12 +735,12 @@ class DB {
 
   getDatabaseByName = async (name: string) => {
     const space = await this.getActiveSpace()
-    const nodes = await this.node.select({
-      where: {
+    const nodes = await this.node
+      .where({
         type: NodeType.DATABASE,
         spaceId: space.id,
-      },
-    })
+      })
+      .toArray()
 
     const database = nodes.find((node) => node.props.name === name)
     return database!
@@ -766,15 +749,13 @@ class DB {
   addView = async (databaseId: string, viewType: ViewType) => {
     const database = (await this.getNode(databaseId)) as IDatabaseNode
 
-    const columns = (await this.node.select({
-      where: {
+    const columns = (await this.node
+      .where({
         type: NodeType.COLUMN,
         spaceId: database.spaceId,
         databaseId,
-      },
-      sortBy: 'createdAt',
-      orderByDESC: false,
-    })) as IColumnNode[]
+      })
+      .toArray()) as IColumnNode[]
 
     const viewColumns: ViewColumn[] = columns.map((column) => ({
       columnId: column.id,
@@ -791,12 +772,12 @@ class DB {
       )!
 
       if (column) {
-        const options = (await this.node.select({
-          where: {
+        const options = (await this.node
+          .where({
             type: NodeType.OPTION,
             databaseId: database.id,
-          },
-        })) as IOptionNode[]
+          })
+          .toArray()) as IOptionNode[]
 
         kanbanOptionIds = options
           .filter((option) => option.props.columnId === column.id)
@@ -869,16 +850,18 @@ class DB {
       },
     })
 
-    const views = (await this.node.select({
-      where: {
-        type: NodeType.VIEW,
-        spaceId: space.id,
-        databaseId: databaseId,
-      },
-    })) as IViewNode[]
+    const views = (await this.node
+      .where({
+        where: {
+          type: NodeType.VIEW,
+          spaceId: space.id,
+          databaseId: databaseId,
+        },
+      })
+      .toArray()) as IViewNode[]
 
     for (const view of views) {
-      await this.node.updateByPk(view.id, {
+      await this.node.update(view.id, {
         props: {
           ...view.props,
           viewColumns: [
@@ -893,13 +876,13 @@ class DB {
       } as IViewNode)
     }
 
-    const rows = await this.node.select({
-      where: {
+    const rows = await this.node
+      .where({
         type: NodeType.ROW,
         spaceId,
         databaseId,
-      },
-    })
+      })
+      .toArray()
 
     for (const row of rows) {
       await this.createNode<ICellNode>({
@@ -934,7 +917,7 @@ class DB {
     const sortedRows = rows.sort((a, b) => a.props.sort - b.props.sort)
 
     for (const item of sortedRows) {
-      await db.updateNode<IRowNode>(item.id, {
+      await this.updateNode<IRowNode>(item.id, {
         props: { ...item.props, sort },
       })
       sort++
@@ -945,13 +928,13 @@ class DB {
     const space = await this.getActiveSpace()
     const spaceId = space.id
 
-    const rows = (await this.node.select({
-      where: {
+    const rows = (await this.node
+      .where({
         type: NodeType.ROW,
         spaceId: space.id,
         databaseId,
-      },
-    })) as IRowNode[]
+      })
+      .toArray()) as IRowNode[]
 
     const isSortNormal = this.checkRowsSortNormal(rows)
 
@@ -970,24 +953,24 @@ class DB {
       },
     })
 
-    const views = (await this.node.select({
-      where: {
+    const views = (await this.node
+      .where({
         type: NodeType.VIEW,
         spaceId: space.id,
         databaseId,
-      },
-    })) as IViewNode[]
+      })
+      .toArray()) as IViewNode[]
 
     // TODO: too hack, should pass a view id to find a view
     const view = views.find((node) => node.props.viewType === ViewType.TABLE)!
 
-    const columns = await this.node.select({
-      where: {
+    const columns = await this.node
+      .where({
         type: NodeType.COLUMN,
         spaceId,
         databaseId,
-      },
-    })
+      })
+      .toArray()
 
     const sortedColumns = view.props.viewColumns.map(({ columnId: id }) => {
       const column = columns.find((node) => node.id === id)
@@ -1015,9 +998,12 @@ class DB {
 
   createTodoRow = async (ref = '', sourceId = '') => {
     const space = await this.getActiveSpace()
-    const databases = await this.node.select({
-      where: { type: NodeType.DATABASE, spaceId: space.id },
-    })
+    const databases = await this.node
+      .where({
+        type: NodeType.DATABASE,
+        spaceId: space.id,
+      })
+      .toArray()
 
     let todoDatabase = databases.find(
       (db) => db.props.name === TODO_DATABASE_NAME,
@@ -1031,13 +1017,13 @@ class DB {
     }
 
     // Get all database cells
-    const cells = await this.node.select({
-      where: {
+    const cells = await this.node
+      .where({
         type: NodeType.CELL,
         spaceId: space.id,
         databaseId: todoDatabase.id,
-      },
-    })
+      })
+      .toArray()
 
     // check cell is existed
     const cell = cells.find((cell) => cell.props.ref === ref)
@@ -1049,21 +1035,24 @@ class DB {
 
   createTagRow = async (name: string, ref = '') => {
     const space = await this.getActiveSpace()
-    const databases = await this.node.select({
-      where: { type: NodeType.DATABASE, spaceId: space.id },
-    })
+    const databases = await this.node
+      .where({
+        type: NodeType.DATABASE,
+        spaceId: space.id,
+      })
+      .toArray()
 
     const database = databases.find((db) => db.props.name === name)
     if (!database) return
 
     // Get all database cells
-    const cells = await this.node.select({
-      where: {
+    const cells = await this.node
+      .where({
         type: NodeType.CELL,
         spaceId: space.id,
         databaseId: database.id,
-      },
-    })
+      })
+      .toArray()
 
     // check cell is existed
     const cell = cells.find((cell) => cell.props.ref === ref)
@@ -1075,12 +1064,12 @@ class DB {
 
   // TODO: need improve performance
   deleteRow = async (databaseId: string, rowId: string) => {
-    const cells = (await this.node.select({
-      where: {
+    const cells = (await this.node
+      .where({
         type: NodeType.CELL,
         databaseId,
-      },
-    })) as ICellNode[]
+      })
+      .toArray()) as ICellNode[]
 
     const primaryCell = cells.find(
       (cell) => !!cell.props.ref && cell.props.rowId === rowId,
@@ -1088,28 +1077,28 @@ class DB {
 
     const promises: any[] = []
 
-    promises.push(this.node.deleteByPk(rowId))
+    promises.push(this.node.delete(rowId))
 
     //TODO: need to improvement for a node with many refs
     if (primaryCell) {
       const ref = primaryCell.props.ref
-      promises.push(this.node.deleteByPk(ref))
+      promises.push(this.node.delete(ref))
     }
 
     for (const cell of cells) {
       if (cell.props.rowId === rowId) {
-        promises.push(this.node.deleteByPk(cell.id))
+        promises.push(this.node.delete(cell.id))
       }
     }
 
     await Promise.all(promises)
 
-    const rows = (await this.node.select({
-      where: {
+    const rows = (await this.node
+      .where({
         type: NodeType.ROW,
         databaseId,
-      },
-    })) as IRowNode[]
+      })
+      .toArray()) as IRowNode[]
 
     await this.fixRowsSort(rows)
   }
@@ -1129,24 +1118,24 @@ class DB {
   }
 
   deleteColumn = async (databaseId: string, columnId: string) => {
-    const cells = await this.node.select({
-      where: {
+    const cells = await this.node
+      .where({
         type: NodeType.CELL,
         databaseId,
-      },
-    })
+      })
+      .toArray()
 
     for (const cell of cells) {
       if (cell.props.columnId !== columnId) continue
       await this.deleteNode(cell.id)
     }
 
-    const views = (await this.node.select({
-      where: {
+    const views = (await this.node
+      .where({
         type: NodeType.VIEW,
         databaseId: databaseId,
-      },
-    })) as IViewNode[]
+      })
+      .toArray()) as IViewNode[]
 
     for (const view of views) {
       await this.updateNode<IViewNode>(view.id, {
@@ -1377,12 +1366,12 @@ class DB {
         },
       })
 
-      const cells = await this.node.select({
-        where: {
+      const cells = await this.node
+        .where({
           type: NodeType.CELL,
           databaseId: column.databaseId!,
-        },
-      })
+        })
+        .toArray()
 
       // delete option
       for (const cell of cells) {
@@ -1430,21 +1419,21 @@ class DB {
     fromIndex: number,
     toIndex: number,
   ) => {
-    const views = (await this.node.select({
-      where: {
+    const views = (await this.node
+      .where({
         type: NodeType.VIEW,
         databaseId: databaseId,
-      },
-    })) as IViewNode[]
+      })
+      .toArray()) as IViewNode[]
 
     const view = views.find((node) => node.id === viewId)!
 
-    const columns = await this.node.select({
-      where: {
+    const columns = await this.node
+      .where({
         type: NodeType.COLUMN,
         databaseId,
-      },
-    })
+      })
+      .toArray()
 
     if (!columns[fromIndex] || !columns[toIndex]) return
 
@@ -1461,14 +1450,16 @@ class DB {
   }
 
   deleteDatabase = async (node: INode) => {
-    const nodes = await this.node.select({
-      where: { databaseId: node.id },
-    })
+    const nodes = await this.node
+      .where({
+        databaseId: node.id,
+      })
+      .toArray()
 
     let promises: Promise<any>[] = []
 
     for (const item of nodes) {
-      promises.push(this.node.deleteByPk(item.id))
+      promises.push(this.node.delete(item.id))
     }
 
     await Promise.all(promises)
@@ -1481,4 +1472,4 @@ class DB {
   }
 }
 
-export const db = new DB()
+export const db = new PenxDB()

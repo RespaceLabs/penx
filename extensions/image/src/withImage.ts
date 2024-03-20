@@ -19,21 +19,21 @@ export const withImage = (editor: PenxEditor) => {
 
       const spaces = store.get(spacesAtom)
       const activeSpace = spaces.find((space) => space.isActive)!
-      const fileInfo = await db.createFile({
-        spaceId: activeSpace.id,
-        value: file,
-      })
+      // const fileInfo = await db.createFile({
+      //   spaceId: activeSpace.id,
+      //   value: file,
+      // })
 
-      Transforms.insertNodes(
-        editor,
-        {
-          type: ELEMENT_IMG,
-          fileId: fileInfo.id,
-          mime: file.type,
-          children: [{ text: '' }],
-        } as ImageElement,
-        { at: path },
-      )
+      // Transforms.insertNodes(
+      //   editor,
+      //   {
+      //     type: ELEMENT_IMG,
+      //     fileId: fileInfo.id,
+      //     mime: file.type,
+      //     children: [{ text: '' }],
+      //   } as ImageElement,
+      //   { at: path },
+      // )
       return
     }
     insertData(dataTransfer)

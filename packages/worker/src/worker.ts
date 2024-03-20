@@ -10,7 +10,6 @@ import { runAgentSSE } from './runAgentSSE'
 self.addEventListener('message', async (event) => {
   if (event.data === WorkerEvents.START_POLLING) {
     console.log('===========start polling......')
-    await db.database.connect()
 
     // pollingPushToCloud()
     // startPollingPull()

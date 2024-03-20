@@ -44,9 +44,6 @@ export function Dashboard({ userId }: { userId: string }) {
   const [filtersDb, setFiltersDb] = useState<Filter[]>([])
 
   async function loadSpaces(userId: string) {
-    if (!db.database.connection) {
-      await db.database.connect()
-    }
     const spaces = await db.listSpaces(userId)
 
     if (spaces.length) {

@@ -8,10 +8,10 @@ export function useFile(fileId: string) {
 
   useEffect(() => {
     if (!fileId) return
-    db.getFile(fileId).then((file) => {
-      setFile(new File(file))
-      setLoading(false)
-    })
+    // db.getFile(fileId).then((file) => {
+    //   setFile(new File(file))
+    //   setLoading(false)
+    // })
   }, [fileId])
 
   return {

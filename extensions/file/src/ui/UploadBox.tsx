@@ -33,13 +33,12 @@ export const UploadBox = ({
     setUploading(true)
 
     try {
-      const fileInfo = await db.createFile({
-        spaceId: activeSpace.id,
-        value: file,
-      })
-
-      setFileId(fileInfo.id!)
-      setUploading(false)
+      // const fileInfo = await db.createFile({
+      //   spaceId: activeSpace.id,
+      //   value: file,
+      // })
+      // setFileId(fileInfo.id!)
+      // setUploading(false)
     } catch (error) {
       setUploading(false)
       toast.error('Upload image failed')

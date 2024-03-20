@@ -249,9 +249,6 @@ importers:
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons
-      '@penx/indexeddb':
-        specifier: workspace:*
-        version: link:../../packages/indexeddb
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
@@ -1958,9 +1955,6 @@ importers:
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons
-      '@penx/indexeddb':
-        specifier: workspace:*
-        version: link:../../packages/indexeddb
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
@@ -2866,9 +2860,6 @@ importers:
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons
-      '@penx/indexeddb':
-        specifier: workspace:*
-        version: link:../../packages/indexeddb
       '@penx/list':
         specifier: workspace:*
         version: link:../list
@@ -5450,43 +5441,6 @@ importers:
         specifier: ^5.3.2
         version: 5.3.3
 
-  packages/indexeddb:
-    dependencies:
-      class-transformer:
-        specifier: ^0.5.1
-        version: 0.5.1
-      joi:
-        specifier: ^17.11.0
-        version: 17.11.0
-      reflect-metadata:
-        specifier: ^0.1.13
-        version: 0.1.13
-      utility-types:
-        specifier: ^3.10.0
-        version: 3.10.0
-    devDependencies:
-      '@penx/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/react':
-        specifier: ^18.2.61
-        version: 18.2.61
-      '@types/react-dom':
-        specifier: ^18.2.17
-        version: 18.2.17
-      eslint:
-        specifier: ^8.55.0
-        version: 8.55.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      typescript:
-        specifier: ^5.3.2
-        version: 5.3.3
-
   packages/loader:
     dependencies:
       '@penx/auto-format':
@@ -5595,9 +5549,6 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
-      '@penx/indexeddb':
-        specifier: workspace:*
-        version: link:../indexeddb
       '@penx/model':
         specifier: workspace:*
         version: link:../model
@@ -5613,6 +5564,9 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
+      dexie:
+        specifier: ^3.2.4
+        version: 3.2.4
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
@@ -5951,9 +5905,6 @@ importers:
       '@penx/extension-typings':
         specifier: ^0.0.0
         version: link:../extension-typings
-      '@penx/indexeddb':
-        specifier: workspace:*
-        version: link:../indexeddb
       '@penx/list':
         specifier: workspace:*
         version: link:../../extensions/list
@@ -6198,9 +6149,6 @@ importers:
       '@penx/extension-typings':
         specifier: ^0.0.0
         version: link:../extension-typings
-      '@penx/indexeddb':
-        specifier: workspace:*
-        version: link:../indexeddb
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
@@ -6268,9 +6216,6 @@ importers:
       '@penx/encryption':
         specifier: workspace:*
         version: link:../encryption
-      '@penx/indexeddb':
-        specifier: workspace:*
-        version: link:../indexeddb
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
@@ -20862,10 +20807,6 @@ packages:
       consola: 3.2.3
     dev: false
 
-  /class-transformer@0.5.1:
-    resolution: {integrity: sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==}
-    dev: false
-
   /class-variance-authority@0.7.0:
     resolution: {integrity: sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==}
     dependencies:
@@ -32719,10 +32660,6 @@ packages:
   /reduce-flatten@2.0.0:
     resolution: {integrity: sha512-EJ4UNY/U1t2P/2k6oqotuX2Cc3T6nxJwsM0N0asT7dhrtH1ltUxDn4NalSYmPE2rCkVpcf/X6R0wDwcFpzhd4w==}
     engines: {node: '>=6'}
-
-  /reflect-metadata@0.1.13:
-    resolution: {integrity: sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==}
-    dev: false
 
   /reflect.getprototypeof@1.0.4:
     resolution: {integrity: sha512-ECkTw8TmJwW60lOTR+ZkODISW6RQ8+2CL3COqtiJKLd6MmB45hN51HprHFziKLGkAuTGQhBb91V8cy+KHlaCjw==}

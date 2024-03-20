@@ -16,24 +16,13 @@ class AppLoader {
 
   // TODO: handle error, need retry
   async init() {
-    // TODO:
-    // if (isProd) {
-    //   protectDB()
-    // }
-
     try {
-      const t1 = Date.now()
-      ;(window as any).penx = penx as any
-
-      await db.database.connect()
-
-      const t2 = Date.now()
       const pluginLoader = new ExtensionLoader()
+      const t0 = Date.now()
       await pluginLoader.init()
+      const t1 = Date.now()
 
-      const t3 = Date.now()
-
-      console.log('appLoader loaded time t3-t0', t2 - t1)
+      console.log('appLoader loaded time t3-t0', t1 - t0)
 
       this.emitter.emit('loaded', true)
 

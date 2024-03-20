@@ -29,7 +29,6 @@
     "@penx/encryption": "workspace:*",
     "@penx/mnemonic": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
-    "@penx/indexeddb": "workspace:*",
     "@penx/list": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/model": "workspace:*",

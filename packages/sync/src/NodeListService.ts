@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { ELEMENT_BIDIRECTIONAL_LINK_CONTENT } from '@penx/constants'
-import { ArraySorter } from '@penx/indexeddb'
+import { ArraySorter } from '@penx/local-db'
 import { Node, WithFlattenedProps } from '@penx/model'
 import { INode, NodeType } from '@penx/model-types'
 

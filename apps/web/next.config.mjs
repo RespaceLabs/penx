@@ -46,7 +46,6 @@ const config = {
     '@penx/session',
     '@penx/model-types',
     '@penx/cmdk',
-    '@penx/indexeddb',
     '@penx/event',
     '@penx/storage-estimate',
     '@penx/word-count',

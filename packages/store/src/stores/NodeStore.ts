@@ -2,8 +2,7 @@ import isEqual from 'react-fast-compare'
 import { format } from 'date-fns'
 import { atom } from 'jotai'
 import { TODO_DATABASE_NAME } from '@penx/constants'
-import { ArraySorter } from '@penx/indexeddb'
-import { db } from '@penx/local-db'
+import { ArraySorter, db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import {
   DataSource,

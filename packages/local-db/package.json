@@ -12,12 +12,12 @@
   "dependencies": {
     "@fower/react": "^2.0.0",
     "@penx/constants": "workspace:*",
-    "@penx/indexeddb": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "array-move": "^4.0.0",
     "date-fns": "^2.30.0",
+    "dexie": "^3.2.4",
     "idb-keyval": "^6.2.1",
     "mitt": "^3.0.1"
   },

@@ -297,12 +297,12 @@ export class SyncService {
 
   async createFilesTree() {
     let treeItems: TreeItem[] = []
-    const files = await db.file.selectAll()
+    // const files = await db.file.selectAll()
 
-    for (const file of files) {
-      const item = await this.createFileTreeItem(file)
-      treeItems.push(item)
-    }
+    // for (const file of files) {
+    //   const item = await this.createFileTreeItem(file)
+    //   treeItems.push(item)
+    // }
 
     return treeItems
   }
@@ -354,10 +354,9 @@ export class SyncService {
     const fileNode = await this.getFileNodesInNodeIds(nodeIds)
 
     for (const { fileId } of fileNode) {
-      const file = await db.getFile(fileId)
-
-      const item = await this.createFileTreeItem(file)
-      tree.push(item)
+      // const file = await db.getFile(fileId)
+      // const item = await this.createFileTreeItem(file)
+      // tree.push(item)
     }
 
     return tree

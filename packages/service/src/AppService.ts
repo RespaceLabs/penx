@@ -40,6 +40,7 @@ export class AppService {
       this.inited = true
 
       const spaces = await db.listSpaces()
+
       const activeSpace = spaces.find((item) => item.isActive) || spaces[0]
 
       if (navigator.onLine) {
