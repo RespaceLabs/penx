@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, MenuIcon } from 'lucide-react'
 import { EditorProvider } from '@penx/editor'
 import { useSpaces } from '@penx/hooks'
 import { useSession } from '@penx/session'
@@ -55,17 +55,16 @@ export const Workbench = () => {
           <Box h-100vh>
             <Box
               onClick={handleViewSidebar}
-              cursor="pointer"
-              mt-14px
-              bgZinc100--T40
-              roundedBottomRightFull
-              roundedTopRightFull
+              cursorPointer
+              neutral500
+              mt1
+              ml1
+              square6
+              toCenter
+              rounded
+              bgNeutral100--hover
             >
-              {sidebarOpen ? (
-                <ChevronLeft color="#484848" />
-              ) : (
-                <ChevronRight color="#484848" />
-              )}
+              <MenuIcon size={20} />
             </Box>
           </Box>
         </Box>
