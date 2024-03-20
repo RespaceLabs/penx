@@ -28,17 +28,20 @@ export const TagForm = forwardRef<HTMLDivElement, Props>(function TagForm(
 
   const editor = useEditorStatic()
 
-  const [licEntry] = Editor.nodes(editor, {
+  const [blockEntry] = Editor.nodes(editor, {
     at: path,
     mode: 'lowest',
-    match: isListContentElement,
+    match: (n) =>
+      editor.isOutliner
+        ? isListContentElement(n)
+        : Editor.isBlock(editor, n as any),
   })
 
-  const lic = licEntry?.[0] as ListContentElement
+  const blockElement = blockEntry?.[0] as ListContentElement
 
-  if (!lic) return null
+  if (!blockElement) return null
 
-  const refCell = cells.find((cell) => cell.props.ref === lic.id)
+  const refCell = cells.find((cell) => cell.props.ref === blockElement.id)
   if (!refCell) return null
 
   const rowId = refCell.props.rowId
@@ -57,7 +60,7 @@ export const TagForm = forwardRef<HTMLDivElement, Props>(function TagForm(
 
       <Box column gap4 p6 maxH-400 overflowYAuto>
         {rowCells.map((cell, index) => {
-          if (cell.props.ref === lic.id) return null
+          if (cell.props.ref === blockElement.id) return null
 
           const column = columns.find((col) => col.id === cell.props.columnId)!
 

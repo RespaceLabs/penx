@@ -189,8 +189,6 @@ export class PenxDB extends Dexie {
   listSpaces = async (userId?: string) => {
     const uid = userId ?? (await get(PENX_SESSION_USER_ID))
 
-    console.log('=========uid:', uid)
-
     const spaces = await this.space.where({ userId: uid }).toArray()
     return spaces
   }
