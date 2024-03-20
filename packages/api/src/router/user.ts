@@ -167,6 +167,10 @@ export const userRouter = createTRPCRouter({
         select: {
           id: true,
           address: true,
+          earlyAccessCode: true,
+          publicKey: true,
+          secret: true,
+          roleType: true,
           name: true,
           avatar: true,
           image: true,
