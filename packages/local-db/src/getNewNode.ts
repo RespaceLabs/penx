@@ -8,6 +8,7 @@ type Input = {
   type?: NodeType
   name?: string
   props?: INode['props']
+  date?: string
 }
 
 export function getNewNode(input: Input, text = ''): INode {

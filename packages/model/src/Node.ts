@@ -43,6 +43,10 @@ export class Node {
     return this.raw.props || {}
   }
 
+  get date() {
+    return this.raw.date || ''
+  }
+
   get element(): Element[] {
     // TODO: make element writable, why not override it directly?
     this.raw.element = JSON.parse(JSON.stringify(this.raw.element))
@@ -71,7 +75,7 @@ export class Node {
 
   get title(): string {
     if (this.isDaily) {
-      return format(new Date(this.raw.props.date || Date.now()), 'EEEE, LLL do')
+      return format(new Date(this.raw.date || Date.now()), 'EEEE, LLL do')
     }
 
     if (this.isInbox) return 'Inbox'
@@ -117,7 +121,7 @@ export class Node {
   get isTodayNode() {
     return (
       this.type === NodeType.DAILY &&
-      this.props.date === format(new Date(), 'yyyy-MM-dd')
+      this.date === format(new Date(), 'yyyy-MM-dd')
     )
   }
 

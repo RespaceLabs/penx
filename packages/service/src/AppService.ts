@@ -8,31 +8,6 @@ import { syncFromCloud } from '../../sync/src'
 export class AppService {
   inited = false
 
-  private async tryToSync(space: ISpace) {
-    if (!space.syncServerUrl) return
-    const mnemonic = store.user.getMnemonic()
-    const client = new SyncServerClient(space, mnemonic)
-    const time = await client.getNodesLastUpdatedAt()
-
-    if (time) {
-      await db.updateSpace(space.id, {
-        nodesLastUpdatedAt: new Date(time),
-      })
-    }
-
-    // TODO: handle empty remote time
-    if (!time) return
-
-    const localLastUpdatedAt = await db.getLastUpdatedAt(space.id)
-
-    console.log('==========localLastUpdatedAt:', localLastUpdatedAt)
-
-    if (typeof localLastUpdatedAt === 'number' && localLastUpdatedAt < time) {
-      const mnemonic = store.user.getMnemonic()
-      await syncFromCloud(space, mnemonic)
-    }
-  }
-
   async init() {
     try {
       console.log('app init...')
@@ -42,6 +17,8 @@ export class AppService {
       const spaces = await db.listSpaces()
 
       const activeSpace = spaces.find((item) => item.isActive) || spaces[0]
+
+      await db.normalizeDailyNodes(activeSpace.id)
 
       if (navigator.onLine) {
         try {
@@ -115,5 +92,30 @@ export class AppService {
     const nodes = await db.listNodesBySpaceId(spaceId)
     store.node.setNodes(nodes)
     store.node.selectNode(todayNode)
+  }
+
+  private async tryToSync(space: ISpace) {
+    if (!space.syncServerUrl) return
+    const mnemonic = store.user.getMnemonic()
+    const client = new SyncServerClient(space, mnemonic)
+    const time = await client.getNodesLastUpdatedAt()
+
+    if (time) {
+      await db.updateSpace(space.id, {
+        nodesLastUpdatedAt: new Date(time),
+      })
+    }
+
+    // TODO: handle empty remote time
+    if (!time) return
+
+    const localLastUpdatedAt = await db.getLastUpdatedAt(space.id)
+
+    console.log('==========localLastUpdatedAt:', localLastUpdatedAt)
+
+    if (typeof localLastUpdatedAt === 'number' && localLastUpdatedAt < time) {
+      const mnemonic = store.user.getMnemonic()
+      await syncFromCloud(space, mnemonic)
+    }
   }
 }

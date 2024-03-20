@@ -1,7 +1,7 @@
 import { arrayMoveImmutable } from 'array-move'
 import { format } from 'date-fns'
 import Dexie, { Table } from 'dexie'
-import { get } from 'idb-keyval'
+import { get, set } from 'idb-keyval'
 import { PENX_SESSION_USER_ID, TODO_DATABASE_NAME } from '@penx/constants'
 import {
   ConjunctionType,
@@ -32,6 +32,8 @@ import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { getRandomColor } from './getRandomColor'
 
+const DAILY_NODE_NORMALIZED = 'DAILY_NODE_NORMALIZED'
+
 export class PenxDB extends Dexie {
   space!: Table<ISpace, string>
   node!: Table<INode, string>
@@ -45,6 +47,31 @@ export class PenxDB extends Dexie {
       space: 'id, name, userId',
       node: 'id, spaceId, databaseId, type, date',
     })
+  }
+
+  /**
+   * Fall old data
+   * @returns
+   */
+  async normalizeDailyNodes(spaceId: string) {
+    const normalized = await get(DAILY_NODE_NORMALIZED)
+
+    if (normalized) return true
+
+    const dailyNodes = await this.node
+      .where({ type: NodeType.DAILY, spaceId })
+      .toArray()
+
+    for (const node of dailyNodes) {
+      if (node.date) continue
+      if (!node.props?.date) {
+        await this.node.delete(node.id)
+      } else {
+        await this.node.update(node.id, { date: node.props.date })
+      }
+    }
+
+    set(DAILY_NODE_NORMALIZED, true)
   }
 
   getLastUpdatedAt = async (spaceId: string): Promise<number> => {
@@ -103,13 +130,12 @@ export class PenxDB extends Dexie {
       }),
     )
 
-    const todayStr = format(new Date(), 'yyyy-MM-dd')
     const node = await this.createDailyNode(
       getNewNode({
         parentId: dailyRoot.id,
         spaceId,
         type: NodeType.DAILY,
-        props: { date: todayStr },
+        date: formatToDate(new Date()),
       }),
     )
 
@@ -252,15 +278,10 @@ export class PenxDB extends Dexie {
 
   getTodayNode = async (spaceId: string) => {
     let nodes = await this.node
-      .where({
-        type: NodeType.DAILY,
-        spaceId,
-      })
+      .where({ type: NodeType.DAILY, spaceId })
       .toArray()
 
-    return nodes.find(
-      (node) => node.props.date === format(new Date(), 'yyyy-MM-dd'),
-    )!
+    return nodes.find((node) => node.date === formatToDate(new Date()))!
   }
 
   getFavoriteNode = async (spaceId: string) => {
@@ -348,11 +369,9 @@ export class PenxDB extends Dexie {
     let todayNode = await this.getTodayNode(spaceId)
 
     if (!todayNode) {
-      const dateStr = format(new Date(), 'yyyy-MM-dd')
-
       todayNode = await this.createDailyNode({
         spaceId,
-        props: { date: dateStr },
+        date: formatToDate(new Date()),
       })
     }
 
@@ -1473,3 +1492,7 @@ export class PenxDB extends Dexie {
 }
 
 export const db = new PenxDB()
+
+function formatToDate(date: Date): string {
+  return format(date, 'yyyy-MM-dd')
+}

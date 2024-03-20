@@ -73,9 +73,7 @@ export class NodeStore {
 
   getTodayNode = () => {
     let nodes = this.getNodes()
-    return nodes.find(
-      (node) => node.props.date === format(new Date(), 'yyyy-MM-dd'),
-    )!
+    return nodes.find((node) => node.date === format(new Date(), 'yyyy-MM-dd'))!
   }
 
   getRootNode = () => {
@@ -322,14 +320,14 @@ export class NodeStore {
 
     const nodes = this.getNodes()
     let dateNode = nodes.find(
-      (node) => node.type === NodeType.DAILY && node.props.date === dateStr,
+      (node) => node.type === NodeType.DAILY && node.date === dateStr,
     )
     const space = this.store.space.getActiveSpace()
 
     if (!dateNode) {
       dateNode = await db.createDailyNode({
         spaceId: space.id,
-        props: { date: dateStr },
+        date: dateStr,
       })
     }
 
