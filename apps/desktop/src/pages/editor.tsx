@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { get } from 'idb-keyval'
-import { useAtom } from 'jotai'
 import { useRouter } from 'next/router'
 import { EditorApp } from '@penx/app'
 import { PENX_SESSION_USER } from '@penx/constants'
 import { SessionProvider } from '@penx/session'
-import { MasterPasswordProvider } from '~/components/MasterPasswordLogin/MasterPasswordProvider'
+import { RecoveryPhraseLoginProvider } from '~/components/RecoveryPhraseLogin/RecoveryPhraseLoginProvider'
 
 export default function PageEditor() {
   const [loading, setLoading] = useState(true)
@@ -14,7 +13,6 @@ export default function PageEditor() {
 
   useEffect(() => {
     get(PENX_SESSION_USER).then((user) => {
-      console.log('======user:', user)
       if (!user) {
         push('/')
         // setLoading(false)
@@ -31,16 +29,20 @@ export default function PageEditor() {
     <SessionProvider
       value={{
         data: {
-          user,
           userId: user?.id,
           address: user?.address,
+          earlyAccessCode: user?.earlyAccessCode,
+          publicKey: user?.publicKey,
+          secret: user?.secret,
+          email: user?.email,
+          user,
         },
         loading,
       }}
     >
-      <MasterPasswordProvider>
+      <RecoveryPhraseLoginProvider>
         <EditorApp />
-      </MasterPasswordProvider>
+      </RecoveryPhraseLoginProvider>
     </SessionProvider>
   )
 }

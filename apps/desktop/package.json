@@ -24,6 +24,7 @@
     "@penx/app": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/hooks": "workspace:*",
+    "@penx/mnemonic": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/session": "workspace:*",

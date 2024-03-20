@@ -725,6 +725,9 @@ importers:
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db
+      '@penx/mnemonic':
+        specifier: workspace:*
+        version: link:../../packages/mnemonic
       '@penx/session':
         specifier: workspace:*
         version: link:../../packages/session

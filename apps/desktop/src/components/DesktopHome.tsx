@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Box } from '@fower/react'
 import { useRouter } from 'next/router'
-import { Button, Input } from 'uikit'
+import { Button, Input, Spinner } from 'uikit'
 import { useLoginByToken } from '@penx/hooks'
 import { Logo } from '@penx/widget'
 
@@ -9,6 +9,7 @@ export function DesktopHome() {
   const [token, setToken] = useState('')
   const { login } = useLoginByToken()
   const { push } = useRouter()
+  const [loading, setLoading] = useState(false)
 
   return (
     <Box bgWhite black bgGray900--dark minH-100vh pt4 w-100p>
@@ -37,7 +38,10 @@ export function DesktopHome() {
           <Button
             size="lg"
             w-100p
+            disabled={loading}
             onClick={async () => {
+              if (loading) return
+              setLoading(true)
               try {
                 await login(token)
                 push('/editor')
@@ -46,7 +50,8 @@ export function DesktopHome() {
               }
             }}
           >
-            Login
+            {loading && <Spinner white />}
+            <Box>Login</Box>
           </Button>
         </Box>
       </Box>

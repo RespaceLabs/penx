@@ -1,14 +1,18 @@
 import { createContext, useContext } from 'react'
 
 export interface Session {
+  userId: string
   address: string
+  earlyAccessCode: string
+  publicKey: string
+  secret: string
+  email: string
   user: {
     name: string
     email: string
     image: string
     id: string
   }
-  userId: string
 }
 
 export interface SessionContextValue {

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { ToastContainer } from 'uikit'
 import { appEmitter, initFower } from '@penx/app'
 import { PENX_SESSION_USER } from '@penx/constants'
-import { store } from '@penx/store'
+import { store, StoreProvider } from '@penx/store'
 import { TrpcProvider } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
 import '@glideapps/glide-data-grid/dist/index.css'
@@ -30,10 +30,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ClientOnly>
-      <TrpcProvider>
-        <ToastContainer position="bottom-right" />
-        <Component {...pageProps} />
-      </TrpcProvider>
+      <StoreProvider>
+        <TrpcProvider>
+          <ToastContainer position="bottom-right" />
+          <Component {...pageProps} />
+        </TrpcProvider>
+      </StoreProvider>
     </ClientOnly>
   )
 }

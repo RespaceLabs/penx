@@ -103,7 +103,7 @@ export class AppService {
 
       store.app.setAppLoading(false)
     } catch (error) {
-      console.log('===========error:', error)
+      console.log('===========app init error:', error)
       // TODO: fallback to old data
       store.app.setAppLoading(false)
     }
