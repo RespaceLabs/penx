@@ -5,6 +5,7 @@ import { Radio, RadioGroup, RadioIndicator } from 'uikit'
 type Option<T = any> = {
   label: ReactNode
   value: T
+  disabled?: boolean
 }
 
 interface Props {
@@ -19,7 +20,12 @@ export const BorderedRadioGroup = forwardRef<HTMLDivElement, Props>(
       <Box ref={ref}>
         <RadioGroup toCenterY w-100p gap6 value={value} onChange={onChange}>
           {options.map((option, index) => (
-            <Radio key={option.value} value={option.value} flex-1>
+            <Radio
+              key={option.value}
+              value={option.value}
+              disabled={option.disabled}
+              flex-1
+            >
               {({ checked }) => (
                 <Box
                   px={[12, 12, 24]}

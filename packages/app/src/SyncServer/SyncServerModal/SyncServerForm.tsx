@@ -45,8 +45,12 @@ export function SyncServerForm({}: Props) {
           <BorderedRadioGroup
             options={[
               { label: 'Public', value: SyncServerType.PUBLIC },
+              {
+                label: 'Private',
+                value: SyncServerType.PRIVATE,
+                disabled: true,
+              },
               { label: 'Official', value: SyncServerType.OFFICIAL },
-              { label: 'Private', value: SyncServerType.PRIVATE },
             ]}
             {...field}
             value={field.value}

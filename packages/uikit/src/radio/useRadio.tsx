@@ -28,6 +28,7 @@ export function useRadio(props: RadioProps): RadioHooksResult {
     const { value: radioGroupValue, setValue: setRadioGroupValue } = context
     inputProps.checked = value === radioGroupValue
     inputProps.onChange = (e) => {
+      if (props.disabled) return
       setRadioGroupValue?.(value)
       onChange && onChange(e)
     }
