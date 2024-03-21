@@ -39,3 +39,6 @@ key.ts
 
 # docker
 postgres
+
+# dotenv
+.env
