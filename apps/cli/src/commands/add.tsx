@@ -11,13 +11,6 @@ type Args = {
   text?: string[]
 }
 
-type Response<T> = {
-  success: boolean
-  data: T
-  errorCode: string
-  errorMessage: string
-}
-
 export function encryptByPublicKey(plainText: string, publicKey: string) {
   const data = Buffer.from(plainText)
   const encrypted = encrypt(publicKey, data)
@@ -28,43 +21,34 @@ export function encryptByPublicKey(plainText: string, publicKey: string) {
 export async function pushNodes(user: any, space: ISpace, nodes: INode[]) {
   const baseURL = space.syncServerUrl || ''
   const token = space.syncServerAccessToken || ''
-  const url = `${baseURL}/pushNodes`
+  const pushNodesURL = `${baseURL}/pushNodes`
+
   const publicKey = user.publicKey
   const encryptedNodes = nodes.map((node) => ({
     ...node,
+    spaceId: space.id,
     element: encryptByPublicKey(JSON.stringify(node.element), publicKey),
     props: encryptByPublicKey(JSON.stringify(node.props), publicKey),
   }))
 
-  console.log('=========url:', url, space.id)
+  try {
+    const res = await fetch(pushNodesURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        isTodayNode: true,
+        token: token,
+        spaceId: space.id,
+        nodes: encryptedNodes,
+      }),
+    })
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      isTodayNode: true,
-      token: token,
-      spaceId: space.id,
-      nodes: encryptedNodes,
-    }),
-  })
-
-  const json = await res.json()
-
-  console.log('========json:', json)
-
-  // if (res.success)
-  //   return {
-  //     time: res.data,
-  //   }
-
-  // if (res.errorCode === 'NODES_BROKEN') {
-  //   throw new Error(res.errorCode)
-  // }
-
-  // throw new Error('UNKNOWN_ERROR')
+    const json = await res.json()
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 class Command {
@@ -80,7 +64,6 @@ class Command {
   handler = async (args: ArgumentsCamelCase<Args>) => {
     const { text = [] } = args
     const textStr = text.join(' ').trim()
-    // console.log('=======textStr:', textStr)
     const config = readConfig()
     const node = createNodeFromText(textStr)
     await pushNodes(config.user, config.space as any, [node])
