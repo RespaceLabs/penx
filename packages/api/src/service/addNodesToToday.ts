@@ -44,11 +44,10 @@ export function addNodesToToday(input: AddNodesToTodayInput) {
 
       await tx.node.createMany({
         data: nodes.map((item) => {
-          const { openedAt, createdAt, updatedAt, ...rest } = item
+          const { createdAt, updatedAt, ...rest } = item
           return {
             ...rest,
             parentId: item.parentId || todayNode?.id,
-            openedAt: new Date(openedAt),
           }
         }),
       })

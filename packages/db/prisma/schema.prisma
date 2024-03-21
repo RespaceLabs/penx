@@ -200,7 +200,6 @@ model Node {
     folded     Boolean @default(true)
     children   Json?
 
-    openedAt  DateTime @default(now())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 

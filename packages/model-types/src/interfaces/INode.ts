@@ -60,8 +60,6 @@ export interface INode {
 
   date?: string
 
-  openedAt: Date
-
   createdAt: Date
 
   updatedAt: Date

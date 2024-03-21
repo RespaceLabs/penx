@@ -53,7 +53,6 @@ export async function runAgentSSE() {
           spaceId: space.id,
           children: isOutliner ? node.children : [],
           parentId: isOutliner ? node.parentId : undefined,
-          openedAt: new Date(node.openedAt),
           createdAt: new Date(node.createdAt),
           updatedAt: new Date(node.updatedAt),
         } as INode

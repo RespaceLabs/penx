@@ -27,7 +27,6 @@ export function getNewNode(input: Input, text = ''): INode {
     collapsed: false,
     folded: true,
     children: [],
-    openedAt: new Date(),
     createdAt: new Date(),
     updatedAt: new Date(),
     ...rest,
