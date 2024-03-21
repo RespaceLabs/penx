@@ -44,7 +44,7 @@ export default function CliLogin() {
             try {
               await api.cli.confirmLogin.mutate({ token })
             } catch (error) {
-              toast.error('please try again')
+              toast.error('please try again~')
             }
           }}
         >
