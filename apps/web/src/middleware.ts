@@ -12,7 +12,9 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/', req.url))
   }
 
-  const shouldLogin = ['/', '/dashboard', 'password'].includes(path)
+  const shouldLogin = ['/', '/dashboard', '/cli-login', '/password'].includes(
+    path,
+  )
 
   if (shouldLogin && !session) {
     return NextResponse.redirect(new URL('/login/web3', req.url))
@@ -22,5 +24,12 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/login/web3', '/login/web2', '/dashboard', '/s/(.*)'],
+  matcher: [
+    '/',
+    '/login/web3',
+    '/login/web2',
+    '/cli-login',
+    '/dashboard',
+    '/s/(.*)',
+  ],
 }

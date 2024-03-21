@@ -66,6 +66,15 @@ class Command {
     const textStr = text.join(' ').trim()
     const config = readConfig()
     const node = createNodeFromText(textStr)
+
+    if (!config.user || !config.token) {
+      console.log(
+        chalk.yellow('Please login first, try to login by command:'),
+        chalk.green('penx login'),
+      )
+      return
+    }
+
     await pushNodes(config.user, config.space as any, [node])
   }
 }

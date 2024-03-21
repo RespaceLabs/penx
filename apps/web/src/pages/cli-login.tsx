@@ -1,12 +1,15 @@
 import React from 'react'
 import { Box } from '@fower/react'
 import { useRouter } from 'next/router'
-import { Button, toast } from 'uikit'
-import { api } from '@penx/trpc-client'
+import { Button, Spinner, toast } from 'uikit'
+import { api, trpc } from '@penx/trpc-client'
 
 export default function CliLogin() {
   const { query, push } = useRouter()
   const token = (query?.token as string) || ''
+
+  const { isLoading: isCanceling, mutateAsync: cancel } =
+    trpc.cli.cancelLogin.useMutation()
 
   return (
     <Box p10 h-100vh toCenter column bgWhite black gap4>
@@ -20,18 +23,26 @@ export default function CliLogin() {
           variant="outline"
           colorScheme="white"
           w-160
-          onClick={() => {
-            console.log('close....')
-            window.close()
+          gap2
+          disabled={isCanceling}
+          onClick={async () => {
+            if (isCanceling) return
+            try {
+              await cancel({ token })
+              window.close()
+            } catch (error) {
+              toast.error('please try again')
+            }
           }}
         >
-          Cancel
+          {isCanceling && <Spinner square5></Spinner>}
+          <Box>Cancel</Box>
         </Button>
         <Button
           w-160
           onClick={async () => {
             try {
-              await api.user.confirmCLILogin.mutate({ token })
+              await api.cli.confirmLogin.mutate({ token })
             } catch (error) {
               toast.error('please try again')
             }

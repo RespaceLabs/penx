@@ -1,5 +1,5 @@
 import React from 'react'
-import fetch from 'node-fetch'
+import chalk from 'chalk'
 import yargs, { ArgumentsCamelCase } from 'yargs'
 import { render } from 'ink'
 import { nanoid } from 'nanoid'
@@ -40,22 +40,31 @@ class Command {
 
     while (true) {
       try {
-        const res = await fetch(`${baseURL}/api/cli-auth/get-status?token=${cliToken}`)
+        const { status } = trpc.cli.getLoginStatus.query({ token: cliToken })
 
-        const json = await res.json()
+        console.log('=======status:', status)
 
-        if (json?.status === CliLoginStatus.CONFIRMED) {
+        if (status === CliLoginStatus.CONFIRMED) {
           break
         }
 
-        await sleep(200)
+        if (status === CliLoginStatus.CANCELED) {
+          console.log('=========status:', status)
+
+          spinner.fail('Login canceled')
+          return
+          // break
+        }
+
+        await sleep(2000)
       } catch (error) {
         spinner.fail('Login failed, please try again')
-        break
+        // break
+        return
       }
     }
 
-    const { token, user } = await trpc.user.loginByCliToken.mutate(cliToken)
+    const { token, user } = await trpc.cli.loginByToken.mutate(cliToken)
     writeTokenToLocal(env as any, token, user)
 
     spinner.succeed('Login successfully')

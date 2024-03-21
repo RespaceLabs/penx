@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { z } from 'zod'
 import { createSpace, CreateSpaceInput } from '../service/createSpace'
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
+import { createTRPCRouter, protectedProcedure } from '../trpc'
 
 export const spaceRouter = createTRPCRouter({
   mySpaces: protectedProcedure.query(async ({ ctx }) => {
