@@ -49,14 +49,10 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@chainlink/contracts": "^0.6.1",
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
-    "@openzeppelin/contracts": "^5.0.1",
+    "@openzeppelin/contracts": "^5.0.2",
     "@types/ethereumjs-abi": "^0.6.5",
     "@uniswap/hardhat-v3-deploy": "^0.1.1",
-    "@uniswap/v3-core": "^1.0.1",
-    "@uniswap/v3-periphery": "^1.4.4",
-    "@wagmi/cli": "^2.1.0",
     "big.js": "^6.2.1",
     "cross-env": "^7.0.3",
     "ethereumjs-abi": "^0.6.8",
