@@ -48,9 +48,12 @@ export function SyncServerForm({}: Props) {
               {
                 label: 'Private',
                 value: SyncServerType.PRIVATE,
+              },
+              {
+                label: 'Official',
+                value: SyncServerType.OFFICIAL,
                 disabled: true,
               },
-              { label: 'Official', value: SyncServerType.OFFICIAL },
             ]}
             {...field}
             value={field.value}
