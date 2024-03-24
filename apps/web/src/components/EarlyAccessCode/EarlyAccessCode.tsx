@@ -66,7 +66,7 @@ export const EarlyAccessCode = () => {
         )}
       />
 
-      <Box toCenterY gap2 toCenterX>
+      <Box toCenterY toCenterX>
         <Button
           type="submit"
           size={56}

@@ -6,7 +6,7 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
   return {
     id: uniqueId(),
     userId: '',
-    editorMode: EditorMode.OUTLINER,
+    editorMode: EditorMode.BLOCK,
     name: 'My Space',
     sort: 1,
     // version: 0,

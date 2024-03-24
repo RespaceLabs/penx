@@ -1,5 +1,4 @@
 import { FC, PropsWithChildren, useEffect, useRef, useState } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
 import { Spinner } from 'uikit'
@@ -8,7 +7,7 @@ import { db } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
 import { appLoadingAtom, spacesAtom, store, StoreProvider } from '@penx/store'
 import { api } from '@penx/trpc-client'
-import { CreateSpaceForm } from './Workbench/CreateSpaceModal/CreateSpaceForm'
+import { CreateFirstSpaceForm } from './Workbench/CreateFirstSpaceForm/CreateFirstSpaceForm'
 
 interface Props {
   userId: string
@@ -85,12 +84,7 @@ export const SpaceSyncManager = ({
   if (!spaces.length) {
     return (
       <Box h-90vh toCenter>
-        <Box w-400>
-          <Box fontSemibold text3XL mb4>
-            Create new space
-          </Box>
-          <CreateSpaceForm showCancel={false} />
-        </Box>
+        <CreateFirstSpaceForm />
       </Box>
     )
   }

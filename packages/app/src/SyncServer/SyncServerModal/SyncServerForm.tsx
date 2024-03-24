@@ -1,7 +1,7 @@
 import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
 import { Button, Input, ModalClose, Spinner, useModalContext } from 'uikit'
-import { SyncServerType } from '@penx/constants'
+import { isProd, SyncServerType } from '@penx/constants'
 import { trpc } from '@penx/trpc-client'
 import { BorderedRadioGroup } from '../../components/BorderedRadioGroup'
 import { SyncServerModalData, useSyncServerForm } from './useSyncServerForm'
@@ -52,7 +52,7 @@ export function SyncServerForm({}: Props) {
               {
                 label: 'Official',
                 value: SyncServerType.OFFICIAL,
-                disabled: true,
+                disabled: isProd,
               },
             ]}
             {...field}
