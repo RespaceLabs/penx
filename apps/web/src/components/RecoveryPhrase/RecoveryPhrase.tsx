@@ -25,7 +25,7 @@ export const RecoveryPhrase: FC<Props> = () => {
   const words = mnemonic.split(' ')
 
   return (
-    <Box column maxW-450 gap2>
+    <Box column maxW-640 gap2>
       <Box mb4>
         <Box text4XL fontBold textCenter>
           Recovery Phrase
@@ -81,9 +81,9 @@ export const RecoveryPhrase: FC<Props> = () => {
           <Box>Copy to clipboard</Box>
         </Button>
       </Box>
-      {/* <Box toCenterY gap2>
+      <Box toCenterY gap2>
         <PasswordOnChain />
-      </Box> */}
+      </Box>
     </Box>
   )
 }

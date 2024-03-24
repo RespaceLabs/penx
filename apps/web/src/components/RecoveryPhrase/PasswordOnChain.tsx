@@ -81,7 +81,7 @@ export const PasswordOnChain: FC<Props> = () => {
           <ArrowUp></ArrowUp>
           <Box column gap1 toLeft>
             <Box textBase fontSemibold>
-              Store password
+              Store Recovery Phrase
             </Box>
             <Box textXS fontLight>
               Store current password to blockchain
@@ -98,7 +98,7 @@ export const PasswordOnChain: FC<Props> = () => {
           <Redo></Redo>
           <Box column gap1 toLeft>
             <Box textBase fontSemibold>
-              Recover password
+              Recover Recovery Phrase
             </Box>
             <Box textXS fontLight>
               Recover password from blockchain
