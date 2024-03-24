@@ -1,10 +1,13 @@
 import { FC, useState } from 'react'
 import { Box } from '@fower/react'
 import { useSession } from 'next-auth/react'
+import { useAccount, useReadContract, useSignMessage } from 'wagmi'
 import { Button, Input, InputElement, InputGroup, Spinner, toast } from 'uikit'
+import { passwordManagerAbi } from '@penx/abi'
+import { decryptString } from '@penx/encryption'
 import { getPublicKey, setMnemonicToLocal } from '@penx/mnemonic'
 import { store } from '@penx/store'
-import { api } from '@penx/trpc-client'
+import { addressMap } from '@penx/wagmi'
 
 interface Props {
   refetch: any
@@ -13,6 +16,14 @@ interface Props {
 export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
   const { data } = useSession()
   const [mnemonic, setMnemonic] = useState('')
+  const { signMessageAsync } = useSignMessage()
+  const { isConnected, address } = useAccount()
+  const { data: recoveryPhraseData = '', error } = useReadContract({
+    address: addressMap.PasswordManager,
+    abi: passwordManagerAbi,
+    functionName: 'getPassword',
+    account: address,
+  })
 
   async function confirm() {
     if (!mnemonic) return toast.error('Please enter your recovery phrase')
@@ -27,8 +38,25 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
     await refetch()
   }
 
+  async function recoverPassword() {
+    if (!data) return alert('Not data from blockchain')
+    try {
+      const signature = await signMessageAsync({ message: address! })
+      const recoverPhrase = decryptString(recoveryPhraseData, signature)
+
+      if (recoverPhrase) {
+        setMnemonic(recoverPhrase)
+      } else {
+        // TODO: handle error
+        toast.error('Restore recovery phrase failed')
+      }
+    } catch (error) {
+      toast.error('Restore recovery phrase failed')
+    }
+  }
+
   return (
-    <Box column gap8 w={['100%', 500, 700]}>
+    <Box column gap8 w={['100%', 600, 800]}>
       <Box>
         <Box text4XL fontBold textCenter>
           Recovery Phrase
@@ -38,7 +66,7 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
         </Box>
       </Box>
 
-      <InputGroup>
+      <InputGroup zIndex-10>
         <Input
           size={56}
           flex-1
@@ -54,14 +82,22 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
           }}
         />
 
-        {/* {!isLoading && !isNewUser && (
-          <InputElement w-190>
-            <Button variant="light" size="lg" w-180 roundedFull column gap-2>
-              <Box textSM>Recover</Box>
-              <Box text-10>Recover from blockchain</Box>
-            </Button>
-          </InputElement>
-        )} */}
+        <InputElement w-210>
+          <Button
+            variant="light"
+            size="lg"
+            w-200
+            roundedFull
+            column
+            gap-2
+            onClick={() => {
+              recoverPassword()
+            }}
+          >
+            <Box textSM>Restore recover phrase</Box>
+            <Box text-10>Restore recover phrase from blockchain</Box>
+          </Button>
+        </InputElement>
       </InputGroup>
 
       <Box toCenterY gap2 toCenterX>

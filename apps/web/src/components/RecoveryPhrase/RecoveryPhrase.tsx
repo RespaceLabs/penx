@@ -33,9 +33,9 @@ export const RecoveryPhrase: FC<Props> = () => {
       </Box>
 
       <Box bgZinc100 p5 relative rounded2XL toBetween toCenterY gap2>
-        <Box toCenterY gapY4 flexWrap toBetween>
+        <Box gapY4 grid gridTemplateColumns-3 w-100p>
           {words.map((word, index) => (
-            <Box key={word} w-120 gap1 toCenterY textBase>
+            <Box key={word} gap1 toCenterY textBase flex-1>
               <Box>{index + 1}.</Box>
               <Box>{word}</Box>
             </Box>
@@ -82,7 +82,7 @@ export const RecoveryPhrase: FC<Props> = () => {
         </Button>
       </Box>
       <Box toCenterY gap2>
-        <PasswordOnChain />
+        <PasswordOnChain mnemonic={mnemonic} />
       </Box>
     </Box>
   )
