@@ -248,6 +248,15 @@ export const userRouter = createTRPCRouter({
       })
     }),
 
+  updateMnemonicBackupStatus: protectedProcedure
+    .input(z.boolean())
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.user.update({
+        where: { id: ctx.token.uid },
+        data: { isMnemonicBackedUp: input },
+      })
+    }),
+
   isEarlyAccessCodeValid: protectedProcedure
     .input(
       z.object({

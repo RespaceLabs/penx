@@ -15,7 +15,7 @@ const PagePassword = () => {
       }}
     >
       <Box h-100vh toCenter>
-        <RecoveryPhrase></RecoveryPhrase>
+        <RecoveryPhrase />
       </Box>
     </SessionProvider>
   )

@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react'
 import { Button, Input, toast } from 'uikit'
 import { getMnemonicFromLocal, getNewMnemonic } from '@penx/mnemonic'
 import { useCopyToClipboard } from '@penx/shared'
+import { HaveBackedUpButton } from './HaveBackedUpButton'
 import { PasswordOnChain } from './PasswordOnChain'
 
 interface Props {}
@@ -81,8 +82,9 @@ export const RecoveryPhrase: FC<Props> = () => {
           <Box>Copy to clipboard</Box>
         </Button>
       </Box>
-      <Box toCenterY gap2>
+      <Box toCenter gap4 column>
         <PasswordOnChain mnemonic={mnemonic} />
+        <HaveBackedUpButton />
       </Box>
     </Box>
   )
