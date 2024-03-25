@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/PasswordManager.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\n\ncontract PasswordManager {\n  mapping(address => string) private passwords;\n\n  function setPassword(string memory message) external {\n    passwords[msg.sender] = message;\n  }\n\n  function getPassword(address account) external view returns (string memory) {\n    return passwords[account];\n  }\n}\n"
+    }
+  },
+  "settings": {
+    "viaIR": false,
+    "optimizer": {
+      "enabled": true,
+      "runs": 4294967295
+    },
+    "evmVersion": "paris",
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": ["ast"]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

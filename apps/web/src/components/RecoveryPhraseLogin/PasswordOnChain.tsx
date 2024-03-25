@@ -23,7 +23,7 @@ export const PasswordOnChain: FC<Props> = () => {
     address: addressMap.PasswordManager,
     abi: passwordManagerAbi,
     functionName: 'getPassword',
-    account: address,
+    args: [address!],
   })
 
   const { writeContractAsync } = useWriteContract()

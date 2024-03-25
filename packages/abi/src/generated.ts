@@ -4629,7 +4629,7 @@ export const passwordManagerAbi = [
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [],
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
     name: 'getPassword',
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },

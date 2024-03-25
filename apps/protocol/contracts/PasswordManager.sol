@@ -8,7 +8,7 @@ contract PasswordManager {
     passwords[msg.sender] = message;
   }
 
-  function getPassword() external view returns (string memory) {
-    return passwords[msg.sender];
+  function getPassword(address account) external view returns (string memory) {
+    return passwords[account];
   }
 }
