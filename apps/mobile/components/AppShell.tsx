@@ -1,42 +1,57 @@
-'use client';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { StatusBar, Style } from '@capacitor/status-bar';
-import { IonReactRouter } from '@ionic/react-router';
-import { Route } from 'react-router-dom';
+'use client'
 
-import Tabs from './pages/Tabs';
-import { DesktopHome } from './ui/DesktopHome';
-import { StoreProvider } from '@penx/store';
-import { TrpcProvider } from '@penx/trpc-client';
+import { useEffect, useState } from 'react'
+import { Route } from 'react-router-dom'
+import { StatusBar, Style } from '@capacitor/status-bar'
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react'
+import { IonReactRouter } from '@ionic/react-router'
+import { get, set } from 'idb-keyval'
+import { PENX_SESSION_USER } from '@penx/constants'
+import { StoreProvider } from '@penx/store'
+import { TrpcProvider } from '@penx/trpc-client'
+import Tabs from './pages/Tabs'
+import { ClientOnly } from './ui/ClientOnly'
+import { DesktopHome } from './ui/DesktopHome'
+import MobileEditor from './ui/MobileEditor'
 
-setupIonicReact({});
+setupIonicReact({})
 
 window
   .matchMedia('(prefers-color-scheme: dark)')
-  .addEventListener('change', async status => {
+  .addEventListener('change', async (status) => {
     try {
       await StatusBar.setStyle({
         style: status.matches ? Style.Dark : Style.Light,
-      });
+      })
     } catch {}
-  });
+  })
 
 const AppShell = () => {
-  return (
-    <StoreProvider>
-      <TrpcProvider>
-        <IonApp>
-          <IonReactRouter>
-            <IonRouterOutlet id="main">
-              {/* <Route path="/" render={() => <Tabs />} /> */}
-              <div>GOGO</div>
-              <DesktopHome></DesktopHome>
-            </IonRouterOutlet>
-          </IonReactRouter>
-        </IonApp>
-      </TrpcProvider>
-    </StoreProvider>
-  );
-};
+  const [isLogin, setIsLogin] = useState(false)
+  useEffect(() => {
+    get(PENX_SESSION_USER).then((data) => {
+      setIsLogin(!!data)
+    })
+  }, [])
 
-export default AppShell;
+  console.log('======isLogin:', isLogin)
+
+  return (
+    <ClientOnly>
+      <StoreProvider>
+        <TrpcProvider>
+          <IonApp>
+            {/* <IonReactRouter>
+            <IonRouterOutlet id="main"></IonRouterOutlet>
+          </IonReactRouter> */}
+
+            {!isLogin && <DesktopHome />}
+            {isLogin && <MobileEditor />}
+          </IonApp>
+        </TrpcProvider>
+      </StoreProvider>
+    </ClientOnly>
+  )
+}
+
+export default AppShell
