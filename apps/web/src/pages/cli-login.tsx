@@ -11,6 +11,9 @@ export default function CliLogin() {
   const { isLoading: isCanceling, mutateAsync: cancel } =
     trpc.cli.cancelLogin.useMutation()
 
+  const { isLoading: isConfirming, mutateAsync: confirm } =
+    trpc.cli.confirmLogin.useMutation()
+
   return (
     <Box p10 h-100vh toCenter column bgWhite black gap4>
       <Box text3XL fontBold>
@@ -40,15 +43,18 @@ export default function CliLogin() {
         </Button>
         <Button
           w-160
+          disabled={isConfirming}
           onClick={async () => {
             try {
-              await api.cli.confirmLogin.mutate({ token })
+              await confirm({ token })
+              toast.error('CLI login successfully')
             } catch (error) {
               toast.error('please try again~')
             }
           }}
         >
-          Authorize CLI login
+          {isConfirming && <Spinner square5></Spinner>}
+          <Box>Authorize CLI login</Box>
         </Button>
       </Box>
     </Box>

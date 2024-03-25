@@ -39,6 +39,7 @@ export const cliRouter = createTRPCRouter({
     .input(z.object({ token: z.string() }))
     .query(async ({ ctx, input }) => {
       const value = await redis.get(getKey(input.token))
+
       if (!value) return { status: CliLoginStatus.INIT }
 
       return { status: JSON.parse(value).status }
@@ -60,7 +61,6 @@ export const cliRouter = createTRPCRouter({
   cancelLogin: protectedProcedure
     .input(z.object({ token: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      console.log('cancel login===================')
       await redis.set(
         `cli-login:${input.token}`,
         JSON.stringify({

@@ -34,7 +34,6 @@ export const Workbench = () => {
   }
 
   const user = useUser()
-  console.log('=======user:', user)
 
   const SIDEBAR_WIDTH = 260
   // const SIDEBAR_WIDTH = 600

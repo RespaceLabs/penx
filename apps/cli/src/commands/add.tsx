@@ -6,6 +6,7 @@ import { INode } from '../types/INode'
 import { ISpace } from '../types/ISpace'
 import { readConfig } from '../utils'
 import { createNodeFromText } from '../createNodeFromText'
+import { selectSpace } from '../selectSpace'
 
 type Args = {
   text?: string[]
@@ -73,6 +74,10 @@ class Command {
         chalk.green('penx login'),
       )
       return
+    }
+
+    if (!config.space) {
+      await selectSpace()
     }
 
     await pushNodes(config.user, config.space as any, [node])

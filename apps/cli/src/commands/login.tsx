@@ -40,7 +40,7 @@ class Command {
 
     while (true) {
       try {
-        const { status } = trpc.cli.getLoginStatus.query({ token: cliToken })
+        const { status } = await trpc.cli.getLoginStatus.query({ token: cliToken })
 
         console.log('=======status:', status)
 
