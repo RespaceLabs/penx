@@ -1,5 +1,6 @@
 import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
+import { useSession } from 'next-auth/react'
 import { Button, Input, InputGroup, Spinner } from 'uikit'
 import { useAccessCodeForm } from './useAccessCodeForm'
 
@@ -7,6 +8,9 @@ export const EarlyAccessCode = () => {
   const form = useAccessCodeForm()
   const { control, formState, loading } = form
   const { isValid } = formState
+  const { data } = useSession()
+
+  const account = data?.address || data?.email
 
   return (
     <Box as="form" onSubmit={form.onSubmit} column gap8 w={['100%', 400, 520]}>
@@ -33,9 +37,15 @@ export const EarlyAccessCode = () => {
             channel to enter:{' '}
           </Box>
 
-          <Box mt2>
-            <Box black bgGray100 inlineFlex px4 py2 roundedFull>
+          <Box mt2 gap2>
+            <Box black bgGray100 inlineFlex px4 py2 roundedFull mb2>
               /code
+            </Box>
+
+            <Box>
+              <Box inlineFlex black py0 mb2>
+                {data?.address ? 'Wallet Address' : 'Email'}: {account}
+              </Box>
             </Box>
           </Box>
         </Box>
