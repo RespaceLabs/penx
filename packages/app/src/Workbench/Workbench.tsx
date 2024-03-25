@@ -6,7 +6,7 @@ import { useAtomValue } from 'jotai'
 import { MenuIcon } from 'lucide-react'
 import { EDITOR_NAV_WIDTH } from '@penx/constants'
 import { EditorProvider } from '@penx/editor'
-import { useSpaces } from '@penx/hooks'
+import { useSpaces, useUser } from '@penx/hooks'
 import { useSession } from '@penx/session'
 import { routerAtom } from '@penx/store'
 import { Fallback } from '../Fallback/Fallback'
@@ -14,6 +14,7 @@ import { CommandPanel } from '../Palette'
 import { SyncServer } from '../SyncServer/SyncServer'
 import { TaskBoard } from '../TaskBoard'
 import { AccountSettings } from './AccountSettings/AccountSettings'
+import { BackupMnemonicTips } from './BackupMnemonicTips'
 import { MobileNav } from './NodeNav/MobileNav'
 import { NodePanels } from './NodePanels'
 import { PageTodo } from './PageTodo/PageTodo'
@@ -31,10 +32,16 @@ export const Workbench = () => {
   const handleViewSidebar = () => {
     setSideBarOpen(!sidebarOpen)
   }
+
+  const user = useUser()
+  console.log('=======user:', user)
+
   const SIDEBAR_WIDTH = 260
   // const SIDEBAR_WIDTH = 600
 
   // console.log('router name==========:', name)
+
+  const isBackedUp = user.isMnemonicBackedUp
 
   if (!activeSpace) return null
 
@@ -43,7 +50,9 @@ export const Workbench = () => {
       {session && <QueryCloudSpaces />}
 
       {!isMobile && <CommandPanel />}
-      <Box h-100vh toLeft black flex-1>
+      <Box h-100vh toLeft black flex-1 relative>
+        {!isBackedUp && <BackupMnemonicTips />}
+
         <Box toLeft>
           <Box
             w={sidebarOpen ? [0, 0, SIDEBAR_WIDTH] : 0}

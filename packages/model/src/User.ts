@@ -56,6 +56,10 @@ export class User {
     return !!this.repo
   }
 
+  get isMnemonicBackedUp() {
+    return this.raw.isMnemonicBackedUp
+  }
+
   get isAdmin() {
     return this.raw.roleType === RoleType.ADMIN
   }
