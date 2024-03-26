@@ -84,6 +84,6 @@ class Command {
   }
 }
 
-const add = new Command()
+const command = new Command()
 
-export default add
+export default command
