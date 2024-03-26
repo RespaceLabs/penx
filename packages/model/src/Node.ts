@@ -200,8 +200,7 @@ export class Node {
 
   get isToday() {
     const today = format(new Date(), 'yyyy-MM-dd')
-    const nodeDate = format(new Date(this.createdAt), 'yyyy-MM-dd')
-    return today === nodeDate
+    return today === this.date
   }
 
   get createdAt() {

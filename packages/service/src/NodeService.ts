@@ -22,6 +22,8 @@ export class NodeService {
 
   childrenNodes: Node[] = []
 
+  private date: string
+
   constructor(
     private node: Node,
     public allNodes: Node[],
@@ -34,6 +36,15 @@ export class NodeService {
       this.childrenNodes = node.raw.children.map((id) => {
         return new Node(this.nodeMap.get(id)!)
       })
+    }
+
+    const parentNodes = this.getParentNodes()
+
+    if (parentNodes.length > 1 && parentNodes[0].isDailyRoot) {
+      const dateNode = parentNodes[1]
+      if (dateNode) {
+        this.date = dateNode.date || ''
+      }
     }
   }
 
@@ -100,7 +111,10 @@ export class NodeService {
     if (this.node.isDatabase) {
       if (!this.node.isTodoDatabase) {
         node = await db.updateNode(node.id, {
-          props: { ...node.props, name: SlateNode.string(title) },
+          props: {
+            ...node.props,
+            name: SlateNode.string(title),
+          },
         })
       }
     } else {
@@ -110,7 +124,10 @@ export class NodeService {
       if (oldHash !== newHash) {
         console.log('==title==oldHash:', oldHash)
 
-        node = await db.updateNode(node.id, { element: title.children })
+        node = await db.updateNode(node.id, {
+          element: title.children,
+          date: this.date,
+        })
       }
     }
 
@@ -201,6 +218,7 @@ export class NodeService {
           const newNode = await db.updateNode(item.id, {
             element: [item],
             children: [], // TODO:
+            date: this.date,
           })
 
           const node = new Node(newNode)
@@ -208,6 +226,7 @@ export class NodeService {
             const nodeService = new NodeService(node, this.allNodes)
 
             let sourceId = ''
+
             const parentNodes = nodeService.getParentNodes()
             if (parentNodes.length) {
               if (parentNodes[0].isDailyRoot) {
@@ -242,6 +261,7 @@ export class NodeService {
             spaceId: this.spaceId,
             element: [item],
             children: [], // TODO:
+            date: this.date,
           })
 
           await this.saveOutlinerNodes(item.id, item as any, false)
@@ -252,6 +272,7 @@ export class NodeService {
             spaceId: this.spaceId,
             element: [item],
             children: [], // TODO:
+            date: this.date,
           })
         }
 
@@ -297,6 +318,7 @@ export class NodeService {
       // update root node's children
       await db.updateNode(parentId, {
         children: childrenForCurrentNode,
+        date: this.date,
       })
     }
 
@@ -360,6 +382,7 @@ export class NodeService {
             element,
             collapsed: !!item.collapsed,
             children,
+            date: this.date,
           }
 
           const newNode = await db.updateNode(item.id, updateData)
@@ -399,6 +422,7 @@ export class NodeService {
           collapsed: !!item.collapsed,
           element,
           children,
+          date: this.date,
         })
 
         const node = new Node(newNode)

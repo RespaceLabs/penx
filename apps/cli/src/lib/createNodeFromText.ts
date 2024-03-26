@@ -14,6 +14,7 @@ export function createNodeFromText(text = ''): INode {
 
     props: {},
     collapsed: false,
+    date: '',
     folded: true,
     children: [],
     createdAt: new Date(),
