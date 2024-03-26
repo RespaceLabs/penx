@@ -16,7 +16,7 @@ export function useCreateSpaceForm() {
   const form = useForm<CreateSpaceValues>({
     defaultValues: {
       name: '',
-      editorMode: EditorMode.BLOCK,
+      editorMode: EditorMode.OUTLINER,
     },
   })
 

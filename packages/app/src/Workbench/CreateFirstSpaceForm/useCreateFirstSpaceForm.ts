@@ -26,7 +26,7 @@ export function useCreateFirstSpaceForm() {
 
     const newSpace = getNewSpace({
       userId,
-      editorMode: EditorMode.BLOCK,
+      editorMode: EditorMode.OUTLINER,
       name: data.name,
     })
 
