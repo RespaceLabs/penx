@@ -5,9 +5,9 @@ import { render } from 'ink'
 import { nanoid } from 'nanoid'
 import open from 'open'
 import ora from 'ora'
-import { sleep, getBaseURL, writeTokenToLocal } from '../utils'
+import { sleep, getBaseURL, writeTokenToLocal } from '../lib/utils'
 import { LoginSuccess } from '../ui/LoginSuccess'
-import { getTRPC } from '../trpc'
+import { getTRPC } from '../lib/trpc'
 
 type Args = {
   env?: string[]
@@ -42,14 +42,14 @@ class Command {
       try {
         const { status } = await trpc.cli.getLoginStatus.query({ token: cliToken })
 
-        console.log('=======status:', status)
+        // console.log('=======status:', status)
 
         if (status === CliLoginStatus.CONFIRMED) {
           break
         }
 
         if (status === CliLoginStatus.CANCELED) {
-          console.log('=========status:', status)
+          // console.log('=========status:', status)
 
           spinner.fail('Login canceled')
           return

@@ -1,5 +1,5 @@
 import { getTRPC } from './trpc'
-import { Space } from './types'
+import { Space } from '../types'
 import { select } from '@inquirer/prompts'
 import { writeConfig } from './utils'
 

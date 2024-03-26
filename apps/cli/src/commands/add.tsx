@@ -1,12 +1,12 @@
 import yargs, { ArgumentsCamelCase } from 'yargs'
-import { decrypt, encrypt } from 'eciesjs'
+import { encrypt } from 'eciesjs'
 import chalk from 'chalk'
 import fetch from 'node-fetch'
 import { INode } from '../types/INode'
 import { ISpace } from '../types/ISpace'
-import { readConfig } from '../utils'
-import { createNodeFromText } from '../createNodeFromText'
-import { selectSpace } from '../selectSpace'
+import { readConfig } from '../lib/utils'
+import { selectSpace } from '../lib/selectSpace'
+import { createNodeFromText } from '../lib/createNodeFromText'
 
 type Args = {
   text?: string[]

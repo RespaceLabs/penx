@@ -50,7 +50,7 @@ export const Workbench = () => {
 
       {!isMobile && <CommandPanel />}
       <Box h-100vh toLeft black flex-1 relative>
-        {!isBackedUp && <BackupMnemonicTips />}
+        {!isBackedUp && name === 'NODE' && <BackupMnemonicTips />}
 
         <Box toLeft>
           <Box

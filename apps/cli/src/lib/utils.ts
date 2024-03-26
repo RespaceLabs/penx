@@ -1,7 +1,7 @@
 import os from 'os'
 import { join } from 'path'
 import jetpack from 'fs-jetpack'
-import { Env, User, Config } from './types'
+import { Env, User, Config } from '../types'
 
 const PENX_DIRNAME = '.penx'
 const CONFIG_FILE_NAME = 'config.json'

@@ -1,5 +1,5 @@
 import yargs, { ArgumentsCamelCase } from 'yargs'
-import { selectSpace } from '../selectSpace'
+import { selectSpace } from '../lib/selectSpace'
 
 type Args = {
   env?: string[]

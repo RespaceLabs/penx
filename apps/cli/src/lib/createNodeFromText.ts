@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { INode } from './types/INode'
+import { INode } from '../types/INode'
 export function createNodeFromText(text = ''): INode {
   return {
     id: uuidv4(),
