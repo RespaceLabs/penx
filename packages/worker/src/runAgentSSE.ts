@@ -3,8 +3,7 @@ import { isProd, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { EditorMode, INode } from '@penx/model-types'
 
-// const url = 'http://localhost:65432/agent-sse'
-const agentHost = 'http://127.0.0.1:65432'
+const agentHost = 'http://127.0.0.1:31415'
 const sseURL = `${agentHost}/agent-sse`
 const addNodesSuccessfullyURL = `${agentHost}/add-nodes-successfully`
 
@@ -33,13 +32,15 @@ async function isAgentAlive() {
 
 export async function runAgentSSE() {
   const isAlive = await isAgentAlive()
+  console.log('=====isAlive:', isAlive)
+
   if (!isAlive) return
 
   const eventSource = new EventSource(sseURL)
   // console.info('Listening on SEE', eventSource)
   eventSource.onmessage = async (ev) => {
     const event: Event = JSON.parse(ev.data)
-    // console.log('===event:', event)
+    console.log('===event:', event)
 
     if (event.eventType === EventType.ADD_NODES) {
       const space = await db.getActiveSpace()
@@ -47,6 +48,8 @@ export async function runAgentSSE() {
 
       const newNodes = event.data.map((item: any) => {
         const node = JSON.parse(item.nodeData) as INode
+
+        console.log('==========node:', node)
 
         return {
           ...node,

@@ -28,6 +28,7 @@
     "body-parser": "^1.20.2",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
+    "cron": "^3.1.6",
     "eciesjs": "^0.4.6",
     "express": "^4.19.2",
     "fs-jetpack": "^5.0.0",

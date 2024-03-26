@@ -48,8 +48,8 @@ class Command {
     const serverFile = join(__dirname, '..', 'server.js')
     const server = spawn('node', [serverFile], {
       detached: true,
-      stdio: 'ignore',
-      // stdio: 'pipe',
+      // stdio: 'ignore',
+      stdio: 'pipe',
     })
 
     server.stdout?.on('data', (data) => {

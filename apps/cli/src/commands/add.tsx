@@ -81,6 +81,7 @@ class Command {
     }
 
     const isAdded = await this.addTextByAgent(textStr)
+
     if (isAdded) return
 
     const node = createNodeFromText(textStr)
@@ -89,7 +90,6 @@ class Command {
 
   private async addTextByAgent(textStr: string) {
     const url = `http://localhost:${PORT}/add-text`
-    console.log('textStr======', textStr, url)
 
     try {
       const response = await fetch(url, {

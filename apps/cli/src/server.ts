@@ -4,6 +4,7 @@ import cors from 'cors'
 import { EventEmitter } from 'events'
 import { AddTextEvent, EventType, PORT } from './constants'
 import { nodeService } from './lib/NodeService'
+import { CronJob } from 'cron'
 
 EventEmitter.defaultMaxListeners = 1000
 
@@ -34,11 +35,6 @@ async function run() {
     }
 
     const text = method === 'POST' ? req.body.text : req.query['text']
-
-    console.log('========text:', text)
-
-    res.json({ success: false })
-    return
 
     nodeService.addText(text)
 
@@ -107,6 +103,16 @@ async function run() {
   app.listen(PORT, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`)
   })
+
+  const job = new CronJob(
+    '*/10 * * * * *', // ten seconds
+    function () {
+      console.log('You will see this message every second')
+    }, // onTick
+    null, // onComplete
+    true, // start
+    'America/Los_Angeles', // timeZone
+  )
 }
 
 run()
