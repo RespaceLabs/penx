@@ -7,6 +7,7 @@ import { ISpace } from '../types/ISpace'
 import { readConfig } from '../lib/utils'
 import { selectSpace } from '../lib/selectSpace'
 import { createNodeFromText } from '../lib/createNodeFromText'
+import { PORT } from '../constants'
 
 type Args = {
   text?: string[]
@@ -66,7 +67,6 @@ class Command {
     const { text = [] } = args
     const textStr = text.join(' ').trim()
     const config = readConfig()
-    const node = createNodeFromText(textStr)
 
     if (!config.user || !config.token) {
       console.log(
@@ -80,7 +80,40 @@ class Command {
       await selectSpace()
     }
 
+    const isAdded = await this.addTextByAgent(textStr)
+    if (isAdded) return
+
+    const node = createNodeFromText(textStr)
     await pushNodes(config.user, config.space as any, [node])
+  }
+
+  private async addTextByAgent(textStr: string) {
+    const url = `http://localhost:${PORT}/add-text`
+    console.log('textStr======', textStr, url)
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: textStr,
+        }),
+      })
+
+      await response.json()
+      return true
+    } catch (error: any) {
+      if (error.code === 'ECONNREFUSED') {
+        console.error(chalk.red('PenX agent is not running'))
+      }
+      return false
+    }
+  }
+
+  private addTextBySyncServer() {
+    //
   }
 }
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import yargs from 'yargs/yargs'
+import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import command from './commands/add'
 import login from './commands/login'
@@ -15,4 +15,5 @@ yargs(hideBin(process.argv))
   .command(whoami)
   .alias('version', 'v')
   .describe('version', 'Show version information')
+  .demandCommand(1)
   .parse()

@@ -1,12 +1,6 @@
-import os from 'os'
-import { join } from 'path'
 import jetpack from 'fs-jetpack'
 import { Env, User, Config } from '../types'
-
-const PENX_DIRNAME = '.penx'
-const CONFIG_FILE_NAME = 'config.json'
-
-const configPath = join(os.homedir(), PENX_DIRNAME, CONFIG_FILE_NAME)
+import { configPath } from '../constants'
 
 export function getBaseURL(env: Env): string {
   if (env === 'local') return 'http://localhost:3000'

@@ -1,4 +1,5 @@
 import yargs, { ArgumentsCamelCase } from 'yargs'
+import fetch from 'node-fetch'
 import { spawn } from 'child_process'
 import { join } from 'path'
 import { killPortProcess } from 'kill-port-process'
@@ -27,26 +28,62 @@ class Command {
     if (!cmd) return
 
     if (cmd === AgentCommand.start) {
-      this.startServer()
+      await this.startServer()
     }
 
     if (cmd === AgentCommand.stop) {
       await this.stopServer()
     }
+
+    if (cmd === AgentCommand.restart) {
+      await this.restartServer()
+    }
   }
 
-  private startServer() {
+  private async startServer() {
+    const running = await this.isServerRunning()
+
+    if (running) return
+
     const serverFile = join(__dirname, '..', 'server.js')
-    const child = spawn('node', [serverFile], {
+    const server = spawn('node', [serverFile], {
       detached: true,
       stdio: 'ignore',
+      // stdio: 'pipe',
     })
 
-    child.unref()
+    server.stdout?.on('data', (data) => {
+      const log = data.toString()
+      console.log(log)
+    })
+
+    server.stderr?.on('data', (data) => {
+      const error = data.toString()
+      console.error(error)
+    })
+
+    server.unref()
+  }
+
+  private async isServerRunning() {
+    try {
+      const url = `http://localhost:${PORT}/ping`
+      const json = await (await fetch(url)).json()
+      console.log('json.....:', json)
+      return !!json?.ok
+    } catch (error) {
+      return false
+    }
   }
 
   private async stopServer() {
     await killPortProcess(PORT)
+  }
+
+  private async restartServer() {
+    await killPortProcess(PORT)
+    await this.startServer()
+    // TODO: restart server log
   }
 }
 
