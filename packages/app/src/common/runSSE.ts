@@ -35,8 +35,6 @@ export async function runSSE(space: Space) {
 
   const url = isSelfHosted ? '/api/sse' : `${space.syncServerUrl}/sse`
 
-  console.log('============url:', url)
-
   const controller = new AbortController()
 
   await fetchEventSource(url, {
@@ -46,11 +44,11 @@ export async function runSSE(space: Space) {
     body: JSON.stringify({ token: space.syncServerAccessToken }),
     signal: controller.signal,
     async onopen(response) {
-      console.log('=========onopen', response)
+      // console.log('=========onopen', response)
     },
     onmessage(ev) {
       const spaceInfo: SpaceInfo = JSON.parse(ev.data)
-      console.log('===========spaceInfo:', spaceInfo)
+      // console.log('===========spaceInfo:', spaceInfo)
       pull(spaceInfo)
     },
     onclose() {

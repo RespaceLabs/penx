@@ -26,10 +26,10 @@ export const PCNav = () => {
     >
       <Breadcrumb />
       <Box>
-        <PublishPopover />
+        {/* <PublishPopover /> */}
         <FavoriteButton />
         <ClosePanelButton />
-        <MorePopover />
+        {/* <MorePopover /> */}
       </Box>
     </Box>
   )

@@ -18,7 +18,11 @@ export class User {
   }
 
   get username() {
-    return this.raw?.name || this.raw.username
+    return (
+      this.raw?.name ||
+      this.raw.username ||
+      this.address?.slice(0, 6) + '...' + this.address.slice(-3)
+    )
   }
 
   get publicKey() {
@@ -26,7 +30,7 @@ export class User {
   }
 
   get address() {
-    return this.raw.address
+    return this.raw.address || ''
   }
 
   get github(): GithubInfo {

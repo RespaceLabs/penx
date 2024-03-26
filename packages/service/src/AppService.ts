@@ -10,7 +10,7 @@ export class AppService {
 
   async init() {
     try {
-      console.log('app init...')
+      // console.log('app init...')
 
       this.inited = true
 
@@ -22,7 +22,7 @@ export class AppService {
 
       if (navigator.onLine) {
         try {
-          console.log('tryToSync................')
+          // console.log('tryToSync................')
 
           await this.tryToSync(activeSpace)
         } catch (error) {
@@ -36,10 +36,9 @@ export class AppService {
       // console.log('appService=======nodes:', nodes)
 
       if (!nodes.length) {
-        console.log('========activeSpace:', activeSpace)
+        // console.log('========activeSpace:', activeSpace)
 
         const mnemonic = store.user.getMnemonic()
-        console.log('========mnemonic:', mnemonic)
 
         const client = new SyncServerClient(activeSpace, mnemonic)
         nodes = await client.getAllNodes()

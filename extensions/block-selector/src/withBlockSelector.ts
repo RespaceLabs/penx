@@ -53,7 +53,7 @@ export const withBlockSelector = (editor: PenxEditor) => {
       Node.string(node) === ''
     ) {
       Transforms.removeNodes(editor, { at: path })
-      editor.isBlockSelectorOpened = false
+      // editor.isBlockSelectorOpened = false
       return
     }
 

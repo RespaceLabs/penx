@@ -52,6 +52,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
       const { slashCommand } = elementInfo
 
       if (!elementInfo) return // TODO
+
       close()
 
       const block = Editor.above(editor, {

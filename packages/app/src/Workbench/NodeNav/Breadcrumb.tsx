@@ -7,16 +7,16 @@ export const Breadcrumb = () => {
   const parentNodes = nodeService.getParentNodes()
 
   return (
-    <Box toCenterY>
+    <Box toCenterY textSM>
       {parentNodes.map((node, index) => {
         const isLast = index === parentNodes.length - 1
         if (node.isList) return null
         return (
-          <Box key={node.id} toCenterY>
+          <Box key={node.id} toCenterY textSM>
             <Box
               cursorPointer
               onClick={() => nodeService.selectNode(node)}
-              gray700
+              gray600
               maxW-160
               black={isLast}
               style={{

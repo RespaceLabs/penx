@@ -256,6 +256,7 @@ export class NodeService {
         }
 
         const node = new Node(newNode)
+
         if (node.isTodoElement) {
           const nodeService = new NodeService(node, this.allNodes)
           const parentNodes = nodeService.getParentNodes()
@@ -363,6 +364,24 @@ export class NodeService {
 
           const newNode = await db.updateNode(item.id, updateData)
 
+          const node = new Node(newNode)
+
+          if (node.isTodoElement) {
+            const nodeService = new NodeService(node, this.allNodes)
+
+            let sourceId = ''
+            const parentNodes = nodeService.getParentNodes()
+            if (parentNodes.length) {
+              if (parentNodes[0].isDailyRoot) {
+                sourceId = parentNodes[1].id
+              } else {
+                sourceId = parentNodes[0].id
+              }
+            }
+
+            await db.createTodoRow(node.id, sourceId)
+          }
+
           for (const tagName of tags) {
             await db.createTagRow(tagName, newNode.id)
           }
@@ -372,7 +391,7 @@ export class NodeService {
           }
         }
       } else {
-        await db.createNode({
+        let newNode = await db.createNode({
           id: item.id,
           type: isOutliner ? NodeType.COMMON : NodeType.LIST_ITEM,
           parentId: newParentId,
@@ -381,6 +400,24 @@ export class NodeService {
           element,
           children,
         })
+
+        const node = new Node(newNode)
+
+        if (node.isTodoElement) {
+          const nodeService = new NodeService(node, this.allNodes)
+          const parentNodes = nodeService.getParentNodes()
+
+          let sourceId = ''
+          if (parentNodes.length) {
+            if (parentNodes[0].isDailyRoot) {
+              sourceId = parentNodes[1].id
+            } else {
+              sourceId = parentNodes[0].id
+            }
+          }
+
+          await db.createTodoRow(node.id, sourceId)
+        }
       }
     }
   }

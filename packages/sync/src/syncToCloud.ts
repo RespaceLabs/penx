@@ -111,7 +111,7 @@ export async function submitToServer(
   const client = new SyncServerClient(space, mnemonic)
   const { time } = await client.pushNodes(nodes)
 
-  console.log('time========:', time)
+  // console.log('time========:', time)
 
   if (time) {
     await db.updateSpace(space.id, {

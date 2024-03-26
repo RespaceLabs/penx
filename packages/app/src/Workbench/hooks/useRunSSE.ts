@@ -12,7 +12,7 @@ export function useRunSSE() {
   useEffect(() => {
     if (!navigator.onLine) return
     if (!sseInited.current && session?.user) {
-      console.log('runSSE..............')
+      // console.log('runSSE..............')
       runSSE(activeSpace)
       sseInited.current = true
     }

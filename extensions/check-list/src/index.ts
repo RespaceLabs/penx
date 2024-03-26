@@ -38,6 +38,8 @@ export function activate(ctx: ExtensionContext) {
         type: ELEMENT_TODO,
         match: '[x] ',
         format: (editor) => {
+          console.log('format.........todo')
+
           setNodes(
             editor,
             {

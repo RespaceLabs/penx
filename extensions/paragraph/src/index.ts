@@ -14,7 +14,7 @@ export function activate(ctx: ExtensionContext) {
         // placeholder: "Type '/' to browse options",
         placeholder: '',
         slashCommand: {
-          in: ['BLOCK'],
+          in: ['BLOCK', 'OUTLINER'],
           name: 'Text',
           icon: Text,
         },

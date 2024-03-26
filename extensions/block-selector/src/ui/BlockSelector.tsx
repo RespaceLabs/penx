@@ -49,7 +49,7 @@ export const BlockSelector = ({
           at: path,
         })
 
-        editor.isBlockSelectorOpened = false
+        // editor.isBlockSelectorOpened = false
       }
     },
     placement: 'bottom-start',
