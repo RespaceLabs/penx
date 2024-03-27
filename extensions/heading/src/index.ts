@@ -1,4 +1,11 @@
-import { Heading1, Heading2, Heading3, Heading4, Heading5 } from 'lucide-react'
+import {
+  Heading1,
+  Heading2,
+  Heading3,
+  Heading4,
+  Heading5,
+  HeadingIcon,
+} from 'lucide-react'
 import { Node } from 'slate'
 import {
   ELEMENT_H1,
@@ -18,14 +25,16 @@ const icons = [Heading1, Heading2, Heading3, Heading4, Heading5, Heading5]
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     with: withHeading,
-    elements: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].map((item, index) => ({
+    elements: ['h2'].map((item, index) => ({
       type: item,
       component: Heading,
-      placeholder: `Heading ${index + 1}`,
-      // slashCommand: {
-      //   name: `Heading ${index + 1}`,
-      //   icon: icons[index],
-      // },
+      placeholder: `Heading`,
+      slashCommand: {
+        in: ['OUTLINER'],
+        // name: `Heading ${index + 1}`,
+        name: `Heading`,
+        icon: HeadingIcon,
+      },
     })),
     autoformatRules: [
       {
