@@ -23,7 +23,8 @@ export const Paragraph = ({
       gray900
       textBase={!isInTitle}
       relative
-      py-2
+      // h="1.5em"
+      // py2
       h-100p
       {...attributes}
       {...nodeProps}

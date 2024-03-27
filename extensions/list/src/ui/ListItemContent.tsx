@@ -41,7 +41,8 @@ export const ListItemContent = memo(
     const isHeading = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(child?.type)
 
     function h() {
-      return isHeading ? 'calc(1.8em + 8px)' : 'calc(1.5em + 8px)'
+      // if (isTask) return 'calc(1.5em + 2px)'
+      return isHeading ? 'calc(1.8em + 8px)' : 'calc(1.5em + 4px)'
     }
 
     const menuId = `lic-menu-${element.id}`
@@ -58,11 +59,12 @@ export const ListItemContent = memo(
           ref={mergeRefs([ref, attributes.ref])}
           data-type="list-item-content"
           m0
-          leadingNormal
+          // leadingNormal
+          // leadingRelaxed
           textBase
           relative
           h-100p
-          toTop={!isTask}
+          // toTop={!isTask}
           px1
           py0
           {...nodeProps}
@@ -72,8 +74,8 @@ export const ListItemContent = memo(
         >
           <Box
             absolute
-            top-0={!isTask}
-            top--1={isTask}
+            // top-0={!isTask}
+            // top--1={isTask}
             w-40
             left--40
             contentEditable={false}
@@ -81,7 +83,6 @@ export const ListItemContent = memo(
             toRight
             // flexShrink-0
             gap-2
-            leadingNormal
             h={h()}
             textSM
             text3XL={child?.type === 'h1'}
@@ -101,7 +102,7 @@ export const ListItemContent = memo(
             </Box>
           </Box>
 
-          <Box flex-1 pl1 leadingNormal>
+          <Box flex-1 pl1 leadingRelaxed>
             {children}
           </Box>
         </Box>

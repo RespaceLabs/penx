@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { Element, Transforms } from 'slate'
+import { Transforms } from 'slate'
 import { ReactEditor } from 'slate-react'
 import { Checkbox } from 'uikit'
 import { useEditor } from '@penx/editor-common'
@@ -15,7 +15,16 @@ export const CheckListItem = ({
   const { id, checked } = element
   const editor = useEditor()
   return (
-    <Box data-key={id} toLeft flex-1 leadingNormal textBase {...attributes}>
+    <Box
+      data-key={id}
+      toLeft
+      toCenterY
+      flex-1
+      // leadingNormal
+      textBase
+      {...attributes}
+      // h="1.5em"
+    >
       <Checkbox
         contentEditable={false}
         colorScheme="gray800"
@@ -35,7 +44,7 @@ export const CheckListItem = ({
       <Box
         relative
         flex-1
-        leadingNormal
+        // leadingNormal
         lineThrough={checked}
         opacity-60={checked}
         {...nodeProps}
