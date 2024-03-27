@@ -1,7 +1,11 @@
 import { memo, useMemo } from 'react'
+import isEqual from 'react-fast-compare'
 import { Box } from '@fower/react'
-import { extractTags, useEditorStatic } from '@penx/editor-common'
+import { useAtomValue } from 'jotai'
+import { extractTags, useEditor } from '@penx/editor-common'
+import { Node } from '@penx/model'
 import { NodeType } from '@penx/model-types'
+import { nodesAtom } from '@penx/store'
 import { useBulletVisible } from '../hooks/useBulletVisible'
 import { ListContentElement } from '../types'
 
@@ -19,7 +23,7 @@ const BulletContent = memo(
     colors,
     onContextMenu,
   }: BulletContentProps) {
-    const editor = useEditorStatic()
+    const editor = useEditor()
 
     const color = colors?.length ? colors[0] : 'gray400'
 
@@ -62,7 +66,9 @@ const BulletContent = memo(
     )
   },
   (prev, next) =>
-    prev.nodeId === next.nodeId && prev.collapsed === next.collapsed,
+    prev.nodeId === next.nodeId &&
+    prev.collapsed === next.collapsed &&
+    isEqual(prev.colors, next.colors),
 )
 
 interface Props {
@@ -71,11 +77,16 @@ interface Props {
 }
 
 export const Bullet = ({ element, onContextMenu }: Props) => {
-  const editor = useEditorStatic()
   const { collapsed = false } = element
   const isBulletVisible = useBulletVisible(element)
   const tagNames = extractTags(element.children)
-  const tagNodes = editor.items?.filter((n) => n.type === NodeType.DATABASE)
+  const nodes = useAtomValue(nodesAtom)
+
+  const tagNodes = useMemo(
+    () =>
+      nodes.filter((n) => n.type === NodeType.DATABASE).map((n) => new Node(n)),
+    [nodes],
+  )
 
   let colors: string[] = []
 

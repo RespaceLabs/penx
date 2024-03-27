@@ -3665,6 +3665,9 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
+      jotai:
+        specifier: ^2.6.0
+        version: 2.6.0(@types/react@18.2.61)(react@18.2.0)
       lucide-react:
         specifier: ^0.344.0
         version: 0.344.0(react@18.2.0)

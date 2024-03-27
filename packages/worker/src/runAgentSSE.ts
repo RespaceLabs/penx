@@ -32,8 +32,6 @@ async function isAgentAlive() {
 
 export async function runAgentSSE() {
   const isAlive = await isAgentAlive()
-  console.log('=====isAlive:', isAlive)
-
   if (!isAlive) return
 
   const eventSource = new EventSource(sseURL)

@@ -7,13 +7,13 @@
     "lint": "eslint \"**/*.ts*\""
   },
   "devDependencies": {
+    "@penx/tsconfig": "workspace:*",
     "@types/react": "^18.2.61",
     "@types/react-datepicker": "^4.19.4",
     "@types/react-dom": "^18.2.17",
     "eslint": "^8.55.0",
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
-    "@penx/tsconfig": "workspace:*",
     "typescript": "^5.3.2"
   },
   "dependencies": {
@@ -32,14 +32,16 @@
     "@penx/editor-queries": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
     "@penx/local-db": "workspace:*",
+    "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/remark-slate": "workspace:*",
     "@penx/serializer": "workspace:*",
     "@penx/shared": "workspace:*",
-    "@penx/model": "workspace:*",
+    "@penx/slate-lists": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "date-fns": "^2.30.0",
+    "jotai": "^2.6.0",
     "lucide-react": "^0.344.0",
     "mitt": "^3.0.1",
     "react-circular-progressbar": "^2.1.0",
@@ -49,7 +51,6 @@
     "remark-parse": "^11.0.0",
     "slate": "0.101.5",
     "slate-history": "0.100.0",
-    "@penx/slate-lists": "workspace:*",
     "slate-react": "0.101.5",
     "uikit": "workspace:*",
     "unified": "^11.0.4"

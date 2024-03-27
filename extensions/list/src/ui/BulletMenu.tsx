@@ -44,7 +44,7 @@ export const BulletMenu = ({ menuId, element }: Props) => {
   return (
     <ContextMenu id={menuId}>
       {/* <MenuItem onClick={() => handleItemClick('a')}>Add to favorite</MenuItem> */}
-      <MenuItem onClick={openInNewPanel}>Open in new panel</MenuItem>
+      {/* <MenuItem onClick={openInNewPanel}>Open in new panel</MenuItem> */}
       {/* <MenuItem onClick={() => handleItemClick('b')}>Publish</MenuItem> */}
       <MenuItem onClick={copyNodeId}>Copy node ID</MenuItem>
       <MenuItem onClick={() => handleItemClick('DELETE')}>Delete</MenuItem>

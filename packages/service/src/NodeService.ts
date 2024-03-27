@@ -314,7 +314,7 @@ export class NodeService {
     })
 
     const parentNode = await db.getNode(parentId)
-    if (!isEqual(parentNode.children, childrenForCurrentNode)) {
+    if (!isEqual(parentNode?.children, childrenForCurrentNode)) {
       // update root node's children
       await db.updateNode(parentId, {
         children: childrenForCurrentNode,
