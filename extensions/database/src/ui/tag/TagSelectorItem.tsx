@@ -2,11 +2,13 @@ import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { Box } from '@fower/react'
 import { useStore } from 'stook'
+import { Node } from '@penx/model'
 
 interface TagSelectorItemProps {
   id: string
   isActive: boolean
   name: string
+  node: Node
   onClick: () => void
 }
 
@@ -14,6 +16,7 @@ export function TagSelectorItem({
   id,
   isActive,
   name,
+  node,
   onClick,
 }: TagSelectorItemProps) {
   const [value, setValue] = useStore(id, false)
@@ -37,11 +40,13 @@ export function TagSelectorItem({
       bgGray100={isActive}
       py2
       px3
+      roundedLG
       cursorPointer
       gapX2
       toCenterY
       leadingNone
     >
+      <Box color--D10={node.tagColor}>#</Box>
       <Box textBase>{name}</Box>
     </Box>
   )

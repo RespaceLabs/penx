@@ -75,7 +75,11 @@ export class Node {
 
   get title(): string {
     if (this.isDaily) {
-      return format(new Date(this.raw.date || Date.now()), 'EEEE, LLL do')
+      const formattedDate = format(
+        new Date(this.raw.date || Date.now()),
+        'LLL do',
+      )
+      return formattedDate
     }
 
     if (this.isInbox) return 'Inbox'

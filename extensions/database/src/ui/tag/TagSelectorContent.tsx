@@ -169,7 +169,7 @@ export const TagSelectorContent = ({ close, element }: Props) => {
 
   if (!filteredTypes.length) {
     return (
-      <Box py3 px3 textSM>
+      <Box py2 px3 textSM bgGray100 roundedLG>
         Create tag &quot;{text}&quot;
       </Box>
     )
@@ -178,11 +178,14 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   return (
     <Box column gapY-1>
       {filteredTypes.map((name, i) => {
+        const node = nodeList.tagNodes.find((node) => node.props.name === name)!
+
         return (
           <TagSelectorItem
             key={name}
             id={listItemIdPrefix + i}
             name={name}
+            node={node}
             isActive={i === cursor}
             onClick={async () => {
               const name = filteredTypes[cursor]
