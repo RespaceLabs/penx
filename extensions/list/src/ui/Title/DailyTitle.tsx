@@ -15,7 +15,7 @@ export const DailyTitle = ({
 
   return (
     <Box toCenterY gap2>
-      <TaskProgress />
+      {/* <TaskProgress /> */}
       <Box
         leadingNone
         column
