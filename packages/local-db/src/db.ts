@@ -42,10 +42,10 @@ export class PenxDB extends Dexie {
   constructor() {
     // super('PenxDB')
     super('penx-local')
-    this.version(2).stores({
+    this.version(3).stores({
       // Primary key and indexed props
       space: 'id, name, userId',
-      node: 'id, spaceId, databaseId, type, date, [type+spaceId+databaseId], [type+spaceId]',
+      node: 'id, spaceId, databaseId, type, date, [type+spaceId+databaseId], [type+spaceId], [type+databaseId]',
     })
   }
 
@@ -869,11 +869,9 @@ export class PenxDB extends Dexie {
 
     const views = (await this.node
       .where({
-        where: {
-          type: NodeType.VIEW,
-          spaceId: space.id,
-          databaseId: databaseId,
-        },
+        type: NodeType.VIEW,
+        spaceId: space.id,
+        databaseId: databaseId,
       })
       .toArray()) as IViewNode[]
 

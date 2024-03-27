@@ -23,7 +23,7 @@ export const Database = ({
         <Box toCenterY gap8 mb2>
           <Box toCenterY gap2>
             <ViewList />
-            <AddViewBtn />
+            {/* <AddViewBtn /> */}
           </Box>
           <Divider h-20 orientation="vertical" />
           <ViewToolBar />
