@@ -36,10 +36,10 @@ export class SpaceStore {
     })
 
     this.setSpaces(spaces)
-    this.store.router.toNode()
     this.store.node.setNodes(nodes)
-
-    this.store.node.selectNode(activeNodes[0])
+    this.store.router.toNode()
+    // this.store.node.selectNode(activeNodes[0])
+    this.store.node.selectDailyNote()
     return space
   }
 

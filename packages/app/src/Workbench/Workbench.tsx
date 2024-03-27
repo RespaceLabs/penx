@@ -46,7 +46,8 @@ export const Workbench = () => {
 
   return (
     <EditorProvider space={activeSpace}>
-      {session && <QueryCloudSpaces />}
+      {/* TODO: how to sync space */}
+      {/* {session && <QueryCloudSpaces />} */}
 
       {!isMobile && <CommandPanel />}
       <Box h-100vh toLeft black flex-1 relative>
