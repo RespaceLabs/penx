@@ -1,6 +1,7 @@
 import { TODO_DATABASE_NAME } from '@penx/constants'
 import { extractTags } from '@penx/editor-common'
 import { db } from '@penx/local-db'
+import { Node } from '@penx/model'
 import { INode, isCellNode, NodeType } from '@penx/model-types'
 
 export class NodeCleaner {
@@ -28,7 +29,8 @@ export class NodeCleaner {
         const databaseNode = nodeMap.get(item.databaseId!)
 
         if (databaseNode?.props.name === TODO_DATABASE_NAME) {
-          if (!node) {
+          const shouldClean = !node || !new Node(node).isTodoElement
+          if (shouldClean) {
             console.log('clean todo row...', databaseNode.props.name)
             await db.deleteRow(databaseNode.id, item.props.rowId)
           }

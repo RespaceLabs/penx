@@ -17,12 +17,12 @@ async function pull(spaceInfo: SpaceInfo) {
   if (space) {
     const localLastUpdatedAt = await db.getLastUpdatedAt(space.id)
 
-    console.log(
-      'spaceInfo.lastModifiedTime > localLastModifiedTime:',
-      spaceInfo.lastModifiedTime > localLastUpdatedAt,
-      spaceInfo.lastModifiedTime,
-      localLastUpdatedAt,
-    )
+    // console.log(
+    //   'spaceInfo.lastModifiedTime > localLastModifiedTime:',
+    //   spaceInfo.lastModifiedTime > localLastUpdatedAt,
+    //   spaceInfo.lastModifiedTime,
+    //   localLastUpdatedAt,
+    // )
 
     if (spaceInfo.lastModifiedTime > localLastUpdatedAt) {
       await store.sync.pullFromCloud(space)

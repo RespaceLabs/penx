@@ -113,7 +113,7 @@ export const TagSelector = ({
             roundedLG
             zIndex-10000
             bgWhite
-            bgGray100--T80
+            bgGray100--L5
             outlineNone
             {...getFloatingProps({})}
           >
