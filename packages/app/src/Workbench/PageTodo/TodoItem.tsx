@@ -18,6 +18,8 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
   const { row, todoNode } = todo
   const editor = useCreateEditor([])
 
+  editor.isInTodoPage = true
+
   return (
     <Box>
       <Slate

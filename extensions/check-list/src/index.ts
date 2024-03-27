@@ -4,6 +4,7 @@ import { ELEMENT_TODO } from '@penx/constants'
 import { setNodes } from '@penx/editor-transforms'
 import { ExtensionContext } from '@penx/extension-typings'
 import { CheckListItem } from './CheckListItem'
+import { onKeyDown } from './onKeyDown'
 import { CheckListItemElement } from './types'
 import { withCheckList } from './withCheckList'
 
@@ -14,6 +15,9 @@ export * from './types'
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     with: withCheckList,
+    handlers: {
+      onKeyDown: onKeyDown,
+    },
     elements: [
       {
         type: ELEMENT_TODO,

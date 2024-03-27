@@ -197,6 +197,7 @@ export class NodeToSlateSerializer {
             parentId: null,
             nodeType: node.type,
             props: node.props,
+            date: node.date,
             collapsed: node.collapsed,
             children: node.element,
           },
@@ -225,6 +226,7 @@ export class NodeToSlateSerializer {
         id: this.node.id,
         type: ELEMENT_TITLE,
         props: this.node.props,
+        date: this.node.date,
         nodeType: this.node.type,
         children: this.node.element,
       })

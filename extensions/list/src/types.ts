@@ -12,6 +12,7 @@ export interface TitleElement extends BaseElement {
   id?: string
   type: typeof ELEMENT_TITLE
   nodeType?: NodeType
+  date?: string
   props: {
     date: string
     color: string

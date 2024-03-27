@@ -7,7 +7,7 @@ import { store } from '@penx/store'
 import { TitleElement } from '../../types'
 
 export const DailyNoteNav = ({ element }: { element: TitleElement }) => {
-  const date = new Date(element.props?.date ?? Date.now())
+  const date = new Date(element.date ?? Date.now())
 
   return (
     <Box contentEditable={false} textXS fontNormal toCenterY gap1 gray600>

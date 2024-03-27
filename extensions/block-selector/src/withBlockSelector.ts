@@ -68,10 +68,10 @@ export const withBlockSelector = (editor: PenxEditor) => {
  * @param editor
  * @returns
  */
-function shouldOpen(editor: Editor): boolean {
+function shouldOpen(editor: PenxEditor): boolean {
   const nodeEntry = getBlockAbove(editor)
 
-  if (nodeEntry && !isCodeLine(nodeEntry[0].type)) {
+  if (nodeEntry && !isCodeLine(nodeEntry[0].type) && !editor.isInTodoPage) {
     if (getText(editor, nodeEntry[1]) === '') {
       return true
     }
