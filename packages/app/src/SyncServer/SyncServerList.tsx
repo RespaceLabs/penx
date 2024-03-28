@@ -1,13 +1,16 @@
 import { Box } from '@fower/react'
 import { useQuery } from '@tanstack/react-query'
-import { Pencil } from 'lucide-react'
-import { Button, modalController, Spinner } from 'uikit'
+import { Copy, Pencil } from 'lucide-react'
+import { Button, modalController, Spinner, toast } from 'uikit'
 import { ModalNames } from '@penx/constants'
+import { useCopyToClipboard } from '@penx/shared'
 import { api, trpc } from '@penx/trpc-client'
 import { DeleteSyncServerModal } from './DeleteSyncServerModal'
 
 export function SyncServerList() {
   const { isLoading, data = [] } = trpc.syncServer.mySyncServers.useQuery()
+
+  const { copy } = useCopyToClipboard()
 
   if (isLoading) {
     return (
@@ -17,31 +20,75 @@ export function SyncServerList() {
     )
   }
 
+  if (!data.length) {
+    return (
+      <Box v-80vh toCenter>
+        <Box>No sync server</Box>
+      </Box>
+    )
+  }
+
   return (
     <Box mt10>
-      <Box column gap1>
+      <Box column gap1 grid gridTemplateColumns={[1, 1, 1, 2, 2, 3]} gap4>
         {data?.map((item) => (
-          <Box key={item.id} toCenterY gap2>
-            <Box textLG>{item.name}</Box>
-            <Box gray500 textSM>
-              {item.token}
+          <Box key={item.id} column gap3 border borderGray100 rounded3XL p5>
+            <Box toCenterY toBetween>
+              <Box textXL fontBold>
+                {item.name}
+              </Box>
+
+              <Box toCenterY gap2>
+                <Button
+                  isSquare
+                  size={28}
+                  variant="light"
+                  onClick={() => {
+                    modalController.open(ModalNames.SYNC_SERVER, {
+                      isEditing: true,
+                      isLoading: false,
+                      syncServer: item,
+                    })
+                  }}
+                >
+                  <Pencil size={16}></Pencil>
+                </Button>
+                <DeleteSyncServerModal syncServerId={item.id} />
+              </Box>
             </Box>
 
-            <Button
-              isSquare
-              size={28}
-              variant="light"
-              onClick={() => {
-                modalController.open(ModalNames.SYNC_SERVER, {
-                  isEditing: true,
-                  isLoading: false,
-                  syncServer: item,
-                })
-              }}
-            >
-              <Pencil size={16}></Pencil>
-            </Button>
-            <DeleteSyncServerModal syncServerId={item.id} />
+            <Box column gap1>
+              <Box gray500 textXS>
+                Token
+              </Box>
+              <Box toCenterY gap2>
+                <Box textBase>{item.token}</Box>
+
+                <Button
+                  isSquare
+                  size={28}
+                  variant="ghost"
+                  colorScheme="gray500"
+                  onClick={() => {
+                    copy(item.token)
+                    toast.info('Copied to clipboard')
+                  }}
+                >
+                  <Copy size={16} />
+                </Button>
+              </Box>
+            </Box>
+            <Box column gap1>
+              <Box gray500 textXS>
+                Server URL
+              </Box>
+              {item.url && <Box textBase>{item.url}</Box>}
+              {!item.url && (
+                <Box textSM gray400>
+                  Waiting to deploy
+                </Box>
+              )}
+            </Box>
           </Box>
         ))}
       </Box>
