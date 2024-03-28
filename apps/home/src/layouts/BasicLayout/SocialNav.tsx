@@ -19,7 +19,7 @@ export const SocialNav = () => {
     },
     {
       icon: <IconTwitter fillBlack />,
-      to: 'https://twitter.com/0xzion_eth',
+      to: 'https://twitter.com/coder_zion',
       isExternal: true,
     },
     {

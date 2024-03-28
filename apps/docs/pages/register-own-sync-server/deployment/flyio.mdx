@@ -1,0 +1,66 @@
+# Deploy to Fly.io
+
+You can deploy PenX sync server to [Fly.io](https://fly.io).
+
+## Prerequisites
+
+Before deployment, Please read the [Prerequisites](/register-own-sync-server/deployment/prerequisites) carefully.
+
+## Configure your Fly app
+
+Save the following snippet into a file named fly.toml somewhere on your computer, changing the app name as you see fit:
+
+```bash
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+
+app = "penx-sync-server" # you can use your app name
+primary_region = "atl"
+
+[build]
+  image = "0xzion/penx-sync-server:latest"
+
+[env]
+  DATABASE_URL = "postgresql://..."
+  REDIS_URL = "redis://..."
+  TOKEN = "..."
+
+[http_service]
+  internal_port = 4000
+  force_https = true
+
+  [[http_service.checks]]
+    interval = "10s"
+    timeout = "1s"
+    grace_period = "20s"
+    method = "GET"
+    path = "/"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 1024
+```
+
+## Deploy!
+
+in your terminal, navigate to the directory where fly.toml is located and run `fly launch --copy-config`:
+
+```bash
+fly launch --copy-config
+```
+
+## Real world example
+
+When deployed successfully, you should get a URL like:
+
+https://penx-sync-server.fly.dev
+
+Now copy this server URL to PenX server settings.
+
+## Upgrade
+
+If new version PenX sync server is released, you can upgrade it easily by `flyctl deploy`:
+
+```bash
+flyctl deploy
+```

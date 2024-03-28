@@ -1,0 +1,7 @@
+{
+  "prerequisites": "Prerequisites",
+  "flyio": "Flyio",
+  "railway": "Railway",
+  "docker": "Docker",
+  "docker-compose": "Docker Compose"
+}

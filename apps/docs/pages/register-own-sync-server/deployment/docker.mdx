@@ -1,0 +1,23 @@
+# Deploy with Docker
+
+This document provides a guide for deploying PenX sync server with Docker.
+
+The PenX sync server is packaged using Docker and published to Docker Hub at [hub.docker.com/r/0xzion/penx-sync-server](https://hub.docker.com/r/0xzion/penx-sync-server).
+
+## Prerequisites
+
+Before deployment, Please read the [Prerequisites](/register-own-sync-server/deployment/prerequisites) carefully.
+
+## Docker Run
+
+To start PenX sync server with docker run, execute the following one command:
+
+```bash
+docker run -d \
+  --name penx-sync-server \
+  -e DATABASE_URL={{postgresql_database_url}} \
+  -e REDIS_URL={{redis_url}} \
+  -e TOKEN={{PenX sync server token}} \
+  -p 4000:4000 \
+  0xzion/penx-sync-server:latest
+```
