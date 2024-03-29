@@ -22,7 +22,7 @@ export const PageTodo = () => {
         {isSevenDay && <SevenDayTodos />}
         {isAllTodos && <AllTodos />}
       </Box>
-      <AddTodoForm></AddTodoForm>
+      {isTody && <AddTodoForm></AddTodoForm>}
     </Box>
   )
 }

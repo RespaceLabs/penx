@@ -380,7 +380,7 @@ export class NodeService {
           if (node.isTodoElement) {
             const nodeService = new NodeService(node, this.allNodes)
 
-            let sourceId = ''
+            let sourceId = '' // DailyNode or depth 1 node from rootNode
             const parentNodes = nodeService.getParentNodes()
             if (parentNodes.length) {
               if (parentNodes[0].isDailyRoot) {

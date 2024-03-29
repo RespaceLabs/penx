@@ -14,7 +14,8 @@ export const DatabaseList = () => {
   return (
     <Box>
       <Box fontSemibold textBase>
-        My databases
+        {/* My databases */}
+        Tags
       </Box>
       <Box mt4 column gap3 black>
         {nodes.map((node) => {

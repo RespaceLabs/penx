@@ -9,6 +9,7 @@ type Input = {
   name?: string
   props?: INode['props']
   date?: string
+  element?: any[]
 }
 
 export function getNewNode(input: Input, text = ''): INode {

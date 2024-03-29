@@ -1,8 +1,8 @@
 import isEqual from 'react-fast-compare'
 import { format } from 'date-fns'
 import { atom } from 'jotai'
-import { TODO_DATABASE_NAME } from '@penx/constants'
-import { ArraySorter, db } from '@penx/local-db'
+import { ELEMENT_TODO, TODO_DATABASE_NAME } from '@penx/constants'
+import { ArraySorter, db, getNewNode } from '@penx/local-db'
 import { Node } from '@penx/model'
 import {
   DataSource,
@@ -288,6 +288,25 @@ export class NodeStore {
     const todayNode = await db.getOrCreateTodayNode(space.id)
     this.setNodes(nodes)
     this.selectNode(todayNode)
+  }
+
+  async addTodo(text: string) {
+    const space = this.store.space.getActiveSpace()
+
+    const newNode = getNewNode({
+      spaceId: space.id,
+      date: format(new Date(), 'yyyy-MM-dd'),
+      element: [{ type: ELEMENT_TODO, children: [{ text }] }],
+    })
+
+    const todyNode = this.getTodayNode()
+    await db.addNodesToToday(space.id, [newNode])
+
+    await db.createTodoRow(newNode.id, todyNode.id)
+
+    const nodes = await db.listNodesBySpaceId(space.id)
+
+    this.setNodes(nodes)
   }
 
   async openInNewPanel(nodeId: string) {

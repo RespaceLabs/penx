@@ -1011,6 +1011,8 @@ export class PenxDB extends Dexie {
           columnId: column.id,
           rowId: row.id,
           ref: index === 0 ? ref : '',
+
+          // hack, let second column be todo source
           data: source && index === 1 ? source : '',
           isTodoSource: !!source && index === 1,
         },
