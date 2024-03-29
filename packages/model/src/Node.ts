@@ -84,7 +84,7 @@ export class Node {
 
     if (this.isInbox) return 'Inbox'
     if (this.isTrash) return 'Trash'
-    if (this.isDatabaseRoot) return 'Databases'
+    if (this.isDatabaseRoot) return 'Tags'
     if (this.isDailyRoot) return 'Daily Notes'
     if (this.isDatabase) {
       if (this.isTodoDatabase) return 'PenX Todos'

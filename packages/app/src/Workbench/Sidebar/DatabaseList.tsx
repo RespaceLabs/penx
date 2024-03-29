@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import { TODO_DATABASE_NAME } from '@penx/constants'
 import { useDatabaseNodes } from '@penx/hooks'
 import { store } from '@penx/store'
+import { TagsEntry } from './TagsEntry'
 
 function getName(name: string) {
   if (name === TODO_DATABASE_NAME) return 'Todos'
@@ -13,11 +14,8 @@ export const DatabaseList = () => {
 
   return (
     <Box>
-      <Box fontSemibold textBase>
-        {/* My databases */}
-        Tags
-      </Box>
-      <Box mt4 column gap3 black>
+      <TagsEntry />
+      <Box mx2 mt2 column gap3 black>
         {nodes.map((node) => {
           const color = node.props.color || 'gray800'
           const t0 = Date.now()

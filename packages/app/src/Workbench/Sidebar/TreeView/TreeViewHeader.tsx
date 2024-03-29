@@ -15,7 +15,7 @@ export const TreeViewHeader = memo(function TreeViewHeader() {
       pl2
       pr1
       mb-1
-      textSM
+      textBase
       fontSemibold
       cursorPointer
       bgGray200--hover

@@ -72,7 +72,7 @@ export const DrawerSidebar = () => {
 
               <SidebarItem
                 icon={<Database size={16} />}
-                label="Databases"
+                label="Tags"
                 onClick={() => {
                   store.node.selectTagBox()
                   close()

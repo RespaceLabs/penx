@@ -7,7 +7,6 @@ import { store } from '@penx/store'
 export const AddTodoForm = memo(function AddTodoForm() {
   const [value, setValue] = useState('')
   function addTodo() {
-    console.log('value======:', value)
     store.node.addTodo(value)
     setValue('')
   }

@@ -111,7 +111,7 @@ export const Sidebar = () => {
         )}
       </Box>
 
-      <Box px4 mt2>
+      <Box px2>
         <DatabaseList />
       </Box>
 
