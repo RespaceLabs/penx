@@ -15,7 +15,7 @@ import {
   ELEMENT_H5,
   ELEMENT_H6,
 } from '@penx/constants'
-import { ExtensionContext } from '@penx/extension-typings'
+import { BlockElement, ExtensionContext } from '@penx/extension-typings'
 import { Heading } from './Heading'
 import { HeadingElement } from './types'
 import { withHeading } from './withHeading'
@@ -25,17 +25,22 @@ const icons = [Heading1, Heading2, Heading3, Heading4, Heading5, Heading5]
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     with: withHeading,
-    elements: ['h2'].map((item, index) => ({
-      type: item,
-      component: Heading,
-      placeholder: `Heading`,
-      slashCommand: {
-        in: ['OUTLINER'],
-        // name: `Heading ${index + 1}`,
-        name: `Heading`,
-        icon: HeadingIcon,
-      },
-    })),
+    elements: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].map((item, index) => {
+      const element: BlockElement = {
+        type: item,
+        component: Heading,
+        placeholder: `Heading`,
+      }
+      if (item === 'h1') {
+        element.slashCommand = {
+          in: ['OUTLINER'],
+          // name: `Heading ${index + 1}`,
+          name: `Heading`,
+          icon: HeadingIcon,
+        }
+      }
+      return element
+    }),
     autoformatRules: [
       {
         mode: 'block',
