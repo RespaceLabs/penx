@@ -1,18 +1,18 @@
 import { Box } from '@fower/react'
-import { ChevronRight } from 'lucide-react'
 import { useNodeContext } from '@penx/hooks'
+import { BreadcrumbPopover } from './BreadcrumbPopover'
 
 export const Breadcrumb = () => {
   const { nodeService } = useNodeContext()
   const parentNodes = nodeService.getParentNodes()
 
   return (
-    <Box toCenterY textSM>
+    <Box toCenterY textSM gap1>
       {parentNodes.map((node, index) => {
         const isLast = index === parentNodes.length - 1
         if (node.isList) return null
         return (
-          <Box key={node.id} toCenterY textXS>
+          <Box key={node.id} toCenterY textSM gap1>
             <Box
               cursorPointer
               onClick={() => nodeService.selectNode(node)}
@@ -26,11 +26,7 @@ export const Breadcrumb = () => {
             >
               {node.title || 'Untitled'}
             </Box>
-            {!isLast && (
-              <Box gray500 pl2 pr1 toCenterY mb--2>
-                <ChevronRight size={12} />
-              </Box>
-            )}
+            {!isLast && <BreadcrumbPopover node={node} />}
           </Box>
         )
       })}
