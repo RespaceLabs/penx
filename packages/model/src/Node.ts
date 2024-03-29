@@ -202,6 +202,10 @@ export class Node {
     return this.raw.children
   }
 
+  get favorites() {
+    return (this.raw as any)?.favorites || []
+  }
+
   get isToday() {
     const today = format(new Date(), 'yyyy-MM-dd')
     return today === this.date

@@ -3635,6 +3635,12 @@ importers:
       '@penx/extension-typings':
         specifier: ^0.0.0
         version: link:../../packages/extension-typings
+      '@penx/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
+      '@penx/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
       '@penx/local-db':
         specifier: workspace:*
         version: link:../../packages/local-db

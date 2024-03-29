@@ -2,7 +2,13 @@ import _ from 'lodash'
 import { ELEMENT_BIDIRECTIONAL_LINK_CONTENT } from '@penx/constants'
 import { ArraySorter, db } from '@penx/local-db'
 import { Node, WithFlattenedProps } from '@penx/model'
-import { INode, IRootNode, NodeType } from '@penx/model-types'
+import {
+  IDailyRootNode,
+  IDatabaseRootNode,
+  INode,
+  IRootNode,
+  NodeType,
+} from '@penx/model-types'
 import { store } from '@penx/store'
 
 interface TreeItem extends Omit<INode, 'children'> {
@@ -144,6 +150,10 @@ export class NodeListService {
     return this.favoriteNode.children.includes(id)
   }
 
+  isFavoriteDatabase(id: string) {
+    return this.databaseRootNode.favorites.includes(id)
+  }
+
   getLinkedReferences(node: Node) {
     const nodes: Node[] = []
 
@@ -188,6 +198,25 @@ export class NodeListService {
     const children = this.favoriteNode.children.filter((id) => id !== node.id)
     await db.updateNode(this.favoriteNode.id, {
       children,
+    })
+    const nodes = await db.listNodesBySpaceId(node.spaceId)
+    store.node.setNodes(nodes)
+  }
+
+  async addToDatabaseFavorites(node: Node) {
+    const databaseRootNode = this.databaseRootNode.raw as IDatabaseRootNode
+    await db.updateNode<IDatabaseRootNode>(this.databaseRootNode.id, {
+      favorites: [...(databaseRootNode.favorites || []), node.id],
+    })
+    const nodes = await db.listNodesBySpaceId(node.spaceId)
+    store.node.setNodes(nodes)
+  }
+
+  async removeFromDatabaseFavorites(node: Node) {
+    const databaseRootNode = this.databaseRootNode.raw as IDatabaseRootNode
+    const favorites = databaseRootNode.favorites.filter((id) => id !== node.id)
+    await db.updateNode<IDatabaseRootNode>(this.databaseRootNode.id, {
+      favorites,
     })
     const nodes = await db.listNodesBySpaceId(node.spaceId)
     store.node.setNodes(nodes)

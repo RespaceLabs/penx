@@ -6,6 +6,7 @@ import { useFocusTitle } from '../../hooks/useFocusTitle'
 import { TitleElement } from '../../types'
 import { CommonTitle } from './CommonTitle'
 import { DailyTitle } from './DailyTitle'
+import { DatabaseFavoriteButton } from './DatabaseFavoriteButton'
 import { TagMenu } from './TagMenu'
 
 export const Title = (props: ElementProps<TitleElement>) => {
@@ -34,12 +35,16 @@ export const Title = (props: ElementProps<TitleElement>) => {
       gray900
       relative
       mb4
+      toCenterY
+      gap2
+      pr4
       {...attributes}
       // {...nodeProps}
     >
       {isDatabase && <TagMenu element={element} />}
       {!isDaily && <CommonTitle {...props} />}
       {isDaily && <DailyTitle {...props} />}
+      {isDatabase && <DatabaseFavoriteButton />}
     </Box>
   )
 }

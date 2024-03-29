@@ -5,24 +5,24 @@ import { IconStar, IconStarSolid } from '@penx/icons'
 
 interface Props {}
 
-export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
+export const DatabaseFavoriteButton: FC<PropsWithChildren<Props>> = () => {
   const { node } = useNodeContext()
   const { nodeList } = useNodes()
 
-  if (!nodeList.favoriteNode) return
-  const isFavorite = nodeList.isFavorite(node.id)
+  const isFavorite = nodeList.isFavoriteDatabase(node.id)
   return (
     <Button
-      size="sm"
+      size={28}
       variant="ghost"
       colorScheme="gray500"
       isSquare
       red500
+      p1
       onClick={() => {
         if (isFavorite) {
-          nodeList.removeFromFavorites(node)
+          nodeList.removeFromDatabaseFavorites(node)
         } else {
-          nodeList.addToFavorites(node)
+          nodeList.addToDatabaseFavorites(node)
         }
       }}
     >

@@ -32,6 +32,8 @@
     "@penx/editor-queries": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
     "@penx/local-db": "workspace:*",
+    "@penx/hooks": "workspace:*",
+    "@penx/icons": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/remark-slate": "workspace:*",
