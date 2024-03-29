@@ -1,4 +1,4 @@
-import React, { CSSProperties, forwardRef, memo } from 'react'
+import React, { CSSProperties, forwardRef, memo, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import { mergeRefs } from 'react-merge-refs'
 import { useSortable } from '@dnd-kit/sortable'
@@ -40,6 +40,8 @@ export const ListItemContent = memo(
     const child = getNodeByPath(editor, [...path, 0]) as TElement
     const isHeading = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(child?.type)
 
+    const isDaily = element.nodeType === NodeType.DAILY
+
     function h() {
       // if (isTask) return 'calc(1.5em + 2px)'
       return isHeading ? 'calc(1.8em + 8px)' : 'calc(1.5em + 4px)'
@@ -49,7 +51,12 @@ export const ListItemContent = memo(
     const { show } = useContextMenu(menuId)
     const isTask = isCheckListItem(child)
 
-    const draggable = (element as any)?.nodeType !== NodeType.DAILY
+    const draggable = !isDaily
+
+    const childCount = useMemo(() => {
+      if (!isDaily) return 0
+      return editor.items.filter((item) => item.date === element.date).length
+    }, [isDaily, editor.items, element.date])
 
     return (
       <>
@@ -102,9 +109,30 @@ export const ListItemContent = memo(
             </Box>
           </Box>
 
-          <Box flex-1 pl1 leadingRelaxed>
-            {children}
-          </Box>
+          {isDaily && (
+            <Box flex-1 pl1 leadingRelaxed toCenterY gap2>
+              <Box>{children}</Box>
+              {childCount > 0 && (
+                <Box
+                  contentEditable={false}
+                  bgGray100
+                  gray400
+                  px2
+                  h-18
+                  roundedFull
+                  textXS
+                >
+                  {childCount}
+                </Box>
+              )}
+            </Box>
+          )}
+
+          {!isDaily && (
+            <Box flex-1 pl1 leadingRelaxed>
+              {children}
+            </Box>
+          )}
         </Box>
       </>
     )

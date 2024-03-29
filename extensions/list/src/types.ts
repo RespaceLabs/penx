@@ -49,6 +49,7 @@ export interface ListItemElement extends BaseElement {
 export interface ListContentElement extends BaseElement {
   id: string
   type: typeof ELEMENT_LIC
+  date?: string
   nodeType?: NodeType
   collapsed: boolean
 }

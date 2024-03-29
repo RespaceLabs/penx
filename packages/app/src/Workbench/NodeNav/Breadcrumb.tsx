@@ -12,13 +12,12 @@ export const Breadcrumb = () => {
         const isLast = index === parentNodes.length - 1
         if (node.isList) return null
         return (
-          <Box key={node.id} toCenterY textSM>
+          <Box key={node.id} toCenterY textXS>
             <Box
               cursorPointer
               onClick={() => nodeService.selectNode(node)}
               gray600
               maxW-160
-              black={isLast}
               style={{
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',

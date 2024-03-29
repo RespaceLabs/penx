@@ -9,9 +9,9 @@ export const FilterItem = ({ ...rest }: FilterItemProps) => {
     <Box
       bgNeutral100
       cursorPointer
-      textSM
+      textXS
       toCenterY
-      h-36
+      h-32
       px3
       roundedFull
       gap1
@@ -29,21 +29,21 @@ export const TodoFilter = () => {
           brand500={filter === TodoFilterType.TODAY}
           onClick={() => setFilter(TodoFilterType.TODAY)}
         >
-          <Target size={18} />
+          <Target size={16} />
           <Box>Today</Box>
         </FilterItem>
         <FilterItem
           brand500={filter === TodoFilterType.SEVEN_DAY}
           onClick={() => setFilter(TodoFilterType.SEVEN_DAY)}
         >
-          <CalendarCheck size={18}></CalendarCheck>
+          <CalendarCheck size={16}></CalendarCheck>
           <Box>7 todays</Box>
         </FilterItem>
         <FilterItem
           brand500={filter === TodoFilterType.ALL_TODOS}
           onClick={() => setFilter(TodoFilterType.ALL_TODOS)}
         >
-          <ListChecks size={18} />
+          <ListChecks size={16} />
           <Box>All Todos</Box>
         </FilterItem>
       </Box>
