@@ -8,7 +8,7 @@ export const DailyEntry = ({
   element,
   children,
 }: ElementProps<DailyEntryElement>) => {
-  const title = format(new Date(element.props.date!), 'EEEE, LLL do')
+  const title = format(new Date(element.date!), 'EEEE, LLL do')
 
   return (
     <Box flex-1 contentEditable={false} {...attributes} leadingNormal>

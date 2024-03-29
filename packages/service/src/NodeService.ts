@@ -28,15 +28,13 @@ export class NodeService {
     private node: Node,
     public allNodes: Node[],
   ) {
-    if (node?.raw) {
-      for (const item of allNodes) {
-        this.nodeMap.set(item.id, item.raw)
-      }
-
-      this.childrenNodes = node.raw.children.map((id) => {
-        return new Node(this.nodeMap.get(id)!)
-      })
+    for (const item of allNodes) {
+      this.nodeMap.set(item.id, item.raw)
     }
+
+    this.childrenNodes = node.raw.children.map((id) => {
+      return new Node(this.nodeMap.get(id)!)
+    })
 
     const parentNodes = this.getParentNodes()
 
@@ -72,7 +70,7 @@ export class NodeService {
 
     let node = this.node
     let i = 0
-    while (this.node.parentId) {
+    while (node.parentId) {
       for (const item of this.allNodes) {
         if (node.parentId === item.id) {
           node = item
@@ -96,7 +94,7 @@ export class NodeService {
   }
 
   async toggleFolded(id: string, folded: boolean) {
-    await db.updateNode(id, {
+    await this.updateNode(id, {
       folded: !folded,
     })
 
@@ -110,25 +108,14 @@ export class NodeService {
 
     if (this.node.isDatabase) {
       if (!this.node.isTodoDatabase) {
-        node = await db.updateNode(node.id, {
+        node = await this.updateNode(node.id, {
           props: {
             ...node.props,
             name: SlateNode.string(title),
           },
         })
       }
-    } else {
-      const oldHash = new Node(node).toHash()
-      const newHash = new Node({ ...node, element: title.children }).toHash()
-
-      if (oldHash !== newHash) {
-        console.log('==title==oldHash:', oldHash)
-
-        node = await db.updateNode(node.id, {
-          element: title.children,
-          date: this.date,
-        })
-      }
+      return
     }
 
     // update space name
@@ -136,6 +123,16 @@ export class NodeService {
       await store.space.updateSpace(node.spaceId, {
         name: SlateNode.string(title),
       })
+      return
+    }
+
+    const oldHash = new Node(node).toHash()
+    const newHash = new Node({ ...node, element: title.children }).toHash()
+
+    if (oldHash !== newHash) {
+      console.log('==title==oldHash:', oldHash)
+
+      node = await this.updateNode(node.id, { element: title.children })
     }
   }
 
@@ -195,7 +192,7 @@ export class NodeService {
   saveBlockNodes = async (parentId: string, elements: any[]) => {
     const nodeChildren = elements.map((n) => n.id)
     if (!isEqual(this.node.children, nodeChildren)) {
-      await db.updateNode(this.node.id, {
+      await this.updateNode(this.node.id, {
         children: nodeChildren,
       })
     }
@@ -215,10 +212,9 @@ export class NodeService {
         }).toHash()
 
         if (oldHash !== newHash) {
-          const newNode = await db.updateNode(item.id, {
+          const newNode = await this.updateNode(item.id, {
             element: [item],
             children: [], // TODO:
-            date: this.date,
           })
 
           const node = new Node(newNode)
@@ -254,25 +250,21 @@ export class NodeService {
       } else {
         let newNode: INode
         if (isList) {
-          newNode = await db.createNode({
+          newNode = await this.createNode({
             id: item.id,
             parentId,
             type: NodeType.LIST,
-            spaceId: this.spaceId,
             element: [item],
             children: [], // TODO:
-            date: this.date,
           })
 
           await this.saveOutlinerNodes(item.id, item as any, false)
         } else {
-          newNode = await db.createNode({
+          newNode = await this.createNode({
             id: item.id,
             parentId,
-            spaceId: this.spaceId,
             element: [item],
             children: [], // TODO:
-            date: this.date,
           })
         }
 
@@ -316,10 +308,7 @@ export class NodeService {
     const parentNode = await db.getNode(parentId)
     if (!isEqual(parentNode?.children, childrenForCurrentNode)) {
       // update root node's children
-      await db.updateNode(parentId, {
-        children: childrenForCurrentNode,
-        date: this.date,
-      })
+      await this.updateNode(parentId, { children: childrenForCurrentNode })
     }
 
     const listContents = Editor.nodes(editor, {
@@ -382,10 +371,9 @@ export class NodeService {
             element,
             collapsed: !!item.collapsed,
             children,
-            date: this.date,
           }
 
-          const newNode = await db.updateNode(item.id, updateData)
+          const newNode = await this.updateNode(item.id, updateData)
 
           const node = new Node(newNode)
 
@@ -414,15 +402,13 @@ export class NodeService {
           }
         }
       } else {
-        let newNode = await db.createNode({
+        let newNode = await this.createNode({
           id: item.id,
           type: isOutliner ? NodeType.COMMON : NodeType.LIST_ITEM,
           parentId: newParentId,
-          spaceId: this.spaceId,
           collapsed: !!item.collapsed,
           element,
           children,
-          date: this.date,
         })
 
         const node = new Node(newNode)
@@ -444,5 +430,20 @@ export class NodeService {
         }
       }
     }
+  }
+
+  private createNode<T extends INode>(data: Partial<T>) {
+    if (this.date) data.date = this.date
+    return db.createNode({
+      spaceId: this.spaceId,
+      ...data,
+    })
+  }
+
+  private updateNode<T extends INode>(nodeId: string, data: Partial<T>) {
+    if (this.date) data.date = this.date
+    return db.updateNode(nodeId, {
+      ...data,
+    })
   }
 }

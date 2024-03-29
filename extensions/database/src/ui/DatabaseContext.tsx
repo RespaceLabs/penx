@@ -286,7 +286,9 @@ export const DatabaseProvider = ({
   const generateFilter = (databaseId: string): IFilterResult => {
     let dataSource: INode[] = []
     const { rows, columns, cells } = database
-    const { filters = [] } = currentView.props
+
+    // TODO: why currentView is null?
+    const { filters = [] } = currentView?.props || {}
 
     const initializedData = rows.map((row) => {
       return columns.reduce(

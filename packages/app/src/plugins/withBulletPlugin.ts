@@ -5,6 +5,8 @@ import { store } from '@penx/store'
 export function withBulletPlugin(editor: PenxEditor) {
   editor.onClickBullet = async (nodeId: string) => {
     const node = await db.getNode(nodeId)
+    // console.log('======node:', node)
+
     store.node.selectNode(node)
   }
   return editor

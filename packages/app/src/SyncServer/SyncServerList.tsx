@@ -1,5 +1,4 @@
 import { Box } from '@fower/react'
-import { useQuery } from '@tanstack/react-query'
 import { Copy, Pencil } from 'lucide-react'
 import { Button, modalController, Spinner, toast } from 'uikit'
 import { ModalNames } from '@penx/constants'

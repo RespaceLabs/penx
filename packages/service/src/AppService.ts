@@ -53,7 +53,7 @@ export class AppService {
       // get nodesLastUpdatedAt and try to pull from cloud
 
       if (nodes.length) {
-        const todayNode = await db.getTodayNode(activeSpace.id)
+        const todayNode = await db.getNodeByDate(activeSpace.id)
 
         if (!todayNode) {
           await this.createAndGoToTodayNode(activeSpace.id)

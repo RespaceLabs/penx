@@ -37,14 +37,14 @@ async function fallbackForMnemonic(
 }
 
 export async function syncToCloud(mnemonic: string): Promise<boolean> {
-  console.log('syncToCloud......')
+  // console.log('syncToCloud......')
 
   const space = await db.getActiveSpace()
   if (!space) return false
 
   const nodesLastUpdatedAt = space.nodesLastUpdatedAt
 
-  console.log('=========nodesLastUpdatedAt:', nodesLastUpdatedAt)
+  // console.log('=========nodesLastUpdatedAt:', nodesLastUpdatedAt)
 
   // console.log('-------lastModifiedTime:', lastModifiedTime)
 

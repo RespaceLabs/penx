@@ -274,12 +274,12 @@ export class PenxDB extends Dexie {
     return node as INode
   }
 
-  getTodayNode = async (spaceId: string) => {
+  getNodeByDate = async (spaceId: string, date = formatToDate(new Date())) => {
     let nodes = await this.node
       .where({ type: NodeType.DAILY, spaceId })
       .toArray()
 
-    return nodes.find((node) => node.date === formatToDate(new Date()))!
+    return nodes.find((node) => node.date === date)!
   }
 
   getFavoriteNode = async (spaceId: string) => {
@@ -341,7 +341,14 @@ export class PenxDB extends Dexie {
 
   createDailyNode = async (node: Partial<INode>) => {
     const { spaceId = '' } = node
+
+    const existDailyNode = await this.getNodeByDate(spaceId, node.date)
+
+    // exist daily node, no need to create
+    if (existDailyNode) return existDailyNode
+
     const dailyRootNode = await this.getDailyRootNode(spaceId)
+
     const subNode = await this.createNode(getNewNode({ spaceId }))
 
     const dailyNode = await this.createNode({
@@ -356,15 +363,17 @@ export class PenxDB extends Dexie {
       parentId: dailyNode.id,
     })
 
+    const dailyRootChildren = [...(dailyRootNode.children || []), dailyNode.id]
+
     await this.updateNode(dailyRootNode.id, {
-      children: [...(dailyRootNode.children || []), dailyNode.id],
+      children: dailyRootChildren,
     })
 
     return dailyNode
   }
 
   getOrCreateTodayNode = async (spaceId: string) => {
-    let todayNode = await this.getTodayNode(spaceId)
+    let todayNode = await this.getNodeByDate(spaceId)
 
     if (!todayNode) {
       todayNode = await this.createDailyNode({

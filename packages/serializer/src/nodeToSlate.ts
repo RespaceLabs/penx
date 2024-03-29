@@ -70,6 +70,7 @@ export class NodeToSlateSerializer {
     }
 
     if (this.node.isDailyRoot && !this?.isOutlinerSpace) {
+      // if (this.node.isDailyRoot) {
       return getDailyRootEditorValue(this.node, this.nodeMap)
     }
 
@@ -147,8 +148,6 @@ export class NodeToSlateSerializer {
         .map((id) => {
           const node = this.nodeMap.get(id)!
 
-          // console.log('=======          log:', node)
-
           const liChildren = [
             {
               id: node.id,
@@ -182,9 +181,15 @@ export class NodeToSlateSerializer {
       }
     }
 
+    const sortedChildrenNodes = !this.node.isDailyRoot
+      ? childrenNodes
+      : childrenNodes.sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+        )
+
     const content = {
       type: ELEMENT_UL,
-      children: childrenNodes.map((node) => {
+      children: sortedChildrenNodes.map((node) => {
         // override the title
         if (node.isDaily || node.isInbox) {
           node.element[0].children[0].text = node.title
@@ -349,7 +354,9 @@ function getDailyRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
     // TODO: why get an undefined node
     .filter((id) => nodeMap.get(id))
     .map((id) => nodeMap.get(id)!)
-    .sort((a, b) => new Date(a.date!).getTime() - new Date(b.date!).getTime())
+    .sort((a, b) => {
+      return new Date(a.date!).getTime() - new Date(b.date!).getTime()
+    })
     .map((node) => {
       return {
         type: ELEMENT_LI,
@@ -358,11 +365,13 @@ function getDailyRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
             id: node.id,
             type: ELEMENT_LIC,
             nodeType: node.type,
+            date: node.date,
             props: node.props,
             collapsed: node.collapsed,
             children: [
               {
                 type: ELEMENT_DAILY_ENTRY,
+                date: node.date,
                 props: node.props,
                 children: [{ text: '' }],
               },

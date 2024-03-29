@@ -37,6 +37,7 @@ export interface DatabaseElement extends BaseCustomElement {
 
 export interface DailyEntryElement extends BaseCustomElement {
   type: typeof ELEMENT_DAILY_ENTRY
+  date: string
   props: {
     date: string
   }

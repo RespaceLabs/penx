@@ -23,6 +23,11 @@ export const extensionList = [
   // },
 
   {
+    id: 'check-list',
+    activate: checkList.activate,
+  },
+
+  {
     id: 'paragraph',
     activate: paragraph.activate,
   },
@@ -39,10 +44,6 @@ export const extensionList = [
   {
     id: 'divider',
     activate: divider.activate,
-  },
-  {
-    id: 'check-list',
-    activate: checkList.activate,
   },
   {
     id: 'auto-format',
