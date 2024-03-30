@@ -1,9 +1,10 @@
 import { FC, useState } from 'react'
-import { Box } from '@fower/react'
+import TextareaAutosize from 'react-textarea-autosize'
+import { Box, css } from '@fower/react'
 import { readContract } from '@wagmi/core'
 import { useSession } from 'next-auth/react'
-import { useAccount, useReadContract, useSignMessage } from 'wagmi'
-import { Button, Input, InputElement, InputGroup, Spinner, toast } from 'uikit'
+import { useAccount, useSignMessage } from 'wagmi'
+import { Button, toast } from 'uikit'
 import { passwordManagerAbi } from '@penx/abi'
 import { decryptString } from '@penx/encryption'
 import { getPublicKey, setMnemonicToLocal } from '@penx/mnemonic'
@@ -61,7 +62,7 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
   }
 
   return (
-    <Box column gap8 w={['100%', 600, 800]}>
+    <Box column gap8 w={['100%', 500, 600]} shadowPopover p6 rounded3XL>
       <Box>
         <Box text4XL fontBold textCenter>
           Recovery Phrase
@@ -71,42 +72,46 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
         </Box>
       </Box>
 
-      <InputGroup zIndex-10>
-        <Input
-          size={56}
-          flex-1
-          borderNone
-          shadowPopover
-          roundedFull
-          textBase
-          // shadow3XL
-          placeholder="Enter recover phrase"
+      <Box relative>
+        <TextareaAutosize
+          minRows={6}
+          className={css(
+            'm0 rounded3XL border-1 w-100p outlineNone px3 py3 flex placeholderGray400 bgWhite textBase gray300--dark bgTransparent bgTransparent--dark',
+          )}
           value={mnemonic}
           onChange={(e) => {
             setMnemonic(e.target.value)
           }}
         />
 
-        <InputElement w-210>
-          <Button
-            variant="light"
-            size="lg"
-            w-200
-            roundedFull
-            column
-            gap-2
-            onClick={() => {
-              recoverPassword()
-            }}
-          >
-            <Box textSM>Restore recover phrase</Box>
-            <Box text-10>Restore recover phrase from blockchain</Box>
-          </Button>
-        </InputElement>
-      </InputGroup>
+        <Button
+          variant="light"
+          size="lg"
+          colorScheme="gray500"
+          absolute
+          bottom1
+          right1
+          w-200
+          rounded3XL
+          column
+          gap-2
+          onClick={() => {
+            recoverPassword()
+          }}
+        >
+          <Box textSM>Restore recover phrase</Box>
+          <Box text-10>Restore recover phrase from blockchain</Box>
+        </Button>
+      </Box>
 
       <Box toCenterY gap2 toCenterX>
-        <Button size="lg" w-200 roundedFull onClick={() => confirm()}>
+        <Button
+          size="lg"
+          colorScheme="black"
+          w-200
+          roundedFull
+          onClick={() => confirm()}
+        >
           Confirm
         </Button>
       </Box>

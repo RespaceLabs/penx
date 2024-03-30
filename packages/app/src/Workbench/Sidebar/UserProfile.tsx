@@ -154,9 +154,7 @@ export const UserProfile = () => {
               onClick={async () => {
                 // await disconnectAsync()
                 // disconnect()
-                setTimeout(() => {
-                  appEmitter.emit('SIGN_OUT')
-                }, 0)
+                appEmitter.emit('SIGN_OUT')
               }}
             >
               <Box gray500>
