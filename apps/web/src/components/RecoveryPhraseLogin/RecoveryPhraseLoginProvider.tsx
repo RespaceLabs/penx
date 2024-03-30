@@ -35,24 +35,29 @@ export function RecoveryPhraseLoginProvider({ children }: PropsWithChildren) {
           <RecoveryPhraseLogin refetch={refetch} />
         </Box>
 
-        <Box toCenter gap2 w-100p mt4 opacity-60>
-          <Button
-            variant="outline"
-            colorScheme="black"
-            w-180
-            onClick={() => {
-              appEmitter.emit('SIGN_OUT')
-            }}
-          >
-            Logout
-          </Button>
-          <Button
-            w-180
-            colorScheme="red500"
-            onClick={() => modalController.open(ModalNames.DELETE_ACCOUNT)}
-          >
-            Delete Account
-          </Button>
+        <Box>
+          <Box gray500 textCenter>
+            Have forgotten the recovery phrase permanently?
+          </Box>
+          <Box toCenter gap2 w-100p mt4 opacity-60>
+            <Button
+              variant="outline"
+              colorScheme="black"
+              w-180
+              onClick={() => {
+                appEmitter.emit('SIGN_OUT')
+              }}
+            >
+              Logout
+            </Button>
+            <Button
+              w-180
+              colorScheme="red500"
+              onClick={() => modalController.open(ModalNames.DELETE_ACCOUNT)}
+            >
+              Delete Account
+            </Button>
+          </Box>
         </Box>
       </Box>
     )

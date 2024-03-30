@@ -7,14 +7,20 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   useModalContext,
 } from 'uikit'
+import { appEmitter } from '@penx/app'
 import { ModalNames } from '@penx/constants'
+import { api, trpc } from '@penx/trpc-client'
 
 const Footer = () => {
   const { close } = useModalContext<string>()
+  const { isLoading, mutateAsync } = trpc.user.deleteAccount.useMutation()
   async function deleteAccount() {
-    alert('delete account')
+    await mutateAsync()
+
+    appEmitter.emit('SIGN_OUT')
     close()
   }
 
@@ -23,8 +29,9 @@ const Footer = () => {
       <ModalClose asChild>
         <Button colorScheme="white">Cancel</Button>
       </ModalClose>
-      <Button colorScheme="red500" onClick={deleteAccount}>
-        Delete
+      <Button colorScheme="red500" disabled={isLoading} onClick={deleteAccount}>
+        {isLoading && <Spinner white square4 />}
+        <Box>Delete</Box>
       </Button>
     </Box>
   )
@@ -42,7 +49,7 @@ export const DeleteAccountModal = () => {
         </ModalHeader>
 
         <Box w-70p>
-          Once deleted, all your data will be removed, You can't undo this
+          Once deleted, all your data will be removed, You can{`'`}t undo this
           action.
         </Box>
         <Footer />

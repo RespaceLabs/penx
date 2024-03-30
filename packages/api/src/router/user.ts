@@ -2,6 +2,7 @@ import { TRPCError } from '@trpc/server'
 import jwt from 'jsonwebtoken'
 import { nanoid } from 'nanoid'
 import { z } from 'zod'
+import { prisma } from '@penx/db'
 import { GithubInfo } from '@penx/model'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
@@ -193,8 +194,22 @@ export const userRouter = createTRPCRouter({
       return ctx.prisma.user.update({ where: { id }, data })
     }),
 
-  delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
-    return ctx.prisma.user.delete({ where: { id: input } })
+  deleteAccount: protectedProcedure.mutation(async ({ ctx, input }) => {
+    const userId = ctx.token.uid
+    return prisma.$transaction(
+      async (tx) => {
+        await tx.space.deleteMany({ where: { userId } })
+        await tx.account.deleteMany({ where: { userId } })
+        await tx.personalToken.deleteMany({ where: { userId } })
+        await tx.syncServer.deleteMany({ where: { userId } })
+        await tx.user.delete({ where: { id: userId } })
+        return true
+      },
+      {
+        maxWait: 5000, // default: 2000
+        timeout: 10000, // default: 5000
+      },
+    )
   }),
 
   connectRepo: protectedProcedure
