@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 export const syncServerRouter = createTRPCRouter({
-  all: publicProcedure.query(({ ctx }) => {
+  all: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.syncServer.findMany({
       orderBy: { createdAt: 'desc' },
       select: {
@@ -18,10 +18,24 @@ export const syncServerRouter = createTRPCRouter({
     })
   }),
 
-  runningSyncServers: publicProcedure.query(({ ctx }) => {
+  runningSyncServers: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.syncServer.findMany({
       where: {
-        url: { not: '' },
+        OR: [
+          {
+            type: 'OFFICIAL',
+            url: { not: '' },
+          },
+          {
+            type: 'PUBLIC',
+            url: { not: '' },
+          },
+          {
+            userId: ctx.token.uid,
+            type: 'PRIVATE',
+            url: { not: '' },
+          },
+        ],
       },
       orderBy: { createdAt: 'desc' },
       select: {
@@ -35,7 +49,7 @@ export const syncServerRouter = createTRPCRouter({
     })
   }),
 
-  mySyncServers: publicProcedure.query(({ ctx }) => {
+  mySyncServers: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.syncServer.findMany({
       where: { userId: ctx.token.uid },
       orderBy: { createdAt: 'desc' },
@@ -51,7 +65,7 @@ export const syncServerRouter = createTRPCRouter({
     })
   }),
 
-  byId: publicProcedure
+  byId: protectedProcedure
     .input(z.object({ id: z.string().min(1) }))
     .query(({ ctx, input }) => {
       return ctx.prisma.syncServer.findUniqueOrThrow({
