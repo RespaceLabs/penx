@@ -3,6 +3,7 @@ import { Box } from '@fower/react'
 import { useSession } from 'next-auth/react'
 import { SessionProvider } from '@penx/session'
 import { RecoveryPhrase } from '~/components/RecoveryPhrase/RecoveryPhrase'
+import { CommonLayout } from '~/layouts/CommonLayout'
 
 const PagePassword = () => {
   const session = useSession()
@@ -22,3 +23,5 @@ const PagePassword = () => {
 }
 
 export default PagePassword
+
+PagePassword.Layout = CommonLayout

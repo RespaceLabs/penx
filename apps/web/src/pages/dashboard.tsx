@@ -2,6 +2,7 @@ import React from 'react'
 import { useSession } from 'next-auth/react'
 import { Dashboard } from '@penx/app'
 import { SessionProvider } from '@penx/session'
+import { CommonLayout } from '~/layouts/CommonLayout'
 
 export default function DashboardPage() {
   const { data: session, status } = useSession()
@@ -17,3 +18,5 @@ export default function DashboardPage() {
     </SessionProvider>
   )
 }
+
+DashboardPage.Layout = CommonLayout

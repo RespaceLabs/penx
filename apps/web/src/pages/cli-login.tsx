@@ -3,6 +3,7 @@ import { Box } from '@fower/react'
 import { useRouter } from 'next/router'
 import { Button, Spinner, toast } from 'uikit'
 import { api, trpc } from '@penx/trpc-client'
+import { CommonLayout } from '~/layouts/CommonLayout'
 
 export default function CliLogin() {
   const { query, push } = useRouter()
@@ -60,3 +61,5 @@ export default function CliLogin() {
     </Box>
   )
 }
+
+CliLogin.Layout = CommonLayout

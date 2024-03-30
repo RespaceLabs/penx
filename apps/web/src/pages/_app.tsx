@@ -1,11 +1,9 @@
 import { Fragment, useEffect } from 'react'
-import { Analytics } from '@vercel/analytics/react'
 import { Session } from 'next-auth'
 import { SessionProvider, signIn, signOut } from 'next-auth/react'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import 'next-auth/react'
 import type { AppProps } from 'next/app'
-import { ToastContainer } from 'uikit'
 import { isServer } from '@penx/constants'
 import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
@@ -22,12 +20,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../styles/globals.css'
 import '../styles/command.scss'
 import '@glideapps/glide-data-grid/dist/index.css'
-import { StoreProvider } from '@penx/store'
-import { TrpcProvider } from '@penx/trpc-client'
-import { ClientOnly } from '~/components/ClientOnly'
-import { EventHandler } from '~/components/EventHandler'
-// import { WalletConnectProvider } from '@penx/wagmi'
-import { WalletConnectProvider } from '~/components/WalletConnectProvider'
 
 initFower()
 
@@ -53,27 +45,16 @@ function MyApp({ Component, pageProps }: Props<any>) {
       />
       <GoogleAnalytics trackPageViews />
 
-      <StoreProvider>
-        <ClientOnly>
-          <WalletConnectProvider>
-            <SessionProvider session={pageProps.session} refetchInterval={0}>
-              <TrpcProvider>
-                <EventHandler />
-                {/* <SpeedInsights /> */}
-                <Layout>
-                  <Component {...pageProps} />
-                  <div id="portal" />
-                </Layout>
-                <ToastContainer position="bottom-right" />
-
-                {/* <Analytics /> */}
-              </TrpcProvider>
-            </SessionProvider>
-          </WalletConnectProvider>
-        </ClientOnly>
-      </StoreProvider>
+      <SessionProvider session={pageProps.session} refetchInterval={0}>
+        {/* <SpeedInsights /> */}
+        {/* <Analytics /> */}
+        <Layout>
+          <Component {...pageProps} />
+          <div id="portal" />
+        </Layout>
+      </SessionProvider>
     </>
   )
 }
 
-export default api.withTRPC(MyApp)
+export default MyApp

@@ -6385,12 +6385,6 @@ importers:
       '@penx/editor-common':
         specifier: workspace:*
         version: link:../editor-common
-      '@penx/editor-shared':
-        specifier: workspace:^
-        version: link:../editor-shared
-      '@penx/editor-transforms':
-        specifier: workspace:*
-        version: link:../editor-transforms
       '@penx/event':
         specifier: workspace:*
         version: link:../event
@@ -6430,9 +6424,6 @@ importers:
       react-fast-compare:
         specifier: ^3.2.2
         version: 3.2.2
-      slate:
-        specifier: 0.101.5
-        version: 0.101.5
     devDependencies:
       '@penx/tsconfig':
         specifier: workspace:*
