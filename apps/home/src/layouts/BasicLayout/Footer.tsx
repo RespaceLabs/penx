@@ -14,16 +14,18 @@ export function Footer() {
           items={[
             {
               text: 'Twitter',
-              to: '/',
+              to: 'https://twitter.com/coder_zion',
+              isExternal: true,
             },
             {
               text: 'Discord',
-              to: '/',
+              to: 'https://discord.gg/nyVpH9njDu',
+              isExternal: true,
             },
 
             {
               text: 'GitHub',
-              to: '/',
+              to: 'https://github.com/penxio/penx',
               isExternal: true,
             },
           ]}
@@ -31,26 +33,29 @@ export function Footer() {
         <FooterBox
           title="Download"
           items={[
-            {
-              text: 'iOS',
-              to: '/',
-            },
-            {
-              text: 'Android',
-              to: '/',
-            },
+            // {
+            //   text: 'iOS',
+            //   to: '/',
+            // },
+            // {
+            //   text: 'Android',
+            //   to: '/',
+            // },
 
             {
               text: 'Mac App',
-              to: '/',
+              to: 'https://github.com/penxio/penx/releases',
+              isExternal: true,
             },
             {
               text: 'Windows',
-              to: '/',
+              to: 'https://github.com/penxio/penx/releases',
+              isExternal: true,
             },
             {
               text: 'Linux',
-              to: '/',
+              to: 'https://github.com/penxio/penx/releases',
+              isExternal: true,
             },
           ]}
         />
@@ -68,7 +73,7 @@ export function Footer() {
             },
             {
               text: 'Blog',
-              to: '/',
+              to: 'https://blog.penx.io/blog/why-build-penx',
               isExternal: true,
             },
           ]}
@@ -98,7 +103,19 @@ export function FooterBox({ title, items, ...rest }: FooterBoxProps) {
       <Box column gap4>
         {items.map((item) => (
           <Box key={item.to}>
-            <StyledLink href={item.to} neutral900 transitionCommon noUnderline>
+            <StyledLink
+              href={item.to}
+              neutral900
+              transitionCommon
+              noUnderline
+              onClick={(e) => {
+                if (item.isExternal) {
+                  window.open(item.to)
+                }
+                e.preventDefault()
+                return
+              }}
+            >
               {item.text}
             </StyledLink>
           </Box>

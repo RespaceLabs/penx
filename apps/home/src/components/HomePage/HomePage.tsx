@@ -19,15 +19,15 @@ export function HomePage() {
       <Box flex-1 toCenter column gap8 px={[20, 0]}>
         <Box
           text={[28, 50, 70]}
-          maxW-760
+          maxW-960
           fontBlack
-          leadingNone
+          leadingTight
           textCenter
           black
           mt={[120]}
           p0
         >
-          The{' '}
+          A daily canvas to{' '}
           <Box
             as="span"
             transparent
@@ -35,9 +35,9 @@ export function HomePage() {
             bgClipText
             bgGradientX={['brand500', 'fuchsia500', 'indigo500']}
           >
-            Second Brain
+            record & plan
           </Box>{' '}
-          App for{' '}
+          life for{' '}
           <Box
             as="span"
             relative
@@ -63,9 +63,8 @@ export function HomePage() {
         </Box>
 
         <Box textLG neutral500 maxW-640 textCenter leadingNormal>
-          A structured Note-taking app for personal use. An elegant tool
-          designed to help you capture, organize, and store your thoughts,
-          ideas, and information.
+          An elegant App designed to help you capture, organize, and store your
+          thoughts, tasks, ideas, and information.
         </Box>
 
         <Box

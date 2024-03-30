@@ -63,4 +63,4 @@ function MyApp({ Component, pageProps }: Props<any>) {
   )
 }
 
-export default api.withTRPC(MyApp)
+export default MyApp

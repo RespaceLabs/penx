@@ -11,26 +11,28 @@ type NavItem = {
 
 export const Nav = () => {
   const navData: NavItem[] = [
-    {
-      text: 'Bounty tasks',
-      to: 'https://github.com/penxio/penx/issues?q=is%3Aissue+is%3Aopen+label%3A%22%F0%9F%92%8E+Bounty%22',
-      isExternal: true,
-    },
-    {
-      text: 'Believer NFTs',
-      to: '/believer-nft',
-    },
+    // {
+    //   text: 'Bounty tasks',
+    //   to: 'https://github.com/penxio/penx/issues?q=is%3Aissue+is%3Aopen+label%3A%22%F0%9F%92%8E+Bounty%22',
+    //   isExternal: true,
+    // },
+    // {
+    //   text: 'Believer NFTs',
+    //   to: '/believer-nft',
+    // },
 
-    {
-      text: 'Whitepaper',
-      to: 'https://whitepaper.penx.io',
-      isExternal: true,
-    },
+    // {
+    //   text: 'Whitepaper',
+    //   to: 'https://whitepaper.penx.io',
+    //   isExternal: true,
+    // },
 
-    {
-      text: 'Roadmap',
-      to: '/roadmap',
-    },
+    // {
+    //   text: 'Roadmap',
+    //   to: '/roadmap',
+    // },
+
+    { text: 'Docs', to: 'https://docs.penx.io/', isExternal: true },
 
     {
       text: 'Downloads',
@@ -42,7 +44,11 @@ export const Nav = () => {
       to: 'https://github.com/penxio/penx/issues',
       isExternal: true,
     },
-    { text: 'Docs', to: 'https://docs.penx.io/', isExternal: true },
+    {
+      text: 'Blog',
+      to: 'https://blog.penx.io/blog/why-build-penx',
+      isExternal: true,
+    },
   ]
 
   return (
