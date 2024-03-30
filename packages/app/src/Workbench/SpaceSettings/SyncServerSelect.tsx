@@ -64,7 +64,7 @@ export const SyncServerSelect = () => {
           }}
         >
           <SelectTrigger bgSlate100 flex-1>
-            <SelectValue placeholder="Select a space"></SelectValue>
+            <SelectValue placeholder="Select a sync server"></SelectValue>
             <SelectIcon></SelectIcon>
           </SelectTrigger>
           <SelectContent w-200>

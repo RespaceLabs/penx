@@ -9,6 +9,7 @@ const isDev = process.env.NODE_ENV === 'development'
 
 const withPWA = NextPWA({
   dest: 'public',
+  disable: isDev,
   // runtimeCaching,
   disableDevLogs: true,
 })
@@ -105,5 +106,4 @@ const config = {
 }
 
 // export default withPWA(million.next(config))
-// export default isDev ? config : withPWA(config)
 export default config

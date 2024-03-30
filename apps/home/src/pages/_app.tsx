@@ -1,11 +1,10 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 import { Session } from 'next-auth'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { ToastContainer } from 'uikit'
 import { isServer } from '@penx/constants'
-import { api } from '~/utils/api'
 import { initFower } from '../common/initFower'
 import 'simplebar-react/dist/simplebar.min.css'
 import 'react-circular-progressbar/dist/styles.css'
@@ -53,4 +52,4 @@ function MyApp({ Component, pageProps }: Props<any>) {
   )
 }
 
-export default api.withTRPC(MyApp)
+export default MyApp

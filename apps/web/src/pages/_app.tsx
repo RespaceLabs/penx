@@ -43,6 +43,7 @@ function MyApp({ Component, pageProps }: Props<any>) {
         name="viewport"
         content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
       />
+
       <GoogleAnalytics trackPageViews />
 
       <SessionProvider session={pageProps.session} refetchInterval={0}>

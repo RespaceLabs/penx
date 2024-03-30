@@ -5,7 +5,7 @@
 
 <h1 style="border-bottom: none">
     <b>PenX</b><br />
-     A structured note-taking app for personal use
+     A daily canvas to record & plan life for geeks
     <br>
 </h1>
 
