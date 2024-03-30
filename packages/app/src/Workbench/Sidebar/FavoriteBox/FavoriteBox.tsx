@@ -29,9 +29,8 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { Box } from '@fower/react'
-import { useDatabase } from '@penx/hooks'
 import { db } from '@penx/local-db'
-import { NodeListService } from '@penx/service'
+import { NodeListService } from '@penx/node-hooks'
 import { store } from '@penx/store'
 import { FavoriteTitle } from './FavoriteTitle'
 import { NodeItem } from './NodeItem'

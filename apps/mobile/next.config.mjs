@@ -32,6 +32,7 @@ const nextConfig = {
     '@penx/math',
     '@penx/catalogue',
     '@penx/hooks',
+    '@penx/node-hooks',
     '@penx/local-db',
     '@penx/wagmi',
     '@penx/editor',
@@ -80,6 +81,6 @@ const nextConfig = {
     'uikit',
     '@penx/slate-lists',
   ],
-};
+}
 
-export default nextConfig;
+export default nextConfig

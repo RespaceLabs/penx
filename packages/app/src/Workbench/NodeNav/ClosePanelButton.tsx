@@ -1,6 +1,6 @@
 import { XIcon } from 'lucide-react'
 import { Button } from 'uikit'
-import { useNodeContext } from '@penx/hooks'
+import { useNodeContext } from '@penx/node-hooks'
 import { store } from '@penx/store'
 
 export const ClosePanelButton = () => {

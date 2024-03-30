@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren } from 'react'
 import { Button } from 'uikit'
-import { useNodeContext, useNodes } from '@penx/hooks'
 import { IconStar, IconStarSolid } from '@penx/icons'
+import { useNodeContext, useNodes } from '@penx/node-hooks'
 
 interface Props {}
 

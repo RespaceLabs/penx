@@ -3,7 +3,7 @@ import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { Spinner } from 'uikit'
 import { AppService } from '@penx/service'
-import { appLoadingAtom } from '@penx/store'
+import { appLoadingAtom, store } from '@penx/store'
 import { useRunSSE } from './Workbench/hooks/useRunSSE'
 
 export const appContext = createContext({} as { app: AppService })

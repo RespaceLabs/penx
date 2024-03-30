@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { EDITOR_NAV_WIDTH } from '@penx/constants'
-import { useNodeContext } from '@penx/hooks'
+import { useNodeContext } from '@penx/node-hooks'
 import { PaletteDrawer } from '../PaletteDrawer'
 import { Breadcrumb } from './Breadcrumb'
 import { ClosePanelButton } from './ClosePanelButton'

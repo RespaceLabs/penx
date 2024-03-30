@@ -31,6 +31,7 @@ export class AppService {
       }
 
       let nodes = await db.listNodesBySpaceId(activeSpace.id)
+
       store.space.setSpaces(spaces)
 
       // console.log('appService=======nodes:', nodes)

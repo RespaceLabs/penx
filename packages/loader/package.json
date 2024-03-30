@@ -38,7 +38,6 @@
     "@penx/table": "workspace:*",
     "@penx/word-count": "workspace:*",
     "immer": "^10.0.3",
-    "jotai": "^2.6.0",
     "mitt": "^3.0.1",
     "stook": "^1.17.0"
   }

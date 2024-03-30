@@ -2,13 +2,7 @@ import _ from 'lodash'
 import { ELEMENT_BIDIRECTIONAL_LINK_CONTENT } from '@penx/constants'
 import { ArraySorter, db } from '@penx/local-db'
 import { Node, WithFlattenedProps } from '@penx/model'
-import {
-  IDailyRootNode,
-  IDatabaseRootNode,
-  INode,
-  IRootNode,
-  NodeType,
-} from '@penx/model-types'
+import { IDatabaseRootNode, INode, NodeType } from '@penx/model-types'
 import { store } from '@penx/store'
 
 interface TreeItem extends Omit<INode, 'children'> {
@@ -151,7 +145,7 @@ export class NodeListService {
   }
 
   isFavoriteDatabase(id: string) {
-    return this.databaseRootNode.favorites.includes(id)
+    return this.databaseRootNode?.favorites.includes(id)
   }
 
   getLinkedReferences(node: Node) {

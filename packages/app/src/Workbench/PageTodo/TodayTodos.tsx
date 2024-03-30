@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { useTodos } from '@penx/hooks'
+import { useTodos } from '@penx/node-hooks'
 import { TodoItem } from './TodoItem'
 
 export const TodayTodos = () => {

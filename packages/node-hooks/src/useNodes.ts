@@ -1,9 +1,8 @@
-import { useEffect, useMemo } from 'react'
-import { useAtomValue, useSetAtom } from 'jotai'
-import { db } from '@penx/local-db'
+import { useMemo } from 'react'
+import { useAtomValue } from 'jotai'
 import { Node } from '@penx/model'
-import { NodeListService } from '@penx/service'
-import { nodesAtom, store } from '@penx/store'
+import { nodesAtom } from '@penx/store'
+import { NodeListService } from './services/NodeListService'
 
 export function useNodes() {
   const nodes = useAtomValue(nodesAtom)

@@ -1,9 +1,12 @@
 import { Box } from '@fower/react'
-import { useNodeContext } from '@penx/hooks'
+import { useNodeContext, useNodes } from '@penx/node-hooks'
+import { NodeService } from '@penx/service'
 import { BreadcrumbPopover } from './BreadcrumbPopover'
 
 export const Breadcrumb = () => {
-  const { nodeService } = useNodeContext()
+  const { node } = useNodeContext()
+  const { nodes } = useNodes()
+  const nodeService = new NodeService(node, nodes)
   const parentNodes = nodeService.getParentNodes()
 
   return (

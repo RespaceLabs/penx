@@ -12,8 +12,8 @@ import {
   Switch,
   toast,
 } from 'uikit'
-import { useNodeContext } from '@penx/hooks'
 import { IconCopy } from '@penx/icons'
+import { useNodeContext } from '@penx/node-hooks'
 import { useCopyToClipboard } from '@penx/shared'
 import { ExportToMarkdown } from './ExportToMarkdown'
 

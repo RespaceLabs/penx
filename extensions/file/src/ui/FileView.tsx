@@ -2,7 +2,7 @@ import { Box } from '@fower/react'
 import { Paperclip } from 'lucide-react'
 import { useFocused, useSelected, useSlateStatic } from 'slate-react'
 import { ElementProps } from '@penx/extension-typings'
-import { useFile } from '@penx/hooks'
+import { useFile } from '@penx/node-hooks'
 import { FileElement } from '../types'
 
 export const FileView = (props: ElementProps<FileElement>) => {

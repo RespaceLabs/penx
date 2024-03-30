@@ -64,7 +64,7 @@
     "@capacitor/cli": "5.7.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.25",
-    "@types/react": "^18.2.64",
+    "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.21",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-router": "^5.1.20",

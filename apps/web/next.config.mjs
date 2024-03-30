@@ -26,6 +26,7 @@ const config = {
     '@penx/math',
     '@penx/catalogue',
     '@penx/hooks',
+    '@penx/node-hooks',
     '@penx/local-db',
     '@penx/wagmi',
     '@penx/editor',

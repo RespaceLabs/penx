@@ -12,10 +12,8 @@ import {
   Inbox,
   Trash2,
 } from 'lucide-react'
-import { Button } from 'uikit'
-import { useNodes, useSidebarDrawer, useSpaces } from '@penx/hooks'
-import { db } from '@penx/local-db'
-import { NodeType } from '@penx/model-types'
+import { useSidebarDrawer, useSpaces } from '@penx/hooks'
+import { useNodes } from '@penx/node-hooks'
 import { useSession } from '@penx/session'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
 import { SyncPopover } from '../StatusBar/SyncPopover'
@@ -45,6 +43,7 @@ export const Sidebar = () => {
   const { activeSpace } = useSpaces()
   const components = getStatusBarComponents(extensionStore)
   const { nodes, nodeList } = useNodes()
+
   const { loading, data: session } = useSession()
   const drawer = useSidebarDrawer()
 

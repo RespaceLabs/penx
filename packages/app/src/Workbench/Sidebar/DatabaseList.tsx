@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { TODO_DATABASE_NAME } from '@penx/constants'
-import { useDatabaseNodes } from '@penx/hooks'
+import { useDatabaseNodes } from '@penx/node-hooks'
 import { store } from '@penx/store'
 import { TagsEntry } from './TagsEntry'
 

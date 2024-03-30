@@ -3,7 +3,7 @@ import { PenxEditor } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
 import { isListContentElement, UnorderedListElement } from '@penx/list'
 import { Node, WithFlattenedProps } from '@penx/model'
-import { NodeListService } from '@penx/service'
+import { NodeListService } from '@penx/node-hooks'
 
 export function editorValueToNode(
   nodeList: NodeListService,

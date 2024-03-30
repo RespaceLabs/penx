@@ -2,13 +2,12 @@ import { useState } from 'react'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { useDebouncedCallback } from 'use-debounce'
-import { Button } from 'uikit'
 import { EDITOR_NAV_WIDTH } from '@penx/constants'
 import { NodeEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
-import { NodeProvider, useNodes, useSpaces } from '@penx/hooks'
-import { db } from '@penx/local-db'
+import { useSpaces } from '@penx/hooks'
 import { Node } from '@penx/model'
+import { NodeProvider, useNodes } from '@penx/node-hooks'
 import { nodeToSlate } from '@penx/serializer'
 import { NodeService } from '@penx/service'
 import { routerAtom, store } from '@penx/store'
@@ -56,7 +55,7 @@ export function PanelItem({ node, index }: Props) {
   }
 
   return (
-    <NodeProvider value={{ index, node, nodeService }}>
+    <NodeProvider value={{ index, node }}>
       <Box relative h-100vh flex-1>
         <Box
           overflowYAuto

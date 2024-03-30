@@ -9,8 +9,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
-import { useNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
+import { useNodes } from '@penx/node-hooks'
 import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
 

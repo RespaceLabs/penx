@@ -26,6 +26,7 @@
     "@penx/editor-transforms": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
     "@penx/hooks": "workspace:*",
+    "@penx/node-hooks": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/shared": "workspace:*",

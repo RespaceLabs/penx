@@ -8,7 +8,6 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { useDatabase } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import {
   FieldType,
@@ -26,6 +25,7 @@ import {
   ViewColumn,
   ViewType,
 } from '@penx/model-types'
+import { useDatabase } from '@penx/node-hooks'
 import { store } from '@penx/store'
 import { TableSearch } from './views/TableView/TableSearch'
 

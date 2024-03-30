@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction } from 'react'
 import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
-import { useNodes, usePaletteDrawer } from '@penx/hooks'
+import { usePaletteDrawer } from '@penx/hooks'
 import { Node } from '@penx/model'
+import { useNodes } from '@penx/node-hooks'
 import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
 

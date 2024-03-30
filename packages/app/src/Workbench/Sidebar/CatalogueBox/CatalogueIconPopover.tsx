@@ -3,8 +3,8 @@ import { Box } from '@fower/react'
 import EmojiPicker, { Emoji, EmojiStyle } from 'emoji-picker-react'
 import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { CatalogueNode } from '@penx/catalogue'
-import { useCatalogue } from '@penx/hooks'
 import { IconDocument } from '@penx/icons'
+import { useCatalogue } from '@penx/node-hooks'
 
 interface Props {
   node: CatalogueNode

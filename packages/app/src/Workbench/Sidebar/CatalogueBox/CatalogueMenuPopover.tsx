@@ -10,7 +10,6 @@ import {
   PopoverTrigger,
 } from 'uikit'
 import { CatalogueNode } from '@penx/catalogue'
-import { useCatalogue } from '@penx/hooks'
 import { store } from '@penx/store'
 
 interface Props {

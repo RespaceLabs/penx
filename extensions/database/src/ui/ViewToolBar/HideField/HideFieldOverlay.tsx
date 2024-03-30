@@ -30,7 +30,6 @@ import {
 import { Box } from '@fower/react'
 import { produce } from 'immer'
 import { Button } from 'uikit'
-import { useDatabase } from '@penx/hooks'
 import { store } from '@penx/store'
 import { useDatabaseContext } from '../../DatabaseContext'
 import { Item } from './Item'

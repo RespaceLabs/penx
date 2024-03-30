@@ -19,7 +19,7 @@
     "@fower/react": "^2.0.0",
     "@penx/constants": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
-    "@penx/hooks": "workspace:*",
+    "@penx/node-hooks": "workspace:*",
     "@penx/local-db": "workspace:*"
   }
 }

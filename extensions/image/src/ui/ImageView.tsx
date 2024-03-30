@@ -11,7 +11,7 @@ import {
 import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { setNodes } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/extension-typings'
-import { useFile } from '@penx/hooks'
+import { useFile } from '@penx/node-hooks'
 import { ImageElement } from '../types'
 
 export const ImageView = (props: ElementProps<ImageElement>) => {

@@ -32,11 +32,13 @@
     "@penx/trpc-client": "workspace:*",
     "@tanstack/react-query": "^4.36.1",
     "idb-keyval": "^6.2.1",
-    "jotai": "^2.6.0",
     "ky": "^1.1.3",
     "react-hook-form": "^7.48.2",
     "uikit": "workspace:*",
     "use-debounce": "^9.0.4",
     "zod": "^3.22.4"
+  },
+  "peerDependencies": {
+    "jotai": "^2.6.0"
   }
 }
