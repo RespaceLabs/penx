@@ -1,8 +1,9 @@
 import { get } from 'idb-keyval'
-import { isProd, PENX_SESSION_USER, WorkerEvents } from '@penx/constants'
+import { isProd, WorkerEvents } from '@penx/constants'
 import { decryptString } from '@penx/encryption'
 import { db } from '@penx/local-db'
 import { sleep } from '@penx/shared'
+import { getAuthorizedUser } from '@penx/storage'
 import { getNodeMap } from '@penx/sync'
 import { trpc } from '@penx/trpc-client'
 
@@ -11,7 +12,7 @@ const INTERVAL = isProd ? 60 * 1000 : 20 * 1000
 
 export async function startPollingPull() {
   while (true) {
-    const data = await get(PENX_SESSION_USER)
+    const data = await getAuthorizedUser()
     if (data) {
       await sync()
     }

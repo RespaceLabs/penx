@@ -19,6 +19,7 @@ export class SyncStore {
   }
 
   pushToCloud = async () => {
+    if (!navigator.onLine) return
     const status = this.getStatus()
     if (status === SyncStatus.PUSHING || status === SyncStatus.PULLING) {
       return

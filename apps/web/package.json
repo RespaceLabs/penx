@@ -46,6 +46,7 @@
     "@penx/session": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/slate-lists": "workspace:*",
+    "@penx/storage": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/trpc-client": "workspace:^",
     "@penx/unique-id": "workspace:*",

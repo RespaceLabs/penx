@@ -27,6 +27,7 @@
     "@penx/model-types": "workspace:*",
     "@penx/service": "workspace:*",
     "@penx/shared": "workspace:*",
+    "@penx/storage": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/sync": "workspace:*",
     "@penx/trpc-client": "workspace:*",

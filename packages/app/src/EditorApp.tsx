@@ -1,9 +1,10 @@
 import { FC, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { set } from 'idb-keyval'
-import { isProd, isServer, PENX_SESSION_USER_ID } from '@penx/constants'
+import { isProd, isServer } from '@penx/constants'
 import { appLoader, useLoaderStatus } from '@penx/loader'
 import { useSession } from '@penx/session'
+import { setLocalSession } from '@penx/storage'
 import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
 import { ClientOnly } from './components/ClientOnly'
@@ -42,7 +43,7 @@ export const EditorApp = () => {
 
   useEffect(() => {
     if (session?.userId) {
-      set(PENX_SESSION_USER_ID, session?.userId)
+      setLocalSession(session)
     }
   }, [session])
 
@@ -55,7 +56,7 @@ export const EditorApp = () => {
   return (
     <ClientOnly>
       <ErrorBoundary fallback={<Fallback />}>
-        {session && <UserQuery userId={session.userId} />}
+        {session && navigator.onLine && <UserQuery userId={session.userId} />}
         <HotkeyBinding />
         <SpaceSyncManager userId={session?.userId}>
           <AppProvider>

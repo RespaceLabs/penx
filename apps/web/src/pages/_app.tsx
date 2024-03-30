@@ -3,12 +3,11 @@ import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import 'next-auth/react'
+import { fowerStore, Parser } from '@fower/react'
 import type { AppProps } from 'next/app'
 import { isServer } from '@penx/constants'
-import { api } from '~/utils/api'
+import { ClientOnly } from '~/components/ClientOnly'
 import { initFower } from '../common/initFower'
-import '@penx/local-db'
-import { fowerStore, Parser } from '@fower/react'
 // import { SpeedInsights } from '@vercel/speed-insights/next'
 // import 'prismjs/themes/prism.css'
 // import 'prismjs/themes/prism.css'
@@ -20,6 +19,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../styles/globals.css'
 import '../styles/command.scss'
 import '@glideapps/glide-data-grid/dist/index.css'
+import { AuthProvider } from '~/components/AuthProvider'
 
 initFower()
 
@@ -49,10 +49,14 @@ function MyApp({ Component, pageProps }: Props<any>) {
       <SessionProvider session={pageProps.session} refetchInterval={0}>
         {/* <SpeedInsights /> */}
         {/* <Analytics /> */}
-        <Layout>
-          <Component {...pageProps} />
-          <div id="portal" />
-        </Layout>
+        <ClientOnly>
+          <AuthProvider>
+            <Layout>
+              <Component {...pageProps} />
+              <div id="portal" />
+            </Layout>
+          </AuthProvider>
+        </ClientOnly>
       </SessionProvider>
     </>
   )

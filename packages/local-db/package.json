@@ -12,6 +12,7 @@
   "dependencies": {
     "@fower/react": "^2.0.0",
     "@penx/constants": "workspace:*",
+    "@penx/storage": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/unique-id": "workspace:*",

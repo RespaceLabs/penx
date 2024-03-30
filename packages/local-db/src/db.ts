@@ -2,7 +2,7 @@ import { arrayMoveImmutable } from 'array-move'
 import { format } from 'date-fns'
 import Dexie, { Table } from 'dexie'
 import { get, set } from 'idb-keyval'
-import { PENX_SESSION_USER_ID, TODO_DATABASE_NAME } from '@penx/constants'
+import { TODO_DATABASE_NAME } from '@penx/constants'
 import {
   ConjunctionType,
   DataSource,
@@ -27,6 +27,7 @@ import {
   ViewColumn,
   ViewType,
 } from '@penx/model-types'
+import { getLocalSession } from '@penx/storage'
 import { uniqueId } from '@penx/unique-id'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
@@ -187,7 +188,11 @@ export class PenxDB extends Dexie {
   }
 
   listSpaces = async (userId?: string) => {
-    const uid = userId ?? (await get(PENX_SESSION_USER_ID))
+    // TODO: too hack
+    const user = await getLocalSession()
+    // console.log('========list spaces:', user)
+
+    const uid = userId ?? user?.userId
 
     const spaces = await this.space.where({ userId: uid }).toArray()
     return spaces

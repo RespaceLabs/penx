@@ -1,15 +1,14 @@
 import '~/styles/globals.css'
 import { useEffect } from 'react'
-import { set } from 'idb-keyval'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'uikit'
 import { appEmitter, initFower } from '@penx/app'
-import { PENX_SESSION_USER } from '@penx/constants'
 import { store, StoreProvider } from '@penx/store'
 import { TrpcProvider } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
 import '@glideapps/glide-data-grid/dist/index.css'
+import { clearAuthorizedUser } from '@penx/storage'
 
 initFower()
 
@@ -17,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { push } = useRouter()
   useEffect(() => {
     const handleSignOut = () => {
-      set(PENX_SESSION_USER, null)
+      clearAuthorizedUser()
       store.setToken(null as any)
       push('/')
     }

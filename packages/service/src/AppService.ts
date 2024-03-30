@@ -10,7 +10,7 @@ export class AppService {
 
   async init() {
     try {
-      // console.log('app init...')
+      console.log('app init....')
 
       this.inited = true
 

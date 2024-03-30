@@ -77,6 +77,7 @@
     "@penx/session": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/slate-lists": "workspace:*",
+    "@penx/storage": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/sync": "workspace:*",
     "@penx/sync-server-client": "workspace:*",

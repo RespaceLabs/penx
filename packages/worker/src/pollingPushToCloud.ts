@@ -1,21 +1,22 @@
 import { get } from 'idb-keyval'
-import { isProd, PENX_SESSION_USER } from '@penx/constants'
+import { isProd } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { sleep } from '@penx/shared'
+import { getAuthorizedUser } from '@penx/storage'
 import { store } from '@penx/store'
 import { syncToCloud } from '@penx/sync'
 
 const INTERVAL = isProd ? 5 * 1000 : 8 * 1000
 
 export async function pollingPushToCloud() {
-  const user = await get(PENX_SESSION_USER)
+  const user = await getAuthorizedUser()
 
   if (!user?.id) return
 
   while (true) {
     try {
-      const data = await get(PENX_SESSION_USER)
-      if (data) {
+      const user = await getAuthorizedUser()
+      if (user) {
         await sync()
       }
     } catch (error) {

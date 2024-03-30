@@ -749,6 +749,9 @@ importers:
       '@penx/session':
         specifier: workspace:*
         version: link:../../packages/session
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../../packages/storage
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
@@ -1819,6 +1822,9 @@ importers:
       '@penx/session':
         specifier: workspace:*
         version: link:../../packages/session
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../../packages/storage
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
@@ -2166,6 +2172,9 @@ importers:
       '@penx/slate-lists':
         specifier: workspace:*
         version: link:../../packages/slate-lists
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../../packages/storage
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
@@ -4265,6 +4274,9 @@ importers:
       '@penx/slate-lists':
         specifier: workspace:*
         version: link:../slate-lists
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../storage
       '@penx/store':
         specifier: workspace:*
         version: link:../store
@@ -5553,6 +5565,9 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../shared
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../storage
       '@penx/store':
         specifier: workspace:*
         version: link:../store
@@ -5754,6 +5769,9 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../model-types
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../storage
       '@penx/unique-id':
         specifier: workspace:*
         version: link:../unique-id
@@ -6374,6 +6392,31 @@ importers:
         specifier: ^5.3.2
         version: 5.4.3
 
+  packages/storage:
+    dependencies:
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
+      idb-keyval:
+        specifier: ^6.2.1
+        version: 6.2.1
+    devDependencies:
+      '@penx/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: ^20.10.3
+        version: 20.11.30
+      eslint:
+        specifier: ^8.55.0
+        version: 8.57.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      typescript:
+        specifier: ^5.3.2
+        version: 5.4.3
+
   packages/store:
     dependencies:
       '@penx/catalogue':
@@ -6872,6 +6915,9 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../shared
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../storage
       '@penx/store':
         specifier: workspace:*
         version: link:../store
@@ -25036,7 +25082,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 5.0.1
+      minimatch: 5.1.6
       once: 1.4.0
 
   /glob@9.3.5:
@@ -31999,6 +32045,7 @@ packages:
 
   /queue-tick@1.0.1:
     resolution: {integrity: sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==}
+    requiresBuild: true
     dev: false
 
   /queue@6.0.2:

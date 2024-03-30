@@ -1,8 +1,9 @@
 import { get } from 'idb-keyval'
-import { isProd, PENX_SESSION_USER, WorkerEvents } from '@penx/constants'
+import { isProd, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { User } from '@penx/model'
 import { sleep } from '@penx/shared'
+import { getAuthorizedUser } from '@penx/storage'
 import { SyncService } from '@penx/sync'
 
 const INTERVAL = isProd ? 10 * 60 * 1000 : 10 * 1000
@@ -12,7 +13,7 @@ let interval = 10
 
 export async function pollingPushToGithub() {
   while (true) {
-    const data = await get(PENX_SESSION_USER)
+    const data = await getAuthorizedUser()
 
     if (data) {
       await sync()
@@ -25,7 +26,7 @@ export async function pollingPushToGithub() {
 async function sync() {
   // console.log('push to github...........')
   try {
-    const data = await get(PENX_SESSION_USER)
+    const data = await getAuthorizedUser()
     if (!data) return
 
     const user = new User(data)

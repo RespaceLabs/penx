@@ -6,7 +6,7 @@ import { StatusBar, Style } from '@capacitor/status-bar'
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react'
 import { IonReactRouter } from '@ionic/react-router'
 import { get, set } from 'idb-keyval'
-import { PENX_SESSION_USER } from '@penx/constants'
+import { getAuthorizedUser } from '@penx/storage'
 import { StoreProvider } from '@penx/store'
 import { TrpcProvider } from '@penx/trpc-client'
 import Tabs from './pages/Tabs'
@@ -29,7 +29,7 @@ window
 const AppShell = () => {
   const [isLogin, setIsLogin] = useState(false)
   useEffect(() => {
-    get(PENX_SESSION_USER).then((data) => {
+    getAuthorizedUser().then((data) => {
       setIsLogin(!!data)
     })
   }, [])

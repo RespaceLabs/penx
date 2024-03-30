@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { get } from 'idb-keyval'
 // import { useRouter } from 'next/router'
 import { EditorApp } from '@penx/app'
-import { PENX_SESSION_USER } from '@penx/constants'
 import { SessionProvider } from '@penx/session'
+import { getAuthorizedUser } from '@penx/storage'
 import { RecoveryPhraseLoginProvider } from './RecoveryPhraseLogin/RecoveryPhraseLoginProvider'
 
 export default function MobileEditor() {
@@ -12,7 +12,7 @@ export default function MobileEditor() {
   // const { push } = useRouter()
 
   useEffect(() => {
-    get(PENX_SESSION_USER).then((user) => {
+    getAuthorizedUser().then((user) => {
       if (!user) {
         // TODO:
         // push('/')

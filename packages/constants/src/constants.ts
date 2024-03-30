@@ -4,9 +4,9 @@ export const isServer = typeof window === 'undefined'
 
 export const isProd = process.env.NODE_ENV === 'production'
 
-export const PENX_SESSION_USER = 'PENX_SESSION_USER'
+export const PENX_AUTHORIZED_USER = 'PENX_AUTHORIZED_USER'
 
-export const PENX_SESSION_USER_ID = 'PENX_SESSION_USER_ID'
+export const PENX_SESSION_DATA = 'PENX_SESSION_DATA'
 
 export const TODO_DATABASE_NAME = '__TODO__'
 

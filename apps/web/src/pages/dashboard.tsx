@@ -1,22 +1,11 @@
 import React from 'react'
-import { useSession } from 'next-auth/react'
 import { Dashboard } from '@penx/app'
-import { SessionProvider } from '@penx/session'
+import { SessionProvider, useSession } from '@penx/session'
 import { CommonLayout } from '~/layouts/CommonLayout'
 
 export default function DashboardPage() {
-  const { data: session, status } = useSession()
-
-  return (
-    <SessionProvider
-      value={{
-        data: session as any,
-        loading: status === 'loading',
-      }}
-    >
-      <Dashboard userId={session?.userId as string} />
-    </SessionProvider>
-  )
+  const { data: session } = useSession()
+  return <Dashboard userId={session?.userId as string} />
 }
 
 DashboardPage.Layout = CommonLayout
