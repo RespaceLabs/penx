@@ -43,7 +43,7 @@ const PageEditor = () => {
                   </Box>
                 }
               >
-                {/* <EditorApp /> */}
+                <EditorApp />
               </Suspense>
             </RecoveryPhraseLoginProvider>
           </MnemonicGenerator>

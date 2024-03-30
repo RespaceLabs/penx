@@ -59,8 +59,7 @@ export const EditorApp = () => {
         <HotkeyBinding />
         <SpaceSyncManager userId={session?.userId}>
           <AppProvider>
-            {/* <Workbench /> */}
-            {/* TODO */}
+            <Workbench />
           </AppProvider>
         </SpaceSyncManager>
       </ErrorBoundary>
