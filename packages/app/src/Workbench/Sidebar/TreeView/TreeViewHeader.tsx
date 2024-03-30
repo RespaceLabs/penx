@@ -21,7 +21,7 @@ export const TreeViewHeader = memo(function TreeViewHeader() {
       bgGray200--hover
       rounded
       black
-      h-30
+      h8
       onClick={() => {
         if (!activeSpace.isOutliner) return
 
@@ -31,7 +31,7 @@ export const TreeViewHeader = memo(function TreeViewHeader() {
     >
       <Box toCenterY gap2>
         <Bullet mr-4 />
-        {activeSpace.isOutliner && <Box>All nodes</Box>}
+        {activeSpace.isOutliner && <Box>Nodes</Box>}
         {!activeSpace.isOutliner && <Box>All pages</Box>}
       </Box>
       <NewNodeButton size={24} p1 roundedLG />

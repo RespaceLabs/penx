@@ -4,6 +4,7 @@ import { Box, FowerHTMLProps } from '@fower/react'
 interface SidebarItemProps extends FowerHTMLProps<'div'> {
   label: ReactNode
   icon: ReactNode
+  isActive?: boolean
   children?: ReactNode
   onClick: () => void
 }
@@ -11,6 +12,7 @@ interface SidebarItemProps extends FowerHTMLProps<'div'> {
 export const SidebarItem = ({
   icon,
   label,
+  isActive,
   onClick,
   children,
   ...rest
@@ -20,13 +22,14 @@ export const SidebarItem = ({
       toCenterY
       toBetween
       gap2
-      rounded2XL
+      rounded
       px2
-      py-14
-      cursorPointer
       black
-      black--hover
-      h-24
+      brand500={isActive}
+      bgGray200--hover
+      h8
+      transitionCommon
+      cursorPointer
       {...rest}
       onClick={onClick}
     >

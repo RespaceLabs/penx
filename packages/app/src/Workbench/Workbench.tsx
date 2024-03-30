@@ -2,13 +2,11 @@ import { useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Box } from '@fower/react'
-import { useAtomValue } from 'jotai'
 import { MenuIcon } from 'lucide-react'
 import { EDITOR_NAV_WIDTH } from '@penx/constants'
 import { EditorProvider } from '@penx/editor'
-import { useSpaces, useUser } from '@penx/hooks'
+import { useRouterName, useSpaces, useUser } from '@penx/hooks'
 import { useSession } from '@penx/session'
-import { routerAtom } from '@penx/store'
 import { Fallback } from '../Fallback/Fallback'
 import { CommandPanel } from '../Palette'
 import { SyncServer } from '../SyncServer/SyncServer'
@@ -26,7 +24,7 @@ import { Web3Profile } from './Web3Profile/Web3Profile'
 
 export const Workbench = () => {
   const { activeSpace } = useSpaces()
-  const { name } = useAtomValue(routerAtom)
+  const name = useRouterName()
   const { data: session } = useSession()
   const [sidebarOpen, setSideBarOpen] = useState(true)
   const handleViewSidebar = () => {

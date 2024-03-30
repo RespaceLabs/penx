@@ -3,7 +3,11 @@ import { Box } from '@fower/react'
 import { Bullet } from 'uikit'
 import { store } from '@penx/store'
 
-export const TagsEntry = memo(function TagsEntry() {
+interface Props {
+  isActive: boolean
+}
+
+export const TagsEntry = memo(function TagsEntry({ isActive }: Props) {
   return (
     <Box
       toCenterY
@@ -16,13 +20,14 @@ export const TagsEntry = memo(function TagsEntry() {
       bgGray200--hover
       rounded
       black
-      h-30
+      h8
+      brand500={isActive}
       onClick={() => {
         store.node.selectTagBox()
       }}
     >
       <Box toCenterY gap2>
-        <Bullet mr-4 />
+        <Bullet mr-4 innerColor={isActive ? 'brand500' : undefined} />
         <Box>Tags</Box>
       </Box>
     </Box>

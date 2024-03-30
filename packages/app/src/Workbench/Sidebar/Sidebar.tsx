@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Box } from '@fower/react'
 import { useAtom } from 'jotai'
 import {
@@ -12,7 +13,13 @@ import {
   Inbox,
   Trash2,
 } from 'lucide-react'
-import { useSidebarDrawer, useSpaces } from '@penx/hooks'
+import {
+  useActiveNodes,
+  useRouterName,
+  useSidebarDrawer,
+  useSpaces,
+} from '@penx/hooks'
+import { Node } from '@penx/model'
 import { useNodes } from '@penx/node-hooks'
 import { useSession } from '@penx/session'
 import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
@@ -23,6 +30,7 @@ import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { SetupGitHubButton } from './SetupGitHubButton'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover/SpacePopover'
+import { TagsEntry } from './TagsEntry'
 import { PageList } from './TreeView/PageList'
 import { TreeView } from './TreeView/TreeView'
 import { UserProfile } from './UserProfile'
@@ -46,6 +54,22 @@ export const Sidebar = () => {
 
   const { loading, data: session } = useSession()
   const drawer = useSidebarDrawer()
+  const name = useRouterName()
+  const { activeNodes } = useActiveNodes()
+
+  const isTodosActive = name === 'TODOS'
+
+  const isTodayActive = useMemo(() => {
+    if (name !== 'NODE' || !activeNodes.length) return false
+    if (new Node(activeNodes[0]).isToday) return true
+    return false
+  }, [name, activeNodes])
+
+  const isTagsActive = useMemo(() => {
+    if (name !== 'NODE' || !activeNodes.length) return false
+    if (new Node(activeNodes[0]).isDatabaseRoot) return true
+    return false
+  }, [name, activeNodes])
 
   return (
     <Box
@@ -66,6 +90,7 @@ export const Sidebar = () => {
             <SidebarItem
               icon={<CalendarDays size={18} />}
               label="Today"
+              isActive={isTodayActive}
               onClick={() => {
                 store.node.selectDailyNote()
               }}
@@ -82,18 +107,11 @@ export const Sidebar = () => {
             <SidebarItem
               icon={<CheckCircle2 size={18} />}
               label="Todos"
+              isActive={isTodosActive}
               onClick={() => {
                 store.router.routeTo('TODOS')
               }}
             />
-
-            {/* <SidebarItem
-              icon={<Database size={18} />}
-              label="Databases"
-              onClick={() => {
-                store.node.selectTagBox()
-              }}
-            /> */}
 
             {components.map((C, i) => (
               <C key={i} />
@@ -110,7 +128,8 @@ export const Sidebar = () => {
         )}
       </Box>
 
-      <Box px2>
+      <Box px2 column gap2>
+        <TagsEntry isActive={isTagsActive} />
         <DatabaseList />
       </Box>
 

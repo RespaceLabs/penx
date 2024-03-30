@@ -136,7 +136,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
     : null
 
   return (
-    <Box mt3 overflowXHidden>
+    <Box overflowXHidden>
       <TreeViewHeader />
       <DndContext
         sensors={sensors}
