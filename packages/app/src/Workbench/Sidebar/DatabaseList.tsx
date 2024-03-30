@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { TODO_DATABASE_NAME } from '@penx/constants'
-import { useDatabaseNodes } from '@penx/node-hooks'
+import { useNodes } from '@penx/node-hooks'
 import { store } from '@penx/store'
 import { TagsEntry } from './TagsEntry'
 
@@ -10,7 +10,8 @@ function getName(name: string) {
 }
 
 export const DatabaseList = () => {
-  const nodes = useDatabaseNodes()
+  const { nodeList } = useNodes()
+  const nodes = nodeList.getDatabaseFavorites()
 
   return (
     <Box>
@@ -30,7 +31,7 @@ export const DatabaseList = () => {
               gap1
               leadingNone
               onClick={() => {
-                store.node.selectNode(node)
+                store.node.selectNode(node.raw)
               }}
             >
               <Box
@@ -43,7 +44,7 @@ export const DatabaseList = () => {
               >
                 #
               </Box>
-              <Box text-15>{getName(node.props.name)}</Box>
+              <Box text-15>{getName(node.raw.props.name!)}</Box>
               <Box
                 h5
                 minW-20

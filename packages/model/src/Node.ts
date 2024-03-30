@@ -202,7 +202,7 @@ export class Node {
     return this.raw.children
   }
 
-  get favorites() {
+  get favorites(): string[] {
     return (this.raw as any)?.favorites || []
   }
 

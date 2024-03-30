@@ -144,6 +144,12 @@ export class NodeListService {
     return this.favoriteNode.children.includes(id)
   }
 
+  getDatabaseFavorites() {
+    return this.databaseRootNode.favorites
+      .map((id) => this.nodeMap.get(id)!)
+      .filter((n) => !!n)
+  }
+
   isFavoriteDatabase(id: string) {
     return this.databaseRootNode?.favorites.includes(id)
   }
