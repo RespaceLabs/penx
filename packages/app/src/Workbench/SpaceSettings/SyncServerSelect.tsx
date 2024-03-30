@@ -15,7 +15,6 @@ import {
 } from 'uikit'
 import { useSpaces } from '@penx/hooks'
 import { db } from '@penx/local-db'
-import { store } from '@penx/store'
 import { api, trpc } from '@penx/trpc-client'
 
 export const SyncServerSelect = () => {

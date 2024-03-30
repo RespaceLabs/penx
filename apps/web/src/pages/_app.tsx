@@ -1,6 +1,6 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 import { Session } from 'next-auth'
-import { SessionProvider, signIn, signOut } from 'next-auth/react'
+import { SessionProvider } from 'next-auth/react'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import 'next-auth/react'
 import type { AppProps } from 'next/app'

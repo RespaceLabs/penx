@@ -145,6 +145,7 @@ export class NodeListService {
   }
 
   getDatabaseFavorites() {
+    if (!this.databaseRootNode?.favorites) return []
     return this.databaseRootNode.favorites
       .map((id) => this.nodeMap.get(id)!)
       .filter((n) => !!n)

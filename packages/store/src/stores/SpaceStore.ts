@@ -79,7 +79,7 @@ export class SpaceStore {
 
       if (!nodes.length) {
         const mnemonic = this.store.user.getMnemonic()
-        console.log('select space======mnemonic:', mnemonic)
+        // console.log('select space======mnemonic:', mnemonic)
         try {
           const client = new SyncServerClient(space, mnemonic)
           nodes = await client.getAllNodes()
