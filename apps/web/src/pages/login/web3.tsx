@@ -6,6 +6,7 @@ import { ClientOnly } from '~/components/ClientOnly'
 import { Logo } from '~/components/Logo'
 import { SiweModal } from '~/components/SiweModal'
 import { WalletConnectButton } from '~/components/WalletConnectButton'
+import { WalletConnectProvider } from '~/components/WalletConnectProvider'
 
 export default function LoginPage() {
   const { push } = useRouter()
@@ -49,31 +50,35 @@ export default function LoginPage() {
   }, [push])
 
   return (
-    <Box column h-100vh>
-      <Box mx-auto py8 toCenter>
-        <Logo />
-      </Box>
-      <Box column flex-1 toCenter>
-        <Box
-          toCenter
-          py10
-          roundedXL
-          mx-auto
-          bgWhite
-          column
-          mt--200
-          w={['100%', '100%', 480]}
-        >
-          <Box as="h1" fontBold>
-            Welcome to PenX
+    <ClientOnly>
+      <WalletConnectProvider>
+        <Box column h-100vh>
+          <Box mx-auto py8 toCenter>
+            <Logo />
           </Box>
-          <Box as="p" textCenter mb6 leadingNormal px10 gray500>
-            A structured note-taking app for personal use
-          </Box>
+          <Box column flex-1 toCenter>
+            <Box
+              toCenter
+              py10
+              roundedXL
+              mx-auto
+              bgWhite
+              column
+              mt--200
+              w={['100%', '100%', 480]}
+            >
+              <Box as="h1" fontBold>
+                Welcome to PenX
+              </Box>
+              <Box as="p" textCenter mb6 leadingNormal px10 gray500>
+                A structured note-taking app for personal use
+              </Box>
 
-          {loginEntry}
+              {loginEntry}
+            </Box>
+          </Box>
         </Box>
-      </Box>
-    </Box>
+      </WalletConnectProvider>
+    </ClientOnly>
   )
 }

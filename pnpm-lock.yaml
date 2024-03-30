@@ -6382,12 +6382,6 @@ importers:
       '@penx/editor-common':
         specifier: workspace:*
         version: link:../editor-common
-      '@penx/editor-shared':
-        specifier: workspace:^
-        version: link:../editor-shared
-      '@penx/editor-transforms':
-        specifier: workspace:*
-        version: link:../editor-transforms
       '@penx/event':
         specifier: workspace:*
         version: link:../event
@@ -6427,9 +6421,6 @@ importers:
       react-fast-compare:
         specifier: ^3.2.2
         version: 3.2.2
-      slate:
-        specifier: 0.101.5
-        version: 0.101.5
     devDependencies:
       '@penx/tsconfig':
         specifier: workspace:*
@@ -14006,6 +13997,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -29786,6 +29778,10 @@ packages:
 
   /napi-build-utils@1.0.2:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
+    dev: false
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
     dev: false
 
   /native-run@2.0.1:
