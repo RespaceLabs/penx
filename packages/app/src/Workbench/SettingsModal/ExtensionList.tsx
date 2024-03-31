@@ -1,7 +1,6 @@
 import { Box, FowerHTMLProps, styled } from '@fower/react'
 import { useModalContext } from 'uikit'
 import { SettingsType } from '@penx/constants'
-import { useExtensionStore } from '@penx/hooks'
 
 const Title = styled('div', ['gray400', 'mb4', 'textXS', 'uppercase'])
 
@@ -35,25 +34,25 @@ function SidebarItem({
   )
 }
 
+// TODO: settings
 export const ExtensionList = () => {
-  const { extensionStore } = useExtensionStore()
+  return null
+  // return (
+  //   <Box py4>
+  //     <Title>Plugin</Title>
+  //     <Box column gap2>
+  //       {Object.keys(extensionStore.store).map((key) => {
+  //         if (!extensionStore.store[key]?.settingsSchema?.length) {
+  //           return null
+  //         }
 
-  return (
-    <Box py4>
-      <Title>Plugin</Title>
-      <Box column gap2>
-        {Object.keys(extensionStore.store).map((key) => {
-          if (!extensionStore.store[key]?.settingsSchema?.length) {
-            return null
-          }
-
-          return (
-            <SidebarItem key={key} type={key}>
-              <Box>{key}</Box>
-            </SidebarItem>
-          )
-        })}
-      </Box>
-    </Box>
-  )
+  //         return (
+  //           <SidebarItem key={key} type={key}>
+  //             <Box>{key}</Box>
+  //           </SidebarItem>
+  //         )
+  //       })}
+  //     </Box>
+  //   </Box>
+  // )
 }

@@ -33,6 +33,7 @@ const nextConfig = {
     '@penx/context-menu',
     '@penx/service',
     '@penx/serializer',
+    '@penx/extension-store',
     '@penx/storage',
     '@penx/store',
     '@penx/session',

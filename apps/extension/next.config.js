@@ -23,6 +23,7 @@ module.exports = {
     '@penx/context-menu',
     '@penx/service',
     '@penx/serializer',
+    '@penx/extension-store',
     '@penx/store',
     '@penx/session',
     '@penx/model-types',

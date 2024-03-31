@@ -1,5 +1,5 @@
-import { error } from 'console'
 import { LOCAL_USER_ID } from '@penx/constants'
+import { appLoader } from '@penx/loader'
 import { db } from '@penx/local-db'
 import { Node, Space } from '@penx/model'
 import { ISpace } from '@penx/model-types'
@@ -50,6 +50,8 @@ export class AppService {
       console.log('app init....')
 
       this.inited = true
+
+      appLoader.init()
 
       const { activeSpace, spaces } = await this.tryToGetActiveSpace()
 

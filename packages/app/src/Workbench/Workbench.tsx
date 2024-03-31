@@ -47,7 +47,6 @@ export const Workbench = () => {
       {/* TODO: how to sync space */}
       {/* {session && <QueryCloudSpaces />} */}
 
-      {!isMobile && <CommandPanel />}
       <Box h-100vh toLeft black flex-1 relative>
         {!isBackedUp && session && name === 'NODE' && <BackupMnemonicTips />}
 
@@ -61,6 +60,7 @@ export const Workbench = () => {
             <Sidebar />
           </Box>
           <Box h={EDITOR_NAV_WIDTH} toCenterY>
+            {!isMobile && <CommandPanel />}
             <Box
               onClick={handleViewSidebar}
               cursorPointer

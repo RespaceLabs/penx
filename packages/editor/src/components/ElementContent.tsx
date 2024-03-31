@@ -1,8 +1,8 @@
 import { memo } from 'react'
 import { isMobile } from 'react-device-detect'
 import isEqual from 'react-fast-compare'
+import { extensionStore } from '@penx/extension-store'
 import { ElementProps } from '@penx/extension-typings'
-import { useExtensionStore } from '@penx/hooks'
 import { Paragraph } from '@penx/paragraph'
 import { usePlaceholder } from '../hooks/usePlaceholder'
 import { SlashTrigger } from './SlashTrigger'
@@ -15,7 +15,6 @@ export const ElementContent = memo(
   function ElementContent(props: ElementContentProps) {
     const { element, attributes } = props
 
-    const { extensionStore } = useExtensionStore()
     const { type } = element as any
     const { component: Element = Paragraph, placeholder } =
       extensionStore.elementMaps[type] || {}

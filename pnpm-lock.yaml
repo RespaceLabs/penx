@@ -2695,6 +2695,9 @@ importers:
       '@penx/editor-transforms':
         specifier: workspace:*
         version: link:../../packages/editor-transforms
+      '@penx/extension-store':
+        specifier: workspace:*
+        version: link:../../packages/extension-store
       '@penx/extension-typings':
         specifier: ^0.0.0
         version: link:../../packages/extension-typings
@@ -4211,6 +4214,9 @@ importers:
       '@penx/event':
         specifier: workspace:*
         version: link:../event
+      '@penx/extension-store':
+        specifier: workspace:*
+        version: link:../extension-store
       '@penx/extension-typings':
         specifier: ^0.0.0
         version: link:../extension-typings
@@ -4794,6 +4800,9 @@ importers:
       '@penx/editor-types':
         specifier: workspace:*
         version: link:../editor-types
+      '@penx/extension-store':
+        specifier: workspace:*
+        version: link:../extension-store
       '@penx/extension-typings':
         specifier: ^0.0.0
         version: link:../extension-typings
@@ -5450,6 +5459,43 @@ importers:
         specifier: ^5.3.2
         version: 5.4.3
 
+  packages/extension-store:
+    dependencies:
+      '@penx/autoformat':
+        specifier: workspace:*
+        version: link:../autoformat
+      '@penx/editor-common':
+        specifier: workspace:*
+        version: link:../editor-common
+      '@penx/extension-typings':
+        specifier: ^0.0.0
+        version: link:../extension-typings
+      slate:
+        specifier: ^0.102.0
+        version: 0.102.0
+    devDependencies:
+      '@penx/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/react':
+        specifier: ^18.2.61
+        version: 18.2.73
+      '@types/react-dom':
+        specifier: ^18.2.17
+        version: 18.2.23
+      eslint:
+        specifier: ^8.55.0
+        version: 8.57.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      typescript:
+        specifier: ^5.3.2
+        version: 5.4.3
+
   packages/extension-typings:
     dependencies:
       '@penx/autoformat':
@@ -5654,6 +5700,9 @@ importers:
       '@penx/auto-format':
         specifier: workspace:*
         version: link:../../extensions/auto-format
+      '@penx/autoformat':
+        specifier: workspace:*
+        version: link:../autoformat
       '@penx/bidirectional-link':
         specifier: workspace:*
         version: link:../../extensions/bidirectional-link
@@ -5675,9 +5724,15 @@ importers:
       '@penx/divider':
         specifier: workspace:*
         version: link:../../extensions/divider
+      '@penx/editor-common':
+        specifier: workspace:*
+        version: link:../editor-common
       '@penx/extension-list':
         specifier: workspace:*
         version: link:../extension-list
+      '@penx/extension-store':
+        specifier: workspace:*
+        version: link:../extension-store
       '@penx/extension-typings':
         specifier: ^0.0.0
         version: link:../extension-typings
@@ -5717,9 +5772,15 @@ importers:
       immer:
         specifier: ^10.0.3
         version: 10.0.4
+      jotai:
+        specifier: ^2.6.0
+        version: 2.7.2(@types/react@18.2.73)(react@18.2.0)
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
+      slate:
+        specifier: ^0.102.0
+        version: 0.102.0
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -34238,6 +34299,14 @@ packages:
 
   /slate@0.101.5:
     resolution: {integrity: sha512-ZZt1ia8ayRqxtpILRMi2a4MfdvwdTu64CorxTVq9vNSd0GQ/t3YDkze6wKjdeUtENmBlq5wNIDInZbx38Hfu5Q==}
+    dependencies:
+      immer: 10.0.4
+      is-plain-object: 5.0.0
+      tiny-warning: 1.0.3
+    dev: false
+
+  /slate@0.102.0:
+    resolution: {integrity: sha512-RT+tHgqOyZVB1oFV9Pv99ajwh4OUCN9p28QWdnDTIzaN/kZxMsHeQN39UNAgtkZTVVVygFqeg7/R2jiptCvfyA==}
     dependencies:
       immer: 10.0.4
       is-plain-object: 5.0.0

@@ -52,6 +52,7 @@
     "@penx/paragraph": "workspace:*",
     "@penx/service": "workspace:*",
     "@penx/shared": "workspace:*",
+    "@penx/extension-store": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/table": "workspace:*",
     "@penx/unique-id": "workspace:*",

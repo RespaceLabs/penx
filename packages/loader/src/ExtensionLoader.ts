@@ -1,6 +1,6 @@
 import { extensionList } from '@penx/extension-list'
 import { db } from '@penx/local-db'
-import { penx } from './penx'
+import { extensionContext } from './extensionContext'
 
 export class ExtensionLoader {
   async init() {
@@ -10,7 +10,7 @@ export class ExtensionLoader {
 
   initBuiltinExtensions() {
     for (const item of extensionList) {
-      const ctx = Object.create(penx, {
+      const ctx = Object.create(extensionContext, {
         pluginId: {
           writable: false,
           configurable: false,

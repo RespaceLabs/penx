@@ -1,6 +1,5 @@
 import { ErrorBoundary } from 'react-error-boundary'
 import { isProd, isServer } from '@penx/constants'
-import { appLoader, useLoaderStatus } from '@penx/loader'
 import { useSession } from '@penx/session'
 import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
@@ -12,8 +11,6 @@ import { UserQuery } from './UserQuery'
 import { Workbench } from './Workbench/Workbench'
 
 if (!isServer) {
-  appLoader.init()
-
   let inited = false
 
   setTimeout(
@@ -27,11 +24,8 @@ if (!isServer) {
 }
 
 export const EditorApp = () => {
-  const { isLoaded } = useLoaderStatus()
   const { data: session } = useSession()
   // console.log('============session:', session)
-
-  if (!isLoaded) return null
 
   return (
     <ClientOnly>

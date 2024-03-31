@@ -10,7 +10,7 @@ import {
   getPreviousBlockById,
   isCollapsed,
 } from '@penx/editor-queries'
-import { useExtensionStore } from '@penx/hooks'
+import { extensionStore } from '@penx/extension-store'
 import { getEmptyParagraph, isParagraph } from '@penx/paragraph'
 import { withListsReact } from '@penx/slate-lists'
 import { isTable } from '@penx/table'
@@ -18,7 +18,6 @@ import { isTable } from '@penx/table'
 type WithFns = (editor: PenxEditor) => PenxEditor
 
 export function useCreateEditor(fns: WithFns[] = []) {
-  const { extensionStore } = useExtensionStore()
   const editorRef = useRef<PenxEditor>()
   const {
     rules,

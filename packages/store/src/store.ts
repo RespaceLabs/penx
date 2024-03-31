@@ -10,11 +10,9 @@ import { RouterStore } from './stores/RouterStore'
 import { SpaceStore } from './stores/SpaceStore'
 import { SyncStore } from './stores/SyncStore'
 import { UserStore } from './stores/UserStore'
-import { Command, ExtensionStore } from './types'
+import { Command } from './types'
 
 export const commandsAtom = atom<Command[]>(commands)
-
-export const extensionStoreAtom = atom<ExtensionStore>({})
 
 const PENX_TOKEN = 'PENX_TOKEN'
 export const tokenAtom = atomWithStorage(PENX_TOKEN, '')

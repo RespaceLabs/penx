@@ -6,7 +6,6 @@ import { ELEMENT_LI, ELEMENT_LIC, ELEMENT_P, ELEMENT_UL } from '@penx/constants'
 import { QuickInputEditor } from '@penx/editor'
 import { PenxEditor } from '@penx/editor-common'
 import { genId } from '@penx/editor-shared'
-import { useExtensionStore } from '@penx/hooks'
 import { StoreProvider } from '@penx/store'
 
 import { useText } from '../stores/text.store'
@@ -61,7 +60,6 @@ export const ContentEditor = ({ onChange, onKeyDown }: Props) => {
 }
 
 function ExtensionLoader({ children }: PropsWithChildren) {
-  const { extensionStore } = useExtensionStore()
   useEffect(() => {
     for (const item of extensionList) {
       const ctx = Object.create(penx, {
@@ -74,8 +72,6 @@ function ExtensionLoader({ children }: PropsWithChildren) {
       item.activate(ctx)
     }
   }, [])
-
-  if (!extensionStore.withFns.length) return null
 
   return <>{children}</>
 }

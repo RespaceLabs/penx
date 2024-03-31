@@ -23,7 +23,7 @@ import {
 import { Node } from '@penx/model'
 import { useNodes } from '@penx/node-hooks'
 import { useSession } from '@penx/session'
-import { ExtensionStore, extensionStoreAtom, store } from '@penx/store'
+import { store } from '@penx/store'
 import { SyncPopover } from '../StatusBar/SyncPopover'
 import { CatalogueBox } from './CatalogueBox/CatalogueBox'
 import { DatabaseList } from './DatabaseList'
@@ -37,21 +37,8 @@ import { PageList } from './TreeView/PageList'
 import { TreeView } from './TreeView/TreeView'
 import { UserProfile } from './UserProfile'
 
-function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
-  const values = Object.values(extensionStore)
-  if (!values.length) return []
-  return values.reduce((acc, { components = [] }) => {
-    const matched = components
-      .filter((c) => c.at === 'side_bar')
-      .map((c) => c.component)
-    return [...acc, ...matched]
-  }, [] as any[])
-}
-
 export const Sidebar = () => {
-  const [extensionStore] = useAtom(extensionStoreAtom)
   const { activeSpace } = useActiveSpace()
-  const components = getStatusBarComponents(extensionStore)
   const { nodes, nodeList } = useNodes()
 
   const { loading, data: session } = useSession()
@@ -114,10 +101,6 @@ export const Sidebar = () => {
                 store.router.routeTo('TODOS')
               }}
             />
-
-            {components.map((C, i) => (
-              <C key={i} />
-            ))}
 
             {/* <SidebarItem
           icon={<Trash2 size={18} />}

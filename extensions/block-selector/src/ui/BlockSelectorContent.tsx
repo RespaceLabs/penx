@@ -4,7 +4,7 @@ import { Editor, Element, Node, Path, Transforms } from 'slate'
 import { ELEMENT_DATABASE_CONTAINER } from '@penx/constants'
 import { TElement, useEditorStatic } from '@penx/editor-common'
 import { selectEditor } from '@penx/editor-transforms'
-import { useExtensionStore } from '@penx/hooks'
+import { extensionStore } from '@penx/extension-store'
 import { INode, NodeType } from '@penx/model-types'
 import { ListsEditor } from '@penx/slate-lists'
 import { isBlockSelector } from '../isBlockSelector'
@@ -19,7 +19,6 @@ interface Props {
 
 export const BlockSelectorContent = ({ close, element }: Props) => {
   const editor = useEditorStatic()
-  const { extensionStore } = useExtensionStore()
 
   // console.log('-------====editor.node:', editor)
 

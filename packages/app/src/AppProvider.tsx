@@ -2,8 +2,8 @@ import { createContext, FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { Spinner } from 'uikit'
-import { AppService } from '@penx/service'
 import { appLoadingAtom, store } from '@penx/store'
+import { AppService } from './services/AppService'
 import { useRunSSE } from './Workbench/hooks/useRunSSE'
 
 export const appContext = createContext({} as { app: AppService })

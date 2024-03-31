@@ -6,7 +6,7 @@ import { onKeyDownAutoformat } from '@penx/autoformat'
 import { PenxEditor, useEditor, useEditorStatic } from '@penx/editor-common'
 import { useOnCompositionEvent } from '@penx/editor-composition'
 import { Leaf } from '@penx/editor-leaf'
-import { useExtensionStore } from '@penx/hooks'
+import { extensionStore } from '@penx/extension-store'
 import { useDecorate } from '../hooks/useDecorate'
 import { useOnDOMBeforeInput } from '../hooks/useOnDOMBeforeInput'
 import { ElementContent } from './ElementContent'
@@ -27,7 +27,6 @@ export const NodeEditorEditable = memo(
   }: Props) {
     // const editor = useEditor()
     const editor = useEditorStatic()
-    const { extensionStore } = useExtensionStore()
     const decorate = useDecorate(editor)
     const onDOMBeforeInput = useOnDOMBeforeInput(editor)
     const onOnCompositionEvent = useOnCompositionEvent(editor)

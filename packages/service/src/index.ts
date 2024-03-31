@@ -1,5 +1,3 @@
 export * from './NodeService'
 export * from './NodeCleaner'
-export * from './ExtensionStore'
-export * from './AppService'
 export * from './RestoreService'

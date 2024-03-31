@@ -1,10 +1,5 @@
 import mitt from 'mitt'
-import { isProd } from '@penx/constants'
-import { db } from '@penx/local-db'
-import { INode } from '@penx/model-types'
 import { ExtensionLoader } from './ExtensionLoader'
-import { penx } from './penx'
-import { protectDB } from './protectDB'
 import { mutateLoaderStatus } from './useLoaderStatus'
 
 export type Events = {

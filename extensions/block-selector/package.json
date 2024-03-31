@@ -32,6 +32,7 @@
     "@penx/local-db": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/shared": "workspace:*",
+    "@penx/extension-store": "workspace:*",
     "@penx/store": "workspace:*",
     "@udecode/plate-common": "^24.5.2",
     "lodash": "^4.17.21",
