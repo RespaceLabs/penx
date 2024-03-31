@@ -1,3 +1,4 @@
+import { error } from 'console'
 import { LOCAL_USER_ID } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { Node, Space } from '@penx/model'
@@ -24,7 +25,8 @@ export class AppService {
 
     if (session) {
       const activeSpaceId = await getActiveSpaceId()
-      const space = spaces.find((space) => space.userId === activeSpaceId)
+
+      const space = spaces.find((space) => space.id === activeSpaceId)
       if (space) {
         activeSpace = space
       } else {

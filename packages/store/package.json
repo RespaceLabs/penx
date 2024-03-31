@@ -20,6 +20,7 @@
     "@penx/constants": "workspace:*",
     "@penx/editor-common": "workspace:*",
     "@penx/event": "workspace:*",
+    "@penx/storage": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
     "@penx/local-db": "workspace:*",
     "@penx/model": "workspace:*",

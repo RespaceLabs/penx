@@ -32,7 +32,7 @@ export function SpaceItem({ item, activeSpace }: Props) {
         onClick={async () => {
           close?.()
           if (activeSpace.id === item.id) return
-          await store.space.selectSpace(item.id)
+          await store.space.selectSpace(item)
         }}
       >
         <Box toCenterY gap2>

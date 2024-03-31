@@ -351,8 +351,6 @@ export class PenxDB extends Dexie {
 
     const dailyRootNode = await this.getDailyRootNode(spaceId)
 
-    console.log('=========dailyRootNode:', dailyRootNode, 'spaceId:', spaceId)
-
     const subNode = await this.createNode(getNewNode({ spaceId }))
 
     const dailyNode = await this.createNode({
@@ -511,7 +509,6 @@ export class PenxDB extends Dexie {
     shouldInitCell = false,
   ) => {
     const databaseRootNode = await this.getDatabaseRootNode(spaceId)
-    console.log('===========databaseRootNode:', databaseRootNode, spaceId)
 
     const database = await this.createNode<IDatabaseNode>({
       parentId: databaseRootNode.id,

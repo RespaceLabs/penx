@@ -51,14 +51,19 @@ export async function setLocalSession(session: any) {
   await set(PENX_SESSION_DATA, session)
 }
 
+const spaceKey = (userId: string) => `ACTIVE_SPACE_${userId}`
+
 export async function getActiveSpaceId(): Promise<string> {
   const session = await getLocalSession()
   if (!session) return ''
-  return (await get(`ACTIVE_SPACE_${session.userId}`)) as string
+  const id = (await get(spaceKey(session.userId))) as string
+
+  return id
 }
 
 export async function setActiveSpaceId(id: string) {
   const session = await getLocalSession()
+
   if (!session) return
-  await set(`ACTIVE_SPACE_${session.userId}`, id)
+  await set(spaceKey(session.userId), id)
 }

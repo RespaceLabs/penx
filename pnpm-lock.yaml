@@ -6443,6 +6443,9 @@ importers:
       '@penx/serializer':
         specifier: workspace:*
         version: link:../serializer
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../storage
       '@penx/sync':
         specifier: workspace:*
         version: link:../sync

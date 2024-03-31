@@ -44,7 +44,7 @@ export function useRestoreFromGitHubForm() {
 
       // console.log('=========newSpace:', newSpace)
 
-      store.space.selectSpace(newSpace.id)
+      store.space.selectSpace(newSpace)
 
       close()
       toast.error('Restore successfully')

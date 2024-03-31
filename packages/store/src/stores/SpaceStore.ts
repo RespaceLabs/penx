@@ -1,6 +1,8 @@
 import { atom } from 'jotai'
 import { db } from '@penx/local-db'
+import { Space } from '@penx/model'
 import { INode, ISpace } from '@penx/model-types'
+import { setActiveSpaceId } from '@penx/storage'
 import { SyncServerClient } from '@penx/sync-server-client'
 import { StoreType } from '../store-types'
 
@@ -70,20 +72,19 @@ export class SpaceStore {
     this.setSpaces(spaces)
   }
 
-  async selectSpace(id: string) {
+  async selectSpace(space: ISpace) {
+    const { id } = space
     this.store.app.setAppLoading(true)
 
     try {
       const spaces = await db.listSpaces()
       let nodes = await db.listNodesBySpaceId(id)
 
-      const newActiveSpace = spaces.find((s) => s.id === id)!
-
       if (!nodes.length) {
         const mnemonic = this.store.user.getMnemonic()
         // console.log('select space======mnemonic:', mnemonic)
         try {
-          const client = new SyncServerClient(newActiveSpace, mnemonic)
+          const client = new SyncServerClient(space, mnemonic)
           nodes = await client.getAllNodes()
 
           for (const node of nodes) {
@@ -98,17 +99,17 @@ export class SpaceStore {
       this.store.node.setNodes([])
       this.store.node.setActiveNodes([])
 
-      let activeNodes = newActiveSpace.activeNodeIds
+      let activeNodes = space.activeNodeIds
         .map((id) => {
           return nodes.find((n) => n.id === id)!
         })
         .filter((n) => !!n)
 
       if (!activeNodes.length) {
-        const todayNode = await db.getOrCreateTodayNode(newActiveSpace.id)
+        const todayNode = await db.getOrCreateTodayNode(space.id)
         const nodes = await db.listNodesBySpaceId(id)
 
-        await db.updateSpace(newActiveSpace.id, {
+        await db.updateSpace(space.id, {
           activeNodeIds: [todayNode.id],
         })
 
@@ -123,9 +124,14 @@ export class SpaceStore {
         this.store.node.selectNode(activeNodes[0])
       }
 
-      this.setActiveSpace(newActiveSpace)
+      this.setActiveSpace(space)
       this.store.app.setAppLoading(false)
-      return newActiveSpace
+
+      if (!new Space(space).isLocal) {
+        console.log('select space.......:', space)
+        await setActiveSpaceId(space.id)
+      }
+      return space
     } catch (error) {
       // TODO: fallback to old data
       this.store.app.setAppLoading(false)

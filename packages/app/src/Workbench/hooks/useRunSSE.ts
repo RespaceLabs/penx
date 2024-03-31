@@ -13,7 +13,10 @@ export function useRunSSE() {
     if (!navigator.onLine) return
     if (!sseInited.current && session?.user) {
       // console.log('runSSE..............')
-      runSSE(activeSpace)
+
+      if (activeSpace.raw) {
+        runSSE(activeSpace)
+      }
       sseInited.current = true
     }
   }, [session, activeSpace])

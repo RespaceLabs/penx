@@ -9,6 +9,9 @@ import { ViewMenu } from './ViewMenu'
 export const ViewList = () => {
   const { views, database, activeViewId, setActiveViewId } =
     useDatabaseContext()
+
+  if (!database) return null
+
   const { viewIds = [] } = database.props
 
   const viewMap = mappedByKey(views, 'id')
