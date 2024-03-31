@@ -34,7 +34,3 @@ yarn-error.log*
 .vercel
 
 src/locales/**/*.js
-
-# Generated via next-pwa
-**/public/workbox**
-**/public/sw**

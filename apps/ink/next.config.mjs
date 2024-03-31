@@ -1,6 +1,4 @@
-import NextPWA from 'next-pwa'
 // Importing env files here to validate on build
-// import runtimeCaching from 'next-pwa/cache'
 import './src/env.mjs'
 
 const isDev = process.env.NODE_ENV === 'development'
