@@ -302,7 +302,7 @@ export class NodeStore {
     const todyNode = this.getTodayNode()
     await db.addNodesToToday(space.id, [newNode])
 
-    await db.createTodoRow(newNode.id, todyNode.id)
+    await db.createTodoRow(newNode.spaceId, todyNode.id)
 
     const nodes = await db.listNodesBySpaceId(space.id)
 

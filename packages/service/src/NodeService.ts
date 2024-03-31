@@ -232,7 +232,7 @@ export class NodeService {
               }
             }
 
-            await db.createTodoRow(node.spaceId, sourceId)
+            await db.createTodoRow(node.spaceId, node.id, sourceId)
           }
 
           for (const tagName of tags) {
@@ -283,7 +283,7 @@ export class NodeService {
             }
           }
 
-          await db.createTodoRow(node.spaceId, sourceId)
+          await db.createTodoRow(node.spaceId, node.id, sourceId)
         }
 
         for (const tagName of tags) {
@@ -390,7 +390,7 @@ export class NodeService {
               }
             }
 
-            await db.createTodoRow(node.spaceId, sourceId)
+            await db.createTodoRow(node.spaceId, node.id, sourceId)
           }
 
           for (const tagName of tags) {
@@ -426,7 +426,7 @@ export class NodeService {
             }
           }
 
-          await db.createTodoRow(node.spaceId, sourceId)
+          await db.createTodoRow(node.spaceId, node.id, sourceId)
         }
       }
     }

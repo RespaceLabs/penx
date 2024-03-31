@@ -1027,6 +1027,15 @@ export class PenxDB extends Dexie {
   }
 
   createTodoRow = async (spaceId: string, ref = '', sourceId = '') => {
+    console.log(
+      '==========spaceId:',
+      spaceId,
+      'ref:',
+      ref,
+      'sourceId:',
+      sourceId,
+    )
+
     const databases = await this.node
       .where({
         type: NodeType.DATABASE,
