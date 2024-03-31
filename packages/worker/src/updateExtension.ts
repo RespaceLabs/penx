@@ -1,6 +1,7 @@
 import ky from 'ky'
 import { Manifest } from '@penx/extension-typings'
 import { db } from '@penx/local-db'
+import { getActiveSpaceId } from '@penx/storage'
 
 export async function updateExtension() {
   try {
@@ -16,7 +17,11 @@ export async function updateExtension() {
         extension,
       )
 
-      const activeSpace = await db.getActiveSpace()
+      const activeSpaceId = await getActiveSpaceId()
+      const spaces = await db.listSpaces()
+
+      const activeSpace = spaces.find((s) => s.id === activeSpaceId)
+
       if (activeSpace) {
         await db.installExtension({
           spaceId: activeSpace.id,

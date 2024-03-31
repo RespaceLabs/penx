@@ -16,7 +16,6 @@ function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
 }
 
 export const StatusBar = () => {
-  const { activeSpace } = useSpaces()
   const [extensionStore] = useAtom(extensionStoreAtom)
   const components = getStatusBarComponents(extensionStore)
 

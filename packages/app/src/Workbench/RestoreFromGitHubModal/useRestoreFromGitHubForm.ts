@@ -6,7 +6,7 @@ import { ISpace } from '@penx/model-types'
 import { RestoreService } from '@penx/service'
 import { store } from '@penx/store'
 import { SyncServerModalData } from '../../SyncServer/SyncServerModal/useSyncServerForm'
-import { useActiveSpace } from '../VersionControl/hooks/useActiveSpace'
+import { useSelectedSpace } from '../VersionControl/hooks/useSelectedSpace'
 import { RestoreFromGitHubModalData } from '../VersionControl/types'
 
 export type RestoreFromGitHubValues = {
@@ -16,7 +16,7 @@ export type RestoreFromGitHubValues = {
 
 export function useRestoreFromGitHubForm() {
   const { setData, data, close } = useModalContext<RestoreFromGitHubModalData>()
-  const { space } = useActiveSpace()
+  const { space } = useSelectedSpace()
   const form = useForm<RestoreFromGitHubValues>({
     defaultValues: {
       isOverride: false,

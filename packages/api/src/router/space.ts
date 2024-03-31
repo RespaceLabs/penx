@@ -15,7 +15,6 @@ export const spaceRouter = createTRPCRouter({
         editorMode: true,
         sort: true,
         color: true,
-        isActive: true,
         activeNodeIds: true,
         pageSnapshot: true,
         createdAt: true,

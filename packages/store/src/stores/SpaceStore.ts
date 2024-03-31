@@ -1,11 +1,12 @@
 import { atom } from 'jotai'
-import ky from 'ky'
 import { db } from '@penx/local-db'
 import { INode, ISpace } from '@penx/model-types'
 import { SyncServerClient } from '@penx/sync-server-client'
 import { StoreType } from '../store-types'
 
 export const spacesAtom = atom<ISpace[]>([])
+
+export const activeSpaceAtom = atom<ISpace>(null as unknown as ISpace)
 
 export class SpaceStore {
   constructor(private store: StoreType) {}
@@ -19,8 +20,11 @@ export class SpaceStore {
   }
 
   getActiveSpace() {
-    const spaces = this.getSpaces()
-    return spaces.find((space) => space.isActive)!
+    return this.store.get(activeSpaceAtom)
+  }
+
+  setActiveSpace(space: ISpace) {
+    this.store.set(activeSpaceAtom, space)
   }
 
   async createSpace(input: Partial<ISpace>) {
@@ -52,7 +56,7 @@ export class SpaceStore {
       return
     }
 
-    const space = await db.getActiveSpace()
+    const space = this.getActiveSpace()
     const nodes = await db.listNodesBySpaceId(space.id)
 
     const activeNodes = space.activeNodeIds.map((id) => {
@@ -70,18 +74,16 @@ export class SpaceStore {
     this.store.app.setAppLoading(true)
 
     try {
-      await db.selectSpace(id)
-
       const spaces = await db.listSpaces()
       let nodes = await db.listNodesBySpaceId(id)
 
-      const space = await db.getActiveSpace()
+      const newActiveSpace = spaces.find((s) => s.id === id)!
 
       if (!nodes.length) {
         const mnemonic = this.store.user.getMnemonic()
         // console.log('select space======mnemonic:', mnemonic)
         try {
-          const client = new SyncServerClient(space, mnemonic)
+          const client = new SyncServerClient(newActiveSpace, mnemonic)
           nodes = await client.getAllNodes()
 
           for (const node of nodes) {
@@ -96,17 +98,17 @@ export class SpaceStore {
       this.store.node.setNodes([])
       this.store.node.setActiveNodes([])
 
-      let activeNodes = space.activeNodeIds
+      let activeNodes = newActiveSpace.activeNodeIds
         .map((id) => {
           return nodes.find((n) => n.id === id)!
         })
         .filter((n) => !!n)
 
       if (!activeNodes.length) {
-        const todayNode = await db.getOrCreateTodayNode(space.id)
+        const todayNode = await db.getOrCreateTodayNode(newActiveSpace.id)
         const nodes = await db.listNodesBySpaceId(id)
 
-        await db.updateSpace(space.id, {
+        await db.updateSpace(newActiveSpace.id, {
           activeNodeIds: [todayNode.id],
         })
 
@@ -121,8 +123,9 @@ export class SpaceStore {
         this.store.node.selectNode(activeNodes[0])
       }
 
+      this.setActiveSpace(newActiveSpace)
       this.store.app.setAppLoading(false)
-      return space
+      return newActiveSpace
     } catch (error) {
       // TODO: fallback to old data
       this.store.app.setAppLoading(false)

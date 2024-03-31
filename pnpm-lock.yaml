@@ -6186,9 +6186,15 @@ importers:
       '@penx/slate-lists':
         specifier: workspace:*
         version: link:../slate-lists
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../storage
       '@penx/store':
         specifier: workspace:*
         version: link:../store
+      '@penx/sync':
+        specifier: workspace:*
+        version: link:../sync
       '@penx/sync-server-client':
         specifier: workspace:*
         version: link:../sync-server-client
@@ -6504,6 +6510,9 @@ importers:
       '@penx/serializer':
         specifier: workspace:*
         version: link:../serializer
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../storage
       '@penx/sync-server-client':
         specifier: workspace:*
         version: link:../sync-server-client

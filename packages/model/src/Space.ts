@@ -1,3 +1,4 @@
+import { LOCAL_USER_ID } from '@penx/constants'
 import { EditorMode, ISpace } from '@penx/model-types'
 import { PageSnapshot } from './PageSnapshot'
 import { Settings } from './Settings'
@@ -34,12 +35,12 @@ export class Space {
     return this.raw.syncServerAccessToken || ''
   }
 
-  get isActive() {
-    return this.raw.isActive
-  }
-
   get isOutliner() {
     return this.raw.editorMode === EditorMode.OUTLINER
+  }
+
+  get isLocal() {
+    return this.raw.userId === LOCAL_USER_ID
   }
 
   get filename() {

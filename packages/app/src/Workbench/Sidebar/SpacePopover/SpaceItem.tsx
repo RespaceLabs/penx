@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { Cloud, KeyRound, Laptop } from 'lucide-react'
+import { Cloud, KeyRound, Laptop, Laptop2 } from 'lucide-react'
 import { Bullet, PopoverClose, Tag } from 'uikit'
 import { useSidebarDrawer } from '@penx/hooks'
 import { Space } from '@penx/model'
@@ -33,13 +33,17 @@ export function SpaceItem({ item, activeSpace }: Props) {
           close?.()
           if (activeSpace.id === item.id) return
           await store.space.selectSpace(item.id)
-          console.log('========runSSE...:')
         }}
       >
         <Box toCenterY gap2>
           <Bullet size={20} innerSize={6} innerColor={item.color} />
           <Box>{item.name}</Box>
         </Box>
+        {new Space(item).isLocal && (
+          <Box inlineFlex gray600>
+            <Laptop2 size={16} />
+          </Box>
+        )}
       </Box>
     </PopoverClose>
   )

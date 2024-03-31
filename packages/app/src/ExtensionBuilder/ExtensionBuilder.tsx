@@ -3,12 +3,12 @@ import { Box } from '@fower/react'
 import ky from 'ky'
 import { Button, toast } from 'uikit'
 import { Manifest } from '@penx/extension-typings'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { trpc } from '@penx/trpc-client'
 
 export function ExtensionBuilder() {
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
   const [value, setValue] = useState<Manifest>()
   async function runSSE() {
     try {

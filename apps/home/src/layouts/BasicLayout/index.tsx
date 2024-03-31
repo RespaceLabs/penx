@@ -1,6 +1,5 @@
 import { FC, PropsWithChildren } from 'react'
 import { Box } from '@fower/react'
-import { useRouter } from 'next/router'
 import { Button } from 'uikit'
 import { Logo } from '@penx/widget'
 import { Footer } from './Footer'
@@ -33,7 +32,7 @@ export const BasicLayout: FC<PropsWithChildren> = ({ children }) => {
             variant="outline"
             roundedFull
             onClick={() => {
-              window.open('https://app.penx.io/login/web3')
+              window.open('https://app.penx.io')
             }}
           >
             Get early access

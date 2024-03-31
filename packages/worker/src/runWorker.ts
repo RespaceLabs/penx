@@ -2,6 +2,7 @@ import { toast } from 'uikit'
 import { SyncStatus, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
+import { getActiveSpaceId } from '@penx/storage'
 import { spacesAtom, store, syncStatusAtom } from '@penx/store'
 
 export function runWorker() {
@@ -37,8 +38,12 @@ export function runWorker() {
     if (event.data === WorkerEvents.PULL_SUCCEEDED) {
       console.log('=====PULL_SUCCEEDED....')
 
+      const activeSpaceId = await getActiveSpaceId()
       const spaces = await db.listSpaces()
-      const activeSpace = await db.getActiveSpace()
+      const activeSpace = spaces.find((s) => s.id === activeSpaceId)
+
+      if (!activeSpace) return
+
       const nodes = await db.listNodesBySpaceId(activeSpace.id)
       store.space.setSpaces(spaces)
       store.node.setNodes(nodes)

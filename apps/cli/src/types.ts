@@ -9,7 +9,6 @@ export type Space = {
   editorMode: string
   sort: number
   color: string
-  isActive: boolean
   activeNodeIds: any[]
   pageSnapshot: any
   createdAt: string

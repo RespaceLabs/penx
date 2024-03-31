@@ -2,12 +2,12 @@ import { forwardRef } from 'react'
 import { Box } from '@fower/react'
 import { ChevronsUpDown, Settings } from 'lucide-react'
 import { Bullet, Button, PopoverTrigger, usePopoverContext } from 'uikit'
-import { useSidebarDrawer, useSpaces } from '@penx/hooks'
+import { useActiveSpace, useSidebarDrawer } from '@penx/hooks'
 import { store } from '@penx/store'
 
 export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
   function SpacePopoverTrigger({}, ref) {
-    const { activeSpace } = useSpaces()
+    const { activeSpace } = useActiveSpace()
     const { close } = usePopoverContext()
     const drawer = useSidebarDrawer()
 

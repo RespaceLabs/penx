@@ -2,14 +2,16 @@ import { Box } from '@fower/react'
 import { Button } from 'uikit'
 import { useUser, useUserLoading } from '@penx/hooks'
 import { IconGitHub } from '@penx/icons'
+import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 
 export function SetupGitHubButton() {
+  const { data } = useSession()
   const user = useUser()
   const loading = useUserLoading()
 
   if (loading) return null
-  if (user.repo) return null
+  if (user.repo || !data) return null
 
   return (
     <Button

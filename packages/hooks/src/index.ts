@@ -1,6 +1,7 @@
 export * from './useMounted'
 export * from './useDidMount'
 export * from './useSpaces'
+export * from './useActiveSpace'
 export * from './useHover'
 export * from './useSyncStatus'
 export * from './useCommands'

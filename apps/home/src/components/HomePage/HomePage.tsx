@@ -112,7 +112,7 @@ export function HomePage() {
             roundedFull
             w-240
             onClick={() => {
-              window.open('https://app.penx.io/login/web3')
+              window.open('https://app.penx.io')
             }}
           >
             Get early access

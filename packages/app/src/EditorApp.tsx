@@ -1,10 +1,7 @@
-import { FC, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { set } from 'idb-keyval'
 import { isProd, isServer } from '@penx/constants'
 import { appLoader, useLoaderStatus } from '@penx/loader'
 import { useSession } from '@penx/session'
-import { setLocalSession } from '@penx/storage'
 import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
 import { ClientOnly } from './components/ClientOnly'
@@ -16,13 +13,6 @@ import { Workbench } from './Workbench/Workbench'
 
 if (!isServer) {
   appLoader.init()
-
-  // emitter.on('ADD_NODE', () => {
-  //   const spaces = store.get(spacesAtom)
-  //   const activeSpace = spaces.find((space) => space.isActive)!
-  //   // TODO:
-  //   store.createDoc()
-  // })
 
   let inited = false
 
@@ -41,22 +31,12 @@ export const EditorApp = () => {
   const { data: session } = useSession()
   // console.log('============session:', session)
 
-  useEffect(() => {
-    if (session?.userId) {
-      setLocalSession(session)
-    }
-  }, [session])
-
-  if (!isLoaded) {
-    return null
-  }
-
-  if (!session) return null
+  if (!isLoaded) return null
 
   return (
     <ClientOnly>
       <ErrorBoundary fallback={<Fallback />}>
-        {session && navigator.onLine && <UserQuery userId={session.userId} />}
+        {!!session && navigator.onLine && <UserQuery userId={session.userId} />}
         <HotkeyBinding />
         <SpaceSyncManager userId={session?.userId}>
           <AppProvider>

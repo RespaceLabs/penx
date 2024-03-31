@@ -3,10 +3,16 @@ import { extractTags } from '@penx/editor-common'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, isCellNode, NodeType } from '@penx/model-types'
+import { getActiveSpaceId } from '@penx/storage'
 
 export class NodeCleaner {
   async cleanDeletedNodes(nodes: INode[] = []) {
-    const space = await db.getActiveSpace()
+    const activeSpaceId = await getActiveSpaceId()
+    if (!activeSpaceId) return
+
+    const spaces = await db.listSpaces()
+    const space = spaces.find((s) => s.id === activeSpaceId)
+    if (!space) return
 
     if (!nodes.length) {
       nodes = await db.listNodesBySpaceId(space.id)

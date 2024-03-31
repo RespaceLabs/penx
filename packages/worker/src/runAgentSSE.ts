@@ -2,6 +2,7 @@ import ky from 'ky'
 import { isProd, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { EditorMode, INode } from '@penx/model-types'
+import { getActiveSpaceId } from '@penx/storage'
 
 const agentHost = 'http://127.0.0.1:31415'
 const sseURL = `${agentHost}/agent-sse`
@@ -41,7 +42,13 @@ export async function runAgentSSE() {
     console.log('===event:', event)
 
     if (event.eventType === EventType.ADD_NODES) {
-      const space = await db.getActiveSpace()
+      const activeSpaceId = await getActiveSpaceId()
+      const spaces = await db.listSpaces()
+
+      const space = spaces.find((s) => s.id === activeSpaceId)
+
+      if (!space) return
+
       const isOutliner = space?.editorMode === EditorMode.OUTLINER
 
       const newNodes = event.data.map((item: any) => {

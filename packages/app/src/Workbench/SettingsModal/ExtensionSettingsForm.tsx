@@ -4,7 +4,7 @@ import { Box } from '@fower/react'
 import { produce } from 'immer'
 import { Checkbox, Input } from 'uikit'
 import { SettingsSchema } from '@penx/extension-typings'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { FormField } from './FormField'
 
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const ExtensionSettingsForm = ({ schema, extensionId }: Props) => {
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
 
   const { handleSubmit, watch, control } = useForm<any>({
     defaultValues: {},

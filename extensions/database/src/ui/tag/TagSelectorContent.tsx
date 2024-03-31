@@ -62,6 +62,8 @@ export const TagSelectorContent = ({ close, element }: Props) => {
     .map((node) => node.props.name!)
     .filter((name) => name !== TODO_DATABASE_NAME)
 
+  editor.isInTodoPage
+
   const text = getSearchText(editor, element)
   const tagName = text.replace(/^#/, '')
 
@@ -151,11 +153,11 @@ export const TagSelectorContent = ({ close, element }: Props) => {
     onEnter: async (cursor) => {
       let database: INode
       if (!filteredTypes.length) {
-        database = await store.node.createDatabase(tagName)
+        database = await store.node.createDatabase(editor.spaceId, tagName)
         selectTag(tagName, database.id)
       } else {
         const name = filteredTypes[cursor]
-        database = await db.getDatabaseByName(name)
+        database = await db.getDatabaseByName(editor.spaceId, name)
         selectTag(name, database.id)
       }
 
@@ -189,7 +191,7 @@ export const TagSelectorContent = ({ close, element }: Props) => {
             isActive={i === cursor}
             onClick={async () => {
               const name = filteredTypes[cursor]
-              const database = await db.getDatabaseByName(name)
+              const database = await db.getDatabaseByName(editor.spaceId, name)
               selectTag(name, database.id)
             }}
           />

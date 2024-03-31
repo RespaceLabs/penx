@@ -31,6 +31,7 @@ import { SetNodeToDecorations } from '@penx/code-block'
 import { getProjection } from '@penx/dnd-projection'
 import { PenxEditor } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
+import { useActiveSpace } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { useDatabase, useNodes } from '@penx/node-hooks'
 import { store } from '@penx/store'
@@ -103,6 +104,8 @@ export function NodeEditor({
   editor.isOutliner = isOutliner || node.isListItem
 
   editor.isReadonly = false
+
+  editor.spaceId = node.spaceId
 
   // console.log('editor node======:', node)
 

@@ -2,7 +2,7 @@ import { arrayMoveImmutable } from 'array-move'
 import { format } from 'date-fns'
 import Dexie, { Table } from 'dexie'
 import { get, set } from 'idb-keyval'
-import { TODO_DATABASE_NAME } from '@penx/constants'
+import { LOCAL_USER_ID, TODO_DATABASE_NAME } from '@penx/constants'
 import {
   ConjunctionType,
   DataSource,
@@ -43,7 +43,7 @@ export class PenxDB extends Dexie {
   constructor() {
     // super('PenxDB')
     super('penx-local')
-    this.version(4).stores({
+    this.version(5).stores({
       // Primary key and indexed props
       space: 'id, name, userId',
       node: 'id, spaceId, databaseId, type, date, [type+spaceId+databaseId], [type+spaceId], [type+databaseId]',
@@ -141,21 +141,14 @@ export class PenxDB extends Dexie {
     )
 
     await this.updateSpace(spaceId, {
-      isActive: true,
       activeNodeIds: [node.id],
     })
 
-    await this.createDatabase(TODO_DATABASE_NAME, DataSource.COMMON)
+    await this.createDatabase(spaceId, TODO_DATABASE_NAME, DataSource.COMMON)
   }
 
   createSpace = async (data: Partial<ISpace>, initNode = true) => {
     const spaces = await this.listSpaces()
-
-    for (const space of spaces) {
-      await this.updateSpace(space.id, {
-        isActive: false,
-      })
-    }
 
     // insert new space
     const newSpace = getNewSpace(data)
@@ -169,44 +162,51 @@ export class PenxDB extends Dexie {
     return space as ISpace
   }
 
+  createLocalSpace = async () => {
+    // Only can create one local space
+    const existedSpace = await this.space
+      .where({ userId: LOCAL_USER_ID })
+      .first()
+
+    if (existedSpace) return existedSpace
+
+    // insert new space
+    const newSpace = getNewSpace({
+      userId: LOCAL_USER_ID,
+      name: 'Local Space',
+    })
+    const spaceId = await this.space.add(newSpace)
+    const space = (await this.space.get(spaceId))!
+
+    await this.initSpaceNodes(space)
+
+    return space as ISpace
+  }
+
   createSpaceByRemote = async (data: Partial<ISpace>) => {
     return await this.createSpace(data)
   }
 
-  selectSpace = async (spaceId: string) => {
-    const spaces = await this.listSpaces()
-
-    for (const space of spaces) {
-      await this.space.update(space.id, {
-        isActive: false,
-      })
-    }
-
-    return await this.space.update(spaceId, {
-      isActive: true,
-    })
+  listLocalSpaces = async () => {
+    const spaces = await this.space.where({ userId: LOCAL_USER_ID }).toArray()
+    return spaces || []
   }
 
-  listSpaces = async (userId?: string) => {
-    // TODO: too hack
-    const user = await getLocalSession()
-    // console.log('========list spaces:', user)
+  listSpaces = async (userId?: string, session?: any) => {
+    const spaces = await this.listLocalSpaces()
+    const localSession = session ?? (await getLocalSession())
 
-    const uid = userId ?? user?.userId
+    if (localSession) {
+      const uid = userId ?? localSession?.userId
+      const cloudSpaces = await this.space.where({ userId: uid }).toArray()
+      spaces.push(...cloudSpaces)
+    }
 
-    const spaces = await this.space.where({ userId: uid }).toArray()
     return spaces
   }
 
   getSpace = (spaceId: string) => {
     return this.space.get(spaceId) as any as Promise<ISpace>
-  }
-
-  getActiveSpace = async () => {
-    const spaces = await this.listSpaces()
-
-    const space = spaces.find((space) => space.isActive)
-    return space!
   }
 
   updateSpace = (spaceId: string, space: Partial<ISpace>) => {
@@ -220,9 +220,6 @@ export class PenxDB extends Dexie {
     }
     await this.space.delete(spaceId)
     const spaces = await this.listSpaces()
-    if (spaces.length) {
-      await this.updateSpace(spaces?.[0]?.id!, { isActive: true })
-    }
   }
 
   getNode = <T = INode>(nodeId: string) => {
@@ -508,17 +505,17 @@ export class PenxDB extends Dexie {
   }
 
   createDatabase = async (
+    spaceId: string,
     name: string,
     dataSource: DataSource = DataSource.TAG,
     shouldInitCell = false,
   ) => {
-    const space = await this.getActiveSpace()
-
-    const databaseRootNode = await this.getDatabaseRootNode(space.id)
+    const databaseRootNode = await this.getDatabaseRootNode(spaceId)
+    console.log('===========databaseRootNode:', databaseRootNode, spaceId)
 
     const database = await this.createNode<IDatabaseNode>({
       parentId: databaseRootNode.id,
-      spaceId: space.id,
+      spaceId,
       type: NodeType.DATABASE,
       props: {
         color: getRandomColor(),
@@ -534,7 +531,7 @@ export class PenxDB extends Dexie {
     })
 
     const isTodo = name === TODO_DATABASE_NAME
-    const columns = await this.initColumns(space.id, database.id, isTodo)
+    const columns = await this.initColumns(spaceId, database.id, isTodo)
 
     const viewColumns: ViewColumn[] = columns.map((column) => ({
       columnId: column.id,
@@ -544,7 +541,7 @@ export class PenxDB extends Dexie {
 
     // init table view
     const tableView = await this.createNode<IViewNode>({
-      spaceId: space.id,
+      spaceId,
       databaseId: database.id,
       parentId: database.id,
       type: NodeType.VIEW,
@@ -563,7 +560,7 @@ export class PenxDB extends Dexie {
 
     // init list view
     const listView = await this.createNode<IViewNode>({
-      spaceId: space.id,
+      spaceId,
       databaseId: database.id,
       parentId: database.id,
       type: NodeType.VIEW,
@@ -589,8 +586,8 @@ export class PenxDB extends Dexie {
     })
 
     if (shouldInitCell) {
-      const rows = await this.initRows(space.id, database.id)
-      await this.initCells(space.id, database.id, columns, rows)
+      const rows = await this.initRows(spaceId, database.id)
+      await this.initCells(spaceId, database.id, columns, rows)
     }
     return database
   }
@@ -723,12 +720,12 @@ export class PenxDB extends Dexie {
   }
 
   getDatabase = async (id: string) => {
-    const space = await this.getActiveSpace()
     const database = await this.getNode(id)
+    const spaceId = database.spaceId
     const columns = await this.node
       .where({
         type: NodeType.COLUMN,
-        spaceId: space.id,
+        spaceId,
         databaseId: id,
       })
       .toArray()
@@ -736,7 +733,7 @@ export class PenxDB extends Dexie {
     const rows = await this.node
       .where({
         type: NodeType.ROW,
-        spaceId: space.id,
+        spaceId,
         databaseId: id,
       })
       .toArray()
@@ -744,7 +741,7 @@ export class PenxDB extends Dexie {
     const views = await this.node
       .where({
         type: NodeType.VIEW,
-        spaceId: space.id,
+        spaceId,
         databaseId: id,
       })
       .toArray()
@@ -752,7 +749,7 @@ export class PenxDB extends Dexie {
     const cells = await this.node
       .where({
         type: NodeType.CELL,
-        spaceId: space.id,
+        spaceId,
         databaseId: id,
       })
       .toArray()
@@ -766,12 +763,11 @@ export class PenxDB extends Dexie {
     }
   }
 
-  getDatabaseByName = async (name: string) => {
-    const space = await this.getActiveSpace()
+  getDatabaseByName = async (spaceId: string, name: string) => {
     const nodes = await this.node
       .where({
         type: NodeType.DATABASE,
-        spaceId: space.id,
+        spaceId,
       })
       .toArray()
 
@@ -781,11 +777,12 @@ export class PenxDB extends Dexie {
 
   addView = async (databaseId: string, viewType: ViewType) => {
     const database = (await this.getNode(databaseId)) as IDatabaseNode
+    const spaceId = database.spaceId
 
     const columns = (await this.node
       .where({
         type: NodeType.COLUMN,
-        spaceId: database.spaceId,
+        spaceId,
         databaseId,
       })
       .toArray()) as IColumnNode[]
@@ -866,8 +863,8 @@ export class PenxDB extends Dexie {
       [FieldType.UPDATED_AT]: 'Updated At',
     }
 
-    const space = await this.getActiveSpace()
-    const spaceId = space.id
+    const database = (await this.getNode(databaseId)) as IDatabaseNode
+    const spaceId = database.spaceId
 
     const column = await this.createNode<IColumnNode>({
       spaceId,
@@ -886,8 +883,8 @@ export class PenxDB extends Dexie {
     const views = (await this.node
       .where({
         type: NodeType.VIEW,
-        spaceId: space.id,
-        databaseId: databaseId,
+        spaceId,
+        databaseId,
       })
       .toArray()) as IViewNode[]
 
@@ -956,13 +953,13 @@ export class PenxDB extends Dexie {
   }
 
   addRow = async (databaseId: string, ref = '', source = '') => {
-    const space = await this.getActiveSpace()
-    const spaceId = space.id
+    const database = (await this.getNode(databaseId)) as IDatabaseNode
+    const spaceId = database.spaceId
 
     const rows = (await this.node
       .where({
         type: NodeType.ROW,
-        spaceId: space.id,
+        spaceId,
         databaseId,
       })
       .toArray()) as IRowNode[]
@@ -987,7 +984,7 @@ export class PenxDB extends Dexie {
     const views = (await this.node
       .where({
         type: NodeType.VIEW,
-        spaceId: space.id,
+        spaceId,
         databaseId,
       })
       .toArray()) as IViewNode[]
@@ -1029,12 +1026,11 @@ export class PenxDB extends Dexie {
     await Promise.all(promises)
   }
 
-  createTodoRow = async (ref = '', sourceId = '') => {
-    const space = await this.getActiveSpace()
+  createTodoRow = async (spaceId: string, ref = '', sourceId = '') => {
     const databases = await this.node
       .where({
         type: NodeType.DATABASE,
-        spaceId: space.id,
+        spaceId,
       })
       .toArray()
 
@@ -1044,6 +1040,7 @@ export class PenxDB extends Dexie {
 
     if (!todoDatabase) {
       todoDatabase = await this.createDatabase(
+        spaceId,
         TODO_DATABASE_NAME,
         DataSource.COMMON,
       )
@@ -1053,7 +1050,7 @@ export class PenxDB extends Dexie {
     const cells = await this.node
       .where({
         type: NodeType.CELL,
-        spaceId: space.id,
+        spaceId,
         databaseId: todoDatabase.id,
       })
       .toArray()
@@ -1066,12 +1063,11 @@ export class PenxDB extends Dexie {
     }
   }
 
-  createTagRow = async (name: string, ref = '') => {
-    const space = await this.getActiveSpace()
+  createTagRow = async (spaceId: string, name: string, ref = '') => {
     const databases = await this.node
       .where({
         type: NodeType.DATABASE,
-        spaceId: space.id,
+        spaceId,
       })
       .toArray()
 
@@ -1082,7 +1078,7 @@ export class PenxDB extends Dexie {
     const cells = await this.node
       .where({
         type: NodeType.CELL,
-        spaceId: space.id,
+        spaceId,
         databaseId: database.id,
       })
       .toArray()
@@ -1351,10 +1347,11 @@ export class PenxDB extends Dexie {
   }
 
   addOption = async (databaseId: string, columnId: string, name: string) => {
-    const space = await this.getActiveSpace()
+    const database = (await this.getNode(databaseId)) as IDatabaseNode
+    const spaceId = database.spaceId
 
     const option = await this.createNode<IOptionNode>({
-      spaceId: space.id,
+      spaceId,
       databaseId,
       parentId: databaseId,
       type: NodeType.OPTION,

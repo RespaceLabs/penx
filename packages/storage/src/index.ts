@@ -1,7 +1,7 @@
 import { get, set } from 'idb-keyval'
 import { PENX_AUTHORIZED_USER, PENX_SESSION_DATA } from '@penx/constants'
 
-interface Session {
+export interface Session {
   userId: string
   address: string
   earlyAccessCode: string
@@ -49,4 +49,16 @@ export async function clearLocalSession() {
 
 export async function setLocalSession(session: any) {
   await set(PENX_SESSION_DATA, session)
+}
+
+export async function getActiveSpaceId(): Promise<string> {
+  const session = await getLocalSession()
+  if (!session) return ''
+  return (await get(`ACTIVE_SPACE_${session.userId}`)) as string
+}
+
+export async function setActiveSpaceId(id: string) {
+  const session = await getLocalSession()
+  if (!session) return
+  await set(`ACTIVE_SPACE_${session.userId}`, id)
 }

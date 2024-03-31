@@ -10,7 +10,6 @@ export function getNewSpace(data: Partial<ISpace>): ISpace {
     name: 'My Space',
     sort: 1,
     // version: 0,
-    isActive: true,
     color: getRandomColor(),
     activeNodeIds: [],
     nodeSnapshot: {

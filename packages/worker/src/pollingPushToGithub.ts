@@ -3,7 +3,7 @@ import { isProd, WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { User } from '@penx/model'
 import { sleep } from '@penx/shared'
-import { getAuthorizedUser } from '@penx/storage'
+import { getActiveSpaceId, getAuthorizedUser } from '@penx/storage'
 import { SyncService } from '@penx/sync'
 
 const INTERVAL = isProd ? 10 * 60 * 1000 : 10 * 1000
@@ -33,7 +33,10 @@ async function sync() {
     // console.log('data--------user:', user)
 
     if (!user.github.repo) return
-    const activeSpace = await db.getActiveSpace()
+    const activeSpaceId = await getActiveSpaceId()
+    const spaces = await db.listSpaces()
+
+    const activeSpace = spaces.find((s) => s.id === activeSpaceId)
 
     if (!activeSpace) return
 

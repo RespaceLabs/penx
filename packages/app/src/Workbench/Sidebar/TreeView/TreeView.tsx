@@ -31,7 +31,7 @@ import { Box } from '@fower/react'
 import { Transforms } from 'slate'
 import { getProjection, UniqueIdentifier } from '@penx/dnd-projection'
 import { clearEditor } from '@penx/editor-transforms'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace, useSpaces } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode } from '@penx/model-types'
@@ -89,7 +89,7 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
   // console.log('=============nodeList:', nodeList)
 
   const items = nodeList.createTree(nodeList.rootNode)
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null)
   const [overId, setOverId] = useState<UniqueIdentifier | null>(null)

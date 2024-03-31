@@ -1,12 +1,12 @@
 import { memo } from 'react'
 import { Box } from '@fower/react'
 import { Bullet } from 'uikit'
-import { useSidebarDrawer, useSpaces } from '@penx/hooks'
+import { useActiveSpace, useSidebarDrawer } from '@penx/hooks'
 import { store } from '@penx/store'
 import { NewNodeButton } from './NewNodeButton'
 
 export const TreeViewHeader = memo(function TreeViewHeader() {
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
   const drawer = useSidebarDrawer()
   return (
     <Box

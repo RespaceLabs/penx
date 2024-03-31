@@ -5,7 +5,7 @@ import { Box } from '@fower/react'
 import { MenuIcon } from 'lucide-react'
 import { EDITOR_NAV_WIDTH } from '@penx/constants'
 import { EditorProvider } from '@penx/editor'
-import { useRouterName, useSpaces, useUser } from '@penx/hooks'
+import { useActiveSpace, useRouterName, useSpaces, useUser } from '@penx/hooks'
 import { useSession } from '@penx/session'
 import { Fallback } from '../Fallback/Fallback'
 import { CommandPanel } from '../Palette'
@@ -23,7 +23,7 @@ import { VersionControl } from './VersionControl/VersionControl'
 import { Web3Profile } from './Web3Profile/Web3Profile'
 
 export const Workbench = () => {
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
   const name = useRouterName()
   const { data: session } = useSession()
   const [sidebarOpen, setSideBarOpen] = useState(true)
@@ -49,7 +49,7 @@ export const Workbench = () => {
 
       {!isMobile && <CommandPanel />}
       <Box h-100vh toLeft black flex-1 relative>
-        {!isBackedUp && name === 'NODE' && <BackupMnemonicTips />}
+        {!isBackedUp && session && name === 'NODE' && <BackupMnemonicTips />}
 
         <Box toLeft>
           <Box

@@ -21,7 +21,6 @@ export async function startPollingPull() {
 }
 
 async function sync() {
-  const activeSpace = await db.getActiveSpace()
   // await pullFromCloud(activeSpace)
   postMessage(WorkerEvents.PULL_SUCCEEDED)
 }

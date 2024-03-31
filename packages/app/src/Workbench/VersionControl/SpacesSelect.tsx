@@ -8,13 +8,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'uikit'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace, useSpaces } from '@penx/hooks'
 import { Space } from '@penx/model'
-import { useActiveSpace } from './hooks/useActiveSpace'
+import { useSelectedSpace } from './hooks/useSelectedSpace'
 
 export function SpacesSelect() {
-  const { spaces, activeSpace } = useSpaces()
-  const { space, setSpace } = useActiveSpace()
+  const { spaces } = useSpaces()
+  const { activeSpace } = useActiveSpace()
+  const { space, setSpace } = useSelectedSpace()
 
   useEffect(() => {
     if (activeSpace) setSpace(activeSpace)

@@ -1,6 +1,7 @@
 import { db } from '@penx/local-db'
 import { decryptByMnemonic } from '@penx/mnemonic'
 import { INode, ISpace } from '@penx/model-types'
+import { getActiveSpaceId } from '@penx/storage'
 import { SyncServerClient } from '@penx/sync-server-client'
 
 /**
@@ -39,7 +40,9 @@ async function fallbackForMnemonic(
 export async function syncToCloud(mnemonic: string): Promise<boolean> {
   // console.log('syncToCloud......')
 
-  const space = await db.getActiveSpace()
+  const activeSpaceId = await getActiveSpaceId()
+  const spaces = await db.listSpaces()
+  const space = spaces.find((s) => s.id === activeSpaceId)
   if (!space) return false
 
   const nodesLastUpdatedAt = space.nodesLastUpdatedAt

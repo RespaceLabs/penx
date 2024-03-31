@@ -1,12 +1,47 @@
+import { LOCAL_USER_ID } from '@penx/constants'
 import { db } from '@penx/local-db'
-import { Node } from '@penx/model'
+import { Node, Space } from '@penx/model'
 import { ISpace } from '@penx/model-types'
+import {
+  getActiveSpaceId,
+  getLocalSession,
+  setActiveSpaceId,
+} from '@penx/storage'
 import { store } from '@penx/store'
+import { syncFromCloud } from '@penx/sync'
 import { SyncServerClient } from '@penx/sync-server-client'
-import { syncFromCloud } from '../../sync/src'
 
 export class AppService {
   inited = false
+
+  private async tryToGetActiveSpace(): Promise<{
+    activeSpace: ISpace
+    spaces: ISpace[]
+  }> {
+    const session = await getLocalSession()
+    let spaces = await db.listSpaces(session?.userId, session)
+    let activeSpace: ISpace
+
+    if (session) {
+      const activeSpaceId = await getActiveSpaceId()
+      const space = spaces.find((space) => space.userId === activeSpaceId)
+      if (space) {
+        activeSpace = space
+      } else {
+        activeSpace = spaces[0]
+        await setActiveSpaceId(activeSpace.id)
+      }
+    } else {
+      activeSpace = spaces.find((item) => item.userId === LOCAL_USER_ID)!
+
+      if (!activeSpace) {
+        activeSpace = await db.createLocalSpace()
+        spaces = await db.listSpaces(undefined, session)
+      }
+    }
+
+    return { activeSpace, spaces }
+  }
 
   async init() {
     try {
@@ -14,24 +49,18 @@ export class AppService {
 
       this.inited = true
 
-      const spaces = await db.listSpaces()
+      const { activeSpace, spaces } = await this.tryToGetActiveSpace()
 
-      const activeSpace = spaces.find((item) => item.isActive) || spaces[0]
+      await Promise.all([
+        db.normalizeDailyNodes(activeSpace.id),
 
-      await db.normalizeDailyNodes(activeSpace.id)
-
-      if (navigator.onLine) {
-        try {
-          // console.log('tryToSync................')
-
-          await this.tryToSync(activeSpace)
-        } catch (error) {
-          console.log('========try to sync error', error)
-        }
-      }
+        // console.log('tryToSync................')
+        this.tryToSync(activeSpace),
+      ])
 
       let nodes = await db.listNodesBySpaceId(activeSpace.id)
 
+      store.space.setActiveSpace(activeSpace)
       store.space.setSpaces(spaces)
 
       // console.log('appService=======nodes:', nodes)
@@ -95,6 +124,7 @@ export class AppService {
   }
 
   private async tryToSync(space: ISpace) {
+    if (!navigator.onLine) return
     if (!space.syncServerUrl) return
     const mnemonic = store.user.getMnemonic()
     const client = new SyncServerClient(space, mnemonic)

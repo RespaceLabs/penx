@@ -32,7 +32,15 @@ export const Logo = ({
   )
   if (to) {
     return (
-      <StyledLink href={to} toCenterY gray800--hover black {...(rest as any)}>
+      <StyledLink
+        href={to}
+        noUnderline
+        toCenterY
+        gray800--hover
+        black
+        gap1
+        {...(rest as any)}
+      >
         {content}
       </StyledLink>
     )

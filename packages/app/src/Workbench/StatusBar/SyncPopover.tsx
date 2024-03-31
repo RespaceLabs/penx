@@ -14,7 +14,7 @@ import {
   TooltipTrigger,
 } from 'uikit'
 import { SyncStatus } from '@penx/constants'
-import { useSpaces, useSyncStatus, useUser } from '@penx/hooks'
+import { useActiveSpace, useSpaces, useSyncStatus, useUser } from '@penx/hooks'
 import { IconPull, IconPush } from '@penx/icons'
 import { db } from '@penx/local-db'
 import { store } from '@penx/store'
@@ -26,7 +26,7 @@ export const SyncPopover: FC<Props> = () => {
   const user = useUser()
   const { isSyncing, isPulling, isFailed, isNormal, status, setStatus } =
     useSyncStatus()
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
 
   async function pushToGitHub(isAll = false) {
     try {

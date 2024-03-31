@@ -27,8 +27,7 @@ export const useInitLocalSpaces = () => {
     const spaceId = await storage.get(ACTIVE_SPACE_ID)
 
     if (spaces.length && !spaceId) {
-      const activeSpace = spaces.find((space) => space.isActive)
-      await setActiveSpaceId(activeSpace?.id || spaces[0].id)
+      await setActiveSpaceId(spaces[0].id)
     }
 
     setLoading(false)

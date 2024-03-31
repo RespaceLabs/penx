@@ -22,6 +22,7 @@
     "@penx/constants": "workspace:*",
     "@penx/encryption": "workspace:*",
     "@penx/mnemonic": "workspace:*",
+    "@penx/storage": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",

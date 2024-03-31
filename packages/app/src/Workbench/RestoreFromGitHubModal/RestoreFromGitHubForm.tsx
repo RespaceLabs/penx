@@ -9,14 +9,14 @@ import {
   Switch,
   useModalContext,
 } from 'uikit'
-import { useActiveSpace } from '../VersionControl/hooks/useActiveSpace'
+import { useSelectedSpace } from '../VersionControl/hooks/useSelectedSpace'
 import { RestoreFromGitHubModalData } from '../VersionControl/types'
 import { useRestoreFromGitHubForm } from './useRestoreFromGitHubForm'
 
 export function RestoreFromGitHubForm() {
   const { data } = useModalContext<RestoreFromGitHubModalData>()
   const form = useRestoreFromGitHubForm()
-  const { space } = useActiveSpace()
+  const { space } = useSelectedSpace()
   const { control, formState } = form
   const { isValid } = formState
   const { loading } = data

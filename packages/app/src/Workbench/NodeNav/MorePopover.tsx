@@ -7,11 +7,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { store } from '@penx/store'
 
 export const MorePopover = () => {
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
   return (
     <Popover placement="bottom-end">
       <PopoverTrigger asChild>

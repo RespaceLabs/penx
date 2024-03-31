@@ -27,6 +27,8 @@ export type PenxEditor = BaseEditor &
 
     nodeToDecorations: Map<any, Range[]>
 
+    spaceId: string
+
     // save all items to editor
     items: Node[]
 

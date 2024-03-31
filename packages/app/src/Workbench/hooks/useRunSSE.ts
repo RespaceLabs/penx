@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { useSession } from '@penx/session'
 import { runSSE } from '../../common/runSSE'
 
 export function useRunSSE() {
   const { data: session } = useSession()
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
 
   const sseInited = useRef(false)
 

@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { Button } from 'uikit'
+import { useActiveSpace } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
 
@@ -22,8 +23,9 @@ interface Props {
 }
 
 export const ExportBtn = (props: PropsWithChildren<Props>) => {
+  const { activeSpace } = useActiveSpace()
   async function exportSpace() {
-    const space = props.space ? props.space : await db.getActiveSpace()
+    const space = props.space ? props.space : activeSpace
     const nodes = await db.listNodesBySpaceId(space.id)
     console.log('space', space, nodes)
     exportJSONToFile(
@@ -35,7 +37,7 @@ export const ExportBtn = (props: PropsWithChildren<Props>) => {
     )
   }
   return (
-    <Button onClick={() => exportSpace()}>
+    <Button onClick={() => exportSpace()} colorScheme="black">
       {props.children || 'Export entire space'}
     </Button>
   )

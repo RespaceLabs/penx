@@ -1,11 +1,11 @@
 import { Box } from '@fower/react'
 import { Input } from 'uikit'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { store } from '@penx/store'
 
 export const SpaceName = () => {
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
 
   return (
     <Box column gap2 maxW-600>

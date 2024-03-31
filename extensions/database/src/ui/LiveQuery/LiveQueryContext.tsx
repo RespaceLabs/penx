@@ -14,6 +14,7 @@ import {
   IRowNode,
   IViewNode,
 } from '@penx/model-types'
+import { store } from '@penx/store'
 
 export interface ILiveQueryContext {
   database: INode
@@ -46,7 +47,10 @@ export const LiveQueryProvider = ({
 
   const loadLiveQuery = useCallback(async () => {
     console.log('sql:', sql)
-    const database = await db.getDatabaseByName('bookmark')
+    const database = await db.getDatabaseByName(
+      store.space.getActiveSpace().id,
+      'bookmark',
+    )
     console.log('==========database:', database)
 
     // const data = await db.getLiveQuery(databaseId)

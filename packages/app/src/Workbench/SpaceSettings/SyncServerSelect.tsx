@@ -13,12 +13,12 @@ import {
   Spinner,
   toast,
 } from 'uikit'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { api, trpc } from '@penx/trpc-client'
 
 export const SyncServerSelect = () => {
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
   const [serverId, setServerId] = useState(activeSpace.syncServerId)
   const { data = [], isLoading } = trpc.syncServer.runningSyncServers.useQuery()
   const [loading, setLoading] = useState(false)
@@ -77,7 +77,12 @@ export const SyncServerSelect = () => {
         </Select>
       </Box>
       <Box mt4>
-        <Button disabled={loading || isLoading} onClick={submit} gap2>
+        <Button
+          colorScheme="black"
+          disabled={loading || isLoading}
+          onClick={submit}
+          gap2
+        >
           {loading && <Spinner white square4 />}
           <Box>Save sync server</Box>
         </Button>

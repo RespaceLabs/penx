@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren } from 'react'
+import { useSession } from 'next-auth/react'
 import { ToastContainer } from 'uikit'
 import { TrpcProvider } from '@penx/trpc-client'
 import { EventHandler } from '~/components/EventHandler'

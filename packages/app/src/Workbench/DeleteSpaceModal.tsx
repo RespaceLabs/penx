@@ -15,7 +15,7 @@ import {
   useModalContext,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
 import { api } from '@penx/trpc-client'
@@ -24,7 +24,7 @@ const Footer = () => {
   const { close } = useModalContext<Node>()
   const [name, setName] = useState('')
   const [loading, setLoading] = useState(false)
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
 
   async function deleteSpace() {
     if (!name) return

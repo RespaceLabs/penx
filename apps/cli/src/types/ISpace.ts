@@ -18,8 +18,6 @@ export interface ISpace {
 
   color: string
 
-  isActive: boolean
-
   activeNodeIds: string[]
 
   // for cloud

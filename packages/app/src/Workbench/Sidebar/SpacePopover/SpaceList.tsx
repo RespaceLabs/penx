@@ -1,11 +1,12 @@
 import { Box } from '@fower/react'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace, useSpaces } from '@penx/hooks'
 import { CreateSpaceBtn } from './CreateSpaceBtn'
 import { SpaceItem } from './SpaceItem'
 import { UploadButton } from './UploadButton'
 
 export const SpaceList = () => {
-  const { spaces, activeSpace } = useSpaces()
+  const { spaces } = useSpaces()
+  const { activeSpace } = useActiveSpace()
 
   return (
     <Box toCenterX w-100p p2>

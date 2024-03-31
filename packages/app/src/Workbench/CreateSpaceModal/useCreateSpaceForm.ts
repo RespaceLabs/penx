@@ -23,6 +23,10 @@ export function useCreateSpaceForm() {
   const { data: session } = useSession()
 
   const onSubmit: SubmitHandler<CreateSpaceValues> = async (data) => {
+    if (!session) {
+      toast.error('Please login first')
+      return
+    }
     console.log('data:', data)
 
     ctx?.setData?.(true)

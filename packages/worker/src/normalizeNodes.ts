@@ -2,6 +2,7 @@ import ky from 'ky'
 import { db } from '@penx/local-db'
 import { INode, IRowNode, NodeType } from '@penx/model-types'
 import { sleep } from '@penx/shared'
+import { getActiveSpaceId } from '@penx/storage'
 
 // const INTERVAL = 5 * 60 * 1000
 const INTERVAL = 5 * 1000
@@ -16,20 +17,31 @@ export async function normalizeNodes() {
 }
 
 async function normalize() {
-  const space = await db.getActiveSpace()
-  const databases = await db.node.select({
-    where: {
-      spaceId: space.id,
-      type: NodeType.DATABASE,
-    },
-  })
-  for (const database of databases) {
-    const rows = await db.node.select({
+  const spaceId = await getActiveSpaceId()
+  if (!spaceId) return
+  const spaces = await db.listSpaces()
+
+  const space = spaces.find((i) => i.id === spaceId)
+  if (!space) return
+
+  const databases = await db.node
+    .where({
       where: {
-        type: NodeType.ROW,
-        databaseId: database.id,
+        type: NodeType.DATABASE,
+        spaceId: space.id,
       },
     })
+    .toArray()
+
+  for (const database of databases) {
+    const rows = await db.node
+      .where({
+        where: {
+          type: NodeType.ROW,
+          databaseId: database.id,
+        },
+      })
+      .toArray()
 
     if (!rows.length) continue
 

@@ -5,7 +5,7 @@ import { useDebouncedCallback } from 'use-debounce'
 import { NodeEditor } from '@penx/editor'
 import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { isAstChange } from '@penx/editor-queries'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { useDatabase, useNodes } from '@penx/node-hooks'
 import { NodeToSlateSerializer } from '@penx/serializer'
@@ -23,7 +23,7 @@ const ReferenceItem = memo(function ReferenceItem({
   const nodeService = new NodeService(node, nodes)
   const parentNodes = nodeService.getParentNodes().slice(0, -1)
   const editor = useEditorStatic()
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
 
   const serializer = new NodeToSlateSerializer(node, nodes, editor.isOutliner)
 

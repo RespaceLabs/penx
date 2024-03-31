@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import {
   useActiveNodes,
+  useActiveSpace,
   useRouterName,
   useSidebarDrawer,
   useSpaces,
@@ -27,6 +28,7 @@ import { SyncPopover } from '../StatusBar/SyncPopover'
 import { CatalogueBox } from './CatalogueBox/CatalogueBox'
 import { DatabaseList } from './DatabaseList'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
+import { LoginButton } from './LoginButton'
 import { SetupGitHubButton } from './SetupGitHubButton'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover/SpacePopover'
@@ -48,7 +50,7 @@ function getStatusBarComponents(extensionStore: ExtensionStore): any[] {
 
 export const Sidebar = () => {
   const [extensionStore] = useAtom(extensionStoreAtom)
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
   const components = getStatusBarComponents(extensionStore)
   const { nodes, nodeList } = useNodes()
 
@@ -147,6 +149,7 @@ export const Sidebar = () => {
 
       <Box px4>
         <SetupGitHubButton />
+        <LoginButton />
       </Box>
       <Box px2 toBetween toCenterY>
         {session && !loading && (

@@ -2,7 +2,7 @@ import { Box, FowerHTMLProps, styled } from '@fower/react'
 import { Eye, Info, Option, SlidersHorizontal } from 'lucide-react'
 import { Avatar, AvatarFallback, useModalContext } from 'uikit'
 import { SettingsType } from '@penx/constants'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { ExtensionList } from './ExtensionList'
 
 const Title = styled('div', ['gray400', 'mb4', 'textXS', 'uppercase'])
@@ -38,7 +38,7 @@ function SidebarItem({
 }
 
 export const SettingsSidebar = () => {
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
   const { data, setData } = useModalContext<string>()
 
   return (

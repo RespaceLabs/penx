@@ -18,7 +18,6 @@ export const withImage = (editor: PenxEditor) => {
       if (mime !== 'image') return insertData(dataTransfer)
 
       const spaces = store.get(spacesAtom)
-      const activeSpace = spaces.find((space) => space.isActive)!
       // const fileInfo = await db.createFile({
       //   spaceId: activeSpace.id,
       //   value: file,

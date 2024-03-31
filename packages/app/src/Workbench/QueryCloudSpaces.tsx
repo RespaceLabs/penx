@@ -12,10 +12,7 @@ export const QueryCloudSpaces = () => {
 
   const initSpaces = async (spaces: Space[]) => {
     for (const space of spaces) {
-      await db.createSpaceByRemote({
-        ...space,
-        isActive: false,
-      } as any as ISpace)
+      await db.createSpaceByRemote(space as any as ISpace)
     }
 
     const newSpaces = await db.listSpaces()

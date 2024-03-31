@@ -5,7 +5,7 @@ import { useDebouncedCallback } from 'use-debounce'
 import { EDITOR_NAV_WIDTH } from '@penx/constants'
 import { NodeEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { NodeProvider, useNodes } from '@penx/node-hooks'
 import { nodeToSlate } from '@penx/serializer'
@@ -25,7 +25,7 @@ export function PanelItem({ node, index }: Props) {
   const { nodes, nodeList } = useNodes()
   const { name } = useAtomValue(routerAtom)
   const nodeService = new NodeService(node, nodes)
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
 
   const [saving, setSaving] = useState(false)
 

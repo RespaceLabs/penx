@@ -12,9 +12,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/', req.url))
   }
 
-  const shouldLogin = ['/', '/dashboard', '/cli-login', '/password'].includes(
-    path,
-  )
+  const shouldLogin = ['/dashboard', '/cli-login', '/password'].includes(path)
 
   if (shouldLogin && !session) {
     return NextResponse.redirect(new URL('/login/web3', req.url))

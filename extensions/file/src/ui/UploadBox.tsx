@@ -6,8 +6,6 @@ import { Input, toast } from 'uikit'
 import { useEditorStatic } from '@penx/editor-common'
 import { setNodes } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/extension-typings'
-import { useSpaces } from '@penx/hooks'
-import { db } from '@penx/local-db'
 import { FileElement } from '../types'
 import { UploadButton } from '../UploadButton'
 
@@ -21,7 +19,6 @@ export const UploadBox = ({
   const focused = useFocused()
   const active = selected && focused
   const [uploading, setUploading] = useState(false)
-  const { activeSpace } = useSpaces()
 
   const path = ReactEditor.findPath(editor, element)
 

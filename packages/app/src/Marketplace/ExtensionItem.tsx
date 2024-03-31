@@ -2,7 +2,7 @@ import { Box } from '@fower/react'
 import { DownloadCloudIcon } from 'lucide-react'
 import { Button, toast } from 'uikit'
 import type { RouterOutputs } from '@penx/api'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { store } from '@penx/store'
 import { extensionAtom } from './hooks/useExtension'
@@ -14,7 +14,7 @@ interface ExtensionItemProps {
   extension: any
 }
 export function ExtensionItem({ selected, extension }: ExtensionItemProps) {
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
   const { extensions } = useInstalledExtensions()
   const isInstalled = extensions.find((e) => e.slug === extension.uniqueId)
 

@@ -54,7 +54,7 @@ export default function LoginPage() {
       <WalletConnectProvider>
         <Box column h-100vh>
           <Box mx-auto py8 toCenter>
-            <Logo />
+            <Logo to="/" />
           </Box>
           <Box column flex-1 toCenter>
             <Box

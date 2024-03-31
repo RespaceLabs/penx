@@ -43,7 +43,6 @@ export function createSpace(input: CreateUserInput, userId: string) {
           editorMode: space.editorMode,
           name: space.name,
           color: space.color,
-          isActive: space.isActive,
           activeNodeIds: space.activeNodeIds || [],
           syncServerId: syncServer.id,
           nodeSnapshot: space.nodeSnapshot,

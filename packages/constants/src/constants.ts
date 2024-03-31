@@ -10,6 +10,8 @@ export const PENX_SESSION_DATA = 'PENX_SESSION_DATA'
 
 export const TODO_DATABASE_NAME = '__TODO__'
 
+export const LOCAL_USER_ID = 'acee1a5c-8e36-4a5f-846d-860566086e23'
+
 export const EDITOR_NAV_WIDTH = 44
 
 export const isSelfHosted = process.env.NEXT_PUBLIC_DEPLOY_MODE !== 'PLATFORM'

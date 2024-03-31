@@ -1,13 +1,13 @@
 import { Box } from '@fower/react'
 import { Tag } from 'uikit'
-import { useSpaces } from '@penx/hooks'
+import { useActiveSpace } from '@penx/hooks'
 import { DeleteSpaceModal } from '../DeleteSpaceModal'
 import { ExportToJSON } from '../ExportToJSON'
 import { SpaceName } from './SpaceName'
 import { SyncServerSelect } from './SyncServerSelect'
 
 export function SpaceSettings() {
-  const { activeSpace } = useSpaces()
+  const { activeSpace } = useActiveSpace()
 
   return (
     <Box p10 column gap10>
@@ -22,10 +22,11 @@ export function SpaceSettings() {
         </Box>
       </Box>
       <SpaceName />
-      <SyncServerSelect />
+
+      {!activeSpace.isLocal && <SyncServerSelect />}
 
       <ExportToJSON />
-      <DeleteSpaceModal />
+      {!activeSpace.isLocal && <DeleteSpaceModal />}
     </Box>
   )
 }

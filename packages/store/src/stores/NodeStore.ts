@@ -403,6 +403,7 @@ export class NodeStore {
   }
 
   async createDatabase(
+    spaceId: string,
     name: string,
     dataSource: DataSource = DataSource.TAG,
     shouldInitCell = false,
@@ -414,7 +415,12 @@ export class NodeStore {
     )
 
     if (!databaseNode) {
-      databaseNode = await db.createDatabase(name, dataSource, shouldInitCell)
+      databaseNode = await db.createDatabase(
+        spaceId,
+        name,
+        dataSource,
+        shouldInitCell,
+      )
     }
 
     const newNodes = await db.listNodesBySpaceId(databaseNode.spaceId)
