@@ -1,6 +1,6 @@
 import NextPWA from '@ducanh2912/next-pwa'
 import { PrismaPlugin } from '@prisma/nextjs-monorepo-workaround-plugin'
-import million from 'million/compiler'
+// import million from 'million/compiler'
 // Importing env files here to validate on build
 import './src/env.mjs'
 
@@ -8,7 +8,6 @@ const isDev = process.env.NODE_ENV === 'development'
 
 const withPWA = NextPWA({
   dest: 'public',
-  disable: isDev,
   // runtimeCaching,
   disableDevLogs: true,
 })
@@ -106,4 +105,4 @@ const config = {
 }
 
 // export default withPWA(million.next(config))
-export default config
+export default isDev ? config : withPWA(config)
