@@ -1,10 +1,43 @@
+import Redis from 'ioredis'
 import jwt from 'jsonwebtoken'
 import { z } from 'zod'
+import { RedisKeys } from '@penx/constants'
 import { createSpace, CreateSpaceInput } from '../service/createSpace'
 import { createTRPCRouter, protectedProcedure } from '../trpc'
 
+const redis = new Redis(process.env.REDIS_URL!)
+
+type MySpace = {
+  id: string
+  name: string
+  description: string
+  editorMode: string
+  sort: number
+  color: string
+  activeNodeIds: string[]
+  pageSnapshot: any
+  createdAt: Date
+  updatedAt: Date
+  userId: string
+  syncServerId: string
+  syncServer: {
+    url: string
+    token: string
+  }
+
+  syncServerAccessToken: string
+  syncServerUrl: string
+}
+
 export const spaceRouter = createTRPCRouter({
   mySpaces: protectedProcedure.query(async ({ ctx }) => {
+    const redisKey = RedisKeys.mySpaces(ctx.token.uid)
+    const mySpacesStr = await redis.get(redisKey)
+
+    if (mySpacesStr) {
+      return JSON.parse(mySpacesStr) as MySpace[]
+    }
+
     const spaces = await ctx.prisma.space.findMany({
       where: { userId: ctx.token.uid },
       orderBy: { createdAt: 'desc' },
@@ -32,7 +65,7 @@ export const spaceRouter = createTRPCRouter({
 
     // console.log('==========spaces:', spaces)
 
-    return spaces.map(({ syncServer, ...space }) => {
+    const mySpaces = spaces.map(({ syncServer, ...space }) => {
       let syncServerAccessToken = ''
       if (syncServer?.token) {
         syncServerAccessToken = jwt.sign(
@@ -46,6 +79,7 @@ export const spaceRouter = createTRPCRouter({
         syncServerUrl: syncServer?.url as string,
       }
     })
+    return mySpaces as any as MySpace[]
   }),
 
   version: protectedProcedure

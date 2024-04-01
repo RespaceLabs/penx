@@ -1,28 +1,30 @@
 import { TRPCError } from '@trpc/server'
+import Redis from 'ioredis'
 import jwt from 'jsonwebtoken'
 import { nanoid } from 'nanoid'
 import { z } from 'zod'
-import { prisma } from '@penx/db'
+import { RedisKeys } from '@penx/constants'
+import { prisma, User } from '@penx/db'
 import { GithubInfo } from '@penx/model'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
+const redis = new Redis(process.env.REDIS_URL!)
+
 export const userRouter = createTRPCRouter({
-  byId: protectedProcedure
-    .input(z.object({ id: z.string() }))
-    .query(async ({ ctx, input }) => {
-      const user = await ctx.prisma.user.findUnique({
-        where: { id: input.id },
-      })
-
-      if (!user) new TRPCError({ code: 'NOT_FOUND' })
-
-      return user!
-    }),
-
   me: protectedProcedure.query(async ({ ctx }) => {
+    const redisKey = RedisKeys.user(ctx.token.uid)
+
+    const userStr = await redis.get(redisKey)
+
+    if (userStr) {
+      return JSON.parse(userStr) as User
+    }
+
     const user = await ctx.prisma.user.findUnique({
       where: { id: ctx.token.uid },
     })
+
+    await redis.set(redisKey, JSON.stringify(user))
 
     if (!user) new TRPCError({ code: 'NOT_FOUND' })
 

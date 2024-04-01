@@ -10,6 +10,8 @@ interface Props {}
 export const HaveBackedUpButton: FC<Props> = () => {
   const { user } = useUser()
 
+  console.log('=======user:', user)
+
   async function updateStatus() {
     try {
       await api.user.updateMnemonicBackupStatus.mutate(true)

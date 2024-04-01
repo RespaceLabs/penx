@@ -193,7 +193,7 @@ export class PenxDB extends Dexie {
   }
 
   listSpaces = async (userId?: string, session?: any) => {
-    const spaces = await this.listLocalSpaces()
+    let spaces: ISpace[] = []
     const localSession = session ?? (await getLocalSession())
 
     if (localSession) {
@@ -201,6 +201,10 @@ export class PenxDB extends Dexie {
       const cloudSpaces = await this.space.where({ userId: uid }).toArray()
       spaces.push(...cloudSpaces)
     }
+
+    const localSpace = await this.listLocalSpaces()
+
+    spaces.push(...localSpace)
 
     return spaces
   }

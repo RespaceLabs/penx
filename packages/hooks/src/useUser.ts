@@ -9,7 +9,7 @@ export function useQueryUser(userId: string) {
   useEffect(() => {
     store.user.setLoading(true)
 
-    api.user.byId.query({ id: userId }).then((data) => {
+    api.user.me.query().then((data) => {
       store.user.setLoading(false)
       store.user.setUser(new User(data))
       setAuthorizedUser(data)
