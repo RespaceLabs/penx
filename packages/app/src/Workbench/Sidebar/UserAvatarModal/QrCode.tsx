@@ -1,7 +1,6 @@
 import { FC, useState } from 'react'
 import QRCode from 'react-qr-code'
 import { Box } from '@fower/react'
-import { useAccount } from 'wagmi'
 import { useUser } from '@penx/hooks'
 
 interface Props {}

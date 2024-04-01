@@ -9,6 +9,7 @@ export type RouteName =
   | 'WEB3_PROFILE'
   | 'TASK_BOARD'
   | 'VERSION_CONTROL'
+  | 'RECOVERY_PHRASE'
 
 export type IRouterStore = {
   name: RouteName

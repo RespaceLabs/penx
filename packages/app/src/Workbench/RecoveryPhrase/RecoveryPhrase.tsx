@@ -1,12 +1,13 @@
 import { FC, useState } from 'react'
 import { Box } from '@fower/react'
 import { useQuery } from '@tanstack/react-query'
-import { Check, Copy, Eye, PencilLine } from 'lucide-react'
-import { useSession } from 'next-auth/react'
-import { Button, Input, toast } from 'uikit'
-import { useUser } from '@penx/hooks'
-import { getMnemonicFromLocal, getNewMnemonic } from '@penx/mnemonic'
+import { Copy, Eye } from 'lucide-react'
+import { Button, toast } from 'uikit'
+import { getMnemonicFromLocal } from '@penx/mnemonic'
+import { useSession } from '@penx/session'
 import { useCopyToClipboard } from '@penx/shared'
+import { trpc } from '@penx/trpc-client'
+import { CloudBackup } from './CloudBackup'
 import { HaveBackedUpButton } from './HaveBackedUpButton'
 import { PasswordOnChain } from './PasswordOnChain'
 
@@ -16,7 +17,8 @@ export const RecoveryPhrase: FC<Props> = () => {
   const [blur, setBlur] = useState(true)
   const { data } = useSession()
   const { copy } = useCopyToClipboard()
-  const { user } = useUser()
+
+  const { data: token } = trpc.google.googleDriveToken.useQuery()
 
   const { isLoading, data: mnemonic } = useQuery(
     ['Mnemonic', data?.secret],
@@ -85,7 +87,9 @@ export const RecoveryPhrase: FC<Props> = () => {
         </Button>
       </Box>
       <Box toCenter gap4 column>
-        <PasswordOnChain mnemonic={mnemonic} />
+        {/* <PasswordOnChain mnemonic={mnemonic} /> */}
+
+        <CloudBackup />
         <HaveBackedUpButton />
       </Box>
     </Box>

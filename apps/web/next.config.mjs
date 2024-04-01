@@ -36,6 +36,7 @@ const config = {
     '@penx/editor-common',
     '@penx/editor-composition',
     '@penx/icons',
+    '@penx/google-drive',
     '@penx/google-translate',
     '@penx/shared',
     '@penx/model',

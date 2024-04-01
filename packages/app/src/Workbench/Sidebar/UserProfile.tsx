@@ -80,7 +80,7 @@ export const UserProfile = () => {
             <MenuItem
               gap2
               onClick={() => {
-                window.open('/recovery-phrase')
+                store.router.routeTo('RECOVERY_PHRASE')
               }}
             >
               <Box gray500>

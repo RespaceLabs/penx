@@ -214,7 +214,7 @@ export class NodeListService {
 
   async removeFromDatabaseFavorites(node: Node) {
     const databaseRootNode = this.databaseRootNode.raw as IDatabaseRootNode
-    const favorites = databaseRootNode.props?.favorites || []
+    const favorites: string[] = databaseRootNode.props?.favorites || []
     const newFavorites = favorites.filter((id) => id !== node.id)
     await db.updateNode<IDatabaseRootNode>(this.databaseRootNode.id, {
       favorites: newFavorites,

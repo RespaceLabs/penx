@@ -1,15 +1,12 @@
 import { FC, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { Box, css } from '@fower/react'
-import { readContract } from '@wagmi/core'
 import { useSession } from 'next-auth/react'
-import { useAccount, useSignMessage } from 'wagmi'
 import { Button, toast } from 'uikit'
-import { passwordManagerAbi } from '@penx/abi'
-import { decryptString } from '@penx/encryption'
 import { getPublicKey, setMnemonicToLocal } from '@penx/mnemonic'
 import { store } from '@penx/store'
-import { addressMap, wagmiConfig } from '@penx/wagmi'
+import { RecoverFromChainButton } from './RecoverFromChainButton'
+import { RecoverFromGoogleModal } from './RecoverFromGoogleModal'
 
 interface Props {
   refetch: any
@@ -18,8 +15,6 @@ interface Props {
 export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
   const { data } = useSession()
   const [mnemonic, setMnemonic] = useState('')
-  const { signMessageAsync } = useSignMessage()
-  const { address } = useAccount()
 
   async function confirm() {
     if (!mnemonic) return toast.error('Please enter your recovery phrase')
@@ -32,33 +27,6 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
     await setMnemonicToLocal(data.secret!, mnemonic)
     store.user.setMnemonic(mnemonic)
     await refetch()
-  }
-
-  async function recoverPassword() {
-    if (!data) return alert('Not data from blockchain')
-    try {
-      const signature = await signMessageAsync({ message: address! })
-
-      const recoveryPhraseData = await readContract(wagmiConfig, {
-        address: addressMap.PasswordManager,
-        abi: passwordManagerAbi,
-        functionName: 'getPassword',
-        args: [address!],
-      })
-
-      const recoverPhrase = decryptString(recoveryPhraseData, signature)
-
-      if (recoverPhrase) {
-        setMnemonic(recoverPhrase)
-      } else {
-        // TODO: handle error
-        toast.error('Restore recovery phrase failed')
-      }
-    } catch (error) {
-      console.log('=======error:', error)
-
-      toast.error('Restore recovery phrase failed')
-    }
   }
 
   return (
@@ -84,24 +52,10 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
           }}
         />
 
-        <Button
-          variant="light"
-          size="lg"
-          colorScheme="gray500"
-          absolute
-          bottom1
-          right1
-          w-200
-          rounded3XL
-          column
-          gap-2
-          onClick={() => {
-            recoverPassword()
-          }}
-        >
-          <Box textSM>Restore recover phrase</Box>
-          <Box text-10>Restore recover phrase from blockchain</Box>
-        </Button>
+        <Box absolute bottom1 right1 toCenter gap2>
+          <RecoverFromGoogleModal setMnemonic={setMnemonic} />
+          {/* <RecoverFromChainButton setMnemonic={setMnemonic} /> */}
+        </Box>
       </Box>
 
       <Box toCenterY gap2 toCenterX>

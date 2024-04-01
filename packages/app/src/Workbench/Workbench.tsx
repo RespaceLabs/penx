@@ -17,6 +17,7 @@ import { MobileNav } from './NodeNav/MobileNav'
 import { NodePanels } from './NodePanels'
 import { PageTodo } from './PageTodo/PageTodo'
 import { QueryCloudSpaces } from './QueryCloudSpaces'
+import { RecoveryPhrase } from './RecoveryPhrase/RecoveryPhrase'
 import { Sidebar } from './Sidebar/Sidebar'
 import { SpaceSettings } from './SpaceSettings/SpaceSettings'
 import { VersionControl } from './VersionControl/VersionControl'
@@ -88,6 +89,11 @@ export const Workbench = () => {
                 {name === 'SPACE_SETTINGS' && <SpaceSettings />}
                 {name === 'SYNC_SERVER' && <SyncServer />}
                 {name === 'WEB3_PROFILE' && <Web3Profile />}
+                {name === 'RECOVERY_PHRASE' && (
+                  <Box h-80vh toCenter>
+                    <RecoveryPhrase />
+                  </Box>
+                )}
                 {name === 'TASK_BOARD' && <TaskBoard />}
                 {name === 'VERSION_CONTROL' && <VersionControl />}
               </Box>

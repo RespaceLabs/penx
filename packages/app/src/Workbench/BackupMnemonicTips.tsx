@@ -1,6 +1,7 @@
 import { Box } from '@fower/react'
 import { AlertCircle } from 'lucide-react'
 import { Button } from 'uikit'
+import { store } from '@penx/store'
 
 export const BackupMnemonicTips = () => {
   return (
@@ -32,7 +33,9 @@ export const BackupMnemonicTips = () => {
       <Button
         colorScheme="red500"
         ml4
-        onClick={() => window.open('/recovery-phrase')}
+        onClick={() => {
+          store.router.routeTo('RECOVERY_PHRASE')
+        }}
       >
         Back up now
       </Button>

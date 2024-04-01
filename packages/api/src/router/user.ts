@@ -267,11 +267,16 @@ export const userRouter = createTRPCRouter({
 
   updateMnemonicBackupStatus: protectedProcedure
     .input(z.boolean())
-    .mutation(({ ctx, input }) => {
-      return ctx.prisma.user.update({
+    .mutation(async ({ ctx, input }) => {
+      const redisKey = RedisKeys.user(ctx.token.uid)
+
+      const user = await ctx.prisma.user.update({
         where: { id: ctx.token.uid },
         data: { isMnemonicBackedUp: input },
       })
+
+      await redis.set(redisKey, JSON.stringify(user))
+      return user
     }),
 
   isEarlyAccessCodeValid: protectedProcedure

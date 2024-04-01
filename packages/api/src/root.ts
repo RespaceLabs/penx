@@ -3,6 +3,7 @@ import { bountyRouter } from './router/bounty'
 import { cliRouter } from './router/cli'
 import { extensionRouter } from './router/extension'
 import { githubRouter } from './router/github'
+import { googleRouter } from './router/google'
 import { nodeRouter } from './router/node'
 import { personalTokenRouter } from './router/personalToken'
 import { spaceRouter } from './router/space'
@@ -20,6 +21,7 @@ export const appRouter = createTRPCRouter({
   node: nodeRouter,
   theme: themeRouter,
   github: githubRouter,
+  google: googleRouter,
   extension: extensionRouter,
   syncServer: syncServerRouter,
   personalToken: personalTokenRouter,

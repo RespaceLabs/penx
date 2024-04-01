@@ -48,6 +48,7 @@
     "@penx/mnemonic": "workspace:*",
     "@penx/cmdk": "workspace:*",
     "@penx/editor-leaf": "workspace:*",
+    "@penx/google-drive": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/database": "workspace:*",
     "@penx/db": "workspace:*",

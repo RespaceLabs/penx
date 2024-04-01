@@ -49,7 +49,7 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
           roundedFull
           textBase
           // shadow3XL
-          placeholder="Enter recover phrase"
+          placeholder="Enter recovery phrase"
           value={mnemonic}
           onChange={(e) => {
             setMnemonic(e.target.value)

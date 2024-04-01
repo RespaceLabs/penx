@@ -6,7 +6,8 @@ import { Button, toast } from 'uikit'
 import { passwordManagerAbi } from '@penx/abi'
 import { encryptString } from '@penx/encryption'
 import { addressMap } from '@penx/wagmi'
-import { WalletConnectButton } from '../WalletConnectButton'
+
+// import { WalletConnectButton } from '../WalletConnectButton'
 
 interface Props {
   mnemonic: string
@@ -36,9 +37,10 @@ export const PasswordOnChain: FC<Props> = ({ mnemonic }) => {
     }
   }
 
-  if (!isConnected) {
-    return <WalletConnectButton></WalletConnectButton>
-  }
+  // if (!isConnected) {
+  //   return <WalletConnectButton></WalletConnectButton>
+  // }
+
   return (
     <Box mt4 toCenterX w-100p>
       <Button

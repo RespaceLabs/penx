@@ -6,4 +6,8 @@ export const RedisKeys = {
   mySpaces(userId: string) {
     return `mySpaces:${userId}`
   },
+
+  googleDriveToken(userId: string) {
+    return `google-drive-token:${userId}`
+  },
 } as const
