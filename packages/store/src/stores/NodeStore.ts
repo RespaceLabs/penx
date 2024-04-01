@@ -182,6 +182,7 @@ export class NodeStore {
       const rowCells = database.cells.filter((c) => c.props.rowId === row.id)!
 
       const sourceCell = rowCells.find((c) => c.props.isTodoSource)
+
       if (!sourceCell) continue
 
       const sourceNode = this.getNode(sourceCell.props.data)
@@ -300,9 +301,10 @@ export class NodeStore {
     })
 
     const todyNode = this.getTodayNode()
+
     await db.addNodesToToday(space.id, [newNode])
 
-    await db.createTodoRow(newNode.spaceId, todyNode.id)
+    await db.createTodoRow(space.id, newNode.id, todyNode.id)
 
     const nodes = await db.listNodesBySpaceId(space.id)
 

@@ -51,12 +51,14 @@ export const Sidebar = () => {
 
   const isTodayActive = useMemo(() => {
     if (name !== 'NODE' || !activeNodes.length) return false
+    if (!activeNodes[0]) return false
     if (new Node(activeNodes[0]).isToday) return true
     return false
   }, [name, activeNodes])
 
   const isTagsActive = useMemo(() => {
     if (name !== 'NODE' || !activeNodes.length) return false
+    if (!activeNodes[0]) return false
     if (new Node(activeNodes[0]).isDatabaseRoot) return true
     return false
   }, [name, activeNodes])

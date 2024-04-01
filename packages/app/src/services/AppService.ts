@@ -55,12 +55,13 @@ export class AppService {
 
       const { activeSpace, spaces } = await this.tryToGetActiveSpace()
 
-      await Promise.all([
-        db.normalizeDailyNodes(activeSpace.id),
+      await db.normalizeDailyNodes(activeSpace.id)
 
-        // console.log('tryToSync................')
-        this.tryToSync(activeSpace),
-      ])
+      try {
+        await this.tryToSync(activeSpace)
+      } catch (error) {
+        console.log('try to sync error', error)
+      }
 
       let nodes = await db.listNodesBySpaceId(activeSpace.id)
 

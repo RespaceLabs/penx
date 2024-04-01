@@ -31,6 +31,7 @@ export class SpaceStore {
 
   async createSpace(input: Partial<ISpace>) {
     let space = await db.createSpace(input)
+    await setActiveSpaceId(space.id)
     const spaces = await db.listSpaces()
 
     const nodes = await db.listNodesBySpaceId(space.id)
@@ -42,15 +43,17 @@ export class SpaceStore {
     })
 
     this.setSpaces(spaces)
+    this.setActiveSpace(space)
     this.store.node.setNodes(nodes)
     this.store.router.toNode()
-    // this.store.node.selectNode(activeNodes[0])
+    this.store.node.selectNode(activeNodes[0])
     this.store.node.selectDailyNote()
     return space
   }
 
   async deleteSpace(spaceId: string) {
     await db.deleteSpace(spaceId)
+    await setActiveSpaceId('')
     const spaces = await db.listSpaces()
 
     if (!spaces.length) {
@@ -58,10 +61,13 @@ export class SpaceStore {
       return
     }
 
-    const space = this.getActiveSpace()
-    const nodes = await db.listNodesBySpaceId(space.id)
+    const activeSpace = spaces[0]
 
-    const activeNodes = space.activeNodeIds.map((id) => {
+    await setActiveSpaceId(activeSpace.id)
+
+    const nodes = await db.listNodesBySpaceId(activeSpace.id)
+
+    const activeNodes = activeSpace.activeNodeIds.map((id) => {
       return nodes.find((n) => n.id === id)!
     })
 
@@ -69,6 +75,7 @@ export class SpaceStore {
     this.store.node.setNodes(nodes)
     this.store.node.selectNode(activeNodes[0])
     this.store.node.setActiveNodes(activeNodes)
+    this.setActiveSpace(activeSpace)
     this.setSpaces(spaces)
   }
 

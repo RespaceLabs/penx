@@ -223,7 +223,6 @@ export class PenxDB extends Dexie {
       await this.deleteNode(node.id)
     }
     await this.space.delete(spaceId)
-    const spaces = await this.listSpaces()
   }
 
   getNode = <T = INode>(nodeId: string) => {
@@ -1027,7 +1026,7 @@ export class PenxDB extends Dexie {
     await Promise.all(promises)
   }
 
-  createTodoRow = async (spaceId: string, ref = '', sourceId = '') => {
+  createTodoRow = async (spaceId: string, ref: string, sourceId: string) => {
     const databases = await this.node
       .where({
         type: NodeType.DATABASE,
