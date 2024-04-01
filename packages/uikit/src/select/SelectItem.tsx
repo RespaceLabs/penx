@@ -11,7 +11,7 @@ const sizes: Record<SelectSize, number> = {
 
 export const SelectItem = forwardRef<HTMLInputElement, SelectItemProps>(
   function SelectItem(props, ref) {
-    const { children, value, size = 'md' } = props
+    const { children, value, size = 'md', ...rest } = props
 
     const height: any = sizes[size] || size
     const ctx = usePopoverContext()
@@ -38,6 +38,7 @@ export const SelectItem = forwardRef<HTMLInputElement, SelectItemProps>(
           props?.onClick?.(e)
           ctx.close()
         }}
+        {...rest}
       >
         {children}
       </Radio>

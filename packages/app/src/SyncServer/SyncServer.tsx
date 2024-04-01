@@ -14,6 +14,7 @@ export function SyncServer() {
         </Box>
         <Box toRight>
           <Button
+            colorScheme="black"
             onClick={() => {
               modalController.open(ModalNames.SYNC_SERVER, {
                 isEditing: false,

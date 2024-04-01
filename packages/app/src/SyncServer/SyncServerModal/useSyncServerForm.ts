@@ -14,18 +14,24 @@ export type SyncServerModalData = {
 
 export type CreateSpaceValues = {
   name: string
-  url?: string
   type: SyncServerType
+  url?: string
+  region?: string
 }
 
 export function useSyncServerForm() {
   const { refetch } = trpc.syncServer.mySyncServers.useQuery()
   const { data, setData, close } = useModalContext<SyncServerModalData>()
+
+  const defaultValue = (data: SyncServerModalData, key: keyof SyncServer) =>
+    data ? data?.syncServer?.[key] || '' : ''
+
   const form = useForm<CreateSpaceValues>({
     defaultValues: {
-      name: data ? data.syncServer?.name : '',
-      url: data ? (data.syncServer?.url as string) : '',
-      type: data ? (data.syncServer?.type as any) : SyncServerType.PUBLIC,
+      name: defaultValue(data, 'name'),
+      url: defaultValue(data, 'url'),
+      type: defaultValue(data, 'type') as any,
+      region: defaultValue(data, 'region'),
     },
   })
 

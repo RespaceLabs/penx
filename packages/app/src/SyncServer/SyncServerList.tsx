@@ -88,6 +88,18 @@ export function SyncServerList() {
                 </Box>
               )}
             </Box>
+
+            <Box column gap1>
+              <Box gray500 textXS>
+                Region
+              </Box>
+              {item.region && <Box textBase>{item.region}</Box>}
+              {!item.region && (
+                <Box textSM gray400>
+                  Please config region
+                </Box>
+              )}
+            </Box>
           </Box>
         ))}
       </Box>

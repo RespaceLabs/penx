@@ -23,7 +23,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
         className="uikit-radio"
         toCenterY
         toLeft
-        gapX2
+        gap2
         cursorPointer={!disabled}
         cursorNotAllowed={disabled}
         opacity-50={disabled}

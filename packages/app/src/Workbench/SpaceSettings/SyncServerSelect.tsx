@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
   Spinner,
+  Tag,
   toast,
 } from 'uikit'
 import { useActiveSpace } from '@penx/hooks'
@@ -64,13 +65,14 @@ export const SyncServerSelect = () => {
           }}
         >
           <SelectTrigger bgSlate100 flex-1>
-            <SelectValue placeholder="Select a sync server"></SelectValue>
+            <SelectValue placeholder="Select a sync server" gap4 />
             <SelectIcon></SelectIcon>
           </SelectTrigger>
           <SelectContent w-200>
             {data.map((item) => (
-              <SelectItem key={item.id} value={item.id} toBetween>
-                <Box flex-1>{item.name}</Box>
+              <SelectItem key={item.id} value={item.id} gap4>
+                <Box>{item.name}</Box>
+                <Tag>{item.region}</Tag>
               </SelectItem>
             ))}
           </SelectContent>

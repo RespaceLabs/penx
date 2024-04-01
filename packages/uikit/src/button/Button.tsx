@@ -56,7 +56,7 @@ export const Button: BoxComponent<'button', ButtonProps> = forwardRef(
         gapX2
         transitionColors
         white--dark
-        opacity-40={notAllowed}
+        opacity-50={notAllowed}
         cursorNotAllowed={notAllowed}
         color={colorScheme}
         css={{

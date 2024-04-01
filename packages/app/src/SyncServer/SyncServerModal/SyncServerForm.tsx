@@ -2,7 +2,6 @@ import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
 import { Button, Input, ModalClose, Spinner, useModalContext } from 'uikit'
 import { isProd, SyncServerType } from '@penx/constants'
-import { trpc } from '@penx/trpc-client'
 import { BorderedRadioGroup } from '../../components/BorderedRadioGroup'
 import { SyncServerModalData, useSyncServerForm } from './useSyncServerForm'
 
@@ -15,7 +14,13 @@ export function SyncServerForm({}: Props) {
   const { isValid } = formState
 
   return (
-    <Box as="form" onSubmit={form.onSubmit} column gap4 pt3>
+    <Box as="form" onSubmit={form.onSubmit} column gap6>
+      <Box column gapy4>
+        <Box fontSemibold text2XL>
+          {data?.isEditing ? 'Edit sync server' : 'Create sync server'}
+        </Box>
+      </Box>
+
       <Box mb--6 fontMedium>
         Sync server name
       </Box>
@@ -25,12 +30,7 @@ export function SyncServerForm({}: Props) {
         defaultValue=""
         rules={{ required: true }}
         render={({ field }) => (
-          <Input
-            autoFocus
-            size="lg"
-            placeholder="Name your sync server"
-            {...field}
-          />
+          <Input size="lg" placeholder="Name your sync server" {...field} />
         )}
       />
 
@@ -71,12 +71,22 @@ export function SyncServerForm({}: Props) {
             name="url"
             control={control}
             render={({ field }) => (
-              <Input
-                autoFocus
-                size="lg"
-                placeholder="Sync server url"
-                {...field}
-              />
+              <Input size="lg" placeholder="Sync server url" {...field} />
+            )}
+          />
+        </>
+      )}
+
+      {data.isEditing && (
+        <>
+          <Box mb--6 fontMedium>
+            Region
+          </Box>
+          <Controller
+            name="region"
+            control={control}
+            render={({ field }) => (
+              <Input size="lg" placeholder="eg: Paris, France" {...field} />
             )}
           />
         </>
@@ -84,17 +94,19 @@ export function SyncServerForm({}: Props) {
 
       <Box toCenterY toRight gap2 mt2>
         <ModalClose>
-          <Button type="button" size="lg" roundedFull colorScheme="white">
+          <Button type="button" size="lg" roundedFull colorScheme="white" w-120>
             Cancel
           </Button>
         </ModalClose>
 
         <Button
           type="submit"
+          colorScheme="black"
           size="lg"
           roundedFull
           disabled={!isValid || data.isLoading}
           gap2
+          w-120
         >
           {data.isLoading && <Spinner white square5 />}
           <Box>Create</Box>
