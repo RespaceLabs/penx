@@ -30,19 +30,17 @@ const OnlineProvider = ({ children }: PropsWithChildren) => {
 
 const PageEditor = () => {
   return (
-    <StoreProvider>
-      <OnlineProvider>
-        <Suspense
-          fallback={
-            <Box h-100vh toCenterY black bgWhite>
-              Loading...
-            </Box>
-          }
-        >
-          <EditorApp />
-        </Suspense>
-      </OnlineProvider>
-    </StoreProvider>
+    <OnlineProvider>
+      <Suspense
+        fallback={
+          <Box h-100vh toCenterY black bgWhite>
+            Loading...
+          </Box>
+        }
+      >
+        <EditorApp />
+      </Suspense>
+    </OnlineProvider>
   )
 }
 

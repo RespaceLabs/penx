@@ -4,8 +4,6 @@ import { StoreType } from '../store-types'
 
 export const userAtom = atom<User>({} as User)
 
-export const userLoadingAtom = atom<boolean>(false)
-
 export const userIdAtom = atom('')
 
 export const mnemonicAtom = atom('')
@@ -19,14 +17,6 @@ export class UserStore {
 
   setUserId(userId: string) {
     return this.store.set(userIdAtom, userId)
-  }
-
-  getLoading(loading: boolean) {
-    return this.store.get(userLoadingAtom)
-  }
-
-  setLoading(loading: boolean) {
-    return this.store.set(userLoadingAtom, loading)
   }
 
   getUser() {

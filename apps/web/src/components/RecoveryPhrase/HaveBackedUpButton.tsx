@@ -10,7 +10,7 @@ interface Props {}
 export const HaveBackedUpButton: FC<Props> = () => {
   const { user } = useUser()
 
-  console.log('=======user:', user)
+  if (!user) return null
 
   async function updateStatus() {
     try {

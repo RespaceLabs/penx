@@ -7,7 +7,6 @@ import { ClientOnly } from './components/ClientOnly'
 import { Fallback } from './Fallback/Fallback'
 import { HotkeyBinding } from './HotkeyBinding'
 import { SpaceSyncManager } from './SpaceSyncManager'
-import { UserQuery } from './UserQuery'
 import { Workbench } from './Workbench/Workbench'
 
 if (!isServer) {
@@ -30,7 +29,6 @@ export const EditorApp = () => {
   return (
     <ClientOnly>
       <ErrorBoundary fallback={<Fallback />}>
-        {!!session && navigator.onLine && <UserQuery userId={session.userId} />}
         <HotkeyBinding />
         <SpaceSyncManager userId={session?.userId}>
           <AppProvider>

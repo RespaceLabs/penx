@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Check, Copy, Eye, PencilLine } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { Button, Input, toast } from 'uikit'
+import { useUser } from '@penx/hooks'
 import { getMnemonicFromLocal, getNewMnemonic } from '@penx/mnemonic'
 import { useCopyToClipboard } from '@penx/shared'
 import { HaveBackedUpButton } from './HaveBackedUpButton'
@@ -15,6 +16,7 @@ export const RecoveryPhrase: FC<Props> = () => {
   const [blur, setBlur] = useState(true)
   const { data } = useSession()
   const { copy } = useCopyToClipboard()
+  const { user } = useUser()
 
   const { isLoading, data: mnemonic } = useQuery(
     ['Mnemonic', data?.secret],
