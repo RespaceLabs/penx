@@ -5,7 +5,7 @@ import { SyncBox } from './SyncBox/SyncBox'
 import { VersionRestore } from './VersionRestore'
 
 export function VersionControl() {
-  const { repo } = useUser()
+  const { user } = useUser()
   return (
     <Box p10 relative>
       <Box>
@@ -33,7 +33,7 @@ export function VersionControl() {
 
       <Box>
         <SyncBox />
-        {repo && (
+        {user.repo && (
           <>
             <RestoreFromGitHubModal />
             <Box pt10>

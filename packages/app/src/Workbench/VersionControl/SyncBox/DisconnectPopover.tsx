@@ -19,7 +19,8 @@ interface Props {}
 
 export function DisconnectPopover({}: Props) {
   const [loading, setLoading] = useState(false)
-  const { id } = useUser()
+  const { user } = useUser()
+  const userId = user.id
 
   return (
     <Popover>
@@ -41,7 +42,7 @@ export function DisconnectPopover({}: Props) {
                   setLoading(true)
                   try {
                     const user = await api.user.disconnectRepo.mutate({
-                      userId: id,
+                      userId,
                     })
                     store.user.setUser(new User(user))
                     close()

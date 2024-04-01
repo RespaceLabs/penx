@@ -26,7 +26,7 @@ import { store } from '@penx/store'
 import { appEmitter } from '../../app-emitter'
 
 export const UserProfile = () => {
-  const user = useUser()
+  const { user } = useUser()
 
   // const { disconnect, disconnectAsync } = useDisconnect()
   const { loading, data: session } = useSession()
@@ -40,7 +40,7 @@ export const UserProfile = () => {
     return 'Unknown'
   }, [session])
 
-  if (loading) return null
+  if (loading || !user) return null
 
   const image = session.user?.image || ''
 
@@ -118,7 +118,7 @@ export const UserProfile = () => {
             </MenuItem>
           </PopoverClose> */}
 
-          {user.isAdmin && (
+          {user?.isAdmin && (
             <PopoverClose>
               <MenuItem
                 gap2

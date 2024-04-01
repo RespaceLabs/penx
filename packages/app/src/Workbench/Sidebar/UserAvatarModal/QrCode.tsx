@@ -7,7 +7,7 @@ import { useUser } from '@penx/hooks'
 interface Props {}
 
 export const QrCode: FC<Props> = () => {
-  const user = useUser()
+  const { user } = useUser()
   const [blur, setBlur] = useState(true)
 
   // console.log('user:', user)

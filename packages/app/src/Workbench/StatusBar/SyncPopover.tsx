@@ -23,7 +23,7 @@ import { SyncService } from '@penx/sync'
 interface Props {}
 
 export const SyncPopover: FC<Props> = () => {
-  const user = useUser()
+  const { user } = useUser()
   const { isSyncing, isPulling, isFailed, isNormal, status, setStatus } =
     useSyncStatus()
   const { activeSpace } = useActiveSpace()
@@ -79,7 +79,7 @@ export const SyncPopover: FC<Props> = () => {
     </Box>
   )
 
-  if (!user.repo) return triggerJSX
+  if (!user?.repo) return triggerJSX
 
   return (
     <Popover placement="top-start">

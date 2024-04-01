@@ -13,7 +13,7 @@ interface CommitListContainerProps {
 }
 
 export function CommitListContainer({ token, date }: CommitListContainerProps) {
-  const user = useUser()
+  const { user } = useUser()
   // console.log('========date:', date, startOfDay(date))
 
   const octoRef = useRef(new Octokit({ auth: token }))

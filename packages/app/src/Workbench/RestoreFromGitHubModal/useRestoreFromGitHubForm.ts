@@ -23,7 +23,7 @@ export function useRestoreFromGitHubForm() {
     },
   })
 
-  const user = useUser()
+  const { user } = useUser()
 
   const onSubmit: SubmitHandler<RestoreFromGitHubValues> = async (values) => {
     setData({ ...data, loading: true })

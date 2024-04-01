@@ -8,7 +8,7 @@ import { TodayTodos } from './TodayTodos'
 import { TodoFilter } from './TodoFilter'
 
 export const PageTodo = () => {
-  const user = useUser()
+  const { user } = useUser()
   const { isTody, isSevenDay, isAllTodos } = useTodoFilter()
 
   return (

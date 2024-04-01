@@ -7,7 +7,7 @@ import { useUser } from '@penx/hooks'
 import { IconGitHub } from '@penx/icons'
 
 export function GitHubAuthButton() {
-  const { id } = useUser()
+  const { user } = useUser()
   const [loading, setLoading] = useState(false)
 
   // Get error message added by next/auth in URL.
@@ -34,7 +34,7 @@ export function GitHubAuthButton() {
         const baseURL = process.env.NEXT_PUBLIC_NEXTAUTH_URL
 
         const callbackURL = `${baseURL}/api/github-oauth`
-        const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&state=${id}&redirect_uri=${callbackURL}`
+        const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&state=${user.id}&redirect_uri=${callbackURL}`
 
         location.href = url
       }}

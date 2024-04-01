@@ -31,14 +31,14 @@ export const Workbench = () => {
     setSideBarOpen(!sidebarOpen)
   }
 
-  const user = useUser()
+  const { user } = useUser()
 
   const SIDEBAR_WIDTH = 260
   // const SIDEBAR_WIDTH = 600
 
   // console.log('router name==========:', name)
 
-  const isBackedUp = user.isMnemonicBackedUp
+  const isBackedUp = user?.isMnemonicBackedUp
 
   if (!activeSpace) return null
 

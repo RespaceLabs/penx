@@ -13,13 +13,14 @@ interface Props {
 
 export function GitHubConnectButton({ installationId, repo }: Props) {
   const [loading, setLoading] = useState(false)
-  const { id } = useUser()
+  const { user } = useUser()
+  const userId = user.id
 
   async function connect() {
     setLoading(true)
     try {
       const user = await api.user.connectRepo.mutate({
-        userId: id,
+        userId,
         installationId,
         repo,
       })

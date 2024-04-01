@@ -15,7 +15,7 @@ interface Props {
 }
 
 export function GitIntegration({ github }: Props) {
-  const user = useUser()
+  const { user } = useUser()
   const { data: installations } = trpc.github.appInstallations.useQuery({
     token: github?.token!,
   })

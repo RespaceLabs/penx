@@ -42,6 +42,7 @@ export const Sidebar = () => {
   const { nodes, nodeList } = useNodes()
 
   const { loading, data: session } = useSession()
+
   const drawer = useSidebarDrawer()
   const name = useRouterName()
   const { activeNodes } = useActiveNodes()

@@ -7,11 +7,11 @@ import { store } from '@penx/store'
 
 export function SetupGitHubButton() {
   const { data } = useSession()
-  const user = useUser()
+  const { user } = useUser()
   const loading = useUserLoading()
 
   if (loading) return null
-  if (user.repo || !data) return null
+  if (!data || user?.repo) return null
 
   return (
     <Button

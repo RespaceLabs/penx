@@ -8,7 +8,7 @@ import { api } from '@penx/trpc-client'
 interface Props {}
 
 export const HaveBackedUpButton: FC<Props> = () => {
-  const user = useUser()
+  const { user } = useUser()
 
   async function updateStatus() {
     try {

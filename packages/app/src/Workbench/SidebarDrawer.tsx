@@ -28,6 +28,7 @@ export const DrawerSidebar = () => {
   const { isOpen, close, open } = useSidebarDrawer()
   const { data: session } = useSession()
   const { nodes, nodeList } = useNodes()
+
   return (
     <Drawer.Root
       shouldScaleBackground

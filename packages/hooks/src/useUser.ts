@@ -19,7 +19,10 @@ export function useQueryUser(userId: string) {
 
 export function useUser() {
   const user = useAtomValue(userAtom)
-  return user
+
+  return {
+    user: user.raw ? user : (null as any as User),
+  }
 }
 
 export function useUserLoading() {
