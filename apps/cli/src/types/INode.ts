@@ -98,7 +98,9 @@ export interface IDailyRootNode extends INode {
 
 export interface IDatabaseRootNode extends INode {
   type: NodeType.DATABASE_ROOT
-  favorites: string[]
+  props: {
+    favorites: string[]
+  }
 }
 
 export enum DataSource {

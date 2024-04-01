@@ -1,6 +1,14 @@
 import { memo } from 'react'
 import { Box } from '@fower/react'
-import { Bullet } from 'uikit'
+import { Hash } from 'lucide-react'
+import {
+  Bullet,
+  Button,
+  Tag,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from 'uikit'
 import { store } from '@penx/store'
 
 interface Props {
@@ -13,7 +21,6 @@ export const TagsEntry = memo(function TagsEntry({ isActive }: Props) {
       toCenterY
       toBetween
       pl2
-      pr1
       textBase
       fontSemibold
       cursorPointer
@@ -21,6 +28,7 @@ export const TagsEntry = memo(function TagsEntry({ isActive }: Props) {
       rounded
       black
       h8
+      pr1
       brand500={isActive}
       onClick={() => {
         store.node.selectTagBox()
@@ -30,6 +38,24 @@ export const TagsEntry = memo(function TagsEntry({ isActive }: Props) {
         <Bullet mr-4 innerColor={isActive ? 'brand500' : undefined} />
         <Box>Tags</Box>
       </Box>
+
+      <Tooltip>
+        <TooltipTrigger>
+          <Button
+            size={24}
+            variant="ghost"
+            colorScheme="gray500"
+            isSquare
+            p1
+            roundedLG
+          >
+            <Hash />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <Box>All tags</Box>
+        </TooltipContent>
+      </Tooltip>
     </Box>
   )
 })

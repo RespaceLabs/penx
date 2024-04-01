@@ -120,6 +120,9 @@ export class PenxDB extends Dexie {
       getNewNode({
         spaceId,
         type: NodeType.DATABASE_ROOT,
+        props: {
+          favorites: [],
+        },
       }),
     )
 
@@ -148,8 +151,6 @@ export class PenxDB extends Dexie {
   }
 
   createSpace = async (data: Partial<ISpace>, initNode = true) => {
-    const spaces = await this.listSpaces()
-
     // insert new space
     const newSpace = getNewSpace(data)
     const spaceId = await this.space.add(newSpace)
@@ -528,6 +529,9 @@ export class PenxDB extends Dexie {
 
     await this.updateNode(databaseRootNode.id, {
       children: [...(databaseRootNode.children || []), database.id],
+      props: {
+        favorites: [database.id],
+      },
     })
 
     const isTodo = name === TODO_DATABASE_NAME

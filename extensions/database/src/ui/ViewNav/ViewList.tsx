@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { db } from '@penx/local-db'
-import { IDatabaseNode } from '@penx/model-types'
+import { IDatabaseNode, ViewType } from '@penx/model-types'
 import { mappedByKey } from '@penx/shared'
 import { useDatabaseContext } from '../DatabaseContext'
 import { ViewIcon } from './ViewIcon'
@@ -21,6 +21,7 @@ export const ViewList = () => {
     <Box toCenterY gap1>
       {sortedViews.map((view, index) => {
         if (!view) return null
+        if (view.props.viewType !== ViewType.TABLE) return null
         const active = activeViewId === view.id
         return (
           <Box
