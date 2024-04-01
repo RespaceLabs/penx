@@ -37,6 +37,7 @@ export function CreateFirstSpaceForm() {
         <Button
           type="submit"
           size={56}
+          colorScheme="black"
           w-200
           roundedFull
           disabled={!isValid || loading}

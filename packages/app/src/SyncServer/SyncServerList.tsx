@@ -21,8 +21,8 @@ export function SyncServerList() {
 
   if (!data.length) {
     return (
-      <Box v-80vh toCenter>
-        <Box>No sync server</Box>
+      <Box h-80vh toCenter>
+        <Box gray400>No sync server</Box>
       </Box>
     )
   }

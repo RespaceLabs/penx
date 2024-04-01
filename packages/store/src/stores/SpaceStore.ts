@@ -1,7 +1,7 @@
 import { atom } from 'jotai'
 import { db } from '@penx/local-db'
 import { Space } from '@penx/model'
-import { INode, ISpace } from '@penx/model-types'
+import { ISpace } from '@penx/model-types'
 import { setActiveSpaceId } from '@penx/storage'
 import { SyncServerClient } from '@penx/sync-server-client'
 import { StoreType } from '../store-types'
@@ -128,7 +128,6 @@ export class SpaceStore {
       this.store.app.setAppLoading(false)
 
       if (!new Space(space).isLocal) {
-        console.log('select space.......:', space)
         await setActiveSpaceId(space.id)
       }
       return space

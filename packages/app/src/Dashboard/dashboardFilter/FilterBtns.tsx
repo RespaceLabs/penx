@@ -23,7 +23,7 @@ export const FilterBtns = ({
 }: IFilterBtns) => {
   const { close } = usePopoverContext()
 
-  const appleyFilter = () => {
+  const applyFilter = () => {
     setFiltersDb(filters)
     const searchInstance = TableSearch.getInstance()
     const dataSourceMap = searchInstance.dataSourceMap.get(activeSpace.id)
@@ -48,7 +48,7 @@ export const FilterBtns = ({
   }
 
   async function onApplyFilter() {
-    appleyFilter()
+    applyFilter()
     close()
   }
 

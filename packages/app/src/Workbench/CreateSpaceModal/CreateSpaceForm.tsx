@@ -60,6 +60,7 @@ export function CreateSpaceForm() {
         <Button
           type="submit"
           size="lg"
+          colorScheme="black"
           flex-1
           roundedFull
           disabled={!isValid || loading}

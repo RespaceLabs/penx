@@ -79,7 +79,7 @@ export class Node {
         new Date(this.raw.date || Date.now()),
         'LLL do',
       )
-      return formattedDate
+      return (this.isToday ? 'Today, ' : '') + formattedDate
     }
 
     if (this.isInbox) return 'Inbox'

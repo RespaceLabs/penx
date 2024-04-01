@@ -1333,7 +1333,7 @@ export class PenxDB extends Dexie {
     })
   }
 
-  appleyFilter = async (viewId: string, filters: Filter[]) => {
+  applyFilter = async (viewId: string, filters: Filter[]) => {
     const view = await this.getNode<IViewNode>(viewId)
     await this.updateNode<IViewNode>(viewId, {
       props: {

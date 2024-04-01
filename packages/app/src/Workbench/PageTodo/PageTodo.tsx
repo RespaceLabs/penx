@@ -8,14 +8,13 @@ import { TodayTodos } from './TodayTodos'
 import { TodoFilter } from './TodoFilter'
 
 export const PageTodo = () => {
-  const { user } = useUser()
   const { isTody, isSevenDay, isAllTodos } = useTodoFilter()
 
   return (
     <Box p10>
       <Box w={['100%', 680]} mx-auto pb20 column gap3>
         <Box fontBold text4XL>
-          Good Morning, {user.username}.
+          My Todos
         </Box>
         <TodoFilter />
         {isTody && <TodayTodos />}

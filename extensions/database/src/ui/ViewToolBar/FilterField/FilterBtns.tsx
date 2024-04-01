@@ -16,11 +16,11 @@ export const FilterBtns = ({
   currentView,
   filters,
 }: IFilterBtns) => {
-  const { appleyFilter } = useDatabaseContext()
+  const { applyFilter } = useDatabaseContext()
   const { close } = usePopoverContext()
 
   async function onApplyFilter() {
-    await appleyFilter(currentView.id, filters)
+    await applyFilter(currentView.id, filters)
     close()
   }
 
