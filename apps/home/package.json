@@ -26,7 +26,6 @@
     "@penx/model": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/trpc-client": "workspace:^",
-    "@penx/wagmi": "workspace:*",
     "@penx/widget": "workspace:*",
     "@prisma/client": "^5.6.0",
     "@prisma/nextjs-monorepo-workaround-plugin": "^5.6.0",
@@ -37,10 +36,6 @@
     "@trpc/server": "^10.45.1",
     "@vercel/analytics": "^1.1.1",
     "@vercel/speed-insights": "^1.0.1",
-    "@wagmi/core": "^2.6.5",
-    "@web3modal/core": "^4.0.13",
-    "@web3modal/siwe": "^4.0.13",
-    "@web3modal/wagmi": "^4.0.13",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
@@ -81,8 +76,6 @@
     "uikit": "workspace:*",
     "use-debounce": "^9.0.4",
     "uuid": "^9.0.1",
-    "viem": "^2.7.19",
-    "wagmi": "^2.5.7",
     "zod": "^3.22.4"
   },
   "devDependencies": {

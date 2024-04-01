@@ -13,7 +13,6 @@ const config = {
     '@penx/constants',
     '@penx/db',
     '@penx/math',
-    '@penx/wagmi',
     '@penx/icons',
     '@penx/model',
     '@penx/trpc-client',
