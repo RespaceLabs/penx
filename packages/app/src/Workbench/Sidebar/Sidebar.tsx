@@ -40,7 +40,6 @@ import { UserProfile } from './UserProfile'
 export const Sidebar = () => {
   const { activeSpace } = useActiveSpace()
   const { nodes, nodeList } = useNodes()
-
   const { loading, data: session } = useSession()
 
   // console.log('=========loading:', loading, 'session:', session)

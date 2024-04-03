@@ -4,7 +4,7 @@ import { appEmitter } from '@penx/event'
 import { useSession } from '@penx/session'
 import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
-import { loadCloudSpaces } from './common/LoadCloudSpaces'
+import { loadCloudSpaces } from './common/loadCloudSpaces'
 import { ClientOnly } from './components/ClientOnly'
 import { Fallback } from './Fallback/Fallback'
 import { HotkeyBinding } from './HotkeyBinding'
@@ -24,7 +24,9 @@ if (!isServer) {
   )
 
   appEmitter.on('LOAD_CLOUD_SPACES', async () => {
-    await loadCloudSpaces()
+    setTimeout(() => {
+      loadCloudSpaces()
+    }, 10)
   })
 }
 

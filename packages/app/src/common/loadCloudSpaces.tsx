@@ -8,6 +8,7 @@ import { api } from '@penx/trpc-client'
 
 export const loadCloudSpaces = async () => {
   const session = await getLocalSession()
+  if (!session) return
   const cloudSpaces = await api.space.mySpaces.query()
   const localSpaces = store.space.getSpaces()
   const ids = localSpaces.map((i) => i.id)

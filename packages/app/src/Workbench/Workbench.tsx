@@ -70,6 +70,7 @@ export const Workbench = () => {
               toCenter
               rounded
               bgNeutral100--hover
+              display={['none', 'none', 'block']}
             >
               <MenuIcon size={20} />
             </Box>

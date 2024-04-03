@@ -523,14 +523,17 @@ export class PenxDB extends Dexie {
       },
     })
 
-    await this.updateNode(databaseRootNode.id, {
-      children: [...(databaseRootNode.children || []), database.id],
-      props: {
-        favorites: [database.id],
-      },
-    })
-
     const isTodo = name === TODO_DATABASE_NAME
+
+    if (isTodo) {
+      await this.updateNode(databaseRootNode.id, {
+        children: [...(databaseRootNode.children || []), database.id],
+        props: {
+          favorites: [database.id],
+        },
+      })
+    }
+
     const columns = await this.initColumns(spaceId, database.id, isTodo)
 
     const viewColumns: ViewColumn[] = columns.map((column) => ({
