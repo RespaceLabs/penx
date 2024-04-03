@@ -22,6 +22,7 @@
     "@fower/utils": "^2.0.0",
     "@penx/constants": "workspace:*",
     "@penx/encryption": "workspace:*",
+    "@penx/local-db": "workspace:*",
     "@penx/event": "workspace:*",
     "@penx/google-drive": "workspace:*",
     "@penx/icons": "workspace:*",

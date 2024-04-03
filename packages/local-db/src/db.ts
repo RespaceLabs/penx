@@ -184,10 +184,6 @@ export class PenxDB extends Dexie {
     return space as ISpace
   }
 
-  createSpaceByRemote = async (data: Partial<ISpace>) => {
-    return await this.createSpace(data)
-  }
-
   listLocalSpaces = async () => {
     const spaces = await this.space.where({ userId: LOCAL_USER_ID }).toArray()
     return spaces || []

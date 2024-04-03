@@ -167,8 +167,10 @@ export const userRouter = createTRPCRouter({
           secret: true,
           roleType: true,
           name: true,
+          email: true,
           avatar: true,
           image: true,
+          isMnemonicBackedUp: true,
         },
       })
 

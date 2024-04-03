@@ -5,9 +5,10 @@ import { Box } from '@fower/react'
 import { MenuIcon } from 'lucide-react'
 import { EDITOR_NAV_WIDTH } from '@penx/constants'
 import { EditorProvider } from '@penx/editor'
-import { useActiveSpace, useRouterName, useSpaces, useUser } from '@penx/hooks'
+import { useActiveSpace, useRouterName, useUser } from '@penx/hooks'
 import { useSession } from '@penx/session'
 import { Fallback } from '../Fallback/Fallback'
+import { LoginByTokenModal } from '../LoginByTokenModal/LoginByTokenModal'
 import { CommandPanel } from '../Palette'
 import { SyncServer } from '../SyncServer/SyncServer'
 import { TaskBoard } from '../TaskBoard'
@@ -16,7 +17,6 @@ import { BackupMnemonicTips } from './BackupMnemonicTips'
 import { MobileNav } from './NodeNav/MobileNav'
 import { NodePanels } from './NodePanels'
 import { PageTodo } from './PageTodo/PageTodo'
-import { QueryCloudSpaces } from './QueryCloudSpaces'
 import { RecoveryPhrase } from './RecoveryPhrase/RecoveryPhrase'
 import { Sidebar } from './Sidebar/Sidebar'
 import { SpaceSettings } from './SpaceSettings/SpaceSettings'
@@ -45,8 +45,7 @@ export const Workbench = () => {
 
   return (
     <EditorProvider space={activeSpace}>
-      {/* TODO: how to sync space */}
-      {/* {session && <QueryCloudSpaces />} */}
+      <LoginByTokenModal />
 
       <Box h-100vh toLeft black flex-1 relative>
         {!isBackedUp && session && name === 'NODE' && <BackupMnemonicTips />}

@@ -7345,6 +7345,9 @@ importers:
       '@penx/icons':
         specifier: workspace:*
         version: link:../icons
+      '@penx/local-db':
+        specifier: workspace:*
+        version: link:../local-db
       '@penx/mnemonic':
         specifier: workspace:*
         version: link:../mnemonic

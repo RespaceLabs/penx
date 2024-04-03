@@ -27,7 +27,12 @@ type AppEvents = {
   onShare: ShareEvent
 
   SIGN_IN_GOOGLE: undefined
+
   SIGN_OUT: undefined
+
+  LOGIN_BY_PERSONAL_TOKEN_SUCCESSFULLY: undefined
+
+  LOAD_CLOUD_SPACES: undefined
 }
 
 export const appEmitter = mitt<AppEvents>()

@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
-import { Button } from 'uikit'
+import { Button, modalController } from 'uikit'
+import { isDesktop, ModalNames } from '@penx/constants'
 import { useSession } from '@penx/session'
 
 export function LoginButton() {
@@ -16,6 +17,11 @@ export function LoginButton() {
       colorScheme="black"
       w-100p
       onClick={() => {
+        if (isDesktop) {
+          modalController.open(ModalNames.LOGIN_BY_TOKEN)
+          return
+        }
+
         push('/login/web3')
       }}
     >

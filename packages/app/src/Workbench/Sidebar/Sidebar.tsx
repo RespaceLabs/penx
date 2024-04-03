@@ -43,6 +43,8 @@ export const Sidebar = () => {
 
   const { loading, data: session } = useSession()
 
+  // console.log('=========loading:', loading, 'session:', session)
+
   const drawer = useSidebarDrawer()
   const name = useRouterName()
   const { activeNodes } = useActiveNodes()

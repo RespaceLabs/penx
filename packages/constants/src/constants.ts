@@ -31,6 +31,7 @@ export const BASE_URL = (() => {
 })()
 
 export const isExtension = PLATFORM === 'EXTENSION'
+export const isDesktop = PLATFORM === 'DESKTOP'
 
 export enum SyncScope {
   CURRENT_DOC,
@@ -96,6 +97,8 @@ export enum ModalNames {
   GENERATE_REFERRAL_CODE,
 
   MY_REFERRALS,
+
+  LOGIN_BY_TOKEN,
 }
 
 export enum RoleType {

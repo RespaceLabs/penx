@@ -47,7 +47,7 @@ export async function clearLocalSession() {
   await set(PENX_SESSION_DATA, null)
 }
 
-export async function setLocalSession(session: any) {
+export async function setLocalSession(session: Session) {
   await set(PENX_SESSION_DATA, session)
 }
 
