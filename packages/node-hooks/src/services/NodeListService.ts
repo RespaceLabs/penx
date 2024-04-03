@@ -205,19 +205,24 @@ export class NodeListService {
 
   async addToDatabaseFavorites(node: Node) {
     const databaseRootNode = this.databaseRootNode.raw as IDatabaseRootNode
-    await db.updateNode<IDatabaseRootNode>(this.databaseRootNode.id, {
-      favorites: [...(databaseRootNode.favorites || []), node.id],
+
+    const newFavorites = [...(databaseRootNode.props.favorites || []), node.id]
+
+    const newNode = await db.updateNode(this.databaseRootNode.id, {
+      props: { favorites: newFavorites },
     })
+
     const nodes = await db.listNodesBySpaceId(node.spaceId)
     store.node.setNodes(nodes)
   }
 
   async removeFromDatabaseFavorites(node: Node) {
     const databaseRootNode = this.databaseRootNode.raw as IDatabaseRootNode
+
     const favorites: string[] = databaseRootNode.props?.favorites || []
     const newFavorites = favorites.filter((id) => id !== node.id)
-    await db.updateNode<IDatabaseRootNode>(this.databaseRootNode.id, {
-      favorites: newFavorites,
+    await db.updateNode(this.databaseRootNode.id, {
+      props: { favorites: newFavorites },
     })
     const nodes = await db.listNodesBySpaceId(node.spaceId)
     store.node.setNodes(nodes)

@@ -10,6 +10,7 @@ export const DatabaseFavoriteButton: FC<PropsWithChildren<Props>> = () => {
   const { nodeList } = useNodes()
 
   const isFavorite = nodeList.isFavoriteDatabase(node.id)
+
   return (
     <Button
       size={28}

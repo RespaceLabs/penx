@@ -13,11 +13,6 @@ export const DatabaseList = () => {
   const nodes = nodeList.getDatabaseFavorites()
 
   if (!nodes.length) {
-    // return (
-    //   <Box px2 textXS gray400>
-    //     No favorite tags
-    //   </Box>
-    // )
     return null
   }
 

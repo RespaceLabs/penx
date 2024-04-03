@@ -305,7 +305,7 @@ export class PenxDB extends Dexie {
 
   updateNodeProps = async (nodeId: string, props: Partial<INode['props']>) => {
     const newNode = await this.node.update(nodeId, {
-      props,
+      ...props,
     })
 
     return newNode

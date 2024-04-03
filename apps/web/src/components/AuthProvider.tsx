@@ -7,7 +7,7 @@ function OnlineProvider({ children }: PropsWithChildren) {
   const { data: session, status } = useSession()
 
   useEffect(() => {
-    setLocalSession(session)
+    setLocalSession(session as any)
   }, [session, status])
 
   if (status === 'loading') return null
