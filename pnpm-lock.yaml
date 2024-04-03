@@ -1119,6 +1119,9 @@ importers:
       '@penx/encryption':
         specifier: workspace:*
         version: link:../../packages/encryption
+      '@penx/event':
+        specifier: workspace:*
+        version: link:../../packages/event
       '@penx/hooks':
         specifier: workspace:*
         version: link:../../packages/hooks
@@ -2500,6 +2503,9 @@ importers:
       '@penx/encryption':
         specifier: workspace:*
         version: link:../../packages/encryption
+      '@penx/event':
+        specifier: workspace:*
+        version: link:../../packages/event
       '@penx/google-drive':
         specifier: workspace:*
         version: link:../../packages/google-drive
@@ -2551,6 +2557,9 @@ importers:
       '@penx/wagmi':
         specifier: workspace:*
         version: link:../../packages/wagmi
+      '@penx/widget':
+        specifier: workspace:*
+        version: link:../../packages/widget
       '@prisma/client':
         specifier: ^5.6.0
         version: 5.11.0(prisma@5.11.0)
@@ -7321,12 +7330,48 @@ importers:
       '@fower/utils':
         specifier: ^2.0.0
         version: 2.0.0
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
+      '@penx/encryption':
+        specifier: workspace:*
+        version: link:../encryption
+      '@penx/event':
+        specifier: workspace:*
+        version: link:../event
+      '@penx/google-drive':
+        specifier: workspace:*
+        version: link:../google-drive
       '@penx/icons':
         specifier: workspace:*
         version: link:../icons
+      '@penx/mnemonic':
+        specifier: workspace:*
+        version: link:../mnemonic
+      '@penx/session':
+        specifier: workspace:*
+        version: link:../session
+      '@penx/store':
+        specifier: workspace:*
+        version: link:../store
+      '@penx/trpc-client':
+        specifier: workspace:*
+        version: link:../trpc-client
+      '@tanstack/react-query':
+        specifier: ^4.36.1
+        version: 4.36.1(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)
       lucide-react:
         specifier: ^0.344.0
         version: 0.344.0(react@18.2.0)
+      react-hook-form:
+        specifier: ^7.48.2
+        version: 7.51.2(react@18.2.0)
+      react-textarea-autosize:
+        specifier: ^8.5.3
+        version: 8.5.3(@types/react@18.2.73)(react@18.2.0)
+      uikit:
+        specifier: workspace:*
+        version: link:../uikit
     devDependencies:
       '@penx/tsconfig':
         specifier: workspace:*

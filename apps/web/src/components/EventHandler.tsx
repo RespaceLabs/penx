@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import { set } from 'idb-keyval'
 import { signIn, signOut } from 'next-auth/react'
-import { useDisconnect } from 'wagmi'
-import { appEmitter } from '@penx/app'
+import { appEmitter } from '@penx/event'
 import { clearAuthorizedUser } from '@penx/storage'
 
 export function EventHandler() {

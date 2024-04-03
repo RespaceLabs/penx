@@ -3,11 +3,12 @@ import { useEffect } from 'react'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'uikit'
-import { appEmitter, initFower } from '@penx/app'
+import { initFower } from '@penx/app'
 import { store, StoreProvider } from '@penx/store'
 import { TrpcProvider } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
 import '@glideapps/glide-data-grid/dist/index.css'
+import { appEmitter } from '@penx/event'
 import { clearAuthorizedUser } from '@penx/storage'
 
 initFower()

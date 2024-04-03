@@ -1,10 +1,11 @@
 import { FC, useState } from 'react'
-import { Box } from '@fower/react'
-import { Button, Input, InputElement, InputGroup, Spinner, toast } from 'uikit'
+import TextareaAutosize from 'react-textarea-autosize'
+import { Box, css } from '@fower/react'
+import { Button, toast } from 'uikit'
 import { getPublicKey, setMnemonicToLocal } from '@penx/mnemonic'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
-import { api } from '@penx/trpc-client'
+import { RecoverFromGoogleModal } from './RecoverFromGoogleModal'
 
 interface Props {
   refetch: any
@@ -18,8 +19,6 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
     if (!mnemonic) return toast.error('Please enter your recovery phrase')
 
     const publicKey = getPublicKey(mnemonic.trim())
-    console.log('==========publicKey:', publicKey, 'data:', data)
-
     if (data?.publicKey !== publicKey) {
       return toast.error('Invalid recovery phrase')
     }
@@ -30,7 +29,7 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
   }
 
   return (
-    <Box column gap8 w={['100%', 500, 700]}>
+    <Box column gap8 w={['100%', 500, 600]} shadowPopover p6 rounded3XL>
       <Box>
         <Box text4XL fontBold textCenter>
           Recovery Phrase
@@ -40,34 +39,32 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
         </Box>
       </Box>
 
-      <InputGroup>
-        <Input
-          size={56}
-          flex-1
-          borderNone
-          shadowPopover
-          roundedFull
-          textBase
-          // shadow3XL
-          placeholder="Enter recovery phrase"
+      <Box relative>
+        <TextareaAutosize
+          minRows={6}
+          className={css(
+            'm0 rounded3XL border-1 w-100p outlineNone px3 py3 flex placeholderGray400 bgWhite textBase gray300--dark bgTransparent bgTransparent--dark',
+          )}
           value={mnemonic}
           onChange={(e) => {
             setMnemonic(e.target.value)
           }}
         />
 
-        {/* {!isLoading && !isNewUser && (
-          <InputElement w-190>
-            <Button variant="light" size="lg" w-180 roundedFull column gap-2>
-              <Box textSM>Recover</Box>
-              <Box text-10>Recover from blockchain</Box>
-            </Button>
-          </InputElement>
-        )} */}
-      </InputGroup>
+        <Box absolute bottom1 right1 toCenter gap2>
+          <RecoverFromGoogleModal setMnemonic={setMnemonic} />
+          {/* <RecoverFromChainButton setMnemonic={setMnemonic} /> */}
+        </Box>
+      </Box>
 
       <Box toCenterY gap2 toCenterX>
-        <Button size="lg" w-200 roundedFull onClick={() => confirm()}>
+        <Button
+          size="lg"
+          colorScheme="black"
+          w-200
+          roundedFull
+          onClick={() => confirm()}
+        >
           Confirm
         </Button>
       </Box>

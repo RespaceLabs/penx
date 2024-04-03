@@ -32,6 +32,7 @@
     "@penx/encryption": "workspace:*",
     "@penx/wagmi": "workspace:*",
     "@penx/storage": "workspace:*",
+    "@penx/event": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "@tanstack/react-query": "^4.36.1",

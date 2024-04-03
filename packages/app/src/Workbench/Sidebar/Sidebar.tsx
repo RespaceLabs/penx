@@ -134,7 +134,7 @@ export const Sidebar = () => {
       </Box>
 
       <Box px4>
-        <SetupGitHubButton />
+        {/* <SetupGitHubButton /> */}
         <LoginButton />
       </Box>
       <Box px2 toBetween toCenterY>

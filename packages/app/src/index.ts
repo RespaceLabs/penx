@@ -6,7 +6,6 @@ export * from './Dashboard'
 export * from './Workbench/Workbench'
 export * from './Workbench/PageSettingsPopover'
 export * from './Marketplace/Marketplace'
-export * from './app-emitter'
 export * from './NewTabApp'
 export * from './SyncServer/SyncServer'
 

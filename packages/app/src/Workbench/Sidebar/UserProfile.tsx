@@ -20,10 +20,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
+import { appEmitter } from '@penx/event'
 import { useUser } from '@penx/hooks'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
-import { appEmitter } from '../../app-emitter'
 
 export const UserProfile = () => {
   const { user } = useUser()

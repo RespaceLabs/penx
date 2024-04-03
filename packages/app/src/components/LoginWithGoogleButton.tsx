@@ -3,8 +3,8 @@ import { Box } from '@fower/react'
 import { toast } from 'sonner'
 import { Button, Spinner } from 'uikit'
 import { BASE_URL, isExtension } from '@penx/constants'
+import { appEmitter } from '@penx/event'
 import { IconGoogle } from '@penx/icons'
-import { appEmitter } from '../app-emitter'
 import { isServer } from '../common'
 
 export default function LoginWithGoogleButton() {

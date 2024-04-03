@@ -10,8 +10,8 @@ import {
   Spinner,
   useModalContext,
 } from 'uikit'
-import { appEmitter } from '@penx/app'
 import { ModalNames } from '@penx/constants'
+import { appEmitter } from '@penx/event'
 import { api, trpc } from '@penx/trpc-client'
 
 const Footer = () => {

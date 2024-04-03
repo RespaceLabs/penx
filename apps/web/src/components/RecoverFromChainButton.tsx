@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Box } from '@fower/react'
 import { readContract } from '@wagmi/core'
-import { useSession } from 'next-auth/react'
 import { useAccount, useSignMessage } from 'wagmi'
 import { Button, toast } from 'uikit'
 import { passwordManagerAbi } from '@penx/abi'
 import { decryptString } from '@penx/encryption'
+import { useSession } from '@penx/session'
 import { addressMap, wagmiConfig } from '@penx/wagmi'
 
 interface Props {

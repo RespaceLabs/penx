@@ -4,7 +4,7 @@ import { get } from 'idb-keyval'
 import { EditorApp } from '@penx/app'
 import { SessionProvider } from '@penx/session'
 import { getAuthorizedUser } from '@penx/storage'
-import { RecoveryPhraseLoginProvider } from './RecoveryPhraseLogin/RecoveryPhraseLoginProvider'
+import { RecoveryPhraseLoginProvider } from '@penx/widget'
 
 export default function MobileEditor() {
   const [loading, setLoading] = useState(true)

@@ -14,3 +14,20 @@ export type Events = {
 }
 
 export const emitter = mitt<Events>()
+
+export type ShareEvent = {
+  id: string
+  title: string
+  content: string
+  createdAt: number
+  updatedAt: number
+}
+
+type AppEvents = {
+  onShare: ShareEvent
+
+  SIGN_IN_GOOGLE: undefined
+  SIGN_OUT: undefined
+}
+
+export const appEmitter = mitt<AppEvents>()

@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
-import { get } from 'idb-keyval'
 import { useRouter } from 'next/router'
 import { EditorApp } from '@penx/app'
 import { SessionProvider } from '@penx/session'
 import { getAuthorizedUser } from '@penx/storage'
-import { RecoveryPhraseLoginProvider } from '~/components/RecoveryPhraseLogin/RecoveryPhraseLoginProvider'
+import { RecoveryPhraseLoginProvider } from '@penx/widget'
 
 export default function PageEditor() {
   const [loading, setLoading] = useState(true)
