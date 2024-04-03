@@ -46,7 +46,7 @@ export function DesktopHome() {
                 await login(token)
                 push('/editor')
               } catch (error) {
-                //
+                setLoading(false)
               }
             }}
           >

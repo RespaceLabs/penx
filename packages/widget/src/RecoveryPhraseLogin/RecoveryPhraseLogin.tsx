@@ -19,6 +19,7 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
     if (!mnemonic) return toast.error('Please enter your recovery phrase')
 
     const publicKey = getPublicKey(mnemonic.trim())
+
     if (data?.publicKey !== publicKey) {
       return toast.error('Invalid recovery phrase')
     }

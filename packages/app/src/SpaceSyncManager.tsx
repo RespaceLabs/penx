@@ -1,11 +1,8 @@
 import { FC, PropsWithChildren, useEffect, useRef, useState } from 'react'
 import { Box } from '@fower/react'
-import { useAtom } from 'jotai'
-import { Spinner } from 'uikit'
-import { useDidMount } from '@penx/hooks'
+import { useQuery } from '@tanstack/react-query'
 import { db } from '@penx/local-db'
-import { ISpace } from '@penx/model-types'
-import { appLoadingAtom, spacesAtom, store, StoreProvider } from '@penx/store'
+import { store } from '@penx/store'
 import { api } from '@penx/trpc-client'
 import { CreateFirstSpaceForm } from './Workbench/CreateFirstSpaceForm/CreateFirstSpaceForm'
 
@@ -17,71 +14,30 @@ export const SpaceSyncManager = ({
   children,
   userId,
 }: PropsWithChildren<Props>) => {
-  const [loading, setLoading] = useState(true)
-  const [syncing, setSyncing] = useState(false)
-  const [spaces, setSpaces] = useAtom(spacesAtom)
+  const { isLoading, data = [] } = useQuery(['spaces', userId], async () => {
+    let localSpaces = await db.listSpaces(userId)
+    if (localSpaces.length) return localSpaces
 
-  async function loadCloudSpaces(): Promise<ISpace[] | undefined> {
-    try {
-      setSyncing(true)
-      const remoteSpaces = await api.space.mySpaces.query()
+    const remoteSpaces = await api.space.mySpaces.query()
 
-      console.log('=======remoteSpaces:', remoteSpaces)
-
-      if (!remoteSpaces?.length) return
-
-      for (const space of remoteSpaces) {
-        await db.createSpace(space as any, false)
-      }
-
-      const spaces = await db.listSpaces()
-
-      return spaces
-    } catch (error) {
-      console.log('========error:', error)
-    } finally {
-      setSyncing(false)
-    }
-  }
-
-  async function loadSpaces() {
-    const t0 = Date.now()
-    let spaces = await db.listSpaces(userId)
-
-    // navigator.onLine
-
-    if (!spaces?.length) {
-      const cloudSpaces = await loadCloudSpaces()
-      if (cloudSpaces?.length) {
-        spaces = cloudSpaces
-      }
+    for (const space of remoteSpaces) {
+      await db.createSpace(space as any, false)
     }
 
-    setSpaces(spaces)
-    setLoading(false)
+    const spaces = await db.listSpaces()
 
-    const t1 = Date.now()
-    console.log('loadSpaces time', t1 - t0)
-  }
-
-  useDidMount(() => {
-    loadSpaces()
+    return spaces
   })
 
-  if (syncing) {
-    return (
-      <Box h-90vh toCenter>
-        <Box column toCenter gap2>
-          <Spinner></Spinner>
-          <Box>Syncing..</Box>
-        </Box>
-      </Box>
-    )
-  }
+  useEffect(() => {
+    if (data) {
+      store.space.setSpaces(data)
+    }
+  }, [data])
 
-  if (loading) return null
+  if (isLoading) return null
 
-  if (!spaces.length) {
+  if (!data.length) {
     return (
       <Box h-90vh toCenter>
         <CreateFirstSpaceForm />

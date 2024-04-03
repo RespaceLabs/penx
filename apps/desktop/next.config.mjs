@@ -1,13 +1,17 @@
+const octo = [
+  'octokit',
+  '@octokit/oauth-app',
+  '@octokit/openapi-types',
+  '@octokit/core',
+  '@octokit/app',
+]
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   output: 'export',
   transpilePackages: [
-    'octokit',
-    '@octokit/oauth-app',
-    '@octokit/openapi-types',
-    '@octokit/core',
-    '@octokit/app',
+    ...octo,
     '@penx/abi',
     '@penx/api',
     '@penx/app',
@@ -27,6 +31,7 @@ const nextConfig = {
     '@penx/editor-common',
     '@penx/editor-composition',
     '@penx/icons',
+    '@penx/google-drive',
     '@penx/google-translate',
     '@penx/shared',
     '@penx/model',
