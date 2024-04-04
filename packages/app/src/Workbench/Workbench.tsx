@@ -14,6 +14,7 @@ import { SyncServer } from '../SyncServer/SyncServer'
 import { TaskBoard } from '../TaskBoard'
 import { AccountSettings } from './AccountSettings/AccountSettings'
 import { BackupMnemonicTips } from './BackupMnemonicTips'
+import { BottomBar } from './BottomBar'
 import { MobileNav } from './NodeNav/MobileNav'
 import { NodePanels } from './NodePanels'
 import { PageTodo } from './PageTodo/PageTodo'
@@ -81,6 +82,8 @@ export const Workbench = () => {
 
           <ErrorBoundary fallback={<Fallback />}>
             {name === 'NODE' && <NodePanels />}
+
+            <BottomBar />
 
             {name !== 'NODE' && (
               <Box h-100vh overflowYAuto>

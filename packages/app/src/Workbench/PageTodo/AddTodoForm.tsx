@@ -11,7 +11,15 @@ export const AddTodoForm = memo(function AddTodoForm() {
     setValue('')
   }
   return (
-    <Box absolute left0 right0 bottom0 bgWhite pb5>
+    <Box
+      absolute
+      left0
+      right0
+      bottom0
+      bgWhite
+      pb5
+      display={['none', 'none', 'flex']}
+    >
       <Box w={['100%', 680]} mx-auto>
         <InputGroup>
           {/* <InputElement>

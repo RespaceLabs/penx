@@ -66,6 +66,7 @@ export function CommandPanel({ isMobile = false }: CommandPanelProps) {
         borderGray100
         outlineNone
         placeholder="Search node"
+        autoFocus
         value={search}
         onValueChange={(v) => {
           setSearch(v)

@@ -28,7 +28,6 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
           cursorPointer
           roundedLG
           h-36
-          mt2
           transitionColors
           black
         >

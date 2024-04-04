@@ -26,9 +26,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
         editor={editor}
         initialValue={todoNode.element}
         onChange={async (value) => {
-          // onChange?.(element)
           db.updateNode(todoNode.id, { element: value[0] })
-          // updateParentEditor(element)
         }}
       >
         {/* <HoveringToolbar /> */}

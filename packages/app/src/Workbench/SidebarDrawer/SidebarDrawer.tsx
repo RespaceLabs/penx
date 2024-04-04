@@ -17,20 +17,16 @@ import { Node } from '@penx/model'
 import { useNodes } from '@penx/node-hooks'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
-import { DatabaseList } from './Sidebar/DatabaseList'
-import { FavoriteBox } from './Sidebar/FavoriteBox/FavoriteBox'
-import { LoginButton } from './Sidebar/LoginButton'
-import { SidebarItem } from './Sidebar/SidebarItem'
-import { SpacePopover } from './Sidebar/SpacePopover/SpacePopover'
-import { TagsEntry } from './Sidebar/TagsEntry'
-import { TreeView } from './Sidebar/TreeView/TreeView'
-import { UserProfile } from './Sidebar/UserProfile'
-import { SyncPopover } from './StatusBar/SyncPopover'
+import { LoginButton } from '../Sidebar/LoginButton'
+import { SpacePopover } from '../Sidebar/SpacePopover/SpacePopover'
+import { TreeView } from '../Sidebar/TreeView/TreeView'
+import { UserProfile } from '../Sidebar/UserProfile'
+import { MenuItem } from './MenuItem'
 
 const DrawerOverlay = styled(Drawer.Overlay)
 const DrawerContent = styled(Drawer.Content)
 
-export const DrawerSidebar = () => {
+export const SidebarDrawer = () => {
   const { isOpen, close, open } = useSidebarDrawer()
   const { nodes, nodeList } = useNodes()
   const { loading, data: session } = useSession()
@@ -77,58 +73,66 @@ export const DrawerSidebar = () => {
           right-0
           zIndex-101
           // overflowHidden
+          bgNeutral100
+          px4
+          py4
         >
-          <Box column overflowAuto px5 py2 flex-1>
+          <Box px2 toCenterY pb2 gap1>
+            {session && !loading && (
+              <>
+                <UserProfile isMobile />
+                <Box>/</Box>
+              </>
+            )}
             <SpacePopover />
-            <Box flex-1 mt3>
-              <SidebarItem
-                icon={<CalendarDays size={16} />}
-                label="Today"
-                onClick={() => {
-                  store.node.selectDailyNote()
-                  close()
-                }}
-              />
+          </Box>
+          <Box column overflowAuto flex-1>
+            <Box flex-1 mt3 gap4 column>
+              <Box bgWhite roundedLG>
+                <MenuItem
+                  icon={<CalendarDays size={22} />}
+                  label="Today"
+                  onClick={() => {
+                    store.node.selectDailyNote()
+                    close()
+                  }}
+                />
 
-              <SidebarItem
-                icon={<CheckCircle2 size={18} />}
-                label="Todos"
-                isActive={isTodosActive}
-                onClick={() => {
-                  store.router.routeTo('TODOS')
-                  close()
-                }}
-              />
+                <MenuItem
+                  icon={<CheckCircle2 size={22} />}
+                  label="Todos"
+                  isActive={isTodosActive}
+                  onClick={() => {
+                    store.router.routeTo('TODOS')
+                    close()
+                  }}
+                />
 
-              <SidebarItem
-                icon={<Database size={16} />}
-                label="Tags"
-                onClick={() => {
-                  store.node.selectTagBox()
-                  close()
-                }}
-              />
+                <MenuItem
+                  icon={<Database size={22} />}
+                  label="Tags"
+                  borderBottom={false}
+                  onClick={() => {
+                    store.node.selectTagBox()
+                    close()
+                  }}
+                />
+              </Box>
 
               {/* <Box column gap2>
                 <TagsEntry isActive={isTagsActive} />
                 <DatabaseList />
               </Box> */}
 
-              <TreeView nodeList={nodeList} />
+              <Box bgWhite roundedLG>
+                <TreeView nodeList={nodeList} />
+              </Box>
             </Box>
           </Box>
 
           <Box px4>
             {/* <SetupGitHubButton /> */}
             <LoginButton />
-          </Box>
-          <Box px2 toBetween toCenterY pb2>
-            {session && !loading && (
-              <>
-                <SyncPopover />
-                <UserProfile />
-              </>
-            )}
           </Box>
         </DrawerContent>
       </Drawer.Portal>

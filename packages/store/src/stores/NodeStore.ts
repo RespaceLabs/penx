@@ -308,7 +308,10 @@ export class NodeStore {
 
     const nodes = await db.listNodesBySpaceId(space.id)
 
+    const newTodayNode = await db.getOrCreateTodayNode(space.id)
+
     this.setNodes(nodes)
+    this.selectNode(newTodayNode)
   }
 
   async openInNewPanel(nodeId: string) {
@@ -358,13 +361,24 @@ export class NodeStore {
     this.selectNode(dateNode)
   }
 
-  async createNodeToToday(text: string) {
+  async addTextToToday(text: string) {
     const space = this.store.space.getActiveSpace()
     const { todayNode } = await db.addTextToToday(space.id, text)
     const nodes = await db.listNodesBySpaceId(space.id)
 
     this.setNodes(nodes)
     this.selectNode(todayNode)
+  }
+
+  async addNodesToToday(nodes: INode[]) {
+    const space = this.store.space.getActiveSpace()
+    // const { todayNode } = await db.addTextToToday(space.id, text)
+    console.log('===============nodes', nodes)
+
+    // const newNodes = await db.listNodesBySpaceId(space.id)
+
+    // this.setNodes(newNodes)
+    // this.selectNode(todayNode)
   }
 
   async importSpace(space: ISpace, nodes: INode[] = []) {

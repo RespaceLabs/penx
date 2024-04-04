@@ -25,9 +25,9 @@ export const Paragraph = ({
       relative
       // h="1.5em"
       // py2
-      h-100p
+      // h-100p
       {...attributes}
-      {...nodeProps}
+      {...(nodeProps || {})}
     >
       {children}
     </Box>

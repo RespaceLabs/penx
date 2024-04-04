@@ -38,13 +38,13 @@ export function NodeList({ q, setSearch, close }: Props) {
         gap2
         value="Add to node"
         onSelect={() => {
-          store.node.createNodeToToday(q)
+          store.node.addTextToToday(q)
           paletteDrawer?.close()
           close()
           setSearch('')
         }}
         onClick={() => {
-          store.node.createNodeToToday(q)
+          store.node.addTextToToday(q)
           paletteDrawer?.close()
           close()
           setSearch('')

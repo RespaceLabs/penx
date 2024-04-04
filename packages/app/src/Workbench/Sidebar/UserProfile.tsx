@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Box } from '@fower/react'
+import { Box, FowerHTMLProps } from '@fower/react'
 import {
   DatabaseBackup,
   GitCompare,
@@ -25,7 +25,11 @@ import { useUser } from '@penx/hooks'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 
-export const UserProfile = () => {
+interface Props extends FowerHTMLProps<'div'> {
+  isMobile?: boolean
+}
+
+export const UserProfile = ({ isMobile, ...rest }: Props) => {
   const { user } = useUser()
 
   // const { disconnect, disconnectAsync } = useDisconnect()
@@ -44,67 +48,84 @@ export const UserProfile = () => {
 
   const image = session.user?.image || ''
 
+  // <Box toCenterY pl4 pr2></Box>
   return (
-    <Box borderBottom borderGray200--T40 h-40 toCenterY pl4 pr2 toBetween>
-      <Popover>
-        <PopoverTrigger>
-          <Avatar size={24}>
+    <Popover>
+      <PopoverTrigger>
+        {!isMobile && (
+          <Avatar size={24} {...rest}>
             <AvatarImage src={image} flexShrink-0 />
             <AvatarFallback>{name}</AvatarFallback>
           </Avatar>
-        </PopoverTrigger>
-        <PopoverContent w-200>
-          <Box toCenterY gap2 px4 py2>
-            <Avatar size={24}>
-              <AvatarImage src={image} />
+        )}
+
+        {isMobile && (
+          <Box toCenterY gap2 {...rest}>
+            <Avatar size={32}>
+              <AvatarImage src={image} flexShrink-0 />
               <AvatarFallback>{name}</AvatarFallback>
             </Avatar>
-            <Box textSM>{name}</Box>
+            <Box>
+              <Box textBase fontBold>
+                {name}
+              </Box>
+              {session.email && <Box>{session.email}</Box>}
+            </Box>
           </Box>
+        )}
+      </PopoverTrigger>
+      <PopoverContent w-200>
+        <Box toCenterY gap2 px4 py2>
+          <Avatar size={24}>
+            <AvatarImage src={image} />
+            <AvatarFallback>{name}</AvatarFallback>
+          </Avatar>
+          <Box textSM>{name}</Box>
+        </Box>
 
-          <PopoverClose>
-            <MenuItem
-              gap2
-              onClick={() => {
-                store.router.routeTo('ACCOUNT_SETTINGS')
-              }}
-            >
-              <Box gray500>
-                <User size={16} />
-              </Box>
-              <Box>Account settings</Box>
-            </MenuItem>
-          </PopoverClose>
+        <PopoverClose>
+          <MenuItem
+            gap2
+            onClick={() => {
+              store.router.routeTo('ACCOUNT_SETTINGS')
+            }}
+          >
+            <Box gray500>
+              <User size={16} />
+            </Box>
+            <Box>Account settings</Box>
+          </MenuItem>
+        </PopoverClose>
 
-          <PopoverClose>
-            <MenuItem
-              gap2
-              onClick={() => {
-                store.router.routeTo('RECOVERY_PHRASE')
-              }}
-            >
-              <Box gray500>
-                <User size={16} />
-              </Box>
-              <Box>Recovery Phrase</Box>
-            </MenuItem>
-          </PopoverClose>
+        <PopoverClose>
+          <MenuItem
+            gap2
+            onClick={() => {
+              store.router.routeTo('RECOVERY_PHRASE')
+            }}
+          >
+            <Box gray500>
+              <User size={16} />
+            </Box>
+            <Box>Recovery Phrase</Box>
+          </MenuItem>
+        </PopoverClose>
 
-          <PopoverClose>
-            <MenuItem
-              gap2
-              onClick={() => {
-                store.router.routeTo('VERSION_CONTROL')
-              }}
-            >
-              <Box gray500>
-                <GitCompare size={16} />
-              </Box>
-              <Box>GitHub backup</Box>
-            </MenuItem>
-          </PopoverClose>
+        <PopoverClose>
+          <MenuItem
+            gap2
+            onClick={() => {
+              store.router.routeTo('VERSION_CONTROL')
+            }}
+          >
+            <Box gray500>
+              <GitCompare size={16} />
+            </Box>
+            <Box>GitHub backup</Box>
+          </MenuItem>
+        </PopoverClose>
 
-          {/* <PopoverClose>
+        {/* <PopoverClose>
             <MenuItem
               gap2
               onClick={() => {
@@ -118,53 +139,52 @@ export const UserProfile = () => {
             </MenuItem>
           </PopoverClose> */}
 
-          {user?.isAdmin && (
-            <PopoverClose>
-              <MenuItem
-                gap2
-                onClick={() => {
-                  store.router.routeTo('TASK_BOARD')
-                }}
-              >
-                <Box gray500>
-                  <DatabaseBackup size={16} />
-                </Box>
-                <Box>Task board</Box>
-              </MenuItem>
-            </PopoverClose>
-          )}
-
+        {user?.isAdmin && (
           <PopoverClose>
             <MenuItem
               gap2
               onClick={() => {
-                store.router.routeTo('SYNC_SERVER')
+                store.router.routeTo('TASK_BOARD')
               }}
             >
               <Box gray500>
                 <DatabaseBackup size={16} />
               </Box>
-              <Box>Sync servers</Box>
+              <Box>Task board</Box>
             </MenuItem>
           </PopoverClose>
+        )}
 
-          <PopoverClose>
-            <MenuItem
-              gap2
-              onClick={async () => {
-                // await disconnectAsync()
-                // disconnect()
-                appEmitter.emit('SIGN_OUT')
-              }}
-            >
-              <Box gray500>
-                <LogOut size={16} />
-              </Box>
-              <Box>Log out</Box>
-            </MenuItem>
-          </PopoverClose>
-        </PopoverContent>
-      </Popover>
-    </Box>
+        <PopoverClose>
+          <MenuItem
+            gap2
+            onClick={() => {
+              store.router.routeTo('SYNC_SERVER')
+            }}
+          >
+            <Box gray500>
+              <DatabaseBackup size={16} />
+            </Box>
+            <Box>Sync servers</Box>
+          </MenuItem>
+        </PopoverClose>
+
+        <PopoverClose>
+          <MenuItem
+            gap2
+            onClick={async () => {
+              // await disconnectAsync()
+              // disconnect()
+              appEmitter.emit('SIGN_OUT')
+            }}
+          >
+            <Box gray500>
+              <LogOut size={16} />
+            </Box>
+            <Box>Log out</Box>
+          </MenuItem>
+        </PopoverClose>
+      </PopoverContent>
+    </Popover>
   )
 }

@@ -53,7 +53,7 @@ export const Button: BoxComponent<'button', ButtonProps> = forwardRef(
         roundedMD
         appearanceNone
         selectNone
-        gapX2
+        gap2
         transitionColors
         white--dark
         opacity-50={notAllowed}

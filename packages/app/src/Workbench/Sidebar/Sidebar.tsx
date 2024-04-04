@@ -138,7 +138,7 @@ export const Sidebar = () => {
         {/* <SetupGitHubButton /> */}
         <LoginButton />
       </Box>
-      <Box px2 toBetween toCenterY>
+      <Box px2 toBetween toCenterY pb2>
         {session && !loading && (
           <>
             <SyncPopover />

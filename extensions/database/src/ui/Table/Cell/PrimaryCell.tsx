@@ -106,6 +106,7 @@ export const PrimaryCell: FC<CellProps & Props> = memo(
     }
 
     if (!value) return null
+    // console.log('=========value:', value)
 
     return (
       <Box w-100p h-100p relative inlineFlex {...rest}>

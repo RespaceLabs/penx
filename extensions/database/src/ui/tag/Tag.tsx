@@ -31,7 +31,6 @@ export const Tag = ({
   async function clickTag() {
     const database = await db.getNode(element.databaseId)
     if (database) {
-      console.log('=====database:', database)
       store.node.selectNode(database)
     }
   }
@@ -76,6 +75,7 @@ export const Tag = ({
       inlineFlex
       bgGray100
       rounded
+      mx-1
       overflowHidden
       ringBrand500={selected}
       contentEditable={false}

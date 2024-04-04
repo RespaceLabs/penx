@@ -525,12 +525,13 @@ export class PenxDB extends Dexie {
 
     const isTodo = name === TODO_DATABASE_NAME
 
+    await this.updateNode(databaseRootNode.id, {
+      children: [...(databaseRootNode.children || []), database.id],
+    })
+
     if (isTodo) {
       await this.updateNode(databaseRootNode.id, {
-        children: [...(databaseRootNode.children || []), database.id],
-        props: {
-          favorites: [database.id],
-        },
+        props: { favorites: [database.id] },
       })
     }
 
