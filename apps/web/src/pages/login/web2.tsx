@@ -44,7 +44,8 @@ export default function LoginPage() {
           gray400
           gray600--hover
           cursorPointer
-          onClick={() => push('/login/web3')}
+          // onClick={() => push('/login/web3')}
+          onClick={() => push('/login')}
         >
           <Redo size={16}></Redo>
           <Box textSM>Back to web3 login</Box>

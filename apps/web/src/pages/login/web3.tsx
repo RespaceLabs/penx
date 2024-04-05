@@ -1,8 +1,9 @@
-import { useEffect, useMemo } from 'react'
+import { Suspense, useEffect, useMemo } from 'react'
 import { Box } from '@fower/react'
 import { ArrowRight, Wallet } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { ClientOnly } from '~/components/ClientOnly'
+import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
 import { Logo } from '~/components/Logo'
 import { SiweModal } from '~/components/SiweModal'
 import { WalletConnectButton } from '~/components/WalletConnectButton'
@@ -15,6 +16,10 @@ export default function LoginPage() {
     return (
       <Box column gap2 toCenterX>
         <SiweModal />
+
+        <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
+          <LoginWithGoogleButton />
+        </Suspense>
         <ClientOnly>
           <WalletConnectButton
             size={56}
@@ -32,22 +37,10 @@ export default function LoginPage() {
               </Box>
             </Box>
           </WalletConnectButton>
-
-          <Box
-            toCenterY
-            gap2
-            gray400
-            gray600--hover
-            cursorPointer
-            onClick={() => push('/login/web2')}
-          >
-            <Box textSM>Login with Google, GitHub</Box>
-            <ArrowRight size={16}></ArrowRight>
-          </Box>
         </ClientOnly>
       </Box>
     )
-  }, [push])
+  }, [])
 
   return (
     <ClientOnly>

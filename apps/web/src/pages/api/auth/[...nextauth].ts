@@ -123,9 +123,13 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
     adapter: PrismaAdapter(prisma),
     pages: {
-      signIn: `/login/web2`,
-      verifyRequest: `/login/web2`,
-      error: '/login/web2', // Error code passed in query string as ?error=
+      // signIn: `/login/web2`,
+      // verifyRequest: `/login/web2`,
+      // error: '/login/web2', // Error code passed in query string as ?error=
+
+      signIn: `/login`,
+      verifyRequest: `/login`,
+      error: '/login', // Error code passed in query string as ?error=
     },
 
     callbacks: {

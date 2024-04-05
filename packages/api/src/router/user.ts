@@ -202,7 +202,9 @@ export const userRouter = createTRPCRouter({
     const userId = ctx.token.uid
     return prisma.$transaction(
       async (tx) => {
-        await tx.space.deleteMany({ where: { userId } })
+        console.log('=========deleteAccount:', userId)
+
+        // await tx.space.deleteMany({ where: { userId } })
         await tx.account.deleteMany({ where: { userId } })
         await tx.personalToken.deleteMany({ where: { userId } })
         await tx.syncServer.deleteMany({ where: { userId } })

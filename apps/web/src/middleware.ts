@@ -8,14 +8,15 @@ export async function middleware(req: NextRequest) {
 
   const session = await getToken({ req })
 
-  if (session && ['/login/web3', '/login/web2'].includes(path)) {
+  if (session && ['/login/web3', '/login/web2', '/login'].includes(path)) {
     return NextResponse.redirect(new URL('/', req.url))
   }
 
   const shouldLogin = ['/dashboard', '/cli-login', '/password'].includes(path)
 
   if (shouldLogin && !session) {
-    return NextResponse.redirect(new URL('/login/web3', req.url))
+    // return NextResponse.redirect(new URL('/login/web3', req.url))
+    return NextResponse.redirect(new URL('/login', req.url))
   }
 
   return NextResponse.next()
@@ -24,6 +25,7 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     '/',
+    '/login',
     '/login/web3',
     '/login/web2',
     '/cli-login',

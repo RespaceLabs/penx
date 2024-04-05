@@ -568,36 +568,12 @@ importers:
 
   apps/bounty:
     dependencies:
-      '@dnd-kit/core':
-        specifier: ^6.1.0
-        version: 6.1.0(react-dom@18.2.0)(react@18.2.0)
-      '@dnd-kit/sortable':
-        specifier: ^7.0.2
-        version: 7.0.2(@dnd-kit/core@6.1.0)(react@18.2.0)
-      '@dnd-kit/utilities':
-        specifier: ^3.2.2
-        version: 3.2.2(react@18.2.0)
-      '@emoji-mart/data':
-        specifier: ^1.1.2
-        version: 1.1.2
-      '@emoji-mart/react':
-        specifier: ^1.1.1
-        version: 1.1.1(emoji-mart@5.5.2)(react@18.2.0)
-      '@floating-ui/react':
-        specifier: ^0.25.4
-        version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/atomic-props':
         specifier: ^2.0.0
         version: 2.0.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
-      '@glideapps/glide-data-grid':
-        specifier: ^6.0.3
-        version: 6.0.3(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0)(react-responsive-carousel@3.2.23)(react@18.2.0)
-      '@hookform/resolvers':
-        specifier: ^3.3.2
-        version: 3.3.4(react-hook-form@7.51.2)
       '@next-auth/prisma-adapter':
         specifier: ^1.0.7
         version: 1.0.7(@prisma/client@5.11.0)(next-auth@4.24.7)
@@ -616,30 +592,12 @@ importers:
       '@penx/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@penx/app':
-        specifier: workspace:*
-        version: link:../../packages/app
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
-      '@penx/database':
-        specifier: workspace:*
-        version: link:../../extensions/database
-      '@penx/db':
-        specifier: workspace:*
-        version: link:../../packages/db
-      '@penx/encryption':
-        specifier: workspace:*
-        version: link:../../packages/encryption
-      '@penx/hooks':
-        specifier: workspace:*
-        version: link:../../packages/hooks
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons
-      '@penx/local-db':
-        specifier: workspace:*
-        version: link:../../packages/local-db
       '@penx/math':
         specifier: workspace:*
         version: link:../../packages/math
@@ -649,18 +607,9 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../../packages/model-types
-      '@penx/serializer':
-        specifier: workspace:*
-        version: link:../../packages/serializer
       '@penx/session':
         specifier: workspace:*
         version: link:../../packages/session
-      '@penx/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
-      '@penx/slate-lists':
-        specifier: workspace:*
-        version: link:../../packages/slate-lists
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
@@ -682,12 +631,6 @@ importers:
       '@prisma/nextjs-monorepo-workaround-plugin':
         specifier: ^5.6.0
         version: 5.11.0
-      '@radix-ui/react-hover-card':
-        specifier: ^1.0.7
-        version: 1.0.7(@types/react-dom@18.2.23)(@types/react@18.2.73)(react-dom@18.2.0)(react@18.2.0)
-      '@radix-ui/react-slot':
-        specifier: ^1.0.2
-        version: 1.0.2(@types/react@18.2.73)(react@18.2.0)
       '@t3-oss/env-nextjs':
         specifier: ^0.9.2
         version: 0.9.2(typescript@5.4.3)(zod@3.22.4)
@@ -745,12 +688,6 @@ importers:
       dexie-react-hooks:
         specifier: ^1.1.7
         version: 1.1.7(@types/react@18.2.73)(dexie@3.2.7)(react@18.2.0)
-      emoji-mart:
-        specifier: ^5.5.2
-        version: 5.5.2
-      emoji-picker-react:
-        specifier: ^4.5.16
-        version: 4.9.2(react@18.2.0)
       ethers:
         specifier: ^6.10.0
         version: 6.11.1
@@ -784,9 +721,6 @@ importers:
       lucide-react:
         specifier: ^0.344.0
         version: 0.344.0(react@18.2.0)
-      markdown-it:
-        specifier: ^13.0.2
-        version: 13.0.2
       million:
         specifier: ^2.6.4
         version: 2.6.4
@@ -814,18 +748,12 @@ importers:
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
-      rc-table:
-        specifier: ^7.36.0
-        version: 7.45.0(react-dom@18.2.0)(react@18.2.0)
       re-resizable:
         specifier: ^6.9.11
         version: 6.9.11(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
-      react-datepicker:
-        specifier: ^4.24.0
-        version: 4.25.0(react-dom@18.2.0)(react@18.2.0)
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
@@ -847,18 +775,6 @@ importers:
       siwe:
         specifier: ^2.1.4
         version: 2.1.4(ethers@6.11.1)
-      slate:
-        specifier: 0.101.5
-        version: 0.101.5
-      slate-history:
-        specifier: 0.100.0
-        version: 0.100.0(slate@0.101.5)
-      slate-hyperscript:
-        specifier: 0.100.0
-        version: 0.100.0(slate@0.101.5)
-      slate-react:
-        specifier: 0.101.5
-        version: 0.101.5(react-dom@18.2.0)(react@18.2.0)(slate@0.101.5)
       sonner:
         specifier: ^0.6.2
         version: 0.6.2(react-dom@18.2.0)(react@18.2.0)
@@ -908,9 +824,6 @@ importers:
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.17.0
-      '@types/markdown-it':
-        specifier: ^13.0.7
-        version: 13.0.7
       '@types/mime':
         specifier: ^3.0.4
         version: 3.0.4
@@ -1160,7 +1073,7 @@ importers:
         version: 1.5.3
       '@web3modal/wagmi':
         specifier: ^4.0.13
-        version: 4.1.3(@types/react@18.2.73)(@wagmi/connectors@4.1.22)(@wagmi/core@2.6.13)(@web3modal/wallet@4.1.3)(typescript@5.4.3)(viem@2.9.5)
+        version: 4.1.3(@types/react@18.2.73)(@wagmi/connectors@4.1.22)(@wagmi/core@2.6.13)(@web3modal/wallet@4.1.3)(typescript@5.4.3)(viem@2.9.9)
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
@@ -1184,7 +1097,7 @@ importers:
         version: link:../../packages/uikit
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.5)
+        version: 2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
     devDependencies:
       '@penx/tsconfig':
         specifier: workspace:*
@@ -1846,9 +1759,6 @@ importers:
 
   apps/ink:
     dependencies:
-      '@floating-ui/react':
-        specifier: ^0.25.4
-        version: 0.25.4(react-dom@18.2.0)(react@18.2.0)
       '@fower/atomic-props':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1867,12 +1777,6 @@ importers:
       '@penx/math':
         specifier: workspace:*
         version: link:../../packages/math
-      '@penx/trpc-client':
-        specifier: workspace:^
-        version: link:../../packages/trpc-client
-      '@penx/unique-id':
-        specifier: workspace:*
-        version: link:../../packages/unique-id
       '@penx/wagmi':
         specifier: workspace:*
         version: link:../../packages/wagmi
@@ -1888,12 +1792,6 @@ importers:
       '@trpc/client':
         specifier: ^10.45.1
         version: 10.45.2(@trpc/server@10.45.2)
-      '@trpc/next':
-        specifier: ^10.45.1
-        version: 10.45.2(@tanstack/react-query@4.36.1)(@trpc/client@10.45.2)(@trpc/react-query@10.45.2)(@trpc/server@10.45.2)(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
-      '@trpc/server':
-        specifier: ^10.45.1
-        version: 10.45.2
       '@vercel/analytics':
         specifier: ^1.1.1
         version: 1.2.2(next@14.1.0)(react@18.2.0)
@@ -1902,7 +1800,7 @@ importers:
         version: 1.0.10(next@14.1.0)(react@18.2.0)(vue@3.4.21)
       '@wagmi/core':
         specifier: ^2.6.5
-        version: 2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.5)(zod@3.22.4)
+        version: 2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
       '@web3modal/core':
         specifier: ^4.0.13
         version: 4.1.3(@types/react@18.2.73)(react@18.2.0)
@@ -1911,22 +1809,10 @@ importers:
         version: 4.1.3(@types/react@18.2.73)(react@18.2.0)
       '@web3modal/wagmi':
         specifier: ^4.0.13
-        version: 4.1.3(@types/react@18.2.73)(@wagmi/connectors@4.1.22)(@wagmi/core@2.6.13)(@web3modal/wallet@4.1.3)(typescript@5.4.3)(viem@2.9.5)
-      class-variance-authority:
-        specifier: ^0.7.0
-        version: 0.7.0
-      classnames:
-        specifier: ^2.3.2
-        version: 2.5.1
-      clsx:
-        specifier: ^2.0.0
-        version: 2.1.0
+        version: 4.1.3(@types/react@18.2.73)(@wagmi/connectors@4.1.22)(@wagmi/core@2.6.13)(@web3modal/wallet@4.1.3)(typescript@5.4.3)(viem@2.9.9)
       cookies-next:
         specifier: ^2.1.2
         version: 2.1.2
-      crypto-js:
-        specifier: ^4.2.0
-        version: 4.2.0
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -1936,12 +1822,6 @@ importers:
       dexie-react-hooks:
         specifier: ^1.1.7
         version: 1.1.7(@types/react@18.2.73)(dexie@3.2.7)(react@18.2.0)
-      emoji-mart:
-        specifier: ^5.5.2
-        version: 5.5.2
-      emoji-picker-react:
-        specifier: ^4.5.16
-        version: 4.9.2(react@18.2.0)
       ethers:
         specifier: ^6.10.0
         version: 6.11.1
@@ -1975,9 +1855,6 @@ importers:
       lucide-react:
         specifier: ^0.344.0
         version: 0.344.0(react@18.2.0)
-      mime:
-        specifier: ^3.0.0
-        version: 3.0.0
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -1993,21 +1870,12 @@ importers:
       nextjs-google-analytics:
         specifier: ^2.3.3
         version: 2.3.3(next@14.1.0)(react@18.2.0)
-      octokit:
-        specifier: ^3.1.2
-        version: 3.1.2
-      rc-table:
-        specifier: ^7.36.0
-        version: 7.45.0(react-dom@18.2.0)(react@18.2.0)
       re-resizable:
         specifier: ^6.9.11
         version: 6.9.11(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
-      react-datepicker:
-        specifier: ^4.24.0
-        version: 4.25.0(react-dom@18.2.0)(react@18.2.0)
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
@@ -2017,9 +1885,6 @@ importers:
       react-merge-refs:
         specifier: ^2.1.1
         version: 2.1.1
-      simplebar-react:
-        specifier: ^3.2.4
-        version: 3.2.4(react@18.2.0)
       siwe:
         specifier: ^2.1.4
         version: 2.1.4(ethers@6.11.1)
@@ -2035,18 +1900,12 @@ importers:
       uikit:
         specifier: workspace:*
         version: link:../../packages/uikit
-      use-debounce:
-        specifier: ^9.0.4
-        version: 9.0.4(react@18.2.0)
-      uuid:
-        specifier: ^9.0.1
-        version: 9.0.1
       viem:
-        specifier: ^2.7.19
-        version: 2.9.5(typescript@5.4.3)(zod@3.22.4)
+        specifier: ^2.9.9
+        version: 2.9.9(typescript@5.4.3)(zod@3.22.4)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(ioredis@5.3.2)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(rollup@2.79.1)(typescript@5.4.3)(viem@2.9.5)(zod@3.22.4)
+        version: 2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(ioredis@5.3.2)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -2060,9 +1919,6 @@ importers:
       '@svgr/webpack':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.4.3)
-      '@types/crypto-js':
-        specifier: ^4.2.1
-        version: 4.2.2
       '@types/is-hotkey':
         specifier: ^0.1.10
         version: 0.1.10
@@ -2075,9 +1931,6 @@ importers:
       '@types/markdown-it':
         specifier: ^13.0.7
         version: 13.0.7
-      '@types/mime':
-        specifier: ^3.0.4
-        version: 3.0.4
       '@types/node':
         specifier: ^20.10.3
         version: 20.11.30
@@ -2087,9 +1940,6 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.17
         version: 18.2.23
-      '@types/uuid':
-        specifier: ^9.0.7
-        version: 9.0.8
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.19(postcss@8.4.38)
@@ -2206,7 +2056,7 @@ importers:
         version: 1.5.3
       '@web3modal/wagmi':
         specifier: ^4.0.13
-        version: 4.1.3(@types/react@18.2.73)(@wagmi/connectors@4.1.22)(@wagmi/core@2.6.13)(@web3modal/wallet@4.1.3)(typescript@5.4.3)(viem@2.9.5)
+        version: 4.1.3(@types/react@18.2.73)(@wagmi/connectors@4.1.22)(@wagmi/core@2.6.13)(@web3modal/wallet@4.1.3)(typescript@5.4.3)(viem@2.9.9)
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -2242,7 +2092,7 @@ importers:
         version: link:../../packages/uikit
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.5)
+        version: 2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
     devDependencies:
       '@capacitor/cli':
         specifier: 5.7.2
@@ -2435,8 +2285,8 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2(react@18.2.0)
       '@ducanh2912/next-pwa':
-        specifier: ^10.2.5
-        version: 10.2.5(next@14.1.0)(webpack@5.91.0)
+        specifier: ^10.2.6
+        version: 10.2.6(next@14.1.0)(webpack@5.91.0)
       '@emoji-mart/data':
         specifier: ^1.1.2
         version: 1.1.2
@@ -4703,7 +4553,7 @@ importers:
         version: 10.45.2(@trpc/server@10.45.2)
       '@wagmi/core':
         specifier: ^2.6.5
-        version: 2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.5)(zod@3.22.4)
+        version: 2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -4868,7 +4718,7 @@ importers:
         version: 0.7.9(@types/react-dom@18.2.23)(@types/react@18.2.73)(react-dom@18.2.0)(react@18.2.0)
       wagmi:
         specifier: ^2.5.7
-        version: 2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.5)(zod@3.22.4)
+        version: 2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -9857,8 +9707,8 @@ packages:
       - '@algolia/client-search'
     dev: false
 
-  /@ducanh2912/next-pwa@10.2.5(next@14.1.0)(webpack@5.91.0):
-    resolution: {integrity: sha512-DkF0IUNBjJ2eOQ/lxDuEtT7oIfLIcOE6HthM5ESkZBLq9P05O2PEhaIpOLARPF9RNXlvBBJxX0sJNUeVehMTIw==}
+  /@ducanh2912/next-pwa@10.2.6(next@14.1.0)(webpack@5.91.0):
+    resolution: {integrity: sha512-8V7C8tBHX07sN6YCdV7Wx5msmO/sU0Jcn+xijeXRt0pZsBWuCiqPbJXn9weqXuzrtJ1wYucX9WUVNiOGnAsUAw==}
     peerDependencies:
       next: '>=14.0.0'
       webpack: '>=5.9.0'
@@ -9866,7 +9716,7 @@ packages:
       clean-webpack-plugin: 4.0.0(webpack@5.91.0)
       fast-glob: 3.3.2
       next: 14.1.0(@babel/core@7.24.3)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)(sass@1.72.0)
-      semver: 7.5.4
+      semver: 7.6.0
       terser-webpack-plugin: 5.3.10(webpack@5.91.0)
       webpack: 5.91.0
       workbox-build: 7.0.0
@@ -19236,7 +19086,7 @@ packages:
       picocolors: 1.0.0
       prettier: 3.2.5
       typescript: 5.4.3
-      viem: 2.9.5(typescript@5.4.3)(zod@3.22.4)
+      viem: 2.9.9(typescript@5.4.3)(zod@3.22.4)
       zod: 3.22.4
     transitivePeerDependencies:
       - bufferutil
@@ -19262,6 +19112,52 @@ packages:
       '@walletconnect/modal': 2.6.2(@types/react@18.2.73)(react@18.2.0)
       typescript: 5.4.3
       viem: 2.9.5(typescript@5.4.3)(zod@3.22.4)
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@types/react'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - bufferutil
+      - encoding
+      - ioredis
+      - react
+      - react-dom
+      - react-native
+      - rollup
+      - supports-color
+      - uWebSockets.js
+      - utf-8-validate
+      - zod
+    dev: false
+
+  /@wagmi/connectors@4.1.22(@types/react@18.2.73)(@wagmi/core@2.6.13)(ioredis@5.3.2)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4):
+    resolution: {integrity: sha512-9t14G28awyeWTjGS/OfEd/DhdeX5t4Pio3SJHw4M4aTexIfN5DHGmmtfUtSu6DP1r+LD2vSI4ShT7vH0dgtZwA==}
+    peerDependencies:
+      '@wagmi/core': 2.6.13
+      typescript: '>=5.0.4'
+      viem: 2.x
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@coinbase/wallet-sdk': 3.9.1
+      '@metamask/sdk': 0.14.3(@types/react@18.2.73)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(rollup@2.79.1)
+      '@safe-global/safe-apps-provider': 0.18.1(typescript@5.4.3)(zod@3.22.4)
+      '@safe-global/safe-apps-sdk': 8.1.0(typescript@5.4.3)(zod@3.22.4)
+      '@wagmi/core': 2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
+      '@walletconnect/ethereum-provider': 2.11.2(@types/react@18.2.73)(ioredis@5.3.2)(react@18.2.0)
+      '@walletconnect/modal': 2.6.2(@types/react@18.2.73)(react@18.2.0)
+      typescript: 5.4.3
+      viem: 2.9.9(typescript@5.4.3)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -19335,7 +19231,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/connectors@4.1.22(@types/react@18.2.73)(@wagmi/core@2.6.13)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.5)(zod@3.22.4):
+  /@wagmi/connectors@4.1.22(@types/react@18.2.73)(@wagmi/core@2.6.13)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4):
     resolution: {integrity: sha512-9t14G28awyeWTjGS/OfEd/DhdeX5t4Pio3SJHw4M4aTexIfN5DHGmmtfUtSu6DP1r+LD2vSI4ShT7vH0dgtZwA==}
     peerDependencies:
       '@wagmi/core': 2.6.13
@@ -19349,11 +19245,11 @@ packages:
       '@metamask/sdk': 0.14.3(@types/react@18.2.73)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(rollup@2.79.1)
       '@safe-global/safe-apps-provider': 0.18.1(typescript@5.4.3)(zod@3.22.4)
       '@safe-global/safe-apps-sdk': 8.1.0(typescript@5.4.3)(zod@3.22.4)
-      '@wagmi/core': 2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.5)(zod@3.22.4)
+      '@wagmi/core': 2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
       '@walletconnect/ethereum-provider': 2.11.2(@types/react@18.2.73)(ioredis@5.3.2)(react@18.2.0)
       '@walletconnect/modal': 2.6.2(@types/react@18.2.73)(react@18.2.0)
       typescript: 5.4.3
-      viem: 2.9.5(typescript@5.4.3)(zod@3.22.4)
+      viem: 2.9.9(typescript@5.4.3)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -19423,6 +19319,32 @@ packages:
       mipd: 0.0.5(typescript@5.4.3)(zod@3.22.4)
       typescript: 5.4.3
       viem: 2.9.5(typescript@5.4.3)(zod@3.22.4)
+      zustand: 4.4.1(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - immer
+      - react
+      - utf-8-validate
+      - zod
+    dev: false
+
+  /@wagmi/core@2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4):
+    resolution: {integrity: sha512-RZQ0mBXMH5oe7uvFkNh0e/gPWWLsbkDv/6/SeTY2H7fsH4I/T62ID6eNYUtyOoz7FgQTdAyPdSEt9lst1ZXxkQ==}
+    peerDependencies:
+      '@tanstack/query-core': '>=5.0.0'
+      typescript: '>=5.0.4'
+      viem: 2.x
+    peerDependenciesMeta:
+      '@tanstack/query-core':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      eventemitter3: 5.0.1
+      mipd: 0.0.5(typescript@5.4.3)(zod@3.22.4)
+      typescript: 5.4.3
+      viem: 2.9.9(typescript@5.4.3)(zod@3.22.4)
       zustand: 4.4.1(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
@@ -19931,6 +19853,41 @@ packages:
       '@web3modal/scaffold-utils': 4.1.3(@types/react@18.2.73)(react@18.2.0)
       '@web3modal/scaffold-vue': 4.1.3(@types/react@18.2.73)(@web3modal/wallet@4.1.3)(react@18.2.0)(vue@3.4.21)
       viem: 2.9.5(typescript@5.4.3)(zod@3.22.4)
+    optionalDependencies:
+      '@web3modal/siwe': 4.1.3(@types/react@18.2.73)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      vue: 3.4.21(typescript@5.4.3)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@web3modal/wallet'
+      - typescript
+    dev: false
+
+  /@web3modal/wagmi@4.1.3(@types/react@18.2.73)(@wagmi/connectors@4.1.22)(@wagmi/core@2.6.13)(@web3modal/wallet@4.1.3)(typescript@5.4.3)(viem@2.9.9):
+    resolution: {integrity: sha512-YFYYFmp2HoXIo7mfL/eWc//F9cqIyHdKgUZmSYArDWxNze/MOuCrShnZWarXa1fVl7kY3Cq+bZpExM8TcttQCw==}
+    peerDependencies:
+      '@wagmi/connectors': '>=4.0.0'
+      '@wagmi/core': '>=2.0.0'
+      viem: '>=2.0.0'
+    peerDependenciesMeta:
+      '@web3modal/siwe':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      '@wagmi/connectors': 4.1.22(@types/react@18.2.73)(@wagmi/core@2.6.13)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
+      '@wagmi/core': 2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
+      '@web3modal/polyfills': 4.1.3
+      '@web3modal/scaffold': 4.1.3(@types/react@18.2.73)(@web3modal/wallet@4.1.3)(react@18.2.0)
+      '@web3modal/scaffold-react': 4.1.3(@types/react@18.2.73)(@web3modal/wallet@4.1.3)(react-dom@18.2.0)(react@18.2.0)
+      '@web3modal/scaffold-utils': 4.1.3(@types/react@18.2.73)(react@18.2.0)
+      '@web3modal/scaffold-vue': 4.1.3(@types/react@18.2.73)(@web3modal/wallet@4.1.3)(react@18.2.0)(vue@3.4.21)
+      viem: 2.9.9(typescript@5.4.3)(zod@3.22.4)
     optionalDependencies:
       '@web3modal/siwe': 4.1.3(@types/react@18.2.73)(react@18.2.0)
       react: 18.2.0
@@ -37339,6 +37296,29 @@ packages:
       - bufferutil
       - utf-8-validate
       - zod
+    dev: false
+
+  /viem@2.9.9(typescript@5.4.3)(zod@3.22.4):
+    resolution: {integrity: sha512-SUIHBL6M5IIlqDCMEQwAAvHzeglaM4FEqM6bCI+srLXtFYmrpV4tWhnpobQRNwh4f7HIksmKLLZ+cytv8FfnJQ==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@adraffy/ens-normalize': 1.10.0
+      '@noble/curves': 1.2.0
+      '@noble/hashes': 1.3.2
+      '@scure/bip32': 1.3.2
+      '@scure/bip39': 1.2.1
+      abitype: 1.0.0(typescript@5.4.3)(zod@3.22.4)
+      isows: 1.0.3(ws@8.13.0)
+      typescript: 5.4.3
+      ws: 8.13.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+      - zod
 
   /vizion@2.2.1:
     resolution: {integrity: sha512-sfAcO2yeSU0CSPFI/DmZp3FsFE9T+8913nv1xWBOyzODv13fwkn6Vl7HqxGpkr9F608M+8SuFId3s+BlZqfXww==}
@@ -37440,6 +37420,52 @@ packages:
       - zod
     dev: false
 
+  /wagmi@2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(ioredis@5.3.2)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4):
+    resolution: {integrity: sha512-nVSx65kGYcjvELJKoe+l1E78zHqtYwfg0nf2HuZkt1gVvqguo+hIQe534hSf1m+ivdtb0MPlwNCvj6K4QJ7FTw==}
+    peerDependencies:
+      '@tanstack/react-query': '>=5.0.0'
+      react: '>=18'
+      typescript: '>=5.0.4'
+      viem: 2.x
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)
+      '@wagmi/connectors': 4.1.22(@types/react@18.2.73)(@wagmi/core@2.6.13)(ioredis@5.3.2)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
+      '@wagmi/core': 2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
+      react: 18.2.0
+      typescript: 5.4.3
+      use-sync-external-store: 1.2.0(react@18.2.0)
+      viem: 2.9.9(typescript@5.4.3)(zod@3.22.4)
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@tanstack/query-core'
+      - '@types/react'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - bufferutil
+      - encoding
+      - immer
+      - ioredis
+      - react-dom
+      - react-native
+      - rollup
+      - supports-color
+      - uWebSockets.js
+      - utf-8-validate
+      - zod
+    dev: false
+
   /wagmi@2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.5):
     resolution: {integrity: sha512-nVSx65kGYcjvELJKoe+l1E78zHqtYwfg0nf2HuZkt1gVvqguo+hIQe534hSf1m+ivdtb0MPlwNCvj6K4QJ7FTw==}
     peerDependencies:
@@ -37486,7 +37512,7 @@ packages:
       - zod
     dev: false
 
-  /wagmi@2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.5)(zod@3.22.4):
+  /wagmi@2.5.16(@tanstack/react-query@4.36.1)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4):
     resolution: {integrity: sha512-nVSx65kGYcjvELJKoe+l1E78zHqtYwfg0nf2HuZkt1gVvqguo+hIQe534hSf1m+ivdtb0MPlwNCvj6K4QJ7FTw==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -37498,12 +37524,12 @@ packages:
         optional: true
     dependencies:
       '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)
-      '@wagmi/connectors': 4.1.22(@types/react@18.2.73)(@wagmi/core@2.6.13)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.5)(zod@3.22.4)
-      '@wagmi/core': 2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.5)(zod@3.22.4)
+      '@wagmi/connectors': 4.1.22(@types/react@18.2.73)(@wagmi/core@2.6.13)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
+      '@wagmi/core': 2.6.13(@types/react@18.2.73)(immer@10.0.4)(react@18.2.0)(typescript@5.4.3)(viem@2.9.9)(zod@3.22.4)
       react: 18.2.0
       typescript: 5.4.3
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 2.9.5(typescript@5.4.3)(zod@3.22.4)
+      viem: 2.9.9(typescript@5.4.3)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'

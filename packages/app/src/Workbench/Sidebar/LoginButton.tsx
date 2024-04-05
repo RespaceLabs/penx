@@ -22,7 +22,8 @@ export function LoginButton() {
           return
         }
 
-        push('/login/web3')
+        // push('/login/web3')
+        push('/login')
       }}
     >
       Login to enable Sync
