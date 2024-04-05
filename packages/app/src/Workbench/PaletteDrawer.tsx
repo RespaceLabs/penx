@@ -27,7 +27,7 @@ export const PaletteDrawer = () => {
           type="button"
           size="sm"
           variant="ghost"
-          colorScheme="white"
+          colorScheme="gray900"
           isSquare
           roundedFull
         >

@@ -42,7 +42,7 @@ const BulletContent = memo(
       <Box
         id={`${nodeId}`}
         className="bullet"
-        square-15
+        square={[16, 15]}
         bgTransparent
         bg--hover={bgHoverColor}
         toCenter
@@ -56,7 +56,7 @@ const BulletContent = memo(
         }}
       >
         <Box
-          square-5
+          square={[6, 5]}
           bg={color}
           roundedFull
           transitionCommon

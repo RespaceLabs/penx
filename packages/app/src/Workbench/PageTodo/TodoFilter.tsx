@@ -23,7 +23,7 @@ export const FilterItem = ({ ...rest }: FilterItemProps) => {
 export const TodoFilter = () => {
   const { filter, setFilter } = useTodoFilter()
   return (
-    <Box>
+    <Box display={['none', 'none', 'block']}>
       <Box toCenterY gap2>
         <FilterItem
           brand500={filter === TodoFilterType.TODAY}
@@ -44,7 +44,7 @@ export const TodoFilter = () => {
           onClick={() => setFilter(TodoFilterType.ALL_TODOS)}
         >
           <ListChecks size={16} />
-          <Box>All Todos</Box>
+          <Box>All tasks</Box>
         </FilterItem>
       </Box>
     </Box>

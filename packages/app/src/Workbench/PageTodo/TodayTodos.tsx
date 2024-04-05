@@ -6,8 +6,17 @@ export const TodayTodos = () => {
   const { todos } = useTodos()
   const todayTodos = todos.filter((record) => record.todoNode.isToday)
 
+  if (!todayTodos.length) {
+    return (
+      <Box h-80vh toCenter>
+        <Box text4XL fontBold textCenter leadingNone>
+          What{"'"}s your main goal for today?
+        </Box>
+      </Box>
+    )
+  }
   return (
-    <Box column mt4>
+    <Box column mt={[4, 4, 12]}>
       {todayTodos.map((todo) => {
         const { row, todoNode } = todo
         return <TodoItem key={row.id} todo={todo} />

@@ -36,6 +36,13 @@ export const SidebarDrawer = () => {
 
   const isTodosActive = name === 'TODOS'
 
+  const isTodayActive = useMemo(() => {
+    if (name !== 'NODE' || !activeNodes.length) return false
+    if (!activeNodes[0]) return false
+    if (new Node(activeNodes[0]).isToday) return true
+    return false
+  }, [name, activeNodes])
+
   const isTagsActive = useMemo(() => {
     if (name !== 'NODE' || !activeNodes.length) return false
     if (!activeNodes[0]) return false
@@ -86,12 +93,13 @@ export const SidebarDrawer = () => {
             )}
             <SpacePopover />
           </Box>
-          <Box column overflowAuto flex-1>
+          <Box column flex-1>
             <Box flex-1 mt3 gap4 column>
               <Box bgWhite roundedLG>
                 <MenuItem
                   icon={<CalendarDays size={22} />}
                   label="Today"
+                  isActive={isTodayActive}
                   onClick={() => {
                     store.node.selectDailyNote()
                     close()
@@ -100,7 +108,7 @@ export const SidebarDrawer = () => {
 
                 <MenuItem
                   icon={<CheckCircle2 size={22} />}
-                  label="Todos"
+                  label="Tasks"
                   isActive={isTodosActive}
                   onClick={() => {
                     store.router.routeTo('TODOS')
@@ -111,6 +119,7 @@ export const SidebarDrawer = () => {
                 <MenuItem
                   icon={<Database size={22} />}
                   label="Tags"
+                  isActive={isTagsActive}
                   borderBottom={false}
                   onClick={() => {
                     store.node.selectTagBox()

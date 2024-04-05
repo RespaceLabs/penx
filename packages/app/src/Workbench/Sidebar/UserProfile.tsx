@@ -68,9 +68,9 @@ export const UserProfile = ({ isMobile, ...rest }: Props) => {
           </Box>
         )}
       </PopoverTrigger>
-      <PopoverContent w-200>
+      <PopoverContent w-220>
         <Box toCenterY gap2 px4 py2>
-          <Avatar size={24}>
+          <Avatar size={24} flexShrink-0>
             <AvatarImage src={image} />
             <AvatarFallback>{name}</AvatarFallback>
           </Avatar>

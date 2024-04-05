@@ -56,7 +56,7 @@ export function PanelItem({ node, index }: Props) {
 
   return (
     <NodeProvider value={{ index, node }}>
-      <Box relative h-100vh flex-1>
+      <Box relative h-100vh flex-1 px={[6, 6, 0]} pt={[8, 8, 0]}>
         <Box
           overflowYAuto
           h={[`calc(100vh - ${EDITOR_NAV_WIDTH}px)`, '100vh']}

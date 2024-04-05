@@ -83,7 +83,7 @@ export const Workbench = () => {
           <ErrorBoundary fallback={<Fallback />}>
             {name === 'NODE' && <NodePanels />}
 
-            <BottomBar />
+            {(name === 'NODE' || name === 'TODOS') && <BottomBar />}
 
             {name !== 'NODE' && (
               <Box h-100vh overflowYAuto>

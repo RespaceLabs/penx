@@ -30,6 +30,7 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
           h-36
           transitionColors
           black
+          flex-1
         >
           <Box toCenterY gap1>
             <Bullet
@@ -60,7 +61,7 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
           </Box>
           <Box
             inlineFlex
-            opacity-0
+            // opacity-0={[false, false, true]}
             opacity-100--$currentSpace--hover
             onClick={(e) => {
               close()

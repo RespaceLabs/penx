@@ -77,7 +77,9 @@ export const Sidebar = () => {
       overflowAuto
     >
       <Box px2>
-        <SpacePopover />
+        <Box mt2>
+          <SpacePopover />
+        </Box>
         {!!nodes.length && (
           <Box column gap-1 flex-1 mt3>
             <SidebarItem
@@ -99,7 +101,7 @@ export const Sidebar = () => {
 
             <SidebarItem
               icon={<CheckCircle2 size={18} />}
-              label="Todos"
+              label="Tasks"
               isActive={isTodosActive}
               onClick={() => {
                 store.router.routeTo('TODOS')

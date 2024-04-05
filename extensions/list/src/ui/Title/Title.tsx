@@ -38,6 +38,7 @@ export const Title = (props: ElementProps<TitleElement>) => {
       toCenterY
       gap2
       pr4
+      display={['none', 'none', 'flex']}
       {...attributes}
       // {...nodeProps}
     >
