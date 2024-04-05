@@ -52,7 +52,7 @@ export const Nav = () => {
   ]
 
   return (
-    <Box listNone toCenterY gap6 textBase>
+    <Box listNone toCenterY gap6 textBase display={['none', 'none', 'flex']}>
       {navData.map((item, i) => {
         if (item.isExternal) {
           return (

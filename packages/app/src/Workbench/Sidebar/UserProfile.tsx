@@ -65,12 +65,6 @@ export const UserProfile = ({ isMobile, ...rest }: Props) => {
               <AvatarImage src={image} flexShrink-0 />
               <AvatarFallback>{name}</AvatarFallback>
             </Avatar>
-            <Box>
-              <Box textBase fontBold>
-                {name}
-              </Box>
-              {session.email && <Box>{session.email}</Box>}
-            </Box>
           </Box>
         )}
       </PopoverTrigger>

@@ -9,9 +9,16 @@ import { Nav } from './Nav'
 export function Footer() {
   return (
     <Box mb20>
-      <Box toCenterY toBetween w-100p px8 gap20>
-        <Logo />
-        <Box flex-1 toBetween>
+      <Box
+        toCenterY
+        toBetween
+        w-100p
+        px8
+        gap20
+        flexDirection={['column', 'column', 'row']}
+      >
+        <Logo display={['none', 'none', 'flex']} />
+        <Box gap6 flex-1 toBetween grid gridTemplateColumns={[1, 1, 2, 3]}>
           <FooterBox
             title="Social"
             items={[
@@ -84,7 +91,14 @@ export function Footer() {
         </Box>
       </Box>
       <Divider my8 />
-      <Box ml8 toCenterY toBetween gap2 textSM>
+      <Box
+        ml8
+        toCenterY
+        toBetween
+        gap2
+        textSM
+        flexDirection={['column', 'row']}
+      >
         <Box toCenterY gap2>
           <StyledLink href="/privacy" gray800 noUnderline>
             <Box gray800 noUnderline>
@@ -120,8 +134,8 @@ export function FooterBox({ title, items, ...rest }: FooterBoxProps) {
         {title}
       </Box>
       <Box column gap4>
-        {items.map((item) => (
-          <Box key={item.to}>
+        {items.map((item, i) => (
+          <Box key={i}>
             <StyledLink
               href={item.to}
               neutral900

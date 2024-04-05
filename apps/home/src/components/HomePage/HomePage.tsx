@@ -24,7 +24,7 @@ export function HomePage() {
           leadingTight
           textCenter
           black
-          mt={[120]}
+          mt={[80, 120]}
           p0
         >
           A daily canvas to{' '}
@@ -119,7 +119,11 @@ export function HomePage() {
           </Button>
         </Box>
 
-        <Box as="img" src="/images/editor.png" w-1200 />
+        <Box
+          as="img"
+          src="/images/editor.png"
+          w={['100%', '100%', 760, 840, 1200]}
+        />
       </Box>
     </Box>
   )

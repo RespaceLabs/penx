@@ -10,7 +10,8 @@ export const BasicLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Box bgWhite column gap4 toBetween toCenterX>
       <Box
-        toBetween
+        toBetween={[false, true]}
+        toCenterX={[true, false]}
         py3
         w={['98%', '98%', '100%']}
         relative
