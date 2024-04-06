@@ -19,6 +19,8 @@ body {
     'Segoe UI Symbol',
     'Noto Color Emoji';
 
+  overflow-x: hidden;
+
   /* fix for vaul */
   pointer-events: auto !important;
 }

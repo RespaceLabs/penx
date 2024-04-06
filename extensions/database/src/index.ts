@@ -26,7 +26,8 @@ import { withTag } from './withTag'
 
 export * from './guard'
 export * from './isTag'
-export * from './ui/views/TableView/PublishedTableView'
+export * from './ui/TagDrawer'
+export * from './hooks/useTagDrawer'
 
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
@@ -46,21 +47,22 @@ export function activate(ctx: ExtensionContext) {
         isVoid: true,
         type: ELEMENT_DATABASE_CONTAINER,
         component: DatabaseContainer,
-        // slashCommand: {
-        //   in: ['BLOCK', 'OUTLINER'],
-        //   name: 'Database',
-        //   icon: TableIcon,
-        //   async beforeInvokeCommand(editor) {
-        //     const node = await db.createDatabase(
-        //       'Untitled',
-        //       DataSource.COMMON,
-        //       true,
-        //     )
-        //     const newNodes = await db.listNodesBySpaceId(node.spaceId)
-        //     store.node.setNodes(newNodes)
-        //     return node
-        //   },
-        // },
+        slashCommand: {
+          in: ['BLOCK', 'OUTLINER'],
+          name: 'Database',
+          icon: TableIcon,
+          async beforeInvokeCommand(editor) {
+            const node = await db.createDatabase(
+              editor.spaceId,
+              'Untitled',
+              DataSource.COMMON,
+              true,
+            )
+            const newNodes = await db.listNodesBySpaceId(node.spaceId)
+            store.node.setNodes(newNodes)
+            return node
+          },
+        },
       },
 
       {

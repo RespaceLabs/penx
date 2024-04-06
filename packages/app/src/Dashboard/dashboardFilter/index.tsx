@@ -8,8 +8,7 @@ import {
   PopoverTrigger,
   usePopoverContext,
 } from 'uikit'
-import { TableSearch } from '@penx/database/src/ui/views/TableView/TableSearch'
-import { ToolbarBtn } from '@penx/database/src/ui/ViewToolBar/ToolbarBtn'
+import { TableSearch, ToolbarBtn } from '@penx/widget'
 import { SpacesContext } from '..'
 import { FilterBtns } from './FilterBtns'
 import { FilterItem } from './FilterItem'

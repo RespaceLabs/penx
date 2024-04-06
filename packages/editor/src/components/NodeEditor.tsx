@@ -28,6 +28,7 @@ import { Descendant, Editor, Path, Transforms } from 'slate'
 import { Slate } from 'slate-react'
 import { EditableProps } from 'slate-react/dist/components/editable'
 import { SetNodeToDecorations } from '@penx/code-block'
+import { TagDrawer } from '@penx/database'
 import { getProjection } from '@penx/dnd-projection'
 import { PenxEditor } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
@@ -149,6 +150,8 @@ export function NodeEditor({
     >
       {/* <HoveringToolbar /> */}
       <SetNodeToDecorations />
+
+      <TagDrawer />
 
       <DndContext
         sensors={sensors}

@@ -1,11 +1,14 @@
 import { forwardRef } from 'react'
 import { Box } from '@fower/react'
 import { Editor, Path } from 'slate'
+import { Button } from 'uikit'
 import { useEditorStatic } from '@penx/editor-common'
 import { isListContentElement, ListContentElement } from '@penx/list'
 import { useDatabase } from '@penx/node-hooks'
 import { mappedByKey } from '@penx/shared'
-import { useDatabaseContext } from '../DatabaseContext'
+import { store } from '@penx/store'
+import { DatabaseProvider, useDatabaseContext } from '@penx/widget'
+import { useTagDrawer } from '../../hooks/useTagDrawer'
 import { FieldIcon } from '../shared/FieldIcon'
 import { CellField } from './fields'
 
@@ -19,8 +22,19 @@ export const TagForm = forwardRef<HTMLDivElement, Props>(function TagForm(
   { databaseId, path },
   ref,
 ) {
-  const { currentView } = useDatabaseContext()
+  return (
+    <Box ref={ref} column>
+      <DatabaseProvider databaseId={databaseId}>
+        <TagFormContent databaseId={databaseId} path={path} />
+      </DatabaseProvider>
+    </Box>
+  )
+})
+
+function TagFormContent({ databaseId, path }: Props) {
+  const { currentView, database } = useDatabaseContext()
   const { columns, views, cells } = useDatabase(databaseId)
+  const { close } = useTagDrawer()
 
   const columnMap = mappedByKey(columns, 'id')
   const { viewColumns = [] } = currentView.props
@@ -53,29 +67,36 @@ export const TagForm = forwardRef<HTMLDivElement, Props>(function TagForm(
   })
 
   return (
-    <Box ref={ref} column>
-      <Box fontSemibold h-48 px6 toCenterY borderBottom>
-        Update Metadata for this Node
+    <Box column gap4 px6 maxH-400 overflowYAuto>
+      <Box toBetween px6 toCenterY h-56 borderBottom mx--24>
+        <Box fontSemibold>Update Metadata for this Node</Box>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            store.node.selectNode(database)
+            close()
+          }}
+        >
+          All records
+        </Button>
       </Box>
+      {rowCells.map((cell, index) => {
+        if (cell.props.ref === blockElement.id) return null
 
-      <Box column gap4 p6 maxH-400 overflowYAuto>
-        {rowCells.map((cell, index) => {
-          if (cell.props.ref === blockElement.id) return null
+        const column = columns.find((col) => col.id === cell.props.columnId)!
 
-          const column = columns.find((col) => col.id === cell.props.columnId)!
-
-          return (
-            <Box key={cell.id}>
-              <Box mb2 toCenterY gap1 gray600>
-                <FieldIcon fieldType={column.props.fieldType} />
-                <Box textXS>{column.props.name}</Box>
-              </Box>
-
-              <CellField index={index} cell={cell} columns={sortedColumns} />
+        return (
+          <Box key={cell.id}>
+            <Box mb2 toCenterY gap1 gray600>
+              <FieldIcon fieldType={column.props.fieldType} />
+              <Box textXS>{column.props.name}</Box>
             </Box>
-          )
-        })}
-      </Box>
+
+            <CellField index={index} cell={cell} columns={sortedColumns} />
+          </Box>
+        )
+      })}
     </Box>
   )
-})
+}

@@ -55,6 +55,7 @@
     "@penx/store": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "@tanstack/react-query": "^4.36.1",
+    "classnames": "^2.3.2",
     "downshift": "^8.2.3",
     "framer-motion": "^10.16.14",
     "immer": "^10.0.4",

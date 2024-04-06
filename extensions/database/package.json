@@ -40,6 +40,7 @@
     "@penx/editor-transforms": "workspace:*",
     "@penx/extension-typings": "^0.0.0",
     "@penx/node-hooks": "workspace:*",
+    "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/list": "workspace:*",
     "@penx/local-db": "workspace:*",
@@ -50,6 +51,7 @@
     "@penx/shared": "workspace:*",
     "@penx/slate-lists": "workspace:*",
     "@penx/store": "workspace:*",
+    "@penx/widget": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "@tanstack/react-query": "^4.36.1",
     "@udecode/plate-common": "^25.0.1",
@@ -64,6 +66,7 @@
     "mitt": "^3.0.1",
     "react": "^18.2.0",
     "react-datepicker": "^4.24.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-fast-compare": "^3.2.2",
     "react-hook-form": "^7.48.2",
@@ -74,6 +77,7 @@
     "stook": "^1.17.0",
     "uikit": "workspace:*",
     "use-debounce": "^9.0.4",
+    "vaul": "^0.9.0",
     "viem": "^2.7.19",
     "wagmi": "^2.5.7"
   }

@@ -11,7 +11,7 @@ import { Node as NodeModel } from '@penx/model'
 import { EditorMode, ICellNode, IColumnNode } from '@penx/model-types'
 import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
-import { PrimaryCell } from '../../../Table/Cell/PrimaryCell'
+import { PrimaryCell } from '../../../Cell/PrimaryCell'
 
 interface NoteCellProps {
   kind: 'note-cell'

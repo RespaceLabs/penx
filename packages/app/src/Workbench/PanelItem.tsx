@@ -14,7 +14,6 @@ import { routerAtom, store } from '@penx/store'
 import { withAutoNodeId } from '../plugins/withAutoNodeId'
 import { withBulletPlugin } from '../plugins/withBulletPlugin'
 import { LinkedReferences } from './LinkedReferences'
-import { PCNav } from './NodeNav/PCNav'
 
 interface Props {
   index: number

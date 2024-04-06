@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react'
-import { useDatabaseContext } from '@penx/database/src/ui/DatabaseContext'
 import {
   ConjunctionType,
   Filter,
   OperatorType,
 } from '@penx/model-types/src/interfaces/INode'
+import { useDatabaseContext } from '@penx/widget'
 import { SpacesContext } from '..'
 
 export function useFilterField() {

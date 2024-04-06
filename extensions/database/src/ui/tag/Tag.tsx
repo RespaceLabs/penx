@@ -1,3 +1,4 @@
+import { isMobile } from 'react-device-detect'
 import { Box } from '@fower/react'
 import { useSelected } from 'slate-react'
 import { ELEMENT_P } from '@penx/constants'
@@ -9,8 +10,9 @@ import { ElementProps } from '@penx/extension-typings'
 import { db } from '@penx/local-db'
 import { useNodes } from '@penx/node-hooks'
 import { store } from '@penx/store'
+import { DatabaseProvider } from '@penx/widget'
+import { useTagDrawer } from '../../hooks/useTagDrawer'
 import { TagElement } from '../../types'
-import { DatabaseProvider } from '../DatabaseContext'
 import { TagForm } from './TagForm'
 
 export const Tag = ({
@@ -24,25 +26,33 @@ export const Tag = ({
   const { nodeList } = useNodes()
   const node = nodeList.nodeMap.get(element.databaseId)!
   const isInDatabase = (editor.children?.[0] as any)?.type === ELEMENT_P
+  const { open } = useTagDrawer()
 
   const menuId = `tag-menu-${genId()}`
   const { show } = useContextMenu(menuId)
+  const path = findNodePath(editor, element)!
 
   async function clickTag() {
+    if (isMobile) {
+      open({
+        databaseId: element.databaseId,
+        path,
+      })
+      return
+    }
     const database = await db.getNode(element.databaseId)
     if (database) {
       store.node.selectNode(database)
     }
   }
 
-  const path = findNodePath(editor, element)!
-
   const tagJSX = (
     <Box
       contentEditable={false}
       cursorPointer
       fontNormal
-      py1
+      h={[24, 22]}
+      toCenter
       px1
       leadingNone
       textXS

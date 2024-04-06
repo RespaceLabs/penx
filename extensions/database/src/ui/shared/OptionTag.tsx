@@ -30,7 +30,7 @@ export function OptionTag({
       inlineFlex
       roundedFull
       px2
-      py1
+      h-24
       gap1
       textSM
       toCenterY

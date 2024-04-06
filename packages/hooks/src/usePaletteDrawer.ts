@@ -1,9 +1,9 @@
 import { atom, useAtom } from 'jotai'
 
-const PaletteDrawerAtom = atom(false)
+const paletteDrawerAtom = atom(false)
 
 export function usePaletteDrawer() {
-  const [isOpen, setIsOpen] = useAtom(PaletteDrawerAtom)
+  const [isOpen, setIsOpen] = useAtom(paletteDrawerAtom)
   return {
     isOpen,
     open: () => setIsOpen(true),

@@ -3,7 +3,7 @@ import { Box, css } from '@fower/react'
 import { DatabaseIcon } from 'lucide-react'
 import { useDebouncedCallback } from 'use-debounce'
 import { db } from '@penx/local-db'
-import { useDatabaseContext } from './DatabaseContext'
+import { useDatabaseContext } from '@penx/widget'
 
 export const DatabaseHeader = () => {
   const { database } = useDatabaseContext()

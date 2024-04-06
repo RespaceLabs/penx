@@ -1,10 +1,10 @@
 import { Box } from '@fower/react'
 import { GetServerSideProps } from 'next'
-import { PublishedTableView } from '@penx/database'
 import { prisma, PublishedNode } from '@penx/db'
 import { ReadOnlyEditor } from '@penx/editor'
 import { INode } from '@penx/model-types'
 import { nodeToSlate } from '@penx/serializer'
+import { PublishedTableView } from '@penx/widget'
 import { ClientOnly } from '~/components/ClientOnly'
 
 interface Props {

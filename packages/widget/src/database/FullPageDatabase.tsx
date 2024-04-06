@@ -21,7 +21,7 @@ interface Props {
   node: Node
 }
 
-export const DatabaseApp = ({ node }: Props) => {
+export const FullPageDatabase = ({ node }: Props) => {
   return (
     <DatabaseProvider databaseId={node.id}>
       <Box toLeft column px={[0, 0, 12]} gap0>

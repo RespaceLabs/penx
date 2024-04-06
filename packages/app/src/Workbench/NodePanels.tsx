@@ -2,7 +2,7 @@ import { Box } from '@fower/react'
 import { useActiveNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { NodeProvider } from '@penx/node-hooks'
-import { DatabaseApp } from '@penx/widget'
+import { FullPageDatabase } from '@penx/widget'
 import { MobileNav } from './NodeNav/MobileNav'
 import { PCNav } from './NodeNav/PCNav'
 import { PanelItem } from './PanelItem'
@@ -20,7 +20,7 @@ export function NodePanels() {
               <PCNav />
               <MobileNav />
               {node.isDatabase ? (
-                <DatabaseApp node={node} />
+                <FullPageDatabase node={node} />
               ) : (
                 <PanelItem key={index} node={node} index={index} />
               )}

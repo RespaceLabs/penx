@@ -22,10 +22,11 @@ import { useTableView } from './hooks/useTableView'
 import { useUndoRedo } from './use-undo-redo'
 
 interface Props {
+  width?: number | string
   height: number | string
 }
 
-export const TableView = ({ height }: Props) => {
+export const TableView = ({ height, width }: Props) => {
   const { database, sortedColumns } = useDatabaseContext()
   const isTagDataSource = database.props.dataSource === DataSource.TAG
   const isTodo = database.props.name === TODO_DATABASE_NAME
@@ -80,7 +81,10 @@ export const TableView = ({ height }: Props) => {
         smoothScrollX
         smoothScrollY
         height={height}
-        width={isMobile ? '100vw' : `calc(100vw - ${SIDEBAR_WIDTH + 30}px)`}
+        width={
+          width ||
+          (isMobile ? '100vw' : `calc(100vw - ${SIDEBAR_WIDTH + 30}px)`)
+        }
         // width={`calc(100vw)`}
         rowMarkers="number"
         getCellsForSelection={true}
