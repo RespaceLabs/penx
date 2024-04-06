@@ -10,7 +10,7 @@ export const TodayTodos = () => {
     return (
       <Box h-80vh toCenter>
         <Box text4XL fontBold textCenter leadingNone>
-          What{"'"}s your main goal for today?
+          What{"'"}s your plain for today?
         </Box>
       </Box>
     )

@@ -32,10 +32,10 @@
     "@penx/shared": "workspace:*",
     "lodash": "^4.17.21",
     "lucide-react": "^0.344.0",
-    "slate": "0.101.5",
+    "slate": "0.102.0",
     "slate-history": "0.100.0",
     "@penx/slate-lists": "workspace:*",
-    "slate-react": "0.101.5",
+    "slate-react": "0.102.0",
     "stook": "^1.17.0",
     "uikit": "workspace:*"
   }

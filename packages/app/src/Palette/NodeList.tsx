@@ -20,10 +20,11 @@ export function NodeList({ q, setSearch, close }: Props) {
   const paletteDrawer = usePaletteDrawer()
 
   const filteredItems = nodeList.nodes
-    .filter(
-      (node) =>
-        node.title.toLowerCase().includes(q.toLowerCase()) && node.isCommon,
-    )
+    .filter((node) => {
+      if (!node.title) return false
+
+      return node.title.toLowerCase().includes(q.toLowerCase()) && node.isCommon
+    })
     .slice(0, 20)
 
   if (!filteredItems.length) {

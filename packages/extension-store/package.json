@@ -13,12 +13,12 @@
     "eslint": "^8.55.0",
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
+    "slate": "^0.102.0",
     "typescript": "^5.3.2"
   },
   "dependencies": {
     "@penx/autoformat": "workspace:*",
     "@penx/editor-common": "workspace:*",
-    "@penx/extension-typings": "^0.0.0",
-    "slate": "^0.102.0"
+    "@penx/extension-typings": "^0.0.0"
   }
 }

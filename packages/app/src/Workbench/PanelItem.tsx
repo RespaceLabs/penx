@@ -70,7 +70,7 @@ export function PanelItem({ node, index }: Props) {
             maxW={w}
             mt={[0, 0, 32]}
             style={{
-              wordBreak: 'break-all',
+              wordBreak: 'break-word',
             }}
           >
             <NodeEditor

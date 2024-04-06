@@ -13,6 +13,9 @@
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
     "@penx/tsconfig": "workspace:*",
+    "slate": "0.102.0",
+    "slate-history": "0.100.0",
+    "slate-react": "0.102.0",
     "typescript": "^5.3.2"
   },
   "dependencies": {
@@ -22,9 +25,6 @@
     "@penx/extension-typings": "^0.0.0",
     "@penx/hooks": "workspace:*",
     "@penx/local-db": "workspace:*",
-    "lucide-react": "^0.344.0",
-    "slate": "0.101.5",
-    "slate-history": "0.100.0",
-    "slate-react": "0.101.5"
+    "lucide-react": "^0.344.0"
   }
 }

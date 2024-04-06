@@ -16,6 +16,8 @@
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
     "@penx/tsconfig": "workspace:*",
+    "slate": "0.102.0",
+    "slate-react": "0.102.0",
     "typescript": "^5.3.2"
   },
   "dependencies": {
@@ -28,8 +30,6 @@
     "@prisma/client": "^5.6.0",
     "crypto-js": "^4.2.0",
     "date-fns": "^2.30.0",
-    "diff-match-patch": "^1.0.5",
-    "slate": "0.101.5",
-    "slate-react": "0.101.5"
+    "diff-match-patch": "^1.0.5"
   }
 }

@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { Node, Path } from 'slate'
-import { useEditorStatic } from '@penx/editor-common'
+import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 
@@ -10,7 +10,8 @@ export const Paragraph = ({
   children,
   nodeProps,
 }: ElementProps) => {
-  const editor = useEditorStatic()
+  // const editor = useEditorStatic()
+  const editor = useEditor()
   const path = findNodePath(editor, element)!
   const parent = Path.parent(path)
   const node: any = getNodeByPath(editor, parent)
@@ -21,10 +22,10 @@ export const Paragraph = ({
     <Box
       leadingNormal
       gray900
-      textBase={!isInTitle}
+      text={isInTitle ? false : [17, 17, 16]}
       relative
       // h="1.5em"
-      // py2
+      py={[2]}
       // h-100p
       {...attributes}
       {...(nodeProps || {})}

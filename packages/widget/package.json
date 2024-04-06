@@ -15,6 +15,9 @@
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "slate": "0.102.0",
+    "slate-history": "0.100.0",
+    "slate-react": "0.102.0",
     "typescript": "^5.3.2"
   },
   "dependencies": {
@@ -27,12 +30,17 @@
     "@fower/utils": "^2.0.0",
     "@glideapps/glide-data-grid": "^6.0.3",
     "@penx/constants": "workspace:*",
+    "@penx/context-menu": "workspace:*",
+    "@penx/editor": "workspace:*",
     "@penx/editor-common": "workspace:*",
     "@penx/editor-leaf": "workspace:*",
+    "@penx/editor-shared": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-transforms": "workspace:*",
     "@penx/encryption": "workspace:*",
+    "@penx/extension-typings": "workspace:*",
     "@penx/event": "workspace:*",
+    "@penx/list": "workspace:*",
     "@penx/google-drive": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
@@ -57,9 +65,6 @@
     "react-hook-form": "^7.48.2",
     "react-laag": "^2.0.5",
     "react-textarea-autosize": "^8.5.3",
-    "slate": "^0.102.0",
-    "slate-history": "^0.100.0",
-    "slate-react": "^0.102.0",
     "uikit": "workspace:*",
     "use-debounce": "^9.0.4"
   }
