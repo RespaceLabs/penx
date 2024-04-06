@@ -3,6 +3,7 @@ import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { useDebouncedCallback } from 'use-debounce'
 import { WORKBENCH_NAV_HEIGHT } from '@penx/constants'
+import { TagDrawer } from '@penx/database'
 import { NodeEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
 import { useActiveSpace } from '@penx/hooks'
@@ -87,7 +88,9 @@ export function PanelItem({ node, index }: Props) {
                   // setSaving(false)
                 }
               }}
-            />
+            >
+              <TagDrawer />
+            </NodeEditor>
             <LinkedReferences node={node} />
           </Box>
         </Box>

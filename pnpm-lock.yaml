@@ -3339,6 +3339,9 @@ importers:
       immer:
         specifier: ^10.0.3
         version: 10.0.4
+      jotai:
+        specifier: ^2.6.0
+        version: 2.7.2(@types/react@18.2.73)(react@18.2.0)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -5032,9 +5035,6 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
-      '@penx/database':
-        specifier: workspace:*
-        version: link:../../extensions/database
       '@penx/dnd-projection':
         specifier: workspace:*
         version: link:../dnd-projection
