@@ -133,7 +133,7 @@ export const SidebarDrawer = () => {
                 <DatabaseList />
               </Box> */}
 
-              <Box bgWhite roundedLG>
+              <Box bgWhite roundedLG py2>
                 <TreeView nodeList={nodeList} />
               </Box>
             </Box>
