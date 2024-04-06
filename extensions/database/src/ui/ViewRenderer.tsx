@@ -1,3 +1,4 @@
+import { ELEMENT_DATABASE_CONTAINER } from '@penx/constants'
 import { ViewType } from '@penx/model-types'
 import { DatabaseContainerElement, DatabaseElement } from '../types'
 import { useDatabaseContext } from './DatabaseContext'
@@ -13,6 +14,8 @@ interface Props {
 export const ViewRenderer = ({ element }: Props) => {
   const { currentView } = useDatabaseContext()
 
+  const isDatabaseContainer = element.type === ELEMENT_DATABASE_CONTAINER
+
   if (!currentView) return null
 
   if (currentView.props.viewType === ViewType.LIST) {
@@ -27,5 +30,7 @@ export const ViewRenderer = ({ element }: Props) => {
     return <GalleryView />
   }
 
-  return <TableView element={element} />
+  return (
+    <TableView height={isDatabaseContainer ? 300 : `calc(100vh - 300px)`} />
+  )
 }

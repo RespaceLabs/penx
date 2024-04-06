@@ -18,13 +18,11 @@ import { useTableView } from './hooks/useTableView'
 import { useUndoRedo } from './use-undo-redo'
 
 interface Props {
-  element: DatabaseElement | DatabaseContainerElement
+  height: number | string
 }
 
-export const TableView = ({ element }: Props) => {
+export const TableView = ({ height }: Props) => {
   const { database, sortedColumns } = useDatabaseContext()
-
-  const isDatabaseContainer = element.type === ELEMENT_DATABASE_CONTAINER
   const isTagDataSource = database.props.dataSource === DataSource.TAG
   const isTodo = database.props.name === TODO_DATABASE_NAME
   const canNewRow = !isTodo && !isTagDataSource
@@ -74,7 +72,7 @@ export const TableView = ({ element }: Props) => {
         freezeColumns={1}
         smoothScrollX
         smoothScrollY
-        height={isDatabaseContainer ? 300 : `calc(100vh - 300px)`}
+        height={height}
         width={`calc(100vw - 360px)`}
         rowMarkers="number"
         getCellsForSelection={true}

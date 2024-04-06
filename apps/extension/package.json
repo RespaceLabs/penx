@@ -106,7 +106,7 @@
     "react-merge-refs": "^2.1.1",
     "slate": "0.94.1",
     "slate-history": "0.93.0",
-    "slate-react": "^0.101.2",
+    "slate-react": "0.101.5",
     "stook": "^1.17.0",
     "superjson": "1.9.1",
     "tinykeys": "^2.1.0",

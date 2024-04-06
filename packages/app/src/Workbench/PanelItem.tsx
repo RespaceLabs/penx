@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { useDebouncedCallback } from 'use-debounce'
-import { EDITOR_NAV_WIDTH } from '@penx/constants'
+import { WORKBENCH_NAV_HEIGHT } from '@penx/constants'
 import { NodeEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
 import { useActiveSpace } from '@penx/hooks'
@@ -55,48 +55,44 @@ export function PanelItem({ node, index }: Props) {
   }
 
   return (
-    <NodeProvider value={{ index, node }}>
-      <Box relative h-100vh flex-1 px={[6, 6, 0]} pt={[8, 8, 0]}>
-        <Box
-          overflowYAuto
-          h={[`calc(100vh - ${EDITOR_NAV_WIDTH}px)`, '100vh']}
-          pl={[0, 16]}
-          pr={[0, 4]}
-          pt0
-          pb-100
-        >
-          {(node.isCommon || node.isRootNode || node.isDaily) &&
-            name === 'NODE' && <PCNav />}
-          <Box w-100p>
-            <Box
-              mx-auto
-              maxW={w}
-              mt={[0, 0, 32]}
-              style={{
-                wordBreak: 'break-all',
+    <Box relative h-100vh flex-1 px={[6, 6, 0]} pt={[8, 8, 0]}>
+      <Box
+        overflowYAuto
+        h={[`calc(100vh - ${WORKBENCH_NAV_HEIGHT}px)`, '100vh']}
+        pl={[0, 16]}
+        pr={[0, 4]}
+        pt0
+        pb-100
+      >
+        <Box w-100p>
+          <Box
+            mx-auto
+            maxW={w}
+            mt={[0, 0, 32]}
+            style={{
+              wordBreak: 'break-all',
+            }}
+          >
+            <NodeEditor
+              index={index}
+              plugins={plugins}
+              // content={[content[1]]}
+              content={content}
+              node={node}
+              isOutliner={isOutliner}
+              onChange={async (value, editor) => {
+                if (isAstChange(editor)) {
+                  // if (saving) return
+                  // setSaving(true)
+                  await debouncedSaveNodes(value)
+                  // setSaving(false)
+                }
               }}
-            >
-              <NodeEditor
-                index={index}
-                plugins={plugins}
-                // content={[content[1]]}
-                content={content}
-                node={node}
-                isOutliner={isOutliner}
-                onChange={async (value, editor) => {
-                  if (isAstChange(editor)) {
-                    // if (saving) return
-                    // setSaving(true)
-                    await debouncedSaveNodes(value)
-                    // setSaving(false)
-                  }
-                }}
-              />
-              <LinkedReferences node={node} />
-            </Box>
+            />
+            <LinkedReferences node={node} />
           </Box>
         </Box>
       </Box>
-    </NodeProvider>
+    </Box>
   )
 }

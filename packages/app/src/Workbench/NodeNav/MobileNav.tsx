@@ -1,6 +1,8 @@
 import { Box } from '@fower/react'
+import { WORKBENCH_NAV_HEIGHT } from '@penx/constants'
 import { useActiveNodes, useRouterStore } from '@penx/hooks'
 import { Node } from '@penx/model'
+import { useNodeContext } from '@penx/node-hooks'
 import { PaletteDrawer } from '../PaletteDrawer'
 import { SidebarDrawer } from '../SidebarDrawer/SidebarDrawer'
 
@@ -17,8 +19,9 @@ function Title() {
   }
 
   if (!activeNodes.length) {
-    return <div>GOGO</div>
+    return <div></div>
   }
+
   const node = new Node(activeNodes[0])
 
   return (
@@ -29,9 +32,10 @@ function Title() {
 }
 
 export const MobileNav = () => {
+  const { node } = useNodeContext()
   return (
     <Box
-      h-48
+      h={WORKBENCH_NAV_HEIGHT}
       sticky
       top0
       toCenterY

@@ -20,6 +20,6 @@
     "@penx/editor-common": "workspace:*",
     "slate": "0.101.5",
     "slate-history": "0.100.0",
-    "slate-react": "^0.98.4"
+    "slate-react": "0.101.5"
   }
 }

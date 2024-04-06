@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Box } from '@fower/react'
 import { MenuIcon } from 'lucide-react'
-import { EDITOR_NAV_WIDTH } from '@penx/constants'
+import { SIDEBAR_WIDTH, WORKBENCH_NAV_HEIGHT } from '@penx/constants'
 import { EditorProvider } from '@penx/editor'
 import { useActiveSpace, useRouterName, useUser } from '@penx/hooks'
 import { useSession } from '@penx/session'
@@ -16,6 +16,7 @@ import { AccountSettings } from './AccountSettings/AccountSettings'
 import { BackupMnemonicTips } from './BackupMnemonicTips'
 import { BottomBar } from './BottomBar'
 import { MobileNav } from './NodeNav/MobileNav'
+import { PCNav } from './NodeNav/PCNav'
 import { NodePanels } from './NodePanels'
 import { PageTodo } from './PageTodo/PageTodo'
 import { RecoveryPhrase } from './RecoveryPhrase/RecoveryPhrase'
@@ -35,7 +36,6 @@ export const Workbench = () => {
 
   const { user } = useUser()
 
-  const SIDEBAR_WIDTH = 260
   // const SIDEBAR_WIDTH = 600
 
   // console.log('router name==========:', name)
@@ -51,7 +51,7 @@ export const Workbench = () => {
       <Box h-100vh toLeft black flex-1 relative>
         {!isBackedUp && session && name === 'NODE' && <BackupMnemonicTips />}
 
-        <Box toLeft>
+        <Box toLeft relative>
           <Box
             w={sidebarOpen ? [0, 0, SIDEBAR_WIDTH] : 0}
             toLeft
@@ -60,7 +60,7 @@ export const Workbench = () => {
           >
             <Sidebar />
           </Box>
-          <Box h={EDITOR_NAV_WIDTH} toCenterY>
+          <Box h={WORKBENCH_NAV_HEIGHT} toCenterY absolute right--40 zIndex-100>
             {!isMobile && <CommandPanel />}
             <Box
               onClick={handleViewSidebar}
@@ -78,15 +78,16 @@ export const Workbench = () => {
           </Box>
         </Box>
         <Box flex-1 relative>
-          <MobileNav />
-
           <ErrorBoundary fallback={<Fallback />}>
-            {name === 'NODE' && <NodePanels />}
-
             {(name === 'NODE' || name === 'TODOS') && <BottomBar />}
+
+            {name === 'NODE' && <NodePanels />}
 
             {name !== 'NODE' && (
               <Box h-100vh overflowYAuto>
+                <PCNav />
+                <MobileNav />
+
                 {name === 'ACCOUNT_SETTINGS' && <AccountSettings />}
                 {name === 'TODOS' && <PageTodo />}
                 {name === 'SPACE_SETTINGS' && <SpaceSettings />}

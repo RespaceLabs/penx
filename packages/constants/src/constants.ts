@@ -12,7 +12,11 @@ export const TODO_DATABASE_NAME = '__TODO__'
 
 export const LOCAL_USER_ID = 'acee1a5c-8e36-4a5f-846d-860566086e23'
 
-export const EDITOR_NAV_WIDTH = 44
+export const WORKBENCH_NAV_HEIGHT = 48
+
+export const DATABASE_TOOLBAR_HEIGHT = 40
+
+export const SIDEBAR_WIDTH = 260
 
 export const isSelfHosted = process.env.NEXT_PUBLIC_DEPLOY_MODE !== 'PLATFORM'
 
