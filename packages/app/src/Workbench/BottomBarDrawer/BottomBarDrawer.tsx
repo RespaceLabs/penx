@@ -28,7 +28,8 @@ export const BottomBarDrawer = () => {
           bgWhite
           column
           roundedTop2XL
-          h={`calc(100vh - 40px)`}
+          // h={`calc(100vh - 40px)`}
+          h-94vh
           fixed
           bottom-0
           left-0

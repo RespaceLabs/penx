@@ -74,6 +74,7 @@ export const SidebarDrawer = () => {
           column
           roundedTop2XL
           h-94vh
+          // maxH-96p
           fixed
           bottom-0
           left-0

@@ -121,7 +121,7 @@ export const Sidebar = () => {
 
       <Box px2 column gap2>
         <TagsEntry isActive={isTagsActive} />
-        <DatabaseList />
+        {/* <DatabaseList /> */}
       </Box>
 
       <Box flex-1 zIndex-1 overflowYAuto px2>

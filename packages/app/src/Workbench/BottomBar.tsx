@@ -24,6 +24,7 @@ export function BottomBar() {
         bgGray200--hover
         bgGray200--active
         overflowHidden
+        zIndex-100
         onClick={() => open()}
       >
         <Box gray300 inlineFlex>

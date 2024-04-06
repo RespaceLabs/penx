@@ -595,6 +595,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
+      '@penx/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons

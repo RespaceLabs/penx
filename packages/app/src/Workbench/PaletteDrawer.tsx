@@ -30,6 +30,7 @@ export const PaletteDrawer = () => {
           colorScheme="gray900"
           isSquare
           roundedFull
+          p0
         >
           <SearchIcon />
         </Button>

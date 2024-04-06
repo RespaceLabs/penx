@@ -12,11 +12,20 @@ const withPWA = NextPWA({
   disableDevLogs: true,
 })
 
+const octo = [
+  'octokit',
+  '@octokit/oauth-app',
+  '@octokit/openapi-types',
+  '@octokit/core',
+  '@octokit/app',
+]
+
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
   output: 'standalone',
   transpilePackages: [
+    ...octo,
     '@penx/abi',
     '@penx/api',
     '@penx/app',
