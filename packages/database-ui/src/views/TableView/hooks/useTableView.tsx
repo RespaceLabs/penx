@@ -12,12 +12,7 @@ import { format } from 'date-fns'
 import { produce } from 'immer'
 import { TODO_DATABASE_NAME } from '@penx/constants'
 import { db } from '@penx/local-db'
-import {
-  DataSource,
-  FieldType,
-  IColumnNode,
-  ViewColumn,
-} from '@penx/model-types'
+import { FieldType, IColumnNode, ViewColumn } from '@penx/model-types'
 import { mappedByKey } from '@penx/shared'
 import { store } from '@penx/store'
 import { useDatabaseContext } from '../../../DatabaseContext'
@@ -76,9 +71,6 @@ export function useTableView() {
     addRow,
     updateRowsIndexes,
   } = useDatabaseContext()
-
-  const isTagDataSource = database.props.dataSource === DataSource.TAG
-  const isTodo = database.props.name === TODO_DATABASE_NAME
 
   const columnsMap = mappedByKey(columns, 'id')
   let { viewColumns = [] } = currentView.props
@@ -217,7 +209,7 @@ export function useTableView() {
         } as SystemDateCell
       }
 
-      if (col === 0 && (isTagDataSource || isTodo)) {
+      if (col === 0) {
         return {
           kind: GridCellKind.Custom,
           allowOverlay: true,
@@ -238,15 +230,7 @@ export function useTableView() {
         displayData: cellData,
       }
     },
-    [
-      cellNodesMapList,
-      filterRows,
-      options,
-      columnsMap,
-      isTagDataSource,
-      isTodo,
-      indexes,
-    ],
+    [cellNodesMapList, filterRows, options, columnsMap, indexes],
   )
 
   const setCellValue = async (

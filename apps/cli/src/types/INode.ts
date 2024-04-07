@@ -103,11 +103,6 @@ export interface IDatabaseRootNode extends INode {
   }
 }
 
-export enum DataSource {
-  TAG = 'TAG',
-  COMMON = 'COMMON',
-}
-
 export interface IFilterResult {
   cellNodesMapList: Record<string, ICellNode>[]
   filterRows: IRowNode[]
@@ -120,7 +115,6 @@ export interface IDatabaseNode extends INode {
     color: string
     activeViewId: string
     viewIds: string[]
-    dataSource: DataSource
   }
 }
 

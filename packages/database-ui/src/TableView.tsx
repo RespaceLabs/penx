@@ -11,7 +11,6 @@ import {
   SIDEBAR_WIDTH,
   TODO_DATABASE_NAME,
 } from '@penx/constants'
-import { DataSource } from '@penx/model-types'
 import { AddColumnBtn } from './AddColumnBtn'
 import { cellRenderers } from './cells'
 import { useDatabaseContext } from './DatabaseContext'
@@ -28,9 +27,7 @@ interface Props {
 
 export const TableView = ({ height, width }: Props) => {
   const { database, sortedColumns } = useDatabaseContext()
-  const isTagDataSource = database.props.dataSource === DataSource.TAG
   const isTodo = database.props.name === TODO_DATABASE_NAME
-  // const canNewRow = !isTodo && !isTagDataSource
   const canNewRow = !isTodo
 
   const {

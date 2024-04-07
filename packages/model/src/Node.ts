@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { ELEMENT_TODO, TODO_DATABASE_NAME } from '@penx/constants'
 import { calculateSHA256FromString } from '@penx/encryption'
-import { DataSource, INode, NodeType } from '@penx/model-types'
+import { INode, NodeType } from '@penx/model-types'
 
 type Element = {
   id: string
@@ -143,11 +143,6 @@ export class Node {
 
   get isDatabase() {
     return this.type === NodeType.DATABASE
-  }
-
-  get isTagDatabase() {
-    // TODO: too hack
-    return this.props.dataSource !== DataSource.COMMON
   }
 
   get isView() {

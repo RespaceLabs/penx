@@ -8,7 +8,6 @@ import {
 import { Divider } from 'uikit'
 import { DATABASE_TOOLBAR_HEIGHT, WORKBENCH_NAV_HEIGHT } from '@penx/constants'
 import { Node } from '@penx/model'
-import { DataSource } from '@penx/model-types'
 import { AddColumnBtn } from './AddColumnBtn'
 import { cellRenderers } from './cells'
 import { DatabaseProvider, useDatabaseContext } from './DatabaseContext'

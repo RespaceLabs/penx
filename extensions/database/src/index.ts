@@ -10,7 +10,6 @@ import {
 } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
 import { db } from '@penx/local-db'
-import { DataSource } from '@penx/model-types'
 import { store } from '@penx/store'
 import { onBlur } from './handlers/onBlur'
 import { onKeyDown } from './handlers/onKeyDown'
@@ -55,7 +54,6 @@ export function activate(ctx: ExtensionContext) {
             const node = await db.createDatabase(
               editor.spaceId,
               'Untitled',
-              DataSource.COMMON,
               true,
             )
             const newNodes = await db.listNodesBySpaceId(node.spaceId)

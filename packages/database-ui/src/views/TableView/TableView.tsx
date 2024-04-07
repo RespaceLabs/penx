@@ -6,8 +6,6 @@ import {
   Rectangle,
 } from '@glideapps/glide-data-grid'
 import { ELEMENT_DATABASE_CONTAINER, TODO_DATABASE_NAME } from '@penx/constants'
-import { DataSource } from '@penx/model-types'
-import { DatabaseContainerElement, DatabaseElement } from '../../../types'
 import { useDatabaseContext } from '../../DatabaseContext'
 import { AddColumnBtn } from './AddColumnBtn'
 import { cellRenderers } from './cells'
@@ -23,9 +21,8 @@ interface Props {
 
 export const TableView = ({ height }: Props) => {
   const { database, sortedColumns } = useDatabaseContext()
-  const isTagDataSource = database.props.dataSource === DataSource.TAG
   const isTodo = database.props.name === TODO_DATABASE_NAME
-  const canNewRow = !isTodo && !isTagDataSource
+  const canNewRow = !isTodo
 
   const {
     rowsNum,

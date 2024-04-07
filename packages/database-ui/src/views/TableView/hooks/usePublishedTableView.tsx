@@ -12,7 +12,6 @@ import { format } from 'date-fns'
 import { produce } from 'immer'
 import { db } from '@penx/local-db'
 import {
-  DataSource,
   FieldType,
   ICellNode,
   IColumnNode,
@@ -83,8 +82,6 @@ export function usePublishedTableView(params: Params) {
     sortedColumns,
     options,
   } = params
-
-  const isTagDataSource = database.props.dataSource === DataSource.TAG
 
   const columnsMap = mappedByKey(columns, 'id')
   let { viewColumns = [] } = currentView.props
@@ -219,7 +216,7 @@ export function usePublishedTableView(params: Params) {
         } as SystemDateCell
       }
 
-      if (col === 0 && isTagDataSource) {
+      if (col === 0) {
         return {
           kind: GridCellKind.Custom,
           allowOverlay: false,

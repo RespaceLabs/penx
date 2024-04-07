@@ -5,7 +5,6 @@ import { ELEMENT_TODO, TODO_DATABASE_NAME } from '@penx/constants'
 import { ArraySorter, db, getNewNode } from '@penx/local-db'
 import { Node } from '@penx/model'
 import {
-  DataSource,
   EditorMode,
   ICellNode,
   IColumnNode,
@@ -418,12 +417,7 @@ export class NodeStore {
     return node
   }
 
-  async createDatabase(
-    spaceId: string,
-    name: string,
-    dataSource: DataSource = DataSource.TAG,
-    shouldInitCell = false,
-  ) {
+  async createDatabase(spaceId: string, name: string, shouldInitCell = false) {
     const nodes = this.getNodes()
 
     let databaseNode = nodes.find(
@@ -431,12 +425,7 @@ export class NodeStore {
     )
 
     if (!databaseNode) {
-      databaseNode = await db.createDatabase(
-        spaceId,
-        name,
-        dataSource,
-        shouldInitCell,
-      )
+      databaseNode = await db.createDatabase(spaceId, name, shouldInitCell)
     }
 
     const newNodes = await db.listNodesBySpaceId(databaseNode.spaceId)

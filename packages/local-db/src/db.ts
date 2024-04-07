@@ -5,7 +5,6 @@ import { get, set } from 'idb-keyval'
 import { LOCAL_USER_ID, TODO_DATABASE_NAME } from '@penx/constants'
 import {
   ConjunctionType,
-  DataSource,
   FieldType,
   Filter,
   Group,
@@ -147,7 +146,7 @@ export class PenxDB extends Dexie {
       activeNodeIds: [node.id],
     })
 
-    await this.createDatabase(spaceId, TODO_DATABASE_NAME, DataSource.COMMON)
+    await this.createDatabase(spaceId, TODO_DATABASE_NAME)
   }
 
   createSpace = async (data: Partial<ISpace>, initNode = true) => {
@@ -505,7 +504,6 @@ export class PenxDB extends Dexie {
   createDatabase = async (
     spaceId: string,
     name: string,
-    dataSource: DataSource = DataSource.TAG,
     shouldInitCell = false,
   ) => {
     const databaseRootNode = await this.getDatabaseRootNode(spaceId)
@@ -516,7 +514,6 @@ export class PenxDB extends Dexie {
       type: NodeType.DATABASE,
       props: {
         color: getRandomColor(),
-        dataSource,
         name,
         activeViewId: '',
         viewIds: [],
@@ -956,7 +953,7 @@ export class PenxDB extends Dexie {
     }
   }
 
-  addRow = async (databaseId: string, ref = '', source = '') => {
+  addRow = async (databaseId: string, ref = '', todoSource = '') => {
     const database = (await this.getNode(databaseId)) as IDatabaseNode
     const spaceId = database.spaceId
 
@@ -1009,8 +1006,8 @@ export class PenxDB extends Dexie {
       return column!
     })
 
-    const promises = sortedColumns.map((column, index) =>
-      this.createNode<ICellNode>({
+    const promises = sortedColumns.map((column, index) => {
+      return this.createNode<ICellNode>({
         spaceId,
         databaseId,
         parentId: databaseId,
@@ -1018,14 +1015,14 @@ export class PenxDB extends Dexie {
         props: {
           columnId: column.id,
           rowId: row.id,
-          ref: index === 0 ? ref : '',
+          ref: index === 0 && ref ? ref : '',
 
           // hack, let second column be todo source
-          data: source && index === 1 ? source : '',
-          isTodoSource: !!source && index === 1,
+          data: todoSource && index === 1 ? todoSource : '',
+          isTodoSource: !!todoSource && index === 1,
         },
-      }),
-    )
+      })
+    })
 
     await Promise.all(promises)
   }
@@ -1043,11 +1040,7 @@ export class PenxDB extends Dexie {
     )
 
     if (!todoDatabase) {
-      todoDatabase = await this.createDatabase(
-        spaceId,
-        TODO_DATABASE_NAME,
-        DataSource.COMMON,
-      )
+      todoDatabase = await this.createDatabase(spaceId, TODO_DATABASE_NAME)
     }
 
     // Get all database cells
