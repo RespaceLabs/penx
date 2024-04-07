@@ -1,6 +1,5 @@
 import { ELEMENT_DATABASE_CONTAINER } from '@penx/constants'
 import { ViewType } from '@penx/model-types'
-import { DatabaseContainerElement, DatabaseElement } from '../types'
 import { useDatabaseContext } from './DatabaseContext'
 import { GalleryView } from './views/GalleryView'
 import { KanbanView } from './views/KanbanView/KanbanView'
@@ -8,7 +7,8 @@ import { ListView } from './views/ListView'
 import { TableView } from './views/TableView/TableView'
 
 interface Props {
-  element: DatabaseElement | DatabaseContainerElement
+  // element: DatabaseElement | DatabaseContainerElement
+  element: any
 }
 
 export const ViewRenderer = ({ element }: Props) => {

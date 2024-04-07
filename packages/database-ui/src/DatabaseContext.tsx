@@ -27,7 +27,7 @@ import {
 } from '@penx/model-types'
 import { useDatabase } from '@penx/node-hooks'
 import { store } from '@penx/store'
-import { TableSearch } from './TableSearch'
+import { TableSearch } from './views/TableView/TableSearch'
 
 export interface IDatabaseContext {
   database: IDatabaseNode

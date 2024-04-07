@@ -5,6 +5,7 @@ import {
   drawTextCell,
   GridCellKind,
 } from '@glideapps/glide-data-grid'
+import { produce } from 'immer'
 import { Node } from 'slate'
 import { Bullet } from 'uikit'
 import { Node as NodeModel } from '@penx/model'
@@ -118,16 +119,12 @@ export const noteCellRenderer: CustomRenderer<NoteCell> = {
             width={0}
             onChange={(element) => {
               let newElement = Array.isArray(element) ? element : [element]
-              newValue = {
-                ...value,
-                data: {
-                  ...value.data,
-                  data: {
-                    ...value.data.data,
-                    element: newElement,
-                  },
-                },
-              }
+
+              const newValue = produce(value, (draft) => {
+                try {
+                  draft.data.data.element = newElement
+                } catch (error) {}
+              })
 
               onChange(newValue)
             }}

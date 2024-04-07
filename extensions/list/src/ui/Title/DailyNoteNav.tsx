@@ -11,7 +11,8 @@ export const DailyNoteNav = ({ date }: { date?: string }) => {
   const currentDate = new Date(date ?? Date.now())
 
   return (
-    <Box contentEditable={false} textXS fontNormal toCenterY gap1 gray600>
+    <Box contentEditable={false} textXS fontNormal toCenterY gap4 gray600>
+      <DailyShortcut />
       <GoToDay date={currentDate}></GoToDay>
     </Box>
   )
@@ -29,10 +30,8 @@ const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
       inlineFlex
       cursorPointer
       ml2
-      gap4
       onClick={onClick}
     >
-      <DailyShortcut />
       <IconCalendar size={20} stroke="gray500" />
     </Box>
   )

@@ -10,7 +10,6 @@ import {
 } from '@glideapps/glide-data-grid'
 import { format } from 'date-fns'
 import { produce } from 'immer'
-import { TODO_DATABASE_NAME } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { FieldType, IColumnNode, ViewColumn } from '@penx/model-types'
 import { mappedByKey } from '@penx/shared'
@@ -86,6 +85,7 @@ export function useTableView() {
       const dataRow = cellNodesMapList[row]
       const columnNode = columnsMap[indexes[col]]
       const rowNode = filterRows[row]
+      const cellNode = dataRow[indexes[col]]
 
       function getCellData() {
         if (!dataRow) return ''
@@ -209,14 +209,14 @@ export function useTableView() {
         } as SystemDateCell
       }
 
-      if (col === 0) {
+      if (col === 0 && cellNode?.props.ref) {
         return {
           kind: GridCellKind.Custom,
           allowOverlay: true,
-          copyData: 'TODO',
+          copyData: '', // TODO: copy data
           data: {
             kind: 'note-cell',
-            data: dataRow ? dataRow[indexes[col]] : null,
+            data: dataRow ? cellNode : null,
             column: columnNode,
           },
         } as NoteCell
@@ -256,9 +256,12 @@ export function useTableView() {
       data = data.data
     }
 
-    await db.updateCell(cell.id, {
-      props: { ...cell.props, data },
-    })
+    // if no ref, no need to update
+    if (!cell.props.ref) {
+      await db.updateCell(cell.id, {
+        props: { ...cell.props, data },
+      })
+    }
 
     const nodes = await db.listNodesBySpaceId(cell.spaceId)
     store.node.setNodes(nodes)

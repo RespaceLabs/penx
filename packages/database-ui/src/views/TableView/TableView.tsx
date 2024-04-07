@@ -1,11 +1,16 @@
 import { PropsWithChildren, useCallback, useRef, useState } from 'react'
+import { isMobile } from 'react-device-detect'
 import { Box, css } from '@fower/react'
 import {
   DataEditor,
   DataEditorRef,
   Rectangle,
 } from '@glideapps/glide-data-grid'
-import { ELEMENT_DATABASE_CONTAINER, TODO_DATABASE_NAME } from '@penx/constants'
+import {
+  ELEMENT_DATABASE_CONTAINER,
+  SIDEBAR_WIDTH,
+  TODO_DATABASE_NAME,
+} from '@penx/constants'
 import { useDatabaseContext } from '../../DatabaseContext'
 import { AddColumnBtn } from './AddColumnBtn'
 import { cellRenderers } from './cells'
@@ -16,10 +21,11 @@ import { useTableView } from './hooks/useTableView'
 import { useUndoRedo } from './use-undo-redo'
 
 interface Props {
+  width?: number | string
   height: number | string
 }
 
-export const TableView = ({ height }: Props) => {
+export const TableView = ({ height, width }: Props) => {
   const { database, sortedColumns } = useDatabaseContext()
   const isTodo = database.props.name === TODO_DATABASE_NAME
   const canNewRow = !isTodo
@@ -52,25 +58,34 @@ export const TableView = ({ height }: Props) => {
 
   const onHeaderMenuClick = useCallback(
     (col: number, bounds: Rectangle) => {
+      console.log('headerMenuClick', col, bounds)
+
       setColumnMenu({ col, bounds })
     },
     [setColumnMenu],
   )
 
   return (
-    <Box>
+    <Box borderTop-2>
       <DeleteColumnModal onDeleteColumn={onDeleteColumn} />
 
       <DataEditor
         ref={gridRef}
-        className={css('roundedXL shadowPopover')}
+        // className={css('roundedXL shadowPopover')}
         columns={cols}
         rows={rowsNum}
-        freezeColumns={1}
+        freezeColumns={isMobile ? undefined : 1}
+        theme={{
+          bgHeader: 'white',
+        }}
         smoothScrollX
         smoothScrollY
         height={height}
-        width={`calc(100vw - 360px)`}
+        width={
+          width ||
+          (isMobile ? '100vw' : `calc(100vw - ${SIDEBAR_WIDTH + 30}px)`)
+        }
+        // width={`calc(100vw)`}
         rowMarkers="number"
         getCellsForSelection={true}
         onPaste
@@ -91,8 +106,8 @@ export const TableView = ({ height }: Props) => {
               }
             : undefined
         }
-        onHeaderClicked={() => {
-          // console.log('click')
+        onHeaderClicked={(...args) => {
+          console.log('click header...:', args)
         }}
         trailingRowOptions={
           canNewRow

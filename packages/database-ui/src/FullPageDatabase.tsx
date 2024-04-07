@@ -1,19 +1,10 @@
-import { PropsWithChildren, useCallback, useRef, useState } from 'react'
-import { Box, css } from '@fower/react'
-import {
-  DataEditor,
-  DataEditorRef,
-  Rectangle,
-} from '@glideapps/glide-data-grid'
+import { Box } from '@fower/react'
 import { Divider } from 'uikit'
 import { DATABASE_TOOLBAR_HEIGHT, WORKBENCH_NAV_HEIGHT } from '@penx/constants'
 import { Node } from '@penx/model'
-import { AddColumnBtn } from './AddColumnBtn'
-import { cellRenderers } from './cells'
-import { DatabaseProvider, useDatabaseContext } from './DatabaseContext'
-import { DeleteColumnModal } from './DeleteColumnModal'
-import { TableView } from './TableView'
+import { DatabaseProvider } from './DatabaseContext'
 import { ViewList } from './ViewNav/ViewList'
+import { TableView } from './views/TableView/TableView'
 import { ViewToolBar } from './ViewToolBar/ViewToolBar'
 
 interface Props {

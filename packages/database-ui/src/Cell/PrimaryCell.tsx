@@ -10,7 +10,6 @@ import { clearEditor } from '@penx/editor-transforms'
 import { db, emitter } from '@penx/local-db'
 import { Paragraph } from '@penx/paragraph'
 import { Tag } from '../tag/Tag'
-// import { Tag } from '../../tag/Tag'
 import { CellProps } from './CellProps'
 
 interface Props extends Omit<FowerHTMLProps<'div'>, 'column'> {
@@ -67,9 +66,9 @@ export const PrimaryCell: FC<CellProps & Props> = memo(
 
     const renderElement = useCallback((props: RenderElementProps) => {
       const element = props.element as TElement
-      // if (element.type === 'p') {
-      //   return <Paragraph {...props} />
-      // }
+      if (element.type === 'p') {
+        return <Paragraph {...props} />
+      }
 
       if (element.type === 'tag') {
         return <Tag {...(props as any)} />
@@ -114,18 +113,7 @@ export const PrimaryCell: FC<CellProps & Props> = memo(
               'black px2 py2 outlineNone h-100p w-100p ' + editorAtomicStyle,
             )}
             renderLeaf={(props) => <Leaf {...props} />}
-            renderElement={(props) => {
-              const element = props.element as TElement
-              if (element.type === 'p') {
-                return <Paragraph {...props} />
-              }
-
-              if (element.type === 'tag') {
-                return <Tag {...(props as any)} />
-              }
-
-              return <div {...props}>{props.children}</div>
-            }}
+            renderElement={renderElement}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault()
