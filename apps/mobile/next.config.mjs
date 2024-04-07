@@ -47,6 +47,7 @@ const nextConfig = {
     '@penx/google-translate',
     '@penx/shared',
     '@penx/model',
+    '@penx/node-normalizer',
     '@penx/context-menu',
     '@penx/service',
     '@penx/serializer',

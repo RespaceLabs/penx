@@ -46,6 +46,7 @@ export const NodeItem = memo(
           nodeService.selectNode()
         }}
       >
+        {node.isDatabase && <Box>#</Box>}
         <Box flex-1>{node.title || 'Untitled'}</Box>
       </Box>
     )

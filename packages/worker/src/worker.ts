@@ -18,6 +18,7 @@ self.addEventListener('message', async (event) => {
     runAgentSSE()
 
     clearNodes()
+
     // normalizeNodes()
   }
 })

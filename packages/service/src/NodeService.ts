@@ -14,8 +14,8 @@ import {
 import { db, emitter } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { INode, NodeType } from '@penx/model-types'
+import { NodeCleaner } from '@penx/node-normalizer'
 import { store } from '@penx/store'
-import { NodeCleaner } from './NodeCleaner'
 
 export class NodeService {
   nodeMap = new Map<string, INode>()

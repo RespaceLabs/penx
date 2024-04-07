@@ -12,7 +12,6 @@ const withPWA = NextPWA({
   disableDevLogs: true,
 })
 
-
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
@@ -46,6 +45,7 @@ const config = {
     '@penx/google-translate',
     '@penx/shared',
     '@penx/model',
+    '@penx/node-normalizer',
     '@penx/context-menu',
     '@penx/service',
     '@penx/serializer',

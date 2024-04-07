@@ -67,7 +67,7 @@ function TagFormContent({ databaseId, path }: Props) {
   })
 
   return (
-    <Box column gap4 px6 maxH-400 overflowYAuto>
+    <Box column gap4 px6 maxH-400 overflowYAuto pb5>
       <Box toBetween px6 toCenterY h-56 borderBottom mx--24>
         <Box fontSemibold>Update Metadata for this Node</Box>
         <Button
@@ -78,7 +78,7 @@ function TagFormContent({ databaseId, path }: Props) {
             close()
           }}
         >
-          All records
+          <Box>All records</Box>
         </Button>
       </Box>
       {rowCells.map((cell, index) => {

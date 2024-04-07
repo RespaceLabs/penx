@@ -4512,6 +4512,9 @@ importers:
       '@penx/node-hooks':
         specifier: workspace:*
         version: link:../node-hooks
+      '@penx/node-normalizer':
+        specifier: workspace:*
+        version: link:../node-normalizer
       '@penx/paragraph':
         specifier: workspace:*
         version: link:../../extensions/paragraph
@@ -6532,6 +6535,52 @@ importers:
         specifier: ^5.3.2
         version: 5.4.3
 
+  packages/node-normalizer:
+    dependencies:
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
+      '@penx/local-db':
+        specifier: workspace:*
+        version: link:../local-db
+      '@penx/model':
+        specifier: workspace:*
+        version: link:../model
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../storage
+      '@penx/unique-id':
+        specifier: workspace:*
+        version: link:../unique-id
+    devDependencies:
+      '@penx/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.17.0
+      '@types/react':
+        specifier: ^18.2.61
+        version: 18.2.73
+      '@types/react-dom':
+        specifier: ^18.2.17
+        version: 18.2.23
+      eslint:
+        specifier: ^8.55.0
+        version: 8.57.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      typescript:
+        specifier: ^5.3.2
+        version: 5.4.3
+
   packages/remark-slate:
     dependencies:
       '@penx/constants':
@@ -6705,6 +6754,9 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../model-types
+      '@penx/node-normalizer':
+        specifier: workspace:*
+        version: link:../node-normalizer
       '@penx/serializer':
         specifier: workspace:^
         version: link:../serializer
@@ -7554,6 +7606,9 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../model-types
+      '@penx/node-normalizer':
+        specifier: workspace:*
+        version: link:../node-normalizer
       '@penx/shared':
         specifier: workspace:*
         version: link:../shared

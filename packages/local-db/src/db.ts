@@ -1088,8 +1088,13 @@ export class PenxDB extends Dexie {
     }
   }
 
-  // TODO: need improve performance
-  deleteRow = async (databaseId: string, rowId: string) => {
+  /**
+   * TODO: need improve performance
+   * @param databaseId
+   * @param rowId
+   * @param deleteRef should delete ref? default is true
+   */
+  deleteRow = async (databaseId: string, rowId: string, deleteRef = true) => {
     const cells = (await this.node
       .where({
         type: NodeType.CELL,
@@ -1097,18 +1102,21 @@ export class PenxDB extends Dexie {
       })
       .toArray()) as ICellNode[]
 
-    const primaryCell = cells.find(
-      (cell) => !!cell.props.ref && cell.props.rowId === rowId,
-    )
-
     const promises: any[] = []
 
     promises.push(this.node.delete(rowId))
 
-    //TODO: need to improvement for a node with many refs
-    if (primaryCell) {
-      const ref = primaryCell.props.ref
-      promises.push(this.node.delete(ref))
+    /** should delete primary cell ref */
+    if (deleteRef) {
+      const primaryCell = cells.find(
+        (cell) => !!cell.props.ref && cell.props.rowId === rowId,
+      )
+
+      //TODO: need to improvement for a node with many refs
+      if (primaryCell) {
+        const ref = primaryCell.props.ref
+        promises.push(this.node.delete(ref))
+      }
     }
 
     for (const cell of cells) {
@@ -1119,6 +1127,7 @@ export class PenxDB extends Dexie {
 
     await Promise.all(promises)
 
+    // Normalize sort
     const rows = (await this.node
       .where({
         type: NodeType.ROW,

@@ -170,7 +170,7 @@ export class Node {
   }
 
   get isTodoDatabase() {
-    return this.isDatabase && this.raw.props.name === TODO_DATABASE_NAME
+    return this.isDatabase && this.raw.props?.name === TODO_DATABASE_NAME
   }
 
   get canRef() {

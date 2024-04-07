@@ -72,6 +72,7 @@
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
     "@penx/node-hooks": "workspace:*",
+    "@penx/node-normalizer": "workspace:*",
     "@penx/paragraph": "workspace:*",
     "@penx/remark-slate": "workspace:*",
     "@penx/serializer": "workspace:*",
