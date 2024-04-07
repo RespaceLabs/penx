@@ -10,10 +10,10 @@ import DataEditor, {
   GridSelection,
   Item,
 } from '@glideapps/glide-data-grid'
+import { cellCommonRenderers, SelectCell } from '@penx/database-ui'
 import { Task } from '@penx/db'
 import { FieldType } from '@penx/model-types'
 import { api } from '@penx/trpc-client'
-import { cellCommonRenderers, SelectCell } from '@penx/widget'
 import { taskTypeMap, useTaskBoard } from './useTaskBoard'
 
 const defaultProps: Partial<DataEditorProps> = {

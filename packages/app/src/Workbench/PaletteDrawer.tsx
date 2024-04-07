@@ -1,8 +1,8 @@
 import { styled } from '@fower/react'
-import { SearchIcon } from 'lucide-react'
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
 import { usePaletteDrawer } from '@penx/hooks'
+import { IconSearch } from '@penx/icons'
 import { CommandPanel } from '../Palette'
 
 const DrawerOverlay = styled(Drawer.Overlay)
@@ -32,7 +32,7 @@ export const PaletteDrawer = () => {
           roundedFull
           p0
         >
-          <SearchIcon />
+          <IconSearch />
         </Button>
       </Drawer.Trigger>
       <Drawer.Portal>

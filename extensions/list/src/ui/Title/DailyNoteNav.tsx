@@ -3,58 +3,16 @@ import DatePicker from 'react-datepicker'
 import { Box } from '@fower/react'
 import { addDays, subDays } from 'date-fns'
 import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react'
+import { IconCalendar } from '@penx/icons'
 import { store } from '@penx/store'
-import { TitleElement } from '../../types'
+import { DailyShortcut } from '@penx/widget'
 
-export const DailyNoteNav = ({ element }: { element: TitleElement }) => {
-  const date = new Date(element.date ?? Date.now())
+export const DailyNoteNav = ({ date }: { date?: string }) => {
+  const currentDate = new Date(date ?? Date.now())
 
   return (
     <Box contentEditable={false} textXS fontNormal toCenterY gap1 gray600>
-      <Box
-        bgGray100
-        px2
-        py-6
-        roundedFull
-        bgGray200--hover
-        transitionColors
-        cursorPointer
-        onClick={() => {
-          store.node.selectDailyNote(new Date())
-        }}
-      >
-        Today
-      </Box>
-      <Box toCenterY gap2 ml2>
-        <Box
-          bgGray100
-          circle5
-          toCenter
-          bgGray200--hover
-          transitionColors
-          cursorPointer
-          onClick={() => {
-            store.node.selectDailyNote(subDays(date, 1))
-          }}
-        >
-          <ChevronLeft size={16} />
-        </Box>
-        <Box
-          bgGray100
-          circle5
-          toCenter
-          bgGray200--hover
-          transitionColors
-          cursorPointer
-          onClick={() => {
-            store.node.selectDailyNote(addDays(date, 1))
-          }}
-        >
-          <ChevronRight size={16} />
-        </Box>
-      </Box>
-
-      <GoToDay date={date}></GoToDay>
+      <GoToDay date={currentDate}></GoToDay>
     </Box>
   )
 }
@@ -64,8 +22,18 @@ const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
   ref,
 ) {
   return (
-    <Box ref={ref} gray500 inlineFlex cursorPointer ml2 onClick={onClick}>
-      <CalendarDays size={18} />
+    <Box
+      ref={ref}
+      toCenterY
+      gray500
+      inlineFlex
+      cursorPointer
+      ml2
+      gap4
+      onClick={onClick}
+    >
+      <DailyShortcut />
+      <IconCalendar size={20} stroke="gray500" />
     </Box>
   )
 })

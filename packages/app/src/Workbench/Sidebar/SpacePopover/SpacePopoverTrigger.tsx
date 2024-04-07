@@ -3,6 +3,7 @@ import { Box } from '@fower/react'
 import { ChevronsUpDown, Settings } from 'lucide-react'
 import { Bullet, Button, PopoverTrigger, usePopoverContext } from 'uikit'
 import { useActiveSpace, useSidebarDrawer } from '@penx/hooks'
+import { IconSettings } from '@penx/icons'
 import { store } from '@penx/store'
 
 export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
@@ -77,7 +78,7 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
               isSquare
               roundedFull
             >
-              <Settings size={16} />
+              <IconSettings size={18} />
             </Button>
           </Box>
         </Box>

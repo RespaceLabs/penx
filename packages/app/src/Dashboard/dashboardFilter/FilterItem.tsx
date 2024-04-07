@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react'
 import { Box } from '@fower/react'
 import { CloseButton, Input } from 'uikit'
+import { OperatorSelect } from '@penx/database-ui'
 import { Filter } from '@penx/model-types'
-import { OperatorSelect } from '@penx/widget'
 import { DashboardViewColumn } from '..'
 import { FieldSelect } from './FieldSelect'
 

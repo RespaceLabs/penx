@@ -13,6 +13,7 @@ import {
 import { Drawer } from 'vaul'
 import { Button } from 'uikit'
 import { useActiveNodes, useRouterName, useSidebarDrawer } from '@penx/hooks'
+import { IconCalendar, IconMoreCircle, IconTodo } from '@penx/icons'
 import { Node } from '@penx/model'
 import { useNodes } from '@penx/node-hooks'
 import { useSession } from '@penx/session'
@@ -64,7 +65,7 @@ export const SidebarDrawer = () => {
     >
       <Drawer.Trigger asChild>
         <Button variant="ghost" size="sm" isSquare p0 colorScheme="gray600">
-          <Menu />
+          <IconMoreCircle />
         </Button>
       </Drawer.Trigger>
       <Drawer.Portal>
@@ -98,7 +99,7 @@ export const SidebarDrawer = () => {
             <Box flex-1 mt3 gap4 column>
               <Box bgWhite roundedLG>
                 <MenuItem
-                  icon={<CalendarDays size={22} />}
+                  icon={<IconCalendar size={24} stroke="gray500" />}
                   label="Today"
                   isActive={isTodayActive}
                   onClick={() => {
@@ -108,7 +109,7 @@ export const SidebarDrawer = () => {
                 />
 
                 <MenuItem
-                  icon={<CheckCircle2 size={22} />}
+                  icon={<IconTodo size={24} stroke="gray500" />}
                   label="Tasks"
                   isActive={isTodosActive}
                   onClick={() => {

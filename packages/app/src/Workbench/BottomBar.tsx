@@ -1,20 +1,13 @@
 import { forwardRef, useState } from 'react'
 import DatePicker from 'react-datepicker'
-import { Box } from '@fower/react'
+import { Box, css } from '@fower/react'
 import { addDays, subDays } from 'date-fns'
-import {
-  CalendarDays,
-  Check,
-  CheckSquare2,
-  ChevronLeft,
-  ChevronRight,
-  Plus,
-  PlusIcon,
-} from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { Button } from 'uikit'
 import { useBottomBarDrawer } from '@penx/hooks'
 import { IconCalendar, IconTodo } from '@penx/icons'
 import { store } from '@penx/store'
+import { DailyShortcut } from '@penx/widget'
 import { BottomBarDrawer } from './BottomBarDrawer/BottomBarDrawer'
 
 export function BottomBar() {
@@ -108,6 +101,7 @@ function GoToDay({ date }: { date: Date }) {
     <DatePicker
       selected={startDate}
       // withPortal
+      calendarClassName={css('pb-30')}
       onChange={(date) => {
         setStartDate(date!)
         if (date) {
@@ -116,7 +110,9 @@ function GoToDay({ date }: { date: Date }) {
       }}
       customInput={<CustomInput />}
     >
-      <Box>Footer....</Box>
+      <Box absolute bottom2 textXS>
+        <DailyShortcut />
+      </Box>
     </DatePicker>
   )
 }

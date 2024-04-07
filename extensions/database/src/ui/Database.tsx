@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
+import { InlineDatabase } from '@penx/database-ui'
 import { useEditorStatic } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
-import { InlineDatabase } from '@penx/widget'
 import { DatabaseElement } from '../types'
 
 export const Database = ({

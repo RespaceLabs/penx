@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { Box, css } from '@fower/react'
-import { Clock, Hash, SendHorizonal, X } from 'lucide-react'
+import { Clock, Hash, X } from 'lucide-react'
 import { Button, Checkbox, toast } from 'uikit'
 import { ELEMENT_P, ELEMENT_TAG, ELEMENT_TODO } from '@penx/constants'
 import { useBottomBarDrawer } from '@penx/hooks'

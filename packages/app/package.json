@@ -48,6 +48,7 @@
     "@penx/cmdk": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/database": "workspace:*",
+    "@penx/database-ui": "workspace:*",
     "@penx/db": "workspace:*",
     "@penx/dnd-projection": "workspace:*",
     "@penx/editor": "workspace:*",

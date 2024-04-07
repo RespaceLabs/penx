@@ -44,6 +44,7 @@
     "@penx/shared": "workspace:*",
     "@penx/slate-lists": "workspace:*",
     "@penx/store": "workspace:*",
+    "@penx/widget": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "date-fns": "^2.30.0",
     "jotai": "^2.6.0",

@@ -30,6 +30,7 @@
     "@penx/app": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/database": "workspace:*",
+    "@penx/database-ui": "workspace:*",
     "@penx/db": "workspace:*",
     "@penx/event": "workspace:*",
     "@penx/editor": "workspace:*",

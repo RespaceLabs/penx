@@ -16,8 +16,8 @@ import {
   PopoverTrigger,
   usePopoverContext,
 } from 'uikit'
+import { useDatabaseContext } from '@penx/database-ui'
 import { IOptionNode } from '@penx/model-types'
-import { useDatabaseContext } from '@penx/widget'
 import { OptionTag } from '../../shared/OptionTag'
 import { CellProps } from './CellProps'
 

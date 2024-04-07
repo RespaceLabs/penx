@@ -20,6 +20,7 @@ import {
   useSidebarDrawer,
   useSpaces,
 } from '@penx/hooks'
+import { IconCalendar, IconTodo } from '@penx/icons'
 import { Node } from '@penx/model'
 import { useNodes } from '@penx/node-hooks'
 import { useSession } from '@penx/session'
@@ -83,7 +84,7 @@ export const Sidebar = () => {
         {!!nodes.length && (
           <Box column gap-1 flex-1 mt3>
             <SidebarItem
-              icon={<CalendarDays size={18} />}
+              icon={<IconCalendar size={20} stroke="gray500" />}
               label="Today"
               isActive={isTodayActive}
               onClick={() => {
@@ -100,7 +101,7 @@ export const Sidebar = () => {
             /> */}
 
             <SidebarItem
-              icon={<CheckCircle2 size={18} />}
+              icon={<IconTodo size={20} stroke="gray500" />}
               label="Tasks"
               isActive={isTodosActive}
               onClick={() => {
