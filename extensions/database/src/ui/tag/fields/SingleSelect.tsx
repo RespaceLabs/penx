@@ -41,7 +41,7 @@ export const SingleSelectCell: FC<CellProps> = memo(
     }, [cell.props.data])
 
     return (
-      <Popover>
+      <Popover portal={false} placement="bottom">
         <PopoverTrigger asChild>
           <Box w-100p h-40 p2 border borderNeutral200 roundedXL cursorPointer>
             {items.map((option) => (
@@ -144,7 +144,7 @@ function Combobox(
     <Box>
       <Input
         placeholder="Find or create option"
-        size="sm"
+        // size="sm"
         variant="unstyled"
         px2
         borderBottom

@@ -41,7 +41,7 @@ export const MultipleSelectCell: FC<CellProps> = memo(
     }, [cell.props.data])
 
     return (
-      <Popover>
+      <Popover portal={false}>
         <PopoverTrigger asChild>
           <Box
             gap1

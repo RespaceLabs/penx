@@ -19,6 +19,7 @@ export const BackupMnemonicTips = () => {
       py3
       border
       borderYellow500
+      bgWhite
     >
       <Box yellow500 inlineFlex>
         <AlertCircle size={20} />

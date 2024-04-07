@@ -1,21 +1,64 @@
+import { forwardRef, useState } from 'react'
+import DatePicker from 'react-datepicker'
 import { Box } from '@fower/react'
-import { Check, CheckSquare2, Plus, PlusIcon } from 'lucide-react'
+import { addDays, subDays } from 'date-fns'
+import {
+  CalendarDays,
+  Check,
+  CheckSquare2,
+  ChevronLeft,
+  ChevronRight,
+  Plus,
+  PlusIcon,
+} from 'lucide-react'
 import { Button } from 'uikit'
 import { useBottomBarDrawer } from '@penx/hooks'
+import { IconCalendar, IconTodo } from '@penx/icons'
+import { store } from '@penx/store'
 import { BottomBarDrawer } from './BottomBarDrawer/BottomBarDrawer'
 
 export function BottomBar() {
   const { isOpen, close, open } = useBottomBarDrawer()
+
+  const date = new Date(Date.now())
   return (
     <>
       <BottomBarDrawer />
 
+      <Box fixed left3 bottom3 toCenterY gap2 zIndex-100>
+        <Button
+          display={['flex', 'flex', 'none']}
+          // size="sm"
+          colorScheme="gray500"
+          // variant="ghost"
+          variant="light"
+          isSquare
+          roundedFull
+          bgGray200--hover
+          bgGray200--active
+          overflowHidden
+          zIndex-100
+          onClick={() => {
+            if (store.router.isTodos()) {
+              store.node.selectDailyNote()
+            } else {
+              store.router.routeTo('TODOS')
+            }
+          }}
+        >
+          <IconTodo size={24} stroke="gray400" />
+        </Button>
+
+        <GoToDay date={date}></GoToDay>
+      </Box>
+
       <Button
         display={['flex', 'flex', 'none']}
         fixed
-        bottom2
-        left-50p
-        translateX={['-50%']}
+        bottom3
+        // left-50p
+        right3
+        // translateX={['-50%']}
         colorScheme="white"
         size={56}
         isSquare
@@ -32,5 +75,48 @@ export function BottomBar() {
         </Box>
       </Button>
     </>
+  )
+}
+
+const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
+  { onClick },
+  ref,
+) {
+  return (
+    <Box ref={ref} gray500 inlineFlex cursorPointer ml2 onClick={onClick}>
+      <Button
+        display={['flex', 'flex', 'none']}
+        // size="sm"
+        colorScheme="gray500"
+        variant="light"
+        isSquare
+        roundedFull
+        bgGray200--hover
+        bgGray200--active
+        overflowHidden
+        zIndex-100
+      >
+        <IconCalendar size={24} stroke="gray400" />
+      </Button>
+    </Box>
+  )
+})
+
+function GoToDay({ date }: { date: Date }) {
+  const [startDate, setStartDate] = useState(date || new Date())
+  return (
+    <DatePicker
+      selected={startDate}
+      // withPortal
+      onChange={(date) => {
+        setStartDate(date!)
+        if (date) {
+          store.node.selectDailyNote(date)
+        }
+      }}
+      customInput={<CustomInput />}
+    >
+      <Box>Footer....</Box>
+    </DatePicker>
   )
 }
