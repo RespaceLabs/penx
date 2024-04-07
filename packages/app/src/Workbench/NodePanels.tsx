@@ -3,6 +3,7 @@ import { FullPageDatabase } from '@penx/database-ui'
 import { useActiveNodes } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { NodeProvider } from '@penx/node-hooks'
+import { BottomBar } from './BottomBar'
 import { MobileNav } from './NodeNav/MobileNav'
 import { PCNav } from './NodeNav/PCNav'
 import { PanelItem } from './PanelItem'
@@ -17,6 +18,7 @@ export function NodePanels() {
         return (
           <Box key={node.id} w-100p>
             <NodeProvider value={{ node, index }}>
+              <BottomBar />
               <PCNav />
               <MobileNav />
               {node.isDatabase ? (

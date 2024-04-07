@@ -71,7 +71,7 @@ export const Workbench = () => {
               toCenter
               rounded
               bgNeutral100--hover
-              display={['none', 'none', 'block']}
+              display={['none', 'none', 'flex']}
             >
               <MenuIcon size={20} />
             </Box>
@@ -79,7 +79,7 @@ export const Workbench = () => {
         </Box>
         <Box flex-1 relative>
           <ErrorBoundary fallback={<Fallback />}>
-            {(name === 'NODE' || name === 'TODOS') && <BottomBar />}
+            {name === 'TODOS' && <BottomBar />}
 
             {name === 'NODE' && <NodePanels />}
 

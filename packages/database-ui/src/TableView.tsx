@@ -30,7 +30,8 @@ export const TableView = ({ height, width }: Props) => {
   const { database, sortedColumns } = useDatabaseContext()
   const isTagDataSource = database.props.dataSource === DataSource.TAG
   const isTodo = database.props.name === TODO_DATABASE_NAME
-  const canNewRow = !isTodo && !isTagDataSource
+  // const canNewRow = !isTodo && !isTagDataSource
+  const canNewRow = !isTodo
 
   const {
     rowsNum,
@@ -60,6 +61,8 @@ export const TableView = ({ height, width }: Props) => {
 
   const onHeaderMenuClick = useCallback(
     (col: number, bounds: Rectangle) => {
+      console.log('headerMenuClick', col, bounds)
+
       setColumnMenu({ col, bounds })
     },
     [setColumnMenu],
@@ -74,7 +77,7 @@ export const TableView = ({ height, width }: Props) => {
         // className={css('roundedXL shadowPopover')}
         columns={cols}
         rows={rowsNum}
-        freezeColumns={1}
+        freezeColumns={isMobile ? undefined : 1}
         theme={{
           bgHeader: 'white',
         }}
@@ -106,8 +109,8 @@ export const TableView = ({ height, width }: Props) => {
               }
             : undefined
         }
-        onHeaderClicked={() => {
-          // console.log('click')
+        onHeaderClicked={(...args) => {
+          console.log('click header...:', args)
         }}
         trailingRowOptions={
           canNewRow

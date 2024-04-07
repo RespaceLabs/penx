@@ -1,3 +1,4 @@
+import { isMobile } from 'react-device-detect'
 import { Box } from '@fower/react'
 import { useEditor } from '@penx/editor-common'
 import { ElementProps } from '@penx/extension-typings'
@@ -38,7 +39,7 @@ export const Title = (props: ElementProps<TitleElement>) => {
       toCenterY
       gap2
       pr4
-      display={['none', 'none', 'flex']}
+      display={isDaily && isMobile ? 'none' : 'flex'}
       {...attributes}
       // {...nodeProps}
     >

@@ -5,6 +5,7 @@ import { Node } from '@penx/model'
 import { useNodeContext } from '@penx/node-hooks'
 import { PaletteDrawer } from '../PaletteDrawer'
 import { SidebarDrawer } from '../SidebarDrawer/SidebarDrawer'
+import { Breadcrumb } from './Breadcrumb'
 
 function Title() {
   const { activeNodes } = useActiveNodes()
@@ -12,7 +13,7 @@ function Title() {
 
   if (router.isTodos()) {
     return (
-      <Box fontBold textLG>
+      <Box fontSemibold textLG>
         Tasks
       </Box>
     )
@@ -24,15 +25,30 @@ function Title() {
 
   const node = new Node(activeNodes[0])
 
+  if (node.isDaily || node.isDatabaseRoot) {
+    return (
+      <Box fontSemibold textLG>
+        {node.title}
+      </Box>
+    )
+  }
+
   return (
-    <Box fontBold textLG>
-      {node.title}
+    <Box px4 w-100vw overflowXAuto mx--8 py1>
+      <Breadcrumb />
     </Box>
   )
 }
 
 export const MobileNav = () => {
+  const routerStore = useRouterStore()
   const { node } = useNodeContext()
+  const showIcon =
+    routerStore.isTodos() ||
+    node?.isDaily ||
+    node?.isDatabaseRoot ||
+    node?.isDatabase
+
   return (
     <Box
       h={WORKBENCH_NAV_HEIGHT}
@@ -47,11 +63,13 @@ export const MobileNav = () => {
       flex-1
       zIndex-10
     >
-      <SidebarDrawer />
-      <Title></Title>
+      {showIcon && <SidebarDrawer />}
+
+      <Title />
       <Box toCenterY gap-2>
         {/* <NewNodeButton /> */}
-        <PaletteDrawer />
+
+        {showIcon && <PaletteDrawer />}
       </Box>
     </Box>
   )

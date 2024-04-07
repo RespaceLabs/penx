@@ -6,14 +6,18 @@ import { Plus } from 'lucide-react'
 import { Button } from 'uikit'
 import { useBottomBarDrawer } from '@penx/hooks'
 import { IconCalendar, IconTodo } from '@penx/icons'
+import { useNodeContext } from '@penx/node-hooks'
 import { store } from '@penx/store'
 import { DailyShortcut } from '@penx/widget'
 import { BottomBarDrawer } from './BottomBarDrawer/BottomBarDrawer'
 
 export function BottomBar() {
   const { isOpen, close, open } = useBottomBarDrawer()
-
+  const { node } = useNodeContext()
   const date = new Date(Date.now())
+
+  if (node?.isDatabase) return null
+
   return (
     <>
       <BottomBarDrawer />

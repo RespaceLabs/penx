@@ -10,7 +10,7 @@ export const Breadcrumb = () => {
   const parentNodes = nodeService.getParentNodes()
 
   return (
-    <Box toCenterY textSM gap1>
+    <Box toCenterY textSM gap1 w-auto>
       {parentNodes.map((node, index) => {
         const isLast = index === parentNodes.length - 1
         if (node.isList) return null

@@ -36,7 +36,7 @@ export const TagsEntry = memo(function TagsEntry({ isActive }: Props) {
     >
       <Box toCenterY gap2>
         <Bullet mr-4 innerColor={isActive ? 'brand500' : undefined} />
-        <Box>Tags</Box>
+        <Box>Meta tags</Box>
       </Box>
 
       <Tooltip>

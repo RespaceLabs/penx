@@ -39,7 +39,7 @@ export class RouterStore {
     return routerName === 'NODE'
   }
 
-  isTodos() {
+  isTodos = () => {
     const routerName = this.getName()
     return routerName === 'TODOS'
   }

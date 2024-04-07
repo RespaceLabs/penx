@@ -1,5 +1,4 @@
 import { FocusEvent, KeyboardEvent, memo, useCallback, useMemo } from 'react'
-import { isMobile } from 'react-device-detect'
 import { css } from '@fower/react'
 import { Editor } from 'slate'
 import { Editable, RenderElementProps } from 'slate-react'

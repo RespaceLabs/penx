@@ -7,7 +7,10 @@ export const IconTodo = iconify({
   pathProps: {
     // fill: 'none',
   },
-  atomicProps: {},
+
+  atomicProps: {
+    stroke: 'black',
+  },
   path: (
     <>
       <g id="Iconly/Curved/Tick Square">

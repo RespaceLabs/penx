@@ -7,7 +7,9 @@ export const IconCalendar = iconify({
   pathProps: {
     // fill: 'none',
   },
-  atomicProps: {},
+  atomicProps: {
+    stroke: 'black',
+  },
   path: (
     <>
       <g id="Iconly/Curved/Calendar">

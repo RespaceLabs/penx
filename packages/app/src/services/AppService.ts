@@ -129,6 +129,8 @@ export class AppService {
   }
 
   private async tryToSync(space: ISpace) {
+    console.log('try to sync....')
+
     if (!navigator.onLine) return
     if (!space.syncServerUrl) return
     const mnemonic = store.user.getMnemonic()
