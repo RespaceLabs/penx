@@ -86,6 +86,7 @@ export enum SettingsType {
 export enum ModalNames {
   DELETE_NODE,
   DELETE_COLUMN,
+  CONFIG_COLUMN,
   DELETE_DATABASE,
   DELETE_ACCOUNT,
 

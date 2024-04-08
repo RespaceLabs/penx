@@ -20,7 +20,7 @@ export const ExtensionBuilderModalModal = () => {
           <Code2 />
         </Button>
       </ModalTrigger>
-      <ModalContent w={[400]} p0 minH-600 maxH-600 flex-1 column>
+      <ModalContent w={['100%', 400]} p0 minH-600 maxH-600 flex-1 column>
         <ModalCloseButton />
         <ModalHeader px4 py3 borderBottom>
           <Box>Building a Extension</Box>

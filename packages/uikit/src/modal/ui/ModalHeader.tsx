@@ -7,5 +7,5 @@ export const ModalHeader = forwardRef<
   HTMLDivElement,
   PropsWithChildren<ModalHeaderProps>
 >(function ModalHeader(props, ref) {
-  return <Box mb4 fontSemibold textXL ref={ref} {...props} />
+  return <Box py2 fontSemibold textXL ref={ref} {...props} />
 })

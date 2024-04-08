@@ -7,5 +7,7 @@ export const ModalTitle = forwardRef<
   HTMLDivElement,
   PropsWithChildren<ModalTitleProps>
 >(function ModalTitle(props, ref) {
-  return <Box fontSemibold leadingRelaxed text2XL ref={ref} {...props} />
+  return (
+    <Box fontSemibold leadingRelaxed text={[16, 24]} ref={ref} {...props} />
+  )
 })

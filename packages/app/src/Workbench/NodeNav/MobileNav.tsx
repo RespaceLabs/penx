@@ -47,6 +47,7 @@ export const MobileNav = () => {
     routerStore.isTodos() ||
     node?.isDaily ||
     node?.isDatabaseRoot ||
+    node?.isDailyRoot ||
     node?.isDatabase
 
   return (

@@ -83,7 +83,7 @@ export const DeleteSpaceModal = ({ children }: PropsWithChildren) => {
         {!!children && <ModalTrigger>{children}</ModalTrigger>}
 
         <ModalOverlay />
-        <ModalContent w={[500]} column gap4>
+        <ModalContent w={['100%', 500]} column gap4>
           <ModalCloseButton />
 
           <ModalHeader mb2>Are you sure delete it permanently?</ModalHeader>

@@ -15,7 +15,7 @@ export const SyncServerModal = () => {
   return (
     <Modal name={ModalNames.SYNC_SERVER}>
       <ModalOverlay />
-      <ModalContent w={['96%', 600]} px={[20, 32]} py20>
+      <ModalContent w={['100%', 600]} px={[20, 32]} py20>
         <ModalCloseButton />
         <SyncServerForm />
       </ModalContent>

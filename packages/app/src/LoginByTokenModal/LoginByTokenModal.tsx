@@ -8,7 +8,7 @@ export const LoginByTokenModal = () => {
   return (
     <Modal name={ModalNames.LOGIN_BY_TOKEN}>
       <ModalOverlay />
-      <ModalContent w={['96%', 520]} px={[20, 32]} py20>
+      <ModalContent w={['100%', 520]} px={[20, 32]} py20>
         <ModalCloseButton />
 
         <Box mx-auto className="nav" toCenter py3 px={[18, 0]}>

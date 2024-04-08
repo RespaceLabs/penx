@@ -7,7 +7,7 @@ export const CreateSpaceModal = () => {
   return (
     <Modal name={ModalNames.CREATE_SPACE}>
       <ModalOverlay />
-      <ModalContent w={['96%', 520]} px={[20, 32]} py20>
+      <ModalContent w={['100%', 520]} px={[20, 32]} py20>
         <ModalCloseButton />
         <Box column gapy4>
           <Box fontSemibold text2XL>

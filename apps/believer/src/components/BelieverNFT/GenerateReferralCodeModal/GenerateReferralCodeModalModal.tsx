@@ -41,7 +41,7 @@ export const GenerateReferralCodeModalModal = () => {
   return (
     <Modal name={ModalNames.GENERATE_REFERRAL_CODE} closeOnOverlayClick={false}>
       <ModalOverlay />
-      <ModalContent w={['96%', 560]} px={[20, 32]} py20>
+      <ModalContent w={['100%', 560]} px={[20, 32]} py20>
         <ModalCloseButton />
         <Content></Content>
       </ModalContent>

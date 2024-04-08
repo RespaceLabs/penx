@@ -1,4 +1,3 @@
-import { TODO_DATABASE_NAME } from '@penx/constants'
 import { extractTags } from '@penx/editor-common'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'

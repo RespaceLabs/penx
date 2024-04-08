@@ -64,7 +64,7 @@ export const MyReferralsModal = () => {
   return (
     <Modal name={ModalNames.MY_REFERRALS}>
       <ModalOverlay />
-      <ModalContent w={['96%', 560]} px={[20, 32]} py20>
+      <ModalContent w={['100%', 560]} px={[20, 32]} py20>
         <ModalCloseButton />
         <Box column gap4 textCenter>
           <Box column gapy4>

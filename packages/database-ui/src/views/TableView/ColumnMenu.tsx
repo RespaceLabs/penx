@@ -46,7 +46,7 @@ export function ColumnMenu({ index = 0, column, close }: ColumnMenuProps) {
   }
 
   return (
-    <>
+    <Box>
       <Box p2>
         <Input
           size="sm"
@@ -121,6 +121,6 @@ export function ColumnMenu({ index = 0, column, close }: ColumnMenuProps) {
           </MenuItem>
         </>
       )}
-    </>
+    </Box>
   )
 }

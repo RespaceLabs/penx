@@ -25,7 +25,7 @@ export const SettingsModal = () => {
           <Settings />
         </Button>
       </ModalTrigger>
-      <ModalContent w={[1000]} toLeft p0 h-800>
+      <ModalContent w={['100%', 1000]} toLeft p0 h-800>
         <ModalCloseButton />
         <SettingsSidebar />
         <SettingsContent />

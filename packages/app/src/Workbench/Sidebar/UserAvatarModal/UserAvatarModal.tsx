@@ -59,7 +59,7 @@ export const UserAvatarModal: FC<Props> = () => {
         </Box>
       </ModalTrigger>
       <ModalOverlay />
-      <ModalContent w={['90%', '90%', 600]} column gapY8 px10--i pb20--i>
+      <ModalContent w={['100%', 600]} column gapY8 px10--i pb20--i>
         {/* <ModalCloseButton /> */}
 
         <Box column bgNeutralsBackground rounded-12 gap3>

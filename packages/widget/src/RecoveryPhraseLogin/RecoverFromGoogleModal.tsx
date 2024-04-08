@@ -33,7 +33,7 @@ export const RecoverFromGoogleModal = ({ setMnemonic }: Props) => {
           <Box text-10>Recover from google drive</Box>
         </Button>
       </ModalTrigger>
-      <ModalContent w={[500]} column gap4>
+      <ModalContent w={['100%', 500]} column gap4>
         <ModalCloseButton />
 
         <ModalHeader mb2>Google drive backup password</ModalHeader>

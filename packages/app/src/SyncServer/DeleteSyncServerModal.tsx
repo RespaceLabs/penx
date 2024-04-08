@@ -47,7 +47,7 @@ export const DeleteSyncServerModal = ({ syncServerId }: Props) => {
           <Trash2 size={16}></Trash2>
         </Button>
       </ModalTrigger>
-      <ModalContent w={[500]} column gap4 toCenterX>
+      <ModalContent w={['100%', 500]} column gap4 toCenterX>
         <ModalCloseButton />
 
         <ModalHeader mb2>Are you sure delete it permanently?</ModalHeader>

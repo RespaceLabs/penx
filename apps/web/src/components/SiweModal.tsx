@@ -87,7 +87,7 @@ export function SiweModal() {
   return (
     <Modal name={ModalNames.SIWE} closeOnOverlayClick={false}>
       <ModalOverlay />
-      <ModalContent w={['96%', 360]} p={[20, 20]} py0 column gap4>
+      <ModalContent w={['100%', 360]} p={[20, 20]} py0 column gap4>
         <Box column toCenterX>
           <Box fontSemibold text2XL leadingNone>
             Sign in to PenX

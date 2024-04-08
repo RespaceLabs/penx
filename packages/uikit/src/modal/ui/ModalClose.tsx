@@ -1,9 +1,18 @@
-import React, { cloneElement, forwardRef, isValidElement } from 'react'
+import React, {
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  MouseEvent,
+  ReactNode,
+} from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import { useModalContext } from '../modalContext'
+import { ModalContext } from '../types'
 
-export interface ModalCloseProps extends FowerHTMLProps<'div'> {
+export interface ModalCloseProps
+  extends Omit<FowerHTMLProps<'div'>, 'children'> {
   asChild?: boolean
+  children?: ((ctx: ModalContext) => ReactNode) | ReactNode
 }
 
 export const ModalClose = forwardRef<HTMLDivElement, ModalCloseProps>(
@@ -11,28 +20,27 @@ export const ModalClose = forwardRef<HTMLDivElement, ModalCloseProps>(
     { children, asChild, onClick, ...rest }: ModalCloseProps,
     ref,
   ) {
-    const { close } = useModalContext()
+    const ctx = useModalContext()
+
+    const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+      onClick?.(e)
+      ctx.close()
+    }
+
+    if (typeof children === 'function') {
+      return <>{children(ctx)}</>
+    }
 
     if (asChild && isValidElement(children)) {
       return cloneElement(children, {
         ref,
         ...rest,
-        onClick: (e: any) => {
-          onClick?.(e)
-          close()
-        },
+        onClick: handleClick,
       } as any)
     }
 
     return (
-      <Box
-        inlineFlex
-        {...rest}
-        onClick={(e) => {
-          onClick?.(e)
-          close()
-        }}
-      >
+      <Box inlineFlex {...rest} onClick={handleClick}>
         {children}
       </Box>
     )

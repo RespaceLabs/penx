@@ -24,7 +24,7 @@ export function EditField({ column, onSave, close }: EditFieldProps) {
   }
 
   return (
-    <Box as="form" p4 column gap3 onSubmit={(formState) => onSubmit(formState)}>
+    <Box as="form" column gap3 onSubmit={(formState) => onSubmit(formState)}>
       <Box textXS gray500 mb--4>
         Column Name
       </Box>

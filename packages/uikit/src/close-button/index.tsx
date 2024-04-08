@@ -8,7 +8,7 @@ export interface CloseButtonProps extends FowerHTMLProps<'button'> {
   size?: Size
 }
 
-export const CloseButton = forwardRef<HTMLDivElement, CloseButtonProps>(
+export const CloseButton = forwardRef<HTMLButtonElement, CloseButtonProps>(
   function CloseButton(props, ref) {
     const { size = 32, children, ...rest } = props
     const sizeStyle = getSizeStyle(size)

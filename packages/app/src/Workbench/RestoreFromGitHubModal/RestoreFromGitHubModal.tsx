@@ -7,7 +7,7 @@ export const RestoreFromGitHubModal = () => {
   return (
     <Modal name={ModalNames.RESTORE_FROM_GITHUB} closeOnOverlayClick={false}>
       <ModalOverlay />
-      <ModalContent w={['96%', 600]} px={[20, 32]} py20>
+      <ModalContent w={['100%', 600]} px={[20, 32]} py20>
         <ModalCloseButton />
         <Box column gapy4>
           <Box fontSemibold text2XL>

@@ -1,4 +1,4 @@
-import { PropsWithChildren, useCallback, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import { Box, css } from '@fower/react'
 import {
@@ -6,14 +6,12 @@ import {
   DataEditorRef,
   Rectangle,
 } from '@glideapps/glide-data-grid'
-import {
-  ELEMENT_DATABASE_CONTAINER,
-  SIDEBAR_WIDTH,
-  TODO_DATABASE_NAME,
-} from '@penx/constants'
+import { modalController } from 'uikit'
+import { ModalNames, SIDEBAR_WIDTH, TODO_DATABASE_NAME } from '@penx/constants'
 import { useDatabaseContext } from '../../DatabaseContext'
 import { AddColumnBtn } from './AddColumnBtn'
 import { cellRenderers } from './cells'
+import { ConfigColumnModal } from './ConfigColumnModal'
 import { DeleteColumnModal } from './DeleteColumnModal'
 import { useCellMenu } from './hooks/useCellMenu'
 import { useColumnMenu } from './hooks/useColumnMenu'
@@ -59,7 +57,6 @@ export const TableView = ({ height, width }: Props) => {
   const onHeaderMenuClick = useCallback(
     (col: number, bounds: Rectangle) => {
       console.log('headerMenuClick', col, bounds)
-
       setColumnMenu({ col, bounds })
     },
     [setColumnMenu],
@@ -68,6 +65,8 @@ export const TableView = ({ height, width }: Props) => {
   return (
     <Box borderTop-2>
       <DeleteColumnModal onDeleteColumn={onDeleteColumn} />
+
+      <ConfigColumnModal />
 
       <DataEditor
         ref={gridRef}
@@ -106,8 +105,13 @@ export const TableView = ({ height, width }: Props) => {
               }
             : undefined
         }
-        onHeaderClicked={(...args) => {
-          console.log('click header...:', args)
+        onHeaderClicked={(index, event) => {
+          if (isMobile) {
+            modalController.open(ModalNames.CONFIG_COLUMN, {
+              index,
+              column: sortedColumns[index],
+            })
+          }
         }}
         trailingRowOptions={
           canNewRow
