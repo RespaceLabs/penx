@@ -1,14 +1,35 @@
 import { forwardRef, useState } from 'react'
 import DatePicker from 'react-datepicker'
-import { Box, css } from '@fower/react'
+import { Box, css, FowerHTMLProps } from '@fower/react'
 import { Plus } from 'lucide-react'
-import { Button } from 'uikit'
+import { Button, ButtonProps } from 'uikit'
 import { useBottomBarDrawer } from '@penx/hooks'
 import { IconCalendar, IconTodo } from '@penx/icons'
 import { useNodeContext } from '@penx/node-hooks'
 import { store } from '@penx/store'
 import { DailyShortcut } from '@penx/widget'
 import { BottomBarDrawer } from './BottomBarDrawer/BottomBarDrawer'
+
+interface ActionButtonProps extends ButtonProps, FowerHTMLProps<'button'> {
+  //
+}
+
+function ActionButton({ ...rest }: ActionButtonProps) {
+  return (
+    <Button
+      display={['flex', 'flex', 'none']}
+      // size="sm"
+      // colorScheme="white"
+      // variant="ghost"
+      variant="ghost"
+      isSquare
+      roundedFull
+      bgGray200--active
+      shadow="0px 1px 4px 0 rgba(0, 0, 0, 0.2)"
+      {...rest}
+    ></Button>
+  )
+}
 
 export function BottomBar() {
   const { isOpen, close, open } = useBottomBarDrawer()
@@ -21,18 +42,7 @@ export function BottomBar() {
       <BottomBarDrawer />
 
       <Box fixed left3 bottom3 toCenterY gap2 zIndex-100>
-        <Button
-          display={['flex', 'flex', 'none']}
-          // size="sm"
-          colorScheme="gray500"
-          // variant="ghost"
-          variant="light"
-          isSquare
-          roundedFull
-          bgGray200--hover
-          bgGray200--active
-          overflowHidden
-          zIndex-100
+        <ActionButton
           onClick={() => {
             if (store.router.isTodos()) {
               store.node.selectDailyNote()
@@ -41,8 +51,8 @@ export function BottomBar() {
             }
           }}
         >
-          <IconTodo size={24} stroke="gray400" />
-        </Button>
+          <IconTodo size={24} stroke="gray500" />
+        </ActionButton>
 
         <GoToDay />
       </Box>
@@ -79,20 +89,9 @@ const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
 ) {
   return (
     <Box ref={ref} gray500 inlineFlex cursorPointer ml2 onClick={onClick}>
-      <Button
-        display={['flex', 'flex', 'none']}
-        // size="sm"
-        colorScheme="gray500"
-        variant="light"
-        isSquare
-        roundedFull
-        bgGray200--hover
-        bgGray200--active
-        overflowHidden
-        zIndex-100
-      >
-        <IconCalendar size={24} stroke="gray400" />
-      </Button>
+      <ActionButton>
+        <IconCalendar size={24} stroke="gray500" />
+      </ActionButton>
     </Box>
   )
 })

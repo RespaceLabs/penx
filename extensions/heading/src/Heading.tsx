@@ -20,7 +20,6 @@ export const Heading = ({
       textLG={type === 'h4'}
       textBase={type === 'h5'}
       textSM={type === 'h6'}
-      toCenterY
       relative
       mt0
       mb0

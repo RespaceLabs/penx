@@ -83,9 +83,9 @@ export const Tag = ({
       {...attributes}
       toCenterY
       inlineFlex
-      bgGray100
       rounded
       mx-1
+      flexShrink-0
       overflowHidden
       ringBrand500={selected}
       contentEditable={false}
