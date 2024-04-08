@@ -21,10 +21,9 @@ export const Paragraph = ({
   return (
     <Box
       leadingNormal
-      gray900
+      // gray900
       text={isInTitle ? false : [17, 17, 16]}
       relative
-      // h="1.5em"
       py={[2]}
       // h-100p
       {...attributes}

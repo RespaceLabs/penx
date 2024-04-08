@@ -25,7 +25,14 @@ const icons = [Heading1, Heading2, Heading3, Heading4, Heading5, Heading5]
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     with: withHeading,
-    elements: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].map((item, index) => {
+    elements: [
+      ELEMENT_H1,
+      ELEMENT_H2,
+      ELEMENT_H3,
+      ELEMENT_H4,
+      ELEMENT_H5,
+      ELEMENT_H6,
+    ].map((item, index) => {
       const element: BlockElement = {
         type: item,
         component: Heading,

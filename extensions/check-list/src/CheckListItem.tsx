@@ -20,7 +20,8 @@ export const CheckListItem = ({
       toLeft
       toCenterY
       flex-1
-      // leadingNormal
+      leadingNormal
+      py={2}
       textBase
       {...attributes}
       // h="1.5em"

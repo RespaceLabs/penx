@@ -14,6 +14,7 @@ import { NodeService } from '@penx/service'
 import { routerAtom, store } from '@penx/store'
 import { withAutoNodeId } from '../plugins/withAutoNodeId'
 import { withBulletPlugin } from '../plugins/withBulletPlugin'
+import { BulletDrawer } from './BulletDrawer/BulletDrawer'
 import { LinkedReferences } from './LinkedReferences'
 
 interface Props {
@@ -90,6 +91,7 @@ export function PanelItem({ node, index }: Props) {
               }}
             >
               <TagDrawer />
+              <BulletDrawer />
             </NodeEditor>
             <LinkedReferences node={node} />
           </Box>

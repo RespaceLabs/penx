@@ -44,7 +44,7 @@ export const ListItemContent = memo(
 
     function h() {
       // if (isTask) return 'calc(1.5em + 2px)'
-      return isHeading ? 'calc(1.8em + 8px)' : 'calc(1.5em + 4px)'
+      return isHeading ? 'calc(1.25em)' : 'calc(1.5em + 6px)'
     }
 
     const menuId = `lic-menu-${element.id}`
@@ -99,6 +99,8 @@ export const ListItemContent = memo(
             style={{
               userSelect: 'none',
             }}
+            // bgAmber100
+            // ringPurple500
           >
             <BulletMenu menuId={menuId} element={element} />
 
@@ -129,7 +131,13 @@ export const ListItemContent = memo(
           )}
 
           {!isDaily && (
-            <Box flex-1 pl1 leadingRelaxed>
+            <Box
+              flex-1
+              pl1
+              leadingRelaxed
+              // bgGreen100
+              // ringAmber500
+            >
               {children}
             </Box>
           )}

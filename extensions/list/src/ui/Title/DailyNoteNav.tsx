@@ -5,7 +5,7 @@ import { IconCalendar } from '@penx/icons'
 import { store } from '@penx/store'
 import { DailyShortcut } from '@penx/widget'
 
-export const DailyNoteNav = ({ date }: { date: string }) => {
+export const DailyNoteNav = ({ date }: { date?: string }) => {
   const currentDate = new Date(date ?? Date.now())
 
   return (

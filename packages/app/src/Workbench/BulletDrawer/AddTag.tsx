@@ -1,17 +1,20 @@
 import { Box } from '@fower/react'
+import { Button, Input } from 'uikit'
+import { useBulletDrawer } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { useDatabaseNodes } from '@penx/node-hooks'
 
-interface Props {
-  onSelect: (node: Node) => void
-}
-
-export const QuickAddTag = ({ onSelect }: Props) => {
+export const AddTag = () => {
+  const { close, node } = useBulletDrawer()
   const nodes = useDatabaseNodes()
+
   return (
-    <Box borderTop borderGray200--T40 mx--8 pt4 px3>
+    <Box mx--8 pt4 px3>
       <Box textXS gray400 mb2>
-        Quick add a tag:
+        <Box toCenterY gap1>
+          <Input placeholder="Search or add a tag" flex-1 />
+          <Button colorScheme="black">Add</Button>
+        </Box>
       </Box>
       <Box toCenterY gap2 flexWrap>
         {nodes.map((item) => {
@@ -21,17 +24,16 @@ export const QuickAddTag = ({ onSelect }: Props) => {
             <Box
               key={item.id}
               toCenterY
-              textSM
+              textXS
               gray400
               roundedFull
               py-6
               px3
-              // bg--T92={node?.tagColor}
-              bgNeutral100
-              // bg--T88--hover={node?.tagColor}
-              // color={node?.tagColor}
-              // color--D4--hover={node?.tagColor}
-              onClick={() => onSelect(node)}
+              bg--T92={node?.tagColor}
+              bg--T88--hover={node?.tagColor}
+              color={node?.tagColor}
+              color--D4--hover={node?.tagColor}
+              // onClick={() => onSelect(node)}
             >
               #{node.tagName}
             </Box>

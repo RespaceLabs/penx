@@ -1,8 +1,9 @@
-import { memo, useMemo } from 'react'
+import { memo, PropsWithChildren, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
 import { extractTags, useEditor } from '@penx/editor-common'
+import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { NodeType } from '@penx/model-types'
 import { nodesAtom } from '@penx/store'
@@ -12,6 +13,7 @@ import { ListContentElement } from '../types'
 interface BulletContentProps {
   collapsed?: boolean
   nodeId?: string
+  element?: ListContentElement
   colors?: string[]
   onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
 }
@@ -20,6 +22,7 @@ const BulletContent = memo(
   function BulletContent({
     collapsed,
     nodeId,
+    element,
     colors,
     onContextMenu,
   }: BulletContentProps) {
@@ -42,7 +45,7 @@ const BulletContent = memo(
       <Box
         id={`${nodeId}`}
         className="bullet"
-        square={[16, 15]}
+        square={[17, 15]}
         bgTransparent
         bg--hover={bgHoverColor}
         toCenter
@@ -51,12 +54,12 @@ const BulletContent = memo(
         // flexShrink-1
         bg={bgColor}
         onContextMenu={onContextMenu}
-        onClick={() => {
-          editor?.onClickBullet?.(nodeId)
+        onClick={async () => {
+          editor?.onClickBullet?.(nodeId, element)
         }}
       >
         <Box
-          square={[6, 5]}
+          square={[7, 5]}
           bg={color}
           roundedFull
           transitionCommon
@@ -103,6 +106,7 @@ export const Bullet = ({ element, onContextMenu }: Props) => {
     <BulletContent
       collapsed={collapsed}
       nodeId={element.id}
+      element={element}
       colors={colors}
       onContextMenu={onContextMenu}
     />

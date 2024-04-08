@@ -141,7 +141,7 @@ export const BlockSelectorContent = ({ close, element }: Props) => {
         editor.isBlockSelectorOpened = false
       }, 50)
     },
-    [editor, close, element, extensionStore],
+    [editor, close, element],
   )
 
   const listItemIdPrefix = 'type-list-item-'

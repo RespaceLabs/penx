@@ -13,13 +13,14 @@ export const Heading = ({
   return (
     <Box
       as={type.toLocaleLowerCase() as any}
-      leadingLoose
+      leadingTight
       text3XL={type === 'h1'}
       text2XL={type === 'h2'}
       textXL={type === 'h3'}
       textLG={type === 'h4'}
       textBase={type === 'h5'}
       textSM={type === 'h6'}
+      toCenterY
       relative
       mt0
       mb0

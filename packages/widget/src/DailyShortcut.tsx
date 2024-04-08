@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { store } from '@penx/store'
 
 interface Props extends FowerHTMLProps<'div'> {
-  date: string
+  date?: string
 }
 
 export const DailyShortcut = forwardRef<HTMLDivElement, Props>(
@@ -50,11 +50,6 @@ export const DailyShortcut = forwardRef<HTMLDivElement, Props>(
             transitionColors
             cursorPointer
             onClick={() => {
-              console.log(
-                '======addDays(currentDate, 1):',
-                addDays(currentDate, 1),
-              )
-
               store.node.selectDailyNote(addDays(currentDate, 1))
             }}
           >

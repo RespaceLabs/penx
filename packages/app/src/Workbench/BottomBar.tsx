@@ -13,7 +13,6 @@ import { BottomBarDrawer } from './BottomBarDrawer/BottomBarDrawer'
 export function BottomBar() {
   const { isOpen, close, open } = useBottomBarDrawer()
   const { node } = useNodeContext()
-  const date = new Date(node.date ?? Date.now())
 
   if (node?.isDatabase) return null
 
@@ -45,7 +44,7 @@ export function BottomBar() {
           <IconTodo size={24} stroke="gray400" />
         </Button>
 
-        <GoToDay date={date}></GoToDay>
+        <GoToDay />
       </Box>
 
       <Button
@@ -98,9 +97,12 @@ const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
   )
 })
 
-function GoToDay({ date }: { date: Date }) {
-  const [startDate, setStartDate] = useState(date || new Date())
+function GoToDay() {
   const { node } = useNodeContext()
+  const [startDate, setStartDate] = useState(
+    node?.date ? new Date(node.date) : new Date(),
+  )
+
   return (
     <DatePicker
       selected={startDate}
@@ -115,7 +117,7 @@ function GoToDay({ date }: { date: Date }) {
       customInput={<CustomInput />}
     >
       <Box absolute bottom2 textXS>
-        <DailyShortcut date={node.date} />
+        <DailyShortcut date={node?.date} />
       </Box>
     </DatePicker>
   )

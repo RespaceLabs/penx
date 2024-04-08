@@ -93,13 +93,14 @@ export const QuickAddEditor = () => {
 
   return (
     <Box>
-      <Box flex px2 borderBottom toCenterY toBetween py1>
+      <Box flex px4 toCenterY toBetween py1>
         <Box toCenterY gap2 flex-1>
           {isTodo && <Checkbox defaultChecked={false} />}
 
           <TextareaAutosize
             ref={ref}
             autoFocus
+            minRows={3}
             placeholder="Write something..."
             className={css({
               borderNone: true,
@@ -108,7 +109,7 @@ export const QuickAddEditor = () => {
               placeholderNeutral300: true,
               outline: 'none',
               resize: 'none',
-              textBase: true,
+              textXL: true,
               leadingSnug: true,
               fontFamily: 'unset',
               py: 12,
@@ -147,7 +148,7 @@ export const QuickAddEditor = () => {
         )}
       </Box>
 
-      <Box mt1 toBetween toCenterY px2>
+      <Box mt1 toBetween toCenterY px4>
         <Box toCenterY gap2>
           <Checkbox
             checked={isTodo}
