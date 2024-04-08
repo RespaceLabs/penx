@@ -4,7 +4,7 @@ import { Box, css } from '@fower/react'
 import { Clock, Hash, X } from 'lucide-react'
 import { Button, Checkbox, toast } from 'uikit'
 import { ELEMENT_P, ELEMENT_TAG, ELEMENT_TODO } from '@penx/constants'
-import { useBottomBarDrawer } from '@penx/hooks'
+import { useBottomBarDrawer, useRouterStore } from '@penx/hooks'
 import { db, getNewNode } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
@@ -17,6 +17,8 @@ export const QuickAddEditor = () => {
   const [value, setValue] = useState('')
   const [isTodo, setIsTodo] = useState(false)
   const [databases, setDatabases] = useState<Node[]>([])
+
+  const { isTodos } = useRouterStore()
 
   function selectTag(node: Node) {
     if (databases.map((d) => d.id).includes(node.id)) {
@@ -83,7 +85,7 @@ export const QuickAddEditor = () => {
       addWithTags()
     } else {
       if (isTodo) {
-        store.node.addTodo(value)
+        store.node.addTodo(value, isTodos())
       } else {
         store.node.addTextToToday(value)
       }
@@ -93,9 +95,15 @@ export const QuickAddEditor = () => {
 
   return (
     <Box>
-      <Box flex px4 toCenterY toBetween py1>
-        <Box toCenterY gap2 flex-1>
-          {isTodo && <Checkbox defaultChecked={false} />}
+      <Box flex px4 toTop toBetween py1>
+        <Box toTop gap2 flex-1>
+          {isTodo && (
+            <Box textXL py3 toCenter>
+              <Box h-1em>
+                <Checkbox defaultChecked={false} />
+              </Box>
+            </Box>
+          )}
 
           <TextareaAutosize
             ref={ref}
@@ -118,34 +126,36 @@ export const QuickAddEditor = () => {
             onChange={(e) => setValue(e.target.value)}
           />
         </Box>
-        {databases.length > 0 && (
-          <Box toCenterY gap2 flexWrap>
-            {databases.map((node) => {
-              return (
-                <Box
-                  key={node.id}
-                  toCenterY
-                  textXS
-                  gray400
-                  roundedFull
-                  h-28
-                  px-6
-                  gap1
-                  bg--T92={node?.tagColor}
-                  bg--T88--hover={node?.tagColor}
-                  color={node?.tagColor}
-                  color--D4--hover={node?.tagColor}
-                  onClick={() => selectTag(node)}
-                >
-                  <Box>#{node.tagName}</Box>
-                  <Box circle4 bg={node?.tagColor} white toCenter>
-                    <X size={14} />
+        <Box py3>
+          {databases.length > 0 && (
+            <Box toCenterY gap2 flexWrap>
+              {databases.map((node) => {
+                return (
+                  <Box
+                    key={node.id}
+                    toCenterY
+                    textXS
+                    gray400
+                    roundedFull
+                    h-28
+                    px-6
+                    gap1
+                    bg--T92={node?.tagColor}
+                    bg--T88--hover={node?.tagColor}
+                    color={node?.tagColor}
+                    color--D4--hover={node?.tagColor}
+                    onClick={() => selectTag(node)}
+                  >
+                    <Box>#{node.tagName}</Box>
+                    <Box circle4 bg={node?.tagColor} white toCenter>
+                      <X size={14} />
+                    </Box>
                   </Box>
-                </Box>
-              )
-            })}
-          </Box>
-        )}
+                )
+              })}
+            </Box>
+          )}
+        </Box>
       </Box>
 
       <Box mt1 toBetween toCenterY px4>
@@ -158,7 +168,7 @@ export const QuickAddEditor = () => {
             }}
           />
           <Box inlineFlex gray500>
-            <Hash size={20} />
+            <Hash size={20} strokeWidth={1} />
           </Box>
 
           <Box
@@ -168,7 +178,7 @@ export const QuickAddEditor = () => {
               toast.info('Coming soon!')
             }}
           >
-            <Clock size={20} />
+            <Clock size={20} strokeWidth={1} />
           </Box>
           {/* <Box inlineFlex gray500>
             <Star size={20} />

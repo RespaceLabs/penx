@@ -290,7 +290,7 @@ export class NodeStore {
     this.selectNode(todayNode)
   }
 
-  async addTodo(text: string) {
+  async addTodo(text: string, isInTodoPage = false) {
     const space = this.store.space.getActiveSpace()
 
     const newNode = getNewNode({
@@ -307,10 +307,15 @@ export class NodeStore {
 
     const nodes = await db.listNodesBySpaceId(space.id)
 
-    const newTodayNode = await db.getOrCreateTodayNode(space.id)
+    console.log('=======isInTodoPage:', isInTodoPage)
+
+    if (!isInTodoPage) {
+      const newTodayNode = await db.getOrCreateTodayNode(space.id)
+
+      this.selectNode(newTodayNode)
+    }
 
     this.setNodes(nodes)
-    this.selectNode(newTodayNode)
   }
 
   async openInNewPanel(nodeId: string) {

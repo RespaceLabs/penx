@@ -35,7 +35,7 @@ export const BottomBarDrawer = () => {
           left-0
           right-0
           zIndex-101
-          autoFocus
+
           // overflowHidden
         >
           <QuickAddEditor />

@@ -30,7 +30,7 @@ export const MenuItem = ({
       bgGray200--active
       transitionCommon
       cursorPointer
-      borderBottom
+      // borderBottom
       {...rest}
       onClick={onClick}
     >

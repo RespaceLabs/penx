@@ -30,7 +30,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
         }}
       >
         {/* <HoveringToolbar /> */}
-        <NodeEditorEditable editorAtomicStyle="w-100p py2" />
+        <NodeEditorEditable editorAtomicStyle="w-100p py1" />
       </Slate>
     </Box>
   )

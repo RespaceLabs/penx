@@ -25,7 +25,8 @@ function ActionButton({ ...rest }: ActionButtonProps) {
       isSquare
       roundedFull
       bgGray200--active
-      shadow="0px 1px 4px 0 rgba(0, 0, 0, 0.2)"
+      shadow="0px 1px 12px 0 rgba(0, 0, 0, 0.1)"
+      bgWhite
       {...rest}
     ></Button>
   )
@@ -41,7 +42,7 @@ export function BottomBar() {
     <>
       <BottomBarDrawer />
 
-      <Box fixed left3 bottom3 toCenterY gap2 zIndex-100>
+      <Box fixed left3 bottom3 toCenterY gap2 zIndex-100 bgWhite>
         <ActionButton
           onClick={() => {
             if (store.router.isTodos()) {
@@ -71,11 +72,9 @@ export function BottomBar() {
         shadow2XL
         bgGray200--hover
         bgGray200--active
-        overflowHidden
-        zIndex-100
         onClick={() => open()}
       >
-        <Box gray300 inlineFlex>
+        <Box gray500 inlineFlex>
           <Plus />
         </Box>
       </Button>
@@ -88,11 +87,9 @@ const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
   ref,
 ) {
   return (
-    <Box ref={ref} gray500 inlineFlex cursorPointer ml2 onClick={onClick}>
-      <ActionButton>
-        <IconCalendar size={24} stroke="gray500" />
-      </ActionButton>
-    </Box>
+    <ActionButton bgWhite bgGray200--active onClick={onClick}>
+      <IconCalendar size={24} stroke="gray500" />
+    </ActionButton>
   )
 })
 

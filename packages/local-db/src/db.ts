@@ -1193,6 +1193,14 @@ export class PenxDB extends Dexie {
     })
   }
 
+  updateColumnWidth = async (
+    viewId: string,
+    columnId: string,
+    width: number,
+  ) => {
+    await this.updateViewColumn(viewId, columnId, { width })
+  }
+
   deleteView = async (databaseId: string, viewId: string) => {
     const database = (await this.getNode(databaseId)) as IDatabaseNode
     await this.deleteNode(viewId)

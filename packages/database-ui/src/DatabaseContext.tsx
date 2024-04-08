@@ -88,6 +88,7 @@ export interface IDatabaseContext {
   ): Promise<void>
 
   updateColumnName(columnId: string, name: string): Promise<void>
+  updateColumnWidth(columnId: string, width: number): Promise<void>
   addOption(columnId: string, name: string): Promise<IOptionNode>
   deleteCellOption(cellId: string, optionId: string): Promise<void>
 }
@@ -175,6 +176,11 @@ export const DatabaseProvider = ({
 
   async function updateColumnName(columnId: string, name: string) {
     await db.updateColumnName(columnId, name)
+    reloadNodes()
+  }
+
+  async function updateColumnWidth(columnId: string, width: number) {
+    await db.updateColumnWidth(currentView.id, columnId, width)
     reloadNodes()
   }
 
@@ -365,6 +371,7 @@ export const DatabaseProvider = ({
         deleteColumn,
         moveColumn,
         updateColumnName,
+        updateColumnWidth,
         addOption,
         deleteCellOption,
 

@@ -25,6 +25,11 @@ export function ColumnMenu({ index = 0, column, close }: ColumnMenuProps) {
   const [name, setName] = useState(column.props.name)
   const [isEditField, setIsEditField] = useState(false)
 
+  const viewColumn = ctx.currentView.props.viewColumns.find(
+    (i) => i.columnId === column.id,
+  )!
+  const [width, setWidth] = useState(viewColumn.width || 120)
+
   async function moveColumn(fromIndex: number, toIndex: number) {
     await ctx.moveColumn(fromIndex, toIndex)
     close()
@@ -32,6 +37,11 @@ export function ColumnMenu({ index = 0, column, close }: ColumnMenuProps) {
 
   async function updateColumnName() {
     await ctx.updateColumnName(column.id, name)
+    close()
+  }
+
+  async function updateColumnWidth() {
+    await ctx.updateColumnWidth(column.id, Number(width as any))
     close()
   }
 
@@ -61,6 +71,22 @@ export function ColumnMenu({ index = 0, column, close }: ColumnMenuProps) {
           }}
           onChange={(e) => {
             setName(e.target.value)
+          }}
+        />
+      </Box>
+
+      <Box p2>
+        <Input
+          size="sm"
+          type="number"
+          value={width}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              updateColumnWidth()
+            }
+          }}
+          onChange={(e) => {
+            setWidth(Number(e.target.value))
           }}
         />
       </Box>
