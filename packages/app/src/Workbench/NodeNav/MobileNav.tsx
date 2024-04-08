@@ -44,7 +44,7 @@ export const MobileNav = () => {
   const routerStore = useRouterStore()
   const { node } = useNodeContext()
   const showIcon =
-    routerStore.isTodos() ||
+    routerStore.isShowMobileMenu() ||
     node?.isDaily ||
     node?.isDatabaseRoot ||
     node?.isDailyRoot ||

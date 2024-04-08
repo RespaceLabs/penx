@@ -53,6 +53,7 @@ export const SidebarDrawer = () => {
 
   return (
     <Drawer.Root
+      direction="left"
       shouldScaleBackground
       open={isOpen}
       onOpenChange={(o) => {
@@ -73,8 +74,10 @@ export const SidebarDrawer = () => {
         <DrawerContent
           bgWhite
           column
-          roundedTop2XL
-          h-94vh
+          // roundedTop2XL
+          // h-94vh
+          h-100p
+          w-80vw
           // maxH-96p
           fixed
           bottom-0
@@ -82,7 +85,7 @@ export const SidebarDrawer = () => {
           right-0
           zIndex-101
           // overflowHidden
-          bgNeutral100
+          // bgNeutral100
           px4
           py4
         >
@@ -97,7 +100,7 @@ export const SidebarDrawer = () => {
           </Box>
           <Box column flex-1>
             <Box flex-1 mt3 gap4 column>
-              <Box bgWhite roundedLG>
+              <Box>
                 <MenuItem
                   icon={<IconCalendar size={24} />}
                   label="Today"
@@ -135,7 +138,7 @@ export const SidebarDrawer = () => {
                 <DatabaseList />
               </Box> */}
 
-              <Box bgWhite roundedLG py2>
+              <Box py2>
                 <TreeView nodeList={nodeList} />
               </Box>
             </Box>

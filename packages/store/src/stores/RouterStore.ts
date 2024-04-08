@@ -43,4 +43,9 @@ export class RouterStore {
     const routerName = this.getName()
     return routerName === 'TODOS'
   }
+
+  isShowMobileMenu = () => {
+    const routerName = this.getName()
+    return routerName === 'SPACE_SETTINGS' || routerName === 'TODOS'
+  }
 }
