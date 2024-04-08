@@ -1,18 +1,16 @@
 import { forwardRef, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { Box } from '@fower/react'
-import { addDays, subDays } from 'date-fns'
-import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react'
 import { IconCalendar } from '@penx/icons'
 import { store } from '@penx/store'
 import { DailyShortcut } from '@penx/widget'
 
-export const DailyNoteNav = ({ date }: { date?: string }) => {
+export const DailyNoteNav = ({ date }: { date: string }) => {
   const currentDate = new Date(date ?? Date.now())
 
   return (
     <Box contentEditable={false} textXS fontNormal toCenterY gap4 gray600>
-      <DailyShortcut />
+      <DailyShortcut date={date} />
       <GoToDay date={currentDate}></GoToDay>
     </Box>
   )

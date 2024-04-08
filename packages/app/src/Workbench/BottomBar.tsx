@@ -1,7 +1,6 @@
 import { forwardRef, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import { Box, css } from '@fower/react'
-import { addDays, subDays } from 'date-fns'
 import { Plus } from 'lucide-react'
 import { Button } from 'uikit'
 import { useBottomBarDrawer } from '@penx/hooks'
@@ -14,7 +13,7 @@ import { BottomBarDrawer } from './BottomBarDrawer/BottomBarDrawer'
 export function BottomBar() {
   const { isOpen, close, open } = useBottomBarDrawer()
   const { node } = useNodeContext()
-  const date = new Date(Date.now())
+  const date = new Date(node.date ?? Date.now())
 
   if (node?.isDatabase) return null
 
@@ -101,6 +100,7 @@ const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
 
 function GoToDay({ date }: { date: Date }) {
   const [startDate, setStartDate] = useState(date || new Date())
+  const { node } = useNodeContext()
   return (
     <DatePicker
       selected={startDate}
@@ -115,7 +115,7 @@ function GoToDay({ date }: { date: Date }) {
       customInput={<CustomInput />}
     >
       <Box absolute bottom2 textXS>
-        <DailyShortcut />
+        <DailyShortcut date={node.date} />
       </Box>
     </DatePicker>
   )
