@@ -1,8 +1,8 @@
 import { createContext, FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
-import { Spinner } from 'uikit'
 import { appLoadingAtom, store } from '@penx/store'
+import { LogoSpinner } from '@penx/widget'
 import { AppService } from './services/AppService'
 import { useRunSSE } from './Workbench/hooks/useRunSSE'
 
@@ -24,7 +24,7 @@ export const AppProvider: FC<PropsWithChildren> = ({ children }) => {
   if (loading) {
     return (
       <Box toCenter h-80vh>
-        <Spinner />
+        <LogoSpinner />
       </Box>
     )
   }

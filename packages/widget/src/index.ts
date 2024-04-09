@@ -1,5 +1,6 @@
-export * from './Logo'
 export * from './ClientOnly'
+export * from './Logo'
+export * from './LogoSpinner'
 export * from './RecoveryPhraseLogin/RecoveryPhraseLoginProvider'
 export * from './FirstLocalSpaceGenerator/FirstLocalSpaceGenerator'
 export * from './DailyShortcut'

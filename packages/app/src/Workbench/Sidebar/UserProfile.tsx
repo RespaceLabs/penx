@@ -22,6 +22,7 @@ import {
 } from 'uikit'
 import { appEmitter } from '@penx/event'
 import { useUser } from '@penx/hooks'
+import { IconPassword } from '@penx/icons'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 
@@ -48,7 +49,6 @@ export const UserProfile = ({ isMobile, ...rest }: Props) => {
 
   const image = session.user?.image || ''
 
-  // <Box toCenterY pl4 pr2></Box>
   return (
     <Popover>
       <PopoverTrigger>
@@ -99,7 +99,7 @@ export const UserProfile = ({ isMobile, ...rest }: Props) => {
             }}
           >
             <Box gray500>
-              <User size={16} />
+              <IconPassword size={16} />
             </Box>
             <Box>Recovery Phrase</Box>
           </MenuItem>
@@ -115,7 +115,7 @@ export const UserProfile = ({ isMobile, ...rest }: Props) => {
             <Box gray500>
               <GitCompare size={16} />
             </Box>
-            <Box>GitHub backup</Box>
+            <Box>Backup data</Box>
           </MenuItem>
         </PopoverClose>
 

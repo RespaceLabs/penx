@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { isMobile } from 'react-device-detect'
 import { Box } from '@fower/react'
 import {
   ArrowDown,
@@ -58,12 +59,15 @@ export function ColumnMenu({ index = 0, column, close }: ColumnMenuProps) {
   return (
     <Box>
       <Box p2>
+        <Box textXS gray400 mb1>
+          Column name
+        </Box>
         <Input
-          size="sm"
+          size={isMobile ? 'md' : 'sm'}
           value={name}
-          // onBlur={() => {
-          //   updateColumnName()
-          // }}
+          onBlur={() => {
+            updateColumnName()
+          }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               updateColumnName()
@@ -76,10 +80,16 @@ export function ColumnMenu({ index = 0, column, close }: ColumnMenuProps) {
       </Box>
 
       <Box p2>
+        <Box textXS gray400 mb1>
+          Column name
+        </Box>
         <Input
-          size="sm"
+          size={isMobile ? 'md' : 'sm'}
           type="number"
           value={width}
+          onBlur={() => {
+            updateColumnWidth()
+          }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               updateColumnWidth()
