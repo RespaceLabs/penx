@@ -25,6 +25,7 @@
     "@penx/serializer": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/unique-id": "workspace:*",
+    "@penx/types": "workspace:*",
     "@prisma/client": "^5.6.0",
     "@trpc/client": "^10.45.1",
     "@trpc/next": "^10.45.1",

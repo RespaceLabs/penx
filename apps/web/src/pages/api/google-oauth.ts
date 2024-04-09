@@ -1,17 +1,6 @@
 import { google } from 'googleapis'
-import Redis from 'ioredis'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { RedisKeys } from '@penx/constants'
-
-type GoogleToken = {
-  access_token: string
-  scope: string
-  token_type: string
-  expiry_date: number
-  refresh_token: string
-}
-
-const redis = new Redis(process.env.REDIS_URL!)
+import { prisma } from '@penx/db'
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
 const clientSecret = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!
@@ -22,7 +11,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const code = req.query.code as string
-  const state = req.query.state as string
+  const userId = req.query.state as string
 
   const auth = new google.auth.OAuth2(clientId, clientSecret, redirectUri)
 
@@ -30,34 +19,27 @@ export default async function handler(
 
   // console.log('==========tokens:', tokens)
 
-  const key = RedisKeys.googleDriveToken(state)
+  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret)
+  oauth2Client.setCredentials(tokens)
 
-  const existingToken = (await redis.get(key)) as any as GoogleToken
+  const oauth2 = google.oauth2({
+    auth: oauth2Client,
+    version: 'v2',
+  })
 
-  if (!existingToken?.access_token) {
-    await redis.set(key, JSON.stringify(tokens))
-  }
+  const userInfo = await oauth2.userinfo.get()
 
-  // auth.setCredentials(tokenRes.tokens)
+  // console.log('User Profile:', userInfo.data)
 
-  // const drive = google.drive({ version: 'v3', auth })
-
-  // try {
-  //   const res = await drive.files.create({
-  //     requestBody: {
-  //       name: `hello_${Date.now()}`,
-  //       mimeType: 'text/plain',
-  //     },
-  //     media: {
-  //       mimeType: 'text/plain',
-  //       body: 'Hello World',
-  //     },
-  //   })
-
-  //   console.log('File uploaded successfully. File ID:', res)
-  // } catch (error) {
-  //   console.error('Error uploading file:', error)
-  // }
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      google: {
+        ...tokens,
+        ...userInfo.data,
+      },
+    },
+  })
 
   res.redirect(`/`)
 }

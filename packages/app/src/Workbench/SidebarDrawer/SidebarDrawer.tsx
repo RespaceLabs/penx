@@ -102,7 +102,12 @@ export const SidebarDrawer = () => {
             <Box flex-1 mt3 gap4 column>
               <Box>
                 <MenuItem
-                  icon={<IconCalendar size={24} />}
+                  icon={
+                    <IconCalendar
+                      size={24}
+                      stroke={isTodayActive ? 'brand500' : 'black'}
+                    />
+                  }
                   label="Today"
                   isActive={isTodayActive}
                   onClick={() => {
@@ -112,7 +117,12 @@ export const SidebarDrawer = () => {
                 />
 
                 <MenuItem
-                  icon={<IconTodo size={24} />}
+                  icon={
+                    <IconTodo
+                      size={24}
+                      stroke={isTodosActive ? 'black' : 'gray500'}
+                    />
+                  }
                   label="Tasks"
                   isActive={isTodosActive}
                   onClick={() => {

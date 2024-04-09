@@ -11,7 +11,7 @@ export type BackupFormValues = {
   passwordConfirm: string
 }
 
-export function useRecoverFromGoogle(
+export function useRecoverFromGoogleForm(
   setMnemonic: Dispatch<SetStateAction<string>>,
 ) {
   const { data: token } = trpc.google.googleDriveToken.useQuery()

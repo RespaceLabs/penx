@@ -26,7 +26,7 @@ export default async function handler(
 
   const userId = req.query.state as string
 
-  console.log('token=========authentication:', userId, authentication)
+  // console.log('token=========authentication:', userId, authentication)
 
   await prisma.user.update({
     where: { id: userId },

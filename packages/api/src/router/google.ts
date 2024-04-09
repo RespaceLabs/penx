@@ -1,53 +1,66 @@
 import { google } from 'googleapis'
-import Redis from 'ioredis'
-import { z } from 'zod'
-import { RedisKeys } from '@penx/constants'
-import { createTRPCRouter, publicProcedure } from '../trpc'
-
-const redis = new Redis(process.env.REDIS_URL!)
+import { GoogleInfo } from '@penx/model'
+import { GoogleDriveConnectedData } from '@penx/types'
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
 const clientSecret = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!
 
-type GoogleToken = {
-  access_token: string
-  scope: string
-  token_type: string
-  expiry_date: number
-  refresh_token: string
-}
-
 export const googleRouter = createTRPCRouter({
   googleDriveToken: publicProcedure.query(async ({ ctx, input }) => {
-    const key = RedisKeys.googleDriveToken(ctx.token.uid)
+    const userId = ctx.token.uid
 
-    const tokenStr = (await redis.get(key)) as string
+    const user = await ctx.prisma.user.findUnique({ where: { id: userId } })
 
-    if (!tokenStr) return null
+    if (!user?.google) return null
 
-    const existingToken = JSON.parse(tokenStr) as GoogleToken
+    const googleInfo = user.google as GoogleInfo
 
-    const isExpired = existingToken.expiry_date < Date.now()
+    const isExpired = googleInfo.expiry_date < Date.now()
 
     if (isExpired) {
-      if (!existingToken.refresh_token) {
-        return null
-      }
+      if (!googleInfo.refresh_token) return null
 
-      const auth = new google.auth.OAuth2(clientId, clientSecret)
+      const oauth2Client = new google.auth.OAuth2(clientId, clientSecret)
 
-      auth.setCredentials({ refresh_token: existingToken.refresh_token })
+      oauth2Client.setCredentials({
+        refresh_token: googleInfo.refresh_token,
+      })
 
-      const accessToken = await auth.getAccessToken()
+      const accessToken = await oauth2Client.getAccessToken()
+
+      const oauth2 = google.oauth2({
+        auth: oauth2Client,
+        version: 'v2',
+      })
+
+      const userInfo = await oauth2.userinfo.get()
 
       if (accessToken.token && accessToken.res?.data) {
-        await redis.set(key, JSON.stringify(accessToken.res?.data))
-        return accessToken.res?.data as GoogleToken
+        const newData = {
+          ...accessToken.res?.data,
+          ...userInfo.data,
+        } as GoogleDriveConnectedData
+
+        await ctx.prisma.user.update({
+          where: { id: userId },
+          data: { google: newData },
+        })
+
+        return newData
       }
 
       return null
     }
 
-    return existingToken
+    return googleInfo
+  }),
+
+  disconnectGoogleDrive: protectedProcedure.mutation(async ({ ctx }) => {
+    return ctx.prisma.user.update({
+      where: { id: ctx.token.uid },
+      data: { google: {} },
+    })
+    return true
   }),
 })

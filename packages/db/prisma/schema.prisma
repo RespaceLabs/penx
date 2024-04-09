@@ -19,7 +19,8 @@ model User {
     avatar             String?
     password           String?
     roleType           String?
-    github             Json?
+    github             Json? // github info
+    google             Json? // google info
     taskGithub         Json? // github binding for task
     username           String?
     email              String?      @unique

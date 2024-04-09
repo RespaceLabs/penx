@@ -14,6 +14,8 @@ export const userRouter = createTRPCRouter({
   me: protectedProcedure.query(async ({ ctx }) => {
     const redisKey = RedisKeys.user(ctx.token.uid)
 
+    // await redis.del(redisKey)
+
     const userStr = await redis.get(redisKey)
 
     if (userStr) {
@@ -170,6 +172,8 @@ export const userRouter = createTRPCRouter({
           email: true,
           avatar: true,
           image: true,
+          github: true,
+          google: true,
           isMnemonicBackedUp: true,
         },
       })

@@ -2,14 +2,14 @@ import { Dispatch, SetStateAction } from 'react'
 import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
 import { Button, Input, Spinner } from 'uikit'
-import { useRecoverFromGoogle } from './hooks/useCloudBackupForm'
+import { useRecoverFromGoogleForm } from './hooks/useRecoverFromGoogleForm'
 
 interface Props {
   setMnemonic: Dispatch<SetStateAction<string>>
 }
 
 export function RecoverFromGoogleForm({ setMnemonic }: Props) {
-  const form = useRecoverFromGoogle(setMnemonic)
+  const form = useRecoverFromGoogleForm(setMnemonic)
   const { control, formState, loading } = form
   const { isValid } = formState
 

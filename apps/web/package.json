@@ -53,6 +53,7 @@
     "@penx/storage": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/trpc-client": "workspace:^",
+    "@penx/types": "workspace:^",
     "@penx/unique-id": "workspace:*",
     "@penx/wagmi": "workspace:*",
     "@penx/widget": "workspace:*",

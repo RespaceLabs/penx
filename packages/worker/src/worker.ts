@@ -2,6 +2,7 @@ import { WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { clearNodes } from './clearNodes'
 import { normalizeNodes } from './normalizeNodes'
+import { pollingBackupToGoogle } from './pollingBackupToGoogle'
 import { startPollingPull } from './pollingPull'
 import { pollingPushToCloud } from './pollingPushToCloud'
 import { pollingPushToGithub } from './pollingPushToGithub'
@@ -14,6 +15,8 @@ self.addEventListener('message', async (event) => {
     // pollingPushToCloud()
     // startPollingPull()
     pollingPushToGithub()
+
+    pollingBackupToGoogle()
 
     runAgentSSE()
 

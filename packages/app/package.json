@@ -85,6 +85,7 @@
     "@penx/sync": "workspace:*",
     "@penx/sync-server-client": "workspace:*",
     "@penx/trpc-client": "workspace:*",
+    "@penx/types": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "@penx/wagmi": "workspace:*",
     "@penx/widget": "workspace:*",

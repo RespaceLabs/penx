@@ -84,7 +84,12 @@ export const Sidebar = () => {
         {!!nodes.length && (
           <Box column gap-1 flex-1 mt3>
             <SidebarItem
-              icon={<IconCalendar size={20} stroke="gray500" />}
+              icon={
+                <IconCalendar
+                  size={20}
+                  stroke={isTodayActive ? 'brand500' : 'gray500'}
+                />
+              }
               label="Today"
               isActive={isTodayActive}
               onClick={() => {
@@ -101,7 +106,12 @@ export const Sidebar = () => {
             /> */}
 
             <SidebarItem
-              icon={<IconTodo size={20} stroke="gray500" />}
+              icon={
+                <IconTodo
+                  size={20}
+                  stroke={isTodosActive ? 'brand500' : 'gray500'}
+                />
+              }
               label="Tasks"
               isActive={isTodosActive}
               onClick={() => {

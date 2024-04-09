@@ -35,7 +35,9 @@ export function GoogleOauthButton() {
         const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
 
         // const scope = 'https://www.googleapis.com/auth/drive'
-        const scope = 'https://www.googleapis.com/auth/drive.file'
+        // const scope = 'email https://www.googleapis.com/auth/drive.file'
+        const scope =
+          'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/drive.file'
 
         const googleAuthUrl =
           `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=${redirectUri}` +

@@ -2407,6 +2407,9 @@ importers:
       '@penx/trpc-client':
         specifier: workspace:^
         version: link:../../packages/trpc-client
+      '@penx/types':
+        specifier: workspace:^
+        version: link:../../packages/types
       '@penx/unique-id':
         specifier: workspace:*
         version: link:../../packages/unique-id
@@ -4319,6 +4322,9 @@ importers:
       '@penx/shared':
         specifier: workspace:*
         version: link:../shared
+      '@penx/types':
+        specifier: workspace:*
+        version: link:../types
       '@penx/unique-id':
         specifier: workspace:*
         version: link:../unique-id
@@ -4551,6 +4557,9 @@ importers:
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../trpc-client
+      '@penx/types':
+        specifier: workspace:*
+        version: link:../types
       '@penx/unique-id':
         specifier: workspace:*
         version: link:../unique-id
@@ -7270,6 +7279,24 @@ importers:
 
   packages/tsconfig: {}
 
+  packages/types:
+    devDependencies:
+      '@penx/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: ^20.10.3
+        version: 20.11.30
+      eslint:
+        specifier: ^8.55.0
+        version: 8.57.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      typescript:
+        specifier: ^5.3.2
+        version: 5.4.3
+
   packages/uikit:
     dependencies:
       '@floating-ui/react':
@@ -7603,9 +7630,15 @@ importers:
       '@penx/extension-typings':
         specifier: workspace:*
         version: link:../extension-typings
+      '@penx/google-drive':
+        specifier: workspace:*
+        version: link:../google-drive
       '@penx/local-db':
         specifier: workspace:*
         version: link:../local-db
+      '@penx/mnemonic':
+        specifier: workspace:*
+        version: link:../mnemonic
       '@penx/model':
         specifier: workspace:*
         version: link:../model
