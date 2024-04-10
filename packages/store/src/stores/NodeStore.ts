@@ -346,11 +346,12 @@ export class NodeStore {
   async selectDailyNote(date: Date = new Date()) {
     const dateStr = format(date, 'yyyy-MM-dd')
 
-    const nodes = this.getNodes()
-    let dateNode = nodes.find(
+    const space = this.store.space.getActiveSpace()
+    const newNodes = await db.listNodesBySpaceId(space.id)
+
+    let dateNode = newNodes.find(
       (node) => node.type === NodeType.DAILY && node.date === dateStr,
     )
-    const space = this.store.space.getActiveSpace()
 
     if (!dateNode) {
       dateNode = await db.createDailyNode({
@@ -358,8 +359,6 @@ export class NodeStore {
         date: dateStr,
       })
     }
-
-    const newNodes = await db.listNodesBySpaceId(space.id)
 
     this.setNodes(newNodes)
     this.selectNode(dateNode)

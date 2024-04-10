@@ -46,10 +46,10 @@ export async function runSSE(space: Space) {
     async onopen(response) {
       // console.log('=========onopen', response)
     },
-    onmessage(ev) {
+    async onmessage(ev) {
       const spaceInfo: SpaceInfo = JSON.parse(ev.data)
       // console.log('===========spaceInfo:', spaceInfo)
-      pull(spaceInfo)
+      await pull(spaceInfo)
     },
     onclose() {
       // if the server closes the connection unexpectedly, retry:

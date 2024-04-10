@@ -51,10 +51,8 @@ export class SyncStore {
       const mnemonic = this.store.user.getMnemonic()
       await syncFromCloud(activeSpace, mnemonic)
 
-      const newNodes = await db.listNodesBySpaceId(activeSpace.id)
+      await this.store.node.selectDailyNote()
 
-      this.store.node.setNodes(newNodes)
-      this.store.node.selectDailyNote()
       this.setStatus(SyncStatus.NORMAL)
     } catch (error) {
       this.setStatus(SyncStatus.PULL_FAILED)

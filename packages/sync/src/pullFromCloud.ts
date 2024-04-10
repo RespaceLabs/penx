@@ -21,7 +21,7 @@ export async function syncFromCloud(space: ISpace, mnemonic: string) {
 
   // console.log('=========newRemoteNodes:', newRemoteNodes)
 
-  if (!newRemoteNodes.length) return
+  if (!newRemoteNodes.length) return []
 
   for (const item of newRemoteNodes) {
     const existedNode = oldNodes.find((n) => n.id === item.id)
@@ -39,5 +39,5 @@ export async function syncFromCloud(space: ISpace, mnemonic: string) {
     nodesLastUpdatedAt: new Date(localLastUpdatedAt),
   })
 
-  return
+  return newRemoteNodes
 }
