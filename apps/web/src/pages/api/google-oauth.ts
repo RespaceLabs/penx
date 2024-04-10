@@ -1,6 +1,10 @@
 import { google } from 'googleapis'
+import Redis from 'ioredis'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { RedisKeys } from '@penx/constants'
 import { prisma } from '@penx/db'
+
+const redis = new Redis(process.env.REDIS_URL!)
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
 const clientSecret = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!
@@ -17,7 +21,7 @@ export default async function handler(
 
   const { tokens } = await auth.getToken(code)
 
-  // console.log('==========tokens:', tokens)
+  console.log('==========tokens:', tokens)
 
   const oauth2Client = new google.auth.OAuth2(clientId, clientSecret)
   oauth2Client.setCredentials(tokens)
@@ -29,7 +33,7 @@ export default async function handler(
 
   const userInfo = await oauth2.userinfo.get()
 
-  // console.log('User Profile:', userInfo.data)
+  console.log('User Profile:', userInfo.data)
 
   await prisma.user.update({
     where: { id: userId },
@@ -40,6 +44,9 @@ export default async function handler(
       },
     },
   })
+
+  const redisKey = RedisKeys.user(userId)
+  await redis.del(redisKey)
 
   res.redirect(`/`)
 }

@@ -37,6 +37,9 @@ model User {
     spaces             Space[]
     SiteSpace          SiteSpace[]
     SyncServer         SyncServer[]
+
+    @@index([id])
+    @@index([address])
 }
 
 model Account {

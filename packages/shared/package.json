@@ -17,6 +17,7 @@
     "typescript": "^5.3.2"
   },
   "dependencies": {
+    "@penx/constants": "workspace:*",
     "@penx/serializer": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "crypto-js": "^4.2.0"

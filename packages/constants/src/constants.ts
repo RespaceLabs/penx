@@ -2,6 +2,10 @@ export const IS_DB_OPENED = '__IS_DB_OPENED__'
 
 export const isServer = typeof window === 'undefined'
 
+export const isBrowser = typeof window !== 'undefined'
+
+export const isNavigator = typeof navigator !== 'undefined'
+
 export const isProd = process.env.NODE_ENV === 'production'
 
 export const PENX_AUTHORIZED_USER = 'PENX_AUTHORIZED_USER'

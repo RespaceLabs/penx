@@ -13,9 +13,11 @@ export const InitUserToStore = ({ userId }: Props) => {
   const { data, error } = useQuery(['localUser', userId], async () => {
     let user = await getAuthorizedUser()
 
-    if (!user) {
-      user = await api.user.me.query()
-    }
+    // if (!user) {
+    // }
+    user = await api.user.me.query()
+
+    // console.log('user===========:', user)
 
     return user
   })

@@ -11,13 +11,14 @@ import {
   Menu,
 } from 'lucide-react'
 import { Drawer } from 'vaul'
-import { Button } from 'uikit'
+import { Bullet, Button } from 'uikit'
 import { useActiveNodes, useRouterName, useSidebarDrawer } from '@penx/hooks'
 import { IconCalendar, IconMoreCircle, IconTodo } from '@penx/icons'
 import { Node } from '@penx/model'
 import { useNodes } from '@penx/node-hooks'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
+import { FavoriteBox } from '../Sidebar/FavoriteBox/FavoriteBox'
 import { LoginButton } from '../Sidebar/LoginButton'
 import { SpacePopover } from '../Sidebar/SpacePopover/SpacePopover'
 import { TreeView } from '../Sidebar/TreeView/TreeView'
@@ -120,7 +121,7 @@ export const SidebarDrawer = () => {
                   icon={
                     <IconTodo
                       size={24}
-                      stroke={isTodosActive ? 'black' : 'gray500'}
+                      stroke={isTodosActive ? 'brand500' : 'black'}
                     />
                   }
                   label="Tasks"
@@ -133,12 +134,26 @@ export const SidebarDrawer = () => {
 
                 <MenuItem
                   icon={<Hash size={22} strokeWidth={1.5} />}
-                  label="Meta tags"
+                  label="tags"
                   isActive={isTagsActive}
                   borderBottom={false}
                   onClick={() => {
                     store.node.selectTagBox()
                     close()
+                  }}
+                />
+
+                <MenuItem
+                  icon={
+                    <Bullet
+                      mr-4
+                      innerColor={isTagsActive ? 'brand500' : undefined}
+                    />
+                  }
+                  label="Nodes"
+                  // isActive={isTagsActive}
+                  onClick={() => {
+                    store.node.selectSpaceNode()
                   }}
                 />
               </Box>
@@ -148,8 +163,16 @@ export const SidebarDrawer = () => {
                 <DatabaseList />
               </Box> */}
 
-              <Box py2>
-                <TreeView nodeList={nodeList} />
+              <Box flex-1 zIndex-1 overflowYAuto>
+                {!!nodes.length && (
+                  <>
+                    <FavoriteBox nodeList={nodeList} />
+
+                    {/* {!activeSpace.isOutliner && <CatalogueBox />}
+            {!activeSpace.isOutliner && <PageList />}
+            {activeSpace.isOutliner && <TreeView nodeList={nodeList} />} */}
+                  </>
+                )}
               </Box>
             </Box>
           </Box>

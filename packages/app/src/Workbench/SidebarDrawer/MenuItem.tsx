@@ -23,7 +23,7 @@ export const MenuItem = ({
       toBetween
       gap2
       px2
-      h12
+      h10
       black
       brand500={isActive}
       bgGray200--hover

@@ -2,6 +2,8 @@ import { CSSProperties, forwardRef, memo } from 'react'
 import isEqual from 'react-fast-compare'
 import { useSortable } from '@dnd-kit/sortable'
 import { Box, CSSObject, FowerHTMLProps } from '@fower/react'
+import { Hash } from 'lucide-react'
+import { IconDocument } from '@penx/icons'
 import { Node } from '@penx/model'
 import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
@@ -46,7 +48,15 @@ export const NodeItem = memo(
           nodeService.selectNode()
         }}
       >
-        {node.isDatabase && <Box>#</Box>}
+        {node.isDatabase ? (
+          <Box inlineFlex gray500>
+            <Hash size={16} />
+          </Box>
+        ) : (
+          <Box inlineFlex>
+            <IconDocument size={16} gray500 />
+          </Box>
+        )}
         <Box flex-1>{node.title || 'Untitled'}</Box>
       </Box>
     )

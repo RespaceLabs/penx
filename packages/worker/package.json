@@ -7,10 +7,10 @@
     "lint": "eslint \"**/*.ts*\""
   },
   "devDependencies": {
+    "@penx/tsconfig": "workspace:*",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.17",
     "react": "^18.2.0",
-    "@penx/tsconfig": "workspace:*",
     "typescript": "^5.3.2"
   },
   "dependencies": {
@@ -19,9 +19,9 @@
     "@penx/extension-typings": "workspace:*",
     "@penx/google-drive": "workspace:*",
     "@penx/local-db": "workspace:*",
+    "@penx/mnemonic": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",
-    "@penx/mnemonic": "workspace:*",
     "@penx/node-normalizer": "workspace:*",
     "@penx/shared": "workspace:*",
     "@penx/storage": "workspace:*",
@@ -30,6 +30,7 @@
     "@penx/trpc-client": "workspace:*",
     "idb-keyval": "^6.2.1",
     "ky": "^1.1.3",
+    "react-device-detect": "^2.2.3",
     "uikit": "workspace:*"
   }
 }

@@ -6,8 +6,8 @@ import { ISpace } from '@penx/model-types'
 import { RestoreService } from '@penx/service'
 import { store } from '@penx/store'
 import { SyncServerModalData } from '../../SyncServer/SyncServerModal/useSyncServerForm'
-import { useSelectedSpace } from '../VersionControl/hooks/useSelectedSpace'
-import { RestoreFromGitHubModalData } from '../VersionControl/types'
+import { useSelectedSpace } from '../Backup/hooks/useSelectedSpace'
+import { RestoreFromGitHubModalData } from '../Backup/types'
 
 export type RestoreFromGitHubValues = {
   isOverride: boolean

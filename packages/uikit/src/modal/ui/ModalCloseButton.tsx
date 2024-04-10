@@ -15,8 +15,8 @@ export const ModalCloseButton: FC = forwardRef<HTMLButtonElement, Props>(
         ref={ref}
         onClick={close}
         absolute
-        top={[8, 32]}
-        right={[8, 32]}
+        top={[8, 16]}
+        right={[8, 16]}
         {...props}
       />
     )

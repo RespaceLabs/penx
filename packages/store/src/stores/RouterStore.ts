@@ -46,6 +46,18 @@ export class RouterStore {
 
   isShowMobileMenu = () => {
     const routerName = this.getName()
-    return routerName === 'SPACE_SETTINGS' || routerName === 'TODOS'
+    return [
+      'TRASH',
+      'NODE',
+      'TODOS',
+      'ACCOUNT_SETTINGS',
+      'SPACE_SETTINGS',
+      'CREATE_SPACE',
+      'SYNC_SERVER',
+      'WEB3_PROFILE',
+      'TASK_BOARD',
+      'VERSION_CONTROL',
+      'RECOVERY_PHRASE',
+    ].includes(routerName)
   }
 }

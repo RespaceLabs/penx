@@ -72,7 +72,10 @@ export function BottomBar() {
         shadow2XL
         bgGray200--hover
         bgGray200--active
-        onClick={() => open()}
+        zIndex-100
+        onClick={() => {
+          open()
+        }}
       >
         <Box gray500 inlineFlex>
           <Plus />

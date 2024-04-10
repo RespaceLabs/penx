@@ -13,6 +13,7 @@ import {
   Inbox,
   Trash2,
 } from 'lucide-react'
+import { Bullet } from 'uikit'
 import {
   useActiveNodes,
   useActiveSpace,
@@ -119,30 +120,49 @@ export const Sidebar = () => {
               }}
             />
 
-            {/* <SidebarItem
-          icon={<Trash2 size={18} />}
-          label="Trash"
-          onClick={() => {
-            store.selectTrash()
-          }}
-        /> */}
+            <SidebarItem
+              icon={
+                <Box gray500>
+                  <Hash size={20} strokeWidth={1.5} />
+                </Box>
+              }
+              label="Tags"
+              isActive={isTagsActive}
+              onClick={() => {
+                store.node.selectTagBox()
+              }}
+            />
+
+            <SidebarItem
+              icon={
+                <Bullet
+                  mr-4
+                  innerColor={isTagsActive ? 'brand500' : undefined}
+                />
+              }
+              label="Nodes"
+              // isActive={isTagsActive}
+              onClick={() => {
+                store.node.selectSpaceNode()
+              }}
+            />
           </Box>
         )}
       </Box>
 
-      <Box px2 column gap2>
+      {/* <Box px2 column gap2>
         <TagsEntry isActive={isTagsActive} />
-        {/* <DatabaseList /> */}
-      </Box>
+        <DatabaseList />
+      </Box> */}
 
       <Box flex-1 zIndex-1 overflowYAuto px2>
         {!!nodes.length && (
           <>
             <FavoriteBox nodeList={nodeList} />
 
-            {!activeSpace.isOutliner && <CatalogueBox />}
-            {/* {!activeSpace.isOutliner && <PageList />} */}
-            {activeSpace.isOutliner && <TreeView nodeList={nodeList} />}
+            {/* {!activeSpace.isOutliner && <CatalogueBox />}
+            {!activeSpace.isOutliner && <PageList />}
+            {activeSpace.isOutliner && <TreeView nodeList={nodeList} />} */}
           </>
         )}
       </Box>

@@ -134,9 +134,8 @@ export class SpaceStore {
       this.setActiveSpace(space)
       this.store.app.setAppLoading(false)
 
-      if (!new Space(space).isLocal) {
-        await setActiveSpaceId(space.id)
-      }
+      await setActiveSpaceId(space.id)
+
       return space
     } catch (error) {
       // TODO: fallback to old data

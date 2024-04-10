@@ -12,21 +12,19 @@ const redis = new Redis(process.env.REDIS_URL!)
 
 export const userRouter = createTRPCRouter({
   me: protectedProcedure.query(async ({ ctx }) => {
-    const redisKey = RedisKeys.user(ctx.token.uid)
+    // const redisKey = RedisKeys.user(ctx.token.uid)
 
-    // await redis.del(redisKey)
+    // const userStr = await redis.get(redisKey)
 
-    const userStr = await redis.get(redisKey)
-
-    if (userStr) {
-      return JSON.parse(userStr) as User
-    }
+    // if (userStr) {
+    //   return JSON.parse(userStr) as User
+    // }
 
     const user = await ctx.prisma.user.findUnique({
       where: { id: ctx.token.uid },
     })
 
-    await redis.set(redisKey, JSON.stringify(user))
+    // await redis.set(redisKey, JSON.stringify(user))
 
     if (!user) new TRPCError({ code: 'NOT_FOUND' })
 

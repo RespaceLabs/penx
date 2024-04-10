@@ -4,8 +4,10 @@ import { NodeService } from '@penx/service'
 import { BreadcrumbPopover } from './BreadcrumbPopover'
 
 export const Breadcrumb = () => {
-  const { node } = useNodeContext()
   const { nodes } = useNodes()
+  const { node } = useNodeContext()
+  if (!node) return null
+
   const nodeService = new NodeService(node, nodes)
   const parentNodes = nodeService.getParentNodes()
 

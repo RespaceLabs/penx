@@ -8,9 +8,9 @@ export function GitHubBackup() {
   const { user } = useUser()
 
   return (
-    <Box p10 relative>
+    <Box relative>
       <Box>
-        <Box text3XL mb4 fontBold>
+        <Box text={[24, 30]} mb4 fontBold>
           GitHub backup
         </Box>
         <Box gray600 mb1>

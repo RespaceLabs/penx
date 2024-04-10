@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { Box } from '@fower/react'
+import { Skeleton } from 'uikit'
 import { useUser } from '@penx/hooks'
 import { trpc } from '@penx/trpc-client'
 import { GoogleOauthButton } from '../RecoveryPhrase/GoogleOauthButton'
@@ -11,7 +12,9 @@ function Content() {
     isLoading,
     refetch,
   } = trpc.google.googleDriveToken.useQuery()
-  if (isLoading) return null // TODO: show spinner
+  if (isLoading) {
+    return <Skeleton h-56 w-280 roundedXL></Skeleton>
+  }
 
   if (!token?.access_token) {
     return (
@@ -26,9 +29,9 @@ function Content() {
 
 export function GoogleBackup() {
   return (
-    <Box p10 relative column gap6>
+    <Box relative column gap6>
       <Box>
-        <Box text3XL mb4 fontBold>
+        <Box text3XL mb4 fontBold text={[24, 30]}>
           Google Drive backup
         </Box>
         <Box gray600 mb1>

@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Box } from '@fower/react'
-import { MenuIcon } from 'lucide-react'
 import { SIDEBAR_WIDTH, WORKBENCH_NAV_HEIGHT } from '@penx/constants'
 import { EditorProvider } from '@penx/editor'
 import { useActiveSpace, useRouterName, useUser } from '@penx/hooks'
+import { IconSidebar } from '@penx/icons'
 import { useSession } from '@penx/session'
 import { Fallback } from '../Fallback/Fallback'
 import { LoginByTokenModal } from '../LoginByTokenModal/LoginByTokenModal'
@@ -13,6 +13,7 @@ import { CommandPanel } from '../Palette'
 import { SyncServer } from '../SyncServer/SyncServer'
 import { TaskBoard } from '../TaskBoard'
 import { AccountSettings } from './AccountSettings/AccountSettings'
+import { Backup } from './Backup/Backup'
 import { BackupMnemonicTips } from './BackupMnemonicTips'
 import { BottomBar } from './BottomBar'
 import { MobileNav } from './NodeNav/MobileNav'
@@ -22,7 +23,6 @@ import { PageTodo } from './PageTodo/PageTodo'
 import { RecoveryPhrase } from './RecoveryPhrase/RecoveryPhrase'
 import { Sidebar } from './Sidebar/Sidebar'
 import { SpaceSettings } from './SpaceSettings/SpaceSettings'
-import { VersionControl } from './VersionControl/VersionControl'
 import { Web3Profile } from './Web3Profile/Web3Profile'
 
 export const Workbench = () => {
@@ -73,7 +73,7 @@ export const Workbench = () => {
               bgNeutral100--hover
               display={['none', 'none', 'flex']}
             >
-              <MenuIcon size={20} />
+              <IconSidebar size={20} fillGray600 />
             </Box>
           </Box>
         </Box>
@@ -99,7 +99,7 @@ export const Workbench = () => {
                   </Box>
                 )}
                 {name === 'TASK_BOARD' && <TaskBoard />}
-                {name === 'VERSION_CONTROL' && <VersionControl />}
+                {name === 'VERSION_CONTROL' && <Backup />}
               </Box>
             )}
           </ErrorBoundary>
