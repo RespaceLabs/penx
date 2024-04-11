@@ -35,7 +35,7 @@ export default function Home() {
     appEmitter.on('LOGIN_BY_PERSONAL_TOKEN_SUCCESSFULLY', () => {
       refetch()
     })
-  }, [])
+  }, [refetch])
 
   return (
     <>

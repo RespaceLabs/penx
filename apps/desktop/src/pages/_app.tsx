@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return () => {
       appEmitter.off('SIGN_OUT', handleSignOut)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

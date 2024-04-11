@@ -66,6 +66,13 @@ export const Sidebar = () => {
     return false
   }, [name, activeNodes])
 
+  const isRootActive = useMemo(() => {
+    if (name !== 'NODE' || !activeNodes.length) return false
+    if (!activeNodes[0]) return false
+    if (new Node(activeNodes[0]).isRootNode) return true
+    return false
+  }, [name, activeNodes])
+
   return (
     <Box
       column
@@ -122,7 +129,7 @@ export const Sidebar = () => {
 
             <SidebarItem
               icon={
-                <Box gray500>
+                <Box gray500 inlineFlex brand500={isTagsActive}>
                   <Hash size={20} strokeWidth={1.5} />
                 </Box>
               }
@@ -137,11 +144,11 @@ export const Sidebar = () => {
               icon={
                 <Bullet
                   mr-4
-                  innerColor={isTagsActive ? 'brand500' : undefined}
+                  innerColor={isRootActive ? 'brand500' : undefined}
                 />
               }
               label="Nodes"
-              // isActive={isTagsActive}
+              isActive={isRootActive}
               onClick={() => {
                 store.node.selectSpaceNode()
               }}

@@ -1,7 +1,6 @@
-import React, { PropsWithChildren, Suspense, useEffect, useRef } from 'react'
+import React, { PropsWithChildren, Suspense } from 'react'
 import { Box } from '@fower/react'
 import EditorApp from '@penx/app'
-import { appEmitter } from '@penx/event'
 import { useSession } from '@penx/session'
 import {
   FirstLocalSpaceGenerator,
@@ -31,12 +30,6 @@ const OnlineProvider = ({ children }: PropsWithChildren) => {
 }
 
 const PageEditor = () => {
-  const inited = useRef(false)
-  useEffect(() => {
-    if (inited.current) return
-    inited.current = true
-    appEmitter.emit('LOAD_CLOUD_SPACES')
-  }, [])
   return (
     <OnlineProvider>
       <Suspense

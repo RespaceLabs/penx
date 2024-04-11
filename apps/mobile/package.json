@@ -24,7 +24,7 @@
     "@ionic/react": "7.7.4",
     "@ionic/react-router": "7.7.4",
     "classnames": "^2.3.2",
-    "next": "14.1.0",
+    "next": "14.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^5.3.4",

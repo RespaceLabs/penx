@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
+  images: {
+    unoptimized: true,
+  },
   output: 'export',
   transpilePackages: [
     'octokit',
@@ -72,4 +76,4 @@ const nextConfig = {
   ],
 }
 
-export default nextConfig
+module.exports = nextConfig

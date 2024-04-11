@@ -1,6 +1,7 @@
 import { createContext, FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
+import { appEmitter } from '@penx/event'
 import { appLoadingAtom, store } from '@penx/store'
 import { LogoSpinner } from '@penx/widget'
 import { AppService } from './services/AppService'
@@ -19,6 +20,13 @@ export const AppProvider: FC<PropsWithChildren> = ({ children }) => {
     if (!appRef.current.inited) {
       appRef.current.init()
     }
+  }, [])
+
+  const inited = useRef(false)
+  useEffect(() => {
+    if (inited.current) return
+    inited.current = true
+    appEmitter.emit('LOAD_CLOUD_SPACES')
   }, [])
 
   if (loading) {

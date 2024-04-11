@@ -10,7 +10,7 @@
     "@penx/tsconfig": "workspace:*",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.17",
-    "eslint": "^8.55.0",
+    "eslint": "^8.57.0",
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
     "slate": "^0.102.0",

@@ -14,7 +14,7 @@ const withPWA = NextPWA({
 
 /** @type {import('next').NextConfig} */
 const config = {
-  reactStrictMode: true,
+  // reactStrictMode: true,
   output: 'standalone',
   transpilePackages: [
     'octokit',

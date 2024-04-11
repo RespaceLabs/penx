@@ -1,18 +1,18 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm run dev",
-    "devPath": "http://localhost:3001",
+    "beforeBuildCommand": "pnpm next-build",
+    "beforeDevCommand": "pnpm next-start",
+    "devPath": "http://localhost:3000",
     "distDir": "../out"
   },
   "package": {
     "productName": "PenX",
-    "version": "0.2.6"
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": true
     },
     "bundle": {
       "active": true,
@@ -56,10 +56,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
         "resizable": true,
         "title": "PenX",
-        "width": 800
+        "width": 1280,
+        "height": 800
       }
     ]
   }

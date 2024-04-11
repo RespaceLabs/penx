@@ -52,6 +52,13 @@ export const SidebarDrawer = () => {
     return false
   }, [name, activeNodes])
 
+  const isRootActive = useMemo(() => {
+    if (name !== 'NODE' || !activeNodes.length) return false
+    if (!activeNodes[0]) return false
+    if (new Node(activeNodes[0]).isRootNode) return true
+    return false
+  }, [name, activeNodes])
+
   return (
     <Drawer.Root
       direction="left"
@@ -147,13 +154,14 @@ export const SidebarDrawer = () => {
                   icon={
                     <Bullet
                       mr-4
-                      innerColor={isTagsActive ? 'brand500' : undefined}
+                      innerColor={isRootActive ? 'brand500' : undefined}
                     />
                   }
                   label="Nodes"
-                  // isActive={isTagsActive}
+                  isActive={isRootActive}
                   onClick={() => {
                     store.node.selectSpaceNode()
+                    close()
                   }}
                 />
               </Box>

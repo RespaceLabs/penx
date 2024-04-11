@@ -10,7 +10,7 @@
     "@penx/tsconfig": "workspace:*",
     "@types/hdkey": "^2.0.3",
     "@types/node": "^20.10.3",
-    "eslint": "^8.55.0",
+    "eslint": "^8.57.0",
     "eslint-config-custom": "workspace:*",
     "typescript": "^5.3.2"
   },
