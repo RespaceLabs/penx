@@ -11,12 +11,14 @@ export function useRunSSE() {
 
   useEffect(() => {
     if (!navigator.onLine) return
-    if (!sseInited.current && session?.user) {
-      if (activeSpace.raw) {
+
+    if (!sseInited.current && session?.user && activeSpace.raw) {
+      setTimeout(() => {
         console.log('runSSE..............')
-        runSSE(activeSpace)
+        runSSE()
+
         sseInited.current = true
-      }
+      }, 4000)
     }
   }, [session, activeSpace])
 }

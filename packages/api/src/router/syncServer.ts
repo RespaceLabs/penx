@@ -121,7 +121,7 @@ export const syncServerRouter = createTRPCRouter({
         name: z.string().min(1).optional(),
         url: z.string().optional(),
         type: z.string().min(1).optional(),
-        region: z.string().min(1).optional(),
+        region: z.string().optional(),
       }),
     )
     .mutation(({ ctx, input }) => {

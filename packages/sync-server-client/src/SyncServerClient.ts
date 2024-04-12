@@ -17,14 +17,16 @@ export class SyncServerClient {
   constructor(
     private space: ISpace,
     private mnemonic: string,
+    private syncServerUrl: string,
+    private syncServerAccessToken: string,
   ) {}
 
   get baseURL() {
-    return this.space.syncServerUrl || ''
+    return this.syncServerUrl || ''
   }
 
   get token() {
-    return this.space.syncServerAccessToken || ''
+    return this.syncServerAccessToken || ''
   }
 
   toRaw = (value: any) => {

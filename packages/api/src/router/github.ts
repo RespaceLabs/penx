@@ -2,8 +2,8 @@ import { components } from '@octokit/openapi-types'
 import { Octokit } from 'octokit'
 import { z } from 'zod'
 import { GithubInfo, User } from '@penx/model'
-import { getTokenByInstallationId } from '../service/getTokenByInstallationId'
-import { refreshGitHubToken } from '../service/refreshGitHubToken'
+import { getTokenByInstallationId } from '../libs/getTokenByInstallationId'
+import { refreshGitHubToken } from '../libs/refreshGitHubToken'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
 export const githubRouter = createTRPCRouter({

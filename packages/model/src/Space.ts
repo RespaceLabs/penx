@@ -23,18 +23,6 @@ export class Space {
     return this.raw.color
   }
 
-  get syncServerId() {
-    return this.raw.syncServerId || ''
-  }
-
-  get syncServerUrl() {
-    return this.raw.syncServerUrl || ''
-  }
-
-  get syncServerAccessToken() {
-    return this.raw.syncServerAccessToken || ''
-  }
-
   get isOutliner() {
     return this.raw.editorMode === EditorMode.OUTLINER
   }

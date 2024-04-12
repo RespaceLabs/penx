@@ -22,7 +22,7 @@ export function encryptByPublicKey(plainText: string, publicKey: string) {
 
 export async function pushNodes(user: any, space: ISpace, nodes: INode[]) {
   const baseURL = space.syncServerUrl || ''
-  const token = space.syncServerAccessToken || ''
+  const token = user.syncServerAccessToken || ''
   const pushNodesURL = `${baseURL}/pushNodes`
 
   const publicKey = user.publicKey

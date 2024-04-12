@@ -3,32 +3,17 @@ import Redis from 'ioredis'
 import jwt from 'jsonwebtoken'
 import { nanoid } from 'nanoid'
 import { z } from 'zod'
-import { RedisKeys } from '@penx/constants'
+import { RedisKeys, SyncServerType } from '@penx/constants'
 import { prisma, User } from '@penx/db'
 import { GithubInfo } from '@penx/model'
+import { getMe } from '../libs/getMe'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 const redis = new Redis(process.env.REDIS_URL!)
 
 export const userRouter = createTRPCRouter({
   me: protectedProcedure.query(async ({ ctx }) => {
-    // const redisKey = RedisKeys.user(ctx.token.uid)
-
-    // const userStr = await redis.get(redisKey)
-
-    // if (userStr) {
-    //   return JSON.parse(userStr) as User
-    // }
-
-    const user = await ctx.prisma.user.findUnique({
-      where: { id: ctx.token.uid },
-    })
-
-    // await redis.set(redisKey, JSON.stringify(user))
-
-    if (!user) new TRPCError({ code: 'NOT_FOUND' })
-
-    return user!
+    return getMe(ctx.token.uid)
   }),
 
   byAddress: protectedProcedure
@@ -105,11 +90,7 @@ export const userRouter = createTRPCRouter({
     }),
 
   create: protectedProcedure
-    .input(
-      z.object({
-        address: z.string(),
-      }),
-    )
+    .input(z.object({ address: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { address } = input
       let user = await ctx.prisma.user.findFirst({ where: { address } })
@@ -130,17 +111,22 @@ export const userRouter = createTRPCRouter({
     }),
 
   updatePublicKey: protectedProcedure
-    .input(
-      z.object({
-        publicKey: z.string(),
-      }),
-    )
+    .input(z.object({ publicKey: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { publicKey } = input
       return ctx.prisma.user.update({
         where: { id: ctx.token.uid },
         data: { publicKey },
         select: { publicKey: true, secret: true },
+      })
+    }),
+
+  updateConnectedSyncServerId: protectedProcedure
+    .input(z.object({ syncServerId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.user.update({
+        where: { id: ctx.token.uid },
+        data: { connectedSyncServerId: input.syncServerId },
       })
     }),
 
@@ -157,31 +143,7 @@ export const userRouter = createTRPCRouter({
         })
       }
 
-      const user = await ctx.prisma.user.findUniqueOrThrow({
-        where: { id: token.userId },
-        select: {
-          id: true,
-          address: true,
-          earlyAccessCode: true,
-          publicKey: true,
-          secret: true,
-          roleType: true,
-          name: true,
-          email: true,
-          avatar: true,
-          image: true,
-          github: true,
-          google: true,
-          isMnemonicBackedUp: true,
-        },
-      })
-
-      return {
-        token: jwt.sign({ sub: user.id }, process.env.NEXTAUTH_SECRET!, {
-          expiresIn: '365d',
-        }),
-        user,
-      }
+      return getMe(ctx.token.uid, true)
     }),
 
   update: protectedProcedure

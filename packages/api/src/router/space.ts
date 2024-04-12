@@ -1,8 +1,7 @@
 import Redis from 'ioredis'
-import jwt from 'jsonwebtoken'
 import { z } from 'zod'
 import { RedisKeys } from '@penx/constants'
-import { createSpace, CreateSpaceInput } from '../service/createSpace'
+import { createSpace, CreateSpaceInput } from '../libs/createSpace'
 import { createTRPCRouter, protectedProcedure } from '../trpc'
 
 const redis = new Redis(process.env.REDIS_URL!)
@@ -19,14 +18,6 @@ type MySpace = {
   createdAt: Date
   updatedAt: Date
   userId: string
-  syncServerId: string
-  syncServer: {
-    url: string
-    token: string
-  }
-
-  syncServerAccessToken: string
-  syncServerUrl: string
 }
 
 export const spaceRouter = createTRPCRouter({
@@ -53,33 +44,12 @@ export const spaceRouter = createTRPCRouter({
         createdAt: true,
         updatedAt: true,
         userId: true,
-        syncServerId: true,
-        syncServer: {
-          select: {
-            url: true,
-            token: true,
-          },
-        },
       },
     })
 
     // console.log('==========spaces:', spaces)
 
-    const mySpaces = spaces.map(({ syncServer, ...space }) => {
-      let syncServerAccessToken = ''
-      if (syncServer?.token) {
-        syncServerAccessToken = jwt.sign(
-          { sub: ctx.token.uid },
-          syncServer?.token as string,
-        )
-      }
-      return {
-        ...space,
-        syncServerAccessToken,
-        syncServerUrl: syncServer?.url as string,
-      }
-    })
-    return mySpaces as any as MySpace[]
+    return spaces as any as MySpace[]
   }),
 
   version: protectedProcedure
@@ -125,29 +95,5 @@ export const spaceRouter = createTRPCRouter({
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.space.delete({ where: { id: input } })
-    }),
-
-  updateSyncServer: protectedProcedure
-    .input(
-      z.object({
-        spaceId: z.string(),
-        syncServerId: z.string(),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const { spaceId, syncServerId } = input
-      await ctx.prisma.space.update({
-        where: { id: spaceId },
-        data: { syncServerId },
-      })
-
-      const count = await ctx.prisma.space.count({
-        where: { syncServerId },
-      })
-
-      await ctx.prisma.syncServer.update({
-        where: { id: syncServerId },
-        data: { spaceCount: count },
-      })
     }),
 })

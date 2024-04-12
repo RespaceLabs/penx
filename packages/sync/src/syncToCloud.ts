@@ -1,41 +1,7 @@
 import { db } from '@penx/local-db'
-import { decryptByMnemonic } from '@penx/mnemonic'
 import { INode, ISpace } from '@penx/model-types'
-import { getActiveSpaceId } from '@penx/storage'
+import { getActiveSpaceId, getAuthorizedUser } from '@penx/storage'
 import { SyncServerClient } from '@penx/sync-server-client'
-
-/**
- * fallback for old data
- * @param space
- * @param mnemonic
- * @returns
- */
-async function fallbackForMnemonic(
-  space: ISpace,
-  mnemonic: string,
-): Promise<boolean> {
-  const rootNode = await db.getRootNode(space.id)
-  const client = new SyncServerClient(space, mnemonic)
-
-  const remoteRootNode = await client.getNode(rootNode.id)
-
-  if (!remoteRootNode) {
-    await pushAllNodes(space, mnemonic)
-    return true
-  }
-
-  try {
-    const originElement = decryptByMnemonic(remoteRootNode.element, mnemonic)
-    // console.log('====originElement:', originElement)
-
-    return false
-  } catch (error) {
-    console.log('======decryptByMnemonic fail:', error)
-    // decryptByMnemonic fail, so push all nodes
-    await pushAllNodes(space, mnemonic)
-    return true
-  }
-}
 
 export async function syncToCloud(mnemonic: string): Promise<boolean> {
   // console.log('syncToCloud......')
@@ -48,12 +14,6 @@ export async function syncToCloud(mnemonic: string): Promise<boolean> {
   const nodesLastUpdatedAt = space.nodesLastUpdatedAt
 
   // console.log('=========nodesLastUpdatedAt:', nodesLastUpdatedAt)
-
-  // console.log('-------lastModifiedTime:', lastModifiedTime)
-
-  // TODO: fallback for old data, remove it in the future
-  const isSynced = await fallbackForMnemonic(space, mnemonic)
-  if (isSynced) return true
 
   // push all nodes
   if (!nodesLastUpdatedAt) {
@@ -110,8 +70,14 @@ export async function submitToServer(
   nodes: INode[],
   mnemonic: string,
 ) {
-  if (!space.syncServerUrl || !mnemonic) return
-  const client = new SyncServerClient(space, mnemonic)
+  const user = await getAuthorizedUser()
+  if (!user.syncServerUrl || !mnemonic) return
+  const client = new SyncServerClient(
+    space,
+    mnemonic,
+    user.syncServerUrl,
+    user.syncServerAccessToken,
+  )
   const { time } = await client.pushNodes(nodes)
 
   // console.log('time========:', time)

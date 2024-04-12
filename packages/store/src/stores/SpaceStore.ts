@@ -2,7 +2,7 @@ import { atom } from 'jotai'
 import { db } from '@penx/local-db'
 import { Space } from '@penx/model'
 import { ISpace } from '@penx/model-types'
-import { setActiveSpaceId } from '@penx/storage'
+import { getAuthorizedUser, setActiveSpaceId } from '@penx/storage'
 import { SyncServerClient } from '@penx/sync-server-client'
 import { StoreType } from '../store-types'
 
@@ -90,8 +90,16 @@ export class SpaceStore {
       if (!nodes.length) {
         const mnemonic = this.store.user.getMnemonic()
         // console.log('select space======mnemonic:', mnemonic)
+
+        const user = await getAuthorizedUser()
+
         try {
-          const client = new SyncServerClient(space, mnemonic)
+          const client = new SyncServerClient(
+            space,
+            mnemonic,
+            user.syncServerUrl,
+            user.syncServerAccessToken,
+          )
           nodes = await client.getAllNodes()
 
           for (const node of nodes) {

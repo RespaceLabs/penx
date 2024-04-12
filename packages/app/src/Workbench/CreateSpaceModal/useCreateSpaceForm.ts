@@ -40,16 +40,11 @@ export function useCreateSpaceForm() {
     })
 
     try {
-      const space = await api.space.create.mutate({
+      await api.space.create.mutate({
         spaceData: JSON.stringify(newSpace),
       })
 
-      await store.space.createSpace({
-        ...newSpace,
-        syncServerId: space.syncServerId as string,
-        syncServerUrl: space.syncServerUrl as string,
-        syncServerAccessToken: space.syncServerAccessToken as string,
-      })
+      await store.space.createSpace(newSpace)
 
       ctx?.close?.()
     } catch (error) {

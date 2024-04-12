@@ -7,7 +7,7 @@ import { User } from '@penx/model'
 import { getConnectionState, sleep } from '@penx/shared'
 import { getActiveSpaceId, getAuthorizedUser } from '@penx/storage'
 
-const INTERVAL = isProd ? 30 * 60 * 1000 : 10 * 1000
+const INTERVAL = isProd ? 30 * 60 * 1000 : 60 * 1000
 
 export async function pollingBackupToGoogle() {
   while (true) {

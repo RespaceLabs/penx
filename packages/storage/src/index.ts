@@ -16,12 +16,39 @@ export interface Session {
   }
 }
 
+type User = {
+  id: string
+  address: string | null
+  name: string | null
+  bio: string | null
+  avatar: string | null
+  password: string | null
+  roleType: string | null
+  github: any
+  google: any
+  taskGithub: any
+  username: string | null
+  email: string | null
+  emailVerified: Date | null
+  image: string | null
+  earlyAccessCode: string | null
+  publicKey: string | null
+  secret: string | null
+  isMnemonicBackedUp: boolean
+  createdAt: Date
+  updatedAt: Date
+  connectedSyncServerId: string | null
+
+  syncServerAccessToken: string
+  syncServerUrl: string
+}
+
 export async function getAuthorizedUser() {
   try {
-    return await get(PENX_AUTHORIZED_USER)
+    return (await get(PENX_AUTHORIZED_USER)) as User
   } catch (error) {
     console.log('error0', error)
-    return undefined
+    return undefined as any as User
   }
 }
 

@@ -14,9 +14,6 @@ export type Space = {
   createdAt: string
   updatedAt: string
   userId: string
-  syncServerId: string
-  syncServerAccessToken: string
-  syncServerUrl: string
 }
 
 export interface Config {

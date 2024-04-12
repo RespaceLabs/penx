@@ -109,7 +109,7 @@ export function SyncServerForm({}: Props) {
           w-120
         >
           {data.isLoading && <Spinner white square5 />}
-          <Box>Create</Box>
+          <Box>{data.isEditing ? 'Edit' : 'Create'}</Box>
         </Button>
       </Box>
     </Box>

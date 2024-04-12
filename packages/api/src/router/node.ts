@@ -1,11 +1,8 @@
 import { z } from 'zod'
 import { INode } from '@penx/model-types'
-import { addMarkdown, addMarkdownInput } from '../service/addMarkdown'
-import {
-  addNodesToToday,
-  addNodesToTodayInput,
-} from '../service/addNodesToToday'
-import { syncNodes, syncNodesInput } from '../service/syncNodes'
+import { addMarkdown, addMarkdownInput } from '../libs/addMarkdown'
+import { addNodesToToday, addNodesToTodayInput } from '../libs/addNodesToToday'
+import { syncNodes, syncNodesInput } from '../libs/syncNodes'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 export const nodeRouter = createTRPCRouter({

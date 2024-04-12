@@ -75,6 +75,10 @@ export class User {
     return (this.raw.google || {}) as GoogleInfo
   }
 
+  get connectedSyncServerId() {
+    return this.raw.connectedSyncServerId
+  }
+
   get isSyncWorks() {
     return !!this.repo
   }

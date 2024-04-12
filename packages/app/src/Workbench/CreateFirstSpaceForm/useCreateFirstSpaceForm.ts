@@ -36,12 +36,7 @@ export function useCreateFirstSpaceForm() {
         spaceData: JSON.stringify(newSpace),
       })
 
-      await store.space.createSpace({
-        ...newSpace,
-        syncServerId: space.syncServerId as string,
-        syncServerUrl: space.syncServerUrl as string,
-        syncServerAccessToken: space.syncServerAccessToken as string,
-      })
+      await store.space.createSpace(newSpace)
     } catch (error) {
       console.log('========error:', error)
 

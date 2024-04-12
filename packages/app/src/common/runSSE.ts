@@ -2,6 +2,7 @@ import { fetchEventSource } from '@microsoft/fetch-event-source'
 import { isSelfHosted } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { Space } from '@penx/model'
+import { getAuthorizedUser } from '@penx/storage'
 import { store } from '@penx/store'
 
 type SpaceInfo = {
@@ -30,10 +31,12 @@ async function pull(spaceInfo: SpaceInfo) {
   }
 }
 
-export async function runSSE(space: Space) {
-  if (!space.syncServerUrl) return
+export async function runSSE() {
+  const user = await getAuthorizedUser()
 
-  const url = isSelfHosted ? '/api/sse' : `${space.syncServerUrl}/sse`
+  if (!user?.syncServerUrl) return
+
+  const url = isSelfHosted ? '/api/sse' : `${user.syncServerUrl}/sse`
 
   const controller = new AbortController()
 
@@ -41,7 +44,7 @@ export async function runSSE(space: Space) {
     openWhenHidden: true,
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token: space.syncServerAccessToken }),
+    body: JSON.stringify({ token: user.syncServerAccessToken }),
     signal: controller.signal,
     async onopen(response) {
       // console.log('=========onopen', response)

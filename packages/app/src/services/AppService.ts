@@ -5,6 +5,7 @@ import { Node, Space } from '@penx/model'
 import { ISpace } from '@penx/model-types'
 import {
   getActiveSpaceId,
+  getAuthorizedUser,
   getLocalSession,
   setActiveSpaceId,
 } from '@penx/storage'
@@ -75,7 +76,14 @@ export class AppService {
 
         const mnemonic = store.user.getMnemonic()
 
-        const client = new SyncServerClient(activeSpace, mnemonic)
+        const user = await getAuthorizedUser()
+
+        const client = new SyncServerClient(
+          activeSpace,
+          mnemonic,
+          user.syncServerUrl,
+          user.syncServerAccessToken,
+        )
         nodes = await client.getAllNodes()
 
         // console.log('all nodes======:', nodes)
@@ -131,10 +139,17 @@ export class AppService {
   private async tryToSync(space: ISpace) {
     console.log('try to sync....')
 
+    const user = await getAuthorizedUser()
+
     if (!navigator.onLine) return
-    if (!space.syncServerUrl) return
+    if (!user?.syncServerUrl) return
     const mnemonic = store.user.getMnemonic()
-    const client = new SyncServerClient(space, mnemonic)
+    const client = new SyncServerClient(
+      space,
+      mnemonic,
+      user.syncServerUrl,
+      user.syncServerAccessToken,
+    )
     const time = await client.getNodesLastUpdatedAt()
 
     if (time) {

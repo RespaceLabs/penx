@@ -14,13 +14,13 @@ import {
   Tag,
   toast,
 } from 'uikit'
-import { useActiveSpace } from '@penx/hooks'
-import { db } from '@penx/local-db'
+import { useUser } from '@penx/hooks'
+import { setAuthorizedUser } from '@penx/storage'
 import { api, trpc } from '@penx/trpc-client'
 
 export const SyncServerSelect = () => {
-  const { activeSpace } = useActiveSpace()
-  const [serverId, setServerId] = useState(activeSpace.syncServerId)
+  const { user } = useUser()
+  const [serverId, setServerId] = useState(user.connectedSyncServerId || '')
   const { data = [], isLoading } = trpc.syncServer.runningSyncServers.useQuery()
   const [loading, setLoading] = useState(false)
 
@@ -32,12 +32,12 @@ export const SyncServerSelect = () => {
         syncServerId: syncServer.id,
       })
 
-      await api.space.updateSyncServer.mutate({
-        spaceId: activeSpace.id,
+      await api.user.updateConnectedSyncServerId.mutate({
         syncServerId: syncServer.id,
       })
 
-      await db.updateSpace(activeSpace.id, {
+      await setAuthorizedUser({
+        ...user,
         syncServerId: syncServer.id,
         syncServerUrl: syncServer.url as string,
         syncServerAccessToken: accessToken,
