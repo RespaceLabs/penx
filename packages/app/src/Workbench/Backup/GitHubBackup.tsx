@@ -10,7 +10,7 @@ export function GitHubBackup() {
   return (
     <Box relative>
       <Box>
-        <Box text={[24, 30]} mb4 fontBold>
+        <Box text={[24]} mb4 fontSemibold>
           GitHub backup
         </Box>
         <Box gray600 mb1>

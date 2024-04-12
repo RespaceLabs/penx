@@ -115,39 +115,9 @@ export const UserProfile = ({ isMobile, ...rest }: Props) => {
             <Box gray500>
               <GitCompare size={16} />
             </Box>
-            <Box>Backup data</Box>
+            <Box>Sync & Backup</Box>
           </MenuItem>
         </PopoverClose>
-
-        {/* <PopoverClose>
-            <MenuItem
-              gap2
-              onClick={() => {
-                store.router.routeTo('WEB3_PROFILE')
-              }}
-            >
-              <Box gray500>
-                <Wallet size={16} />
-              </Box>
-              <Box>Web3 profile</Box>
-            </MenuItem>
-          </PopoverClose> */}
-
-        {user?.isAdmin && (
-          <PopoverClose>
-            <MenuItem
-              gap2
-              onClick={() => {
-                store.router.routeTo('TASK_BOARD')
-              }}
-            >
-              <Box gray500>
-                <DatabaseBackup size={16} />
-              </Box>
-              <Box>Task board</Box>
-            </MenuItem>
-          </PopoverClose>
-        )}
 
         <PopoverClose>
           <MenuItem

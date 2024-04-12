@@ -1,7 +1,6 @@
 import { TRPCError } from '@trpc/server'
 import jwt from 'jsonwebtoken'
-import { SyncServerType } from '@penx/constants'
-import { prisma, SyncServer, User } from '@penx/db'
+import { prisma, User } from '@penx/db'
 
 type Me = User & {
   syncServerAccessToken: string
@@ -24,50 +23,20 @@ export async function getMe(userId: string, needToken = false) {
 
   if (!user) new TRPCError({ code: 'NOT_FOUND' })
 
-  // No sync server in this user, create it
-  if (!user?.connectedSyncServerId) {
-    const syncServer = await prisma.syncServer.findFirst({
-      where: {
-        type: SyncServerType.OFFICIAL,
-        url: { not: '' },
-      },
-      orderBy: { createdAt: 'desc' },
-    })
+  const syncServer = await prisma.syncServer.findUnique({
+    where: { id: user?.connectedSyncServerId as string },
+  })
 
-    if (syncServer) {
-      user = await prisma.user.update({
-        where: { id: userId },
-        data: { connectedSyncServerId: syncServer.id },
-      })
-    }
-
-    const syncServerAccessToken = jwt.sign(
-      { sub: userId },
-      syncServer?.token as string,
-    )
-
-    return {
-      ...user,
-      syncServerAccessToken,
-      syncServerUrl: syncServer?.url as string,
-      ...generateToken(userId, needToken),
-    } as Me
-  } else {
-    const syncServer = await prisma.syncServer.findUnique({
-      where: { id: user.connectedSyncServerId },
-    })
-
-    const syncServerAccessToken = jwt.sign(
-      { sub: userId },
-      syncServer?.token as string,
-    )
-    return {
-      ...user,
-      syncServerAccessToken,
-      syncServerUrl: syncServer?.url as string,
-      ...generateToken(userId, needToken),
-    } as Me
-  }
+  const syncServerAccessToken = jwt.sign(
+    { sub: userId },
+    syncServer?.token as string,
+  )
+  return {
+    ...user,
+    syncServerAccessToken,
+    syncServerUrl: syncServer?.url as string,
+    ...generateToken(userId, needToken),
+  } as Me
 
   // await redis.set(redisKey, JSON.stringify(user))
 }

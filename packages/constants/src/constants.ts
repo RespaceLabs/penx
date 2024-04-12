@@ -80,11 +80,16 @@ export enum SyncStatus {
 }
 
 export enum SettingsType {
-  APPEARANCE = 'appearance',
-  PREFERENCES = 'preferences',
-  HOTKEYS = 'hotkeys',
-  ABOUT = 'about',
-  EXTENSIONS = 'extensions',
+  APPEARANCE = 'APPEARANCE',
+  PREFERENCES = 'PREFERENCES',
+  HOTKEYS = 'HOTKEYS',
+  ABOUT = 'ABOUT',
+  EXTENSIONS = 'EXTENSIONS',
+
+  ACCOUNT_SETTINGS = 'ACCOUNT_SETTINGS',
+  RECOVERY_PHRASE = 'RECOVERY_PHRASE',
+  SYNC_BACKUP = 'SYNC_BACKUP',
+  SYNC_SERVER = 'SYNC_SERVER',
 }
 
 export enum ModalNames {
@@ -102,6 +107,8 @@ export enum ModalNames {
   LOGIN_SUCCESS,
   SYNC_DETECTOR,
   SIWE,
+
+  SETTINGS,
 
   GENERATE_REFERRAL_CODE,
 

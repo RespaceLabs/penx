@@ -21,6 +21,7 @@ import { PCNav } from './NodeNav/PCNav'
 import { NodePanels } from './NodePanels'
 import { PageTodo } from './PageTodo/PageTodo'
 import { RecoveryPhrase } from './RecoveryPhrase/RecoveryPhrase'
+import { SettingsModal } from './SettingsModal/SettingsModal'
 import { Sidebar } from './Sidebar/Sidebar'
 import { SpaceSettings } from './SpaceSettings/SpaceSettings'
 import { Web3Profile } from './Web3Profile/Web3Profile'
@@ -47,6 +48,7 @@ export const Workbench = () => {
   return (
     <EditorProvider space={activeSpace}>
       <LoginByTokenModal />
+      <SettingsModal />
 
       <Box h-100vh toLeft black flex-1 relative>
         {!isBackedUp && session && name === 'NODE' && <BackupMnemonicTips />}

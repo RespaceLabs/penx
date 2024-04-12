@@ -7,25 +7,15 @@ import {
   ModalOverlay,
   ModalTrigger,
 } from 'uikit'
+import { ModalNames } from '@penx/constants'
 import { SettingsContent } from './SettingsContent'
 import { SettingsSidebar } from './SettingsSidebar'
 
 export const SettingsModal = () => {
   return (
-    <Modal>
+    <Modal name={ModalNames.SETTINGS}>
       <ModalOverlay />
-      <ModalTrigger>
-        <Button
-          size="sm"
-          colorScheme="gray500"
-          variant="ghost"
-          isSquare
-          roundedFull
-        >
-          <Settings />
-        </Button>
-      </ModalTrigger>
-      <ModalContent w={['100%', 1000]} toLeft p0 h-800>
+      <ModalContent w={['100%', 860]} toBetween p0--i h-800>
         <ModalCloseButton />
         <SettingsSidebar />
         <SettingsContent />

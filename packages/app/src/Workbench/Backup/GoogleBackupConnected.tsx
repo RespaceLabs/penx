@@ -11,7 +11,7 @@ interface Props {
 
 export function GoogleBackupConnected({ data, refetch }: Props) {
   return (
-    <Box toCenterY maxW-760 gap3>
+    <Box column toCenterY gap3>
       <Box toCenterY gap2>
         <Avatar>
           <AvatarImage src={data?.picture || ''} />

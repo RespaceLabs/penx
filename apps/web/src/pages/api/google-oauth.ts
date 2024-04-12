@@ -48,5 +48,5 @@ export default async function handler(
   const redisKey = RedisKeys.user(userId)
   await redis.del(redisKey)
 
-  res.redirect(`/`)
+  res.redirect(`/?from=google-oauth`)
 }

@@ -29,7 +29,7 @@ export function SyncServerList() {
 
   return (
     <Box mt10>
-      <Box column gap1 grid gridTemplateColumns={[1, 1, 1, 2, 2, 3]} gap4>
+      <Box column gap1 grid gridTemplateColumns={[1, 1, 1, 2, 2]} gap4>
         {data?.map((item) => (
           <Box key={item.id} column gap3 border borderGray100 rounded3XL p5>
             <Box toCenterY toBetween>

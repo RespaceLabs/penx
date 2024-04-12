@@ -4,7 +4,6 @@ import { useActiveSpace } from '@penx/hooks'
 import { DeleteSpaceModal } from '../DeleteSpaceModal'
 import { ExportToJSON } from '../ExportToJSON'
 import { SpaceName } from './SpaceName'
-import { SyncServerSelect } from './SyncServerSelect'
 
 export function SpaceSettings() {
   const { activeSpace } = useActiveSpace()
@@ -22,8 +21,6 @@ export function SpaceSettings() {
         </Box>
       </Box>
       <SpaceName />
-
-      {!activeSpace.isLocal && <SyncServerSelect />}
 
       <ExportToJSON />
       {!activeSpace.isLocal && <DeleteSpaceModal />}

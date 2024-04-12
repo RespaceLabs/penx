@@ -50,8 +50,8 @@ export const SyncServerSelect = () => {
   }
 
   return (
-    <Card column gap2 maxW-600>
-      <Box textLG fontMedium>
+    <Box column gap2>
+      <Box text2XL fontSemibold>
         Choose Sync Server
       </Box>
       <Box gray600 leadingNormal textSM>
@@ -89,6 +89,6 @@ export const SyncServerSelect = () => {
           <Box>Save sync server</Box>
         </Button>
       </Box>
-    </Card>
+    </Box>
   )
 }

@@ -6,7 +6,7 @@ import { SyncServerModal } from './SyncServerModal/SyncServerModal'
 
 export function SyncServer() {
   return (
-    <Box p10>
+    <Box>
       <SyncServerModal />
       <Box toCenterY toBetween>
         <Box text2XL mb4 fontBold>

@@ -12,8 +12,6 @@ export const googleRouter = createTRPCRouter({
 
     const user = await ctx.prisma.user.findUnique({ where: { id: userId } })
 
-    console.log('user===========user:', user)
-
     if (!user?.google) return null
 
     const googleInfo = user.google as GoogleInfo

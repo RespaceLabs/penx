@@ -45,7 +45,6 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
           white
           bgGray300
           overflowHidden
-          cursorPointer
           text={s * 0.5}
           border-2={isGrouped}
           borderWhite={isGrouped}

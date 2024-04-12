@@ -179,12 +179,7 @@ export const Sidebar = () => {
         <LoginButton />
       </Box>
       <Box px2 toBetween toCenterY pb2>
-        {session && !loading && (
-          <>
-            <SyncPopover />
-            <UserProfile />
-          </>
-        )}
+        {session && !loading && <SyncPopover />}
       </Box>
     </Box>
   )

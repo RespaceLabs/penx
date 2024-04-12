@@ -31,7 +31,7 @@ export function GoogleBackup() {
   return (
     <Box relative column gap6>
       <Box>
-        <Box text3XL mb4 fontBold text={[24, 30]}>
+        <Box mb4 fontSemibold text={[24, 24]}>
           Google Drive backup
         </Box>
         <Box gray600 mb1>

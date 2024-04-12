@@ -1,7 +1,14 @@
 import { forwardRef } from 'react'
 import { Box } from '@fower/react'
 import { ChevronsUpDown, Settings } from 'lucide-react'
-import { Bullet, Button, PopoverTrigger, usePopoverContext } from 'uikit'
+import {
+  Bullet,
+  Button,
+  modalController,
+  PopoverTrigger,
+  usePopoverContext,
+} from 'uikit'
+import { ModalNames, SettingsType } from '@penx/constants'
 import { useActiveSpace, useSidebarDrawer } from '@penx/hooks'
 import { IconSettings } from '@penx/icons'
 import { store } from '@penx/store'
@@ -66,7 +73,11 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
             opacity-100--$currentSpace--hover
             onClick={(e) => {
               close()
-              store.router.routeTo('SPACE_SETTINGS')
+              // store.router.routeTo('SPACE_SETTINGS')
+              modalController.open(
+                ModalNames.SETTINGS,
+                SettingsType.ACCOUNT_SETTINGS,
+              )
               drawer?.close?.()
               e.stopPropagation()
             }}

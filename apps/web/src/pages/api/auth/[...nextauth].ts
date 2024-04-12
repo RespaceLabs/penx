@@ -8,7 +8,25 @@ import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import { getCsrfToken } from 'next-auth/react'
 import { SiweMessage } from 'siwe'
+import { SyncServerType } from '@penx/constants'
 import { prisma, User } from '@penx/db'
+
+async function initUserSyncServer(userId: string) {
+  const syncServer = await prisma.syncServer.findFirst({
+    where: {
+      type: SyncServerType.OFFICIAL,
+      url: { not: '' },
+    },
+    orderBy: { createdAt: 'desc' },
+  })
+
+  if (syncServer) {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { connectedSyncServerId: syncServer.id },
+    })
+  }
+}
 
 async function createUser(address: string) {
   let user = await prisma.user.findUnique({ where: { address } })
@@ -133,10 +151,10 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     },
 
     callbacks: {
-      async signIn({ user, account, profile }) {
-        // await initSpace(user.id, user.name!)
-        return true
-      },
+      // async signIn({ user, account, profile }) {
+      //   // await initSpace(user.id, user.name!)
+      //   return true
+      // },
 
       async jwt({ token, account, user, profile, trigger, session }) {
         if (trigger === 'update') {
@@ -153,6 +171,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           }
         }
 
+        console.log('jwt------------------:', user)
+
         if (user) {
           const penxUser = user as User
           token.uid = penxUser.id
@@ -161,6 +181,10 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           token.publicKey = penxUser.publicKey as string
           token.secret = penxUser.secret as string
           token.email = penxUser.email as string
+
+          if (!penxUser.connectedSyncServerId) {
+            await initUserSyncServer(penxUser.id)
+          }
         }
 
         return token
