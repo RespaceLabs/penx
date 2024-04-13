@@ -19,6 +19,7 @@ export const SpaceSyncManager = ({
     if (localSpaces.length) return localSpaces
 
     const remoteSpaces = await api.space.mySpaces.query()
+    console.log('======remoteSpaces:', remoteSpaces)
 
     for (const space of remoteSpaces) {
       await db.createSpace(space as any, false)
@@ -28,6 +29,8 @@ export const SpaceSyncManager = ({
 
     return spaces
   })
+
+  console.log('=========data:', data)
 
   useEffect(() => {
     if (data) {

@@ -36,10 +36,9 @@ export const BackupMnemonicTips = () => {
         colorScheme="red500"
         ml4
         onClick={() => {
-          modalController.open(
-            ModalNames.SETTINGS,
-            SettingsType.RECOVERY_PHRASE,
-          )
+          modalController.open(ModalNames.SETTINGS, {
+            type: SettingsType.RECOVERY_PHRASE,
+          })
         }}
       >
         Back up now

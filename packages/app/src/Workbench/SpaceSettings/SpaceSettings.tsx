@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import { Button, modalController, Tag } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { useSpaces } from '@penx/hooks'
+import { Space } from '@penx/model'
 import { DeleteSpaceModal } from '../DeleteSpaceModal'
 import { ExportToJSON } from '../ExportToJSON'
 import { SpaceName } from './SpaceName'
@@ -11,8 +12,13 @@ interface Props {
 }
 
 export function SpaceSettings({ spaceId }: Props) {
-  const { getSpace } = useSpaces()
-  const space = getSpace(spaceId)
+  const { spaces } = useSpaces()
+
+  const currentSpace = spaces.find((s) => s.id === spaceId)
+
+  if (!currentSpace) return null
+
+  const space = new Space(currentSpace)
 
   return (
     <Box column gap10>

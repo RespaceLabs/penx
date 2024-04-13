@@ -1,8 +1,7 @@
 import { Suspense, useEffect, useMemo } from 'react'
 import { Box } from '@fower/react'
-import { ArrowRight, Wallet } from 'lucide-react'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { IconWallet } from '@penx/icons'
 import { ClientOnly } from '~/components/ClientOnly'
 import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
 import { Logo } from '~/components/Logo'
@@ -23,11 +22,9 @@ export default function LoginPage() {
         </Suspense>
         <ClientOnly>
           <WalletConnectButton size="lg" colorScheme="white" w-240 roundedXL>
-            <Wallet />
-            <Box column gap1>
-              <Box textBase fontSemibold>
-                Login with Wallet
-              </Box>
+            <IconWallet size={24} />
+            <Box textBase fontNormal>
+              Login with Wallet
             </Box>
           </WalletConnectButton>
         </ClientOnly>

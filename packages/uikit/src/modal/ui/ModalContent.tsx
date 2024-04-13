@@ -48,11 +48,11 @@ export const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
               left0
               zIndex={Z_INDEX + 1}
             >
-              <Box w-100p h-100p toCenter bgTransparent>
+              <Box w-100p h-100p toCenter bgTransparent overflowHidden>
                 <RemoveScroll>
                   <AnimatedDiv
-                    onMouseDown={(e) => e.stopPropagation()}
-                    onTouchStart={(e) => e.stopPropagation()}
+                    // onMouseDown={(e) => e.stopPropagation()}
+                    // onTouchStart={(e) => e.stopPropagation()}
                     className="uikit-modal-content"
                     roundedTop-20
                     roundedBottom={[0, 20]}

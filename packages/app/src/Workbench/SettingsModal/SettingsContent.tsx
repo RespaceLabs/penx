@@ -12,7 +12,7 @@ export const SettingsContent = () => {
   const { type, spaceId = '' } = data
 
   return (
-    <Box p10 flex-1 overflow={[false, false, 'auto']}>
+    <Box p10 flex-1 overflow={['auto']}>
       {type === SettingsType.ACCOUNT_SETTINGS && <AccountSettings />}
       {type === SettingsType.RECOVERY_PHRASE && <RecoveryPhrase />}
       {type === SettingsType.SYNC_BACKUP && <Backup />}
