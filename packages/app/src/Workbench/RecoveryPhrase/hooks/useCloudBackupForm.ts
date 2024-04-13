@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useModalContext } from 'uikit'
+import {
+  GOOGLE_DRIVE_FOLDER_NAME,
+  GOOGLE_DRIVE_RECOVERY_PHRASE_FILE,
+} from '@penx/constants'
 import { encryptString } from '@penx/encryption'
 import { GoogleDrive } from '@penx/google-drive'
 import { getMnemonicFromLocal } from '@penx/mnemonic'
@@ -31,29 +35,32 @@ export function useCloudBackupForm() {
   async function uploadEncryptedRecoveryPhrase(password: string) {
     const accessToken = token?.access_token as string
     const drive = new GoogleDrive(accessToken)
-    const folderName = 'PenX_backup'
+    const folderName = `${GOOGLE_DRIVE_FOLDER_NAME}-${userId}`
+    const parentId = await drive.getOrCreateFolder(folderName)
 
-    let parentId = ''
-    let folders = await drive.listByName(folderName)
+    const fileName = GOOGLE_DRIVE_RECOVERY_PHRASE_FILE
 
-    if (!folders.length) {
-      const folder = await drive.createFolder(folderName)
-      parentId = folder.id
-    } else {
-      parentId = folders[0].id
-    }
-
-    const fileName = `recovery_phrase_${userId}.json`
     let files = await drive.listByName(fileName)
 
     const mnemonic = await getMnemonicFromLocal(session?.secret!)
 
-    const encrypted = encryptString(mnemonic, password + userId)
+    const encryptedMnemonic = encryptString(mnemonic, password + userId)
+    const encryptedSecret = encryptString(session?.secret!, password + userId)
 
     if (files.length) {
-      await drive.updateJsonContent(files[0].id, { encrypted })
+      await drive.updateJsonContent(files[0].id, {
+        encryptedMnemonic,
+        encryptedSecret,
+      })
     } else {
-      await drive.createJSON(fileName, { encrypted }, parentId)
+      await drive.createJSON(
+        fileName,
+        {
+          encryptedMnemonic,
+          encryptedSecret,
+        },
+        parentId,
+      )
     }
   }
 

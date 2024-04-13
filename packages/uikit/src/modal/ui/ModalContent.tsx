@@ -4,7 +4,7 @@ import { useMediaQuery } from 'react-responsive'
 import { Box, styled } from '@fower/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Portal } from '../../portal'
-import { Z_INDEX } from '../constants'
+import { MODAL_OVERLAY_Z_INDEX } from '../constants'
 import { useModalContext } from '../modalContext'
 import { scaleConfig } from '../scaleConfig'
 import { slideConfig } from '../slideConfig'
@@ -46,11 +46,12 @@ export const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
               h-100p
               top0
               left0
-              zIndex={Z_INDEX + 1}
+              zIndex={MODAL_OVERLAY_Z_INDEX + 1}
             >
               <Box w-100p h-100p toCenter bgTransparent overflowHidden>
                 <RemoveScroll>
                   <AnimatedDiv
+                    onMouseUp={(e) => e.stopPropagation()}
                     // onMouseDown={(e) => e.stopPropagation()}
                     // onTouchStart={(e) => e.stopPropagation()}
                     className="uikit-modal-content"

@@ -1,1 +1,1 @@
-export const Z_INDEX = 2000
+export const MODAL_OVERLAY_Z_INDEX = 2000

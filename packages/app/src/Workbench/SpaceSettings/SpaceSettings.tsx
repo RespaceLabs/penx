@@ -22,15 +22,14 @@ export function SpaceSettings({ spaceId }: Props) {
 
   return (
     <Box column gap10>
-      <Box toLeft toCenterY gap2 flexDirection={['column', 'row']}>
+      <Box toCenterY gap2 flexDirection={['column', 'row']}>
         <Box text2XL fontBold>
           Space Settings
         </Box>
-        <Box>
-          <Tag variant="light" colorScheme="gray400">
-            {space.id}
-          </Tag>
-        </Box>
+
+        <Tag variant="light" colorScheme="gray400">
+          {space.id}
+        </Tag>
       </Box>
       <SpaceName space={space} />
 

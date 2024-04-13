@@ -1,5 +1,5 @@
 import { isMobile } from 'react-device-detect'
-import { isProd } from '@penx/constants'
+import { GOOGLE_DRIVE_FOLDER_NAME, isProd } from '@penx/constants'
 import { GoogleDrive } from '@penx/google-drive'
 import { db } from '@penx/local-db'
 import { encryptByPublicKey } from '@penx/mnemonic'
@@ -7,7 +7,7 @@ import { User } from '@penx/model'
 import { getConnectionState, sleep } from '@penx/shared'
 import { getActiveSpaceId, getAuthorizedUser } from '@penx/storage'
 
-const INTERVAL = isProd ? 30 * 60 * 1000 : 60 * 1000
+const INTERVAL = isProd ? 30 * 60 * 1000 : 60 * 60 * 1000
 
 export async function pollingBackupToGoogle() {
   while (true) {
@@ -47,23 +47,15 @@ async function sync() {
     const nodes = await db.listNodesBySpaceId(activeSpace.id)
 
     if (!nodes.length) return
+    const userId = user.id
 
     const drive = new GoogleDrive(user.google.access_token)
 
-    const folderName = 'PenX_backup'
+    const folderName = `${GOOGLE_DRIVE_FOLDER_NAME}-${userId}`
+    const parentId = await drive.getOrCreateFolder(folderName)
 
-    let parentId = ''
-
-    let folders = await drive.listByName(folderName)
-
-    if (!folders.length) {
-      const folder = await drive.createFolder(folderName)
-      parentId = folder.id
-    } else {
-      parentId = folders[0].id
-    }
-
-    const fileName = `space_${activeSpaceId}.json`
+    const time = new Date().toISOString()
+    const fileName = `space_${activeSpaceId}_${time}.json`
 
     let files = await drive.listByName(fileName)
 

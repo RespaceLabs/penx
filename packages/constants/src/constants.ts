@@ -14,6 +14,9 @@ export const PENX_SESSION_DATA = 'PENX_SESSION_DATA'
 
 export const TODO_DATABASE_NAME = '__TODO__'
 
+export const GOOGLE_DRIVE_FOLDER_NAME = 'penx-backup-user'
+export const GOOGLE_DRIVE_RECOVERY_PHRASE_FILE = 'recovery-phrase.json'
+
 export const LOCAL_USER_ID = 'acee1a5c-8e36-4a5f-846d-860566086e23'
 
 export const WORKBENCH_NAV_HEIGHT = 48

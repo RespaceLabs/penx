@@ -16,7 +16,8 @@ export const AddTodoForm = memo(function AddTodoForm() {
       left0
       right0
       bottom0
-      bgWhite
+      // bgWhite
+      bgTransparent
       pb5
       display={['none', 'none', 'flex']}
     >

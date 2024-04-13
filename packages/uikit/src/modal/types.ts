@@ -44,6 +44,8 @@ export interface ModalOwnProps {
   onClose?(): void
 
   onOpen?(): void
+
+  afterClose?(): void
 }
 
 export interface ModalOverlayProps extends FowerHTMLProps<'div'> {}

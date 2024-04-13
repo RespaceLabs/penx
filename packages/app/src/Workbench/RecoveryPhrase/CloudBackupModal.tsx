@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import {
   Button,
   Modal,
+  MODAL_OVERLAY_Z_INDEX,
   ModalClose,
   ModalCloseButton,
   ModalContent,
@@ -15,7 +16,7 @@ import { CloudBackupForm } from './CloudBackupForm'
 export const CloudBackupModal = () => {
   return (
     <Modal>
-      <ModalOverlay />
+      <ModalOverlay zIndex={MODAL_OVERLAY_Z_INDEX + 1} />
       <ModalTrigger>
         <Button colorScheme="black" size={56} gapX2 w-280 toBetween>
           <IconGoogle size={24} />

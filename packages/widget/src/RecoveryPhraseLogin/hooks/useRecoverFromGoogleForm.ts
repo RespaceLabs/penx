@@ -1,6 +1,10 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast, useModalContext } from 'uikit'
+import {
+  GOOGLE_DRIVE_FOLDER_NAME,
+  GOOGLE_DRIVE_RECOVERY_PHRASE_FILE,
+} from '@penx/constants'
 import { decryptString } from '@penx/encryption'
 import { GoogleDrive } from '@penx/google-drive'
 import { useSession } from '@penx/session'
@@ -36,15 +40,15 @@ export function useRecoverFromGoogleForm(
 
     try {
       const drive = new GoogleDrive(token.access_token)
+      const folderName = `${GOOGLE_DRIVE_FOLDER_NAME}-${userId}`
+      const fileName = GOOGLE_DRIVE_RECOVERY_PHRASE_FILE
 
-      const fileName = `recovery_phrase_${userId}.json`
-      let files = await drive.listByName(fileName)
+      const folderId = await drive.getOrCreateFolder(folderName)
+      const file = await drive.getFileInFolder(folderId, fileName)
 
-      if (files.length) {
-        const file = await drive.getByFileId(files[0].id)
-
+      if (file) {
         const decrypted = decryptString(
-          file.encrypted,
+          file.encryptedMnemonic,
           data.password + session.userId,
         )
 

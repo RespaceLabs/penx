@@ -3,7 +3,7 @@ import { styled } from '@fower/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { fadeConfig } from '../../motion-configs'
 import { Portal } from '../../portal'
-import { Z_INDEX } from '../constants'
+import { MODAL_OVERLAY_Z_INDEX } from '../constants'
 import { useModalContext } from '../modalContext'
 import { ModalOverlayProps } from '../types'
 
@@ -31,7 +31,7 @@ export const ModalOverlay = forwardRef<
             bgBlack--T70
             // bgWhite--T20
             // bgBlack--T50--dark
-            zIndex={Z_INDEX}
+            zIndex={MODAL_OVERLAY_Z_INDEX}
             style={
               {
                 // backdropFilter: 'blur(5px)',

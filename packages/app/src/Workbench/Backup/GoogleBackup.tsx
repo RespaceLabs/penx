@@ -1,6 +1,7 @@
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { Box } from '@fower/react'
-import { Skeleton } from 'uikit'
+import { Button, Input, Skeleton } from 'uikit'
+import { GoogleDrive } from '@penx/google-drive'
 import { useUser } from '@penx/hooks'
 import { trpc } from '@penx/trpc-client'
 import { GoogleOauthButton } from '../RecoveryPhrase/GoogleOauthButton'
@@ -28,6 +29,8 @@ function Content() {
 }
 
 export function GoogleBackup() {
+  const [value, setValue] = useState<any>()
+  const { data: token } = trpc.google.googleDriveToken.useQuery()
   return (
     <Box relative column gap6>
       <Box>
@@ -39,7 +42,6 @@ export function GoogleBackup() {
           use Google Drive to backup your data.
         </Box>
       </Box>
-
       <Content />
     </Box>
   )

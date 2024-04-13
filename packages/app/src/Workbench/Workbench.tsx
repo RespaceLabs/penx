@@ -51,6 +51,7 @@ export const Workbench = () => {
         <Box toLeft relative>
           <Box
             w={sidebarOpen ? [0, 0, SIDEBAR_WIDTH] : 0}
+            h-100vh
             toLeft
             flexShrink-0
             transition="width 0.3s"
@@ -74,7 +75,7 @@ export const Workbench = () => {
             </Box>
           </Box>
         </Box>
-        <Box flex-1 relative>
+        <Box flex-1 relative overflowHidden>
           <ErrorBoundary fallback={<Fallback />}>
             {name === 'TODOS' && <BottomBar />}
 
