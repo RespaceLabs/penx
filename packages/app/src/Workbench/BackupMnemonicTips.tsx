@@ -18,6 +18,7 @@ export const BackupMnemonicTips = () => {
       px3
       py3
       border
+      ml3
       borderYellow500
       bgWhite
     >

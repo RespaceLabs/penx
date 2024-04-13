@@ -1,5 +1,6 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { ethers } from 'ethers'
+import { nanoid } from 'nanoid'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import { Provider } from 'next-auth/providers'
@@ -10,43 +11,6 @@ import { getCsrfToken } from 'next-auth/react'
 import { SiweMessage } from 'siwe'
 import { SyncServerType } from '@penx/constants'
 import { prisma, User } from '@penx/db'
-
-async function initUserSyncServer(userId: string) {
-  const syncServer = await prisma.syncServer.findFirst({
-    where: {
-      type: SyncServerType.OFFICIAL,
-      url: { not: '' },
-    },
-    orderBy: { createdAt: 'desc' },
-  })
-
-  if (syncServer) {
-    await prisma.user.update({
-      where: { id: userId },
-      data: { connectedSyncServerId: syncServer.id },
-    })
-  }
-}
-
-async function createUser(address: string) {
-  let user = await prisma.user.findUnique({ where: { address } })
-  if (!user) {
-    user = await prisma.user.create({
-      data: {
-        address,
-        accounts: {
-          create: {
-            type: 'ethereum',
-            provider: 'ethereum',
-            providerAccountId: address,
-          },
-        },
-      },
-    })
-  }
-
-  return user
-}
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const nextAuthSecret = process.env['NEXTAUTH_SECRET']
@@ -171,8 +135,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           }
         }
 
-        console.log('jwt------------------:', user)
-
         if (user) {
           const penxUser = user as User
           token.uid = penxUser.id
@@ -185,6 +147,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           if (!penxUser.connectedSyncServerId) {
             await initUserSyncServer(penxUser.id)
           }
+
+          initPersonalToken(penxUser.id)
         }
 
         return token
@@ -201,4 +165,55 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       },
     },
   })
+}
+
+async function initUserSyncServer(userId: string) {
+  const syncServer = await prisma.syncServer.findFirst({
+    where: {
+      type: SyncServerType.OFFICIAL,
+      url: { not: '' },
+    },
+    orderBy: { createdAt: 'desc' },
+  })
+
+  if (syncServer) {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { connectedSyncServerId: syncServer.id },
+    })
+  }
+}
+
+async function initPersonalToken(userId: string) {
+  const tokens = await prisma.personalToken.findMany({ where: { userId } })
+
+  if (tokens.length) return
+
+  await prisma.personalToken.create({
+    data: {
+      description: 'Personal Token 1',
+      userId,
+      value: nanoid(),
+    },
+  })
+}
+
+async function createUser(address: string) {
+  let user = await prisma.user.findUnique({ where: { address } })
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        address,
+        accounts: {
+          create: {
+            type: 'ethereum',
+            provider: 'ethereum',
+            providerAccountId: address,
+          },
+        },
+      },
+    })
+  }
+
+  return user
 }
