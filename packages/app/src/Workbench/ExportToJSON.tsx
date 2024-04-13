@@ -1,7 +1,12 @@
 import { Box } from '@fower/react'
+import { Space } from '@penx/model'
 import { ExportBtn } from '../components/ExportBtn'
 
-export const ExportToJSON = () => {
+interface Props {
+  space: Space
+}
+
+export const ExportToJSON = ({ space }: Props) => {
   return (
     <Box column gap2>
       <Box textLG fontMedium>
@@ -13,7 +18,7 @@ export const ExportToJSON = () => {
       </Box>
 
       <Box>
-        <ExportBtn />
+        <ExportBtn space={space.raw} />
       </Box>
     </Box>
   )

@@ -90,10 +90,12 @@ export enum SettingsType {
   RECOVERY_PHRASE = 'RECOVERY_PHRASE',
   SYNC_BACKUP = 'SYNC_BACKUP',
   SYNC_SERVER = 'SYNC_SERVER',
+  SPACE = 'SPACE',
 }
 
 export enum ModalNames {
   DELETE_NODE,
+
   DELETE_COLUMN,
   CONFIG_COLUMN,
   DELETE_DATABASE,

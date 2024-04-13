@@ -3,7 +3,6 @@ import { Button } from 'uikit'
 import { useUser } from '@penx/hooks'
 import { IconGitHub } from '@penx/icons'
 import { useSession } from '@penx/session'
-import { store } from '@penx/store'
 
 export function SetupGitHubButton() {
   const { data } = useSession()
@@ -19,7 +18,7 @@ export function SetupGitHubButton() {
       px0
       w-100p
       onClick={() => {
-        store.router.routeTo('VERSION_CONTROL')
+        //
       }}
     >
       <IconGitHub size={24} gray500 />

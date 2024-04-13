@@ -20,11 +20,11 @@ export function useLoginByTokenForm() {
   const onSubmit: SubmitHandler<LoginByTokenValues> = async (data) => {
     setLoading(true)
     try {
-      const { token, user } = await api.user.loginByPersonalToken.mutate(
+      const { token, ...user } = await api.user.loginByPersonalToken.mutate(
         data.token,
       )
 
-      store.setToken(token)
+      store.setToken(token as string)
       store.user.setUser(new User(user as any))
 
       await setLocalSession({

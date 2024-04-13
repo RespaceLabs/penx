@@ -16,7 +16,13 @@ function TokenList() {
   return (
     <Box column gap2 mt6>
       {data.map((item) => (
-        <Box key={item.id} toCenterY toBetween gap3>
+        <Box
+          key={item.id}
+          toCenterY
+          toBetween
+          gap3
+          flexDirection={['column', 'row']}
+        >
           <Box toCenterY gap2>
             <Box>{item.description}</Box>
             <Box gray600>{item.value}</Box>

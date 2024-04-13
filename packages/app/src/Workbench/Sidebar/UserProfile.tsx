@@ -80,62 +80,6 @@ export const UserProfile = ({ isMobile, ...rest }: Props) => {
         <PopoverClose>
           <MenuItem
             gap2
-            onClick={() => {
-              store.router.routeTo('ACCOUNT_SETTINGS')
-            }}
-          >
-            <Box gray500>
-              <User size={16} />
-            </Box>
-            <Box>Account settings</Box>
-          </MenuItem>
-        </PopoverClose>
-
-        <PopoverClose>
-          <MenuItem
-            gap2
-            onClick={() => {
-              store.router.routeTo('RECOVERY_PHRASE')
-            }}
-          >
-            <Box gray500>
-              <IconPassword size={16} />
-            </Box>
-            <Box>Recovery Phrase</Box>
-          </MenuItem>
-        </PopoverClose>
-
-        <PopoverClose>
-          <MenuItem
-            gap2
-            onClick={() => {
-              store.router.routeTo('VERSION_CONTROL')
-            }}
-          >
-            <Box gray500>
-              <GitCompare size={16} />
-            </Box>
-            <Box>Sync & Backup</Box>
-          </MenuItem>
-        </PopoverClose>
-
-        <PopoverClose>
-          <MenuItem
-            gap2
-            onClick={() => {
-              store.router.routeTo('SYNC_SERVER')
-            }}
-          >
-            <Box gray500>
-              <DatabaseBackup size={16} />
-            </Box>
-            <Box>Sync servers</Box>
-          </MenuItem>
-        </PopoverClose>
-
-        <PopoverClose>
-          <MenuItem
-            gap2
             onClick={async () => {
               // await disconnectAsync()
               // disconnect()

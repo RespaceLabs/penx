@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { AlertCircle } from 'lucide-react'
-import { Button } from 'uikit'
-import { store } from '@penx/store'
+import { Button, modalController } from 'uikit'
+import { ModalNames, SettingsType } from '@penx/constants'
 
 export const BackupMnemonicTips = () => {
   return (
@@ -36,7 +36,10 @@ export const BackupMnemonicTips = () => {
         colorScheme="red500"
         ml4
         onClick={() => {
-          store.router.routeTo('RECOVERY_PHRASE')
+          modalController.open(
+            ModalNames.SETTINGS,
+            SettingsType.RECOVERY_PHRASE,
+          )
         }}
       >
         Back up now

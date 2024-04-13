@@ -15,7 +15,13 @@ export const SettingsModal = () => {
   return (
     <Modal name={ModalNames.SETTINGS}>
       <ModalOverlay />
-      <ModalContent w={['100%', 860]} toBetween p0--i h-800>
+      <ModalContent
+        w={['100%', 860]}
+        toBetween
+        p0--i
+        h={['100%', '100%', 800]}
+        flexDirection={['column', 'column', 'row']}
+      >
         <ModalCloseButton />
         <SettingsSidebar />
         <SettingsContent />

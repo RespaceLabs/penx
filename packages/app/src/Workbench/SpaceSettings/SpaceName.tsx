@@ -2,11 +2,14 @@ import { Box } from '@fower/react'
 import { Input } from 'uikit'
 import { useActiveSpace } from '@penx/hooks'
 import { db } from '@penx/local-db'
+import { Space } from '@penx/model'
 import { store } from '@penx/store'
 
-export const SpaceName = () => {
-  const { activeSpace } = useActiveSpace()
+interface Props {
+  space: Space
+}
 
+export const SpaceName = ({ space }: Props) => {
   return (
     <Box column gap2 maxW-600>
       <Box textLG fontMedium>
@@ -18,9 +21,9 @@ export const SpaceName = () => {
       <Box>
         <Input
           placeholder="Space name"
-          value={activeSpace.name}
+          value={space.name}
           onChange={async (e) => {
-            await db.updateSpace(activeSpace.id, {
+            await db.updateSpace(space.id, {
               name: e.target.value,
             })
             const spaces = await db.listSpaces()

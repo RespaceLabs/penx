@@ -73,11 +73,9 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
             opacity-100--$currentSpace--hover
             onClick={(e) => {
               close()
-              // store.router.routeTo('SPACE_SETTINGS')
-              modalController.open(
-                ModalNames.SETTINGS,
-                SettingsType.ACCOUNT_SETTINGS,
-              )
+              modalController.open(ModalNames.SETTINGS, {
+                type: SettingsType.ACCOUNT_SETTINGS,
+              })
               drawer?.close?.()
               e.stopPropagation()
             }}

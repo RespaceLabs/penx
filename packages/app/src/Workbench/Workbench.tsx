@@ -10,20 +10,15 @@ import { useSession } from '@penx/session'
 import { Fallback } from '../Fallback/Fallback'
 import { LoginByTokenModal } from '../LoginByTokenModal/LoginByTokenModal'
 import { CommandPanel } from '../Palette'
-import { SyncServer } from '../SyncServer/SyncServer'
 import { TaskBoard } from '../TaskBoard'
-import { AccountSettings } from './AccountSettings/AccountSettings'
-import { Backup } from './Backup/Backup'
 import { BackupMnemonicTips } from './BackupMnemonicTips'
 import { BottomBar } from './BottomBar'
 import { MobileNav } from './NodeNav/MobileNav'
 import { PCNav } from './NodeNav/PCNav'
 import { NodePanels } from './NodePanels'
 import { PageTodo } from './PageTodo/PageTodo'
-import { RecoveryPhrase } from './RecoveryPhrase/RecoveryPhrase'
 import { SettingsModal } from './SettingsModal/SettingsModal'
 import { Sidebar } from './Sidebar/Sidebar'
-import { SpaceSettings } from './SpaceSettings/SpaceSettings'
 import { Web3Profile } from './Web3Profile/Web3Profile'
 
 export const Workbench = () => {
@@ -90,18 +85,9 @@ export const Workbench = () => {
                 <PCNav />
                 <MobileNav />
 
-                {name === 'ACCOUNT_SETTINGS' && <AccountSettings />}
                 {name === 'TODOS' && <PageTodo />}
-                {name === 'SPACE_SETTINGS' && <SpaceSettings />}
-                {name === 'SYNC_SERVER' && <SyncServer />}
                 {name === 'WEB3_PROFILE' && <Web3Profile />}
-                {name === 'RECOVERY_PHRASE' && (
-                  <Box h-80vh toCenter>
-                    <RecoveryPhrase />
-                  </Box>
-                )}
                 {name === 'TASK_BOARD' && <TaskBoard />}
-                {name === 'VERSION_CONTROL' && <Backup />}
               </Box>
             )}
           </ErrorBoundary>

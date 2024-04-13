@@ -16,22 +16,21 @@ import {
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { useActiveSpace } from '@penx/hooks'
-import { Node } from '@penx/model'
+import { Node, Space } from '@penx/model'
 import { store } from '@penx/store'
 import { api } from '@penx/trpc-client'
 
 const Footer = () => {
-  const { close } = useModalContext<Node>()
+  const { close, data: space } = useModalContext<Space>()
   const [name, setName] = useState('')
   const [loading, setLoading] = useState(false)
-  const { activeSpace } = useActiveSpace()
 
   async function deleteSpace() {
     if (!name) return
     setLoading(true)
     try {
-      await api.space.deleteById.mutate(activeSpace.id)
-      await store.space.deleteSpace(activeSpace.id)
+      await api.space.deleteById.mutate(space.id)
+      await store.space.deleteSpace(space.id)
       close()
     } catch (error) {
       console.log('=========error:', error)
@@ -44,7 +43,7 @@ const Footer = () => {
     <Box>
       <Input
         w-80p
-        placeholder={`Please type "${activeSpace.name}" to confirm`}
+        placeholder={`Please type "${space.name}" to confirm`}
         onChange={(e) => setName(e.target.value)}
       />
       <Box gap3 toCenterY mt4>
@@ -53,7 +52,7 @@ const Footer = () => {
         </ModalClose>
         <Button
           colorScheme="red500"
-          disabled={name !== activeSpace.name || loading}
+          disabled={name !== space.name || loading}
           onClick={deleteSpace}
         >
           {loading && <Spinner white square4 />}
@@ -71,24 +70,14 @@ export const DeleteSpaceModal = ({ children }: PropsWithChildren) => {
         Delete Space
       </Box>
 
-      <Modal name={ModalNames.DELETE_NODE}>
-        {!children && (
-          <ModalTrigger>
-            <Button variant="outline" colorScheme="red500">
-              Delete entire space
-            </Button>
-          </ModalTrigger>
-        )}
-
-        {!!children && <ModalTrigger>{children}</ModalTrigger>}
-
+      <Modal name={ModalNames.DELETE_SPACE}>
         <ModalOverlay />
         <ModalContent w={['100%', 500]} column gap4>
           <ModalCloseButton />
 
           <ModalHeader mb2>Are you sure delete it permanently?</ModalHeader>
 
-          <Box>Once deleted, You can't undo this action.</Box>
+          <Box>Once deleted, You can{"'"}t undo this action.</Box>
           <Footer />
         </ModalContent>
       </Modal>

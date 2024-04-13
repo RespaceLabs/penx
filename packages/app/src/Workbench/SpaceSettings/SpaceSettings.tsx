@@ -1,29 +1,49 @@
 import { Box } from '@fower/react'
-import { Tag } from 'uikit'
-import { useActiveSpace } from '@penx/hooks'
+import { Button, modalController, Tag } from 'uikit'
+import { ModalNames } from '@penx/constants'
+import { useSpaces } from '@penx/hooks'
 import { DeleteSpaceModal } from '../DeleteSpaceModal'
 import { ExportToJSON } from '../ExportToJSON'
 import { SpaceName } from './SpaceName'
 
-export function SpaceSettings() {
-  const { activeSpace } = useActiveSpace()
+interface Props {
+  spaceId: string
+}
+
+export function SpaceSettings({ spaceId }: Props) {
+  const { getSpace } = useSpaces()
+  const space = getSpace(spaceId)
 
   return (
-    <Box p10 column gap10>
+    <Box column gap10>
       <Box toLeft toCenterY gap2 flexDirection={['column', 'row']}>
         <Box text2XL fontBold>
           Space Settings
         </Box>
         <Box>
           <Tag variant="light" colorScheme="gray400">
-            {activeSpace.id}
+            {space.id}
           </Tag>
         </Box>
       </Box>
-      <SpaceName />
+      <SpaceName space={space} />
 
-      <ExportToJSON />
-      {!activeSpace.isLocal && <DeleteSpaceModal />}
+      <ExportToJSON space={space} />
+      {!space.isLocal && (
+        <Box>
+          <DeleteSpaceModal />
+
+          <Button
+            variant="outline"
+            colorScheme="red500"
+            onClick={() => {
+              modalController.open(ModalNames.DELETE_SPACE, space)
+            }}
+          >
+            Delete entire space
+          </Button>
+        </Box>
+      )}
     </Box>
   )
 }
