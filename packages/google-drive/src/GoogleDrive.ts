@@ -1,3 +1,5 @@
+import mime from 'mime'
+
 type DriveFile = {
   kind: string
   id: string
@@ -14,7 +16,25 @@ type FileRes = {
 export class GoogleDrive {
   constructor(private accessToken: string) {}
 
-  async getByFileId(fileId: string, fields = '') {
+  async getFile(fileId: string) {
+    let apiUrl = `https://www.googleapis.com/drive/v2/files/${fileId}?alt=media`
+
+    const data = await fetch(apiUrl, {
+      headers: {
+        Authorization: `Bearer ${this.accessToken}`,
+      },
+    })
+      .then((response) => response.blob())
+      .then((blob) => {
+        const ext = mime.getExtension(blob.type)
+        const file = new File([blob], `${fileId}.ext`, { type: blob.type })
+        return file
+      })
+
+    return data
+  }
+
+  async getJSON(fileId: string, fields = '') {
     let apiUrl = `https://www.googleapis.com/drive/v2/files/${fileId}?`
 
     if (fields) {
@@ -45,7 +65,7 @@ export class GoogleDrive {
       }),
     }).then((response) => response.json())
 
-    return await this.getByFileId(fileId, 'webContentLink')
+    return await this.getJSON(fileId, 'webContentLink')
   }
 
   async createJSON(fileName: string, data: any, parentId?: string) {
@@ -80,12 +100,21 @@ export class GoogleDrive {
     return r
   }
 
-  async createFile(file: File, parentId?: string) {
+  async createFile(
+    hash: string,
+    file: File,
+    parentId = '',
+  ): Promise<DriveFile> {
+    const ext = mime.getExtension(file.type)
+    const fileName = `${hash}.${ext}`
+    const files = await this.listFileInFolder(parentId, fileName)
+
+    if (files.length) return files[0]
+
     const formData = new FormData()
 
     const metadata: any = {
-      name: file.name,
-      // mimeType: 'image/png',
+      name: fileName,
     }
 
     if (parentId) metadata.parents = [parentId]
@@ -97,7 +126,7 @@ export class GoogleDrive {
 
     formData.append('file', file)
 
-    const r = await fetch(
+    const driveFile = await fetch(
       'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true',
       {
         method: 'POST',
@@ -108,8 +137,8 @@ export class GoogleDrive {
       },
     ).then((res) => res.json())
 
-    console.log('r=======:', r)
-    return r
+    console.log('r=======:', driveFile)
+    return driveFile as DriveFile
   }
 
   async createFolder(folderName: string) {
@@ -185,10 +214,10 @@ export class GoogleDrive {
 
     const fileId = files[0].id
 
-    return this.getByFileId(fileId)
+    return this.getJSON(fileId)
   }
 
-  async getFileInFolder(folderId: string, fileName: string) {
+  async listFileInFolder(folderId: string, fileName: string) {
     const q = encodeURIComponent(
       `'${folderId}' in parents and name='${fileName}' and trashed=false`,
     )
@@ -205,6 +234,11 @@ export class GoogleDrive {
       response.json(),
     )
 
-    return this.getByFileId(res.files[0].id)
+    return res.files || []
+  }
+
+  async getFileInFolder(folderId: string, fileName: string) {
+    const files = await this.listFileInFolder(folderId, fileName)
+    return this.getJSON(files[0].id)
   }
 }

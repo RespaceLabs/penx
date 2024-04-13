@@ -6,7 +6,7 @@ import { UploadBox } from './UploadBox'
 export const Image = (props: ElementProps<ImageElement>) => {
   const { element } = props
 
-  if (!element.fileId) {
+  if (!element.hash) {
     return <UploadBox {...props} />
   }
 

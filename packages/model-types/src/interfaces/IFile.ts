@@ -1,11 +1,12 @@
+/**
+ * File or cache
+ */
 export interface IFile {
   id: string
 
-  spaceId: string
+  googleDriveId: string
+
+  hash: string
 
   value: File
-
-  createdAt: Date
-
-  updatedAt: Date
 }

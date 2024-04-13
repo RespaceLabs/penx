@@ -56,10 +56,10 @@ export const extensionList = [
   //   id: 'code-block',
   //   activate: codeBlock.activate,
   // },
-  // {
-  //   id: 'image',
-  //   activate: image.activate,
-  // },
+  {
+    id: 'image',
+    activate: image.activate,
+  },
   {
     id: 'link',
     activate: link.activate,

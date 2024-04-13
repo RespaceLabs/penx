@@ -108,6 +108,7 @@ export function slateToNodes(
         type: NodeType.COMMON,
         element,
         props: {},
+        date: '',
         collapsed: !!item.collapsed,
         folded: true,
         children,

@@ -6,7 +6,8 @@ export interface ImageElement extends BaseElement {
   id?: string
   type: typeof ELEMENT_IMG
   url: string
-  fileId: string
   mime: string
   width: number // image width
+  googleDriveId: string
+  hash: string
 }

@@ -6,7 +6,11 @@
   "scripts": {
     "lint": "eslint \"**/*.ts*\""
   },
+  "dependencies": {
+    "mime": "^3.0.0"
+  },
   "devDependencies": {
+    "@types/mime": "^3.0.4",
     "@types/node": "^20.10.3",
     "eslint": "^8.57.0",
     "eslint-config-custom": "workspace:*",

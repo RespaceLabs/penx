@@ -37,15 +37,17 @@ const DAILY_NODE_NORMALIZED = 'DAILY_NODE_NORMALIZED'
 export class PenxDB extends Dexie {
   space!: Table<ISpace, string>
   node!: Table<INode, string>
+  file!: Table<IFile, string>
   extension!: Table<IExtension, string>
 
   constructor() {
     // super('PenxDB')
     super('penx-local')
-    this.version(6).stores({
+    this.version(8).stores({
       // Primary key and indexed props
       space: 'id, name, userId',
       node: 'id, spaceId, databaseId, type, date, [type+spaceId+databaseId], [type+spaceId], [type+databaseId]',
+      file: 'id, googleDriveId, hash',
     })
   }
 
@@ -1513,6 +1515,15 @@ export class PenxDB extends Dexie {
     await this.updateNode(databaseRoot.id, {
       children: databaseRoot.children?.filter((id) => id !== node.id),
     })
+  }
+
+  createFile = async (data: Omit<IFile, 'id'>): Promise<IFile> => {
+    const newNodeId = await this.file.add({
+      id: uniqueId(),
+      ...data,
+    })
+
+    return this.file.get(newNodeId) as any as Promise<IFile>
   }
 }
 

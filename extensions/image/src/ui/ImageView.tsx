@@ -11,7 +11,7 @@ import {
 import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { setNodes } from '@penx/editor-transforms'
 import { ElementProps } from '@penx/extension-typings'
-import { useFile } from '@penx/node-hooks'
+import { useGoogleDriveFile } from '../hooks/useGoogleDriveFile'
 import { ImageElement } from '../types'
 
 export const ImageView = (props: ElementProps<ImageElement>) => {
@@ -21,7 +21,7 @@ export const ImageView = (props: ElementProps<ImageElement>) => {
   const selected = useSelected()
   const focused = useFocused()
   const active = selected && focused
-  const [width, setWidth] = useState(nodeWidth)
+  const [width = 160, setWidth] = useState(nodeWidth)
 
   const path = ReactEditor.findPath(editor, element)
 
@@ -36,10 +36,10 @@ export const ImageView = (props: ElementProps<ImageElement>) => {
     [editor, nodeWidth, path],
   )
 
-  const { file } = useFile(element.fileId!)
+  const r = useGoogleDriveFile(element.googleDriveId!)
 
   return (
-    <Box {...attributes} contentEditable={false} toCenter>
+    <Box {...attributes} contentEditable={false} toLeft>
       {children}
       <Resizable
         className={css({
@@ -57,7 +57,7 @@ export const ImageView = (props: ElementProps<ImageElement>) => {
           cursorPointer
           w-100p
           h-auto
-          src={file?.url}
+          src={r.url}
         />
       </Resizable>
     </Box>

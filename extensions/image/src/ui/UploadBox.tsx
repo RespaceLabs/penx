@@ -3,12 +3,16 @@ import { Box } from '@fower/react'
 import { ImageIcon } from 'lucide-react'
 import { ReactEditor, useFocused, useSelected } from 'slate-react'
 import { Input, toast } from 'uikit'
+import { GOOGLE_DRIVE_FILE_FOLDER_NAME } from '@penx/constants'
 import { useEditorStatic } from '@penx/editor-common'
 import { setNodes } from '@penx/editor-transforms'
 import { calculateSHA256FromFile } from '@penx/encryption'
 import { ElementProps } from '@penx/extension-typings'
+import { GoogleDrive } from '@penx/google-drive'
 import { useActiveSpace } from '@penx/hooks'
 import { db } from '@penx/local-db'
+import { useSession } from '@penx/session'
+import { trpc } from '@penx/trpc-client'
 import { ImageElement } from '../types'
 import { UploadButton } from '../UploadButton'
 
@@ -17,13 +21,13 @@ export const UploadBox = ({
   children,
   element,
 }: ElementProps<ImageElement>) => {
+  const { data: token } = trpc.google.googleDriveToken.useQuery()
+  const { data: session } = useSession()
   const editor = useEditorStatic()
   const selected = useSelected()
   const focused = useFocused()
   const active = selected && focused
   const [uploading, setUploading] = useState(false)
-  const { activeSpace } = useActiveSpace()
-
   const path = ReactEditor.findPath(editor, element)
 
   function setFileNode(data: Partial<ImageElement>) {
@@ -35,18 +39,24 @@ export const UploadBox = ({
 
     try {
       const hash = await calculateSHA256FromFile(file)
-      // let fileInfo = await db.getFile(hash)
+      const drive = new GoogleDrive(token?.access_token!)
+      const folderName = `${GOOGLE_DRIVE_FILE_FOLDER_NAME}-${session.userId}`
+      const parentId = await drive.getOrCreateFolder(folderName)
+      const driveFile = await drive.createFile(hash, file, parentId)
 
-      // if (!fileInfo) {
-      //   fileInfo = await db.createFile({
-      //     id: hash,
-      //     spaceId: activeSpace.id,
-      //     value: file,
-      //   })
-      // }
+      await db.createFile({
+        hash,
+        googleDriveId: driveFile.id,
+        value: file,
+      })
 
-      // setFileNode({ fileId: fileInfo.id, mime: file.type })
-      // setUploading(false)
+      setFileNode({
+        googleDriveId: driveFile.id,
+        hash,
+        mime: file.type,
+      })
+
+      setUploading(false)
     } catch (error) {
       setUploading(false)
       toast.error('Upload image failed')

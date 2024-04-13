@@ -3751,6 +3751,9 @@ importers:
       '@penx/extension-typings':
         specifier: ^0.0.0
         version: link:../../packages/extension-typings
+      '@penx/google-drive':
+        specifier: workspace:*
+        version: link:../../packages/google-drive
       '@penx/hooks':
         specifier: workspace:*
         version: link:../../packages/hooks
@@ -3766,15 +3769,24 @@ importers:
       '@penx/node-hooks':
         specifier: workspace:*
         version: link:../../packages/node-hooks
+      '@penx/session':
+        specifier: workspace:*
+        version: link:../../packages/session
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
       '@penx/slate-lists':
         specifier: workspace:*
         version: link:../../packages/slate-lists
+      '@penx/storage':
+        specifier: workspace:*
+        version: link:../../packages/storage
       '@penx/store':
         specifier: workspace:*
         version: link:../../packages/store
+      '@penx/trpc-client':
+        specifier: workspace:*
+        version: link:../../packages/trpc-client
       lucide-react:
         specifier: ^0.344.0
         version: 0.344.0(react@18.2.0)
@@ -6052,10 +6064,17 @@ importers:
         version: 5.4.3
 
   packages/google-drive:
+    dependencies:
+      mime:
+        specifier: ^3.0.0
+        version: 3.0.0
     devDependencies:
       '@penx/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
+      '@types/mime':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: ^20.10.3
         version: 20.11.30
