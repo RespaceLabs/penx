@@ -81,7 +81,7 @@ export function ColumnMenu({ index = 0, column, close }: ColumnMenuProps) {
 
       <Box p2>
         <Box textXS gray400 mb1>
-          Column name
+          Column width
         </Box>
         <Input
           size={isMobile ? 'md' : 'sm'}

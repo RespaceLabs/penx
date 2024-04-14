@@ -74,6 +74,7 @@ export enum FieldType {
   URL = 'URL',
   IMAGE = 'IMAGE',
   RATE = 'RATE',
+  FILE = 'FILE',
 
   NODE_ID = 'NODE_ID',
 
@@ -139,10 +140,26 @@ export interface IRowNode extends INode {
   }
 }
 
-export interface ICellNodeProps {
+export interface ICellNodeProps<T = any> {
   columnId: string
   rowId: string
   ref: string // ref to a node id
+
+  /**
+   *
+    | string
+    | number
+    | string[]
+    | number[]
+    | {
+        sourceId?: string // todo source id
+
+        hash?: string // file hash
+
+        googleDriveFileId?: string // google drive file id
+      }
+   * 
+   */
   data: any
 
   // for Todo

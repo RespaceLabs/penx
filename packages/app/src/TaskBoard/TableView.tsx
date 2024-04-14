@@ -198,7 +198,7 @@ export function TaskBoardTable() {
     await api.task.create.mutate(initialData as any)
     await fetchTasks()
     ref.current?.appendRow(0, true)
-  }, [ref])
+  }, [ref, fetchTasks])
 
   const onDeleteRow = useCallback(async () => {
     const { rows } = selection

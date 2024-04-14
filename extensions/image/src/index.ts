@@ -1,6 +1,6 @@
 import { ImageIcon } from 'lucide-react'
+import { ELEMENT_IMG } from '@penx/constants'
 import { ExtensionContext } from '@penx/extension-typings'
-import { ELEMENT_IMG } from './types'
 import { Image } from './ui/Image'
 import { withImage } from './withImage'
 

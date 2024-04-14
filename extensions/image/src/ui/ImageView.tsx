@@ -36,7 +36,7 @@ export const ImageView = (props: ElementProps<ImageElement>) => {
     [editor, nodeWidth, path],
   )
 
-  const r = useGoogleDriveFile(element.googleDriveId!)
+  const result = useGoogleDriveFile(element.googleDriveFileId!)
 
   return (
     <Box {...attributes} contentEditable={false} toLeft>
@@ -57,7 +57,7 @@ export const ImageView = (props: ElementProps<ImageElement>) => {
           cursorPointer
           w-100p
           h-auto
-          src={r.url}
+          src={result.url}
         />
       </Resizable>
     </Box>

@@ -1,6 +1,5 @@
 import { BaseElement } from 'slate'
-
-export const ELEMENT_IMG = 'img'
+import { ELEMENT_IMG } from '@penx/constants'
 
 export interface ImageElement extends BaseElement {
   id?: string
@@ -8,6 +7,6 @@ export interface ImageElement extends BaseElement {
   url: string
   mime: string
   width: number // image width
-  googleDriveId: string
+  googleDriveFileId: string
   hash: string
 }

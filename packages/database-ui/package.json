@@ -52,6 +52,7 @@
     "@penx/service": "workspace:*",
     "@penx/session": "workspace:*",
     "@penx/shared": "workspace:*",
+    "@penx/storage": "workspace:*",
     "@penx/store": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "@tanstack/react-query": "^4.36.1",

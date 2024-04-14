@@ -46,12 +46,12 @@ export const UploadBox = ({
 
       await db.createFile({
         hash,
-        googleDriveId: driveFile.id,
+        googleDriveFileId: driveFile.id,
         value: file,
       })
 
       setFileNode({
-        googleDriveId: driveFile.id,
+        googleDriveFileId: driveFile.id,
         hash,
         mime: file.type,
       })

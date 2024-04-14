@@ -2,13 +2,18 @@ import { arrayMoveImmutable } from 'array-move'
 import { format } from 'date-fns'
 import Dexie, { Table } from 'dexie'
 import { get, set } from 'idb-keyval'
-import { LOCAL_USER_ID, TODO_DATABASE_NAME } from '@penx/constants'
+import {
+  FILE_DATABASE_NAME,
+  LOCAL_USER_ID,
+  TODO_DATABASE_NAME,
+} from '@penx/constants'
 import {
   ConjunctionType,
   FieldType,
   Filter,
   Group,
   ICellNode,
+  ICellNodeProps,
   IColumnNode,
   IDailyRootNode,
   IDatabaseNode,
@@ -31,6 +36,7 @@ import { uniqueId } from '@penx/unique-id'
 import { getNewNode } from './getNewNode'
 import { getNewSpace } from './getNewSpace'
 import { getRandomColor } from './getRandomColor'
+import { AddRowOptions, CreateFileRowOptions } from './types'
 
 const DAILY_NODE_NORMALIZED = 'DAILY_NODE_NORMALIZED'
 
@@ -43,11 +49,11 @@ export class PenxDB extends Dexie {
   constructor() {
     // super('PenxDB')
     super('penx-local')
-    this.version(8).stores({
+    this.version(9).stores({
       // Primary key and indexed props
       space: 'id, name, userId',
       node: 'id, spaceId, databaseId, type, date, [type+spaceId+databaseId], [type+spaceId], [type+databaseId]',
-      file: 'id, googleDriveId, hash',
+      file: 'id, googleDriveFileId, hash',
     })
   }
 
@@ -149,6 +155,8 @@ export class PenxDB extends Dexie {
     })
 
     await this.createDatabase(spaceId, TODO_DATABASE_NAME)
+
+    await this.createDatabase(spaceId, FILE_DATABASE_NAME)
   }
 
   createSpace = async (data: Partial<ISpace>, initNode = true) => {
@@ -306,7 +314,7 @@ export class PenxDB extends Dexie {
 
   updateNodeProps = async (nodeId: string, props: Partial<INode['props']>) => {
     const newNode = await this.node.update(nodeId, {
-      ...props,
+      props,
     })
 
     return newNode
@@ -523,6 +531,7 @@ export class PenxDB extends Dexie {
     })
 
     const isTodo = name === TODO_DATABASE_NAME
+    const isFile = name === FILE_DATABASE_NAME
 
     await this.updateNode(databaseRootNode.id, {
       children: [...(databaseRootNode.children || []), database.id],
@@ -534,7 +543,7 @@ export class PenxDB extends Dexie {
       })
     }
 
-    const columns = await this.initColumns(spaceId, database.id, isTodo)
+    const columns = await this.initColumns(spaceId, database.id, name)
 
     const viewColumns: ViewColumn[] = columns.map((column) => ({
       columnId: column.id,
@@ -595,7 +604,14 @@ export class PenxDB extends Dexie {
     return database
   }
 
-  initColumns = async (spaceId: string, databaseId: string, isTodo = false) => {
+  initColumns = async (
+    spaceId: string,
+    databaseId: string,
+    databaseName = '',
+  ) => {
+    const isTodo = databaseName === TODO_DATABASE_NAME
+    const isFile = databaseName === FILE_DATABASE_NAME
+
     const mainColumn = await this.createNode<IColumnNode>({
       spaceId,
       parentId: databaseId,
@@ -609,6 +625,7 @@ export class PenxDB extends Dexie {
         config: {},
       },
     })
+
     if (isTodo) {
       const source = await this.createNode<IColumnNode>({
         spaceId,
@@ -624,36 +641,27 @@ export class PenxDB extends Dexie {
         },
       })
 
-      const createdAt = await this.createNode<IColumnNode>({
-        spaceId,
-        databaseId,
-        parentId: databaseId,
-        type: NodeType.COLUMN,
-        props: {
-          name: 'Created At',
-          description: '',
-          fieldType: FieldType.CREATED_AT,
-          isPrimary: false,
-          config: {},
-        },
-      })
-
-      const updatedAt = await this.createNode<IColumnNode>({
-        spaceId,
-        databaseId,
-        parentId: databaseId,
-        type: NodeType.COLUMN,
-        props: {
-          name: 'Updated At',
-          description: '',
-          fieldType: FieldType.UPDATED_AT,
-          isPrimary: false,
-          config: {},
-        },
-      })
-
-      return [mainColumn, source, createdAt, updatedAt]
+      return [mainColumn, source]
     }
+
+    if (isFile) {
+      const source = await this.createNode<IColumnNode>({
+        spaceId,
+        databaseId,
+        parentId: databaseId,
+        type: NodeType.COLUMN,
+        props: {
+          name: 'File',
+          description: '',
+          fieldType: FieldType.FILE,
+          isPrimary: false,
+          config: {},
+        },
+      })
+
+      return [mainColumn, source]
+    }
+
     const column2 = await this.createNode<IColumnNode>({
       spaceId,
       databaseId,
@@ -955,7 +963,9 @@ export class PenxDB extends Dexie {
     }
   }
 
-  addRow = async (databaseId: string, ref = '', todoSource = '') => {
+  // databaseId: string, ref = '', todoSourceOrFileHash = ''
+  addRow = async (opt: AddRowOptions) => {
+    const { databaseId, ref } = opt
     const database = (await this.getNode(databaseId)) as IDatabaseNode
     const spaceId = database.spaceId
 
@@ -1009,20 +1019,31 @@ export class PenxDB extends Dexie {
     })
 
     const promises = sortedColumns.map((column, index) => {
+      const cellProps: ICellNodeProps = {
+        columnId: column.id,
+        rowId: row.id,
+        ref: index === 0 && ref ? ref : '',
+        data: '',
+      }
+
+      if (opt.type === 'file' && index === 1) {
+        cellProps.data = {}
+        cellProps.data.hash = opt.hash
+        cellProps.data.googleDriveFileId = opt.googleDriveFileId
+      }
+
+      if (opt.type === 'todo' && index === 1) {
+        cellProps.data = {}
+        cellProps.data.isTodoSource = true
+        cellProps.data.sourceId = opt.sourceId
+      }
+
       return this.createNode<ICellNode>({
         spaceId,
         databaseId,
         parentId: databaseId,
         type: NodeType.CELL,
-        props: {
-          columnId: column.id,
-          rowId: row.id,
-          ref: index === 0 && ref ? ref : '',
-
-          // hack, let second column be todo source
-          data: todoSource && index === 1 ? todoSource : '',
-          isTodoSource: !!todoSource && index === 1,
-        },
+        props: cellProps,
       })
     })
 
@@ -1058,7 +1079,82 @@ export class PenxDB extends Dexie {
     const cell = cells.find((cell) => cell.props.ref === ref)
 
     if (!cell) {
-      await this.addRow(todoDatabase.id, ref, sourceId)
+      await this.addRow({
+        databaseId: todoDatabase.id,
+        ref,
+        type: 'todo',
+        sourceId,
+      })
+    }
+  }
+
+  // createFileRow = async (spaceId: string, ref: string, hash = '') => {
+  createFileRow = async (opt: CreateFileRowOptions) => {
+    const { spaceId, ref, hash, googleDriveFileId } = opt
+
+    console.log('========opt:', opt)
+
+    const databases = await this.node
+      .where({
+        type: NodeType.DATABASE,
+        spaceId,
+      })
+      .toArray()
+
+    let fileDatabase = databases.find(
+      (db) => db.props.name === FILE_DATABASE_NAME,
+    )
+
+    if (!fileDatabase) {
+      fileDatabase = await this.createDatabase(spaceId, FILE_DATABASE_NAME)
+    }
+
+    // Get all database cells
+    const cells = (await this.node
+      .where({
+        type: NodeType.CELL,
+        spaceId,
+        databaseId: fileDatabase.id,
+      })
+      .toArray()) as ICellNode[]
+
+    // check cell is existed
+    const cell = cells.find((cell) => cell.props.ref === ref) as ICellNode
+
+    console.log('=======cell:', cell)
+
+    if (!cell) {
+      await this.addRow({
+        databaseId: fileDatabase.id,
+        ref,
+        type: 'file',
+        hash,
+        googleDriveFileId,
+      })
+    } else {
+      // update file cell
+      const fileCell = cells.find((c) => {
+        if (
+          c.props.rowId === cell.props.rowId &&
+          typeof c.props.data === 'object'
+        ) {
+          return Reflect.has(c.props.data, 'googleDriveFileId')
+        }
+      }) as ICellNode
+
+      console.log('============fileCell:', fileCell)
+
+      if (fileCell) {
+        await this.updateNode(fileCell.id, {
+          props: {
+            ...fileCell.props,
+            data: {
+              hash,
+              googleDriveFileId,
+            },
+          },
+        })
+      }
     }
   }
 
@@ -1086,7 +1182,10 @@ export class PenxDB extends Dexie {
     const cell = cells.find((cell) => cell.props.ref === ref)
 
     if (!cell) {
-      await this.addRow(database.id, ref)
+      await this.addRow({
+        databaseId: database.id,
+        ref,
+      })
     }
   }
 

@@ -1,4 +1,5 @@
 import { dateCellRenderer } from './date-cell'
+import { fileCellRenderer } from './file-cell'
 import { multipleSelectCellRenderer } from './multiple-select-cell'
 import { noteCellRenderer } from './note-cell'
 import { passwordCellRenderer } from './password-cell'
@@ -14,4 +15,5 @@ export const cellRenderers = [
   systemDateCellRenderer,
   passwordCellRenderer,
   RateCellRenderer,
+  fileCellRenderer,
 ]

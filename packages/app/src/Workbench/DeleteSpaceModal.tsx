@@ -4,6 +4,7 @@ import {
   Button,
   Input,
   Modal,
+  MODAL_OVERLAY_Z_INDEX,
   ModalClose,
   ModalCloseButton,
   ModalContent,
@@ -71,7 +72,7 @@ export const DeleteSpaceModal = ({ children }: PropsWithChildren) => {
       </Box>
 
       <Modal name={ModalNames.DELETE_SPACE}>
-        <ModalOverlay />
+        <ModalOverlay zIndex={MODAL_OVERLAY_Z_INDEX + 1} />
         <ModalContent w={['100%', 500]} column gap4>
           <ModalCloseButton />
 

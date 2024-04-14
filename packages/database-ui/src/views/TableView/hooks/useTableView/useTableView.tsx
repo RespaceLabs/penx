@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import isEqual from 'react-fast-compare'
 import {
+  DataEditorRef,
   EditableGridCell,
   GridCell,
   GridCellKind,
@@ -14,14 +15,16 @@ import { db } from '@penx/local-db'
 import { FieldType, IColumnNode, ViewColumn } from '@penx/model-types'
 import { mappedByKey } from '@penx/shared'
 import { store } from '@penx/store'
-import { useDatabaseContext } from '../../../DatabaseContext'
-import { DateCell } from '../cells/date-cell'
-import { MultipleSelectCell } from '../cells/multiple-select-cell'
-import { NoteCell } from '../cells/note-cell'
-import { PasswordCell } from '../cells/password-cell'
-import { RateCell } from '../cells/rate-cell'
-import { SingleSelectCell } from '../cells/single-select-cell'
-import { SystemDateCell } from '../cells/system-date-cell'
+import { useDatabaseContext } from '../../../../DatabaseContext'
+import { DateCell } from '../../cells/date-cell'
+import { FileCell } from '../../cells/file-cell'
+import { MultipleSelectCell } from '../../cells/multiple-select-cell'
+import { NoteCell } from '../../cells/note-cell'
+import { PasswordCell } from '../../cells/password-cell'
+import { RateCell } from '../../cells/rate-cell'
+import { SingleSelectCell } from '../../cells/single-select-cell'
+import { SystemDateCell } from '../../cells/system-date-cell'
+import { useLoadFiles } from './useLoadFiles'
 
 function getCols(columns: IColumnNode[], viewColumns: ViewColumn[]) {
   const sortedColumns = viewColumns
@@ -72,12 +75,24 @@ export function useTableView() {
   } = useDatabaseContext()
 
   const columnsMap = mappedByKey(columns, 'id')
+  const rowsMap = mappedByKey(rows, 'id')
   let { viewColumns = [] } = currentView.props
   const [cols, setCols] = useState(getCols(columns, viewColumns))
 
   const indexes = useMemo(() => {
     return viewColumns.map((c) => c.columnId)
   }, [viewColumns])
+
+  const gridRef = useRef<DataEditorRef>(null)
+
+  const { cellFileRef } = useLoadFiles({
+    gridRef,
+    columns: sortedColumns,
+    rows,
+    cells,
+    rowsMap,
+    columnsMap,
+  })
 
   const getContent = useCallback(
     (cell: Item): GridCell => {
@@ -86,6 +101,14 @@ export function useTableView() {
       const columnNode = columnsMap[indexes[col]]
       const rowNode = filterRows[row]
       const cellNode = dataRow[indexes[col]]
+
+      // return {
+      //   kind: GridCellKind.Text,
+      //   allowOverlay: true,
+      //   copyData: '', // TODO: copy data
+      //   data: '',
+      //   displayData: '',
+      // } as NoteCell
 
       function getCellData() {
         if (!dataRow) return ''
@@ -150,6 +173,24 @@ export function useTableView() {
             data: cellData,
           },
         } as PasswordCell
+      }
+
+      if (columnNode.props.fieldType === FieldType.FILE) {
+        const url = cellFileRef.current[cellNode.id]?.url ?? ''
+        const hash = cellFileRef.current[cellNode.id]?.hash ?? ''
+
+        return {
+          kind: GridCellKind.Custom,
+          allowOverlay: true,
+          readonly: true,
+          copyData: '',
+          data: {
+            kind: 'file-cell',
+            hash,
+            url,
+            name: '',
+          },
+        } as FileCell
       }
 
       if (
@@ -230,7 +271,7 @@ export function useTableView() {
         displayData: cellData,
       }
     },
-    [cellNodesMapList, filterRows, options, columnsMap, indexes],
+    [cellNodesMapList, filterRows, options, columnsMap, indexes, cellFileRef],
   )
 
   const setCellValue = async (
@@ -318,6 +359,7 @@ export function useTableView() {
   }, [columns, viewColumns])
 
   return {
+    gridRef,
     rows,
     filterRows,
     rowsNum: cellNodesMapList.length,

@@ -149,7 +149,7 @@ export const DatabaseProvider = ({
   }
 
   async function addRow() {
-    await db.addRow(databaseId)
+    await db.addRow({ databaseId })
     reloadNodes()
   }
 

@@ -33,6 +33,8 @@ export const ELEMENT_HR = 'hr'
 
 export const ELEMENT_FILE = 'file'
 
+export const ELEMENT_IMG = 'img'
+
 export const ELEMENT_H1 = 'h1'
 export const ELEMENT_H2 = 'h2'
 export const ELEMENT_H3 = 'h3'

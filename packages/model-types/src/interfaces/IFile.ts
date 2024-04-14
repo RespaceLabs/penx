@@ -4,7 +4,7 @@
 export interface IFile {
   id: string
 
-  googleDriveId: string
+  googleDriveFileId: string
 
   hash: string
 

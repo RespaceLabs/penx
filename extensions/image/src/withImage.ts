@@ -3,7 +3,6 @@ import { PenxEditor } from '@penx/editor-common'
 import { getCurrentPath } from '@penx/editor-queries'
 import { db } from '@penx/local-db'
 import { spacesAtom, store } from '@penx/store'
-import { ELEMENT_IMG, ImageElement } from './types'
 
 export const withImage = (editor: PenxEditor) => {
   const { insertData } = editor

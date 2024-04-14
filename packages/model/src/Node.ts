@@ -1,5 +1,11 @@
 import { format } from 'date-fns'
-import { ELEMENT_TODO, TODO_DATABASE_NAME } from '@penx/constants'
+import {
+  ELEMENT_FILE,
+  ELEMENT_IMG,
+  ELEMENT_TODO,
+  FILE_DATABASE_NAME,
+  TODO_DATABASE_NAME,
+} from '@penx/constants'
 import { calculateSHA256FromString } from '@penx/encryption'
 import { INode, NodeType } from '@penx/model-types'
 
@@ -85,9 +91,10 @@ export class Node {
     if (this.isInbox) return 'Inbox'
     if (this.isTrash) return 'Trash'
     if (this.isDatabaseRoot) return 'Meta tags'
-    if (this.isDailyRoot) return 'Daily Notes'
+    if (this.isDailyRoot) return 'Daily notes'
     if (this.isDatabase) {
-      if (this.isTodoDatabase) return 'PenX Todos'
+      if (this.isTodoDatabase) return 'PenX todos'
+      if (this.isFileDatabase) return 'PenX files'
       return this.props.name || ''
     }
 
@@ -169,8 +176,16 @@ export class Node {
     return this.element?.[0].type === ELEMENT_TODO
   }
 
+  get isFileElement() {
+    return this.element?.[0].type === ELEMENT_IMG
+  }
+
   get isTodoDatabase() {
     return this.isDatabase && this.raw.props?.name === TODO_DATABASE_NAME
+  }
+
+  get isFileDatabase() {
+    return this.isDatabase && this.raw.props?.name === FILE_DATABASE_NAME
   }
 
   get canRef() {
@@ -206,6 +221,13 @@ export class Node {
     return today === this.date
   }
 
+  get fileHash() {
+    return (this.element[0] as any)?.hash || ''
+  }
+
+  get googleDriveFileId() {
+    return (this.element[0] as any)?.googleDriveFileId || ''
+  }
   get createdAt() {
     return this.raw.createdAt
   }

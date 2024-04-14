@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback } from 'react'
 import { isMobile } from 'react-device-detect'
 import { Box, css } from '@fower/react'
 import {
@@ -29,6 +29,7 @@ export const TableView = ({ height, width }: Props) => {
   const canNewRow = !isTodo
 
   const {
+    gridRef,
     rowsNum,
     cols,
     filterRows,
@@ -40,7 +41,6 @@ export const TableView = ({ height, width }: Props) => {
     onRowAppended,
   } = useTableView()
 
-  const gridRef = useRef<DataEditorRef>(null)
   const {
     gridSelection,
     onGridSelectionChange,

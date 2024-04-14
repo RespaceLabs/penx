@@ -85,7 +85,8 @@ export class NodeCleaner {
 
         /** clean tag node */
         const tags = extractTags(node?.element)
-        if (!tags.includes(databaseNode.tagName)) {
+
+        if (!tags.includes(databaseNode.tagName) && !node.isFileElement) {
           const rowId = item.props.rowId
           const cells = nodes.filter(
             (n) => isCellNode(n) && n.props.rowId === rowId,
