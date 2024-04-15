@@ -1,6 +1,7 @@
+import ky from 'ky'
 import mime from 'mime'
 
-type DriveFile = {
+export type DriveFile = {
   kind: string
   id: string
   name: string
@@ -14,20 +15,22 @@ type FileRes = {
 }
 
 export class GoogleDrive {
-  constructor(private accessToken: string) {}
+  headers: Record<string, string> = {}
+
+  constructor(private accessToken: string) {
+    this.headers['Authorization'] = `Bearer ${accessToken}`
+  }
 
   async getFile(fileId: string) {
     let apiUrl = `https://www.googleapis.com/drive/v2/files/${fileId}?alt=media`
 
     const data = await fetch(apiUrl, {
-      headers: {
-        Authorization: `Bearer ${this.accessToken}`,
-      },
+      headers: this.headers,
     })
       .then((response) => response.blob())
       .then((blob) => {
         const ext = mime.getExtension(blob.type)
-        const file = new File([blob], `${fileId}.ext`, { type: blob.type })
+        const file = new File([blob], `${fileId}.${ext}`, { type: blob.type })
         return file
       })
 
@@ -35,20 +38,15 @@ export class GoogleDrive {
   }
 
   async getJSON(fileId: string, fields = '') {
-    let apiUrl = `https://www.googleapis.com/drive/v2/files/${fileId}?`
+    let apiUrl = `https://www.googleapis.com/drive/v2/files/${fileId}?alt=media`
 
     if (fields) {
       apiUrl += `&fields=${fields}`
     }
-    console.log('=====apiUrl:', apiUrl)
 
-    const data = await fetch(apiUrl, {
-      headers: {
-        Authorization: `Bearer ${this.accessToken}`,
-      },
-    }).then((response) => response.json())
+    const data = await ky.get(apiUrl, { headers: this.headers }).json()
 
-    return data
+    return data as any
   }
 
   async getSharableLink(fileId: string) {
@@ -56,9 +54,7 @@ export class GoogleDrive {
 
     await fetch(apiUrl, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${this.accessToken}`,
-      },
+      headers: this.headers,
       body: JSON.stringify({
         role: 'reader',
         type: 'anyone',
@@ -91,7 +87,7 @@ export class GoogleDrive {
       'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true',
       {
         method: 'POST',
-        headers: { Authorization: 'Bearer ' + this.accessToken },
+        headers: this.headers,
         body: form,
       },
     ).then((res) => res.json())
@@ -130,9 +126,7 @@ export class GoogleDrive {
       'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true',
       {
         method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + this.accessToken,
-        },
+        headers: this.headers,
         body: formData,
       },
     ).then((res) => res.json())
@@ -141,11 +135,13 @@ export class GoogleDrive {
     return driveFile as DriveFile
   }
 
-  async createFolder(folderName: string) {
-    const folderData = {
+  async createFolder(folderName: string, parentId?: string) {
+    const folderData: any = {
       mimeType: 'application/vnd.google-apps.folder',
       name: folderName,
     }
+
+    if (parentId) folderData.parents = [parentId]
 
     const folder = await fetch('https://www.googleapis.com/drive/v3/files', {
       method: 'POST',
@@ -178,16 +174,8 @@ export class GoogleDrive {
   async listByName(fileName: string) {
     const q = encodeURIComponent(`name='${fileName}' and trashed=false`)
     const url = `https://www.googleapis.com/drive/v3/files?q=${q}`
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${this.accessToken}`,
-      },
-    }
 
-    const res: FileRes = await fetch(url, options).then((response) =>
-      response.json(),
-    )
+    const res: FileRes = await ky.get(url, { headers: this.headers }).json()
 
     return res.files
   }
@@ -217,28 +205,32 @@ export class GoogleDrive {
     return this.getJSON(fileId)
   }
 
-  async listFileInFolder(folderId: string, fileName: string) {
-    const q = encodeURIComponent(
-      `'${folderId}' in parents and name='${fileName}' and trashed=false`,
-    )
+  async listFileInFolder(folderId: string, fileName = '') {
+    let str = `'${folderId}' in parents  and trashed=false`
+    if (fileName) str += ` and name='${fileName}'`
+    const q = encodeURIComponent(str)
 
     const url = `https://www.googleapis.com/drive/v3/files?q=${q}`
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${this.accessToken}`,
-      },
-    }
 
-    const res: FileRes = await fetch(url, options).then((response) =>
-      response.json(),
-    )
+    const res: FileRes = await ky.get(url, { headers: this.headers }).json()
 
     return res.files || []
   }
 
   async getFileInFolder(folderId: string, fileName: string) {
     const files = await this.listFileInFolder(folderId, fileName)
+    if (!files.length) return null
     return this.getJSON(files[0].id)
+  }
+
+  async searchFilesByPath(folderId: string, path: string) {
+    const q = encodeURIComponent(
+      `'${folderId}' in parents and name contains '${path}' and trashed=false`,
+    )
+    const url = `https://www.googleapis.com/drive/v3/files?q=${q}`
+
+    const res: FileRes = await ky.get(url, { headers: this.headers }).json()
+
+    return res.files
   }
 }

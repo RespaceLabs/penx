@@ -1,9 +1,9 @@
-import mime from 'mime-types'
 import { Octokit } from 'octokit'
 import { db } from '@penx/local-db'
 import { decryptByMnemonic } from '@penx/mnemonic'
 import { Node, SnapshotDiffResult, Space, User } from '@penx/model'
 import { IFile, INode, ISpace, NodeType } from '@penx/model-types'
+import { normalizeNodes } from '@penx/shared'
 import { api } from '@penx/trpc-client'
 
 export type TreeItem = {
@@ -145,7 +145,7 @@ export class RestoreService {
       throw new Error('Recover phrase is wrong')
     }
 
-    this.nodes = this.normalizeNodes(this.nodes)
+    this.nodes = normalizeNodes(this.nodes)
 
     /**
      * save to local db
@@ -232,21 +232,6 @@ export class RestoreService {
     console.log('this.pagesTree:', this.filesTree)
 
     return this.filesTree
-  }
-
-  normalizeNodes(nodes: INode[]) {
-    const nodeMap = new Map<string, INode>()
-
-    for (const node of nodes) {
-      nodeMap.set(node.id, node)
-    }
-
-    // rm invalid children
-    for (const item of nodes) {
-      item.children = item.children.filter((id) => nodeMap.get(id))
-    }
-
-    return nodes
   }
 }
 

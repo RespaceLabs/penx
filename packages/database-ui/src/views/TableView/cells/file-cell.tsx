@@ -87,7 +87,7 @@ export const fileCellRenderer: CustomRenderer<FileCell> = {
 
 function ImagePreview(props: FileCellProps) {
   const { fileHash, googleDriveFileId } = props
-  console.log('=========ImagePreview props:', props)
+  // console.log('=========ImagePreview props:', props)
 
   const { data, isLoading, error } = useQuery(['file', fileHash], async () => {
     if (props.url) return props.url
@@ -105,7 +105,7 @@ function ImagePreview(props: FileCellProps) {
     return url
   })
 
-  console.log('==============error:', error)
+  // console.log('==============error:', error)
 
   if (isLoading) {
     return (

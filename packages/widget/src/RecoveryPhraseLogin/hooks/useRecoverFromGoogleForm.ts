@@ -48,7 +48,7 @@ export function useRecoverFromGoogleForm(
 
       if (file) {
         const decrypted = decryptString(
-          file.encryptedMnemonic,
+          file!.encryptedMnemonic,
           data.password + session.userId,
         )
 

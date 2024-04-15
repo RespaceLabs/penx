@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@penx/constants": "workspace:*",
+    "@penx/model-types": "workspace:*",
     "@penx/serializer": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "crypto-js": "^4.2.0"

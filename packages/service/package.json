@@ -39,6 +39,7 @@
     "@penx/serializer": "workspace:^",
     "@penx/storage": "workspace:*",
     "@penx/store": "workspace:*",
+    "@penx/shared": "workspace:*",
     "@penx/trpc-client": "workspace:*",
     "@penx/unique-id": "workspace:*",
     "@penx/slate-lists": "workspace:*",

@@ -34,11 +34,14 @@ export function SpacesSelect() {
         <SelectIcon></SelectIcon>
       </SelectTrigger>
       <SelectContent>
-        {spaces?.map((item) => (
-          <SelectItem key={item.id} value={item.id} toBetween>
-            <Box flex-1>{item.name}</Box>
-          </SelectItem>
-        ))}
+        {spaces?.map((item) => {
+          if (new Space(item).isLocal) return null
+          return (
+            <SelectItem key={item.id} value={item.id} toBetween>
+              <Box flex-1>{item.name}</Box>
+            </SelectItem>
+          )
+        })}
       </SelectContent>
     </Select>
   )

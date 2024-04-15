@@ -6068,6 +6068,9 @@ importers:
 
   packages/google-drive:
     dependencies:
+      ky:
+        specifier: ^1.1.3
+        version: 1.2.3
       mime:
         specifier: ^3.0.0
         version: 3.0.0
@@ -6851,6 +6854,9 @@ importers:
       '@penx/serializer':
         specifier: workspace:^
         version: link:../serializer
+      '@penx/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@penx/slate-lists':
         specifier: workspace:*
         version: link:../slate-lists
@@ -6988,6 +6994,9 @@ importers:
       '@penx/constants':
         specifier: workspace:*
         version: link:../constants
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
       '@penx/serializer':
         specifier: workspace:*
         version: link:../serializer

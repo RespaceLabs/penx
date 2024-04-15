@@ -3,6 +3,7 @@ import { Card, Divider } from 'uikit'
 import { useUser } from '@penx/hooks'
 import { GitHubBackup } from './GitHubBackup'
 import { GoogleBackup } from './GoogleBackup'
+import { GoogleVersionRestore } from './GoogleVersionRestore'
 import { SyncServerSelect } from './SyncServerSelect'
 
 export function Backup() {
@@ -13,10 +14,11 @@ export function Backup() {
   return (
     <Box column gap10 flex-1>
       <SyncServerSelect />
-      <Divider></Divider>
-      <GoogleBackup></GoogleBackup>
+      <Divider />
+      <GoogleBackup />
       {/* <Divider></Divider>
       <GitHubBackup></GitHubBackup> */}
+      <GoogleVersionRestore />
     </Box>
   )
 }

@@ -2,6 +2,7 @@ export * from './useCopyToClipboard'
 export * from './docToMarkdown'
 export * from './md5'
 export * from './getConnectionState'
+export * from './normalizeNodes'
 
 export const sleep = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms))
