@@ -635,7 +635,7 @@ export class PenxDB extends Dexie {
         props: {
           name: 'Source',
           description: '',
-          fieldType: FieldType.NODE_ID,
+          fieldType: FieldType.TODO_SOURCE,
           isPrimary: false,
           config: {},
         },

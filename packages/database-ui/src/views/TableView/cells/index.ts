@@ -6,6 +6,7 @@ import { passwordCellRenderer } from './password-cell'
 import { RateCellRenderer } from './rate-cell'
 import { singleSelectCellRenderer } from './single-select-cell'
 import { systemDateCellRenderer } from './system-date-cell'
+import { todoSourceCellRenderer } from './todo-source-cell'
 
 export const cellRenderers = [
   noteCellRenderer,
@@ -16,4 +17,5 @@ export const cellRenderers = [
   passwordCellRenderer,
   RateCellRenderer,
   fileCellRenderer,
+  todoSourceCellRenderer,
 ]

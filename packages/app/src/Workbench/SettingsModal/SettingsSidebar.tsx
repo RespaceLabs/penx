@@ -99,7 +99,7 @@ export const SettingsSidebar = () => {
 
             <SidebarItem type={SettingsType.SYNC_SERVER}>
               <Cloud size={20} />
-              <Box>Sync servers</Box>
+              <Box>My sync servers</Box>
             </SidebarItem>
           </Box>
         </Box>

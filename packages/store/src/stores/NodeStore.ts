@@ -180,11 +180,12 @@ export class NodeStore {
     for (const row of database.rows) {
       const rowCells = database.cells.filter((c) => c.props.rowId === row.id)!
 
-      const sourceCell = rowCells.find((c) => c.props.isTodoSource)
+      const sourceCell = rowCells.find((c) => c.props.data?.isTodoSource)
 
       if (!sourceCell) continue
 
-      const sourceNode = this.getNode(sourceCell.props.data)
+      const sourceNode = this.getNode(sourceCell.props.data?.sourceId || '')
+
       if (!sourceNode) continue
 
       const todoCell = rowCells.find((c) => !!c.props.ref)

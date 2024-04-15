@@ -24,6 +24,7 @@ import { PasswordCell } from '../../cells/password-cell'
 import { RateCell } from '../../cells/rate-cell'
 import { SingleSelectCell } from '../../cells/single-select-cell'
 import { SystemDateCell } from '../../cells/system-date-cell'
+import { TodoSourceCell } from '../../cells/todo-source-cell'
 import { useLoadFiles } from './useLoadFiles'
 
 function getCols(columns: IColumnNode[], viewColumns: ViewColumn[]) {
@@ -74,6 +75,8 @@ export function useTableView() {
     updateRowsIndexes,
   } = useDatabaseContext()
 
+  console.log('cells==================:', cells)
+
   const columnsMap = mappedByKey(columns, 'id')
   const rowsMap = mappedByKey(rows, 'id')
   let { viewColumns = [] } = currentView.props
@@ -101,14 +104,6 @@ export function useTableView() {
       const columnNode = columnsMap[indexes[col]]
       const rowNode = filterRows[row]
       const cellNode = dataRow[indexes[col]]
-
-      // return {
-      //   kind: GridCellKind.Text,
-      //   allowOverlay: true,
-      //   copyData: '', // TODO: copy data
-      //   data: '',
-      //   displayData: '',
-      // } as NoteCell
 
       function getCellData() {
         if (!dataRow) return ''
@@ -173,6 +168,21 @@ export function useTableView() {
             data: cellData,
           },
         } as PasswordCell
+      }
+
+      if (columnNode.props.fieldType === FieldType.TODO_SOURCE) {
+        const node = store.node.getNode(cellData?.sourceId)
+
+        return {
+          kind: GridCellKind.Custom,
+          allowOverlay: false,
+          readonly: true,
+          copyData: node.date || '',
+          data: {
+            kind: 'todo-source-cell',
+            data: node ?? null,
+          },
+        } as TodoSourceCell
       }
 
       if (columnNode.props.fieldType === FieldType.FILE) {

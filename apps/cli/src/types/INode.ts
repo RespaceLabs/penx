@@ -144,9 +144,6 @@ export interface ICellNodeProps {
   rowId: string
   ref: string // ref to a node id
   data: any
-
-  // for Todo
-  isTodoSource?: boolean
 }
 
 export interface ICellNode extends INode {

@@ -74,7 +74,10 @@ export enum FieldType {
   URL = 'URL',
   IMAGE = 'IMAGE',
   RATE = 'RATE',
+
   FILE = 'FILE',
+
+  TODO_SOURCE = 'TODO_SOURCE',
 
   NODE_ID = 'NODE_ID',
 
@@ -152,18 +155,18 @@ export interface ICellNodeProps<T = any> {
     | string[]
     | number[]
     | {
+        isTodoSource?: boolean
+
         sourceId?: string // todo source id
 
         fileHash?: string // file hash
 
         googleDriveFileId?: string // google drive file id
+
       }
    * 
    */
   data: any
-
-  // for Todo
-  isTodoSource?: boolean
 }
 
 export interface ICellNode extends INode {

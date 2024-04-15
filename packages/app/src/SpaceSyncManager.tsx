@@ -30,8 +30,6 @@ export const SpaceSyncManager = ({
     return spaces
   })
 
-  console.log('=========data:', data)
-
   useEffect(() => {
     if (data) {
       store.space.setSpaces(data)
