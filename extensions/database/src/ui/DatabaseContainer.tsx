@@ -1,4 +1,3 @@
-import { Box } from '@fower/react'
 import { ElementProps } from '@penx/extension-typings'
 import { DatabaseContainerElement, DatabaseEntryElement } from '../types'
 import { Database } from './Database'

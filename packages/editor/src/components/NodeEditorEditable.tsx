@@ -35,7 +35,7 @@ export const NodeEditorEditable = memo(
     const renderElement = useCallback((props: RenderElementProps) => {
       const attr = {
         ...props.attributes,
-        // 'data-slate-type': element.type,
+        'data-slate-type': (props.element as any).type,
       }
 
       return <ElementContent {...props} attributes={attr} />

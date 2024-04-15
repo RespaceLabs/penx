@@ -89,7 +89,7 @@ export const UserProfile = ({ isMobile, ...rest }: Props) => {
             <Box gray500>
               <LogOut size={16} />
             </Box>
-            <Box>Log out</Box>
+            <Box>Sign out</Box>
           </MenuItem>
         </PopoverClose>
       </PopoverContent>

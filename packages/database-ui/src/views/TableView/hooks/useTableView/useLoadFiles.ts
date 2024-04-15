@@ -15,7 +15,7 @@ type Params = {
 }
 
 type FileCellInfo = {
-  hash: string
+  fileHash: string
   url: string
   col: number
   row: number
@@ -45,9 +45,9 @@ export function useLoadFiles({
 
       const rowIndex = rows.findIndex((c) => c.id === cell.props.rowId)
 
-      const { googleDriveFileId = '', hash = '' } = cell.props.data
+      const { googleDriveFileId = '', fileHash = '' } = cell.props.data
 
-      const file = await db.file.where({ hash }).first()
+      const file = await db.file.where({ fileHash }).first()
 
       if (file) {
         rawFile = file.value
@@ -66,7 +66,7 @@ export function useLoadFiles({
         console.log('url:', url)
 
         cellFileRef.current[cell.id] = {
-          hash,
+          fileHash: fileHash,
           url,
           col: columnIndex,
           row: rowIndex,

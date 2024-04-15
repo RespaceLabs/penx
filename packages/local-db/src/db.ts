@@ -53,7 +53,7 @@ export class PenxDB extends Dexie {
       // Primary key and indexed props
       space: 'id, name, userId',
       node: 'id, spaceId, databaseId, type, date, [type+spaceId+databaseId], [type+spaceId], [type+databaseId]',
-      file: 'id, googleDriveFileId, hash',
+      file: 'id, googleDriveFileId, fileHash',
     })
   }
 
@@ -1028,7 +1028,7 @@ export class PenxDB extends Dexie {
 
       if (opt.type === 'file' && index === 1) {
         cellProps.data = {}
-        cellProps.data.hash = opt.hash
+        cellProps.data.fileHash = opt.fileHash
         cellProps.data.googleDriveFileId = opt.googleDriveFileId
       }
 
@@ -1088,11 +1088,8 @@ export class PenxDB extends Dexie {
     }
   }
 
-  // createFileRow = async (spaceId: string, ref: string, hash = '') => {
   createFileRow = async (opt: CreateFileRowOptions) => {
-    const { spaceId, ref, hash, googleDriveFileId } = opt
-
-    console.log('========opt:', opt)
+    const { spaceId, ref, fileHash: fileHash, googleDriveFileId } = opt
 
     const databases = await this.node
       .where({
@@ -1121,14 +1118,14 @@ export class PenxDB extends Dexie {
     // check cell is existed
     const cell = cells.find((cell) => cell.props.ref === ref) as ICellNode
 
-    console.log('=======cell:', cell)
+    // console.log('=======cell:', cell)
 
     if (!cell) {
       await this.addRow({
         databaseId: fileDatabase.id,
         ref,
         type: 'file',
-        hash,
+        fileHash,
         googleDriveFileId,
       })
     } else {
@@ -1142,14 +1139,12 @@ export class PenxDB extends Dexie {
         }
       }) as ICellNode
 
-      console.log('============fileCell:', fileCell)
-
       if (fileCell) {
         await this.updateNode(fileCell.id, {
           props: {
             ...fileCell.props,
             data: {
-              hash,
+              fileHash,
               googleDriveFileId,
             },
           },

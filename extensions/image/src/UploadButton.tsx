@@ -21,18 +21,17 @@ export const UploadButton = ({ handleFile, uploading, ...rest }: Props) => {
         onClick={handleClick}
         gray500
         bgTransparent
-        underline
         w-100p
         toCenterY
         gap2
-        textBase
+        textSM
         brand500--hover
       >
-        <UploadCloud size={20} />
-        {!uploading && <Box>Upload a file</Box>}
+        {!uploading && <UploadCloud size={20} />}
+        {!uploading && <Box>Upload a image</Box>}
         {uploading && (
           <Box toCenterY gapX2>
-            <Spinner />
+            <Spinner square5 />
             <Box>Uploading...</Box>
           </Box>
         )}

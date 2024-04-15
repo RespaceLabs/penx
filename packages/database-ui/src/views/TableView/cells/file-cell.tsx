@@ -14,7 +14,7 @@ import { db } from '@penx/local-db'
 
 interface FileCellProps {
   kind: 'file-cell'
-  hash: string
+  fileHash: string
   url: string
   name?: string
 }
@@ -82,17 +82,12 @@ export const fileCellRenderer: CustomRenderer<FileCell> = {
   }),
 }
 
-interface Props {
-  data: {
-    hash: string
-  }
-}
 function ImagePreview(props: FileCellProps) {
-  const { hash } = props
-  const { data, isLoading } = useQuery(['file', hash], async () => {
+  const { fileHash } = props
+  const { data, isLoading } = useQuery(['file', fileHash], async () => {
     if (props.url) return props.url
     let rawFile: File
-    const file = await db.file.where({ hash }).first()
+    const file = await db.file.where({ fileHash }).first()
     if (file) {
       rawFile = file.value
       const url = URL.createObjectURL(rawFile)

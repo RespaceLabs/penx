@@ -11,6 +11,7 @@ import {
 import { ModalNames, SettingsType } from '@penx/constants'
 import { useActiveSpace, useSidebarDrawer } from '@penx/hooks'
 import { IconSettings } from '@penx/icons'
+import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 
 export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
@@ -18,6 +19,7 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
     const { activeSpace } = useActiveSpace()
     const { close } = usePopoverContext()
     const drawer = useSidebarDrawer()
+    const { data: session } = useSession()
 
     if (!activeSpace) return null
 
@@ -67,29 +69,31 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
               />
             </Box>
           </Box>
-          <Box
-            inlineFlex
-            // opacity-0={[false, false, true]}
-            opacity-100--$currentSpace--hover
-            onClick={(e) => {
-              close()
-              modalController.open(ModalNames.SETTINGS, {
-                type: SettingsType.ACCOUNT_SETTINGS,
-              })
-              drawer?.close?.()
-              e.stopPropagation()
-            }}
-          >
-            <Button
-              size={28}
-              colorScheme="gray500"
-              variant="ghost"
-              isSquare
-              roundedFull
+          {session && (
+            <Box
+              inlineFlex
+              // opacity-0={[false, false, true]}
+              opacity-100--$currentSpace--hover
+              onClick={(e) => {
+                close()
+                modalController.open(ModalNames.SETTINGS, {
+                  type: SettingsType.ACCOUNT_SETTINGS,
+                })
+                drawer?.close?.()
+                e.stopPropagation()
+              }}
             >
-              <IconSettings size={18} />
-            </Button>
-          </Box>
+              <Button
+                size={28}
+                colorScheme="gray500"
+                variant="ghost"
+                isSquare
+                roundedFull
+              >
+                <IconSettings size={18} />
+              </Button>
+            </Box>
+          )}
         </Box>
       </PopoverTrigger>
     )

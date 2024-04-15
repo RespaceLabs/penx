@@ -47,7 +47,8 @@ export function activate(ctx: ExtensionContext) {
         type: ELEMENT_DATABASE_CONTAINER,
         component: DatabaseContainer,
         slashCommand: {
-          in: ['BLOCK', 'OUTLINER'],
+          // in: ['BLOCK', 'OUTLINER'],
+          in: [],
           name: 'Database',
           icon: TableIcon,
           async beforeInvokeCommand(editor) {

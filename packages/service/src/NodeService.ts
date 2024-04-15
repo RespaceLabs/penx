@@ -290,7 +290,7 @@ export class NodeService {
           await db.createFileRow({
             spaceId: node.spaceId,
             ref: node.id,
-            hash: node.fileHash,
+            fileHash: node.fileHash,
             googleDriveFileId: node.googleDriveFileId,
           })
         }
@@ -403,11 +403,11 @@ export class NodeService {
           }
 
           if (node.isFileElement) {
-            console.log('update node=========:l', node)
+            // console.log('update node=========:l', node)
             await db.createFileRow({
               spaceId: node.spaceId,
               ref: node.id,
-              hash: node.fileHash,
+              fileHash: node.fileHash,
               googleDriveFileId: node.googleDriveFileId,
             })
           }
@@ -449,12 +449,12 @@ export class NodeService {
         }
 
         if (node.isFileElement) {
-          console.log('new node=========:l', node)
+          // console.log('new node=========:l', node)
 
           await db.createFileRow({
             spaceId: node.spaceId,
             ref: node.id,
-            hash: node.fileHash,
+            fileHash: node.fileHash,
             googleDriveFileId: node.googleDriveFileId,
           })
         }

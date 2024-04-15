@@ -1,5 +1,19 @@
 import { BaseElement } from 'slate'
-import { ELEMENT_IMG } from '@penx/constants'
+import {
+  ELEMENT_FILE_CAPTION,
+  ELEMENT_FILE_CONTAINER,
+  ELEMENT_IMG,
+} from '@penx/constants'
+
+export interface FileContainerElement extends BaseElement {
+  id?: string
+  type: typeof ELEMENT_FILE_CONTAINER
+}
+
+export interface FileCaptionElement extends BaseElement {
+  id?: string
+  type: typeof ELEMENT_FILE_CAPTION
+}
 
 export interface ImageElement extends BaseElement {
   id?: string
@@ -8,5 +22,5 @@ export interface ImageElement extends BaseElement {
   mime: string
   width: number // image width
   googleDriveFileId: string
-  hash: string
+  fileHash: string
 }

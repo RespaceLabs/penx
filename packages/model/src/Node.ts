@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import {
   ELEMENT_FILE,
+  ELEMENT_FILE_CONTAINER,
   ELEMENT_IMG,
   ELEMENT_TODO,
   FILE_DATABASE_NAME,
@@ -177,7 +178,7 @@ export class Node {
   }
 
   get isFileElement() {
-    return this.element?.[0].type === ELEMENT_IMG
+    return this.element?.[0].type === ELEMENT_FILE_CONTAINER
   }
 
   get isTodoDatabase() {
@@ -222,11 +223,23 @@ export class Node {
   }
 
   get fileHash() {
-    return (this.element[0] as any)?.hash || ''
+    const element = this.element as any
+    try {
+      const fileElement = element[0].children[0]
+      return fileElement?.fileHash || ''
+    } catch (error) {
+      return ''
+    }
   }
 
   get googleDriveFileId() {
-    return (this.element[0] as any)?.googleDriveFileId || ''
+    const element = this.element as any
+    try {
+      const fileElement = element[0].children[0]
+      return fileElement?.googleDriveFileId || ''
+    } catch (error) {
+      return ''
+    }
   }
   get createdAt() {
     return this.raw.createdAt

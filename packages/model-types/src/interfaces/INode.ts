@@ -154,7 +154,7 @@ export interface ICellNodeProps<T = any> {
     | {
         sourceId?: string // todo source id
 
-        hash?: string // file hash
+        fileHash?: string // file hash
 
         googleDriveFileId?: string // google drive file id
       }

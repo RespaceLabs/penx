@@ -15,8 +15,8 @@ export function Backup() {
       <SyncServerSelect />
       <Divider></Divider>
       <GoogleBackup></GoogleBackup>
-      <Divider></Divider>
-      <GitHubBackup></GitHubBackup>
+      {/* <Divider></Divider>
+      <GitHubBackup></GitHubBackup> */}
     </Box>
   )
 }

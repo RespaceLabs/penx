@@ -22,7 +22,7 @@ export function SpaceSettings({ spaceId }: Props) {
 
   return (
     <Box column gap10>
-      <Box toCenterY gap2 flexDirection={['column', 'row']}>
+      <Box toLeft toCenterY gap2 flexDirection={['column', 'row']}>
         <Box text2XL fontBold>
           Space Settings
         </Box>

@@ -1,11 +1,12 @@
-import { Editor, Transforms } from 'slate'
+import { Editor, Element, Transforms } from 'slate'
 import { PenxEditor } from '@penx/editor-common'
 import { getCurrentPath } from '@penx/editor-queries'
 import { db } from '@penx/local-db'
 import { spacesAtom, store } from '@penx/store'
+import { isFileContainer, isImageElement } from './guard'
 
 export const withImage = (editor: PenxEditor) => {
-  const { insertData } = editor
+  const { insertData, normalizeNode } = editor
   editor.insertData = async (dataTransfer: DataTransfer) => {
     const { files } = dataTransfer
 
@@ -35,6 +36,17 @@ export const withImage = (editor: PenxEditor) => {
       return
     }
     insertData(dataTransfer)
+  }
+
+  editor.normalizeNode = ([node, path]) => {
+    if (Element.isElement(node) && isFileContainer(node)) {
+      if (!isImageElement(node.children[0])) {
+        Transforms.unwrapNodes(editor, { at: path })
+        return
+      }
+    }
+
+    normalizeNode([node, path])
   }
 
   return editor

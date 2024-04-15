@@ -31,9 +31,10 @@ export const ELEMENT_TAG = 'tag'
 
 export const ELEMENT_HR = 'hr'
 
-export const ELEMENT_FILE = 'file'
-
+export const ELEMENT_FILE_CONTAINER = 'file_container'
 export const ELEMENT_IMG = 'img'
+export const ELEMENT_FILE = 'file'
+export const ELEMENT_FILE_CAPTION = 'file_caption'
 
 export const ELEMENT_H1 = 'h1'
 export const ELEMENT_H2 = 'h2'

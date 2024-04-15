@@ -121,7 +121,7 @@ export const SettingsSidebar = () => {
       </Box>
       <Box>
         <Button
-          variant="outline"
+          variant="ghost"
           w-100p
           colorScheme="red500"
           gap2
@@ -135,7 +135,7 @@ export const SettingsSidebar = () => {
           <Box inlineFlex>
             <LogOut size={16} />
           </Box>
-          <Box>Log out</Box>
+          <Box>Sign out</Box>
         </Button>
       </Box>
     </Box>

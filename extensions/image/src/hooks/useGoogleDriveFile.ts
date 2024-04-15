@@ -19,10 +19,10 @@ export function useGoogleDriveFile(googleDriveFileId: string) {
       const drive = new GoogleDrive(google.access_token)
       rawFile = await drive.getFile(googleDriveFileId)
 
-      const hash = await calculateSHA256FromFile(rawFile)
+      const fileHash = await calculateSHA256FromFile(rawFile)
       db.createFile({
         googleDriveFileId,
-        hash,
+        fileHash,
         value: rawFile,
       })
     }

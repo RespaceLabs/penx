@@ -177,7 +177,7 @@ export function useTableView() {
 
       if (columnNode.props.fieldType === FieldType.FILE) {
         const url = cellFileRef.current[cellNode.id]?.url ?? ''
-        const hash = cellFileRef.current[cellNode.id]?.hash ?? ''
+        const fileHash = cellFileRef.current[cellNode.id]?.fileHash ?? ''
 
         return {
           kind: GridCellKind.Custom,
@@ -186,7 +186,7 @@ export function useTableView() {
           copyData: '',
           data: {
             kind: 'file-cell',
-            hash,
+            fileHash,
             url,
             name: '',
           },
