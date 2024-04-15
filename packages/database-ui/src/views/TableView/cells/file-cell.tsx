@@ -10,11 +10,14 @@ import {
 } from '@glideapps/glide-data-grid'
 import { useQuery } from '@tanstack/react-query'
 import { Spinner } from 'uikit'
+import { GoogleDrive } from '@penx/google-drive'
 import { db } from '@penx/local-db'
+import { getAuthorizedUser } from '@penx/storage'
 
 interface FileCellProps {
   kind: 'file-cell'
   fileHash: string
+  googleDriveFileId: string
   url: string
   name?: string
 }
@@ -83,18 +86,26 @@ export const fileCellRenderer: CustomRenderer<FileCell> = {
 }
 
 function ImagePreview(props: FileCellProps) {
-  const { fileHash } = props
-  const { data, isLoading } = useQuery(['file', fileHash], async () => {
+  const { fileHash, googleDriveFileId } = props
+  console.log('=========ImagePreview props:', props)
+
+  const { data, isLoading, error } = useQuery(['file', fileHash], async () => {
     if (props.url) return props.url
     let rawFile: File
     const file = await db.file.where({ fileHash }).first()
     if (file) {
       rawFile = file.value
-      const url = URL.createObjectURL(rawFile)
-      return url
+    } else {
+      const { google } = await getAuthorizedUser()
+      const drive = new GoogleDrive(google.access_token)
+      rawFile = await drive.getFile(googleDriveFileId)
     }
-    return ''
+
+    const url = URL.createObjectURL(rawFile)
+    return url
   })
+
+  console.log('==============error:', error)
 
   if (isLoading) {
     return (

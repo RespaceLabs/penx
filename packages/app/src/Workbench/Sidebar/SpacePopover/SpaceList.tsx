@@ -16,7 +16,7 @@ export const SpaceList = () => {
         ))}
         <Box>
           <CreateSpaceBtn />
-          <UploadButton />
+          {/* <UploadButton /> */}
         </Box>
       </Box>
     </Box>

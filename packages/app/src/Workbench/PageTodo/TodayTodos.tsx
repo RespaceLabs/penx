@@ -4,8 +4,6 @@ import { TodoItem } from './TodoItem'
 
 export const TodayTodos = () => {
   const { todos } = useTodos()
-  console.log('=======todos:', todos)
-
   const todayTodos = todos.filter((record) => record.todoNode.isToday)
 
   if (!todayTodos.length) {

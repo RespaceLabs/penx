@@ -187,7 +187,9 @@ export function useTableView() {
 
       if (columnNode.props.fieldType === FieldType.FILE) {
         const url = cellFileRef.current[cellNode.id]?.url ?? ''
-        const fileHash = cellFileRef.current[cellNode.id]?.fileHash ?? ''
+        const info = cellFileRef.current[cellNode.id]
+        const fileHash = info?.fileHash ?? ''
+        const googleDriveFileId = info?.googleDriveFileId ?? ''
 
         return {
           kind: GridCellKind.Custom,
@@ -197,6 +199,7 @@ export function useTableView() {
           data: {
             kind: 'file-cell',
             fileHash,
+            googleDriveFileId,
             url,
             name: '',
           },

@@ -16,7 +16,9 @@ type Params = {
 
 type FileCellInfo = {
   fileHash: string
+  googleDriveFileId: string
   url: string
+
   col: number
   row: number
 }
@@ -56,7 +58,6 @@ export function useLoadFiles({
         const drive = new GoogleDrive(google.access_token)
         if (googleDriveFileId) {
           rawFile = await drive.getFile(googleDriveFileId)
-          console.log('====rawFile:', rawFile)
         } else {
           rawFile = null as any
         }
@@ -67,6 +68,7 @@ export function useLoadFiles({
 
         cellFileRef.current[cell.id] = {
           fileHash: fileHash,
+          googleDriveFileId,
           url,
           col: columnIndex,
           row: rowIndex,
