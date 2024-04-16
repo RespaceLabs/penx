@@ -6,7 +6,7 @@ import { calculateSHA256FromString } from '@penx/encryption'
 import { GoogleDrive } from '@penx/google-drive'
 import { db } from '@penx/local-db'
 import { encryptByPublicKey } from '@penx/mnemonic'
-import { User } from '@penx/model'
+import { Space, User } from '@penx/model'
 import { getConnectionState, sleep } from '@penx/shared'
 import {
   getActiveSpaceId,
@@ -15,7 +15,7 @@ import {
 } from '@penx/storage'
 import { api } from '@penx/trpc-client'
 
-const INTERVAL = isProd ? 30 * 60 * 1000 : 10 * 1000
+const INTERVAL = isProd ? 30 * 60 * 1000 : 2 * 10 * 1000
 
 export async function pollingBackupToGoogle() {
   while (true) {
@@ -54,6 +54,7 @@ async function sync() {
     if (!activeSpace) return
     const nodes = await db.listNodesBySpaceId(activeSpace.id)
 
+    if (new Space(activeSpace).isLocal) return
     if (!nodes.length) return
 
     const userId = user.id

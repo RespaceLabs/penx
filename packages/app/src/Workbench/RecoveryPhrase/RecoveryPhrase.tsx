@@ -18,8 +18,6 @@ export const RecoveryPhrase: FC<Props> = () => {
   const { data } = useSession()
   const { copy } = useCopyToClipboard()
 
-  const { data: token } = trpc.google.googleDriveToken.useQuery()
-
   const { isLoading, data: mnemonic } = useQuery(
     ['Mnemonic', data?.secret],
     () => getMnemonicFromLocal(data?.secret!),
@@ -32,7 +30,7 @@ export const RecoveryPhrase: FC<Props> = () => {
   return (
     <Box column maxW-640 gap2>
       <Box mb4>
-        <Box text4XL fontBold textCenter>
+        <Box text3XL fontBold textCenter>
           Recovery Phrase
         </Box>
       </Box>

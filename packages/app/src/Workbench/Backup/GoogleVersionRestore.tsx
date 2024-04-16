@@ -58,7 +58,7 @@ export function GoogleVersionRestore() {
 
   return (
     <Box column gap2>
-      <Box heading2>Restore data from Google drive</Box>
+      {/* <Box heading2>Restore data from Google drive</Box> */}
 
       <Box toCenterY gap8>
         <Box w-200>
@@ -186,6 +186,9 @@ function ConfirmButton({ file }: BackupItemProps) {
       const drive = new GoogleDrive(user.google.access_token)
 
       let result = await drive.getJSON(file.id)
+
+      console.log('======result:', result)
+
       let nodes = result.nodes as INode[]
 
       const mnemonic = store.user.getMnemonic()
@@ -216,14 +219,21 @@ function ConfirmButton({ file }: BackupItemProps) {
   return (
     <Button
       disabled={isLoading}
-      onClick={() => {
-        mutateAsync()
-        close()
-        modalController.close(ModalNames.SETTINGS)
-        toast.success('Restored from Google drive!')
+      gap2
+      onClick={async () => {
+        try {
+          await mutateAsync()
+          close()
+          modalController.close(ModalNames.SETTINGS)
+          toast.success('Restored from Google drive!')
+        } catch (error: any) {
+          toast.error(error.message)
+          console.log('error:', error)
+        }
       }}
     >
-      Confirm
+      {isLoading && <Spinner square4 white />}
+      <Box>Confirm</Box>
     </Button>
   )
 }

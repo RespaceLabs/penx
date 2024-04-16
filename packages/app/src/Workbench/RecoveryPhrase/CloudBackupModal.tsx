@@ -20,13 +20,8 @@ export const CloudBackupModal = () => {
       <ModalTrigger>
         <Button colorScheme="black" size={56} gapX2 w-280 toBetween>
           <IconGoogle size={24} />
-          <Box column gap1>
-            <Box textBase fontSemibold>
-              Google drive Connected
-            </Box>
-            <Box textXS fontLight>
-              Start to backup
-            </Box>
+          <Box textBase fontSemibold>
+            Backup to Google drive
           </Box>
         </Button>
       </ModalTrigger>

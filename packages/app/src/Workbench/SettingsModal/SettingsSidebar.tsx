@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Box, FowerHTMLProps, styled } from '@fower/react'
-import { Cloud, GitCompare, LogOut, User } from 'lucide-react'
+import { Cloud, GitCompare, Key, LogOut, User } from 'lucide-react'
 import {
   Avatar,
   AvatarFallback,
@@ -88,18 +88,19 @@ export const SettingsSidebar = () => {
             </SidebarItem>
 
             <SidebarItem type={SettingsType.RECOVERY_PHRASE}>
-              <IconPassword size={20} />
+              {/* <IconPassword size={20} /> */}
+              <Key size={20} />
               <Box>Recovery Phrase</Box>
             </SidebarItem>
 
             <SidebarItem type={SettingsType.SYNC_BACKUP}>
               <GitCompare size={20} />
-              <Box>Sync & Backup</Box>
+              <Box>Google drive backup</Box>
             </SidebarItem>
 
             <SidebarItem type={SettingsType.SYNC_SERVER}>
               <Cloud size={20} />
-              <Box>My sync servers</Box>
+              <Box>Sync servers</Box>
             </SidebarItem>
           </Box>
         </Box>

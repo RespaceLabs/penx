@@ -13,7 +13,7 @@ export function SyncServerList() {
 
   if (isLoading) {
     return (
-      <Box toCenter h-60vh>
+      <Box toCenter h-200>
         <Spinner />
       </Box>
     )
@@ -21,7 +21,7 @@ export function SyncServerList() {
 
   if (!data.length) {
     return (
-      <Box h-50vh toCenter>
+      <Box h-200 toCenter>
         <Box gray400>No sync server</Box>
       </Box>
     )

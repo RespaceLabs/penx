@@ -57,7 +57,7 @@ export const SyncServerSelect = () => {
       <Box gray600 leadingNormal textSM>
         Choose a sync server to sync your space data.
       </Box>
-      <Box>
+      <Box toCenterY gap4>
         <Select
           value={serverId}
           onChange={(v: string) => {
@@ -68,7 +68,7 @@ export const SyncServerSelect = () => {
             <SelectValue placeholder="Select a sync server" gap4 />
             <SelectIcon></SelectIcon>
           </SelectTrigger>
-          <SelectContent w-200>
+          <SelectContent useTriggerWidth>
             {data.map((item) => (
               <SelectItem key={item.id} value={item.id} gap4>
                 <Box>{item.name}</Box>
@@ -77,8 +77,7 @@ export const SyncServerSelect = () => {
             ))}
           </SelectContent>
         </Select>
-      </Box>
-      <Box mt4>
+
         <Button
           colorScheme="black"
           disabled={loading || isLoading}

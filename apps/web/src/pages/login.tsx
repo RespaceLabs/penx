@@ -20,14 +20,14 @@ export default function LoginPage() {
         <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
           <LoginWithGoogleButton />
         </Suspense>
-        <ClientOnly>
+        {/* <ClientOnly>
           <WalletConnectButton size="lg" colorScheme="white" w-240 roundedXL>
             <IconWallet size={24} />
             <Box textBase fontNormal>
               Login with Wallet
             </Box>
           </WalletConnectButton>
-        </ClientOnly>
+        </ClientOnly> */}
       </Box>
     )
   }, [])
@@ -61,11 +61,21 @@ export default function LoginPage() {
               {loginEntry}
               <Box gray400 textXS maxW-360 mt5 textCenter>
                 By creating an account you agree to our{' '}
-                <Box as="a" href="https://www.penx.io/privacy" target="_blank">
+                <Box
+                  as="a"
+                  href="https://www.penx.io/privacy"
+                  target="_blank"
+                  brand500
+                >
                   privacy policy
                 </Box>{' '}
                 and{' '}
-                <Box as="a" href="https://www.penx.io/terms" target="_blank">
+                <Box
+                  as="a"
+                  href="https://www.penx.io/terms"
+                  target="_blank"
+                  brand500
+                >
                   terms of service
                 </Box>
                 .

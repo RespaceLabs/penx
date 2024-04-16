@@ -13,8 +13,6 @@ export function Backup() {
 
   return (
     <Box column gap10 flex-1>
-      <SyncServerSelect />
-      <Divider />
       <GoogleBackup />
       {/* <Divider></Divider>
       <GitHubBackup></GitHubBackup> */}

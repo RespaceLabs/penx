@@ -1,16 +1,21 @@
 import { Box } from '@fower/react'
-import { Button, modalController } from 'uikit'
+import { Button, Divider, modalController } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { SyncServerList } from './SyncServerList'
 import { SyncServerModal } from './SyncServerModal/SyncServerModal'
+import { SyncServerSelect } from './SyncServerSelect'
 
 export function SyncServer() {
   return (
-    <Box>
+    <Box column gap10>
       <SyncServerModal />
+
+      <SyncServerSelect />
+      <Divider />
+
       <Box toCenterY toBetween>
         <Box text2XL mb4 fontBold>
-          Sync Servers
+          My sync servers
         </Box>
         <Box toRight>
           <Button
@@ -22,7 +27,7 @@ export function SyncServer() {
               })
             }}
           >
-            Create sync server
+            Create
           </Button>
         </Box>
       </Box>

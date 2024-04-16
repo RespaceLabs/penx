@@ -29,8 +29,6 @@ function Content() {
 }
 
 export function GoogleBackup() {
-  const [value, setValue] = useState<any>()
-  const { data: token } = trpc.google.googleDriveToken.useQuery()
   return (
     <Box relative column gap6>
       <Box>
@@ -39,10 +37,11 @@ export function GoogleBackup() {
         </Box>
         <Box gray600 mb1>
           In PenX, one of most important concept is owning your data. you can
-          use Google Drive to backup your data.
+          use Google Drive to backup your data. Your can restore data in
+          history.
         </Box>
       </Box>
-      <Content />
+      {/* <Content /> */}
     </Box>
   )
 }

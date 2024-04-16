@@ -1,4 +1,4 @@
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
+// import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { ethers } from 'ethers'
 import { nanoid } from 'nanoid'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -11,6 +11,7 @@ import { getCsrfToken } from 'next-auth/react'
 import { SiweMessage } from 'siwe'
 import { SyncServerType } from '@penx/constants'
 import { prisma, User } from '@penx/db'
+import { PrismaAdapter } from '~/common/PrismaAdapter'
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const nextAuthSecret = process.env['NEXTAUTH_SECRET']
@@ -35,6 +36,15 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       GoogleProvider({
         clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
         clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
+        authorization: {
+          params: {
+            scope:
+              // 'openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/drive.file',
+              'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/drive.file',
+            access_type: 'offline',
+            // prompt: 'consent',
+          },
+        },
         httpOptions: {
           timeout: 10 * 1000,
         },
@@ -103,7 +113,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       strategy: 'jwt',
     },
 
-    adapter: PrismaAdapter(prisma),
+    adapter: PrismaAdapter(prisma) as any,
     pages: {
       // signIn: `/login/web2`,
       // verifyRequest: `/login/web2`,
@@ -115,12 +125,14 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     },
 
     callbacks: {
-      // async signIn({ user, account, profile }) {
-      //   // await initSpace(user.id, user.name!)
-      //   return true
-      // },
+      async signIn({ user, account, profile }) {
+        // await initSpace(user.id, user.name!)
+        return true
+      },
 
       async jwt({ token, account, user, profile, trigger, session }) {
+        // console.log('jwt user=======:', user)
+
         if (trigger === 'update') {
           if (session?.earlyAccessCode) {
             token.earlyAccessCode = session?.earlyAccessCode
