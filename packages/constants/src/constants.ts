@@ -21,6 +21,8 @@ export const GOOGLE_DRIVE_RECOVERY_PHRASE_FILE = 'recovery-phrase.json'
 
 export const GOOGLE_DRIVE_FILE_FOLDER_NAME = 'penx-files-user'
 
+export const GOOGLE_DRIVE_BACKUP_INTERVAL = 'GOOGLE_DRIVE_BACKUP_INTERVAL'
+
 export const LOCAL_USER_ID = 'acee1a5c-8e36-4a5f-846d-860566086e23'
 
 export const WORKBENCH_NAV_HEIGHT = 48

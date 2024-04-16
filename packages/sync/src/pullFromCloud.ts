@@ -23,8 +23,6 @@ export async function syncFromCloud(space: ISpace, mnemonic: string) {
   )
   const newRemoteNodes = await client.getPullableNodes(localLastModifiedTime)
 
-  console.log('======newRemoteNodes:', newRemoteNodes)
-
   // console.log('=========newRemoteNodes:', newRemoteNodes)
 
   if (!newRemoteNodes.length) return []
@@ -32,16 +30,11 @@ export async function syncFromCloud(space: ISpace, mnemonic: string) {
   for (const item of newRemoteNodes) {
     const existedNode = oldNodes.find((n) => n.id === item.id)
 
-    console.log('=====existedNode:', existedNode, 'item:', item)
-
     if (existedNode) {
       await db.updateNode(item.id, item as any)
     } else {
       await db.createNode(item as any)
     }
-
-    const newNode = await db.getNode(item.id)
-    console.log('newNode==================:', newNode)
   }
 
   const localLastUpdatedAt = await db.getLastUpdatedAt(space.id)

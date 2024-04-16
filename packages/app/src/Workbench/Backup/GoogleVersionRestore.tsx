@@ -20,7 +20,7 @@ import { DriveFile, GoogleDrive } from '@penx/google-drive'
 import { db } from '@penx/local-db'
 import { decryptByMnemonic } from '@penx/mnemonic'
 import { User } from '@penx/model'
-import { INode } from '@penx/model-types'
+import { INode, ISpace } from '@penx/model-types'
 import { normalizeNodes } from '@penx/shared'
 import { getAuthorizedUser } from '@penx/storage'
 import { store } from '@penx/store'
@@ -58,7 +58,7 @@ export function GoogleVersionRestore() {
 
   return (
     <Box column gap2>
-      {/* <Box heading2>Restore data from Google drive</Box> */}
+      <Box heading2>Restore data from Google drive</Box>
 
       <Box toCenterY gap8>
         <Box w-200>
@@ -79,8 +79,6 @@ export function GoogleVersionRestore() {
     </Box>
   )
 }
-
-// interface {}
 
 interface BackListProps {
   date: Date
@@ -212,6 +210,7 @@ function ConfirmButton({ file }: BackupItemProps) {
           ...item,
         })
       }
+      return result.space as ISpace
     },
   )
   const { close } = usePopoverContext()
@@ -222,9 +221,12 @@ function ConfirmButton({ file }: BackupItemProps) {
       gap2
       onClick={async () => {
         try {
-          await mutateAsync()
+          const space = await mutateAsync()
           close()
           modalController.close(ModalNames.SETTINGS)
+
+          store.space.selectSpace(space)
+
           toast.success('Restored from Google drive!')
         } catch (error: any) {
           toast.error(error.message)

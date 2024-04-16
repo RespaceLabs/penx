@@ -83,7 +83,7 @@ export class GoogleDrive {
 
     form.append('file', file)
 
-    const r = await fetch(
+    const json = await fetch(
       'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true',
       {
         method: 'POST',
@@ -92,8 +92,7 @@ export class GoogleDrive {
       },
     ).then((res) => res.json())
 
-    console.log('r=======:', r)
-    return r
+    return json
   }
 
   async createFile(
@@ -167,8 +166,7 @@ export class GoogleDrive {
       body: JSON.stringify(data),
     }
 
-    const r = await fetch(endpoint, options).then((response) => response.json())
-    console.log('r=======:', r)
+    await fetch(endpoint, options).then((response) => response.json())
   }
 
   async listByName(fileName: string) {

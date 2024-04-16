@@ -75,8 +75,6 @@ export function useTableView() {
     updateRowsIndexes,
   } = useDatabaseContext()
 
-  console.log('cells==================:', cells)
-
   const columnsMap = mappedByKey(columns, 'id')
   const rowsMap = mappedByKey(rows, 'id')
   let { viewColumns = [] } = currentView.props

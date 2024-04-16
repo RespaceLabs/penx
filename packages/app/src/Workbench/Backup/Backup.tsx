@@ -4,7 +4,6 @@ import { useUser } from '@penx/hooks'
 import { GitHubBackup } from './GitHubBackup'
 import { GoogleBackup } from './GoogleBackup'
 import { GoogleVersionRestore } from './GoogleVersionRestore'
-import { SyncServerSelect } from './SyncServerSelect'
 
 export function Backup() {
   const { user } = useUser()
@@ -16,7 +15,6 @@ export function Backup() {
       <GoogleBackup />
       {/* <Divider></Divider>
       <GitHubBackup></GitHubBackup> */}
-      <GoogleVersionRestore />
     </Box>
   )
 }

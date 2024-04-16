@@ -1,7 +1,12 @@
 import { isMobile } from 'react-device-detect'
 import { format } from 'date-fns'
+import { get } from 'idb-keyval'
 import { HTTPError } from 'ky'
-import { GOOGLE_DRIVE_FOLDER_NAME, isProd } from '@penx/constants'
+import {
+  GOOGLE_DRIVE_BACKUP_INTERVAL,
+  GOOGLE_DRIVE_FOLDER_NAME,
+  isProd,
+} from '@penx/constants'
 import { calculateSHA256FromString } from '@penx/encryption'
 import { GoogleDrive } from '@penx/google-drive'
 import { db } from '@penx/local-db'
@@ -15,9 +20,21 @@ import {
 } from '@penx/storage'
 import { api } from '@penx/trpc-client'
 
-const INTERVAL = isProd ? 30 * 60 * 1000 : 2 * 10 * 1000
+const timeMap: Record<string, number> = {
+  '10m': 10 * 60 * 1000,
+  '30m': 30 * 60 * 1000,
+  '1h': 60 * 60 * 1000,
+  '4h': 4 * 60 * 60 * 1000,
+}
 
 export async function pollingBackupToGoogle() {
+  const interval = await get(GOOGLE_DRIVE_BACKUP_INTERVAL)
+  console.log('=======interval:', interval)
+
+  let pollingInterval = isProd ? 30 * 60 * 1000 : 2 * 10 * 1000
+
+  if (timeMap[interval]) pollingInterval = interval
+
   while (true) {
     const data = await getAuthorizedUser()
 
@@ -25,7 +42,7 @@ export async function pollingBackupToGoogle() {
       await sync()
     }
 
-    await sleep(INTERVAL)
+    await sleep(pollingInterval)
   }
 }
 
@@ -97,7 +114,7 @@ async function sync() {
 
     let files = await drive.searchFilesByPath(dateFolderId, hash)
 
-    console.log('===========files:', files)
+    // console.log('===========files:', files)
 
     const fileName = `${hash}_${time}.json`
     if (!files.length) {
