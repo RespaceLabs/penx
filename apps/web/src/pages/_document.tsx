@@ -119,9 +119,14 @@ class MyDocument extends Document {
             property="og:image"
             content="https://www.penx.io/images/apple-touch-icon.png"
           />
-          <link
+          {/* <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=optional"
+          /> */}
+
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700,800,900&display=optional"
           />
 
           {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (

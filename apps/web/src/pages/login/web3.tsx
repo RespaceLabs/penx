@@ -64,7 +64,7 @@ export default function LoginPage() {
                 Welcome to PenX
               </Box>
               <Box as="p" textCenter mb6 leadingNormal px10 gray500>
-                A Privacy-First digital assets wallet for geeks
+                A structured digital assets wallet for geeks
               </Box>
 
               {loginEntry}

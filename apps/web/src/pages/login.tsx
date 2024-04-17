@@ -48,24 +48,26 @@ export default function LoginPage() {
               bgWhite
               column
               mt--200
-              border
+              // border
               w={['100%', '100%', 480]}
             >
               <Box as="h1" fontBold>
                 Welcome to PenX
               </Box>
               <Box as="p" textCenter mb6 leadingNormal px10 gray500>
-                A Privacy-First digital assets wallet for geeks
+                A structured digital assets wallet for geeks
               </Box>
 
               {loginEntry}
-              <Box gray400 textXS maxW-360 mt5 textCenter>
+              <Box gray400 textXS maxW-240 mt5 textCenter leadingTight>
                 By creating an account you agree to our{' '}
                 <Box
                   as="a"
                   href="https://www.penx.io/privacy"
                   target="_blank"
                   brand500
+                  noUnderline
+                  underline--hover
                 >
                   privacy policy
                 </Box>{' '}
@@ -75,6 +77,8 @@ export default function LoginPage() {
                   href="https://www.penx.io/terms"
                   target="_blank"
                   brand500
+                  noUnderline
+                  underline--hover
                 >
                   terms of service
                 </Box>

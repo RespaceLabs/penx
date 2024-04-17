@@ -2,7 +2,7 @@
   "name": "extension",
   "displayName": "PenX",
   "version": "0.0.6",
-  "description": "A Privacy-First digital assets wallet for geeks",
+  "description": "A structured digital assets wallet for geeks",
   "scripts": {
     "start": "next start",
     "dev": "run-p dev:*",

@@ -5,7 +5,7 @@
 
 <h1 style="border-bottom: none">
     <b>PenX</b><br />
-     A Privacy-First digital assets wallet for geeks
+     A structured digital assets wallet for geeks
     <br>
 </h1>
 

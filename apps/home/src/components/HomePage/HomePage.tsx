@@ -5,14 +5,7 @@ import { Button } from 'uikit'
 export function HomePage() {
   const { push } = useRouter()
 
-  const tags = [
-    'Local-First',
-    'Privacy-First',
-    'Open Source',
-    'End-To-End Encryption',
-    'GitHub-Based Version control',
-    'Meta tag',
-  ]
+  const tags = ['Structured', 'Local-First', 'Privacy-First', 'Open Source']
 
   return (
     <Box bgWhite column gap4 toBetween toCenterX>
@@ -21,45 +14,33 @@ export function HomePage() {
           text={[28, 50, 70]}
           maxW-800
           fontBlack
-          leadingTight
+          leadingNone
           textCenter
           black
           mt={[80, 120]}
           p0
         >
-          A{' '}
-          <Box
-            as="span"
-            transparent
-            inlineFlex
-            bgClipText
-            bgGradientX={['brand500', 'fuchsia500', 'indigo500']}
-          >
-            digital assets
-          </Box>{' '}
-          wallet for{' '}
-          <Box
-            as="span"
-            relative
-            // black
-            inlineFlex
-            css={{
-              '&:after': {
-                content: '""',
-                position: 'absolute',
-                bottom: -2,
-                left: 0,
-                width: '100%',
-                height: '7px',
-                roundedFull: true,
-                // background: 'brand500',
-                backgroundImage:
-                  'linear-gradient(to right, rgb(107, 55, 255), rgb(59, 130, 246))',
-              },
-            }}
-          >
-            Geeks
-          </Box>{' '}
+          A digital assets wallet for Geeks
+        </Box>
+
+        <Box toCenter gap2 flexWrap>
+          {tags.map((item) => (
+            <Box
+              key={item}
+              h-40
+              flexShrink-0
+              roundedFull
+              // border
+              // borderGray200
+              bgNeutral100
+              textSM
+              px5
+              toCenter
+              gray600
+            >
+              {item}
+            </Box>
+          ))}
         </Box>
 
         <Box textLG neutral500 maxW-640 textCenter leadingNormal>
@@ -83,25 +64,6 @@ export function HomePage() {
         >
           Why we build PenX?
         </Box>
-
-        {/* <Box toCenter gap2 flexWrap>
-          {tags.map((item) => (
-            <Box
-              key={item}
-              h-40
-              flexShrink-0
-              roundedFull
-              border
-              borderGray200
-              textSM
-              px5
-              toCenter
-              gray600
-            >
-              {item}
-            </Box>
-          ))}
-        </Box> */}
 
         <Box>
           <Button
