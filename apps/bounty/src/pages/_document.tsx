@@ -92,6 +92,14 @@ class MyDocument extends Document {
             dangerouslySetInnerHTML={{ __html: getCssString() }}
           />
           <link rel="icon" href="/favicon.ico" />
+
+          {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+            <script
+              defer
+              src="https://umami.penx.io/script.js"
+              data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID!}
+            ></script>
+          )}
         </Head>
         <body>
           <Main />

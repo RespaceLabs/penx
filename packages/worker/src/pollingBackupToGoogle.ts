@@ -29,11 +29,12 @@ const timeMap: Record<string, number> = {
 
 export async function pollingBackupToGoogle() {
   const interval = await get(GOOGLE_DRIVE_BACKUP_INTERVAL)
-  console.log('=======interval:', interval)
 
   let pollingInterval = isProd ? 30 * 60 * 1000 : 2 * 10 * 1000
 
   if (timeMap[interval]) pollingInterval = interval
+
+  console.log('=======pollingInterval:', pollingInterval)
 
   while (true) {
     const data = await getAuthorizedUser()
