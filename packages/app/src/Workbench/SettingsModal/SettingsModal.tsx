@@ -13,15 +13,18 @@ import { SettingsSidebar } from './SettingsSidebar'
 
 export const SettingsModal = () => {
   const { query } = useRouter()
-  const from = query.from as 'google-oauth' | 'github-oauth'
-  const isFromOauth = from === 'google-oauth' || from === 'github-oauth'
+  const from = query.from as 'backup' | 'mnemonic'
+  const isFromOauth = from === 'backup' || from === 'mnemonic'
   useEffect(() => {
     if (isFromOauth) {
       modalController.open(ModalNames.SETTINGS, {
-        type: SettingsType.SYNC_BACKUP,
+        type:
+          from === 'backup'
+            ? SettingsType.SYNC_BACKUP
+            : SettingsType.RECOVERY_PHRASE,
       })
     }
-  }, [isFromOauth])
+  }, [isFromOauth, from])
 
   return (
     <Modal

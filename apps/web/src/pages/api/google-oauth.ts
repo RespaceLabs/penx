@@ -15,7 +15,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const code = req.query.code as string
-  const userId = req.query.state as string
+  const [userId, from] = (req.query.state as string).split('__')
 
   const auth = new google.auth.OAuth2(clientId, clientSecret, redirectUri)
 
@@ -48,5 +48,5 @@ export default async function handler(
   const redisKey = RedisKeys.user(userId)
   await redis.del(redisKey)
 
-  res.redirect(`/?from=google-oauth`)
+  res.redirect(`/?from=${from}`)
 }

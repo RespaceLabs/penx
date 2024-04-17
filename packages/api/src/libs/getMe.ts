@@ -23,18 +23,27 @@ export async function getMe(userId: string, needToken = false) {
 
   if (!user) new TRPCError({ code: 'NOT_FOUND' })
 
-  const syncServer = await prisma.syncServer.findUnique({
-    where: { id: user?.connectedSyncServerId as string },
-  })
+  let syncServerAccessToken = ''
+  let syncServerUrl = ''
 
-  const syncServerAccessToken = jwt.sign(
-    { sub: userId },
-    syncServer?.token as string,
-  )
+  if (user?.connectedSyncServerId) {
+    const syncServer = await prisma.syncServer.findUnique({
+      where: { id: user?.connectedSyncServerId as string },
+    })
+
+    if (syncServer) {
+      syncServerAccessToken = jwt.sign(
+        { sub: userId },
+        syncServer?.token as string,
+      )
+      syncServerUrl = syncServer?.url as string
+    }
+  }
+
   return {
     ...user,
     syncServerAccessToken,
-    syncServerUrl: syncServer?.url as string,
+    syncServerUrl,
     ...generateToken(userId, needToken),
   } as Me
 

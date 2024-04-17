@@ -6,7 +6,11 @@ import { Button, Spinner } from 'uikit'
 import { IconGoogle } from '@penx/icons'
 import { useSession } from '@penx/session'
 
-export function GoogleOauthButton() {
+interface Props {
+  from: 'backup' | 'mnemonic'
+}
+
+export function GoogleOauthButton({ from }: Props) {
   const [loading, setLoading] = useState(false)
 
   const { data } = useSession()
@@ -41,7 +45,7 @@ export function GoogleOauthButton() {
 
         const googleAuthUrl =
           `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=${redirectUri}` +
-          `&scope=${scope}&client_id=${googleClientId}&state=${data.userId}&access_type=offline&prompt=consent`
+          `&scope=${scope}&client_id=${googleClientId}&state=${data.userId}__${from}&access_type=offline&prompt=consent`
         // &prompt=consent
 
         location.href = googleAuthUrl

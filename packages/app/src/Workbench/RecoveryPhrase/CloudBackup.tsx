@@ -9,10 +9,10 @@ export function CloudBackup() {
 
   if (isLoading) return null // TODO: show spinner
 
-  if (!token) {
+  if (!token?.access_token) {
     return (
       <Suspense fallback={<Box my2 h10 w-100p border borderStone200 />}>
-        <GoogleOauthButton />
+        <GoogleOauthButton from="mnemonic" />
       </Suspense>
     )
   }
