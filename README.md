@@ -5,7 +5,7 @@
 
 <h1 style="border-bottom: none">
     <b>PenX</b><br />
-     A daily canvas to record & plan life for geeks
+     A Privacy-First digital assets wallet for geeks
     <br>
 </h1>
 
@@ -13,21 +13,12 @@
 
 </div>
 
-## About PenX
-
-PenX is a structured note-taking app designed for personal use. In PenX, Privacy is first important thing. our mission is building a elegant tool to manage personal digital assets, like notes, tasks, ideas, password, documents.
-
 ## Features
 
 - **Local-First** - You own your data, in spite of the cloud
 - **Privacy-First** - Use End-To-End Encryption to sync data
 - **Open Source** - Trust our code, not our words
 - **Version control** - GitHub-Based Version control Out-of-box
-
-## About the maker
-
-I'm 0xZion, a freelancer, a full-stack developer, love open-source, now focusing on this application PenX. There's no massive team, no investors, just me currently. If someone is interested in PenX development, can send me a email: 0xzion.penx@gmail.com
-.
 
 ## Primary tech stack
 

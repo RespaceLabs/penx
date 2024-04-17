@@ -18,7 +18,7 @@ self.addEventListener('message', async (event) => {
 
     pollingBackupToGoogle()
 
-    runAgentSSE()
+    // runAgentSSE()
 
     clearNodes()
 

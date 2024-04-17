@@ -55,7 +55,7 @@ export default function LoginPage() {
                 Welcome to PenX
               </Box>
               <Box as="p" textCenter mb6 leadingNormal px10 gray500>
-                A structured note-taking app for personal use
+                A Privacy-First digital assets wallet for geeks
               </Box>
 
               {loginEntry}

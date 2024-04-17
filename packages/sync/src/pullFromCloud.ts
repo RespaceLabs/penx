@@ -23,7 +23,7 @@ export async function syncFromCloud(space: ISpace, mnemonic: string) {
   )
   const newRemoteNodes = await client.getPullableNodes(localLastModifiedTime)
 
-  // console.log('=========newRemoteNodes:', newRemoteNodes)
+  console.log('=========newRemoteNodes:', newRemoteNodes)
 
   if (!newRemoteNodes.length) return []
 
