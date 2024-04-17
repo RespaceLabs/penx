@@ -84,7 +84,7 @@ export const userRouter = createTRPCRouter({
       } else {
         throw new TRPCError({
           code: 'UNAUTHORIZED',
-          message: 'Snapshot not found',
+          message: 'user not found',
         })
       }
     }),

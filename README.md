@@ -41,6 +41,9 @@ After clone the repo, in the root dir:
 # Install the dependencies
 pnpm install
 
+# copy .env.local.example to .env.local copy
+copy apps/web/.env.local.example apps/web/.env.local
+
 # start web service
 pnpm dev
 ```
