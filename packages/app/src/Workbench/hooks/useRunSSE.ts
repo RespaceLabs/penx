@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { isSyncEnabled } from '@penx/constants'
 import { useActiveSpace } from '@penx/hooks'
 import { useSession } from '@penx/session'
 import { runSSE } from '../../common/runSSE'
@@ -11,6 +12,8 @@ export function useRunSSE() {
 
   useEffect(() => {
     if (!navigator.onLine) return
+
+    if (!isSyncEnabled) return
 
     if (!sseInited.current && session?.user && activeSpace.raw) {
       setTimeout(() => {

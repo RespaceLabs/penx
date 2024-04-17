@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { SyncStatus } from '@penx/constants'
+import { isSyncEnabled, SyncStatus } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { ISpace } from '@penx/model-types'
 import { syncFromCloud, syncToCloud } from '@penx/sync'
@@ -19,8 +19,12 @@ export class SyncStore {
   }
 
   pushToCloud = async () => {
+    if (!isSyncEnabled) return
+
     if (!navigator.onLine) return
+
     const status = this.getStatus()
+
     if (status === SyncStatus.PUSHING || status === SyncStatus.PULLING) {
       return
     }

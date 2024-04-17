@@ -24,6 +24,7 @@ export const loadCloudSpaces = async () => {
       user.syncServerUrl,
       user.syncServerAccessToken,
     )
+
     const allNodes = await client.getAllNodes()
 
     for (const node of allNodes) {

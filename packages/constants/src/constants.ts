@@ -33,6 +33,8 @@ export const SIDEBAR_WIDTH = 260
 
 export const isSelfHosted = process.env.NEXT_PUBLIC_DEPLOY_MODE !== 'PLATFORM'
 
+export const isSyncEnabled = process.env.NEXT_PUBLIC_IS_SYNC_ENABLED === 'true'
+
 export const NEXTAUTH_PROVIDERS = process.env.NEXT_PUBLIC_NEXTAUTH_PROVIDERS
 
 export const PLATFORM =

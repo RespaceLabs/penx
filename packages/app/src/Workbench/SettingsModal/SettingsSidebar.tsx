@@ -8,7 +8,7 @@ import {
   Button,
   useModalContext,
 } from 'uikit'
-import { SettingsType } from '@penx/constants'
+import { isSyncEnabled, SettingsType } from '@penx/constants'
 import { appEmitter } from '@penx/event'
 import { useSpaces, useUser } from '@penx/hooks'
 import { IconPassword } from '@penx/icons'
@@ -98,10 +98,12 @@ export const SettingsSidebar = () => {
               <Box>Google drive backup</Box>
             </SidebarItem>
 
-            <SidebarItem type={SettingsType.SYNC_SERVER}>
-              <Cloud size={20} />
-              <Box>Sync servers</Box>
-            </SidebarItem>
+            {isSyncEnabled && (
+              <SidebarItem type={SettingsType.SYNC_SERVER}>
+                <Cloud size={20} />
+                <Box>Sync servers</Box>
+              </SidebarItem>
+            )}
           </Box>
         </Box>
 

@@ -1,6 +1,7 @@
 import isEqual from 'react-fast-compare'
 import _ from 'lodash'
 import { createEditor, Editor, Node as SlateNode, Transforms } from 'slate'
+import { isSyncEnabled } from '@penx/constants'
 import { extractTags } from '@penx/editor-common'
 import { getNodeByPath } from '@penx/editor-queries'
 import {

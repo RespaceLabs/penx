@@ -1,4 +1,4 @@
-import { LOCAL_USER_ID } from '@penx/constants'
+import { isSyncEnabled, LOCAL_USER_ID } from '@penx/constants'
 import { appLoader } from '@penx/loader'
 import { db } from '@penx/local-db'
 import { Node, Space } from '@penx/model'
@@ -58,10 +58,12 @@ export class AppService {
 
       await db.normalizeDailyNodes(activeSpace.id)
 
-      try {
-        await this.tryToSync(activeSpace)
-      } catch (error) {
-        console.log('try to sync error', error)
+      if (isSyncEnabled) {
+        try {
+          await this.tryToSync(activeSpace)
+        } catch (error) {
+          console.log('try to sync error', error)
+        }
       }
 
       let nodes = await db.listNodesBySpaceId(activeSpace.id)

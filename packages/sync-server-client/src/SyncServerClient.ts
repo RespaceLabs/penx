@@ -1,4 +1,5 @@
 import ky from 'ky'
+import { isSyncEnabled } from '@penx/constants'
 import {
   decryptByMnemonic,
   encryptByPublicKey,
@@ -52,6 +53,7 @@ export class SyncServerClient {
   }
 
   getAllNodes = async () => {
+    if (!isSyncEnabled) return []
     if (!this.baseURL) return []
 
     try {
