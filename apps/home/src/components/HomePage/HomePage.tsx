@@ -19,7 +19,7 @@ export function HomePage() {
       <Box flex-1 toCenter column gap8 px={[20, 0]}>
         <Box
           text={[28, 50, 70]}
-          maxW-960
+          maxW-800
           fontBlack
           leadingTight
           textCenter
@@ -27,7 +27,7 @@ export function HomePage() {
           mt={[80, 120]}
           p0
         >
-          A daily canvas to{' '}
+          A{' '}
           <Box
             as="span"
             transparent
@@ -35,9 +35,9 @@ export function HomePage() {
             bgClipText
             bgGradientX={['brand500', 'fuchsia500', 'indigo500']}
           >
-            record & plan
+            digital assets
           </Box>{' '}
-          life for{' '}
+          wallet for{' '}
           <Box
             as="span"
             relative

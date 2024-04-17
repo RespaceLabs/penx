@@ -13,12 +13,15 @@
 
 </div>
 
+## Introduction
+
+An elegant App designed to help you capture, organize, and store your thoughts, tasks, ideas, and information.
+
 ## Features
 
 - **Local-First** - You own your data, in spite of the cloud
 - **Privacy-First** - Use End-To-End Encryption to sync data
 - **Open Source** - Trust our code, not our words
-- **Version control** - GitHub-Based Version control Out-of-box
 
 ## Primary tech stack
 
@@ -37,9 +40,6 @@ After clone the repo, in the root dir:
 ```bash
 # Install the dependencies
 pnpm install
-
-# copy .env.local.example to .env.local copy
-copy apps/web/.env.local.example apps/web/.env.local
 
 # start web service
 pnpm dev
