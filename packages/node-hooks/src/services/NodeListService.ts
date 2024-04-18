@@ -154,7 +154,10 @@ export class NodeListService {
     return this.databaseRootNode.props?.favorites?.includes(id)
   }
 
+  // TODO:
   getLinkedReferences(node: Node) {
+    // console.log('ref======node:', node)
+
     const nodes: Node[] = []
 
     for (const item of this.nodes) {
@@ -164,6 +167,7 @@ export class NodeListService {
       const isLinked = () => {
         if (!Array.isArray(item.element)) {
           console.log('---ite-mmmmmmm:', item, item.element, item.raw.element)
+          return false
         }
 
         // console.log('========item.element:', item, item.element)

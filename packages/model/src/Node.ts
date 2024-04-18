@@ -55,6 +55,8 @@ export class Node {
   }
 
   get element(): Element[] {
+    if (!this.raw.element) return null as any
+
     // TODO: make element writable, why not override it directly?
     this.raw.element = JSON.parse(JSON.stringify(this.raw.element))
 
@@ -98,6 +100,8 @@ export class Node {
       if (this.isFileDatabase) return 'PenX files'
       return this.props.name || ''
     }
+
+    if (!this.element?.[0]) return ''
 
     return this.element[0]?.children?.[0]?.text || this.props.name || ''
   }

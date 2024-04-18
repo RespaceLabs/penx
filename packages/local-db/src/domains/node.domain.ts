@@ -27,7 +27,7 @@ export class NodeDomain {
   }
 
   createInboxNode = async (spaceId: string) => {
-    const subNode = await this.createNode(getNewNode({ spaceId }))
+    const subNode = await this.createNode(getCommonNode({ spaceId }))
 
     const inboxNode = await this.createNode({
       ...getNewNode({ spaceId, type: NodeType.INBOX }),
@@ -41,7 +41,7 @@ export class NodeDomain {
     node: Partial<T> & { spaceId: string },
   ): Promise<T> => {
     const newNodeId = await this.node.add({
-      ...getNewNode({ spaceId: node.spaceId! }),
+      ...getCommonNode({ spaceId: node.spaceId! }),
       ...node,
     })
 
