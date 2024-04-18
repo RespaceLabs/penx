@@ -24,7 +24,7 @@ export const RecoveryPhraseLogin: FC<Props> = ({ refetch }) => {
       return toast.error('Invalid recovery phrase')
     }
 
-    await setMnemonicToLocal(data.secret!, mnemonic)
+    await setMnemonicToLocal(data.userId!, mnemonic)
     store.user.setMnemonic(mnemonic)
     await refetch()
   }

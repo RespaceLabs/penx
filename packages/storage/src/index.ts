@@ -6,7 +6,6 @@ export interface Session {
   address: string
   earlyAccessCode: string
   publicKey: string
-  secret: string
   email: string
   user: {
     name: string
@@ -33,7 +32,6 @@ type User = {
   image: string | null
   earlyAccessCode: string | null
   publicKey: string | null
-  secret: string | null
   isMnemonicBackedUp: boolean
   createdAt: Date
   updatedAt: Date

@@ -16,7 +16,7 @@ export function getNewNode(input: Input): INode {
   return {
     id: uniqueId(),
     type: NodeType.COMMON,
-    props: rest.props || {},
+    props: input.props || {},
     collapsed: false,
     folded: true,
     children: [],

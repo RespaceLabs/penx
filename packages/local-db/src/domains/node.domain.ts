@@ -60,7 +60,7 @@ export class NodeDomain {
     const todayNode = await this.getOrCreateTodayNode(spaceId)
 
     const newNode = await this.createNode({
-      ...getNewNode({ spaceId }, text),
+      ...getCommonNode({ spaceId }, text),
     })
 
     const newTodayNode = await this.updateNode(todayNode.id, {

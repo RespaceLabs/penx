@@ -28,7 +28,6 @@ model User {
     image              String?
     earlyAccessCode    String?
     publicKey          String?
-    secret             String? // not user's privateKey
     isMnemonicBackedUp Boolean   @default(false)
 
     createdAt DateTime @default(now())

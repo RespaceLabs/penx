@@ -14,8 +14,8 @@ export function RecoveryPhraseLoginProvider({ children }: PropsWithChildren) {
   const { data: session } = useSession()
 
   const { data, isLoading, refetch } = useQuery(
-    ['mnemonic', session?.secret],
-    () => getMnemonicFromLocal(session?.secret!),
+    ['mnemonic', session?.userId],
+    () => getMnemonicFromLocal(session?.userId!),
   )
 
   useEffect(() => {

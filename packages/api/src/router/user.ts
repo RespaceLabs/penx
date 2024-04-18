@@ -26,20 +26,6 @@ export const userRouter = createTRPCRouter({
       return user
     }),
 
-  getMySecret: protectedProcedure.query(async ({ ctx, input }) => {
-    const { secret } = await ctx.prisma.user.findUniqueOrThrow({
-      where: { id: ctx.token.uid },
-      select: { secret: true },
-    })
-
-    if (secret) return secret
-    const user = await ctx.prisma.user.update({
-      where: { id: ctx.token.uid },
-      data: { secret: nanoid() },
-    })
-    return user.secret!
-  }),
-
   search: protectedProcedure
     .input(z.object({ q: z.string() }))
     .query(async ({ ctx, input }) => {
@@ -117,7 +103,7 @@ export const userRouter = createTRPCRouter({
       return ctx.prisma.user.update({
         where: { id: ctx.token.uid },
         data: { publicKey },
-        select: { publicKey: true, secret: true },
+        select: { publicKey: true },
       })
     }),
 

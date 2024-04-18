@@ -31,13 +31,10 @@ export class SpaceDomain {
   private initSpaceNodes = async (space: ISpace) => {
     const spaceId = space.id
     await this.penx.node.add(
-      getNewNode(
-        {
-          spaceId,
-          type: NodeType.ROOT,
-        },
-        space.name,
-      ),
+      getNewNode({
+        spaceId,
+        type: NodeType.ROOT,
+      }),
     )
 
     // init inbox node

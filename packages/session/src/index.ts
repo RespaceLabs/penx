@@ -5,7 +5,6 @@ export interface Session {
   address: string
   earlyAccessCode: string
   publicKey: string
-  secret: string
   email: string
   user: {
     name: string

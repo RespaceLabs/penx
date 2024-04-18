@@ -34,7 +34,6 @@ export default function MobileEditor() {
           address: user?.address,
           earlyAccessCode: user?.earlyAccessCode,
           publicKey: user?.publicKey,
-          secret: user?.secret,
           email: user?.email,
           user,
         },

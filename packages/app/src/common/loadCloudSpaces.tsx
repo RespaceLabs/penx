@@ -12,7 +12,7 @@ export const loadCloudSpaces = async () => {
   const cloudSpaces = await api.space.mySpaces.query()
   const localSpaces = store.space.getSpaces()
   const ids = localSpaces.map((i) => i.id)
-  const mnemonic = await getMnemonicFromLocal(session?.secret!)
+  const mnemonic = await getMnemonicFromLocal(session?.userId!)
   const user = await getAuthorizedUser()
 
   for (const space of cloudSpaces) {

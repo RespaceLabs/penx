@@ -32,7 +32,6 @@ export function useLoginByTokenForm() {
         address: user.address as string,
         earlyAccessCode: user.earlyAccessCode as string,
         publicKey: user.publicKey as string,
-        secret: user.secret as string,
         email: user.email as string,
         user: {
           name: user.name as string,

@@ -139,10 +139,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           if (session?.publicKey) {
             token.publicKey = session?.publicKey
           }
-
-          if (session?.secret) {
-            token.secret = session?.secret
-          }
         }
 
         if (user) {
@@ -151,7 +147,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           token.address = penxUser.address as string
           token.earlyAccessCode = penxUser.earlyAccessCode as string
           token.publicKey = penxUser.publicKey as string
-          token.secret = penxUser.secret as string
           token.email = penxUser.email as string
 
           if (!penxUser.connectedSyncServerId) {
@@ -168,7 +163,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         session.address = token.address as string
         session.earlyAccessCode = token.earlyAccessCode as string
         session.publicKey = token.publicKey as string
-        session.secret = token.secret as string
         session.email = token.email as string
 
         return session

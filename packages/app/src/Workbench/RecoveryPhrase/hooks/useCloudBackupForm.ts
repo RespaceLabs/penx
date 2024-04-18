@@ -42,22 +42,19 @@ export function useCloudBackupForm() {
 
     let files = await drive.listByName(fileName)
 
-    const mnemonic = await getMnemonicFromLocal(session?.secret!)
+    const mnemonic = await getMnemonicFromLocal(session?.userId!)
 
     const encryptedMnemonic = encryptString(mnemonic, password + userId)
-    const encryptedSecret = encryptString(session?.secret!, password + userId)
 
     if (files.length) {
       await drive.updateJsonContent(files[0].id, {
         encryptedMnemonic,
-        encryptedSecret,
       })
     } else {
       await drive.createJSON(
         fileName,
         {
           encryptedMnemonic,
-          encryptedSecret,
         },
         parentId,
       )
