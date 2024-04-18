@@ -5,7 +5,7 @@ import { Clock, Hash, X } from 'lucide-react'
 import { Button, Checkbox, toast } from 'uikit'
 import { ELEMENT_P, ELEMENT_TAG, ELEMENT_TODO } from '@penx/constants'
 import { useBottomBarDrawer, useRouterStore } from '@penx/hooks'
-import { db, getNewNode } from '@penx/local-db'
+import { db, getCommonNode, getNewNode } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
 import { QuickAddTag } from './QuickAddTag'
@@ -57,7 +57,7 @@ export const QuickAddEditor = () => {
       }
     })
 
-    const newNode = getNewNode({
+    const newNode = getCommonNode({
       spaceId,
       element,
     })

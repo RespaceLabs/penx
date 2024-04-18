@@ -56,8 +56,6 @@ export class AppService {
 
       const { activeSpace, spaces } = await this.tryToGetActiveSpace()
 
-      await db.normalizeDailyNodes(activeSpace.id)
-
       if (isSyncEnabled) {
         try {
           await this.tryToSync(activeSpace)

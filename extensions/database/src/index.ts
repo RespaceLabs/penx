@@ -52,11 +52,11 @@ export function activate(ctx: ExtensionContext) {
           name: 'Database',
           icon: TableIcon,
           async beforeInvokeCommand(editor) {
-            const node = await db.createDatabase(
-              editor.spaceId,
-              'Untitled',
-              true,
-            )
+            const node = await db.createDatabase({
+              spaceId: editor.spaceId,
+              name: 'Untitled',
+              shouldInitCells: true,
+            })
             const newNodes = await db.listNodesBySpaceId(node.spaceId)
             store.node.setNodes(newNodes)
             return node

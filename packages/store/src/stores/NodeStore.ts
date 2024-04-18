@@ -2,7 +2,7 @@ import isEqual from 'react-fast-compare'
 import { format } from 'date-fns'
 import { atom } from 'jotai'
 import { ELEMENT_TODO, TODO_DATABASE_NAME } from '@penx/constants'
-import { ArraySorter, db, getNewNode } from '@penx/local-db'
+import { ArraySorter, db, getCommonNode, getNewNode } from '@penx/local-db'
 import { Node } from '@penx/model'
 import {
   EditorMode,
@@ -294,7 +294,7 @@ export class NodeStore {
   async addTodo(text: string, isInTodoPage = false) {
     const space = this.store.space.getActiveSpace()
 
-    const newNode = getNewNode({
+    const newNode = getCommonNode({
       spaceId: space.id,
       date: format(new Date(), 'yyyy-MM-dd'),
       element: [{ type: ELEMENT_TODO, children: [{ text }] }],
@@ -430,7 +430,11 @@ export class NodeStore {
     )
 
     if (!databaseNode) {
-      databaseNode = await db.createDatabase(spaceId, name, shouldInitCells)
+      databaseNode = await db.createDatabase({
+        spaceId,
+        name,
+        shouldInitCells,
+      })
     }
 
     const newNodes = await db.listNodesBySpaceId(databaseNode.spaceId)

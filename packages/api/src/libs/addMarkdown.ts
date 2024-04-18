@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { z } from 'zod'
 import { prisma } from '@penx/db'
-import { getNewNode } from '@penx/local-db'
+import { getCommonNode, getNewNode } from '@penx/local-db'
 import { INode, ISpace, NodeType } from '@penx/model-types'
 
 export const addMarkdownInput = z.object({
@@ -38,7 +38,7 @@ export function addMarkdown(input: AddMarkdownInput) {
       }
 
       const newNode = await tx.node.create({
-        data: getNewNode(
+        data: getCommonNode(
           {
             spaceId,
             parentId: todayNode!.id,

@@ -12,7 +12,7 @@ type Input = {
   element?: any[]
 }
 
-export function getNewNode(input: Input, text = ''): INode {
+export function getCommonNode(input: Input, text = ''): INode {
   const { name, ...rest } = input
   return {
     id: uniqueId(),
