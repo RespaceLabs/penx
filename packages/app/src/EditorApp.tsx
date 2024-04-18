@@ -1,6 +1,7 @@
 import { ErrorBoundary } from 'react-error-boundary'
 import { isProd, isServer } from '@penx/constants'
 import { appEmitter } from '@penx/event'
+import { useHideLogoLoader } from '@penx/hooks'
 import { useSession } from '@penx/session'
 import { runWorker } from '@penx/worker'
 import { AppProvider } from './AppProvider'
@@ -33,6 +34,8 @@ if (!isServer) {
 export const EditorApp = () => {
   const { data: session } = useSession()
   // console.log('Editor App============session:', session)
+
+  useHideLogoLoader()
 
   return (
     <ClientOnly>

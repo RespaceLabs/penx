@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, Suspense } from 'react'
+import React, { PropsWithChildren, Suspense, useEffect } from 'react'
 import { Box } from '@fower/react'
 import EditorApp from '@penx/app'
 import { useSession } from '@penx/session'
@@ -12,6 +12,7 @@ import { CommonLayout } from '~/layouts/CommonLayout'
 
 const OnlineProvider = ({ children }: PropsWithChildren) => {
   const { data, loading } = useSession()
+
   if (loading) return null
   if (!navigator.onLine) return <>{children}</>
 

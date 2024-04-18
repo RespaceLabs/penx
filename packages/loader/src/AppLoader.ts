@@ -17,7 +17,7 @@ class AppLoader {
       await pluginLoader.init()
       const t1 = Date.now()
 
-      console.log('appLoader loaded time t3-t0', t1 - t0)
+      console.log('appLoader loaded time t1-t0', t1 - t0)
 
       this.emitter.emit('loaded', true)
 

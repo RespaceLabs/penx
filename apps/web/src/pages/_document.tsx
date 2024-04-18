@@ -8,6 +8,7 @@ import Document, {
   Main,
   NextScript,
 } from 'next/document'
+import { LogoSpinner } from '@penx/widget'
 
 class MyDocument extends Document {
   static async getInitialProps(
@@ -139,6 +140,9 @@ class MyDocument extends Document {
         </Head>
         <body>
           <Main />
+          <div id="logo-loader-wrapper">
+            <div className="logo-loader"></div>
+          </div>
           <NextScript />
         </body>
       </Html>
