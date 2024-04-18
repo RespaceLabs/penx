@@ -18,7 +18,7 @@ export const SocialNav = () => {
       isExternal: true,
     },
     {
-      icon: <IconTwitter fillBlack />,
+      icon: <IconTwitter fillBlack size={20} />,
       to: 'https://twitter.com/coder_zion',
       isExternal: true,
     },

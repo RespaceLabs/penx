@@ -3,6 +3,7 @@ import { Box, FowerHTMLProps } from '@fower/react'
 import Link from 'next/link'
 import { Divider } from 'uikit'
 import { Logo } from '@penx/widget'
+import { APP_DOWNLOAD_URL } from '~/common/constants'
 import { StyledLink } from '~/components/StyledLink'
 import { Nav } from './Nav'
 
@@ -54,18 +55,18 @@ export function Footer() {
 
               {
                 text: 'Mac App',
-                to: 'https://github.com/penxio/penx/releases',
-                isExternal: true,
+                to: APP_DOWNLOAD_URL,
+                // isExternal: true,
               },
               {
                 text: 'Windows',
-                to: 'https://github.com/penxio/penx/releases',
-                isExternal: true,
+                to: APP_DOWNLOAD_URL,
+                // isExternal: true,
               },
               {
                 text: 'Linux',
-                to: 'https://github.com/penxio/penx/releases',
-                isExternal: true,
+                to: APP_DOWNLOAD_URL,
+                // isExternal: true,
               },
             ]}
           />

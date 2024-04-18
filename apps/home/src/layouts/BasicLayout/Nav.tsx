@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { Box } from '@fower/react'
+import { APP_DOWNLOAD_URL } from '~/common/constants'
 import { StyledLink } from '~/components/StyledLink'
 
 type NavItem = {
@@ -36,8 +37,8 @@ export const Nav = () => {
 
     {
       text: 'Downloads',
-      to: 'https://github.com/penxio/penx/releases',
-      isExternal: true,
+      to: APP_DOWNLOAD_URL,
+      // isExternal: true,
     },
     {
       text: 'Feedback',
