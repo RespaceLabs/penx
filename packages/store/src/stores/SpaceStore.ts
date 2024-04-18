@@ -87,27 +87,43 @@ export class SpaceStore {
       const spaces = await db.listSpaces()
       let nodes = await db.listNodesBySpaceId(id)
 
+      console.log('======nodes:', nodes)
+
+      // TODO: disable sync now
       if (!nodes.length) {
-        const mnemonic = this.store.user.getMnemonic()
-        // console.log('select space======mnemonic:', mnemonic)
+        console.log('gogo............')
 
-        const user = await getAuthorizedUser()
+        this.store.node.setNodes([])
+        this.store.node.setActiveNodes([])
+        this.setSpaces(spaces)
+        this.setActiveSpace(space)
+        this.store.app.setAppLoading(false)
 
-        try {
-          const client = new SyncServerClient(
-            space,
-            mnemonic,
-            user.syncServerUrl,
-            user.syncServerAccessToken,
-          )
-          nodes = await client.getAllNodes()
+        this.store.router.routeTo('RESTORE_BACKUP')
 
-          for (const node of nodes) {
-            await db.createNode(node)
-          }
-        } catch (error) {
-          console.log('sync server error', error)
-        }
+        await setActiveSpaceId(space.id)
+
+        return
+        // const mnemonic = this.store.user.getMnemonic()
+        // // console.log('select space======mnemonic:', mnemonic)
+
+        // const user = await getAuthorizedUser()
+
+        // try {
+        //   const client = new SyncServerClient(
+        //     space,
+        //     mnemonic,
+        //     user.syncServerUrl,
+        //     user.syncServerAccessToken,
+        //   )
+        //   nodes = await client.getAllNodes()
+
+        //   for (const node of nodes) {
+        //     await db.createNode(node)
+        //   }
+        // } catch (error) {
+        //   console.log('sync server error', error)
+        // }
       }
 
       // this.store.space.setSpaces([])
@@ -119,6 +135,8 @@ export class SpaceStore {
           return nodes.find((n) => n.id === id)!
         })
         .filter((n) => !!n)
+
+      console.log('=========activeNodes:', activeNodes)
 
       if (!activeNodes.length) {
         const todayNode = await db.getOrCreateTodayNode(space.id)

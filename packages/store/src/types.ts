@@ -5,6 +5,7 @@ export type RouteName =
   | 'CREATE_SPACE'
   | 'WEB3_PROFILE'
   | 'TASK_BOARD'
+  | 'RESTORE_BACKUP'
 
 export type IRouterStore = {
   name: RouteName

@@ -21,7 +21,7 @@ export default async function handler(
 
   const { tokens } = await auth.getToken(code)
 
-  console.log('==========tokens:', tokens)
+  // console.log('==========tokens:', tokens)
 
   const oauth2Client = new google.auth.OAuth2(clientId, clientSecret)
   oauth2Client.setCredentials(tokens)

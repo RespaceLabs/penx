@@ -11,6 +11,7 @@ import { Fallback } from '../Fallback/Fallback'
 import { LoginByTokenModal } from '../LoginByTokenModal/LoginByTokenModal'
 import { CommandPanel } from '../Palette'
 import { TaskBoard } from '../TaskBoard'
+import { GoogleBackup } from './Backup/GoogleBackup'
 import { BackupMnemonicTips } from './BackupMnemonicTips'
 import { BottomBar } from './BottomBar'
 import { MobileNav } from './NodeNav/MobileNav'
@@ -80,6 +81,12 @@ export const Workbench = () => {
             {name === 'TODOS' && <BottomBar />}
 
             {name === 'NODE' && <NodePanels />}
+
+            {name === 'RESTORE_BACKUP' && (
+              <Box p10 mt10>
+                <GoogleBackup />
+              </Box>
+            )}
 
             {name !== 'NODE' && (
               <Box h-100vh overflowYAuto>
