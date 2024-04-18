@@ -3,6 +3,7 @@ import { Divider } from 'uikit'
 import { DATABASE_TOOLBAR_HEIGHT, WORKBENCH_NAV_HEIGHT } from '@penx/constants'
 import { Node } from '@penx/model'
 import { DatabaseProvider } from './DatabaseContext'
+import { TagMenu } from './TagMenu'
 import { ViewList } from './ViewNav/ViewList'
 import { TableView } from './views/TableView/TableView'
 import { ViewToolBar } from './ViewToolBar/ViewToolBar'
@@ -17,6 +18,7 @@ export const FullPageDatabase = ({ node }: Props) => {
       <Box toLeft column px={[0, 0, 12]} gap0>
         <Box toCenterY gap8 h={DATABASE_TOOLBAR_HEIGHT} mb2 px4>
           <Box toCenterY gap2>
+            <TagMenu />
             <ViewList />
             {/* <AddViewBtn /> */}
           </Box>

@@ -45,6 +45,8 @@ export interface IDatabaseContext {
   activeViewId: string
   setActiveViewId: Dispatch<SetStateAction<string>>
 
+  updateDatabaseProps: (props: Partial<IDatabaseNode['props']>) => void
+
   addView(viewType: ViewType): Promise<IViewNode>
   updateView(viewId: string, props: Partial<IViewNode['props']>): Promise<void>
   deleteView(viewId: string): Promise<void>
@@ -118,6 +120,16 @@ export const DatabaseProvider = ({
   async function reloadNodes() {
     const nodes = await db.listNodesBySpaceId(database.database.spaceId)
     store.node.setNodes(nodes)
+  }
+
+  async function updateDatabaseProps(props: Partial<IDatabaseNode['props']>) {
+    await db.updateNode(databaseId, {
+      props: {
+        ...database.database.props,
+        ...props,
+      },
+    })
+    reloadNodes()
   }
 
   async function addView(viewType: ViewType) {
@@ -352,11 +364,14 @@ export const DatabaseProvider = ({
         ...database,
         filterResult: generateFilter(databaseId),
         updateRowsIndexes,
+
         currentView,
         sortedColumns,
 
         activeViewId,
         setActiveViewId,
+
+        updateDatabaseProps,
 
         addView,
         deleteView,
