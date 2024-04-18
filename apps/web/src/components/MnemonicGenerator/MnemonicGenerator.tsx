@@ -11,7 +11,7 @@ import { store } from '@penx/store'
 import { api } from '@penx/trpc-client'
 
 export function MnemonicGenerator({ children }: PropsWithChildren) {
-  const { data } = useSession()
+  const { data, update } = useSession()
   const doingRef = useRef(false)
 
   const initMnemonic = useCallback(async () => {
@@ -21,12 +21,13 @@ export function MnemonicGenerator({ children }: PropsWithChildren) {
       const publicKey = getPublicKey(mnemonic)
       await api.user.updatePublicKey.mutate({ publicKey })
       store.user.setMnemonic(mnemonic)
+      await update({ publicKey })
     } catch (error) {
       // TODO: handle error
       console.log('=====error:', error)
       toast.error('Init account failed, please try to refresh.')
     }
-  }, [data?.userId])
+  }, [data?.userId, update])
 
   useEffect(() => {
     if (data?.publicKey || doingRef.current) return

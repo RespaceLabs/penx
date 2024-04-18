@@ -1,6 +1,7 @@
 import { Suspense, useEffect, useMemo } from 'react'
 import { Box } from '@fower/react'
 import { useRouter } from 'next/router'
+import { useHideLogoLoader } from '@penx/hooks'
 import { IconWallet } from '@penx/icons'
 import { ClientOnly } from '~/components/ClientOnly'
 import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
@@ -11,6 +12,8 @@ import { WalletConnectProvider } from '~/components/WalletConnectProvider'
 
 export default function LoginPage() {
   const { push } = useRouter()
+
+  useHideLogoLoader()
 
   const loginEntry = useMemo(() => {
     return (
@@ -54,12 +57,12 @@ export default function LoginPage() {
               <Box as="h1" fontBold>
                 Welcome to PenX
               </Box>
-              <Box as="p" textCenter mb6 leadingNormal px10 gray500>
+              <Box as="p" textCenter mb6 leadingNormal px10 gray500 textBase>
                 A structured digital assets wallet for geeks
               </Box>
 
               {loginEntry}
-              <Box gray400 textXS maxW-240 mt5 textCenter leadingTight>
+              <Box gray400 textSM maxW-260 mt5 textCenter leadingTight>
                 By creating an account you agree to our{' '}
                 <Box
                   as="a"
