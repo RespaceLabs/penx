@@ -124,7 +124,9 @@ export class SyncServerClient {
     const publicKey = getPublicKey(this.mnemonic)
     const encryptedNodes = nodes.map((node) => ({
       ...node,
-      element: encryptByPublicKey(JSON.stringify(node.element), publicKey),
+      element: node.element
+        ? encryptByPublicKey(JSON.stringify(node.element), publicKey)
+        : null,
       props: encryptByPublicKey(JSON.stringify(node.props), publicKey),
     }))
 

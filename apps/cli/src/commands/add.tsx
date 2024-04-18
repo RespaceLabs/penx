@@ -21,7 +21,7 @@ export function encryptByPublicKey(plainText: string, publicKey: string) {
 }
 
 export async function pushNodes(user: any, space: ISpace, nodes: INode[]) {
-  const baseURL = space.syncServerUrl || ''
+  const baseURL = user.syncServerUrl || ''
   const token = user.syncServerAccessToken || ''
   const pushNodesURL = `${baseURL}/pushNodes`
 
@@ -29,7 +29,7 @@ export async function pushNodes(user: any, space: ISpace, nodes: INode[]) {
   const encryptedNodes = nodes.map((node) => ({
     ...node,
     spaceId: space.id,
-    element: encryptByPublicKey(JSON.stringify(node.element), publicKey),
+    element: node.element ? encryptByPublicKey(JSON.stringify(node.element), publicKey) : null,
     props: encryptByPublicKey(JSON.stringify(node.props), publicKey),
   }))
 

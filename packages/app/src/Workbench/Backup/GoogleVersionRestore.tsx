@@ -193,7 +193,9 @@ function ConfirmButton({ file }: BackupItemProps) {
 
       nodes = nodes.map<INode>((n) => ({
         ...n,
-        element: JSON.parse(decryptByMnemonic(n.element as string, mnemonic)),
+        element: n.element
+          ? JSON.parse(decryptByMnemonic(n.element as string, mnemonic))
+          : null,
         props: JSON.parse(decryptByMnemonic(n.props as any, mnemonic)),
       }))
 

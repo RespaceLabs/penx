@@ -142,10 +142,9 @@ export class SpaceService {
   private toEncryptedNodes(nodes: INode[]): INode[] {
     return nodes.map((node) => ({
       ...node,
-      element: encryptByPublicKey(
-        JSON.stringify(node.element),
-        this.publicKey,
-      ) as any,
+      element: node.element
+        ? encryptByPublicKey(JSON.stringify(node.element), this.publicKey)
+        : null,
       props: encryptByPublicKey(
         JSON.stringify(node.props),
         this.publicKey,

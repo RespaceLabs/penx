@@ -41,7 +41,7 @@ export const BreadcrumbPopover = ({ node }: Props) => {
       </PopoverTrigger>
       <PopoverContent w-200 column>
         {nodeService.childrenNodes.map((item) => {
-          if (!item?.raw?.element) return null
+          if (!item?.raw?.element?.[0]) return null
           if (!SlateNode.string(item.element[0])) return null
           return (
             <MenuItem

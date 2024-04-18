@@ -39,6 +39,8 @@ export function PanelItem({ node, index }: Props) {
     activeSpace.isOutliner,
   )
 
+  // console.log('===========node.raw', node.raw, 'content:', content)
+
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
     if (isOutliner) {
       await nodeService.saveOutlinerEditor(node.raw, value[0], value[1])

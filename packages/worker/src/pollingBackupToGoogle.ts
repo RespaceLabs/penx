@@ -38,6 +38,7 @@ export async function pollingBackupToGoogle() {
 
   while (true) {
     const data = await getAuthorizedUser()
+    // console.log('google======data:', data)
 
     if (data) {
       await sync()
@@ -100,7 +101,9 @@ async function sync() {
     const publicKey = user.publicKey
     const encryptedNodes = nodes.map((node) => ({
       ...node,
-      element: encryptByPublicKey(JSON.stringify(node.element), publicKey),
+      element: node.element
+        ? encryptByPublicKey(JSON.stringify(node.element), publicKey)
+        : null,
       props: encryptByPublicKey(JSON.stringify(node.props), publicKey),
     }))
 

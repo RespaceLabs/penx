@@ -15,7 +15,13 @@ export function CloudBackupForm() {
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
-          <Input type="password" size="lg" placeholder="Password" {...field} />
+          <Input
+            autoFocus
+            type="password"
+            size="lg"
+            placeholder="Password"
+            {...field}
+          />
         )}
       />
 

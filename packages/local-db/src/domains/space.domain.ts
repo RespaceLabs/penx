@@ -6,6 +6,7 @@ import {
 import { ISpace, NodeType } from '@penx/model-types'
 import { getLocalSession } from '@penx/storage'
 import { formatToDate } from '../libs/formatToDate'
+import { getCommonNode } from '../libs/getCommonNode'
 import { getNewNode } from '../libs/getNewNode'
 import { getNewSpace } from '../libs/getNewSpace'
 import { PenxDB, penxDB } from '../penx-db'
@@ -31,10 +32,13 @@ export class SpaceDomain {
   private initSpaceNodes = async (space: ISpace) => {
     const spaceId = space.id
     await this.penx.node.add(
-      getNewNode({
-        spaceId,
-        type: NodeType.ROOT,
-      }),
+      getCommonNode(
+        {
+          spaceId,
+          type: NodeType.ROOT,
+        },
+        space.name,
+      ),
     )
 
     // init inbox node
