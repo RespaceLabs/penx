@@ -35,14 +35,14 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       GoogleProvider({
         clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
         clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
-        // authorization: {
-        //   params: {
-        //     scope:
-        //       'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/drive.file',
-        //     access_type: 'offline',
-        //     prompt: 'consent',
-        //   },
-        // },
+        authorization: {
+          params: {
+            scope:
+              'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/drive.file',
+            access_type: 'offline',
+            prompt: 'consent',
+          },
+        },
         httpOptions: {
           timeout: 10 * 1000,
         },
@@ -125,11 +125,19 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     callbacks: {
       async signIn({ user, account, profile }) {
         // await initSpace(user.id, user.name!)
+
         return true
       },
 
       async jwt({ token, account, user, profile, trigger, session }) {
-        // console.log('jwt user=======:', user)
+        console.log(
+          'jwt user=======:',
+          user,
+          'account:',
+          account,
+          'profile:',
+          profile,
+        )
 
         if (trigger === 'update') {
           if (session?.earlyAccessCode) {
@@ -154,6 +162,25 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           }
 
           initPersonalToken(penxUser.id)
+        }
+
+        if (
+          user?.id &&
+          !(user as any)?.google?.refresh_token &&
+          account?.refresh_token
+        ) {
+          console.log('update google info................')
+
+          await prisma.user.update({
+            where: { id: user.id },
+            data: {
+              google: {
+                ...account,
+                email: profile?.email,
+                picture: (profile as any)?.picture,
+              },
+            },
+          })
         }
 
         return token
