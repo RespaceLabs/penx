@@ -23,7 +23,9 @@ import { uniqueId } from '@penx/unique-id'
 import { getRandomColor } from '../libs/getRandomColor'
 import { PenxDB, penxDB } from '../penx-db'
 import {
+  AddRowByFieldNameOptions,
   AddRowOptions,
+  ColumnSchema,
   createDatabaseOptions,
   CreateFileRowOptions,
 } from '../types'
@@ -69,7 +71,12 @@ export class DatabaseDomain {
       children: [...(databaseRootNode.children || []), database.id],
     })
 
-    const columns = await this.initColumns(spaceId, database.id, name)
+    const columns = await this.initColumns(
+      spaceId,
+      database.id,
+      name,
+      columnSchema,
+    )
 
     const viewColumns: ViewColumn[] = columns.map((column) => ({
       columnId: column.id,
@@ -130,11 +137,36 @@ export class DatabaseDomain {
     return database
   }
 
+  initColumnsBySchema = async (
+    spaceId: string,
+    databaseId: string,
+    columnSchema: Required<ColumnSchema>[],
+  ) => {
+    const newColumns: IColumnNode[] = []
+    for (const item of columnSchema) {
+      const column = await this.node.createNode<IColumnNode>({
+        spaceId,
+        parentId: databaseId,
+        databaseId,
+        type: NodeType.COLUMN,
+        props: item,
+      })
+      newColumns.push(column)
+    }
+
+    return newColumns
+  }
+
   initColumns = async (
     spaceId: string,
     databaseId: string,
     databaseName = '',
+    columnSchema: ColumnSchema[],
   ) => {
+    if (columnSchema.length) {
+      return this.initColumnsBySchema(spaceId, databaseId, columnSchema as any)
+    }
+
     const isTodo = databaseName === TODO_DATABASE_NAME
     const isFile = databaseName === FILE_DATABASE_NAME
 
@@ -574,6 +606,66 @@ export class DatabaseDomain {
         parentId: databaseId,
         type: NodeType.CELL,
         props: cellProps,
+      })
+    })
+
+    await Promise.all(promises)
+  }
+
+  addRowByFieldName = async ({
+    databaseId,
+    ...data
+  }: AddRowByFieldNameOptions) => {
+    const database = (await this.node.getNode(databaseId)) as IDatabaseNode
+    const spaceId = database.spaceId
+
+    const rows = (await this.penx.node
+      .where({
+        type: NodeType.ROW,
+        spaceId,
+        databaseId,
+      })
+      .toArray()) as IRowNode[]
+
+    const isSortNormal = this.checkRowsSortNormal(rows)
+
+    // fix sort
+    if (!isSortNormal) {
+      await this.fixRowsSort(rows)
+    }
+
+    const row = await this.node.createNode<IRowNode>({
+      spaceId,
+      databaseId,
+      parentId: databaseId,
+      type: NodeType.ROW,
+      props: {
+        sort: rows.length + 1,
+      },
+    })
+
+    const columns = await this.penx.node
+      .where({
+        type: NodeType.COLUMN,
+        spaceId,
+        databaseId,
+      })
+      .toArray()
+
+    const promises = columns.map((column) => {
+      const cellData = data[column.props.fieldName]
+
+      return this.node.createNode<ICellNode>({
+        spaceId,
+        databaseId,
+        parentId: databaseId,
+        type: NodeType.CELL,
+        props: {
+          columnId: column.id,
+          rowId: row.id,
+          ref: '',
+          data: cellData,
+        },
       })
     })
 

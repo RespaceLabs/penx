@@ -5,12 +5,16 @@ import {
   Input,
   MenuItem,
   Popover,
+  PopoverClose,
   PopoverContent,
   PopoverTrigger,
+  toast,
   usePopoverContext,
 } from 'uikit'
 import { db, getColorNames } from '@penx/local-db'
+import { Node } from '@penx/model'
 import { IDatabaseNode } from '@penx/model-types'
+import { useCopyToClipboard } from '@penx/shared'
 import { store } from '@penx/store'
 import { useDatabaseContext } from './DatabaseContext'
 
@@ -52,39 +56,63 @@ function Content() {
   const { database, updateDatabaseProps } = useDatabaseContext()
   const [name, setName] = useState(database.props.name)
   const { close } = usePopoverContext()
+  const { copy } = useCopyToClipboard()
+
+  const node = new Node(database)
+
+  const isBuiltin = node.isTodoDatabase || node.isFileDatabase
 
   return (
     <>
-      <Box px3 pt3>
-        <Input
-          size="sm"
-          value={name}
-          onBlur={() => {
-            updateDatabaseProps({ name })
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+      {!isBuiltin && (
+        <Box px3 pt3>
+          <Input
+            size="sm"
+            value={name}
+            onBlur={() => {
               updateDatabaseProps({ name })
-              close()
-            }
-          }}
-          onChange={(e) => {
-            setName(e.target.value)
-          }}
-        />
-      </Box>
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                updateDatabaseProps({ name })
+                close()
+              }
+            }}
+            onChange={(e) => {
+              setName(e.target.value)
+            }}
+          />
+        </Box>
+      )}
 
       <ColorSelector database={database} />
-      <Divider />
-      <MenuItem>Delete (coming)</MenuItem>
+      {!isBuiltin && (
+        <>
+          <Divider />
+          <MenuItem>Delete (coming)</MenuItem>
+        </>
+      )}
+
+      <PopoverClose>
+        <MenuItem
+          onClick={() => {
+            copy(database.id)
+            toast.success('Copied to clipboard')
+          }}
+        >
+          Copy database ID
+        </MenuItem>
+      </PopoverClose>
     </>
   )
 }
 
 export const TagMenu = () => {
-  const { database, updateDatabaseProps } = useDatabaseContext()
+  const { database } = useDatabaseContext()
 
   if (!database) return null
+  const node = new Node(database)
+
   return (
     <Box toCenterY left3 top-2 h="1.5em">
       <Popover>
@@ -101,7 +129,7 @@ export const TagMenu = () => {
               #
             </Box>
             <Box textLG fontBold>
-              {database.props.name}
+              {node.title}
             </Box>
           </Box>
         </PopoverTrigger>

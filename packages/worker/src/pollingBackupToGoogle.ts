@@ -32,9 +32,9 @@ export async function pollingBackupToGoogle() {
 
   let pollingInterval = isProd ? 30 * 60 * 1000 : 2 * 10 * 1000
 
-  if (timeMap[interval]) pollingInterval = interval
+  if (timeMap[interval]) pollingInterval = timeMap[interval]
 
-  console.log('=======pollingInterval:', pollingInterval)
+  console.log('=======pollingInterval:', pollingInterval, 'interval:', interval)
 
   while (true) {
     const data = await getAuthorizedUser()

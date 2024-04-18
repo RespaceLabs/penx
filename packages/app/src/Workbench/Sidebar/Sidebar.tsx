@@ -13,7 +13,8 @@ import {
   Inbox,
   Trash2,
 } from 'lucide-react'
-import { Bullet } from 'uikit'
+import { Bullet, Button } from 'uikit'
+import { isProd } from '@penx/constants'
 import {
   useActiveNodes,
   useActiveSpace,
@@ -28,6 +29,7 @@ import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 import { SyncPopover } from '../StatusBar/SyncPopover'
 import { CatalogueBox } from './CatalogueBox/CatalogueBox'
+import { CreateDemoDatabaseButton } from './CreateDemoDatabaseButton'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { LoginButton } from './LoginButton'
 import { SetupGitHubButton } from './SetupGitHubButton'
@@ -168,7 +170,9 @@ export const Sidebar = () => {
         )}
       </Box>
 
-      <Box px4>
+      <Box px4 column gap2>
+        {!isProd && <CreateDemoDatabaseButton></CreateDemoDatabaseButton>}
+
         {/* <SetupGitHubButton /> */}
         <LoginButton />
       </Box>

@@ -7,7 +7,7 @@ const INTERVAL = 5 * 1000
 
 export async function clearNodes() {
   while (true) {
-    console.log('clear nodes...')
+    // console.log('clear nodes...')
     await new NodeCleaner().cleanDeletedNodes()
     await sleep(INTERVAL)
   }

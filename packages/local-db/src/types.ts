@@ -1,6 +1,6 @@
 import { IColumnNode } from '@penx/model-types'
 
-type ColumnSchema = Partial<IColumnNode['props']>
+export type ColumnSchema = Partial<IColumnNode['props']>
 
 export interface createDatabaseOptions {
   spaceId: string
@@ -24,6 +24,11 @@ export interface AddRowOptions {
   fileHash?: string // file hash
 
   googleDriveFileId?: string // google drive file id
+}
+
+export interface AddRowByFieldNameOptions {
+  databaseId: string
+  [key: string]: any
 }
 
 export interface CreateFileRowOptions {
