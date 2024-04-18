@@ -78,7 +78,7 @@ export const Item = forwardRef<HTMLDivElement, Props>(
           />
           <FieldIcon size={16} fieldType={column.props.fieldType} />
           <Box textSM gray600>
-            {column.props.name}
+            {column.props.displayName}
           </Box>
         </Box>
 

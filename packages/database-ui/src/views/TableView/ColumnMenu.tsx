@@ -23,7 +23,7 @@ interface ColumnMenuProps {
 }
 export function ColumnMenu({ index = 0, column, close }: ColumnMenuProps) {
   const ctx = useDatabaseContext()
-  const [name, setName] = useState(column.props.name)
+  const [name, setName] = useState(column.props.displayName)
   const [isEditField, setIsEditField] = useState(false)
 
   const viewColumn = ctx.currentView.props.viewColumns.find(

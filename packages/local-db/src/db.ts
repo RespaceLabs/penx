@@ -514,7 +514,7 @@ export class PenxDB extends Dexie {
   createDatabase = async (
     spaceId: string,
     name: string,
-    shouldInitCell = false,
+    shouldInitCells = false,
   ) => {
     const databaseRootNode = await this.getDatabaseRootNode(spaceId)
 
@@ -531,7 +531,6 @@ export class PenxDB extends Dexie {
     })
 
     const isTodo = name === TODO_DATABASE_NAME
-    const isFile = name === FILE_DATABASE_NAME
 
     await this.updateNode(databaseRootNode.id, {
       children: [...(databaseRootNode.children || []), database.id],
@@ -597,7 +596,7 @@ export class PenxDB extends Dexie {
       },
     })
 
-    if (shouldInitCell) {
+    if (shouldInitCells) {
       const rows = await this.initRows(spaceId, database.id)
       await this.initCells(spaceId, database.id, columns, rows)
     }
@@ -618,7 +617,7 @@ export class PenxDB extends Dexie {
       databaseId,
       type: NodeType.COLUMN,
       props: {
-        name: 'Name',
+        displayName: 'Name',
         description: '',
         fieldType: FieldType.TEXT,
         isPrimary: true,
@@ -633,7 +632,7 @@ export class PenxDB extends Dexie {
         parentId: databaseId,
         type: NodeType.COLUMN,
         props: {
-          name: 'Source',
+          displayName: 'Source',
           description: '',
           fieldType: FieldType.TODO_SOURCE,
           isPrimary: false,
@@ -651,7 +650,7 @@ export class PenxDB extends Dexie {
         parentId: databaseId,
         type: NodeType.COLUMN,
         props: {
-          name: 'File',
+          displayName: 'File',
           description: '',
           fieldType: FieldType.FILE,
           isPrimary: false,
@@ -668,7 +667,7 @@ export class PenxDB extends Dexie {
       parentId: databaseId,
       type: NodeType.COLUMN,
       props: {
-        name: 'Type',
+        displayName: 'Type',
         description: '',
         fieldType: FieldType.SINGLE_SELECT,
         isPrimary: false,
@@ -883,7 +882,7 @@ export class PenxDB extends Dexie {
       parentId: databaseId,
       type: NodeType.COLUMN,
       props: {
-        name: nameMap[fieldType] || '',
+        displayName: nameMap[fieldType] || '',
         description: '',
         fieldType,
         isPrimary: false,
@@ -1282,10 +1281,10 @@ export class PenxDB extends Dexie {
     await this.deleteNode(columnId)
   }
 
-  updateColumnName = async (columnId: string, name: string) => {
-    const column = await this.getNode(columnId)
-    await this.updateNode(columnId, {
-      props: { ...column.props, name },
+  updateColumnName = async (columnId: string, displayName: string) => {
+    const column = (await this.getNode(columnId)) as IColumnNode
+    await this.updateNode<IColumnNode>(columnId, {
+      props: { ...column.props, displayName },
     })
   }
 

@@ -64,7 +64,7 @@ export const AddSortBtn = () => {
                     }}
                   >
                     <FieldIcon size={18} fieldType={column.props.fieldType} />
-                    <Box>{column.props.name}</Box>
+                    <Box>{column.props.displayName}</Box>
                   </MenuItem>
                 )
               })}

@@ -25,7 +25,7 @@ export function useEditFieldForm(column: IColumnNode) {
 
   const form = useForm<EditFieldValues>({
     defaultValues: {
-      name: column.props.name,
+      name: column.props.displayName,
       fieldType: column.props.fieldType,
       options: columnOptions.map((o) => ({
         id: o.id,

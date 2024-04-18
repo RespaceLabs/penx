@@ -26,7 +26,7 @@ export const SortItem = ({ sort }: Props) => {
         <Box textXS gray400>
           Sort by
         </Box>
-        <Box textSM>{column?.props.name}</Box>
+        <Box textSM>{column?.props.displayName}</Box>
       </Box>
       <Box toCenterY gap2>
         <Box toCenterY textXS gray400 gap1>

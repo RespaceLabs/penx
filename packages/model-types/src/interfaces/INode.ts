@@ -126,7 +126,8 @@ export interface IColumnNode extends INode {
   parentId: string // should be database id
   type: NodeType.COLUMN
   props: {
-    name: string
+    displayName: string
+    fieldName: string
     description: string
     fieldType: FieldType
     isPrimary: boolean

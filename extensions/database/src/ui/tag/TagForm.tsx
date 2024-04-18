@@ -90,7 +90,7 @@ function TagFormContent({ databaseId, path }: Props) {
           <Box key={cell.id}>
             <Box mb2 toCenterY gap1 gray600>
               <FieldIcon fieldType={column.props.fieldType} />
-              <Box textXS>{column.props.name}</Box>
+              <Box textXS>{column.props.displayName}</Box>
             </Box>
 
             <CellField index={index} cell={cell} columns={sortedColumns} />

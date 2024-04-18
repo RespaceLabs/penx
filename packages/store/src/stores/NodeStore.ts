@@ -422,7 +422,7 @@ export class NodeStore {
     return node
   }
 
-  async createDatabase(spaceId: string, name: string, shouldInitCell = false) {
+  async createDatabase(spaceId: string, name: string, shouldInitCells = false) {
     const nodes = this.getNodes()
 
     let databaseNode = nodes.find(
@@ -430,7 +430,7 @@ export class NodeStore {
     )
 
     if (!databaseNode) {
-      databaseNode = await db.createDatabase(spaceId, name, shouldInitCell)
+      databaseNode = await db.createDatabase(spaceId, name, shouldInitCells)
     }
 
     const newNodes = await db.listNodesBySpaceId(databaseNode.spaceId)

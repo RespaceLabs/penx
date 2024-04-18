@@ -48,7 +48,7 @@ function getCols(columns: IColumnNode[], viewColumns: ViewColumn[]) {
 
     return {
       id: col.id,
-      title: col.props.name,
+      title: col.props.displayName,
       width: viewColumn?.width ?? 160,
       icon: getIcon(),
       hasMenu: true,

@@ -41,7 +41,7 @@ export function FieldSelect({
           >
             <Box toCenterY gap1>
               <FieldIcon fieldType={column.props.fieldType} />
-              <Box textSM>{column.props.name}</Box>
+              <Box textSM>{column.props.displayName}</Box>
             </Box>
             <ChevronDown size={16} />
           </Box>
@@ -67,7 +67,7 @@ export function FieldSelect({
               >
                 <Box toCenterY gap2>
                   <FieldIcon fieldType={item.props.fieldType} />
-                  <Box>{item.props.name}</Box>
+                  <Box>{item.props.displayName}</Box>
                 </Box>
                 {item.id === filter.columnId && <Check size={18}></Check>}
               </MenuItem>
