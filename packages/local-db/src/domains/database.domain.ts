@@ -9,6 +9,7 @@ import {
   ICellNodeProps,
   IColumnNode,
   IDatabaseNode,
+  IDatabaseRootNode,
   INode,
   IOptionNode,
   IRowNode,
@@ -47,6 +48,7 @@ export class DatabaseDomain {
   createDatabase = async ({
     spaceId,
     name,
+    columnSchema = [],
     shouldInitCells = false,
   }: createDatabaseOptions) => {
     const databaseRootNode = await this.getDatabaseRootNode(spaceId)
@@ -63,17 +65,9 @@ export class DatabaseDomain {
       },
     })
 
-    const isTodo = name === TODO_DATABASE_NAME
-
     await this.node.updateNode(databaseRootNode.id, {
       children: [...(databaseRootNode.children || []), database.id],
     })
-
-    if (isTodo) {
-      await this.node.updateNode(databaseRootNode.id, {
-        props: { favorites: [database.id] },
-      })
-    }
 
     const columns = await this.initColumns(spaceId, database.id, name)
 

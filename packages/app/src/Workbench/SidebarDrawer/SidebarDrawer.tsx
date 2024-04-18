@@ -166,11 +166,6 @@ export const SidebarDrawer = () => {
                 />
               </Box>
 
-              {/* <Box column gap2>
-                <TagsEntry isActive={isTagsActive} />
-                <DatabaseList />
-              </Box> */}
-
               <Box flex-1 zIndex-1 overflowYAuto>
                 {!!nodes.length && (
                   <>

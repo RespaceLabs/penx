@@ -144,16 +144,6 @@ export class NodeListService {
     return this.favoriteNode.children.includes(id)
   }
 
-  getDatabaseFavorites() {
-    if (!this.databaseRootNode?.props?.favorites) return []
-    const favorites: string[] = this.databaseRootNode.props.favorites
-    return favorites.map((id) => this.nodeMap.get(id)!).filter((n) => !!n)
-  }
-
-  isFavoriteDatabase(id: string) {
-    return this.databaseRootNode.props?.favorites?.includes(id)
-  }
-
   // TODO:
   getLinkedReferences(node: Node) {
     // console.log('ref======node:', node)
@@ -202,31 +192,6 @@ export class NodeListService {
     const children = this.favoriteNode.children.filter((id) => id !== node.id)
     await db.updateNode(this.favoriteNode.id, {
       children,
-    })
-    const nodes = await db.listNodesBySpaceId(node.spaceId)
-    store.node.setNodes(nodes)
-  }
-
-  async addToDatabaseFavorites(node: Node) {
-    const databaseRootNode = this.databaseRootNode.raw as IDatabaseRootNode
-
-    const newFavorites = [...(databaseRootNode.props.favorites || []), node.id]
-
-    const newNode = await db.updateNode(this.databaseRootNode.id, {
-      props: { favorites: newFavorites },
-    })
-
-    const nodes = await db.listNodesBySpaceId(node.spaceId)
-    store.node.setNodes(nodes)
-  }
-
-  async removeFromDatabaseFavorites(node: Node) {
-    const databaseRootNode = this.databaseRootNode.raw as IDatabaseRootNode
-
-    const favorites: string[] = databaseRootNode.props?.favorites || []
-    const newFavorites = favorites.filter((id) => id !== node.id)
-    await db.updateNode(this.databaseRootNode.id, {
-      props: { favorites: newFavorites },
     })
     const nodes = await db.listNodesBySpaceId(node.spaceId)
     store.node.setNodes(nodes)

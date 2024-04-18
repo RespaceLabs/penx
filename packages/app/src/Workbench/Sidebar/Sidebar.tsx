@@ -28,7 +28,6 @@ import { useSession } from '@penx/session'
 import { store } from '@penx/store'
 import { SyncPopover } from '../StatusBar/SyncPopover'
 import { CatalogueBox } from './CatalogueBox/CatalogueBox'
-import { DatabaseList } from './DatabaseList'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { LoginButton } from './LoginButton'
 import { SetupGitHubButton } from './SetupGitHubButton'
@@ -156,11 +155,6 @@ export const Sidebar = () => {
           </Box>
         )}
       </Box>
-
-      {/* <Box px2 column gap2>
-        <TagsEntry isActive={isTagsActive} />
-        <DatabaseList />
-      </Box> */}
 
       <Box flex-1 zIndex-1 overflowYAuto px2>
         {!!nodes.length && (

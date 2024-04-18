@@ -102,9 +102,6 @@ export interface IDailyRootNode extends INode {
 
 export interface IDatabaseRootNode extends INode {
   type: NodeType.DATABASE_ROOT
-  props: {
-    favorites: string[]
-  }
 }
 
 export interface IFilterResult {

@@ -65,9 +65,6 @@ export class SpaceDomain {
       getNewNode({
         spaceId,
         type: NodeType.DATABASE_ROOT,
-        props: {
-          favorites: [],
-        },
       }),
     )
 
