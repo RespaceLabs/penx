@@ -1,5 +1,6 @@
 import { FC, PropsWithChildren } from 'react'
 import { Box } from '@fower/react'
+import { useRouter } from 'next/router'
 import { Button } from 'uikit'
 import { Logo } from '@penx/widget'
 import { Footer } from './Footer'
@@ -7,6 +8,7 @@ import { Nav } from './Nav'
 import { SocialNav } from './SocialNav'
 
 export const BasicLayout: FC<PropsWithChildren> = ({ children }) => {
+  const { push } = useRouter()
   return (
     <Box bgWhite column gap4 toBetween toCenterX>
       <Box
@@ -20,7 +22,13 @@ export const BasicLayout: FC<PropsWithChildren> = ({ children }) => {
         mx-auto
       >
         <Box toCenterY gap8>
-          <Logo size={32} />
+          <Logo
+            size={32}
+            cursorPointer
+            onClick={() => {
+              push('/')
+            }}
+          />
         </Box>
 
         <Nav />

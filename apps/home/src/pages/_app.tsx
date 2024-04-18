@@ -1,18 +1,13 @@
 import { Fragment } from 'react'
 import { Session } from 'next-auth'
-import { GoogleAnalytics } from 'nextjs-google-analytics'
-import 'next-auth/react'
+import { NextSeo } from 'next-seo'
 import type { AppProps } from 'next/app'
+import { GoogleAnalytics } from 'nextjs-google-analytics'
 import { ToastContainer } from 'uikit'
 import { isServer } from '@penx/constants'
-import { initFower } from '../common/initFower'
-import 'simplebar-react/dist/simplebar.min.css'
-import 'react-circular-progressbar/dist/styles.css'
-import 'react-datepicker/dist/react-datepicker.css'
-import '../styles/globals.css'
-import '../styles/command.scss'
-import '@glideapps/glide-data-grid/dist/index.css'
 import { TrpcProvider } from '@penx/trpc-client'
+import { initFower } from '../common/initFower'
+import '../styles/globals.css'
 
 initFower()
 
@@ -36,6 +31,23 @@ function MyApp({ Component, pageProps }: Props<any>) {
         name="viewport"
         content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
       />
+
+      <NextSeo
+        title="PenX: A structured digital assets wallet for geeks"
+        description="A structured digital assets wallet for geeks"
+        openGraph={{
+          type: 'website',
+          locale: 'en_US',
+          url: 'https://www.penx.io',
+          siteName: 'PenX',
+        }}
+        twitter={{
+          handle: '@coder_zion',
+          site: '@coder_zion',
+          cardType: 'summary_large_image',
+        }}
+      />
+
       <GoogleAnalytics trackPageViews />
 
       <TrpcProvider>

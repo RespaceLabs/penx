@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { Box, FowerHTMLProps } from '@fower/react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Divider } from 'uikit'
 import { Logo } from '@penx/widget'
 import { APP_DOWNLOAD_URL } from '~/common/constants'
@@ -144,9 +145,10 @@ export function FooterBox({ title, items, ...rest }: FooterBoxProps) {
               noUnderline
               onClick={(e) => {
                 if (item.isExternal) {
+                  e.preventDefault()
                   window.open(item.to)
+                  return
                 }
-                e.preventDefault()
                 return
               }}
             >

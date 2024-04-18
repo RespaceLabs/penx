@@ -23,6 +23,11 @@ export function HomePage() {
           A digital assets wallet for Geeks
         </Box>
 
+        <Box textLG neutral500 maxW-640 textCenter leadingNormal>
+          An elegant App designed to help you capture, organize, and store your
+          thoughts, tasks, ideas, and information.
+        </Box>
+
         <Box toCenter gap2 flexWrap>
           {tags.map((item) => (
             <Box
@@ -41,11 +46,6 @@ export function HomePage() {
               {item}
             </Box>
           ))}
-        </Box>
-
-        <Box textLG neutral500 maxW-640 textCenter leadingNormal>
-          An elegant App designed to help you capture, organize, and store your
-          thoughts, tasks, ideas, and information.
         </Box>
 
         <Box

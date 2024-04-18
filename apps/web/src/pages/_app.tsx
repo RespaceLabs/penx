@@ -19,6 +19,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../styles/globals.css'
 import '../styles/command.scss'
 import '@glideapps/glide-data-grid/dist/index.css'
+import { NextSeo } from 'next-seo'
 import { AuthProvider } from '~/components/AuthProvider'
 
 initFower()
@@ -42,6 +43,11 @@ function MyApp({ Component, pageProps }: Props<any>) {
       <meta
         name="viewport"
         content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+      />
+
+      <NextSeo
+        title="PenX: A structured digital assets wallet for geeks"
+        description="A structured digital assets wallet for geeks"
       />
 
       <GoogleAnalytics trackPageViews />

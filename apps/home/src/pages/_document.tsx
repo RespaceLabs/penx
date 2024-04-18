@@ -1,5 +1,6 @@
 import { Box, getAtomIds, getCssString } from '@fower/react'
 import { getCookie, setCookie } from 'cookies-next'
+import { NextSeo } from 'next-seo'
 import Document, {
   DocumentContext,
   DocumentInitialProps,
@@ -48,6 +49,7 @@ class MyDocument extends Document {
         </Head>
         <body>
           <Main />
+
           <NextScript />
         </body>
       </Html>

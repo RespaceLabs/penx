@@ -1,5 +1,6 @@
 import { Box, getAtomIds, getCssString } from '@fower/react'
 import { getCookie, setCookie } from 'cookies-next'
+import { NextSeo } from 'next-seo'
 import Document, {
   DocumentContext,
   DocumentInitialProps,
@@ -46,10 +47,6 @@ class MyDocument extends Document {
             content="default"
           />
           <meta name="apple-mobile-web-app-title" content="PenX" />
-          <meta
-            name="description"
-            content="A daily canvas to record & plan life for geeks"
-          />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
           {/* <meta
@@ -94,14 +91,14 @@ class MyDocument extends Document {
 
           <meta
             name="twitter:card"
-            content="Daily canvas to record & plan life for geeks"
+            content="A structured digital assets wallet for geeks"
           />
 
           <meta name="twitter:url" content="https://penx.io" />
           <meta name="twitter:title" content="PenX" />
           <meta
             name="twitter:description"
-            content="Daily canvas to record & plan life for geeks"
+            content="A structured digital assets wallet for geeks"
           />
           <meta
             name="twitter:image"
@@ -112,7 +109,7 @@ class MyDocument extends Document {
           <meta property="og:title" content="PenX" />
           <meta
             property="og:description"
-            content="Daily canvas to record & plan life for geeks"
+            content="A structured digital assets wallet for geeks"
           />
           <meta property="og:site_name" content="PenX" />
           <meta property="og:url" content="https://www.penx.io" />
@@ -139,10 +136,10 @@ class MyDocument extends Document {
           )}
         </Head>
         <body>
-          <Main />
           <div id="logo-loader-wrapper">
             <div className="logo-loader"></div>
           </div>
+          <Main />
           <NextScript />
         </body>
       </Html>

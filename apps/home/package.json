@@ -57,6 +57,7 @@
     "mitt": "^3.0.1",
     "next": "14.1.4",
     "next-auth": "4.24.7",
+    "next-seo": "^6.5.0",
     "nextjs-cors": "^2.2.0",
     "nextjs-google-analytics": "^2.3.3",
     "octokit": "^3.1.2",
