@@ -21,7 +21,7 @@ import { extractTags } from '@penx/editor-common'
 import { IColumnNode, IRowNode } from '@penx/model-types'
 import { useNodes } from '@penx/node-hooks'
 import { useDatabaseContext } from '../../DatabaseContext'
-import { EditField } from './ColumnMenu/EditFieldu/EditField'
+import { EditField } from './ColumnMenu/EditField'
 
 interface ColumnMenuProps {
   row: IRowNode

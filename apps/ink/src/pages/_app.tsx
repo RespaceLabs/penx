@@ -1,6 +1,5 @@
 import { Fragment } from 'react'
 import { Session } from 'next-auth'
-import { GoogleAnalytics } from 'nextjs-google-analytics'
 import 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { initFower } from '../common/initFower'
@@ -24,7 +23,6 @@ function MyApp({ Component, pageProps }: Props<any>) {
         name="viewport"
         content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
       />
-      <GoogleAnalytics trackPageViews />
 
       <Layout>
         <Component {...pageProps} />

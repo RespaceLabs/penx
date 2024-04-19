@@ -2,7 +2,6 @@ import { Fragment } from 'react'
 import { Session } from 'next-auth'
 import { NextSeo } from 'next-seo'
 import type { AppProps } from 'next/app'
-import { GoogleAnalytics } from 'nextjs-google-analytics'
 import { ToastContainer } from 'uikit'
 import { isServer } from '@penx/constants'
 import { TrpcProvider } from '@penx/trpc-client'
@@ -47,8 +46,6 @@ function MyApp({ Component, pageProps }: Props<any>) {
           cardType: 'summary_large_image',
         }}
       />
-
-      <GoogleAnalytics trackPageViews />
 
       <TrpcProvider>
         {/* <SpeedInsights /> */}

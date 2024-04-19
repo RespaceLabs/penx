@@ -1,9 +1,7 @@
 import { Fragment } from 'react'
+import { fowerStore, Parser } from '@fower/react'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
-import { GoogleAnalytics } from 'nextjs-google-analytics'
-import 'next-auth/react'
-import { fowerStore, Parser } from '@fower/react'
 import type { AppProps } from 'next/app'
 import { isServer } from '@penx/constants'
 import { ClientOnly } from '~/components/ClientOnly'
@@ -49,8 +47,6 @@ function MyApp({ Component, pageProps }: Props<any>) {
         title="PenX: A structured digital assets wallet for geeks"
         description="A structured digital assets wallet for geeks"
       />
-
-      <GoogleAnalytics trackPageViews />
 
       <SessionProvider session={pageProps.session} refetchInterval={0}>
         {/* <SpeedInsights /> */}
