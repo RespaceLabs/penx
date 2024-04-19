@@ -9,7 +9,6 @@ import {
   ICellNodeProps,
   IColumnNode,
   IDatabaseNode,
-  IDatabaseRootNode,
   INode,
   IOptionNode,
   IRowNode,
@@ -45,6 +44,17 @@ export class DatabaseDomain {
       })
       .first()
     return node as IDatabaseNode
+  }
+
+  listDatabaseBySpace = async (spaceId: string) => {
+    const nodes = (await this.penx.node
+      .where({
+        type: NodeType.DATABASE,
+        spaceId,
+      })
+      .toArray()) as IDatabaseNode[]
+
+    return nodes
   }
 
   createDatabase = async ({
@@ -293,39 +303,46 @@ export class DatabaseDomain {
   }
 
   getDatabase = async (id: string) => {
-    const database = await this.node.getNode(id)
+    const database = (await this.node.getNode(id)) as IDatabaseNode
     const spaceId = database.spaceId
-    const columns = await this.penx.node
+    const columns = (await this.penx.node
       .where({
         type: NodeType.COLUMN,
         spaceId,
         databaseId: id,
       })
-      .toArray()
+      .toArray()) as IColumnNode[]
 
-    const rows = await this.penx.node
+    const rows = (await this.penx.node
       .where({
         type: NodeType.ROW,
         spaceId,
         databaseId: id,
       })
-      .toArray()
+      .toArray()) as IRowNode[]
 
-    const views = await this.penx.node
+    const views = (await this.penx.node
       .where({
         type: NodeType.VIEW,
         spaceId,
         databaseId: id,
       })
-      .toArray()
+      .toArray()) as IViewNode[]
 
-    const cells = await this.penx.node
+    const cells = (await this.penx.node
       .where({
         type: NodeType.CELL,
         spaceId,
         databaseId: id,
       })
-      .toArray()
+      .toArray()) as ICellNode[]
+
+    const options = (await this.penx.node
+      .where({
+        type: NodeType.OPTION,
+        databaseId: id,
+      })
+      .toArray()) as IOptionNode[]
 
     return {
       database,
@@ -333,6 +350,7 @@ export class DatabaseDomain {
       columns,
       rows,
       cells,
+      options,
     }
   }
 
@@ -666,18 +684,35 @@ export class DatabaseDomain {
     const optionMap: Record<string, string[]> = {}
 
     for (const column of columns) {
-      let cellData = data[column.props.fieldName]
-      if (column.props.fieldType === FieldType.MULTIPLE_SELECT) {
-        const option = await this.addOption(databaseId, column.id, cellData)
-        optionMap[cellData] = [option.id]
+      if (
+        column.props.fieldType === FieldType.MULTIPLE_SELECT ||
+        column.props.fieldType === FieldType.SINGLE_SELECT
+      ) {
+        const cellData: string[] = data[column.props.fieldName]
+        const dataStr = JSON.stringify(cellData)
+
+        if (!Array.isArray(cellData)) {
+          const option = await this.addOption(databaseId, column.id, cellData)
+          optionMap[dataStr] = [option.id]
+        } else {
+          const promises = cellData.map((item) =>
+            this.addOption(databaseId, column.id, item),
+          )
+          const options = await Promise.all(promises)
+          optionMap[dataStr] = options.map((option) => option.id)
+        }
       }
     }
 
     const promises = columns.map((column, index) => {
       let cellData = data[column.props.fieldName]
 
-      if (column.props.fieldType === FieldType.MULTIPLE_SELECT) {
-        cellData = optionMap[cellData]
+      if (
+        column.props.fieldType === FieldType.MULTIPLE_SELECT ||
+        column.props.fieldType === FieldType.SINGLE_SELECT
+      ) {
+        const dataStr = JSON.stringify(cellData)
+        cellData = optionMap[dataStr]
       }
 
       return this.node.createNode<ICellNode>({

@@ -1,4 +1,5 @@
 import { google } from 'googleapis'
+import { z } from 'zod'
 import { GoogleInfo } from '@penx/model'
 import { GoogleDriveConnectedData } from '@penx/types'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
@@ -7,56 +8,59 @@ const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
 const clientSecret = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!
 
 export const googleRouter = createTRPCRouter({
-  googleDriveToken: publicProcedure.query(async ({ ctx, input }) => {
-    const userId = ctx.token.uid
+  googleDriveToken: publicProcedure
 
-    const user = await ctx.prisma.user.findUnique({ where: { id: userId } })
+    .input(z.boolean().optional())
+    .query(async ({ ctx, input: shouldRefresh }) => {
+      const userId = ctx.token.uid
 
-    if (!user?.google) return null
+      const user = await ctx.prisma.user.findUnique({ where: { id: userId } })
 
-    const googleInfo = user.google as GoogleInfo
+      if (!user?.google) return null
 
-    const isExpired = googleInfo.expiry_date < Date.now()
+      const googleInfo = user.google as GoogleInfo
 
-    console.log('=========isExpired:', isExpired)
+      const isExpired = googleInfo.expiry_date < Date.now()
 
-    if (isExpired) {
-      if (!googleInfo.refresh_token) return null
+      console.log('=========isExpired:', isExpired)
 
-      const oauth2Client = new google.auth.OAuth2(clientId, clientSecret)
+      if (isExpired || shouldRefresh) {
+        if (!googleInfo.refresh_token) return null
 
-      oauth2Client.setCredentials({
-        refresh_token: googleInfo.refresh_token,
-      })
+        const oauth2Client = new google.auth.OAuth2(clientId, clientSecret)
 
-      const accessToken = await oauth2Client.getAccessToken()
-
-      const oauth2 = google.oauth2({
-        auth: oauth2Client,
-        version: 'v2',
-      })
-
-      const userInfo = await oauth2.userinfo.get()
-
-      if (accessToken.token && accessToken.res?.data) {
-        const newData = {
-          ...accessToken.res?.data,
-          ...userInfo.data,
-        } as GoogleDriveConnectedData
-
-        await ctx.prisma.user.update({
-          where: { id: userId },
-          data: { google: newData },
+        oauth2Client.setCredentials({
+          refresh_token: googleInfo.refresh_token,
         })
 
-        return newData
+        const accessToken = await oauth2Client.getAccessToken()
+
+        const oauth2 = google.oauth2({
+          auth: oauth2Client,
+          version: 'v2',
+        })
+
+        const userInfo = await oauth2.userinfo.get()
+
+        if (accessToken.token && accessToken.res?.data) {
+          const newData = {
+            ...accessToken.res?.data,
+            ...userInfo.data,
+          } as GoogleDriveConnectedData
+
+          await ctx.prisma.user.update({
+            where: { id: userId },
+            data: { google: newData },
+          })
+
+          return newData
+        }
+
+        return null
       }
 
-      return null
-    }
-
-    return googleInfo
-  }),
+      return googleInfo
+    }),
 
   disconnectGoogleDrive: protectedProcedure.mutation(async ({ ctx }) => {
     return ctx.prisma.user.update({

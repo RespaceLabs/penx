@@ -8,6 +8,7 @@ import { nodeRouter } from './router/node'
 import { personalTokenRouter } from './router/personalToken'
 import { spaceRouter } from './router/space'
 import { syncServerRouter } from './router/syncServer'
+import { tagTemplateRouter } from './router/tagTemplate'
 import { taskRouter } from './router/task'
 import { themeRouter } from './router/theme'
 import { translatorRouter } from './router/translator'
@@ -29,6 +30,7 @@ export const appRouter = createTRPCRouter({
   bounty: bountyRouter,
   translator: translatorRouter,
   cli: cliRouter,
+  tagTemplate: tagTemplateRouter,
 })
 
 // export type definition of API

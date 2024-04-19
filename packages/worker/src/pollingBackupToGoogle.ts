@@ -130,8 +130,10 @@ async function sync() {
     if (error instanceof HTTPError) {
       if (error.response.status === 401) {
         console.log('401=======error:', error)
-        const token = await api.google.googleDriveToken.query()
+        const token = await api.google.googleDriveToken.query(true)
         const data = await getAuthorizedUser()
+
+        console.log('========token:', token)
 
         await setAuthorizedUser({
           ...data,

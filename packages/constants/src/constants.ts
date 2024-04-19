@@ -123,6 +123,8 @@ export enum ModalNames {
 
   SETTINGS,
 
+  TAG_HUB,
+
   GENERATE_REFERRAL_CODE,
 
   MY_REFERRALS,

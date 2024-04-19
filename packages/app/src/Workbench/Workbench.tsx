@@ -20,6 +20,7 @@ import { NodePanels } from './NodePanels'
 import { PageTodo } from './PageTodo/PageTodo'
 import { SettingsModal } from './SettingsModal/SettingsModal'
 import { Sidebar } from './Sidebar/Sidebar'
+import { TagHubModal } from './TagHubModal/TagHubModal'
 import { Web3Profile } from './Web3Profile/Web3Profile'
 
 export const Workbench = () => {
@@ -45,11 +46,12 @@ export const Workbench = () => {
     <EditorProvider space={activeSpace}>
       <LoginByTokenModal />
       <SettingsModal />
+      <TagHubModal />
 
       <Box h-100vh toLeft black flex-1 relative>
         {!isBackedUp && session && name === 'NODE' && <BackupMnemonicTips />}
 
-        <Box toLeft relative>
+        <Box toLeft relative borderRight borderNeutral200--T20>
           <Box
             w={sidebarOpen ? [0, 0, SIDEBAR_WIDTH] : 0}
             h-100vh

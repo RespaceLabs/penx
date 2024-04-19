@@ -1,20 +1,8 @@
 import { useMemo } from 'react'
 import { Box } from '@fower/react'
-import { useAtom } from 'jotai'
-import {
-  CalendarDays,
-  CheckCircle2,
-  Cloud,
-  CloudOff,
-  Database,
-  Fan,
-  Folder,
-  Hash,
-  Inbox,
-  Trash2,
-} from 'lucide-react'
-import { Bullet, Button } from 'uikit'
-import { isProd } from '@penx/constants'
+import { Boxes, BoxIcon, Hash } from 'lucide-react'
+import { Bullet, Button, modalController } from 'uikit'
+import { isProd, ModalNames } from '@penx/constants'
 import {
   useActiveNodes,
   useActiveSpace,
@@ -32,13 +20,8 @@ import { CatalogueBox } from './CatalogueBox/CatalogueBox'
 import { CreateDemoDatabaseButton } from './CreateDemoDatabaseButton'
 import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { LoginButton } from './LoginButton'
-import { SetupGitHubButton } from './SetupGitHubButton'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover/SpacePopover'
-import { TagsEntry } from './TagsEntry'
-import { PageList } from './TreeView/PageList'
-import { TreeView } from './TreeView/TreeView'
-import { UserProfile } from './UserProfile'
 
 export const Sidebar = () => {
   const { activeSpace } = useActiveSpace()
@@ -152,6 +135,18 @@ export const Sidebar = () => {
               isActive={isRootActive}
               onClick={() => {
                 store.node.selectSpaceNode()
+              }}
+            />
+
+            <SidebarItem
+              icon={
+                <Box gray500 inlineFlex>
+                  <BoxIcon size={20} strokeWidth={1.5} />
+                </Box>
+              }
+              label="TagHub"
+              onClick={() => {
+                modalController.open(ModalNames.TAG_HUB)
               }}
             />
           </Box>

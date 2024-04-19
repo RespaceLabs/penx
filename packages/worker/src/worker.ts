@@ -1,6 +1,7 @@
 import { WorkerEvents } from '@penx/constants'
 import { db } from '@penx/local-db'
 import { clearNodes } from './clearNodes'
+import { loadTagTemplates } from './loadTagTemplates'
 import { normalizeNodes } from './normalizeNodes'
 import { pollingBackupToGoogle } from './pollingBackupToGoogle'
 import { startPollingPull } from './pollingPull'
@@ -21,6 +22,8 @@ self.addEventListener('message', async (event) => {
     // runAgentSSE()
 
     clearNodes()
+
+    loadTagTemplates()
 
     // normalizeNodes()
   }

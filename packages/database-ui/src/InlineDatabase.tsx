@@ -1,6 +1,6 @@
-import { Box, css } from '@fower/react'
+import { Box } from '@fower/react'
 import { Divider } from 'uikit'
-import { DATABASE_TOOLBAR_HEIGHT, WORKBENCH_NAV_HEIGHT } from '@penx/constants'
+import { DATABASE_TOOLBAR_HEIGHT } from '@penx/constants'
 import { Node } from '@penx/model'
 import { DatabaseProvider } from './DatabaseContext'
 import { ViewList } from './ViewNav/ViewList'
