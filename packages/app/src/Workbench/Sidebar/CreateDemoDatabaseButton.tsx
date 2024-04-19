@@ -13,11 +13,29 @@ export function CreateDemoDatabaseButton() {
       colorScheme="white"
       w-100p
       onClick={async () => {
-        db.addRowByFieldName({
-          databaseId: 'b7ab57c0-2778-411f-9f21-cc931762a4b5',
-          name: 'Notion',
-          url: 'https://www.notion.so',
-        })
+        const databaseId = 'b7ab57c0-2778-411f-9f21-cc931762a4b5'
+
+        const list = Array(100000)
+          .fill(0)
+          .map((_, i) => i)
+
+        const t0 = Date.now()
+        for (const i of list) {
+          const ta = Date.now()
+
+          // console.log('============:', i)
+          await db.addRowByFieldName({
+            databaseId,
+            name: 'Notion',
+            url: 'https://www.notion.so',
+            tag: 'react',
+          })
+          const tb = Date.now()
+          console.log('i-------:', i, tb - ta)
+        }
+        const t1 = Date.now()
+        console.log('===========:time: ', t1 - t0, 'ms')
+
         return
         await db.createDatabase({
           spaceId: activeSpace.id,

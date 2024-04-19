@@ -348,6 +348,17 @@ export class DatabaseDomain {
     return database!
   }
 
+  getColumnByFieldName = async (databaseId: string, fieldName: string) => {
+    const columns = (await this.penx.node
+      .where({
+        databaseId,
+        type: NodeType.COLUMN,
+      })
+      .toArray()) as IColumnNode[]
+
+    return columns.find((column) => column.props.fieldName === fieldName)
+  }
+
   addView = async (databaseId: string, viewType: ViewType) => {
     const database = (await this.node.getNode(databaseId)) as IDatabaseNode
     const spaceId = database.spaceId
@@ -627,12 +638,12 @@ export class DatabaseDomain {
       })
       .toArray()) as IRowNode[]
 
-    const isSortNormal = this.checkRowsSortNormal(rows)
+    // const isSortNormal = this.checkRowsSortNormal(rows)
 
-    // fix sort
-    if (!isSortNormal) {
-      await this.fixRowsSort(rows)
-    }
+    // // fix sort
+    // if (!isSortNormal) {
+    //   await this.fixRowsSort(rows)
+    // }
 
     const row = await this.node.createNode<IRowNode>({
       spaceId,
@@ -644,16 +655,30 @@ export class DatabaseDomain {
       },
     })
 
-    const columns = await this.penx.node
+    const columns = (await this.penx.node
       .where({
         type: NodeType.COLUMN,
         spaceId,
         databaseId,
       })
-      .toArray()
+      .toArray()) as IColumnNode[]
 
-    const promises = columns.map((column) => {
-      const cellData = data[column.props.fieldName]
+    const optionMap: Record<string, string[]> = {}
+
+    for (const column of columns) {
+      let cellData = data[column.props.fieldName]
+      if (column.props.fieldType === FieldType.MULTIPLE_SELECT) {
+        const option = await this.addOption(databaseId, column.id, cellData)
+        optionMap[cellData] = [option.id]
+      }
+    }
+
+    const promises = columns.map((column, index) => {
+      let cellData = data[column.props.fieldName]
+
+      if (column.props.fieldType === FieldType.MULTIPLE_SELECT) {
+        cellData = optionMap[cellData]
+      }
 
       return this.node.createNode<ICellNode>({
         spaceId,
@@ -1088,7 +1113,20 @@ export class DatabaseDomain {
     const database = (await this.node.getNode(databaseId)) as IDatabaseNode
     const spaceId = database.spaceId
 
-    const option = await this.node.createNode<IOptionNode>({
+    const options = await this.penx.node
+      .where({
+        databaseId,
+        type: NodeType.OPTION,
+      })
+      .toArray()
+
+    const find = options.find((item) => item.props.name === name)
+
+    if (find) {
+      return find as IOptionNode
+    }
+
+    const newOption = await this.node.createNode<IOptionNode>({
       spaceId,
       databaseId,
       parentId: databaseId,
@@ -1105,11 +1143,11 @@ export class DatabaseDomain {
     await this.node.updateNode(columnId, {
       props: {
         ...column.props,
-        optionIds: [...(column.props.optionIds || []), option.id],
+        optionIds: [...(column.props.optionIds || []), newOption.id],
       },
     })
 
-    return option
+    return newOption
   }
 
   updateColumnOptions = async (

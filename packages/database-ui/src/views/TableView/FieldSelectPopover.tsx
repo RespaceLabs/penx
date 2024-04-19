@@ -10,7 +10,9 @@ const textMap: Record<string, string> = {
   [FieldType.TEXT]: 'Text',
   [FieldType.NUMBER]: 'Number',
   [FieldType.PASSWORD]: 'Password',
-  [FieldType.SINGLE_SELECT]: 'Single Select',
+  [FieldType.URL]: 'URL',
+  [FieldType.SINGLE_SELECT]: 'Single select',
+  [FieldType.MULTIPLE_SELECT]: 'Multiple select',
   [FieldType.CREATED_AT]: 'Created At',
   [FieldType.UPDATED_AT]: 'Updated At',
 }
@@ -47,6 +49,9 @@ export const FieldSelectPopover = forwardRef<HTMLDivElement, Props>(
                     FieldType.TEXT,
                     FieldType.NUMBER,
                     FieldType.PASSWORD,
+                    FieldType.URL,
+                    FieldType.SINGLE_SELECT,
+                    FieldType.MULTIPLE_SELECT,
                   ].includes(value),
                 )
                 .map(([key, value]) => (
