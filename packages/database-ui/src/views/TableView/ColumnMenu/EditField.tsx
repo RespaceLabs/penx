@@ -4,9 +4,9 @@ import { Box } from '@fower/react'
 import { ChevronDown, X } from 'lucide-react'
 import { Button, Input, usePopoverContext } from 'uikit'
 import { FieldType, IColumnNode, IOptionNode } from '@penx/model-types'
-import { useDatabaseContext } from '../../DatabaseContext'
-import { FieldSelectPopover } from './FieldSelectPopover'
-import { Option, useEditFieldForm } from './useEditFieldForm'
+import { useDatabaseContext } from '../../../DatabaseContext'
+import { FieldSelectPopover } from '../FieldSelectPopover'
+import { Option, useEditFieldForm } from '../useEditFieldForm'
 
 interface EditFieldProps {
   column: IColumnNode
@@ -24,20 +24,30 @@ export function EditField({ column, onSave, close }: EditFieldProps) {
   }
 
   return (
-    <Box as="form" column gap3 onSubmit={(formState) => onSubmit(formState)}>
+    <Box as="form" column gap3 p3 onSubmit={(formState) => onSubmit(formState)}>
       <Box textXS gray500 mb--4>
-        Column Name
+        Display name
       </Box>
       <Controller
-        name="name"
+        name="displayName"
         control={control}
         rules={{ required: true }}
         render={({ field }) => <Input size="sm" placeholder="" {...field} />}
       />
+
+      <Box textXS gray500 mb--4>
+        Field name
+      </Box>
+      <Controller
+        name="fieldName"
+        control={control}
+        rules={{ required: true }}
+        render={({ field }) => <Input size="sm" placeholder="" {...field} />}
+      />
+
       <Box textXS gray500 mb--4>
         Type
       </Box>
-
       <Controller
         name="fieldType"
         control={control}

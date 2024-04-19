@@ -13,7 +13,7 @@ import {
 import { Input, MenuItem, modalController, usePopoverContext } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { IColumnNode } from '@penx/model-types'
-import { useDatabaseContext } from '../../DatabaseContext'
+import { useDatabaseContext } from '../../../DatabaseContext'
 import { EditField } from './EditField'
 
 interface ColumnMenuProps {
@@ -60,7 +60,7 @@ export function ColumnMenu({ index = 0, column, close }: ColumnMenuProps) {
     <Box>
       <Box p2>
         <Box textXS gray400 mb1>
-          Column name
+          Display name
         </Box>
         <Input
           size={isMobile ? 'md' : 'sm'}

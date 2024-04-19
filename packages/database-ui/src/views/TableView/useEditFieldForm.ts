@@ -12,7 +12,8 @@ export type Option = {
 }
 
 export type EditFieldValues = {
-  name: string
+  displayName: string
+  fieldName: string
   fieldType: any
   options: Option[]
 }
@@ -25,7 +26,8 @@ export function useEditFieldForm(column: IColumnNode) {
 
   const form = useForm<EditFieldValues>({
     defaultValues: {
-      name: column.props.displayName,
+      displayName: column.props.displayName,
+      fieldName: column.props.fieldName,
       fieldType: column.props.fieldType,
       options: columnOptions.map((o) => ({
         id: o.id,

@@ -11,7 +11,7 @@ import {
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { IColumnNode } from '@penx/model-types'
-import { ColumnMenu } from './ColumnMenu'
+import { ColumnMenu } from './ColumnMenu/ColumnMenu'
 
 interface ColumnConfigModalData {
   index?: number

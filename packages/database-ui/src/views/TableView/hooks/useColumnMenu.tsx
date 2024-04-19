@@ -1,9 +1,9 @@
-import { PropsWithChildren, useCallback, useRef, useState } from 'react'
+import { useState } from 'react'
 import { useLayer } from 'react-laag'
-import { Box, css } from '@fower/react'
+import { Box } from '@fower/react'
 import { Rectangle } from '@glideapps/glide-data-grid'
 import { IColumnNode } from '@penx/model-types'
-import { ColumnMenu } from '../ColumnMenu'
+import { ColumnMenu } from '../ColumnMenu/ColumnMenu'
 
 export const useColumnMenu = (columns: IColumnNode[]) => {
   const [menu, setMenu] = useState<{

@@ -163,11 +163,11 @@ export class NodeDomain {
   }
 
   updateNodeProps = async (nodeId: string, props: Partial<INode['props']>) => {
-    const newNode = await this.node.update(nodeId, {
-      props,
+    const node = await this.getNode(nodeId)
+    const newProps = { ...node.props, ...props }
+    await this.node.update(nodeId, {
+      props: newProps,
     })
-
-    return newNode
   }
 
   deleteNode = async (nodeId: string) => {
