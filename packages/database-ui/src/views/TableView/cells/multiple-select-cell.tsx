@@ -155,6 +155,7 @@ function Combobox({
   }
 
   const [items, setItems] = useState(columnOptions)
+
   const [inputValue, setInputValue] = useState('')
   const {
     isOpen,
