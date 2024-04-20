@@ -63,6 +63,9 @@ export class DatabaseDomain {
     columnSchema = [],
     shouldInitCells = false,
   }: createDatabaseOptions) => {
+    const databaseByName = await this.getDatabaseByName(spaceId, name)
+    if (databaseByName) return databaseByName as IDatabaseNode
+
     const databaseRootNode = await this.getDatabaseRootNode(spaceId)
 
     const database = await this.node.createNode<IDatabaseNode>({
@@ -1290,20 +1293,15 @@ export class DatabaseDomain {
     })
   }
 
-  deleteDatabase = async (node: INode) => {
-    const nodes = await this.penx.node
+  deleteDatabase = async (node: IDatabaseNode) => {
+    const deleteCount = await this.penx.node
       .where({
         databaseId: node.id,
       })
-      .toArray()
+      .delete()
+    console.log('===========deleteCount:', deleteCount)
 
-    let promises: Promise<any>[] = []
-
-    for (const item of nodes) {
-      promises.push(this.penx.node.delete(item.id))
-    }
-
-    await Promise.all(promises)
+    await this.node.deleteNode(node.id)
 
     const databaseRoot = await this.getDatabaseRootNode(node.spaceId)
 

@@ -24,13 +24,21 @@ export const UseThisTagButton = ({ database, columns }: DatabaseProps) => {
     <Button
       colorScheme="black"
       onClick={async () => {
+        const name = database.props.name.replace('$template__', '')
         const spaceId = await getActiveSpaceId()
+        const findDatabase = await db.getDatabaseByName(spaceId, name)
+
+        if (findDatabase) {
+          // console.log('===========findDatabase:', findDatabase)
+          return
+        }
+
         console.log('go.......:', spaceId)
         const newDatabase = await db.createDatabase({
           spaceId,
-          name: database.props.name.replace('$template__', ''),
+          name,
           columnSchema: columns
-            .sort((a, b) => (a.props.isPrimary ? 1 : -1))
+            .sort((a) => (a.props.isPrimary ? 1 : -1))
             .map((column) => column.props),
           shouldInitCells: false,
         })

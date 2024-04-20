@@ -114,7 +114,7 @@ export const DatabaseProvider = ({
     const view = database.views.find(
       (v) => v.id === database.database.props.activeViewId,
     )
-    return view?.id || database.views[0].id
+    return view?.id || database?.views[0]?.id
   })
 
   async function reloadNodes() {

@@ -22,8 +22,7 @@ export const BulletMenu = ({ menuId, element }: Props) => {
   function handleItemClick(type: string) {
     if (type === 'DELETE') {
       if (element.nodeType === NodeType.DATABASE) {
-        const database = editor.items.find((i) => i.id === element.id)!
-        modalController.open(ModalNames.DELETE_DATABASE, database)
+        toast.warning('Can not delete database node')
       } else {
         Transforms.removeNodes(editor, { at: Path.parent(path) })
       }

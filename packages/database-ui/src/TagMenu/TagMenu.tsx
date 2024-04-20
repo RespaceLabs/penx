@@ -4,6 +4,7 @@ import {
   Divider,
   Input,
   MenuItem,
+  modalController,
   Popover,
   PopoverClose,
   PopoverContent,
@@ -11,12 +12,14 @@ import {
   toast,
   usePopoverContext,
 } from 'uikit'
+import { ModalNames } from '@penx/constants'
 import { db, getColorNames } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { IDatabaseNode } from '@penx/model-types'
 import { useCopyToClipboard } from '@penx/shared'
 import { store } from '@penx/store'
-import { useDatabaseContext } from './DatabaseContext'
+import { useDatabaseContext } from '../DatabaseContext'
+import { DeleteDatabaseModal } from './DeleteDatabaseModal'
 
 interface Props {
   database: IDatabaseNode
@@ -89,7 +92,14 @@ function Content() {
       {!isBuiltin && (
         <>
           <Divider />
-          <MenuItem>Delete (coming)</MenuItem>
+          <MenuItem
+            onClick={() => {
+              modalController.open(ModalNames.DELETE_DATABASE, database)
+              close()
+            }}
+          >
+            Delete database
+          </MenuItem>
         </>
       )}
 
@@ -115,6 +125,7 @@ export const TagMenu = () => {
 
   return (
     <Box toCenterY left3 top-2 h="1.5em">
+      <DeleteDatabaseModal />
       <Popover>
         <PopoverTrigger asChild>
           <Box toCenterY gap1 cursorPointer>

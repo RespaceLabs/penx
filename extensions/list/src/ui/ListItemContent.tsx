@@ -9,12 +9,10 @@ import { TElement, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
 import { ElementProps } from '@penx/extension-typings'
 import { NodeType } from '@penx/model-types'
-import { store } from '@penx/store'
 import { ListContentElement } from '../types'
 import { Bullet } from './Bullet'
 import { BulletMenu } from './BulletMenu'
 import { Chevron } from './Chevron'
-import { DeleteDatabaseModal } from './DeleteDatabaseModal'
 
 interface Props extends ElementProps<ListContentElement> {
   style?: CSSProperties
@@ -60,7 +58,6 @@ export const ListItemContent = memo(
 
     return (
       <>
-        <DeleteDatabaseModal />
         <Box
           {...attributes}
           ref={mergeRefs([ref, attributes.ref])}

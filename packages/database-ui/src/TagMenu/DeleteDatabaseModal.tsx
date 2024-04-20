@@ -11,17 +11,13 @@ import {
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
 import { db } from '@penx/local-db'
-import { Node } from '@penx/model'
+import { IDatabaseNode } from '@penx/model-types'
 import { store } from '@penx/store'
 
-interface Props {
-  onDeleteColumn: (columnId: string) => Promise<void>
-}
-
 const Footer = () => {
-  const { data } = useModalContext<Node>()
-  async function deleteColumn() {
-    await db.deleteDatabase(data.raw)
+  const { data } = useModalContext<IDatabaseNode>()
+  async function deleteDatabase() {
+    await db.deleteDatabase(data)
     store.node.selectDailyNote()
     close()
   }
@@ -31,7 +27,7 @@ const Footer = () => {
       <ModalClose asChild>
         <Button colorScheme="white">Cancel</Button>
       </ModalClose>
-      <Button colorScheme="red500" onClick={deleteColumn}>
+      <Button colorScheme="red500" onClick={deleteDatabase}>
         Delete
       </Button>
     </Box>
