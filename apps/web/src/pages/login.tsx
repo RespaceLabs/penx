@@ -1,9 +1,11 @@
 import { Suspense, useEffect, useMemo } from 'react'
 import { Box } from '@fower/react'
 import { useRouter } from 'next/router'
+import { ToastContainer } from 'uikit'
 import { useHideLogoLoader } from '@penx/hooks'
 import { IconWallet } from '@penx/icons'
 import { ClientOnly } from '~/components/ClientOnly'
+import { LoginForm } from '~/components/LoginForm/LoginForm'
 import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
 import { Logo } from '~/components/Logo'
 import { SiweModal } from '~/components/SiweModal'
@@ -16,6 +18,10 @@ export default function LoginPage() {
   useHideLogoLoader()
 
   const loginEntry = useMemo(() => {
+    if (process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED') {
+      return <LoginForm />
+    }
+
     return (
       <Box column gap2 toCenterX>
         <SiweModal />
@@ -37,6 +43,7 @@ export default function LoginPage() {
 
   return (
     <ClientOnly>
+      <ToastContainer position="bottom-right" />
       <WalletConnectProvider>
         <Box column h-100vh>
           <Box mx-auto py8 toCenter>

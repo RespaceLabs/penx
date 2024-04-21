@@ -50,6 +50,47 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     ],
   )
 
+  if (process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED') {
+    providers.push(
+      credentialsProvider({
+        name: 'SelfHosted',
+        credentials: {
+          username: { label: 'Username', type: 'text', placeholder: '' },
+          password: { label: 'Password', type: 'password' },
+        },
+        async authorize(credentials, req) {
+          const [username, password] = (
+            process.env.SELF_HOSTED_CREDENTIALS as string
+          ).split('/')
+
+          if (
+            username === credentials!.username &&
+            password === credentials!.password
+          ) {
+            let user = await prisma.user.findFirst({
+              where: { username, password },
+            })
+
+            if (!user) {
+              user = await prisma.user.create({
+                data: { username, password, name: username },
+              })
+            }
+
+            return {
+              id: user.id,
+              name: user.username || user.name,
+              email: user.email || '',
+              image: '',
+            }
+          } else {
+            return null
+          }
+        },
+      }),
+    )
+  }
+
   providers.push(
     credentialsProvider({
       name: 'Ethereum',

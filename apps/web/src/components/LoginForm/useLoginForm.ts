@@ -29,10 +29,11 @@ export function useLoginForm() {
       const res = await signIn('credentials', {
         redirect: false,
         ...data,
-        callbackUrl: '/editor',
+        callbackUrl: '/',
       })
+
       if (res?.ok) {
-        push('/editor')
+        push('/')
       } else {
         toast.error('Invalid Username or Password')
       }
