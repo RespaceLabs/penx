@@ -52,11 +52,11 @@ function SidebarItem({
 }
 
 export const SettingsSidebar = () => {
-  const { user } = useUser()
   const { loading, data: session } = useSession()
   const { spaces } = useSpaces()
 
   const name = useMemo(() => {
+    if (!session) return ''
     if (session.user.email) return session.user.email
     if (session.user.name) return session.user.name
     if (session.address) {
@@ -65,9 +65,9 @@ export const SettingsSidebar = () => {
     return 'Unknown'
   }, [session])
 
-  if (loading || !user) return null
+  if (loading) return null
 
-  const image = session.user?.image || ''
+  const image = session?.user?.image || ''
 
   return (
     <Box column w={['100%', '100%', 260]} bgGray100 p6 flexShrink-0>
