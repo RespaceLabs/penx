@@ -5,11 +5,13 @@
   "types": "./index.ts",
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
-    "dev": "pnpm with-env prisma generate",
-    "build": "pnpm with-env prisma generate",
-    "db:generate": "pnpm with-env prisma generate",
-    "db:push": "pnpm with-env prisma db push --skip-generate",
-    "db:migrate": "pnpm with-env prisma migrate dev --name init",
+    "dev": "npm-run-all check-env copy-db-files db-generate",
+    "build": "npm-run-all check-env copy-db-files db-generate",
+    "check-env": "pnpm with-env node scripts/check-env.js",
+    "copy-db-files": "pnpm with-env node scripts/copy-db-files.js",
+    "db-generate": "pnpm with-env prisma generate",
+    "db-push": "pnpm with-env prisma db push --skip-generate",
+    "db-migrate": "pnpm with-env prisma migrate dev --create-only --name init",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
@@ -18,6 +20,8 @@
   "devDependencies": {
     "@types/node": "^20.10.3",
     "dotenv-cli": "^7.3.0",
+    "fs-extra": "^11.2.0",
+    "npm-run-all": "^4.1.5",
     "prisma": "^5.6.0",
     "typescript": "^5.3.2"
   }

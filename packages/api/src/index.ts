@@ -3,6 +3,7 @@ import { type AppRouter } from './root'
 
 export { appRouter, type AppRouter } from './root'
 export { createTRPCContext } from './trpc'
+export * from './libs/hashPassword'
 
 /**
  * Inference helpers for input types

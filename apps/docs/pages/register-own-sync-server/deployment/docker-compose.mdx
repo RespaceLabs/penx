@@ -21,7 +21,6 @@ services:
       - NEXTAUTH_SECRET={{jwt_secret}}
       - DATABASE_URL={{postgresql_database_url}}
       - REDIS_URL={{redis_url}}
-      - SELF_HOSTED_CREDENTIALS=penx/123456 # username and password
     ports:
       - '3000:3000'
 ```

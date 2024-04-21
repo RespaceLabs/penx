@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm with-env next dev -p 3000",
     "build": "pnpm with-env next build",
+    "dev": "pnpm with-env next dev -p 3000",
     "start": "pnpm with-env next start",
     "lint": "next lint",
     "with-env": "dotenv -e ../../.env --"
@@ -73,6 +73,7 @@
     "@web3modal/core": "^4.1.0",
     "@web3modal/siwe": "^4.1.0",
     "@web3modal/wagmi": "^4.1.0",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
@@ -138,6 +139,7 @@
     "@babel/core": "^7.23.5",
     "@penx/tsconfig": "workspace:*",
     "@svgr/webpack": "^8.1.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/crypto-js": "^4.2.1",
     "@types/is-hotkey": "^0.1.10",
     "@types/jsonwebtoken": "^9.0.5",

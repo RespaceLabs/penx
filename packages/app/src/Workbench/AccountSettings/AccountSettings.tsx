@@ -2,6 +2,7 @@ import { Box } from '@fower/react'
 import { Tag } from 'uikit'
 import { useSession } from '@penx/session'
 import { PersonalToken } from './PersonalToken'
+import { UpdatePassword } from './UpdatePassword'
 
 export function AccountSettings() {
   const { data } = useSession()
@@ -18,6 +19,7 @@ export function AccountSettings() {
       </Box>
 
       <PersonalToken />
+      <UpdatePassword />
     </Box>
   )
 }

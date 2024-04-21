@@ -1,7 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'uikit'
-import { useSession } from '@penx/session'
-import { store } from '@penx/store'
 import { api, trpc } from '@penx/trpc-client'
 
 export type CreateTokenValues = {

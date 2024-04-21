@@ -1,12 +1,11 @@
 import { TRPCError } from '@trpc/server'
 import Redis from 'ioredis'
-import jwt from 'jsonwebtoken'
-import { nanoid } from 'nanoid'
 import { z } from 'zod'
-import { RedisKeys, SyncServerType } from '@penx/constants'
-import { prisma, User } from '@penx/db'
+import { RedisKeys } from '@penx/constants'
+import { prisma } from '@penx/db'
 import { GithubInfo } from '@penx/model'
 import { getMe } from '../libs/getMe'
+import { hashPassword } from '../libs/hashPassword'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 const redis = new Redis(process.env.REDIS_URL!)
@@ -54,9 +53,8 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const [username, password] = (
-        process.env.SELF_HOSTED_CREDENTIALS as string
-      ).split('/')
+      const username = process.env.SELF_HOSTED_USERNAME as string
+      const password = process.env.SELF_HOSTED_PASSWORD as string
 
       if (username === input.username && password === input.password) {
         let user = await ctx.prisma.user.findFirst({
@@ -73,6 +71,22 @@ export const userRouter = createTRPCRouter({
           message: 'user not found',
         })
       }
+    }),
+
+  updateSelfHostedPassword: protectedProcedure
+    .input(
+      z.object({
+        username: z.string(),
+        password: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { username, password } = input
+      const newPassword = await hashPassword(password)
+      return ctx.prisma.user.update({
+        where: { id: ctx.token.uid },
+        data: { username, password: newPassword },
+      })
     }),
 
   create: protectedProcedure

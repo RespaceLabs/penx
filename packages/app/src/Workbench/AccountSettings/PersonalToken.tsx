@@ -4,8 +4,8 @@ import { Code } from 'lucide-react'
 import { Button, Input } from 'uikit'
 import { trpc } from '@penx/trpc-client'
 import { DeleteTokenPopover } from './DeleteTokenPopover'
+import { useCreateTokenForm } from './hooks/useCreateTokenForm'
 import { Title } from './Title'
-import { useCreateTokenForm } from './useCreateTokenForm'
 
 function TokenList() {
   const { data = [], isLoading } =

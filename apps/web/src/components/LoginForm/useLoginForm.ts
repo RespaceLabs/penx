@@ -35,11 +35,15 @@ export function useLoginForm() {
       if (res?.ok) {
         push('/')
       } else {
+        console.log('======res:', res)
+
         toast.error('Invalid Username or Password')
+        setLoading(false)
       }
     } catch (error) {
+      console.log('==========error:', error)
+
       toast.error('Invalid Username or Password')
-    } finally {
       setLoading(false)
     }
   }

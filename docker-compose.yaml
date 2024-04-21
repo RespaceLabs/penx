@@ -9,7 +9,8 @@ services:
         DATABASE_URL: postgresql://postgres:a73F4EXMWYpFxpxH@db.xwjwmhepndygekdrxasp.supabase.co:5432/postgres
         REDIS_URL: redis://default:PenX_local_123456@43.154.135.183:6381
         NEXT_PUBLIC_DEPLOY_MODE: SELF_HOSTED
-        SELF_HOSTED_CREDENTIALS: penx/123456
+        SELF_HOSTED_USERNAME: penx
+        SELF_HOSTED_PASSWORD: 123456
     container_name: penx_web
     ports:
       - '3000:3000'

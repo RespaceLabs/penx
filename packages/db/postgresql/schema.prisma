@@ -1,0 +1,340 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id                 String    @id @default(uuid())
+    address            String?   @unique // wallet address
+    name               String? // nickname
+    bio                String?
+    avatar             String?
+    password           String?
+    roleType           String?
+    github             Json? // github info
+    google             Json? // google info
+    taskGithub         Json? // github binding for task
+    username           String?
+    email              String?   @unique
+    emailVerified      DateTime?
+    image              String?
+    earlyAccessCode    String?
+    publicKey          String?
+    isMnemonicBackedUp Boolean   @default(false)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    accounts   Account[]
+    sessions   Session[]
+    spaces     Space[]
+    SiteSpace  SiteSpace[]
+    SyncServer SyncServer[]
+
+    connectedSyncServerId String?
+
+    @@index([id])
+    @@index([address])
+    @@map("user")
+}
+
+model Account {
+    id                       String  @id @default(uuid())
+    userId                   String
+    type                     String
+    provider                 String
+    providerAccountId        String
+    refresh_token            String?
+    access_token             String?
+    refresh_token_expires_in Int?
+    expires_at               Int?
+    token_type               String?
+    scope                    String?
+    id_token                 String?
+    session_state            String?
+    oauth_token_secret       String?
+    oauth_token              String?
+
+    user User @relation(fields: [userId], references: [id])
+
+    @@unique([provider, providerAccountId])
+    @@index([userId])
+    @@map("account")
+}
+
+model Session {
+    id           String   @id @default(uuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id])
+
+    @@index([userId])
+    @@map("session")
+}
+
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+    @@map("verification_token")
+}
+
+model PersonalToken {
+    id          String    @id @default(uuid())
+    userId      String
+    value       String    @unique
+    type        String?
+    description String?
+    createdAt   DateTime? @default(now())
+    updatedAt   DateTime? @updatedAt
+
+    @@map("personal_token")
+}
+
+model Task {
+    id          String    @id @default(uuid())
+    userId      String
+    title       String
+    status      String
+    description String?
+    tags        String?
+    figmaUrl    String?
+    issueUrl    String?
+    prUrl       String?
+    usdReward   Int
+    tokenReward Int
+    claimStage  String
+    createdAt   DateTime? @default(now())
+    updatedAt   DateTime? @updatedAt
+
+    @@map("task")
+}
+
+model Bounty {
+    id          String    @id @default(uuid())
+    address     String? // wallet address
+    title       String
+    status      String
+    description String?
+    tags        String?
+    issueUrl    String?
+    prUrl       String?
+    rewards     Json?
+    createdAt   DateTime? @default(now())
+    updatedAt   DateTime? @updatedAt
+
+    @@map("bounty")
+}
+
+model SyncServer {
+    id          String    @id @default(uuid())
+    name        String
+    url         String?
+    token       String    @unique
+    description String?   @db.Text
+    region      String?
+    type        String?
+    machineIp   String?
+    heartbeatAt DateTime?
+    userCount   Int       @default(0)
+    spaceCount  Int       @default(0)
+    nodeCount   Int       @default(0)
+    deletedAt   DateTime?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+
+    user   User?  @relation(fields: [userId], references: [id])
+    userId String
+
+    @@index([userId])
+    @@map("sync_server")
+}
+
+model Runner {
+    id          String    @id @default(uuid())
+    userId      String
+    Space       Space[]
+    name        String?
+    type        String?
+    machineIp   String?
+    heartbeatAt DateTime?
+    deletedAt   DateTime?
+    createdAt   DateTime? @default(now())
+    updatedAt   DateTime? @updatedAt
+
+    @@index([userId])
+    @@map("runner")
+}
+
+model Space {
+    id               String  @id @default(uuid())
+    name             String
+    description      String? @db.Text
+    subdomain        String? @unique
+    customDomain     String? @unique
+    editorMode       String?
+    sort             Int     @default(0)
+    color            String
+    encrypted        Boolean @default(false)
+    activeNodeIds    Json?
+    nodeSnapshot     Json?
+    pageSnapshot     Json?
+    syncedNodesCount Int     @default(0)
+
+    deletedAt DateTime?
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+
+    user   User?   @relation(fields: [userId], references: [id])
+    userId String?
+
+    Runner   Runner? @relation(fields: [runnerId], references: [id])
+    runnerId String?
+
+    @@index([userId])
+    @@map("space")
+}
+
+model Node {
+    id         String  @id @default(uuid())
+    spaceId    String
+    parentId   String?
+    databaseId String?
+    type       String
+    element    Json
+    props      Json?
+    collapsed  Boolean @default(false)
+    folded     Boolean @default(true)
+    children   Json?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([spaceId])
+    @@index([type])
+    @@map("node")
+}
+
+model SiteSpace {
+    id           String  @id @default(uuid())
+    name         String
+    description  String? @db.Text
+    subdomain    String? @unique
+    customDomain String? @unique
+    editorMode   String?
+    color        String
+
+    activeNodeIds Json?
+
+    nodeSnapshot Json?
+    pageSnapshot Json?
+
+    deletedAt DateTime?
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+
+    user   User?   @relation(fields: [userId], references: [id])
+    userId String?
+
+    @@index([userId])
+    @@map("site_space")
+}
+
+model SiteNode {
+    id          String  @id @default(uuid())
+    siteSpaceId String
+    parentId    String?
+    databaseId  String?
+    type        String
+    element     Json
+    props       Json?
+    collapsed   Boolean @default(false)
+    folded      Boolean @default(true)
+    children    Json?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([siteSpaceId])
+    @@index([type])
+    @@map("site_node")
+}
+
+model PublishedNode {
+    id         String    @id @default(uuid())
+    spaceId    String
+    nodeId     String    @unique
+    nodes      Json
+    password   String?
+    reviewable Boolean   @default(false)
+    editable   Boolean   @default(false)
+    expiresAt  DateTime?
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+
+    @@unique([spaceId, nodeId])
+    @@index([spaceId])
+    @@index([nodeId])
+    @@map("published_node")
+}
+
+model Theme {
+    id           String   @id @default(uuid())
+    spaceId      String
+    userId       String
+    name         String
+    introduction String?  @db.Text
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    @@map("theme")
+}
+
+model Template {
+    id          String   @id @default(uuid())
+    name        String
+    description String?  @db.Text
+    content     String   @db.Text
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@map("template")
+}
+
+model Extension {
+    id          String   @id @default(uuid())
+    uniqueId    String
+    name        String
+    version     String
+    description String?  @db.Text
+    readme      String?  @db.Text
+    code        String   @db.Text
+    author      String?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@map("extension")
+}
+
+model InvitationToken {
+    id        String    @id @default(uuid())
+    userId    String
+    spaceId   String
+    roleType  String?
+    token     String?
+    deletedAt DateTime?
+    createdAt DateTime? @default(now())
+    updatedAt DateTime? @updatedAt
+
+    @@map("invitation_token")
+}

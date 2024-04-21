@@ -1,10 +1,10 @@
 import { google } from 'googleapis'
 import Redis from 'ioredis'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { RedisKeys } from '@penx/constants'
+// import { RedisKeys } from '@penx/constants'
 import { prisma } from '@penx/db'
 
-const redis = new Redis(process.env.REDIS_URL!)
+// const redis = new Redis(process.env.REDIS_URL!)
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
 const clientSecret = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!
@@ -45,8 +45,8 @@ export default async function handler(
     },
   })
 
-  const redisKey = RedisKeys.user(userId)
-  await redis.del(redisKey)
+  // const redisKey = RedisKeys.user(userId)
+  // await redis.del(redisKey)
 
   res.redirect(`/?from=${from}`)
 }

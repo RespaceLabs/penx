@@ -30,6 +30,7 @@
     "@trpc/client": "^10.45.1",
     "@trpc/next": "^10.45.1",
     "@trpc/server": "^10.45.1",
+    "bcrypt": "^5.1.1",
     "date-fns": "^2.30.0",
     "googleapis": "^134.0.0",
     "ioredis": "^5.3.2",
@@ -46,6 +47,7 @@
   "devDependencies": {
     "@octokit/openapi-types": "^18.1.1",
     "@penx/eslint-config": "workspace:*",
+    "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.5",
     "eslint": "^8.57.0",
     "slate": "0.102.0",
