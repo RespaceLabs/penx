@@ -41,7 +41,7 @@ ENV DATABASE_URL=${DATABASE_URL}
 ARG NEXT_PUBLIC_DEPLOY_MODE=SELF_HOSTED
 
 RUN turbo run build --filter=@penx/db
-RUN turbo build --filter=web...
+RUN turbo run build --filter=web...
 
 FROM base AS runner
 WORKDIR /app
