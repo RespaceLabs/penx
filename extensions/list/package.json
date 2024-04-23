@@ -33,7 +33,7 @@
     "@penx/editor-common": "workspace:*",
     "@penx/editor-composition": "workspace:*",
     "@penx/editor-queries": "workspace:*",
-    "@penx/extension-typings": "^0.0.0",
+    "@penx/extension-typings": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/node-hooks": "workspace:*",
     "@penx/icons": "workspace:*",

@@ -19,6 +19,6 @@
   "dependencies": {
     "@penx/autoformat": "workspace:*",
     "@penx/editor-common": "workspace:*",
-    "@penx/extension-typings": "^0.0.0"
+    "@penx/extension-typings": "workspace:*"
   }
 }

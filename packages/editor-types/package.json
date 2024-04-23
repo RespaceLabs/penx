@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@penx/editor-shared": "workspace:^",
-    "@penx/extension-typings": "^0.0.0",
+    "@penx/extension-typings": "workspace:*",
     "lodash": "^4.17.21"
   }
 }

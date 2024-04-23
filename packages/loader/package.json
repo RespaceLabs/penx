@@ -28,7 +28,7 @@
     "@penx/divider": "workspace:*",
     "@penx/editor-common": "workspace:*",
     "@penx/extension-list": "workspace:*",
-    "@penx/extension-typings": "^0.0.0",
+    "@penx/extension-typings": "workspace:*",
     "@penx/heading": "workspace:*",
     "@penx/image": "workspace:*",
     "@penx/link": "workspace:*",

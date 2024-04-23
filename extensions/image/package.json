@@ -28,7 +28,7 @@
     "@penx/editor-shared": "workspace:*",
     "@penx/editor-transforms": "workspace:*",
     "@penx/encryption": "workspace:*",
-    "@penx/extension-typings": "^0.0.0",
+    "@penx/extension-typings": "workspace:*",
     "@penx/google-drive": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/node-hooks": "workspace:*",

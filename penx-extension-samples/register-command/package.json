@@ -13,8 +13,8 @@
     "build": "tsup main.ts --format esm"
   },
   "devDependencies": {
-    "@penx/extension-dev-server": "^0.0.0",
-    "@penx/extension-typings": "^0.0.0",
+    "@penx/extension-dev-server": "workspace:*",
+    "@penx/extension-typings": "workspace:*",
     "@types/node": "^20.10.3",
     "tsup": "^7.2.0",
     "tsx": "^3.14.0",

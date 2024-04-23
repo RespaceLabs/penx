@@ -21,7 +21,7 @@
     "@penx/editor-common": "workspace:*",
     "@penx/event": "workspace:*",
     "@penx/storage": "workspace:*",
-    "@penx/extension-typings": "^0.0.0",
+    "@penx/extension-typings": "workspace:*",
     "@penx/local-db": "workspace:*",
     "@penx/model": "workspace:*",
     "@penx/model-types": "workspace:*",

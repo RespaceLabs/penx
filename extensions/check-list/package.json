@@ -24,7 +24,7 @@
     "@penx/editor-common": "workspace:*",
     "@penx/editor-queries": "workspace:*",
     "@penx/editor-transforms": "workspace:*",
-    "@penx/extension-typings": "^0.0.0",
+    "@penx/extension-typings": "workspace:*",
     "@penx/local-db": "workspace:*",
     "lucide-react": "^0.344.0",
     "uikit": "workspace:*"

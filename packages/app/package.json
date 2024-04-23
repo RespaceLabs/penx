@@ -60,7 +60,7 @@
     "@penx/encryption": "workspace:*",
     "@penx/event": "workspace:*",
     "@penx/extension-store": "workspace:*",
-    "@penx/extension-typings": "^0.0.0",
+    "@penx/extension-typings": "workspace:*",
     "@penx/google-drive": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",

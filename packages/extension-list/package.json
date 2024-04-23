@@ -24,7 +24,7 @@
     "@penx/code-block": "workspace:*",
     "@penx/database": "workspace:*",
     "@penx/divider": "workspace:*",
-    "@penx/extension-typings": "^0.0.0",
+    "@penx/extension-typings": "workspace:*",
     "@penx/file": "workspace:*",
     "@penx/heading": "workspace:*",
     "@penx/image": "workspace:*",

@@ -1,8 +1,15 @@
+import path from 'path'
+import { fileURLToPath } from 'url'
 import NextPWA from '@ducanh2912/next-pwa'
 import { PrismaPlugin } from '@prisma/nextjs-monorepo-workaround-plugin'
 // import million from 'million/compiler'
 // Importing env files here to validate on build
 import './src/env.mjs'
+
+const __filename = fileURLToPath(import.meta.url) // get the resolved path to the file
+
+const __dirname = path.dirname(__filename) // get the name of the directory
+console.log('__dirname=========', __dirname)
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -14,8 +21,11 @@ const withPWA = NextPWA({
 
 /** @type {import('next').NextConfig} */
 const config = {
-  // reactStrictMode: true,
+  reactStrictMode: true,
   output: 'standalone',
+  experimental: {
+    outputFileTracingRoot: path.join(__dirname, '../../'),
+  },
   transpilePackages: [
     'octokit',
     '@octokit/oauth-app',
