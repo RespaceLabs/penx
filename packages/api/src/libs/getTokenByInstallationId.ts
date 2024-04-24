@@ -7,7 +7,7 @@ export async function getTokenByInstallationId(installationId: number) {
     appId: process.env.GITHUB_APP_ID!,
     privateKey,
     clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
-    clientSecret: process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
   })
 
   const installationAuthentication = await auth({

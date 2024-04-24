@@ -30,12 +30,12 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     ...[
       GithubProvider({
         clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID as string,
-        clientSecret: process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET as string,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
       }),
 
       GoogleProvider({
         clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
-        clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         authorization: {
           params: {
             scope:

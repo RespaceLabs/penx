@@ -11,3 +11,6 @@ export * from './ui/ModalCloseButton'
 
 export * from './modalContext'
 export * from './modalController'
+
+export * from './slideConfig'
+export * from './slideConfig'

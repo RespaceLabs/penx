@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker'
 import { Box, css, FowerHTMLProps } from '@fower/react'
 import { Plus } from 'lucide-react'
 import { Button, ButtonProps } from 'uikit'
-import { useBottomBarDrawer } from '@penx/hooks'
+import { useBottomBarDrawer, useQuickAdd } from '@penx/hooks'
 import { IconCalendar, IconTodo } from '@penx/icons'
 import { useNodeContext } from '@penx/node-hooks'
 import { store } from '@penx/store'
@@ -34,6 +34,7 @@ function ActionButton({ ...rest }: ActionButtonProps) {
 
 export function BottomBar() {
   const { isOpen, close, open } = useBottomBarDrawer()
+  const quickAdd = useQuickAdd()
   const { node } = useNodeContext()
 
   if (node?.isDatabase) return null
@@ -74,7 +75,7 @@ export function BottomBar() {
         bgGray200--active
         zIndex-100
         onClick={() => {
-          open()
+          quickAdd.setIsOpen(!quickAdd.isOpen)
         }}
       >
         <Box gray500 inlineFlex>

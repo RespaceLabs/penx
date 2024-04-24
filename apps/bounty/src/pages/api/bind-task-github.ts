@@ -6,7 +6,7 @@ import { prisma } from '@penx/db'
 import { GithubInfo } from '@penx/model'
 
 const clientId = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID!
-const clientSecret = process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET!
+const clientSecret = process.env.GITHUB_CLIENT_SECRET!
 
 export default async function handler(
   req: NextApiRequest,

@@ -1,12 +1,20 @@
 import { useState } from 'react'
-import { Box } from '@fower/react'
+import { Box, css, styled } from '@fower/react'
+import {
+  AnimatePresence,
+  HTMLMotionProps,
+  motion,
+  Variant,
+} from 'framer-motion'
 import { useAtomValue } from 'jotai'
+import { X } from 'lucide-react'
 import { useDebouncedCallback } from 'use-debounce'
+import { Button, fadeConfig } from 'uikit'
 import { WORKBENCH_NAV_HEIGHT } from '@penx/constants'
 import { TagDrawer } from '@penx/database'
 import { NodeEditor } from '@penx/editor'
 import { isAstChange } from '@penx/editor-queries'
-import { useActiveSpace } from '@penx/hooks'
+import { useActiveSpace, useQuickAdd } from '@penx/hooks'
 import { Node } from '@penx/model'
 import { NodeProvider, useNodes } from '@penx/node-hooks'
 import { nodeToSlate } from '@penx/serializer'
@@ -16,10 +24,37 @@ import { withAutoNodeId } from '../plugins/withAutoNodeId'
 import { withBulletPlugin } from '../plugins/withBulletPlugin'
 import { BulletDrawer } from './BulletDrawer/BulletDrawer'
 import { LinkedReferences } from './LinkedReferences'
+import { QuickAdd } from './QuickAdd/QuickAdd'
+
+const AnimatedDiv = styled(motion.div)
 
 interface Props {
   index: number
   node: Node
+}
+
+type MotionVariants<T extends string> = Record<T, Variant>
+type ScaleMotionVariant = MotionVariants<'enter' | 'exit'>
+
+const variants: ScaleMotionVariant = {
+  exit: {
+    // opacity: 0,
+    // scale: 0.1,
+    height: 0,
+    transition: {
+      duration: 1,
+      easings: 'easeout',
+    },
+  },
+  enter: {
+    // opacity: 1,
+    // scale: 1,
+    height: '200px',
+    transition: {
+      duration: 1,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
 }
 
 export function PanelItem({ node, index }: Props) {
@@ -53,12 +88,15 @@ export function PanelItem({ node, index }: Props) {
 
   const plugins = [withBulletPlugin]
 
+  const { isOpen, setIsOpen } = useQuickAdd()
+
   if (!activeSpace.isOutliner) {
     plugins.push(withAutoNodeId)
   }
 
   return (
     <Box relative h-100vh flex-1 px={[6, 6, 0]} pt={[8, 8, 0]}>
+      <QuickAdd />
       <Box
         overflowYAuto
         h={[`calc(100vh - ${WORKBENCH_NAV_HEIGHT}px)`, '100vh']}

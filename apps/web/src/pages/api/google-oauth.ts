@@ -7,7 +7,7 @@ import { prisma } from '@penx/db'
 // const redis = new Redis(process.env.REDIS_URL!)
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
-const clientSecret = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!
+const clientSecret = process.env.GOOGLE_CLIENT_SECRET!
 const redirectUri = `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/api/google-oauth`
 
 export default async function handler(

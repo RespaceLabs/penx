@@ -10,6 +10,7 @@ export * from './useSidebarDrawer'
 export * from './usePaletteDrawer'
 export * from './useBottomBarDrawer'
 export * from './useBulletDrawer'
+export * from './useQuickAdd'
 
 export * from './useUser'
 export * from './useActiveNodes'

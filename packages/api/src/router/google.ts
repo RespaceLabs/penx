@@ -5,7 +5,7 @@ import { GoogleDriveConnectedData } from '@penx/types'
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
-const clientSecret = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!
+const clientSecret = process.env.GOOGLE_CLIENT_SECRET!
 
 export const googleRouter = createTRPCRouter({
   googleDriveToken: publicProcedure
