@@ -6,7 +6,7 @@ import {
   ELEMENT_TITLE,
   ELEMENT_UL,
 } from '@penx/constants'
-import { Node, Space } from '@penx/model'
+import { Node } from '@penx/model'
 import { INode } from '@penx/model-types'
 
 /**
@@ -297,7 +297,12 @@ function getDatabaseNodeEditorValue(node: Node) {
 function getDatabaseRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
   const children = node.children
     // TODO: why get an undefined node
-    .filter((id) => nodeMap.get(id))
+    .filter((id) => {
+      const node = nodeMap.get(id)
+      if (!node) return false
+      const { name = '' } = node.props
+      return !name.startsWith('$template__')
+    })
     .map((id) => {
       const databaseNode = nodeMap.get(id)!
       const node = new Node(databaseNode)

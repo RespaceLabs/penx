@@ -166,7 +166,7 @@ export const Sidebar = () => {
       </Box>
 
       <Box px4 column gap2>
-        {!isProd && <CreateDemoDatabaseButton></CreateDemoDatabaseButton>}
+        {/* {!isProd && <CreateDemoDatabaseButton></CreateDemoDatabaseButton>} */}
 
         {/* <SetupGitHubButton /> */}
         <LoginButton />

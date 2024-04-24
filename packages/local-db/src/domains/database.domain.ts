@@ -64,6 +64,7 @@ export class DatabaseDomain {
     shouldInitCells = false,
   }: createDatabaseOptions) => {
     const databaseByName = await this.getDatabaseByName(spaceId, name)
+
     if (databaseByName) return databaseByName as IDatabaseNode
 
     const databaseRootNode = await this.getDatabaseRootNode(spaceId)

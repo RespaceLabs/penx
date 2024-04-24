@@ -28,12 +28,14 @@ export const UseThisTagButton = ({
   rows,
 }: DatabaseProps) => {
   const { close } = useModalContext()
+
   return (
     <Button
       colorScheme="black"
       onClick={async () => {
         const name = database.props.name.replace('$template__', '')
-        const spaceId = await getActiveSpaceId()
+        const activeSpace = store.space.getActiveSpace()
+        const spaceId = activeSpace.id || (await getActiveSpaceId())
         const findDatabase = await db.getDatabaseByName(spaceId, name)
 
         if (findDatabase) {
