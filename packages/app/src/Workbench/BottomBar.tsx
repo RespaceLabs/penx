@@ -10,7 +10,6 @@ import { useNodeContext } from '@penx/node-hooks'
 import { store } from '@penx/store'
 import { DailyShortcut, MotionButton } from '@penx/widget'
 import { setStatusBarColor } from '../common/setStatusBarColor'
-import { BottomBarDrawer } from './BottomBarDrawer/BottomBarDrawer'
 import { QuickAdd } from './QuickAdd/QuickAdd'
 
 interface ActionButtonProps extends ButtonProps, FowerHTMLProps<'button'> {
@@ -46,7 +45,6 @@ export function BottomBar() {
 
   return (
     <>
-      <BottomBarDrawer />
       <QuickAdd />
 
       <Box fixed left3 bottom3 toCenterY gap2 zIndex-100 bgWhite>

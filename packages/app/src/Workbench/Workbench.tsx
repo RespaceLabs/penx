@@ -17,6 +17,7 @@ import { BottomBar } from './BottomBar'
 import { MobileNav } from './NodeNav/MobileNav'
 import { PCNav } from './NodeNav/PCNav'
 import { NodePanels } from './NodePanels'
+import { PageSettings } from './PageSettings/PageSettings'
 import { PageTodo } from './PageTodo/PageTodo'
 import { SettingsModal } from './SettingsModal/SettingsModal'
 import { Sidebar } from './Sidebar/Sidebar'
@@ -95,6 +96,7 @@ export const Workbench = () => {
                 <PCNav />
                 <MobileNav />
 
+                {name === 'SETTINGS' && <PageSettings />}
                 {name === 'TODOS' && <PageTodo />}
                 {name === 'WEB3_PROFILE' && <Web3Profile />}
                 {name === 'TASK_BOARD' && <TaskBoard />}

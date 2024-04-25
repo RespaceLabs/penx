@@ -104,6 +104,7 @@ export const SidebarDrawer = () => {
           zIndex-101
           // overflowHidden
           // bgNeutral100
+          outlineNone
           px4
           py4
         >

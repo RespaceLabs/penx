@@ -44,11 +44,17 @@ export class RouterStore {
     return routerName === 'TODOS'
   }
 
+  isSettings = () => {
+    const routerName = this.getName()
+    return routerName === 'SETTINGS'
+  }
+
   isShowMobileMenu = () => {
     const routerName = this.getName()
     return [
       'TRASH',
       'NODE',
+      'SETTINGS',
       'TODOS',
       'CREATE_SPACE',
       'WEB3_PROFILE',

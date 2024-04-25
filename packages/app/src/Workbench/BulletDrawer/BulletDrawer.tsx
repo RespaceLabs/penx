@@ -35,6 +35,7 @@ export const BulletDrawer = () => {
           left-0
           right-0
           zIndex-101
+          outlineNone
           autoFocus
         >
           <BulletMenuBox />

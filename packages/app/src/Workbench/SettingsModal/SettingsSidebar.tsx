@@ -1,6 +1,14 @@
 import { useMemo } from 'react'
+import { isMobile } from 'react-device-detect'
 import { Box, FowerHTMLProps, styled } from '@fower/react'
-import { Cloud, GitCompare, Key, LogOut, User } from 'lucide-react'
+import {
+  ChevronRightIcon,
+  Cloud,
+  GitCompare,
+  Key,
+  LogOut,
+  User,
+} from 'lucide-react'
 import {
   Avatar,
   AvatarFallback,
@@ -10,11 +18,25 @@ import {
 } from 'uikit'
 import { isSyncEnabled, SettingsType } from '@penx/constants'
 import { appEmitter } from '@penx/event'
-import { useSpaces, useUser } from '@penx/hooks'
+import { useSettingDrawer, useSpaces, useUser } from '@penx/hooks'
 import { IconPassword } from '@penx/icons'
 import { useSession } from '@penx/session'
 
-const Title = styled('div', ['gray400', 'mb4', 'textXS', 'uppercase'])
+const Title = styled('div', ['gray400', 'mb3', 'textXS', 'uppercase'])
+
+interface SectionProps extends FowerHTMLProps<'div'> {}
+function Section({ children, ...rest }: SectionProps) {
+  return (
+    <Box
+      bg={['white', 'transparent']}
+      overflowHidden={isMobile}
+      roundedXL
+      {...rest}
+    >
+      {children}
+    </Box>
+  )
+}
 
 interface SidebarItemProps extends FowerHTMLProps<'div'> {
   type: any
@@ -24,30 +46,48 @@ interface SidebarItemProps extends FowerHTMLProps<'div'> {
 function SidebarItem({
   type = SettingsType.PREFERENCES,
   spaceId,
+  children,
   ...rest
 }: SidebarItemProps) {
   const { data = SettingsType.PREFERENCES, setData } = useModalContext<{
     type: SettingsType
     spaceId?: string
   }>()
+
+  const settingDrawer = useSettingDrawer()
+
   return (
     <Box
       toCenterY
-      gapX2
+      toBetween
       gray600
       textSM
       cursorPointer
-      roundedXL
-      py-8
-      px3
-      mx--12
-      bgGray200--hover
+      rounded={[0, 8]}
+      py={[12, 8]}
+      px={[16, 12]}
+      mx={[0, 0, -12]}
+      bgGray200--hover={!isMobile}
       bgGray200={type === data}
+      borderBottom
+      borderColor={['neutral100', 'transparent']}
       {...rest}
       onClick={() => {
+        if (isMobile) {
+          settingDrawer.open(type, spaceId!)
+          return
+        }
         setData({ type, spaceId })
       }}
-    />
+    >
+      <Box toCenterY gapX2>
+        {children}
+      </Box>
+
+      <Box inlineFlex bgAmber100m mr--8 display={['inline-flex', 'none']}>
+        <ChevronRightIcon size={20} />
+      </Box>
+    </Box>
   )
 }
 
@@ -70,7 +110,14 @@ export const SettingsSidebar = () => {
   const image = session?.user?.image || ''
 
   return (
-    <Box column w={['100%', '100%', 260]} bgGray100 p6 flexShrink-0>
+    <Box
+      column
+      w={['100%', '100%', 260]}
+      bgGray100
+      p={[20, 20, 24]}
+      // flexShrink-0
+      flex-1={isMobile}
+    >
       <Box flex-1>
         <Box toCenterY gap2 py2>
           <Avatar size={24} flexShrink-0>
@@ -81,7 +128,7 @@ export const SettingsSidebar = () => {
         </Box>
         <Box py4>
           <Title>General</Title>
-          <Box column gap-1>
+          <Section column gap-1>
             <SidebarItem type={SettingsType.ACCOUNT_SETTINGS}>
               <User size={20} />
               <Box>Account settings</Box>
@@ -99,27 +146,28 @@ export const SettingsSidebar = () => {
             </SidebarItem>
 
             {isSyncEnabled && (
-              <SidebarItem type={SettingsType.SYNC_SERVER}>
+              <SidebarItem type={SettingsType.SYNC_SERVER} borderTransparent>
                 <Cloud size={20} />
                 <Box>Sync servers</Box>
               </SidebarItem>
             )}
-          </Box>
+          </Section>
         </Box>
 
         <Box py4>
           <Title>Space</Title>
-          <Box column gap-1>
-            {spaces.map((space) => (
+          <Section column gap-1>
+            {spaces.map((space, index) => (
               <SidebarItem
                 key={space.id}
                 type={SettingsType.SPACE}
                 spaceId={space.id}
+                borderTransparent={spaces.length - 1 === index}
               >
                 <Box>{space.name}</Box>
               </SidebarItem>
             ))}
-          </Box>
+          </Section>
         </Box>
       </Box>
       <Box>
@@ -128,7 +176,7 @@ export const SettingsSidebar = () => {
           w-100p
           colorScheme="red500"
           gap2
-          display={['none', 'none', 'flex']}
+          // display={['none', 'none', 'flex']}
           onClick={async () => {
             // await disconnectAsync()
             // disconnect()

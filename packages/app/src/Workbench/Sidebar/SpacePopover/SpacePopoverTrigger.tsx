@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+import { isMobile } from 'react-device-detect'
 import { Box } from '@fower/react'
 import { ChevronsUpDown, Settings } from 'lucide-react'
 import {
@@ -76,9 +77,15 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
               opacity-100--$currentSpace--hover
               onClick={(e) => {
                 close()
-                modalController.open(ModalNames.SETTINGS, {
-                  type: SettingsType.ACCOUNT_SETTINGS,
-                })
+
+                if (isMobile) {
+                  store.router.routeTo('SETTINGS')
+                } else {
+                  modalController.open(ModalNames.SETTINGS, {
+                    type: SettingsType.ACCOUNT_SETTINGS,
+                  })
+                }
+
                 drawer?.close?.()
                 e.stopPropagation()
               }}
@@ -90,7 +97,7 @@ export const SpacePopoverTrigger = forwardRef<HTMLDivElement, {}>(
                 isSquare
                 roundedFull
               >
-                <IconSettings size={18} />
+                <IconSettings size={24} />
               </Button>
             </Box>
           )}

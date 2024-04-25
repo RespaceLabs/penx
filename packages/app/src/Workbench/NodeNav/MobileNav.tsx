@@ -11,6 +11,14 @@ function Title() {
   const { activeNodes } = useActiveNodes()
   const router = useRouterStore()
 
+  if (router.isSettings()) {
+    return (
+      <Box fontSemibold textLG>
+        Settings
+      </Box>
+    )
+  }
+
   if (router.isTodos()) {
     return (
       <Box fontSemibold textLG>

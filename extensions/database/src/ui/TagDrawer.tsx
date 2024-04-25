@@ -36,6 +36,7 @@ export const TagDrawer = () => {
           right-0
           zIndex-101
           autoFocus
+          outlineNone
           // overflowHidden
         >
           <TagForm databaseId={databaseId} path={path} />
