@@ -3,12 +3,12 @@ import DatePicker from 'react-datepicker'
 import { Box, css, FowerHTMLProps, fowerStore } from '@fower/react'
 import { Plus } from 'lucide-react'
 import { Button, ButtonProps } from 'uikit'
-import { useBottomBarDrawer, useQuickAdd } from '@penx/hooks'
+import { useQuickAdd } from '@penx/hooks'
 import { IconCalendar, IconTodo } from '@penx/icons'
 import { getRandomColor } from '@penx/local-db'
 import { useNodeContext } from '@penx/node-hooks'
 import { store } from '@penx/store'
-import { DailyShortcut } from '@penx/widget'
+import { DailyShortcut, MotionButton } from '@penx/widget'
 import { setStatusBarColor } from '../common/setStatusBarColor'
 import { BottomBarDrawer } from './BottomBarDrawer/BottomBarDrawer'
 import { QuickAdd } from './QuickAdd/QuickAdd'
@@ -19,7 +19,7 @@ interface ActionButtonProps extends ButtonProps, FowerHTMLProps<'button'> {
 
 function ActionButton({ ...rest }: ActionButtonProps) {
   return (
-    <Button
+    <MotionButton
       display={['flex', 'flex', 'none']}
       // size="sm"
       // colorScheme="white"
@@ -30,8 +30,11 @@ function ActionButton({ ...rest }: ActionButtonProps) {
       bgGray200--active
       shadow="0px 1px 12px 0 rgba(0, 0, 0, 0.1)"
       bgWhite
-      {...rest}
-    ></Button>
+      whileTap={{
+        scale: 1.2,
+      }}
+      {...(rest as any)}
+    ></MotionButton>
   )
 }
 
@@ -62,7 +65,7 @@ export function BottomBar() {
         <GoToDay />
       </Box>
 
-      <Button
+      <MotionButton
         display={['flex', 'flex', 'none']}
         fixed
         bottom3
@@ -77,22 +80,22 @@ export function BottomBar() {
         bgGray200--hover
         bgGray200--active
         zIndex-100
+        whileTap={{
+          scale: 1.2,
+        }}
         onClick={() => {
-          // quickAdd.setIsOpen(!quickAdd.isOpen)
+          quickAdd.setIsOpen(!quickAdd.isOpen)
           quickAdd.setIsOpen(true)
           const colorName = getRandomColor()
           const color = (fowerStore.theme.colors as any)[colorName]
-
           quickAdd.setColorName(colorName)
-
           setStatusBarColor(color)
-          console.log('=g=g=......x')
         }}
       >
         <Box gray500 inlineFlex>
           <Plus />
         </Box>
-      </Button>
+      </MotionButton>
     </>
   )
 }

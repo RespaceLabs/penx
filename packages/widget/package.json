@@ -50,7 +50,7 @@
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
     "downshift": "^8.2.3",
-    "framer-motion": "^10.16.14",
+    "framer-motion": "^10.18.0",
     "immer": "^10.0.4",
     "lucide-react": "^0.344.0",
     "react-datepicker": "^4.24.0",

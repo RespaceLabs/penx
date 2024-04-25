@@ -3,6 +3,7 @@ import { Drawer } from 'vaul'
 import { Button } from 'uikit'
 import { usePaletteDrawer } from '@penx/hooks'
 import { IconSearch } from '@penx/icons'
+import { MotionButton } from '@penx/widget'
 import { CommandPanel } from '../Palette'
 
 const DrawerOverlay = styled(Drawer.Overlay)
@@ -23,7 +24,7 @@ export const PaletteDrawer = () => {
       }}
     >
       <Drawer.Trigger asChild>
-        <Button
+        <MotionButton
           type="button"
           size="sm"
           variant="ghost"
@@ -31,9 +32,12 @@ export const PaletteDrawer = () => {
           isSquare
           roundedFull
           p0
+          whileTap={{
+            scale: 1.2,
+          }}
         >
           <IconSearch />
-        </Button>
+        </MotionButton>
       </Drawer.Trigger>
       <Drawer.Portal>
         <DrawerOverlay fixed bgBlack--T60 zIndex-100 css={{ inset: 0 }} />

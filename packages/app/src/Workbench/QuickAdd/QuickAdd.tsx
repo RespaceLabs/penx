@@ -1,14 +1,9 @@
 import { Box, css, styled } from '@fower/react'
-import {
-  AnimatePresence,
-  HTMLMotionProps,
-  motion,
-  Variant,
-} from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
-import { Button, fadeConfig } from 'uikit'
 import { useQuickAdd } from '@penx/hooks'
-import { getRandomColor } from '@penx/local-db'
+import { MotionBox, MotionButton } from '@penx/widget'
+import { setStatusBarColor } from '../../common/setStatusBarColor'
 import { QuickAddEditor } from './QuickAddEditor'
 import { QuickAddOverlay } from './QuickAddOverlay'
 
@@ -20,14 +15,12 @@ export function QuickAdd() {
       <AnimatePresence initial={false}>
         {isOpen && (
           <Box zIndex-1001 fixed w-100p h-100p top0 left0 px4 pt4>
-            <motion.div
-              className={css({
-                // h: 300,
-                bgWhite: true,
-                roundedLG: true,
-                shadowXL: true,
-                pb: 20,
-              })}
+            <MotionBox
+              bgWhite
+              roundedLG
+              shadowXL
+              pb-20
+              relative
               initial={{
                 opacity: 0,
                 y: 50,
@@ -56,31 +49,27 @@ export function QuickAdd() {
               }}
             >
               <QuickAddEditor />
-            </motion.div>
-            <Box toCenter white mt4>
-              <Button
-                isSquare
-                roundedFull
-                onClick={() => {
-                  setIsOpen(false)
 
-                  if (window.matchMedia('(display-mode: standalone)').matches) {
-                    const metaTag = document.querySelector(
-                      'meta[name="theme-color"]',
-                    )
-                    if (metaTag) {
-                      metaTag.setAttribute('content', '#ffffff')
-                    }
-                  }
-                }}
-                variant="light"
-                colorScheme="white"
-                borderNone
-                shadowLG
-              >
-                <X></X>
-              </Button>
-            </Box>
+              <Box toCenter white mt4 absolute w-100p bottom--54>
+                <MotionButton
+                  isSquare
+                  roundedFull
+                  variant="light"
+                  colorScheme="white"
+                  borderNone
+                  shadowLG
+                  whileTap={{
+                    scale: 1.2,
+                  }}
+                  onClick={() => {
+                    setIsOpen(false)
+                    setStatusBarColor('#ffffff')
+                  }}
+                >
+                  <X></X>
+                </MotionButton>
+              </Box>
+            </MotionBox>
           </Box>
         )}
       </AnimatePresence>

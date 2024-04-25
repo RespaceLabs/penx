@@ -8,6 +8,7 @@ import { useQuickAdd, useRouterStore } from '@penx/hooks'
 import { db, getCommonNode } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
+import { MotionButton } from '@penx/widget'
 import { setStatusBarColor } from '../../common/setStatusBarColor'
 import { QuickAddTag } from './QuickAddTag'
 
@@ -189,18 +190,21 @@ export const QuickAddEditor = ({}: Props) => {
             <Star size={20} />
           </Box> */}
         </Box>
-        <Button
+        <MotionButton
           size={40}
           px3
           py0
           colorScheme={colorName}
           // variant="light"
           gap1
+          whileTap={{
+            scale: 1.2,
+          }}
           onClick={() => send()}
         >
           <Box>Save</Box>
           <SendHorizonal size={18}></SendHorizonal>
-        </Button>
+        </MotionButton>
       </Box>
       <Box px2 pt2>
         <QuickAddTag

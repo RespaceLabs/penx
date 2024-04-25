@@ -18,6 +18,7 @@ import { Node } from '@penx/model'
 import { useNodes } from '@penx/node-hooks'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
+import { MotionButton } from '@penx/widget'
 import { FavoriteBox } from '../Sidebar/FavoriteBox/FavoriteBox'
 import { LoginButton } from '../Sidebar/LoginButton'
 import { SpacePopover } from '../Sidebar/SpacePopover/SpacePopover'
@@ -73,9 +74,18 @@ export const SidebarDrawer = () => {
       }}
     >
       <Drawer.Trigger asChild>
-        <Button variant="ghost" size="sm" isSquare p0 colorScheme="gray600">
+        <MotionButton
+          variant="ghost"
+          size="sm"
+          isSquare
+          p0
+          colorScheme="gray600"
+          whileTap={{
+            scale: 1.2,
+          }}
+        >
           <IconMoreCircle />
-        </Button>
+        </MotionButton>
       </Drawer.Trigger>
       <Drawer.Portal>
         <DrawerOverlay fixed bgBlack--T60 zIndex-100 css={{ inset: 0 }} />
