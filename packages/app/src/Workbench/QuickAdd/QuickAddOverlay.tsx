@@ -5,11 +5,8 @@ import { useQuickAdd } from '@penx/hooks'
 
 const AnimatedDiv = styled(motion.div)
 
-interface Props {
-  colorName: string
-}
-export function QuickAddOverlay({ colorName }: Props) {
-  const { isOpen } = useQuickAdd()
+export function QuickAddOverlay() {
+  const { isOpen, colorName } = useQuickAdd()
 
   return (
     <AnimatePresence>

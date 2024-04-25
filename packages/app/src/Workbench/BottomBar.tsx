@@ -1,14 +1,17 @@
 import { forwardRef, useState } from 'react'
 import DatePicker from 'react-datepicker'
-import { Box, css, FowerHTMLProps } from '@fower/react'
+import { Box, css, FowerHTMLProps, fowerStore } from '@fower/react'
 import { Plus } from 'lucide-react'
 import { Button, ButtonProps } from 'uikit'
 import { useBottomBarDrawer, useQuickAdd } from '@penx/hooks'
 import { IconCalendar, IconTodo } from '@penx/icons'
+import { getRandomColor } from '@penx/local-db'
 import { useNodeContext } from '@penx/node-hooks'
 import { store } from '@penx/store'
 import { DailyShortcut } from '@penx/widget'
+import { setStatusBarColor } from '../common/setStatusBarColor'
 import { BottomBarDrawer } from './BottomBarDrawer/BottomBarDrawer'
+import { QuickAdd } from './QuickAdd/QuickAdd'
 
 interface ActionButtonProps extends ButtonProps, FowerHTMLProps<'button'> {
   //
@@ -33,7 +36,6 @@ function ActionButton({ ...rest }: ActionButtonProps) {
 }
 
 export function BottomBar() {
-  const { isOpen, close, open } = useBottomBarDrawer()
   const quickAdd = useQuickAdd()
   const { node } = useNodeContext()
 
@@ -42,6 +44,7 @@ export function BottomBar() {
   return (
     <>
       <BottomBarDrawer />
+      <QuickAdd />
 
       <Box fixed left3 bottom3 toCenterY gap2 zIndex-100 bgWhite>
         <ActionButton
@@ -53,7 +56,7 @@ export function BottomBar() {
             }
           }}
         >
-          <IconTodo size={24} stroke="gray500" />
+          <IconTodo size={40} stroke="gray500" />
         </ActionButton>
 
         <GoToDay />
@@ -75,7 +78,15 @@ export function BottomBar() {
         bgGray200--active
         zIndex-100
         onClick={() => {
-          quickAdd.setIsOpen(!quickAdd.isOpen)
+          // quickAdd.setIsOpen(!quickAdd.isOpen)
+          quickAdd.setIsOpen(true)
+          const colorName = getRandomColor()
+          const color = (fowerStore.theme.colors as any)[colorName]
+
+          quickAdd.setColorName(colorName)
+
+          setStatusBarColor(color)
+          console.log('=g=g=......x')
         }}
       >
         <Box gray500 inlineFlex>

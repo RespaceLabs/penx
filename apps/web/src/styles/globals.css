@@ -53,6 +53,10 @@ html {
   font-size: 16px;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /**
  * prism.js default theme for JavaScript, CSS and HTML
  * Based on dabblet (http://dabblet.com)

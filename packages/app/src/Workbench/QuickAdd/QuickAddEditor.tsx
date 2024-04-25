@@ -1,26 +1,25 @@
 import { useRef, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { Box, css } from '@fower/react'
-import { Clock, Hash, SendHorizonal, SendIcon, X } from 'lucide-react'
+import { Clock, Hash, SendHorizonal, X } from 'lucide-react'
 import { Button, Checkbox, toast } from 'uikit'
 import { ELEMENT_P, ELEMENT_TAG, ELEMENT_TODO } from '@penx/constants'
-import { useBottomBarDrawer, useQuickAdd, useRouterStore } from '@penx/hooks'
-import { db, getCommonNode, getNewNode } from '@penx/local-db'
+import { useQuickAdd, useRouterStore } from '@penx/hooks'
+import { db, getCommonNode } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { store } from '@penx/store'
+import { setStatusBarColor } from '../../common/setStatusBarColor'
 import { QuickAddTag } from './QuickAddTag'
 
-interface Props {
-  colorName: string
-}
+interface Props {}
 
-export const QuickAddEditor = ({ colorName }: Props) => {
+export const QuickAddEditor = ({}: Props) => {
   const ref = useRef<HTMLTextAreaElement>(null)
 
   const [value, setValue] = useState('')
   const [isTodo, setIsTodo] = useState(false)
   const [databases, setDatabases] = useState<Node[]>([])
-  const { close } = useQuickAdd()
+  const { close, colorName } = useQuickAdd()
 
   const { isTodos } = useRouterStore()
 
@@ -94,6 +93,8 @@ export const QuickAddEditor = ({ colorName }: Props) => {
         store.node.addTextToToday(value)
       }
     }
+
+    setStatusBarColor('#ffffff')
     close()
   }
 

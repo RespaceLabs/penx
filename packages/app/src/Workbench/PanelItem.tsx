@@ -96,7 +96,6 @@ export function PanelItem({ node, index }: Props) {
 
   return (
     <Box relative h-100vh flex-1 px={[6, 6, 0]} pt={[8, 8, 0]}>
-      <QuickAdd />
       <Box
         overflowYAuto
         h={[`calc(100vh - ${WORKBENCH_NAV_HEIGHT}px)`, '100vh']}
