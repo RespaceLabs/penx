@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Box } from '@fower/react'
-import { GoogleOauthButton } from '../RecoveryPhrase/GoogleOauthButton'
+import { GoogleOauthButton } from '../../RecoveryPhrase/GoogleOauthButton'
 
 export function GoogleBackupOauth() {
   return (

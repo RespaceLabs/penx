@@ -114,7 +114,7 @@ export const QuickAddEditor = ({}: Props) => {
           <TextareaAutosize
             ref={ref}
             autoFocus
-            minRows={3}
+            minRows={2}
             placeholder="Write something..."
             className={css({
               borderNone: true,
@@ -123,7 +123,7 @@ export const QuickAddEditor = ({}: Props) => {
               placeholderNeutral300: true,
               outline: 'none',
               resize: 'none',
-              textXL: true,
+              textLG: true,
               leadingSnug: true,
               fontFamily: 'unset',
               py: 12,
@@ -132,36 +132,37 @@ export const QuickAddEditor = ({}: Props) => {
             onChange={(e) => setValue(e.target.value)}
           />
         </Box>
-        <Box py3>
-          {databases.length > 0 && (
-            <Box toCenterY gap2 flexWrap>
-              {databases.map((node) => {
-                return (
-                  <Box
-                    key={node.id}
-                    toCenterY
-                    textXS
-                    gray400
-                    roundedFull
-                    h-28
-                    px-6
-                    gap1
-                    bg--T92={node?.tagColor}
-                    bg--T88--hover={node?.tagColor}
-                    color={node?.tagColor}
-                    color--D4--hover={node?.tagColor}
-                    onClick={() => selectTag(node)}
-                  >
-                    <Box>#{node.tagName}</Box>
-                    <Box circle4 bg={node?.tagColor} white toCenter>
-                      <X size={14} />
-                    </Box>
+      </Box>
+
+      <Box py1 px3>
+        {databases.length > 0 && (
+          <Box toCenterY gap2 flexWrap>
+            {databases.map((node) => {
+              return (
+                <Box
+                  key={node.id}
+                  toCenterY
+                  textXS
+                  gray400
+                  roundedFull
+                  h-28
+                  px-6
+                  gap1
+                  bg--T92={node?.tagColor}
+                  bg--T88--hover={node?.tagColor}
+                  color={node?.tagColor}
+                  color--D4--hover={node?.tagColor}
+                  onClick={() => selectTag(node)}
+                >
+                  <Box>#{node.tagName}</Box>
+                  <Box circle4 bg={node?.tagColor} white toCenter>
+                    <X size={14} />
                   </Box>
-                )
-              })}
-            </Box>
-          )}
-        </Box>
+                </Box>
+              )
+            })}
+          </Box>
+        )}
       </Box>
 
       <Box mt1 toBetween toCenterY px4>
@@ -173,7 +174,13 @@ export const QuickAddEditor = ({}: Props) => {
               ref.current?.focus()
             }}
           />
-          <Box inlineFlex gray500>
+          <Box
+            inlineFlex
+            gray500
+            onClick={() => {
+              toast.info('Coming soon!')
+            }}
+          >
             <Hash size={20} strokeWidth={1} />
           </Box>
 

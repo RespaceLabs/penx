@@ -2,7 +2,7 @@ import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
 import { Button, Input, ModalClose, Spinner, useModalContext } from 'uikit'
 import { isProd, SyncServerType } from '@penx/constants'
-import { BorderedRadioGroup } from '../../components/BorderedRadioGroup'
+import { BorderedRadioGroup } from '../../../../components/BorderedRadioGroup'
 import { SyncServerModalData, useSyncServerForm } from './useSyncServerForm'
 
 interface Props {}

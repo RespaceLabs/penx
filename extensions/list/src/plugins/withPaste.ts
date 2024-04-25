@@ -1,5 +1,5 @@
 import { PenxEditor } from '@penx/editor-common'
-import { findNode } from '@penx/editor-queries'
+import { findNode, getCurrentPath } from '@penx/editor-queries'
 import { isTitle } from '../guard'
 
 function isInTitle(editor: PenxEditor) {
@@ -17,11 +17,18 @@ export const withPaste = (editor: PenxEditor) => {
   editor.insertData = (data: DataTransfer) => {
     const text = data.getData('text/plain')
 
+    const path = getCurrentPath(editor)!
+
+    // console.log('=====path:', path)
+
     if (isInTitle(editor)) {
       return insertData(data)
     }
 
-    return insertText(text)
+    console.log('text====:', text, data)
+
+    // return insertText(text)
+    insertData(data)
   }
 
   return editor

@@ -26,7 +26,6 @@ function ActionButton({ ...rest }: ActionButtonProps) {
       variant="ghost"
       isSquare
       roundedFull
-      bgGray200--active
       shadow="0px 1px 12px 0 rgba(0, 0, 0, 0.1)"
       bgWhite
       whileTap={{
@@ -75,9 +74,9 @@ export function BottomBar() {
         isSquare
         roundedFull
         shadow2XL
-        bgGray200--hover
-        bgGray200--active
         zIndex-100
+        borderTransparent--i
+        shadow="0px 1px 12px 0 rgba(0, 0, 0, 0.1)"
         whileTap={{
           scale: 1.2,
         }}

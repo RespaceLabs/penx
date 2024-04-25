@@ -34,6 +34,10 @@ export const BulletMenu = ({ menuId, element }: Props) => {
     toast.info('Copied to clipboard')
   }
 
+  function copyNode() {
+    console.log('copy node.....')
+  }
+
   async function openInNewPanel() {
     await store.node.openInNewPanel(element.id)
   }
@@ -46,6 +50,7 @@ export const BulletMenu = ({ menuId, element }: Props) => {
       {/* <MenuItem onClick={openInNewPanel}>Open in new panel</MenuItem> */}
       {/* <MenuItem onClick={() => handleItemClick('b')}>Publish</MenuItem> */}
       <MenuItem onClick={copyNodeId}>Copy node ID</MenuItem>
+      <MenuItem onClick={copyNode}>Copy</MenuItem>
       <MenuItem onClick={() => handleItemClick('DELETE')}>Delete</MenuItem>
       {/* <MenuItem onClick={() => handleItemClick('d')}>Expand all</MenuItem> */}
       {/* <MenuItem onClick={() => handleItemClick('d')}> Collapse all</MenuItem> */}

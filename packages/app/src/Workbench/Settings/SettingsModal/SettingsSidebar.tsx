@@ -84,7 +84,7 @@ function SidebarItem({
         {children}
       </Box>
 
-      <Box inlineFlex bgAmber100m mr--8 display={['inline-flex', 'none']}>
+      <Box inlineFlex mr--8 display={['inline-flex', 'none']}>
         <ChevronRightIcon size={20} />
       </Box>
     </Box>

@@ -32,7 +32,7 @@ export * from './transforms/insertEmptyParagraph'
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     // for web
-    with: [withListsPlugin, withMarkdown, withEditable, withCopy],
+    with: [withListsPlugin, withMarkdown, withEditable, withCopy, withPaste],
 
     // for extension
     // with: [withListsPlugin, withEditable, withPaste, withCopy],

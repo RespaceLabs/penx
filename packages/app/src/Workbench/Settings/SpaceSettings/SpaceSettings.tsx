@@ -27,7 +27,7 @@ export function SpaceSettings({ spaceId }: Props) {
           Space Settings
         </Box>
 
-        <Tag variant="light" colorScheme="gray400">
+        <Tag variant="light" colorScheme="gray400" display={['none', 'block']}>
           {space.id}
         </Tag>
       </Box>

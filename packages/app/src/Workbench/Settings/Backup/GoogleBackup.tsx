@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import { Box } from '@fower/react'
 import { Skeleton } from 'uikit'
 import { trpc } from '@penx/trpc-client'
-import { GoogleOauthButton } from '../RecoveryPhrase/GoogleOauthButton'
+import { GoogleOauthButton } from '../../RecoveryPhrase/GoogleOauthButton'
 import { GoogleBackupConnected } from './GoogleBackupConnected'
 
 function Content() {

@@ -75,7 +75,7 @@ export function GoogleVersionRestore() {
           />
         </Box>
       </Box>
-      {!!space && <BackList date={date} />}
+      {!!space && <BackupList date={date} />}
     </Box>
   )
 }
@@ -84,7 +84,7 @@ interface BackListProps {
   date: Date
 }
 
-function BackList({ date }: BackListProps) {
+function BackupList({ date }: BackListProps) {
   const { space } = useSelectedSpace()
   const dayStr = format(date || new Date(), 'yyyy-MM-dd')
 
@@ -145,7 +145,7 @@ function BackupItem({ file }: BackupItemProps) {
 
   return (
     <Box key={file.id} toCenterY gap4 textSM gray500>
-      <Box gray800 flex-2>
+      <Box gray800 flex-2 display={['none', 'block']}>
         {file.id}
       </Box>
       <Box flex-1>{timeStr}</Box>

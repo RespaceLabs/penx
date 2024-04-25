@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { Space } from '@penx/model'
-import { ExportBtn } from '../components/ExportBtn'
+import { ExportBtn } from '../../components/ExportBtn'
 
 interface Props {
   space: Space

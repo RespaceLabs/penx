@@ -2,7 +2,7 @@ import { Box } from '@fower/react'
 import { Button } from 'uikit'
 import { isProd } from '@penx/constants'
 import { ExportBtn } from '../components/ExportBtn'
-import { DeleteSpaceModal } from '../Workbench/DeleteSpaceModal'
+import { DeleteSpaceModal } from '../Workbench/Settings/DeleteSpaceModal'
 import { ReloadAppBtn } from './ReloadAppBtn'
 
 export const Fallback = () => {

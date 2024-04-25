@@ -5,13 +5,7 @@ import { SettingsDrawer } from './SettingsDrawer'
 
 export const PageSettings = () => {
   return (
-    <Box
-      bgNeutral100
-      minH-100vh
-      bgAmber100
-      column
-      minH={`calc(100vh - ${WORKBENCH_NAV_HEIGHT}px)`}
-    >
+    <Box bgNeutral100 column minH={`calc(100vh - ${WORKBENCH_NAV_HEIGHT}px)`}>
       <SettingsDrawer />
       <SettingsSidebar />
     </Box>

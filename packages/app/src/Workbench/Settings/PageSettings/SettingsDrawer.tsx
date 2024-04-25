@@ -2,11 +2,11 @@ import { Box, styled } from '@fower/react'
 import { Drawer } from 'vaul'
 import { SettingsType } from '@penx/constants'
 import { useSettingDrawer } from '@penx/hooks'
-import { SyncServer } from '../../SyncServer/SyncServer'
+import { RecoveryPhrase } from '../../RecoveryPhrase/RecoveryPhrase'
 import { AccountSettings } from '../AccountSettings/AccountSettings'
 import { Backup } from '../Backup/Backup'
-import { RecoveryPhrase } from '../RecoveryPhrase/RecoveryPhrase'
 import { SpaceSettings } from '../SpaceSettings/SpaceSettings'
+import { SyncServer } from '../SyncServer/SyncServer'
 
 const DrawerOverlay = styled(Drawer.Overlay)
 const DrawerContent = styled(Drawer.Content)

@@ -1,11 +1,11 @@
 import { Box } from '@fower/react'
 import { useModalContext } from 'uikit'
 import { SettingsType } from '@penx/constants'
-import { SyncServer } from '../../SyncServer/SyncServer'
+import { RecoveryPhrase } from '../../RecoveryPhrase/RecoveryPhrase'
 import { AccountSettings } from '../AccountSettings/AccountSettings'
 import { Backup } from '../Backup/Backup'
-import { RecoveryPhrase } from '../RecoveryPhrase/RecoveryPhrase'
 import { SpaceSettings } from '../SpaceSettings/SpaceSettings'
+import { SyncServer } from '../SyncServer/SyncServer'
 
 export const SettingsContent = () => {
   const { data } = useModalContext<{ type: SettingsType; spaceId?: string }>()

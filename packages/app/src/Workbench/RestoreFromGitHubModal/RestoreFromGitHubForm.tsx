@@ -9,8 +9,8 @@ import {
   Switch,
   useModalContext,
 } from 'uikit'
-import { useSelectedSpace } from '../Backup/hooks/useSelectedSpace'
-import { RestoreFromGitHubModalData } from '../Backup/types'
+import { useSelectedSpace } from '../Settings/Backup/hooks/useSelectedSpace'
+import { RestoreFromGitHubModalData } from '../Settings/Backup/types'
 import { useRestoreFromGitHubForm } from './useRestoreFromGitHubForm'
 
 export function RestoreFromGitHubForm() {

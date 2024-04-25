@@ -1,13 +1,15 @@
 import { FocusEvent, KeyboardEvent, memo, useCallback, useMemo } from 'react'
 import { css } from '@fower/react'
-import { Editor } from 'slate'
+import { Editor, Path, Transforms } from 'slate'
 import { Editable, RenderElementProps } from 'slate-react'
 import { onKeyDownAutoformat } from '@penx/autoformat'
 import { ELEMENT_TITLE } from '@penx/constants'
 import { PenxEditor, useEditor, useEditorStatic } from '@penx/editor-common'
 import { useOnCompositionEvent } from '@penx/editor-composition'
 import { Leaf } from '@penx/editor-leaf'
+import { getNodeByPath } from '@penx/editor-queries'
 import { extensionStore } from '@penx/extension-store'
+import { isListElement, isListItemElement } from '@penx/list'
 import { useDecorate } from '../hooks/useDecorate'
 import { useOnDOMBeforeInput } from '../hooks/useOnDOMBeforeInput'
 import { ElementContent } from './ElementContent'
@@ -78,6 +80,27 @@ export const NodeEditorEditable = memo(
         onCompositionUpdate={onOnCompositionEvent}
         onCompositionEnd={onOnCompositionEvent}
         onKeyDown={keyDown}
+        onSelect={() => {
+          // if (!editor.selection) return
+          // const { anchor, focus } = editor.selection
+          // const isEqual = Path.equals(anchor.path, focus.path)
+          // if (isEqual) return
+          // const entries = Editor.nodes(editor, {
+          //   at: editor.selection,
+          //   mode: 'lowest',
+          //   match: (n: any) => {
+          //     // return true
+          //     // return isListItemElement(n.type)
+          //     return Editor.isBlock(editor, n as any)
+          //   },
+          // })
+          // const arr = Array.from(entries)
+          // for (const [, path] of arr) {
+          //   // const node = getNodeByPath(editor, Path.parent(path))
+          //   const node = getNodeByPath(editor, path.slice(0, path.length - 2))
+          //   console.log('===========node:', node, 'path:', path)
+          // }
+        }}
         onDOMBeforeInput={onDOMBeforeInput}
         onBlur={blur}
       />

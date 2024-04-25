@@ -30,7 +30,7 @@ export const RecoveryPhrase: FC<Props> = () => {
   return (
     <Box column maxW-640 gap2>
       <Box mb4>
-        <Box text3XL fontBold textCenter>
+        <Box text2XL fontBold textCenter>
           Recovery Phrase
         </Box>
       </Box>

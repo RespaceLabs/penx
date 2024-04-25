@@ -1,5 +1,5 @@
 import { Box } from '@fower/react'
-import { Tag } from 'uikit'
+import { Divider, Tag } from 'uikit'
 import { useSession } from '@penx/session'
 import { PersonalToken } from './PersonalToken'
 import { UpdatePassword } from './UpdatePassword'
@@ -13,7 +13,11 @@ export function AccountSettings() {
           Account Settings
         </Box>
 
-        <Tag variant="light" colorScheme="gray400">
+        <Tag
+          variant="light"
+          colorScheme="gray400"
+          display={['none', 'none', 'block']}
+        >
           {data.userId}
         </Tag>
       </Box>

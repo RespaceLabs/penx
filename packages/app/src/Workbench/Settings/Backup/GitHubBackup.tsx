@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
 import { useUser } from '@penx/hooks'
-import { RestoreFromGitHubModal } from '../RestoreFromGitHubModal/RestoreFromGitHubModal'
+import { RestoreFromGitHubModal } from '../../RestoreFromGitHubModal/RestoreFromGitHubModal'
 import { SyncBox } from './SyncBox/SyncBox'
 import { VersionRestore } from './VersionRestore'
 

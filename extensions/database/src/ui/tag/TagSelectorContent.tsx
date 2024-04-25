@@ -3,7 +3,6 @@ import { Box } from '@fower/react'
 import { Editor, Node, Path, Transforms } from 'slate'
 import { createPublicClient, http } from 'viem'
 import { mainnet } from 'viem/chains'
-import { usePublicClient } from 'wagmi'
 import {
   ELEMENT_TAG,
   FILE_DATABASE_NAME,
@@ -11,7 +10,7 @@ import {
 } from '@penx/constants'
 import { PenxEditor, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
-import { db } from '@penx/local-db'
+import { db, getRandomColor } from '@penx/local-db'
 import { INode } from '@penx/model-types'
 import { useNodes } from '@penx/node-hooks'
 import { getEmptyParagraph } from '@penx/paragraph'
@@ -74,9 +73,13 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   const filteredTypes = useMemo(() => {
     const q = text.replace(/^#/, '').toLowerCase()
 
-    let tags = tagNames.filter((item) => {
-      return item.toLowerCase().includes(q) && item.toLowerCase() !== 'untitled'
-    })
+    let tags = tagNames
+      .filter((item) => {
+        return (
+          item.toLowerCase().includes(q) && item.toLowerCase() !== 'untitled'
+        )
+      })
+      .filter((item) => !item.startsWith('$template__'))
     return tags
   }, [tagNames, text])
 
@@ -172,11 +175,29 @@ export const TagSelectorContent = ({ close, element }: Props) => {
     listLength: filteredTypes.length,
     listItemIdPrefix,
   })
+  const color = useMemo(() => getRandomColor(), [])
 
   if (!filteredTypes.length) {
     return (
-      <Box py2 px3 textSM bgGray100 roundedLG>
-        Create tag &quot;{text}&quot;
+      <Box
+        py1
+        px3
+        textSM
+        roundedLG
+        cursorPointer
+        onClick={async () => {
+          const database = await store.node.createDatabase(
+            editor.spaceId,
+            tagName,
+          )
+          selectTag(tagName, database.id)
+        }}
+      >
+        Create tag &quot;
+        <Box as="span" color={color}>
+          {text}
+        </Box>
+        &quot;
       </Box>
     )
   }

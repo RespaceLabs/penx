@@ -45,8 +45,9 @@ export function TagSelectorItem({
       gapX2
       toCenterY
       leadingNone
+      color={node.tagColor}
     >
-      <Box color--D10={node.tagColor}>#</Box>
+      <Box>#</Box>
       <Box textBase>{name}</Box>
     </Box>
   )

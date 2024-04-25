@@ -71,7 +71,7 @@ function TableView(props: DatabaseProps) {
   // console.log('h-------h:', h)
 
   return (
-    <Box flex-1 borderTop borderBottom bgAmber100 h-100p flex>
+    <Box flex-1 borderTop borderBottom h-100p flex>
       <DataEditor
         // className={css('borderBottom borderTop')}
         columns={cols}

@@ -31,8 +31,6 @@ export const withLink = (editor: PenxEditor) => {
   editor.insertData = (data: DataTransfer) => {
     const text = data.getData('text/plain')
 
-    console.log('text:', text)
-
     if (text) {
       const linkNodeEntry = findNode(editor, {
         match: { type: ELEMENT_LINK },
