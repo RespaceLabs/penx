@@ -33,7 +33,7 @@ export const Nav = () => {
     //   to: '/roadmap',
     // },
 
-    // { text: 'Docs', to: 'https://docs.penx.io/', isExternal: true },
+    { text: 'Self-hosted', to: 'https://docs.penx.io/', isExternal: true },
 
     {
       text: 'Downloads',

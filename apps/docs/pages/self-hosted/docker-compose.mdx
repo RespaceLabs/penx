@@ -2,20 +2,16 @@
 
 This document provides a guide for deploying PenX with Docker Compose.
 
-## Prerequisites
-
-Before deployment, Please read the [Prerequisites](/register-own-sync-server/deployment/prerequisites) carefully.
-
 ## Create docker-compose.yml
 
-To deploy PenX with docker compose, create a docker-compose.yml file:
+To deploy PenX with docker compose, create a `docker-compose.yml` file:
 
 ```yml
 version: '3'
 
 services:
   penx-self-hosted:
-    image: 0xzion/penx:latest
+    image: penxio/penx:postgresql-latest
     container_name: penx-self-hosted
     environment:
       - NEXTAUTH_SECRET={{jwt_secret}}
@@ -25,7 +21,7 @@ services:
       - '3000:3000'
 ```
 
-The environment variables used by PenX are described in [environment-variables](/self-hosted/deployment-env).
+If you use MySQL, use image: `penxio/penx:mysql-latest`.
 
 ## Start the containers
 

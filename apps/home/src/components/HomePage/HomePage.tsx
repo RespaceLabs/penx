@@ -87,7 +87,7 @@ export function HomePage() {
             display={['none', 'none', 'flex']}
             as="img"
             src="/images/editor.png"
-            shadow="0px 1px 19px 0px rgba(42,44,48,.06),0px 0px 48px 0px hsla(30,78%,91%,.6)"
+            shadow="0px 1px 19px 0px rgba(42,44,48,.06),0px 0px 48px 0px rgba(200, 200, 200,.6)"
             border
             borderNeutral200--T20
             rounded-12
@@ -97,7 +97,7 @@ export function HomePage() {
           <Box
             as="img"
             src="/images/editor-phone.jpg"
-            shadow="0px 1px 19px 0px rgba(42,44,48,.06),0px 0px 48px 0px hsla(30,78%,91%,.6)"
+            shadow="0px 1px 19px 0px rgba(42,44,48,.06),0px 0px 48px 0px rgba(200, 200, 200,.6)"
             rounded-8
             w={['100%', '100%', 200, 220, 280]}
             absolute={[false, false, true]}

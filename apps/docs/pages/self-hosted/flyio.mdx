@@ -2,13 +2,9 @@
 
 You can deploy PenX to [Fly.io](https://fly.io).
 
-## Prerequisites
-
-Before deployment, Please read the [Prerequisites](/self-hosted/prerequisites) carefully.
-
 ## Configure your Fly app
 
-Save the following snippet into a file named fly.toml somewhere on your computer, changing the app name as you see fit:
+Save the following snippet into a file named `fly.toml` somewhere on your computer, changing the app name as you see fit:
 
 ```bash
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
@@ -17,12 +13,10 @@ app = "penx" # you can use your app name
 primary_region = "atl"
 
 [build]
-  image = "0xzion/penx:latest"
+  image = "penxio/penx:postgresql-latest"
 
 [env]
   DATABASE_URL = "postgresql://..."
-  NEXTAUTH_SECRET = "..."
-  REDIS_URL = "redis://..."
 
 [http_service]
   internal_port = 3000
@@ -40,6 +34,8 @@ primary_region = "atl"
   cpus = 1
   memory_mb = 1024
 ```
+
+If you use MySQL, use image: `penxio/penx:mysql-latest`.
 
 ## Deploy!
 

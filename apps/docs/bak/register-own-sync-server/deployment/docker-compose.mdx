@@ -4,7 +4,7 @@ This document provides a guide for deploying PenX with Docker Compose.
 
 ## Prerequisites
 
-Before deployment, Please read the [Prerequisites](/self-hosted/prerequisites) carefully.
+Before deployment, Please read the [Prerequisites](/register-own-sync-server/deployment/prerequisites) carefully.
 
 ## Create docker-compose.yml
 
@@ -15,7 +15,7 @@ version: '3'
 
 services:
   penx-self-hosted:
-    image: 0xzion/penx:latest
+    image: penxio/penx:postgresql-latest
     container_name: penx-self-hosted
     environment:
       - NEXTAUTH_SECRET={{jwt_secret}}

@@ -1,7 +1,6 @@
 {
   "index": "Introduction",
-  "register-own-sync-server": "Register own sync server",
-  "github-backup": "GitHub backup",
+  "self-hosted": "Self hosted",
   "contact": {
     "title": "Contact ↗",
     "type": "page",
