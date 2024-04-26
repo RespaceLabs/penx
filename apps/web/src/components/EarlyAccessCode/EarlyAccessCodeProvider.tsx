@@ -8,6 +8,7 @@ export function EarlyAccessCodeProvider({ children }: PropsWithChildren) {
   const { data } = useSession()
 
   useHideLogoLoader()
+
   if (process.env.NEXT_PUBLIC_IS_EARLY_STAGE !== 'true') {
     return <>{children}</>
   }
