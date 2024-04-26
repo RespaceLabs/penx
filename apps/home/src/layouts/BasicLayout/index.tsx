@@ -15,7 +15,7 @@ export const BasicLayout: FC<PropsWithChildren> = ({ children }) => {
         toBetween={[false, true]}
         toCenterX={[true, false]}
         py3
-        w={['98%', '98%', '100%']}
+        w={['98%', '98%', '100%', 1200, 1400]}
         relative
         zIndex-10
         px={[20, 20, 20, 20]}
@@ -40,6 +40,7 @@ export const BasicLayout: FC<PropsWithChildren> = ({ children }) => {
             // size="lg"
             variant="outline"
             roundedFull
+            colorScheme="black"
             onClick={() => {
               window.open('https://app.penx.io')
             }}

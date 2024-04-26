@@ -124,7 +124,7 @@ class MyDocument extends Document {
 
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700,800,900&display=optional"
+            href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=optional"
           />
 
           {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (

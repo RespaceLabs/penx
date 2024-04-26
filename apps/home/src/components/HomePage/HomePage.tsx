@@ -12,8 +12,8 @@ export function HomePage() {
       <Box flex-1 toCenter column gap8 px={[20, 0]}>
         <Box
           text={[28, 50, 70]}
-          maxW-800
-          fontBlack
+          maxW-760
+          fontBold
           leadingNone
           textCenter
           black
@@ -48,7 +48,7 @@ export function HomePage() {
           ))}
         </Box>
 
-        <Box
+        {/* <Box
           black
           brand500
           brand600--hover
@@ -63,14 +63,15 @@ export function HomePage() {
           target="_blank"
         >
           Why we build PenX?
-        </Box>
+        </Box> */}
 
         <Box>
           <Button
             size={56}
-            // colorScheme="black"
-            bgGradientX={['brand500', 'fuchsia600']}
-            bgGradientX--hover={['brand400', 'fuchsia500']}
+            colorScheme="black"
+            // variant="outline"
+            // bgGradientX={['brand500', 'fuchsia600']}
+            // bgGradientX--hover={['brand400', 'fuchsia500']}
             roundedFull
             w-240
             onClick={() => {
@@ -81,11 +82,29 @@ export function HomePage() {
           </Button>
         </Box>
 
-        <Box
-          as="img"
-          src="/images/editor.png"
-          w={['100%', '100%', 760, 840, 1200]}
-        />
+        <Box relative mt20 mb40>
+          <Box
+            display={['none', 'none', 'flex']}
+            as="img"
+            src="/images/editor.png"
+            shadow="0px 1px 19px 0px rgba(42,44,48,.06),0px 0px 48px 0px hsla(30,78%,91%,.6)"
+            border
+            borderNeutral200--T20
+            rounded-12
+            w={['100%', '100%', 760, 840, 1200]}
+          />
+
+          <Box
+            as="img"
+            src="/images/editor-phone.jpg"
+            shadow="0px 1px 19px 0px rgba(42,44,48,.06),0px 0px 48px 0px hsla(30,78%,91%,.6)"
+            rounded-8
+            w={['100%', '100%', 200, 220, 280]}
+            absolute={[false, false, true]}
+            right={[-40]}
+            bottom={[0]}
+          />
+        </Box>
       </Box>
     </Box>
   )

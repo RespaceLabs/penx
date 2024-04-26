@@ -46,6 +46,11 @@ class MyDocument extends Document {
               data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID!}
             ></script>
           )}
+
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=optional"
+          />
         </Head>
         <body>
           <Main />
