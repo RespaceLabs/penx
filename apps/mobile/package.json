@@ -53,12 +53,12 @@
     "@penx/trpc-client": "workspace:*",
     "@tanstack/react-query": "^4.36.1",
     "@tauri-apps/api": "^1.5.3",
-    "@web3modal/wagmi": "^4.0.13",
+    "@web3modal/wagmi": "^4.1.11",
     "idb-keyval": "^6.2.1",
     "jotai": "^2.6.0",
     "lucide-react": "^0.344.0",
     "uikit": "workspace:*",
-    "wagmi": "^2.5.7"
+    "wagmi": "^2.6.0"
   },
   "devDependencies": {
     "@penx/tsconfig": "workspace:*",

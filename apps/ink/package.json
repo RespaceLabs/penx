@@ -1,5 +1,5 @@
 {
-  "name": "web-ink",
+  "name": "ink",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -23,10 +23,10 @@
     "@trpc/client": "^10.45.1",
     "@vercel/analytics": "^1.1.1",
     "@vercel/speed-insights": "^1.0.1",
-    "@wagmi/core": "^2.6.5",
-    "@web3modal/core": "^4.0.13",
-    "@web3modal/siwe": "^4.0.13",
-    "@web3modal/wagmi": "^4.0.13",
+    "@wagmi/core": "^2.7.0",
+    "@web3modal/core": "^4.1.11",
+    "@web3modal/siwe": "^4.1.11",
+    "@web3modal/wagmi": "^4.1.11",
     "cookies-next": "^2.1.2",
     "date-fns": "^2.30.0",
     "dexie": "^3.2.4",
@@ -57,8 +57,8 @@
     "stook": "^1.17.0",
     "superjson": "1.9.1",
     "uikit": "workspace:*",
-    "viem": "^2.9.9",
-    "wagmi": "^2.5.7",
+    "viem": "^2.9.28",
+    "wagmi": "^2.6.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {

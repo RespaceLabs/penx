@@ -80,7 +80,7 @@
     "uikit": "workspace:*",
     "use-debounce": "^9.0.4",
     "vaul": "^0.9.0",
-    "viem": "^2.7.19",
-    "wagmi": "^2.5.7"
+    "viem": "^2.9.28",
+    "wagmi": "^2.6.0"
   }
 }
