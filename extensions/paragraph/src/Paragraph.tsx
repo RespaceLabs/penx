@@ -10,8 +10,8 @@ export const Paragraph = ({
   children,
   nodeProps,
 }: ElementProps) => {
-  // const editor = useEditorStatic()
-  const editor = useEditor()
+  const editor = useEditorStatic()
+  // const editor = useEditor()
   const path = findNodePath(editor, element)!
   const parent = Path.parent(path)
   const node: any = getNodeByPath(editor, parent)

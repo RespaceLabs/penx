@@ -1,59 +1,67 @@
-import { Node, Path, Transforms } from 'slate'
-import { modalController, toast } from 'uikit'
-import { ModalNames } from '@penx/constants'
+import { memo } from 'react'
+import isEqual from 'react-fast-compare'
+import { Path, Transforms } from 'slate'
+import { toast } from 'uikit'
 import { ContextMenu, MenuItem } from '@penx/context-menu'
 import { useEditorStatic } from '@penx/editor-common'
-import { findNodePath } from '@penx/editor-queries'
 import { NodeType } from '@penx/model-types'
 import { useCopyToClipboard } from '@penx/shared'
 import { store } from '@penx/store'
-import { ListContentElement } from '../types'
 
 interface Props {
   menuId: string
-  element: ListContentElement
+  path: Path
+  nodeType: NodeType
+  id: string
 }
 
-export const BulletMenu = ({ menuId, element }: Props) => {
-  const editor = useEditorStatic()
-  const path = findNodePath(editor, element)!
-  const { copy } = useCopyToClipboard()
+export const BulletMenu = memo(
+  function BulletMenu({ menuId, path, nodeType, id }: Props) {
+    const editor = useEditorStatic()
+    const { copy } = useCopyToClipboard()
 
-  function handleItemClick(type: string) {
-    if (type === 'DELETE') {
-      if (element.nodeType === NodeType.DATABASE) {
-        toast.warning('Can not delete database node')
-      } else {
-        Transforms.removeNodes(editor, { at: Path.parent(path) })
+    function handleItemClick(type: string) {
+      if (type === 'DELETE') {
+        if (nodeType === NodeType.DATABASE) {
+          toast.warning('Can not delete database node')
+        } else {
+          Transforms.removeNodes(editor, { at: Path.parent(path) })
+        }
       }
     }
-  }
 
-  function copyNodeId() {
-    copy(element.id)
-    toast.info('Copied to clipboard')
-  }
+    function copyNodeId() {
+      copy(id)
+      toast.info('Copied to clipboard')
+    }
 
-  function copyNode() {
-    console.log('copy node.....')
-  }
+    function copyNode() {
+      console.log('copy node.....')
+    }
 
-  async function openInNewPanel() {
-    await store.node.openInNewPanel(element.id)
-  }
+    async function openInNewPanel() {
+      await store.node.openInNewPanel(id)
+    }
 
-  // console.log('bullet menu.............', Node.string(element))
-
-  return (
-    <ContextMenu id={menuId}>
-      {/* <MenuItem onClick={() => handleItemClick('a')}>Add to favorite</MenuItem> */}
-      {/* <MenuItem onClick={openInNewPanel}>Open in new panel</MenuItem> */}
-      {/* <MenuItem onClick={() => handleItemClick('b')}>Publish</MenuItem> */}
-      <MenuItem onClick={copyNodeId}>Copy node ID</MenuItem>
-      <MenuItem onClick={copyNode}>Copy</MenuItem>
-      <MenuItem onClick={() => handleItemClick('DELETE')}>Delete</MenuItem>
-      {/* <MenuItem onClick={() => handleItemClick('d')}>Expand all</MenuItem> */}
-      {/* <MenuItem onClick={() => handleItemClick('d')}> Collapse all</MenuItem> */}
-    </ContextMenu>
-  )
-}
+    return (
+      <ContextMenu id={menuId}>
+        {/* <MenuItem onClick={() => handleItemClick('a')}>Add to favorite</MenuItem> */}
+        {/* <MenuItem onClick={openInNewPanel}>Open in new panel</MenuItem> */}
+        {/* <MenuItem onClick={() => handleItemClick('b')}>Publish</MenuItem> */}
+        <MenuItem onClick={copyNodeId}>Copy node ID</MenuItem>
+        <MenuItem onClick={copyNode}>Copy</MenuItem>
+        <MenuItem onClick={() => handleItemClick('DELETE')}>Delete</MenuItem>
+        {/* <MenuItem onClick={() => handleItemClick('d')}>Expand all</MenuItem> */}
+        {/* <MenuItem onClick={() => handleItemClick('d')}> Collapse all</MenuItem> */}
+      </ContextMenu>
+    )
+  },
+  (prev, next) => {
+    return (
+      prev.menuId === next.menuId &&
+      prev.id === next.id &&
+      isEqual(prev.path, next.path) &&
+      prev.nodeType === next.nodeType
+    )
+  },
+)

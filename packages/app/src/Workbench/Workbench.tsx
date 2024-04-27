@@ -4,7 +4,12 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { Box } from '@fower/react'
 import { SIDEBAR_WIDTH, WORKBENCH_NAV_HEIGHT } from '@penx/constants'
 import { EditorProvider } from '@penx/editor'
-import { useActiveSpace, useRouterName, useUser } from '@penx/hooks'
+import {
+  useActiveNodes,
+  useActiveSpace,
+  useRouterName,
+  useUser,
+} from '@penx/hooks'
 import { IconSidebar } from '@penx/icons'
 import { useSession } from '@penx/session'
 import { Fallback } from '../Fallback/Fallback'
@@ -33,6 +38,9 @@ export const Workbench = () => {
     setSideBarOpen(!sidebarOpen)
   }
 
+  const { activeNodes } = useActiveNodes()
+  const [activeNode] = activeNodes
+
   const { user } = useUser()
 
   // const SIDEBAR_WIDTH = 600
@@ -60,7 +68,7 @@ export const Workbench = () => {
             flexShrink-0
             transition="width 0.3s"
           >
-            <Sidebar />
+            <Sidebar activeNode={activeNode} />
           </Box>
           <Box h={WORKBENCH_NAV_HEIGHT} toCenterY absolute right--40 zIndex-100>
             {!isMobile && <CommandPanel />}

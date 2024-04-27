@@ -30,7 +30,7 @@ import {
 } from '@dnd-kit/sortable'
 import { Box } from '@fower/react'
 import { db } from '@penx/local-db'
-import { NodeListService } from '@penx/node-hooks'
+import { NodeListService, useNodes } from '@penx/node-hooks'
 import { store } from '@penx/store'
 import { FavoriteTitle } from './FavoriteTitle'
 import { NodeItem } from './NodeItem'
@@ -42,13 +42,12 @@ const measuring: MeasuringConfiguration = {
   },
 }
 
-interface Props {
-  nodeList: NodeListService
-}
+interface Props {}
 
-export const FavoriteBox = ({ nodeList }: Props) => {
+export const FavoriteBox = ({}: Props) => {
+  const { nodeList } = useNodes()
   const { favoriteNode } = nodeList
-  const nodes = nodeList.getFavorites()
+  const favoriteNodes = nodeList.getFavorites()
   const items = nodeList.favoriteNodeChildren
   const [activeId, setActiveId] = useState<string | null>(null)
 
@@ -93,7 +92,9 @@ export const FavoriteBox = ({ nodeList }: Props) => {
     setActiveId(null)
   }
 
-  const activeItem = activeId ? nodes.find(({ id }) => id === activeId) : null
+  const activeItem = activeId
+    ? favoriteNodes.find(({ id }) => id === activeId)
+    : null
 
   if (!items.length) return null
 

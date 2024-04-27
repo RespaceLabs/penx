@@ -11,8 +11,8 @@ export function HomePage() {
     <Box bgWhite column gap4 toBetween toCenterX>
       <Box flex-1 toCenter column gap8 px={[20, 0]}>
         <Box
-          text={[28, 50, 70]}
-          maxW-760
+          text={[28, 50, 64]}
+          maxW-780
           fontBold
           leadingNone
           textCenter
@@ -20,7 +20,7 @@ export function HomePage() {
           mt={[80, 120]}
           p0
         >
-          A structured knowledge base for geeks
+          A structured knowledge base
         </Box>
 
         <Box textLG neutral500 maxW-640 textCenter leadingNormal>

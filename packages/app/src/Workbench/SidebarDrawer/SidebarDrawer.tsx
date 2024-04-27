@@ -180,7 +180,7 @@ export const SidebarDrawer = () => {
               <Box flex-1 zIndex-1 overflowYAuto>
                 {!!nodes.length && (
                   <>
-                    <FavoriteBox nodeList={nodeList} />
+                    <FavoriteBox />
 
                     {/* {!activeSpace.isOutliner && <CatalogueBox />}
             {!activeSpace.isOutliner && <PageList />}

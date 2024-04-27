@@ -1,9 +1,10 @@
 import { memo, useMemo } from 'react'
+import isEqual from 'react-fast-compare'
 import { Box } from '@fower/react'
 import { ChevronDown } from 'lucide-react'
-import { Node, Path, Transforms } from 'slate'
-import { useEditor, useEditorStatic } from '@penx/editor-common'
-import { findNodePath, getNodeByPath } from '@penx/editor-queries'
+import { Path, Transforms } from 'slate'
+import { useEditorStatic } from '@penx/editor-common'
+import { getNodeByPath } from '@penx/editor-queries'
 import { isListElement } from '../guard'
 import { ListContentElement } from '../types'
 
@@ -47,35 +48,45 @@ export const ChevronContent = memo(
       </Box>
     )
   },
-  (prev, next) => JSON.stringify(prev) === JSON.stringify(next),
+  (prev, next) => {
+    return prev.collapsed === next.collapsed && isEqual(prev.path, next.path)
+  },
 )
 
 interface Props {
-  element: ListContentElement
+  path: Path
+  collapsed: boolean
+  id: string
   onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
 }
 
-export const Chevron = ({ element, onContextMenu }: Props) => {
-  const editor = useEditorStatic()
-  const path = findNodePath(editor, element)!
+export const Chevron = memo(
+  function Chevron({ collapsed, id, path, onContextMenu }: Props) {
+    const editor = useEditorStatic()
 
-  // console.log('render.......', Node.string(element))
+    const isChevronVisible = useMemo(() => {
+      const prevPath = Path.next(path)
+      const node = getNodeByPath(editor, prevPath)!
+      if (isListElement(node)) return true
+      return false
+    }, [path, editor])
 
-  const isChevronVisible = useMemo(() => {
-    const prevPath = Path.next(path)
-    const node = getNodeByPath(editor, prevPath)!
-    if (isListElement(node)) return true
-    return false
-  }, [path, editor])
+    if (!isChevronVisible) return null
 
-  if (!isChevronVisible) return null
-
-  return (
-    <ChevronContent
-      onContextMenu={onContextMenu}
-      collapsed={!element.collapsed}
-      path={path}
-      nodeId={element.id}
-    />
-  )
-}
+    return (
+      <ChevronContent
+        onContextMenu={onContextMenu}
+        collapsed={!collapsed}
+        path={path}
+        nodeId={id}
+      />
+    )
+  },
+  (prev, next) => {
+    return (
+      prev.collapsed === next.collapsed &&
+      prev.id === next.id &&
+      isEqual(prev.path, next.path)
+    )
+  },
+)

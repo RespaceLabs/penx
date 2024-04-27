@@ -74,7 +74,7 @@ export const NodeEditorEditable = memo(
         className={css('black outlineNone ' + editorAtomicStyle)}
         autoFocus={false}
         readOnly={readOnly}
-        renderLeaf={(props) => <Leaf {...props} />}
+        // renderLeaf={(props) => <Leaf {...props} />}
         renderElement={renderElement}
         decorate={decorate as any} //
         onCompositionUpdate={onOnCompositionEvent}

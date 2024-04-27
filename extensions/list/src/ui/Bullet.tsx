@@ -2,7 +2,7 @@ import { memo, PropsWithChildren, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
-import { extractTags, useEditor } from '@penx/editor-common'
+import { extractTags, useEditor, useEditorStatic } from '@penx/editor-common'
 import { db } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { NodeType } from '@penx/model-types'
@@ -26,7 +26,8 @@ const BulletContent = memo(
     colors,
     onContextMenu,
   }: BulletContentProps) {
-    const editor = useEditor()
+    // const editor = useEditor()
+    const editor = useEditorStatic()
 
     const color = colors?.length ? colors[0] : 'gray400'
 
@@ -79,36 +80,52 @@ interface Props {
   onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
 }
 
-export const Bullet = ({ element, onContextMenu }: Props) => {
-  const { collapsed = false } = element
-  const isBulletVisible = useBulletVisible(element)
-  const tagNames = extractTags(element.children)
-  const nodes = useAtomValue(nodesAtom)
+export const Bullet = memo(
+  function Bullet({ element, onContextMenu }: Props) {
+    const { collapsed = false } = element
+    const isBulletVisible = useBulletVisible(element)
+    const tagNames = extractTags(element.children)
+    const nodes = useAtomValue(nodesAtom)
 
-  const tagNodes = useMemo(
-    () =>
-      nodes.filter((n) => n.type === NodeType.DATABASE).map((n) => new Node(n)),
-    [nodes],
-  )
+    const tagNodes = useMemo(
+      () =>
+        nodes
+          .filter((n) => n.type === NodeType.DATABASE)
+          .map((n) => new Node(n)),
+      [nodes],
+    )
 
-  let colors: string[] = []
+    let colors: string[] = []
 
-  if (tagNames.length) {
-    colors = tagNames.map((tagName) => {
-      const find = tagNodes.find((n) => n.tagName === tagName)
-      return find?.tagColor ?? 'gray400'
-    })
-  }
+    if (tagNames.length) {
+      colors = tagNames.map((tagName) => {
+        const find = tagNodes.find((n) => n.tagName === tagName)
+        return find?.tagColor ?? 'gray400'
+      })
+    }
 
-  if (!isBulletVisible) return null
+    if (!isBulletVisible) return null
 
-  return (
-    <BulletContent
-      collapsed={collapsed}
-      nodeId={element.id}
-      element={element}
-      colors={colors}
-      onContextMenu={onContextMenu}
-    />
-  )
-}
+    return (
+      <BulletContent
+        collapsed={collapsed}
+        nodeId={element.id}
+        element={element}
+        colors={colors}
+        onContextMenu={onContextMenu}
+      />
+    )
+  },
+
+  (prev, next) => {
+    const equal =
+      prev.element.id === next.element.id &&
+      prev.element.collapsed === next.element.collapsed &&
+      isEqual(
+        extractTags(prev.element.children),
+        extractTags(next.element.children),
+      )
+
+    return equal
+  },
+)

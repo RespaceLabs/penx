@@ -1,17 +1,12 @@
-import { useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { Box } from '@fower/react'
 import { Boxes, BoxIcon, Hash } from 'lucide-react'
 import { Bullet, Button, modalController } from 'uikit'
 import { isProd, ModalNames } from '@penx/constants'
-import {
-  useActiveNodes,
-  useActiveSpace,
-  useRouterName,
-  useSidebarDrawer,
-  useSpaces,
-} from '@penx/hooks'
+import { useActiveSpace, useRouterName, useSidebarDrawer } from '@penx/hooks'
 import { IconCalendar, IconTodo } from '@penx/icons'
 import { Node } from '@penx/model'
+import { INode } from '@penx/model-types'
 import { useNodes } from '@penx/node-hooks'
 import { useSession } from '@penx/session'
 import { store } from '@penx/store'
@@ -23,57 +18,57 @@ import { LoginButton } from './LoginButton'
 import { SidebarItem } from './SidebarItem'
 import { SpacePopover } from './SpacePopover/SpacePopover'
 
-export const Sidebar = () => {
-  const { activeSpace } = useActiveSpace()
-  const { nodes, nodeList } = useNodes()
-  const { loading, data: session } = useSession()
+interface Props {
+  activeNode: INode
+}
 
-  // console.log('=========loading:', loading, 'session:', session)
+export const Sidebar = memo(
+  function Sidebar({ activeNode }: Props) {
+    const { loading, data: session } = useSession()
 
-  const drawer = useSidebarDrawer()
-  const name = useRouterName()
-  const { activeNodes } = useActiveNodes()
+    // console.log('=========loading:', loading, 'session:', session)
 
-  const isTodosActive = name === 'TODOS'
+    const name = useRouterName()
 
-  const isTodayActive = useMemo(() => {
-    if (name !== 'NODE' || !activeNodes.length) return false
-    if (!activeNodes[0]) return false
-    if (new Node(activeNodes[0]).isToday) return true
-    return false
-  }, [name, activeNodes])
+    const isTodosActive = name === 'TODOS'
 
-  const isTagsActive = useMemo(() => {
-    if (name !== 'NODE' || !activeNodes.length) return false
-    if (!activeNodes[0]) return false
-    if (new Node(activeNodes[0]).isDatabaseRoot) return true
-    return false
-  }, [name, activeNodes])
+    const isTodayActive = useMemo(() => {
+      if (name !== 'NODE' || !activeNode) return false
+      if (!activeNode) return false
+      if (new Node(activeNode).isToday) return true
+      return false
+    }, [name, activeNode])
 
-  const isRootActive = useMemo(() => {
-    if (name !== 'NODE' || !activeNodes.length) return false
-    if (!activeNodes[0]) return false
-    if (new Node(activeNodes[0]).isRootNode) return true
-    return false
-  }, [name, activeNodes])
+    const isTagsActive = useMemo(() => {
+      if (name !== 'NODE' || !activeNode) return false
+      if (!activeNode) return false
+      if (new Node(activeNode).isDatabaseRoot) return true
+      return false
+    }, [name, activeNode])
 
-  return (
-    <Box
-      column
-      // borderRight
-      // borderGray100
-      flex-1
-      display={['none', 'none', 'flex']}
-      bgZinc100--T40
-      gap3
-      h-100vh
-      overflowAuto
-    >
-      <Box px2>
-        <Box mt2>
-          <SpacePopover />
-        </Box>
-        {!!nodes.length && (
+    const isRootActive = useMemo(() => {
+      if (name !== 'NODE' || !activeNode) return false
+      if (!activeNode) return false
+      if (new Node(activeNode).isRootNode) return true
+      return false
+    }, [name, activeNode])
+
+    return (
+      <Box
+        column
+        // borderRight
+        // borderGray100
+        flex-1
+        display={['none', 'none', 'flex']}
+        bgZinc100--T40
+        gap3
+        h-100vh
+        overflowAuto
+      >
+        <Box px2>
+          <Box mt2>
+            <SpacePopover />
+          </Box>
           <Box column gap-1 flex-1 mt3>
             <SidebarItem
               icon={
@@ -150,30 +145,29 @@ export const Sidebar = () => {
               }}
             />
           </Box>
-        )}
-      </Box>
+        </Box>
 
-      <Box flex-1 zIndex-1 overflowYAuto px2>
-        {!!nodes.length && (
-          <>
-            <FavoriteBox nodeList={nodeList} />
+        <Box flex-1 zIndex-1 overflowYAuto px2>
+          <FavoriteBox />
 
-            {/* {!activeSpace.isOutliner && <CatalogueBox />}
+          {/* {!activeSpace.isOutliner && <CatalogueBox />}
             {!activeSpace.isOutliner && <PageList />}
             {activeSpace.isOutliner && <TreeView nodeList={nodeList} />} */}
-          </>
-        )}
-      </Box>
+        </Box>
 
-      <Box px4 column gap2>
-        {/* {!isProd && <CreateDemoDatabaseButton></CreateDemoDatabaseButton>} */}
+        <Box px4 column gap2>
+          {/* {!isProd && <CreateDemoDatabaseButton></CreateDemoDatabaseButton>} */}
 
-        {/* <SetupGitHubButton /> */}
-        <LoginButton />
+          {/* <SetupGitHubButton /> */}
+          <LoginButton />
+        </Box>
+        <Box px2 toBetween toCenterY pb2>
+          {session && !loading && <SyncPopover />}
+        </Box>
       </Box>
-      <Box px2 toBetween toCenterY pb2>
-        {session && !loading && <SyncPopover />}
-      </Box>
-    </Box>
-  )
-}
+    )
+  },
+  (prevProps, nextProps) => {
+    return prevProps.activeNode?.id === nextProps.activeNode?.id
+  },
+)

@@ -34,18 +34,23 @@ export const ListItemContent = memo(
     ref,
   ) {
     const editor = useEditorStatic()
-    const path = findNodePath(editor, element)!
+    const path = useMemo(
+      () => findNodePath(editor, element)!,
+      [element, editor],
+    )
     const child = getNodeByPath(editor, [...path, 0]) as TElement
     const isHeading = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(child?.type)
 
-    const isDaily = element.nodeType === NodeType.DAILY
+    const nodeType = element.nodeType!
+    const isDaily = nodeType === NodeType.DAILY
 
     function h() {
       // if (isTask) return 'calc(1.5em + 2px)'
       return isHeading ? 'calc(1.25em)' : 'calc(1.5em + 6px)'
     }
 
-    const menuId = `lic-menu-${element.id}`
+    const nodeId = element.id
+    const menuId = `lic-menu-${nodeId}`
     const { show } = useContextMenu(menuId)
     const isTask = isCheckListItem(child)
 
@@ -99,9 +104,19 @@ export const ListItemContent = memo(
             // bgAmber100
             // ringPurple500
           >
-            <BulletMenu menuId={menuId} element={element} />
+            <BulletMenu
+              menuId={menuId}
+              path={path}
+              nodeType={nodeType}
+              id={nodeId}
+            />
 
-            <Chevron element={element} onContextMenu={show} />
+            <Chevron
+              path={path}
+              id={nodeId}
+              collapsed={element.collapsed}
+              onContextMenu={show}
+            />
 
             <Box inlineFlex {...(draggable ? listeners : {})}>
               <Bullet element={element} onContextMenu={show} />

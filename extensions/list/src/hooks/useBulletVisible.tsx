@@ -1,5 +1,5 @@
 import { Editor, Node } from 'slate'
-import { useEditor } from '@penx/editor-common'
+import { useEditor, useEditorStatic } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
 import { EditorMode, NodeType } from '@penx/model-types'
 import { store } from '@penx/store'
@@ -12,7 +12,8 @@ import { ListContentElement } from '../types'
  * @returns
  */
 export const useBulletVisible = (element: ListContentElement) => {
-  const editor = useEditor()
+  // const editor = useEditor()
+  const editor = useEditorStatic()
   const currentElement = (() => {
     if (!editor.selection) return null
     const res = Editor.nodes(editor, {

@@ -181,6 +181,7 @@ export class NodeService {
 
     const nodes = await db.listNodesBySpaceId(this.spaceId)
 
+    // TODO: need improve render performance
     store.node.setNodes(nodes)
 
     if (!isInReference) {

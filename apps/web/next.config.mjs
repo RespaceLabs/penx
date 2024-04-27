@@ -2,7 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import NextPWA from '@ducanh2912/next-pwa'
 import { PrismaPlugin } from '@prisma/nextjs-monorepo-workaround-plugin'
-// import million from 'million/compiler'
+import million from 'million/compiler'
 // Importing env files here to validate on build
 import './src/env.mjs'
 
@@ -10,7 +10,6 @@ const __filename = fileURLToPath(import.meta.url) // get the resolved path to th
 
 const __dirname = path.dirname(__filename) // get the name of the directory
 //
-console.log('__dirname=========', __dirname)
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -125,4 +124,10 @@ const config = {
 }
 
 // export default withPWA(million.next(config))
-export default isDev ? config : withPWA(config)
+const nextConfig = isDev ? config : withPWA(config)
+
+// export default nextConfig
+
+export default million.next(nextConfig, {
+  auto: true,
+})

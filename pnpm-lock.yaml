@@ -267,8 +267,8 @@ importers:
         specifier: ^13.0.2
         version: 13.0.2
       million:
-        specifier: ^2.6.4
-        version: 2.6.4
+        specifier: ^3.0.6
+        version: 3.0.6(rollup@4.13.2)
       mime:
         specifier: ^3.0.0
         version: 3.0.0
@@ -725,8 +725,8 @@ importers:
         specifier: ^0.344.0
         version: 0.344.0(react@18.2.0)
       million:
-        specifier: ^2.6.4
-        version: 2.6.4
+        specifier: ^3.0.6
+        version: 3.0.6(rollup@4.13.2)
       mime:
         specifier: ^3.0.0
         version: 3.0.0
@@ -2597,8 +2597,8 @@ importers:
         specifier: ^13.0.2
         version: 13.0.2
       million:
-        specifier: ^2.6.4
-        version: 2.6.4
+        specifier: ^3.0.6
+        version: 3.0.6(rollup@2.79.1)
       mime:
         specifier: ^3.0.0
         version: 3.0.0
@@ -12086,6 +12086,15 @@ packages:
     peerDependencies:
       rollup: ^1.20.0||^2.0.0
 
+  '@rollup/pluginutils@5.1.0':
+    resolution: {integrity: sha512-XTIWOPPcpvyKI6L1NHo0lFlCyznUEyPmPY1mc3KpPVDYulHSTvyeLNVW00QTLIAFNhR3kYnJTQHeGqU4M3n09g==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+
   '@rollup/rollup-android-arm-eabi@4.13.2':
     resolution: {integrity: sha512-3XFIDKWMFZrMnao1mJhnOT1h2g0169Os848NhhmGweEcfJ4rCi+3yMCOLG4zA61rbJdkcrM/DjVZm9Hg5p5w7g==}
     cpu: [arm]
@@ -19201,8 +19210,8 @@ packages:
     resolution: {integrity: sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA==}
     engines: {node: '>=8.6'}
 
-  million@2.6.4:
-    resolution: {integrity: sha512-voUkdd/jHWrG+7NS+mX49Pat+POKdgGW78V7pYMSrTaOjUitR6ySEcAci8hn17Rsx1IMI3+5w41dkADM1J1ZEg==}
+  million@3.0.6:
+    resolution: {integrity: sha512-OLjRVASGOZdyZw2ctBSSOu5kb9PaxafqkueqVvw0iQtUUnTLVRk1EmtqcNAtJWCIm8wn+WGRpDbnp+5Hi8//Kg==}
     hasBin: true
 
   mime-db@1.52.0:
@@ -22817,6 +22826,10 @@ packages:
   undici@5.28.3:
     resolution: {integrity: sha512-3ItfzbrhDlINjaP0duwnNsKpDQk3acHI3gVJ1z4fmwMK31k5G9OVIAMLSIaP6w4FaGkaAkN6zaQO9LUvZ1t7VA==}
     engines: {node: '>=14.0'}
+
+  undici@6.14.1:
+    resolution: {integrity: sha512-mAel3i4BsYhkeVPXeIPXVGPJKeBzqCieZYoFsbWfUzd68JmHByhc1Plit5WlylxXFaGpgkZB8mExlxnt+Q1p7A==}
+    engines: {node: '>=18.17'}
 
   unenv@1.9.0:
     resolution: {integrity: sha512-QKnFNznRxmbOF1hDgzpqrlIf6NC5sbZ2OJ+5Wl3OX8uM+LUJXbj4TXvLJCtwbPTmbMHCLIz6JLKNinNsMShK9g==}
@@ -29182,6 +29195,22 @@ snapshots:
       estree-walker: 1.0.1
       picomatch: 2.3.1
       rollup: 2.79.1
+
+  '@rollup/pluginutils@5.1.0(rollup@2.79.1)':
+    dependencies:
+      '@types/estree': 1.0.5
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+    optionalDependencies:
+      rollup: 2.79.1
+
+  '@rollup/pluginutils@5.1.0(rollup@4.13.2)':
+    dependencies:
+      '@types/estree': 1.0.5
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+    optionalDependencies:
+      rollup: 4.13.2
 
   '@rollup/rollup-android-arm-eabi@4.13.2':
     optional: true
@@ -38630,17 +38659,28 @@ snapshots:
       braces: 3.0.2
       picomatch: 2.3.1
 
-  million@2.6.4:
+  million@3.0.6(rollup@2.79.1):
     dependencies:
       '@babel/core': 7.24.3
-      '@babel/generator': 7.24.1
-      '@babel/plugin-syntax-jsx': 7.24.1(@babel/core@7.24.3)
-      '@babel/plugin-syntax-typescript': 7.24.1(@babel/core@7.24.3)
       '@babel/types': 7.24.0
+      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
       kleur: 4.1.5
-      rollup: 3.29.4
+      undici: 6.14.1
       unplugin: 1.10.1
     transitivePeerDependencies:
+      - rollup
+      - supports-color
+
+  million@3.0.6(rollup@4.13.2):
+    dependencies:
+      '@babel/core': 7.24.3
+      '@babel/types': 7.24.0
+      '@rollup/pluginutils': 5.1.0(rollup@4.13.2)
+      kleur: 4.1.5
+      undici: 6.14.1
+      unplugin: 1.10.1
+    transitivePeerDependencies:
+      - rollup
       - supports-color
 
   mime-db@1.52.0: {}
@@ -43167,6 +43207,8 @@ snapshots:
   undici@5.28.3:
     dependencies:
       '@fastify/busboy': 2.1.1
+
+  undici@6.14.1: {}
 
   unenv@1.9.0:
     dependencies:
