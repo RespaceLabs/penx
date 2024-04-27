@@ -17,6 +17,10 @@
 
 An elegant App designed to help you capture, organize, and store your thoughts, tasks, ideas, and information.
 
+## Deploy your own
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpenxio%2Fpenx&env=DATABASE_URL&project-name=penx&repository-name=penx&root-directory=apps%2Fweb&install-command=pnpm%20install&build-command=npx%20turbo%20run%20build%20--filter=web...&ignore-command=npx%20turbo-ignore)
+
 ## Features
 
 - **Local-First** - You own your data, in spite of the cloud

@@ -25,25 +25,26 @@ export const userRouter = createTRPCRouter({
       return user
     }),
 
-  search: protectedProcedure
-    .input(z.object({ q: z.string() }))
-    .query(async ({ ctx, input }) => {
-      let { q } = input
-      if (!q) return []
-      const users = await ctx.prisma.user.findMany({
-        where: {
-          OR: [
-            {
-              email: { contains: q, mode: 'insensitive' },
-            },
-            { name: { contains: q, mode: 'insensitive' } },
-          ],
-        },
-        take: 5,
-      })
+  // TODO: mode is not support MySQL
+  // search: protectedProcedure
+  //   .input(z.object({ q: z.string() }))
+  //   .query(async ({ ctx, input }) => {
+  //     let { q } = input
+  //     if (!q) return []
+  //     const users = await ctx.prisma.user.findMany({
+  //       where: {
+  //         OR: [
+  //           {
+  //             email: { contains: q, mode: 'insensitive' },
+  //           },
+  //           { name: { contains: q, mode: 'insensitive' } },
+  //         ],
+  //       },
+  //       take: 5,
+  //     })
 
-      return users
-    }),
+  //     return users
+  //   }),
 
   selfHostedSignIn: publicProcedure
     .input(
