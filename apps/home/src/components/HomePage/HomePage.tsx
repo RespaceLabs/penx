@@ -20,7 +20,7 @@ export function HomePage() {
           mt={[80, 120]}
           p0
         >
-          A digital assets wallet for Geeks
+          A structured knowledge base for geeks
         </Box>
 
         <Box textLG neutral500 maxW-640 textCenter leadingNormal>

@@ -5,7 +5,7 @@
 
 <h1 style="border-bottom: none">
     <b>PenX</b><br />
-     A structured digital assets wallet for geeks
+     A structured knowledge base for geeks
     <br>
 </h1>
 

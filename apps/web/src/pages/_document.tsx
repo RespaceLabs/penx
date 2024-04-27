@@ -91,14 +91,14 @@ class MyDocument extends Document {
 
           <meta
             name="twitter:card"
-            content="A structured digital assets wallet for geeks"
+            content="A structured knowledge base for geeks"
           />
 
           <meta name="twitter:url" content="https://penx.io" />
           <meta name="twitter:title" content="PenX" />
           <meta
             name="twitter:description"
-            content="A structured digital assets wallet for geeks"
+            content="A structured knowledge base for geeks"
           />
           <meta
             name="twitter:image"
@@ -109,7 +109,7 @@ class MyDocument extends Document {
           <meta property="og:title" content="PenX" />
           <meta
             property="og:description"
-            content="A structured digital assets wallet for geeks"
+            content="A structured knowledge base for geeks"
           />
           <meta property="og:site_name" content="PenX" />
           <meta property="og:url" content="https://www.penx.io" />
