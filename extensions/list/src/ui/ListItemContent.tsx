@@ -119,7 +119,7 @@ export const ListItemContent = memo(
             />
 
             <Box inlineFlex {...(draggable ? listeners : {})}>
-              <Bullet element={element} onContextMenu={show} />
+              <Bullet element={element} onContextMenu={show} editor={editor} />
             </Box>
           </Box>
 

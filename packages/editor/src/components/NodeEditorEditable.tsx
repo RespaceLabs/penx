@@ -69,6 +69,14 @@ export const NodeEditorEditable = memo(
       }
     }
 
+    const select = (e: KeyboardEvent<HTMLDivElement>) => {
+      if (editor?.onSelectFns) {
+        for (const fn of editor.onSelectFns) {
+          fn(editor, e)
+        }
+      }
+    }
+
     return (
       <Editable
         className={css('black outlineNone ' + editorAtomicStyle)}
@@ -80,27 +88,28 @@ export const NodeEditorEditable = memo(
         onCompositionUpdate={onOnCompositionEvent}
         onCompositionEnd={onOnCompositionEvent}
         onKeyDown={keyDown}
-        onSelect={() => {
-          // if (!editor.selection) return
-          // const { anchor, focus } = editor.selection
-          // const isEqual = Path.equals(anchor.path, focus.path)
-          // if (isEqual) return
-          // const entries = Editor.nodes(editor, {
-          //   at: editor.selection,
-          //   mode: 'lowest',
-          //   match: (n: any) => {
-          //     // return true
-          //     // return isListItemElement(n.type)
-          //     return Editor.isBlock(editor, n as any)
-          //   },
-          // })
-          // const arr = Array.from(entries)
-          // for (const [, path] of arr) {
-          //   // const node = getNodeByPath(editor, Path.parent(path))
-          //   const node = getNodeByPath(editor, path.slice(0, path.length - 2))
-          //   console.log('===========node:', node, 'path:', path)
-          // }
-        }}
+        onSelect={select}
+        // onSelect={() => {
+        //   if (!editor.selection) return
+        //   const { anchor, focus } = editor.selection
+        //   const isEqual = Path.equals(anchor.path, focus.path)
+        //   if (isEqual) return
+        //   const entries = Editor.nodes(editor, {
+        //     at: editor.selection,
+        //     mode: 'lowest',
+        //     match: (n: any) => {
+        //       // return true
+        //       // return isListItemElement(n.type)
+        //       return Editor.isBlock(editor, n as any)
+        //     },
+        //   })
+        //   const arr = Array.from(entries)
+        //   for (const [, path] of arr) {
+        //     // const node = getNodeByPath(editor, Path.parent(path))
+        //     const node = getNodeByPath(editor, path.slice(0, path.length - 2))
+        //     console.log('===========node:', node, 'path:', path)
+        //   }
+        // }}
         onDOMBeforeInput={onDOMBeforeInput}
         onBlur={blur}
       />

@@ -5,6 +5,7 @@ import {
   BlockElement,
   OnBlur,
   OnKeyDown,
+  OnSelect,
   RegisterBlockOptions,
   RegisterComponentOptions,
   SettingsSchema,
@@ -41,6 +42,8 @@ export class ExtensionStore {
   onKeyDownFns: OnKeyDown[] = []
 
   onBlurFns: OnBlur[] = []
+
+  onSelectFns: OnSelect[] = []
 
   inlineTypes: string[] = []
 
@@ -89,6 +92,10 @@ export class ExtensionStore {
 
     if (block.handlers?.onBlur) {
       this.onBlurFns.push(block.handlers.onBlur)
+    }
+
+    if (block.handlers?.onSelect) {
+      this.onSelectFns.push(block.handlers.onSelect)
     }
 
     if (block.autoformatRules) {

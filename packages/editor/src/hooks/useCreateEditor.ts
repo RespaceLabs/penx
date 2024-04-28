@@ -26,6 +26,7 @@ export function useCreateEditor(fns: WithFns[] = []) {
     elementMaps,
     onKeyDownFns,
     onBlurFns,
+    onSelectFns,
   } = extensionStore
 
   const withFns: ((editor: PenxEditor) => any)[] = [
@@ -116,6 +117,7 @@ export function useCreateEditor(fns: WithFns[] = []) {
     editor.elementMaps = elementMaps
     editor.onKeyDownFns = onKeyDownFns
     editor.onBlurFns = onBlurFns
+    editor.onSelectFns = onSelectFns
 
     return editor
   })

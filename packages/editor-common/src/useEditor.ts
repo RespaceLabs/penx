@@ -11,6 +11,7 @@ export type PenxEditor = BaseEditor &
     elementMaps: any
     onKeyDownFns: any
     onBlurFns: any
+    onSelectFns: any
     onClickBullet: any
 
     isOutliner: boolean

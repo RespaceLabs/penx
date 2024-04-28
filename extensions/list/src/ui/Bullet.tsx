@@ -2,8 +2,14 @@ import { memo, PropsWithChildren, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import { Box } from '@fower/react'
 import { useAtomValue } from 'jotai'
-import { extractTags, useEditor, useEditorStatic } from '@penx/editor-common'
-import { db } from '@penx/local-db'
+import { Node as SlateNode } from 'slate'
+import { Slate } from 'slate-react'
+import {
+  extractTags,
+  PenxEditor,
+  useEditor,
+  useEditorStatic,
+} from '@penx/editor-common'
 import { Node } from '@penx/model'
 import { NodeType } from '@penx/model-types'
 import { nodesAtom } from '@penx/store'
@@ -76,16 +82,19 @@ const BulletContent = memo(
 )
 
 interface Props {
+  editor: PenxEditor
   element: ListContentElement
   onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => any
 }
 
 export const Bullet = memo(
   function Bullet({ element, onContextMenu }: Props) {
+    const editor = useEditorStatic()
     const { collapsed = false } = element
-    const isBulletVisible = useBulletVisible(element)
+    const { isBulletVisible, isFocus } = useBulletVisible(element)
     const tagNames = extractTags(element.children)
-    const nodes = useAtomValue(nodesAtom)
+    // const nodes = useAtomValue(nodesAtom)
+    const nodes = editor.items.map((item) => item.raw)
 
     const tagNodes = useMemo(
       () =>
@@ -121,6 +130,7 @@ export const Bullet = memo(
     const equal =
       prev.element.id === next.element.id &&
       prev.element.collapsed === next.element.collapsed &&
+      isEqual(SlateNode.string(prev.element), SlateNode.string(next.element)) &&
       isEqual(
         extractTags(prev.element.children),
         extractTags(next.element.children),

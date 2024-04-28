@@ -10,11 +10,13 @@ import {
 import { getCurrentPath, getNodeByPath } from '@penx/editor-queries'
 import { ExtensionContext } from '@penx/extension-typings'
 import { onKeyDown } from './onKeyDown'
+import { onSelect } from './onSelect'
 import { withCopy } from './plugins/withCopy'
 import { withEditable } from './plugins/withEditable'
 import { withListsPlugin } from './plugins/withListsPlugin'
 import { withMarkdown } from './plugins/withMarkdown'
 import { withPaste } from './plugins/withPaste'
+import { withSelect } from './plugins/withSelect'
 import { insertEmptyList } from './transforms/insertEmptyList'
 import { List } from './ui/List'
 import { ListItem } from './ui/ListItem'
@@ -32,12 +34,20 @@ export * from './transforms/insertEmptyParagraph'
 export function activate(ctx: ExtensionContext) {
   ctx.registerBlock({
     // for web
-    with: [withListsPlugin, withMarkdown, withEditable, withCopy, withPaste],
+    with: [
+      withListsPlugin,
+      withMarkdown,
+      withEditable,
+      withCopy,
+      withPaste,
+      withSelect,
+    ],
 
     // for extension
     // with: [withListsPlugin, withEditable, withPaste, withCopy],
     handlers: {
       onKeyDown: onKeyDown,
+      onSelect: onSelect,
     },
     elements: [
       {

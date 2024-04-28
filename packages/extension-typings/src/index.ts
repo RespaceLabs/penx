@@ -38,6 +38,7 @@ export interface RegisterBlockOptions {
   handlers?: {
     onKeyDown?: OnKeyDown
     onBlur?: OnBlur
+    onSelect?: OnSelect
   }
   elements?: BlockElement[]
 
@@ -70,6 +71,8 @@ export type OnBlur = (
   editor: PenxEditor,
   e: FocusEvent<HTMLDivElement, globalThis.Element>,
 ) => boolean | void
+
+export type OnSelect = (editor: PenxEditor, e: any) => boolean | void
 
 export interface BlockElement {
   type: string
