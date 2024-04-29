@@ -31,7 +31,7 @@ export function activate(ctx: ExtensionContext) {
       ELEMENT_H3,
       ELEMENT_H4,
       ELEMENT_H5,
-      ELEMENT_H6,
+      // ELEMENT_H6,
     ].map((item, index) => {
       const element: BlockElement = {
         type: item,
@@ -74,11 +74,11 @@ export function activate(ctx: ExtensionContext) {
         type: ELEMENT_H5,
         match: '##### ',
       },
-      {
-        mode: 'block',
-        type: ELEMENT_H6,
-        match: '###### ',
-      },
+      // {
+      //   mode: 'block',
+      //   type: ELEMENT_H6,
+      //   match: '###### ',
+      // },
     ],
   })
 }

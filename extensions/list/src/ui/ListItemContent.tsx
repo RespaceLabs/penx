@@ -46,7 +46,7 @@ export const ListItemContent = memo(
 
     function h() {
       // if (isTask) return 'calc(1.5em + 2px)'
-      return isHeading ? 'calc(1.25em)' : 'calc(1.5em + 6px)'
+      return isHeading ? 'calc(1em)' : 'calc(1.5em + 6px)'
     }
 
     const nodeId = element.id

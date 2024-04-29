@@ -16,6 +16,8 @@ export const withSelect = (editor: PenxEditor) => {
 
       const licEntries = Array.from(res)
 
+      // console.log('======licEntries:', licEntries)
+
       if (licEntries.length) {
         emitter.emit('ON_SELECT', (licEntries?.[0]?.[0] as any).id as string)
       }

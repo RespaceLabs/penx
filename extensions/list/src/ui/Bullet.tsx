@@ -12,7 +12,6 @@ import {
 } from '@penx/editor-common'
 import { Node } from '@penx/model'
 import { NodeType } from '@penx/model-types'
-import { nodesAtom } from '@penx/store'
 import { useBulletVisible } from '../hooks/useBulletVisible'
 import { ListContentElement } from '../types'
 
@@ -91,7 +90,7 @@ export const Bullet = memo(
   function Bullet({ element, onContextMenu }: Props) {
     const editor = useEditorStatic()
     const { collapsed = false } = element
-    const { isBulletVisible, isFocus } = useBulletVisible(element)
+    const { isBulletVisible } = useBulletVisible(element)
     const tagNames = extractTags(element.children)
     // const nodes = useAtomValue(nodesAtom)
     const nodes = editor.items.map((item) => item.raw)

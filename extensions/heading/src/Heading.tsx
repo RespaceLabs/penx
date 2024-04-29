@@ -14,15 +14,16 @@ export const Heading = ({
     <Box
       as={type.toLocaleLowerCase() as any}
       leadingTight
-      text3XL={type === 'h1'}
-      text2XL={type === 'h2'}
-      textXL={type === 'h3'}
-      textLG={type === 'h4'}
+      text-24={type === 'h1'}
+      text-21={type === 'h2'}
+      text-19={type === 'h3'}
+      text-17={type === 'h4'}
       textBase={type === 'h5'}
-      textSM={type === 'h6'}
+      mt="1em"
+      mb="0.5em"
       relative
-      mt0
-      mb0
+      // mt0
+      // mb0
       {...attributes}
       {...nodeProps}
     >

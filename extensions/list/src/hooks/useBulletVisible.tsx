@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react'
 import { Editor, Node } from 'slate'
-import { useFocused } from 'slate-react'
-import { useEditor, useEditorStatic } from '@penx/editor-common'
+import { useEditor } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
 import { EditorMode, NodeType } from '@penx/model-types'
 import { store } from '@penx/store'
-import { emitter } from '../emitter'
 import { listSchema } from '../listSchema'
 import { ListContentElement } from '../types'
 
@@ -15,30 +12,25 @@ import { ListContentElement } from '../types'
  * @returns
  */
 export const useBulletVisible = (element: ListContentElement) => {
-  // const editor = useEditor()
-  const editor = useEditorStatic()
+  const editor = useEditor()
+  const currentElement = (() => {
+    if (!editor.selection) return null
+    const res = Editor.nodes(editor, {
+      mode: 'lowest',
+      at: editor.selection,
+      match: listSchema.isListItemTextNode,
+    })
+
+    const licEntries = Array.from(res)
+    if (!licEntries.length) return null
+    return licEntries[0][0]
+  })()
 
   const path = findNodePath(editor, element)
-  // console.log('=========element:', element)
-
-  const [isFocused, setFocused] = useState(false)
-
-  useEffect(() => {
-    emitter.on('ON_SELECT', (id) => {
-      if (id === element.id) {
-        setFocused(true)
-      } else {
-        setFocused(false)
-      }
-    })
-    return () => {
-      emitter.off('ON_SELECT')
-    }
-  }, [])
 
   const isFirstLine = path?.[1] === 0
   const str = Node.string(element)
-
+  const isFocused = currentElement === element
   const isBulletVisible = !!str || isFocused || isFirstLine
   const activeSpace = store.space.getActiveSpace()
 
@@ -46,8 +38,8 @@ export const useBulletVisible = (element: ListContentElement) => {
     (element as any)?.nodeType === NodeType.DAILY &&
     activeSpace.editorMode === EditorMode.BLOCK
   ) {
-    return { isBulletVisible: true, isFocus: isFocused }
+    return { isBulletVisible: true }
   }
 
-  return { isBulletVisible, isFocus: isFocused }
+  return { isBulletVisible }
 }
