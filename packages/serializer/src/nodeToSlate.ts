@@ -8,22 +8,29 @@ import {
 } from '@penx/constants'
 import { Node } from '@penx/model'
 import { INode } from '@penx/model-types'
+import { uniqueId } from '@penx/unique-id'
+
+interface NodeToSlateOptions {
+  node: INode
+  nodes: INode[]
+  isOutliner: boolean
+  isOutlinerSpace?: boolean
+  isNewId?: boolean
+}
 
 /**
  * single node to slate
- * @param node
- * @param allNodes
- * @returns
  */
-export function nodeToSlate(
-  node: INode,
-  allNodes: INode[],
-  isOutliner: boolean,
-  isOutlinerSpace?: boolean,
-) {
+export function nodeToSlate({
+  node,
+  nodes,
+  isOutliner,
+  isOutlinerSpace,
+  isNewId,
+}: NodeToSlateOptions) {
   const serializer = new NodeToSlateSerializer(
     new Node(node),
-    allNodes.map((n) => new Node(n)),
+    nodes.map((n) => new Node(n)),
     isOutliner,
     isOutlinerSpace,
   )
@@ -40,6 +47,7 @@ export class NodeToSlateSerializer {
     public allNodes: Node[],
     private isOutliner: boolean,
     private isOutlinerSpace?: boolean,
+    private isNewId?: boolean,
   ) {
     for (const item of allNodes) {
       this.nodeMap.set(item.id, item.raw)
@@ -150,7 +158,7 @@ export class NodeToSlateSerializer {
 
           const liChildren = [
             {
-              id: node.id,
+              id: this.isNewId ? uniqueId() : node.id,
               type: ELEMENT_LIC,
               nodeType: node.type,
               parentId,
@@ -197,7 +205,7 @@ export class NodeToSlateSerializer {
 
         const listChildren = [
           {
-            id: node.id,
+            id: this.isNewId ? uniqueId() : node.id,
             type: ELEMENT_LIC,
             parentId: null,
             nodeType: node.type,
@@ -228,7 +236,7 @@ export class NodeToSlateSerializer {
 
     if (isCreateTitle) {
       value.push({
-        id: this.node.id,
+        id: this.isNewId ? uniqueId() : this.node.id,
         type: ELEMENT_TITLE,
         props: this.node.props,
         date: this.node.date,

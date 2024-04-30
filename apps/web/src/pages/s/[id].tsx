@@ -17,7 +17,11 @@ export default function PagePublishedNode({ nodeId, publishedNode }: Props) {
 
   const nodes = publishedNode.nodes as unknown as INode[]
   const node = nodes.find(({ id }) => id === nodeId)!
-  const content = nodeToSlate(node, nodes, false)
+  const content = nodeToSlate({
+    node,
+    nodes,
+    isOutliner: false,
+  })
 
   console.log('=====node:', nodes)
 

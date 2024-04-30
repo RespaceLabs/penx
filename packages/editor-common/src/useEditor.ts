@@ -20,6 +20,8 @@ export type PenxEditor = BaseEditor &
     isTagSelectorOpened: boolean
     isBidirectionalLinkSelector: boolean
 
+    copiedNodeId: string
+
     isInTodoPage: boolean
 
     isOnComposition: boolean

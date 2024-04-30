@@ -51,7 +51,8 @@ export const Tag = ({
       contentEditable={false}
       cursorPointer
       fontNormal
-      h={[24, 22]}
+      // h={[24, 22]}
+      py={[5, 4]}
       toCenter
       px1
       leadingNone
@@ -81,6 +82,7 @@ export const Tag = ({
   return (
     <Box
       {...attributes}
+      as="span"
       toCenterY
       inlineFlex
       rounded
@@ -93,11 +95,11 @@ export const Tag = ({
       {children}
       {tagJSX}
 
-      <DatabaseProvider databaseId={element.databaseId}>
+      {/* <DatabaseProvider databaseId={element.databaseId}>
         <ContextMenu id={menuId} w-400>
           <TagForm databaseId={element.databaseId} path={path} />
         </ContextMenu>
-      </DatabaseProvider>
+      </DatabaseProvider> */}
     </Box>
   )
 }

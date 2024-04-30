@@ -60,7 +60,7 @@ export const Workbench = () => {
       <Box h-100vh toLeft black flex-1 relative>
         {!isBackedUp && session && name === 'NODE' && <BackupMnemonicTips />}
 
-        <Box toLeft relative borderRight borderNeutral200--T20>
+        <Box toLeft relative borderRight borderNeutral200--T40>
           <Box
             w={sidebarOpen ? [0, 0, SIDEBAR_WIDTH] : 0}
             h-100vh

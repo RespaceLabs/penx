@@ -59,7 +59,6 @@ const variants: ScaleMotionVariant = {
 
 export function PanelItem({ node, index }: Props) {
   const { nodes, nodeList } = useNodes()
-  const { name } = useAtomValue(routerAtom)
   const nodeService = new NodeService(node, nodes)
   const { activeSpace } = useActiveSpace()
 
@@ -67,12 +66,12 @@ export function PanelItem({ node, index }: Props) {
 
   const isOutliner = activeSpace.isOutliner || node.isListItem
 
-  const content = nodeToSlate(
-    node.raw,
-    nodeList.rawNodes,
+  const content = nodeToSlate({
+    node: node.raw,
+    nodes: nodeList.rawNodes,
     isOutliner,
-    activeSpace.isOutliner,
-  )
+    isOutlinerSpace: activeSpace.isOutliner,
+  })
 
   // console.log('===========node.raw', node.raw, 'content:', content)
 

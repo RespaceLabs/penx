@@ -7,6 +7,8 @@ export const withCopy = (editor: PenxEditor) => {
 
   editor.setFragmentData = (data: DataTransfer, event) => {
     if (event === 'copy' || event === 'cut') {
+      editor.copiedNodeId = ''
+
       const entries = Editor.nodes(editor, {
         at: editor.selection!,
         match: listSchema.isListItemTextNode,

@@ -22,6 +22,9 @@ export const Heading = ({
       mt="1em"
       mb="0.5em"
       relative
+      // style={{
+      //   verticalAlign: 'center',
+      // }}
       // mt0
       // mb0
       {...attributes}

@@ -316,7 +316,11 @@ export class SyncService {
     // get fileIds
     for (const nodeId of nodeIds) {
       const node = await db.getNode(nodeId)
-      const value = nodeToSlate(node, nodesRaw, true)
+      const value = nodeToSlate({
+        node,
+        nodes: nodesRaw,
+        isOutliner: true,
+      })
       const editor = createEditor()
       editor.insertNodes(value)
 

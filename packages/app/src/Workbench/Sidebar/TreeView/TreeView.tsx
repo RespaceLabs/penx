@@ -305,7 +305,11 @@ export const TreeView = ({ nodeList }: TreeViewProps) => {
 
       store.node.setFirstActiveNodes(newActiveNode)
 
-      const value = nodeToSlate(newActiveNode, nodes, activeSpace.isOutliner)
+      const value = nodeToSlate({
+        node: newActiveNode,
+        nodes,
+        isOutliner: activeSpace.isOutliner,
+      })
 
       Transforms.insertNodes(editor, value)
     }

@@ -37,6 +37,7 @@ export const BulletMenu = memo(
 
     function copyNode() {
       console.log('copy node.....')
+      editor.copiedNodeId = id
     }
 
     async function openInNewPanel() {
