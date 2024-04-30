@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { ToastContainer } from 'uikit'
 import { useHideLogoLoader } from '@penx/hooks'
 import { IconWallet } from '@penx/icons'
+import { TrpcProvider } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
 import { LoginForm } from '~/components/LoginForm/LoginForm'
 import LoginWithGoogleButton from '~/components/LoginWithGoogleButton'
@@ -17,8 +18,10 @@ export default function LoginPage() {
 
   useHideLogoLoader()
 
+  const isHosted = process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED'
+
   const loginEntry = useMemo(() => {
-    if (process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED') {
+    if (isHosted) {
       return <LoginForm />
     }
 
@@ -44,60 +47,69 @@ export default function LoginPage() {
   return (
     <ClientOnly>
       <ToastContainer position="bottom-right" />
-      <WalletConnectProvider>
-        <Box column h-100vh>
-          <Box mx-auto py8 toCenter>
-            <Logo to="/" />
-          </Box>
-          <Box column flex-1 toCenter>
-            <Box
-              toCenter
-              py10
-              rounded3XL
-              mx-auto
-              bgWhite
-              column
-              mt--200
-              // border
-              w={['100%', '100%', 480]}
-            >
-              <Box as="h1" fontBold>
-                Welcome to PenX
-              </Box>
-              <Box as="p" textCenter mb6 leadingNormal px10 gray500 textBase>
-                A structured knowledge base for geeks
-              </Box>
-
-              {loginEntry}
-              <Box gray400 textSM maxW-260 mt5 textCenter leadingTight>
-                By creating an account you agree to our{' '}
-                <Box
-                  as="a"
-                  href="https://www.penx.io/privacy"
-                  target="_blank"
-                  brand500
-                  noUnderline
-                  underline--hover
-                >
-                  privacy policy
-                </Box>{' '}
-                and{' '}
-                <Box
-                  as="a"
-                  href="https://www.penx.io/terms"
-                  target="_blank"
-                  brand500
-                  noUnderline
-                  underline--hover
-                >
-                  terms of service
+      <TrpcProvider>
+        <WalletConnectProvider>
+          <Box column h-100vh>
+            <Box mx-auto py8 toCenter>
+              <Logo to="/" />
+            </Box>
+            <Box column flex-1 toCenter>
+              <Box
+                toCenter
+                py10
+                rounded3XL
+                mx-auto
+                bgWhite
+                column
+                mt--200
+                // border
+                w={['100%', '100%', 480]}
+              >
+                <Box as="h1" fontBold>
+                  Welcome to PenX
                 </Box>
-                .
+                <Box as="p" textCenter mb6 leadingNormal px10 gray500 textBase>
+                  A structured knowledge base for geeks
+                </Box>
+
+                {loginEntry}
+
+                {!isHosted && <TermsOfService />}
               </Box>
             </Box>
           </Box>
-        </Box>
-      </WalletConnectProvider>
+        </WalletConnectProvider>
+      </TrpcProvider>
     </ClientOnly>
+  )
+}
+
+function TermsOfService() {
+  return (
+    <Box gray400 textSM maxW-260 mt5 textCenter leadingTight>
+      By creating an account you agree to our{' '}
+      <Box
+        as="a"
+        href="https://www.penx.io/privacy"
+        target="_blank"
+        brand500
+        noUnderline
+        underline--hover
+      >
+        privacy policy
+      </Box>{' '}
+      and{' '}
+      <Box
+        as="a"
+        href="https://www.penx.io/terms"
+        target="_blank"
+        brand500
+        noUnderline
+        underline--hover
+      >
+        terms of service
+      </Box>
+      .
+    </Box>
   )
 }

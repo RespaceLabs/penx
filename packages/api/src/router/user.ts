@@ -10,9 +10,16 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc'
 
 const redis = new Redis(process.env.REDIS_URL!)
 
+const isHosted = process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED'
+
 export const userRouter = createTRPCRouter({
   me: protectedProcedure.query(async ({ ctx }) => {
     return getMe(ctx.token.uid)
+  }),
+
+  firstUser: publicProcedure.query(async ({ ctx }) => {
+    if (!isHosted) return null
+    return ctx.prisma.user.findFirst()
   }),
 
   byAddress: protectedProcedure

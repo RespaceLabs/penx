@@ -1,16 +1,14 @@
 import { Controller } from 'react-hook-form'
 import { Box } from '@fower/react'
 import { Button, Input, Spinner } from 'uikit'
+import { trpc } from '@penx/trpc-client'
 import { useLoginForm } from './useLoginForm'
-
-interface Props {
-  showCancel?: boolean
-}
 
 export function LoginForm() {
   const form = useLoginForm()
   const { control, formState, loading } = form
   const { isValid } = formState
+  const { error } = trpc.user.firstUser.useQuery(undefined, { retry: false })
 
   return (
     <Box
@@ -19,7 +17,7 @@ export function LoginForm() {
       column
       gap4
       pt3
-      w={['90%', '90%', 360]}
+      w={['90%', '90%', 380]}
     >
       <Controller
         name="username"
@@ -49,6 +47,15 @@ export function LoginForm() {
         {loading && <Spinner white square5 />}
         <Box>Login</Box>
       </Button>
+
+      {error && (
+        <Box gray400 textCenter>
+          The initial username/password is:{' '}
+          <Box inlineFlex black>
+            penx/123456
+          </Box>
+        </Box>
+      )}
     </Box>
   )
 }
