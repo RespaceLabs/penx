@@ -26,8 +26,12 @@ export type WithFlattenedProps<T> = T & {
 export class Node {
   parentId: string
 
+  props: Record<string, any> = {}
+
   constructor(public raw: INode) {
     this.parentId = this.raw?.parentId || ''
+
+    this.props = this.raw?.props || {}
   }
 
   get id(): string {
@@ -44,10 +48,6 @@ export class Node {
 
   get hasChildren() {
     return !!this.children.length
-  }
-
-  get props() {
-    return this.raw.props || {}
   }
 
   get date() {
@@ -282,5 +282,9 @@ export class Node {
     ]
 
     return calculateSHA256FromString(JSON.stringify(json))
+  }
+
+  setProps(props: Record<string, any>) {
+    this.props = props
   }
 }

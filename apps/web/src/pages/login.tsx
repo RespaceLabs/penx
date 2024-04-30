@@ -13,12 +13,12 @@ import { SiweModal } from '~/components/SiweModal'
 import { WalletConnectButton } from '~/components/WalletConnectButton'
 import { WalletConnectProvider } from '~/components/WalletConnectProvider'
 
+const isHosted = process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED'
+
 export default function LoginPage() {
   const { push } = useRouter()
 
   useHideLogoLoader()
-
-  const isHosted = process.env.NEXT_PUBLIC_DEPLOY_MODE === 'SELF_HOSTED'
 
   const loginEntry = useMemo(() => {
     if (isHosted) {

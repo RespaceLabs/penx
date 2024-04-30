@@ -166,7 +166,7 @@ export class NodeStore {
     let cells = nodes.filter(
       (node) => node.type === NodeType.CELL && node.parentId === databaseId,
     )
-    return cells
+    return cells as ICellNode[]
   }
 
   getTodos() {

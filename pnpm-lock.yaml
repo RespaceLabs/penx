@@ -47,33 +47,12 @@ importers:
 
   apps/believer:
     dependencies:
-      '@dnd-kit/core':
-        specifier: ^6.1.0
-        version: 6.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@dnd-kit/sortable':
-        specifier: ^7.0.2
-        version: 7.0.2(@dnd-kit/core@6.1.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
-      '@dnd-kit/utilities':
-        specifier: ^3.2.2
-        version: 3.2.2(react@18.2.0)
-      '@emoji-mart/data':
-        specifier: ^1.1.2
-        version: 1.1.2
-      '@emoji-mart/react':
-        specifier: ^1.1.1
-        version: 1.1.1(emoji-mart@5.5.2)(react@18.2.0)
-      '@floating-ui/react':
-        specifier: ^0.25.4
-        version: 0.25.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@fower/atomic-props':
         specifier: ^2.0.0
         version: 2.0.0
       '@fower/react':
         specifier: ^2.0.0
         version: 2.0.0
-      '@glideapps/glide-data-grid':
-        specifier: ^6.0.3
-        version: 6.0.3(lodash@4.17.21)(marked@11.2.0)(react-dom@18.2.0(react@18.2.0))(react-responsive-carousel@3.2.23)(react@18.2.0)
       '@hookform/resolvers':
         specifier: ^3.3.2
         version: 3.3.4(react-hook-form@7.51.2(react@18.2.0))
@@ -95,30 +74,15 @@ importers:
       '@penx/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@penx/app':
-        specifier: workspace:*
-        version: link:../../packages/app
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants
-      '@penx/database':
-        specifier: workspace:*
-        version: link:../../extensions/database
-      '@penx/db':
-        specifier: workspace:*
-        version: link:../../packages/db
-      '@penx/encryption':
-        specifier: workspace:*
-        version: link:../../packages/encryption
       '@penx/hooks':
         specifier: workspace:*
         version: link:../../packages/hooks
       '@penx/icons':
         specifier: workspace:*
         version: link:../../packages/icons
-      '@penx/local-db':
-        specifier: workspace:*
-        version: link:../../packages/local-db
       '@penx/math':
         specifier: workspace:*
         version: link:../../packages/math
@@ -128,21 +92,12 @@ importers:
       '@penx/model-types':
         specifier: workspace:*
         version: link:../../packages/model-types
-      '@penx/serializer':
-        specifier: workspace:*
-        version: link:../../packages/serializer
       '@penx/session':
         specifier: workspace:*
         version: link:../../packages/session
       '@penx/shared':
         specifier: workspace:*
         version: link:../../packages/shared
-      '@penx/slate-lists':
-        specifier: workspace:*
-        version: link:../../packages/slate-lists
-      '@penx/store':
-        specifier: workspace:*
-        version: link:../../packages/store
       '@penx/trpc-client':
         specifier: workspace:^
         version: link:../../packages/trpc-client
@@ -218,15 +173,6 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
-      dexie:
-        specifier: ^3.2.4
-        version: 3.2.7
-      dexie-react-hooks:
-        specifier: ^1.1.7
-        version: 1.1.7(@types/react@18.2.73)(dexie@3.2.7)(react@18.2.0)
-      emoji-mart:
-        specifier: ^5.5.2
-        version: 5.5.2
       emoji-picker-react:
         specifier: ^4.5.16
         version: 4.9.2(react@18.2.0)
@@ -263,9 +209,6 @@ importers:
       lucide-react:
         specifier: ^0.344.0
         version: 0.344.0(react@18.2.0)
-      markdown-it:
-        specifier: ^13.0.2
-        version: 13.0.2
       million:
         specifier: ^3.0.6
         version: 3.0.6(rollup@4.13.2)
@@ -287,18 +230,9 @@ importers:
       nextjs-google-analytics:
         specifier: ^2.3.3
         version: 2.3.3(next@14.1.4(@babel/core@7.24.3)(@opentelemetry/api@1.8.0)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.72.0))(react@18.2.0)
-      octokit:
-        specifier: ^3.1.2
-        version: 3.1.2
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
-      rc-table:
-        specifier: ^7.36.0
-        version: 7.45.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      re-resizable:
-        specifier: ^6.9.11
-        version: 6.9.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -329,18 +263,9 @@ importers:
       siwe:
         specifier: ^2.1.4
         version: 2.1.4(ethers@6.11.1(bufferutil@4.0.8)(utf-8-validate@6.0.3))
-      slate:
-        specifier: 0.102.0
-        version: 0.102.0
       slate-history:
         specifier: 0.100.0
         version: 0.100.0(slate@0.102.0)
-      slate-hyperscript:
-        specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
-      slate-react:
-        specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
       sonner:
         specifier: ^0.6.2
         version: 0.6.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -390,9 +315,6 @@ importers:
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.17.0
-      '@types/markdown-it':
-        specifier: ^13.0.7
-        version: 13.0.7
       '@types/mime':
         specifier: ^3.0.4
         version: 3.0.4
@@ -426,9 +348,6 @@ importers:
       sass:
         specifier: ^1.69.5
         version: 1.72.0
-      smee-client:
-        specifier: ^2.0.1
-        version: 2.0.1
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -685,12 +604,6 @@ importers:
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
-      dexie:
-        specifier: ^3.2.4
-        version: 3.2.7
-      dexie-react-hooks:
-        specifier: ^1.1.7
-        version: 1.1.7(@types/react@18.2.73)(dexie@3.2.7)(react@18.2.0)
       ethers:
         specifier: ^6.10.0
         version: 6.11.1(bufferutil@4.0.8)(utf-8-validate@6.0.3)
@@ -751,9 +664,6 @@ importers:
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
-      re-resizable:
-        specifier: ^6.9.11
-        version: 6.9.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0

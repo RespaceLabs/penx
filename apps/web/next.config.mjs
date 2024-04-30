@@ -126,8 +126,8 @@ const config = {
 // export default withPWA(million.next(config))
 const nextConfig = isDev ? config : withPWA(config)
 
-// export default nextConfig
+export default nextConfig
 
-export default million.next(nextConfig, {
-  auto: true,
-})
+// export default million.next(nextConfig, {
+//   auto: true,
+// })

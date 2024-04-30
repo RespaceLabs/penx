@@ -22,6 +22,7 @@ import { MobileNav } from './NodeNav/MobileNav'
 import { PCNav } from './NodeNav/PCNav'
 import { NodePanels } from './NodePanels'
 import { PageTodo } from './PageTodo/PageTodo'
+import { RowModal } from './RowModal'
 import { GoogleBackup } from './Settings/Backup/GoogleBackup'
 import { PageSettings } from './Settings/PageSettings/PageSettings'
 import { SettingsModal } from './Settings/SettingsModal/SettingsModal'
@@ -56,6 +57,7 @@ export const Workbench = () => {
       <LoginByTokenModal />
       <SettingsModal />
       <TagHubModal />
+      <RowModal />
 
       <Box h-100vh toLeft black flex-1 relative>
         {!isBackedUp && session && name === 'NODE' && <BackupMnemonicTips />}

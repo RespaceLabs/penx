@@ -84,7 +84,9 @@ export class TableSearch {
 
           this.insert(
             cellNodeProps.columnId,
-            text ? text.trim() : 'EMPTY',
+            // text ? text.trim() : 'EMPTY',
+            //TODO:
+            text ? String(text).trim() : 'EMPTY',
             item.id,
             searchNodesInner,
           )
@@ -101,7 +103,8 @@ export class TableSearch {
 
         this.insert(
           property,
-          text ? text.trim() : 'EMPTY',
+          // text ? text.trim() : 'EMPTY',
+          text ? String(text).trim() : 'EMPTY',
           item.id,
           searchNodesInner,
         )

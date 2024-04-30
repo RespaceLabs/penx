@@ -2,9 +2,7 @@ import { Fragment } from 'react'
 import { Session } from 'next-auth'
 import { NextSeo } from 'next-seo'
 import type { AppProps } from 'next/app'
-import { ToastContainer } from 'uikit'
 import { isServer } from '@penx/constants'
-import { TrpcProvider } from '@penx/trpc-client'
 import { initFower } from '../common/initFower'
 import '../styles/globals.css'
 
@@ -15,10 +13,6 @@ interface Props<T> extends AppProps<T> {
     Layout: any
     session: Session
   }
-}
-
-if (!isServer) {
-  // TODO: move this code to a separate file
 }
 
 function MyApp({ Component, pageProps }: Props<any>) {
@@ -47,16 +41,13 @@ function MyApp({ Component, pageProps }: Props<any>) {
         }}
       />
 
-      <TrpcProvider>
-        {/* <SpeedInsights /> */}
-        <Layout>
-          <Component {...pageProps} />
-          <div id="portal" />
-        </Layout>
-        <ToastContainer position="bottom-right" />
+      {/* <SpeedInsights /> */}
+      <Layout>
+        <Component {...pageProps} />
+        <div id="portal" />
+      </Layout>
 
-        {/* <Analytics /> */}
-      </TrpcProvider>
+      {/* <Analytics /> */}
     </>
   )
 }
