@@ -95,11 +95,11 @@ export const Tag = ({
       {children}
       {tagJSX}
 
-      {/* <DatabaseProvider databaseId={element.databaseId}>
+      <DatabaseProvider databaseId={element.databaseId}>
         <ContextMenu id={menuId} w-400>
           <TagForm databaseId={element.databaseId} path={path} />
         </ContextMenu>
-      </DatabaseProvider> */}
+      </DatabaseProvider>
     </Box>
   )
 }

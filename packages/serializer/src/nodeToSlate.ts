@@ -33,6 +33,7 @@ export function nodeToSlate({
     nodes.map((n) => new Node(n)),
     isOutliner,
     isOutlinerSpace,
+    isNewId,
   )
   return serializer.getEditorValue()
 }
