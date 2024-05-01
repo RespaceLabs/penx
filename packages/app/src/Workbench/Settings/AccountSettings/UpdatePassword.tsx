@@ -1,7 +1,10 @@
+import { isMobile } from 'react-device-detect'
 import { Box } from '@fower/react'
-import { Button, Popover, PopoverContent, PopoverTrigger } from 'uikit'
 import { Title } from './Title'
-import { UpdatePasswordForm } from './UpdatePasswordForm'
+import {
+  UpdatePasswordDrawer,
+  UpdatePasswordModal,
+} from './UpdatePasswordModal'
 
 export const UpdatePassword = () => {
   return (
@@ -10,16 +13,7 @@ export const UpdatePassword = () => {
 
       <Box>
         <Box gray400>Update the password for your account.</Box>
-        <Popover placement="top-start">
-          <PopoverTrigger>
-            <Button colorScheme="white" mt3>
-              Update password
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent p5 w-280>
-            <UpdatePasswordForm />
-          </PopoverContent>
-        </Popover>
+        {isMobile ? <UpdatePasswordDrawer /> : <UpdatePasswordModal />}
       </Box>
     </Box>
   )

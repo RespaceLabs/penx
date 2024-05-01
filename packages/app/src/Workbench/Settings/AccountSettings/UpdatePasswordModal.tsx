@@ -3,7 +3,6 @@ import { Box, styled } from '@fower/react'
 import { Drawer } from 'vaul'
 import {
   Button,
-  Input,
   Modal,
   MODAL_OVERLAY_Z_INDEX,
   ModalCloseButton,
@@ -12,38 +11,20 @@ import {
   ModalOverlay,
   ModalTrigger,
 } from 'uikit'
-import { IconGoogle } from '@penx/icons'
-import { CloudBackupForm } from './CloudBackupForm'
+import { UpdatePasswordForm } from './UpdatePasswordForm'
 
 const DrawerOverlay = styled(Drawer.Overlay)
 const DrawerContent = styled(Drawer.Content)
 
-function Content() {
-  return (
-    <>
-      <ModalHeader mb2>Create a password to secure your backup</ModalHeader>
-
-      <Box gray500>
-        This password is not recoverable, Make sure you choose a password you
-        {"'"}ll remember.
-      </Box>
-      <CloudBackupForm />
-    </>
-  )
-}
-
 const Trigger = forwardRef(function Trigger({}, ref) {
   return (
-    <Button ref={ref} colorScheme="black" size={56} gapX2 w-280 toBetween>
-      <IconGoogle size={24} />
-      <Box textBase fontSemibold>
-        Backup to Google drive
-      </Box>
+    <Button ref={ref} colorScheme="white" mt3>
+      Update password
     </Button>
   )
 })
 
-export function CloudBackupDrawer() {
+export function UpdatePasswordDrawer() {
   return (
     <Drawer.NestedRoot>
       <DrawerOverlay fixed bgBlack--T60 zIndex-100 css={{ inset: 0 }} />
@@ -71,7 +52,7 @@ export function CloudBackupDrawer() {
           zIndex-101
           p6
         >
-          <Content />
+          <UpdatePasswordForm></UpdatePasswordForm>
         </DrawerContent>
         <Drawer.Overlay />
       </Drawer.Portal>
@@ -79,7 +60,7 @@ export function CloudBackupDrawer() {
   )
 }
 
-export const CloudBackupModal = () => {
+export const UpdatePasswordModal = () => {
   return (
     <Modal>
       <ModalOverlay zIndex={MODAL_OVERLAY_Z_INDEX + 1} />
@@ -88,7 +69,7 @@ export const CloudBackupModal = () => {
       </ModalTrigger>
       <ModalContent w={['100%', 500]} column gap4>
         <ModalCloseButton />
-        <Content />
+        <UpdatePasswordForm></UpdatePasswordForm>
       </ModalContent>
     </Modal>
   )

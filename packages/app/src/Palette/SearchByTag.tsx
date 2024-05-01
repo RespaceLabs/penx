@@ -24,6 +24,7 @@ interface Props {
   q: string
   setSearch: Dispatch<SetStateAction<string>>
   close: () => void
+  afterSearch?: () => void
 }
 
 interface Item {
@@ -31,7 +32,7 @@ interface Item {
   database: IDatabaseNode
 }
 
-export function SearchByTag({ q, setSearch, close }: Props) {
+export function SearchByTag({ q, setSearch, afterSearch, close }: Props) {
   const { nodeList } = useNodes()
   const search = q.replace(/^#(\s+)?/, '') || ''
 
@@ -118,6 +119,7 @@ export function SearchByTag({ q, setSearch, close }: Props) {
               nodeService.selectNode()
             } else {
               setSearch('#' + node.tagName)
+              afterSearch?.()
               return
             }
           } else {

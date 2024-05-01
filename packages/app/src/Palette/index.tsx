@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Box, styled } from '@fower/react'
+import { Hash, Terminal, TerminalSquare } from 'lucide-react'
+import { Button, InputElement, InputGroup } from 'uikit'
 import { Command } from '@penx/cmdk'
 import { CommandList } from './CommandList'
 import { CommandWrapper } from './CommandWrapper'
@@ -16,6 +18,7 @@ interface CommandPanelProps {
 export function CommandPanel({ isMobile = false }: CommandPanelProps) {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
+  const ref = useRef<HTMLInputElement>()
 
   // Toggle the menu when ⌘K is pressed
   useEffect(() => {
@@ -40,7 +43,16 @@ export function CommandPanel({ isMobile = false }: CommandPanelProps) {
     }
 
     if (isTag) {
-      return <SearchByTag q={search} setSearch={setSearch} close={close} />
+      return (
+        <SearchByTag
+          q={search}
+          setSearch={setSearch}
+          close={close}
+          afterSearch={() => {
+            ref.current?.focus()
+          }}
+        />
+      )
     }
 
     return <NodeList q={search} setSearch={setSearch} close={close} />
@@ -53,32 +65,66 @@ export function CommandPanel({ isMobile = false }: CommandPanelProps) {
       setOpen={setOpen}
       setSearch={setSearch}
     >
-      <CommandInput
-        // bgRed100
-        toCenterY
-        bgTransparent
-        w-100p
-        h-48
-        px3
-        placeholderGray400
-        textBase
-        borderBottom
-        borderGray100
-        outlineNone
-        placeholder="Search node"
-        autoFocus
-        value={search}
-        onValueChange={(v) => {
-          setSearch(v)
-        }}
-        onBlur={() => {
-          // setSearch('')
-          // TODO: This is a hack
-          // setTimeout(() => {
-          //   setOpen(false)
-          // }, 500)
-        }}
-      />
+      <InputGroup>
+        <CommandInput
+          ref={ref as any}
+          // bgRed100
+          pr--i={96}
+          toCenterY
+          bgTransparent
+          w-100p
+          h-48
+          px3
+          placeholderGray400
+          textBase
+          borderBottom
+          borderGray100
+          outlineNone
+          placeholder="Search node"
+          autoFocus
+          value={search}
+          onValueChange={(v) => {
+            setSearch(v)
+          }}
+          onBlur={() => {
+            // setSearch('')
+            // TODO: This is a hack
+            // setTimeout(() => {
+            //   setOpen(false)
+            // }, 500)
+          }}
+        />
+
+        <InputElement gray500 toCenterY w-86 h-100p toRight--i pr1>
+          <Button
+            size={28}
+            p-4--i
+            isSquare
+            variant="ghost"
+            colorScheme="gray900"
+            onClick={() => {
+              setSearch('#')
+              ref.current?.focus()
+            }}
+          >
+            <Hash size={24} />
+          </Button>
+
+          <Button
+            size={28}
+            p-4--i
+            isSquare
+            variant="ghost"
+            colorScheme="gray900"
+            onClick={() => {
+              setSearch('>')
+              ref.current?.focus()
+            }}
+          >
+            <Terminal size={24} />
+          </Button>
+        </InputElement>
+      </InputGroup>
 
       <StyledCommandList
         maxH-400

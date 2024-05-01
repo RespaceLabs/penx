@@ -1,7 +1,8 @@
 import { Suspense } from 'react'
+import { isMobile } from 'react-device-detect'
 import { Box } from '@fower/react'
 import { trpc } from '@penx/trpc-client'
-import { CloudBackupModal } from './CloudBackupModal'
+import { CloudBackupDrawer, CloudBackupModal } from './CloudBackupModal'
 import { GoogleOauthButton } from './GoogleOauthButton'
 
 export function CloudBackup() {
@@ -17,5 +18,5 @@ export function CloudBackup() {
     )
   }
 
-  return <CloudBackupModal />
+  return <>{isMobile ? <CloudBackupDrawer /> : <CloudBackupModal />}</>
 }
