@@ -19,6 +19,7 @@ import {
   ViewType,
 } from '@penx/model-types'
 import { uniqueId } from '@penx/unique-id'
+import { formatTagName } from '../libs/formatTagName'
 import { getRandomColor } from '../libs/getRandomColor'
 import { PenxDB, penxDB } from '../penx-db'
 import {
@@ -846,6 +847,7 @@ export class DatabaseDomain {
   }
 
   createTagRow = async (spaceId: string, name: string, ref = '') => {
+    const tagName = formatTagName(name)
     const databases = await this.penx.node
       .where({
         type: NodeType.DATABASE,
@@ -853,7 +855,7 @@ export class DatabaseDomain {
       })
       .toArray()
 
-    const database = databases.find((db) => db.props.name === name)
+    const database = databases.find((db) => db.props.name === tagName)
     if (!database) return
 
     // Get all database cells

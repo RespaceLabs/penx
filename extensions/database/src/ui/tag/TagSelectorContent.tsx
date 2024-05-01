@@ -10,7 +10,7 @@ import {
 } from '@penx/constants'
 import { PenxEditor, useEditorStatic } from '@penx/editor-common'
 import { findNodePath, getNodeByPath } from '@penx/editor-queries'
-import { db, getRandomColor } from '@penx/local-db'
+import { db, formatTagName, getRandomColor } from '@penx/local-db'
 import { INode } from '@penx/model-types'
 import { useNodes } from '@penx/node-hooks'
 import { getEmptyParagraph } from '@penx/paragraph'
@@ -68,7 +68,8 @@ export const TagSelectorContent = ({ close, element }: Props) => {
   editor.isInTodoPage
 
   const text = getSearchText(editor, element)
-  const tagName = text.replace(/^#/, '')
+  // const tagName = text.replace(/^#/, '')
+  const tagName = formatTagName(text.replace(/^#/, ''))
 
   const filteredTypes = useMemo(() => {
     const q = text.replace(/^#/, '').toLowerCase()

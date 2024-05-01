@@ -13,7 +13,7 @@ import {
   usePopoverContext,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { db, getColorNames } from '@penx/local-db'
+import { db, formatTagName, getColorNames } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { IDatabaseNode } from '@penx/model-types'
 import { useCopyToClipboard } from '@penx/shared'
@@ -73,11 +73,11 @@ function Content() {
             size="sm"
             value={name}
             onBlur={() => {
-              updateDatabaseProps({ name })
+              updateDatabaseProps({ name: formatTagName(name) })
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                updateDatabaseProps({ name })
+                updateDatabaseProps({ name: formatTagName(name) })
                 close()
               }
             }}
