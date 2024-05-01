@@ -18,7 +18,7 @@ import {
 } from 'uikit'
 import { useDatabaseContext } from '@penx/database-context'
 import { IOptionNode } from '@penx/model-types'
-import { OptionTag } from '../ui/shared/OptionTag'
+import { OptionTag } from '@penx/widget'
 import { CellProps } from './CellProps'
 
 export const SingleSelectCell: FC<CellProps> = memo(
@@ -43,7 +43,16 @@ export const SingleSelectCell: FC<CellProps> = memo(
     return (
       <Popover portal={false} placement="bottom">
         <PopoverTrigger asChild>
-          <Box w-100p h-40 p2 border borderNeutral200 roundedXL cursorPointer>
+          <Box
+            w-100p
+            h-40
+            p2
+            border
+            borderNeutral200
+            roundedXL
+            cursorPointer
+            toCenterY
+          >
             {items.map((option) => (
               <OptionTag
                 key={option.id}

@@ -18,7 +18,7 @@ import {
 } from 'uikit'
 import { useDatabaseContext } from '@penx/database-context'
 import { IOptionNode } from '@penx/model-types'
-import { OptionTag } from '../ui/shared/OptionTag'
+import { OptionTag } from '@penx/widget'
 import { CellProps } from './CellProps'
 
 export const MultipleSelectCell: FC<CellProps> = memo(

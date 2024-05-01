@@ -24,7 +24,6 @@
     "@penx/icons": "workspace:*",
     "@penx/math": "workspace:*",
     "@penx/model": "workspace:*",
-    "@penx/shared": "workspace:*",
     "@penx/trpc-client": "workspace:^",
     "@penx/widget": "workspace:*",
     "@prisma/client": "^5.6.0",

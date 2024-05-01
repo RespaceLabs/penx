@@ -4,7 +4,6 @@ import { useDatabaseContext } from '@penx/database-context'
 import { db } from '@penx/local-db'
 import { IRowNode } from '@penx/model-types'
 import { store } from '@penx/store'
-import { PrimaryCell } from '../Table/Cell/PrimaryCell'
 
 export const ListView = () => {
   const { rows } = useDatabaseContext()
@@ -49,17 +48,6 @@ function ListItem({ row }: ListItemProps) {
           flexShrink: 0,
         }}
         onClick={clickBullet}
-      />
-
-      <PrimaryCell
-        index={0}
-        cell={primaryCell}
-        column={column}
-        width={0}
-        selected={false}
-        updateCell={() => {}}
-        editorAtomicStyle="py-2"
-        flex
       />
     </Box>
   )

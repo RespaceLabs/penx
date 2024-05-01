@@ -16,7 +16,7 @@ import { Check } from 'lucide-react'
 import { Input, Portal } from 'uikit'
 import { useDatabaseContext } from '@penx/database-context'
 import { IColumnNode, IOptionNode } from '@penx/model-types'
-import { OptionTag } from '../../../shared/OptionTag'
+import { OptionTag } from '@penx/widget'
 import { roundedRect } from './draw-fns'
 
 interface MultipleSelectCellProps {
@@ -164,6 +164,7 @@ function Combobox({
     getMenuProps,
     getInputProps,
     highlightedIndex,
+    setHighlightedIndex,
     getItemProps,
     selectedItem,
   } = useCombobox({
@@ -179,6 +180,10 @@ function Combobox({
         } as IOptionNode)
       }
       setItems(filteredItems)
+
+      if (filteredItems.length) {
+        setHighlightedIndex(0)
+      }
     },
     items,
     itemToString(item) {

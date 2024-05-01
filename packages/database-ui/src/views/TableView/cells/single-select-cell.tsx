@@ -16,7 +16,7 @@ import { Check } from 'lucide-react'
 import { Input } from 'uikit'
 import { useDatabaseContext } from '@penx/database-context'
 import { IColumnNode, IOptionNode } from '@penx/model-types'
-import { OptionTag } from '../../../shared/OptionTag'
+import { OptionTag } from '@penx/widget'
 import { roundedRect } from './draw-fns'
 
 interface SingleSelectCellProps {
@@ -165,19 +165,27 @@ function Combobox({
     highlightedIndex,
     getItemProps,
     selectedItem,
+    selectItem,
+    setHighlightedIndex,
   } = useCombobox({
     inputValue: inputValue,
     onInputValueChange({ inputValue = '' }) {
       setInputValue(inputValue!)
       const find = columnOptions.find((o) => o.props.name === inputValue)
       const filteredItems = columnOptions.filter(getOptionsFilter(inputValue))
+
       if (!find && inputValue) {
         filteredItems.push({
           id: 'CREATE',
           props: { name: inputValue },
         } as IOptionNode)
       }
+
       setItems(filteredItems)
+
+      if (filteredItems.length) {
+        setHighlightedIndex(0)
+      }
     },
     items,
     itemToString(item) {

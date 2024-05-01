@@ -1,13 +1,13 @@
 import { forwardRef } from 'react'
 import { Box } from '@fower/react'
 import { Editor, Path } from 'slate'
+import { CellField } from '@penx/cell-fields'
 import { useDatabaseContext } from '@penx/database-context'
 import { useEditorStatic } from '@penx/editor-common'
 import { isListContentElement, ListContentElement } from '@penx/list'
 import { useDatabase } from '@penx/node-hooks'
 import { mappedByKey } from '@penx/shared'
 import { FieldIcon } from '../shared/FieldIcon'
-import { CellField } from './fields'
 
 interface Props {
   databaseId: string

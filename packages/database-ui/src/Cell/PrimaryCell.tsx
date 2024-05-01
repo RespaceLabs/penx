@@ -3,6 +3,7 @@ import isEqual from 'react-fast-compare'
 import { Box, css, FowerHTMLProps } from '@fower/react'
 import { Transforms } from 'slate'
 import { Editable, RenderElementProps, Slate, withReact } from 'slate-react'
+import { CellProps } from '@penx/cell-fields'
 import { useCreateEditor } from '@penx/editor'
 import { TElement } from '@penx/editor-common'
 import { Leaf } from '@penx/editor-leaf'
@@ -10,7 +11,6 @@ import { clearEditor } from '@penx/editor-transforms'
 import { db, emitter } from '@penx/local-db'
 import { Paragraph } from '@penx/paragraph'
 import { Tag } from '../tag/Tag'
-import { CellProps } from './CellProps'
 
 interface Props extends Omit<FowerHTMLProps<'div'>, 'column'> {
   editorAtomicStyle?: string

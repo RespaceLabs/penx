@@ -21,6 +21,7 @@ import { appEmitter } from '@penx/event'
 import { useSettingDrawer, useSpaces, useUser } from '@penx/hooks'
 import { IconPassword } from '@penx/icons'
 import { useSession } from '@penx/session'
+import { MotionBox } from '@penx/widget'
 
 const Title = styled('div', ['gray400', 'mb3', 'textXS', 'uppercase'])
 
@@ -57,7 +58,7 @@ function SidebarItem({
   const settingDrawer = useSettingDrawer()
 
   return (
-    <Box
+    <MotionBox
       toCenterY
       toBetween
       gray600
@@ -71,7 +72,11 @@ function SidebarItem({
       bgGray200={type === data}
       borderBottom
       borderColor={['neutral100', 'transparent']}
-      {...rest}
+      selectNone
+      whileTap={{
+        opacity: 0.5,
+      }}
+      {...(rest as any)}
       onClick={() => {
         if (isMobile) {
           settingDrawer.open(type, spaceId!)
@@ -87,7 +92,7 @@ function SidebarItem({
       <Box inlineFlex mr--8 display={['inline-flex', 'none']}>
         <ChevronRightIcon size={20} />
       </Box>
-    </Box>
+    </MotionBox>
   )
 }
 

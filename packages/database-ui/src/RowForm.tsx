@@ -1,9 +1,9 @@
 import { forwardRef } from 'react'
 import { Box } from '@fower/react'
+import { CellField } from '@penx/cell-fields'
 import { useDatabase } from '@penx/node-hooks'
 import { mappedByKey } from '@penx/shared'
 import { FieldIcon } from './shared/FieldIcon'
-import { CellField } from './tag/fields'
 
 interface Props {
   databaseId: string

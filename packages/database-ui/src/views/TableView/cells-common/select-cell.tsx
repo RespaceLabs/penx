@@ -10,7 +10,7 @@ import {
   Rectangle,
 } from '@glideapps/glide-data-grid'
 import { Check } from 'lucide-react'
-import { OptionTag } from '../../../shared/OptionTag'
+import { OptionTag } from '@penx/widget'
 import { roundedRect } from '../cells/draw-fns'
 
 interface TaskOptions {

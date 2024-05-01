@@ -18,6 +18,7 @@ export const SettingsDrawer = () => {
     <Drawer.Root
       shouldScaleBackground
       open={isOpen}
+      // modal={false}
       onOpenChange={(o) => {
         if (o) {
           open(type, spaceId)
@@ -29,13 +30,17 @@ export const SettingsDrawer = () => {
       <Drawer.Portal>
         <DrawerOverlay fixed bgBlack--T60 zIndex-100 css={{ inset: 0 }} />
         <DrawerContent
+          style={{
+            pointerEvents: 'auto',
+          }}
           overflowHidden
           bgWhite
           column
           roundedTop2XL
           outlineNone
+          shadow="0 -4px 20px 0 rgba(0, 0, 0, 0.2)"
           // h={`calc(100vh - 40px)`}
-          h-94vh
+          h-92vh
           fixed
           bottom-0
           left-0
