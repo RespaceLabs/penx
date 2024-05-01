@@ -1,6 +1,45 @@
+import { Node } from 'slate'
 import { ICellNodeProps, INode } from '@penx/model-types'
 import { Filter, OperatorType } from '@penx/model-types/src/interfaces/INode'
-import { generateNoteCellText } from './cells/note-cell'
+import { store } from '@penx/store'
+
+const getTextFromChildren = (children: any[], renderTag: boolean) => {
+  if (!renderTag) {
+    const notRenderTagChildren = children.filter(
+      (item: any) => item?.type !== 'tag',
+    ) as { text: string; type?: string }[]
+    return notRenderTagChildren.map((item) => item.text).join('')
+  }
+
+  return children.reduce((acc: string, child: any) => {
+    if (child?.type === 'tag') {
+      return acc + ('#' + child?.name || '')
+    }
+    return acc + Node.string(child)
+  }, '')
+}
+
+const generateNoteCellText = (ref: string, renderTag = true): string => {
+  const node = store.node.getNode(ref)
+
+  if (!node?.element) {
+    return 'EMPTY'
+  }
+
+  const elements = Array.isArray(node.element) ? node.element : [node.element]
+
+  const text = elements
+    .map((element: any) => {
+      if (Array.isArray(element.children)) {
+        return getTextFromChildren(element.children, renderTag)
+      } else {
+        return Node.string(element)
+      }
+    })
+    .join('')
+
+  return text
+}
 
 interface ISearchNode {
   id: string

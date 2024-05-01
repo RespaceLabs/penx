@@ -50,7 +50,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.5",
     "eslint": "^8.57.0",
-    "slate": "0.102.0",
+    "slate": "^0.103.0",
     "typescript": "^5.3.2"
   }
 }

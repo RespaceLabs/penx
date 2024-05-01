@@ -1,10 +1,10 @@
 import { useState } from 'react'
+import { useDatabaseContext } from '@penx/database-context'
 import {
   ConjunctionType,
   Filter,
   OperatorType,
 } from '@penx/model-types/src/interfaces/INode'
-import { useDatabaseContext } from '../../DatabaseContext'
 
 export function useFilterField() {
   const { currentView, columns } = useDatabaseContext()

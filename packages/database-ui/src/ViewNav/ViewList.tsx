@@ -1,8 +1,8 @@
 import { Box } from '@fower/react'
+import { useDatabaseContext } from '@penx/database-context'
 import { db } from '@penx/local-db'
 import { IDatabaseNode, ViewType } from '@penx/model-types'
 import { mappedByKey } from '@penx/shared'
-import { useDatabaseContext } from '../DatabaseContext'
 import { ViewIcon } from './ViewIcon'
 import { ViewMenu } from './ViewMenu'
 

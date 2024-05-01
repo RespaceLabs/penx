@@ -16,7 +16,7 @@
     "eslint": "^8.57.0",
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
-    "slate": "0.102.0",
+    "slate": "^0.103.0",
     "slate-history": "0.100.0",
     "slate-react": "0.102.0",
     "typescript": "^5.3.2"
@@ -33,6 +33,7 @@
     "@penx/code-block": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/context-menu": "workspace:*",
+    "@penx/database-context": "workspace:*",
     "@penx/database-ui": "workspace:*",
     "@penx/editor-common": "workspace:*",
     "@penx/editor-leaf": "workspace:*",

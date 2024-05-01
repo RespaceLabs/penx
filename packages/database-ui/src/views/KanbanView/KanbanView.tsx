@@ -33,7 +33,7 @@ import {
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Box } from '@fower/react'
-import { useDatabaseContext } from '../../DatabaseContext'
+import { useDatabaseContext } from '@penx/database-context'
 import { Container, ContainerProps, Item } from './components'
 import { DroppableContainer } from './DroppableContainer'
 import { KanbanContainerItem } from './KanbanContainerItem'

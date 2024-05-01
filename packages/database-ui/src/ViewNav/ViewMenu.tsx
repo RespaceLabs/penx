@@ -12,8 +12,8 @@ import {
   toast,
   usePopoverContext,
 } from 'uikit'
+import { useDatabaseContext } from '@penx/database-context'
 import { IViewNode } from '@penx/model-types'
-import { useDatabaseContext } from '../DatabaseContext'
 
 interface ViewMenuProps {
   index: number

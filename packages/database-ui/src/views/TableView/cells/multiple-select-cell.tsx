@@ -14,8 +14,8 @@ import {
 import { useCombobox } from 'downshift'
 import { Check } from 'lucide-react'
 import { Input, Portal } from 'uikit'
+import { useDatabaseContext } from '@penx/database-context'
 import { IColumnNode, IOptionNode } from '@penx/model-types'
-import { useDatabaseContext } from '../../../DatabaseContext'
 import { OptionTag } from '../../../shared/OptionTag'
 import { roundedRect } from './draw-fns'
 

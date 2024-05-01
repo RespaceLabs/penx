@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { SortAsc } from 'lucide-react'
 import { Divider, Popover, PopoverContent, PopoverTrigger } from 'uikit'
-import { useDatabaseContext } from '../../DatabaseContext'
+import { useDatabaseContext } from '@penx/database-context'
 import { ToolbarBtn } from '../ToolbarBtn'
 import { AddSortBtn } from './AddSortBtn'
 import { SortItem } from './SortItem'

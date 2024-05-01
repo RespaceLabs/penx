@@ -265,7 +265,7 @@ importers:
         version: 2.1.4(ethers@6.11.1(bufferutil@4.0.8)(utf-8-validate@6.0.3))
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       sonner:
         specifier: ^0.6.2
         version: 0.6.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -1398,14 +1398,14 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -1648,8 +1648,8 @@ importers:
         specifier: ^2.1.4
         version: 2.1.4(ethers@6.11.1(bufferutil@4.0.8)(utf-8-validate@6.0.3))
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       sonner:
         specifier: ^0.6.2
         version: 0.6.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -2579,17 +2579,17 @@ importers:
         specifier: ^2.1.4
         version: 2.1.4(ethers@6.11.1(bufferutil@4.0.8)(utf-8-validate@6.0.3))
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-hyperscript:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       sonner:
         specifier: ^0.6.2
         version: 0.6.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -2777,14 +2777,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -2880,14 +2880,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -2947,7 +2947,7 @@ importers:
         version: link:../../packages/store
       '@udecode/plate-common':
         specifier: ^24.5.2
-        version: 24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+        version: 24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -2989,14 +2989,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -3044,14 +3044,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -3105,14 +3105,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -3160,7 +3160,7 @@ importers:
         version: link:../../packages/slate-lists
       '@udecode/plate-common':
         specifier: ^24.5.2
-        version: 24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+        version: 24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
       lucide-react:
         specifier: ^0.344.0
         version: 0.344.0(react@18.2.0)
@@ -3199,14 +3199,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -3246,6 +3246,9 @@ importers:
       '@penx/context-menu':
         specifier: workspace:*
         version: link:../../packages/context-menu
+      '@penx/database-context':
+        specifier: workspace:*
+        version: link:../../packages/database-context
       '@penx/database-ui':
         specifier: workspace:*
         version: link:../../packages/database-ui
@@ -3314,7 +3317,7 @@ importers:
         version: 4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)
       '@udecode/plate-common':
         specifier: ^25.0.1
-        version: 25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+        version: 25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
       classnames:
         specifier: ^2.3.2
         version: 2.5.1
@@ -3419,14 +3422,14 @@ importers:
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -3483,14 +3486,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -3574,14 +3577,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -3638,14 +3641,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -3750,14 +3753,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -3810,14 +3813,14 @@ importers:
         specifier: ^0.344.0
         version: 0.344.0(react@18.2.0)
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       stook:
         specifier: ^1.17.0
         version: 1.17.0
@@ -3992,14 +3995,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -4047,14 +4050,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -4199,14 +4202,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -4390,8 +4393,8 @@ importers:
         specifier: ^8.57.0
         version: 8.57.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -4449,6 +4452,9 @@ importers:
       '@penx/database':
         specifier: workspace:*
         version: link:../../extensions/database
+      '@penx/database-context':
+        specifier: workspace:*
+        version: link:../database-context
       '@penx/database-ui':
         specifier: workspace:*
         version: link:../database-ui
@@ -4557,6 +4563,9 @@ importers:
       '@penx/sync-server-client':
         specifier: workspace:*
         version: link:../sync-server-client
+      '@penx/table-search':
+        specifier: workspace:*
+        version: link:../table-search
       '@penx/trpc-client':
         specifier: workspace:*
         version: link:../trpc-client
@@ -4717,17 +4726,17 @@ importers:
         specifier: ^1.8.6
         version: 1.8.6
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-hyperscript:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       sonner:
         specifier: ^0.6.2
         version: 0.6.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -4833,7 +4842,7 @@ importers:
     dependencies:
       '@udecode/plate-common':
         specifier: 24.3.1
-        version: 24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+        version: 24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -4860,8 +4869,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -4898,6 +4907,94 @@ importers:
         version: 18.2.0
       typescript:
         specifier: ^5.1.3
+        version: 5.4.3
+
+  packages/cell-fields:
+    dependencies:
+      '@fower/react':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@fower/utils':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@penx/constants':
+        specifier: workspace:*
+        version: link:../constants
+      '@penx/database-context':
+        specifier: workspace:*
+        version: link:../database-context
+      '@penx/extension-typings':
+        specifier: workspace:*
+        version: link:../extension-typings
+      '@penx/local-db':
+        specifier: workspace:*
+        version: link:../local-db
+      '@penx/model':
+        specifier: workspace:*
+        version: link:../model
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
+      '@penx/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@penx/store':
+        specifier: workspace:*
+        version: link:../store
+      '@penx/widget':
+        specifier: workspace:*
+        version: link:../widget
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
+      downshift:
+        specifier: ^8.2.3
+        version: 8.5.0(react@18.2.0)
+      lucide-react:
+        specifier: ^0.344.0
+        version: 0.344.0(react@18.2.0)
+      react-datepicker:
+        specifier: ^4.24.0
+        version: 4.25.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react-fast-compare:
+        specifier: ^3.2.2
+        version: 3.2.2
+      react-textarea-autosize:
+        specifier: ^8.5.3
+        version: 8.5.3(@types/react@18.2.73)(react@18.2.0)
+      uikit:
+        specifier: workspace:*
+        version: link:../uikit
+      use-debounce:
+        specifier: ^9.0.4
+        version: 9.0.4(react@18.2.0)
+    devDependencies:
+      '@penx/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: ^20.10.3
+        version: 20.12.7
+      '@types/react':
+        specifier: ^18.2.61
+        version: 18.2.73
+      '@types/react-datepicker':
+        specifier: ^4.19.4
+        version: 4.19.6(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@types/react-dom':
+        specifier: ^18.2.17
+        version: 18.2.23
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      typescript:
+        specifier: ^5.3.2
         version: 5.4.3
 
   packages/cmdk:
@@ -4974,6 +5071,46 @@ importers:
         specifier: ^5.3.2
         version: 5.4.3
 
+  packages/database-context:
+    dependencies:
+      '@penx/local-db':
+        specifier: workspace:*
+        version: link:../local-db
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
+      '@penx/node-hooks':
+        specifier: workspace:*
+        version: link:../node-hooks
+      '@penx/store':
+        specifier: workspace:*
+        version: link:../store
+      '@penx/table-search':
+        specifier: workspace:*
+        version: link:../table-search
+    devDependencies:
+      '@penx/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/react':
+        specifier: ^18.2.61
+        version: 18.2.73
+      '@types/react-dom':
+        specifier: ^18.2.7
+        version: 18.2.23
+      eslint:
+        specifier: ^8.42.0
+        version: 8.57.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      typescript:
+        specifier: ^5.1.3
+        version: 5.4.3
+
   packages/database-ui:
     dependencies:
       '@dnd-kit/core':
@@ -5006,6 +5143,9 @@ importers:
       '@penx/context-menu':
         specifier: workspace:*
         version: link:../context-menu
+      '@penx/database-context':
+        specifier: workspace:*
+        version: link:../database-context
       '@penx/editor':
         specifier: workspace:*
         version: link:../editor
@@ -5149,14 +5289,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -5326,7 +5466,7 @@ importers:
         version: link:../unique-id
       '@udecode/plate-common':
         specifier: ^24.5.2
-        version: 24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+        version: 24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -5419,14 +5559,14 @@ importers:
         specifier: workspace:*
         version: link:../eslint-config-custom
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -5462,14 +5602,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -5502,8 +5642,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -5533,14 +5673,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -5579,11 +5719,11 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -5619,8 +5759,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -5662,11 +5802,11 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -5705,14 +5845,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -5997,14 +6137,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -6480,11 +6620,11 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -6747,8 +6887,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -6898,11 +7038,11 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -7003,11 +7143,11 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -7192,8 +7332,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -7237,6 +7377,46 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      typescript:
+        specifier: ^5.1.3
+        version: 5.4.3
+
+  packages/table-search:
+    dependencies:
+      '@penx/local-db':
+        specifier: workspace:*
+        version: link:../local-db
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../model-types
+      '@penx/node-hooks':
+        specifier: workspace:*
+        version: link:../node-hooks
+      '@penx/store':
+        specifier: workspace:*
+        version: link:../store
+    devDependencies:
+      '@penx/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/react':
+        specifier: ^18.2.61
+        version: 18.2.73
+      '@types/react-dom':
+        specifier: ^18.2.7
+        version: 18.2.23
+      eslint:
+        specifier: ^8.42.0
+        version: 8.57.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      slate:
+        specifier: ^0.103.0
+        version: 0.103.0
       typescript:
         specifier: ^5.1.3
         version: 5.4.3
@@ -7647,14 +7827,14 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       slate:
-        specifier: 0.102.0
-        version: 0.102.0
+        specifier: ^0.103.0
+        version: 0.103.0
       slate-history:
         specifier: 0.100.0
-        version: 0.100.0(slate@0.102.0)
+        version: 0.100.0(slate@0.103.0)
       slate-react:
         specifier: 0.102.0
-        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+        version: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
@@ -21732,6 +21912,9 @@ packages:
   slate@0.102.0:
     resolution: {integrity: sha512-RT+tHgqOyZVB1oFV9Pv99ajwh4OUCN9p28QWdnDTIzaN/kZxMsHeQN39UNAgtkZTVVVygFqeg7/R2jiptCvfyA==}
 
+  slate@0.103.0:
+    resolution: {integrity: sha512-eCUOVqUpADYMZ59O37QQvUdnFG+8rin0OGQAXNHvHbQeVJ67Bu0spQbcy621vtf8GQUXTEQBlk6OP9atwwob4w==}
+
   slice-ansi@2.1.0:
     resolution: {integrity: sha512-Qu+VC3EwYLldKa1fCxuuvULvSJOKEgk9pi8dZeCVK7TqBfUNTH4sFkk4joj8afVSfAYgJoSOetjx9QWOJ5mYoQ==}
     engines: {node: '>=6'}
@@ -30567,20 +30750,20 @@ snapshots:
       '@typescript-eslint/types': 7.6.0
       eslint-visitor-keys: 3.4.3
 
-  '@udecode/plate-common@24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
+  '@udecode/plate-common@24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
     dependencies:
-      '@udecode/plate-core': 24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
-      '@udecode/plate-utils': 24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
-      '@udecode/slate': 24.3.1(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-react': 24.3.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-utils': 24.3.1(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/plate-core': 24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+      '@udecode/plate-utils': 24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+      '@udecode/slate': 24.3.1(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-react': 24.3.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-utils': 24.3.1(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-hyperscript: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-hyperscript: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/template'
@@ -30595,20 +30778,20 @@ snapshots:
       - wonka
       - xstate
 
-  '@udecode/plate-common@24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
+  '@udecode/plate-common@24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
     dependencies:
-      '@udecode/plate-core': 24.4.0(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
-      '@udecode/plate-utils': 24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
-      '@udecode/slate': 24.3.6(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-react': 24.4.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-utils': 24.3.6(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/plate-core': 24.4.0(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+      '@udecode/plate-utils': 24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+      '@udecode/slate': 24.3.6(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-react': 24.4.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-utils': 24.3.6(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-hyperscript: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-hyperscript: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/template'
@@ -30623,20 +30806,20 @@ snapshots:
       - wonka
       - xstate
 
-  '@udecode/plate-common@25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
+  '@udecode/plate-common@25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
     dependencies:
-      '@udecode/plate-core': 25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
-      '@udecode/plate-utils': 25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
-      '@udecode/slate': 25.0.0(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-react': 25.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-utils': 25.0.0(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/plate-core': 25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+      '@udecode/plate-utils': 25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+      '@udecode/slate': 25.0.0(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-react': 25.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-utils': 25.0.0(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-hyperscript: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-hyperscript: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/template'
@@ -30651,11 +30834,11 @@ snapshots:
       - wonka
       - xstate
 
-  '@udecode/plate-core@24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
+  '@udecode/plate-core@24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
     dependencies:
-      '@udecode/slate': 24.3.1(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-react': 24.3.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-utils': 24.3.1(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/slate': 24.3.1(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-react': 24.3.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-utils': 24.3.1(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       '@udecode/zustood': 1.1.3(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(zustand@3.7.2(react@18.2.0))
       clsx: 1.2.1
@@ -30666,10 +30849,10 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-hotkeys-hook: 4.5.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-hyperscript: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-hyperscript: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       use-deep-compare: 1.2.1(react@18.2.0)
       zustand: 3.7.2(react@18.2.0)
     transitivePeerDependencies:
@@ -30685,11 +30868,11 @@ snapshots:
       - wonka
       - xstate
 
-  '@udecode/plate-core@24.4.0(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
+  '@udecode/plate-core@24.4.0(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
     dependencies:
-      '@udecode/slate': 24.3.6(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-react': 24.4.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-utils': 24.3.6(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/slate': 24.3.6(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-react': 24.4.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-utils': 24.3.6(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       '@udecode/zustood': 1.1.3(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(zustand@3.7.2(react@18.2.0))
       clsx: 1.2.1
@@ -30700,10 +30883,10 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-hotkeys-hook: 4.5.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-hyperscript: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-hyperscript: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       use-deep-compare: 1.2.1(react@18.2.0)
       zustand: 3.7.2(react@18.2.0)
     transitivePeerDependencies:
@@ -30719,11 +30902,11 @@ snapshots:
       - wonka
       - xstate
 
-  '@udecode/plate-core@25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
+  '@udecode/plate-core@25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
     dependencies:
-      '@udecode/slate': 25.0.0(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-react': 25.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-utils': 25.0.0(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/slate': 25.0.0(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-react': 25.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-utils': 25.0.0(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       '@udecode/zustood': 1.1.3(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(zustand@3.7.2(react@18.2.0))
       clsx: 1.2.1
@@ -30734,10 +30917,10 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-hotkeys-hook: 4.5.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-hyperscript: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-hyperscript: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
       use-deep-compare: 1.2.1(react@18.2.0)
       zustand: 3.7.2(react@18.2.0)
     transitivePeerDependencies:
@@ -30753,22 +30936,22 @@ snapshots:
       - wonka
       - xstate
 
-  '@udecode/plate-utils@24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
+  '@udecode/plate-utils@24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
     dependencies:
       '@radix-ui/react-slot': 1.0.2(@types/react@18.2.73)(react@18.2.0)
-      '@udecode/plate-core': 24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
-      '@udecode/slate': 24.3.1(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-react': 24.3.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-utils': 24.3.1(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/plate-core': 24.3.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+      '@udecode/slate': 24.3.1(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-react': 24.3.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-utils': 24.3.1(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       clsx: 1.2.1
       lodash: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-hyperscript: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-hyperscript: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/template'
@@ -30783,22 +30966,22 @@ snapshots:
       - wonka
       - xstate
 
-  '@udecode/plate-utils@24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
+  '@udecode/plate-utils@24.5.2(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
     dependencies:
       '@radix-ui/react-slot': 1.0.2(@types/react@18.2.73)(react@18.2.0)
-      '@udecode/plate-core': 24.4.0(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
-      '@udecode/slate': 24.3.6(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-react': 24.4.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-utils': 24.3.6(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/plate-core': 24.4.0(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+      '@udecode/slate': 24.3.6(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-react': 24.4.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-utils': 24.3.6(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       clsx: 1.2.1
       lodash: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-hyperscript: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-hyperscript: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/template'
@@ -30813,22 +30996,22 @@ snapshots:
       - wonka
       - xstate
 
-  '@udecode/plate-utils@25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
+  '@udecode/plate-utils@25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(@types/react@18.2.73)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))':
     dependencies:
       '@radix-ui/react-slot': 1.0.2(@types/react@18.2.73)(react@18.2.0)
-      '@udecode/plate-core': 25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.102.0))(slate-hyperscript@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
-      '@udecode/slate': 25.0.0(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-react': 25.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)
-      '@udecode/slate-utils': 25.0.0(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/plate-core': 25.0.1(@babel/core@7.24.3)(@babel/template@7.24.0)(immer@10.0.4)(react-dom@18.2.0(react@18.2.0))(react-native@0.73.6(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(scheduler@0.24.0-canary-efb381bbf-20230505)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)(valtio@1.11.2(@types/react@18.2.73)(react@18.2.0))
+      '@udecode/slate': 25.0.0(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-react': 25.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)
+      '@udecode/slate-utils': 25.0.0(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       clsx: 1.2.1
       lodash: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-hyperscript: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-hyperscript: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/template'
@@ -30843,77 +31026,77 @@ snapshots:
       - wonka
       - xstate
 
-  '@udecode/slate-react@24.3.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)':
+  '@udecode/slate-react@24.3.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)':
     dependencies:
-      '@udecode/slate': 24.3.1(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/slate': 24.3.1(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
 
-  '@udecode/slate-react@24.4.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)':
+  '@udecode/slate-react@24.4.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)':
     dependencies:
-      '@udecode/slate': 24.3.6(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/slate': 24.3.6(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
 
-  '@udecode/slate-react@25.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.102.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0))(slate@0.102.0)':
+  '@udecode/slate-react@25.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate-history@0.100.0(slate@0.103.0))(slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0))(slate@0.103.0)':
     dependencies:
-      '@udecode/slate': 25.0.0(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/slate': 25.0.0(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
-      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
+      slate-react: 0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0)
 
-  '@udecode/slate-utils@24.3.1(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)':
+  '@udecode/slate-utils@24.3.1(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)':
     dependencies:
-      '@udecode/slate': 24.3.1(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/slate': 24.3.1(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       lodash: 4.17.21
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
 
-  '@udecode/slate-utils@24.3.6(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)':
+  '@udecode/slate-utils@24.3.6(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)':
     dependencies:
-      '@udecode/slate': 24.3.6(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/slate': 24.3.6(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       lodash: 4.17.21
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
 
-  '@udecode/slate-utils@25.0.0(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)':
+  '@udecode/slate-utils@25.0.0(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)':
     dependencies:
-      '@udecode/slate': 25.0.0(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)
+      '@udecode/slate': 25.0.0(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)
       '@udecode/utils': 24.3.0
       lodash: 4.17.21
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
 
-  '@udecode/slate@24.3.1(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)':
+  '@udecode/slate@24.3.1(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)':
     dependencies:
       '@udecode/utils': 24.3.0
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
 
-  '@udecode/slate@24.3.6(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)':
+  '@udecode/slate@24.3.6(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)':
     dependencies:
       '@udecode/utils': 24.3.0
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
 
-  '@udecode/slate@25.0.0(slate-history@0.100.0(slate@0.102.0))(slate@0.102.0)':
+  '@udecode/slate@25.0.0(slate-history@0.100.0(slate@0.103.0))(slate@0.103.0)':
     dependencies:
       '@udecode/utils': 24.3.0
-      slate: 0.102.0
-      slate-history: 0.100.0(slate@0.102.0)
+      slate: 0.103.0
+      slate-history: 0.100.0(slate@0.103.0)
 
   '@udecode/utils@24.3.0': {}
 
@@ -41873,17 +42056,17 @@ snapshots:
 
   slash@4.0.0: {}
 
-  slate-history@0.100.0(slate@0.102.0):
+  slate-history@0.100.0(slate@0.103.0):
     dependencies:
       is-plain-object: 5.0.0
-      slate: 0.102.0
+      slate: 0.103.0
 
-  slate-hyperscript@0.100.0(slate@0.102.0):
+  slate-hyperscript@0.100.0(slate@0.103.0):
     dependencies:
       is-plain-object: 5.0.0
-      slate: 0.102.0
+      slate: 0.103.0
 
-  slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.102.0):
+  slate-react@0.102.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(slate@0.103.0):
     dependencies:
       '@juggle/resize-observer': 3.4.0
       '@types/is-hotkey': 0.1.10
@@ -41895,10 +42078,16 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       scroll-into-view-if-needed: 3.1.0
-      slate: 0.102.0
+      slate: 0.103.0
       tiny-invariant: 1.3.1
 
   slate@0.102.0:
+    dependencies:
+      immer: 10.0.4
+      is-plain-object: 5.0.0
+      tiny-warning: 1.0.3
+
+  slate@0.103.0:
     dependencies:
       immer: 10.0.4
       is-plain-object: 5.0.0

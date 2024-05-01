@@ -1,8 +1,8 @@
 import { Box } from '@fower/react'
 import { SortAsc } from 'lucide-react'
 import { CloseButton, Switch } from 'uikit'
+import { useDatabaseContext } from '@penx/database-context'
 import { Sort } from '@penx/model-types'
-import { useDatabaseContext } from '../../DatabaseContext'
 
 interface Props {
   sort: Sort

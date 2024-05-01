@@ -1,6 +1,6 @@
 import { Box } from '@fower/react'
+import { useDatabaseContext } from '@penx/database-context'
 import { ViewType } from '@penx/model-types'
-import { useDatabaseContext } from '../DatabaseContext'
 import { FilterField } from './FilterField'
 import { GroupField } from './GroupField'
 import { HideField } from './HideField/HideField'

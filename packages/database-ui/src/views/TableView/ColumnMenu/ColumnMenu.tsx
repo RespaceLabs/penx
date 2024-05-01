@@ -12,8 +12,8 @@ import {
 } from 'lucide-react'
 import { Input, MenuItem, modalController, usePopoverContext } from 'uikit'
 import { ModalNames } from '@penx/constants'
+import { useDatabaseContext } from '@penx/database-context'
 import { IColumnNode } from '@penx/model-types'
-import { useDatabaseContext } from '../../../DatabaseContext'
 import { EditField } from './EditField'
 
 interface ColumnMenuProps {

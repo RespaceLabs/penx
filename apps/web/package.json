@@ -121,7 +121,7 @@
     "react-textarea-autosize": "^8.5.3",
     "simplebar-react": "^3.2.4",
     "siwe": "^2.1.4",
-    "slate": "0.102.0",
+    "slate": "^0.103.0",
     "slate-history": "0.100.0",
     "slate-hyperscript": "0.100.0",
     "slate-react": "0.102.0",

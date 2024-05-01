@@ -1,7 +1,7 @@
 import { Box } from '@fower/react'
 import { CloseButton, Switch } from 'uikit'
+import { useDatabaseContext } from '@penx/database-context'
 import { Group } from '@penx/model-types'
-import { useDatabaseContext } from '../../DatabaseContext'
 
 interface Props {
   group: Group

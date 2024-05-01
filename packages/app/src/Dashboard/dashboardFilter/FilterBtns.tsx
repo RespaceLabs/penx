@@ -1,8 +1,8 @@
 import { Box } from '@fower/react'
 import { Plus } from 'lucide-react'
 import { Button, usePopoverContext } from 'uikit'
-import { TableSearch } from '@penx/database-ui'
 import { Filter, INode, ISpace } from '@penx/model-types'
+import { TableSearch } from '@penx/table-search'
 
 interface IFilterBtns {
   filters: Filter[]

@@ -2,10 +2,10 @@ import React, { forwardRef, useState } from 'react'
 import { DraggableSyntheticListeners } from '@dnd-kit/core'
 import { Box } from '@fower/react'
 import { Switch } from 'uikit'
+import { useDatabaseContext } from '@penx/database-context'
 import { IconDrag } from '@penx/icons'
 import { db } from '@penx/local-db'
 import { ViewColumn } from '@penx/model-types'
-import { useDatabaseContext } from '../../DatabaseContext'
 import { FieldIcon } from '../../shared/FieldIcon'
 
 interface Props {

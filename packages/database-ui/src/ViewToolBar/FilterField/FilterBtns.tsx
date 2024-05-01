@@ -1,8 +1,8 @@
 import { Box } from '@fower/react'
 import { Plus } from 'lucide-react'
 import { Button, usePopoverContext } from 'uikit'
+import { useDatabaseContext } from '@penx/database-context'
 import { Filter, IViewNode, ViewColumn } from '@penx/model-types'
-import { useDatabaseContext } from '../../DatabaseContext'
 
 interface IFilterBtns {
   filters: Filter[]

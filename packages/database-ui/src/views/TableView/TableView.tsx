@@ -8,7 +8,7 @@ import {
 } from '@glideapps/glide-data-grid'
 import { modalController } from 'uikit'
 import { ModalNames, SIDEBAR_WIDTH, TODO_DATABASE_NAME } from '@penx/constants'
-import { useDatabaseContext } from '../../DatabaseContext'
+import { useDatabaseContext } from '@penx/database-context'
 import { AddColumnBtn } from './AddColumnBtn'
 import { cellRenderers } from './cells'
 import { ConfigColumnModal } from './ConfigColumnModal'

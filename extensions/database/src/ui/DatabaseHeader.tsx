@@ -2,7 +2,7 @@ import TextareaAutosize from 'react-textarea-autosize'
 import { Box, css } from '@fower/react'
 import { DatabaseIcon } from 'lucide-react'
 import { useDebouncedCallback } from 'use-debounce'
-import { useDatabaseContext } from '@penx/database-ui'
+import { useDatabaseContext } from '@penx/database-context'
 import { db } from '@penx/local-db'
 
 export const DatabaseHeader = () => {

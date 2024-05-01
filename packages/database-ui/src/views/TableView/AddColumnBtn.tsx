@@ -7,8 +7,8 @@ import {
   PopoverTrigger,
   usePopoverContext,
 } from 'uikit'
+import { useDatabaseContext } from '@penx/database-context'
 import { FieldType } from '@penx/model-types'
-import { useDatabaseContext } from '../../DatabaseContext'
 import { FieldIcon } from '../../shared/FieldIcon'
 
 interface ItemProps extends PropsWithChildren<FowerHTMLProps<'div'>> {

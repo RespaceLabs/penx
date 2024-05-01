@@ -3,7 +3,8 @@ import { Box } from '@fower/react'
 import { useSelected } from 'slate-react'
 import { ELEMENT_P } from '@penx/constants'
 import { ContextMenu, MenuItem, useContextMenu } from '@penx/context-menu'
-import { DatabaseProvider } from '@penx/database-ui'
+import { DatabaseProvider } from '@penx/database-context'
+import { TagForm } from '@penx/database-ui'
 import { useEditorStatic } from '@penx/editor-common'
 import { findNodePath } from '@penx/editor-queries'
 import { genId } from '@penx/editor-shared'
@@ -13,7 +14,6 @@ import { useNodes } from '@penx/node-hooks'
 import { store } from '@penx/store'
 import { useTagDrawer } from '../../hooks/useTagDrawer'
 import { TagElement } from '../../types'
-import { TagForm } from './TagForm'
 
 export const Tag = ({
   element,

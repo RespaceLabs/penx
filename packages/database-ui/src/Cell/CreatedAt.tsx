@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react'
 import { Box } from '@fower/react'
 import { format } from 'date-fns'
-import { useDatabaseContext } from '../DatabaseContext'
+import { useDatabaseContext } from '@penx/database-context'
 import { CellProps } from './CellProps'
 
 export const CreatedAtCell: FC<CellProps> = memo(function CreatedAtCell(props) {

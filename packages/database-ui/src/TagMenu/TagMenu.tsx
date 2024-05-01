@@ -13,12 +13,12 @@ import {
   usePopoverContext,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
+import { useDatabaseContext } from '@penx/database-context'
 import { db, formatTagName, getColorNames } from '@penx/local-db'
 import { Node } from '@penx/model'
 import { IDatabaseNode } from '@penx/model-types'
 import { useCopyToClipboard } from '@penx/shared'
 import { store } from '@penx/store'
-import { useDatabaseContext } from '../DatabaseContext'
 import { DeleteDatabaseModal } from './DeleteDatabaseModal'
 
 interface Props {

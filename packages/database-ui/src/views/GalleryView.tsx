@@ -6,9 +6,9 @@ import {
   useState,
 } from 'react'
 import { Box } from '@fower/react'
+import { useDatabaseContext } from '@penx/database-context'
 import { db } from '@penx/local-db'
 import { IRowNode } from '@penx/model-types'
-import { useDatabaseContext } from '../DatabaseContext'
 
 interface Tag {
   text: string

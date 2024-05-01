@@ -8,8 +8,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from 'uikit'
+import { useDatabaseContext } from '@penx/database-context'
 import { IColumnNode } from '@penx/model-types'
-import { useDatabaseContext } from '../../DatabaseContext'
 import { FieldIcon } from '../../shared/FieldIcon'
 
 export const AddGroupBtn = () => {

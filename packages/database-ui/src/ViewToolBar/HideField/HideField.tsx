@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Eye, EyeOff, HomeIcon } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from 'uikit'
-import { useDatabaseContext } from '../../DatabaseContext'
+import { useDatabaseContext } from '@penx/database-context'
 import { ToolbarBtn } from '../ToolbarBtn'
 import { HideFieldOverlay } from './HideFieldOverlay'
 

@@ -1,7 +1,7 @@
 import { Box, styled } from '@fower/react'
 import { Drawer } from 'vaul'
+import { TagForm } from '@penx/database-ui'
 import { useTagDrawer } from '../hooks/useTagDrawer'
-import { TagForm } from './tag/TagForm'
 
 const DrawerOverlay = styled(Drawer.Overlay)
 const DrawerContent = styled(Drawer.Content)

@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { useDatabaseContext } from '@penx/database-ui'
+import { useDatabaseContext } from '@penx/database-context'
 import {
   ConjunctionType,
   Filter,

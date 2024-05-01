@@ -15,7 +15,7 @@
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "slate": "0.102.0",
+    "slate": "^0.103.0",
     "slate-history": "0.100.0",
     "slate-react": "0.102.0",
     "typescript": "^5.3.2"
@@ -31,6 +31,7 @@
     "@glideapps/glide-data-grid": "^6.0.3",
     "@penx/constants": "workspace:*",
     "@penx/context-menu": "workspace:*",
+    "@penx/database-context": "workspace:*",
     "@penx/editor": "workspace:*",
     "@penx/editor-common": "workspace:*",
     "@penx/editor-leaf": "workspace:*",

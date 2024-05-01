@@ -10,7 +10,8 @@ import {
   useModalContext,
 } from 'uikit'
 import { ModalNames } from '@penx/constants'
-import { DatabaseProvider, RowForm } from '@penx/database-ui'
+import { DatabaseProvider } from '@penx/database-context'
+import { RowForm } from '@penx/database-ui'
 import { Node } from '@penx/model'
 
 interface Data {
