@@ -1,14 +1,9 @@
 import { Dispatch, SetStateAction, useMemo } from 'react'
 import { Box, styled } from '@fower/react'
-import { Node as SlateNode } from 'slate'
-import { modalController } from 'uikit'
 import { Command } from '@penx/cmdk'
-import { ModalNames } from '@penx/constants'
 import { usePaletteDrawer } from '@penx/hooks'
 import { Node } from '@penx/model'
-import { IDatabaseNode } from '@penx/model-types'
 import { useNodes } from '@penx/node-hooks'
-import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
 
 const CommandItem = styled(Command.Item)
@@ -27,75 +22,24 @@ interface Props {
   afterSearch?: () => void
 }
 
-interface Item {
-  node: Node
-  database: IDatabaseNode
-}
-
 export function SearchByTag({ q, setSearch, afterSearch, close }: Props) {
   const { nodeList } = useNodes()
-  const search = q.replace(/^#(\s+)?/, '') || ''
-
-  const regex = /^(\S+)\s?(.*)?$/
-  const [_, tag, text = ''] = search.match(regex) || []
-
+  const tagName = q.replace(/^#(\s+)?/, '') || ''
   const paletteDrawer = usePaletteDrawer()
 
   const filteredItems = useMemo(() => {
-    if (!search) {
+    if (q === '#') {
       return nodeList.tagNodes.filter(filterBuiltin)
     }
 
-    const tagNodes = nodeList.tagNodes.filter((node) => {
-      return node.tagName.includes(tag)
-    })
-
-    const canSearchALlNodesByTag = /^#(\S)+\s$/.test(q)
-    if (!text && !canSearchALlNodesByTag) {
-      return tagNodes.filter(filterBuiltin)
-    }
-
-    const database = store.node.getDatabaseByName(tag)!
-
-    if (!database) return nodeList.tagNodes.filter(filterBuiltin)
-
-    const cells = store.node
-      .getCells(database.id)
-      .filter((cell) => {
-        // first try to match the ref
-        const node = store.node.getNode(cell.props.ref!)
-
-        if (!node) {
-          const { data = '' } = cell.props
-
-          // try to match others cell data
-          if (data) {
-            return String(data).toLowerCase().includes(text.toLowerCase())
-          }
-
-          return false
-        }
-
-        if (!text) return true
-
-        const str = SlateNode.string(node.element[0])
-        const matched = str.toLowerCase().includes(text.toLowerCase())
-
-        return matched
+    return nodeList.tagNodes
+      .filter((node) => node.tagName.includes(tagName))
+      .filter(filterBuiltin)
+      .sort((a, b) => {
+        if (b.tagName.startsWith(tagName)) return 1
+        return -1
       })
-      .map((cell) => {
-        const raw = store.node.getNode(cell.props.ref!) || cell
-        const node = new Node(raw)
-
-        // set name for render
-        node.raw.props.name = new Node(database).tagName
-        node.raw.props.rowId = cell.props.rowId
-
-        return node
-      })
-
-    return cells
-  }, [nodeList, search, tag, text, q])
+  }, [nodeList, q, tagName])
 
   if (!filteredItems.length) {
     return (
@@ -107,30 +51,14 @@ export function SearchByTag({ q, setSearch, afterSearch, close }: Props) {
 
   return (
     <>
-      {filteredItems.map((node) => {
-        const nodeService = new NodeService(
-          node,
-          store.node.getNodes().map((n) => new Node(n)),
-        )
-
+      {filteredItems.slice(0, 20).map((database, index) => {
         const onSelect = () => {
-          if (node.isDatabase) {
-            if (search === node.tagName) {
-              nodeService.selectNode()
-            } else {
-              setSearch('#' + node.tagName)
-              afterSearch?.()
-              return
-            }
+          if (tagName === database.tagName) {
+            store.node.selectNode(database.raw)
           } else {
-            const database = store.node.getDatabaseByName(node.tagName)!
-
-            // console.log('=======database:', database)
-
-            modalController.open(ModalNames.ROW, {
-              node,
-              databaseId: database.id,
-            })
+            setSearch('#' + database.tagName)
+            afterSearch?.()
+            return
           }
 
           paletteDrawer?.close()
@@ -140,14 +68,13 @@ export function SearchByTag({ q, setSearch, afterSearch, close }: Props) {
 
         return (
           <CommandItem
-            key={node.id}
+            key={index}
             h10
             cursorPointer
             toCenterY
             px2
-            transitionCommon
             roundedLG
-            value={node.id}
+            gap1
             onSelect={() => {
               onSelect()
             }}
@@ -155,9 +82,7 @@ export function SearchByTag({ q, setSearch, afterSearch, close }: Props) {
               onSelect()
             }}
           >
-            {node.isDatabase
-              ? `#${node.tagName}`
-              : `#${node.tagName} ${node.isCell ? String(node.props.data) : node.title}`}
+            {`#${database.tagName}`}
           </CommandItem>
         )
       })}

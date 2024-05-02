@@ -13,23 +13,23 @@ import { ModalNames } from '@penx/constants'
 import { DatabaseProvider } from '@penx/database-context'
 import { RowForm } from '@penx/database-ui'
 import { Node } from '@penx/model'
+import { INode } from '@penx/model-types'
 
 interface Data {
-  node: Node
-  databaseId: string
+  cell: INode
+  database: Node
 }
 
 const Content = () => {
   const {
-    data: { node, databaseId },
+    data: { cell, database },
   } = useModalContext<Data>()
-  // console.log('======node:', node)
 
   return (
     <Box>
-      <ModalHeader mb2># {node.tagName}</ModalHeader>
-      <DatabaseProvider databaseId={databaseId}>
-        <RowForm rowId={node.props.rowId} databaseId={databaseId} />
+      <ModalHeader mb2># {database.tagName}</ModalHeader>
+      <DatabaseProvider databaseId={database.id}>
+        <RowForm rowId={cell.props.rowId} databaseId={database.id} />
       </DatabaseProvider>
     </Box>
   )

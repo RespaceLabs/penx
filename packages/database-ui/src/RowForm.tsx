@@ -3,6 +3,7 @@ import { Box } from '@fower/react'
 import { CellField } from '@penx/cell-fields'
 import { useDatabase } from '@penx/node-hooks'
 import { mappedByKey } from '@penx/shared'
+import { PrimaryCell } from './Cell/PrimaryCell'
 import { FieldIcon } from './shared/FieldIcon'
 
 interface Props {
@@ -42,14 +43,32 @@ export const RowForm = forwardRef<HTMLDivElement, Props>(function TagForm(
 
         if (!column) return null
 
+        const isRefCell = index === 0 && cell.props.ref
+
+        const content = isRefCell ? (
+          <PrimaryCell
+            key={index}
+            index={0}
+            cell={cell}
+            column={column}
+            width={0}
+            border
+            roundedXL
+            onBlur={() => {}}
+            selected={false}
+            updateCell={() => {}}
+          />
+        ) : (
+          <CellField index={index} cell={cell} columns={sortedColumns} />
+        )
+
         return (
           <Box key={cell.id}>
             <Box mb2 toCenterY gap1 gray600>
               <FieldIcon fieldType={column.props.fieldType} />
               <Box textXS>{column.props.displayName}</Box>
             </Box>
-
-            <CellField index={index} cell={cell} columns={sortedColumns} />
+            {content}
           </Box>
         )
       })}

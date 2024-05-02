@@ -91,8 +91,6 @@ export class SpaceStore {
 
       // TODO: disable sync now
       if (!nodes.length) {
-        console.log('gogo............')
-
         this.store.node.setNodes([])
         this.store.node.setActiveNodes([])
         this.setSpaces(spaces)

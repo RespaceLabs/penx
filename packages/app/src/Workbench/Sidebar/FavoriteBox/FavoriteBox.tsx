@@ -29,6 +29,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { Box } from '@fower/react'
+import { useSidebarDrawer } from '@penx/hooks'
 import { db } from '@penx/local-db'
 import { NodeListService, useNodes } from '@penx/node-hooks'
 import { store } from '@penx/store'

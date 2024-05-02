@@ -10,7 +10,7 @@
   --gray1: hsl(0, 0%, 99%);
   --gray2: hsl(0, 0%, 97.3%);
   --gray3: hsl(0, 0%, 95.1%);
-  --gray4: hsl(0, 0%, 93%);
+  --gray4: hsl(0, 0%, 96%);
   --gray5: hsl(0, 0%, 90.9%);
   --gray6: hsl(0, 0%, 88.7%);
   --gray7: hsl(0, 0%, 85.8%);
@@ -121,11 +121,24 @@
       }
     }
   }
+  [cmdk-group-items] {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
 
   [cmdk-item] {
     &[data-selected='true'] {
       background: var(--gray4);
       color: var(--gray12);
+    }
+
+    &[data-selected='true'] .row-data {
+      display: flex;
+    }
+
+    .row-data {
+      display: none;
     }
 
     &[data-disabled='true'] {
@@ -136,14 +149,6 @@
     &:active {
       transition-property: background;
       background: var(--gray4);
-    }
-
-    &:first-child {
-      margin-top: 8px;
-    }
-
-    & + [cmdk-item] {
-      margin-top: 4px;
     }
 
     svg {

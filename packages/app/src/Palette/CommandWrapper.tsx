@@ -1,6 +1,7 @@
 import { Dispatch, PropsWithChildren, SetStateAction } from 'react'
 import { styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
+import { useValue } from './hooks/useValue'
 
 const CommandDialog = styled(Command.Dialog)
 const StyledCommand = styled(Command)
@@ -19,10 +20,10 @@ export const CommandWrapper = ({
   setOpen,
   setSearch,
 }: PropsWithChildren<CommandWrapperProps>) => {
+  const { value, setValue } = useValue()
   if (isMobile) {
     return (
       <StyledCommand
-        bgRed100
         w-100p
         left-50p
         bgWhite
@@ -31,9 +32,8 @@ export const CommandWrapper = ({
         }}
         loop
         className="command-panel"
-        onValueChange={(value) => {
-          console.log(value)
-        }}
+        value={value}
+        onValueChange={(v) => setValue(v)}
         onKeyUp={(e) => {
           // Escape goes to previous page
           // Backspace goes to previous page when search is empty
@@ -50,7 +50,7 @@ export const CommandWrapper = ({
     <CommandDialog
       shadow="0 16px 70px rgba(0,0,0,.2)"
       rounded2XL
-      w-640
+      w={['90%', '90%', 760]}
       fixed
       top-100
       left-50p
@@ -64,9 +64,8 @@ export const CommandWrapper = ({
       className="command-panel"
       open={open}
       onOpenChange={setOpen}
-      onValueChange={(value) => {
-        console.log(value)
-      }}
+      value={value}
+      onValueChange={(v) => setValue(v)}
       onEscapeKeyDown={() => {
         setSearch('')
       }}

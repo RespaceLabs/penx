@@ -3,6 +3,7 @@ import isEqual from 'react-fast-compare'
 import { useSortable } from '@dnd-kit/sortable'
 import { Box, CSSObject, FowerHTMLProps } from '@fower/react'
 import { Hash } from 'lucide-react'
+import { useSidebarDrawer } from '@penx/hooks'
 import { IconDocument } from '@penx/icons'
 import { Node } from '@penx/model'
 import { NodeService } from '@penx/service'
@@ -20,6 +21,7 @@ export const NodeItem = memo(
     { node, style = {}, css = {}, listeners, ...rest },
     ref,
   ) {
+    const { close } = useSidebarDrawer()
     return (
       <Box
         ref={ref}
@@ -46,6 +48,7 @@ export const NodeItem = memo(
           )
 
           nodeService.selectNode()
+          close?.()
         }}
       >
         {node.isDatabase ? (

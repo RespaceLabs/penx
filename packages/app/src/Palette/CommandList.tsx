@@ -40,7 +40,6 @@ export function CommandList({ q, close, setSearch }: Props) {
           cursorPointer
           toCenterY
           px2
-          transitionCommon
           roundedLG
           value={item.id}
           onSelect={() => {

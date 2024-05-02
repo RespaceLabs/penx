@@ -93,7 +93,7 @@ export const PrimaryCell: FC<CellProps & Props> = memo(
     // console.log('=========value:', value)
 
     return (
-      <Box w-100p h-100p relative inlineFlex>
+      <Box w-100p h-100p relative inlineFlex {...rest}>
         <Slate
           editor={editor}
           initialValue={value}
@@ -112,6 +112,7 @@ export const PrimaryCell: FC<CellProps & Props> = memo(
             className={css(
               'black px2 py2 outlineNone h-100p w-100p ' + editorAtomicStyle,
             )}
+            readOnly
             renderLeaf={(props) => <Leaf {...props} />}
             renderElement={renderElement}
             onKeyDown={(e) => {

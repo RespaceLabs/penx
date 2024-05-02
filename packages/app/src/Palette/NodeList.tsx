@@ -2,10 +2,9 @@ import { Dispatch, SetStateAction } from 'react'
 import { Box, styled } from '@fower/react'
 import { Command } from '@penx/cmdk'
 import { usePaletteDrawer } from '@penx/hooks'
-import { Node } from '@penx/model'
 import { useNodes } from '@penx/node-hooks'
-import { NodeService } from '@penx/service'
 import { store } from '@penx/store'
+import { NodeItem } from './NodeItem'
 
 const CommandItem = styled(Command.Item)
 
@@ -30,11 +29,10 @@ export function NodeList({ q, setSearch, close }: Props) {
   if (!filteredItems.length) {
     return (
       <CommandItem
-        h10
         cursorPointer
         toCenterY
         px2
-        transitionCommon
+        py3
         roundedLG
         gap2
         value="Add to node"
@@ -52,7 +50,7 @@ export function NodeList({ q, setSearch, close }: Props) {
         }}
       >
         <Box textSM>Add to today:</Box>
-        <Box>"{q}"</Box>
+        <Box>{`"${q}"`}</Box>
       </CommandItem>
     )
   }
@@ -60,35 +58,17 @@ export function NodeList({ q, setSearch, close }: Props) {
   return (
     <>
       {filteredItems.map((node) => {
-        const nodeService = new NodeService(
-          node,
-          store.node.getNodes().map((n) => new Node(n)),
-        )
         return (
-          <CommandItem
+          <NodeItem
             key={node.id}
-            h10
-            cursorPointer
-            toCenterY
-            px2
-            transitionCommon
-            roundedLG
-            value={node.id}
+            node={node}
             onSelect={() => {
               paletteDrawer?.close()
-              nodeService.selectNode()
+              store.node.selectNode(node.raw)
               close()
               setSearch('')
             }}
-            onClick={() => {
-              nodeService.selectNode()
-              paletteDrawer?.close()
-              close()
-              setSearch('')
-            }}
-          >
-            {node.title || 'Untitled'}
-          </CommandItem>
+          />
         )
       })}
     </>
