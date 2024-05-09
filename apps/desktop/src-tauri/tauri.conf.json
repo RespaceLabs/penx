@@ -16,11 +16,38 @@
       "iconAsTemplate": true
     },
     "allowlist": {
-      "all": true
+      "fs": {
+        "readDir": true,
+        "readFile": true,
+        "writeFile": true,
+        "scope": ["$APPDATA/*"]
+      },
+      "globalShortcut": {
+        "all": true
+      },
+      "path": {
+        "all": true
+      },
+      "window": {
+        "show": true,
+        "hide": true,
+        "setFocus": true,
+        "setSize": true,
+        "center": true,
+        "setSkipTaskbar": true
+      },
+      "protocol": {
+        "asset": true,
+        "assetScope": [
+          "$APPDATA/appIcons/*",
+          "$RESOURCE/assets/*",
+          "$RESOURCE/assets/*/*"
+        ]
+      }
     },
     "bundle": {
       "active": true,
-      "category": "DeveloperTool",
+      "category": "Productivity",
       "copyright": "",
       "deb": {
         "depends": []
@@ -63,13 +90,14 @@
         "resizable": true,
         "title": "",
         "width": 750,
-        "height": 100,
+        "height": 470,
         "alwaysOnTop": true,
         "decorations": true,
         "transparent": true,
         "center": true,
         "skipTaskbar": true
       }
-    ]
+    ],
+    "macOSPrivateApi": true
   }
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import { PropsWithChildren, useEffect } from 'react'
 import { Box } from '@fower/react'
 import { isServer, useQuery } from '@tanstack/react-query'
@@ -13,8 +15,6 @@ import {
 import { CmdkRoot } from '~/components/CmdkRoot'
 
 export default function Home() {
-  useEffect(() => {}, [])
-
   return (
     <>
       <Head>
@@ -23,7 +23,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <CmdkRoot />
+      <Box relative absolute top0 bottom0 left0 right0 rounded2XL bgTransparent>
+        <CmdkRoot />
+      </Box>
     </>
   )
 }

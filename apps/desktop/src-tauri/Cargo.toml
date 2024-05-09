@@ -17,7 +17,7 @@ tauri-build = { version = "1.5", features = [] }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.6", features = [ "system-tray", "api-all"] }
+tauri = { version = "1.6", features = [ "macos-private-api", "fs-read-file", "window-show", "window-set-size", "path-all", "window-center", "global-shortcut-all", "protocol-asset", "window-set-focus", "window-hide", "fs-write-file", "window-set-skip-taskbar", "fs-read-dir", "system-tray"] }
 
 [features]
 # by default Tauri runs in production mode

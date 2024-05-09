@@ -186,10 +186,12 @@ export const CmdkRoot = () => {
       label="Command Menu"
       className="command-panel"
       shadow="0 16px 70px rgba(0,0,0,.2)"
-      rounded2XL
       w={['100%']}
-      fixed
+      absolute
       top-0
+      left0
+      right0
+      bottom0
       zIndex-10000
       bgWhite
       loop
@@ -199,6 +201,7 @@ export const CmdkRoot = () => {
       // }}
     >
       <CommandInput
+        id="searchBarInput"
         toCenterY
         bgTransparent
         w-100p
@@ -207,7 +210,7 @@ export const CmdkRoot = () => {
         placeholderGray400
         textBase
         borderBottom
-        borderGray100
+        borderGray200
         outlineNone
         placeholder="Search node"
         autoFocus
@@ -242,7 +245,6 @@ export const CmdkRoot = () => {
                 toCenterY
                 px2
                 py3
-                roundedLG
                 gap2
                 value={title}
                 onSelect={() => {
