@@ -1,0 +1,27 @@
+{
+  "name": "math",
+  "version": "0.0.0",
+  "description": "",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "tsx dev.ts",
+    "build": "tsup src/main.ts"
+  },
+  "devDependencies": {
+    "@penx/extension-dev-server": "workspace:*",
+    "@penx/extension-typings": "workspace:*",
+    "@penx/extension-api": "workspace:*",
+    "@types/node": "^20.10.3",
+    "tsup": "^7.2.0",
+    "tsx": "^3.14.0",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "mathjs": "^11.9.1"
+  }
+}

@@ -11,6 +11,10 @@
     "version": "0.1.0"
   },
   "tauri": {
+    "systemTray": {
+      "iconPath": "icons/32x32.png",
+      "iconAsTemplate": true
+    },
     "allowlist": {
       "all": true
     },
@@ -57,9 +61,14 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "PenX",
-        "width": 1280,
-        "height": 800
+        "title": "",
+        "width": 750,
+        "height": 100,
+        "alwaysOnTop": true,
+        "decorations": true,
+        "transparent": true,
+        "center": true,
+        "skipTaskbar": true
       }
     ]
   }

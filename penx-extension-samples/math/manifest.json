@@ -1,0 +1,7 @@
+{
+  "name": "Math",
+  "id": "math",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/main.js"
+}
