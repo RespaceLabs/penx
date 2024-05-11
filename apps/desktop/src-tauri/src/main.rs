@@ -11,16 +11,25 @@ use serde::{Deserialize, Serialize};
 
 use tauri::{
     CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
+    Window,
 };
+
+// the payload type must implement `Serialize` and `Clone`.
+#[derive(Clone, serde::Serialize)]
+struct Payload {
+    message: String,
+}
 
 fn create_system_tray() -> SystemTray {
     let quit = CustomMenuItem::new("Quit".to_string(), "Quit");
     let show = CustomMenuItem::new("Show".to_string(), "Show");
     let hide = CustomMenuItem::new("Hide".to_string(), "Hide");
+    let editor = CustomMenuItem::new("Editor".to_string(), "Editor");
     let preferences = CustomMenuItem::new("Preferences".to_string(), "Preferences");
     let tray_menu = SystemTrayMenu::new()
         .add_item(show)
         .add_item(hide)
+        .add_item(editor)
         .add_item(preferences)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(quit);
@@ -66,6 +75,10 @@ async fn upsert_extension(input: web::Json<UpsertExtensionInput>) -> HttpRespons
         name: "John".to_string(),
         age: 30,
     };
+
+    // let window = app.get_window("main").unwrap();
+    // window.emit("PreferencesClicked", Some("Yes")).unwrap();
+
     HttpResponse::Ok().json(person)
 }
 
@@ -80,12 +93,26 @@ async fn start_server() {
 }
 
 fn main() {
+    // let app_data = web::Data::new(app_handle);
+
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             on_button_clicked,
             greet,
             start_server
         ])
+        .setup(|app| {
+            // emit the `event-name` event to all webview windows on the frontend
+            app.emit_all(
+                "APP_INITED",
+                Payload {
+                    message: "Tauri is awesome!".into(),
+                },
+            )
+            .unwrap();
+
+            Ok(())
+        })
         .system_tray(create_system_tray())
         .on_system_tray_event(|app, event| match event {
             SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
@@ -95,6 +122,11 @@ fn main() {
                 }
                 "Show" => {
                     let window = app.get_window("main").unwrap();
+                    window.show().unwrap();
+                    window.center().unwrap();
+                }
+                "Editor" => {
+                    let window = app.get_window("editor").unwrap();
                     window.show().unwrap();
                     window.center().unwrap();
                 }

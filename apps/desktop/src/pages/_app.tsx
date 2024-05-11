@@ -13,6 +13,7 @@ import { store, StoreProvider } from '@penx/store'
 import { TrpcProvider } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
 import '@glideapps/glide-data-grid/dist/index.css'
+import { emit, listen } from '@tauri-apps/api/event'
 
 initFower()
 
@@ -40,6 +41,13 @@ async function hideByEsc() {
   })
 }
 
+async function listenAppInit() {
+  const { appWindow } = await import('@tauri-apps/api/window')
+  appWindow.listen('APP_INITED-window-event', ({ event, payload }) => {
+    console.log('APP_INITED============')
+  })
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
   const { push } = useRouter()
 
@@ -56,6 +64,23 @@ function MyApp({ Component, pageProps }: AppProps) {
     })
 
     hideByEsc()
+    listenAppInit()
+
+    listen('APP_INITED', (data) => {
+      console.log('APP_INITED==========:', data)
+    })
+
+    listen('PreferencesClicked', (data) => {
+      console.log('PreferencesClicked==========:', data)
+    })
+
+    // listen('click', (data) => {
+    //   console.log('emit==========:', data)
+    // })
+
+    // emit('click', {
+    //   theMessage: 'Tauri is awesome!',
+    // })
 
     appEmitter.on('SIGN_OUT', handleSignOut)
     return () => {

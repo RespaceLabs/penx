@@ -28,6 +28,10 @@
       "path": {
         "all": true
       },
+      "http": {
+        "all": true,
+        "request": true
+      },
       "window": {
         "show": true,
         "hide": true,
@@ -97,6 +101,11 @@
         "transparent": true,
         "center": true,
         "skipTaskbar": true
+      },
+      {
+        "label": "editor",
+        "title": "Editor",
+        "url": "http://localhost:3000/editor"
       }
     ],
     "macOSPrivateApi": true
