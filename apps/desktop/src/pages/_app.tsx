@@ -14,6 +14,7 @@ import { TrpcProvider } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
 import '@glideapps/glide-data-grid/dist/index.css'
 import { emit, listen } from '@tauri-apps/api/event'
+import { isServer } from '@penx/constants'
 
 initFower()
 
@@ -43,9 +44,46 @@ async function hideByEsc() {
 
 async function listenAppInit() {
   const { appWindow } = await import('@tauri-apps/api/window')
-  appWindow.listen('APP_INITED-window-event', ({ event, payload }) => {
+  appWindow.listen('APP_INITED', ({ event, payload }) => {
     console.log('APP_INITED============')
   })
+}
+
+async function init() {
+  console.log('app init............')
+
+  const shortcut = 'CommandOrControl+Shift+K'
+
+  unregister(shortcut).then(() => {
+    listenForHotkey('CommandOrControl+Shift+K')
+  })
+
+  hideByEsc()
+  listenAppInit()
+
+  listen('APP_INITED', (data) => {
+    console.log('APP_INITED==========:', data)
+  })
+
+  listen('PreferencesClicked', (data) => {
+    console.log('PreferencesClicked==========:', data)
+  })
+
+  listen('HELLO', (data) => {
+    console.log('HELLO==========:', data)
+  })
+
+  // listen('click', (data) => {
+  //   console.log('emit==========:', data)
+  // })
+
+  // emit('click', {
+  //   theMessage: 'Tauri is awesome!',
+  // })
+}
+
+if (!isServer) {
+  init()
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -57,30 +95,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       store.setToken(null as any)
       push('/')
     }
-    const shortcut = 'CommandOrControl+Shift+K'
-
-    unregister(shortcut).then(() => {
-      listenForHotkey('CommandOrControl+Shift+K')
-    })
-
-    hideByEsc()
-    listenAppInit()
-
-    listen('APP_INITED', (data) => {
-      console.log('APP_INITED==========:', data)
-    })
-
-    listen('PreferencesClicked', (data) => {
-      console.log('PreferencesClicked==========:', data)
-    })
-
-    // listen('click', (data) => {
-    //   console.log('emit==========:', data)
-    // })
-
-    // emit('click', {
-    //   theMessage: 'Tauri is awesome!',
-    // })
 
     appEmitter.on('SIGN_OUT', handleSignOut)
     return () => {
@@ -97,12 +111,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         console.log('resu=lt', result)
 
         setGreeting(result)
-      })
-      .catch(console.error)
-
-    invoke<string>('start_server')
-      .then((result) => {
-        console.log('start server...........:', result)
       })
       .catch(console.error)
   }, [])
