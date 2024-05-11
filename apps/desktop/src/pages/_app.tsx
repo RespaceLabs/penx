@@ -1,9 +1,8 @@
-'use client'
-
 import '~/styles/globals.css'
 import '~/styles/command.scss'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { register, unregister } from '@tauri-apps/api/globalShortcut'
+import { invoke } from '@tauri-apps/api/tauri'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { ToastContainer } from 'uikit'
@@ -43,6 +42,7 @@ async function hideByEsc() {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { push } = useRouter()
+
   useEffect(() => {
     const handleSignOut = () => {
       clearAuthorizedUser()
@@ -62,6 +62,24 @@ function MyApp({ Component, pageProps }: AppProps) {
       appEmitter.off('SIGN_OUT', handleSignOut)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const [greeting, setGreeting] = useState('')
+
+  useEffect(() => {
+    invoke<string>('greet', { name: 'Next.js' })
+      .then((result) => {
+        console.log('resu=lt', result)
+
+        setGreeting(result)
+      })
+      .catch(console.error)
+
+    invoke<string>('start_server')
+      .then((result) => {
+        console.log('start server...........:', result)
+      })
+      .catch(console.error)
   }, [])
 
   return (

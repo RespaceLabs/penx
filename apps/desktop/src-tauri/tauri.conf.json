@@ -86,13 +86,14 @@
     },
     "windows": [
       {
+        "label": "main",
         "fullscreen": false,
         "resizable": true,
         "title": "",
         "width": 750,
         "height": 470,
         "alwaysOnTop": true,
-        "decorations": true,
+        "decorations": false,
         "transparent": true,
         "center": true,
         "skipTaskbar": true

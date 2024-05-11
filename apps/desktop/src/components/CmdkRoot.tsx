@@ -5,6 +5,7 @@ import { Item } from '@penx/extension-api'
 
 const StyledCommand = styled(Command)
 const CommandInput = styled(Command.Input)
+const CommandList = styled(Command.List)
 const CommandItem = styled(Command.Item)
 
 type CommandItem = {
@@ -187,13 +188,17 @@ export const CmdkRoot = () => {
       className="command-panel"
       shadow="0 16px 70px rgba(0,0,0,.2)"
       w={['100%']}
+      column
       absolute
       top-0
       left0
       right0
       bottom0
       zIndex-10000
-      bgWhite
+      bgNeutral100
+      style={{
+        backdropFilter: 'blur(200px)',
+      }}
       loop
       // filter={(value, search) => {
       //   console.log('value:', value, 'search:', search)
@@ -205,7 +210,7 @@ export const CmdkRoot = () => {
         toCenterY
         bgTransparent
         w-100p
-        h-48
+        h-54
         px3
         placeholderGray400
         textBase
@@ -231,7 +236,7 @@ export const CmdkRoot = () => {
           }
         }}
       />
-      <Command.List>
+      <CommandList flex-1 p2>
         <Command.Empty>No results found.</Command.Empty>
 
         <Command.Group>
@@ -246,6 +251,7 @@ export const CmdkRoot = () => {
                 px2
                 py3
                 gap2
+                roundedLG
                 value={title}
                 onSelect={() => {
                   handleSelect(item)
@@ -259,7 +265,11 @@ export const CmdkRoot = () => {
             )
           })}
         </Command.Group>
-      </Command.List>
+      </CommandList>
+
+      <Box h-48 borderTop borderNeutral200--T40 toCenterY px4>
+        Bottom bar
+      </Box>
     </StyledCommand>
   )
 }
