@@ -1,6 +1,7 @@
 import Dexie, { Table } from 'dexie'
 import { IExtension, IFile, INode, ISpace } from '@penx/model-types'
 import { uniqueId } from '@penx/unique-id'
+import { getNewSpace } from './libs/getNewSpace'
 
 export class PenxDB extends Dexie {
   space!: Table<ISpace, string>
@@ -11,11 +12,12 @@ export class PenxDB extends Dexie {
   constructor() {
     // super('PenxDB')
     super('penx-local')
-    this.version(10).stores({
+    this.version(12).stores({
       // Primary key and indexed props
       space: 'id, name, userId',
       node: 'id, spaceId, databaseId, type, date, [type+spaceId+databaseId], [type+spaceId], [type+databaseId]',
       file: 'id, googleDriveFileId, fileHash',
+      extension: 'id, slug',
     })
   }
 
@@ -27,8 +29,31 @@ export class PenxDB extends Dexie {
     return this.extension.get(extensionId)
   }
 
-  updateExtension = (extensionId: string, plugin: Partial<IExtension>) => {
-    return this.extension.update(extensionId, plugin)
+  upsertExtension = async (slug: string, data: Partial<IExtension>) => {
+    console.log('upsert ext.......')
+
+    const ext = await this.extension.where({ slug }).first()
+    console.log('ext.........:', ext)
+
+    if (!ext) {
+      await this.createExtension({
+        id: uniqueId(),
+        spaceId: '',
+        slug,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        ...data,
+      } as IExtension)
+    }
+    console.log('upsertExtension', slug, data)
+  }
+
+  updateExtension = (extensionId: string, data: Partial<IExtension>) => {
+    return this.extension.update(extensionId, data)
+  }
+
+  listExtensions = () => {
+    return this.extension.toArray()
   }
 
   installExtension = async (extension: Partial<IExtension>) => {

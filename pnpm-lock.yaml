@@ -966,6 +966,9 @@ importers:
       '@penx/mnemonic':
         specifier: workspace:*
         version: link:../../packages/mnemonic
+      '@penx/model-types':
+        specifier: workspace:*
+        version: link:../../packages/model-types
       '@penx/session':
         specifier: workspace:*
         version: link:../../packages/session

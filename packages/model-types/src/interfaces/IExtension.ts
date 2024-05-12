@@ -1,3 +1,10 @@
+export interface Command {
+  name: string
+  title: string
+  subtitle: string
+  description: string
+}
+
 export interface IExtension {
   id: string
 
@@ -11,11 +18,13 @@ export interface IExtension {
 
   version: string
 
+  commands: Command[]
+
   description?: string
 
   author?: string
 
-  createdAt: number
+  createdAt: Date
 
-  updatedAt: number
+  updatedAt: Date
 }

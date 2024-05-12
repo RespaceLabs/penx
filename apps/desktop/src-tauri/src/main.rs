@@ -37,6 +37,7 @@ struct ExtensionInfo {
     name: String,
     version: String,
     code: String,
+    commands: String,
 }
 
 #[derive(Deserialize)]
@@ -45,6 +46,7 @@ struct UpsertExtensionInput {
     name: String,
     version: String,
     code: String,
+    commands: String,
 }
 
 // the payload type must implement `Serialize` and `Clone`.
@@ -99,6 +101,7 @@ async fn upsert_extension(
         name: input.name.to_string(),
         version: input.version.to_string(),
         code: input.code.to_string(),
+        commands: input.commands.to_string(),
     };
 
     let window = app.get_window("main").unwrap();

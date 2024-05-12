@@ -15,6 +15,7 @@ import { ClientOnly } from '~/components/ClientOnly'
 import '@glideapps/glide-data-grid/dist/index.css'
 import { emit, listen } from '@tauri-apps/api/event'
 import { AppEvent, isServer } from '@penx/constants'
+import { db } from '@penx/local-db'
 import { uniqueId } from '@penx/unique-id'
 
 initFower()
@@ -54,12 +55,28 @@ async function init() {
 
   hideByEsc()
 
-  listen(AppEvent.UPSERT_EXTENSION, (data) => {
-    console.log('Hello==========:', data)
+  type Payload = {
+    code: string
+    commands: string
+    id: string
+    name: string
+    version: string
+  }
+
+  listen(AppEvent.UPSERT_EXTENSION, async (data) => {
+    const payload = data.payload as Payload
+    const commands = JSON.parse(payload.commands || '[]')
+    console.log('Hello==========:', payload, commands)
+    await db.upsertExtension(payload.id, {
+      code: payload.code,
+      commands: commands,
+      name: payload.name,
+      version: payload.version,
+    })
   })
 
   listen('PreferencesClicked', (data) => {
-    console.log('PreferencesClicked==========:', data)
+    console.log('PreferencesClicked==========:', data.payload)
   })
 
   // listen('click', (data) => {

@@ -27,6 +27,7 @@
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
+    "@penx/model-types": "workspace:*",
     "@penx/mnemonic": "workspace:*",
     "@penx/session": "workspace:*",
     "@penx/storage": "workspace:*",

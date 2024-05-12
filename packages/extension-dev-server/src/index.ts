@@ -84,11 +84,19 @@ export const devServer = {
           name: data.name,
           version: data.version,
           code: data.code,
+          commands: JSON.stringify(data.commands),
         },
       })
       .json()
     console.log('result--------:', result)
   },
+}
+
+type Command = {
+  name: string
+  title: string
+  subtitle: string
+  description: string
 }
 
 type ExtensionData = {
@@ -98,6 +106,7 @@ type ExtensionData = {
   description: string
   main: string
   code: string
+  commands: Command[]
 }
 
 function getExtensionData(): ExtensionData {

@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { Box, styled } from '@fower/react'
+import { useQuery } from '@tanstack/react-query'
 import { Command } from 'cmdk'
 import { Item } from '@penx/extension-api'
+import { db } from '@penx/local-db'
+import { Command as ICommand } from '@penx/model-types'
 
 const StyledCommand = styled(Command)
 const CommandInput = styled(Command.Input)
@@ -151,6 +154,16 @@ const initialItems = list.map((item) => ({
 export const CmdkRoot = () => {
   const [q, setQ] = useState('')
   const [items, setItems] = useState<Item[]>(initialItems)
+
+  const { data = [] } = useQuery(['commands'], async () => {
+    const extensions = await db.listExtensions()
+    return extensions.reduce(
+      (acc, cur) => [...acc, ...cur.commands],
+      [] as ICommand[],
+    )
+  })
+
+  console.log('========data:', data)
 
   function handleSelect(item: Item, input = '') {
     // console.log('q-----:', q, 'input:', input)
