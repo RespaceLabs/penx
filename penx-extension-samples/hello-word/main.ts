@@ -3,7 +3,7 @@ async function main() {
     type: 'hello',
     items: [
       {
-        title: 'hello',
+        title: 'hello..',
       },
       {
         title: 'world',

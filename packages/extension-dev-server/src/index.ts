@@ -4,6 +4,7 @@ import chokidar from 'chokidar'
 import cors from 'cors'
 import express, { Express, Request, Response } from 'express'
 import jetpack from 'fs-jetpack'
+import ky from 'ky'
 
 const eventEmitter = new EventEmitter()
 
@@ -69,13 +70,37 @@ export const devServer = {
     })
   },
 
-  handleBuildSuccess() {
+  async handleBuildSuccess() {
     console.log('Build success~')
     eventEmitter.emit(BUILD_SUCCESS)
+
+    const data = getExtensionData()
+
+    console.log('build success!!!!!!!!!')
+    const result = await ky
+      .post('http://127.0.0.1:8080/api/upsert-extension', {
+        json: {
+          id: data.id,
+          name: data.name,
+          version: data.version,
+          code: data.code,
+        },
+      })
+      .json()
+    console.log('result--------:', result)
   },
 }
 
-function getExtensionData() {
+type ExtensionData = {
+  name: string
+  id: string
+  version: string
+  description: string
+  main: string
+  code: string
+}
+
+function getExtensionData(): ExtensionData {
   const manifestPath = join(process.cwd(), 'manifest.json')
   const manifest = jetpack.read(manifestPath, 'json')
   const code = jetpack.read(join(process.cwd(), manifest.main), 'utf8')

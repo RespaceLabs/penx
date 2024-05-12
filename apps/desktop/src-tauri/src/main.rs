@@ -4,38 +4,47 @@
 )]
 
 use std::{
+    boxed,
     sync::Mutex,
     thread,
     time::{SystemTime, UNIX_EPOCH},
 };
 
-use actix_web::{get, middleware, post, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{
+    get, middleware, post,
+    web::{self, Data},
+    App, HttpResponse, HttpServer, Responder,
+};
 
 use serde::{Deserialize, Serialize};
+use serde_json::json;
+
+use rusqlite::{params, Connection, ParamsFromIter, Result, ToSql};
 
 use tauri::{
     AppHandle, CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu,
     SystemTrayMenuItem, Window,
 };
 
-struct TauriAppState {
-    app: Mutex<AppHandle>,
-}
-
 struct AppState {
     app_name: String,
 }
 
-#[derive(Serialize)]
-struct Person {
+// #[derive(Serialize)]
+#[derive(Clone, serde::Serialize)]
+struct ExtensionInfo {
     id: String,
     name: String,
-    age: u32,
+    version: String,
+    code: String,
 }
 
 #[derive(Deserialize)]
 struct UpsertExtensionInput {
     id: String,
+    name: String,
+    version: String,
+    code: String,
 }
 
 // the payload type must implement `Serialize` and `Clone`.
@@ -76,40 +85,43 @@ fn greet(name: &str) -> String {
 }
 
 #[get("/")]
-async fn hello(data: web::Data<AppState>) -> impl Responder {
-    let app_name = &data.app_name; // <- get app_name
-    app_name.to_string()
+async fn hello(app: web::Data<AppHandle>) -> impl Responder {
+    HttpResponse::Ok().body("Hello, World!")
 }
 
 #[post("/api/upsert-extension")]
 async fn upsert_extension(
     input: web::Json<UpsertExtensionInput>,
-    data: web::Data<AppState>,
+    app: web::Data<AppHandle>,
 ) -> HttpResponse {
-    let app_name = &data.app_name; // <- get app_name
-    let person = Person {
+    let info = ExtensionInfo {
         id: input.id.to_string(),
-        name: app_name.to_string(),
-        age: 30,
+        name: input.name.to_string(),
+        version: input.version.to_string(),
+        code: input.code.to_string(),
     };
 
-    HttpResponse::Ok().json(person)
+    let window = app.get_window("main").unwrap();
+    window.emit("UPSERT_EXTENSION", json!(info)).unwrap();
+
+    HttpResponse::Ok().json(info)
 }
 
 // This struct represents state
 
 #[actix_web::main]
-pub async fn start_server(app: AppHandle) -> std::io::Result<()> {
-    let tauri_app = web::Data::new(TauriAppState {
-        app: Mutex::new(app),
-    });
+pub async fn start_server(app: AppHandle, conn: Connection) -> std::io::Result<()> {
+    // let tauri_app = web::Data::new(Mutex::new(app));
+
+    // let db = web::Data::new(Mutex::new(conn));
 
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(AppState {
                 app_name: String::from("Actix Web"),
             }))
-            .app_data(tauri_app.clone())
+            .app_data(web::Data::new(app.clone()))
+            // .app_data(db.clone())
             .wrap(middleware::Logger::default())
             .service(hello)
             .service(upsert_extension)
@@ -154,18 +166,12 @@ fn main() {
         })
         .setup(|app| {
             let handle = app.handle();
+            let conn = Connection::open_in_memory();
+
             let boxed_handle = Box::new(handle);
+            let boxed_conn = Box::new(conn.unwrap());
 
-            thread::spawn(move || start_server(*boxed_handle).unwrap());
-
-            // emit the `event-name` event to all webview windows on the frontend
-            app.emit_all(
-                "APP_INITED",
-                Payload {
-                    message: "Tauri is awesome!".into(),
-                },
-            )
-            .unwrap();
+            thread::spawn(move || start_server(*boxed_handle, *boxed_conn).unwrap());
 
             Ok(())
         })

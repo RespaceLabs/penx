@@ -3,5 +3,19 @@
   "id": "hello-world",
   "version": "1.0.1",
   "description": "This is a hello wold demo..",
-  "main": "dist/main.mjs"
+  "main": "dist/main.mjs",
+  "commands": [
+    {
+      "name": "hello",
+      "title": "Hello world",
+      "subtitle": "",
+      "description": ""
+    },
+    {
+      "name": "math",
+      "title": "Math",
+      "subtitle": "",
+      "description": ""
+    }
+  ]
 }

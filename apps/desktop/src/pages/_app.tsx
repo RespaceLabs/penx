@@ -14,7 +14,8 @@ import { TrpcProvider } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
 import '@glideapps/glide-data-grid/dist/index.css'
 import { emit, listen } from '@tauri-apps/api/event'
-import { isServer } from '@penx/constants'
+import { AppEvent, isServer } from '@penx/constants'
+import { uniqueId } from '@penx/unique-id'
 
 initFower()
 
@@ -42,13 +43,6 @@ async function hideByEsc() {
   })
 }
 
-async function listenAppInit() {
-  const { appWindow } = await import('@tauri-apps/api/window')
-  appWindow.listen('APP_INITED', ({ event, payload }) => {
-    console.log('APP_INITED============')
-  })
-}
-
 async function init() {
   console.log('app init............')
 
@@ -59,18 +53,13 @@ async function init() {
   })
 
   hideByEsc()
-  listenAppInit()
 
-  listen('APP_INITED', (data) => {
-    console.log('APP_INITED==========:', data)
+  listen(AppEvent.UPSERT_EXTENSION, (data) => {
+    console.log('Hello==========:', data)
   })
 
   listen('PreferencesClicked', (data) => {
     console.log('PreferencesClicked==========:', data)
-  })
-
-  listen('HELLO', (data) => {
-    console.log('HELLO==========:', data)
   })
 
   // listen('click', (data) => {
@@ -80,6 +69,22 @@ async function init() {
   // emit('click', {
   //   theMessage: 'Tauri is awesome!',
   // })
+  // console.log('sqlite init.....')
+  // const db = await Database.load('sqlite:penx.db')
+  // console.log('db', db)
+
+  // await db.execute(
+  //   'CREATE TABLE IF NOT EXISTS todos (id TEXT PRIMARY KEY, title TEXT, status BOOLEAN)',
+  // )
+
+  // const result = await db.execute(
+  //   'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
+  //   [uniqueId(), 'title1', true],
+  // )
+
+  // const result = await db.select(`SELECT * FROM todos`)
+
+  // console.log('todo result....:', result)
 }
 
 if (!isServer) {
