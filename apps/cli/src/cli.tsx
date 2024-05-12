@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
-import command from './commands/add'
+import add from './commands/add'
+import dev from './commands/dev'
 import login from './commands/login'
 import space from './commands/space'
 import agent from './commands/agent'
 import whoami from './commands/whoami'
 
 yargs(hideBin(process.argv))
-  .command(command)
+  .command(add)
   .command(login)
+  .command(dev)
   .command(space)
   .command(agent)
   .command(whoami)

@@ -1,6 +1,6 @@
 import { input, registerCommand, renderList } from '@penx/extension-api'
 
-console.log('hello..............9')
+console.log('hello..............99')
 
 registerCommand('hello', async () => {
   renderList([
