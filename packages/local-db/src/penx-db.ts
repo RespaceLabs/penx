@@ -29,11 +29,12 @@ export class PenxDB extends Dexie {
     return this.extension.get(extensionId)
   }
 
-  upsertExtension = async (slug: string, data: Partial<IExtension>) => {
-    console.log('upsert ext.......')
+  getExtensionBySlug = (slug: string) => {
+    return this.extension.where({ slug }).first()
+  }
 
+  upsertExtension = async (slug: string, data: Partial<IExtension>) => {
     const ext = await this.extension.where({ slug }).first()
-    console.log('ext.........:', ext)
 
     if (!ext) {
       await this.createExtension({
@@ -44,7 +45,12 @@ export class PenxDB extends Dexie {
         updatedAt: new Date(),
         ...data,
       } as IExtension)
+    } else {
+      await this.updateExtension(ext.id, {
+        ...data,
+      })
     }
+
     console.log('upsertExtension', slug, data)
   }
 
@@ -52,8 +58,9 @@ export class PenxDB extends Dexie {
     return this.extension.update(extensionId, data)
   }
 
-  listExtensions = () => {
-    return this.extension.toArray()
+  listExtensions = async () => {
+    const extensions = await this.extension.toArray()
+    return extensions.map(({ code, ...rest }) => rest)
   }
 
   installExtension = async (extension: Partial<IExtension>) => {
@@ -76,10 +83,6 @@ export class PenxDB extends Dexie {
       id: uniqueId(),
       ...extension,
     } as IExtension)
-  }
-
-  listExtensions = () => {
-    return this.extension.toArray()
   }
 
   createFile = async (data: Omit<IFile, 'id'>): Promise<IFile> => {

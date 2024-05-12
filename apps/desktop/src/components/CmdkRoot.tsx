@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { Box, styled } from '@fower/react'
-import { useQuery } from '@tanstack/react-query'
 import { Command } from 'cmdk'
-import { Item } from '@penx/extension-api'
+import { EventType, Item } from '@penx/extension-api'
 import { db } from '@penx/local-db'
-import { Command as ICommand } from '@penx/model-types'
+import { useCommands, useItems, useQueryCommands } from '~/hooks/useItems'
 
 const StyledCommand = styled(Command)
 const CommandInput = styled(Command.Input)
@@ -16,184 +15,48 @@ type CommandItem = {
   code: string
 }
 
-const list = [
-  {
-    command: 'math',
-    code: `
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-
-// ../../packages/extension-api/dist/types.js
-var require_types = __commonJS({
-  "../../packages/extension-api/dist/types.js"(exports) {
-    Object.defineProperty(exports, "__esModule", { value: true });
-  }
-});
-
-// ../../packages/extension-api/dist/index.js
-var require_dist = __commonJS({
-  "../../packages/extension-api/dist/index.js"(exports) {
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = {
-          enumerable: true,
-          get: function() {
-            return m[k];
-          }
-        };
-      }
-      Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
-      o[k2] = m[k];
-    });
-    var __exportStar = exports && exports.__exportStar || function(m, exports2) {
-      for (var p in m)
-        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
-          __createBinding(exports2, m, p);
-    };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.input = void 0;
-    __exportStar(require_types(), exports);
-    exports.input = self.input;
-  }
-});
-
-// src/main.ts
-var import_extension_api = __toESM(require_dist());
-async function main() {
-  console.log("input....123:", import_extension_api.input);
-  postMessage({
-    type: "list",
-    items: [
-      {
-        title: import_extension_api.input
-      }
-    ]
-  });
-}
-main();
-    `,
-  },
-
-  {
-    command: 'hello',
-    code: `
-// main.ts
-async function main() {
-  postMessage({
-    type: "list",
-    items: [
-      {
-        title: "item 1"
-      },
-      {
-        title: "item 2"
-      },
-      {
-        title: "item 3"
-      },
-    ]
-  });
-}
-main();
-    `,
-  },
-  {
-    command: 'add-todo',
-    code: 'console.log("Add a todo")',
-  },
-  {
-    command: 'translate',
-    code: 'console.log("Translate")',
-  },
-  {
-    command: 'polling',
-    code: `
-console.log("Hello from Web Worker");
-setInterval(() => {
-  console.log("123...............", Date.now());
-},4000)
-    `,
-  },
-]
-
-const initialItems = list.map((item) => ({
-  type: 'command',
-  title: item.command,
-  data: item.code,
-}))
-
 export const CmdkRoot = () => {
   const [q, setQ] = useState('')
-  const [items, setItems] = useState<Item[]>(initialItems)
 
-  const { data = [] } = useQuery(['commands'], async () => {
-    const extensions = await db.listExtensions()
-    return extensions.reduce(
-      (acc, cur) => [...acc, ...cur.commands],
-      [] as ICommand[],
-    )
-  })
+  const { items, setItems } = useItems()
+  const { commands } = useCommands()
 
-  console.log('========data:', data)
+  useQueryCommands()
 
-  function handleSelect(item: Item, input = '') {
-    // console.log('q-----:', q, 'input:', input)
-
+  async function handleSelect(item: Item, input = '') {
     if (item.type === 'command') {
       if (!q) setQ(item.title as string)
 
-      let blob = new Blob(
-        [`self.input = '${input}'\n` + item.data + `\nself.close()`],
-        {
-          type: 'application/javascript',
-        },
-      )
+      const ext = await db.getExtensionBySlug(item.data.extensionSlug)
+      if (!ext) return
+
+      let blob = new Blob([`self.input = '${input}'\n` + ext?.code], {
+        type: 'application/javascript',
+      })
       let url = URL.createObjectURL(blob)
       let worker = new Worker(url)
       // worker.terminate()
 
+      item.data.commandName && worker.postMessage(item.data.commandName)
+
       worker.onmessage = async (event: MessageEvent<any>) => {
-        if (event.data?.type === 'list') {
+        console.log('========event.data?.type:', event.data?.type)
+
+        if (event.data?.type === EventType.RENDER_LIST) {
           const list: Array<{ title: string }> = event.data.items || []
           console.log('event---:', event.data.items)
-          setItems(
-            list.map((item) => ({
-              title: item.title,
-            })),
-          )
+
+          const newItems = list.map((item) => ({
+            title: item.title,
+          }))
+
+          setItems(newItems)
         }
       }
     }
   }
+
+  console.log('==========items:', items)
 
   return (
     <StyledCommand
@@ -213,10 +76,10 @@ export const CmdkRoot = () => {
         backdropFilter: 'blur(200px)',
       }}
       loop
-      // filter={(value, search) => {
-      //   console.log('value:', value, 'search:', search)
-      //   return 1
-      // }}
+      filter={(value, search) => {
+        console.log('value:', value, 'search:', search)
+        return 1
+      }}
     >
       <CommandInput
         id="searchBarInput"
@@ -236,13 +99,13 @@ export const CmdkRoot = () => {
         onValueChange={(v) => {
           setQ(v)
           if (v === '') {
-            setItems(initialItems)
+            setItems(commands)
           }
         }}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             const [a, b = ''] = splitStringByFirstSpace(q)
-            const item = initialItems.find((item) => item.title === a)
+            const item = commands.find((item) => item.title === a)
             if (item) {
               handleSelect(item, String(b))
             }

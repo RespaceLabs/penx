@@ -1,15 +1,14 @@
-async function main() {
-  postMessage({
-    type: 'hello',
-    items: [
-      {
-        title: 'hello.....',
-      },
-      {
-        title: 'world',
-      },
-    ],
-  })
-}
+import { input, registerCommand, renderList } from '@penx/extension-api'
 
-main()
+console.log('hello..............9')
+
+registerCommand('hello', async () => {
+  renderList([
+    {
+      title: 'hello...',
+    },
+    {
+      title: 'world',
+    },
+  ])
+})
