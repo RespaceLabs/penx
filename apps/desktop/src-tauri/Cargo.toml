@@ -34,6 +34,7 @@ tauri = { version = "1.6", features = [ "shell-open",
   "window-set-skip-taskbar",
   "system-tray",
 ] }
+tauri-plugin-clipboard = "0.6.10"
 
 
 [features]

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Box, styled } from '@fower/react'
 import { open } from '@tauri-apps/api/shell'
 import { Command } from 'cmdk'
+import clipboard from 'tauri-plugin-clipboard-api'
 import { EventType, ListItem } from '@penx/extension-api'
 import { db } from '@penx/local-db'
 import { useCommands, useItems, useQueryCommands } from '~/hooks/useItems'
@@ -68,6 +69,10 @@ export const CmdkRoot = () => {
         if (defaultAction.type === 'OpenInBrowser') {
           console.log('========defaultAction.url:', defaultAction.url)
           open(defaultAction.url)
+        }
+
+        if (defaultAction.type === 'CopyToClipboard') {
+          await clipboard.writeText(defaultAction.content)
         }
       }
       console.log('list item:', item)

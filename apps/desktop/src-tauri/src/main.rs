@@ -133,6 +133,7 @@ pub async fn start_server(app: AppHandle, conn: Connection) -> std::io::Result<(
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_clipboard::init()) // add this line
         .invoke_handler(tauri::generate_handler![on_button_clicked, greet,])
         .system_tray(create_system_tray())
         .on_system_tray_event(|app, event| match event {

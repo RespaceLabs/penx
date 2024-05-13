@@ -27,8 +27,8 @@
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",
-    "@penx/model-types": "workspace:*",
     "@penx/mnemonic": "workspace:*",
+    "@penx/model-types": "workspace:*",
     "@penx/session": "workspace:*",
     "@penx/storage": "workspace:*",
     "@penx/store": "workspace:*",
@@ -49,6 +49,7 @@
     "pnpm": "^9.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "tauri-plugin-clipboard-api": "^0.6.10",
     "uikit": "workspace:*",
     "wagmi": "^2.6.0"
   },

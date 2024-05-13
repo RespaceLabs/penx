@@ -17,7 +17,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.input = void 0;
 __exportStar(require("./constants"), exports);
 __exportStar(require("./types"), exports);
-__exportStar(require("./registerCommand"), exports);
 __exportStar(require("./renderList"), exports);
 // export const input = (self as any)?.input
 exports.input = 'TODO';
