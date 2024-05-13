@@ -1,3 +1,3 @@
-import { renderMarkdown } from '@penx/extension-api'
+import { renderMarkdown } from '@penxio/extension-api'
 
 renderMarkdown('# hello world!')

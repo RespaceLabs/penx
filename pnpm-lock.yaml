@@ -951,7 +951,7 @@ importers:
       '@penx/event':
         specifier: workspace:*
         version: link:../../packages/event
-      '@penx/extension-api':
+      '@penxio/extension-api':
         specifier: workspace:*
         version: link:../../packages/extension-api
       '@penx/hooks':
@@ -2743,7 +2743,7 @@ importers:
         specifier: ^1.1.3
         version: 1.2.3
     devDependencies:
-      '@penx/extension-api':
+      '@penxio/extension-api':
         specifier: workspace:*
         version: link:../../packages/extension-api
       '@types/node':
@@ -2765,7 +2765,7 @@ importers:
         specifier: ^1.1.3
         version: 1.2.3
     devDependencies:
-      '@penx/extension-api':
+      '@penxio/extension-api':
         specifier: workspace:*
         version: link:../../packages/extension-api
       '@types/node':

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
+import { Item } from '@penxio/extension-api'
 import { useQuery } from '@tanstack/react-query'
 import { atom, useAtom, useSetAtom } from 'jotai'
-import { Item } from '@penx/extension-api'
 import { db } from '@penx/local-db'
 
 export const itemsAtom = atom<Item[]>([])

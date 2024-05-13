@@ -1,9 +1,12 @@
 {
-  "name": "@penx/extension-api",
-  "version": "0.0.1",
+  "name": "@penxio/extension-api",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist"
   ],

@@ -23,7 +23,7 @@
     "@penx/constants": "workspace:*",
     "@penx/encryption": "workspace:*",
     "@penx/event": "workspace:*",
-    "@penx/extension-api": "workspace:*",
+    "@penxio/extension-api": "workspace:*",
     "@penx/hooks": "workspace:*",
     "@penx/icons": "workspace:*",
     "@penx/local-db": "workspace:*",

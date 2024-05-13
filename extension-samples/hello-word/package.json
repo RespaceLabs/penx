@@ -9,7 +9,7 @@
     "publish": "penx publish"
   },
   "devDependencies": {
-    "@penx/extension-api": "workspace:*",
+    "@penxio/extension-api": "workspace:*",
     "@types/node": "^20.10.3",
     "typescript": "^5.3.2"
   },

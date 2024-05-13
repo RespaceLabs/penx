@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Box, styled } from '@fower/react'
+import { EventType, ListItem } from '@penxio/extension-api'
 import { open } from '@tauri-apps/api/shell'
 import { Command } from 'cmdk'
 import clipboard from 'tauri-plugin-clipboard-api'
-import { EventType, ListItem } from '@penx/extension-api'
 import { db } from '@penx/local-db'
 import { useCommands, useItems, useQueryCommands } from '~/hooks/useItems'
 
