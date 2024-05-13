@@ -2,9 +2,20 @@ type URL = string;
 type Asset = string;
 type Icon = string;
 export type ImageLike = URL | Asset | Icon;
-export interface Item {
+export type OpenInBrowser = {
+    type: 'OpenInBrowser';
+    title?: string;
+    url: string;
+};
+export type CopyToClipboard = {
+    type: 'CopyToClipboard';
+    title?: string;
+    content: string;
+};
+export type ListItemAction = OpenInBrowser | CopyToClipboard;
+export interface ListItem {
     id?: string;
-    type?: 'command' | (string & {});
+    type?: 'command' | 'list-item' | (string & {});
     title: string | {
         value: string;
         tooltip?: string | null;
@@ -17,6 +28,7 @@ export interface Item {
         value: ImageLike | undefined | null;
         tooltip: string;
     };
+    actions?: ListItemAction[];
     data?: any;
 }
 export {};

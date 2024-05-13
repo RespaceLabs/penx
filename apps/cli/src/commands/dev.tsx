@@ -11,9 +11,10 @@ type CommandItem = {
   title: string
   subtitle: string
   description: string
+  code?: string
 }
 
-type ExtensionData = {
+type Manifest = {
   name: string
   id: string
   version: string
@@ -23,11 +24,10 @@ type ExtensionData = {
   commands: CommandItem[]
 }
 
-function getExtensionData(): ExtensionData {
+function getManifest(): Manifest {
   const manifestPath = join(process.cwd(), 'manifest.json')
   const manifest = jetpack.read(manifestPath, 'json')
-  const code = jetpack.read(join(process.cwd(), manifest.main), 'utf8')
-  return { ...manifest, code }
+  return manifest
 }
 
 class Command {
@@ -38,43 +38,56 @@ class Command {
     return args.showHelpOnFail(true).strict()
   }
 
+  private entries: string[] = []
+
   handler = async (args: ArgumentsCamelCase<Args>) => {
-    //
     const cwd = process.cwd()
-    console.log('dev...', cwd)
-    const entry = join(cwd, 'src', 'index.ts')
+    const manifest = getManifest()
+
+    this.entries = manifest.commands.reduce<string[]>((acc, cur) => {
+      const entry = join(cwd, 'commands', `${cur.name}.ts`)
+      return [...acc, entry]
+    }, [])
 
     tsup.build({
-      entry: [entry],
-      format: 'esm',
+      entry: this.entries,
+      format: ['cjs', 'esm'],
       watch: true,
       tsconfig: join(cwd, 'tsconfig.json'),
       onSuccess: async () => {
-        console.log('Build success~')
+        // console.log('Build success~')
         this.handleBuildSuccess()
       },
     })
   }
 
   private handleBuildSuccess = async () => {
-    const data = getExtensionData()
+    const manifest = getManifest()
 
     const url = 'http://127.0.0.1:8080/api/upsert-extension'
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: data.id,
-        name: data.name,
-        version: data.version,
-        code: data.code,
-        commands: JSON.stringify(data.commands),
-      }),
-    }).then((res) => res.json())
 
-    console.log('result--------:', res)
+    for (const command of manifest.commands) {
+      const codePath = join(process.cwd(), 'dist', `${command.name}.js`)
+      const code = jetpack.read(codePath, 'utf8')
+      command.code = code
+    }
+
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: manifest.id,
+          name: manifest.name,
+          version: manifest.version,
+          commands: JSON.stringify(manifest.commands),
+        }),
+      }).then((res) => res.json())
+    } catch (error) {
+      console.log('upsert extension error:', error)
+    }
   }
 }
 

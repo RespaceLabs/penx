@@ -3,14 +3,13 @@ export interface Command {
   title: string
   subtitle: string
   description: string
+  code: string
 }
 
 export interface IExtension {
   id: string
 
   spaceId: string
-
-  code: string
 
   slug: string
 

@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Box, styled } from '@fower/react'
+import { open } from '@tauri-apps/api/shell'
 import { Command } from 'cmdk'
-import { EventType, Item } from '@penx/extension-api'
+import { EventType, ListItem } from '@penx/extension-api'
 import { db } from '@penx/local-db'
 import { useCommands, useItems, useQueryCommands } from '~/hooks/useItems'
 
@@ -23,14 +24,20 @@ export const CmdkRoot = () => {
 
   useQueryCommands()
 
-  async function handleSelect(item: Item, input = '') {
+  async function handleSelect(item: ListItem, input = '') {
+    // console.log('===============item:', item)
+
     if (item.type === 'command') {
       if (!q) setQ(item.title as string)
 
       const ext = await db.getExtensionBySlug(item.data.extensionSlug)
       if (!ext) return
 
-      let blob = new Blob([`self.input = '${input}'\n` + ext?.code], {
+      const command = ext.commands.find(
+        (c) => c.name === item.data.commandName,
+      )!
+
+      let blob = new Blob([`self.input = '${input}'\n` + command?.code], {
         type: 'application/javascript',
       })
       let url = URL.createObjectURL(blob)
@@ -40,23 +47,32 @@ export const CmdkRoot = () => {
       item.data.commandName && worker.postMessage(item.data.commandName)
 
       worker.onmessage = async (event: MessageEvent<any>) => {
-        console.log('========event.data?.type:', event.data?.type)
+        if (event.data?.type === EventType.RenderList) {
+          const list: ListItem[] = event.data.items || []
+          console.log('event--------:', event.data.items)
 
-        if (event.data?.type === EventType.RENDER_LIST) {
-          const list: Array<{ title: string }> = event.data.items || []
-          console.log('event---:', event.data.items)
-
-          const newItems = list.map((item) => ({
+          const newItems = list.map<ListItem>((item) => ({
+            type: 'list-item',
             title: item.title,
+            actions: item.actions,
           }))
 
           setItems(newItems)
         }
       }
     }
-  }
 
-  console.log('==========items:', items)
+    if (item.type === 'list-item') {
+      if (item.actions?.[0]) {
+        const defaultAction = item.actions?.[0]
+        if (defaultAction.type === 'OpenInBrowser') {
+          console.log('========defaultAction.url:', defaultAction.url)
+          open(defaultAction.url)
+        }
+      }
+      console.log('list item:', item)
+    }
+  }
 
   return (
     <StyledCommand

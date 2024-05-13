@@ -68,7 +68,6 @@ async function init() {
     const commands = JSON.parse(payload.commands || '[]')
     console.log('Hello==========:', payload, commands)
     await db.upsertExtension(payload.id, {
-      code: payload.code,
       commands: commands,
       name: payload.name,
       version: payload.version,

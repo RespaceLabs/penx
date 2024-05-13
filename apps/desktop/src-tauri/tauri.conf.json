@@ -26,6 +26,9 @@
       "path": {
         "all": true
       },
+      "shell": {
+        "open": true
+      },
       "http": {
         "all": true,
         "request": true

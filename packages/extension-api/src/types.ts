@@ -4,10 +4,24 @@ type Icon = string
 
 export type ImageLike = URL | Asset | Icon
 
-export interface Item {
+export type OpenInBrowser = {
+  type: 'OpenInBrowser'
+  title?: string
+  url: string
+}
+
+export type CopyToClipboard = {
+  type: 'CopyToClipboard'
+  title?: string
+  content: string
+}
+
+export type ListItemAction = OpenInBrowser | CopyToClipboard
+
+export interface ListItem {
   id?: string
 
-  type?: 'command' | (string & {})
+  type?: 'command' | 'list-item' | (string & {})
 
   title:
     | string
@@ -29,6 +43,8 @@ export interface Item {
         value: ImageLike | undefined | null
         tooltip: string
       }
+
+  actions?: ListItemAction[]
 
   data?: any
 }

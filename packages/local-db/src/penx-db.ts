@@ -12,7 +12,7 @@ export class PenxDB extends Dexie {
   constructor() {
     // super('PenxDB')
     super('penx-local')
-    this.version(12).stores({
+    this.version(13).stores({
       // Primary key and indexed props
       space: 'id, name, userId',
       node: 'id, spaceId, databaseId, type, date, [type+spaceId+databaseId], [type+spaceId], [type+databaseId]',
@@ -46,6 +46,7 @@ export class PenxDB extends Dexie {
         ...data,
       } as IExtension)
     } else {
+      console.log('=========data:', 'slug:', slug, data)
       await this.updateExtension(ext.id, {
         ...data,
       })
@@ -60,7 +61,7 @@ export class PenxDB extends Dexie {
 
   listExtensions = async () => {
     const extensions = await this.extension.toArray()
-    return extensions.map(({ code, ...rest }) => rest)
+    return extensions
   }
 
   installExtension = async (extension: Partial<IExtension>) => {
