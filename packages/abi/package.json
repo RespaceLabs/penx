@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "./src/generated.ts",
   "types": "./src/generated.ts",
+  "private": true,
   "scripts": {
     "generate": "wagmi generate",
     "lint": "eslint \"**/*.ts*\""

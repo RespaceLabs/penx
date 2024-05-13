@@ -1,6 +1,7 @@
 {
   "name": "whitepaper",
   "version": "0.0.1",
+  "private": true,
   "description": "PenX whitepaper",
   "scripts": {
     "dev": "next dev -p 3002",

@@ -1,5 +1,6 @@
 {
   "name": "protocol",
+  "private": true,
   "scripts": {
     "hardhat:development": "pm2 restart ecosystem.config.js --only hardhat-development",
     "compile": "hardhat compile",
