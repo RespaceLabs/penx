@@ -1,23 +1,41 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+'use strict';
+
+// src/constants.ts
+var EventType = /* @__PURE__ */ ((EventType2) => {
+  EventType2["RenderList"] = "RenderList";
+  EventType2["RenderMarkdown"] = "RenderMarkdown";
+  return EventType2;
+})(EventType || {});
+
+// src/clipboard.ts
+var clipboard = {
+  async writeText(text) {
+  }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.input = void 0;
-__exportStar(require("./constants"), exports);
-__exportStar(require("./types"), exports);
-__exportStar(require("./renderList"), exports);
-// export const input = (self as any)?.input
-exports.input = 'TODO';
+
+// src/renderList.ts
+function renderList(items) {
+  postMessage({
+    type: "RenderList" /* RenderList */,
+    items
+  });
+}
+
+// src/renderMarkdown.ts
+function renderMarkdown(text) {
+  postMessage({
+    type: "RenderMarkdown" /* RenderMarkdown */,
+    content: text
+  });
+}
+
+// src/index.ts
+var input = "TODO";
+
+exports.EventType = EventType;
+exports.clipboard = clipboard;
+exports.input = input;
+exports.renderList = renderList;
+exports.renderMarkdown = renderMarkdown;
+//# sourceMappingURL=out.js.map
 //# sourceMappingURL=index.js.map

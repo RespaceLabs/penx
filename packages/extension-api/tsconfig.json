@@ -1,22 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "module": "commonjs",
-    "declaration": true,
-    "declarationDir": "dist",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "target": "es2020",
+    "module": "esnext",
     "strict": true,
-    "moduleResolution": "node",
+    "lib": ["ESNext", "DOM"],
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "resolveJsonModule": true,
+    "moduleResolution": "node",
     "skipLibCheck": true,
-    "strictPropertyInitialization": false,
-    "forceConsistentCasingInFileNames": true
-  },
-  "exclude": ["node_modules"],
-  "include": ["src"]
+    "noUnusedLocals": true,
+    "noImplicitAny": true,
+    "allowJs": true,
+    "noEmit": true,
+    "outDir": "dist",
+    "resolveJsonModule": true
+  }
 }

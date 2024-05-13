@@ -1,18 +1,19 @@
 {
   "name": "@penx/extension-api",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
+    "dev": "tsup --watch --dts",
+    "build": "tsup --dts"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/node": "^18.19.33",
+    "tsup": "^7.2.0",
     "typescript": "^5.4.5"
   }
 }

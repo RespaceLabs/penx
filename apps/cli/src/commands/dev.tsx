@@ -54,6 +54,8 @@ class Command {
       format: ['cjs', 'esm'],
       watch: true,
       tsconfig: join(cwd, 'tsconfig.json'),
+      treeshake: true,
+      minify: true,
       onSuccess: async () => {
         // console.log('Build success~')
         this.handleBuildSuccess()
@@ -81,7 +83,7 @@ class Command {
         body: JSON.stringify({
           id: manifest.id,
           name: manifest.name,
-          version: manifest.version,
+          version: manifest.version || '',
           commands: JSON.stringify(manifest.commands),
         }),
       }).then((res) => res.json())

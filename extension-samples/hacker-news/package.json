@@ -8,8 +8,6 @@
     "publish": "penx publish"
   },
   "devDependencies": {
-    "@penx/extension-dev-server": "workspace:*",
-    "@penx/extension-typings": "workspace:*",
     "@penx/extension-api": "workspace:*",
     "@types/node": "^20.10.3",
     "tsup": "^7.2.0",

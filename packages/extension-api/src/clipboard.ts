@@ -1,5 +1,6 @@
 export const clipboard = {
-  async clipboard() {
+  async writeText(text: string) {
+    //
     //
   },
 }

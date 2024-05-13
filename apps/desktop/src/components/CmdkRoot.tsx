@@ -22,11 +22,12 @@ export const CmdkRoot = () => {
 
   const { items, setItems } = useItems()
   const { commands } = useCommands()
+  const [detail, setDetail] = useState<string>('')
 
   useQueryCommands()
 
   async function handleSelect(item: ListItem, input = '') {
-    // console.log('===============item:', item)
+    console.log('===============item:', item)
 
     if (item.type === 'command') {
       if (!q) setQ(item.title as string)
@@ -59,6 +60,13 @@ export const CmdkRoot = () => {
           }))
 
           setItems(newItems)
+        }
+
+        if (event.data?.type === EventType.RenderMarkdown) {
+          const content = event.data.content as string
+          setDetail(content)
+          setItems([])
+          console.log('event......:', event)
         }
       }
     }
@@ -114,7 +122,7 @@ export const CmdkRoot = () => {
         borderBottom
         borderGray200
         outlineNone
-        placeholder="Search node"
+        placeholder="Search something..."
         autoFocus
         value={q}
         onValueChange={(v) => {
@@ -133,36 +141,41 @@ export const CmdkRoot = () => {
           }
         }}
       />
-      <CommandList flex-1 p2>
-        <Command.Empty>No results found.</Command.Empty>
+      <Box flex-1>
+        {detail && <Box p4>{detail}</Box>}
+        {!detail && items.length > 0 && (
+          <CommandList flex-1 p2>
+            <Command.Empty>No results found.</Command.Empty>
 
-        <Command.Group>
-          {items.map((item, index) => {
-            const title =
-              typeof item.title === 'string' ? item.title : item.title.value
-            return (
-              <CommandItem
-                key={index}
-                cursorPointer
-                toCenterY
-                px2
-                py3
-                gap2
-                roundedLG
-                value={title}
-                onSelect={() => {
-                  handleSelect(item)
-                }}
-                onClick={() => {
-                  handleSelect(item)
-                }}
-              >
-                <Box textSM>{title}</Box>
-              </CommandItem>
-            )
-          })}
-        </Command.Group>
-      </CommandList>
+            <Command.Group>
+              {items.map((item, index) => {
+                const title =
+                  typeof item.title === 'string' ? item.title : item.title.value
+                return (
+                  <CommandItem
+                    key={index}
+                    cursorPointer
+                    toCenterY
+                    px2
+                    py3
+                    gap2
+                    roundedLG
+                    value={title}
+                    onSelect={() => {
+                      handleSelect(item)
+                    }}
+                    onClick={() => {
+                      handleSelect(item)
+                    }}
+                  >
+                    <Box textSM>{title}</Box>
+                  </CommandItem>
+                )
+              })}
+            </Command.Group>
+          </CommandList>
+        )}
+      </Box>
 
       <Box h-48 borderTop borderNeutral200--T40 toCenterY px4>
         Bottom bar
