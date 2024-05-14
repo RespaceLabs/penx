@@ -4,7 +4,9 @@ import { open } from '@tauri-apps/api/shell'
 import { Command } from 'cmdk'
 import { EventType, ListItem } from 'penx'
 import clipboard from 'tauri-plugin-clipboard-api'
+// import { Command } from '@penx/cmdk'
 import { db } from '@penx/local-db'
+import { useInstallBuiltinExtension } from '~/hooks/useInstallBuiltinExtension'
 import { useCommands, useItems, useQueryCommands } from '~/hooks/useItems'
 
 const StyledCommand = styled(Command)
@@ -19,12 +21,14 @@ type CommandItem = {
 
 export const CmdkRoot = () => {
   const [q, setQ] = useState('')
-
   const { items, setItems } = useItems()
   const { commands } = useCommands()
   const [detail, setDetail] = useState<string>('')
 
+  console.log('q......:', q)
+
   useQueryCommands()
+  useInstallBuiltinExtension()
 
   async function handleSelect(item: ListItem, input = '') {
     console.log('===============item:', item)
@@ -39,11 +43,23 @@ export const CmdkRoot = () => {
         (c) => c.name === item.data.commandName,
       )!
 
-      let blob = new Blob([`self.input = '${input}'\n` + command?.code], {
-        type: 'application/javascript',
-      })
-      let url = URL.createObjectURL(blob)
-      let worker = new Worker(url)
+      console.log('command')
+
+      let worker: Worker
+      if (command.isBuiltIn) {
+        worker = new Worker(
+          new URL('../workers/clipboard-history.ts', import.meta.url),
+          {
+            type: 'module',
+          },
+        )
+      } else {
+        let blob = new Blob([`self.input = '${input}'\n` + command?.code], {
+          type: 'application/javascript',
+        })
+        const url = URL.createObjectURL(blob)
+        worker = new Worker(url)
+      }
       // worker.terminate()
 
       item.data.commandName && worker.postMessage(item.data.commandName)
@@ -87,6 +103,8 @@ export const CmdkRoot = () => {
     }
   }
 
+  console.log('items:', items)
+
   return (
     <StyledCommand
       label="Command Menu"
@@ -106,7 +124,7 @@ export const CmdkRoot = () => {
       }}
       loop
       filter={(value, search) => {
-        console.log('value:', value, 'search:', search)
+        // console.log('value:', value, 'search:', search)
         return 1
       }}
     >
@@ -127,9 +145,9 @@ export const CmdkRoot = () => {
         value={q}
         onValueChange={(v) => {
           setQ(v)
-          if (v === '') {
-            setItems(commands)
-          }
+          // if (v === '') {
+          //   setItems(commands)
+          // }
         }}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
@@ -143,38 +161,36 @@ export const CmdkRoot = () => {
       />
       <Box flex-1>
         {detail && <Box p4>{detail}</Box>}
-        {!detail && items.length > 0 && (
-          <CommandList flex-1 p2>
-            <Command.Empty>No results found.</Command.Empty>
+        <CommandList flex-1 p2={!detail}>
+          {!detail && <Command.Empty>No results found.</Command.Empty>}
 
-            <Command.Group>
-              {items.map((item, index) => {
-                const title =
-                  typeof item.title === 'string' ? item.title : item.title.value
-                return (
-                  <CommandItem
-                    key={index}
-                    cursorPointer
-                    toCenterY
-                    px2
-                    py3
-                    gap2
-                    roundedLG
-                    value={title}
-                    onSelect={() => {
-                      handleSelect(item)
-                    }}
-                    onClick={() => {
-                      handleSelect(item)
-                    }}
-                  >
-                    <Box textSM>{title}</Box>
-                  </CommandItem>
-                )
-              })}
-            </Command.Group>
-          </CommandList>
-        )}
+          <Command.Group>
+            {items.map((item, index) => {
+              const title =
+                typeof item.title === 'string' ? item.title : item.title.value
+              return (
+                <CommandItem
+                  key={index}
+                  cursorPointer
+                  toCenterY
+                  px2
+                  py3
+                  gap2
+                  roundedLG
+                  value={title}
+                  onSelect={() => {
+                    handleSelect(item)
+                  }}
+                  onClick={() => {
+                    handleSelect(item)
+                  }}
+                >
+                  <Box textSM>{title}</Box>
+                </CommandItem>
+              )
+            })}
+          </Command.Group>
+        </CommandList>
       </Box>
 
       <Box h-48 borderTop borderNeutral200--T40 toCenterY px4>

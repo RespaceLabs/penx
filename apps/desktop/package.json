@@ -6,7 +6,7 @@
     "next-start": "cross-env BROWSER=none next dev",
     "next-build": "next build",
     "tauri": "tauri",
-    "build": "tauri build",
+    "build": "tauri build --debug",
     "dev": "tauri dev",
     "lint": "next lint && biome check src/"
   },
@@ -20,6 +20,7 @@
     "@penx/abi": "workspace:*",
     "@penx/api": "workspace:*",
     "@penx/app": "workspace:*",
+    "@penx/cmdk": "workspace:*",
     "@penx/constants": "workspace:*",
     "@penx/encryption": "workspace:*",
     "@penx/event": "workspace:*",

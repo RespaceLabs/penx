@@ -16,7 +16,6 @@ import '@glideapps/glide-data-grid/dist/index.css'
 import { emit, listen } from '@tauri-apps/api/event'
 import { AppEvent, isServer } from '@penx/constants'
 import { db } from '@penx/local-db'
-import { uniqueId } from '@penx/unique-id'
 
 initFower()
 
@@ -47,10 +46,10 @@ async function hideByEsc() {
 async function init() {
   console.log('app init............')
 
-  const shortcut = 'CommandOrControl+Shift+K'
+  const shortcut = 'CommandOrControl+;'
 
   unregister(shortcut).then(() => {
-    listenForHotkey('CommandOrControl+;')
+    listenForHotkey(shortcut)
   })
 
   hideByEsc()

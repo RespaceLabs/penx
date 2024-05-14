@@ -3,6 +3,8 @@
     windows_subsystem = "windows"
 )]
 
+mod hello;
+
 use std::{
     boxed,
     sync::Mutex,
@@ -83,12 +85,12 @@ fn on_button_clicked() -> String {
 }
 
 #[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}!", name)
+fn greet(name: &str) {
+    hello::say_hello(name)
 }
 
 #[get("/")]
-async fn hello(app: web::Data<AppHandle>) -> impl Responder {
+async fn index() -> impl Responder {
     HttpResponse::Ok().body("Hello, World!")
 }
 
@@ -126,7 +128,7 @@ pub async fn start_server(app: AppHandle, conn: Connection) -> std::io::Result<(
             .app_data(web::Data::new(app.clone()))
             // .app_data(db.clone())
             .wrap(middleware::Logger::default())
-            .service(hello)
+            .service(index)
             .service(upsert_extension)
     })
     .bind(("127.0.0.1", 8080))?
@@ -162,12 +164,13 @@ fn main() {
                     window.center().unwrap();
                 }
                 "ToggleDeveloperTools" => {
-                    let window = app.get_window("main").unwrap();
-                    if (window.is_devtools_open()) {
-                        window.close_devtools()
-                    } else {
-                        window.open_devtools();
-                    }
+                    // let window = app.get_window("main").unwrap();
+
+                    // if window.is_devtools_open() {
+                    //     window.close_devtools();
+                    // } else {
+                    //     window.open_devtools();
+                    // }
                 }
                 "Quit" => {
                     std::process::exit(0);
