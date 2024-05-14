@@ -1,4 +1,4 @@
-import { renderList } from '@penxio/extension-api'
+import { renderList } from 'penx'
 
 renderList([
   {

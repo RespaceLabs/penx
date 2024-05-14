@@ -21,7 +21,6 @@ export function ExtensionItem({ selected, extension }: ExtensionItemProps) {
   async function install() {
     await db.installExtension({
       spaceId: activeSpace.id,
-      code: extension.code,
       slug: extension.uniqueId,
       name: extension.name,
       description: extension.description!,

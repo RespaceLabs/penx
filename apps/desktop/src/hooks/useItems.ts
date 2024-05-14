@@ -1,17 +1,17 @@
 import { useEffect } from 'react'
-import { Item } from '@penxio/extension-api'
 import { useQuery } from '@tanstack/react-query'
 import { atom, useAtom, useSetAtom } from 'jotai'
+import { ListItem } from 'penx'
 import { db } from '@penx/local-db'
 
-export const itemsAtom = atom<Item[]>([])
+export const itemsAtom = atom<ListItem[]>([])
 
 export function useItems() {
   const [items, setItems] = useAtom(itemsAtom)
   return { items, setItems }
 }
 
-export const commandsAtom = atom<Item[]>([])
+export const commandsAtom = atom<ListItem[]>([])
 
 export function useCommands() {
   const [commands, setCommands] = useAtom(itemsAtom)
@@ -27,7 +27,7 @@ export function useQueryCommands() {
     return extensions.reduce(
       (acc, cur) => [
         ...acc,
-        ...cur.commands.map<Item>((item) => ({
+        ...cur.commands.map<ListItem>((item) => ({
           type: 'command',
           title: item.title,
           data: {
@@ -36,7 +36,7 @@ export function useQueryCommands() {
           },
         })),
       ],
-      [] as Item[],
+      [] as ListItem[],
     )
   })
 

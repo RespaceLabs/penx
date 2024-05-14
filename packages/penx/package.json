@@ -1,0 +1,22 @@
+{
+  "name": "penx",
+  "version": "0.0.2",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup --watch --dts",
+    "build": "tsup --dts"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.33",
+    "tsup": "^7.2.0",
+    "typescript": "^5.4.5"
+  }
+}
