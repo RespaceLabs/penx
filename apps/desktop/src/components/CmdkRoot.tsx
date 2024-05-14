@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Markdown from 'react-markdown'
 import { Box, styled } from '@fower/react'
 import { open } from '@tauri-apps/api/shell'
 import { Command } from 'cmdk'
@@ -142,6 +143,7 @@ export const CmdkRoot = () => {
           setQ(v)
           if (v === '') {
             setItems(commands)
+            setDetail('')
           }
         }}
         onKeyDown={(e) => {
@@ -155,7 +157,11 @@ export const CmdkRoot = () => {
         }}
       />
       <Box flex-1>
-        {detail && <Box p4>{detail}</Box>}
+        {detail && (
+          <Box p4>
+            <Markdown>{detail}</Markdown>
+          </Box>
+        )}
         <CommandList flex-1 p2={!detail}>
           {!detail && <Command.Empty>No results found.</Command.Empty>}
 

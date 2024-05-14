@@ -49,6 +49,7 @@
     "penx": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-markdown": "^9.0.1",
     "tauri-plugin-clipboard-api": "^0.6.10",
     "uikit": "workspace:*",
     "wagmi": "^2.6.0"
