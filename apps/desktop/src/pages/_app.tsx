@@ -50,7 +50,7 @@ async function init() {
   const shortcut = 'CommandOrControl+Shift+K'
 
   unregister(shortcut).then(() => {
-    listenForHotkey('CommandOrControl+Shift+K')
+    listenForHotkey('CommandOrControl+;')
   })
 
   hideByEsc()
