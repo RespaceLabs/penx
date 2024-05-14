@@ -1,0 +1,48 @@
+# Create First Extension
+
+This a guide to build a minimal extension and debug in PenX.
+
+## Prerequisites
+
+Before write the code, make sure you have the following prerequisites.
+
+- you have [Git](https://git-scm.com) installed.
+- You have [Node.js](https://nodejs.org/en) installed.
+- You are familiar Javascript or TypeScript.
+
+## Clone the sample extension
+
+Clone the sample plugin using Git.
+
+```bash
+git clone git@github.com:penxio/penx-extension-sample.git
+```
+
+## Develop your extension
+
+After clone it, you'll compile the sample extension
+
+```bash
+cd penx-extension-sample
+npm install # install the dependencies
+npm run dev # compile the source code
+```
+
+When you `npm run dev`, PenX will load the sample extension automatically.
+
+The source code of `Hello world` is very simple:
+
+```ts
+// src/index.ts
+import { renderMarkdown } from 'penx'
+
+renderMarkdown('# hello world!')
+```
+
+## Test it in PenX
+
+Open Penx and run the `Hello world` command:
+
+![hello-world-sample](/images/hello-world-sample.png)
+
+🎉 Congratulations! You built your first extension successfully.

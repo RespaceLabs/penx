@@ -203,9 +203,7 @@ export const CmdkRoot = () => {
         </CommandList>
       </Box>
 
-      <Box h-48 borderTop borderNeutral200--T40 toCenterY px4>
-        Bottom bar
-      </Box>
+      <Box h-48 borderTop borderNeutral200--T40 toCenterY px4></Box>
     </StyledCommand>
   )
 }

@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "PenX",
-    "version": "0.2.7"
+    "version": "0.3.0"
   },
   "tauri": {
     "systemTray": {
@@ -98,7 +98,7 @@
         "width": 750,
         "height": 470,
         "alwaysOnTop": true,
-        "decorations": true,
+        "decorations": false,
         "transparent": true,
         "center": true,
         "skipTaskbar": true
