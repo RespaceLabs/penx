@@ -2737,6 +2737,21 @@ importers:
         specifier: ^5.3.2
         version: 5.4.3
 
+  extension-samples/base64:
+    devDependencies:
+      '@types/node':
+        specifier: ^20.10.3
+        version: 20.12.7
+      penx:
+        specifier: workspace:*
+        version: link:../../packages/penx
+      penx-cli:
+        specifier: workspace:*
+        version: link:../../apps/cli
+      typescript:
+        specifier: ^5.3.2
+        version: 5.4.5
+
   extension-samples/hacker-news:
     dependencies:
       ky:

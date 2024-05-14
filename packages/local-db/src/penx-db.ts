@@ -46,7 +46,6 @@ export class PenxDB extends Dexie {
         ...data,
       } as IExtension)
     } else {
-      console.log('=========data:', 'slug:', slug, data)
       await this.updateExtension(ext.id, {
         ...data,
       })

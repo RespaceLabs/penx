@@ -45,7 +45,7 @@ class Command {
     const manifest = getManifest()
 
     this.entries = manifest.commands.reduce<string[]>((acc, cur) => {
-      const entry = join(cwd, 'commands', `${cur.name}.ts`)
+      const entry = join(cwd, 'src', `${cur.name}.ts`)
       return [...acc, entry]
     }, [])
 
@@ -54,8 +54,10 @@ class Command {
       format: ['cjs', 'esm'],
       watch: true,
       tsconfig: join(cwd, 'tsconfig.json'),
+      splitting: true,
       treeshake: true,
       minify: true,
+      noExternal: ['penx'],
       onSuccess: async () => {
         // console.log('Build success~')
         this.handleBuildSuccess()

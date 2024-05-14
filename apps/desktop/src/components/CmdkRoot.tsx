@@ -25,8 +25,6 @@ export const CmdkRoot = () => {
   const { commands } = useCommands()
   const [detail, setDetail] = useState<string>('')
 
-  console.log('q......:', q)
-
   useQueryCommands()
   useInstallBuiltinExtension()
 
@@ -43,8 +41,6 @@ export const CmdkRoot = () => {
         (c) => c.name === item.data.commandName,
       )!
 
-      console.log('command')
-
       let worker: Worker
       if (command.isBuiltIn) {
         worker = new Worker(
@@ -54,6 +50,8 @@ export const CmdkRoot = () => {
           },
         )
       } else {
+        console.log('=========command?.code:, ', command?.code)
+
         let blob = new Blob([`self.input = '${input}'\n` + command?.code], {
           type: 'application/javascript',
         })
@@ -71,8 +69,7 @@ export const CmdkRoot = () => {
 
           const newItems = list.map<ListItem>((item) => ({
             type: 'list-item',
-            title: item.title,
-            actions: item.actions,
+            ...item,
           }))
 
           setItems(newItems)
@@ -102,8 +99,6 @@ export const CmdkRoot = () => {
       console.log('list item:', item)
     }
   }
-
-  console.log('items:', items)
 
   return (
     <StyledCommand
@@ -145,9 +140,9 @@ export const CmdkRoot = () => {
         value={q}
         onValueChange={(v) => {
           setQ(v)
-          // if (v === '') {
-          //   setItems(commands)
-          // }
+          if (v === '') {
+            setItems(commands)
+          }
         }}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
@@ -168,6 +163,11 @@ export const CmdkRoot = () => {
             {items.map((item, index) => {
               const title =
                 typeof item.title === 'string' ? item.title : item.title.value
+
+              const subtitle =
+                typeof item.subtitle === 'string'
+                  ? item.subtitle
+                  : item.subtitle?.value
               return (
                 <CommandItem
                   key={index}
@@ -177,6 +177,7 @@ export const CmdkRoot = () => {
                   py3
                   gap2
                   roundedLG
+                  black
                   value={title}
                   onSelect={() => {
                     handleSelect(item)
@@ -185,7 +186,10 @@ export const CmdkRoot = () => {
                     handleSelect(item)
                   }}
                 >
-                  <Box textSM>{title}</Box>
+                  <Box textBase>{title}</Box>
+                  <Box textSM gray500>
+                    {subtitle}
+                  </Box>
                 </CommandItem>
               )
             })}

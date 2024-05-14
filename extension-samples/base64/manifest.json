@@ -1,0 +1,13 @@
+{
+  "name": "Base64",
+  "id": "base64",
+  "description": "",
+  "commands": [
+    {
+      "name": "base64",
+      "title": "Base64",
+      "subtitle": "",
+      "description": ""
+    }
+  ]
+}
