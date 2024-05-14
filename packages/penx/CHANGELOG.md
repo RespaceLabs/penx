@@ -1,8 +1,10 @@
-# @penxio/extension-api
-
-## 0.0.2
-
 ### Patch Changes
+
+## 0.1.0
+
+### Minor Changes
+
+- publish penx
 
 - release penx pkg
 
