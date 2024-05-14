@@ -942,6 +942,9 @@ importers:
       '@penx/app':
         specifier: workspace:*
         version: link:../../packages/app
+      '@penx/cmdk':
+        specifier: workspace:*
+        version: link:../../packages/cmdk
       '@penx/constants':
         specifier: workspace:*
         version: link:../../packages/constants

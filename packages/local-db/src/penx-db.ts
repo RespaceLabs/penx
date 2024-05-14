@@ -21,7 +21,7 @@ export class PenxDB extends Dexie {
     })
   }
 
-  createExtension(extension: IExtension) {
+  createExtension = (extension: IExtension) => {
     return this.extension.add(extension)
   }
 
@@ -51,8 +51,6 @@ export class PenxDB extends Dexie {
         ...data,
       })
     }
-
-    console.log('upsertExtension', slug, data)
   }
 
   updateExtension = (extensionId: string, data: Partial<IExtension>) => {

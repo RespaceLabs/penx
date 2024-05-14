@@ -1,5 +1,8 @@
 {
   "index": "Introduction",
+  "build-extension": "Build a plugin",
+  "examples": "Examples",
+  "API": "API reference",
   "self-hosted": "Self hosted",
   "contact": {
     "title": "Contact ↗",

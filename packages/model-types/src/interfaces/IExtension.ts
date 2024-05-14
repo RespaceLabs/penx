@@ -4,6 +4,7 @@ export interface Command {
   subtitle: string
   description: string
   code: string
+  isBuiltIn?: boolean
 }
 
 export interface IExtension {
