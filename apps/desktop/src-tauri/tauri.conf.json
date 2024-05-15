@@ -112,8 +112,9 @@
         "height": 680,
         "alwaysOnTop": true,
         "decorations": true,
+        "visible": false,
         "center": true,
-        "url": "http://localhost:3000/editor"
+        "url": "editor.html"
       }
     ],
     "macOSPrivateApi": true
