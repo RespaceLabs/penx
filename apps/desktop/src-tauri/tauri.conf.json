@@ -93,15 +93,27 @@
       {
         "label": "main",
         "fullscreen": false,
-        "resizable": true,
+        "resizable": false,
         "title": "",
         "width": 750,
         "height": 470,
         "alwaysOnTop": true,
-        "decorations": false,
+        "decorations": true,
         "transparent": true,
         "center": true,
         "skipTaskbar": true
+      },
+      {
+        "label": "editor",
+        "fullscreen": false,
+        "resizable": true,
+        "title": "",
+        "width": 1000,
+        "height": 680,
+        "alwaysOnTop": true,
+        "decorations": true,
+        "center": true,
+        "url": "http://localhost:3000/editor"
       }
     ],
     "macOSPrivateApi": true

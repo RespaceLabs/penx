@@ -7,6 +7,7 @@ export type RouteName =
   | 'TASK_BOARD'
   | 'RESTORE_BACKUP'
   | 'SETTINGS'
+  | 'EXTENSIONS'
 
 export type IRouterStore = {
   name: RouteName

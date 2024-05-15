@@ -20,26 +20,34 @@ import { db } from '@penx/local-db'
 initFower()
 
 async function listenForHotkey(shortcut: string) {
-  const { appWindow } = await import('@tauri-apps/api/window')
+  const { appWindow, WebviewWindow } = await import('@tauri-apps/api/window')
 
   await register(shortcut, async () => {
     if (document.hasFocus()) {
       await appWindow.hide()
     } else {
-      await appWindow.show()
-      await appWindow.center()
-      await appWindow.setFocus()
+      const mainWindow = WebviewWindow.getByLabel('main')
+      await mainWindow?.show()
+      await mainWindow?.center()
+      await mainWindow?.setFocus()
       document.getElementById('searchBarInput')?.focus()
     }
   })
 }
 
-async function hideByEsc() {
-  const { appWindow } = await import('@tauri-apps/api/window')
+async function hideOnBlur() {
+  const { appWindow, WebviewWindow } = await import('@tauri-apps/api/window')
+  const mainWindow = WebviewWindow.getByLabel('main')
+
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
-      appWindow.hide()
+      mainWindow?.hide()
     }
+  })
+
+  listen('tauri://blur', () => {
+    // console.log('---------appWindow:', appWindow)
+    // appWindow.hide()
   })
 }
 
@@ -52,7 +60,7 @@ async function init() {
     listenForHotkey(shortcut)
   })
 
-  hideByEsc()
+  hideOnBlur()
 
   type Payload = {
     code: string
@@ -62,44 +70,23 @@ async function init() {
     version: string
   }
 
-  listen(AppEvent.UPSERT_EXTENSION, async (data) => {
-    const payload = data.payload as Payload
-    const commands = JSON.parse(payload.commands || '[]')
-    console.log('Hello==========:', payload, commands)
-    await db.upsertExtension(payload.id, {
-      commands: commands,
-      name: payload.name,
-      version: payload.version,
+  const { appWindow } = await import('@tauri-apps/api/window')
+
+  if (appWindow.label === 'main') {
+    listen(AppEvent.UPSERT_EXTENSION, async (data) => {
+      const payload = data.payload as Payload
+      const commands = JSON.parse(payload.commands || '[]')
+      await db.upsertExtension(payload.id, {
+        commands: commands,
+        name: payload.name,
+        version: payload.version,
+      })
     })
-  })
+  }
 
   listen('PreferencesClicked', (data) => {
     console.log('PreferencesClicked==========:', data.payload)
   })
-
-  // listen('click', (data) => {
-  //   console.log('emit==========:', data)
-  // })
-
-  // emit('click', {
-  //   theMessage: 'Tauri is awesome!',
-  // })
-  // console.log('sqlite init.....')
-  // const db = await Database.load('sqlite:penx.db')
-  // console.log('db', db)
-
-  // await db.execute(
-  //   'CREATE TABLE IF NOT EXISTS todos (id TEXT PRIMARY KEY, title TEXT, status BOOLEAN)',
-  // )
-
-  // const result = await db.execute(
-  //   'INSERT into todos (id, title, status) VALUES ($1, $2, $3)',
-  //   [uniqueId(), 'title1', true],
-  // )
-
-  // const result = await db.select(`SELECT * FROM todos`)
-
-  // console.log('todo result....:', result)
 }
 
 if (!isServer) {

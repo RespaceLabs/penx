@@ -145,6 +145,14 @@ export const Sidebar = memo(
               }}
             />
           </Box>
+
+          <SidebarItem
+            icon={<IconTodo size={20} />}
+            label="Extensions"
+            onClick={() => {
+              store.router.routeTo('EXTENSIONS')
+            }}
+          />
         </Box>
 
         <Box flex-1 zIndex-1 overflowYAuto px2>

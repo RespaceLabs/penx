@@ -46,6 +46,8 @@ export class PenxDB extends Dexie {
         ...data,
       } as IExtension)
     } else {
+      console.log('create...........')
+
       await this.updateExtension(ext.id, {
         ...data,
       })
@@ -81,6 +83,10 @@ export class PenxDB extends Dexie {
       id: uniqueId(),
       ...extension,
     } as IExtension)
+  }
+
+  deleteExtension = async (id: string) => {
+    return this.extension.delete(id)
   }
 
   createFile = async (data: Omit<IFile, 'id'>): Promise<IFile> => {

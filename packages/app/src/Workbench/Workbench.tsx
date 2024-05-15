@@ -21,6 +21,7 @@ import { BottomBar } from './BottomBar'
 import { MobileNav } from './NodeNav/MobileNav'
 import { PCNav } from './NodeNav/PCNav'
 import { NodePanels } from './NodePanels'
+import { PageExtensions } from './PageExtensions/PageExtensions'
 import { PageTodo } from './PageTodo/PageTodo'
 import { RowModal } from './RowModal'
 import { GoogleBackup } from './Settings/Backup/GoogleBackup'
@@ -108,6 +109,7 @@ export const Workbench = () => {
 
                 {name === 'SETTINGS' && <PageSettings />}
                 {name === 'TODOS' && <PageTodo />}
+                {name === 'EXTENSIONS' && <PageExtensions />}
                 {name === 'WEB3_PROFILE' && <Web3Profile />}
                 {name === 'TASK_BOARD' && <TaskBoard />}
               </Box>
