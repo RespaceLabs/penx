@@ -1,6 +1,6 @@
 {
   "name": "desktop",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "scripts": {
     "next-start": "cross-env BROWSER=none next dev",

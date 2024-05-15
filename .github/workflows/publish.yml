@@ -90,11 +90,23 @@ jobs:
           pnpm install
           npx turbo run build --filter=desktop...
 
-      - uses: tauri-apps/tauri-action@v0
+      - name: Build Tauri App
+        if: matrix.platform != 'macos-latest'
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ needs.create-release.outputs.release_id }}
+
+      - name: Build Tauri App (macOS aarch64)
+        if: matrix.platform == 'macos-latest'
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          releaseId: ${{ needs.create-release.outputs.release_id }}
+          args: --target aarch64-apple-darwin
+
 
   publish-release:
     permissions:
