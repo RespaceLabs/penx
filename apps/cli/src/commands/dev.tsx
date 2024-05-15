@@ -3,6 +3,7 @@ import yargs, { ArgumentsCamelCase } from 'yargs'
 import fetch from 'node-fetch'
 import * as tsup from 'tsup'
 import { join } from 'path'
+import fs from 'fs'
 
 type Args = {}
 
@@ -11,6 +12,7 @@ type CommandItem = {
   title: string
   subtitle: string
   description: string
+  icon?: string
   code?: string
 }
 
@@ -21,6 +23,7 @@ type Manifest = {
   description: string
   main: string
   code: string
+  icon: string
   commands: CommandItem[]
 }
 
@@ -65,6 +68,21 @@ class Command {
     })
   }
 
+  private getLogo = async (iconName = '') => {
+    if (!iconName) return ''
+    try {
+      const cwd = process.cwd()
+      const iconPath = join(cwd, 'assets', iconName)
+      if (iconName.endsWith('.svg')) {
+        return jetpack.read(iconPath, 'utf8')
+      }
+
+      return fs.readFileSync(iconPath).toString('base64')
+    } catch (error) {
+      return ''
+    }
+  }
+
   private handleBuildSuccess = async () => {
     const manifest = getManifest()
 
@@ -74,7 +92,12 @@ class Command {
       const codePath = join(process.cwd(), 'dist', `${command.name}.js`)
       const code = jetpack.read(codePath, 'utf8')
       command.code = code
+      command.icon = await this.getLogo(command.icon)
     }
+
+    const logoString = await this.getLogo(manifest.icon)
+
+    // console.log('========logoString:', logoString)
 
     try {
       const res = await fetch(url, {
@@ -86,6 +109,7 @@ class Command {
           id: manifest.id,
           name: manifest.name,
           version: manifest.version || '',
+          icon: logoString,
           commands: JSON.stringify(manifest.commands),
         }),
       }).then((res) => res.json())

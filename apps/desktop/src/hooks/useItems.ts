@@ -37,7 +37,7 @@ export function useQueryCommands() {
         ...cur.commands.map<ListItem>((item) => ({
           type: 'command',
           title: item.title,
-          icon: item.icon,
+          icon: item.icon ? item.icon : cur.icon,
           data: {
             commandName: item.name,
             extensionSlug: cur.slug,

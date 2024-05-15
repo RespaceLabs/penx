@@ -2,6 +2,7 @@
   "name": "Base64",
   "id": "base64",
   "description": "",
+  "icon": "logo.png",
   "commands": [
     {
       "name": "base64",

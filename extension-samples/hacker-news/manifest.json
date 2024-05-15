@@ -3,6 +3,7 @@
   "id": "hack-news",
   "version": "1.0.0",
   "description": "",
+  "icon": "logo.svg",
   "commands": [
     {
       "name": "index",

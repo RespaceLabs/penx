@@ -21,6 +21,8 @@ export interface IExtension {
 
   commands: Command[]
 
+  icon?: string
+
   description?: string
 
   author?: string

@@ -2,6 +2,7 @@
   "name": "Hello world",
   "id": "hello-world",
   "description": "This is a hello wold demo.",
+  "icon": "logo.svg",
   "commands": [
     {
       "name": "index",

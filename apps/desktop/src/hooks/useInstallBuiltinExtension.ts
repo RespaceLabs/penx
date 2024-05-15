@@ -19,6 +19,7 @@ export function useInstallBuiltinExtension() {
           {
             name: 'clipboard-history',
             title: 'Clipboard history',
+            icon: '/logo/128x128.png',
             subtitle: '',
             description: '',
             code: '',
@@ -27,6 +28,7 @@ export function useInstallBuiltinExtension() {
           {
             name: 'store',
             title: 'Store',
+            icon: '/logo/128x128.png',
             subtitle: '',
             description: '',
             code: '',

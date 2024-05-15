@@ -26,8 +26,8 @@ function ExtensionItem({ extension }: ExtensionItemProps) {
         colorScheme="white"
         disabled={isLoading}
         gap1
-        onClick={() => {
-          mutateAsync()
+        onClick={async () => {
+          await mutateAsync()
           refetch()
         }}
       >

@@ -73,6 +73,7 @@ async function init() {
     commands: string
     id: string
     name: string
+    icon: string
     version: string
   }
 
@@ -82,9 +83,11 @@ async function init() {
     listen(AppEvent.UPSERT_EXTENSION, async (data) => {
       const payload = data.payload as Payload
       const commands = JSON.parse(payload.commands || '[]')
+
       await db.upsertExtension(payload.id, {
         commands: commands,
         name: payload.name,
+        icon: payload.icon,
         version: payload.version,
       })
     })

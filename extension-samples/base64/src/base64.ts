@@ -5,7 +5,8 @@ import { toString } from './libs/toString'
 renderList([
   {
     title: 'Encode',
-    subtitle: toBase64('Hello World!'),
+    icon: 'base64.svg',
+    subtitle: toBase64('Hello World!!!!'),
     actions: [
       {
         type: 'CopyToClipboard',
@@ -15,6 +16,7 @@ renderList([
   },
   {
     title: 'Decode',
+    icon: 'base64.svg',
     subtitle: toString('Hello World!'),
     actions: [
       {

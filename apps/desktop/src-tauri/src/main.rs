@@ -38,6 +38,7 @@ struct ExtensionInfo {
     id: String,
     name: String,
     version: String,
+    icon: String,
     commands: String,
 }
 
@@ -46,6 +47,7 @@ struct UpsertExtensionInput {
     id: String,
     name: String,
     version: String,
+    icon: String,
     commands: String,
 }
 
@@ -103,6 +105,7 @@ async fn upsert_extension(
         id: input.id.to_string(),
         name: input.name.to_string(),
         version: input.version.to_string(),
+        icon: input.icon.to_string(),
         commands: input.commands.to_string(),
     };
 

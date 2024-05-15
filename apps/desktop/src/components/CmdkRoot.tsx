@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react'
 import SVG from 'react-inlinesvg'
 import Markdown from 'react-markdown'
-import { Box, styled } from '@fower/react'
+import { Box, css, styled } from '@fower/react'
 import { open } from '@tauri-apps/api/shell'
 import { Command } from 'cmdk'
+import Image from 'next/image'
 import { EventType, ListItem } from 'penx'
 import clipboard from 'tauri-plugin-clipboard-api'
 // import { Command } from '@penx/cmdk'
@@ -25,6 +26,37 @@ const CommandItem = styled(Command.Item)
 type CommandItem = {
   command: string
   code: string
+}
+
+interface ItemIconProps {
+  icon: string
+}
+function ItemIcon({ icon }: ItemIconProps) {
+  if (!icon) {
+    return <Box square5 bgNeutral300 rounded-6></Box>
+  }
+
+  if (icon.startsWith('/')) {
+    return (
+      <Image
+        src={icon}
+        alt=""
+        width={20}
+        height={20}
+        style={{ borderRadius: 6 }}
+      />
+    )
+  }
+
+  const isSVG = icon.startsWith('<svg')
+  if (isSVG) {
+    return (
+      <SVG className={css({ square: 20, rounded: 6 })} src={icon as string} />
+    )
+  }
+  return (
+    <Box as="img" square5 rounded-6 src={`data:image/png;base64, ${icon}`} />
+  )
 }
 
 export const CmdkRoot = () => {
@@ -205,8 +237,7 @@ export const CmdkRoot = () => {
                   }}
                 >
                   <Box toCenterY gap2>
-                    <SVG src="" />
-                    <Box square5 bgNeutral300 rounded-6></Box>
+                    <ItemIcon icon={item.icon as string}></ItemIcon>
                     <Box text-15>{title}</Box>
                     <Box textSM gray500>
                       {subtitle}
