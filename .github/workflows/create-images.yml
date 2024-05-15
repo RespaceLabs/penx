@@ -1,9 +1,14 @@
 name: Create docker images (manual)
 
+# on:
+#   push:
+#     branches:
+#       - main
+
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*' 
 
 jobs:
   build:
