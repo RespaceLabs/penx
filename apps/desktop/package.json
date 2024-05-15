@@ -6,7 +6,8 @@
     "next-start": "cross-env BROWSER=none next dev",
     "next-build": "next build",
     "tauri": "tauri",
-    "build": "tauri build",
+    "build": "sudo tauri build",
+    "build:verbose": "sudo tauri build --verbose",
     "dev": "tauri dev",
     "lint": "next lint && biome check src/"
   },

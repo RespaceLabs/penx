@@ -9,9 +9,8 @@ import { get, set } from 'idb-keyval'
 import { getAuthorizedUser } from '@penx/storage'
 import { StoreProvider } from '@penx/store'
 import { TrpcProvider } from '@penx/trpc-client'
-import Tabs from './pages/Tabs'
 import { ClientOnly } from './ui/ClientOnly'
-import { DesktopHome } from './ui/DesktopHome'
+// import { DesktopHome } from './ui/DesktopHome'
 import MobileEditor from './ui/MobileEditor'
 
 setupIonicReact({})
@@ -45,7 +44,7 @@ const AppShell = () => {
             <IonRouterOutlet id="main"></IonRouterOutlet>
           </IonReactRouter> */}
 
-            {!isLogin && <DesktopHome />}
+            {/* {!isLogin && <DesktopHome />} */}
             {isLogin && <MobileEditor />}
           </IonApp>
         </TrpcProvider>

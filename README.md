@@ -45,6 +45,8 @@ After clone the repo, in the root dir:
 # Install the dependencies
 pnpm install
 
+pnpm run build:packages
+
 # copy .env.local.example to .env.local copy
 copy apps/web/.env.local.example apps/web/.env.local
 
@@ -53,6 +55,17 @@ pnpm dev
 ```
 
 Go to: http://localhost:3000
+
+## Mac OS installation issue
+
+> “banban” is damaged and can’t be opened. You should move it to the Trash.
+
+To fix it:
+
+```bash
+sudo spctl --master-disable
+xattr -cr /Applications/PenX.app
+```
 
 ## ⚖️ License
 
