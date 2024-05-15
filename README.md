@@ -5,7 +5,7 @@
 
 <h1 style="border-bottom: none">
     <b>PenX</b><br />
-     A structured knowledge base for geeks
+    Your personal database
     <br>
 </h1>
 
@@ -58,12 +58,11 @@ Go to: http://localhost:3000
 
 ## Mac OS installation issue
 
-> “banban” is damaged and can’t be opened. You should move it to the Trash.
+If hit [“PenX.app” is damaged and can’t be opened. You should move it to the Trash.]
 
 To fix it:
 
 ```bash
-sudo spctl --master-disable
 xattr -cr /Applications/PenX.app
 ```
 
