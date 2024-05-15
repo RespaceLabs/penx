@@ -33,6 +33,8 @@ type AppEvents = {
   LOGIN_BY_PERSONAL_TOKEN_SUCCESSFULLY: undefined
 
   LOAD_CLOUD_SPACES: undefined
+
+  ON_MAIN_WINDOW_HIDE: undefined
 }
 
 export const appEmitter = mitt<AppEvents>()

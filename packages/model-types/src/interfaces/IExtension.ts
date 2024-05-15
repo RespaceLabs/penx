@@ -3,6 +3,7 @@ export interface Command {
   title: string
   subtitle: string
   description: string
+  icon?: string
   code: string
   isBuiltIn?: boolean
 }

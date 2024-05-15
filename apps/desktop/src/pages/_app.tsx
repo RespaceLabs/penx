@@ -14,7 +14,7 @@ import { TrpcProvider } from '@penx/trpc-client'
 import { ClientOnly } from '~/components/ClientOnly'
 import '@glideapps/glide-data-grid/dist/index.css'
 import { emit, listen } from '@tauri-apps/api/event'
-import { AppEvent, isServer } from '@penx/constants'
+import { AppEvent, isProd, isServer } from '@penx/constants'
 import { db } from '@penx/local-db'
 
 initFower()
@@ -26,11 +26,14 @@ async function listenForHotkey(shortcut: string) {
     if (document.hasFocus()) {
       await appWindow.hide()
     } else {
-      const mainWindow = WebviewWindow.getByLabel('main')
-      await mainWindow?.show()
-      await mainWindow?.center()
-      await mainWindow?.setFocus()
-      document.getElementById('searchBarInput')?.focus()
+      const appWindow = WebviewWindow.getByLabel('main')
+      await appWindow?.show()
+      // await appWindow?.center()
+      await appWindow?.setFocus()
+      setTimeout(() => {
+        console.log('--------------searchBarInput focus')
+        document.getElementById('searchBarInput')?.focus()
+      }, 0)
     }
   })
 }
@@ -42,12 +45,15 @@ async function hideOnBlur() {
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       mainWindow?.hide()
+      appEmitter.emit('ON_MAIN_WINDOW_HIDE')
     }
   })
 
   listen('tauri://blur', () => {
     // console.log('---------appWindow:', appWindow)
-    // appWindow.hide()
+    if (isProd) {
+      // appWindow.hide()
+    }
   })
 }
 

@@ -18,6 +18,13 @@ export function useCommands() {
   return { commands, setCommands }
 }
 
+export const detailAtom = atom<string>('')
+
+export function useDetail() {
+  const [detail, setDetail] = useAtom(detailAtom)
+  return { detail, setDetail }
+}
+
 export function useQueryCommands() {
   const setItems = useSetAtom(itemsAtom)
   const setCommands = useSetAtom(commandsAtom)
@@ -30,6 +37,7 @@ export function useQueryCommands() {
         ...cur.commands.map<ListItem>((item) => ({
           type: 'command',
           title: item.title,
+          icon: item.icon,
           data: {
             commandName: item.name,
             extensionSlug: cur.slug,

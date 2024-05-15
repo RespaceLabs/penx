@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import SVG from 'react-inlinesvg'
 import Markdown from 'react-markdown'
 import { Box, styled } from '@fower/react'
 import { open } from '@tauri-apps/api/shell'
@@ -8,7 +9,13 @@ import clipboard from 'tauri-plugin-clipboard-api'
 // import { Command } from '@penx/cmdk'
 import { db } from '@penx/local-db'
 import { useInstallBuiltinExtension } from '~/hooks/useInstallBuiltinExtension'
-import { useCommands, useItems, useQueryCommands } from '~/hooks/useItems'
+import {
+  useCommands,
+  useDetail,
+  useItems,
+  useQueryCommands,
+} from '~/hooks/useItems'
+import { useReset } from '~/hooks/useReset'
 
 const StyledCommand = styled(Command)
 const CommandInput = styled(Command.Input)
@@ -24,14 +31,15 @@ export const CmdkRoot = () => {
   const [q, setQ] = useState('')
   const { items, setItems } = useItems()
   const { commands } = useCommands()
-  const [detail, setDetail] = useState<string>('')
+  const { detail, setDetail } = useDetail()
+  const ref = useRef<HTMLInputElement>()
 
   useQueryCommands()
   useInstallBuiltinExtension()
 
-  async function handleSelect(item: ListItem, input = '') {
-    console.log('===============item:', item)
+  useReset(setQ)
 
+  async function handleSelect(item: ListItem, input = '') {
     if (item.type === 'command') {
       if (!q) setQ(item.title as string)
 
@@ -125,6 +133,7 @@ export const CmdkRoot = () => {
       }}
     >
       <CommandInput
+        ref={ref as any}
         id="searchBarInput"
         toCenterY
         bgTransparent
@@ -174,11 +183,14 @@ export const CmdkRoot = () => {
                 typeof item.subtitle === 'string'
                   ? item.subtitle
                   : item.subtitle?.value
+              console.log('item=========:', item)
+
               return (
                 <CommandItem
                   key={index}
                   cursorPointer
                   toCenterY
+                  toBetween
                   px2
                   py3
                   gap2
@@ -192,9 +204,16 @@ export const CmdkRoot = () => {
                     handleSelect(item)
                   }}
                 >
-                  <Box textBase>{title}</Box>
-                  <Box textSM gray500>
-                    {subtitle}
+                  <Box toCenterY gap2>
+                    <SVG src="" />
+                    <Box square5 bgNeutral300 rounded-6></Box>
+                    <Box text-15>{title}</Box>
+                    <Box textSM gray500>
+                      {subtitle}
+                    </Box>
+                  </Box>
+                  <Box textXS gray400>
+                    Command
                   </Box>
                 </CommandItem>
               )
