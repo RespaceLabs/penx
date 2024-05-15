@@ -44,7 +44,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-20.04, windows-latest]
+        platform: [macos-latest, macos-13, ubuntu-20.04, windows-latest]
 
     env:
       working-directory: ./apps/desktop
@@ -89,6 +89,11 @@ jobs:
         run: |
           pnpm install
           npx turbo run build --filter=desktop...
+
+      - name: install dependencies (mac only)
+        if: matrix.platform == 'macos-latest'
+        run: |
+          rustup target add aarch64-apple-darwin
 
       - name: Build Tauri App
         if: matrix.platform != 'macos-latest'
