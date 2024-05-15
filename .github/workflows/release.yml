@@ -79,7 +79,7 @@ jobs:
           python-version: '3.11'
 
       - name: install frontend dependencies
-        if: matrix.platform == 'macos-latest'
+        if: matrix.platform == 'macos-latest' || matrix.platform == 'macos-13'
         run: |
           NODE_OPTIONS=--max_old_space_size=8192 pnpm install
           NODE_OPTIONS=--max_old_space_size=8192 npx turbo run build --filter=desktop...
