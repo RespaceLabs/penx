@@ -98,7 +98,7 @@
         "width": 750,
         "height": 470,
         "alwaysOnTop": true,
-        "decorations": false,
+        "decorations": true,
         "transparent": true,
         "center": true,
         "skipTaskbar": true
@@ -114,7 +114,7 @@
         "decorations": true,
         "visible": false,
         "center": true,
-        "url": "editor.html"
+        "url": "http://localhost:3000/editor.html"
       },
       {
         "label": "dev_editor",
