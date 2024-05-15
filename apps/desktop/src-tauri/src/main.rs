@@ -18,6 +18,8 @@ use actix_web::{
     App, HttpResponse, HttpServer, Responder,
 };
 
+use window_shadows::set_shadow;
+
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
@@ -153,7 +155,7 @@ fn main() {
                     window.center().unwrap();
                 }
                 "Editor" => {
-                    let window = app.get_window("editor").unwrap();
+                    let window = app.get_window("dev_editor").unwrap();
                     window.emit("MenuEditorClicked", Some("Yes")).unwrap();
                     window.show().unwrap();
                     window.center().unwrap();
@@ -179,6 +181,9 @@ fn main() {
             let boxed_conn = Box::new(conn.unwrap());
 
             thread::spawn(move || start_server(*boxed_handle, *boxed_conn).unwrap());
+
+            let window = app.get_window("main").unwrap();
+            set_shadow(&window, true).expect("Unsupported platform!");
 
             Ok(())
         })

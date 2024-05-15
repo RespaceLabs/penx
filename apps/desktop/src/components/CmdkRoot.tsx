@@ -145,7 +145,7 @@ export const CmdkRoot = () => {
     <StyledCommand
       label="Command Menu"
       className="command-panel"
-      shadow="0 16px 70px rgba(0,0,0,.2)"
+      // shadow="0 16px 70px rgba(0,0,0,.2)"
       w={['100%']}
       column
       absolute
@@ -156,9 +156,11 @@ export const CmdkRoot = () => {
       zIndex-10000
       // bgNeutral100
       bgWhite
-      style={{
-        backdropFilter: 'blur(200px)',
-      }}
+      style={
+        {
+          // backdropFilter: 'blur(200px)',
+        }
+      }
       loop
       filter={(value, search) => {
         // console.log('value:', value, 'search:', search)
@@ -168,6 +170,7 @@ export const CmdkRoot = () => {
       <CommandInput
         ref={ref as any}
         id="searchBarInput"
+        selectNone
         toCenterY
         bgTransparent
         w-100p
@@ -253,7 +256,16 @@ export const CmdkRoot = () => {
         </CommandList>
       </Box>
 
-      <Box h-48 borderTop borderNeutral200 toCenterY px4 toBetween>
+      <Box
+        data-tauri-drag-region
+        selectNone
+        h-48
+        borderTop
+        borderNeutral200
+        toCenterY
+        px4
+        toBetween
+      >
         <Image
           src="/logo/128x128.png"
           alt=""

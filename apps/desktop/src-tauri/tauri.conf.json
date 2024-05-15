@@ -39,7 +39,8 @@
         "setFocus": true,
         "setSize": true,
         "center": true,
-        "setSkipTaskbar": true
+        "setSkipTaskbar": true,
+        "startDragging": true
       },
       "protocol": {
         "asset": true,
@@ -98,7 +99,7 @@
         "width": 750,
         "height": 470,
         "alwaysOnTop": true,
-        "decorations": true,
+        "decorations": false,
         "transparent": true,
         "center": true,
         "skipTaskbar": true
@@ -114,7 +115,7 @@
         "decorations": true,
         "visible": false,
         "center": true,
-        "url": "http://localhost:3000/editor.html"
+        "url": "editor.html"
       },
       {
         "label": "dev_editor",
@@ -127,7 +128,7 @@
         "decorations": true,
         "visible": false,
         "center": true,
-        "url": "http://localhost:3000/editor.html"
+        "url": "http://localhost:3000/editor"
       }
     ],
     "macOSPrivateApi": true
