@@ -1,12 +1,12 @@
 [package]
 name = "app"
-version = "0.3.8"
+version = "0.3.9"
 description = "Your personal database"
 authors = ["0xZion"]
 license = ""
 repository = ""
 default-run = "app"
-edition = "2024"
+edition = "2021"
 rust-version = "1.66"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
