@@ -11,7 +11,6 @@ import clipboard from 'tauri-plugin-clipboard-api'
 import { db } from '@penx/local-db'
 import { useCommandPosition } from '~/hooks/useCommandPosition'
 import { useCurrentCommand } from '~/hooks/useCurrentCommand'
-import { useInstallBuiltinExtension } from '~/hooks/useInstallBuiltinExtension'
 import {
   useCommands,
   useDetail,
@@ -73,7 +72,6 @@ export const CmdkRoot = () => {
   const { currentCommand, setCurrentCommand } = useCurrentCommand()
 
   useQueryCommands()
-  useInstallBuiltinExtension()
 
   useReset(setQ)
 

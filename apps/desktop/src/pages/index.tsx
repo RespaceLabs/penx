@@ -12,9 +12,21 @@ import {
   FirstLocalSpaceGenerator,
   RecoveryPhraseLoginProvider,
 } from '@penx/widget'
+import { installBuiltinExtension } from '~/common/installBuiltinExtension'
 import { CmdkRoot } from '~/components/CmdkRoot'
+import { DesktopWelcome } from '~/components/DesktopWelcome'
 
 export default function Home() {
+  const {
+    isLoading,
+    data: isBoarded,
+    refetch,
+  } = useQuery(['isFistTime'], async () => {
+    const isBoarded = localStorage.getItem('PENX_IS_BOARDED')
+    return !!isBoarded
+  })
+
+  if (isLoading) return null
   return (
     <>
       <Head>
@@ -34,7 +46,17 @@ export default function Home() {
         bgTransparent
         overflowHidden
       >
-        <CmdkRoot />
+        {!isBoarded && (
+          <DesktopWelcome
+            isLoading={isLoading}
+            onGetStarted={async () => {
+              localStorage.setItem('PENX_IS_BOARDED', 'yes')
+              await installBuiltinExtension()
+              refetch()
+            }}
+          />
+        )}
+        {isBoarded && <CmdkRoot />}
       </Box>
     </>
   )
