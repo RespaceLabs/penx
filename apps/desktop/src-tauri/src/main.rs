@@ -155,7 +155,8 @@ fn main() {
                     window.center().unwrap();
                 }
                 "Editor" => {
-                    let window = app.get_window("dev_editor").unwrap();
+                    // let window = app.get_window("dev_editor").unwrap();
+                    let window = app.get_window("editor").unwrap();
                     window.emit("MenuEditorClicked", Some("Yes")).unwrap();
                     window.show().unwrap();
                     window.center().unwrap();
@@ -182,8 +183,10 @@ fn main() {
 
             thread::spawn(move || start_server(*boxed_handle, *boxed_conn).unwrap());
 
-            let window = app.get_window("main").unwrap();
-            set_shadow(&window, true).expect("Unsupported platform!");
+            let main_window = app.get_window("main").unwrap();
+            set_shadow(&main_window, true).expect("Unsupported platform!");
+
+            main_window.show().unwrap();
 
             Ok(())
         })

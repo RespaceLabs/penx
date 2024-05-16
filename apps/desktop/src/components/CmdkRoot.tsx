@@ -1,14 +1,16 @@
 import { useRef, useState } from 'react'
 import SVG from 'react-inlinesvg'
-import Markdown from 'react-markdown'
 import { Box, css, styled } from '@fower/react'
 import { open } from '@tauri-apps/api/shell'
 import { Command } from 'cmdk'
+import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import { EventType, ListItem } from 'penx'
 import clipboard from 'tauri-plugin-clipboard-api'
 // import { Command } from '@penx/cmdk'
 import { db } from '@penx/local-db'
+import { useCommandPosition } from '~/hooks/useCommandPosition'
+import { useCurrentCommand } from '~/hooks/useCurrentCommand'
 import { useInstallBuiltinExtension } from '~/hooks/useInstallBuiltinExtension'
 import {
   useCommands,
@@ -17,6 +19,7 @@ import {
   useQueryCommands,
 } from '~/hooks/useItems'
 import { useReset } from '~/hooks/useReset'
+import { CommandApp } from './CommandApp'
 
 const StyledCommand = styled(Command)
 const CommandInput = styled(Command.Input)
@@ -66,6 +69,9 @@ export const CmdkRoot = () => {
   const { detail, setDetail } = useDetail()
   const ref = useRef<HTMLInputElement>()
 
+  const { position, isRoot, isCommandApp, setPosition } = useCommandPosition()
+  const { currentCommand, setCurrentCommand } = useCurrentCommand()
+
   useQueryCommands()
   useInstallBuiltinExtension()
 
@@ -73,7 +79,11 @@ export const CmdkRoot = () => {
 
   async function handleSelect(item: ListItem, input = '') {
     if (item.type === 'command') {
-      if (!q) setQ(item.title as string)
+      // if (!q) setQ(item.title as string)
+
+      setCurrentCommand(item)
+
+      setPosition('COMMAND_APP')
 
       const ext = await db.getExtensionBySlug(item.data.extensionSlug)
       if (!ext) return
@@ -119,8 +129,6 @@ export const CmdkRoot = () => {
         if (event.data?.type === EventType.RenderMarkdown) {
           const content = event.data.content as string
           setDetail(content)
-          setItems([])
-          console.log('event......:', event)
         }
       }
     }
@@ -167,91 +175,97 @@ export const CmdkRoot = () => {
         return 1
       }}
     >
-      <CommandInput
-        ref={ref as any}
-        id="searchBarInput"
-        selectNone
-        toCenterY
-        bgTransparent
-        w-100p
-        h-54
-        px3
-        placeholderGray400
-        textBase
-        borderBottom
-        borderGray200
-        outlineNone
-        placeholder="Search something..."
-        autoFocus
-        value={q}
-        onValueChange={(v) => {
-          setQ(v)
-          if (v === '') {
-            setItems(commands)
-            setDetail('')
-          }
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            const [a, b = ''] = splitStringByFirstSpace(q)
-            const item = commands.find((item) => item.title === a)
-            if (item) {
-              handleSelect(item, String(b))
-            }
-          }
-        }}
-      />
-      <Box flex-1>
-        {detail && (
-          <Box p4>
-            <Markdown>{detail}</Markdown>
+      <Box toCenterY>
+        {isCommandApp && (
+          <Box pl3 mr--8>
+            <ArrowLeft size={20}></ArrowLeft>
           </Box>
         )}
-        <CommandList flex-1 p2={!detail}>
-          {!detail && <Command.Empty>No results found.</Command.Empty>}
-
+        <CommandInput
+          ref={ref as any}
+          id="searchBarInput"
+          flex-1
+          selectNone
+          toCenterY
+          bgTransparent
+          w-100p
+          h-54
+          px3
+          placeholderGray400
+          textBase
+          borderBottom
+          borderGray200
+          outlineNone
+          placeholder="Search something..."
+          autoFocus
+          value={q}
+          onValueChange={(v) => {
+            setQ(v)
+            if (v === '') {
+              setItems(commands)
+              setDetail('')
+            }
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              // const [a, b = ''] = splitStringByFirstSpace(q)
+              // const item = commands.find((item) => item.title === a)
+              // if (item) {
+              //   handleSelect(item, String(b))
+              // }
+              if (!q && isCommandApp) {
+                setPosition('ROOT')
+              }
+            }
+          }}
+        />
+      </Box>
+      <Box flex-1>
+        {isCommandApp && currentCommand && <CommandApp />}
+        <CommandList flex-1 p2>
           <Command.Group>
-            {items.map((item, index) => {
-              const title =
-                typeof item.title === 'string' ? item.title : item.title.value
+            {isRoot &&
+              items.map((item, index) => {
+                const title =
+                  typeof item.title === 'string' ? item.title : item.title.value
 
-              const subtitle =
-                typeof item.subtitle === 'string'
-                  ? item.subtitle
-                  : item.subtitle?.value
+                const subtitle =
+                  typeof item.subtitle === 'string'
+                    ? item.subtitle
+                    : item.subtitle?.value
 
-              return (
-                <CommandItem
-                  key={index}
-                  cursorPointer
-                  toCenterY
-                  toBetween
-                  px2
-                  py3
-                  gap2
-                  roundedLG
-                  black
-                  value={title}
-                  onSelect={() => {
-                    handleSelect(item)
-                  }}
-                  onClick={() => {
-                    handleSelect(item)
-                  }}
-                >
-                  <Box toCenterY gap2>
-                    <ItemIcon icon={item.icon as string}></ItemIcon>
-                    <Box text-15>{title}</Box>
-                    <Box textSM gray500>
-                      {subtitle}
+                return (
+                  <CommandItem
+                    key={index}
+                    cursorPointer
+                    toCenterY
+                    toBetween
+                    px2
+                    py3
+                    gap2
+                    roundedLG
+                    black
+                    value={title}
+                    onSelect={() => {
+                      handleSelect(item)
+                    }}
+                    onClick={() => {
+                      handleSelect(item)
+                    }}
+                  >
+                    <Box toCenterY gap2>
+                      <ItemIcon icon={item.icon as string}></ItemIcon>
+                      <Box text-15>{title}</Box>
+                      <Box textSM gray500>
+                        {subtitle}
+                      </Box>
                     </Box>
-                  </Box>
-                  <Box textXS gray400>
-                    Command
-                  </Box>
-                </CommandItem>
-              )
-            })}
+                    <Box textXS gray400>
+                      Command
+                    </Box>
+                  </CommandItem>
+                )
+              })}
           </Command.Group>
         </CommandList>
       </Box>
