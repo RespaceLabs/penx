@@ -1,12 +1,12 @@
 [package]
 name = "app"
-version = "0.3.1"
+version = "0.3.8"
 description = "Your personal database"
 authors = ["0xZion"]
 license = ""
 repository = ""
 default-run = "app"
-edition = "2021"
+edition = "2024"
 rust-version = "1.66"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -19,7 +19,8 @@ serde_json = "1.0"
 actix-web = "4"
 rusqlite = { version = "0.31.0", features = ["bundled"] }
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.6", features = [ "window-start-dragging",
+tauri = { version = "1.6", features = [
+  "window-start-dragging",
   "shell-open",
   "fs-all",
   "http-all",
