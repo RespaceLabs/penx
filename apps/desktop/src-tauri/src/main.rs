@@ -155,8 +155,8 @@ fn main() {
                     window.center().unwrap();
                 }
                 "Editor" => {
-                    // let window = app.get_window("dev_editor").unwrap();
-                    let window = app.get_window("editor").unwrap();
+                    let window = app.get_window("dev_editor").unwrap();
+                    // let window = app.get_window("editor").unwrap();
                     window.emit("MenuEditorClicked", Some("Yes")).unwrap();
                     window.show().unwrap();
                     window.center().unwrap();

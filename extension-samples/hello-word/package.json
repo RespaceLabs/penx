@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "penx dev",
     "build": "penx build",
-    "publish": "penx publish"
+    "release": "penx release"
   },
   "devDependencies": {
     "penx": "workspace:*",

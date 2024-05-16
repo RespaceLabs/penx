@@ -1,7 +1,7 @@
 {
   "name": "Base64",
   "id": "base64",
-  "description": "",
+  "description": "Encode and decode base64.",
   "icon": "logo.png",
   "commands": [
     {

@@ -1,37 +1,12 @@
 import jetpack from 'fs-jetpack'
 import yargs, { ArgumentsCamelCase } from 'yargs'
 import fetch from 'node-fetch'
-import * as tsup from 'tsup'
 import { join } from 'path'
 import fs from 'fs'
+import { getManifest } from '../lib/getManifest'
+import { buildExtension } from '../lib/buildExtension'
 
 type Args = {}
-
-type CommandItem = {
-  name: string
-  title: string
-  subtitle: string
-  description: string
-  icon?: string
-  code?: string
-}
-
-type Manifest = {
-  name: string
-  id: string
-  version: string
-  description: string
-  main: string
-  code: string
-  icon: string
-  commands: CommandItem[]
-}
-
-function getManifest(): Manifest {
-  const manifestPath = join(process.cwd(), 'manifest.json')
-  const manifest = jetpack.read(manifestPath, 'json')
-  return manifest
-}
 
 class Command {
   readonly command = 'dev'
@@ -41,26 +16,9 @@ class Command {
     return args.showHelpOnFail(true).strict()
   }
 
-  private entries: string[] = []
-
   handler = async (args: ArgumentsCamelCase<Args>) => {
-    const cwd = process.cwd()
-    const manifest = getManifest()
-
-    this.entries = manifest.commands.reduce<string[]>((acc, cur) => {
-      const entry = join(cwd, 'src', `${cur.name}.ts`)
-      return [...acc, entry]
-    }, [])
-
-    tsup.build({
-      entry: this.entries,
-      format: ['cjs', 'esm'],
+    await buildExtension({
       watch: true,
-      tsconfig: join(cwd, 'tsconfig.json'),
-      splitting: true,
-      treeshake: true,
-      minify: true,
-      noExternal: ['penx'],
       onSuccess: async () => {
         // console.log('Build success~')
         this.handleBuildSuccess()

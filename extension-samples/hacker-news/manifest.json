@@ -2,7 +2,7 @@
   "name": "Hacker News",
   "id": "hack-news",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a hack news demo.",
   "icon": "logo.svg",
   "commands": [
     {

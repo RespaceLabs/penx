@@ -783,139 +783,6 @@ importers:
         specifier: ^5.3.2
         version: 5.4.3
 
-  apps/cli:
-    dependencies:
-      '@inquirer/prompts':
-        specifier: ^4.3.0
-        version: 4.3.1
-      '@inquirer/select':
-        specifier: ^2.2.0
-        version: 2.2.1
-      '@trpc/client':
-        specifier: ^10.45.1
-        version: 10.45.2(@trpc/server@10.45.2)
-      '@types/yargs':
-        specifier: ^17.0.10
-        version: 17.0.32
-      axios:
-        specifier: ^1.2.0
-        version: 1.6.8
-      body-parser:
-        specifier: ^1.20.2
-        version: 1.20.2
-      chalk:
-        specifier: ^4.1.2
-        version: 4.1.2
-      cors:
-        specifier: ^2.8.5
-        version: 2.8.5
-      cron:
-        specifier: ^3.1.6
-        version: 3.1.6
-      eciesjs:
-        specifier: ^0.4.6
-        version: 0.4.6
-      express:
-        specifier: ^4.19.2
-        version: 4.19.2
-      fs-jetpack:
-        specifier: ^5.0.0
-        version: 5.1.0
-      immer:
-        specifier: ^9.0.15
-        version: 9.0.21
-      ink:
-        specifier: ^3.2.0
-        version: 3.2.0(@types/react@18.2.73)(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3)
-      ink-spinner:
-        specifier: ^4.0.3
-        version: 4.0.3(ink@3.2.0(@types/react@18.2.73)(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)
-      inquirer:
-        specifier: ^8.2.4
-        version: 8.2.6
-      kill-port-process:
-        specifier: ^3.2.1
-        version: 3.2.1
-      nanoid:
-        specifier: ^3.3.4
-        version: 3.3.7
-      node-fetch:
-        specifier: ^2.7.0
-        version: 2.7.0
-      open:
-        specifier: ^8.4.2
-        version: 8.4.2
-      ora:
-        specifier: ^5.4.1
-        version: 5.4.1
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      superjson:
-        specifier: 1.9.1
-        version: 1.9.1
-      ts-retry-promise:
-        specifier: ^0.7.0
-        version: 0.7.1
-      tsup:
-        specifier: ^7.2.0
-        version: 7.3.0(@swc/core@1.4.11(@swc/helpers@0.5.8))(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.11(@swc/helpers@0.5.8))(@types/node@18.19.26)(typescript@5.4.3))(typescript@5.4.3)
-      uuid:
-        specifier: ^9.0.1
-        version: 9.0.1
-      yargs:
-        specifier: ^17.7.2
-        version: 17.7.2
-    devDependencies:
-      '@ava/typescript':
-        specifier: ^3.0.1
-        version: 3.0.1
-      '@sindresorhus/tsconfig':
-        specifier: ^3.0.1
-        version: 3.0.1
-      '@types/body-parser':
-        specifier: ^1.19.5
-        version: 1.19.5
-      '@types/cors':
-        specifier: ^2.8.17
-        version: 2.8.17
-      '@types/express':
-        specifier: ^4.17.21
-        version: 4.17.21
-      '@types/inquirer':
-        specifier: ^8.2.10
-        version: 8.2.10
-      '@types/node':
-        specifier: ^18.19.8
-        version: 18.19.26
-      '@types/node-fetch':
-        specifier: ^2.6.11
-        version: 2.6.11
-      '@types/react':
-        specifier: ^18.2.61
-        version: 18.2.73
-      '@types/uuid':
-        specifier: ^9.0.7
-        version: 9.0.8
-      '@types/yargs-parser':
-        specifier: ^21.0.3
-        version: 21.0.3
-      eslint-plugin-react:
-        specifier: ^7.33.2
-        version: 7.34.1(eslint@8.57.0)
-      eslint-plugin-react-hooks:
-        specifier: ^4.6.0
-        version: 4.6.0(eslint@8.57.0)
-      ink-testing-library:
-        specifier: ^3.0.0
-        version: 3.0.0(@types/react@18.2.73)
-      prettier:
-        specifier: ^2.8.8
-        version: 2.8.8
-      typescript:
-        specifier: ^5.3.3
-        version: 5.4.3
-
   apps/desktop:
     dependencies:
       '@fower/atomic-props':
@@ -2756,7 +2623,7 @@ importers:
         version: link:../../packages/penx
       penx-cli:
         specifier: workspace:*
-        version: link:../../apps/cli
+        version: link:../../packages/cli
       typescript:
         specifier: ^5.3.2
         version: 5.4.5
@@ -2775,7 +2642,7 @@ importers:
         version: link:../../packages/penx
       penx-cli:
         specifier: workspace:*
-        version: link:../../apps/cli
+        version: link:../../packages/cli
       tsup:
         specifier: ^7.2.0
         version: 7.3.0(@swc/core@1.4.11(@swc/helpers@0.5.8))(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.11(@swc/helpers@0.5.8))(@types/node@20.12.7)(typescript@5.4.5))(typescript@5.4.5)
@@ -2796,7 +2663,7 @@ importers:
         version: link:../../packages/penx
       penx-cli:
         specifier: workspace:*
-        version: link:../../apps/cli
+        version: link:../../packages/cli
       typescript:
         specifier: ^5.3.2
         version: 5.4.5
@@ -5081,6 +4948,142 @@ importers:
       typescript:
         specifier: ^5.3.2
         version: 5.4.3
+
+  packages/cli:
+    dependencies:
+      '@inquirer/prompts':
+        specifier: ^4.3.0
+        version: 4.3.1
+      '@inquirer/select':
+        specifier: ^2.2.0
+        version: 2.2.1
+      '@trpc/client':
+        specifier: ^10.45.1
+        version: 10.45.2(@trpc/server@10.45.2)
+      '@types/yargs':
+        specifier: ^17.0.10
+        version: 17.0.32
+      axios:
+        specifier: ^1.2.0
+        version: 1.6.8
+      body-parser:
+        specifier: ^1.20.2
+        version: 1.20.2
+      chalk:
+        specifier: ^4.1.2
+        version: 4.1.2
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
+      cron:
+        specifier: ^3.1.6
+        version: 3.1.6
+      eciesjs:
+        specifier: ^0.4.6
+        version: 0.4.6
+      express:
+        specifier: ^4.19.2
+        version: 4.19.2
+      fs-jetpack:
+        specifier: ^5.0.0
+        version: 5.1.0
+      immer:
+        specifier: ^9.0.15
+        version: 9.0.21
+      ink:
+        specifier: ^3.2.0
+        version: 3.2.0(@types/react@18.2.73)(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3)
+      ink-spinner:
+        specifier: ^4.0.3
+        version: 4.0.3(ink@3.2.0(@types/react@18.2.73)(bufferutil@4.0.8)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)
+      inquirer:
+        specifier: ^8.2.4
+        version: 8.2.6
+      kill-port-process:
+        specifier: ^3.2.1
+        version: 3.2.1
+      nanoid:
+        specifier: ^3.3.4
+        version: 3.3.7
+      node-fetch:
+        specifier: ^2.7.0
+        version: 2.7.0
+      octokit:
+        specifier: ^3.1.2
+        version: 3.1.2
+      open:
+        specifier: ^8.4.2
+        version: 8.4.2
+      ora:
+        specifier: ^5.4.1
+        version: 5.4.1
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      superjson:
+        specifier: 1.9.1
+        version: 1.9.1
+      ts-retry-promise:
+        specifier: ^0.7.0
+        version: 0.7.1
+      tsup:
+        specifier: ^7.2.0
+        version: 7.3.0(@swc/core@1.4.11(@swc/helpers@0.5.8))(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.11(@swc/helpers@0.5.8))(@types/node@18.19.33)(typescript@5.4.5))(typescript@5.4.5)
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
+    devDependencies:
+      '@ava/typescript':
+        specifier: ^3.0.1
+        version: 3.0.1
+      '@sindresorhus/tsconfig':
+        specifier: ^3.0.1
+        version: 3.0.1
+      '@types/body-parser':
+        specifier: ^1.19.5
+        version: 1.19.5
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.17
+      '@types/express':
+        specifier: ^4.17.21
+        version: 4.17.21
+      '@types/inquirer':
+        specifier: ^8.2.10
+        version: 8.2.10
+      '@types/node':
+        specifier: ^18.19.8
+        version: 18.19.33
+      '@types/node-fetch':
+        specifier: ^2.6.11
+        version: 2.6.11
+      '@types/react':
+        specifier: ^18.2.61
+        version: 18.2.73
+      '@types/uuid':
+        specifier: ^9.0.7
+        version: 9.0.8
+      '@types/yargs-parser':
+        specifier: ^21.0.3
+        version: 21.0.3
+      eslint-plugin-react:
+        specifier: ^7.33.2
+        version: 7.34.1(eslint@8.57.0)
+      eslint-plugin-react-hooks:
+        specifier: ^4.6.0
+        version: 4.6.0(eslint@8.57.0)
+      ink-testing-library:
+        specifier: ^3.0.0
+        version: 3.0.0(@types/react@18.2.73)
+      prettier:
+        specifier: ^2.8.8
+        version: 2.8.8
+      typescript:
+        specifier: ^5.3.3
+        version: 5.4.5
 
   packages/cmdk:
     dependencies:
@@ -13217,9 +13220,6 @@ packages:
 
   '@types/node@18.15.13':
     resolution: {integrity: sha512-N+0kuo9KgrUQ1Sn/ifDXsvg0TTleP7rIy4zOBGECxAljqvqfqpTfzx0Q1NUedOixRMBfe2Whhb056a42cWs26Q==}
-
-  '@types/node@18.19.26':
-    resolution: {integrity: sha512-+wiMJsIwLOYCvUqSdKTrfkS8mpTp+MPINe6+Np4TAGFWWRWiBQ5kSq9nZGCSPkzx9mvT+uEukzpX4MOSCydcvw==}
 
   '@types/node@18.19.33':
     resolution: {integrity: sha512-NR9+KrpSajr2qBVp/Yt5TU/rp+b5Mayi3+OlMlcg2cVCfRmcG5PWZ7S4+MG9PZ5gWBoc9Pd0BKSRViuBCRPu0A==}
@@ -30436,10 +30436,6 @@ snapshots:
 
   '@types/node@18.15.13': {}
 
-  '@types/node@18.19.26':
-    dependencies:
-      undici-types: 5.26.5
-
   '@types/node@18.19.33':
     dependencies:
       undici-types: 5.26.5
@@ -34464,7 +34460,7 @@ snapshots:
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.6.0(eslint@8.57.0)(typescript@5.4.3))(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.3))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.57.0)
       eslint-plugin-react: 7.34.1(eslint@8.57.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.57.0)
@@ -34515,7 +34511,7 @@ snapshots:
       enhanced-resolve: 5.16.0
       eslint: 8.57.0
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.6.0(eslint@8.57.0)(typescript@5.4.3))(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.3))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.3
       is-core-module: 2.13.1
@@ -34565,14 +34561,31 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@7.6.0(eslint@8.57.0)(typescript@5.4.3))(eslint-import-resolver-node@0.3.9)(eslint@8.57.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.3))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
     dependencies:
+      array-includes: 3.1.8
+      array.prototype.findlastindex: 1.2.5
+      array.prototype.flat: 1.3.2
+      array.prototype.flatmap: 1.3.2
       debug: 3.2.7
-    optionalDependencies:
-      '@typescript-eslint/parser': 7.6.0(eslint@8.57.0)(typescript@5.4.3)
+      doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
+      hasown: 2.0.2
+      is-core-module: 2.13.1
+      is-glob: 4.0.3
+      minimatch: 3.1.2
+      object.fromentries: 2.0.8
+      object.groupby: 1.0.3
+      object.values: 1.2.0
+      semver: 6.3.1
+      tsconfig-paths: 3.15.0
+    optionalDependencies:
+      '@typescript-eslint/parser': 6.21.0(eslint@8.57.0)(typescript@5.4.3)
     transitivePeerDependencies:
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
       - supports-color
 
   eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
@@ -34597,33 +34610,6 @@ snapshots:
       tsconfig-paths: 3.15.0
     optionalDependencies:
       '@typescript-eslint/parser': 6.21.0(eslint@8.57.0)(typescript@5.4.5)
-    transitivePeerDependencies:
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - supports-color
-
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.6.0(eslint@8.57.0)(typescript@5.4.3))(eslint@8.57.0):
-    dependencies:
-      array-includes: 3.1.8
-      array.prototype.findlastindex: 1.2.5
-      array.prototype.flat: 1.3.2
-      array.prototype.flatmap: 1.3.2
-      debug: 3.2.7
-      doctrine: 2.1.0
-      eslint: 8.57.0
-      eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.6.0(eslint@8.57.0)(typescript@5.4.3))(eslint-import-resolver-node@0.3.9)(eslint@8.57.0)
-      hasown: 2.0.2
-      is-core-module: 2.13.1
-      is-glob: 4.0.3
-      minimatch: 3.1.2
-      object.fromentries: 2.0.8
-      object.groupby: 1.0.3
-      object.values: 1.2.0
-      semver: 6.3.1
-      tsconfig-paths: 3.15.0
-    optionalDependencies:
-      '@typescript-eslint/parser': 7.6.0(eslint@8.57.0)(typescript@5.4.3)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
@@ -40453,14 +40439,6 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.38
 
-  postcss-load-config@4.0.2(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.11(@swc/helpers@0.5.8))(@types/node@18.19.26)(typescript@5.4.3)):
-    dependencies:
-      lilconfig: 3.1.1
-      yaml: 2.4.1
-    optionalDependencies:
-      postcss: 8.4.38
-      ts-node: 10.9.2(@swc/core@1.4.11(@swc/helpers@0.5.8))(@types/node@18.19.26)(typescript@5.4.3)
-
   postcss-load-config@4.0.2(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.11(@swc/helpers@0.5.8))(@types/node@18.19.33)(typescript@5.4.5)):
     dependencies:
       lilconfig: 3.1.1
@@ -43314,27 +43292,6 @@ snapshots:
     dependencies:
       tslib: 2.6.2
 
-  ts-node@10.9.2(@swc/core@1.4.11(@swc/helpers@0.5.8))(@types/node@18.19.26)(typescript@5.4.3):
-    dependencies:
-      '@cspotcode/source-map-support': 0.8.1
-      '@tsconfig/node10': 1.0.11
-      '@tsconfig/node12': 1.0.11
-      '@tsconfig/node14': 1.0.3
-      '@tsconfig/node16': 1.0.4
-      '@types/node': 18.19.26
-      acorn: 8.11.3
-      acorn-walk: 8.3.2
-      arg: 4.1.3
-      create-require: 1.1.1
-      diff: 4.0.2
-      make-error: 1.3.6
-      typescript: 5.4.3
-      v8-compile-cache-lib: 3.0.1
-      yn: 3.1.1
-    optionalDependencies:
-      '@swc/core': 1.4.11(@swc/helpers@0.5.8)
-    optional: true
-
   ts-node@10.9.2(@swc/core@1.4.11(@swc/helpers@0.5.8))(@types/node@18.19.33)(typescript@5.4.5):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
@@ -43506,30 +43463,6 @@ snapshots:
       '@swc/core': 1.4.11(@swc/helpers@0.5.8)
       postcss: 8.4.38
       typescript: 5.2.2
-    transitivePeerDependencies:
-      - supports-color
-      - ts-node
-
-  tsup@7.3.0(@swc/core@1.4.11(@swc/helpers@0.5.8))(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.11(@swc/helpers@0.5.8))(@types/node@18.19.26)(typescript@5.4.3))(typescript@5.4.3):
-    dependencies:
-      bundle-require: 4.0.2(esbuild@0.19.12)
-      cac: 6.7.14
-      chokidar: 3.6.0
-      debug: 4.3.4(supports-color@8.1.1)
-      esbuild: 0.19.12
-      execa: 5.1.1
-      globby: 11.1.0
-      joycon: 3.1.1
-      postcss-load-config: 4.0.2(postcss@8.4.38)(ts-node@10.9.2(@swc/core@1.4.11(@swc/helpers@0.5.8))(@types/node@18.19.26)(typescript@5.4.3))
-      resolve-from: 5.0.0
-      rollup: 4.13.2
-      source-map: 0.8.0-beta.0
-      sucrase: 3.35.0
-      tree-kill: 1.2.2
-    optionalDependencies:
-      '@swc/core': 1.4.11(@swc/helpers@0.5.8)
-      postcss: 8.4.38
-      typescript: 5.4.3
     transitivePeerDependencies:
       - supports-color
       - ts-node

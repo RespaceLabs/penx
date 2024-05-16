@@ -312,17 +312,17 @@ model Template {
 }
 
 model Extension {
-    id          String   @id @default(uuid())
-    uniqueId    String
-    name        String
-    version     String
-    description String?  @db.Text
-    readme      String?  @db.Text
-    code        String   @db.Text
-    author      String?
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    id       String @id @default(uuid())
+    userId   String
+    uniqueId String @unique
+    manifest String @db.Text
+    logo     String
 
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([userId])
+    @@index([uniqueId])
     @@map("extension")
 }
 
