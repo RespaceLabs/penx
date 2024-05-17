@@ -7,6 +7,7 @@ import fs from 'fs'
 import { buildExtension } from '../lib/buildExtension'
 import { getTRPC } from '../lib/trpc'
 import { getManifest } from '../lib/getManifest'
+import { iconToString } from '../lib/iconToString'
 
 type Args = {}
 
@@ -56,7 +57,7 @@ class Command {
           await this.trpc.extension.upsertExtension.mutate({
             uniqueId: manifest.id,
             manifest: JSON.stringify(manifest),
-            logo: await this.getLogo(manifest.icon),
+            logo: await this.getIcon(manifest.icon),
           })
 
           spinner.succeed('Release success!')
@@ -66,21 +67,6 @@ class Command {
         }
       },
     })
-  }
-
-  private getLogo = async (iconName = '') => {
-    if (!iconName) return ''
-    try {
-      const cwd = process.cwd()
-      const iconPath = join(cwd, 'assets', iconName)
-      if (iconName.endsWith('.svg')) {
-        return jetpack.read(iconPath, 'utf8')
-      }
-
-      return fs.readFileSync(iconPath).toString('base64')
-    } catch (error) {
-      return ''
-    }
   }
 
   getReadmeContent(id: string) {
@@ -94,6 +80,38 @@ class Command {
     } catch (error) {
       return `## ${id}`
     }
+  }
+
+  private async getInstallationContent() {
+    const manifest = getManifest()
+
+    // add code manifest.commands
+    for (const command of manifest.commands) {
+      const codePath = join(process.cwd(), 'dist', `${command.name}.js`)
+      const code = jetpack.read(codePath, 'utf8')
+      command.code = code
+    }
+
+    const assetsPath = join(process.cwd(), 'assets')
+
+    let assets: Record<string, string> = {}
+
+    if (jetpack.exists(assetsPath)) {
+      const files = jetpack.list(assetsPath) || []
+
+      for (const file of files) {
+        assets[file] = await iconToString(file)
+      }
+    }
+
+    return JSON.stringify(
+      {
+        ...manifest,
+        assets,
+      },
+      null,
+      2,
+    )
   }
 
   async createTree() {
@@ -139,6 +157,13 @@ class Command {
       mode: '100644',
       type: 'blob',
       content: this.getReadmeContent(id),
+    })
+
+    treeItems.push({
+      path: `extensions/${id}/installation.json`,
+      mode: '100644',
+      type: 'blob',
+      content: await this.getInstallationContent(),
     })
 
     return treeItems
