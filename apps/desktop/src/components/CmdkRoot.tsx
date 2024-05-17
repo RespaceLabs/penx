@@ -1,61 +1,21 @@
 import { useRef, useState } from 'react'
 import SVG from 'react-inlinesvg'
 import { Box, css, styled } from '@fower/react'
-import { open } from '@tauri-apps/api/shell'
 import { Command } from 'cmdk'
 import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import { EventType, ListItem } from 'penx'
 // import { Command } from '@penx/cmdk'
-import { db } from '@penx/local-db'
-import { useCommandAppUI } from '~/hooks/useCommandAppUI'
 import { useCommandPosition } from '~/hooks/useCommandPosition'
 import { useCurrentCommand } from '~/hooks/useCurrentCommand'
-import { useHandleSelect } from '~/hooks/useHandleSelect'
 import { useCommands, useItems, useQueryCommands } from '~/hooks/useItems'
 import { useReset } from '~/hooks/useReset'
-import { CommandApp } from './CommandApp'
+import { CommandApp } from './CommandApp/CommandApp'
+import { ListItemUI } from './ListItemUI'
 
 const StyledCommand = styled(Command)
-const CommandInput = styled(Command.Input)
-const CommandList = styled(Command.List)
-const CommandItem = styled(Command.Item)
-
-type CommandItem = {
-  command: string
-  code: string
-}
-
-interface ItemIconProps {
-  icon: string
-}
-function ItemIcon({ icon }: ItemIconProps) {
-  if (!icon) {
-    return <Box square5 bgNeutral300 rounded-6></Box>
-  }
-
-  if (icon.startsWith('/')) {
-    return (
-      <Image
-        src={icon}
-        alt=""
-        width={20}
-        height={20}
-        style={{ borderRadius: 6 }}
-      />
-    )
-  }
-
-  const isSVG = icon.startsWith('<svg')
-  if (isSVG) {
-    return (
-      <SVG className={css({ square: 20, rounded: 6 })} src={icon as string} />
-    )
-  }
-  return (
-    <Box as="img" square5 rounded-6 src={`data:image/png;base64, ${icon}`} />
-  )
-}
+const StyledCommandInput = styled(Command.Input)
+const StyledCommandList = styled(Command.List)
 
 export const CmdkRoot = () => {
   const [q, setQ] = useState('')
@@ -69,8 +29,6 @@ export const CmdkRoot = () => {
   useQueryCommands()
 
   useReset(setQ)
-
-  const handleSelect = useHandleSelect()
 
   return (
     <StyledCommand
@@ -104,7 +62,7 @@ export const CmdkRoot = () => {
             <ArrowLeft size={20}></ArrowLeft>
           </Box>
         )}
-        <CommandInput
+        <StyledCommandInput
           ref={ref as any}
           id="searchBarInput"
           flex-1
@@ -142,52 +100,14 @@ export const CmdkRoot = () => {
       </Box>
       <Box flex-1>
         {isCommandApp && currentCommand && <CommandApp />}
-        <CommandList flex-1 p2>
+        <StyledCommandList flex-1 p2={isRoot}>
           <Command.Group>
             {isRoot &&
               items.map((item, index) => {
-                const title =
-                  typeof item.title === 'string' ? item.title : item.title.value
-
-                const subtitle =
-                  typeof item.subtitle === 'string'
-                    ? item.subtitle
-                    : item.subtitle?.value
-
-                return (
-                  <CommandItem
-                    key={index}
-                    cursorPointer
-                    toCenterY
-                    toBetween
-                    px2
-                    py3
-                    gap2
-                    roundedLG
-                    black
-                    value={title}
-                    onSelect={() => {
-                      handleSelect(item)
-                    }}
-                    onClick={() => {
-                      handleSelect(item)
-                    }}
-                  >
-                    <Box toCenterY gap2>
-                      <ItemIcon icon={item.icon as string}></ItemIcon>
-                      <Box text-15>{title}</Box>
-                      <Box textSM gray500>
-                        {subtitle}
-                      </Box>
-                    </Box>
-                    <Box textXS gray400>
-                      Command
-                    </Box>
-                  </CommandItem>
-                )
+                return <ListItemUI key={index} item={item} />
               })}
           </Command.Group>
-        </CommandList>
+        </StyledCommandList>
       </Box>
 
       <Box

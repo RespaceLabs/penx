@@ -312,14 +312,16 @@ model Template {
 }
 
 model Extension {
-    id       String @id @default(uuid())
-    userId   String
-    uniqueId String @unique
-    manifest String @db.Text
-    logo     String
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id                String   @id @default(uuid())
+    userId            String
+    uniqueId          String   @unique
+    manifest          String   @db.Text
+    logo              String
+    installationCount Int      @default(0)
+    starCount         Int      @default(0)
+    commentCount      Int      @default(0)
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
 
     @@index([userId])
     @@index([uniqueId])

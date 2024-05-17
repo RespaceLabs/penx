@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { sleep } from '@penx/shared'
 import { getToken } from '../github-bot/getToken'
 import { createTRPCRouter, publicProcedure } from '../trpc'
 
@@ -6,7 +7,7 @@ const ALL_EXTENSIONS_KEY = 'extensions:all'
 
 export const extensionRouter = createTRPCRouter({
   all: publicProcedure.query(async ({ ctx }) => {
-    return ctx.prisma.extension.findMany()
+    return await ctx.prisma.extension.findMany()
     // const value = await client.get(ALL_EXTENSIONS_KEY)
     // if (value) {
     //   return JSON.parse(value) as Extension[]

@@ -24,6 +24,10 @@ export class Manifest {
     this.raw = JSON.parse(this._raw || '{}')
   }
 
+  get id() {
+    return this.raw.id
+  }
+
   get name() {
     return this.raw.name
   }
