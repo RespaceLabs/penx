@@ -3,7 +3,7 @@
   "build": {
     "beforeBuildCommand": "pnpm next-build",
     "beforeDevCommand": "pnpm next-start",
-    "devPath": "http://localhost:3000",
+    "devPath": "http://localhost:4040",
     "distDir": "../out"
   },
   "package": {
@@ -128,7 +128,7 @@
         "decorations": true,
         "visible": false,
         "center": true,
-        "url": "http://localhost:3000/editor"
+        "url": "http://localhost:4040/editor"
       }
     ],
     "macOSPrivateApi": true

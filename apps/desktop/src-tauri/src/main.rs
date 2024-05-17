@@ -41,6 +41,7 @@ struct ExtensionInfo {
     name: String,
     version: String,
     icon: String,
+    assets: String,
     commands: String,
 }
 
@@ -50,6 +51,7 @@ struct UpsertExtensionInput {
     name: String,
     version: String,
     icon: String,
+    assets: String,
     commands: String,
 }
 
@@ -105,6 +107,7 @@ async fn upsert_extension(
         name: input.name.to_string(),
         version: input.version.to_string(),
         icon: input.icon.to_string(),
+        assets: input.icon.to_string(),
         commands: input.commands.to_string(),
     };
 
@@ -186,7 +189,7 @@ fn main() {
             let main_window = app.get_window("main").unwrap();
             set_shadow(&main_window, true).expect("Unsupported platform!");
 
-            main_window.show().unwrap();
+            // main_window.show().unwrap();
 
             Ok(())
         })
