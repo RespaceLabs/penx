@@ -34,6 +34,12 @@ export const Nav = () => {
     // },
 
     {
+      text: 'Marketplace',
+      to: '/marketplace',
+      // isExternal: true,
+    },
+
+    {
       text: 'Developer',
       to: 'https://docs.penx.io//build-extension/create-first-extension',
       isExternal: true,
