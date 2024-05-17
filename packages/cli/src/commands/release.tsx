@@ -8,6 +8,7 @@ import { buildExtension } from '../lib/buildExtension'
 import { getTRPC } from '../lib/trpc'
 import { getManifest } from '../lib/getManifest'
 import { iconToString } from '../lib/iconToString'
+import { assetsToStringMap } from '../lib/assetsToStringMap'
 
 type Args = {}
 
@@ -57,7 +58,7 @@ class Command {
           await this.trpc.extension.upsertExtension.mutate({
             uniqueId: manifest.id,
             manifest: JSON.stringify(manifest),
-            logo: await this.getIcon(manifest.icon),
+            logo: await iconToString(manifest.icon),
           })
 
           spinner.succeed('Release success!')
@@ -92,26 +93,8 @@ class Command {
       command.code = code
     }
 
-    const assetsPath = join(process.cwd(), 'assets')
-
-    let assets: Record<string, string> = {}
-
-    if (jetpack.exists(assetsPath)) {
-      const files = jetpack.list(assetsPath) || []
-
-      for (const file of files) {
-        assets[file] = await iconToString(file)
-      }
-    }
-
-    return JSON.stringify(
-      {
-        ...manifest,
-        assets,
-      },
-      null,
-      2,
-    )
+    const assets = await assetsToStringMap()
+    return JSON.stringify({ ...manifest, assets }, null, 2)
   }
 
   async createTree() {

@@ -21,6 +21,8 @@ export interface IExtension {
 
   commands: Command[]
 
+  assets: Record<string, string>
+
   icon?: string
 
   description?: string

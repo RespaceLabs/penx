@@ -14,6 +14,7 @@ export async function installBuiltinExtension() {
     slug,
     name: 'PenX',
     version: '0.0.0',
+    assets: {},
     commands: [
       {
         name: 'clipboard-history',
@@ -25,9 +26,9 @@ export async function installBuiltinExtension() {
         isBuiltIn: true,
       },
       {
-        name: 'store',
-        title: 'Store',
-        icon: '/icons/store.svg',
+        name: 'marketplace',
+        title: 'marketplace',
+        icon: '/icons/marketplace.svg',
         subtitle: '',
         description: '',
         code: '',

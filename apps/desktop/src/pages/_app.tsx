@@ -74,6 +74,7 @@ async function init() {
   type Payload = {
     code: string
     commands: string
+    assets: string
     id: string
     name: string
     icon: string
@@ -86,10 +87,14 @@ async function init() {
     listen(AppEvent.UPSERT_EXTENSION, async (data) => {
       const payload = data.payload as Payload
       const commands = JSON.parse(payload.commands || '[]')
+      const assets = JSON.parse(payload.assets || '{}')
+
+      // console.log('======payload:', payload)
 
       await db.upsertExtension(payload.id, {
-        commands: commands,
         name: payload.name,
+        commands,
+        assets,
         icon: payload.icon,
         version: payload.version,
       })

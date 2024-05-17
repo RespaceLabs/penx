@@ -5,6 +5,7 @@ import { join } from 'path'
 import { getManifest } from '../lib/getManifest'
 import { buildExtension } from '../lib/buildExtension'
 import { iconToString } from '../lib/iconToString'
+import { assetsToStringMap } from '../lib/assetsToStringMap'
 
 type Args = {}
 
@@ -40,9 +41,7 @@ class Command {
       command.icon = await iconToString(command.icon)
     }
 
-    const logoString = await this.getIcon(manifest.icon)
-
-    // console.log('========logoString:', logoString)
+    const assets = await assetsToStringMap()
 
     try {
       const res = await fetch(url, {
@@ -56,6 +55,7 @@ class Command {
           version: manifest.version || '',
           icon: manifest.icon,
           commands: JSON.stringify(manifest.commands),
+          assets: JSON.stringify(assets),
         }),
       }).then((res) => res.json())
     } catch (error) {

@@ -107,7 +107,7 @@ async fn upsert_extension(
         name: input.name.to_string(),
         version: input.version.to_string(),
         icon: input.icon.to_string(),
-        assets: input.icon.to_string(),
+        assets: input.assets.to_string(),
         commands: input.commands.to_string(),
     };
 

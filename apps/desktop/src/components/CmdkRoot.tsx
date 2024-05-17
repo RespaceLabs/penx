@@ -270,7 +270,6 @@ export const CmdkRoot = () => {
 
       <Box
         data-tauri-drag-region
-        selectNone
         h-48
         borderTop
         borderNeutral200
@@ -285,6 +284,7 @@ export const CmdkRoot = () => {
           height={20}
           style={{ borderRadius: 6 }}
         />
+        <Box data-tauri-drag-region flex-1 h-100p></Box>
         <Box textSM gray400>
           CMD+K
         </Box>
