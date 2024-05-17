@@ -1,23 +1,18 @@
 import Markdown from 'react-markdown'
 import { Box } from '@fower/react'
+import { useCommandAppUI } from '~/hooks/useCommandAppUI'
 import { useCurrentCommand } from '~/hooks/useCurrentCommand'
-import { useDetail } from '~/hooks/useItems'
 
-interface CommandAppProps {
-  // detail: string
-}
+interface CommandAppProps {}
+
 export function CommandApp({}: CommandAppProps) {
   const { currentCommand } = useCurrentCommand()
-  const { detail } = useDetail()
+  const { ui } = useCommandAppUI()
   console.log('======currentCommand:', currentCommand)
 
-  return (
-    <Box>
-      {detail && (
-        <Box p4>
-          <Markdown>{detail}</Markdown>
-        </Box>
-      )}
-    </Box>
-  )
+  if (ui.type === 'markdown') {
+    return <Markdown>{ui.content}</Markdown>
+  }
+
+  return <Box p4>TODO</Box>
 }

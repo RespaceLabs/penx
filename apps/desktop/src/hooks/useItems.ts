@@ -18,13 +18,6 @@ export function useCommands() {
   return { commands, setCommands }
 }
 
-export const detailAtom = atom<string>('')
-
-export function useDetail() {
-  const [detail, setDetail] = useAtom(detailAtom)
-  return { detail, setDetail }
-}
-
 export function useQueryCommands() {
   const setItems = useSetAtom(itemsAtom)
   const setCommands = useSetAtom(commandsAtom)

@@ -1,17 +1,18 @@
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { appEmitter } from '@penx/event'
-import { useCommands, useDetail, useItems } from './useItems'
+import { useCommandAppUI } from './useCommandAppUI'
+import { useCommands, useItems } from './useItems'
 
 export function useReset(setQ: Dispatch<SetStateAction<string>>) {
   const { items, setItems } = useItems()
   const { commands } = useCommands()
-  const { detail, setDetail } = useDetail()
+  const { setUI } = useCommandAppUI()
 
   useEffect(() => {
     function reset() {
       setItems(commands)
       setQ('')
-      setDetail('')
+      // setUI('')
     }
 
     appEmitter.on('ON_MAIN_WINDOW_HIDE', reset)

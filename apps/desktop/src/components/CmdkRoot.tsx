@@ -6,17 +6,13 @@ import { Command } from 'cmdk'
 import { ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import { EventType, ListItem } from 'penx'
-import clipboard from 'tauri-plugin-clipboard-api'
 // import { Command } from '@penx/cmdk'
 import { db } from '@penx/local-db'
+import { useCommandAppUI } from '~/hooks/useCommandAppUI'
 import { useCommandPosition } from '~/hooks/useCommandPosition'
 import { useCurrentCommand } from '~/hooks/useCurrentCommand'
-import {
-  useCommands,
-  useDetail,
-  useItems,
-  useQueryCommands,
-} from '~/hooks/useItems'
+import { useHandleSelect } from '~/hooks/useHandleSelect'
+import { useCommands, useItems, useQueryCommands } from '~/hooks/useItems'
 import { useReset } from '~/hooks/useReset'
 import { CommandApp } from './CommandApp'
 
@@ -65,87 +61,16 @@ export const CmdkRoot = () => {
   const [q, setQ] = useState('')
   const { items, setItems } = useItems()
   const { commands } = useCommands()
-  const { detail, setDetail } = useDetail()
   const ref = useRef<HTMLInputElement>()
 
   const { position, isRoot, isCommandApp, setPosition } = useCommandPosition()
-  const { currentCommand, setCurrentCommand } = useCurrentCommand()
+  const { currentCommand } = useCurrentCommand()
 
   useQueryCommands()
 
   useReset(setQ)
 
-  async function handleSelect(item: ListItem, input = '') {
-    if (item.type === 'command') {
-      // if (!q) setQ(item.title as string)
-
-      setCurrentCommand(item)
-
-      setPosition('COMMAND_APP')
-
-      const ext = await db.getExtensionBySlug(item.data.extensionSlug)
-      if (!ext) return
-
-      const command = ext.commands.find(
-        (c) => c.name === item.data.commandName,
-      )!
-
-      let worker: Worker
-      if (command.isBuiltIn) {
-        worker = new Worker(
-          new URL('../workers/clipboard-history.ts', import.meta.url),
-          {
-            type: 'module',
-          },
-        )
-      } else {
-        console.log('=========command?.code:, ', command?.code)
-
-        let blob = new Blob([`self.input = '${input}'\n` + command?.code], {
-          type: 'application/javascript',
-        })
-        const url = URL.createObjectURL(blob)
-        worker = new Worker(url)
-      }
-      // worker.terminate()
-
-      item.data.commandName && worker.postMessage(item.data.commandName)
-
-      worker.onmessage = async (event: MessageEvent<any>) => {
-        if (event.data?.type === EventType.RenderList) {
-          const list: ListItem[] = event.data.items || []
-          console.log('event--------:', event.data.items)
-
-          const newItems = list.map<ListItem>((item) => ({
-            type: 'list-item',
-            ...item,
-          }))
-
-          setItems(newItems)
-        }
-
-        if (event.data?.type === EventType.RenderMarkdown) {
-          const content = event.data.content as string
-          setDetail(content)
-        }
-      }
-    }
-
-    if (item.type === 'list-item') {
-      if (item.actions?.[0]) {
-        const defaultAction = item.actions?.[0]
-        if (defaultAction.type === 'OpenInBrowser') {
-          console.log('========defaultAction.url:', defaultAction.url)
-          open(defaultAction.url)
-        }
-
-        if (defaultAction.type === 'CopyToClipboard') {
-          await clipboard.writeText(defaultAction.content)
-        }
-      }
-      console.log('list item:', item)
-    }
-  }
+  const handleSelect = useHandleSelect()
 
   return (
     <StyledCommand
@@ -173,7 +98,7 @@ export const CmdkRoot = () => {
         return 1
       }}
     >
-      <Box toCenterY>
+      <Box toCenterY borderBottom borderGray200>
         {isCommandApp && (
           <Box pl3 mr--8>
             <ArrowLeft size={20}></ArrowLeft>
@@ -191,8 +116,6 @@ export const CmdkRoot = () => {
           px3
           placeholderGray400
           textBase
-          borderBottom
-          borderGray200
           outlineNone
           placeholder="Search something..."
           autoFocus
@@ -201,7 +124,6 @@ export const CmdkRoot = () => {
             setQ(v)
             if (v === '') {
               setItems(commands)
-              setDetail('')
             }
           }}
           onKeyDown={(e) => {
