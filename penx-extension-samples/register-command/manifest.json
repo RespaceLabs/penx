@@ -1,7 +1,0 @@
-{
-  "name": "Register command",
-  "id": "register-command",
-  "version": "1.0.0",
-  "description": "This is a register-command demo",
-  "main": "dist/main.mjs"
-}

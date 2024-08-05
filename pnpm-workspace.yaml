@@ -1,5 +1,0 @@
-packages:
-  - 'apps/*'
-  - 'packages/*'
-  - 'extensions/*'
-  - 'penx-extension-samples/*'

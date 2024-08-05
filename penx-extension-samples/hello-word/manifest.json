@@ -1,7 +1,0 @@
-{
-  "name": "Hello world",
-  "id": "hello-world",
-  "version": "1.0.1",
-  "description": "This is a hello wold demo..",
-  "main": "dist/main.mjs"
-}

@@ -1,0 +1,211 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL") // uses connection pooling
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  address       String    @unique
+  name          String?
+  ensName       String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  bio           String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  spaces        Space[]
+  posts         Post[]
+  members       Member[]
+  trades        Trade[]
+  holders       Holder[]
+  sponsors      Sponsor[]
+  sentMessages  Message[] @relation("SentMessages")
+
+  @@index([id])
+  @@index([address])
+}
+
+model Space {
+  id                String    @id @default(cuid())
+  name              String
+  description       String    @default("") @db.Text
+  logo              String?   @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png") @db.Text
+  font              String    @default("font-cal")
+  image             String?   @default("") @db.Text
+  imageBlurhash     String?   @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC") @db.Text
+  subdomain         String?   @unique
+  customDomain      String?   @unique
+  memberCount       Int       @default(0)
+  sponsorCount      Int       @default(0)
+  postCount         Int       @default(0)
+  message404        String?   @default("Blimey! You've found a page that doesn't exist.") @db.Text
+  creationId        String?   @unique // creationId on chain
+  sponsorCreationId String?   @unique // sponsor creationId on chain
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId            String
+  posts             Post[]
+  channels          Channel[]
+  members           Member[]
+  trades            Trade[]
+  holders           Holder[]
+  sponsors          Sponsor[]
+
+  @@index([userId])
+  @@index([name])
+}
+
+model Post {
+  id            String   @id @default(cuid())
+  title         String   @default("") @db.Text
+  description   String   @default("") @db.Text
+  content       String   @default("") @db.Text
+  slug          String   @default(cuid())
+  gateType      String   @default("")
+  image         String?  @default("") @db.Text
+  imageBlurhash String?  @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC") @db.Text
+  published     Boolean  @default(false)
+  creationId    String?  @unique // creationId on chain
+  holderCount   Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  space         Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  spaceId       String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId        String
+  holders       Holder[]
+  trades        Trade[]
+
+  @@unique([slug, spaceId])
+  @@index([spaceId])
+  @@index([userId])
+}
+
+model Member {
+  id        String   @id @default(cuid())
+  amount    String   @default("0")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  space     Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  spaceId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId    String
+
+  @@unique([userId, spaceId])
+  @@index([spaceId])
+  @@index([userId])
+}
+
+// Post key holder
+model Holder {
+  id        String   @id @default(cuid())
+  amount    String   @default("0")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  postId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId    String
+  Space     Space?   @relation(fields: [spaceId], references: [id])
+  spaceId   String?
+
+  @@unique([userId, postId])
+  @@index([postId])
+  @@index([userId])
+}
+
+model Sponsor {
+  id          String   @id @default(uuid())
+  amount      String   @default("0")
+  name        String   @default("")
+  description String   @default("")
+  logo        String   @default("")
+  cover       String   @default("")
+  homeUrl     String   @default("")
+  status      String   @default("PENDING") // PENDING|AGREED|REJECTED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  space   Space  @relation(fields: [spaceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  spaceId String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId  String
+
+  @@unique([userId, spaceId])
+  @@index([spaceId])
+  @@index([userId])
+}
+
+model Trade {
+  id        String   @id @default(cuid())
+  amount    String   @default("0")
+  eth       String   @default("0")
+  source    String   @default("")
+  type      String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  postId    String?
+  Space     Space?   @relation(fields: [spaceId], references: [id])
+  spaceId   String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId    String
+
+  @@index([spaceId])
+  @@index([postId])
+}
+
+model Channel {
+  id          String    @id @default(cuid())
+  name        String
+  description String    @default("") @db.Text
+  type        String    @default("")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  space       Space     @relation(fields: [spaceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  spaceId     String
+  messages    Message[]
+
+  @@index([spaceId])
+}
+
+model ChannelMember {
+  channelId String
+  userId    String
+  joinTime  DateTime @default(now())
+  // owner | admin | member
+  role      String
+
+  @@id([channelId, userId])
+}
+
+model Message {
+  id                   String   @id @default(cuid())
+  // Sended = 1 Others sent successfully;SendFail = 2;Sending = 3;Undo = 4;AtAll = 5@All people;
+  // SelfSend = 6 Send successfully; PeerRead = 7 The other party has read;
+  // Reject = 8 // Backstage rejection (such as sensitive words, etc.)
+  status               Int
+  chat_send_or_receive Int // send 0; receive 1;
+  fromId               String // Send userId
+  toId                 String // Receive userId
+  contentType          Int // TEXT = 1, IMAGE = 2
+  content              String   @default("") @db.Text
+  spaceId              String
+  channelId            String
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  channal              Channel? @relation(fields: [channelId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  fromUser             User     @relation("SentMessages", fields: [fromId], references: [id])
+
+  @@index([channelId])
+  @@index([fromId])
+}
