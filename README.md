@@ -5,7 +5,7 @@
 
 <h1 style="border-bottom: none">
     <b>PenX</b><br />
-      The space for web3 creator
+      The space for web3 creators
     <br>
 </h1>
 
@@ -15,7 +15,7 @@
 
 ## Introduction
 
-PenX is the the space for web3 creator, find 1000 true fans in PenX.
+PenX is the the space for web3 creators, find 1000 true fans in PenX.
 
 ## Development
 
