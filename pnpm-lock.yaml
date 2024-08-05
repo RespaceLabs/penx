@@ -58,7 +58,7 @@ dependencies:
     version: 5.51.15(react@18.2.0)
   '@tremor/react':
     specifier: ^3.11.1
-    version: 3.11.1(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.5)
+    version: 3.11.1(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.5)
   '@troop.com/tiptap-react-render':
     specifier: ^0.0.2
     version: 0.0.2
@@ -197,6 +197,9 @@ dependencies:
   react-hook-form:
     specifier: ^7.52.1
     version: 7.52.1(react@18.2.0)
+  react-is:
+    specifier: ^18.3.1
+    version: 18.3.1
   react-merge-refs:
     specifier: ^2.1.1
     version: 2.1.1
@@ -212,6 +215,9 @@ dependencies:
   react-textarea-autosize:
     specifier: ^8.5.3
     version: 8.5.3(@types/react@18.2.37)(react@18.2.0)
+  recharts:
+    specifier: ^2.12.7
+    version: 2.12.7(react-dom@18.2.0)(react@18.2.0)
   remark:
     specifier: ^14.0.3
     version: 14.0.3
@@ -1834,6 +1840,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.0
+
+  /@babel/runtime@7.25.0:
+    resolution: {integrity: sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.0
+    dev: false
 
   /@babel/template@7.24.7:
     resolution: {integrity: sha512-jYqfPrU9JTF0PmPy1tLYHW4Mp4KlgxJD9l2nP9fD6yT/ICi554DmrWBAEYpIelzjHf1msDP3PxJIRt/nFNfBig==}
@@ -5029,7 +5042,7 @@ packages:
     engines: {node: '>= 10'}
     dev: false
 
-  /@tremor/react@3.11.1(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.5):
+  /@tremor/react@3.11.1(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.5):
     resolution: {integrity: sha512-oiBm8vFe0+05RFIHlriSmfZX7BMwgAIFGdvz5kAEbN6G/cGOh2oPkTGG+NPbbk8eyo68f13IT6KfTiMVSEhRSA==}
     peerDependencies:
       react: ^18.0.0
@@ -5043,10 +5056,9 @@ packages:
       react-day-picker: 8.9.1(date-fns@2.30.0)(react@18.2.0)
       react-dom: 18.2.0(react@18.2.0)
       react-transition-group: 4.4.5(react-dom@18.2.0)(react@18.2.0)
-      recharts: 2.9.3(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
+      recharts: 2.12.7(react-dom@18.2.0)(react@18.2.0)
       tailwind-merge: 1.14.0
     transitivePeerDependencies:
-      - prop-types
       - tailwindcss
     dev: false
 
@@ -8171,12 +8183,6 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /dom-helpers@3.4.0:
-    resolution: {integrity: sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==}
-    dependencies:
-      '@babel/runtime': 7.23.2
-    dev: false
-
   /dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
     dependencies:
@@ -11077,7 +11083,7 @@ packages:
     resolution: {integrity: sha512-8PTVIgrVcyU+X/rVCy/9yxNlvXsBCk5JwwkbAm/Dm+Abo6NBGtNjWF0M1Xo/NWCb4phamNWcD7cHdR91HhbJvg==}
     engines: {node: '>=18'}
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.25.0
     dev: false
 
   /metro-source-map@0.80.9:
@@ -12692,7 +12698,7 @@ packages:
     dependencies:
       '@jest/schemas': 29.6.3
       ansi-styles: 5.2.0
-      react-is: 18.2.0
+      react-is: 18.3.1
     dev: false
 
   /pretty-format@3.8.0:
@@ -13038,7 +13044,7 @@ packages:
       '@babel/runtime': 7.23.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-is: 18.2.0
+      react-is: 18.3.1
     dev: false
 
   /rc-virtual-list@3.14.5(react-dom@18.2.0)(react@18.2.0):
@@ -13119,12 +13125,8 @@ packages:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
     dev: false
 
-  /react-is@18.2.0:
-    resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
-    dev: false
-
-  /react-lifecycles-compat@3.0.4:
-    resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
+  /react-is@18.3.1:
+    resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
     dev: false
 
   /react-markdown@8.0.7(@types/react@18.2.37)(react@18.2.0):
@@ -13142,7 +13144,7 @@ packages:
       prop-types: 15.8.1
       property-information: 6.4.0
       react: 18.2.0
-      react-is: 18.2.0
+      react-is: 18.3.1
       remark-parse: 10.0.2
       remark-rehype: 10.1.0
       space-separated-tokens: 2.0.2
@@ -13335,17 +13337,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /react-resize-detector@8.1.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-S7szxlaIuiy5UqLhLL1KY3aoyGHbZzsTpYal9eYMwCyKqoqoVLCmIgAgNyIM1FhnP2KyBygASJxdhejrzjMb+w==}
-    peerDependencies:
-      react: ^16.0.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      lodash: 4.17.21
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
   /react-responsive@10.0.0(react@18.2.0):
     resolution: {integrity: sha512-N6/UiRLGQyGUqrarhBZmrSmHi2FXSD++N5VbSKsBBvWfG0ZV7asvUBluSv5lSzdMyEVjzZ6Y8DL4OHABiztDOg==}
     engines: {node: '>=14'}
@@ -13372,21 +13363,20 @@ packages:
     dependencies:
       object-assign: 4.1.1
       react: 18.2.0
-      react-is: 18.2.0
+      react-is: 18.3.1
     dev: false
 
-  /react-smooth@2.0.5(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-BMP2Ad42tD60h0JW6BFaib+RJuV5dsXJK9Baxiv/HlNFjvRLqA9xrNKxVWnUIZPQfzUwGXIlU/dSYLU+54YGQA==}
+  /react-smooth@4.0.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-OE4hm7XqR0jNOq3Qmk9mFLyd6p2+j6bvbPJ7qlB7+oo0eNcL2l7WQzG6MBnT3EXY6xzkLMUBec3AfewJdA0J8w==}
     peerDependencies:
-      prop-types: ^15.6.0
-      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       fast-equals: 5.0.1
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-transition-group: 2.9.0(react-dom@18.2.0)(react@18.2.0)
+      react-transition-group: 4.4.5(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /react-style-singleton@2.2.1(@types/react@18.2.37)(react@18.2.0):
@@ -13418,20 +13408,6 @@ packages:
       use-latest: 1.2.1(@types/react@18.2.37)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
-    dev: false
-
-  /react-transition-group@2.9.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-+HzNTCHpeQyl4MJ/bdE0u6XRMe9+XG/+aL4mCxVN4DnPBQ0/5bfHWPDuOZUzYdMj94daZaZdCCc1Dzt9R/xSSg==}
-    peerDependencies:
-      react: '>=15.0.0'
-      react-dom: '>=15.0.0'
-    dependencies:
-      dom-helpers: 3.4.0
-      loose-envify: 1.4.0
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-lifecycles-compat: 3.0.4
     dev: false
 
   /react-transition-group@4.4.5(react-dom@18.2.0)(react@18.2.0):
@@ -13547,25 +13523,22 @@ packages:
       decimal.js-light: 2.5.1
     dev: false
 
-  /recharts@2.9.3(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-B61sKrDlTxHvYwOCw8eYrD6rTA2a2hJg0avaY8qFI1ZYdHKvU18+J5u7sBMFg//wfJ/C5RL5+HsXt5e8tcJNLg==}
-    engines: {node: '>=12'}
+  /recharts@2.12.7(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-hlLJMhPQfv4/3NBSAyq3gzGg4h2v69RJh6KU7b3pXYNNAELs9kEoXOjbkxdXpALqKBoVmVptGfLpxdaVYqjmXQ==}
+    engines: {node: '>=14'}
     peerDependencies:
-      prop-types: ^15.6.0
       react: ^16.0.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      classnames: 2.3.2
+      clsx: 2.0.0
       eventemitter3: 4.0.7
       lodash: 4.17.21
-      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-is: 16.13.1
-      react-resize-detector: 8.1.0(react-dom@18.2.0)(react@18.2.0)
-      react-smooth: 2.0.5(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
+      react-smooth: 4.0.1(react-dom@18.2.0)(react@18.2.0)
       recharts-scale: 0.4.5
-      tiny-invariant: 1.3.1
+      tiny-invariant: 1.3.3
       victory-vendor: 36.6.12
     dev: false
 
@@ -13614,7 +13587,7 @@ packages:
   /regenerator-transform@0.15.2:
     resolution: {integrity: sha512-hfMp2BoF0qOk3uc5V20ALGDS2ddjQaLrdl7xrGXvAIow7qeWRM2VA2HuCHkUKk9slq3VwEwLNK3DFBqDfPGYtg==}
     dependencies:
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.25.0
     dev: false
 
   /regexp.prototype.flags@1.5.1:
@@ -14752,10 +14725,6 @@ packages:
     dependencies:
       readable-stream: 2.3.8
       xtend: 4.0.2
-    dev: false
-
-  /tiny-invariant@1.3.1:
-    resolution: {integrity: sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==}
     dev: false
 
   /tiny-invariant@1.3.3:

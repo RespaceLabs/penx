@@ -1,8 +1,16 @@
-import { addMessageToStore, getMessagesStateById, IGroupMessage, IGroupStatus, IMessage, initFailStoreById, MessageStatus } from "@/hooks/useMessages";
-import { io, Socket } from "socket.io-client";
+import {
+  addMessageToStore,
+  getMessagesStateById,
+  IGroupMessage,
+  IGroupStatus,
+  IMessage,
+  initFailStoreById,
+  MessageStatus,
+} from '@/hooks/useMessages'
+import { io, Socket } from 'socket.io-client'
 
-export const SUCCESS = 1;
-export const FAIL = 0;
+export const SUCCESS = 1
+export const FAIL = 0
 
 enum ConnectStatusType {
   disconnect = 1,
@@ -22,13 +30,17 @@ interface IResult {
   data?: any
 }
 
-
-const baseUrl = "http://localhost:3808/"
+// const baseUrl = 'http://localhost:3808/'
+// const baseUrl = 'http://43.154.135.183:3808/'
+const baseUrl = 'https://ws-develop.penx.io'
 
 export class SocketConnector {
-  private socket!: Socket;
-  private connectStatus = { type: ConnectStatusType.disconnect, msg: 'not init' };
-  private static instance: SocketConnector;
+  private socket!: Socket
+  private connectStatus = {
+    type: ConnectStatusType.disconnect,
+    msg: 'not init',
+  }
+  private static instance: SocketConnector
   private chatSendMsgUpdateIdMap: Map<string, ''> = new Map()
 
   public getChatSendMsgUpdateIdMap() {
@@ -46,32 +58,35 @@ export class SocketConnector {
       transports: ['websocket'],
       reconnectionAttempts: 360,
       reconnectionDelay: 5000,
-    });
+    })
 
-    this.socket.on("connect", () => {
+    this.socket.on('connect', () => {
       // console.log('%c=WebSocket connection established', 'color:cyan')
       this.connectStatus = { type: ConnectStatusType.connected, msg: 'ok' }
-      this.setupListeners();
+      this.setupListeners()
       channels.length && this.joinChannels(channels)
-    });
+    })
 
-    this.socket.on("disconnect", (reason) => {
+    this.socket.on('disconnect', (reason) => {
       // console.log('%c=WebSocket connection disconnected,reason:', 'color:cyan', reason)
       this.connectStatus = { type: ConnectStatusType.disconnect, msg: reason }
-    });
+    })
 
-    this.socket.on("connect_error", (error) => {
+    this.socket.on('connect_error', (error) => {
       console.log('%c=WebSocket connection error', 'color:cyan', error)
-      this.connectStatus = { type: ConnectStatusType.error, msg: error.toString() }
-    });
+      this.connectStatus = {
+        type: ConnectStatusType.error,
+        msg: error.toString(),
+      }
+    })
 
     if (!SocketConnector.instance) {
-      SocketConnector.instance = this;
+      SocketConnector.instance = this
     }
   }
 
   static getInstance(): SocketConnector {
-    return SocketConnector.instance;
+    return SocketConnector.instance
   }
 
   private setupListeners() {
@@ -92,8 +107,8 @@ export class SocketConnector {
     */
 
     this.socket.on('channel-msg', (data: IMessage) => {
-      addMessageToStore(data.channelId, data);
-    });
+      addMessageToStore(data.channelId, data)
+    })
   }
 
   public joinChannels(channels: string[]): boolean {
@@ -101,46 +116,59 @@ export class SocketConnector {
       if (response.code === FAIL) {
         initFailStoreById(response.data)
       }
-    });
+    })
 
     return true
   }
 
   public getConnectionStatus(): ConnectStatus {
-    return this.connectStatus;
+    return this.connectStatus
   }
 
-  public async sendChannelMessage(groupMessage: IGroupMessage): Promise<boolean> {
+  public async sendChannelMessage(
+    groupMessage: IGroupMessage,
+  ): Promise<boolean> {
     return new Promise((resolve, reject) => {
       if (this.socket) {
         if (this.connectStatus.type === ConnectStatusType.connected) {
-          const msgStatus = getMessagesStateById(groupMessage.channelId)?.status === IGroupStatus.OK ? MessageStatus.Sending : MessageStatus.Fail
+          const msgStatus =
+            getMessagesStateById(groupMessage.channelId)?.status ===
+            IGroupStatus.OK
+              ? MessageStatus.Sending
+              : MessageStatus.Fail
           this.addMessageToStoreWithStatus(groupMessage, msgStatus)
           this.chatSendMsgUpdateIdMap.set(groupMessage.updateId, '')
-          this.socket.emit('channel-message', groupMessage, (response: IResult) => {
-            if (response.code === 1) {
-              resolve(true);
-            } else {
-              resolve(false);
-            }
-          });
+          this.socket.emit(
+            'channel-message',
+            groupMessage,
+            (response: IResult) => {
+              if (response.code === 1) {
+                resolve(true)
+              } else {
+                resolve(false)
+              }
+            },
+          )
         } else {
           this.addMessageToStoreWithStatus(groupMessage, MessageStatus.Fail)
-          resolve(false);
+          resolve(false)
         }
       } else {
-        console.error('Socket not initialized');
-        resolve(false);
+        console.error('Socket not initialized')
+        resolve(false)
       }
-    });
+    })
   }
 
-  private addMessageToStoreWithStatus(groupMessage: IGroupMessage, status: MessageStatus): void {
-    const time = new Date();
+  private addMessageToStoreWithStatus(
+    groupMessage: IGroupMessage,
+    status: MessageStatus,
+  ): void {
+    const time = new Date()
     addMessageToStore(groupMessage.channelId, {
       fromUser: {
         image: groupMessage.userImage,
-        name: groupMessage.userName
+        name: groupMessage.userName,
       },
       id: groupMessage.updateId,
       status: status,
@@ -149,26 +177,29 @@ export class SocketConnector {
       toId: groupMessage.channelId,
       contentType: groupMessage.contentType,
       content: groupMessage.content,
-      spaceId: "",
+      spaceId: '',
       channelId: groupMessage.channelId,
       createdAt: time,
-      updatedAt: time
-    });
-  };
+      updatedAt: time,
+    })
+  }
 
   public disconnect(): void {
     if (this.socket) {
       // console.log('%c=Manually disconnecting WebSocket', 'color:cyan');
-      this.socket.disconnect();
-      this.connectStatus = { type: ConnectStatusType.disconnect, msg: 'Manually disconnected' };
+      this.socket.disconnect()
+      this.connectStatus = {
+        type: ConnectStatusType.disconnect,
+        msg: 'Manually disconnected',
+      }
     }
   }
 
   public hasChatSendMsgUpdateId(key: string): boolean {
-    return this.chatSendMsgUpdateIdMap.has(key);
+    return this.chatSendMsgUpdateIdMap.has(key)
   }
 
   public removeChatSendMsgUpdateId(key: string): boolean {
-    return this.chatSendMsgUpdateIdMap.delete(key);
+    return this.chatSendMsgUpdateIdMap.delete(key)
   }
 }
