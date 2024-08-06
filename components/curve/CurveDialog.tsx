@@ -10,8 +10,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { RouterOutputs } from '@/server/_app'
-import { Curve } from './Curve'
 import { CurveButton } from './CurveButton'
+import { CurveChart } from './CurveChart'
 
 interface Props {
   space: RouterOutputs['space']['byId']
@@ -33,7 +33,7 @@ export function CurveDialog({ space }: Props) {
           </div>
         </DialogHeader>
         <div className="">
-          <Curve className="-mx-4" />
+          <CurveChart className="-mx-4" />
         </div>
       </DialogContent>
     </Dialog>

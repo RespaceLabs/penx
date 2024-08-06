@@ -56,7 +56,10 @@ export const blankFarmerAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
+    inputs: [
+      { name: 'token', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
     name: 'withdraw',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -540,21 +543,184 @@ export const erc165Abi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ICurve
+// ERC20
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export const iCurveAbi = [
+export const erc20Abi = [
+  {
+    type: 'error',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'allowance', internalType: 'uint256', type: 'uint256' },
+      { name: 'needed', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'ERC20InsufficientAllowance',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'sender', internalType: 'address', type: 'address' },
+      { name: 'balance', internalType: 'uint256', type: 'uint256' },
+      { name: 'needed', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'ERC20InsufficientBalance',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'approver', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidApprover',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'receiver', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidReceiver',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidSender',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'spender', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidSpender',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'spender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Transfer',
+  },
   {
     type: 'function',
     inputs: [
-      { name: 'supply', internalType: 'uint256', type: 'uint256' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
-      { name: 'args', internalType: 'uint256[]', type: 'uint256[]' },
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'spender', internalType: 'address', type: 'address' },
     ],
-    name: 'getPrice',
+    name: 'allowance',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     stateMutability: 'view',
   },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// FixedPointMathLib
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const fixedPointMathLibAbi = [
+  { type: 'error', inputs: [], name: 'DivFailed' },
+  { type: 'error', inputs: [], name: 'DivWadFailed' },
+  { type: 'error', inputs: [], name: 'ExpOverflow' },
+  { type: 'error', inputs: [], name: 'FactorialOverflow' },
+  { type: 'error', inputs: [], name: 'FullMulDivFailed' },
+  { type: 'error', inputs: [], name: 'LnWadUndefined' },
+  { type: 'error', inputs: [], name: 'MantissaOverflow' },
+  { type: 'error', inputs: [], name: 'MulDivFailed' },
+  { type: 'error', inputs: [], name: 'MulWadFailed' },
+  { type: 'error', inputs: [], name: 'OutOfDomain' },
+  { type: 'error', inputs: [], name: 'RPowOverflow' },
+  { type: 'error', inputs: [], name: 'SDivWadFailed' },
+  { type: 'error', inputs: [], name: 'SMulWadFailed' },
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1135,6 +1301,129 @@ export const ierc20ErrorsAbi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// IERC20Metadata
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const ierc20MetadataAbi = [
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'spender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'spender', internalType: 'address', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // IERC20Permit
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1251,7 +1540,10 @@ export const iFarmerAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
+    inputs: [
+      { name: 'token', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
     name: 'withdraw',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -1370,25 +1662,6 @@ export const indieXAbi = [
     anonymous: false,
     inputs: [
       {
-        name: 'curveIndex',
-        internalType: 'uint8',
-        type: 'uint8',
-        indexed: true,
-      },
-      {
-        name: 'curve',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-    ],
-    name: 'CurveAdded',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
         name: 'farmerIndex',
         internalType: 'uint8',
         type: 'uint8',
@@ -1462,19 +1735,28 @@ export const indieXAbi = [
       { name: 'name', internalType: 'string', type: 'string', indexed: false },
       { name: 'uri', internalType: 'string', type: 'string', indexed: false },
       {
+        name: 'curve',
+        internalType: 'struct IndieX.Curve',
+        type: 'tuple',
+        components: [
+          { name: 'basePrice', internalType: 'uint96', type: 'uint96' },
+          { name: 'inflectionPoint', internalType: 'uint32', type: 'uint32' },
+          { name: 'inflectionPrice', internalType: 'uint128', type: 'uint128' },
+          {
+            name: 'linearPriceSlope',
+            internalType: 'uint128',
+            type: 'uint128',
+          },
+        ],
+        indexed: false,
+      },
+      {
         name: 'farmerId',
         internalType: 'uint8',
         type: 'uint8',
         indexed: false,
       },
       { name: 'isFarming', internalType: 'bool', type: 'bool', indexed: false },
-      { name: 'curveId', internalType: 'uint8', type: 'uint8', indexed: false },
-      {
-        name: 'curveArgs',
-        internalType: 'uint256[]',
-        type: 'uint256[]',
-        indexed: false,
-      },
     ],
     name: 'NewCreation',
   },
@@ -1731,13 +2013,6 @@ export const indieXAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: 'curve', internalType: 'address', type: 'address' }],
-    name: 'addCurve',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
     inputs: [{ name: 'farmer', internalType: 'address', type: 'address' }],
     name: 'addFarmer',
     outputs: [],
@@ -1789,7 +2064,7 @@ export const indieXAbi = [
     type: 'function',
     inputs: [
       { name: 'creationId', internalType: 'uint256', type: 'uint256' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'amount', internalType: 'uint32', type: 'uint32' },
       { name: 'curator', internalType: 'address', type: 'address' },
     ],
     name: 'buy',
@@ -1821,26 +2096,26 @@ export const indieXAbi = [
       { name: 'name', internalType: 'string', type: 'string' },
       { name: 'uri', internalType: 'string', type: 'string' },
       { name: 'curatorFeePercent', internalType: 'uint256', type: 'uint256' },
+      {
+        name: 'curve',
+        internalType: 'struct IndieX.Curve',
+        type: 'tuple',
+        components: [
+          { name: 'basePrice', internalType: 'uint96', type: 'uint96' },
+          { name: 'inflectionPoint', internalType: 'uint32', type: 'uint32' },
+          { name: 'inflectionPrice', internalType: 'uint128', type: 'uint128' },
+          {
+            name: 'linearPriceSlope',
+            internalType: 'uint128',
+            type: 'uint128',
+          },
+        ],
+      },
       { name: 'farmer', internalType: 'uint8', type: 'uint8' },
       { name: 'isFarming', internalType: 'bool', type: 'bool' },
-      { name: 'curve', internalType: 'uint8', type: 'uint8' },
       { name: 'balance', internalType: 'uint256', type: 'uint256' },
       { name: 'volume', internalType: 'uint256', type: 'uint256' },
     ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'curveIndex',
-    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
-    name: 'curves',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
     stateMutability: 'view',
   },
   {
@@ -1894,7 +2169,7 @@ export const indieXAbi = [
     type: 'function',
     inputs: [
       { name: 'creationId', internalType: 'uint256', type: 'uint256' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'amount', internalType: 'uint32', type: 'uint32' },
     ],
     name: 'getBuyPrice',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
@@ -1904,7 +2179,7 @@ export const indieXAbi = [
     type: 'function',
     inputs: [
       { name: 'creationId', internalType: 'uint256', type: 'uint256' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'amount', internalType: 'uint32', type: 'uint32' },
       { name: 'appId', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'getBuyPriceAfterFee',
@@ -1944,10 +2219,31 @@ export const indieXAbi = [
             internalType: 'uint256',
             type: 'uint256',
           },
+          {
+            name: 'curve',
+            internalType: 'struct IndieX.Curve',
+            type: 'tuple',
+            components: [
+              { name: 'basePrice', internalType: 'uint96', type: 'uint96' },
+              {
+                name: 'inflectionPoint',
+                internalType: 'uint32',
+                type: 'uint32',
+              },
+              {
+                name: 'inflectionPrice',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+              {
+                name: 'linearPriceSlope',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+            ],
+          },
           { name: 'farmer', internalType: 'uint8', type: 'uint8' },
           { name: 'isFarming', internalType: 'bool', type: 'bool' },
-          { name: 'curve', internalType: 'uint8', type: 'uint8' },
-          { name: 'curveArgs', internalType: 'uint256[]', type: 'uint256[]' },
           { name: 'balance', internalType: 'uint256', type: 'uint256' },
           { name: 'volume', internalType: 'uint256', type: 'uint256' },
         ],
@@ -1959,7 +2255,7 @@ export const indieXAbi = [
     type: 'function',
     inputs: [
       { name: 'creationId', internalType: 'uint256', type: 'uint256' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'amount', internalType: 'uint32', type: 'uint32' },
     ],
     name: 'getSellPrice',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
@@ -1969,7 +2265,7 @@ export const indieXAbi = [
     type: 'function',
     inputs: [
       { name: 'creationId', internalType: 'uint256', type: 'uint256' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'amount', internalType: 'uint32', type: 'uint32' },
       { name: 'appId', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'getSellPriceAfterFee',
@@ -1988,6 +2284,60 @@ export const indieXAbi = [
       },
     ],
     stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      {
+        name: 'creation',
+        internalType: 'struct IndieX.Creation',
+        type: 'tuple',
+        components: [
+          { name: 'id', internalType: 'uint256', type: 'uint256' },
+          { name: 'appId', internalType: 'uint256', type: 'uint256' },
+          { name: 'creator', internalType: 'address', type: 'address' },
+          { name: 'name', internalType: 'string', type: 'string' },
+          { name: 'uri', internalType: 'string', type: 'string' },
+          {
+            name: 'curatorFeePercent',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          {
+            name: 'curve',
+            internalType: 'struct IndieX.Curve',
+            type: 'tuple',
+            components: [
+              { name: 'basePrice', internalType: 'uint96', type: 'uint96' },
+              {
+                name: 'inflectionPoint',
+                internalType: 'uint32',
+                type: 'uint32',
+              },
+              {
+                name: 'inflectionPrice',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+              {
+                name: 'linearPriceSlope',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+            ],
+          },
+          { name: 'farmer', internalType: 'uint8', type: 'uint8' },
+          { name: 'isFarming', internalType: 'bool', type: 'bool' },
+          { name: 'balance', internalType: 'uint256', type: 'uint256' },
+          { name: 'volume', internalType: 'uint256', type: 'uint256' },
+        ],
+      },
+      { name: 'fromSupply', internalType: 'uint32', type: 'uint32' },
+      { name: 'quantity', internalType: 'uint32', type: 'uint32' },
+    ],
+    name: 'getSubTotal',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'pure',
   },
   {
     type: 'function',
@@ -2016,10 +2366,31 @@ export const indieXAbi = [
             internalType: 'uint256',
             type: 'uint256',
           },
+          {
+            name: 'curve',
+            internalType: 'struct IndieX.Curve',
+            type: 'tuple',
+            components: [
+              { name: 'basePrice', internalType: 'uint96', type: 'uint96' },
+              {
+                name: 'inflectionPoint',
+                internalType: 'uint32',
+                type: 'uint32',
+              },
+              {
+                name: 'inflectionPrice',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+              {
+                name: 'linearPriceSlope',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+            ],
+          },
           { name: 'farmer', internalType: 'uint8', type: 'uint8' },
           { name: 'isFarming', internalType: 'bool', type: 'bool' },
-          { name: 'curve', internalType: 'uint8', type: 'uint8' },
-          { name: 'curveArgs', internalType: 'uint256[]', type: 'uint256[]' },
           { name: 'balance', internalType: 'uint256', type: 'uint256' },
           { name: 'volume', internalType: 'uint256', type: 'uint256' },
         ],
@@ -2077,10 +2448,31 @@ export const indieXAbi = [
             internalType: 'uint256',
             type: 'uint256',
           },
+          {
+            name: 'curve',
+            internalType: 'struct IndieX.Curve',
+            type: 'tuple',
+            components: [
+              { name: 'basePrice', internalType: 'uint96', type: 'uint96' },
+              {
+                name: 'inflectionPoint',
+                internalType: 'uint32',
+                type: 'uint32',
+              },
+              {
+                name: 'inflectionPrice',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+              {
+                name: 'linearPriceSlope',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+            ],
+          },
           { name: 'farmer', internalType: 'uint8', type: 'uint8' },
           { name: 'isFarming', internalType: 'bool', type: 'bool' },
-          { name: 'curve', internalType: 'uint8', type: 'uint8' },
-          { name: 'curveArgs', internalType: 'uint256[]', type: 'uint256[]' },
         ],
       },
     ],
@@ -2146,7 +2538,7 @@ export const indieXAbi = [
     type: 'function',
     inputs: [
       { name: 'creationId', internalType: 'uint256', type: 'uint256' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+      { name: 'amount', internalType: 'uint32', type: 'uint32' },
     ],
     name: 'sell',
     outputs: [],
@@ -2173,6 +2565,13 @@ export const indieXAbi = [
     type: 'function',
     inputs: [{ name: '_feeTo', internalType: 'address', type: 'address' }],
     name: 'setProtocolFeeTo',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '_usdc', internalType: 'address', type: 'address' }],
+    name: 'setUSDC',
     outputs: [],
     stateMutability: 'nonpayable',
   },
@@ -2273,24 +2672,6 @@ export const indieXAbi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// LinearCurve
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const linearCurveAbi = [
-  {
-    type: 'function',
-    inputs: [
-      { name: 'supply', internalType: 'uint256', type: 'uint256' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
-      { name: 'args', internalType: 'uint256[]', type: 'uint256[]' },
-    ],
-    name: 'getPrice',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'pure',
-  },
-] as const
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Math
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2356,29 +2737,19 @@ export const ownableAbi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// QuadraticCurve
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const quadraticCurveAbi = [
-  {
-    type: 'function',
-    inputs: [
-      { name: 'supply', internalType: 'uint256', type: 'uint256' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
-      { name: 'args', internalType: 'uint256[]', type: 'uint256[]' },
-    ],
-    name: 'getPrice',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'pure',
-  },
-] as const
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ReentrancyGuard
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const reentrancyGuardAbi = [
   { type: 'error', inputs: [], name: 'ReentrancyGuardReentrantCall' },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SafeCastLib
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const safeCastLibAbi = [
+  { type: 'error', inputs: [], name: 'Overflow' },
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2400,4 +2771,188 @@ export const safeErc20Abi = [
     inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
     name: 'SafeERC20FailedOperation',
   },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// USDC
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const usdcAbi = [
+  { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'allowance', internalType: 'uint256', type: 'uint256' },
+      { name: 'needed', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'ERC20InsufficientAllowance',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'sender', internalType: 'address', type: 'address' },
+      { name: 'balance', internalType: 'uint256', type: 'uint256' },
+      { name: 'needed', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'ERC20InsufficientBalance',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'approver', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidApprover',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'receiver', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidReceiver',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidSender',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'spender', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidSpender',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'spender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Transfer',
+  },
+  { type: 'fallback', stateMutability: 'payable' },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'spender', internalType: 'address', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'burn',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'mint',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  { type: 'receive', stateMutability: 'payable' },
 ] as const

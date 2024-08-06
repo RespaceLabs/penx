@@ -13,22 +13,30 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useAddress } from '@/hooks/useAddress'
+import { spaceIdAtom } from '@/hooks/useSpaceId'
 import { spacesAtom, useSpaces } from '@/hooks/useSpaces'
 import { indieXAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
+import { Curves, CurveType, SELECTED_SPACE } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api, trpc } from '@/lib/trpc'
+import { Curve } from '@/lib/types'
 import { wagmiConfig } from '@/lib/wagmi'
 import { store } from '@/store'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
+import { useDebouncedCallback } from 'use-debounce'
 import { useWriteContract } from 'wagmi'
 import { z } from 'zod'
+import { CurveChart, defaultCurve } from '../curve/CurveChart'
+import { Card } from '../ui/card'
+import { FactorInput } from './FactorInput'
 import { useCreateSpaceDialog } from './useCreateSpaceDialog'
 
 const FormSchema = z.object({
@@ -39,6 +47,18 @@ const FormSchema = z.object({
   subdomain: z.string().min(1, {
     message: 'Subdomain must be at least 2 characters.',
   }),
+
+  curveType: z.string(),
+  basePrice: z.string().min(1, {
+    message: 'Basic price must be at least 1 character.',
+  }),
+  inflectionPoint: z.string().min(1, {
+    message: ' must be at least 1 character.',
+  }),
+  inflectionPrice: z.string().min(1, {
+    message: ' must be at least 1 character.',
+  }),
+  linearPriceSlope: z.string(),
 })
 
 export function CreateSpaceForm() {
@@ -48,16 +68,39 @@ export function CreateSpaceForm() {
   const { push } = useRouter()
   const { setIsOpen } = useCreateSpaceDialog()
   const { writeContractAsync } = useWriteContract()
+  const [curve, setCurve] = useState<Curve>(defaultCurve)
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: '',
       subdomain: '',
+      curveType: CurveType.ClubMember,
+      basePrice: Curves.ClubMember.basePrice.toString(),
+      inflectionPoint: Curves.ClubMember.inflectionPoint.toString(),
+      inflectionPrice: Curves.ClubMember.inflectionPrice.toString(),
+      linearPriceSlope: Curves.ClubMember.linearPriceSlope.toString(),
     },
   })
 
   const name = form.watch('name')
+  const basePrice = form.watch('basePrice')
+  const inflectionPoint = form.watch('inflectionPoint')
+  const inflectionPrice = form.watch('inflectionPrice')
+  const curveType = form.watch('curveType')
+
+  const debouncedSetCurve = useDebouncedCallback(async (curve) => {
+    setCurve(curve)
+  }, 400)
+
+  useEffect(() => {
+    debouncedSetCurve({
+      basePrice: Number(basePrice),
+      inflectionPoint: Number(inflectionPoint),
+      inflectionPrice: Number(inflectionPrice),
+      linearPriceSlope: 0,
+    })
+  }, [basePrice, inflectionPoint, inflectionPrice, debouncedSetCurve])
 
   useEffect(() => {
     form.setValue(
@@ -68,6 +111,25 @@ export function CreateSpaceForm() {
         .replace(/[\W_]+/g, '-'),
     )
   }, [name, form])
+
+  useEffect(() => {
+    const { PublicationMember, ClubMember, GithubSponsor } = Curves
+    if (curveType === CurveType.PublicationMember) {
+      form.setValue('basePrice', PublicationMember.basePrice)
+      form.setValue('inflectionPoint', PublicationMember.inflectionPoint)
+      form.setValue('inflectionPrice', PublicationMember.inflectionPrice)
+    }
+    if (curveType === CurveType.ClubMember) {
+      form.setValue('basePrice', ClubMember.basePrice)
+      form.setValue('inflectionPoint', ClubMember.inflectionPoint)
+      form.setValue('inflectionPrice', ClubMember.inflectionPrice)
+    }
+    if (curveType === CurveType.GithubSponsor) {
+      form.setValue('basePrice', GithubSponsor.basePrice)
+      form.setValue('inflectionPoint', GithubSponsor.inflectionPoint)
+      form.setValue('inflectionPrice', GithubSponsor.inflectionPrice)
+    }
+  }, [curveType, form])
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true)
@@ -83,7 +145,12 @@ export function CreateSpaceForm() {
             appId: BigInt(1),
             curatorFeePercent: precision.token(30, 16),
             isFarming: false,
-            curve: 0,
+            curve: {
+              basePrice: BigInt(data.basePrice),
+              inflectionPoint: Number(data.inflectionPoint),
+              inflectionPrice: BigInt(data.inflectionPrice),
+              linearPriceSlope: BigInt(0),
+            },
             farmer: 0,
             curveArgs: [],
           },
@@ -105,10 +172,12 @@ export function CreateSpaceForm() {
 
       const spaces = await api.space.mySpaces.query()
       store.set(spacesAtom, spaces)
+      store.set(spaceIdAtom, space.id)
       setIsOpen(false)
       toast.success('Space created successfully!')
       revalidateMetadata('spaces')
 
+      localStorage.setItem(SELECTED_SPACE, space.id)
       push(`/~/space/${space.id}`)
     } catch (error) {
       console.log('========error:', error)
@@ -121,48 +190,149 @@ export function CreateSpaceForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Space name</FormLabel>
-              <FormControl>
-                <Input placeholder="Space Name" {...field} className="w-full" />
-              </FormControl>
-              {/* <FormDescription>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 pb-20">
+        <div className="font-bold">Basic info</div>
+        <Card className="p-4 mb-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Space name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Space Name"
+                    {...field}
+                    className="w-full"
+                  />
+                </FormControl>
+                {/* <FormDescription>
                     This is your public display name.
                   </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="subdomain"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Space pathname</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <div className="absolute left-2 top-2 text-secondary-foreground">
-                    https://{process.env.NEXT_PUBLIC_ROOT_DOMAIN}/@
+          <FormField
+            control={form.control}
+            name="subdomain"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Space pathname</FormLabel>
+                <FormControl>
+                  <div className="relative">
+                    <div className="absolute left-2 top-2 text-secondary-foreground">
+                      https://{process.env.NEXT_PUBLIC_ROOT_DOMAIN}/@
+                    </div>
+                    <Input
+                      placeholder="Pathname"
+                      pattern="[a-zA-Z0-9\-]+"
+                      maxLength={32}
+                      {...field}
+                      className="w-full text-right"
+                    />
                   </div>
-                  <Input
-                    placeholder="Pathname"
-                    pattern="[a-zA-Z0-9\-]+"
-                    maxLength={32}
-                    {...field}
-                    className="w-full text-right"
-                  />
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </Card>
+
+        <div className="font-bold">Bonding curve settings</div>
+        <Card className="p-4 space-y-4 mb-4">
+          <FormField
+            control={form.control}
+            name="curveType"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Curve type</FormLabel>
+                <FormControl>
+                  <ToggleGroup
+                    className="gap-3"
+                    value={field.value}
+                    onValueChange={(v) => {
+                      if (!v) return
+                      field.onChange(v)
+                    }}
+                    type="single"
+                  >
+                    <ToggleGroupItem
+                      value={CurveType.ClubMember}
+                      className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
+                    >
+                      Club member
+                    </ToggleGroupItem>
+
+                    <ToggleGroupItem
+                      className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
+                      value={CurveType.PublicationMember}
+                    >
+                      Publication Member
+                    </ToggleGroupItem>
+                    <ToggleGroupItem
+                      value={CurveType.GithubSponsor}
+                      className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
+                    >
+                      Github sponsor
+                    </ToggleGroupItem>
+                  </ToggleGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="basePrice"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Base price</FormLabel>
+                <FormControl>
+                  <div className="relative">
+                    <Input placeholder="0.0" {...field} className="w-full" />
+                    <div className="flex items-center justify-center absolute right-0 top-0 h-full px-3">
+                      USDC
+                    </div>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="inflectionPoint"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Inflection Point</FormLabel>
+                <FormControl>
+                  <FactorInput {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="inflectionPrice"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Inflection Price</FormLabel>
+                <FormControl>
+                  <FactorInput {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <CurveChart className="mt-4" curve={curve} />
+        </Card>
         <Button type="submit" className="w-full">
           {isLoading ? <LoadingDots color="#808080" /> : <p>Create Space</p>}
         </Button>

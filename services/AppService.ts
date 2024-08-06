@@ -18,7 +18,7 @@ export class AppService {
 
     if (!spaces.length) {
       store.set(appLoading, false)
-      return '/~/discover'
+      return '/~'
     }
 
     let spaceId =
@@ -51,7 +51,7 @@ export class AppService {
 
     localStorage.setItem(SELECTED_SPACE, spaceId)
     if (!postId) {
-      return '/~'
+      // return '/~'
     }
   }
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { CurveDialog } from '@/components/curve/CurveDialog'
 import { InitBuySellDialog } from '@/components/InitBuySellDialog'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
@@ -89,6 +90,7 @@ export function SpaceInfo({ space, isLoading }: Props) {
           </div>
         </div>
         <div className="flex gap-2">
+          <CurveDialog space={space} />
           <SellButton></SellButton>
           <BuyButton></BuyButton>
         </div>

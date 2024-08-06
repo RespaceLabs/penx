@@ -3,6 +3,7 @@ import { cookieStorage, createStorage } from 'wagmi'
 import {
   arbitrum,
   arbitrumSepolia,
+  baseSepolia,
   mainnet,
   optimism,
   optimismSepolia,
@@ -23,7 +24,8 @@ const metadata = {
 
 // Create wagmiConfig
 const chains = [
-  arbitrumSepolia,
+  // arbitrumSepolia,
+  baseSepolia,
   // mainnet,
   // optimism,
   // arbitrum,

@@ -45,8 +45,10 @@ export function SpacesSelect() {
   if (!space)
     return (
       <div
-        className="cursor-pointer flex gap-2 items-center h-12 px-3 hover:bg-sidebar border-b"
-        onClick={() => setIsOpen(true)}
+        className="cursor-pointer flex gap-2 items-center h-12 px-3 hover:bg-sidebar"
+        onClick={() => {
+          push('/~/create-space')
+        }}
       >
         <Plus size={24} className="inline-flex text-neutral-600" />
         <div className="text-base font-semibold">Create Space</div>
@@ -118,7 +120,8 @@ export function SpacesSelect() {
             key={space.id}
             className="cursor-pointer flex gap-2 items-center"
             onClick={() => {
-              setIsOpen(true)
+              // setIsOpen(true)
+              push('/~/create-space')
             }}
           >
             <Plus size={24} className="inline-flex" />
