@@ -18,7 +18,7 @@ export function SellButton({}: Props) {
   return (
     <Button
       variant="outline"
-      className="my-4 flex items-center gap-2 flex-1"
+      className="flex items-center gap-2 flex-1"
       onClick={() => {
         if (!isConnected) return open()
         setIsOpen(true)

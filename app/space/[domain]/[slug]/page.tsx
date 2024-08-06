@@ -18,7 +18,8 @@ import { PostTradeModal } from './PostTradeDialog/PostTradeDialog'
 import { PromotionCard } from './PromotionCard'
 import { SellPostButton } from './SellPostButton'
 
-export const dynamic = 'force-dynamic'
+// export const dynamic = 'force-dynamic'
+export const dynamic = 'force-static'
 
 export async function generateMetadata({
   params,

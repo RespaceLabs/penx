@@ -69,8 +69,6 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (path.startsWith('/@')) {
-    console.log('url.pathname==========>>>>', url.pathname)
-
     return NextResponse.rewrite(new URL(`/space${path}`, req.url), {
       headers: { 'x-current-url': path },
     })

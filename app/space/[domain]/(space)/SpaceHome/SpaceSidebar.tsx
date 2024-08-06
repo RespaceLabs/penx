@@ -1,5 +1,7 @@
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes, Suspense } from 'react'
 import { BuyDialog } from '@/components/BuyDialog/BuyDialog'
+import { CurveButton } from '@/components/curve/CurveButton'
+import { CurveDialog } from '@/components/curve/CurveDialog'
 import { InitBuySellDialog } from '@/components/InitBuySellDialog'
 import { SellDialog } from '@/components/SellDialog/SellDialog'
 import { Separator } from '@/components/ui/separator'
@@ -36,9 +38,12 @@ export function SpaceSidebar({ space, className }: Props) {
             {space.description}
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 my-4">
           <BuyButton></BuyButton>
           <SellButton></SellButton>
+          <Suspense fallback="">
+            <CurveDialog space={space} />
+          </Suspense>
         </div>
         <CurationCard space={space} />
 

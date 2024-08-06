@@ -6,9 +6,9 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
+import { Curve } from '../../../../components/curve/Curve'
 import { SpaceFooter } from '../../../../components/SpaceFooter'
 import { ActiveLinkBorder } from './ActiveLinkBorder'
-import { Curve } from './SpaceHome/Curve'
 import { SpaceNav } from './SpaceHome/SpaceNav'
 import { SpaceSidebar } from './SpaceHome/SpaceSidebar'
 
@@ -122,7 +122,6 @@ export default async function SpaceLayout({
             )}
           </div>
 
-          <Curve></Curve>
           <div className="pt-10">{children}</div>
         </div>
         <SpaceSidebar space={data} />
