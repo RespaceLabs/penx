@@ -4,6 +4,7 @@ import { postAtom } from '@/hooks/usePost'
 import { postsAtom } from '@/hooks/usePosts'
 import { spaceIdAtom } from '@/hooks/useSpaceId'
 import { spacesAtom } from '@/hooks/useSpaces'
+import { SELECTED_SPACE } from '@/lib/constants'
 import { api } from '@/lib/trpc'
 import { store } from '@/store'
 
@@ -20,11 +21,13 @@ export class AppService {
       return '/~/discover'
     }
 
-    let spaceId = store.get(spaceIdAtom)
+    let spaceId =
+      store.get(spaceIdAtom) || (localStorage.getItem(SELECTED_SPACE) as string)
+
     const space = spaces.find((s) => s.id === spaceId)
+
     if (!space && spaces.length > 0) {
       spaceId = spaces[0].id
-      store.set(spaceIdAtom, spaceId)
     }
 
     const [posts, channels] = await Promise.all([
@@ -41,11 +44,14 @@ export class AppService {
       post && store.set(postAtom, post)
     }
 
+    store.set(spaceIdAtom, spaceId)
     store.set(postsAtom, posts)
     store.set(channelsAtom, channels)
     store.set(appLoading, false)
+
+    localStorage.setItem(SELECTED_SPACE, spaceId)
     if (!postId) {
-      return '/~/discover'
+      return '/~'
     }
   }
 }

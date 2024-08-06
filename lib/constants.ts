@@ -15,3 +15,5 @@ export enum TradeSource {
 }
 
 export const INDIE_X_APP_ID = BigInt(1)
+
+export const SELECTED_SPACE = 'SELECTED_SPACE'

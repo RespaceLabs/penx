@@ -12,7 +12,9 @@ import { channelsAtom } from '@/hooks/useChannels'
 import { postsAtom } from '@/hooks/usePosts'
 import { useSpaceId } from '@/hooks/useSpaceId'
 import { useSpaces } from '@/hooks/useSpaces'
+import { SELECTED_SPACE } from '@/lib/constants'
 import { api } from '@/lib/trpc'
+import { cn } from '@/lib/utils'
 import { store } from '@/store'
 import { ChevronDown, Plus, Settings } from 'lucide-react'
 import { useSession } from 'next-auth/react'
@@ -28,6 +30,8 @@ export function SpacesSelect() {
 
   async function selectSpace(spaceId: string) {
     setSpaceId(spaceId)
+
+    localStorage.setItem(SELECTED_SPACE, spaceId)
 
     const [posts, channels] = await Promise.all([
       api.post.listBySpaceId.query(spaceId),
@@ -83,26 +87,29 @@ export function SpacesSelect() {
           alignOffset={10}
           className="w-[260px]"
         >
-          {spaces.map((space) => (
+          {spaces.map((item) => (
             <DropdownMenuItem
-              key={space.id}
-              className="cursor-pointer flex gap-2 items-center justify-between"
+              key={item.id}
+              className={cn(
+                'cursor-pointer flex gap-2 items-center justify-between',
+                item.id === space.id && 'bg-muted',
+              )}
               onClick={async () => {
-                await selectSpace(space.id)
+                await selectSpace(item.id)
               }}
             >
               <div className="flex items-center gap-2">
                 <Image
-                  src={space.logo!}
+                  src={item.logo!}
                   alt=""
                   width={24}
                   height={24}
                   className="w-6 h-6 rounded-full"
                 />
-                <div className="text-base font-semibold">{space.name}</div>
+                <div className="text-base font-semibold">{item.name}</div>
               </div>
               <Badge variant="secondary">
-                {session?.userId === space.userId ? 'Owner' : 'Member'}
+                {session?.userId === item.userId ? 'Owner' : 'Member'}
               </Badge>
             </DropdownMenuItem>
           ))}

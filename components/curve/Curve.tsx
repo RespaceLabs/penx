@@ -103,7 +103,7 @@ export function Curve({ className = '' }: Props) {
       <div className="h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            width={500}
+            // width={500}
             height={200}
             data={data}
             margin={{
