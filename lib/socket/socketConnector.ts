@@ -45,7 +45,6 @@ export class SocketConnector {
 
   constructor(token: string, channels: string[]) {
     const baseUrl = process.env.NEXT_PUBLIC_SOCKETURL!
-    console.log('%c=process.env.BLOB_READ_WRITE_TOKEN','color:red',baseUrl)
     this.socket = io(baseUrl, {
       auth: {
         token,
