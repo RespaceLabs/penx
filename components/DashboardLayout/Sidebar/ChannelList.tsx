@@ -46,10 +46,20 @@ export function ChannelList() {
   useEffect(() => {
     if (session?.userId && channels.length) {
       const channelsId = channels.map((item) => item.id)
-      if (!SocketConnector.getInstance()) {
+      const socketInstance = SocketConnector.getInstance();
+      if (!socketInstance) {
         new SocketConnector(token, channelsId)
+      } else {
+        socketInstance.joinChannels(channelsId)
       }
     }
+
+    return () => {
+      const socketInstance = SocketConnector.getInstance();
+      if (socketInstance) {
+        socketInstance.leaveChannels(channels.map((item) => item.id));
+      }
+    };
   }, [session, channels])
 
   return (

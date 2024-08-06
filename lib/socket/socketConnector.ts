@@ -30,10 +30,6 @@ interface IResult {
   data?: any
 }
 
-// const baseUrl = 'http://localhost:3808/'
-// const baseUrl = 'http://43.154.135.183:3808/'
-const baseUrl = 'https://ws-develop.penx.io'
-
 export class SocketConnector {
   private socket!: Socket
   private connectStatus = {
@@ -48,6 +44,8 @@ export class SocketConnector {
   }
 
   constructor(token: string, channels: string[]) {
+    const baseUrl = process.env.NEXT_PUBLIC_SOCKETURL!
+    console.log('%c=process.env.BLOB_READ_WRITE_TOKEN','color:red',baseUrl)
     this.socket = io(baseUrl, {
       auth: {
         token,
@@ -68,7 +66,7 @@ export class SocketConnector {
     })
 
     this.socket.on('disconnect', (reason) => {
-      // console.log('%c=WebSocket connection disconnected,reason:', 'color:cyan', reason)
+      console.log('%c=WebSocket connection disconnected,reason:', 'color:cyan', reason)
       this.connectStatus = { type: ConnectStatusType.disconnect, msg: reason }
     })
 
@@ -111,14 +109,17 @@ export class SocketConnector {
     })
   }
 
-  public joinChannels(channels: string[]): boolean {
+  public joinChannels(channels: string[]){
     this.socket.emit('join-channel', { channels }, (response: IResult) => {
+      // console.log('%c=joinChannels', 'color:cyan',response)
       if (response.code === FAIL) {
         initFailStoreById(response.data)
       }
     })
+  }
 
-    return true
+  public leaveChannels(channels: string[]){
+    this.socket.emit('leave-channel', { channels })
   }
 
   public getConnectionStatus(): ConnectStatus {
