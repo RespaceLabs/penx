@@ -1,4 +1,4 @@
-import { Curve } from '@/lib/types'
+import { Curve } from '@/services/CurveService'
 import Big from 'big.js'
 
 export function getSubTotal(

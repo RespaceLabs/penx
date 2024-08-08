@@ -75,7 +75,8 @@ export default async function RootLayout({
           cal.variable,
           inter.variable,
           fontSans.variable,
-          url === '/' && 'bg-zinc-100',
+          'bg-white',
+          // url === '/' && 'bg-zinc-100',
         )}
       >
         <ThemeProvider

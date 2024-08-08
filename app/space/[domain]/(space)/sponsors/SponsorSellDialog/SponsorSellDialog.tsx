@@ -47,7 +47,7 @@ export function SponsorSellDialog({ space }: Props) {
         <div className="bg-muted rounded-lg flex items-center justify-between p-4">
           <div>My keys</div>
           <div className="text-lg font-bold">
-            {precision.toDecimal(data!).toFixed(0)}
+            {typeof data !== 'undefined' && data!.toString()}
           </div>
         </div>
 

@@ -56,10 +56,3 @@ export interface DomainVerificationResponse {
     reason: string
   }[]
 }
-
-export type Curve = {
-  basePrice: number
-  inflectionPoint: number
-  inflectionPrice: number
-  linearPriceSlope: number
-}

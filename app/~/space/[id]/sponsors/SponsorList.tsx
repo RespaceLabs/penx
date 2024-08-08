@@ -21,7 +21,10 @@ import { useRouter } from 'next/navigation'
 
 export function SponsorList() {
   const { space } = useSpaces()
-  const { data = [], isLoading } = trpc.sponsor.listBySpaceId.useQuery(space.id)
+  const { data = [], isLoading } = trpc.sponsor.listBySpaceId.useQuery(
+    space?.id,
+    { enabled: !!space?.id },
+  )
 
   if (isLoading) {
     return (

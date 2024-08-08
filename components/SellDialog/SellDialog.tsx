@@ -35,7 +35,7 @@ export function SellDialog({ space, post }: Props) {
 
   const { isOpen, setIsOpen } = useSellDialog()
   const sell = useSellKey(space, post)
-  const { data } = useKeyBalance(creationId)
+  const { data, isLoading } = useKeyBalance(creationId)
   const { isPending, mutateAsync } = useMutation({
     mutationKey: ['sell'],
     mutationFn: async () => sell(creationId),
@@ -53,7 +53,7 @@ export function SellDialog({ space, post }: Props) {
         <div className="bg-muted rounded-lg flex items-center justify-between p-4">
           <div>My keys</div>
           <div className="text-lg font-bold">
-            {precision.toDecimal(data!).toFixed(0)}
+            {typeof data !== 'undefined' && data!.toString()}
           </div>
         </div>
 
@@ -64,9 +64,10 @@ export function SellDialog({ space, post }: Props) {
             You currently have no keys.
           </div>
         )}
+
         <Button
           size="lg"
-          disabled={precision.toDecimal(data!) < 1}
+          disabled={Number(data!) < 1}
           onClick={async () => {
             await mutateAsync()
             setIsOpen(false)
@@ -81,18 +82,15 @@ export function SellDialog({ space, post }: Props) {
 
 function KeyPrice({ creationId }: { creationId: bigint }) {
   const { data, isLoading } = useSellPrice(creationId)
-  const { ethPrice } = useEthPrice()
 
   if (isLoading || !data) return <div>-</div>
 
-  const keyPrice = precision.toDecimal(data.priceAfterFee)
-  const usdPrice = keyPrice * ethPrice!
+  const keyPrice = precision.toDecimal(data.priceAfterFee, 6).toFixed(2)
   return (
     <div className="bg-muted rounded-lg flex items-center justify-between p-4 bg-amber-100">
       <div>Sell price</div>
       <div className="text-lg font-bold flex items-center gap-1">
-        <div>{keyPrice.toFixed(4)} ETH</div>
-        <div className="text-sm font-light">(${usdPrice.toFixed(2)})</div>
+        <div>{keyPrice} USDC</div>
       </div>
     </div>
   )

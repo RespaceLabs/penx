@@ -8,6 +8,7 @@ import { precision } from '@/lib/math'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api } from '@/lib/trpc'
 import { wagmiConfig } from '@/lib/wagmi'
+import { CurveService } from '@/services/CurveService'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
 import { useWriteContract } from 'wagmi'
@@ -22,6 +23,8 @@ export function useEnableSponsor() {
     enable: async (spaceId: string) => {
       setLoading(true)
       try {
+        const curveService = new CurveService()
+        const sponsorCurve = curveService.getNumberFormat('PromotionSponsor')
         const hash = await writeContractAsync({
           address: addressMap.IndieX,
           abi: indieXAbi,
@@ -33,7 +36,7 @@ export function useEnableSponsor() {
               appId: BigInt(1),
               curatorFeePercent: precision.token(30, 16),
               isFarming: false,
-              curve: 0,
+              curve: sponsorCurve,
               farmer: 0,
               curveArgs: [],
             },

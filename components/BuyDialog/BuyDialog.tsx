@@ -15,6 +15,7 @@ import { useBuyPrice } from '@/hooks/useBuyPrice'
 import { useCreation } from '@/hooks/useCreation'
 import { useEthBalance, useQueryEthBalance } from '@/hooks/useEthBalance'
 import { useEthPrice } from '@/hooks/useEthPrice'
+import { useQueryUsdcBalance, useUsdcBalance } from '@/hooks/useUsdcBalance'
 import { precision } from '@/lib/math'
 import { RouterOutputs } from '@/server/_app'
 import { Post } from '@prisma/client'
@@ -33,7 +34,7 @@ export function BuyDialog({ space, post }: Props) {
   const creationId = BigInt(isPost ? post.creationId! : space.creationId!)
 
   const { isOpen, setIsOpen } = useBuyDialog()
-  useQueryEthBalance()
+  useQueryUsdcBalance()
 
   const buy = useBuyKey(space, post)
 
@@ -58,7 +59,7 @@ export function BuyDialog({ space, post }: Props) {
 
         <ProfileAvatar showAddress />
 
-        <EthBalance />
+        <USDCBalance />
         <KeyPrice creationId={creationId} />
 
         <Button
@@ -77,18 +78,15 @@ export function BuyDialog({ space, post }: Props) {
 
 function KeyPrice({ creationId }: { creationId: bigint }) {
   const { data, isLoading } = useBuyPrice(creationId)
-  const { ethPrice } = useEthPrice()
 
   if (isLoading || !data) return <div>-</div>
 
-  const keyPrice = precision.toDecimal(data.priceAfterFee)
-  const usdPrice = keyPrice * ethPrice!
+  const keyPrice = precision.toDecimal(data.priceAfterFee, 6).toFixed(2)
   return (
     <div className="bg-muted rounded-lg flex items-center justify-between p-4 bg-amber-100">
       <div>Buy price</div>
       <div className="text-lg font-bold flex items-center gap-1">
-        <div>{keyPrice.toFixed(4)} ETH</div>
-        <div className="text-sm font-light">(${usdPrice.toFixed(2)})</div>
+        <div>{keyPrice} USDC</div>
       </div>
     </div>
   )
@@ -103,6 +101,17 @@ function EthBalance() {
       <div className="text-2xl font-bold">
         {ethBalance.valueDecimal.toFixed(5)} ETH
       </div>
+    </div>
+  )
+}
+
+function USDCBalance() {
+  const { decimal } = useUsdcBalance()
+
+  return (
+    <div className="flex items-center gap-2">
+      <div>Balance:</div>
+      <div className="text-2xl font-bold">{decimal} USDC</div>
     </div>
   )
 }

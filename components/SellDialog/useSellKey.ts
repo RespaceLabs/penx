@@ -31,7 +31,7 @@ export function useSellKey(space: RouterOutputs['space']['byId'], post?: Post) {
   const holders = useHolders(isPost ? post?.id : '')
 
   return async (creationId: bigint) => {
-    const amount = precision.token(1)
+    const amount = 1
     try {
       const hash = await writeContractAsync({
         address: addressMap.IndieX,

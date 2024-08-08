@@ -7,6 +7,7 @@ import { useMembers } from '@/hooks/useMembers'
 import { refetchSpaces } from '@/hooks/useSpaces'
 import { useSupply } from '@/hooks/useSupply'
 import { indieXAbi } from '@/lib/abi'
+import { usdcAbi } from '@/lib/abi/indieX'
 import { addressMap } from '@/lib/address'
 import { INDIE_X_APP_ID } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
@@ -15,7 +16,11 @@ import { api } from '@/lib/trpc'
 import { wagmiConfig } from '@/lib/wagmi'
 import { RouterOutputs } from '@/server/_app'
 import { Post } from '@prisma/client'
-import { readContract, waitForTransactionReceipt } from '@wagmi/core'
+import {
+  readContract,
+  waitForTransactionReceipt,
+  writeContract,
+} from '@wagmi/core'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { isAddress, zeroAddress } from 'viem'
@@ -36,7 +41,7 @@ export function useBuyKey(space: RouterOutputs['space']['byId'], post?: Post) {
   const curator = searchParams.get('curator') as string
 
   return async (creationId: bigint) => {
-    const amount = precision.token(1)
+    const amount = 1
     try {
       const { priceAfterFee } = await readContract(wagmiConfig, {
         address: addressMap.IndieX,
@@ -44,6 +49,26 @@ export function useBuyKey(space: RouterOutputs['space']['byId'], post?: Post) {
         functionName: 'getBuyPriceAfterFee',
         args: [creationId, amount, INDIE_X_APP_ID],
       })
+
+      console.log('=======priceAfterFee:', priceAfterFee)
+
+      const allowance = await readContract(wagmiConfig, {
+        address: addressMap.USDC,
+        abi: usdcAbi,
+        functionName: 'allowance',
+        args: [address, addressMap.IndieX],
+      })
+
+      if (allowance < priceAfterFee) {
+        const approveHash = await writeContract(wagmiConfig, {
+          address: addressMap.USDC,
+          abi: usdcAbi,
+          functionName: 'approve',
+          args: [addressMap.IndieX, priceAfterFee],
+        })
+
+        await waitForTransactionReceipt(wagmiConfig, { hash: approveHash })
+      }
 
       const hash = await writeContractAsync({
         chain: arbitrumSepolia,
@@ -98,6 +123,7 @@ export function useBuyKey(space: RouterOutputs['space']['byId'], post?: Post) {
 
       toast.success('Buy Key successful!')
     } catch (error) {
+      console.log('=======>>>>error:', error)
       const msg = extractErrorMessage(error)
       toast.error(msg)
     } finally {

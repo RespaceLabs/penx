@@ -53,6 +53,6 @@ export class Creation {
   }
 
   get tvlFormatted() {
-    return precision.toDecimal(this.tvl).toFixed(4)
+    return precision.toDecimal(this.tvl, 6).toFixed(2)
   }
 }

@@ -6,7 +6,14 @@ import { ProfilePopover } from '@/components/Profile/ProfilePopover'
 import { Separator } from '@/components/ui/separator'
 import { useSpaces } from '@/hooks/useSpaces'
 import { cn } from '@/lib/utils'
-import { Coffee, Github, Home, Rocket, Shell } from 'lucide-react'
+import {
+  CircleDollarSign,
+  Coffee,
+  Github,
+  Home,
+  Rocket,
+  Shell,
+} from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -28,6 +35,12 @@ export function Sidebar() {
         href: '/~/discover',
         isActive: pathname === '/~/discover',
         icon: <Shell width={18} />,
+      },
+      {
+        name: 'USDC Faucet',
+        href: '/~/faucet',
+        isActive: pathname === '/~/faucet',
+        icon: <CircleDollarSign width={18} />,
       },
     ]
     if (spaces.length) {

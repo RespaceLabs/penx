@@ -10,6 +10,7 @@ import { precision } from '@/lib/math'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api } from '@/lib/trpc'
 import { wagmiConfig } from '@/lib/wagmi'
+import { CurveService } from '@/services/CurveService'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
 import { useWriteContract } from 'wagmi'
@@ -42,6 +43,7 @@ export function usePublishPost() {
           return
         }
 
+        const curveService = new CurveService()
         const hash = await writeContractAsync({
           address: addressMap.IndieX,
           abi: indieXAbi,
@@ -53,7 +55,7 @@ export function usePublishPost() {
               appId: BigInt(1),
               curatorFeePercent: precision.token(30, 16),
               isFarming: false,
-              curve: 0,
+              curve: curveService.getNumberFormat('Post'),
               farmer: 0,
               curveArgs: [],
             },

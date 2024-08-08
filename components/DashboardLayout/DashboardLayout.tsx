@@ -4,6 +4,7 @@ import { PropsWithChildren } from 'react'
 import { useAddress } from '@/hooks/useAddress'
 import { useQueryEthBalance } from '@/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/hooks/useEthPrice'
+import { useQueryUsdcBalance } from '@/hooks/useUsdcBalance'
 import { useAccount } from 'wagmi'
 import { CreateSpaceDialog } from '../CreateSpaceDialog/CreateSpaceDialog'
 import { Sidebar } from './Sidebar/Sidebar'
@@ -11,6 +12,7 @@ import { Sidebar } from './Sidebar/Sidebar'
 export function DashboardLayout({ children }: PropsWithChildren) {
   useQueryEthPrice()
   useQueryEthBalance()
+  useQueryUsdcBalance()
   useAddress()
 
   return (

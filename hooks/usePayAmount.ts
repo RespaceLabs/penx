@@ -21,7 +21,7 @@ export async function loadBuyPrice(
     address: addressMap.IndieX,
     abi: indieXAbi,
     functionName: 'getBuyPriceAfterFee',
-    args: [creation.id, precision.token(Number(amount)), creation.appId],
+    args: [creation.id, Number(amount), creation.appId],
   })
   return priceAfterFee
 }

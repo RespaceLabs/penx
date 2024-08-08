@@ -2,9 +2,8 @@
 
 import React, { memo, useEffect, useState } from 'react'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-import { precision } from '@/lib/math'
-import { Curve } from '@/lib/types'
 import { cn } from '@/lib/utils'
+import { Curve } from '@/services/CurveService'
 import {
   CartesianGrid,
   Legend,

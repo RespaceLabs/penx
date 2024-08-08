@@ -7,16 +7,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { useBuyPrice } from '@/hooks/useBuyPrice'
-import { useEthBalance, useQueryEthBalance } from '@/hooks/useEthBalance'
-import { useEthPrice } from '@/hooks/useEthPrice'
+import { useQueryUsdcBalance } from '@/hooks/useUsdcBalance'
 import { precision } from '@/lib/math'
 import { Space } from '@prisma/client'
-import { useMutation } from '@tanstack/react-query'
 import { EthBalance } from './EthBalance'
 import { useSponsorBuyDialog } from './hooks/useSponsorBuyDialog'
 import { KeyPrice } from './KeyPrice'
 import { SponsorBuyForm } from './SponsorBuyForm'
+import { UsdcBalance } from './UsdcBalance'
 
 interface Props {
   space: Space
@@ -25,7 +23,7 @@ interface Props {
 export function SponsorBuyDialog({ space }: Props) {
   const { isOpen, setIsOpen } = useSponsorBuyDialog()
   const creationId = BigInt(space.sponsorCreationId!)
-  useQueryEthBalance()
+  useQueryUsdcBalance()
 
   return (
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
@@ -40,7 +38,7 @@ export function SponsorBuyDialog({ space }: Props) {
 
         <ProfileAvatar showAddress />
 
-        <EthBalance />
+        <UsdcBalance />
         <KeyPrice creationId={creationId} />
         <SponsorBuyForm space={space} />
       </DialogContent>

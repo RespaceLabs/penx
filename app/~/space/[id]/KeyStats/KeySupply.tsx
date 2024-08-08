@@ -13,7 +13,7 @@ export function KeySupply({ creation }: Props) {
 
   return (
     <div>
-      <div>{precision.toDecimal(data!).toFixed(0)}</div>
+      <div>{data!.toString()}</div>
     </div>
   )
 }

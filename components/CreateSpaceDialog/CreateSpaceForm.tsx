@@ -19,13 +19,13 @@ import { spaceIdAtom } from '@/hooks/useSpaceId'
 import { spacesAtom, useSpaces } from '@/hooks/useSpaces'
 import { indieXAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
-import { Curves, CurveType, SELECTED_SPACE } from '@/lib/constants'
+import { SELECTED_SPACE } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api, trpc } from '@/lib/trpc'
-import { Curve } from '@/lib/types'
 import { wagmiConfig } from '@/lib/wagmi'
+import { Curve, CurveService, CurveTypes } from '@/services/CurveService'
 import { store } from '@/store'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
@@ -61,6 +61,8 @@ const FormSchema = z.object({
   linearPriceSlope: z.string(),
 })
 
+const curveService = new CurveService()
+
 export function CreateSpaceForm() {
   const address = useAddress()
   const [isLoading, setLoading] = useState(false)
@@ -70,16 +72,17 @@ export function CreateSpaceForm() {
   const { writeContractAsync } = useWriteContract()
   const [curve, setCurve] = useState<Curve>(defaultCurve)
 
+  const clubCurve = curveService.getStringFormat('ClubMember')
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: '',
       subdomain: '',
-      curveType: CurveType.ClubMember,
-      basePrice: Curves.ClubMember.basePrice.toString(),
-      inflectionPoint: Curves.ClubMember.inflectionPoint.toString(),
-      inflectionPrice: Curves.ClubMember.inflectionPrice.toString(),
-      linearPriceSlope: Curves.ClubMember.linearPriceSlope.toString(),
+      curveType: CurveTypes.ClubMember,
+      basePrice: clubCurve.basePrice,
+      inflectionPoint: clubCurve.inflectionPoint,
+      inflectionPrice: clubCurve.inflectionPoint,
+      linearPriceSlope: clubCurve.linearPriceSlope,
     },
   })
 
@@ -113,18 +116,20 @@ export function CreateSpaceForm() {
   }, [name, form])
 
   useEffect(() => {
-    const { PublicationMember, ClubMember, GithubSponsor } = Curves
-    if (curveType === CurveType.PublicationMember) {
+    const PublicationMember = curveService.getStringFormat('PublicationMember')
+    const ClubMember = curveService.getStringFormat('ClubMember')
+    const GithubSponsor = curveService.getStringFormat('GithubSponsor')
+    if (curveType === CurveTypes.PublicationMember) {
       form.setValue('basePrice', PublicationMember.basePrice)
       form.setValue('inflectionPoint', PublicationMember.inflectionPoint)
       form.setValue('inflectionPrice', PublicationMember.inflectionPrice)
     }
-    if (curveType === CurveType.ClubMember) {
+    if (curveType === CurveTypes.ClubMember) {
       form.setValue('basePrice', ClubMember.basePrice)
       form.setValue('inflectionPoint', ClubMember.inflectionPoint)
       form.setValue('inflectionPrice', ClubMember.inflectionPrice)
     }
-    if (curveType === CurveType.GithubSponsor) {
+    if (curveType === CurveTypes.GithubSponsor) {
       form.setValue('basePrice', GithubSponsor.basePrice)
       form.setValue('inflectionPoint', GithubSponsor.inflectionPoint)
       form.setValue('inflectionPrice', GithubSponsor.inflectionPrice)
@@ -146,9 +151,9 @@ export function CreateSpaceForm() {
             curatorFeePercent: precision.token(30, 16),
             isFarming: false,
             curve: {
-              basePrice: BigInt(data.basePrice),
+              basePrice: precision.token(data.basePrice, 6),
               inflectionPoint: Number(data.inflectionPoint),
-              inflectionPrice: BigInt(data.inflectionPrice),
+              inflectionPrice: precision.token(data.inflectionPrice, 6),
               linearPriceSlope: BigInt(0),
             },
             farmer: 0,
@@ -259,7 +264,7 @@ export function CreateSpaceForm() {
                     type="single"
                   >
                     <ToggleGroupItem
-                      value={CurveType.ClubMember}
+                      value={CurveTypes.ClubMember}
                       className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
                     >
                       Club member
@@ -267,12 +272,12 @@ export function CreateSpaceForm() {
 
                     <ToggleGroupItem
                       className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
-                      value={CurveType.PublicationMember}
+                      value={CurveTypes.PublicationMember}
                     >
                       Publication Member
                     </ToggleGroupItem>
                     <ToggleGroupItem
-                      value={CurveType.GithubSponsor}
+                      value={CurveTypes.GithubSponsor}
                       className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
                     >
                       Github sponsor

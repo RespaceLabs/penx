@@ -35,7 +35,7 @@ export function useSponsorBuyKey(space: RouterOutputs['space']['byId']) {
   const { writeContractAsync } = useWriteContract()
 
   return async (creationId: bigint, data: Data) => {
-    const amount = precision.token(1)
+    const amount = 1
     try {
       const { priceAfterFee } = await readContract(wagmiConfig, {
         address: addressMap.IndieX,

@@ -9,14 +9,15 @@ export default function Page() {
   const { space, spaces } = useSpaces()
   useEffect(() => {
     console.log('======space:', space)
-    if (!spaces) {
+    if (!spaces.length) {
       push('/~/discover')
       return
     }
+
     if (space) {
       push(`/~/space/${space.id}`)
     }
-  }, [space, push])
+  }, [space, push, spaces])
   return <div></div>
   // return <div>Dashboard</div>
 }
