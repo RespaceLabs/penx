@@ -5,6 +5,7 @@ import { InitBuySellDialog } from '@/components/InitBuySellDialog'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { Space } from '@prisma/client'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -89,14 +90,14 @@ export function SpaceInfo({ space, isLoading }: Props) {
             </div>
           </div>
         </div>
-        {/* <div className="flex gap-2">
+        <div className="flex gap-2">
           <CurveDialog space={space} />
           <SellButton></SellButton>
           <BuyButton></BuyButton>
-        </div> */}
-        {/* <InitBuySellDialog space={space} /> */}
+        </div>
+        <InitBuySellDialog space={space} creationId={space.creationId!} />
       </div>
-      {/* <KeyStats space={space} /> */}
+      <KeyStats space={space} />
       <div className="border-b">
         <Link href={Paths.posts} className={linkClassName(Paths.posts)}>
           Posts

@@ -11,11 +11,12 @@ import { store } from '@/store'
 import { FileText, Hash } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useParams, useRouter } from 'next/navigation'
+import { ChannelListHeader } from './ChannelListHeader'
 
 interface ChanelItemProps {
   channel: Channel
 }
-export function ChannelItem({ channel }: ChanelItemProps) {
+function ChannelItem({ channel }: ChanelItemProps) {
   const { push } = useRouter()
   const params = useParams()
   const isActive = params.id === channel.id
@@ -23,7 +24,7 @@ export function ChannelItem({ channel }: ChanelItemProps) {
   return (
     <div
       className={cn(
-        'flex items-center gap-2 hover:bg-sidebar py-[6px] px-2 rounded cursor-pointer -mx-2',
+        'flex items-center gap-2 hover:bg-sidebar py-[6px] px-2 rounded cursor-pointer',
         isActive && 'bg-sidebar',
       )}
       onClick={async () => {
@@ -31,7 +32,7 @@ export function ChannelItem({ channel }: ChanelItemProps) {
       }}
     >
       <div className="inline-flex text-zinc-600">
-        <Hash size={20} />
+        <Hash size={16} />
       </div>
       <div className="text-sm">{channel.name}</div>
     </div>
@@ -46,7 +47,7 @@ export function ChannelList() {
   useEffect(() => {
     if (session?.userId && channels.length) {
       const channelsId = channels.map((item) => item.id)
-      const socketInstance = SocketConnector.getInstance();
+      const socketInstance = SocketConnector.getInstance()
       if (!socketInstance) {
         new SocketConnector(token, channelsId)
       } else {
@@ -55,18 +56,21 @@ export function ChannelList() {
     }
 
     return () => {
-      const socketInstance = SocketConnector.getInstance();
+      const socketInstance = SocketConnector.getInstance()
       if (socketInstance) {
-        socketInstance.leaveChannels(channels.map((item) => item.id));
+        socketInstance.leaveChannels(channels.map((item) => item.id))
       }
-    };
+    }
   }, [session, channels])
 
   return (
-    <div className="flex flex-col justify-center gap-[1px]">
-      {channels.map((item) => (
-        <ChannelItem key={item.id} channel={item} />
-      ))}
+    <div className="flex flex-col gap-[1px] w-[240px] sticky top-0 h-screen px-2">
+      <ChannelListHeader />
+      <div className="grid gap-1">
+        {channels.map((item) => (
+          <ChannelItem key={item.id} channel={item} />
+        ))}
+      </div>
     </div>
   )
 }

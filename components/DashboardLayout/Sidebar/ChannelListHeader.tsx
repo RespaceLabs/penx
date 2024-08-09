@@ -6,8 +6,8 @@ export function ChannelListHeader() {
   const { space } = useSpaces()
   const { data } = useSession()
   return (
-    <div className="flex justify-between items-center gap-2 mt-4">
-      <div className="text-sm text-neutral-500">Channels</div>
+    <div className="flex justify-between items-center gap-2 py-2">
+      <div className="text-neutral-900 font-bold">Chat</div>
       {space.userId === data?.userId && <CreateChannelDialog />}
     </div>
   )

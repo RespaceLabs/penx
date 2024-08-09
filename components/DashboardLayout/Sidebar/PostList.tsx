@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import { store } from '@/store'
 import { FileText } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
+import { PostListHeader } from './PostListHeader'
 
 interface PostItemProps {
   post: Post
@@ -44,10 +45,13 @@ export function PostItem({ post }: PostItemProps) {
 export function PostList() {
   const { posts } = usePosts()
   return (
-    <div className="flex flex-col justify-center gap-[1px]">
-      {posts.map((post) => (
-        <PostItem key={post.id} post={post} />
-      ))}
+    <div className="flex flex-col gap-[1px] w-[240px] sticky top-0 h-screen px-2">
+      <PostListHeader />
+      <div className="grid gap-1">
+        {posts.map((post) => (
+          <PostItem key={post.id} post={post} />
+        ))}
+      </div>
     </div>
   )
 }

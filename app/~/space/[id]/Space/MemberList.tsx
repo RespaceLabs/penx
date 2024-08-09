@@ -10,7 +10,13 @@ interface Props {
 }
 
 export function MemberList({ space }: Props) {
-  const { members } = useMembers(space.id)
+  const { members, isLoading } = useMembers(space.id)
+
+  if (isLoading) return null
+
+  if (!members?.length) {
+    return <div className="text-neutral-500">No members yet!</div>
+  }
 
   return (
     <div className="space-y-3 mt-4">

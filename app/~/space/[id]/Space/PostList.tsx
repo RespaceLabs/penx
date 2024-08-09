@@ -16,6 +16,7 @@ export function PostList({ space }: Props) {
   )
 
   if (isLoading) return null
+
   if (!posts?.length) {
     return <div className="text-neutral-500">No posts yet!</div>
   }

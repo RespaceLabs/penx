@@ -137,7 +137,11 @@ export default async function SpacePostPage({
 
   return (
     <div className="pb-20">
-      {/* <InitBuySellDialog space={post.space} post={post} /> */}
+      <InitBuySellDialog
+        space={post.space}
+        post={post}
+        creationId={post.space.creationId!}
+      />
       <div className="flex flex-col mx-auto w-[720px]">
         <div className="">
           <h1 className="mb-10 font-title text-3xl font-bold text-stone-800 dark:text-white md:text-6xl">

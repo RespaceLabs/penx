@@ -70,6 +70,7 @@
     "next-mdx-remote": "^4.4.1",
     "next-themes": "^0.3.0",
     "nextjs-cors": "^2.2.0",
+    "nextjs-progressbar": "^0.0.16",
     "novel": "^0.4.3",
     "openai-edge": "^1.2.2",
     "pnpm": "^9.5.0",

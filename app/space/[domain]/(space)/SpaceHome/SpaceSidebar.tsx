@@ -22,7 +22,7 @@ interface Props extends HTMLAttributes<any> {
 export function SpaceSidebar({ space, className }: Props) {
   return (
     <>
-      {/* <InitBuySellDialog space={space} /> */}
+      <InitBuySellDialog space={space} creationId={space.creationId!} />
 
       <div className={cn('w-[360px] max-h-[100vh] pl-10 mt-10', className)}>
         <div className="flex flex-col gap-2">

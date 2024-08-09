@@ -23,7 +23,7 @@ export default function Page() {
             </Button>
             <div className="font-semibold">Create Space</div>
           </div>
-          <div className="h-[80vh] w-[500px] flex-col flex justify-center">
+          <div className="w-[500px] flex-col flex justify-center">
             <CreateSpaceForm />
           </div>
         </div>

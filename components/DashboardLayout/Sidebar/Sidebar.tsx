@@ -3,37 +3,38 @@
 import { useMemo } from 'react'
 import { ProfileDialog } from '@/components/Profile/ProfileDialog/ProfileDialog'
 import { ProfilePopover } from '@/components/Profile/ProfilePopover'
-import { Separator } from '@/components/ui/separator'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { useChannels } from '@/hooks/useChannels'
+import { usePosts } from '@/hooks/usePosts'
 import { useSpaces } from '@/hooks/useSpaces'
 import { cn } from '@/lib/utils'
 import {
   CircleDollarSign,
   Coffee,
+  FeatherIcon,
   Github,
   Home,
   MessageCircleMore,
   Rocket,
+  Settings,
   Shell,
 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ChannelList } from './ChannelList'
-import { ChannelListHeader } from './ChannelListHeader'
-import { PostList } from './PostList'
-import { PostListHeader } from './PostListHeader'
 import { SpacesSelect } from './SpacesSelect'
 
 export function Sidebar() {
   const pathname = usePathname()
   const { space, spaces } = useSpaces()
   const { data: session } = useSession()
+  const { channels } = useChannels()
+  const { posts } = usePosts()
 
   const tabs = useMemo(() => {
     const list = [
@@ -48,7 +49,7 @@ export function Sidebar() {
       list.unshift({
         name: 'Home',
         href: `/~`,
-        isActive: pathname === `/~`,
+        isActive: pathname === `/~/space/${space?.id}`,
         icon: <Home width={18} />,
       })
 
@@ -60,14 +61,22 @@ export function Sidebar() {
           icon: <Coffee width={18} />,
         })
       }
-    }
 
-    list.push({
-      name: 'Chat',
-      href: '/~/chat',
-      isActive: pathname === '/~/chat',
-      icon: <MessageCircleMore width={18} />,
-    })
+      list.push({
+        name: 'Chat',
+        href: `/~/channel/${channels?.[0]?.id}`,
+        isActive: pathname.startsWith('/~/channel/'),
+        icon: <MessageCircleMore width={18} />,
+      })
+
+      list.push({
+        name: 'Posts',
+        href: posts.length ? `/~/post/${posts[0].id}` : '/~/create-post',
+        isActive:
+          pathname.startsWith('/~/post/') || pathname === '/~/create-post',
+        icon: <FeatherIcon width={18} />,
+      })
+    }
 
     list.push({
       name: 'USDC Faucet',
@@ -77,7 +86,7 @@ export function Sidebar() {
     })
 
     return list
-  }, [pathname, space, session?.userId, spaces.length])
+  }, [pathname, space, session?.userId, spaces.length, channels, posts])
 
   const externalLinks = [
     {
@@ -105,43 +114,70 @@ export function Sidebar() {
                   key={name}
                   href={href}
                   className={cn(
-                    'flex items-center justify-center hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
+                    'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
                     isActive && 'bg-sidebar',
                   )}
                 >
-                  {icon}
+                  <TooltipProvider delayDuration={10}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-center justify-center h-full w-full">
+                          {icon}
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">{name}</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </Link>
               ))}
             </div>
-            {space && (
-              <>
-                <PostListHeader />
-                {/* <PostList /> */}
-                {/* <ChannelListHeader /> */}
-                {/* <ChannelList /> */}
-              </>
-            )}
           </div>
-          <div>
-            <div className="grid gap-1 items-center justify-center">
-              {externalLinks.map(({ name, href, icon }) => (
-                <a
-                  key={name}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer"
-                >
-                  {icon}
-                  {/* <span className="text-sm font-medium">{name}</span> */}
-                </a>
-              ))}
-            </div>
 
-            <Separator orientation="horizontal" className="my-1" />
+          <div className="grid gap-1 items-center justify-center pb-2">
+            {session?.userId === space?.userId && (
+              <Link
+                href="/~/settings"
+                className={cn(
+                  'flex items-center justify-center hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
+                  pathname === '/~/settings' && 'bg-sidebar',
+                )}
+              >
+                <TooltipProvider delayDuration={10}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center justify-center h-full w-full">
+                        <Settings width={18} />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">Space settings</TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </Link>
+            )}
+
+            {externalLinks.map(({ name, href, icon }) => (
+              <a
+                key={name}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer"
+              >
+                <TooltipProvider delayDuration={10}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center justify-center h-full w-full">
+                        {icon}
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">{name}</TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </a>
+            ))}
 
             <ProfileDialog />
-            <ProfilePopover showAddress showEnsName />
+            <ProfilePopover />
           </div>
         </div>
       </div>

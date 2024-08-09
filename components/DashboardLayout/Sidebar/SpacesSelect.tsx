@@ -2,12 +2,19 @@
 
 import { useCreateSpaceDialog } from '@/components/CreateSpaceDialog/useCreateSpaceDialog'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { channelsAtom } from '@/hooks/useChannels'
 import { postsAtom } from '@/hooks/usePosts'
 import { useSpaceId } from '@/hooks/useSpaceId'
@@ -16,7 +23,7 @@ import { SELECTED_SPACE } from '@/lib/constants'
 import { api } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import { store } from '@/store'
-import { ChevronDown, Plus, Settings } from 'lucide-react'
+import { ChevronDown, Plus } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -44,29 +51,30 @@ export function SpacesSelect() {
 
   if (!space)
     return (
-      <div
-        className="cursor-pointer flex gap-2 items-center h-12 px-3 hover:bg-sidebar"
-        onClick={() => {
-          push('/~/create-space')
-        }}
-      >
-        <Plus size={24} className="inline-flex text-neutral-600" />
-        <div className="text-base font-semibold">Create Space</div>
+      <div className="h-[50px] w-full flex items-center justify-center">
+        <Button
+          size="icon"
+          className="rounded-full"
+          onClick={() => {
+            push(`/~/create-space`)
+          }}
+        >
+          <TooltipProvider delayDuration={10}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="flex items-center justify-center h-full w-full">
+                  <Plus size={20} className="inline-flex" />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="right">Create Space</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </Button>
       </div>
     )
 
   return (
     <div className="relative">
-      {/* {session?.userId === space.userId && (
-        <div
-          className="w-8 h-8 hover:bg-sidebar flex items-center justify-center absolute right-2 top-2 rounded-md cursor-pointer"
-          onClick={() => {
-            push('/~/settings')
-          }}
-        >
-          <Settings width={18} />
-        </div>
-      )} */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div className="flex items-center justify-between px-4 hover:bg-sidebar/50 cursor-pointer font-semibold h-12">
@@ -121,7 +129,7 @@ export function SpacesSelect() {
             className="cursor-pointer flex gap-2 items-center"
             onClick={() => {
               // setIsOpen(true)
-              push('/~/create-space')
+              push(`/~/create-space`)
             }}
           >
             <Plus size={24} className="inline-flex" />
