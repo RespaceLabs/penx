@@ -89,14 +89,14 @@ export function SpaceInfo({ space, isLoading }: Props) {
             </div>
           </div>
         </div>
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <CurveDialog space={space} />
           <SellButton></SellButton>
           <BuyButton></BuyButton>
-        </div>
-        <InitBuySellDialog space={space} creationId={space.creationId!} />
+        </div> */}
+        {/* <InitBuySellDialog space={space} /> */}
       </div>
-      <KeyStats space={space} />
+      {/* <KeyStats space={space} /> */}
       <div className="border-b">
         <Link href={Paths.posts} className={linkClassName(Paths.posts)}>
           Posts

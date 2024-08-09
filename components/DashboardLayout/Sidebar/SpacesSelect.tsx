@@ -57,7 +57,7 @@ export function SpacesSelect() {
 
   return (
     <div className="relative">
-      {session?.userId === space.userId && (
+      {/* {session?.userId === space.userId && (
         <div
           className="w-8 h-8 hover:bg-sidebar flex items-center justify-center absolute right-2 top-2 rounded-md cursor-pointer"
           onClick={() => {
@@ -66,7 +66,7 @@ export function SpacesSelect() {
         >
           <Settings width={18} />
         </div>
-      )}
+      )} */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div className="flex items-center justify-between px-4 hover:bg-sidebar/50 cursor-pointer font-semibold h-12">
@@ -79,7 +79,7 @@ export function SpacesSelect() {
                 className="w-6 h-6 rounded-full"
               />
 
-              <div>{space.name}</div>
+              {/* <div>{space.name}</div> */}
               <ChevronDown size={16} className="text-neutral-600" />
             </div>
           </div>

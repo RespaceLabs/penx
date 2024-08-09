@@ -6,7 +6,7 @@ import { useSpaces } from '@/hooks/useSpaces'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api, trpc } from '@/lib/trpc'
 import { store } from '@/store'
-import { PencilLine } from 'lucide-react'
+import { Feather, PencilLine } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -16,8 +16,9 @@ export function CreatePostButton() {
   const { isPending, mutateAsync } = trpc.post.create.useMutation()
   return (
     <Button
-      size="xs"
-      className="rounded-full w-[64px]"
+      size="icon"
+      variant="default"
+      className="rounded-full h-9 w-9"
       onClick={async () => {
         try {
           const post = await mutateAsync({ spaceId: space.id })
@@ -37,8 +38,7 @@ export function CreatePostButton() {
         <LoadingDots color="white" />
       ) : (
         <div className="flex gap-1">
-          <PencilLine size={14}></PencilLine>
-          <div className="text-xs">Write</div>
+          <Feather size={14}></Feather>
         </div>
       )}
     </Button>

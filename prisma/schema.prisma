@@ -11,79 +11,106 @@ generator client {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  address       String    @unique
+  id            String       @id @default(uuid())
+  address       String       @unique
   name          String?
   ensName       String?
-  email         String?   @unique
+  email         String?      @unique
   emailVerified DateTime?
   image         String?
   bio           String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
   spaces        Space[]
   posts         Post[]
   members       Member[]
   trades        Trade[]
   holders       Holder[]
   sponsors      Sponsor[]
-  sentMessages  Message[] @relation("SentMessages")
+  sentMessages  Message[]    @relation("SentMessages")
+  memberships   Membership[]
+  comments      Comment[]
+  lists         List[]
 
   @@index([id])
   @@index([address])
 }
 
 model Space {
-  id                String    @id @default(cuid())
-  name              String
-  description       String    @default("") @db.Text
-  logo              String?   @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png") @db.Text
-  font              String    @default("font-cal")
-  image             String?   @default("") @db.Text
-  imageBlurhash     String?   @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC") @db.Text
-  subdomain         String?   @unique
-  customDomain      String?   @unique
-  memberCount       Int       @default(0)
-  sponsorCount      Int       @default(0)
-  postCount         Int       @default(0)
-  message404        String?   @default("Blimey! You've found a page that doesn't exist.") @db.Text
-  creationId        String?   @unique // creationId on chain
-  sponsorCreationId String?   @unique // sponsor creationId on chain
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId            String
-  posts             Post[]
-  channels          Channel[]
-  members           Member[]
-  trades            Trade[]
-  holders           Holder[]
-  sponsors          Sponsor[]
+  id            String       @id @default(uuid())
+  name          String
+  description   String       @default("") @db.Text
+  logo          String?      @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png") @db.Text
+  font          String       @default("font-cal")
+  image         String?      @default("") @db.Text
+  imageBlurhash String?      @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC") @db.Text
+  subdomain     String?      @unique
+  customDomain  String?      @unique
+  memberCount   Int          @default(0)
+  sponsorCount  Int          @default(0)
+  postCount     Int          @default(0)
+  message404    String?      @default("Blimey! You've found a page that doesn't exist.") @db.Text
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId        String
+  posts         Post[]
+  channels      Channel[]
+  members       Member[]
+  trades        Trade[]
+  holders       Holder[]
+  sponsors      Sponsor[]
+  memberships   Membership[]
 
   @@index([userId])
   @@index([name])
 }
 
+model Membership {
+  id          String   @id @default(uuid())
+  name        String   @default("")
+  description String   @default("") @db.Text
+  benefits    String   @default("") @db.Text
+  image       String?
+  creationId  String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  space       Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  spaceId     String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId      String
+  members     Member[]
+
+  @@unique([userId, spaceId])
+  @@index([spaceId])
+  @@index([userId])
+}
+
 model Post {
-  id            String   @id @default(cuid())
-  title         String   @default("") @db.Text
-  description   String   @default("") @db.Text
-  content       String   @default("") @db.Text
-  slug          String   @default(cuid())
-  gateType      String   @default("")
-  image         String?  @default("") @db.Text
-  imageBlurhash String?  @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC") @db.Text
-  published     Boolean  @default(false)
-  creationId    String?  @unique // creationId on chain
-  holderCount   Int      @default(0)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  space         Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id            String     @id @default(uuid())
+  title         String     @default("") @db.Text
+  description   String     @default("") @db.Text
+  content       String     @default("") @db.Text
+  slug          String     @default(uuid())
+  type          String     @default("")
+  gateType      String     @default("")
+  image         String?    @default("") @db.Text
+  imageBlurhash String?    @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC") @db.Text
+  published     Boolean    @default(false)
+  creationId    String?    @unique // creationId on chain
+  holderCount   Int        @default(0)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  space         Space      @relation(fields: [spaceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   spaceId       String
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId        String
   holders       Holder[]
   trades        Trade[]
+  comments      Comment[]
+  list          List?      @relation(fields: [listId], references: [id])
+  listId        String?
+  listPost      ListPost[]
 
   @@unique([slug, spaceId])
   @@index([spaceId])
@@ -91,7 +118,7 @@ model Post {
 }
 
 model Member {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   amount    String   @default("0")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -100,14 +127,32 @@ model Member {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId    String
 
+  membership   Membership @relation(fields: [membershipId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  membershipId String
+
   @@unique([userId, spaceId])
   @@index([spaceId])
   @@index([userId])
 }
 
+model Comment {
+  id        String   @id @default(uuid())
+  content   String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  postId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId    String
+
+  @@unique([userId, postId])
+  @@index([postId])
+  @@index([userId])
+}
+
 // Post key holder
 model Holder {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   amount    String   @default("0")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -115,7 +160,7 @@ model Holder {
   postId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId    String
-  Space     Space?   @relation(fields: [spaceId], references: [id])
+  space     Space?   @relation(fields: [spaceId], references: [id])
   spaceId   String?
 
   @@unique([userId, postId])
@@ -146,7 +191,7 @@ model Sponsor {
 }
 
 model Trade {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   amount    String   @default("0")
   eth       String   @default("0")
   source    String   @default("")
@@ -165,7 +210,7 @@ model Trade {
 }
 
 model Channel {
-  id          String    @id @default(cuid())
+  id          String    @id @default(uuid())
   name        String
   description String    @default("") @db.Text
   type        String    @default("")
@@ -178,18 +223,8 @@ model Channel {
   @@index([spaceId])
 }
 
-model ChannelMember {
-  channelId String
-  userId    String
-  joinTime  DateTime @default(now())
-  // owner | admin | member
-  role      String
-
-  @@id([channelId, userId])
-}
-
 model Message {
-  id                   String   @id @default(cuid())
+  id                   String   @id @default(uuid())
   // Sended = 1 Others sent successfully;SendFail = 2;Sending = 3;Undo = 4;AtAll = 5@All people;
   // SelfSend = 6 Send successfully; PeerRead = 7 The other party has read;
   // Reject = 8 // Backstage rejection (such as sensitive words, etc.)
@@ -208,4 +243,36 @@ model Message {
 
   @@index([channelId])
   @@index([fromId])
+}
+
+model List {
+  id          String     @id @default(uuid())
+  name        String
+  description String     @default("") @db.Text
+  logo        String     @default("") @db.Text
+  postCount   Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId      String
+  posts       Post[]
+  listPosts   ListPost[]
+
+  @@index([userId])
+  @@index([name])
+}
+
+model ListPost {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  list   List   @relation(fields: [listId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  listId String
+
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  postId String
+
+  @@index([listId])
+  @@index([postId])
 }

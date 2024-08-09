@@ -4,6 +4,12 @@ import { useMemo } from 'react'
 import { ProfileDialog } from '@/components/Profile/ProfileDialog/ProfileDialog'
 import { ProfilePopover } from '@/components/Profile/ProfilePopover'
 import { Separator } from '@/components/ui/separator'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { useSpaces } from '@/hooks/useSpaces'
 import { cn } from '@/lib/utils'
 import {
@@ -11,6 +17,7 @@ import {
   Coffee,
   Github,
   Home,
+  MessageCircleMore,
   Rocket,
   Shell,
 } from 'lucide-react'
@@ -36,12 +43,6 @@ export function Sidebar() {
         isActive: pathname === '/~/discover',
         icon: <Shell width={18} />,
       },
-      {
-        name: 'USDC Faucet',
-        href: '/~/faucet',
-        isActive: pathname === '/~/faucet',
-        icon: <CircleDollarSign width={18} />,
-      },
     ]
     if (spaces.length) {
       list.unshift({
@@ -61,8 +62,22 @@ export function Sidebar() {
       }
     }
 
+    list.push({
+      name: 'Chat',
+      href: '/~/chat',
+      isActive: pathname === '/~/chat',
+      icon: <MessageCircleMore width={18} />,
+    })
+
+    list.push({
+      name: 'USDC Faucet',
+      href: '/~/faucet',
+      isActive: pathname === '/~/faucet',
+      icon: <CircleDollarSign width={18} />,
+    })
+
     return list
-  }, [pathname, space])
+  }, [pathname, space, session?.userId, spaces.length])
 
   const externalLinks = [
     {
@@ -79,50 +94,46 @@ export function Sidebar() {
   ]
 
   return (
-    <div className="sticky top-0 md:block hidden h-screen md:w-[280px] xl:w-[280px] flex-shrink-0">
+    <div className="sticky top-0 md:block hidden h-screen md:w-[50px] xl:w-[50px] flex-shrink-0">
       <div className="flex flex-col justify-between min-h-screen">
         <SpacesSelect />
-        <div className="p-5 flex flex-col flex-1">
+        <div className="flex flex-col flex-1">
           <div className="flex flex-col gap-2 flex-1">
-            <div className="grid gap-1">
+            <div className="grid gap-1 items-center justify-center">
               {tabs.map(({ name, href, isActive, icon }) => (
                 <Link
                   key={name}
                   href={href}
                   className={cn(
-                    'flex items-center gap-2 hover:bg-sidebar py-[6px] px-2 rounded cursor-pointer -mx-2',
+                    'flex items-center justify-center hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
                     isActive && 'bg-sidebar',
                   )}
                 >
                   {icon}
-                  <span className="text-sm font-medium">{name}</span>
                 </Link>
               ))}
             </div>
             {space && (
               <>
                 <PostListHeader />
-                <PostList />
-                <ChannelListHeader />
-                <ChannelList />
+                {/* <PostList /> */}
+                {/* <ChannelListHeader /> */}
+                {/* <ChannelList /> */}
               </>
             )}
           </div>
           <div>
-            <div className="grid gap-1">
+            <div className="grid gap-1 items-center justify-center">
               {externalLinks.map(({ name, href, icon }) => (
                 <a
                   key={name}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800"
+                  className="flex items-center justify-center hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer"
                 >
-                  <div className="flex items-center space-x-3">
-                    {icon}
-                    <span className="text-sm font-medium">{name}</span>
-                  </div>
-                  <p>↗</p>
+                  {icon}
+                  {/* <span className="text-sm font-medium">{name}</span> */}
                 </a>
               ))}
             </div>
