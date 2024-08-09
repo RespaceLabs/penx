@@ -30,11 +30,7 @@ export function MemberList({ space }: Props) {
             <div>{member.user.address}</div>
           </div>
           <div>
-            has{' '}
-            <span className="font-bold">
-              {precision.toDecimal(BigInt(member.amount))}
-            </span>{' '}
-            Keys
+            has <span className="font-bold">{member.amount}</span> Keys
           </div>
         </div>
       ))}

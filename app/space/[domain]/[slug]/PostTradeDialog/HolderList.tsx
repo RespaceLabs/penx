@@ -45,10 +45,7 @@ export function HolderList({ space, post }: Props) {
             <div>{item.user.ensName || shortenAddress(item.user.address)}</div>
           </div>
           <div>
-            <span className="font-bold">
-              {precision.toDecimal(BigInt(item.amount))}
-            </span>{' '}
-            Keys
+            <span className="font-bold">{item.amount}</span> Keys
           </div>
         </div>
       ))}

@@ -74,9 +74,7 @@ export function SponsorList() {
                 )}
               </div>
             </TableCell>
-            <TableCell>
-              {precision.toDecimal(BigInt(item.amount))} keys
-            </TableCell>
+            <TableCell>{item.amount}</TableCell>
             <TableCell className="font-medium text-right">
               <Badge
                 className={cn(

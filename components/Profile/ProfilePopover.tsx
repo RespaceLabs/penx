@@ -63,7 +63,6 @@ export function ProfilePopover({
 }: Props) {
   const { push } = useRouter()
   const { setIsOpen } = useProfileDialog()
-  const { data } = trpc.user.me.useQuery()
 
   return (
     <DropdownMenu>

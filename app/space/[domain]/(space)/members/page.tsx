@@ -72,11 +72,7 @@ export default async function SpaceHomePage({
             )}
           </div>
           <div>
-            has{' '}
-            <span className="font-bold">
-              {precision.toDecimal(BigInt(member.amount))}
-            </span>{' '}
-            Keys
+            has <span className="font-bold">{member.amount}</span> Keys
           </div>
         </div>
       ))}

@@ -1,4 +1,5 @@
 {
+  "name": "penx-root",
   "private": true,
   "scripts": {
     "dev": "prisma generate && next dev",

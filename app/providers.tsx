@@ -14,7 +14,8 @@ const queryClient = new QueryClient()
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/trpc`,
+      // url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/trpc`,
+      url: `/api/trpc`,
       transformer: superjson,
       headers() {
         return {

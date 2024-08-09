@@ -163,7 +163,7 @@ export async function getHomeSpaces() {
     },
     ['spaces'],
     {
-      revalidate: 900,
+      revalidate: 10,
       tags: ['spaces'],
     },
   )()

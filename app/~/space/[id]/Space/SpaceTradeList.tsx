@@ -37,10 +37,7 @@ export function SpaceTradeList({ space }: Props) {
             </Badge>
           </div>
           <div>
-            <span className="font-bold">
-              {precision.toDecimal(BigInt(item.amount))}
-            </span>{' '}
-            keys
+            <span className="font-bold">{item.amount}</span> keys
           </div>
           <div>with price</div>
           <div>
