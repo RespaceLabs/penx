@@ -182,9 +182,9 @@ dependencies:
   nextjs-cors:
     specifier: ^2.2.0
     version: 2.2.0(next@14.0.2)
-  nextjs-progressbar:
-    specifier: ^0.0.16
-    version: 0.0.16(next@14.0.2)(react@18.2.0)
+  nextjs-toploader:
+    specifier: ^1.6.12
+    version: 1.6.12(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
   novel:
     specifier: ^0.4.3
     version: 0.4.3(@tiptap/extension-code-block@2.5.4)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
@@ -5403,10 +5403,6 @@ packages:
     resolution: {integrity: sha512-nekiGu2NDb1BcVofVcEKMIwzlx4NjHlcjhoxxKBNLtz15Y1z7MYf549DFvkHSId02Ax6kGwWntIBPC3l/JZcmw==}
     dependencies:
       undici-types: 5.26.5
-
-  /@types/nprogress@0.2.3:
-    resolution: {integrity: sha512-k7kRA033QNtC+gLc4VPlfnue58CM1iQLgn1IMAU8VPHGOj7oIHPp9UlhedEnD/Gl8evoCjwkZjlBORtZ3JByUA==}
-    dev: false
 
   /@types/object.omit@3.0.3:
     resolution: {integrity: sha512-xrq4bQTBGYY2cw+gV4PzoG2Lv3L0pjZ1uXStRRDQoATOYW1lCsFQHhQ+OkPhIcQoqLjAq7gYif7D14Qaa6Zbew==}
@@ -11872,17 +11868,18 @@ packages:
       next: 14.0.2(@babel/core@7.24.9)(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
-  /nextjs-progressbar@0.0.16(next@14.0.2)(react@18.2.0):
-    resolution: {integrity: sha512-GV0fD38EMD3vSDCmkq+tObmoup6QA91a6a9MxGuhJZuRk/9TNsrHGnIQQQ/sggkMkXuT4fBgF6jRjFwScDT3zA==}
+  /nextjs-toploader@1.6.12(next@14.0.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-nbun5lvVjlKnxLQlahzZ55nELVEduqoEXT03KCHnsEYJnFpI/3BaIzpMyq/v8C7UGU2NfxQmjq6ldZ310rsDqA==}
     peerDependencies:
       next: '>= 6.0.0'
       react: '>= 16.0.0'
+      react-dom: '>= 16.0.0'
     dependencies:
-      '@types/nprogress': 0.2.3
       next: 14.0.2(@babel/core@7.24.9)(react-dom@18.2.0)(react@18.2.0)
       nprogress: 0.2.0
       prop-types: 15.8.1
       react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /nocache@3.0.4:

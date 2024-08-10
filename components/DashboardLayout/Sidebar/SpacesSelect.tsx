@@ -54,7 +54,7 @@ export function SpacesSelect() {
       <div className="h-[50px] w-full flex items-center justify-center">
         <Button
           size="icon"
-          className="rounded-full"
+          className="rounded-full w-8 h-8"
           onClick={() => {
             push(`/~/create-space`)
           }}

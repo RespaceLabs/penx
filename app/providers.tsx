@@ -31,7 +31,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <SessionProvider>
       <Toaster className="dark:hidden" />
       <Toaster theme="dark" className="hidden dark:block" />
-
       <WalletConnectProvider>
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>

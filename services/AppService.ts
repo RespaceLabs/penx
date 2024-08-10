@@ -18,7 +18,7 @@ export class AppService {
 
     if (!spaces.length) {
       store.set(appLoading, false)
-      return '/~'
+      return
     }
 
     let spaceId =

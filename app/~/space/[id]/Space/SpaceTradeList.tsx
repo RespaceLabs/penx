@@ -42,9 +42,9 @@ export function SpaceTradeList({ space }: Props) {
           <div>with price</div>
           <div>
             <span className="font-bold">
-              {precision.toDecimal(BigInt(item.eth))}
+              {precision.toDecimal(BigInt(item.price), 6)}
             </span>{' '}
-            ETH
+            USDC
           </div>
         </div>
       ))}

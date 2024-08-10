@@ -45,7 +45,7 @@ export function useSponsorSellKey(space: RouterOutputs['space']['byId']) {
         spaceId: space.id,
         holdAmount: balance.toString(),
         tradeAmount: amount.toString(),
-        ethAmount: buyPrice!.data!.priceAfterFee.toString(),
+        price: buyPrice!.data!.priceAfterFee.toString(),
         type: 'SELL',
       })
 

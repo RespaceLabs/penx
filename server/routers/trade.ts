@@ -31,7 +31,7 @@ export const tradeRouter = router({
         spaceId: z.string(),
         holdAmount: z.string(),
         tradeAmount: z.string(),
-        ethAmount: z.string(),
+        price: z.string(),
         type: z.string(),
       }),
     )
@@ -45,7 +45,7 @@ export const tradeRouter = router({
         postId: z.string(),
         holdAmount: z.string(),
         tradeAmount: z.string(),
-        ethAmount: z.string(),
+        price: z.string(),
         type: z.string(),
       }),
     )
@@ -59,7 +59,7 @@ export const tradeRouter = router({
         spaceId: z.string(),
         holdAmount: z.string(),
         tradeAmount: z.string(),
-        ethAmount: z.string(),
+        price: z.string(),
         type: z.string(),
         name: z.string().optional(),
         logo: z.string().optional(),

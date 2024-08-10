@@ -1,8 +1,8 @@
 'use client'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { UserAvatar } from '@/components/UserAvatar'
 import { useMembers } from '@/hooks/useMembers'
-import { precision } from '@/lib/math'
+import { shortenAddress } from '@/lib/utils'
 import { Space } from '@prisma/client'
 
 interface Props {
@@ -23,11 +23,13 @@ export function MemberList({ space }: Props) {
       {members.map((member) => (
         <div key={member.id} className="flex justify-between">
           <div className="flex gap-2 items-center">
-            <Avatar>
-              <AvatarImage src="" alt="" />
-              <AvatarFallback>{member.user.address.slice(-2)}</AvatarFallback>
-            </Avatar>
-            <div>{member.user.address}</div>
+            <UserAvatar user={member.user} />
+
+            <div>
+              {member.user.ensName
+                ? member.user.ensName
+                : shortenAddress(member.user.address)}
+            </div>
           </div>
           <div>
             has <span className="font-bold">{member.amount}</span> Keys

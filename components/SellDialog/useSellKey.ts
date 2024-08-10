@@ -54,7 +54,7 @@ export function useSellKey(space: RouterOutputs['space']['byId'], post?: Post) {
           postId: post.id,
           holdAmount: balance.toString(),
           tradeAmount: amount.toString(),
-          ethAmount: buyPrice!.data!.priceAfterFee.toString(),
+          price: buyPrice!.data!.priceAfterFee.toString(),
           type: 'SELL',
         })
 
@@ -69,7 +69,7 @@ export function useSellKey(space: RouterOutputs['space']['byId'], post?: Post) {
           spaceId: space.id,
           holdAmount: balance.toString(),
           tradeAmount: amount.toString(),
-          ethAmount: buyPrice!.data!.priceAfterFee.toString(),
+          price: buyPrice!.data!.priceAfterFee.toString(),
           type: 'SELL',
         })
 

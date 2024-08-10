@@ -93,7 +93,7 @@ export function useBuyKey(space: RouterOutputs['space']['byId'], post?: Post) {
           postId: post.id,
           holdAmount: balance.toString(),
           tradeAmount: amount.toString(),
-          ethAmount: priceAfterFee.toString(),
+          price: priceAfterFee.toString(),
           type: 'BUY',
         })
 
@@ -108,7 +108,7 @@ export function useBuyKey(space: RouterOutputs['space']['byId'], post?: Post) {
           spaceId: space.id,
           holdAmount: balance.toString(),
           tradeAmount: amount.toString(),
-          ethAmount: priceAfterFee.toString(),
+          price: priceAfterFee.toString(),
           type: 'BUY',
         })
 

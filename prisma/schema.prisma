@@ -170,7 +170,7 @@ model Sponsor {
 model Trade {
   id        String   @id @default(uuid())
   amount    String   @default("0")
-  eth       String   @default("0")
+  price     String   @default("0")
   source    String   @default("")
   type      String   @default("")
   createdAt DateTime @default(now())

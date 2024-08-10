@@ -2,11 +2,14 @@
 
 import { useEffect } from 'react'
 import { useSpaces } from '@/hooks/useSpaces'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 export default function Page() {
   const { push } = useRouter()
   const { space, spaces } = useSpaces()
+  const pathname = usePathname()
+  console.log('=======pathname:', pathname)
+
   useEffect(() => {
     console.log('======space:', space)
     if (!spaces.length) {

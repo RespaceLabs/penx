@@ -103,7 +103,7 @@ export function Sidebar() {
   ]
 
   return (
-    <div className="sticky top-0 md:block hidden h-screen md:w-[50px] xl:w-[50px] flex-shrink-0">
+    <div className="sticky top-0 md:block hidden h-screen md:w-[60px] xl:w-[60px] flex-shrink-0">
       <div className="flex flex-col justify-between min-h-screen">
         <SpacesSelect />
         <div className="flex flex-col flex-1">
