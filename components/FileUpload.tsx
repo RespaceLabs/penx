@@ -18,6 +18,9 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
     if (e.target.files?.length) {
       setLoading(true)
       const file = e.target.files[0]
+      const src = URL.createObjectURL(file)
+      onChange?.(src)
+
       const res = await fetch(`/api/upload?filename=${file.name}`, {
         method: 'POST',
         body: file,

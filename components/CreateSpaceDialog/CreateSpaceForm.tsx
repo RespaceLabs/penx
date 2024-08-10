@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useAddress } from '@/hooks/useAddress'
 import { spaceIdAtom } from '@/hooks/useSpaceId'
-import { spacesAtom, useSpaces } from '@/hooks/useSpaces'
+import { spacesAtom } from '@/hooks/useSpaces'
 import { indieXAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
 import { SELECTED_SPACE } from '@/lib/constants'
@@ -35,11 +35,16 @@ import { useDebouncedCallback } from 'use-debounce'
 import { useWriteContract } from 'wagmi'
 import { z } from 'zod'
 import { CurveChart, defaultCurve } from '../curve/CurveChart'
+import { FileUpload } from '../FileUpload'
+import { NumberInput } from '../NumberInput'
 import { Card } from '../ui/card'
-import { FactorInput } from './FactorInput'
+import { PointInput } from './PointInput'
+import { PriceInput } from './PriceInput'
 import { useCreateSpaceDialog } from './useCreateSpaceDialog'
 
 const FormSchema = z.object({
+  logo: z.string(),
+
   name: z.string().min(1, {
     message: 'Name must be at least 1 characters.',
   }),
@@ -53,10 +58,10 @@ const FormSchema = z.object({
     message: 'Basic price must be at least 1 character.',
   }),
   inflectionPoint: z.string().min(1, {
-    message: ' must be at least 1 character.',
+    message: 'Inflection point must be at least 1 character.',
   }),
   inflectionPrice: z.string().min(1, {
-    message: ' must be at least 1 character.',
+    message: 'Inflection price must be at least 1 character.',
   }),
   linearPriceSlope: z.string(),
 })
@@ -76,6 +81,7 @@ export function CreateSpaceForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      logo: '',
       name: '',
       subdomain: '',
       curveType: CurveTypes.ClubMember,
@@ -97,10 +103,11 @@ export function CreateSpaceForm() {
   }, 400)
 
   useEffect(() => {
+    if (!basePrice || !inflectionPoint || !inflectionPrice) return
     debouncedSetCurve({
-      basePrice: Number(basePrice),
+      basePrice: Number(precision.token(basePrice, 6)),
       inflectionPoint: Number(inflectionPoint),
-      inflectionPrice: Number(inflectionPrice),
+      inflectionPrice: Number(precision.token(inflectionPrice, 6)),
       linearPriceSlope: 0,
     })
   }, [basePrice, inflectionPoint, inflectionPrice, debouncedSetCurve])
@@ -195,9 +202,31 @@ export function CreateSpaceForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 pb-20">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="grid gap-4 pb-20 items-center"
+      >
         <div className="font-bold">Basic info</div>
-        <Card className="p-4 mb-4">
+        <Card className="p-4 mb-4 space-y-4">
+          <FormField
+            control={form.control}
+            name="logo"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Logo</FormLabel>
+                <FormControl>
+                  <FileUpload
+                    value={field.value}
+                    onChange={async (url) => {
+                      field.onChange(url)
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="name"
@@ -252,7 +281,7 @@ export function CreateSpaceForm() {
             name="curveType"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Curve type</FormLabel>
+                <FormLabel>Curve preset</FormLabel>
                 <FormControl>
                   <ToggleGroup
                     className="gap-3"
@@ -264,18 +293,19 @@ export function CreateSpaceForm() {
                     type="single"
                   >
                     <ToggleGroupItem
+                      className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
+                      value={CurveTypes.PublicationMember}
+                    >
+                      Publication Member
+                    </ToggleGroupItem>
+
+                    <ToggleGroupItem
                       value={CurveTypes.ClubMember}
                       className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
                     >
                       Club member
                     </ToggleGroupItem>
 
-                    <ToggleGroupItem
-                      className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
-                      value={CurveTypes.PublicationMember}
-                    >
-                      Publication Member
-                    </ToggleGroupItem>
                     <ToggleGroupItem
                       value={CurveTypes.GithubSponsor}
                       className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
@@ -297,8 +327,12 @@ export function CreateSpaceForm() {
                 <FormLabel>Base price</FormLabel>
                 <FormControl>
                   <div className="relative">
-                    <Input placeholder="0.0" {...field} className="w-full" />
-                    <div className="flex items-center justify-center absolute right-0 top-0 h-full px-3">
+                    <NumberInput
+                      placeholder="0.0"
+                      {...field}
+                      className="w-full"
+                    />
+                    <div className="flex items-center justify-center absolute right-0 top-0 h-full px-3 text-sm">
                       USDC
                     </div>
                   </div>
@@ -315,7 +349,7 @@ export function CreateSpaceForm() {
               <FormItem className="w-full">
                 <FormLabel>Inflection Point</FormLabel>
                 <FormControl>
-                  <FactorInput {...field} />
+                  <PointInput {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -329,13 +363,16 @@ export function CreateSpaceForm() {
               <FormItem className="w-full">
                 <FormLabel>Inflection Price</FormLabel>
                 <FormControl>
-                  <FactorInput {...field} />
+                  <PriceInput {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+        </Card>
 
+        <div className="font-bold">Income preview</div>
+        <Card className="p-4 mb-4">
           <CurveChart className="mt-4" curve={curve} />
         </Card>
         <Button type="submit" className="w-full">

@@ -3,7 +3,10 @@ import { matchNumber } from '@/lib/utils'
 import { Input } from './ui/input'
 
 export interface NumberInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'onChange' | 'size'
+  > {
   precision?: number
   onChange?: (value: string) => void
 }

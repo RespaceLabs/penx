@@ -6,16 +6,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useSpaceId } from '@/hooks/useSpaceId'
 import { useSpaces } from '@/hooks/useSpaces'
 import { ChevronDown, Plus, Settings } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 export function SpaceMenu() {
   const { push } = useRouter()
   const { space } = useSpaces()
-  const { setSpaceId } = useSpaceId()
+  const { data: session } = useSession()
 
   return (
     <div className="relative">
@@ -44,11 +44,12 @@ export function SpaceMenu() {
           <DropdownMenuItem
             key={space.id}
             className="cursor-pointer flex gap-2 items-center"
+            disabled={space.userId !== session?.userId}
             onClick={() => {
               push('/~/settings')
             }}
           >
-            <Settings size={20} className="inline-flex" />
+            <Settings size={18} className="inline-flex" />
             <div className="">Space settings</div>
           </DropdownMenuItem>
         </DropdownMenuContent>

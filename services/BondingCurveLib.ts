@@ -1,44 +1,4 @@
-import { Curve } from '@/services/CurveService'
 import Big from 'big.js'
-
-export function getSubTotal(
-  fromSupply: number,
-  quantity: number,
-  curve: Curve,
-) {
-  let basePrice = curve.basePrice
-  let inflectionPoint = curve.inflectionPoint
-  let inflectionPrice = curve.inflectionPrice
-  let linearPriceSlope = curve.linearPriceSlope
-  return _subTotal(
-    fromSupply,
-    quantity,
-    basePrice,
-    inflectionPoint,
-    inflectionPrice,
-    linearPriceSlope,
-  )
-}
-
-function _subTotal(
-  fromSupply: number,
-  quantity: number,
-  basePrice: number,
-  inflectionPoint: number,
-  inflectionPrice: number,
-  linearPriceSlope: number,
-) {
-  let subTotal = basePrice * quantity
-  subTotal += BondingCurveLib.linearSum(linearPriceSlope, fromSupply, quantity)
-
-  subTotal += BondingCurveLib.sigmoid2Sum(
-    inflectionPoint,
-    inflectionPrice,
-    fromSupply,
-    quantity,
-  )
-  return subTotal
-}
 
 export class BondingCurveLib {
   static sigmoid2Sum(

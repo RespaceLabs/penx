@@ -66,7 +66,7 @@ export function DeleteSpaceForm({ spaceName }: { spaceName: string }) {
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="relative flex flex-col space-y-4 p-5 sm:p-10">
-          <h2 className="font-cal text-xl dark:text-white">Delete Site</h2>
+          <h2 className="font-cal text-xl dark:text-white">Delete Space</h2>
           <FormField
             control={form.control}
             name="name"

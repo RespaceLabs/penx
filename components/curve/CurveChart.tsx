@@ -1,8 +1,11 @@
 'use client'
 
 import React, { memo, useEffect, useState } from 'react'
+import isEqual from 'react-fast-compare'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { precision } from '@/lib/math'
 import { cn } from '@/lib/utils'
+import { BondingCurveLib } from '@/services/BondingCurveLib'
 import { Curve } from '@/services/CurveService'
 import {
   CartesianGrid,
@@ -15,12 +18,49 @@ import {
   YAxis,
 } from 'recharts'
 import { useDebouncedCallback } from 'use-debounce'
-import { getSubTotal } from './BondingCurveLib'
+
+export function getSubTotal(
+  fromSupply: number,
+  quantity: number,
+  curve: Curve,
+) {
+  let basePrice = curve.basePrice
+  let inflectionPoint = curve.inflectionPoint
+  let inflectionPrice = curve.inflectionPrice
+  let linearPriceSlope = curve.linearPriceSlope
+  return _subTotal(
+    fromSupply,
+    quantity,
+    basePrice,
+    inflectionPoint,
+    inflectionPrice,
+    linearPriceSlope,
+  )
+}
+
+function _subTotal(
+  fromSupply: number,
+  quantity: number,
+  basePrice: number,
+  inflectionPoint: number,
+  inflectionPrice: number,
+  linearPriceSlope: number,
+) {
+  let subTotal = basePrice * quantity
+  subTotal += BondingCurveLib.linearSum(linearPriceSlope, fromSupply, quantity)
+
+  subTotal += BondingCurveLib.sigmoid2Sum(
+    inflectionPoint,
+    inflectionPrice,
+    fromSupply,
+    quantity,
+  )
+  return subTotal
+}
 
 function getPrice(supply: number, amount = 1, curve: Curve): number {
   const price = getSubTotal(supply, amount, curve)
-
-  return price
+  return Number(price)
 }
 
 const CustomTooltip = ({ active, payload }: any) => {
@@ -42,9 +82,7 @@ function getData(max: number = 100, curve: Curve = defaultCurve) {
     .map((_, index) => index + 1)
     .map((i) => {
       const price = getPrice(i, 1, curve)
-      // const priceDecimal = precision.toDecimal(BigInt(price))
-      // console.log('=======price:', price)
-      const priceDecimal = price
+      const priceDecimal = precision.toDecimal(price, 6)
 
       return {
         supply: i.toString(),
@@ -54,9 +92,9 @@ function getData(max: number = 100, curve: Curve = defaultCurve) {
 }
 
 export const defaultCurve: Curve = {
-  basePrice: 5,
+  basePrice: Number(precision.token(5, 6)),
   inflectionPoint: 100,
-  inflectionPrice: 400,
+  inflectionPrice: Number(precision.token(100, 6)),
   linearPriceSlope: 0,
 }
 
@@ -69,14 +107,13 @@ type DataItem = { supply: string; price: number }
 
 export const CurveChart = memo(
   function CurveChart({ className = '', curve = defaultCurve }: Props) {
-    const [value, setValue] = useState('1000')
+    const [value, setValue] = useState('100')
     const [data, setData] = useState<DataItem[]>(getData(parseInt(value)))
     const [interval, updateInterval] = useState(parseInt(value) / 10)
 
     const debouncedSetData = useDebouncedCallback(async (value, curve) => {
       setData(getData(parseInt(value), curve))
     }, 400)
-    console.log('render chart.....')
 
     useEffect(() => {
       debouncedSetData(value, curve)
@@ -178,6 +215,6 @@ export const CurveChart = memo(
     )
   },
   (prevProps, nextProps) => {
-    return JSON.stringify(prevProps) === JSON.stringify(nextProps)
+    return isEqual(prevProps, nextProps)
   },
 )

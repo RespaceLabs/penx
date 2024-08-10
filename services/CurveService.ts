@@ -18,25 +18,25 @@ export type Curve = {
 export class CurveService {
   curves = {
     [CurveTypes.ClubMember]: {
-      basePrice: '50',
-      inflectionPoint: '100',
-      inflectionPrice: '2000',
+      basePrice: '20',
+      inflectionPoint: '400',
+      inflectionPrice: '1200',
       linearPriceSlope: '0',
     },
     [CurveTypes.PublicationMember]: {
-      basePrice: '100',
-      inflectionPoint: '100',
-      inflectionPrice: '100',
+      basePrice: '10',
+      inflectionPoint: '500',
+      inflectionPrice: '500',
       linearPriceSlope: '0',
     },
     [CurveTypes.GithubSponsor]: {
-      basePrice: '400',
-      inflectionPoint: '40',
-      inflectionPrice: '2000',
+      basePrice: '20',
+      inflectionPoint: '50',
+      inflectionPrice: '500',
       linearPriceSlope: '0',
     },
     [CurveTypes.PromotionSponsor]: {
-      basePrice: '400',
+      basePrice: '50',
       inflectionPoint: '40',
       inflectionPrice: '2000',
       linearPriceSlope: '0',
@@ -45,7 +45,7 @@ export class CurveService {
     [CurveTypes.Post]: {
       basePrice: '5',
       inflectionPoint: '100',
-      inflectionPrice: '2000',
+      inflectionPrice: '1000',
       linearPriceSlope: '0',
     },
   }

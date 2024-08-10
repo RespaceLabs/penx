@@ -19,12 +19,6 @@ export function KeyStats({}: Props) {
   return (
     <div className="flex flex-col justify-between mt-4">
       <div className="text-lg font-semibold">Stats</div>
-      <div className="flex justify-between">
-        <div className="text-neutral-900 text-sm">Key Price</div>
-        <div className="text-base font-semibold">
-          <KeyPrice creation={creation} />
-        </div>
-      </div>
 
       <div className="flex justify-between">
         <div className="text-neutral-900 text-sm">My Holdings</div>
@@ -37,6 +31,13 @@ export function KeyStats({}: Props) {
         <div className="text-neutral-900 text-sm">Key Supply</div>
         <div className="text-base font-semibold">
           <KeySupply creation={creation} />
+        </div>
+      </div>
+
+      <div className="flex justify-between">
+        <div className="text-neutral-900 text-sm">Key Price</div>
+        <div className="text-base font-semibold">
+          <KeyPrice creation={creation} />
         </div>
       </div>
 

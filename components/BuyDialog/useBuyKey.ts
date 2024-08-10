@@ -11,7 +11,6 @@ import { usdcAbi } from '@/lib/abi/indieX'
 import { addressMap } from '@/lib/address'
 import { INDIE_X_APP_ID } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
-import { precision } from '@/lib/math'
 import { api } from '@/lib/trpc'
 import { wagmiConfig } from '@/lib/wagmi'
 import { RouterOutputs } from '@/server/_app'
@@ -40,8 +39,7 @@ export function useBuyKey(space: RouterOutputs['space']['byId'], post?: Post) {
   const searchParams = useSearchParams()
   const curator = searchParams.get('curator') as string
 
-  return async (creationId: bigint) => {
-    const amount = 1
+  return async (creationId: bigint, amount: number) => {
     try {
       const { priceAfterFee } = await readContract(wagmiConfig, {
         address: addressMap.IndieX,
@@ -49,8 +47,6 @@ export function useBuyKey(space: RouterOutputs['space']['byId'], post?: Post) {
         functionName: 'getBuyPriceAfterFee',
         args: [creationId, amount, INDIE_X_APP_ID],
       })
-
-      console.log('=======priceAfterFee:', priceAfterFee)
 
       const allowance = await readContract(wagmiConfig, {
         address: addressMap.USDC,

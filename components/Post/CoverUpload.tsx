@@ -11,7 +11,6 @@ interface Props {
 
 export const CoverUpload = forwardRef<HTMLDivElement, Props>(
   function CoverUpload({ post }, ref) {
-    console.log('======post:', post)
 
     const [value, setValue] = useState(post.image || '')
     const inputRef = useRef<HTMLInputElement>(null)

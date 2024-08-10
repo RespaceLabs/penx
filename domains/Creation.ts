@@ -8,13 +8,20 @@ export type CreationRaw = {
   name: string
   uri: string
   farmer: number
-  curve: number
-  curveArgs: bigint[]
+  curve: {
+    basePrice: bigint
+    inflectionPoint: number
+    inflectionPrice: bigint
+    linearPriceSlope: bigint
+  }
   balance: bigint
   volume: bigint
 }
 export class Creation {
-  constructor(public raw: CreationRaw) {}
+  constructor(
+    public raw: CreationRaw,
+    public supply: bigint,
+  ) {}
 
   get id() {
     return this.raw.id
@@ -54,5 +61,22 @@ export class Creation {
 
   get tvlFormatted() {
     return precision.toDecimal(this.tvl, 6).toFixed(2)
+  }
+
+  get curve() {
+    return this.raw.curve
+  }
+
+  get curveNumberFormat() {
+    return {
+      basePrice: Number(this.curve.basePrice),
+      inflectionPoint: Number(this.curve.inflectionPoint),
+      inflectionPrice: Number(this.curve.inflectionPrice),
+      linearPriceSlope: Number(this.curve.linearPriceSlope),
+    }
+  }
+
+  get supplyDecimal() {
+    return Number(this.supply)
   }
 }

@@ -1,6 +1,5 @@
 import { Creation } from '@/domains/Creation'
 import { useSupply } from '@/hooks/useSupply'
-import { precision } from '@/lib/math'
 
 interface Props {
   creation: Creation

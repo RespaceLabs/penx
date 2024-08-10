@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { useCreation, useQueryCreation } from '@/hooks/useCreation'
 import { RouterOutputs } from '@/server/_app'
 import { CurveButton } from './CurveButton'
 import { CurveChart } from './CurveChart'
@@ -18,6 +19,9 @@ interface Props {
 }
 
 export function CurveDialog({ space }: Props) {
+  useQueryCreation(space.creationId!)
+  const { creation } = useCreation()
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -33,7 +37,9 @@ export function CurveDialog({ space }: Props) {
           </div>
         </DialogHeader>
         <div className="">
-          <CurveChart className="-mx-4" />
+          {creation?.name && (
+            <CurveChart className="-mx-4" curve={creation.curveNumberFormat} />
+          )}
         </div>
       </DialogContent>
     </Dialog>

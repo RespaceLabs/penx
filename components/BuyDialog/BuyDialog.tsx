@@ -1,26 +1,27 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
-import { useBuyPrice } from '@/hooks/useBuyPrice'
 import { useCreation } from '@/hooks/useCreation'
-import { useEthBalance, useQueryEthBalance } from '@/hooks/useEthBalance'
-import { useEthPrice } from '@/hooks/useEthPrice'
 import { useQueryUsdcBalance, useUsdcBalance } from '@/hooks/useUsdcBalance'
+import { indieXAbi } from '@/lib/abi'
+import { addressMap } from '@/lib/address'
+import { INDIE_X_APP_ID } from '@/lib/constants'
 import { precision } from '@/lib/math'
+import { wagmiConfig } from '@/lib/wagmi'
 import { RouterOutputs } from '@/server/_app'
 import { Post } from '@prisma/client'
 import { useMutation } from '@tanstack/react-query'
+import { readContract } from '@wagmi/core'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
+import { AmountInput } from './AmountInput'
 import { useBuyDialog } from './useBuyDialog'
 import { useBuyKey } from './useBuyKey'
 
@@ -35,12 +36,28 @@ export function BuyDialog({ space, post }: Props) {
 
   const { isOpen, setIsOpen } = useBuyDialog()
   useQueryUsdcBalance()
+  const [amount, setAmount] = useState('1')
+  const [price, setPrice] = useState(BigInt(0))
+
+  async function fetchPrice(amount: number) {
+    const { priceAfterFee } = await readContract(wagmiConfig, {
+      address: addressMap.IndieX,
+      abi: indieXAbi,
+      functionName: 'getBuyPriceAfterFee',
+      args: [creationId, amount, INDIE_X_APP_ID],
+    })
+    setPrice(priceAfterFee)
+  }
+
+  useEffect(() => {
+    fetchPrice(Number(amount))
+  }, [])
 
   const buy = useBuyKey(space, post)
 
   const { isPending, mutateAsync } = useMutation({
     mutationKey: ['buy'],
-    mutationFn: async () => buy(creationId),
+    mutationFn: async () => buy(creationId, Number(amount)),
   })
 
   const { creation } = useCreation()
@@ -48,70 +65,56 @@ export function BuyDialog({ space, post }: Props) {
 
   return (
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] grid gap-4">
         <DialogHeader>
           <DialogTitle>Buy Keys</DialogTitle>
           <div className="text-sm text-neutral-600">
-            Buy a key to become a member of the{' '}
+            Buy key to become a member of the{' '}
             <span className="font-bold">{space.name}</span> space.
           </div>
         </DialogHeader>
 
-        <ProfileAvatar showAddress />
+        <div className="flex justify-between">
+          <ProfileAvatar showAddress />
+          <USDCBalance />
+        </div>
 
-        <USDCBalance />
-        <KeyPrice creationId={creationId} />
+        <AmountInput
+          value={amount}
+          onChange={(v) => {
+            fetchPrice(Number(v))
+            setAmount(v)
+          }}
+        />
+
+        <div className="flex items-center justify-between h-6">
+          <div className="text-sm text-neutral-500">Total cost</div>
+          <div className="text-sm">
+            {precision.toDecimal(price, 6).toFixed(2)} USDC
+          </div>
+        </div>
 
         <Button
           size="lg"
+          disabled={isPending || Number(amount) < 1}
           onClick={async () => {
             await mutateAsync()
             setIsOpen(false)
           }}
         >
-          {isPending ? <LoadingDots color="white" /> : 'Buy a Key'}
+          {isPending ? <LoadingDots color="white" /> : 'Buy Key'}
         </Button>
       </DialogContent>
     </Dialog>
   )
 }
 
-function KeyPrice({ creationId }: { creationId: bigint }) {
-  const { data, isLoading } = useBuyPrice(creationId)
-
-  if (isLoading || !data) return <div>-</div>
-
-  const keyPrice = precision.toDecimal(data.priceAfterFee, 6).toFixed(2)
-  return (
-    <div className="bg-muted rounded-lg flex items-center justify-between p-4 bg-amber-100">
-      <div>Buy price</div>
-      <div className="text-lg font-bold flex items-center gap-1">
-        <div>{keyPrice} USDC</div>
-      </div>
-    </div>
-  )
-}
-
-function EthBalance() {
-  const { ethBalance } = useEthBalance()
-
-  return (
-    <div className="flex items-center gap-2">
-      <div>Balance:</div>
-      <div className="text-2xl font-bold">
-        {ethBalance.valueDecimal.toFixed(5)} ETH
-      </div>
-    </div>
-  )
-}
-
 function USDCBalance() {
   const { decimal } = useUsdcBalance()
-
   return (
-    <div className="flex items-center gap-2">
-      <div>Balance:</div>
-      <div className="text-2xl font-bold">{decimal} USDC</div>
+    <div className="flex items-center gap-1">
+      <div className="font-bold">{decimal}</div>
+      <div className="text-xs">USDC</div>
     </div>
   )
 }

@@ -33,7 +33,9 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
     const address = useAddress()
     const { data: session } = useSession()
     const shortAddress = address.slice(0, 6) + '...' + address.slice(-4)
-    const { data } = trpc.user.me.useQuery()
+    const { data } = trpc.user.me.useQuery(undefined, {
+      enabled: !!session?.user,
+    })
     const { copy } = useCopyToClipboard()
     const ensName = data?.name || session?.ensName
 

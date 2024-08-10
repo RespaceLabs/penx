@@ -41,9 +41,7 @@ export function SpaceSidebar({ space, className }: Props) {
         <div className="flex gap-2 my-4">
           <BuyButton></BuyButton>
           <SellButton></SellButton>
-          <Suspense fallback="">
-            <CurveDialog space={space} />
-          </Suspense>
+          <CurveDialog space={space} />
         </div>
         <CurationCard space={space} />
 

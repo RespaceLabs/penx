@@ -14,7 +14,7 @@ interface Props {
 
 export function InitBuySellDialog({ post, space, creationId }: Props) {
   const { creation } = useCreation()
-  const { isLoading, data } = useQueryCreation(creationId)
+  const { isLoading } = useQueryCreation(creationId)
   if (isLoading) return null
   if (!creation) return null
   return (

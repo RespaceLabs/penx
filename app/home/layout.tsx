@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { Logo } from '@/components/Logo'
 import { Profile } from '@/components/Profile/Profile'
+import { SocialNav } from '@/components/SocialNav'
 import { SpaceFooter } from '@/components/SpaceFooter'
 import { Nav } from './Nav'
 
@@ -18,7 +19,8 @@ export default function Layout({ children }: PropsWithChildren) {
         <Nav />
 
         <div className="flex items-center gap-10">
-          <Profile></Profile>
+          <SocialNav className="text-neutral-800" />
+          <Profile />
         </div>
       </div>
 

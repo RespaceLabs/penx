@@ -16,7 +16,9 @@ export function Profile({}: Props) {
   return (
     <>
       <ProfileDialog />
-      <WalletConnectButton className={cn(authenticated && 'hidden')} />
+      <WalletConnectButton
+        className={cn('rounded-full', authenticated && 'hidden')}
+      />
       <ProfilePopover className={cn(!authenticated && 'hidden')} />
     </>
   )
