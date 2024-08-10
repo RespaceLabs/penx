@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithChildren } from 'react'
-import { NavbarWrapper } from '@/components/NavbarWrapper'
+import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
 import { useSpaces } from '@/hooks/useSpaces'
 import { SettingsNav } from './SettingsNav'
 

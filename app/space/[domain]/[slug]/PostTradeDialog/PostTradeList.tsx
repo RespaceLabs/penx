@@ -1,6 +1,5 @@
 'use client'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { UserAvatar } from '@/components/UserAvatar'
 import { PostWithSpace } from '@/hooks/usePost'
@@ -39,9 +38,9 @@ export function PostTradeList({ post }: Props) {
           /
           <div>
             <span className="font-bold">
-              {precision.toDecimal(BigInt(item.eth))}
+              {precision.toDecimal(BigInt(item.price), 6)}
             </span>{' '}
-            ETH
+            USDC
           </div>
         </div>
       ))}

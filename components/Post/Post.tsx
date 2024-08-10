@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import Editor from '@/components/editor/advanced-editor'
-import { postAtom, PostWithSpace } from '@/hooks/usePost'
+import { PostWithSpace } from '@/hooks/usePost'
 import { updatePostTitleById } from '@/hooks/usePosts'
 import { trpc } from '@/lib/trpc'
 import { useSession } from 'next-auth/react'
 import { useDebouncedCallback } from 'use-debounce'
-import { NavbarWrapper } from '../NavbarWrapper'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
 import { CoverUpload } from './CoverUpload'
 import { defaultValue } from './default-value'
@@ -46,11 +45,8 @@ export function Post({
   }, [data, debounced])
 
   return (
-    <div className="relative w-full">
-      <NavbarWrapper className="sticky right-0 top-0 left-0 z-10 bg-white">
-        <PostHeader post={data} setData={setData} isSaving={isPending} />
-      </NavbarWrapper>
-
+    <div className="w-full">
+      <PostHeader post={data} setData={setData} isSaving={isPending} />
       <div className="relative min-h-[500px] max-w-screen-lg p-12 px-8 mx-auto z-0 md:w-[800px] sm:w-full">
         <div className="mb-5 flex flex-col space-y-3 pb-5">
           <CoverUpload post={data} />

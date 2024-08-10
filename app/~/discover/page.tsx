@@ -1,6 +1,6 @@
 'use client'
 
-import { NavbarWrapper } from '@/components/NavbarWrapper'
+import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
 import { SpaceList } from './SpaceList'
 
 export default function Page() {

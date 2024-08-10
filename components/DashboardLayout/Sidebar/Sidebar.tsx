@@ -1,8 +1,6 @@
 'use client'
 
 import { useMemo } from 'react'
-import { ProfileDialog } from '@/components/Profile/ProfileDialog/ProfileDialog'
-import { ProfilePopover } from '@/components/Profile/ProfilePopover'
 import {
   Tooltip,
   TooltipContent,
@@ -13,9 +11,11 @@ import { useChannels } from '@/hooks/useChannels'
 import { usePosts } from '@/hooks/usePosts'
 import { useSpaces } from '@/hooks/useSpaces'
 import { cn } from '@/lib/utils'
+import { TooltipPortal } from '@radix-ui/react-tooltip'
 import {
   CircleDollarSign,
   Coffee,
+  Compass,
   FeatherIcon,
   Github,
   Home,
@@ -27,7 +27,8 @@ import {
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { SpacesSelect } from './SpacesSelect'
+import { SidebarSpaceList } from './SidebarSpaceList'
+import { SpaceMenu } from './SpaceMenu'
 
 export function Sidebar() {
   const pathname = usePathname()
@@ -42,7 +43,7 @@ export function Sidebar() {
         name: 'Discover',
         href: '/~/discover',
         isActive: pathname === '/~/discover',
-        icon: <Shell width={18} />,
+        icon: <Compass width={18} />,
       },
     ]
     if (spaces.length) {
@@ -53,14 +54,13 @@ export function Sidebar() {
         icon: <Home width={18} />,
       })
 
-      if (session?.userId === space.userId) {
-        list.push({
-          name: 'Sponsor',
-          href: '/~/sponsor',
-          isActive: pathname === '/~/sponsor',
-          icon: <Coffee width={18} />,
-        })
-      }
+      list.push({
+        name: 'Posts',
+        href: posts.length ? `/~/post/${posts[0].id}` : '/~/create-post',
+        isActive:
+          pathname.startsWith('/~/post/') || pathname === '/~/create-post',
+        icon: <FeatherIcon width={18} />,
+      })
 
       list.push({
         name: 'Chat',
@@ -69,13 +69,14 @@ export function Sidebar() {
         icon: <MessageCircleMore width={18} />,
       })
 
-      list.push({
-        name: 'Posts',
-        href: posts.length ? `/~/post/${posts[0].id}` : '/~/create-post',
-        isActive:
-          pathname.startsWith('/~/post/') || pathname === '/~/create-post',
-        icon: <FeatherIcon width={18} />,
-      })
+      if (session?.userId === space.userId) {
+        list.push({
+          name: 'Sponsor',
+          href: '/~/sponsor',
+          isActive: pathname === '/~/sponsor',
+          icon: <Coffee width={18} />,
+        })
+      }
     }
 
     list.push({
@@ -103,9 +104,8 @@ export function Sidebar() {
   ]
 
   return (
-    <div className="sticky top-0 md:block hidden h-screen md:w-[60px] xl:w-[60px] flex-shrink-0">
+    <div className="sticky top-0 md:block hidden h-screen md:w-[60px] xl:w-[60px] flex-shrink-0 pt-1 z-1000">
       <div className="flex flex-col justify-between min-h-screen">
-        <SpacesSelect />
         <div className="flex flex-col flex-1">
           <div className="flex flex-col gap-2 flex-1">
             <div className="grid gap-1 items-center justify-center">
@@ -125,7 +125,11 @@ export function Sidebar() {
                           {icon}
                         </div>
                       </TooltipTrigger>
-                      <TooltipContent side="right">{name}</TooltipContent>
+                      <TooltipPortal>
+                        <TooltipContent side="right" className="">
+                          {name}
+                        </TooltipContent>
+                      </TooltipPortal>
                     </Tooltip>
                   </TooltipProvider>
                 </Link>
@@ -149,7 +153,11 @@ export function Sidebar() {
                         <Settings width={18} />
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent side="right">Space settings</TooltipContent>
+                    <TooltipPortal>
+                      <TooltipContent side="right">
+                        Space settings
+                      </TooltipContent>
+                    </TooltipPortal>
                   </Tooltip>
                 </TooltipProvider>
               </Link>
@@ -175,10 +183,8 @@ export function Sidebar() {
                 </TooltipProvider>
               </a>
             ))}
-
-            <ProfileDialog />
-            <ProfilePopover />
           </div>
+          <SidebarSpaceList />
         </div>
       </div>
     </div>

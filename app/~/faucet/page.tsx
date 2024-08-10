@@ -1,6 +1,6 @@
 'use client'
 
-import { NavbarWrapper } from '@/components/NavbarWrapper'
+import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
 import { Faucet } from './Faucet'
 
 export default function Page() {

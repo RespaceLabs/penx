@@ -44,31 +44,35 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
         {...rest}
       >
         <UserAvatar user={{ ...data, address, ensName } as any} />
-        <div>
-          {showEnsName && ensName && <div className="text-base">{ensName}</div>}
-          {showAddress && (
-            <div className="flex gap-2 items-center">
-              <div
-                className={cn(
-                  'text-sm',
-                  showEnsName && ensName && 'text-xs text-neutral-500',
+        {(showEnsName || showAddress) && (
+          <div>
+            {showEnsName && ensName && (
+              <div className="text-base">{ensName}</div>
+            )}
+            {showAddress && (
+              <div className="flex gap-2 items-center">
+                <div
+                  className={cn(
+                    'text-sm',
+                    showEnsName && ensName && 'text-xs text-neutral-500',
+                  )}
+                >
+                  {shortAddress}
+                </div>
+                {showCopy && (
+                  <Copy
+                    size={14}
+                    className="text-neutral-500 cursor-pointer hover:text-neutral-800"
+                    onClick={() => {
+                      copy(address)
+                      toast.success('Address copied to clipboard')
+                    }}
+                  ></Copy>
                 )}
-              >
-                {shortAddress}
               </div>
-              {showCopy && (
-                <Copy
-                  size={14}
-                  className="text-neutral-500 cursor-pointer hover:text-neutral-800"
-                  onClick={() => {
-                    copy(address)
-                    toast.success('Address copied to clipboard')
-                  }}
-                ></Copy>
-              )}
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
     )
   },

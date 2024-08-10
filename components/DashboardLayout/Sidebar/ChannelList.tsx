@@ -64,7 +64,12 @@ export function ChannelList() {
   }, [session, channels])
 
   return (
-    <div className="flex flex-col gap-[1px] w-[240px] sticky top-0 h-screen px-2">
+    <div
+      className="flex flex-col gap-[1px] w-[240px] sticky top-12 px-2"
+      style={{
+        height: 'calc(100vh - 48px)',
+      }}
+    >
       <ChannelListHeader />
       <div className="grid gap-1">
         {channels.map((item) => (

@@ -16,34 +16,11 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import { useAddress } from '@/hooks/useAddress'
-import { PostWithSpace } from '@/hooks/usePost'
 import { GateType } from '@/lib/constants'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
-import {
-  Cloud,
-  CreditCard,
-  Gauge,
-  Github,
-  Keyboard,
-  LifeBuoy,
-  LogOut,
-  Mail,
-  MessageSquare,
-  Plus,
-  PlusCircle,
-  Settings,
-  User,
-  UserPlus,
-  UserRoundPen,
-  Users,
-} from 'lucide-react'
+import { Cloud, Gauge, LifeBuoy, LogOut, UserRoundPen } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { ProfileAvatar } from './ProfileAvatar'

@@ -19,9 +19,7 @@ export function PostHeader({ post, setData, isSaving }: PostHeaderProps) {
   const { isLoading, publishPost } = usePublishPost()
 
   return (
-    <div className="w-full flex items-center space-x-3 justify-between  h-full">
-      <div>{post.title}</div>
-
+    <div className="flex items-center space-x-3 justify-between fixed right-0 top-1 h-12 pr-2">
       <div className="flex items-center gap-2">
         {post.published && (
           <a

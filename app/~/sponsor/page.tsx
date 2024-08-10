@@ -1,6 +1,6 @@
 'use client'
 
-import { NavbarWrapper } from '@/components/NavbarWrapper'
+import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
 import { useSpaces } from '@/hooks/useSpaces'
 import { EnableSponsorButton } from './EnableSponsorButton'
 import { SponsorList } from './SponsorList'

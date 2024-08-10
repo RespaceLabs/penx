@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { NavbarWrapper } from '@/components/NavbarWrapper'
+import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
 import { useSpace } from './hooks/useSpace'
 import { SpaceInfo } from './Space/SpaceInfo'
 
