@@ -76,7 +76,7 @@ export const MsgPanel = ({ channelId, userId, address }: Props) => {
   // console.log('%c=render:', 'color:red', getMessagesState(channelId))
 
   return (
-    <div ref={containerRef} className="flex-grow overflow-y-auto bg-gray-50 p-4">
+    <div ref={containerRef} className="flex-grow overflow-y-auto rounded-lg bg-gray-50 p-4">
       {messages.length ? <div className="flex flex-col p-4 space-y-4">
         {messages.map((msg) => (
           <div

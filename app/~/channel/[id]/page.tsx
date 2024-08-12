@@ -31,7 +31,7 @@ export default function Page() {
   }
 
   return (
-    <div className="flex flex-col h-screen w-full bg-white p-4">
+    <div className="flex flex-col h-[100%] w-full bg-white p-4">
       <h2 className="text-lg font-bold mb-2">{channelName}</h2>
 
       <MsgPanel

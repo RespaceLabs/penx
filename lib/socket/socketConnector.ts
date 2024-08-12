@@ -58,7 +58,7 @@ export class SocketConnector {
     })
 
     this.socket.on('connect', () => {
-      // console.log('%c=WebSocket connection established', 'color:cyan')
+      console.log('%c=WebSocket connection established', 'color:cyan',process.env.NEXT_PUBLIC_SOCKETURL)
       this.connectStatus = { type: ConnectStatusType.connected, msg: 'ok' }
       this.setupListeners()
       channels.length && this.joinChannels(channels)

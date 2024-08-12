@@ -59,7 +59,7 @@ export const SendPanel = ({ userId, channelId, userImage, userName }: Props) => 
       <input
         type="text"
         placeholder="Enter message..."
-        className="w-full p-2 border border-gray-300 rounded"
+        className="w-full p-2 pl-[16px] border border-gray-300 rounded"
         value={msgContent}
         onChange={(e: ChangeEvent<HTMLInputElement>) => setMsgContent(e.target.value)}
         onKeyDown={handleKeyDown}
