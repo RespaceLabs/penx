@@ -18,34 +18,34 @@ export type Curve = {
 export class CurveService {
   curves = {
     [CurveTypes.ClubMember]: {
-      basePrice: '20',
+      basePrice: '0.002',
       inflectionPoint: '400',
-      inflectionPrice: '1200',
+      inflectionPrice: '0.5',
       linearPriceSlope: '0',
     },
     [CurveTypes.PublicationMember]: {
-      basePrice: '10',
+      basePrice: '0.002',
       inflectionPoint: '500',
-      inflectionPrice: '500',
+      inflectionPrice: '0.2',
       linearPriceSlope: '0',
     },
     [CurveTypes.GithubSponsor]: {
-      basePrice: '20',
+      basePrice: '0.002',
       inflectionPoint: '50',
-      inflectionPrice: '500',
+      inflectionPrice: '0.2',
       linearPriceSlope: '0',
     },
     [CurveTypes.PromotionSponsor]: {
-      basePrice: '50',
+      basePrice: '0.002',
       inflectionPoint: '40',
-      inflectionPrice: '2000',
+      inflectionPrice: '0.6',
       linearPriceSlope: '0',
     },
 
     [CurveTypes.Post]: {
-      basePrice: '5',
+      basePrice: '0.002',
       inflectionPoint: '100',
-      inflectionPrice: '1000',
+      inflectionPrice: '0.3',
       linearPriceSlope: '0',
     },
   }
@@ -58,9 +58,9 @@ export class CurveService {
   getNumberFormat(type: `${CurveTypes}`) {
     const curve = this.curves[type]
     return {
-      basePrice: precision.token(curve.basePrice, 6),
+      basePrice: precision.token(curve.basePrice),
       inflectionPoint: Number(curve.inflectionPoint),
-      inflectionPrice: precision.token(curve.inflectionPrice, 6),
+      inflectionPrice: precision.token(curve.inflectionPrice),
       linearPriceSlope: BigInt(curve.linearPriceSlope),
     }
   }

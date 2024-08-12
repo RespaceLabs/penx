@@ -70,7 +70,10 @@ export function SpaceInfo({ space, isLoading }: Props) {
             className=" w-20 h-20 rounded-full"
             height={80}
             width={80}
-            src={space.logo || ''}
+            src={
+              space.logo ||
+              'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
+            }
           />
 
           <div className="grid gap-1">

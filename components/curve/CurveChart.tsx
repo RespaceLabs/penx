@@ -69,7 +69,7 @@ const CustomTooltip = ({ active, payload }: any) => {
     return (
       <div className="bg-white shadow rounded-lg text-sm p-2">
         <p>{`Supply: ${supply}`}</p>
-        <p>{`Price: $${price.toFixed(2)}`}</p>
+        <p>{`Price: ${price.toFixed(5)} ETH`}</p>
       </div>
     )
   }
@@ -82,7 +82,7 @@ function getData(max: number = 100, curve: Curve = defaultCurve) {
     .map((_, index) => index + 1)
     .map((i) => {
       const price = getPrice(i, 1, curve)
-      const priceDecimal = precision.toDecimal(price, 6)
+      const priceDecimal = precision.toDecimal(price)
 
       return {
         supply: i.toString(),
@@ -92,9 +92,9 @@ function getData(max: number = 100, curve: Curve = defaultCurve) {
 }
 
 export const defaultCurve: Curve = {
-  basePrice: Number(precision.token(5, 6)),
-  inflectionPoint: 100,
-  inflectionPrice: Number(precision.token(100, 6)),
+  basePrice: Number(precision.token(0.002)),
+  inflectionPoint: 400,
+  inflectionPrice: Number(precision.token(0.5)),
   linearPriceSlope: 0,
 }
 
@@ -202,12 +202,12 @@ export const CurveChart = memo(
             <div className="text-neutral-400 text-sm">
               Creator fee(5%/per trade)
             </div>
-            <div className="font-semibold text-xl">${fee.toFixed(2)}</div>
+            <div className="font-semibold text-xl">{fee.toFixed(5)} ETH</div>
           </div>
           <div className="flex-1 border rounded-xl p-4">
             <div className="text-neutral-400 text-sm">Year yield (5% apr)</div>
             <div className="font-semibold text-2xl">
-              ${yieldIncome.toFixed(2)}
+              {yieldIncome.toFixed(5)} ETH
             </div>
           </div>
         </div>

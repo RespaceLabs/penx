@@ -4,7 +4,7 @@ import { PostWithSpace } from '@/hooks/usePost'
 import { useSpaces } from '@/hooks/useSpaces'
 import { indieXAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
-import { GateType } from '@/lib/constants'
+import { GateType, INDIE_X_APP_ID } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { revalidateMetadata } from '@/lib/revalidateTag'
@@ -44,20 +44,19 @@ export function usePublishPost() {
         }
 
         const curveService = new CurveService()
+
         const hash = await writeContractAsync({
           address: addressMap.IndieX,
           abi: indieXAbi,
           functionName: 'newCreation',
           args: [
             {
-              name: post.title,
-              uri: post.id,
-              appId: BigInt(1),
+              uri: `${post.id}|${post.title}`,
+              appId: INDIE_X_APP_ID,
               curatorFeePercent: precision.token(30, 16),
               isFarming: false,
               curve: curveService.getNumberFormat('Post'),
               farmer: 0,
-              curveArgs: [],
             },
           ],
         })

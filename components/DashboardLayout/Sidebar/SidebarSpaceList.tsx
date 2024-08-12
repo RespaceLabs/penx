@@ -48,7 +48,10 @@ export function SidebarSpaceList() {
             ></div>
           )}
           <Image
-            src={item.logo!}
+            src={
+              item.logo ||
+              'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
+            }
             alt=""
             width={40}
             height={40}

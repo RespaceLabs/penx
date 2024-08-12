@@ -18,6 +18,7 @@ import { useAddress } from '@/hooks/useAddress'
 import { spaceIdAtom } from '@/hooks/useSpaceId'
 import { spacesAtom } from '@/hooks/useSpaces'
 import { indieXAbi } from '@/lib/abi'
+import { spaceFactoryAbi } from '@/lib/abi/indieX'
 import { addressMap } from '@/lib/address'
 import { SELECTED_SPACE } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
@@ -47,6 +48,10 @@ const FormSchema = z.object({
 
   name: z.string().min(1, {
     message: 'Name must be at least 1 characters.',
+  }),
+
+  symbolName: z.string().min(2, {
+    message: 'Symbol name must be at least 2 characters.',
   }),
 
   subdomain: z.string().min(1, {
@@ -83,6 +88,7 @@ export function CreateSpaceForm() {
     defaultValues: {
       logo: '',
       name: '',
+      symbolName: '',
       subdomain: '',
       curveType: CurveTypes.ClubMember,
       basePrice: clubCurve.basePrice,
@@ -105,9 +111,9 @@ export function CreateSpaceForm() {
   useEffect(() => {
     if (!basePrice || !inflectionPoint || !inflectionPrice) return
     debouncedSetCurve({
-      basePrice: Number(precision.token(basePrice, 6)),
+      basePrice: Number(precision.token(basePrice)),
       inflectionPoint: Number(inflectionPoint),
-      inflectionPrice: Number(precision.token(inflectionPrice, 6)),
+      inflectionPrice: Number(precision.token(inflectionPrice)),
       linearPriceSlope: 0,
     })
   }, [basePrice, inflectionPoint, inflectionPrice, debouncedSetCurve])
@@ -147,39 +153,56 @@ export function CreateSpaceForm() {
     setLoading(true)
     try {
       const hash = await writeContractAsync({
-        address: addressMap.IndieX,
-        abi: indieXAbi,
-        functionName: 'newCreation',
+        address: addressMap.SpaceFactory,
+        abi: spaceFactoryAbi,
+        functionName: 'create',
         args: [
+          data.name,
+          data.symbolName,
           {
-            name: data.name!,
             uri: data.subdomain!,
             appId: BigInt(1),
             curatorFeePercent: precision.token(30, 16),
             isFarming: false,
             curve: {
-              basePrice: precision.token(data.basePrice, 6),
+              basePrice: precision.token(data.basePrice),
               inflectionPoint: Number(data.inflectionPoint),
-              inflectionPrice: precision.token(data.inflectionPrice, 6),
+              inflectionPrice: precision.token(data.inflectionPrice),
               linearPriceSlope: BigInt(0),
             },
             farmer: 0,
-            curveArgs: [],
+          },
+          {
+            uri: data.subdomain!,
+            appId: BigInt(1),
+            curatorFeePercent: precision.token(30, 16),
+            isFarming: false,
+            curve: {
+              basePrice: precision.token(data.basePrice),
+              inflectionPoint: Number(data.inflectionPoint),
+              inflectionPrice: precision.token(data.inflectionPrice),
+              linearPriceSlope: BigInt(0),
+            },
+            farmer: 0,
           },
         ],
       })
 
       await waitForTransactionReceipt(wagmiConfig, { hash })
-      const creation = await readContract(wagmiConfig, {
-        address: addressMap.IndieX,
-        abi: indieXAbi,
-        functionName: 'getUserLatestCreation',
-        args: [address!],
-      })
+      const { token, stakingRewards, creationId, sponsorCreationId } =
+        await readContract(wagmiConfig, {
+          address: addressMap.SpaceFactory,
+          abi: spaceFactoryAbi,
+          functionName: 'getUserLatestSpace',
+          args: [address!],
+        })
 
       const space = await mutateAsync({
         ...data,
-        creationId: creation.id.toString(),
+        creationId: creationId.toString(),
+        sponsorCreationId: sponsorCreationId.toString(),
+        tokenAddress: token,
+        stakingRewardsAddress: stakingRewards,
       })
 
       const spaces = await api.space.mySpaces.query()
@@ -239,6 +262,23 @@ export function CreateSpaceForm() {
                     {...field}
                     className="w-full"
                   />
+                </FormControl>
+                {/* <FormDescription>
+                    This is your public display name.
+                  </FormDescription> */}
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="symbolName"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Symbol name</FormLabel>
+                <FormControl>
+                  <Input placeholder="$SYMBOL" {...field} className="w-full" />
                 </FormControl>
                 {/* <FormDescription>
                     This is your public display name.
@@ -333,7 +373,7 @@ export function CreateSpaceForm() {
                       className="w-full"
                     />
                     <div className="flex items-center justify-center absolute right-0 top-0 h-full px-3 text-sm">
-                      USDC
+                      ETH
                     </div>
                   </div>
                 </FormControl>

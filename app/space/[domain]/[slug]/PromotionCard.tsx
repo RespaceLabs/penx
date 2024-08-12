@@ -38,7 +38,10 @@ export function PromotionCard({ space }: Props) {
             className="w-6 h-6 rounded"
             height={80}
             width={80}
-            src={data.logo || ''}
+            src={
+              data.logo ||
+              'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
+            }
           />
           <span className="font-bold">{data.name}:</span>
           <span>{data.description}</span>

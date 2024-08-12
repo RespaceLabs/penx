@@ -82,12 +82,12 @@ function KeyPrice({ creationId }: { creationId: bigint }) {
 
   if (isLoading || !data) return <div>-</div>
 
-  const keyPrice = precision.toDecimal(data.priceAfterFee, 6).toFixed(2)
+  const keyPrice = precision.toDecimal(data.priceAfterFee).toFixed(5)
   return (
     <div className="bg-muted rounded-lg flex items-center justify-between p-4 bg-amber-100">
       <div>Sell price</div>
       <div className="text-lg font-bold flex items-center gap-1">
-        <div>{keyPrice} USDC</div>
+        <div>{keyPrice} ETH</div>
       </div>
     </div>
   )

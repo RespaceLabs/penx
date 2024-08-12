@@ -44,7 +44,7 @@ export async function generateMetadata({
       images: [image],
       creator: '@vercel',
     },
-    icons: [logo],
+    // icons: [logo],
     metadataBase: new URL(`https://${domain}`),
     // Optional: Set canonical URL to custom domain if it exists
     // ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
@@ -93,7 +93,10 @@ export default async function SpaceLayout({
                 layout="responsive"
                 height={40}
                 width={40}
-                src={data.logo || ''}
+                src={
+                  data.logo ||
+                  'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
+                }
               />
             </div>
             <span className="ml-3 inline-block truncate font-title font-medium text-foreground">

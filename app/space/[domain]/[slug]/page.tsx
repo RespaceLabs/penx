@@ -159,7 +159,10 @@ export default async function SpacePostPage({
             <div className="h-10 w-10 rounded-full inline-flex">
               <BlurImage
                 alt={post.space!.name ?? 'User Avatar'}
-                src={post.space!.logo || ''}
+                src={
+                  post.space!.logo ||
+                  'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
+                }
                 layout="responsive"
                 height={40}
                 width={40}

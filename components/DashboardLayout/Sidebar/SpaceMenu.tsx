@@ -17,6 +17,8 @@ export function SpaceMenu() {
   const { space } = useSpaces()
   const { data: session } = useSession()
 
+  if (!space) return null
+
   return (
     <div className="relative">
       <DropdownMenu>
@@ -24,7 +26,10 @@ export function SpaceMenu() {
           <div className="flex items-center justify-between px-2 hover:bg-sidebar/50 cursor-pointer font-semibold h-10 w-[200px] rounded-lg">
             <div className="flex items-center gap-2">
               <Image
-                src={space.logo!}
+                src={
+                  space.logo! ||
+                  'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
+                }
                 alt=""
                 width={24}
                 height={24}

@@ -13,7 +13,7 @@ export function KeyPrice({ creation }: Props) {
 
   if (isLoading || !data) return <div>-</div>
 
-  const keyPrice = precision.toDecimal(data.priceAfterFee, 6).toFixed(2)
+  const keyPrice = precision.toDecimal(data.priceAfterFee).toFixed(5)
   return (
     <div className="leading-none gap-1 flex items-center justify-center">
       <div>{keyPrice} USDC</div>

@@ -1,4 +1,6 @@
 import { ReactNode } from 'react'
+import { CurveChart } from '@/components/curve/CurveChart'
+import { SpaceFooter } from '@/components/SpaceFooter'
 import { getSpaceData } from '@/lib/fetchers'
 import { cn } from '@/lib/utils'
 import { fontMapper } from '@/styles/fonts'
@@ -6,16 +8,15 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
-import { CurveChart } from '../../../../components/curve/CurveChart'
-import { SpaceFooter } from '../../../../components/SpaceFooter'
 import { ActiveLinkBorder } from './ActiveLinkBorder'
 import { SpaceNav } from './SpaceHome/SpaceNav'
 import { SpaceSidebar } from './SpaceHome/SpaceSidebar'
 
-export async function generateMetadata(
-  { params }: { params: { domain: string } },
-  state: any,
-): Promise<Metadata | null> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { domain: string }
+}): Promise<Metadata | null> {
   const domain = decodeURIComponent(params.domain).replace(/^@/, '')
   const data = await getSpaceData(domain)
   if (!data) {
@@ -24,14 +25,15 @@ export async function generateMetadata(
   const {
     name: title,
     description,
-    image,
-    logo,
+    image = '',
+    logo = '',
   } = data as {
     name: string
     description: string
     image: string
     logo: string
   }
+  console.log('data========:', data)
 
   return {
     title,
@@ -48,7 +50,7 @@ export async function generateMetadata(
       images: [image],
       creator: '@vercel',
     },
-    icons: [logo],
+    // icons: [logo],
     metadataBase: new URL(`https://${domain}`),
     // Optional: Set canonical URL to custom domain if it exists
     // ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&

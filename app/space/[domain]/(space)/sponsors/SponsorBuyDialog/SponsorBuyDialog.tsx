@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { useQueryUsdcBalance } from '@/hooks/useUsdcBalance'
+import { useQueryEthBalance } from '@/hooks/useEthBalance'
 import { precision } from '@/lib/math'
 import { Space } from '@prisma/client'
 import { EthBalance } from './EthBalance'
@@ -23,7 +23,7 @@ interface Props {
 export function SponsorBuyDialog({ space }: Props) {
   const { isOpen, setIsOpen } = useSponsorBuyDialog()
   const creationId = BigInt(space.sponsorCreationId!)
-  useQueryUsdcBalance()
+  useQueryEthBalance()
 
   return (
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>

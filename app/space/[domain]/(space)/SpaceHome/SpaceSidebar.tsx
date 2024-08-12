@@ -31,7 +31,10 @@ export function SpaceSidebar({ space, className }: Props) {
             className="w-24 h-24 rounded-full"
             height={80}
             width={80}
-            src={space.logo || ''}
+            src={
+              space.logo ||
+              'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
+            }
           />
           <div className="font-semibold text-lg">{space.name}</div>
           <div className="text-sm text-secondary-foreground">

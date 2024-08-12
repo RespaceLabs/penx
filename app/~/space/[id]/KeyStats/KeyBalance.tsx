@@ -11,8 +11,7 @@ export function KeyBalance({ creation }: Props) {
 
 function Balance({ creation }: Props) {
   const { data, isLoading } = useKeyBalance(creation.id)
-
-  if (isLoading || !data) return null
+  if (isLoading || typeof data === 'undefined') return null
 
   return (
     <div>

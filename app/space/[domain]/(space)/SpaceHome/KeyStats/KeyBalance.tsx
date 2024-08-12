@@ -17,6 +17,8 @@ export function KeyBalance({ creation }: Props) {
 function Balance({ creation }: Props) {
   const { data, isLoading } = useKeyBalance(creation.id)
 
+  console.log('=============data:', data)
+
   if (isLoading) return null
 
   return (

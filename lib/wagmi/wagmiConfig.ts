@@ -24,8 +24,8 @@ const metadata = {
 
 // Create wagmiConfig
 const chains = [
-  // arbitrumSepolia,
-  baseSepolia,
+  arbitrumSepolia,
+  // baseSepolia,
   // mainnet,
   // optimism,
   // arbitrum,

@@ -10,7 +10,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useCreation } from '@/hooks/useCreation'
-import { useQueryUsdcBalance, useUsdcBalance } from '@/hooks/useUsdcBalance'
+import { useEthBalance, useQueryEthBalance } from '@/hooks/useEthBalance'
 import { indieXAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
 import { INDIE_X_APP_ID } from '@/lib/constants'
@@ -35,7 +35,7 @@ export function BuyDialog({ space, post }: Props) {
   const creationId = BigInt(isPost ? post.creationId! : space.creationId!)
 
   const { isOpen, setIsOpen } = useBuyDialog()
-  useQueryUsdcBalance()
+  useQueryEthBalance()
   const [amount, setAmount] = useState('1')
   const [price, setPrice] = useState(BigInt(0))
 
@@ -46,6 +46,7 @@ export function BuyDialog({ space, post }: Props) {
       functionName: 'getBuyPriceAfterFee',
       args: [creationId, amount, INDIE_X_APP_ID],
     })
+
     setPrice(priceAfterFee)
   }
 
@@ -76,7 +77,7 @@ export function BuyDialog({ space, post }: Props) {
 
         <div className="flex justify-between">
           <ProfileAvatar showAddress />
-          <USDCBalance />
+          <EthBalance />
         </div>
 
         <AmountInput
@@ -90,7 +91,7 @@ export function BuyDialog({ space, post }: Props) {
         <div className="flex items-center justify-between h-6">
           <div className="text-sm text-neutral-500">Total cost</div>
           <div className="text-sm">
-            {precision.toDecimal(price, 6).toFixed(2)} USDC
+            {precision.toDecimal(price).toFixed(5)} ETH
           </div>
         </div>
 
@@ -109,12 +110,12 @@ export function BuyDialog({ space, post }: Props) {
   )
 }
 
-function USDCBalance() {
-  const { decimal } = useUsdcBalance()
+function EthBalance() {
+  const { ethBalance } = useEthBalance()
   return (
     <div className="flex items-center gap-1">
-      <div className="font-bold">{decimal}</div>
-      <div className="text-xs">USDC</div>
+      <div className="font-bold">{ethBalance.valueDecimal.toFixed(5)}</div>
+      <div className="text-xs">ETH</div>
     </div>
   )
 }

@@ -79,13 +79,6 @@ export function Sidebar() {
       }
     }
 
-    list.push({
-      name: 'USDC Faucet',
-      href: '/~/faucet',
-      isActive: pathname === '/~/faucet',
-      icon: <CircleDollarSign width={18} />,
-    })
-
     return list
   }, [pathname, space, session?.userId, spaces.length, channels, posts])
 

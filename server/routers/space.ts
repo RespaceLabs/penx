@@ -27,7 +27,11 @@ export const spaceRouter = router({
       z.object({
         name: z.string(),
         subdomain: z.string(),
+        logo: z.string(),
+        stakingRewardsAddress: z.string(),
+        tokenAddress: z.string(),
         creationId: z.string(),
+        sponsorCreationId: z.string(),
       }),
     )
     .mutation(({ ctx, input }) => {

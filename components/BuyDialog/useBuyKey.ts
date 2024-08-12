@@ -7,7 +7,6 @@ import { useMembers } from '@/hooks/useMembers'
 import { refetchSpaces } from '@/hooks/useSpaces'
 import { useSupply } from '@/hooks/useSupply'
 import { indieXAbi } from '@/lib/abi'
-import { usdcAbi } from '@/lib/abi/indieX'
 import { addressMap } from '@/lib/address'
 import { INDIE_X_APP_ID } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
@@ -47,24 +46,6 @@ export function useBuyKey(space: RouterOutputs['space']['byId'], post?: Post) {
         functionName: 'getBuyPriceAfterFee',
         args: [creationId, amount, INDIE_X_APP_ID],
       })
-
-      const allowance = await readContract(wagmiConfig, {
-        address: addressMap.USDC,
-        abi: usdcAbi,
-        functionName: 'allowance',
-        args: [address, addressMap.IndieX],
-      })
-
-      if (allowance < priceAfterFee) {
-        const approveHash = await writeContract(wagmiConfig, {
-          address: addressMap.USDC,
-          abi: usdcAbi,
-          functionName: 'approve',
-          args: [addressMap.IndieX, priceAfterFee],
-        })
-
-        await waitForTransactionReceipt(wagmiConfig, { hash: approveHash })
-      }
 
       const hash = await writeContractAsync({
         chain: arbitrumSepolia,

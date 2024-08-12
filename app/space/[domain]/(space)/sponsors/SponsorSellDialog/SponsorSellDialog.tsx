@@ -85,7 +85,7 @@ function KeyPrice({ creationId }: { creationId: bigint }) {
     <div className="bg-muted rounded-lg flex items-center justify-between p-4 bg-amber-100">
       <div>Sell price</div>
       <div className="text-lg font-bold flex items-center gap-1">
-        <div>{keyPrice.toFixed(4)} ETH</div>
+        <div>{keyPrice.toFixed(5)} ETH</div>
         <div className="text-sm font-light">(${usdPrice.toFixed(2)})</div>
       </div>
     </div>
