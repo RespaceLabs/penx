@@ -18,7 +18,7 @@ import { useAddress } from '@/hooks/useAddress'
 import { spaceIdAtom } from '@/hooks/useSpaceId'
 import { spacesAtom } from '@/hooks/useSpaces'
 import { indieXAbi } from '@/lib/abi'
-import { spaceFactoryAbi } from '@/lib/abi/indieX'
+import { spaceAbi, spaceFactoryAbi } from '@/lib/abi/indieX'
 import { addressMap } from '@/lib/address'
 import { SELECTED_SPACE } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
@@ -155,7 +155,7 @@ export function CreateSpaceForm() {
       const hash = await writeContractAsync({
         address: addressMap.SpaceFactory,
         abi: spaceFactoryAbi,
-        functionName: 'create',
+        functionName: 'createSpace',
         args: [
           data.name,
           data.symbolName,
@@ -189,20 +189,35 @@ export function CreateSpaceForm() {
       })
 
       await waitForTransactionReceipt(wagmiConfig, { hash })
-      const { token, stakingRewards, creationId, sponsorCreationId } =
-        await readContract(wagmiConfig, {
-          address: addressMap.SpaceFactory,
-          abi: spaceFactoryAbi,
-          functionName: 'getUserLatestSpace',
-          args: [address!],
-        })
+
+      const spaceAddresses = await readContract(wagmiConfig, {
+        address: addressMap.SpaceFactory,
+        abi: spaceFactoryAbi,
+        functionName: 'getUserSpaces',
+        args: [address!],
+      })
+      console.log('==========:spaceAddresses:', spaceAddresses)
+
+      const spaceAddress = spaceAddresses[spaceAddresses.length - 1]
+      const { creationId, sponsorCreationId } = await readContract(
+        wagmiConfig,
+        {
+          address: spaceAddress,
+          abi: spaceAbi,
+          functionName: 'getInfo',
+        },
+      )
+      console.log(
+        ' creationId, sponsorCreationId :',
+        creationId,
+        sponsorCreationId,
+      )
 
       const space = await mutateAsync({
         ...data,
         creationId: creationId.toString(),
         sponsorCreationId: sponsorCreationId.toString(),
-        tokenAddress: token,
-        stakingRewardsAddress: stakingRewards,
+        spaceAddress: spaceAddress,
       })
 
       const spaces = await api.space.mySpaces.query()

@@ -3794,29 +3794,10 @@ export const safeErc20Abi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ShortStrings
+// Share
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export const shortStringsAbi = [
-  { type: 'error', inputs: [], name: 'InvalidShortString' },
-  {
-    type: 'error',
-    inputs: [{ name: 'str', internalType: 'string', type: 'string' }],
-    name: 'StringTooLong',
-  },
-] as const
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Space
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const spaceAbi = [
-  {
-    type: 'constructor',
-    inputs: [{ name: '_founder', internalType: 'address', type: 'address' }],
-    stateMutability: 'nonpayable',
-  },
-  { type: 'error', inputs: [], name: 'ReentrancyGuardReentrantCall' },
+export const shareAbi = [
   {
     type: 'event',
     anonymous: false,
@@ -3836,6 +3817,159 @@ export const spaceAbi = [
     ],
     name: 'Claimed',
   },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'accumulated',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'RewardsPerShareUpdated',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'PER_SHARE_PRECISION',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ShortStrings
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const shortStringsAbi = [
+  { type: 'error', inputs: [], name: 'InvalidShortString' },
+  {
+    type: 'error',
+    inputs: [{ name: 'str', internalType: 'string', type: 'string' }],
+    name: 'StringTooLong',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Space
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const spaceAbi = [
+  {
+    type: 'constructor',
+    inputs: [
+      { name: '_indieX', internalType: 'address', type: 'address' },
+      { name: '_founder', internalType: 'address', type: 'address' },
+      { name: '_name', internalType: 'string', type: 'string' },
+      { name: '_symbol', internalType: 'string', type: 'string' },
+    ],
+    stateMutability: 'nonpayable',
+  },
+  { type: 'error', inputs: [], name: 'ECDSAInvalidSignature' },
+  {
+    type: 'error',
+    inputs: [{ name: 'length', internalType: 'uint256', type: 'uint256' }],
+    name: 'ECDSAInvalidSignatureLength',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 's', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'ECDSAInvalidSignatureS',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'allowance', internalType: 'uint256', type: 'uint256' },
+      { name: 'needed', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'ERC20InsufficientAllowance',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'sender', internalType: 'address', type: 'address' },
+      { name: 'balance', internalType: 'uint256', type: 'uint256' },
+      { name: 'needed', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'ERC20InsufficientBalance',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'approver', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidApprover',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'receiver', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidReceiver',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidSender',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'spender', internalType: 'address', type: 'address' }],
+    name: 'ERC20InvalidSpender',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'deadline', internalType: 'uint256', type: 'uint256' }],
+    name: 'ERC2612ExpiredSignature',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'signer', internalType: 'address', type: 'address' },
+      { name: 'owner', internalType: 'address', type: 'address' },
+    ],
+    name: 'ERC2612InvalidSigner',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'account', internalType: 'address', type: 'address' },
+      { name: 'currentNonce', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'InvalidAccountNonce',
+  },
+  { type: 'error', inputs: [], name: 'InvalidShortString' },
+  { type: 'error', inputs: [], name: 'ReentrancyGuardReentrantCall' },
+  {
+    type: 'error',
+    inputs: [{ name: 'str', internalType: 'string', type: 'string' }],
+    name: 'StringTooLong',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'spender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Approval',
+  },
+  { type: 'event', anonymous: false, inputs: [], name: 'EIP712DomainChanged' },
   {
     type: 'event',
     anonymous: false,
@@ -3866,28 +4000,113 @@ export const spaceAbi = [
     anonymous: false,
     inputs: [
       {
-        name: 'accumulated',
+        name: 'tradeType',
+        internalType: 'enum Space.TradeType',
+        type: 'uint8',
+        indexed: true,
+      },
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'ethAmount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'tokenAmount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      { name: 'fee', internalType: 'uint256', type: 'uint256', indexed: false },
+    ],
+    name: 'Trade',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'value',
         internalType: 'uint256',
         type: 'uint256',
         indexed: false,
       },
     ],
-    name: 'RewardsPerShareUpdated',
+    name: 'Transfer',
   },
   { type: 'fallback', stateMutability: 'payable' },
   {
     type: 'function',
     inputs: [],
-    name: 'PER_SHARE_PRECISION',
+    name: 'DOMAIN_SEPARATOR',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'FEE_RATE',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      {
+        name: '_collaborator',
+        internalType: 'struct Share.UpsertCollaboratorInput',
+        type: 'tuple',
+        components: [
+          { name: 'account', internalType: 'address', type: 'address' },
+          { name: 'share', internalType: 'uint256', type: 'uint256' },
+        ],
+      },
+    ],
+    name: 'addCollaborator',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'spender', internalType: 'address', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     stateMutability: 'view',
   },
   {
     type: 'function',
     inputs: [],
-    name: 'accumulatedRewardsPerShare',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
+    name: 'buy',
+    outputs: [],
+    stateMutability: 'payable',
   },
   {
     type: 'function',
@@ -3898,21 +4117,163 @@ export const spaceAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: '', internalType: 'address', type: 'address' }],
-    name: 'collaborators',
+    inputs: [],
+    name: 'currentRewardsPerToken',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
+    name: 'currentUserRewards',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'daoFeePercent',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'distribute',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'eip712Domain',
     outputs: [
-      { name: 'share', internalType: 'uint256', type: 'uint256' },
-      { name: 'rewards', internalType: 'uint256', type: 'uint256' },
-      { name: 'checkpoint', internalType: 'uint256', type: 'uint256' },
+      { name: 'fields', internalType: 'bytes1', type: 'bytes1' },
+      { name: 'name', internalType: 'string', type: 'string' },
+      { name: 'version', internalType: 'string', type: 'string' },
+      { name: 'chainId', internalType: 'uint256', type: 'uint256' },
+      { name: 'verifyingContract', internalType: 'address', type: 'address' },
+      { name: 'salt', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'extensions', internalType: 'uint256[]', type: 'uint256[]' },
     ],
     stateMutability: 'view',
   },
   {
     type: 'function',
+    inputs: [],
+    name: 'founder',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'getCollaborators',
+    outputs: [
+      { name: '', internalType: 'address[]', type: 'address[]' },
+      {
+        name: '',
+        internalType: 'struct Share.Collaborator[]',
+        type: 'tuple[]',
+        components: [
+          { name: 'share', internalType: 'uint256', type: 'uint256' },
+          { name: 'rewards', internalType: 'uint256', type: 'uint256' },
+          { name: 'checkpoint', internalType: 'uint256', type: 'uint256' },
+        ],
+      },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'getExcessEth',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'getExcessToken',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'getInfo',
+    outputs: [
+      {
+        name: '',
+        internalType: 'struct Space.SpaceInfo',
+        type: 'tuple',
+        components: [
+          { name: 'name', internalType: 'string', type: 'string' },
+          { name: 'founder', internalType: 'address', type: 'address' },
+          { name: 'creationId', internalType: 'uint256', type: 'uint256' },
+          {
+            name: 'sponsorCreationId',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+        ],
+      },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'getStakingInfo',
+    outputs: [
+      {
+        name: '',
+        internalType: 'struct Staking.Info',
+        type: 'tuple',
+        components: [
+          { name: 'stakingFees', internalType: 'uint256', type: 'uint256' },
+          { name: 'totalStaked', internalType: 'uint256', type: 'uint256' },
+          {
+            name: 'accumulatedRewardsPerToken',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+        ],
+      },
+    ],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'indieX',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'initialX',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'initialY',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
     inputs: [
-      { name: 'indieX', internalType: 'address', type: 'address' },
-      { name: '_spaceName', internalType: 'string', type: 'string' },
-      { name: '_symbol', internalType: 'string', type: 'string' },
       {
         name: 'creationInput',
         internalType: 'struct IIndieX.NewCreationInput',
@@ -3992,75 +4353,15 @@ export const spaceAbi = [
         ],
       },
     ],
-    name: 'create',
+    name: 'initialize',
     outputs: [],
     stateMutability: 'nonpayable',
   },
   {
     type: 'function',
     inputs: [],
-    name: 'creationId',
+    name: 'k',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
-    name: 'currentCollaboratorRewards',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'daoFeePercent',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'daoFees',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'distribute',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'founder',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'getInfo',
-    outputs: [
-      {
-        name: '',
-        internalType: 'struct Space.SpaceInfo',
-        type: 'tuple',
-        components: [
-          { name: 'name', internalType: 'string', type: 'string' },
-          { name: 'symbol', internalType: 'string', type: 'string' },
-          { name: 'token', internalType: 'address', type: 'address' },
-          { name: 'stakingRewards', internalType: 'address', type: 'address' },
-          { name: 'creationId', internalType: 'uint256', type: 'uint256' },
-          {
-            name: 'sponsorCreationId',
-            internalType: 'uint256',
-            type: 'uint256',
-          },
-        ],
-      },
-    ],
     stateMutability: 'view',
   },
   {
@@ -4068,6 +4369,60 @@ export const spaceAbi = [
     inputs: [],
     name: 'name',
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      {
+        name: 'input',
+        internalType: 'struct IIndieX.NewCreationInput',
+        type: 'tuple',
+        components: [
+          { name: 'appId', internalType: 'uint256', type: 'uint256' },
+          { name: 'uri', internalType: 'string', type: 'string' },
+          {
+            name: 'curatorFeePercent',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          {
+            name: 'curve',
+            internalType: 'struct IIndieX.Curve',
+            type: 'tuple',
+            components: [
+              { name: 'basePrice', internalType: 'uint96', type: 'uint96' },
+              {
+                name: 'inflectionPoint',
+                internalType: 'uint32',
+                type: 'uint32',
+              },
+              {
+                name: 'inflectionPrice',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+              {
+                name: 'linearPriceSlope',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+            ],
+          },
+          { name: 'farmer', internalType: 'uint8', type: 'uint8' },
+          { name: 'isFarming', internalType: 'bool', type: 'bool' },
+        ],
+      },
+    ],
+    name: 'newCreation',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'nonces',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     stateMutability: 'view',
   },
   {
@@ -4099,25 +4454,31 @@ export const spaceAbi = [
   {
     type: 'function',
     inputs: [
-      { name: '_daoFeePercent', internalType: 'uint256', type: 'uint256' },
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+      { name: 'deadline', internalType: 'uint256', type: 'uint256' },
+      { name: 'v', internalType: 'uint8', type: 'uint8' },
+      { name: 'r', internalType: 'bytes32', type: 'bytes32' },
+      { name: 's', internalType: 'bytes32', type: 'bytes32' },
     ],
-    name: 'setDaoFeePercent',
+    name: 'permit',
     outputs: [],
     stateMutability: 'nonpayable',
   },
   {
     type: 'function',
-    inputs: [],
-    name: 'sponsorCreationId',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
+    inputs: [{ name: 'tokenAmount', internalType: 'uint256', type: 'uint256' }],
+    name: 'sell',
+    outputs: [],
+    stateMutability: 'payable',
   },
   {
     type: 'function',
-    inputs: [],
-    name: 'stakingFees',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
+    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
+    name: 'stake',
+    outputs: [],
+    stateMutability: 'nonpayable',
   },
   {
     type: 'function',
@@ -4136,16 +4497,44 @@ export const spaceAbi = [
   {
     type: 'function',
     inputs: [],
-    name: 'totalShare',
+    name: 'totalSupply',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     stateMutability: 'view',
   },
   {
     type: 'function',
     inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
+    name: 'unstake',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
       {
         name: '_collaborators',
-        internalType: 'struct Space.UpsertCollaboratorInput[]',
+        internalType: 'struct Share.UpsertCollaboratorInput[]',
         type: 'tuple[]',
         components: [
           { name: 'account', internalType: 'address', type: 'address' },
@@ -4160,9 +4549,16 @@ export const spaceAbi = [
   {
     type: 'function',
     inputs: [],
-    name: 'withdrawDaoFee',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    name: 'x',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'y',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
   },
   { type: 'receive', stateMutability: 'payable' },
 ] as const
@@ -4190,6 +4586,7 @@ export const spaceFactoryAbi = [
     inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
     name: 'OwnableUnauthorizedAccount',
   },
+  { type: 'error', inputs: [], name: 'ReentrancyGuardReentrantCall' },
   {
     type: 'event',
     anonymous: false,
@@ -4198,12 +4595,6 @@ export const spaceFactoryAbi = [
         name: 'spaceId',
         internalType: 'uint256',
         type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'spaceAddress',
-        internalType: 'address',
-        type: 'address',
         indexed: true,
       },
       {
@@ -4330,34 +4721,9 @@ export const spaceFactoryAbi = [
         ],
       },
     ],
-    name: 'create',
+    name: 'createSpace',
     outputs: [],
     stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
-    name: 'getUserLatestSpace',
-    outputs: [
-      {
-        name: 'info',
-        internalType: 'struct Space.SpaceInfo',
-        type: 'tuple',
-        components: [
-          { name: 'name', internalType: 'string', type: 'string' },
-          { name: 'symbol', internalType: 'string', type: 'string' },
-          { name: 'token', internalType: 'address', type: 'address' },
-          { name: 'stakingRewards', internalType: 'address', type: 'address' },
-          { name: 'creationId', internalType: 'uint256', type: 'uint256' },
-          {
-            name: 'sponsorCreationId',
-            internalType: 'uint256',
-            type: 'uint256',
-          },
-        ],
-      },
-    ],
-    stateMutability: 'view',
   },
   {
     type: 'function',
@@ -4372,6 +4738,79 @@ export const spaceFactoryAbi = [
     name: 'indieX',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
     stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      {
+        name: 'input',
+        internalType: 'struct IIndieX.NewCreationInput',
+        type: 'tuple',
+        components: [
+          { name: 'appId', internalType: 'uint256', type: 'uint256' },
+          { name: 'uri', internalType: 'string', type: 'string' },
+          {
+            name: 'curatorFeePercent',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          {
+            name: 'curve',
+            internalType: 'struct IIndieX.Curve',
+            type: 'tuple',
+            components: [
+              { name: 'basePrice', internalType: 'uint96', type: 'uint96' },
+              {
+                name: 'inflectionPoint',
+                internalType: 'uint32',
+                type: 'uint32',
+              },
+              {
+                name: 'inflectionPrice',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+              {
+                name: 'linearPriceSlope',
+                internalType: 'uint128',
+                type: 'uint128',
+              },
+            ],
+          },
+          { name: 'farmer', internalType: 'uint8', type: 'uint8' },
+          { name: 'isFarming', internalType: 'bool', type: 'bool' },
+        ],
+      },
+    ],
+    name: 'newCreation',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '', internalType: 'address', type: 'address' },
+      { name: '', internalType: 'address', type: 'address' },
+      { name: '', internalType: 'uint256[]', type: 'uint256[]' },
+      { name: '', internalType: 'uint256[]', type: 'uint256[]' },
+      { name: '', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'onERC1155BatchReceived',
+    outputs: [{ name: '', internalType: 'bytes4', type: 'bytes4' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '', internalType: 'address', type: 'address' },
+      { name: '', internalType: 'address', type: 'address' },
+      { name: '', internalType: 'uint256', type: 'uint256' },
+      { name: '', internalType: 'uint256', type: 'uint256' },
+      { name: '', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'onERC1155Received',
+    outputs: [{ name: '', internalType: 'bytes4', type: 'bytes4' }],
+    stateMutability: 'nonpayable',
   },
   {
     type: 'function',
@@ -4396,9 +4835,16 @@ export const spaceFactoryAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    inputs: [{ name: 'spaceId', internalType: 'uint256', type: 'uint256' }],
     name: 'spaces',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
     stateMutability: 'view',
   },
   {
@@ -4421,17 +4867,10 @@ export const spaceFactoryAbi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// StakingRewards
+// Staking
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export const stakingRewardsAbi = [
-  {
-    type: 'constructor',
-    inputs: [
-      { name: '_stakingToken', internalType: 'address', type: 'address' },
-    ],
-    stateMutability: 'nonpayable',
-  },
+export const stakingAbi = [
   {
     type: 'error',
     inputs: [{ name: 'target', internalType: 'address', type: 'address' }],
@@ -4443,7 +4882,6 @@ export const stakingRewardsAbi = [
     name: 'AddressInsufficientBalance',
   },
   { type: 'error', inputs: [], name: 'FailedInnerCall' },
-  { type: 'error', inputs: [], name: 'ReentrancyGuardReentrantCall' },
   {
     type: 'error',
     inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
@@ -4563,7 +5001,6 @@ export const stakingRewardsAbi = [
     ],
     name: 'UserRewardsUpdated',
   },
-  { type: 'fallback', stateMutability: 'payable' },
   {
     type: 'function',
     inputs: [],
@@ -4571,101 +5008,6 @@ export const stakingRewardsAbi = [
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     stateMutability: 'view',
   },
-  {
-    type: 'function',
-    inputs: [{ name: '', internalType: 'address', type: 'address' }],
-    name: 'accumulatedRewards',
-    outputs: [
-      { name: 'accumulated', internalType: 'uint256', type: 'uint256' },
-      { name: 'checkpoint', internalType: 'uint256', type: 'uint256' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'accumulatedRewardsPerToken',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'claim',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'currentRewardsPerToken',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
-    name: 'currentUserRewards',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'daoFeePercent',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'distribute',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
-    name: 'stake',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'stakingFees',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'stakingToken',
-    outputs: [{ name: '', internalType: 'contract IERC20', type: 'address' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'totalStaked',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
-    name: 'unstake',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: '', internalType: 'address', type: 'address' }],
-    name: 'userStake',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  { type: 'receive', stateMutability: 'payable' },
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4681,383 +5023,4 @@ export const stringsAbi = [
     ],
     name: 'StringsInsufficientHexLength',
   },
-] as const
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Token
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const tokenAbi = [
-  {
-    type: 'constructor',
-    inputs: [
-      { name: '_founder', internalType: 'address', type: 'address' },
-      { name: '_name', internalType: 'string', type: 'string' },
-      { name: '_symbol', internalType: 'string', type: 'string' },
-    ],
-    stateMutability: 'nonpayable',
-  },
-  { type: 'error', inputs: [], name: 'ECDSAInvalidSignature' },
-  {
-    type: 'error',
-    inputs: [{ name: 'length', internalType: 'uint256', type: 'uint256' }],
-    name: 'ECDSAInvalidSignatureLength',
-  },
-  {
-    type: 'error',
-    inputs: [{ name: 's', internalType: 'bytes32', type: 'bytes32' }],
-    name: 'ECDSAInvalidSignatureS',
-  },
-  {
-    type: 'error',
-    inputs: [
-      { name: 'spender', internalType: 'address', type: 'address' },
-      { name: 'allowance', internalType: 'uint256', type: 'uint256' },
-      { name: 'needed', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'ERC20InsufficientAllowance',
-  },
-  {
-    type: 'error',
-    inputs: [
-      { name: 'sender', internalType: 'address', type: 'address' },
-      { name: 'balance', internalType: 'uint256', type: 'uint256' },
-      { name: 'needed', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'ERC20InsufficientBalance',
-  },
-  {
-    type: 'error',
-    inputs: [{ name: 'approver', internalType: 'address', type: 'address' }],
-    name: 'ERC20InvalidApprover',
-  },
-  {
-    type: 'error',
-    inputs: [{ name: 'receiver', internalType: 'address', type: 'address' }],
-    name: 'ERC20InvalidReceiver',
-  },
-  {
-    type: 'error',
-    inputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
-    name: 'ERC20InvalidSender',
-  },
-  {
-    type: 'error',
-    inputs: [{ name: 'spender', internalType: 'address', type: 'address' }],
-    name: 'ERC20InvalidSpender',
-  },
-  {
-    type: 'error',
-    inputs: [{ name: 'deadline', internalType: 'uint256', type: 'uint256' }],
-    name: 'ERC2612ExpiredSignature',
-  },
-  {
-    type: 'error',
-    inputs: [
-      { name: 'signer', internalType: 'address', type: 'address' },
-      { name: 'owner', internalType: 'address', type: 'address' },
-    ],
-    name: 'ERC2612InvalidSigner',
-  },
-  {
-    type: 'error',
-    inputs: [
-      { name: 'account', internalType: 'address', type: 'address' },
-      { name: 'currentNonce', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'InvalidAccountNonce',
-  },
-  { type: 'error', inputs: [], name: 'InvalidShortString' },
-  { type: 'error', inputs: [], name: 'ReentrancyGuardReentrantCall' },
-  {
-    type: 'error',
-    inputs: [{ name: 'str', internalType: 'string', type: 'string' }],
-    name: 'StringTooLong',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'owner',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'spender',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'value',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'Approval',
-  },
-  { type: 'event', anonymous: false, inputs: [], name: 'EIP712DomainChanged' },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'tradeType',
-        internalType: 'enum Token.TradeType',
-        type: 'uint8',
-        indexed: true,
-      },
-      {
-        name: 'account',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'ethAmount',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      {
-        name: 'tokenAmount',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-      { name: 'fee', internalType: 'uint256', type: 'uint256', indexed: false },
-    ],
-    name: 'Trade',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      { name: 'from', internalType: 'address', type: 'address', indexed: true },
-      { name: 'to', internalType: 'address', type: 'address', indexed: true },
-      {
-        name: 'value',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'Transfer',
-  },
-  { type: 'fallback', stateMutability: 'payable' },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'DOMAIN_SEPARATOR',
-    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'FEE_RATE',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'owner', internalType: 'address', type: 'address' },
-      { name: 'spender', internalType: 'address', type: 'address' },
-    ],
-    name: 'allowance',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'spender', internalType: 'address', type: 'address' },
-      { name: 'value', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'approve',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
-    name: 'balanceOf',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'buy',
-    outputs: [],
-    stateMutability: 'payable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'decimals',
-    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'eip712Domain',
-    outputs: [
-      { name: 'fields', internalType: 'bytes1', type: 'bytes1' },
-      { name: 'name', internalType: 'string', type: 'string' },
-      { name: 'version', internalType: 'string', type: 'string' },
-      { name: 'chainId', internalType: 'uint256', type: 'uint256' },
-      { name: 'verifyingContract', internalType: 'address', type: 'address' },
-      { name: 'salt', internalType: 'bytes32', type: 'bytes32' },
-      { name: 'extensions', internalType: 'uint256[]', type: 'uint256[]' },
-    ],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'founder',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'getExcessEth',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'getExcessToken',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'initialX',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'initialY',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'k',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'name',
-    outputs: [{ name: '', internalType: 'string', type: 'string' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
-    name: 'nonces',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'owner', internalType: 'address', type: 'address' },
-      { name: 'spender', internalType: 'address', type: 'address' },
-      { name: 'value', internalType: 'uint256', type: 'uint256' },
-      { name: 'deadline', internalType: 'uint256', type: 'uint256' },
-      { name: 'v', internalType: 'uint8', type: 'uint8' },
-      { name: 'r', internalType: 'bytes32', type: 'bytes32' },
-      { name: 's', internalType: 'bytes32', type: 'bytes32' },
-    ],
-    name: 'permit',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'tokenAmount', internalType: 'uint256', type: 'uint256' }],
-    name: 'sell',
-    outputs: [],
-    stateMutability: 'payable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'symbol',
-    outputs: [{ name: '', internalType: 'string', type: 'string' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'totalSupply',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'to', internalType: 'address', type: 'address' },
-      { name: 'value', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'transfer',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [
-      { name: 'from', internalType: 'address', type: 'address' },
-      { name: 'to', internalType: 'address', type: 'address' },
-      { name: 'value', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'transferFrom',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'withdrawExcessEth',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'withdrawExcessToken',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'x',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'y',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'view',
-  },
-  { type: 'receive', stateMutability: 'payable' },
 ] as const
