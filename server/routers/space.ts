@@ -30,7 +30,6 @@ export const spaceRouter = router({
         logo: z.string(),
         spaceAddress: z.string(),
         creationId: z.string(),
-        sponsorCreationId: z.string(),
       }),
     )
     .mutation(({ ctx, input }) => {

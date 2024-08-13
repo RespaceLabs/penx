@@ -22,6 +22,7 @@ function StatsCard({ children }: PropsWithChildren) {
 
 export function KeyStats({ space }: Props) {
   const { creation } = useCreation()
+
   if (!creation) return null
 
   return (

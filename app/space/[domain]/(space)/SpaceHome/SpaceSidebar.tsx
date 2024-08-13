@@ -51,7 +51,7 @@ export function SpaceSidebar({ space, className }: Props) {
         <div className="grid gap-5">
           <KeyStats space={space} />
           <MemberAvatarList spaceId={space.id} />
-          <SponsorAvatarList spaceId={space.id} />
+          {/* <SponsorAvatarList spaceId={space.id} /> */}
         </div>
       </div>
     </>

@@ -17,7 +17,6 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useAddress } from '@/hooks/useAddress'
 import { spaceIdAtom } from '@/hooks/useSpaceId'
 import { spacesAtom } from '@/hooks/useSpaces'
-import { indieXAbi } from '@/lib/abi'
 import { spaceAbi, spaceFactoryAbi } from '@/lib/abi/indieX'
 import { addressMap } from '@/lib/address'
 import { SELECTED_SPACE } from '@/lib/constants'
@@ -25,6 +24,7 @@ import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api, trpc } from '@/lib/trpc'
+import { cn } from '@/lib/utils'
 import { wagmiConfig } from '@/lib/wagmi'
 import { Curve, CurveService, CurveTypes } from '@/services/CurveService'
 import { store } from '@/store'
@@ -39,6 +39,8 @@ import { CurveChart, defaultCurve } from '../curve/CurveChart'
 import { FileUpload } from '../FileUpload'
 import { NumberInput } from '../NumberInput'
 import { Card } from '../ui/card'
+import { Label } from '../ui/label'
+import { Switch } from '../ui/switch'
 import { PointInput } from './PointInput'
 import { PriceInput } from './PriceInput'
 import { useCreateSpaceDialog } from './useCreateSpaceDialog'
@@ -81,6 +83,7 @@ export function CreateSpaceForm() {
   const { setIsOpen } = useCreateSpaceDialog()
   const { writeContractAsync } = useWriteContract()
   const [curve, setCurve] = useState<Curve>(defaultCurve)
+  const [show, setShow] = useState(false)
 
   const clubCurve = curveService.getStringFormat('ClubMember')
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -99,6 +102,7 @@ export function CreateSpaceForm() {
   })
 
   const name = form.watch('name')
+  const symbolName = form.watch('symbolName')
   const basePrice = form.watch('basePrice')
   const inflectionPoint = form.watch('inflectionPoint')
   const inflectionPrice = form.watch('inflectionPrice')
@@ -127,6 +131,19 @@ export function CreateSpaceForm() {
         .replace(/[\W_]+/g, '-'),
     )
   }, [name, form])
+
+  useEffect(() => {
+    if (!/^[A-Z]+$/.test(symbolName)) {
+      form.setValue(
+        'symbolName',
+
+        symbolName
+          .toUpperCase()
+          .trim()
+          .replace(/[^A-Z]/g, ''),
+      )
+    }
+  }, [symbolName, form])
 
   useEffect(() => {
     const PublicationMember = curveService.getStringFormat('PublicationMember')
@@ -172,19 +189,6 @@ export function CreateSpaceForm() {
             },
             farmer: 0,
           },
-          {
-            uri: data.subdomain!,
-            appId: BigInt(1),
-            curatorFeePercent: precision.token(30, 16),
-            isFarming: false,
-            curve: {
-              basePrice: precision.token(data.basePrice),
-              inflectionPoint: Number(data.inflectionPoint),
-              inflectionPrice: precision.token(data.inflectionPrice),
-              linearPriceSlope: BigInt(0),
-            },
-            farmer: 0,
-          },
         ],
       })
 
@@ -199,24 +203,16 @@ export function CreateSpaceForm() {
       console.log('==========:spaceAddresses:', spaceAddresses)
 
       const spaceAddress = spaceAddresses[spaceAddresses.length - 1]
-      const { creationId, sponsorCreationId } = await readContract(
-        wagmiConfig,
-        {
-          address: spaceAddress,
-          abi: spaceAbi,
-          functionName: 'getInfo',
-        },
-      )
-      console.log(
-        ' creationId, sponsorCreationId :',
-        creationId,
-        sponsorCreationId,
-      )
+      const { creationId } = await readContract(wagmiConfig, {
+        address: spaceAddress,
+        abi: spaceAbi,
+        functionName: 'getInfo',
+      })
+      console.log(' creationId, sponsorCreationId :', creationId)
 
       const space = await mutateAsync({
         ...data,
         creationId: creationId.toString(),
-        sponsorCreationId: sponsorCreationId.toString(),
         spaceAddress: spaceAddress,
       })
 
@@ -329,107 +325,123 @@ export function CreateSpaceForm() {
           />
         </Card>
 
-        <div className="font-bold">Bonding curve settings</div>
-        <Card className="p-4 space-y-4 mb-4">
-          <FormField
-            control={form.control}
-            name="curveType"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Curve preset</FormLabel>
-                <FormControl>
-                  <ToggleGroup
-                    className="gap-3"
-                    value={field.value}
-                    onValueChange={(v) => {
-                      if (!v) return
-                      field.onChange(v)
-                    }}
-                    type="single"
-                  >
-                    <ToggleGroupItem
-                      className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
-                      value={CurveTypes.PublicationMember}
-                    >
-                      Publication Member
-                    </ToggleGroupItem>
+        <div>
+          <div className="flex items-center space-x-2 justify-end">
+            <Label htmlFor="airplane-mode">Custom bonding curve</Label>
+            <Switch
+              id="airplane-mode"
+              checked={show}
+              onCheckedChange={(v) => {
+                console.log('=e:', v)
+                setShow(v)
+              }}
+            />
+          </div>
+        </div>
 
-                    <ToggleGroupItem
-                      value={CurveTypes.ClubMember}
-                      className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
+        <div className={cn('font-bold hidden', show && 'block')}>
+          <div className={cn('font-bold')}>Bonding curve settings</div>
+          <Card className={cn('p-4 space-y-4 mb-4')}>
+            <FormField
+              control={form.control}
+              name="curveType"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Curve preset</FormLabel>
+                  <FormControl>
+                    <ToggleGroup
+                      className="gap-3"
+                      value={field.value}
+                      onValueChange={(v) => {
+                        if (!v) return
+                        field.onChange(v)
+                      }}
+                      type="single"
                     >
-                      Club member
-                    </ToggleGroupItem>
+                      <ToggleGroupItem
+                        className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
+                        value={CurveTypes.PublicationMember}
+                      >
+                        Publication Member
+                      </ToggleGroupItem>
 
-                    <ToggleGroupItem
-                      value={CurveTypes.GithubSponsor}
-                      className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
-                    >
-                      Github sponsor
-                    </ToggleGroupItem>
-                  </ToggleGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                      <ToggleGroupItem
+                        value={CurveTypes.ClubMember}
+                        className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
+                      >
+                        Club member
+                      </ToggleGroupItem>
 
-          <FormField
-            control={form.control}
-            name="basePrice"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Base price</FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <NumberInput
-                      placeholder="0.0"
-                      {...field}
-                      className="w-full"
-                    />
-                    <div className="flex items-center justify-center absolute right-0 top-0 h-full px-3 text-sm">
-                      ETH
+                      <ToggleGroupItem
+                        value={CurveTypes.GithubSponsor}
+                        className="data-[state=on]:ring-2 ring-black bg-accent w-36 text-xs font-semibold"
+                      >
+                        Github sponsor
+                      </ToggleGroupItem>
+                    </ToggleGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="basePrice"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Base price</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <NumberInput
+                        placeholder="0.0"
+                        {...field}
+                        className="w-full"
+                      />
+                      <div className="flex items-center justify-center absolute right-0 top-0 h-full px-3 text-sm">
+                        ETH
+                      </div>
                     </div>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="inflectionPoint"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Inflection Point</FormLabel>
-                <FormControl>
-                  <PointInput {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="inflectionPoint"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Inflection Point</FormLabel>
+                  <FormControl>
+                    <PointInput {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="inflectionPrice"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>Inflection Price</FormLabel>
-                <FormControl>
-                  <PriceInput {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Card>
+            <FormField
+              control={form.control}
+              name="inflectionPrice"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Inflection Price</FormLabel>
+                  <FormControl>
+                    <PriceInput {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </Card>
 
-        <div className="font-bold">Income preview</div>
-        <Card className="p-4 mb-4">
-          <CurveChart className="mt-4" curve={curve} />
-        </Card>
+          <div className="font-bold">Income preview</div>
+          <Card className="p-4 mb-4">
+            <CurveChart className="mt-4" curve={curve} />
+          </Card>
+        </div>
         <Button type="submit" className="w-full">
           {isLoading ? <LoadingDots color="#808080" /> : <p>Create Space</p>}
         </Button>

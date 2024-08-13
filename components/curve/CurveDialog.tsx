@@ -22,6 +22,8 @@ export function CurveDialog({ space }: Props) {
   useQueryCreation(space.creationId!)
   const { creation } = useCreation()
 
+  if (!creation) return null
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -37,7 +39,7 @@ export function CurveDialog({ space }: Props) {
           </div>
         </DialogHeader>
         <div className="">
-          {creation?.name && (
+          {creation?.creator && (
             <CurveChart className="-mx-4" curve={creation.curveNumberFormat} />
           )}
         </div>

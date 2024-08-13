@@ -71,12 +71,21 @@ export function Sidebar() {
 
       if (session?.userId === space.userId) {
         list.push({
-          name: 'Sponsor',
-          href: '/~/sponsor',
-          isActive: pathname === '/~/sponsor',
-          icon: <Coffee width={18} />,
+          name: 'Space Token',
+          href: '/~/token',
+          isActive: pathname === '/~/token',
+          icon: <span className="i-[formkit--ethereum] w-7 h-7"></span>,
         })
       }
+
+      // if (session?.userId === space.userId) {
+      //   list.push({
+      //     name: 'Sponsor',
+      //     href: '/~/sponsor',
+      //     isActive: pathname === '/~/sponsor',
+      //     icon: <Coffee width={18} />,
+      //   })
+      // }
     }
 
     return list

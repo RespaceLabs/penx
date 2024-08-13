@@ -4218,11 +4218,6 @@ export const spaceAbi = [
           { name: 'name', internalType: 'string', type: 'string' },
           { name: 'founder', internalType: 'address', type: 'address' },
           { name: 'creationId', internalType: 'uint256', type: 'uint256' },
-          {
-            name: 'sponsorCreationId',
-            internalType: 'uint256',
-            type: 'uint256',
-          },
         ],
       },
     ],
@@ -4276,45 +4271,6 @@ export const spaceAbi = [
     inputs: [
       {
         name: 'creationInput',
-        internalType: 'struct IIndieX.NewCreationInput',
-        type: 'tuple',
-        components: [
-          { name: 'appId', internalType: 'uint256', type: 'uint256' },
-          { name: 'uri', internalType: 'string', type: 'string' },
-          {
-            name: 'curatorFeePercent',
-            internalType: 'uint256',
-            type: 'uint256',
-          },
-          {
-            name: 'curve',
-            internalType: 'struct IIndieX.Curve',
-            type: 'tuple',
-            components: [
-              { name: 'basePrice', internalType: 'uint96', type: 'uint96' },
-              {
-                name: 'inflectionPoint',
-                internalType: 'uint32',
-                type: 'uint32',
-              },
-              {
-                name: 'inflectionPrice',
-                internalType: 'uint128',
-                type: 'uint128',
-              },
-              {
-                name: 'linearPriceSlope',
-                internalType: 'uint128',
-                type: 'uint128',
-              },
-            ],
-          },
-          { name: 'farmer', internalType: 'uint8', type: 'uint8' },
-          { name: 'isFarming', internalType: 'bool', type: 'bool' },
-        ],
-      },
-      {
-        name: 'sponsorCreationInput',
         internalType: 'struct IIndieX.NewCreationInput',
         type: 'tuple',
         components: [
@@ -4681,49 +4637,28 @@ export const spaceFactoryAbi = [
           { name: 'isFarming', internalType: 'bool', type: 'bool' },
         ],
       },
-      {
-        name: 'sponsorCreationInput',
-        internalType: 'struct IIndieX.NewCreationInput',
-        type: 'tuple',
-        components: [
-          { name: 'appId', internalType: 'uint256', type: 'uint256' },
-          { name: 'uri', internalType: 'string', type: 'string' },
-          {
-            name: 'curatorFeePercent',
-            internalType: 'uint256',
-            type: 'uint256',
-          },
-          {
-            name: 'curve',
-            internalType: 'struct IIndieX.Curve',
-            type: 'tuple',
-            components: [
-              { name: 'basePrice', internalType: 'uint96', type: 'uint96' },
-              {
-                name: 'inflectionPoint',
-                internalType: 'uint32',
-                type: 'uint32',
-              },
-              {
-                name: 'inflectionPrice',
-                internalType: 'uint128',
-                type: 'uint128',
-              },
-              {
-                name: 'linearPriceSlope',
-                internalType: 'uint128',
-                type: 'uint128',
-              },
-            ],
-          },
-          { name: 'farmer', internalType: 'uint8', type: 'uint8' },
-          { name: 'isFarming', internalType: 'bool', type: 'bool' },
-        ],
-      },
     ],
     name: 'createSpace',
     outputs: [],
     stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
+    name: 'getUserLatestSpace',
+    outputs: [
+      {
+        name: 'info',
+        internalType: 'struct Space.SpaceInfo',
+        type: 'tuple',
+        components: [
+          { name: 'name', internalType: 'string', type: 'string' },
+          { name: 'founder', internalType: 'address', type: 'address' },
+          { name: 'creationId', internalType: 'uint256', type: 'uint256' },
+        ],
+      },
+    ],
+    stateMutability: 'view',
   },
   {
     type: 'function',
@@ -4738,53 +4673,6 @@ export const spaceFactoryAbi = [
     name: 'indieX',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
     stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [
-      {
-        name: 'input',
-        internalType: 'struct IIndieX.NewCreationInput',
-        type: 'tuple',
-        components: [
-          { name: 'appId', internalType: 'uint256', type: 'uint256' },
-          { name: 'uri', internalType: 'string', type: 'string' },
-          {
-            name: 'curatorFeePercent',
-            internalType: 'uint256',
-            type: 'uint256',
-          },
-          {
-            name: 'curve',
-            internalType: 'struct IIndieX.Curve',
-            type: 'tuple',
-            components: [
-              { name: 'basePrice', internalType: 'uint96', type: 'uint96' },
-              {
-                name: 'inflectionPoint',
-                internalType: 'uint32',
-                type: 'uint32',
-              },
-              {
-                name: 'inflectionPrice',
-                internalType: 'uint128',
-                type: 'uint128',
-              },
-              {
-                name: 'linearPriceSlope',
-                internalType: 'uint128',
-                type: 'uint128',
-              },
-            ],
-          },
-          { name: 'farmer', internalType: 'uint8', type: 'uint8' },
-          { name: 'isFarming', internalType: 'bool', type: 'bool' },
-        ],
-      },
-    ],
-    name: 'newCreation',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    stateMutability: 'nonpayable',
   },
   {
     type: 'function',

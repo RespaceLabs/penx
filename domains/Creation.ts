@@ -5,7 +5,6 @@ export type CreationRaw = {
   id: bigint
   creator: Address
   appId: bigint
-  name: string
   uri: string
   farmer: number
   curve: {
@@ -43,10 +42,6 @@ export class Creation {
     return Number(this.appId)
   }
 
-  get name() {
-    return this.raw.name
-  }
-
   get creator() {
     return this.raw.creator
   }
@@ -60,7 +55,7 @@ export class Creation {
   }
 
   get tvlFormatted() {
-    return precision.toDecimal(this.tvl, 6).toFixed(2)
+    return precision.toDecimal(this.tvl).toFixed(5)
   }
 
   get curve() {

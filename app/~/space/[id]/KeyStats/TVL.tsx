@@ -6,7 +6,7 @@ interface Props {
 export function TVL({ creation }: Props) {
   return (
     <div>
-      <div>${creation?.tvlFormatted}</div>
+      <div>{creation?.tvlFormatted} ETH</div>
     </div>
   )
 }
