@@ -23,6 +23,7 @@ export function SpaceList() {
       </div>
     )
   }
+  console.log('============data:', data)
 
   return (
     <div className="grid gap-4 mx-auto w-[800x] md:w-[800px] sm:w-full mt-6">

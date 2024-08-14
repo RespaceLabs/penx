@@ -24,7 +24,7 @@ function ChannelItem({ channel }: ChanelItemProps) {
   return (
     <div
       className={cn(
-        'flex items-center gap-2 hover:bg-sidebar py-[6px] px-2 rounded cursor-pointer',
+        'flex items-center gap-2 hover:bg-sidebar py-[6px] px-2 rounded cursor-pointer -mx-2',
         isActive && 'bg-sidebar',
       )}
       onClick={async () => {
@@ -65,7 +65,7 @@ export function ChannelList() {
 
   return (
     <div
-      className="flex flex-col gap-[1px] w-[240px] sticky top-12 px-2"
+      className="flex flex-col gap-[1px] w-[240px] flex-shrink-0 sticky top-12 px-2"
       style={{
         height: 'calc(100vh - 48px)',
       }}

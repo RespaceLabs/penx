@@ -27,10 +27,10 @@ model User {
   trades        Trade[]
   holders       Holder[]
   sponsors      Sponsor[]
-  sentMessages  Message[]     @relation("SentMessages")
   comments      Comment[]
   lists         List[]
   contributors  Contributor[]
+  messages      Message[]
 
   @@index([id])
   @@index([address])
@@ -64,6 +64,7 @@ model Space {
   holders           Holder[]
   sponsors          Sponsor[]
   contributors      Contributor[]
+  messages          Message[]
 
   @@index([userId])
   @@index([name])
@@ -219,25 +220,30 @@ model Channel {
 }
 
 model Message {
-  id                   String   @id @default(uuid())
+  id          String   @id @default(uuid())
   // Sended = 1 Others sent successfully;SendFail = 2;Sending = 3;Undo = 4;AtAll = 5@All people;
   // SelfSend = 6 Send successfully; PeerRead = 7 The other party has read;
   // Reject = 8 // Backstage rejection (such as sensitive words, etc.)
-  status               Int
-  chat_send_or_receive Int // send 0; receive 1;
-  fromId               String // Send userId
-  toId                 String // Receive userId
-  contentType          Int // TEXT = 1, IMAGE = 2
-  content              String   @default("") @db.Text
-  spaceId              String
-  channelId            String
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
-  channal              Channel? @relation(fields: [channelId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  fromUser             User     @relation("SentMessages", fields: [fromId], references: [id])
+  status      Int
+  direction   Int // send 0; receive 1;
+  toId        String // Receive userId
+  contentType Int // TEXT = 1, IMAGE = 2
+  content     String   @default("") @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
+  space   Space  @relation(fields: [spaceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  spaceId String
+
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  channelId String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String
+
+  @@index([spaceId])
   @@index([channelId])
-  @@index([fromId])
+  @@index([userId])
 }
 
 model List {

@@ -58,14 +58,22 @@ export class SocketConnector {
     })
 
     this.socket.on('connect', () => {
-      console.log('%c=WebSocket connection established', 'color:cyan',process.env.NEXT_PUBLIC_SOCKETURL)
+      console.log(
+        '%c=WebSocket connection established',
+        'color:cyan',
+        process.env.NEXT_PUBLIC_SOCKETURL,
+      )
       this.connectStatus = { type: ConnectStatusType.connected, msg: 'ok' }
       this.setupListeners()
       channels.length && this.joinChannels(channels)
     })
 
     this.socket.on('disconnect', (reason) => {
-      console.log('%c=WebSocket connection disconnected,reason:', 'color:cyan', reason)
+      console.log(
+        '%c=WebSocket connection disconnected,reason:',
+        'color:cyan',
+        reason,
+      )
       this.connectStatus = { type: ConnectStatusType.disconnect, msg: reason }
     })
 
@@ -104,11 +112,12 @@ export class SocketConnector {
     */
 
     this.socket.on('channel-msg', (data: IMessage) => {
+      console.log('========data:', data)
       addMessageToStore(data.channelId, data)
     })
   }
 
-  public joinChannels(channels: string[]){
+  public joinChannels(channels: string[]) {
     this.socket.emit('join-channel', { channels }, (response: IResult) => {
       // console.log('%c=joinChannels', 'color:cyan',response)
       if (response.code === FAIL) {
@@ -117,7 +126,7 @@ export class SocketConnector {
     })
   }
 
-  public leaveChannels(channels: string[]){
+  public leaveChannels(channels: string[]) {
     this.socket.emit('leave-channel', { channels })
   }
 
@@ -166,21 +175,18 @@ export class SocketConnector {
   ): void {
     const time = new Date()
     addMessageToStore(groupMessage.channelId, {
-      fromUser: {
-        image: groupMessage.userImage,
-        name: groupMessage.userName,
-      },
       id: groupMessage.updateId,
       status: status,
-      chat_send_or_receive: 0,
-      fromId: groupMessage.uid,
+      direction: 0,
+      userId: groupMessage.uid,
       toId: groupMessage.channelId,
       contentType: groupMessage.contentType,
       content: groupMessage.content,
-      spaceId: '',
+      spaceId: groupMessage.spaceId,
       channelId: groupMessage.channelId,
       createdAt: time,
       updatedAt: time,
+      user: {} as any,
     })
   }
 

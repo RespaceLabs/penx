@@ -4,23 +4,12 @@ import { useMemo } from 'react'
 import { useChannels } from '@/hooks/useChannels'
 import { useSession } from 'next-auth/react'
 import { useParams } from 'next/navigation'
-import { MsgPanel } from './msgPanel'
-import { SendPanel } from './sendPanel'
+import { MessagePanel } from './MessagePanel'
+import { SendMessagePanel } from './SendMessagePanel'
 
 export default function Page() {
   const { data: session } = useSession()
-  const { channels } = useChannels()
   const params = useParams()
-
-  const channelName = useMemo<string>(() => {
-    const channel = channels.find((item) => item.id === params.id)
-
-    if (channel) {
-      return channel.name
-    }
-
-    return ''
-  }, [channels, params.id])
 
   if (!params.id || !session) {
     return (
@@ -31,20 +20,12 @@ export default function Page() {
   }
 
   return (
-    <div className="flex flex-col h-[100%] w-full bg-white p-4">
-      <h2 className="text-lg font-bold mb-2">{channelName}</h2>
+    <div className="flex flex-col h-[100%] w-full bg-white">
+      <MessagePanel channelId={params.id as string} />
 
-      <MsgPanel
-        channelId={params.id as string}
-        userId={session?.userId}
-        address={session?.address}
-      />
-
-      <SendPanel
+      <SendMessagePanel
         channelId={params.id as string}
         userId={session.userId}
-        userName={session.user?.name!}
-        userImage={session.user?.image!}
       />
     </div>
   )

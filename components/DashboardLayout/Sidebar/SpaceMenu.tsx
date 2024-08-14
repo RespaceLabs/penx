@@ -23,7 +23,7 @@ export function SpaceMenu() {
     <div className="relative">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <div className="flex items-center justify-between px-2 hover:bg-sidebar/50 cursor-pointer font-semibold h-10 w-[200px] rounded-lg">
+          <div className="flex items-center justify-between px-2 hover:bg-sidebar/50 cursor-pointer font-semibold h-10 w-[240px] rounded-lg mt-0.5">
             <div className="flex items-center gap-2">
               <Image
                 src={

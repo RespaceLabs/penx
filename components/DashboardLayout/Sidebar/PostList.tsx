@@ -46,7 +46,7 @@ export function PostList() {
   const { posts } = usePosts()
   return (
     <div
-      className="flex flex-col gap-[1px] w-[240px] sticky top-12 px-2"
+      className="flex flex-col gap-[1px] w-[240px] flex-shrink-0 sticky top-12 px-2"
       style={{
         height: 'calc(100vh - 48px)',
       }}

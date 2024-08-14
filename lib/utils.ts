@@ -77,7 +77,7 @@ export function toFloorFixed(input: number, precision: number): number {
   return Number(str)
 }
 
-export function shortenAddress(value: string, left = 5, right = 4) {
+export function shortenAddress(value: string = '', left = 5, right = 4) {
   return value.slice(0, left) + '...' + value.slice(-right)
 }
 

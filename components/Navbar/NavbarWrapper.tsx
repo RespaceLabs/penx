@@ -19,13 +19,13 @@ export function NavbarWrapper({
   return (
     <div
       className={cn(
-        'h-12 flex items-center justify-between pr-2 gap-2 sticky top-0',
+        'h-12 flex items-center justify-between pr-2 sticky top-0 bg-white',
         rest.className,
       )}
     >
       <SpaceMenu />
 
-      <div>{children}</div>
+      <div className="flex-1">{children}</div>
 
       <ProfileDialog />
       {!isPost && (

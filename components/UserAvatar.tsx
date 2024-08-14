@@ -54,6 +54,7 @@ function initToColor(i: number) {
 }
 
 function generateGradient(walletAddress: string) {
+  if (!walletAddress) return `bg-gradient-to-r to-pink-500 to-purple-500`
   const hash = hashCode(walletAddress)
   const from = initFromColor(hash)
   const to = initToColor(hash >> 8)
