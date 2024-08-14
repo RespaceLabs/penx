@@ -108,9 +108,11 @@ export function SpaceInfo({ space, isLoading }: Props) {
         <Link href={Paths.members} className={linkClassName(Paths.members)}>
           Members
         </Link>
+
         {/* <Link href={Paths.sponsors} className={linkClassName(Paths.sponsors)}>
           Sponsors
         </Link> */}
+
         <Link href={Paths.trades} className={linkClassName(Paths.trades)}>
           Trades
         </Link>

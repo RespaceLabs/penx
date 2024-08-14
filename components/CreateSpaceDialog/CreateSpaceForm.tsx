@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -46,19 +47,35 @@ import { PriceInput } from './PriceInput'
 import { useCreateSpaceDialog } from './useCreateSpaceDialog'
 
 const FormSchema = z.object({
-  logo: z.string(),
-
-  name: z.string().min(1, {
-    message: 'Name must be at least 1 characters.',
+  logo: z.string().url({
+    message: 'Logo is required.',
   }),
+  name: z
+    .string()
+    .min(1, {
+      message: 'Name must be at least 1 characters.',
+    })
+    .max(30, {
+      message: 'Name must be no more than 30 characters.',
+    }),
 
-  symbolName: z.string().min(2, {
-    message: 'Symbol name must be at least 2 characters.',
-  }),
+  symbolName: z
+    .string()
+    .min(2, {
+      message: 'Symbol name must be at least 2 characters.',
+    })
+    .max(10, {
+      message: 'Name must be no more than 10 characters.',
+    }),
 
-  subdomain: z.string().min(1, {
-    message: 'Subdomain must be at least 2 characters.',
-  }),
+  subdomain: z
+    .string()
+    .min(2, {
+      message: 'Subdomain must be at least 2 characters.',
+    })
+    .max(10, {
+      message: 'Name must be no more than 10 characters.',
+    }),
 
   curveType: z.string(),
   basePrice: z.string().min(1, {
@@ -103,6 +120,7 @@ export function CreateSpaceForm() {
 
   const name = form.watch('name')
   const symbolName = form.watch('symbolName')
+  const subdomain = form.watch('subdomain')
   const basePrice = form.watch('basePrice')
   const inflectionPoint = form.watch('inflectionPoint')
   const inflectionPrice = form.watch('inflectionPrice')
@@ -130,13 +148,20 @@ export function CreateSpaceForm() {
         .trim()
         .replace(/[\W_]+/g, '-'),
     )
+
+    form.setValue(
+      'symbolName',
+      name
+        .toUpperCase()
+        .trim()
+        .replace(/[^A-Z]/g, ''),
+    )
   }, [name, form])
 
   useEffect(() => {
     if (!/^[A-Z]+$/.test(symbolName)) {
       form.setValue(
         'symbolName',
-
         symbolName
           .toUpperCase()
           .trim()
@@ -200,7 +225,6 @@ export function CreateSpaceForm() {
         functionName: 'getUserSpaces',
         args: [address!],
       })
-      console.log('==========:spaceAddresses:', spaceAddresses)
 
       const spaceAddress = spaceAddresses[spaceAddresses.length - 1]
       const { creationId } = await readContract(wagmiConfig, {
@@ -241,7 +265,7 @@ export function CreateSpaceForm() {
         className="grid gap-4 pb-20 items-center"
       >
         <div className="font-bold">Basic info</div>
-        <Card className="p-4 mb-4 space-y-4">
+        <Card className="p-4 pb-8 mb-4 space-y-4">
           <FormField
             control={form.control}
             name="logo"
@@ -274,9 +298,9 @@ export function CreateSpaceForm() {
                     className="w-full"
                   />
                 </FormControl>
-                {/* <FormDescription>
-                    This is your public display name.
-                  </FormDescription> */}
+                <FormDescription>
+                  This is space public display name.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -291,9 +315,9 @@ export function CreateSpaceForm() {
                 <FormControl>
                   <Input placeholder="$SYMBOL" {...field} className="w-full" />
                 </FormControl>
-                {/* <FormDescription>
-                    This is your public display name.
-                  </FormDescription> */}
+                <FormDescription>
+                  Your space token is ${symbolName}.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -308,17 +332,21 @@ export function CreateSpaceForm() {
                 <FormControl>
                   <div className="relative">
                     <div className="absolute left-2 top-2 text-secondary-foreground">
-                      https://{process.env.NEXT_PUBLIC_ROOT_DOMAIN}/@
+                      @
                     </div>
                     <Input
                       placeholder="Pathname"
                       pattern="[a-zA-Z0-9\-]+"
                       maxLength={32}
                       {...field}
-                      className="w-full text-right"
+                      className="w-full pl-7"
                     />
                   </div>
                 </FormControl>
+
+                <FormDescription>
+                  https://{process.env.NEXT_PUBLIC_ROOT_DOMAIN}/@{subdomain}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -442,7 +470,7 @@ export function CreateSpaceForm() {
             <CurveChart className="mt-4" curve={curve} />
           </Card>
         </div>
-        <Button type="submit" className="w-full">
+        <Button size="lg" type="submit" className="w-full">
           {isLoading ? <LoadingDots color="#808080" /> : <p>Create Space</p>}
         </Button>
       </form>

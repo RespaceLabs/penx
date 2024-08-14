@@ -45,8 +45,10 @@ export default async function HomePage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="text-xs text-neutral-500">{10} members</div>
-                  <div className="text-xs text-neutral-500">{0} sponsors</div>
+                  <div className="text-xs text-neutral-500">
+                    {space.memberCount} members
+                  </div>
+                  {/* <div className="text-xs text-neutral-500">{0} sponsors</div> */}
                   <div className="flex gap-1">
                     {space.members.map((item) => (
                       <UserAvatar

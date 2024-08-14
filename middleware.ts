@@ -52,6 +52,11 @@ export default async function middleware(req: NextRequest) {
   // }
 
   if (path === '/') {
+    const token = await getToken({ req })
+    if (token) {
+      return NextResponse.redirect(new URL('/~/discover', req.url))
+    }
+
     return NextResponse.rewrite(
       new URL(`/home${path === '/' ? '' : path}`, req.url),
       {

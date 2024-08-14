@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { UserAvatar } from '@/components/UserAvatar'
 import { trpc } from '@/lib/trpc'
-import { cn, getEnsAvatar } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -51,8 +51,10 @@ export function SpaceList() {
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="text-xs text-neutral-500">{10} members</div>
-                <div className="text-xs text-neutral-500">{0} sponsors</div>
+                <div className="text-xs text-neutral-500">
+                  {space.memberCount} members
+                </div>
+                {/* <div className="text-xs text-neutral-500">{0} sponsors</div> */}
                 <div className="flex gap-1">
                   {space.members.map((item) => (
                     <UserAvatar

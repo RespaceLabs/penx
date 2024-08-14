@@ -43,7 +43,7 @@ export function Sidebar() {
         name: 'Discover',
         href: '/~/discover',
         isActive: pathname === '/~/discover',
-        icon: <Compass width={18} />,
+        icon: <Compass width={20} />,
       },
     ]
     if (spaces.length) {
@@ -51,7 +51,7 @@ export function Sidebar() {
         name: 'Home',
         href: `/~`,
         isActive: pathname === `/~/space/${space?.id}`,
-        icon: <Home width={18} />,
+        icon: <Home width={20} />,
       })
 
       list.push({
@@ -59,14 +59,14 @@ export function Sidebar() {
         href: posts.length ? `/~/post/${posts[0].id}` : '/~/create-post',
         isActive:
           pathname.startsWith('/~/post/') || pathname === '/~/create-post',
-        icon: <FeatherIcon width={18} />,
+        icon: <FeatherIcon width={20} />,
       })
 
       list.push({
         name: 'Chat',
         href: `/~/channel/${channels?.[0]?.id}`,
         isActive: pathname.startsWith('/~/channel/'),
-        icon: <MessageCircleMore width={18} />,
+        icon: <MessageCircleMore width={20} />,
       })
 
       if (session?.userId === space.userId) {
@@ -83,7 +83,7 @@ export function Sidebar() {
       //     name: 'Sponsor',
       //     href: '/~/sponsor',
       //     isActive: pathname === '/~/sponsor',
-      //     icon: <Coffee width={18} />,
+      //     icon: <Coffee width={20} />,
       //   })
       // }
     }
@@ -95,13 +95,13 @@ export function Sidebar() {
     {
       name: 'Space home',
       href: `/@${space?.subdomain}`,
-      icon: <Rocket width={18} />,
+      icon: <Rocket width={20} />,
     },
 
     {
       name: 'Star on GitHub',
       href: 'https://github.com/0xzio/penx',
-      icon: <Github width={18} />,
+      icon: <Github width={20} />,
     },
   ]
 
@@ -152,7 +152,7 @@ export function Sidebar() {
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <div className="flex items-center justify-center h-full w-full">
-                        <Settings width={18} />
+                        <Settings width={20} />
                       </div>
                     </TooltipTrigger>
                     <TooltipPortal>

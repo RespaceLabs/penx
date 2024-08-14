@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import { useParams, useSelectedLayoutSegment } from 'next/navigation'
+import { useSelectedLayoutSegment } from 'next/navigation'
 
 export function SettingsNav() {
   const segment = useSelectedLayoutSegment()
@@ -13,20 +13,21 @@ export function SettingsNav() {
       href: `/~/settings`,
       segment: null,
     },
+
+    {
+      name: 'Contributors',
+      href: `/~/settings/contributors`,
+      segment: 'contributors',
+    },
     {
       name: 'Domain',
       href: `/~/settings/domain`,
       segment: 'domain',
     },
-    // {
-    //   name: 'Appearance',
-    //   href: `/~/settings/appearance`,
-    //   segment: 'appearance',
-    // },
   ]
 
   return (
-    <div className="flex space-x-4 border-b border-stone-200 pb-4 pt-2 dark:border-stone-700 mb-8">
+    <div className="flex space-x-4 border-b border-stone-200 pb-4 pt-2 dark:border-stone-700 mb-4">
       {navItems.map((item) => (
         <Link
           key={item.name}

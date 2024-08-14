@@ -3,6 +3,7 @@
  */
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
 import { channelRouter } from './routers/channel'
+import { contributorRouter } from './routers/contributor'
 import { holderRouter } from './routers/holder'
 import { memberRouter } from './routers/member'
 import { messageRouter } from './routers/message'
@@ -24,6 +25,7 @@ export const appRouter = router({
   message: messageRouter,
   trade: tradeRouter,
   sponsor: sponsorRouter,
+  contributor: contributorRouter,
 })
 
 export const createCaller = createCallerFactory(appRouter)
