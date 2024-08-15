@@ -1,13 +1,15 @@
 import { useAddress } from '@/hooks/useAddress'
-import { remirrorTokenAbi } from '@/lib/abi'
-import { addressMap } from '@/lib/address'
+import { useSpaces } from '@/hooks/useSpaces'
+import { spaceAbi } from '@/lib/abi/indieX'
+import { Address } from 'viem'
 import { useReadContract } from 'wagmi'
 
 export function useSpaceTokenBalance() {
   const address = useAddress()
+  const { space } = useSpaces()
   return useReadContract({
-    address: addressMap.RemirrorToken,
-    abi: remirrorTokenAbi,
+    address: space.spaceAddress as Address,
+    abi: spaceAbi,
     functionName: 'balanceOf',
     args: [address!],
   })

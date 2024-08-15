@@ -1,6 +1,6 @@
 'use client'
 
-import { Transaction } from "@/components/token/Transaction"
+import { Transaction } from "@/components/spaceToken/Transaction"
 
 export default function SymbolPage() {
   return (

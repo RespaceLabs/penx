@@ -9,6 +9,7 @@ import LoadingDots from '../icons/loading-dots'
 import { Button } from '../ui/button'
 import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 import { WalletConnectButton } from '../WalletConnectButton'
+import { Space } from '@prisma/client'
 
 interface BuyTokenButtonProps {
   ethAmount: string;
@@ -17,6 +18,7 @@ interface BuyTokenButtonProps {
   isInsufficientBalance: boolean;
   isAmountValid: boolean;
   isConnected: boolean;
+  space: Space
 }
 
 export const BuyTokenButton = ({
@@ -25,7 +27,8 @@ export const BuyTokenButton = ({
   isInsufficientBalance,
   isAmountValid,
   handleSwap,
-  isConnected
+  isConnected,
+  space
 }: BuyTokenButtonProps) => {
   const { writeContractAsync, isPending } = useWriteContract()
   const balance = useSpaceTokenBalance()
@@ -51,29 +54,29 @@ export const BuyTokenButton = ({
     await waitForTransactionReceipt(wagmiConfig, { hash })
     await balance.refetch()
     handleSwap()
-    toast.success('Remirror bought successfully!')
+    toast.success(`${space?.name} bought successfully!`)
   }
 
   return (
     <>
-    {isConnected ?<Button
-      className="w-full h-[58px]"
-      disabled={!isAmountValid || isInsufficientBalance || isPending}
-      onClick={() => onBuy()}
-    >
-      {isPending || balance.isPending ? (
-        <LoadingDots color="white" />
-      ) : (
-        isInsufficientBalance
-          ? 'Insufficient ETH balance'
-          : isAmountValid
-            ? 'Swap'
-            : 'Enter an amount'
-      )}
-    </Button>: 
-    <WalletConnectButton className="w-full h-[58px]">
-      Connect wallet
-    </WalletConnectButton>}
+      {isConnected ? <Button
+        className="w-full h-[58px]"
+        disabled={!isAmountValid || isInsufficientBalance || isPending}
+        onClick={() => onBuy()}
+      >
+        {isPending || balance.isPending ? (
+          <LoadingDots color="white" />
+        ) : (
+          isInsufficientBalance
+            ? 'Insufficient ETH balance'
+            : isAmountValid
+              ? 'Swap'
+              : 'Enter an amount'
+        )}
+      </Button> :
+        <WalletConnectButton className="w-full h-[58px]">
+          Connect wallet
+        </WalletConnectButton>}
     </>
   )
 }

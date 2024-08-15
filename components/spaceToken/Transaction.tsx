@@ -10,6 +10,7 @@ import { useAccount, useBalance } from 'wagmi'
 import { Button } from '../ui/button'
 import { BuyTokenButton } from './BuyTokenButton'
 import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
+import { useSpaces } from '@/hooks/useSpaces'
 
 const formatAmount = (value: string): string => {
   // Remove leading zeroes and limit decimals
@@ -17,12 +18,13 @@ const formatAmount = (value: string): string => {
 }
 
 export const Transaction = () => {
+  const { space } = useSpaces()
   const address = useAddress()
   const { isConnected } = useAccount()
   const { data: balanceData } = useBalance({ address })
   const [ethAmount, setEthAmount] = useState<string>('0')
   const [purchasedAmount, setPurchasedAmount] = useState<string>('0')
-  const { isLoading, data: remirrorBalance } = useSpaceTokenBalance()
+  const { isLoading, data: tokenBalance } = useSpaceTokenBalance()
 
   const ethBalance = useMemo<string>(() => {
     return balanceData?.value
@@ -82,9 +84,11 @@ export const Transaction = () => {
   const isAmountValid =
     parseFloat(ethAmount) > 0 && parseFloat(purchasedAmount) > 0
 
+  console.log('%c=tokenBalance', 'color:red', { tokenBalance, space })
+
   return (
     <div className="rounded-lg">
-      <h2 className="text-xl mb-2 font-[600]">Buy Remirror</h2>
+      <h2 className="text-xl mb-2 font-[600]">Buy {space?.name}</h2>
       <div className="mb-2 bg-gray-100 rounded-[16px] p-[16px] border border-transparent hover:border-[#18181b] transition-colors duration-300">
         <div className="text-[12px]">Sell</div>
         <div className="flex font-[600] items-center gap-1">
@@ -128,12 +132,12 @@ export const Transaction = () => {
             alt="PenX"
             className="w-[20px] h-auto"
           />
-          <span className="text-[18px]">Remirror</span>
+          <span className="text-[18px]">{space?.name}</span>
         </div>
         <div className="text-right text-[#222222]">
           Balance:{' '}
-          {remirrorBalance
-            ? precision.toDecimal(remirrorBalance).toFixed(4)
+          {tokenBalance
+            ? precision.toDecimal(tokenBalance).toFixed(4)
             : '0.00'}
         </div>
       </div>
@@ -147,6 +151,7 @@ export const Transaction = () => {
         }}
         isInsufficientBalance={isInsufficientBalance}
         isAmountValid={isAmountValid}
+        space={space}
       />
     </div>
   )
