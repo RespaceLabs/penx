@@ -1,7 +1,9 @@
 'use client'
 
 import React, { HTMLAttributes, PropsWithChildren } from 'react'
+import { useSpaces } from '@/hooks/useSpaces'
 import { cn } from '@/lib/utils'
+import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
 import { SpaceMenu } from '../DashboardLayout/Sidebar/SpaceMenu'
 import { ProfileDialog } from '../Profile/ProfileDialog/ProfileDialog'
@@ -15,6 +17,8 @@ export function NavbarWrapper({
 }: PropsWithChildren & Props) {
   const pathname = usePathname()
   const isPost = pathname.startsWith('/~/post/')
+  const { space, spaces } = useSpaces()
+  const { data } = useSession()
 
   return (
     <div
@@ -30,7 +34,7 @@ export function NavbarWrapper({
       <ProfileDialog />
       {!isPost && (
         <div className="flex gap-2">
-          <NewButton />
+          {(space?.userId === data?.userId || !spaces.length) && <NewButton />}
           <ProfilePopover />
         </div>
       )}

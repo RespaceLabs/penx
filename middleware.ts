@@ -65,7 +65,7 @@ export default async function middleware(req: NextRequest) {
     )
   }
 
-  if (path.startsWith('/~/') || path === '/d') {
+  if (path.startsWith('/~') || path === '/d') {
     const token = await getToken({ req })
     if (!token) {
       return NextResponse.redirect(new URL('/login', req.url))

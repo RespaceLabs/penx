@@ -2,6 +2,20 @@ import { Post } from '@prisma/client'
 import { z } from 'zod'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
+enum PostType {
+  ARTICLE = 'ARTICLE',
+  IMAGE = 'IMAGE',
+  VIDEO = 'VIDEO',
+  AUDIO = 'AUDIO',
+  NFT = 'NFT',
+  FIGMA = 'FIGMA',
+}
+
+enum GateType {
+  FREE = 'FREE',
+  KEY_HOLDER = 'KEY_HOLDER',
+}
+
 export const postRouter = router({
   list: publicProcedure.query(async ({ ctx, input }) => {
     return [] as Post[]
@@ -26,6 +40,14 @@ export const postRouter = router({
     .input(
       z.object({
         spaceId: z.string(),
+        type: z.enum([
+          PostType.ARTICLE,
+          PostType.IMAGE,
+          PostType.VIDEO,
+          PostType.AUDIO,
+          PostType.NFT,
+          PostType.FIGMA,
+        ]),
         title: z.string().optional(),
       }),
     )
@@ -67,7 +89,7 @@ export const postRouter = router({
       z.object({
         id: z.string(),
         creationId: z.string(),
-        gateType: z.string(),
+        gateType: z.enum([GateType.FREE, GateType.KEY_HOLDER]),
       }),
     )
     .mutation(async ({ ctx, input }) => {

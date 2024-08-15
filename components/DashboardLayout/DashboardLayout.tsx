@@ -5,6 +5,7 @@ import { useAddress } from '@/hooks/useAddress'
 import { useQueryEthBalance } from '@/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/hooks/useEthPrice'
 import { CreateSpaceDialog } from '../CreateSpaceDialog/CreateSpaceDialog'
+import { CreationDialog } from '../CreationDialog/CreationDialog'
 import { Sidebar } from './Sidebar/Sidebar'
 
 export function DashboardLayout({ children }: PropsWithChildren) {
@@ -16,6 +17,7 @@ export function DashboardLayout({ children }: PropsWithChildren) {
     <div className="mx-auto h-screen">
       <div className="min-h-screen flex-row justify-center flex relative">
         <CreateSpaceDialog />
+        <CreationDialog />
         <Sidebar />
         <div
           className="flex-1 overflow-x-hidden z-1"
