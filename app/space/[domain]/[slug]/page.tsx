@@ -3,7 +3,7 @@ import { InitBuySellDialog } from '@/components/InitBuySellDialog'
 import { Badge } from '@/components/ui/badge'
 import { PostWithSpace } from '@/hooks/usePost'
 import { getSession } from '@/lib/auth'
-import { GateType } from '@/lib/constants'
+import { GateType, PostType } from '@/lib/constants'
 import { getPostData, getSpaceData } from '@/lib/fetchers'
 import prisma from '@/lib/prisma'
 import { toDateString } from '@/lib/utils'
@@ -13,7 +13,9 @@ import { BuyPostButton } from './BuyPostButton'
 import { CurationCard } from './CurationCard'
 import { GateCover } from './GateCover'
 import { handlers } from './handlers'
+import { ImageCreation } from './ImageCreation'
 import { PostActionBar } from './PostActionBar'
+import { PostCreation } from './PostCreation'
 import { PostTradeModal } from './PostTradeDialog/PostTradeDialog'
 import { PromotionCard } from './PromotionCard'
 import { SellPostButton } from './SellPostButton'
@@ -125,18 +127,10 @@ export default async function SpacePostPage({
     notFound()
   }
 
-  const node: TipTapNode = JSON.parse(post.content || '{}')
-  const len = node.content?.length || 0
-
   const canRead = await checkCanRead(post)
 
-  // hided half of the content
-  node.content = canRead
-    ? node.content
-    : node.content?.slice(1, parseInt((len * 0.5) as any)) || []
-
   return (
-    <div className="pb-20">
+    <div className="pb-20 min-h-[72vh]">
       <InitBuySellDialog
         space={post.space}
         post={post}
@@ -186,21 +180,13 @@ export default async function SpacePostPage({
           </div>
         </div>
 
-        <div className="relative min-h-[400px] mt-4">
-          <div className="relative">
-            <TipTapRender handlers={handlers} node={node} />
-            {!canRead && <GateCover />}
-          </div>
+        {post.type === PostType.ARTICLE && (
+          <PostCreation canRead={canRead} post={post} />
+        )}
 
-          <PostActionBar post={post} />
-
-          <div className="grid gap-4 mt-8">
-            {post.space.sponsorCount > 0 && (
-              <PromotionCard space={post.space} />
-            )}
-            <CurationCard space={post.space} />
-          </div>
-        </div>
+        {post.type === PostType.IMAGE && (
+          <ImageCreation canRead={canRead} post={post} />
+        )}
       </div>
     </div>
   )

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
@@ -31,6 +32,7 @@ export function CreationDialog({}: Props) {
   const { push } = useRouter()
   const { isOpen, setIsOpen } = useCreationDialog()
   const { createPost, isPending } = useCreatePost()
+  const [type, setType] = useState<PostType>('' as any)
 
   return (
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
@@ -41,18 +43,22 @@ export function CreationDialog({}: Props) {
 
         <div className="grid grid-cols-3 gap-2">
           <Item
-            isLoading={isPending}
+            isLoading={isPending && type == PostType.ARTICLE}
             onClick={async () => {
+              setType(PostType.ARTICLE)
               await createPost(PostType.ARTICLE)
+              setIsOpen(false)
             }}
           >
             <CaseSensitive></CaseSensitive>
             <div>Article</div>
           </Item>
           <Item
-            isLoading={isPending}
+            isLoading={isPending && type == PostType.IMAGE}
             onClick={async () => {
+              setType(PostType.IMAGE)
               await createPost(PostType.IMAGE)
+              setIsOpen(false)
             }}
           >
             <ImageIcon />

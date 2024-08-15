@@ -38,9 +38,9 @@ export function PostTradeList({ post }: Props) {
           /
           <div>
             <span className="font-bold">
-              {precision.toDecimal(BigInt(item.price), 6)}
+              {precision.toDecimal(BigInt(item.price)).toFixed(5)}
             </span>{' '}
-            USDC
+            ETH
           </div>
         </div>
       ))}

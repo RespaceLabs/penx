@@ -64,9 +64,9 @@ export const postRouter = router({
     .input(
       z.object({
         id: z.string(),
-        title: z.string(),
-        content: z.string(),
-        description: z.string(),
+        title: z.string().optional(),
+        content: z.string().optional(),
+        description: z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
