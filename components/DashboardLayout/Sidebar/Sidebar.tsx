@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
+import { Separator } from '@/components/ui/separator'
 import {
   Tooltip,
   TooltipContent,
@@ -13,22 +14,18 @@ import { useSpaces } from '@/hooks/useSpaces'
 import { cn } from '@/lib/utils'
 import { TooltipPortal } from '@radix-ui/react-tooltip'
 import {
-  CircleDollarSign,
-  Coffee,
   Compass,
   FeatherIcon,
   Github,
   Home,
   MessageCircleMore,
   Rocket,
-  Settings,
-  Shell,
 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { SidebarSpaceList } from './SidebarSpaceList'
-import { SpaceMenu } from './SpaceMenu'
+import { SidebarFooter } from './SidebarFooter'
+import { SidebarSpaceNav } from './SidebarSpaceNav'
 
 export function Sidebar() {
   const pathname = usePathname()
@@ -46,148 +43,47 @@ export function Sidebar() {
         icon: <Compass width={20} />,
       },
     ]
-    if (spaces.length) {
-      list.unshift({
-        name: 'Home',
-        href: `/~`,
-        isActive: pathname === `/~/space/${space?.id}`,
-        icon: <Home width={20} />,
-      })
-
-      list.push({
-        name: 'Posts',
-        href: posts.length ? `/~/post/${posts[0].id}` : '/~/create-post',
-        isActive:
-          pathname.startsWith('/~/post/') || pathname === '/~/create-post',
-        icon: <FeatherIcon width={20} />,
-      })
-
-      list.push({
-        name: 'Chat',
-        href: `/~/channel/${channels?.[0]?.id}`,
-        isActive: pathname.startsWith('/~/channel/'),
-        icon: <MessageCircleMore width={20} />,
-      })
-
-      if (session?.userId === space.userId) {
-        list.push({
-          name: 'Space Token',
-          href: '/~/token',
-          isActive: pathname === '/~/token',
-          icon: <span className="i-[formkit--ethereum] w-7 h-7"></span>,
-        })
-      }
-
-      // if (session?.userId === space.userId) {
-      //   list.push({
-      //     name: 'Sponsor',
-      //     href: '/~/sponsor',
-      //     isActive: pathname === '/~/sponsor',
-      //     icon: <Coffee width={20} />,
-      //   })
-      // }
-    }
 
     return list
   }, [pathname, space, session?.userId, spaces.length, channels, posts])
 
-  const externalLinks = [
-    {
-      name: 'Space home',
-      href: `/@${space?.subdomain}`,
-      icon: <Rocket width={20} />,
-    },
-
-    {
-      name: 'Star on GitHub',
-      href: 'https://github.com/0xzio/penx',
-      icon: <Github width={20} />,
-    },
-  ]
-
   return (
-    <div className="sticky top-0 md:block hidden h-screen md:w-[60px] xl:w-[60px] flex-shrink-0 pt-1 z-1000">
-      <div className="flex flex-col justify-between min-h-screen">
-        <div className="flex flex-col flex-1">
-          <div className="flex flex-col gap-2 flex-1">
-            <div className="grid gap-1 items-center justify-center">
-              {tabs.map(({ name, href, isActive, icon }) => (
-                <Link
-                  key={name}
-                  href={href}
-                  className={cn(
-                    'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
-                    isActive && 'bg-sidebar',
-                  )}
-                >
-                  <TooltipProvider delayDuration={10}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="flex items-center justify-center h-full w-full">
-                          {icon}
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipPortal>
-                        <TooltipContent side="right" className="">
-                          {name}
-                        </TooltipContent>
-                      </TooltipPortal>
-                    </Tooltip>
-                  </TooltipProvider>
-                </Link>
-              ))}
-            </div>
-          </div>
+    <div className="sticky top-0 md:block hidden h-screen md:w-[60px] xl:w-[60px] flex-shrink-0 z-1000">
+      <div className="flex flex-1 flex-col justify-between min-h-screen">
+        <div className="grid gap-1 items-center justify-center pt-1">
+          {tabs.map(({ name, href, isActive, icon }) => (
+            <Link
+              key={name}
+              href={href}
+              className={cn(
+                'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
+                isActive && 'bg-sidebar',
+              )}
+            >
+              <TooltipProvider delayDuration={10}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className="flex items-center justify-center h-full w-full">
+                      {icon}
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipPortal>
+                    <TooltipContent side="right" className="">
+                      {name}
+                    </TooltipContent>
+                  </TooltipPortal>
+                </Tooltip>
+              </TooltipProvider>
+            </Link>
+          ))}
 
-          <div className="grid gap-1 items-center justify-center pb-2">
-            {session?.userId === space?.userId && (
-              <Link
-                href="/~/settings"
-                className={cn(
-                  'flex items-center justify-center hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
-                  pathname === '/~/settings' && 'bg-sidebar',
-                )}
-              >
-                <TooltipProvider delayDuration={10}>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="flex items-center justify-center h-full w-full">
-                        <Settings width={20} />
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipPortal>
-                      <TooltipContent side="right">
-                        Space settings
-                      </TooltipContent>
-                    </TooltipPortal>
-                  </Tooltip>
-                </TooltipProvider>
-              </Link>
-            )}
-
-            {externalLinks.map(({ name, href, icon }) => (
-              <a
-                key={name}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer"
-              >
-                <TooltipProvider delayDuration={10}>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="flex items-center justify-center h-full w-full">
-                        {icon}
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent side="right">{name}</TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </a>
-            ))}
+          <div className="flex justify-center">
+            <Separator className="my-2 -rotate-12 bg-black w-7" />
           </div>
-          <SidebarSpaceList />
+          <SidebarSpaceNav />
         </div>
+
+        <SidebarFooter />
       </div>
     </div>
   )

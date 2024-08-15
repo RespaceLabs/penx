@@ -21,6 +21,7 @@ interface Props {
 
 export function SpaceInfo({ space, isLoading }: Props) {
   const pathname = usePathname()
+  const { data: session } = useSession()
 
   if (isLoading) {
     return (
@@ -106,7 +107,8 @@ export function SpaceInfo({ space, isLoading }: Props) {
 
       <KeyStats space={space} />
 
-      <ClaimShareRewards />
+      {session?.userId === space.userId && <ClaimShareRewards />}
+
       <div className="border-b">
         <Link href={Paths.posts} className={linkClassName(Paths.posts)}>
           Posts

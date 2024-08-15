@@ -7,9 +7,11 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useAddress } from '@/hooks/useAddress'
 import { useSpaces } from '@/hooks/useSpaces'
 import { spaceAbi } from '@/lib/abi/indieX'
+import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { wagmiConfig } from '@/lib/wagmi'
 import { waitForTransactionReceipt } from '@wagmi/core'
+import { toast } from 'sonner'
 import { Address } from 'viem'
 import { useReadContract, useWriteContract } from 'wagmi'
 
@@ -44,14 +46,20 @@ export function ClaimShareRewards({}: Props) {
           variant="default"
           className="rounded-full w-24"
           onClick={async () => {
-            const hash = await writeContractAsync({
-              address: space.spaceAddress as Address,
-              abi: spaceAbi,
-              functionName: 'claimShareRewards',
-            })
+            try {
+              const hash = await writeContractAsync({
+                address: space.spaceAddress as Address,
+                abi: spaceAbi,
+                functionName: 'claimShareRewards',
+              })
 
-            await waitForTransactionReceipt(wagmiConfig, { hash })
-            refetch()
+              await waitForTransactionReceipt(wagmiConfig, { hash })
+              refetch()
+              toast.success('Rewards claimed successfully!')
+            } catch (error) {
+              const msg = extractErrorMessage(error)
+              toast.error(msg || 'Failed to claim rewards')
+            }
           }}
         >
           {isPending ? <LoadingDots color="white" /> : <div>Claim</div>}

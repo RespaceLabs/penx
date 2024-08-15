@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,11 +14,17 @@ import {
 } from '@/components/ui/dialog'
 import { useKeyBalance } from '@/hooks/useKeyBalance'
 import { useSellPrice } from '@/hooks/useSellPrice'
+import { indieXAbi } from '@/lib/abi'
+import { addressMap } from '@/lib/address'
+import { INDIE_X_APP_ID } from '@/lib/constants'
 import { precision } from '@/lib/math'
+import { wagmiConfig } from '@/lib/wagmi'
 import { RouterOutputs } from '@/server/_app'
 import { Post } from '@prisma/client'
 import { useMutation } from '@tanstack/react-query'
+import { readContract } from '@wagmi/core'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
+import { AmountInput } from './AmountInput'
 import { useSellDialog } from './useSellDialog'
 import { useSellKey } from './useSellKey'
 
@@ -31,12 +38,30 @@ export function SellDialog({ space, post }: Props) {
   const creationId = BigInt(isPost ? post.creationId! : space.creationId!)
 
   const { isOpen, setIsOpen } = useSellDialog()
+  const [amount, setAmount] = useState('1')
+  const [price, setPrice] = useState(BigInt(0))
   const sell = useSellKey(space, post)
   const { data, isLoading } = useKeyBalance(creationId)
+
   const { isPending, mutateAsync } = useMutation({
     mutationKey: ['sell'],
     mutationFn: async () => sell(creationId),
   })
+
+  async function fetchPrice(amount: number) {
+    const { priceAfterFee } = await readContract(wagmiConfig, {
+      address: addressMap.IndieX,
+      abi: indieXAbi,
+      functionName: 'getSellPriceAfterFee',
+      args: [creationId, amount, INDIE_X_APP_ID],
+    })
+
+    setPrice(priceAfterFee)
+  }
+
+  useEffect(() => {
+    fetchPrice(Number(amount))
+  }, [])
 
   return (
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
@@ -45,32 +70,48 @@ export function SellDialog({ space, post }: Props) {
           <DialogTitle>Sell Keys</DialogTitle>
         </DialogHeader>
 
-        <ProfileAvatar showAddress />
-
-        <div className="bg-muted rounded-lg flex items-center justify-between p-4">
-          <div>My keys</div>
-          <div className="text-lg font-bold">
-            {typeof data !== 'undefined' && data!.toString()}
+        <div className="flex justify-between">
+          <ProfileAvatar showAddress />
+          <div className="flex items-center justify-between gap-1">
+            <div className="text-lg font-bold">
+              {typeof data !== 'undefined' && data!.toString()}
+            </div>
+            <div className="text-xs">keys</div>
           </div>
         </div>
 
         <KeyPrice creationId={creationId} />
+        <AmountInput
+          keyNum={typeof data !== 'undefined' ? data!.toString() : ''}
+          value={amount}
+          onChange={(v) => {
+            if (Number(v) > 0 && Number(v) <= Number(data)) {
+              fetchPrice(Number(v))
+            }
+            setAmount(v)
+          }}
+        />
 
-        {precision.toDecimal(data!) === 0 && (
-          <div className="text-neutral-400 text-sm">
-            You currently have no keys.
+        <div className="flex items-center justify-between h-6">
+          <div className="text-sm text-neutral-500">Total get</div>
+          <div className="text-sm">
+            {precision.toDecimal(price).toFixed(5)} ETH
           </div>
-        )}
+        </div>
 
         <Button
           size="lg"
-          disabled={Number(data!) < 1}
+          disabled={
+            Number(data!) < 1 ||
+            Number(amount) > Number(data!) ||
+            Number(amount) === 0
+          }
           onClick={async () => {
             await mutateAsync()
             setIsOpen(false)
           }}
         >
-          {isPending ? <LoadingDots color="white" /> : 'Sell 1 Key'}
+          {isPending ? <LoadingDots color="white" /> : 'Sell Key'}
         </Button>
       </DialogContent>
     </Dialog>
