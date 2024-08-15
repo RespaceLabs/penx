@@ -8,7 +8,7 @@ export const CurveButton = forwardRef<HTMLButtonElement, {}>(
   function CurveButton({}, ref) {
     return (
       <Button ref={ref} size="icon" variant="secondary">
-        <ChartSpline className="text-neutral-500"></ChartSpline>
+        <ChartSpline size={20} className="text-neutral-800"></ChartSpline>
       </Button>
     )
   },

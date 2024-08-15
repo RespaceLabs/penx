@@ -28,6 +28,8 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
 
       if (res.ok) {
         const data = await res.json()
+        console.log('=======data.url:', data.url)
+
         onChange?.(data.url)
       } else {
         console.log('Failed to upload file')

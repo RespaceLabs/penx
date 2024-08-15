@@ -4061,8 +4061,8 @@ export const spaceAbi = [
     type: 'function',
     inputs: [
       {
-        name: '_collaborator',
-        internalType: 'struct Share.UpsertCollaboratorInput',
+        name: '_contributor',
+        internalType: 'struct Share.UpsertContributorInput',
         type: 'tuple',
         components: [
           { name: 'account', internalType: 'address', type: 'address' },
@@ -4070,7 +4070,7 @@ export const spaceAbi = [
         ],
       },
     ],
-    name: 'addCollaborator',
+    name: 'addContributor',
     outputs: [],
     stateMutability: 'nonpayable',
   },
@@ -4111,9 +4111,23 @@ export const spaceAbi = [
   {
     type: 'function',
     inputs: [],
-    name: 'claim',
+    name: 'claimShareRewards',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'claimStakingRewards',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
+    name: 'currentContributorRewards',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
   },
   {
     type: 'function',
@@ -4146,7 +4160,14 @@ export const spaceAbi = [
   {
     type: 'function',
     inputs: [],
-    name: 'distribute',
+    name: 'distributeShareRewards',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'distributeStakingRewards',
     outputs: [],
     stateMutability: 'nonpayable',
   },
@@ -4175,17 +4196,15 @@ export const spaceAbi = [
   {
     type: 'function',
     inputs: [],
-    name: 'getCollaborators',
+    name: 'getContributors',
     outputs: [
-      { name: '', internalType: 'address[]', type: 'address[]' },
       {
         name: '',
-        internalType: 'struct Share.Collaborator[]',
+        internalType: 'struct Share.ContributorInfo[]',
         type: 'tuple[]',
         components: [
+          { name: 'account', internalType: 'address', type: 'address' },
           { name: 'share', internalType: 'uint256', type: 'uint256' },
-          { name: 'rewards', internalType: 'uint256', type: 'uint256' },
-          { name: 'checkpoint', internalType: 'uint256', type: 'uint256' },
         ],
       },
     ],
@@ -4218,6 +4237,8 @@ export const spaceAbi = [
           { name: 'name', internalType: 'string', type: 'string' },
           { name: 'founder', internalType: 'address', type: 'address' },
           { name: 'creationId', internalType: 'uint256', type: 'uint256' },
+          { name: 'daoFees', internalType: 'uint256', type: 'uint256' },
+          { name: 'stakingFees', internalType: 'uint256', type: 'uint256' },
         ],
       },
     ],
@@ -4489,8 +4510,8 @@ export const spaceAbi = [
     type: 'function',
     inputs: [
       {
-        name: '_collaborators',
-        internalType: 'struct Share.UpsertCollaboratorInput[]',
+        name: '_contributors',
+        internalType: 'struct Share.UpsertContributorInput[]',
         type: 'tuple[]',
         components: [
           { name: 'account', internalType: 'address', type: 'address' },
@@ -4498,7 +4519,7 @@ export const spaceAbi = [
         ],
       },
     ],
-    name: 'upsertCollaborators',
+    name: 'upsertContributors',
     outputs: [],
     stateMutability: 'nonpayable',
   },
@@ -4655,6 +4676,8 @@ export const spaceFactoryAbi = [
           { name: 'name', internalType: 'string', type: 'string' },
           { name: 'founder', internalType: 'address', type: 'address' },
           { name: 'creationId', internalType: 'uint256', type: 'uint256' },
+          { name: 'daoFees', internalType: 'uint256', type: 'uint256' },
+          { name: 'stakingFees', internalType: 'uint256', type: 'uint256' },
         ],
       },
     ],

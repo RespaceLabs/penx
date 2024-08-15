@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { KeyStats } from '../KeyStats/KeyStats'
 import { BuyButton } from './BuyButton'
+import { ClaimShareRewards } from './ClaimShareRewards'
 import { SellButton } from './SellButton'
 
 interface Props {
@@ -93,14 +94,19 @@ export function SpaceInfo({ space, isLoading }: Props) {
             </div>
           </div>
         </div>
-        <div className="flex gap-2">
-          <CurveDialog space={space} />
-          <SellButton></SellButton>
-          <BuyButton></BuyButton>
+        <div className="">
+          <div className="flex gap-2">
+            <CurveDialog space={space} />
+            <SellButton></SellButton>
+            <BuyButton></BuyButton>
+          </div>
         </div>
         <InitBuySellDialog space={space} creationId={space.creationId!} />
       </div>
+
       <KeyStats space={space} />
+
+      <ClaimShareRewards />
       <div className="border-b">
         <Link href={Paths.posts} className={linkClassName(Paths.posts)}>
           Posts
