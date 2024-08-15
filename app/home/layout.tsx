@@ -3,6 +3,7 @@ import { Logo } from '@/components/Logo'
 import { Profile } from '@/components/Profile/Profile'
 import { SocialNav } from '@/components/SocialNav'
 import { SpaceFooter } from '@/components/SpaceFooter'
+import { Badge } from '@/components/ui/badge'
 import { Nav } from './Nav'
 
 export default function Layout({ children }: PropsWithChildren) {
@@ -14,6 +15,9 @@ export default function Layout({ children }: PropsWithChildren) {
           <div className="font-bold" style={{ fontFamily: 'Merienda' }}>
             PenX
           </div>
+          <Badge variant="outline" className="border-black font-semibold">
+            Beta on Arbitrum sepolia
+          </Badge>
         </div>
 
         <Nav />

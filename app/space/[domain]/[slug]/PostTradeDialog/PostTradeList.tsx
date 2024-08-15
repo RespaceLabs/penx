@@ -5,7 +5,7 @@ import { UserAvatar } from '@/components/UserAvatar'
 import { PostWithSpace } from '@/hooks/usePost'
 import { usePostTrades } from '@/hooks/usePostTrades'
 import { precision } from '@/lib/math'
-import { cn, getEnsAvatar, shortenAddress } from '@/lib/utils'
+import { cn, shortenAddress } from '@/lib/utils'
 
 interface Props {
   post: PostWithSpace
