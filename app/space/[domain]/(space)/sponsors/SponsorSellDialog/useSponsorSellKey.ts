@@ -5,6 +5,7 @@ import { useKeyBalance } from '@/hooks/useKeyBalance'
 import { useSupply } from '@/hooks/useSupply'
 import { indieXAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
+import { TradeType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api } from '@/lib/trpc'
@@ -46,7 +47,7 @@ export function useSponsorSellKey(space: RouterOutputs['space']['byId']) {
         holdAmount: balance.toString(),
         tradeAmount: amount.toString(),
         price: buyPrice!.data!.priceAfterFee.toString(),
-        type: 'SELL',
+        type: TradeType.SELL,
       })
 
       await Promise.all([

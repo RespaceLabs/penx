@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { postAtom } from '@/hooks/usePost'
 import { postsAtom } from '@/hooks/usePosts'
 import { useSpaces } from '@/hooks/useSpaces'
+import { PostType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api, trpc } from '@/lib/trpc'
 import { store } from '@/store'
@@ -21,7 +22,10 @@ export function CreateFirstPostButton() {
       className="rounded-2xl w-[200px]"
       onClick={async () => {
         try {
-          const post = await mutateAsync({ spaceId: space.id })
+          const post = await mutateAsync({
+            spaceId: space.id,
+            type: PostType.ARTICLE,
+          })
           store.set(postAtom, post as any)
           setTimeout(async () => {
             const posts = await api.post.listBySpaceId.query(space.id)

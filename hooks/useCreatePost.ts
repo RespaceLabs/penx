@@ -1,6 +1,6 @@
+import { PostType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api, trpc } from '@/lib/trpc'
-import { PostType } from '@/server/routers/post'
 import { store } from '@/store'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'

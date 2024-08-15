@@ -64,7 +64,7 @@ export function AddContributorForm() {
       await writeContract(wagmiConfig, {
         address: space.spaceAddress as Address,
         abi: spaceAbi,
-        functionName: 'addCollaborator',
+        functionName: 'addContributor',
         args: [
           {
             account: data.address as Address,

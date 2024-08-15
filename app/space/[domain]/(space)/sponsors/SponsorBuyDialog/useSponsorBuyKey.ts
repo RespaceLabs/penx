@@ -7,7 +7,7 @@ import { useMembers } from '@/hooks/useMembers'
 import { useSupply } from '@/hooks/useSupply'
 import { indieXAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
-import { INDIE_X_APP_ID } from '@/lib/constants'
+import { INDIE_X_APP_ID, TradeType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { revalidateMetadata } from '@/lib/revalidateTag'
@@ -67,7 +67,7 @@ export function useSponsorBuyKey(space: RouterOutputs['space']['byId']) {
         holdAmount: balance.toString(),
         tradeAmount: amount.toString(),
         price: priceAfterFee.toString(),
-        type: 'BUY',
+        type: TradeType.BUY,
         ...data,
       })
 

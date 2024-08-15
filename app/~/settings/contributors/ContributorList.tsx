@@ -46,7 +46,7 @@ export function ContributorList() {
             </div>
           </div>
           <div>
-            <span className="font-bold">{item.share}</span> share
+            <span className="font-bold">{item.shares}</span> share
           </div>
         </div>
       ))}

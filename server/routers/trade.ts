@@ -2,6 +2,11 @@ import { Trade } from '@prisma/client'
 import { z } from 'zod'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
+enum TradeType {
+  BUY = 'BUY',
+  SELL = 'SELL',
+}
+
 export const tradeRouter = router({
   listBySpaceId: publicProcedure.input(z.string()).query(async ({ input }) => {
     return [] as (Trade & {
@@ -32,7 +37,7 @@ export const tradeRouter = router({
         holdAmount: z.string(),
         tradeAmount: z.string(),
         price: z.string(),
-        type: z.string(),
+        type: z.enum([TradeType.BUY, TradeType.SELL]),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -46,7 +51,7 @@ export const tradeRouter = router({
         holdAmount: z.string(),
         tradeAmount: z.string(),
         price: z.string(),
-        type: z.string(),
+        type: z.enum([TradeType.BUY, TradeType.SELL]),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -60,7 +65,7 @@ export const tradeRouter = router({
         holdAmount: z.string(),
         tradeAmount: z.string(),
         price: z.string(),
-        type: z.string(),
+        type: z.enum([TradeType.BUY, TradeType.SELL]),
         name: z.string().optional(),
         logo: z.string().optional(),
         homeUrl: z.string().optional(),

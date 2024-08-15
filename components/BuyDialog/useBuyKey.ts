@@ -8,7 +8,7 @@ import { refetchSpaces } from '@/hooks/useSpaces'
 import { useSupply } from '@/hooks/useSupply'
 import { indieXAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
-import { INDIE_X_APP_ID } from '@/lib/constants'
+import { INDIE_X_APP_ID, TradeType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api } from '@/lib/trpc'
 import { wagmiConfig } from '@/lib/wagmi'
@@ -71,7 +71,7 @@ export function useBuyKey(space: RouterOutputs['space']['byId'], post?: Post) {
           holdAmount: balance.toString(),
           tradeAmount: amount.toString(),
           price: priceAfterFee.toString(),
-          type: 'BUY',
+          type: TradeType.BUY,
         })
 
         await Promise.all([
@@ -86,7 +86,7 @@ export function useBuyKey(space: RouterOutputs['space']['byId'], post?: Post) {
           holdAmount: balance.toString(),
           tradeAmount: amount.toString(),
           price: priceAfterFee.toString(),
-          type: 'BUY',
+          type: TradeType.BUY
         })
 
         await Promise.all([

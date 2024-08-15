@@ -8,6 +8,7 @@ import { refetchSpaces } from '@/hooks/useSpaces'
 import { useSupply } from '@/hooks/useSupply'
 import { indieXAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
+import { TradeType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { api } from '@/lib/trpc'
@@ -55,7 +56,7 @@ export function useSellKey(space: RouterOutputs['space']['byId'], post?: Post) {
           holdAmount: balance.toString(),
           tradeAmount: amount.toString(),
           price: buyPrice!.data!.priceAfterFee.toString(),
-          type: 'SELL',
+          type: TradeType.SELL,
         })
 
         await Promise.all([
@@ -70,7 +71,7 @@ export function useSellKey(space: RouterOutputs['space']['byId'], post?: Post) {
           holdAmount: balance.toString(),
           tradeAmount: amount.toString(),
           price: buyPrice!.data!.priceAfterFee.toString(),
-          type: 'SELL',
+          type: TradeType.SELL,
         })
 
         await Promise.all([
