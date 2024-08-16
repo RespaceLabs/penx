@@ -15,7 +15,7 @@
 
 ## Introduction
 
-PenX is the the space for web3 creators, find 1000 true fans in PenX.
+PenX is the space for web3 creators, find 1000 true fans in PenX.
 
 ## Development
 
