@@ -9,7 +9,7 @@ import LoadingDots from '../icons/loading-dots'
 import { Button } from '../ui/button'
 import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 import { WalletConnectButton } from '../WalletConnectButton'
-import { Space } from '@prisma/client'
+import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 
 interface BuyTokenButtonProps {
   ethAmount: string;

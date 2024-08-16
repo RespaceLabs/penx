@@ -1,9 +1,8 @@
+import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 import { CreateChannelDialog } from '@/components/CreateChannelDialog/CreateChannelDialog'
-import { useSpaces } from '@/hooks/useSpaces'
 import { useSession } from 'next-auth/react'
 
-export function ChannelListHeader() {
-  const { space } = useSpaces()
+export function ChannelListHeader({ space }: { space: Space }) {
   const { data } = useSession()
   return (
     <div className="flex justify-between items-center gap-2 py-2">

@@ -11,14 +11,16 @@ import { Button } from '../ui/button'
 import { BuyTokenButton } from './BuyTokenButton'
 import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 import { useSpaces } from '@/hooks/useSpaces'
+import { Address } from 'viem'
+import { spaceAbi } from '@/lib/abi/indieX'
+import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 
 const formatAmount = (value: string): string => {
   // Remove leading zeroes and limit decimals
   return value.replace(/^0+(\d)|(\.\d{18})\d+$/, '$1$2')
 }
 
-export const Transaction = () => {
-  const { space } = useSpaces()
+export const Transaction = ({ space }: { space: Space }) => {
   const address = useAddress()
   const { isConnected } = useAccount()
   const { data: balanceData } = useBalance({ address })
@@ -40,6 +42,15 @@ export const Transaction = () => {
         functionName: 'getTokenAmount',
         args: [precision.token(value, 18)],
       })
+
+      // /**
+      // const amount = await readContract(wagmiConfig, {
+      //   address: space.spaceAddress as Address,
+      //   abi: spaceAbi,
+      //   functionName: 'getTokenAmount',
+      //   args: [precision.token(value, 18)],
+      // })
+      // */
 
       const decimalAmount = precision.toDecimal(amount)
       if (!ethAmount || !decimalAmount) {

@@ -9,6 +9,7 @@ import { FileText, Hash } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useParams, useRouter } from 'next/navigation'
 import { ChannelListHeader } from './ChannelListHeader'
+import { useSpaces } from '@/hooks/useSpaces'
 
 interface ChanelItemProps {
   channel: Channel
@@ -40,6 +41,7 @@ export function ChannelList() {
   const { channels } = useChannels()
   const { data: session } = useSession()
   const token = useTokenContext()
+  const { space } = useSpaces()
 
   useEffect(() => {
     if (session?.userId && channels.length) {
@@ -67,12 +69,16 @@ export function ChannelList() {
         height: 'calc(100vh - 48px)',
       }}
     >
-      <ChannelListHeader />
-      <div className="grid gap-1">
-        {channels.map((item) => (
-          <ChannelItem key={item.id} channel={item} />
-        ))}
-      </div>
+      {space ?
+        <>
+          <ChannelListHeader space={space} />
+          <div className="grid gap-1">
+            {channels.map((item) => (
+              <ChannelItem key={item.id} channel={item} />
+            ))}
+          </div>
+        </>
+        : <div>Please create or join a space.</div>}
     </div>
   )
 }
