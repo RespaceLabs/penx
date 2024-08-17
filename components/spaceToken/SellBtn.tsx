@@ -10,8 +10,10 @@ import { Button } from '../ui/button'
 import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { Space } from '@/app/~/space/[id]/hooks/useSpace'
+import { Address } from 'viem'
+import { spaceAbi } from '@/lib/abi/indieX'
 
-interface BuyTokenButtonProps {
+interface Props {
   ethAmount: string;
   purchasedAmount: string;
   handleSwap: () => void;
@@ -21,7 +23,7 @@ interface BuyTokenButtonProps {
   space: Space
 }
 
-export const BuyTokenButton = ({
+export const SellBtn = ({
   ethAmount,
   purchasedAmount,
   isInsufficientBalance,
@@ -29,26 +31,32 @@ export const BuyTokenButton = ({
   handleSwap,
   isConnected,
   space
-}: BuyTokenButtonProps) => {
+}: Props) => {
   const { writeContractAsync, isPending } = useWriteContract()
   const balance = useSpaceTokenBalance()
 
   const onBuy = async () => {
     const value = precision.token(parseFloat(ethAmount), 18)
     const hash = await writeContractAsync({
-      address: addressMap.RemirrorToken,
-      abi: remirrorTokenAbi,
-      functionName: 'mint',
-      // value: precision.token(0.02233232, 18),
+      address: space.spaceAddress as Address,
+      abi: spaceAbi,
+      functionName: 'buy',
       value
     })
 
-    const amount = readContract(wagmiConfig, {
-      address: addressMap.RemirrorToken,
-      abi: remirrorTokenAbi,
-      functionName: 'getTokenAmount',
-      // args: [precision.token(0.02233232, 18),]
-      args: [value,]
+    await waitForTransactionReceipt(wagmiConfig, { hash })
+    await balance.refetch()
+    handleSwap()
+    toast.success(`${space?.name} bought successfully!`)
+  }
+
+  const onSell = async () => {
+    const value = precision.token(parseFloat(ethAmount), 18)
+    const hash = await writeContractAsync({
+      address: space.spaceAddress as Address,
+      abi: spaceAbi,
+      functionName: 'sell',
+      args: [BigInt(1112323)]
     })
 
     await waitForTransactionReceipt(wagmiConfig, { hash })
@@ -70,7 +78,7 @@ export const BuyTokenButton = ({
           isInsufficientBalance
             ? 'Insufficient ETH balance'
             : isAmountValid
-              ? 'Swap'
+              ? 'Sell'
               : 'Enter an amount'
         )}
       </Button> :
