@@ -5,7 +5,7 @@ import { atom, useAtom } from 'jotai'
 import { postsAtom } from './usePosts'
 import { spaceIdAtom, useSpaceId } from './useSpaceId'
 
-type Space = RouterOutputs['space']['mySpaces']['0']
+export type Space = RouterOutputs['space']['mySpaces']['0']
 
 export const spacesAtom = atom<Space[]>([])
 

@@ -1,6 +1,6 @@
 import { useAddress } from '@/hooks/useAddress'
 import { useSpaces } from '@/hooks/useSpaces'
-import { spaceAbi } from '@/lib/abi/indieX'
+import { spaceAbi } from '@/lib/abi'
 import { Address } from 'viem'
 import { useReadContract } from 'wagmi'
 

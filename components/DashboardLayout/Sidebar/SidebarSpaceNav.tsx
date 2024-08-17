@@ -54,7 +54,7 @@ export function SidebarSpaceNav() {
     ]
 
     return list
-  }, [pathname, space, session?.userId, spaces.length, channels, posts])
+  }, [pathname, space, channels, posts])
 
   return (
     <div className="grid gap-1 items-center justify-center">

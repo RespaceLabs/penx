@@ -2,11 +2,14 @@
 
 import { ReactNode } from 'react'
 import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
+import { useQueryChainSpace } from '@/hooks/useChainSpace'
 import { useSpace } from './hooks/useSpace'
 import { SpaceInfo } from './Space/SpaceInfo'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { space, isLoading } = useSpace()
+
+  useQueryChainSpace()
 
   return (
     <div>

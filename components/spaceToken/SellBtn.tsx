@@ -9,7 +9,7 @@ import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 import { Address } from 'viem'
-import { spaceAbi } from '@/lib/abi/indieX'
+import { spaceAbi } from '@/lib/abi'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { erc20Abi } from '@/lib/abi'
 

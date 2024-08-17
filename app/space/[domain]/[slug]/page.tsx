@@ -1,5 +1,4 @@
 import BlurImage from '@/components/blur-image'
-import { InitBuySellDialog } from '@/components/InitBuySellDialog'
 import { Badge } from '@/components/ui/badge'
 import { PostWithSpace } from '@/hooks/usePost'
 import { getSession } from '@/lib/auth'
@@ -9,8 +8,6 @@ import prisma from '@/lib/prisma'
 import { toDateString } from '@/lib/utils'
 import { TipTapNode, TipTapRender } from '@troop.com/tiptap-react-render'
 import { notFound } from 'next/navigation'
-import { BuyPostButton } from './BuyPostButton'
-import { CurationCard } from './CurationCard'
 import { GateCover } from './GateCover'
 import { handlers } from './handlers'
 import { ImageCreation } from './ImageCreation'
@@ -18,7 +15,6 @@ import { PostActionBar } from './PostActionBar'
 import { PostCreation } from './PostCreation'
 import { PostTradeModal } from './PostTradeDialog/PostTradeDialog'
 import { PromotionCard } from './PromotionCard'
-import { SellPostButton } from './SellPostButton'
 
 export const dynamic = 'force-dynamic'
 // export const dynamic = 'force-static'
@@ -131,11 +127,6 @@ export default async function SpacePostPage({
 
   return (
     <div className="pb-20 min-h-[72vh]">
-      <InitBuySellDialog
-        space={post.space}
-        post={post}
-        creationId={post.space.creationId!}
-      />
       <div className="flex flex-col mx-auto w-[720px]">
         <div className="">
           <h1 className="mb-10 font-title text-3xl font-bold text-stone-800 dark:text-white md:text-6xl">
@@ -173,10 +164,7 @@ export default async function SpacePostPage({
           </div>
 
           <div className="flex items-center gap-2">
-            <PostTradeModal space={post.space} post={post} />
-            <SellPostButton space={post.space} />
-            <BuyPostButton space={post.space} />
-            {/* <MorePopover space={post.space} /> */}
+            {/* <PostTradeModal space={post.space} post={post} /> */}
           </div>
         </div>
 

@@ -1,11 +1,11 @@
 import { ChangeEvent, useMemo, useState } from 'react'
-import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 import { Button } from '../ui/button'
 import { SellBtn } from './SellBtn'
 import { precision } from '@/lib/math'
 import { formatAmount } from './Transaction'
 import { useTokenKxy } from '@/hooks/useTokenKxy'
 import { Address } from 'viem'
+import { Space } from '@prisma/client'
 
 interface Props {
   ethBalance: string

@@ -1,12 +1,11 @@
 'use client'
 
 import LoadingDots from '@/components/icons/loading-dots'
-import { useSellDialog } from '@/components/SellDialog/useSellDialog'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useAddress } from '@/hooks/useAddress'
 import { useSpaces } from '@/hooks/useSpaces'
-import { spaceAbi } from '@/lib/abi/indieX'
+import { spaceAbi } from '@/lib/abi'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { wagmiConfig } from '@/lib/wagmi'

@@ -88,7 +88,6 @@ export const postRouter = router({
     .input(
       z.object({
         id: z.string(),
-        creationId: z.string(),
         gateType: z.enum([GateType.FREE, GateType.KEY_HOLDER]),
       }),
     )

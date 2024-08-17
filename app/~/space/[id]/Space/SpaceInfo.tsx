@@ -1,7 +1,6 @@
 'use client'
 
-import { CurveDialog } from '@/components/curve/CurveDialog'
-import { InitBuySellDialog } from '@/components/InitBuySellDialog'
+import { MemberDialog } from '@/components/MemberDialog/MemberDialog'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { Space } from '@prisma/client'
@@ -9,10 +8,8 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { KeyStats } from '../KeyStats/KeyStats'
-import { BuyButton } from './BuyButton'
 import { ClaimShareRewards } from './ClaimShareRewards'
-import { SellButton } from './SellButton'
+import { MemberButton } from './MemberButton'
 
 interface Props {
   space: Space
@@ -97,15 +94,11 @@ export function SpaceInfo({ space, isLoading }: Props) {
         </div>
         <div className="">
           <div className="flex gap-2">
-            <CurveDialog space={space} />
-            <SellButton></SellButton>
-            <BuyButton></BuyButton>
+            <MemberDialog space={space} />
+            <MemberButton />
           </div>
         </div>
-        <InitBuySellDialog space={space} creationId={space.creationId!} />
       </div>
-
-      <KeyStats space={space} />
 
       {session?.userId === space.userId && <ClaimShareRewards />}
 

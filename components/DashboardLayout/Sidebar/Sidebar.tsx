@@ -45,7 +45,7 @@ export function Sidebar() {
     ]
 
     return list
-  }, [pathname, space, session?.userId, spaces.length, channels, posts])
+  }, [pathname])
 
   return (
     <div className="sticky top-0 md:block hidden h-screen md:w-[60px] xl:w-[60px] flex-shrink-0 z-1000">

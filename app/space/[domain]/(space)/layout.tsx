@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { CurveChart } from '@/components/curve/CurveChart'
 import { SpaceFooter } from '@/components/SpaceFooter'
 import { getSpaceData } from '@/lib/fetchers'
 import { cn } from '@/lib/utils'

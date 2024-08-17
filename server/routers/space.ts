@@ -26,10 +26,10 @@ export const spaceRouter = router({
     .input(
       z.object({
         name: z.string(),
+        symbolName: z.string(),
         subdomain: z.string(),
         logo: z.string(),
         spaceAddress: z.string(),
-        creationId: z.string(),
       }),
     )
     .mutation(({ ctx, input }) => {
@@ -54,7 +54,6 @@ export const spaceRouter = router({
     .input(
       z.object({
         id: z.string(),
-        creationId: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {

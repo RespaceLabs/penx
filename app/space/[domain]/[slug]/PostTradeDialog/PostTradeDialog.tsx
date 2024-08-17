@@ -26,8 +26,7 @@ export function PostTradeModal({ space, post }: Props) {
       </DialogTrigger>
       <DialogContent className="w-[700px] sm:w-[740px] min-h-[60vh]">
         <DialogHeader>
-          <DialogTitle># {post.creationId}</DialogTitle>
-
+          {/* <DialogTitle>#</DialogTitle> */}
           <Tabs defaultValue="keys" className="">
             <TabsList className="flex w-full">
               <TabsTrigger value="keys">Key Holders</TabsTrigger>

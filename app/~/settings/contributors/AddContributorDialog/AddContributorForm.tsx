@@ -15,7 +15,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { channelsAtom } from '@/hooks/useChannels'
 import { useSpaces } from '@/hooks/useSpaces'
-import { spaceAbi } from '@/lib/abi/indieX'
+import { spaceAbi } from '@/lib/abi'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api, trpc } from '@/lib/trpc'
 import { wagmiConfig } from '@/lib/wagmi'
@@ -61,17 +61,17 @@ export function AddContributorForm() {
         share: data.share,
       })
 
-      await writeContract(wagmiConfig, {
-        address: space.spaceAddress as Address,
-        abi: spaceAbi,
-        functionName: 'addContributor',
-        args: [
-          {
-            account: data.address as Address,
-            share: BigInt(data.share),
-          },
-        ],
-      })
+      // await writeContract(wagmiConfig, {
+      //   address: space.spaceAddress as Address,
+      //   abi: spaceAbi,
+      //   functionName: 'addContributor',
+      //   args: [
+      //     {
+      //       account: data.address as Address,
+      //       shares: BigInt(data.share),
+      //     },
+      //   ],
+      // })
 
       // const channels = await api.channel.listBySpaceId.query(space.id)
       // store.set(channelsAtom, channels)
