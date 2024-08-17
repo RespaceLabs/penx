@@ -1,8 +1,6 @@
-import { remirrorTokenAbi } from '@/lib/abi'
-import { addressMap } from '@/lib/address'
 import { precision } from '@/lib/math'
 import { wagmiConfig } from '@/lib/wagmi'
-import { readContract, waitForTransactionReceipt } from '@wagmi/core'
+import { waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
 import { useWriteContract } from 'wagmi'
 import LoadingDots from '../icons/loading-dots'
@@ -35,34 +33,19 @@ export const SellBtn = ({
   const { writeContractAsync, isPending } = useWriteContract()
   const balance = useSpaceTokenBalance()
 
-  const onBuy = async () => {
-    const value = precision.token(parseFloat(ethAmount), 18)
-    const hash = await writeContractAsync({
-      address: space.spaceAddress as Address,
-      abi: spaceAbi,
-      functionName: 'buy',
-      value
-    })
-
-    await waitForTransactionReceipt(wagmiConfig, { hash })
-    await balance.refetch()
-    handleSwap()
-    toast.success(`${space?.name} bought successfully!`)
-  }
-
   const onSell = async () => {
-    const value = precision.token(parseFloat(ethAmount), 18)
+    const value = precision.token(parseFloat(purchasedAmount), 18)
     const hash = await writeContractAsync({
       address: space.spaceAddress as Address,
       abi: spaceAbi,
       functionName: 'sell',
-      args: [BigInt(1112323)]
+      args: [value]
     })
 
     await waitForTransactionReceipt(wagmiConfig, { hash })
     await balance.refetch()
     handleSwap()
-    toast.success(`${space?.name} bought successfully!`)
+    toast.success(`${space?.name} sell successfully!`)
   }
 
   return (
@@ -70,7 +53,7 @@ export const SellBtn = ({
       {isConnected ? <Button
         className="w-full h-[58px]"
         disabled={!isAmountValid || isInsufficientBalance || isPending}
-        onClick={() => onBuy()}
+        onClick={() => onSell()}
       >
         {isPending || balance.isPending ? (
           <LoadingDots color="white" />

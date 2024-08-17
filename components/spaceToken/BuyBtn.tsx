@@ -1,8 +1,6 @@
-import { remirrorTokenAbi } from '@/lib/abi'
-import { addressMap } from '@/lib/address'
 import { precision } from '@/lib/math'
 import { wagmiConfig } from '@/lib/wagmi'
-import { readContract, waitForTransactionReceipt } from '@wagmi/core'
+import { waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
 import { useWriteContract } from 'wagmi'
 import LoadingDots from '../icons/loading-dots'
@@ -42,21 +40,6 @@ export const BuyBtn = ({
       abi: spaceAbi,
       functionName: 'buy',
       value
-    })
-
-    await waitForTransactionReceipt(wagmiConfig, { hash })
-    await balance.refetch()
-    handleSwap()
-    toast.success(`${space?.name} bought successfully!`)
-  }
-
-  const onSell = async () => {
-    const value = precision.token(parseFloat(ethAmount), 18)
-    const hash = await writeContractAsync({
-      address: space.spaceAddress as Address,
-      abi: spaceAbi,
-      functionName: 'sell',
-      args: [BigInt(1112323)]
     })
 
     await waitForTransactionReceipt(wagmiConfig, { hash })

@@ -21,8 +21,9 @@ export const Sell = ({ space, ethBalance, tokenBalance, isConnected }: Props) =>
   const [ethAmount, setEthAmount] = useState<string>('0')
   const [purchasedAmount, setPurchasedAmount] = useState<string>('0')
 
-  const isAmountValid =
-    parseFloat(ethAmount) > 0 && parseFloat(purchasedAmount) > 0
+  // const isAmountValid = parseFloat(ethAmount) > 0 && parseFloat(purchasedAmount) > 0
+  // TODO: not add ethAmount
+  const isAmountValid = parseFloat(purchasedAmount) > 0
 
   const isInsufficientBalance = parseFloat(ethAmount) > parseFloat(ethBalance)
 
@@ -71,7 +72,8 @@ export const Sell = ({ space, ethBalance, tokenBalance, isConnected }: Props) =>
 
   const handleMax = () => {
     tokenBalance && setPurchasedAmount(precision.toDecimal(tokenBalance).toString())
-    calculatepurchasedAmount(Number(ethBalance))
+    // TODO: calculatepurchasedAmount
+    // calculatepurchasedAmount(Number(ethBalance))
   }
 
   return <>
