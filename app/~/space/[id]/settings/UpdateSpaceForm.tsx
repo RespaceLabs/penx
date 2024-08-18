@@ -15,7 +15,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { updateSpaceById, useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
+import { updateSpaceById } from '@/hooks/useSpaces'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { trpc } from '@/lib/trpc'
@@ -32,7 +33,7 @@ const FormSchema = z.object({
 })
 
 export function UpdateSpaceForm() {
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const { isPending, mutateAsync } = trpc.space.update.useMutation()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

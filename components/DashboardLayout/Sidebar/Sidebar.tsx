@@ -8,19 +8,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { useChannels } from '@/hooks/useChannels'
-import { usePosts } from '@/hooks/usePosts'
-import { useSpaces } from '@/hooks/useSpaces'
 import { cn } from '@/lib/utils'
 import { TooltipPortal } from '@radix-ui/react-tooltip'
-import {
-  Compass,
-  FeatherIcon,
-  Github,
-  Home,
-  MessageCircleMore,
-  Rocket,
-} from 'lucide-react'
+import { Compass } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -29,10 +19,12 @@ import { SidebarSpaceNav } from './SidebarSpaceNav'
 
 export function Sidebar() {
   const pathname = usePathname()
-  const { space, spaces } = useSpaces()
   const { data: session } = useSession()
-  const { channels } = useChannels()
-  const { posts } = usePosts()
+
+  const isNotSpace =
+    pathname.startsWith('/~/discover') ||
+    pathname === '/~' ||
+    pathname === '/~/create-space'
 
   const tabs = useMemo(() => {
     const list = [
@@ -77,13 +69,15 @@ export function Sidebar() {
             </Link>
           ))}
 
-          <div className="flex justify-center">
-            <Separator className="my-2 -rotate-12 bg-black w-7" />
+          <div className="flex justify-center my-2">
+            {session && !isNotSpace && (
+              <Separator className="-rotate-12 bg-black w-7" />
+            )}
           </div>
-          <SidebarSpaceNav />
+          {session && !isNotSpace && <SidebarSpaceNav />}
         </div>
 
-        <SidebarFooter />
+        {session && <SidebarFooter />}
       </div>
     </div>
   )

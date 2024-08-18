@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { SECONDS_PER_DAY } from '@/domains/Space'
 import { Subscription } from '@/domains/Subscription'
 import { useChainSpace } from '@/hooks/useChainSpace'
 import { useQueryEthBalance } from '@/hooks/useEthBalance'
@@ -45,7 +46,7 @@ export function MemberForm({ space }: Props) {
   const { isOpen, setIsOpen } = useMemberDialog()
   const [loading, setLoading] = useState(false)
   useQueryEthBalance()
-  const buy = useSubscribe(space)
+  const trade = useSubscribe(space)
   const { space: chainSpace } = useChainSpace()
   const { subscription } = useSubscription()
 
@@ -85,7 +86,8 @@ export function MemberForm({ space }: Props) {
     const isSubscribe = data.type === 'BUY'
     setLoading(true)
     const amount = getAmount(data.token, data.times, isSubscribe)
-    await buy(data.token, amount, isSubscribe)
+    const duration = Number(data.times) * Number(SECONDS_PER_DAY)
+    await trade(data.token, amount, isSubscribe, duration)
     setLoading(false)
     setIsOpen(false)
   }

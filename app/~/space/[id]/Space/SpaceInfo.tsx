@@ -2,6 +2,7 @@
 
 import { MemberDialog } from '@/components/MemberDialog/MemberDialog'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useSpace } from '@/hooks/useSpace'
 import { cn } from '@/lib/utils'
 import { Space } from '@prisma/client'
 import { useSession } from 'next-auth/react'
@@ -11,14 +12,12 @@ import { usePathname } from 'next/navigation'
 import { ClaimShareRewards } from './ClaimShareRewards'
 import { MemberButton } from './MemberButton'
 
-interface Props {
-  space: Space
-  isLoading: boolean
-}
+interface Props {}
 
-export function SpaceInfo({ space, isLoading }: Props) {
+export function SpaceInfo({}: Props) {
   const pathname = usePathname()
   const { data: session } = useSession()
+  const { isLoading, space } = useSpace()
 
   if (isLoading) {
     return (

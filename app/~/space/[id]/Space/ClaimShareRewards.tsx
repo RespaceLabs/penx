@@ -4,7 +4,7 @@ import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useAddress } from '@/hooks/useAddress'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { spaceAbi } from '@/lib/abi'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
@@ -18,7 +18,7 @@ interface Props {}
 
 export function ClaimShareRewards({}: Props) {
   const address = useAddress()
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const { data, isLoading, refetch } = useReadContract({
     address: space.spaceAddress as Address,
     abi: spaceAbi,

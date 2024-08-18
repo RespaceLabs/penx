@@ -101,7 +101,6 @@ model Post {
   user          User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId        String
   holders       Holder[]
-  trades        Trade[]
   comments      Comment[]
   list          List?      @relation(fields: [listId], references: [id])
   listId        String?
@@ -113,14 +112,18 @@ model Post {
 }
 
 model Member {
-  id        String   @id @default(uuid())
-  amount    String   @default("0")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  space     Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  spaceId   String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId    String
+  id         String   @id @default(uuid())
+  start      Int      @default(0)
+  checkpoint Int      @default(0)
+  duration   Int      @default(0)
+  amount     String   @default("0")
+  consumed   String   @default("0")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  space      Space    @relation(fields: [spaceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  spaceId    String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId     String
 
   @@unique([userId, spaceId])
   @@index([spaceId])
@@ -204,21 +207,16 @@ enum TradeType {
 
 model Trade {
   id        String    @id @default(uuid())
-  amount    String    @default("0")
-  price     String    @default("0")
-  source    String    @default("")
+  duration  Int       @default(0)
   type      TradeType
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  post      Post?     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  postId    String?
-  Space     Space?    @relation(fields: [spaceId], references: [id])
-  spaceId   String?
+  Space     Space     @relation(fields: [spaceId], references: [id])
+  spaceId   String
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId    String
 
   @@index([spaceId])
-  @@index([postId])
 }
 
 enum ChannelType {

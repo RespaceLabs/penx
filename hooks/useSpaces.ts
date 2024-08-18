@@ -11,10 +11,8 @@ export const spacesAtom = atom<Space[]>([])
 
 export function useSpaces() {
   const [spaces, setSpaces] = useAtom(spacesAtom)
-  const { spaceId } = useSpaceId()
   return {
     spaces,
-    space: spaces.find((s) => s.id === spaceId) || spaces[0],
     setSpaces,
   }
 }

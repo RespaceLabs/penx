@@ -3,11 +3,11 @@ import { useAddress } from '@/hooks/useAddress'
 import { useAccount, useBalance } from 'wagmi'
 import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 import { precision } from '@/lib/math'
-import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 import { Buy } from './Buy'
 import { Sell } from './Sell'
 import { Address } from 'viem'
 import { useTokenKxy } from '@/hooks/useTokenKxy'
+import { Space } from '@prisma/client'
 
 export const formatAmount = (value: string): string => {
   // Remove leading zeroes and limit decimals

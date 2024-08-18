@@ -34,10 +34,14 @@ export const tradeRouter = router({
     .input(
       z.object({
         spaceId: z.string(),
-        holdAmount: z.string(),
-        tradeAmount: z.string(),
-        price: z.string(),
+        tradeDuration: z.number(),
         type: z.enum([TradeType.BUY, TradeType.SELL]),
+
+        start: z.number(),
+        checkpoint: z.number(),
+        duration: z.number(),
+        amount: z.string(),
+        consumed: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {

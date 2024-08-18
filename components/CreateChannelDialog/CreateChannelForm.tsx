@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { channelsAtom } from '@/hooks/useChannels'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api, trpc } from '@/lib/trpc'
 import { store } from '@/store'
@@ -32,7 +32,7 @@ const FormSchema = z.object({
 export function CreateChannelForm() {
   const { isPending, mutateAsync } = trpc.channel.create.useMutation()
   const { setIsOpen } = useCreateChannelDialog()
-  const { space } = useSpaces()
+  const { space } = useSpace()
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

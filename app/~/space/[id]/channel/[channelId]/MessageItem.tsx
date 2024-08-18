@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { UserAvatar } from '@/components/UserAvatar'
 import { useMembers } from '@/hooks/useMembers'
 import { IMessage } from '@/hooks/useMessages'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { shortenAddress } from '@/lib/utils'
 import { Member, User } from '@prisma/client'
 
@@ -22,7 +22,7 @@ interface Props {
 export const MessageItem = memo(function MessageItem({
   message: message,
 }: Props) {
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const { members = [] } = useMembers(space.id)
 
   function getUser(userId: string) {

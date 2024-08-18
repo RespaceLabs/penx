@@ -1,18 +1,18 @@
 'use client'
 
 import { useEffect } from 'react'
+import { useSpace } from '@/hooks/useSpace'
 import { useSpaces } from '@/hooks/useSpaces'
 import { usePathname, useRouter } from 'next/navigation'
 
 export default function Page() {
   const { push } = useRouter()
-  const { space, spaces } = useSpaces()
+  const { spaces } = useSpaces()
+  const { space } = useSpace()
   const pathname = usePathname()
-  console.log('=======pathname:', pathname)
 
   useEffect(() => {
-    console.log('======space:', space)
-    if (!spaces.length) {
+    if (!spaces.length || !space) {
       push('/~/discover')
       return
     }

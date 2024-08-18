@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/tooltip'
 import { useChannels } from '@/hooks/useChannels'
 import { usePosts } from '@/hooks/usePosts'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { cn } from '@/lib/utils'
 import { TooltipPortal } from '@radix-ui/react-tooltip'
 import { FeatherIcon, Home, MessageCircleMore } from 'lucide-react'
@@ -19,8 +19,7 @@ import { usePathname } from 'next/navigation'
 
 export function SidebarSpaceNav() {
   const pathname = usePathname()
-  const { space, spaces } = useSpaces()
-  const { data: session } = useSession()
+  const { space } = useSpace()
   const { channels } = useChannels()
   const { posts } = usePosts()
 
@@ -34,15 +33,18 @@ export function SidebarSpaceNav() {
       },
       {
         name: 'Posts',
-        href: posts.length ? `/~/post/${posts[0].id}` : '/~/create-post',
+        href: posts.length
+          ? `/~/space/${space.id}/post/${posts[0].id}`
+          : '/~/space/${space.id}/create-post',
         isActive:
-          pathname.startsWith('/~/post/') || pathname === '/~/create-post',
+          pathname.startsWith('/~/space/${space.id}/post/') ||
+          pathname === '/~/space/${space.id}/create-post',
         icon: <FeatherIcon width={20} />,
       },
       {
         name: 'Chat',
-        href: `/~/channel/${channels?.[0]?.id}`,
-        isActive: pathname.startsWith('/~/channel/'),
+        href: `/~/space/${space.id}/channel/${channels?.[0]?.id}`,
+        isActive: pathname.startsWith('/~/space/${space.id}/channel/'),
         icon: <MessageCircleMore width={20} />,
       },
       {

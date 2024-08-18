@@ -3,6 +3,7 @@
 import { PropsWithChildren, useEffect, useRef } from 'react'
 import { useAppLoading } from '@/hooks/useAppLoading'
 import { AppService } from '@/services/AppService'
+import { useSession } from 'next-auth/react'
 import { useParams, useRouter } from 'next/navigation'
 import LoadingDots from '../icons/loading-dots'
 
@@ -13,17 +14,26 @@ export function AppProvider({ children }: PropsWithChildren) {
   const { push } = useRouter()
   const params = useParams() as Record<string, string>
 
+  const { data: session, status } = useSession()
+
   useEffect(() => {
+    if (status === 'loading') return
     if (initedRef.current) return
     initedRef.current = true
-    appRef.current.init(params?.id).then((path) => {
-      if (path) {
-        push(path)
-      }
-    })
+
+    appRef.current
+      .init({
+        spaceId: params?.id,
+        authenticated: status === 'authenticated',
+      })
+      .then((path) => {
+        if (path) {
+          push(path)
+        }
+      })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [status])
 
   if (loading) {
     return (

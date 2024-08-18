@@ -1,11 +1,11 @@
 'use client'
 
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { DeleteSpaceForm } from './DeleteSpaceForm'
 import { UpdateSpaceForm } from './UpdateSpaceForm'
 
 export default function SiteSettingsIndex() {
-  const { space } = useSpaces()
+  const { space } = useSpace()
   return (
     <div className="flex flex-col space-y-6">
       <UpdateSpaceForm />

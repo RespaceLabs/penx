@@ -1,9 +1,9 @@
 import { NewButton } from '@/components/Navbar/NewButton'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { useSession } from 'next-auth/react'
 
 export function PostListHeader() {
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const { data } = useSession()
   return (
     <div className="flex justify-between items-center gap-2 py-2">

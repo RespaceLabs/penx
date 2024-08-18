@@ -1,7 +1,7 @@
 'use client'
 
-import { useSpace } from '../hooks/useSpace'
-import { MemberList } from '../Space/MemberList'
+import { useSpace } from '@/hooks/useSpace'
+import { MemberList } from '../../Space/MemberList'
 
 export default function Page() {
   const { space } = useSpace()

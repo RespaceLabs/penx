@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useTokenContext } from '@/components/TokenContext'
 import { Channel, useChannels } from '@/hooks/useChannels'
+import { useSpace } from '@/hooks/useSpace'
 import { SocketConnector } from '@/lib/socket/socketConnector'
 import { api } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
@@ -9,7 +10,6 @@ import { FileText, Hash } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useParams, useRouter } from 'next/navigation'
 import { ChannelListHeader } from './ChannelListHeader'
-import { useSpaces } from '@/hooks/useSpaces'
 
 interface ChanelItemProps {
   channel: Channel
@@ -17,6 +17,7 @@ interface ChanelItemProps {
 function ChannelItem({ channel }: ChanelItemProps) {
   const { push } = useRouter()
   const params = useParams()
+  const { space } = useSpace()
   const isActive = params.id === channel.id
 
   return (
@@ -26,7 +27,7 @@ function ChannelItem({ channel }: ChanelItemProps) {
         isActive && 'bg-sidebar',
       )}
       onClick={async () => {
-        push(`/~/channel/${channel.id}`)
+        push(`/~/${space.id}/channel/${channel.id}`)
       }}
     >
       <div className="inline-flex text-zinc-600">
@@ -41,7 +42,7 @@ export function ChannelList() {
   const { channels } = useChannels()
   const { data: session } = useSession()
   const token = useTokenContext()
-  const { space } = useSpaces()
+  const { space } = useSpace()
 
   useEffect(() => {
     if (session?.userId && channels.length) {
@@ -69,7 +70,7 @@ export function ChannelList() {
         height: 'calc(100vh - 48px)',
       }}
     >
-      {space ?
+      {space ? (
         <>
           <ChannelListHeader space={space} />
           <div className="grid gap-1">
@@ -78,7 +79,9 @@ export function ChannelList() {
             ))}
           </div>
         </>
-        : <div>Please create or join a space.</div>}
+      ) : (
+        <div>Please create or join a space.</div>
+      )}
     </div>
   )
 }

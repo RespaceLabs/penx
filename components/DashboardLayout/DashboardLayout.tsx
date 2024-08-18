@@ -11,7 +11,6 @@ import { Sidebar } from './Sidebar/Sidebar'
 export function DashboardLayout({ children }: PropsWithChildren) {
   useQueryEthPrice()
   useQueryEthBalance()
-  useAddress()
 
   return (
     <div className="mx-auto h-screen">

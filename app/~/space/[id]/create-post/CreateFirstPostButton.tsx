@@ -2,7 +2,7 @@ import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import { postAtom } from '@/hooks/usePost'
 import { postsAtom } from '@/hooks/usePosts'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { PostType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api, trpc } from '@/lib/trpc'
@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 export function CreateFirstPostButton() {
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const { push } = useRouter()
   const { isPending, mutateAsync } = trpc.post.create.useMutation()
   return (
@@ -31,7 +31,7 @@ export function CreateFirstPostButton() {
             const posts = await api.post.listBySpaceId.query(space.id)
             store.set(postsAtom, posts)
           }, 0)
-          push(`/~/post/${post.id}`)
+          push(`/~/${space.id}/post/${post.id}`)
         } catch (error) {
           const msg = extractErrorMessage(error)
           toast.error(msg || 'Failed to create post')

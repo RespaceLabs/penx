@@ -47,16 +47,7 @@ export default async function middleware(req: NextRequest) {
     }
   }
 
-  // if (path === '/token') {
-  //   return NextResponse.next()
-  // }
-
   if (path === '/') {
-    const token = await getToken({ req })
-    if (token) {
-      return NextResponse.redirect(new URL('/~/discover', req.url))
-    }
-
     return NextResponse.rewrite(
       new URL(`/home${path === '/' ? '' : path}`, req.url),
       {
@@ -65,13 +56,13 @@ export default async function middleware(req: NextRequest) {
     )
   }
 
-  if (path.startsWith('/~') || path === '/d') {
-    const token = await getToken({ req })
-    if (!token) {
-      return NextResponse.redirect(new URL('/login', req.url))
-    }
-    return NextResponse.rewrite(new URL(path, req.url))
-  }
+  // if (path.startsWith('/~') || path === '/d') {
+  //   const token = await getToken({ req })
+  //   if (!token) {
+  //     return NextResponse.redirect(new URL('/login', req.url))
+  //   }
+  //   return NextResponse.rewrite(new URL(path, req.url))
+  // }
 
   if (path.startsWith('/@')) {
     return NextResponse.rewrite(new URL(`/space${path}`, req.url), {

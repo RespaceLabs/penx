@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { ChevronDown, Plus, Settings } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation'
 
 export function SpaceMenu() {
   const { push } = useRouter()
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const { data: session } = useSession()
 
   if (!space) return null

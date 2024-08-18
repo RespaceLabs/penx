@@ -1,25 +1,24 @@
+import { erc20Abi, spaceAbi } from '@/lib/abi'
+import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { wagmiConfig } from '@/lib/wagmi'
+import { Space } from '@prisma/client'
 import { waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
+import { Address } from 'viem'
 import { useWriteContract } from 'wagmi'
 import LoadingDots from '../icons/loading-dots'
 import { Button } from '../ui/button'
-import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 import { WalletConnectButton } from '../WalletConnectButton'
-import { Space } from '@/app/~/space/[id]/hooks/useSpace'
-import { Address } from 'viem'
-import { spaceAbi } from '@/lib/abi'
-import { extractErrorMessage } from '@/lib/extractErrorMessage'
-import { erc20Abi } from '@/lib/abi'
+import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 
 interface Props {
-  ethAmount: string;
-  purchasedAmount: string;
-  handleSwap: () => void;
-  isInsufficientBalance: boolean;
-  isAmountValid: boolean;
-  isConnected: boolean;
+  ethAmount: string
+  purchasedAmount: string
+  handleSwap: () => void
+  isInsufficientBalance: boolean
+  isAmountValid: boolean
+  isConnected: boolean
   space: Space
 }
 
@@ -29,7 +28,7 @@ export const SellBtn = ({
   isAmountValid,
   handleSwap,
   isConnected,
-  space
+  space,
 }: Props) => {
   const { writeContractAsync, isPending } = useWriteContract()
   const balance = useSpaceTokenBalance()
@@ -51,7 +50,7 @@ export const SellBtn = ({
         address: contractAddress,
         abi: spaceAbi,
         functionName: 'sell',
-        args: [value]
+        args: [value],
       })
 
       await waitForTransactionReceipt(wagmiConfig, { hash })
@@ -67,24 +66,27 @@ export const SellBtn = ({
 
   return (
     <>
-      {isConnected ? <Button
-        className="w-full h-[58px]"
-        disabled={!isAmountValid || isInsufficientBalance || isPending}
-        onClick={() => onSell()}
-      >
-        {isPending || balance.isPending ? (
-          <LoadingDots color="white" />
-        ) : (
-          isInsufficientBalance
-            ? `Insufficient ${space.name} balance`
-            : isAmountValid
-              ? 'Sell'
-              : 'Enter an amount'
-        )}
-      </Button> :
+      {isConnected ? (
+        <Button
+          className="w-full h-[58px]"
+          disabled={!isAmountValid || isInsufficientBalance || isPending}
+          onClick={() => onSell()}
+        >
+          {isPending || balance.isPending ? (
+            <LoadingDots color="white" />
+          ) : isInsufficientBalance ? (
+            `Insufficient ${space.name} balance`
+          ) : isAmountValid ? (
+            'Sell'
+          ) : (
+            'Enter an amount'
+          )}
+        </Button>
+      ) : (
         <WalletConnectButton className="w-full h-[58px]">
           Connect wallet
-        </WalletConnectButton>}
+        </WalletConnectButton>
+      )}
     </>
   )
 }

@@ -2,12 +2,12 @@
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { UserAvatar } from '@/components/UserAvatar'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { trpc } from '@/lib/trpc'
 import { cn, shortenAddress } from '@/lib/utils'
 
 export function ContributorList() {
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const { data = [], isLoading } = trpc.contributor.listBySpaceId.useQuery(
     space.id,
   )

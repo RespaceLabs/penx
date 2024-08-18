@@ -13,15 +13,14 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { UserAvatar } from '@/components/UserAvatar'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { precision } from '@/lib/math'
 import { trpc } from '@/lib/trpc'
 import { cn, shortenAddress } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
 import { ChangeStatusSelect } from './ChangeStatusSelect'
 
 export function SponsorList() {
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const { data = [], isLoading } = trpc.sponsor.listBySpaceId.useQuery(space.id)
 
   if (isLoading) {

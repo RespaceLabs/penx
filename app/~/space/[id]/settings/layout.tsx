@@ -2,11 +2,12 @@
 
 import { PropsWithChildren } from 'react'
 import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
+import { useSpace } from '@/hooks/useSpace'
 import { useSpaces } from '@/hooks/useSpaces'
 import { SettingsNav } from './SettingsNav'
 
 export default function SiteAnalyticsLayout({ children }: PropsWithChildren) {
-  const { space } = useSpaces()
+  const { space } = useSpace()
 
   if (!space) return null
 

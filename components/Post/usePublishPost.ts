@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { useAddress } from '@/hooks/useAddress'
 import { PostWithSpace } from '@/hooks/usePost'
-import { useSpaces } from '@/hooks/useSpaces'
-import { addressMap } from '@/lib/address'
+import { useSpace } from '@/hooks/useSpace'
 import { GateType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
@@ -15,9 +14,8 @@ import { useWriteContract } from 'wagmi'
 
 export function usePublishPost() {
   const [isLoading, setLoading] = useState(false)
-  const { writeContractAsync } = useWriteContract()
   const address = useAddress()
-  const { space } = useSpaces()
+  const { space } = useSpace()
 
   return {
     isLoading,

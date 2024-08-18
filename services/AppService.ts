@@ -2,17 +2,37 @@ import { appLoading } from '@/hooks/useAppLoading'
 import { channelsAtom } from '@/hooks/useChannels'
 import { postAtom } from '@/hooks/usePost'
 import { postsAtom } from '@/hooks/usePosts'
-import { spaceIdAtom } from '@/hooks/useSpaceId'
+import { spaceAtom } from '@/hooks/useSpace'
 import { spacesAtom } from '@/hooks/useSpaces'
-import { SELECTED_SPACE } from '@/lib/constants'
 import { api } from '@/lib/trpc'
 import { store } from '@/store'
+import { Space } from '@prisma/client'
 
+interface Options {
+  authenticated: boolean
+  spaceId: string
+  postId?: string
+}
 export class AppService {
   constructor() {}
 
-  init = async (postId = '') => {
+  init = async (opt: Options) => {
     store.set(appLoading, true)
+
+    let postId = opt.postId || ''
+    let spaceId = opt.spaceId
+    let space: Space | null = null
+
+    if (spaceId) {
+      space = await api.space.byId.query(opt.spaceId)
+      store.set(spaceAtom, { space, isLoading: false })
+    }
+
+    if (!opt.authenticated) {
+      store.set(appLoading, false)
+      return
+    }
+
     const spaces = await api.space.mySpaces.query()
     store.set(spacesAtom, spaces)
 
@@ -20,11 +40,6 @@ export class AppService {
       store.set(appLoading, false)
       return ''
     }
-
-    let spaceId =
-      store.get(spaceIdAtom) || (localStorage.getItem(SELECTED_SPACE) as string)
-
-    const space = spaces.find((s) => s.id === spaceId)
 
     if (!space && spaces.length > 0) {
       spaceId = spaces[0].id
@@ -44,14 +59,8 @@ export class AppService {
       post && store.set(postAtom, post)
     }
 
-    store.set(spaceIdAtom, spaceId)
     store.set(postsAtom, posts)
     store.set(channelsAtom, channels)
     store.set(appLoading, false)
-
-    localStorage.setItem(SELECTED_SPACE, spaceId)
-    if (!postId) {
-      // return '/~'
-    }
   }
 }

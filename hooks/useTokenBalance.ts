@@ -4,12 +4,12 @@ import { atom } from 'jotai'
 import { Address } from 'viem'
 import { useReadContract } from 'wagmi'
 import { useAddress } from './useAddress'
-import { useSpaces } from './useSpaces'
+import { useSpace } from './useSpace'
 
 export const ethBalanceAtom = atom<EthBalance>({} as EthBalance)
 
 export function useTokenBalance() {
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const address = useAddress()
   const res = useReadContract({
     address: space.spaceAddress as Address,

@@ -3,8 +3,10 @@
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { UserAvatar } from '@/components/UserAvatar'
+import { spaceAtom } from '@/hooks/useSpace'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
+import { store } from '@/store'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -23,7 +25,6 @@ export function SpaceList() {
       </div>
     )
   }
-  console.log('============data:', data)
 
   return (
     <div className="grid gap-4 mx-auto w-[800x] md:w-[800px] sm:w-full mt-6">
@@ -32,6 +33,7 @@ export function SpaceList() {
           key={space.id}
           className="flex items-center justify-between rounded-lg p-5 gap-3 cursor-pointer"
           onClick={() => {
+            store.set(spaceAtom, { space, isLoading: false })
             push(`/~/space/${space.id}`)
           }}
         >

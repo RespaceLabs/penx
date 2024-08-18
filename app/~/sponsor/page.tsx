@@ -1,11 +1,10 @@
 'use client'
 
 import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
-import { useSpaces } from '@/hooks/useSpaces'
-import { SponsorList } from './SponsorList'
+import { useSpace } from '@/hooks/useSpace'
 
 export default function Page() {
-  const { space } = useSpaces()
+  const { space } = useSpace()
 
   return (
     <div className="">

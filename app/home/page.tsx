@@ -4,6 +4,7 @@ import { UserAvatar } from '@/components/UserAvatar'
 import { getHomeSpaces } from '@/lib/fetchers'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import Link from 'next/link'
 import { LaunchButton } from './LaunchButton'
 import { Slogan } from './Slogan'
 
@@ -62,9 +63,7 @@ export default async function HomePage() {
               </div>
             </div>
             <Button asChild size="sm" className="cursor-pointer rounded-xl">
-              <a href={`/@${space.subdomain}`} target="_blank">
-                Visit space
-              </a>
+              <Link href={`/~/space/${space.id}`}>Visit space</Link>
             </Button>
           </div>
         ))}

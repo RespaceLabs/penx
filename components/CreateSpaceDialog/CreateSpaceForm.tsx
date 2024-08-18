@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useAddress } from '@/hooks/useAddress'
+import { spaceAtom } from '@/hooks/useSpace'
 import { spaceIdAtom } from '@/hooks/useSpaceId'
 import { spacesAtom } from '@/hooks/useSpaces'
 import { spaceAbi, spaceFactoryAbi } from '@/lib/abi'
@@ -154,6 +155,7 @@ export function CreateSpaceForm() {
       })
 
       const spaces = await api.space.mySpaces.query()
+      store.set(spaceAtom, { space, isLoading: false })
       store.set(spacesAtom, spaces)
       store.set(spaceIdAtom, space.id)
       setIsOpen(false)

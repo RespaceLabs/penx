@@ -1,6 +1,7 @@
 'use client'
 
 import { UserAvatar } from '@/components/UserAvatar'
+import { Subscription } from '@/domains/Subscription'
 import { useMembers } from '@/hooks/useMembers'
 import { shortenAddress } from '@/lib/utils'
 import { Space } from '@prisma/client'
@@ -20,22 +21,32 @@ export function MemberList({ space }: Props) {
 
   return (
     <div className="space-y-3 mt-4">
-      {members.map((member) => (
-        <div key={member.id} className="flex justify-between">
-          <div className="flex gap-2 items-center">
-            <UserAvatar user={member.user} />
+      {members.map((member) => {
+        const subscription = new Subscription({
+          amount: BigInt(member.amount),
+          checkpoint: BigInt(member.checkpoint),
+          duration: BigInt(member.duration),
+          consumed: BigInt(member.consumed),
+          start: BigInt(member.start),
+        })
+        return (
+          <div key={member.id} className="flex justify-between">
+            <div className="flex gap-2 items-center">
+              <UserAvatar user={member.user} />
 
+              <div>
+                {member.user.ensName
+                  ? member.user.ensName
+                  : shortenAddress(member.user.address)}
+              </div>
+            </div>
             <div>
-              {member.user.ensName
-                ? member.user.ensName
-                : shortenAddress(member.user.address)}
+              <span className="font-bold">{subscription.daysFormatted}</span>{' '}
+              days
             </div>
           </div>
-          <div>
-            has <span className="font-bold">{member.amount}</span> Keys
-          </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

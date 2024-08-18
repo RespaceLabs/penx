@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
@@ -14,7 +13,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { channelsAtom } from '@/hooks/useChannels'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { spaceAbi } from '@/lib/abi'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api, trpc } from '@/lib/trpc'
@@ -43,7 +42,7 @@ const FormSchema = z.object({
 export function AddContributorForm() {
   const { isPending, mutateAsync } = trpc.contributor.create.useMutation()
   const { setIsOpen } = useAddContributorDialog()
-  const { space } = useSpaces()
+  const { space } = useSpace()
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

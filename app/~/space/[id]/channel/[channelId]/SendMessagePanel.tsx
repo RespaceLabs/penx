@@ -2,7 +2,7 @@ import { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ContentType } from '@/hooks/useMessages'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { SocketConnector } from '@/lib/socket/socketConnector'
 import { SendIcon } from 'lucide-react'
 import { nanoid } from 'nanoid'
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const SendMessagePanel = ({ userId, channelId }: Props) => {
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const [msgContent, setMsgContent] = useState<string>('')
   const [isComposing, setIsComposing] = useState<boolean>(false)
 

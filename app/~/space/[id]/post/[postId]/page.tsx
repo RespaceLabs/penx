@@ -11,8 +11,6 @@ export default function PostPage() {
   const { post } = usePost()
   const { isPostLoading } = usePostLoading()
 
-  console.log('=====post:', post)
-
   if (isPostLoading)
     return (
       <div className="h-[80vh] flex items-center justify-center">

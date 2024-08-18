@@ -3,10 +3,10 @@ import { spaceAbi } from '@/lib/abi'
 import { Address } from 'viem'
 import { useReadContract } from 'wagmi'
 import { useAddress } from './useAddress'
-import { useSpaces } from './useSpaces'
+import { useSpace } from './useSpace'
 
 export function useSubscription() {
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const address = useAddress()
   const res = useReadContract({
     address: space.spaceAddress as Address,

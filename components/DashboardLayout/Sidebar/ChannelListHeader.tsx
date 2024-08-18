@@ -1,5 +1,5 @@
-import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 import { CreateChannelDialog } from '@/components/CreateChannelDialog/CreateChannelDialog'
+import { Space } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 
 export function ChannelListHeader({ space }: { space: Space }) {

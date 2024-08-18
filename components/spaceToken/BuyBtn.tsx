@@ -1,17 +1,16 @@
-import { Space } from '@/app/~/space/[id]/hooks/useSpace';
-import { spaceAbi } from '@/lib/abi';
-import { extractErrorMessage } from '@/lib/extractErrorMessage';
-import { precision } from '@/lib/math';
-import { wagmiConfig } from '@/lib/wagmi';
-import { waitForTransactionReceipt } from '@wagmi/core';
-import { toast } from 'sonner';
-import { Address } from 'viem';
-import { useWriteContract } from 'wagmi';
-import LoadingDots from '../icons/loading-dots';
-import { Button } from '../ui/button';
-import { WalletConnectButton } from '../WalletConnectButton';
-import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance';
-
+import { spaceAbi } from '@/lib/abi'
+import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { precision } from '@/lib/math'
+import { wagmiConfig } from '@/lib/wagmi'
+import { Space } from '@prisma/client'
+import { waitForTransactionReceipt } from '@wagmi/core'
+import { toast } from 'sonner'
+import { Address } from 'viem'
+import { useWriteContract } from 'wagmi'
+import LoadingDots from '../icons/loading-dots'
+import { Button } from '../ui/button'
+import { WalletConnectButton } from '../WalletConnectButton'
+import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 
 interface Props {
   ethAmount: string

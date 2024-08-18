@@ -1,6 +1,7 @@
 import { Post, postAtom } from '@/hooks/usePost'
 import { postLoadingAtom } from '@/hooks/usePostLoading'
 import { usePosts } from '@/hooks/usePosts'
+import { useSpace } from '@/hooks/useSpace'
 import { api } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import { store } from '@/store'
@@ -13,6 +14,7 @@ interface PostItemProps {
 }
 export function PostItem({ post }: PostItemProps) {
   const { push } = useRouter()
+  const { space } = useSpace()
   const params = useParams()
   const isActive = params.id === post.id
 
@@ -31,7 +33,7 @@ export function PostItem({ post }: PostItemProps) {
 
         store.set(postLoadingAtom, false)
 
-        push(`/~/post/${post.id}`)
+        push(`/~/${space.id}/post/${post.id}`)
       }}
     >
       <div className="inline-flex text-zinc-600">

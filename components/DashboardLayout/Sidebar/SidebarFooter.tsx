@@ -6,7 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { useSpaces } from '@/hooks/useSpaces'
+import { useSpace } from '@/hooks/useSpace'
 import { cn } from '@/lib/utils'
 import { TooltipPortal } from '@radix-ui/react-tooltip'
 import { Github, Rocket, Settings } from 'lucide-react'
@@ -17,7 +17,7 @@ import { SidebarSpaceList } from './SidebarSpaceList'
 
 export function SidebarFooter() {
   const pathname = usePathname()
-  const { space } = useSpaces()
+  const { space } = useSpace()
   const { data: session } = useSession()
 
   const externalLinks = [

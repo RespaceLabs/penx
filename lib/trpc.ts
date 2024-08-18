@@ -9,7 +9,7 @@ import superjson from 'superjson'
 export const api = createTRPCClient<AppRouter>({
   links: [
     httpBatchLink({
-      // url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/trpc`,
+      // url: `${process.env.NEXT_PUBLIC_API_HOST}/api/trpc`,
       url: `/api/trpc`,
       transformer: superjson,
       headers() {

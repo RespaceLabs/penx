@@ -7,7 +7,7 @@ import { store } from '@/store'
 import { atom, useAtom } from 'jotai'
 import { Address } from 'viem'
 import { useReadContract } from 'wagmi'
-import { useSpaces } from './useSpaces'
+import { useSpace } from './useSpace'
 
 export const chainSpaceAtom = atom<Space>({} as Space)
 
@@ -20,7 +20,8 @@ export function useChainSpace() {
 }
 
 export function useQueryChainSpace() {
-  const { space } = useSpaces()
+  const { space } = useSpace()
+
   const { data, ...rest } = useReadContract({
     address: space.spaceAddress as Address,
     abi: spaceAbi,
@@ -31,7 +32,6 @@ export function useQueryChainSpace() {
   useEffect(() => {
     if (typeof data === 'undefined') return
     if (data) {
-      console.log('data========:', data)
       store.set(chainSpaceAtom, new Space(data))
     }
   }, [data])
