@@ -2,13 +2,9 @@ import { ChangeEvent, useMemo, useState } from 'react'
 import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 import { Button } from '../ui/button'
 import { BuyBtn } from './BuyBtn'
-import { remirrorTokenAbi } from '@/lib/abi'
-import { addressMap } from '@/lib/address'
 import { precision } from '@/lib/math'
-import { wagmiConfig } from '@/lib/wagmi'
-import { readContract } from '@wagmi/core'
-import { useDebouncedCallback } from 'use-debounce'
 import { formatAmount } from './Transaction'
+import { useTokenKxy } from '@/hooks/useTokenKxy'
 
 interface Props {
   ethBalance: string
@@ -20,58 +16,40 @@ interface Props {
 export const Buy = ({ space, ethBalance, tokenBalance, isConnected }: Props) => {
   const [ethAmount, setEthAmount] = useState<string>('0')
   const [purchasedAmount, setPurchasedAmount] = useState<string>('0')
+  const { updateTokenKxy, getBuyTokenAmount } = useTokenKxy()
 
   const isAmountValid =
     parseFloat(ethAmount) > 0 && parseFloat(purchasedAmount) > 0
 
   const isInsufficientBalance = parseFloat(ethAmount) > parseFloat(ethBalance)
 
-  const calculatepurchasedAmount = useDebouncedCallback(
-    async (value: number) => {
-      const amount = await readContract(wagmiConfig, {
-        address: addressMap.RemirrorToken,
-        abi: remirrorTokenAbi,
-        functionName: 'getTokenAmount',
-        args: [precision.token(value, 18)],
-      })
-
-      const decimalAmount = precision.toDecimal(amount)
-      if (!ethAmount || !decimalAmount) {
-        setPurchasedAmount('')
-      } else {
-        setPurchasedAmount(decimalAmount.toString())
-      }
-    },
-    400,
-  )
-
   const validateAndSetEthAmount = (value: string) => {
     // Validate and format input
     if (/^\d*\.?\d*$/.test(value) && !value.startsWith('.')) {
       const formattedValue = formatAmount(value)
       setEthAmount(formattedValue)
-      calculatepurchasedAmount(formattedValue ? parseFloat(formattedValue) : 0)
+      const decimalAmount = getBuyTokenAmount(precision.toExactDecimalBigint(value))
+      if (!ethAmount || !decimalAmount) {
+        setPurchasedAmount('')
+      } else {
+        setPurchasedAmount(precision.toExactDecimalString(decimalAmount))
+      }
     }
   }
 
   const validateAndsetPurchasedAmount = (value: string) => {
     // Validate and format input
-    if (/^\d*\.?\d*$/.test(value) && !value.startsWith('.')) {
-      // const formattedValue = formatAmount(value)
-      // TODO: setPurchasedAmount
-      // setPurchasedAmount(formattedValue)
-      // TODO: setEthAmount
-      // setEthAmount(
-      //   formattedValue
-      //     ? (parseFloat(formattedValue) / ETH_TO_BTC_RATE).toFixed(18)
-      //     : '',
-      // )
-    }
+    // if (/^\d*\.?\d*$/.test(value) && !value.startsWith('.')) { }
   }
 
   const handleMax = () => {
     setEthAmount(ethBalance)
-    calculatepurchasedAmount(Number(ethBalance))
+    const decimalAmount = getBuyTokenAmount(precision.toExactDecimalBigint(ethBalance))
+    if (!ethAmount || !decimalAmount) {
+      setPurchasedAmount('')
+    } else {
+      setPurchasedAmount(precision.toExactDecimalString(decimalAmount))
+    }
   }
 
   const displayBalance = useMemo(() => {
@@ -140,6 +118,7 @@ export const Buy = ({ space, ethBalance, tokenBalance, isConnected }: Props) => 
       handleSwap={() => {
         setEthAmount('')
         setPurchasedAmount('')
+        updateTokenKxy(space.spaceAddress as Address)
       }}
       isInsufficientBalance={isInsufficientBalance}
       isAmountValid={isAmountValid}

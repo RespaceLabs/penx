@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useAddress } from '@/hooks/useAddress'
 import { useAccount, useBalance } from 'wagmi'
 import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
@@ -6,6 +6,8 @@ import { precision } from '@/lib/math'
 import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 import { Buy } from './Buy'
 import { Sell } from './Sell'
+import { Address } from 'viem'
+import { useTokenKxy } from '@/hooks/useTokenKxy'
 
 export const formatAmount = (value: string): string => {
   // Remove leading zeroes and limit decimals
@@ -23,9 +25,10 @@ export const Transaction = ({ space }: { space: Space }) => {
   const { data: balanceData } = useBalance({ address })
   const { isLoading, data: tokenBalance } = useSpaceTokenBalance()
   const [direction, setDirection] = useState<Direction>(Direction.buy)
+  const { updateTokenKxy } = useTokenKxy()
 
   const ethBalance = useMemo<string>(() => {
-    if(balanceData?.value){
+    if (balanceData?.value) {
       // Numerical precision issues: precision.toDecimal(tokenBalance).toString() 
       return precision.toExactDecimalString(balanceData?.value)
     }
@@ -37,7 +40,11 @@ export const Transaction = ({ space }: { space: Space }) => {
     setDirection(direction)
   }
 
-  console.log('%c=tokenBalance', 'color:red', {isConnected,tokenBalance, space })
+  useEffect(() => {
+    if (space) {
+      updateTokenKxy(space.spaceAddress as Address)
+    }
+  }, [space])
 
   return (
     <div className="rounded-lg">
@@ -59,7 +66,7 @@ export const Transaction = ({ space }: { space: Space }) => {
       </div>
 
       <div style={{
-        display: direction === Direction.buy ? 'block': 'none'
+        display: direction === Direction.buy ? 'block' : 'none'
       }}>
         <Buy
           tokenBalance={tokenBalance}
@@ -70,14 +77,14 @@ export const Transaction = ({ space }: { space: Space }) => {
       </div>
 
       <div style={{
-        display: direction === Direction.sell ? 'block': 'none'
+        display: direction === Direction.sell ? 'block' : 'none'
       }}>
-      <Sell
-        tokenBalance={tokenBalance}
-        ethBalance={ethBalance}
-        isConnected={isConnected}
-        space={space}
-      />
+        <Sell
+          tokenBalance={tokenBalance}
+          ethBalance={ethBalance}
+          isConnected={isConnected}
+          space={space}
+        />
       </div>
     </div>
   )
