@@ -10,6 +10,7 @@ import { WalletConnectButton } from '../WalletConnectButton'
 import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 import { Address } from 'viem'
 import { spaceAbi } from '@/lib/abi/indieX'
+import { extractErrorMessage } from '@/lib/extractErrorMessage'
 
 interface Props {
   ethAmount: string;
@@ -34,18 +35,23 @@ export const BuyBtn = ({
   const balance = useSpaceTokenBalance()
 
   const onBuy = async () => {
-    const value = precision.token(parseFloat(ethAmount), 18)
-    const hash = await writeContractAsync({
-      address: space.spaceAddress as Address,
-      abi: spaceAbi,
-      functionName: 'buy',
-      value
-    })
+    try {
+      const value = precision.token(parseFloat(ethAmount), 18)
+      const hash = await writeContractAsync({
+        address: space.spaceAddress as Address,
+        abi: spaceAbi,
+        functionName: 'buy',
+        value
+      })
 
-    await waitForTransactionReceipt(wagmiConfig, { hash })
-    await balance.refetch()
-    handleSwap()
-    toast.success(`${space?.name} bought successfully!`)
+      await waitForTransactionReceipt(wagmiConfig, { hash })
+      await balance.refetch()
+      handleSwap()
+      toast.success(`${space?.name} bought successfully!`)
+    } catch (error) {
+      const msg = extractErrorMessage(error)
+      toast.error(msg)
+    }
   }
 
   return (

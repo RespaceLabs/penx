@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useMemo, useState } from 'react'
 import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 import { Button } from '../ui/button'
 import { BuyBtn } from './BuyBtn'
@@ -74,6 +74,14 @@ export const Buy = ({ space, ethBalance, tokenBalance, isConnected }: Props) => 
     calculatepurchasedAmount(Number(ethBalance))
   }
 
+  const displayBalance = useMemo(() => {
+    if (tokenBalance) {
+      return precision.toExactDecimalString(tokenBalance)
+    }
+
+    return '0.0000'
+  }, [tokenBalance]);
+
   return <>
     <div className="mb-2 bg-gray-100 rounded-[16px] p-[16px] border border-transparent hover:border-[#18181b] transition-colors duration-300">
       <div className="text-[12px]">Sell</div>
@@ -94,7 +102,8 @@ export const Buy = ({ space, ethBalance, tokenBalance, isConnected }: Props) => 
         Balance: {ethBalance}
         <Button
           onClick={handleMax}
-          className="h-[20px] text-white px-[4px] rounded ml-2"
+          disabled={!ethBalance}
+          className="h-[20px] cursor-pointer text-white px-[4px] rounded ml-2"
         >
           Max
         </Button>
@@ -121,10 +130,7 @@ export const Buy = ({ space, ethBalance, tokenBalance, isConnected }: Props) => 
         <span className="text-[18px]">{space?.name}</span>
       </div>
       <div className="text-right text-[#222222]">
-        Balance: &nbsp;
-        {tokenBalance
-          ? precision.toDecimal(tokenBalance).toFixed(4)
-          : '0.00'}
+        Balance: {displayBalance}
       </div>
     </div>
     <BuyBtn

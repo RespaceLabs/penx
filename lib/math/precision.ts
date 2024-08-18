@@ -38,8 +38,24 @@ export const precision = {
     if (!value) return 0
     return div(value.toString(), Math.pow(10, decimals))
   },
-
   toRateDecimal(value: bigint) {
     return div(value.toString(), Math.pow(10, Decimals.RATE))
   },
+
+  // Maintaining Numeric Precision
+  toExactDecimalString(value: bigint, decimals: number = Decimals.TOKEN): string {
+    if (!value) return "0"
+    const factor = BigInt(Math.pow(10, decimals))
+    const integerPart = value / factor
+    const fractionalPart = value % factor
+    return `${integerPart}.${fractionalPart.toString().padStart(decimals, '0')}`
+  },
+
+  // Maintaining Numeric Precision
+  toExactDecimalBigint(decimalValue: string, decimals: number = Decimals.TOKEN): bigint {
+    const [integerPart, fractionalPart = ""] = decimalValue.split(".")
+    const integerBigInt = BigInt(integerPart) * BigInt(Math.pow(10, decimals))
+    const fractionalBigInt = BigInt(fractionalPart.padEnd(decimals, "0"))
+    return integerBigInt + fractionalBigInt
+  }
 }

@@ -24,7 +24,6 @@ interface Props {
 }
 
 export const SellBtn = ({
-  ethAmount,
   purchasedAmount,
   isInsufficientBalance,
   isAmountValid,
@@ -36,19 +35,20 @@ export const SellBtn = ({
   const balance = useSpaceTokenBalance()
 
   const onSell = async () => {
-    const value = precision.token(purchasedAmount, 18)
     try {
+      const value = precision.toExactDecimalBigint(purchasedAmount)
+      const contractAddress = space.spaceAddress as Address
       const approveTx = await writeContractAsync({
-        address: space.spaceAddress as Address,
+        address: contractAddress,
         abi: erc20Abi,
         functionName: 'approve',
-        args: [space.spaceAddress as Address, value],
+        args: [contractAddress, value],
       })
 
       await waitForTransactionReceipt(wagmiConfig, { hash: approveTx })
 
       const hash = await writeContractAsync({
-        address: space.spaceAddress as Address,
+        address: contractAddress,
         abi: spaceAbi,
         functionName: 'sell',
         args: [value]

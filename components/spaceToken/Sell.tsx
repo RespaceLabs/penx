@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useMemo, useState } from 'react'
 import { Space } from '@/app/~/space/[id]/hooks/useSpace'
 import { Button } from '../ui/button'
 import { SellBtn } from './SellBtn'
@@ -22,7 +22,7 @@ export const Sell = ({ space, ethBalance, tokenBalance, isConnected }: Props) =>
   const [purchasedAmount, setPurchasedAmount] = useState<string>('0')
 
   // const isAmountValid = parseFloat(ethAmount) > 0 && parseFloat(purchasedAmount) > 0
-  // TODO: not add ethAmount
+  // TODO: please add eth judgment logic
   const isAmountValid = parseFloat(purchasedAmount) > 0
 
   const isInsufficientBalance = parseFloat(ethAmount) > parseFloat(ethBalance)
@@ -71,10 +71,25 @@ export const Sell = ({ space, ethBalance, tokenBalance, isConnected }: Props) =>
   }
 
   const handleMax = () => {
-    tokenBalance && setPurchasedAmount(precision.toDecimal(tokenBalance).toString())
+    tokenBalance && setPurchasedAmount(precision.toExactDecimalString(tokenBalance))
+
     // TODO: calculatepurchasedAmount
     // calculatepurchasedAmount(Number(ethBalance))
   }
+
+  const { decimalBalance, displayBalance } = useMemo(() => {
+    if (tokenBalance) {
+      const decimal = precision.toDecimal(tokenBalance);
+      return {
+        decimalBalance: parseFloat(decimal.toFixed(8)),
+        displayBalance: decimal.toFixed(4),
+      };
+    }
+    return {
+      decimalBalance: 0,
+      displayBalance: '0.0000',
+    };
+  }, [tokenBalance]);
 
   return <>
     <div className="mb-2 bg-gray-100 rounded-[16px] p-[16px] border border-transparent hover:border-[#18181b] transition-colors duration-300">
@@ -97,12 +112,11 @@ export const Sell = ({ space, ethBalance, tokenBalance, isConnected }: Props) =>
         <span className="text-[18px]">{space?.name}</span>
       </div>
       <div className="text-right text-[#222222]">
-        Balance: {tokenBalance
-          ? precision.toDecimal(tokenBalance).toFixed(4)
-          : '0.00'}
+        Balance: {displayBalance}
         <Button
           onClick={handleMax}
-          className="h-[20px] text-white px-[4px] rounded ml-2"
+          disabled={decimalBalance <= 0}
+          className="h-[20px] cursor-pointer text-white px-[4px] rounded ml-2"
         >
           Max
         </Button>

@@ -25,9 +25,12 @@ export const Transaction = ({ space }: { space: Space }) => {
   const [direction, setDirection] = useState<Direction>(Direction.buy)
 
   const ethBalance = useMemo<string>(() => {
-    return balanceData?.value
-      ? precision.toDecimal(balanceData.value).toString()
-      : '0.00'
+    if(balanceData?.value){
+      // Numerical precision issues: precision.toDecimal(tokenBalance).toString() 
+      return precision.toExactDecimalString(balanceData?.value)
+    }
+
+    return '0.00'
   }, [balanceData])
 
   const onSwitch = (direction: Direction) => {
