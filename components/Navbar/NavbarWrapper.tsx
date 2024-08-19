@@ -31,7 +31,7 @@ export function NavbarWrapper({
     if (!session) return <WalletConnectButton />
     return (
       <div className="flex gap-2">
-        {(space?.userId === session?.userId || !spaces.length) && <NewButton />}
+        <NewButton />
         <ProfilePopover />
       </div>
     )
