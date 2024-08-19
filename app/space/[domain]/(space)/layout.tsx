@@ -32,7 +32,6 @@ export async function generateMetadata({
     image: string
     logo: string
   }
-  console.log('data========:', data)
 
   return {
     title,

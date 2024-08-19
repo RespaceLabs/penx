@@ -27,8 +27,8 @@ export function CurationCard({ space }: Props) {
         Get rewards as Curator
       </div>
       <div>
-        Copy your unique link below, share it and earn a reward when someone buy
-        space/post keys.
+        Copy your unique link below, share it and earn a reward when someone
+        subscribes the space.
       </div>
       <div className="flex items-center justify-between gap-2 w-full mt-2 relative">
         <div className="text-base relative flex-1 overflow-hidden truncate w-1 bg-muted px-2 py-1 rounded-lg">

@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useAddress } from '@/hooks/useAddress'
+import { channelsAtom } from '@/hooks/useChannels'
 import { spaceAtom } from '@/hooks/useSpace'
 import { spaceIdAtom } from '@/hooks/useSpaceId'
 import { spacesAtom } from '@/hooks/useSpaces'
@@ -143,27 +144,32 @@ export function CreateSpaceForm() {
 
       const spaceAddress = spaceAddresses[spaceAddresses.length - 1]
 
-      const info = await readContract(wagmiConfig, {
-        address: spaceAddress,
-        abi: spaceAbi,
-        functionName: 'getSpaceInfo',
-      })
+      // const info = await readContract(wagmiConfig, {
+      //   address: spaceAddress,
+      //   abi: spaceAbi,
+      //   functionName: 'getSpaceInfo',
+      // })
 
       const space = await mutateAsync({
         ...data,
         spaceAddress: spaceAddress,
       })
 
-      const spaces = await api.space.mySpaces.query()
+      const [spaces, channels] = await Promise.all([
+        api.space.mySpaces.query(),
+        api.channel.listBySpaceId.query(space.id),
+      ])
       store.set(spaceAtom, { space, isLoading: false })
       store.set(spacesAtom, spaces)
+      store.set(channelsAtom, channels)
       store.set(spaceIdAtom, space.id)
-      setIsOpen(false)
+
       toast.success('Space created successfully!')
       revalidateMetadata('spaces')
 
       localStorage.setItem(SELECTED_SPACE, space.id)
       push(`/~/space/${space.id}`)
+      setIsOpen(false)
     } catch (error) {
       console.log('========error:', error)
       const msg = extractErrorMessage(error)

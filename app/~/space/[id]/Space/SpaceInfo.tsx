@@ -1,16 +1,17 @@
 'use client'
 
 import { MemberDialog } from '@/components/MemberDialog/MemberDialog'
+import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useSpace } from '@/hooks/useSpace'
 import { cn } from '@/lib/utils'
-import { Space } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ClaimShareRewards } from './ClaimShareRewards'
 import { MemberButton } from './MemberButton'
+import { UpdatePriceDialog } from '@/components/UpdatePriceDialog/UpdatePriceDialog'
 
 interface Props {}
 
@@ -18,6 +19,7 @@ export function SpaceInfo({}: Props) {
   const pathname = usePathname()
   const { data: session } = useSession()
   const { isLoading, space } = useSpace()
+  const isOwner = session?.userId === space?.userId
 
   if (isLoading) {
     return (
@@ -77,6 +79,7 @@ export function SpaceInfo({}: Props) {
           <div className="grid gap-1">
             <div className="flex items-center gap-2">
               <div className="font-semibold text-lg">{space.name}</div>
+              <Badge variant="secondary">{isOwner ? 'Owner' : 'Member'}</Badge>
               <a
                 href={`/@${space.subdomain}`}
                 target="_blank"
@@ -94,6 +97,7 @@ export function SpaceInfo({}: Props) {
         <div className="">
           <div className="flex gap-2">
             <MemberDialog space={space} />
+            <UpdatePriceDialog/>
             <MemberButton />
           </div>
         </div>

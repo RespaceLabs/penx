@@ -19,6 +19,7 @@ import { FeatherIcon, Home, MessageCircleMore } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { toast } from 'sonner'
 
 export function SidebarSpaceNav() {
   const pathname = usePathname()
@@ -36,6 +37,7 @@ export function SidebarSpaceNav() {
       },
       {
         name: 'Posts',
+        memberOnly: true,
         href: posts.length
           ? `/~/space/${space.id}/post/${posts[0].id}`
           : '/~/space/${space.id}/create-post',
@@ -46,16 +48,11 @@ export function SidebarSpaceNav() {
       },
       {
         name: 'Chat',
+        memberOnly: true,
         href: `/~/space/${space.id}/channel/${channels?.[0]?.id}`,
         isActive: pathname.startsWith('/~/space/${space.id}/channel/'),
         icon: <MessageCircleMore width={20} />,
       },
-      // {
-      //   name: 'Space Token',
-      //   href: '/~/token',
-      //   isActive: pathname === '/~/token',
-      //   icon: <span className="i-[formkit--ethereum] w-7 h-7"></span>,
-      // },
     ]
 
     return list
@@ -63,7 +60,7 @@ export function SidebarSpaceNav() {
 
   return (
     <div className="grid gap-1 items-center justify-center">
-      {tabs.map(({ name, href, isActive, icon }) => (
+      {tabs.map(({ name, href, isActive, icon, memberOnly }) => (
         <Link
           key={name}
           href={href}
@@ -71,7 +68,15 @@ export function SidebarSpaceNav() {
             'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
             isActive && 'bg-sidebar',
           )}
-          onClick={async () => {
+          onClick={async (e) => {
+            if (memberOnly) {
+              e.preventDefault()
+              e.stopPropagation()
+              toast.info(
+                'You must be a member of this space to access this feature.',
+              )
+              return
+            }
             if (posts.length) {
               const post = await api.post.byId.query(posts[0].id)
               store.set(postAtom, post)

@@ -18,10 +18,12 @@ import { Subscription } from '@/domains/Subscription'
 import { useChainSpace } from '@/hooks/useChainSpace'
 import { useQueryEthBalance } from '@/hooks/useEthBalance'
 import { useSubscription } from '@/hooks/useSubscription'
+import { useTokenBalance } from '@/hooks/useTokenBalance'
 import { TradeType } from '@/lib/constants'
 import { precision } from '@/lib/math'
 import { RouterOutputs } from '@/server/_app'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
 import { z } from 'zod'
 import LoadingDots from '../icons/loading-dots'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
@@ -49,6 +51,7 @@ export function MemberForm({ space }: Props) {
   const trade = useSubscribe(space)
   const { space: chainSpace } = useChainSpace()
   const { subscription } = useSubscription()
+  const { data: tokenBalance } = useTokenBalance()
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -84,8 +87,18 @@ export function MemberForm({ space }: Props) {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     const isSubscribe = data.type === 'BUY'
+
     setLoading(true)
     const amount = getAmount(data.token, data.times, isSubscribe)
+
+    if (data.token !== 'ETH') {
+      if (amount > tokenBalance!) {
+        toast.warning(`Insufficient $${space.symbolName} balance`)
+        setLoading(false)
+        return
+      }
+    }
+
     const duration = Number(data.times) * Number(SECONDS_PER_DAY)
     await trade(data.token, amount, isSubscribe, duration)
     setLoading(false)
@@ -186,7 +199,11 @@ export function MemberForm({ space }: Props) {
           </div>
         </div>
 
-        <Button type="submit" size="lg" disabled={loading}>
+        <Button
+          type="submit"
+          size="lg"
+          disabled={loading || !form.formState.isValid}
+        >
           {loading ? <LoadingDots color="white" /> : 'Confirm'}
         </Button>
       </form>

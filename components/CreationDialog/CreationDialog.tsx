@@ -10,6 +10,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useCreatePost } from '@/hooks/useCreatePost'
+import { useSpace } from '@/hooks/useSpace'
 import { useSpaces } from '@/hooks/useSpaces'
 import { PostType } from '@/lib/constants'
 import { cn } from '@/lib/utils'
@@ -22,8 +23,9 @@ import {
   Mic,
   Video,
 } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { Separator } from '../ui/separator'
+import { toast } from 'sonner'
 import { useCreationDialog } from './useCreationDialog'
 
 interface Props {}
@@ -33,6 +35,8 @@ export function CreationDialog({}: Props) {
   const { isOpen, setIsOpen } = useCreationDialog()
   const { createPost, isPending } = useCreatePost()
   const [type, setType] = useState<PostType>('' as any)
+  const { space } = useSpace()
+  const { data } = useSession()
 
   return (
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
@@ -45,6 +49,10 @@ export function CreationDialog({}: Props) {
           <Item
             isLoading={isPending && type == PostType.ARTICLE}
             onClick={async () => {
+              if (space?.userId !== data?.userId) {
+                toast.info('Only the owner of the space can create posts.')
+                return
+              }
               setType(PostType.ARTICLE)
               await createPost(PostType.ARTICLE)
               setIsOpen(false)
@@ -56,6 +64,11 @@ export function CreationDialog({}: Props) {
           <Item
             isLoading={isPending && type == PostType.IMAGE}
             onClick={async () => {
+              if (space?.userId !== data?.userId) {
+                toast.info('Only the owner of the space can create image.')
+                return
+              }
+
               setType(PostType.IMAGE)
               await createPost(PostType.IMAGE)
               setIsOpen(false)

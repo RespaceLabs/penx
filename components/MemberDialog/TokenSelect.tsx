@@ -54,7 +54,7 @@ export const TokenSelect = forwardRef<HTMLDivElement, Props>(
           </div>
         )}
 
-        {!!data && !isEth && (
+        {typeof data !== 'undefined' && !isEth && (
           <div className="text-xs text-neutral-500">
             {precision.toDecimal(data).toFixed(2)} {space.symbolName}
           </div>

@@ -1,3 +1,4 @@
+import { precision } from '@/lib/math'
 import { toFloorFixed } from '@/lib/utils'
 import { Address } from 'viem'
 
@@ -41,8 +42,16 @@ export class Space {
     return this.raw.subscriptionPrice
   }
 
+  get subscriptionPriceDecimal() {
+    return precision.toDecimal(this.raw.subscriptionPrice)
+  }
+
   get symbolName() {
     return this.raw.symbol
+  }
+
+  getUsdPrice(ethPrice: number) {
+    return ethPrice * this.subscriptionPriceDecimal
   }
 
   /**
