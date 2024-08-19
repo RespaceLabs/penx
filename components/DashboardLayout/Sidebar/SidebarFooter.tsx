@@ -39,10 +39,10 @@ export function SidebarFooter() {
       <div className="grid gap-1 items-center justify-center pb-2">
         {session?.userId === space?.userId && (
           <Link
-            href="/~/settings"
+            href={`/~/space/${space.id}/settings`}
             className={cn(
               'flex items-center justify-center hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
-              pathname === '/~/settings' && 'bg-sidebar',
+              pathname === `/~/space/${space.id}/settings` && 'bg-sidebar',
             )}
           >
             <TooltipProvider delayDuration={10}>

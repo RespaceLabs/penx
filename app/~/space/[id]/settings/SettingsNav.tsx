@@ -1,27 +1,29 @@
 'use client'
 
+import { useSpace } from '@/hooks/useSpace'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
 
 export function SettingsNav() {
   const segment = useSelectedLayoutSegment()
+  const { space } = useSpace()
 
   const navItems = [
     {
       name: 'General',
-      href: `/~/settings`,
+      href: `/~/space/${space.id}/settings`,
       segment: null,
     },
 
     {
       name: 'Contributors',
-      href: `/~/settings/contributors`,
+      href: `/~/space/${space.id}/settings/contributors`,
       segment: 'contributors',
     },
     {
       name: 'Domain',
-      href: `/~/settings/domain`,
+      href: `/~/space/${space.id}/settings/domain`,
       segment: 'domain',
     },
   ]

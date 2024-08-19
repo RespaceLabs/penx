@@ -18,9 +18,9 @@ import { SidebarFooter } from './SidebarFooter'
 import { SidebarSpaceNav } from './SidebarSpaceNav'
 
 export function Sidebar() {
-  const pathname = usePathname()
   const { data: session } = useSession()
 
+  const pathname = usePathname()
   const isNotSpace =
     pathname.startsWith('/~/discover') ||
     pathname === '/~' ||

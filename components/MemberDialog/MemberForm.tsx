@@ -105,7 +105,7 @@ export function MemberForm({ space }: Props) {
             <FormItem className="w-full">
               <FormControl>
                 <ToggleGroup
-                  className="gap-3 bg-accent p-1 rounded-lg h-12"
+                  className="gap-3 bg-accent p-1 rounded-lg h-11"
                   value={field.value}
                   onValueChange={(v) => {
                     if (!v) return

@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   const { channels } = useChannels()
   const params = useParams()
   const channelName = useMemo<string>(() => {
-    const channel = channels.find((item) => item.id === params.id)
+    const channel = channels.find((item) => item.id === params.channelId)
     if (channel) return channel.name
     return ''
   }, [channels, params.id])

@@ -16,7 +16,7 @@ export function PostItem({ post }: PostItemProps) {
   const { push } = useRouter()
   const { space } = useSpace()
   const params = useParams()
-  const isActive = params.id === post.id
+  const isActive = params.postId === post.id
 
   return (
     <div
@@ -33,7 +33,7 @@ export function PostItem({ post }: PostItemProps) {
 
         store.set(postLoadingAtom, false)
 
-        push(`/~/${space.id}/post/${post.id}`)
+        push(`/~/space/${space.id}/post/${post.id}`)
       }}
     >
       <div className="inline-flex text-zinc-600">

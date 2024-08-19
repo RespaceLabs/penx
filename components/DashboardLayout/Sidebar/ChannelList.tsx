@@ -3,9 +3,7 @@ import { useTokenContext } from '@/components/TokenContext'
 import { Channel, useChannels } from '@/hooks/useChannels'
 import { useSpace } from '@/hooks/useSpace'
 import { SocketConnector } from '@/lib/socket/socketConnector'
-import { api } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
-import { store } from '@/store'
 import { FileText, Hash } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useParams, useRouter } from 'next/navigation'
@@ -18,7 +16,7 @@ function ChannelItem({ channel }: ChanelItemProps) {
   const { push } = useRouter()
   const params = useParams()
   const { space } = useSpace()
-  const isActive = params.id === channel.id
+  const isActive = params.channelId === channel.id
 
   return (
     <div
@@ -27,7 +25,7 @@ function ChannelItem({ channel }: ChanelItemProps) {
         isActive && 'bg-sidebar',
       )}
       onClick={async () => {
-        push(`/~/${space.id}/channel/${channel.id}`)
+        push(`/~/space/${space.id}/channel/${channel.id}`)
       }}
     >
       <div className="inline-flex text-zinc-600">

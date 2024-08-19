@@ -44,7 +44,7 @@ export function NavbarWrapper({
         rest.className,
       )}
     >
-      {/* <SpaceMenu /> */}
+      <SpaceMenu />
 
       <div className="flex-1">{children}</div>
 

@@ -26,7 +26,7 @@ export function ContributorList() {
 
   if (!data.length) {
     return (
-      <div className="grid gap-4 mx-auto w-[800x] md:w-[800px] sm:w-full mt-6  text-neutral-400">
+      <div className="grid gap-4 mx-auto sm:w-full mt-6 text-neutral-400">
         No contributors yet.
       </div>
     )

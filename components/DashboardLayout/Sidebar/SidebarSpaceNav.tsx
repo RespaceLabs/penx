@@ -8,9 +8,12 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { useChannels } from '@/hooks/useChannels'
+import { postAtom } from '@/hooks/usePost'
 import { usePosts } from '@/hooks/usePosts'
 import { useSpace } from '@/hooks/useSpace'
+import { api } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
+import { store } from '@/store'
 import { TooltipPortal } from '@radix-ui/react-tooltip'
 import { FeatherIcon, Home, MessageCircleMore } from 'lucide-react'
 import { useSession } from 'next-auth/react'
@@ -68,6 +71,12 @@ export function SidebarSpaceNav() {
             'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
             isActive && 'bg-sidebar',
           )}
+          onClick={async () => {
+            if (posts.length) {
+              const post = await api.post.byId.query(posts[0].id)
+              store.set(postAtom, post)
+            }
+          }}
         >
           <TooltipProvider delayDuration={10}>
             <Tooltip>

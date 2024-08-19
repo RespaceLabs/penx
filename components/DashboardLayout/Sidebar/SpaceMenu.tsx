@@ -10,14 +10,20 @@ import { useSpace } from '@/hooks/useSpace'
 import { ChevronDown, Plus, Settings } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 export function SpaceMenu() {
   const { push } = useRouter()
   const { space } = useSpace()
   const { data: session } = useSession()
 
-  if (!space) return null
+  const pathname = usePathname()
+  const isNotSpace =
+    pathname.startsWith('/~/discover') ||
+    pathname === '/~' ||
+    pathname === '/~/create-space'
+
+  if (!space || isNotSpace) return null
 
   return (
     <div className="relative">
@@ -51,7 +57,7 @@ export function SpaceMenu() {
             className="cursor-pointer flex gap-2 items-center"
             disabled={space.userId !== session?.userId}
             onClick={() => {
-              push('/~/settings')
+              push(`/~/space/${space.id}/settings`)
             }}
           >
             <Settings size={18} className="inline-flex" />
