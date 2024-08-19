@@ -19,17 +19,6 @@ export const tradeRouter = router({
     })[]
   }),
 
-  listByPostId: publicProcedure.input(z.string()).query(async ({ input }) => {
-    return [] as (Trade & {
-      user: {
-        name: string | null
-        ensName: string | null
-        email: string | null
-        address: string
-      }
-    })[]
-  }),
-
   tradeSpaceKey: protectedProcedure
     .input(
       z.object({
@@ -42,20 +31,6 @@ export const tradeRouter = router({
         duration: z.number(),
         amount: z.string(),
         consumed: z.string(),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      return true
-    }),
-
-  tradePostKey: protectedProcedure
-    .input(
-      z.object({
-        postId: z.string(),
-        holdAmount: z.string(),
-        tradeAmount: z.string(),
-        price: z.string(),
-        type: z.enum([TradeType.BUY, TradeType.SELL]),
       }),
     )
     .mutation(async ({ ctx, input }) => {

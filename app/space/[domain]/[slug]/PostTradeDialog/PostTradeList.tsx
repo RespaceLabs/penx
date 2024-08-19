@@ -12,38 +12,5 @@ interface Props {
 }
 
 export function PostTradeList({ post }: Props) {
-  const { trades } = usePostTrades(post.id)
-
-  return (
-    <div className="space-y-3 mt-4">
-      {trades.map((item) => (
-        <div key={item.id} className="flex items-center gap-2">
-          <div className="flex gap-2 items-center">
-            <UserAvatar className="w-7 h-7" user={item.user as any} />
-            <div>{item.user.ensName || shortenAddress(item.user.address)}</div>
-          </div>
-          <div>
-            <Badge
-              className={cn(
-                item.type === 'BUY' && 'bg-green-500',
-                item.type === 'SELL' && 'bg-red-500',
-              )}
-            >
-              {item.type === 'BUY' ? 'Bought' : 'Sold'}
-            </Badge>
-          </div>
-          <div>
-            <span className="font-bold">{item.amount}</span> keys
-          </div>
-          /
-          <div>
-            <span className="font-bold">
-              {precision.toDecimal(BigInt(item.price)).toFixed(5)}
-            </span>{' '}
-            ETH
-          </div>
-        </div>
-      ))}
-    </div>
-  )
+  return <div className="space-y-3 mt-4"></div>
 }

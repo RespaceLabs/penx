@@ -2,6 +2,7 @@
 
 import { Badge } from '@/components/ui/badge'
 import { UserAvatar } from '@/components/UserAvatar'
+import { SECONDS_PER_DAY } from '@/domains/Space'
 import { useSpaceTrades } from '@/hooks/useSpaceTrades'
 import { precision } from '@/lib/math'
 import { cn, getEnsAvatar, shortenAddress } from '@/lib/utils'
@@ -33,18 +34,13 @@ export function SpaceTradeList({ space }: Props) {
                 item.type === 'SELL' && 'bg-red-500',
               )}
             >
-              {item.type === 'BUY' ? 'Bought' : 'Sold'}
+              {item.type === 'BUY' ? 'Subscribe' : 'Unsubscribe'}
             </Badge>
           </div>
           <div>
-            <span className="font-bold">{item.amount}</span> keys
-          </div>
-          <div>with price</div>
-          <div>
             <span className="font-bold">
-              {precision.toDecimal(BigInt(item.price), 6)}
-            </span>{' '}
-            USDC
+              {(item.duration / Number(SECONDS_PER_DAY)).toFixed(2)} days
+            </span>
           </div>
         </div>
       ))}
