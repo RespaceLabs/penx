@@ -1,3 +1,4 @@
+import { toFloorFixed } from '@/lib/utils'
 import { Address } from 'viem'
 
 export type SpaceRaw = {
@@ -50,7 +51,9 @@ export class Space {
    * @returns
    */
   calEthByDuration(days: number | string) {
-    const duration = BigInt(Number(days) * Number(SECONDS_PER_DAY))
+    const duration = BigInt(
+      parseInt((Number(days) * Number(SECONDS_PER_DAY)).toString()),
+    )
     const tokenPricePerSecond = this.getEthPricePerSecond()
     return duration * tokenPricePerSecond
   }
@@ -80,6 +83,7 @@ export class Space {
     const tokenAmount = this.y - newY
     return {
       tokenAmount,
+      tokenAmountFormatted: toFloorFixed(Number(tokenAmount), 2),
     }
   }
 
@@ -89,6 +93,9 @@ export class Space {
     const newY = this.y + tokenAmountAfterFee
     const newX = this.k / newY
     const ethAmount = this.x - newX
-    return { ethAmount }
+    return {
+      ethAmount,
+      ethAmountFormatted: toFloorFixed(Number(ethAmount), 2),
+    }
   }
 }

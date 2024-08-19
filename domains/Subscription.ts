@@ -52,19 +52,21 @@ export class Subscription {
     const secondsInAMonth = 2592000
 
     const days = seconds / secondsInADay
-    return `${toFloorFixed(days, 2)} days`
+    // return `${toFloorFixed(days, 2)} days`
 
-    // if (seconds < secondsInADay) {
-    //   const hours = seconds / secondsInAnHour
-    //   return `${toFloorFixed(hours, 2)} hours`
-    // } else if (seconds < secondsInAMonth) {
-    //   const days = seconds / secondsInADay
-    //   return `${toFloorFixed(days, 2)} days`
-    // }
+    if (seconds < secondsInADay) {
+      const hours = seconds / secondsInAnHour
+      return `${toFloorFixed(hours, 2)} hours`
+    } else if (seconds < secondsInAMonth) {
+      const days = seconds / secondsInADay
+      return `${toFloorFixed(days, 2)} days`
+    }
   }
 
   getAmountByDays(days: number | string) {
-    const seconds = BigInt(Number(days) * SECONDS_PER_DAY)
+    const seconds = BigInt(
+      parseInt((Number(days) * SECONDS_PER_DAY).toString()),
+    )
     return (this.remainAmount * seconds) / this.remainDuration
     //
   }

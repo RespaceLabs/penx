@@ -1,13 +1,15 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useAddress } from '@/hooks/useAddress'
-import { useAccount, useBalance } from 'wagmi'
-import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
-import { precision } from '@/lib/math'
-import { Buy } from './Buy'
-import { Sell } from './Sell'
-import { Address } from 'viem'
-import { useTokenKxy } from '@/hooks/useTokenKxy'
-import { Space } from '@prisma/client'
+import { useEffect, useMemo, useState } from 'react';
+import { useAddress } from '@/hooks/useAddress';
+import { useChainSpace } from '@/hooks/useChainSpace';
+import { useTokenKxy } from '@/hooks/useTokenKxy';
+import { precision } from '@/lib/math';
+import { Space } from '@prisma/client';
+import { Address } from 'viem';
+import { useAccount, useBalance } from 'wagmi';
+import { Buy } from './Buy';
+import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance';
+import { Sell } from './Sell';
+
 
 export const formatAmount = (value: string): string => {
   // Remove leading zeroes and limit decimals
