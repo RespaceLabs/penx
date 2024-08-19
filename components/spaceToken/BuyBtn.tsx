@@ -14,7 +14,6 @@ import { extractErrorMessage } from '@/lib/extractErrorMessage'
 
 interface Props {
   ethAmount: string;
-  purchasedAmount: string;
   handleSwap: () => void;
   isInsufficientBalance: boolean;
   isAmountValid: boolean;
@@ -24,7 +23,6 @@ interface Props {
 
 export const BuyBtn = ({
   ethAmount,
-  purchasedAmount,
   isInsufficientBalance,
   isAmountValid,
   handleSwap,

@@ -22,8 +22,6 @@ export const Sell = ({ space, ethBalance, tokenBalance, isConnected }: Props) =>
   // TODO: please add eth judgment logic
   const isAmountValid = parseFloat(purchasedAmount) > 0
 
-  const isInsufficientBalance = parseFloat(ethAmount) > parseFloat(ethBalance)
-
   const { updateTokenKxy, getSellEthAmount } = useTokenKxy()
 
   const validateAndSetEthAmount = (value: string) => {
@@ -37,7 +35,7 @@ export const Sell = ({ space, ethBalance, tokenBalance, isConnected }: Props) =>
       const formattedValue = formatAmount(value)
       setPurchasedAmount(formattedValue)
       const decimalAmount = getSellEthAmount(precision.toExactDecimalBigint(value))
-      if (!ethAmount || !decimalAmount) {
+      if (!Number(value) || !decimalAmount) {
         setEthAmount('')
       } else {
         setEthAmount(precision.toExactDecimalString(decimalAmount))
@@ -59,10 +57,10 @@ export const Sell = ({ space, ethBalance, tokenBalance, isConnected }: Props) =>
 
   const { decimalBalance, displayBalance } = useMemo(() => {
     if (tokenBalance) {
-      const decimal = precision.toDecimal(tokenBalance);
+      const decimal = precision.toExactDecimalString(tokenBalance);
       return {
-        decimalBalance: parseFloat(decimal.toFixed(8)),
-        displayBalance: decimal.toFixed(4),
+        decimalBalance: Number(decimal),
+        displayBalance: Number(decimal).toFixed(4),
       };
     }
     return {
@@ -70,6 +68,8 @@ export const Sell = ({ space, ethBalance, tokenBalance, isConnected }: Props) =>
       displayBalance: '0.0000',
     };
   }, [tokenBalance]);
+
+  const isInsufficientBalance = decimalBalance < parseFloat(purchasedAmount)
 
   return <>
     <div className="mb-2 bg-gray-100 rounded-[16px] p-[16px] border border-transparent hover:border-[#18181b] transition-colors duration-300">

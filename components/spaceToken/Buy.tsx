@@ -5,6 +5,7 @@ import { BuyBtn } from './BuyBtn'
 import { precision } from '@/lib/math'
 import { formatAmount } from './Transaction'
 import { useTokenKxy } from '@/hooks/useTokenKxy'
+import { Address } from 'viem'
 
 interface Props {
   ethBalance: string
@@ -21,7 +22,7 @@ export const Buy = ({ space, ethBalance, tokenBalance, isConnected }: Props) => 
   const isAmountValid =
     parseFloat(ethAmount) > 0 && parseFloat(purchasedAmount) > 0
 
-  const isInsufficientBalance = parseFloat(ethAmount) > parseFloat(ethBalance)
+  const isInsufficientBalance = parseFloat(ethBalance) < parseFloat(ethAmount)
 
   const validateAndSetEthAmount = (value: string) => {
     // Validate and format input
@@ -29,7 +30,7 @@ export const Buy = ({ space, ethBalance, tokenBalance, isConnected }: Props) => 
       const formattedValue = formatAmount(value)
       setEthAmount(formattedValue)
       const decimalAmount = getBuyTokenAmount(precision.toExactDecimalBigint(value))
-      if (!ethAmount || !decimalAmount) {
+      if (!Number(value) || !decimalAmount) {
         setPurchasedAmount('')
       } else {
         setPurchasedAmount(precision.toExactDecimalString(decimalAmount))
@@ -54,7 +55,7 @@ export const Buy = ({ space, ethBalance, tokenBalance, isConnected }: Props) => 
 
   const displayBalance = useMemo(() => {
     if (tokenBalance) {
-      return precision.toExactDecimalString(tokenBalance)
+      return Number(precision.toExactDecimalString(tokenBalance)).toFixed(4)
     }
 
     return '0.0000'
@@ -113,7 +114,6 @@ export const Buy = ({ space, ethBalance, tokenBalance, isConnected }: Props) => 
     </div>
     <BuyBtn
       ethAmount={ethAmount}
-      purchasedAmount={purchasedAmount}
       isConnected={isConnected}
       handleSwap={() => {
         setEthAmount('')

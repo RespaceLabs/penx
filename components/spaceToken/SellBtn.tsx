@@ -76,7 +76,7 @@ export const SellBtn = ({
           <LoadingDots color="white" />
         ) : (
           isInsufficientBalance
-            ? 'Insufficient ETH balance'
+            ? `Insufficient ${space.name} balance`
             : isAmountValid
               ? 'Sell'
               : 'Enter an amount'
