@@ -5,13 +5,13 @@ import type {
 } from '@web3modal/siwe'
 import { createSIWEConfig, formatMessage } from '@web3modal/siwe'
 import { getCsrfToken, getSession, signIn, signOut } from 'next-auth/react'
-import { mainnet, sepolia } from 'viem/chains'
+import { arbitrumSepolia, baseSepolia, mainnet, sepolia } from 'viem/chains'
 
 export const siweConfig = createSIWEConfig({
   getMessageParams: async () => ({
     domain: typeof window !== 'undefined' ? window.location.host : '',
     uri: typeof window !== 'undefined' ? window.location.origin : '',
-    chains: [mainnet.id, sepolia.id],
+    chains: [mainnet.id, sepolia.id, arbitrumSepolia.id, baseSepolia.id],
     statement: 'Please sign with your account',
   }),
   createMessage: ({ address, ...args }: SIWECreateMessageArgs) =>
@@ -40,7 +40,7 @@ export const siweConfig = createSIWEConfig({
         message,
         redirect: false,
         signature,
-        callbackUrl: '/protected',
+        // callbackUrl: '/',
       })
 
       return Boolean(success?.ok)
@@ -49,10 +49,10 @@ export const siweConfig = createSIWEConfig({
     }
   },
 
-  onSignIn: (session?: SIWESession) => {
-    // location.href = '/'
-    location.reload()
-  },
+  // onSignIn: (session?: SIWESession) => {
+  //   location.href = '/'
+  //   location.reload()
+  // },
   signOut: async () => {
     try {
       await signOut({

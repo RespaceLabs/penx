@@ -42,7 +42,7 @@ export const wagmiConfig = defaultWagmiConfig({
     // showWallets: true,
     // walletFeatures: true,
   },
-  ssr: true,
+  ssr: false,
   storage: createStorage({
     storage: cookieStorage,
   }),

@@ -1779,6 +1779,30 @@ export const ierc721ErrorsAbi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ISpace
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const iSpaceAbi = [
+  {
+    type: 'function',
+    inputs: [],
+    name: 'buy',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'payable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'tokenAmount', internalType: 'uint256', type: 'uint256' }],
+    name: 'sell',
+    outputs: [
+      { name: '', internalType: 'uint256', type: 'uint256' },
+      { name: '', internalType: 'uint256', type: 'uint256' },
+    ],
+    stateMutability: 'payable',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Math
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2477,6 +2501,7 @@ export const spaceAbi = [
       { name: 'newX', internalType: 'uint256', type: 'uint256' },
       { name: 'newY', internalType: 'uint256', type: 'uint256' },
       { name: 'fee', internalType: 'uint256', type: 'uint256' },
+      { name: 'insuranceFee', internalType: 'uint256', type: 'uint256' },
     ],
     stateMutability: 'view',
   },
@@ -2521,8 +2546,18 @@ export const spaceAbi = [
           { name: 'x', internalType: 'uint256', type: 'uint256' },
           { name: 'y', internalType: 'uint256', type: 'uint256' },
           { name: 'k', internalType: 'uint256', type: 'uint256' },
-          { name: 'daoFees', internalType: 'uint256', type: 'uint256' },
-          { name: 'stakingFees', internalType: 'uint256', type: 'uint256' },
+          {
+            name: 'insuranceEthAmount',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          {
+            name: 'insuranceTokenAmount',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          { name: 'daoFee', internalType: 'uint256', type: 'uint256' },
+          { name: 'stakingFee', internalType: 'uint256', type: 'uint256' },
           {
             name: 'subscriptionPrice',
             internalType: 'uint256',
@@ -2560,7 +2595,7 @@ export const spaceAbi = [
         internalType: 'struct Staking.Info',
         type: 'tuple',
         components: [
-          { name: 'stakingFees', internalType: 'uint256', type: 'uint256' },
+          { name: 'stakingFee', internalType: 'uint256', type: 'uint256' },
           { name: 'totalStaked', internalType: 'uint256', type: 'uint256' },
           {
             name: 'accumulatedRewardsPerToken',
@@ -2621,6 +2656,7 @@ export const spaceAbi = [
       { name: 'newX', internalType: 'uint256', type: 'uint256' },
       { name: 'newY', internalType: 'uint256', type: 'uint256' },
       { name: 'fee', internalType: 'uint256', type: 'uint256' },
+      { name: 'insuranceFee', internalType: 'uint256', type: 'uint256' },
     ],
     stateMutability: 'view',
   },
@@ -2714,7 +2750,10 @@ export const spaceAbi = [
     type: 'function',
     inputs: [{ name: 'tokenAmount', internalType: 'uint256', type: 'uint256' }],
     name: 'sell',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    outputs: [
+      { name: '', internalType: 'uint256', type: 'uint256' },
+      { name: '', internalType: 'uint256', type: 'uint256' },
+    ],
     stateMutability: 'payable',
   },
   {
@@ -2729,7 +2768,7 @@ export const spaceAbi = [
     inputs: [],
     name: 'share',
     outputs: [
-      { name: 'daoFees', internalType: 'uint256', type: 'uint256' },
+      { name: 'daoFee', internalType: 'uint256', type: 'uint256' },
       { name: 'totalShare', internalType: 'uint256', type: 'uint256' },
       {
         name: 'accumulatedRewardsPerShare',
@@ -2751,7 +2790,7 @@ export const spaceAbi = [
     inputs: [],
     name: 'staking',
     outputs: [
-      { name: 'stakingFees', internalType: 'uint256', type: 'uint256' },
+      { name: 'stakingFee', internalType: 'uint256', type: 'uint256' },
       { name: 'totalStaked', internalType: 'uint256', type: 'uint256' },
       {
         name: 'accumulatedRewardsPerToken',
@@ -2797,6 +2836,12 @@ export const spaceAbi = [
       { name: 'x', internalType: 'uint256', type: 'uint256' },
       { name: 'y', internalType: 'uint256', type: 'uint256' },
       { name: 'k', internalType: 'uint256', type: 'uint256' },
+      { name: 'insuranceEthAmount', internalType: 'uint256', type: 'uint256' },
+      {
+        name: 'insuranceTokenAmount',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
     ],
     stateMutability: 'view',
   },
@@ -2879,6 +2924,17 @@ export const spaceFactoryAbi = [
   },
   {
     type: 'error',
+    inputs: [{ name: 'target', internalType: 'address', type: 'address' }],
+    name: 'AddressEmptyCode',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'AddressInsufficientBalance',
+  },
+  { type: 'error', inputs: [], name: 'FailedInnerCall' },
+  {
+    type: 'error',
     inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
     name: 'OwnableInvalidOwner',
   },
@@ -2888,6 +2944,11 @@ export const spaceFactoryAbi = [
     name: 'OwnableUnauthorizedAccount',
   },
   { type: 'error', inputs: [], name: 'ReentrancyGuardReentrantCall' },
+  {
+    type: 'error',
+    inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
+    name: 'SafeERC20FailedOperation',
+  },
   {
     type: 'event',
     anonymous: false,
@@ -2964,8 +3025,18 @@ export const spaceFactoryAbi = [
           { name: 'x', internalType: 'uint256', type: 'uint256' },
           { name: 'y', internalType: 'uint256', type: 'uint256' },
           { name: 'k', internalType: 'uint256', type: 'uint256' },
-          { name: 'daoFees', internalType: 'uint256', type: 'uint256' },
-          { name: 'stakingFees', internalType: 'uint256', type: 'uint256' },
+          {
+            name: 'insuranceEthAmount',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          {
+            name: 'insuranceTokenAmount',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          { name: 'daoFee', internalType: 'uint256', type: 'uint256' },
+          { name: 'stakingFee', internalType: 'uint256', type: 'uint256' },
           {
             name: 'subscriptionPrice',
             internalType: 'uint256',
@@ -3063,6 +3134,19 @@ export const spaceFactoryAbi = [
   },
   {
     type: 'function',
+    inputs: [
+      { name: '_tokenIn', internalType: 'address', type: 'address' },
+      { name: '_tokenOut', internalType: 'address', type: 'address' },
+      { name: 'amountIn', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'swap',
+    outputs: [
+      { name: 'returnAmount', internalType: 'uint256', type: 'uint256' },
+    ],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
     inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
@@ -3078,6 +3162,7 @@ export const spaceFactoryAbi = [
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
     stateMutability: 'view',
   },
+  { type: 'receive', stateMutability: 'payable' },
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3245,6 +3330,22 @@ export const stringsAbi = [
 
 export const tokenAbi = [
   {
+    type: 'error',
+    inputs: [{ name: 'target', internalType: 'address', type: 'address' }],
+    name: 'AddressEmptyCode',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'AddressInsufficientBalance',
+  },
+  { type: 'error', inputs: [], name: 'FailedInnerCall' },
+  {
+    type: 'error',
+    inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
+    name: 'SafeERC20FailedOperation',
+  },
+  {
     type: 'event',
     anonymous: false,
     inputs: [
@@ -3272,14 +3373,26 @@ export const tokenAbi = [
         type: 'uint256',
         indexed: false,
       },
-      { name: 'fee', internalType: 'uint256', type: 'uint256', indexed: false },
+      {
+        name: 'protocolFee',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
     ],
     name: 'Trade',
   },
   {
     type: 'function',
     inputs: [],
-    name: 'FEE_RATE',
+    name: 'INSURANCE_FEE_RATE',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'PROTOCOL_FEE_RATE',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     stateMutability: 'view',
   },
