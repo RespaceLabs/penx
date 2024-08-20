@@ -112,7 +112,6 @@ export class SocketConnector {
     */
 
     this.socket.on('channel-msg', (data: IMessage) => {
-      console.log('========data:', data)
       addMessageToStore(data.channelId, data)
     })
   }
