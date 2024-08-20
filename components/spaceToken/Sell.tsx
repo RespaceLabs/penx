@@ -2,10 +2,10 @@ import { ChangeEvent, useMemo, useState } from 'react'
 import { Button } from '../ui/button'
 import { SellBtn } from './SellBtn'
 import { precision } from '@/lib/math'
-import { formatAmount } from './Transaction'
 import { useTokenKxy } from '@/hooks/useTokenKxy'
 import { Address } from 'viem'
 import { Space } from '@prisma/client'
+import { formatAmount } from './hooks/useSpaceTokenBalance'
 
 interface Props {
   ethBalance: string

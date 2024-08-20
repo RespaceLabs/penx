@@ -50,12 +50,12 @@ export function SidebarSpaceNav() {
         isActive: pathname.startsWith('/~/space/${space.id}/channel/'),
         icon: <MessageCircleMore width={20} />,
       },
-      {
-        name: 'Space Token',
-        href: '/~/token',
-        isActive: pathname === '/~/token',
-        icon: <span className="i-[formkit--ethereum] w-7 h-7"></span>,
-      },
+      // {
+      //   name: 'Space Token',
+      //   href: '/~/token',
+      //   isActive: pathname === '/~/token',
+      //   icon: <span className="i-[formkit--ethereum] w-7 h-7"></span>,
+      // },
     ]
 
     return list

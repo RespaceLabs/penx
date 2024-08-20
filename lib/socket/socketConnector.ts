@@ -119,8 +119,8 @@ export class SocketConnector {
 
   public joinChannels(channels: string[]) {
     this.socket.emit('join-channel', { channels }, (response: IResult) => {
-      // console.log('%c=joinChannels', 'color:cyan',response)
       if (response.code === FAIL) {
+        console.error('joinChannels',response)
         initFailStoreById(response.data)
       }
     })

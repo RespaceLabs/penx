@@ -5,7 +5,7 @@ import { Space } from '@prisma/client'
 import { Address } from 'viem'
 import { Button } from '../ui/button'
 import { BuyBtn } from './BuyBtn'
-import { formatAmount } from './Transaction'
+import { formatAmount } from './hooks/useSpaceTokenBalance'
 
 interface Props {
   ethBalance: string

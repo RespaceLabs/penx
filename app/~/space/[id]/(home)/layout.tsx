@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
 import { useChainSpace, useQueryChainSpace } from '@/hooks/useChainSpace'
 import { SpaceInfo } from '../Space/SpaceInfo'
-import { TradePanel } from '../TradePanel'
+import { Transaction } from '../Transaction'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { isLoading, data } = useQueryChainSpace()
@@ -20,7 +20,8 @@ export default function Layout({ children }: { children: ReactNode }) {
           <SpaceInfo />
           {children}
         </div>
-        <TradePanel />
+
+        <Transaction />
       </div>
     </div>
   )
