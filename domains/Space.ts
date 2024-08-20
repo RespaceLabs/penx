@@ -1,6 +1,7 @@
 import { precision } from '@/lib/math'
 import { toFloorFixed } from '@/lib/utils'
 import { Address } from 'viem'
+import { bigint } from 'zod'
 
 export type SpaceRaw = {
   name: string
@@ -9,8 +10,10 @@ export type SpaceRaw = {
   x: bigint
   y: bigint
   k: bigint
-  daoFees: bigint
-  stakingFees: bigint
+  insuranceEthAmount: bigint
+  insuranceTokenAmount: bigint
+  daoFee: bigint
+  stakingFee: bigint
   subscriptionPrice: bigint
   subscriptionIncome: bigint
   totalStaked: bigint

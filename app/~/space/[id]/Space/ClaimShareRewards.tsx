@@ -64,7 +64,7 @@ export function ClaimShareRewards({}: Props) {
           {isPending ? <LoadingDots color="white" /> : <div>Claim</div>}
         </Button>
         <div className="text-green-500">
-          + {precision.toDecimal(data).toFixed(6)} ETH
+          + {precision.toDecimal(data).toFixed(2)} {space.symbolName}
         </div>
       </div>
     </div>

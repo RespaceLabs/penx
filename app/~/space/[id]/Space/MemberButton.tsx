@@ -61,7 +61,7 @@ export function SubscriptionPrice() {
 
   if (!chainSpace?.symbolName || !ethPrice) {
     return (
-      <div className="flex justify-end opacity-20">
+      <div className="flex justify-end">
         <Skeleton className="h-4 w-28"></Skeleton>
       </div>
     )

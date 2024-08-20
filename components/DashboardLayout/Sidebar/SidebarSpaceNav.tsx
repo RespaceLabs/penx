@@ -24,6 +24,7 @@ import { toast } from 'sonner'
 export function SidebarSpaceNav() {
   const pathname = usePathname()
   const { space } = useSpace()
+  const { data: session } = useSession()
   const { channels } = useChannels()
   const { posts } = usePosts()
 
@@ -60,45 +61,69 @@ export function SidebarSpaceNav() {
 
   return (
     <div className="grid gap-1 items-center justify-center">
-      {tabs.map(({ name, href, isActive, icon, memberOnly }) => (
-        <Link
-          key={name}
-          href={href}
-          className={cn(
-            'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
-            isActive && 'bg-sidebar',
-          )}
-          onClick={async (e) => {
-            if (memberOnly) {
-              e.preventDefault()
-              e.stopPropagation()
-              toast.info(
-                'You must be a member of this space to access this feature.',
-              )
-              return
-            }
-            if (posts.length) {
-              const post = await api.post.byId.query(posts[0].id)
-              store.set(postAtom, post)
-            }
-          }}
-        >
-          <TooltipProvider delayDuration={10}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="flex items-center justify-center h-full w-full">
-                  {icon}
-                </div>
-              </TooltipTrigger>
-              <TooltipPortal>
-                <TooltipContent side="right" className="">
-                  {name}
-                </TooltipContent>
-              </TooltipPortal>
-            </Tooltip>
-          </TooltipProvider>
-        </Link>
-      ))}
+      {tabs.map(({ name, href, isActive, icon, memberOnly }) => {
+        const isForbidden = memberOnly && space.userId !== session?.userId
+        if (isForbidden) {
+          return (
+            <div
+              key={name}
+              className={cn(
+                'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
+                isActive && 'bg-sidebar',
+              )}
+              onClick={() => {
+                toast.info(
+                  'You must be a member of this space to access this feature.',
+                )
+                return
+              }}
+            >
+              <Content icon={icon} name={name} />
+            </div>
+          )
+        }
+        return (
+          <Link
+            key={name}
+            href={href}
+            className={cn(
+              'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
+              isActive && 'bg-sidebar',
+            )}
+            onClick={async (e) => {
+              if (posts.length) {
+                const post = await api.post.byId.query(posts[0].id)
+                store.set(postAtom, post)
+              }
+            }}
+          >
+            <Content icon={icon} name={name} />
+          </Link>
+        )
+      })}
     </div>
+  )
+}
+
+interface ContentProps {
+  icon: React.ReactNode
+  name: string
+}
+function Content({ icon, name }: ContentProps) {
+  return (
+    <TooltipProvider delayDuration={10}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className="flex items-center justify-center h-full w-full">
+            {icon}
+          </div>
+        </TooltipTrigger>
+        <TooltipPortal>
+          <TooltipContent side="right" className="">
+            {name}
+          </TooltipContent>
+        </TooltipPortal>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
