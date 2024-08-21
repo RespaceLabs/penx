@@ -4,10 +4,10 @@ import { ReactNode } from 'react'
 import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
 import { useChainSpace, useQueryChainSpace } from '@/hooks/useChainSpace'
 import { SpaceInfo } from '../Space/SpaceInfo'
+import { TradeList } from '../Space/TradeList'
 import { Transaction } from '../Transaction'
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const { isLoading, data } = useQueryChainSpace()
   const { space } = useChainSpace()
 
   if (!space) return null
@@ -21,7 +21,11 @@ export default function Layout({ children }: { children: ReactNode }) {
           {children}
         </div>
 
-        <Transaction />
+        <div className="w-[360px]">
+          <Transaction />
+          <div className="text-base font-bold mt-8">Trades</div>
+          <TradeList />
+        </div>
       </div>
     </div>
   )

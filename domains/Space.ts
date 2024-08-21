@@ -83,7 +83,7 @@ export class Space {
 
   getTokenPricePerSecond() {
     const ethPricePerSecond = this.getEthPricePerSecond()
-    const { tokenAmount } = this.getTokenAmount(ethPricePerSecond)
+    const tokenAmount = this.getTokenAmount(ethPricePerSecond)
     return tokenAmount
   }
 
@@ -93,10 +93,7 @@ export class Space {
     const newX = this.x + ethAmountAfterFee
     const newY = this.k / newX
     const tokenAmount = this.y - newY
-    return {
-      tokenAmount,
-      tokenAmountFormatted: toFloorFixed(Number(tokenAmount), 2),
-    }
+    return tokenAmount
   }
 
   getEthAmount(tokenAmount: bigint) {
@@ -105,9 +102,6 @@ export class Space {
     const newY = this.y + tokenAmountAfterFee
     const newX = this.k / newY
     const ethAmount = this.x - newX
-    return {
-      ethAmount,
-      ethAmountFormatted: toFloorFixed(Number(ethAmount), 2),
-    }
+    return ethAmount
   }
 }

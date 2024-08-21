@@ -3,6 +3,11 @@ export enum TradeType {
   SELL = 'SELL',
 }
 
+export enum SubscriptionType {
+  SUBSCRIBE = 'SUBSCRIBE',
+  UNSUBSCRIBE = 'UNSUBSCRIBE',
+}
+
 export enum TradeSource {
   MEMBER = 'MEMBER',
   SPONSOR = 'SPONSOR',

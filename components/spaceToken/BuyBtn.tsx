@@ -1,6 +1,10 @@
+import { useQueryEthBalance } from '@/hooks/useEthBalance'
+import { useTrades } from '@/hooks/useTrades'
 import { spaceAbi } from '@/lib/abi'
+import { TradeType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
+import { api } from '@/lib/trpc'
 import { wagmiConfig } from '@/lib/wagmi'
 import { Space } from '@prisma/client'
 import { waitForTransactionReceipt } from '@wagmi/core'
@@ -14,6 +18,7 @@ import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 
 interface Props {
   ethAmount: string
+  purchasedAmount: string
   handleSwap: () => void
   isInsufficientBalance: boolean
   isAmountValid: boolean
@@ -23,6 +28,7 @@ interface Props {
 
 export const BuyBtn = ({
   ethAmount,
+  purchasedAmount,
   isInsufficientBalance,
   isAmountValid,
   handleSwap,
@@ -31,10 +37,12 @@ export const BuyBtn = ({
 }: Props) => {
   const { writeContractAsync, isPending } = useWriteContract()
   const balance = useSpaceTokenBalance()
+  const { refetch: refetchEth } = useQueryEthBalance()
+  const trade = useTrades()
 
   const onBuy = async () => {
     try {
-      const value = precision.token(parseFloat(ethAmount), 18)
+      const value = precision.token(ethAmount, 18)
       const hash = await writeContractAsync({
         address: space.spaceAddress as Address,
         abi: spaceAbi,
@@ -43,7 +51,18 @@ export const BuyBtn = ({
       })
 
       await waitForTransactionReceipt(wagmiConfig, { hash })
-      await balance.refetch()
+      await Promise.all([
+        api.trade.create.mutate({
+          spaceId: space.id,
+          type: TradeType.BUY,
+          amountIn: String(value),
+          amountOut: precision.token(purchasedAmount).toString(),
+        }),
+        balance.refetch(),
+        refetchEth(),
+      ])
+
+      trade.refetch()
       handleSwap()
       toast.success(`${space?.name} bought successfully!`)
     } catch (error) {
@@ -56,7 +75,7 @@ export const BuyBtn = ({
     <>
       {isConnected ? (
         <Button
-          className="w-full h-[58px]"
+          className="w-full h-[50px]"
           disabled={!isAmountValid || isInsufficientBalance || isPending}
           onClick={() => onBuy()}
         >

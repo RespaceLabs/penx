@@ -24,7 +24,16 @@ const metadata = {
 
 // Create wagmiConfig
 const chains = [
-  arbitrumSepolia,
+  {
+    ...arbitrumSepolia,
+    rpcUrls: {
+      default: {
+        http: [
+          'https://arb-sepolia.g.alchemy.com/v2/HI5irVjoVHajk9VrB7FAkpt2Inz1iymo',
+        ],
+      },
+    },
+  },
   // baseSepolia,
   // mainnet,
   // optimism,

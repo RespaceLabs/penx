@@ -10,6 +10,7 @@ import { messageRouter } from './routers/message'
 import { postRouter } from './routers/post'
 import { spaceRouter } from './routers/space'
 import { sponsorRouter } from './routers/sponsor'
+import { subscriptionRecordRouter } from './routers/subscriptionRecord'
 import { tradeRouter } from './routers/trade'
 import { userRouter } from './routers/user'
 import { createCallerFactory, publicProcedure, router } from './trpc'
@@ -26,6 +27,7 @@ export const appRouter = router({
   trade: tradeRouter,
   sponsor: sponsorRouter,
   contributor: contributorRouter,
+  subscriptionRecord: subscriptionRecordRouter,
 })
 
 export const createCaller = createCallerFactory(appRouter)

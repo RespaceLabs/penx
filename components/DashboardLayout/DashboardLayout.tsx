@@ -2,6 +2,7 @@
 
 import { PropsWithChildren } from 'react'
 import { useAddress } from '@/hooks/useAddress'
+import { useQueryChainSpace } from '@/hooks/useChainSpace'
 import { useQueryEthBalance } from '@/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/hooks/useEthPrice'
 import { CreateSpaceDialog } from '../CreateSpaceDialog/CreateSpaceDialog'
@@ -11,6 +12,7 @@ import { Sidebar } from './Sidebar/Sidebar'
 export function DashboardLayout({ children }: PropsWithChildren) {
   useQueryEthPrice()
   useQueryEthBalance()
+  useQueryChainSpace()
 
   return (
     <div className="mx-auto h-screen">

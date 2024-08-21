@@ -19,7 +19,7 @@ import { useChainSpace } from '@/hooks/useChainSpace'
 import { useQueryEthBalance } from '@/hooks/useEthBalance'
 import { useSubscription } from '@/hooks/useSubscription'
 import { useTokenBalance } from '@/hooks/useTokenBalance'
-import { TradeType } from '@/lib/constants'
+import { SubscriptionType, TradeType } from '@/lib/constants'
 import { precision } from '@/lib/math'
 import { RouterOutputs } from '@/server/_app'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -45,7 +45,7 @@ const FormSchema = z.object({
 })
 
 export function MemberForm({ space }: Props) {
-  const { isOpen, setIsOpen } = useMemberDialog()
+  const { setIsOpen } = useMemberDialog()
   const [loading, setLoading] = useState(false)
   useQueryEthBalance()
   const trade = useSubscribe(space)
@@ -56,13 +56,13 @@ export function MemberForm({ space }: Props) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      type: TradeType.BUY,
+      type: SubscriptionType.SUBSCRIBE,
       token: 'ETH',
-      times: '180',
+      times: '180', // 180 days by default
     },
   })
 
-  const isSubscribe = form.watch('type') === 'BUY'
+  const isSubscribe = form.watch('type') === SubscriptionType.SUBSCRIBE
   const token = form.watch('token')
   const times = form.watch('times')
 
@@ -86,7 +86,7 @@ export function MemberForm({ space }: Props) {
   }, [isSubscribe, token, space.symbolName])
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const isSubscribe = data.type === 'BUY'
+    const isSubscribe = data.type === SubscriptionType.SUBSCRIBE
 
     setLoading(true)
     const amount = getAmount(data.token, data.times, isSubscribe)
@@ -128,13 +128,13 @@ export function MemberForm({ space }: Props) {
                 >
                   <ToggleGroupItem
                     className="data-[state=on]:bg-white ring-black bg-accent text-sm font-semibold flex-1 h-full"
-                    value={TradeType.BUY}
+                    value={SubscriptionType.SUBSCRIBE}
                   >
                     Subscribe
                   </ToggleGroupItem>
 
                   <ToggleGroupItem
-                    value={TradeType.SELL}
+                    value={SubscriptionType.UNSUBSCRIBE}
                     className="data-[state=on]:bg-white ring-black bg-accent text-sm font-semibold flex-1 h-full"
                   >
                     Unsubscribe

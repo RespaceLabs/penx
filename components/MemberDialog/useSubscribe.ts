@@ -3,21 +3,18 @@ import { useMembers } from '@/hooks/useMembers'
 import { refetchSpaces } from '@/hooks/useSpaces'
 import { useSubscription } from '@/hooks/useSubscription'
 import { spaceAbi } from '@/lib/abi'
-import { TradeType } from '@/lib/constants'
+import { SubscriptionType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
-import { precision } from '@/lib/math'
 import { api } from '@/lib/trpc'
 import { wagmiConfig } from '@/lib/wagmi'
 import { RouterOutputs } from '@/server/_app'
-import { Post } from '@prisma/client'
 import {
   readContract,
   waitForTransactionReceipt,
   writeContract,
 } from '@wagmi/core'
-import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
-import { Address, isAddress, zeroAddress } from 'viem'
+import { Address } from 'viem'
 import { useWriteContract } from 'wagmi'
 
 export function useSubscribe(space: RouterOutputs['space']['byId']) {
@@ -32,9 +29,18 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
     isSubscribe: boolean,
     duration: number,
   ) => {
-    const tradeType = isSubscribe ? TradeType.BUY : TradeType.SELL
+    const subscriptionType = isSubscribe
+      ? SubscriptionType.SUBSCRIBE
+      : SubscriptionType.UNSUBSCRIBE
     try {
       if (isSubscribe) {
+        console.log(
+          '=====amount:',
+          amount,
+          'space.spaceAddress:',
+          space.spaceAddress,
+        )
+
         const hash = await writeContractAsync({
           address: space.spaceAddress as Address,
           abi: spaceAbi,
@@ -62,9 +68,8 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
         functionName: 'getSubscription',
         args: [address],
       })
-      console.log('========subscription.info:', info)
 
-      await api.trade.tradeSpaceKey.mutate({
+      await api.subscriptionRecord.upsertSubscription.mutate({
         spaceId: space.id,
         tradeDuration: duration,
         start: Number(info.start),
@@ -73,7 +78,7 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
         amount: String(info.amount),
         consumed: String(info.consumed),
 
-        type: tradeType,
+        type: subscriptionType,
       })
 
       await Promise.all([
@@ -82,9 +87,9 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
         refetchSpaces(),
       ])
 
-      toast.success('Buy Key successful!')
+      toast.success('Subscribe successful!')
     } catch (error) {
-      console.log('=======>>>>error:', error)
+      console.log('=======>>>>error:', JSON.stringify(error))
       const msg = extractErrorMessage(error)
       toast.error(msg)
     } finally {

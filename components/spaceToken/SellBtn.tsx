@@ -1,6 +1,10 @@
+import { useEthBalance, useQueryEthBalance } from '@/hooks/useEthBalance'
+import { useTrades } from '@/hooks/useTrades'
 import { erc20Abi, spaceAbi } from '@/lib/abi'
+import { TradeType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
+import { api } from '@/lib/trpc'
 import { wagmiConfig } from '@/lib/wagmi'
 import { Space } from '@prisma/client'
 import { waitForTransactionReceipt } from '@wagmi/core'
@@ -23,6 +27,7 @@ interface Props {
 }
 
 export const SellBtn = ({
+  ethAmount,
   purchasedAmount,
   isInsufficientBalance,
   isAmountValid,
@@ -32,6 +37,8 @@ export const SellBtn = ({
 }: Props) => {
   const { writeContractAsync, isPending } = useWriteContract()
   const balance = useSpaceTokenBalance()
+  const { refetch: refetchEth } = useQueryEthBalance()
+  const trade = useTrades()
 
   const onSell = async () => {
     try {
@@ -54,7 +61,18 @@ export const SellBtn = ({
       })
 
       await waitForTransactionReceipt(wagmiConfig, { hash })
-      await balance.refetch()
+
+      await Promise.all([
+        api.trade.create.mutate({
+          spaceId: space.id,
+          type: TradeType.SELL,
+          amountIn: String(value),
+          amountOut: precision.token(ethAmount).toString(),
+        }),
+        balance.refetch(),
+        refetchEth(),
+      ])
+      trade.refetch()
       handleSwap()
       toast.success(`${space?.name} sell successfully!`)
     } catch (error) {
@@ -68,14 +86,14 @@ export const SellBtn = ({
     <>
       {isConnected ? (
         <Button
-          className="w-full h-[58px]"
+          className="w-full h-[50px]"
           disabled={!isAmountValid || isInsufficientBalance || isPending}
           onClick={() => onSell()}
         >
           {isPending || balance.isPending ? (
             <LoadingDots color="white" />
           ) : isInsufficientBalance ? (
-            `Insufficient ${space.name} balance`
+            `Insufficient ${space.symbolName} balance`
           ) : isAmountValid ? (
             'Sell'
           ) : (

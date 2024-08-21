@@ -13,7 +13,6 @@ import { handlers } from './handlers'
 import { ImageCreation } from './ImageCreation'
 import { PostActionBar } from './PostActionBar'
 import { PostCreation } from './PostCreation'
-import { PostTradeModal } from './PostTradeDialog/PostTradeDialog'
 import { PromotionCard } from './PromotionCard'
 
 export const dynamic = 'force-dynamic'

@@ -34,7 +34,10 @@ export const precision = {
     return BigInt(parseInt(times(Math.pow(10, decimal), value) as any, 10))
   },
 
-  toDecimal(value: bigint | number, decimals: number = Decimals.TOKEN) {
+  toDecimal(
+    value: bigint | number | string = '',
+    decimals: number = Decimals.TOKEN,
+  ) {
     if (!value) return 0
     return div(value.toString(), Math.pow(10, decimals))
   },
@@ -43,8 +46,11 @@ export const precision = {
   },
 
   // Maintaining Numeric Precision
-  toExactDecimalString(value: bigint, decimals: number = Decimals.TOKEN): string {
-    if (!value) return "0"
+  toExactDecimalString(
+    value: bigint,
+    decimals: number = Decimals.TOKEN,
+  ): string {
+    if (!value) return '0'
     const factor = BigInt(Math.pow(10, decimals))
     const integerPart = value / factor
     const fractionalPart = value % factor
@@ -52,10 +58,13 @@ export const precision = {
   },
 
   // Maintaining Numeric Precision
-  toExactDecimalBigint(decimalValue: string, decimals: number = Decimals.TOKEN): bigint {
-    const [integerPart, fractionalPart = ""] = decimalValue.split(".")
+  toExactDecimalBigint(
+    decimalValue: string,
+    decimals: number = Decimals.TOKEN,
+  ): bigint {
+    const [integerPart, fractionalPart = ''] = decimalValue.split('.')
     const integerBigInt = BigInt(integerPart) * BigInt(Math.pow(10, decimals))
-    const fractionalBigInt = BigInt(fractionalPart.padEnd(decimals, "0"))
+    const fractionalBigInt = BigInt(fractionalPart.padEnd(decimals, '0'))
     return integerBigInt + fractionalBigInt
-  }
+  },
 }

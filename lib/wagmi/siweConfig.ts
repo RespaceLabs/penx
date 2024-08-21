@@ -49,10 +49,10 @@ export const siweConfig = createSIWEConfig({
     }
   },
 
-  // onSignIn: (session?: SIWESession) => {
-  //   location.href = '/'
-  //   location.reload()
-  // },
+  onSignIn: (session?: SIWESession) => {
+    // location.href = '/'
+    location.reload()
+  },
   signOut: async () => {
     try {
       await signOut({

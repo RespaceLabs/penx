@@ -3,6 +3,7 @@
 import { MemberDialog } from '@/components/MemberDialog/MemberDialog'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
+import { UpdatePriceDialog } from '@/components/UpdatePriceDialog/UpdatePriceDialog'
 import { useSpace } from '@/hooks/useSpace'
 import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
@@ -11,7 +12,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ClaimShareRewards } from './ClaimShareRewards'
 import { MemberButton } from './MemberButton'
-import { UpdatePriceDialog } from '@/components/UpdatePriceDialog/UpdatePriceDialog'
 
 interface Props {}
 
@@ -97,7 +97,7 @@ export function SpaceInfo({}: Props) {
         <div className="">
           <div className="flex gap-2">
             <MemberDialog space={space} />
-            <UpdatePriceDialog/>
+            <UpdatePriceDialog />
             <MemberButton />
           </div>
         </div>
@@ -118,7 +118,7 @@ export function SpaceInfo({}: Props) {
         </Link> */}
 
         <Link href={Paths.trades} className={linkClassName(Paths.trades)}>
-          Trades
+          Activities
         </Link>
       </div>
     </div>
