@@ -79,9 +79,7 @@ export const SellBtn = ({
       handleSwap()
       toast.success(`${space?.name} sell successfully!`)
     } catch (error) {
-      const msg = extractErrorMessage(error)
-      console.log('%c=error', 'color:red', error, 'msg', msg)
-      toast.error(msg)
+      toast.error(extractErrorMessage(error) || 'sell error')
     }
     setLoading(false)
   }

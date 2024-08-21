@@ -1,15 +1,12 @@
-import { ChangeEvent, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useChainSpace, useQueryChainSpace } from '@/hooks/useChainSpace'
-import { useEthBalance, useQueryEthBalance } from '@/hooks/useEthBalance'
 import { precision } from '@/lib/math'
 import { toFloorFixed } from '@/lib/utils'
 import { Space } from '@prisma/client'
-import { Address } from 'viem'
 import { Button } from '../ui/button'
 import { AmountInput } from './AmountInput'
 import { EthBalance } from './EthBalance'
 import {
-  formatAmount,
   useSpaceTokenBalance,
 } from './hooks/useSpaceTokenBalance'
 import { SellBtn } from './SellBtn'
@@ -25,15 +22,14 @@ export const SellPanel = ({ space, isConnected }: Props) => {
   const [tokenAmount, setTokenAmount] = useState<string>('')
   const { space: chainSpace } = useChainSpace()
   const { refetch: refetchChainSpace } = useQueryChainSpace()
+  const { data: tokenBalance } = useSpaceTokenBalance()
 
   const isAmountValid = parseFloat(tokenAmount) > 0
 
-  const { data: tokenBalance } = useSpaceTokenBalance()
+  const isInsufficientBalance =
+    precision.toDecimal(tokenBalance! || '0') < parseFloat(tokenAmount)
 
-  const handleEthAmount = (value: string) => {
-    // Validate and format input
-    // if (/^\d*\.?\d*$/.test(value) && !value.startsWith('.')) { }
-  }
+  const handleEthAmount = (value: string) => {}
 
   const handleTokenChange = (value: string) => {
     setTokenAmount(value)
@@ -61,9 +57,6 @@ export const SellPanel = ({ space, isConnected }: Props) => {
     setEthAmount(toFloorFixed(ethAmountDecimal, 4).toString())
   }
 
-  const isInsufficientBalance =
-    precision.toDecimal(tokenBalance! || '0') < parseFloat(tokenAmount)
-
   return (
     <>
       <div className="mb-2 bg-gray-100 rounded-xl p-4">
@@ -75,7 +68,7 @@ export const SellPanel = ({ space, isConnected }: Props) => {
             <img
               src={space.logo || ''}
               alt={space.symbolName}
-              className="w-5 h-auto"
+              className="w-5 h-auto rounded-2xl"
             />
           }
           value={tokenAmount}
@@ -103,7 +96,7 @@ export const SellPanel = ({ space, isConnected }: Props) => {
         <AmountInput
           symbolName="ETH"
           disabled
-          icon={<img src="/eth.png" alt="ETH" className="w-5 h-auto" />}
+          icon={<img src="/eth.png" alt="ETH" className="w-5 h-auto rounded-2xl" />}
           value={ethAmount}
           onChange={(value) => handleEthAmount(value)}
         />

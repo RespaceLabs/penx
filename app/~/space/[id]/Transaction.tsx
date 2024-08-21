@@ -1,13 +1,10 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useState } from 'react'
 import { BuyPanel } from '@/components/spaceToken/BuyPanel'
 import { SellPanel } from '@/components/spaceToken/SellPanel'
-import { useAddress } from '@/hooks/useAddress'
 import { useSpace } from '@/hooks/useSpace'
-import { precision } from '@/lib/math'
-import { Address } from 'viem'
-import { useAccount, useBalance } from 'wagmi'
+import { useAccount } from 'wagmi'
 
 enum Direction {
   buy = 1,
@@ -16,7 +13,6 @@ enum Direction {
 
 export function Transaction() {
   const { space } = useSpace()
-  const address = useAddress()
   const { isConnected } = useAccount()
   const [direction, setDirection] = useState<Direction>(Direction.buy)
 

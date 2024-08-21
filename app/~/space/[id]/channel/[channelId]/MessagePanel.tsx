@@ -1,22 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { UserAvatar } from '@/components/UserAvatar'
-import { useMembers } from '@/hooks/useMembers'
 import { IMessage, useMessages } from '@/hooks/useMessages'
 import { trpc } from '@/lib/trpc'
-import { shortenAddress } from '@/lib/utils'
-import { Member, User } from '@prisma/client'
 import { toast } from 'sonner'
 import { useThrottledCallback } from 'use-debounce'
 import { MessageItem } from './MessageItem'
-
-type MemberWithUser = Member & {
-  user: {
-    name: string | null
-    ensName: string | null
-    email: string | null
-    address: string
-  }
-}
 
 interface Props {
   channelId: string
@@ -89,8 +76,6 @@ export const MessagePanel = ({ channelId }: Props) => {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messages])
-
-  // console.log('%c=render:', 'color:red', getMessagesState(channelId))
 
   return (
     <div ref={containerRef} className="flex-grow overflow-y-auto">

@@ -32,7 +32,6 @@ export const SendMessagePanel = ({ userId, channelId }: Props) => {
         })
 
         setMsgContent('')
-        // console.log('%c=isOK ?????', 'color:red', isOk)
       } else {
         console.error('SocketConnector not init')
         toast.error('Connector not init')

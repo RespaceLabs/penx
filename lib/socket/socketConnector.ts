@@ -191,7 +191,6 @@ export class SocketConnector {
 
   public disconnect(): void {
     if (this.socket) {
-      // console.log('%c=Manually disconnecting WebSocket', 'color:cyan');
       this.socket.disconnect()
       this.connectStatus = {
         type: ConnectStatusType.disconnect,

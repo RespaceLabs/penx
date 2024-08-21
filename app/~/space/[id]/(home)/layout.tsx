@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react'
 import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
-import { useChainSpace, useQueryChainSpace } from '@/hooks/useChainSpace'
+import { useChainSpace } from '@/hooks/useChainSpace'
 import { SpaceInfo } from '../Space/SpaceInfo'
 import { TradeList } from '../Space/TradeList'
 import { Transaction } from '../Transaction'
@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   if (!space) return null
 
   return (
-    <div className="">
+    <div>
       <NavbarWrapper className="gap-1"></NavbarWrapper>
       <div className="flex lg:flex-row flex-col-reverse w-full sm:w-full xl:w-[1200px]  mx-auto gap-12 mt-10 p-3 lg:p-0">
         <div className="flex flex-col gap-6 md:flex-1 rounded-2xl w-full md:w-auto">

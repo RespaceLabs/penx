@@ -55,7 +55,7 @@ export const BuyPanel = ({ space, isConnected }: Props) => {
         <div className="text-sm">Sell</div>
         <AmountInput
           symbolName="ETH"
-          icon={<img src="/eth.png" alt="ETH" className="w-5 h-auto" />}
+          icon={<img src="/eth.png" alt="ETH" className="w-5 h-auto rounded-2xl" />}
           value={ethAmount}
           onChange={(value) => handleEthChange(value)}
         />
@@ -80,7 +80,7 @@ export const BuyPanel = ({ space, isConnected }: Props) => {
             <img
               src={space.logo || ''}
               alt={space.symbolName}
-              className="w-5 h-auto"
+              className="w-5 h-auto rounded-2xl"
             />
           }
           value={tokenAmount}
