@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useQueryEthBalance } from '@/hooks/useEthBalance'
 import { useTrades } from '@/hooks/useTrades'
 import { spaceAbi } from '@/lib/abi'
@@ -18,8 +19,8 @@ import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 
 interface Props {
   ethAmount: string
-  purchasedAmount: string
-  handleSwap: () => void
+  tokenAmount: string
+  afterSwap: () => void
   isInsufficientBalance: boolean
   isAmountValid: boolean
   isConnected: boolean
@@ -28,19 +29,21 @@ interface Props {
 
 export const BuyBtn = ({
   ethAmount,
-  purchasedAmount,
+  tokenAmount,
   isInsufficientBalance,
   isAmountValid,
-  handleSwap,
+  afterSwap,
   isConnected,
   space,
 }: Props) => {
-  const { writeContractAsync, isPending } = useWriteContract()
+  const [loading, setLoading] = useState(false)
+  const { writeContractAsync } = useWriteContract()
   const balance = useSpaceTokenBalance()
   const { refetch: refetchEth } = useQueryEthBalance()
   const trade = useTrades()
 
   const onBuy = async () => {
+    setLoading(true)
     try {
       const value = precision.token(ethAmount, 18)
       const hash = await writeContractAsync({
@@ -56,19 +59,20 @@ export const BuyBtn = ({
           spaceId: space.id,
           type: TradeType.BUY,
           amountIn: String(value),
-          amountOut: precision.token(purchasedAmount).toString(),
+          amountOut: precision.token(tokenAmount).toString(),
         }),
         balance.refetch(),
         refetchEth(),
       ])
 
       trade.refetch()
-      handleSwap()
+      afterSwap()
       toast.success(`${space?.name} bought successfully!`)
     } catch (error) {
       const msg = extractErrorMessage(error)
       toast.error(msg)
     }
+    setLoading(false)
   }
 
   return (
@@ -76,10 +80,10 @@ export const BuyBtn = ({
       {isConnected ? (
         <Button
           className="w-full h-[50px]"
-          disabled={!isAmountValid || isInsufficientBalance || isPending}
+          disabled={!isAmountValid || isInsufficientBalance || loading}
           onClick={() => onBuy()}
         >
-          {isPending || balance.isPending ? (
+          {loading ? (
             <LoadingDots color="white" />
           ) : isInsufficientBalance ? (
             'Insufficient ETH balance'
@@ -90,7 +94,7 @@ export const BuyBtn = ({
           )}
         </Button>
       ) : (
-        <WalletConnectButton className="w-full h-[58px]">
+        <WalletConnectButton className="w-full h-[50px]">
           Connect wallet
         </WalletConnectButton>
       )}

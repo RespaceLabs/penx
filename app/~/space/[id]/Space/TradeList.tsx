@@ -1,5 +1,6 @@
 'use client'
 
+import { Skeleton } from '@/components/ui/skeleton'
 import { UserAvatar } from '@/components/UserAvatar'
 import { useSpace } from '@/hooks/useSpace'
 import { useTrades } from '@/hooks/useTrades'
@@ -11,7 +12,19 @@ interface Props {}
 
 export function TradeList({}: Props) {
   const { space } = useSpace()
-  const { records: trades } = useTrades()
+  const { records: trades, isLoading } = useTrades()
+
+  if (isLoading) {
+    return (
+      <div className="grid gap-3 mt-4">
+        {Array(10)
+          .fill(null)
+          .map((_, index) => (
+            <Skeleton key={index} className="h-6" />
+          ))}
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-3 mt-4">

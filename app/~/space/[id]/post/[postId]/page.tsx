@@ -18,8 +18,6 @@ export default function PostPage() {
       </div>
     )
 
-  if (!post) return null
-
   if (post.type === PostType.IMAGE) {
     return <ImageCreation post={post} isPostLoading={isPostLoading} />
   }

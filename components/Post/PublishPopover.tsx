@@ -100,8 +100,8 @@ function GateTypeSelect({ value, onSelect }: GateTypeSelectProps) {
         />
         <GateTypeItem
           selected={value === GateType.KEY_HOLDER}
-          title="Key holder only"
-          description="Only Space/Post key holder can read this post"
+          title="Member only"
+          description="Only member can read this post"
           onClick={() => onSelect(GateType.KEY_HOLDER)}
         />
       </div>

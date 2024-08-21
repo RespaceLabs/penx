@@ -1,11 +1,11 @@
 'use client'
 
 import { Badge } from '@/components/ui/badge'
+import { Skeleton } from '@/components/ui/skeleton'
 import { UserAvatar } from '@/components/UserAvatar'
 import { SECONDS_PER_DAY } from '@/domains/Space'
 import { useSubscriptionRecords } from '@/hooks/useSpaceTrades'
 import { SubscriptionType } from '@/lib/constants'
-import { precision } from '@/lib/math'
 import { cn, getEnsAvatar, shortenAddress } from '@/lib/utils'
 import { Space } from '@prisma/client'
 
@@ -14,7 +14,19 @@ interface Props {
 }
 
 export function SubscriptionRecordList({ space }: Props) {
-  const { records } = useSubscriptionRecords(space.id)
+  const { records, isLoading } = useSubscriptionRecords(space.id)
+
+  if (isLoading) {
+    return (
+      <div className="grid gap-3 mt-4">
+        {Array(10)
+          .fill(null)
+          .map((_, index) => (
+            <Skeleton key={index} className="h-9" />
+          ))}
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-3 mt-4">

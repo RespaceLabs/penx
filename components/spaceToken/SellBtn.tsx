@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useEthBalance, useQueryEthBalance } from '@/hooks/useEthBalance'
 import { useTrades } from '@/hooks/useTrades'
 import { erc20Abi, spaceAbi } from '@/lib/abi'
@@ -18,7 +19,7 @@ import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 
 interface Props {
   ethAmount: string
-  purchasedAmount: string
+  tokenAmount: string
   handleSwap: () => void
   isInsufficientBalance: boolean
   isAmountValid: boolean
@@ -28,21 +29,23 @@ interface Props {
 
 export const SellBtn = ({
   ethAmount,
-  purchasedAmount,
+  tokenAmount,
   isInsufficientBalance,
   isAmountValid,
   handleSwap,
   isConnected,
   space,
 }: Props) => {
-  const { writeContractAsync, isPending } = useWriteContract()
+  const [loading, setLoading] = useState(false)
+  const { writeContractAsync } = useWriteContract()
   const balance = useSpaceTokenBalance()
   const { refetch: refetchEth } = useQueryEthBalance()
   const trade = useTrades()
 
   const onSell = async () => {
+    setLoading(true)
     try {
-      const value = precision.toExactDecimalBigint(purchasedAmount)
+      const value = precision.toExactDecimalBigint(tokenAmount)
       const contractAddress = space.spaceAddress as Address
       const approveTx = await writeContractAsync({
         address: contractAddress,
@@ -80,6 +83,7 @@ export const SellBtn = ({
       console.log('%c=error', 'color:red', error, 'msg', msg)
       toast.error(msg)
     }
+    setLoading(false)
   }
 
   return (
@@ -87,10 +91,10 @@ export const SellBtn = ({
       {isConnected ? (
         <Button
           className="w-full h-[50px]"
-          disabled={!isAmountValid || isInsufficientBalance || isPending}
+          disabled={!isAmountValid || isInsufficientBalance || loading}
           onClick={() => onSell()}
         >
-          {isPending || balance.isPending ? (
+          {loading ? (
             <LoadingDots color="white" />
           ) : isInsufficientBalance ? (
             `Insufficient ${space.symbolName} balance`
@@ -101,7 +105,7 @@ export const SellBtn = ({
           )}
         </Button>
       ) : (
-        <WalletConnectButton className="w-full h-[58px]">
+        <WalletConnectButton className="w-full h-[50px]">
           Connect wallet
         </WalletConnectButton>
       )}

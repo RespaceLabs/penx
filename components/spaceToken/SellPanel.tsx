@@ -22,24 +22,21 @@ interface Props {
 
 export const SellPanel = ({ space, isConnected }: Props) => {
   const [ethAmount, setEthAmount] = useState<string>('')
-  const [purchasedAmount, setPurchasedAmount] = useState<string>('')
+  const [tokenAmount, setTokenAmount] = useState<string>('')
   const { space: chainSpace } = useChainSpace()
   const { refetch: refetchChainSpace } = useQueryChainSpace()
 
-  // const isAmountValid = parseFloat(ethAmount) > 0 && parseFloat(purchasedAmount) > 0
-  // TODO: please add eth judgment logic
-  const isAmountValid = parseFloat(purchasedAmount) > 0
+  const isAmountValid = parseFloat(tokenAmount) > 0
 
   const { data: tokenBalance } = useSpaceTokenBalance()
-  const { ethBalance } = useEthBalance()
 
-  const validateAndSetEthAmount = (value: string) => {
+  const handleEthAmount = (value: string) => {
     // Validate and format input
     // if (/^\d*\.?\d*$/.test(value) && !value.startsWith('.')) { }
   }
 
   const handleTokenChange = (value: string) => {
-    setPurchasedAmount(value)
+    setTokenAmount(value)
     if (!value) {
       return setEthAmount('')
     }
@@ -53,7 +50,7 @@ export const SellPanel = ({ space, isConnected }: Props) => {
   const handleMax = () => {
     if (!tokenBalance) return
 
-    setPurchasedAmount(
+    setTokenAmount(
       toFloorFixed(precision.toDecimal(tokenBalance), 4).toString(),
     )
 
@@ -65,7 +62,7 @@ export const SellPanel = ({ space, isConnected }: Props) => {
   }
 
   const isInsufficientBalance =
-    precision.toDecimal(tokenBalance! || '0') < parseFloat(purchasedAmount)
+    precision.toDecimal(tokenBalance! || '0') < parseFloat(tokenAmount)
 
   return (
     <>
@@ -81,7 +78,7 @@ export const SellPanel = ({ space, isConnected }: Props) => {
               className="w-5 h-auto"
             />
           }
-          value={purchasedAmount}
+          value={tokenAmount}
           onChange={(value) => handleTokenChange(value)}
         />
 
@@ -108,7 +105,7 @@ export const SellPanel = ({ space, isConnected }: Props) => {
           disabled
           icon={<img src="/eth.png" alt="ETH" className="w-5 h-auto" />}
           value={ethAmount}
-          onChange={(value) => validateAndSetEthAmount(value)}
+          onChange={(value) => handleEthAmount(value)}
         />
         <div className="flex items-center justify-end gap-2 h-6">
           <EthBalance />
@@ -117,11 +114,11 @@ export const SellPanel = ({ space, isConnected }: Props) => {
 
       <SellBtn
         ethAmount={ethAmount}
-        purchasedAmount={purchasedAmount}
+        tokenAmount={tokenAmount}
         isConnected={isConnected}
         handleSwap={() => {
           setEthAmount('')
-          setPurchasedAmount('')
+          setTokenAmount('')
           refetchChainSpace()
         }}
         isInsufficientBalance={isInsufficientBalance}

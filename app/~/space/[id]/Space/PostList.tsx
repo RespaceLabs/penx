@@ -1,6 +1,7 @@
 'use client'
 
 import BlogCard from '@/components/blog-card'
+import { Skeleton } from '@/components/ui/skeleton'
 import { trpc } from '@/lib/trpc'
 import { Space } from '@prisma/client'
 import { useParams } from 'next/navigation'
@@ -15,7 +16,17 @@ export function PostList({ space }: Props) {
     params.id,
   )
 
-  if (isLoading) return null
+  if (isLoading) {
+    return (
+      <div className="grid w-full grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-2">
+        {Array(10)
+          .fill(null)
+          .map((_, index) => (
+            <Skeleton key={index} className="h-[340px]" />
+          ))}
+      </div>
+    )
+  }
 
   if (!posts?.length) {
     return <div className="text-neutral-500">No posts yet!</div>
@@ -23,7 +34,7 @@ export function PostList({ space }: Props) {
 
   return (
     <div className="grid w-full grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-2">
-      {posts.slice(1).map((metadata: any, index: number) => (
+      {posts.map((metadata: any, index: number) => (
         <BlogCard
           key={index}
           data={metadata}

@@ -63,7 +63,7 @@ export function SpaceInfo({}: Props) {
   const url = `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/@${space.subdomain}`
   return (
     <div className="grid gap-6">
-      <div className="flex  justify-between w-full">
+      <div className="flex md:flex-row flex-col justify-between w-full gap-y-2">
         <div className="flex items-center gap-2">
           <Image
             alt={space.name || ''}
@@ -84,7 +84,7 @@ export function SpaceInfo({}: Props) {
                 href={`/@${space.subdomain}`}
                 target="_blank"
                 rel="noreferrer"
-                className="truncate rounded-md bg-stone-100 px-2 py-1 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-200 "
+                className="truncate rounded-md bg-stone-100 px-2 py-1 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-200 hidden md:block"
               >
                 {url} ↗
               </a>
@@ -94,12 +94,11 @@ export function SpaceInfo({}: Props) {
             </div>
           </div>
         </div>
-        <div className="">
-          <div className="flex gap-2">
-            <MemberDialog space={space} />
-            <UpdatePriceDialog />
-            <MemberButton />
-          </div>
+
+        <div className="flex gap-2">
+          <MemberDialog space={space} />
+          <UpdatePriceDialog />
+          <MemberButton />
         </div>
       </div>
 

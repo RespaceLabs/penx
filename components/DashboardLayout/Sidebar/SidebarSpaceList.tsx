@@ -58,8 +58,8 @@ export function SidebarSpaceList() {
             width={40}
             height={40}
             className={cn(
-              'w-9 h-9 rounded-full hover:rounded-lg cursor-pointer bg-neutral-200 transition-all',
-              space?.id === item.id && 'w-10 h-10',
+              'w-8 h-8 md:w-9 md:h-9 rounded-full hover:rounded-lg cursor-pointer bg-neutral-200 transition-all',
+              space?.id === item.id && 'w-9 h-9 md:w-10 md:h-10',
             )}
           />
         </div>

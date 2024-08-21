@@ -15,16 +15,18 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="">
       <NavbarWrapper className="gap-1"></NavbarWrapper>
-      <div className="flex flex-1 w-[1200px] mx-auto gap-10 mt-10">
-        <div className="flex flex-col gap-6 flex-1 rounded-2xl">
+      <div className="flex lg:flex-row flex-col-reverse w-full sm:w-full xl:w-[1200px]  mx-auto gap-12 mt-10 p-3 lg:p-0">
+        <div className="flex flex-col gap-6 md:flex-1 rounded-2xl w-full md:w-auto">
           <SpaceInfo />
           {children}
         </div>
 
-        <div className="w-[360px]">
+        <div className="flex flex-col w-full lg:w-[360px] flex-shrink-0">
           <Transaction />
-          <div className="text-base font-bold mt-8">Trades</div>
-          <TradeList />
+          <div className="mt-8 lg:block">
+            <div className="text-base font-bold">Trades</div>
+            <TradeList />
+          </div>
         </div>
       </div>
     </div>

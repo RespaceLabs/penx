@@ -40,7 +40,7 @@ export function Sidebar() {
   }, [pathname])
 
   return (
-    <div className="sticky top-0 md:block hidden h-screen md:w-[60px] xl:w-[60px] flex-shrink-0 z-1000">
+    <div className="sticky top-0 h-screen w-[48px] md:w-[60px] flex-shrink-0 z-1000">
       <div className="flex flex-1 flex-col justify-between min-h-screen">
         <div className="grid gap-1 items-center justify-center pt-1">
           {tabs.map(({ name, href, isActive, icon }) => (

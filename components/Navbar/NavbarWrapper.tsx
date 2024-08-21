@@ -20,11 +20,8 @@ export function NavbarWrapper({
 }: PropsWithChildren & Props) {
   const pathname = usePathname()
   const { space } = useSpace()
-  const { spaces } = useSpaces()
   const { data: session } = useSession()
   const isPost = pathname.startsWith(`/~/space/${space?.id}/post/`)
-  const { address } = useAccount()
-  // console.log('======address:', address)
 
   const topRightJSX = useMemo(() => {
     if (isPost) return null
@@ -35,7 +32,7 @@ export function NavbarWrapper({
         <ProfilePopover />
       </div>
     )
-  }, [session, isPost, spaces, space])
+  }, [session, isPost])
 
   return (
     <div

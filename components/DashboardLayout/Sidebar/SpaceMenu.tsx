@@ -13,9 +13,7 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 
 export function SpaceMenu() {
-  const { push } = useRouter()
   const { space } = useSpace()
-  const { data: session } = useSession()
 
   const pathname = usePathname()
   const isNotSpace =
@@ -27,17 +25,6 @@ export function SpaceMenu() {
   return (
     <div className="flex items-center justify-between px-2 hover:bg-sidebar/50 cursor-pointer font-semibold h-10 w-[240px] rounded-lg mt-0.5">
       <div className="flex items-center gap-2">
-        <Image
-          src={
-            space.logo! ||
-            'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
-          }
-          alt=""
-          width={24}
-          height={24}
-          className="w-6 h-6 rounded-full"
-        />
-
         <div>{space.name}</div>
         {/* <ChevronDown size={16} className="text-neutral-600" /> */}
       </div>

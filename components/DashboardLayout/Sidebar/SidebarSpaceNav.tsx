@@ -17,6 +17,7 @@ import { store } from '@/store'
 import { TooltipPortal } from '@radix-ui/react-tooltip'
 import { FeatherIcon, Home, MessageCircleMore } from 'lucide-react'
 import { useSession } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { toast } from 'sonner'
@@ -31,27 +32,41 @@ export function SidebarSpaceNav() {
   const tabs = useMemo(() => {
     const list = [
       {
-        name: 'Home',
+        name: `${space?.name} | $${space?.symbolName}` || '',
         href: `/~`,
         isActive: pathname === `/~/space/${space?.id}`,
-        icon: <Home width={20} />,
+        icon: (
+          <div className="h-full w-full inline-flex relative items-center justify-center">
+            <Home size={20} className="" />
+            <Image
+              src={
+                space.logo! ||
+                'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
+              }
+              alt=""
+              width={24}
+              height={24}
+              className="w-6 h-6 rounded-full absolute -right-2 -top-2 bg-white shadow"
+            />
+          </div>
+        ),
       },
       {
         name: 'Posts',
         memberOnly: true,
         href: posts.length
           ? `/~/space/${space.id}/post/${posts[0].id}`
-          : '/~/space/${space.id}/create-post',
+          : `/~/space/${space.id}/create-post`,
         isActive:
-          pathname.startsWith('/~/space/${space.id}/post/') ||
-          pathname === '/~/space/${space.id}/create-post',
+          pathname.startsWith(`/~/space/${space.id}/post/`) ||
+          pathname === `/~/space/${space.id}/create-post`,
         icon: <FeatherIcon width={20} />,
       },
       {
         name: 'Chat',
         memberOnly: true,
         href: `/~/space/${space.id}/channel/${channels?.[0]?.id}`,
-        isActive: pathname.startsWith('/~/space/${space.id}/channel/'),
+        isActive: pathname.startsWith(`/~/space/${space.id}/channel/`),
         icon: <MessageCircleMore width={20} />,
       },
     ]
@@ -68,7 +83,7 @@ export function SidebarSpaceNav() {
             <div
               key={name}
               className={cn(
-                'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
+                'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer bg-accent',
                 isActive && 'bg-sidebar',
               )}
               onClick={() => {
@@ -87,8 +102,8 @@ export function SidebarSpaceNav() {
             key={name}
             href={href}
             className={cn(
-              'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer',
-              isActive && 'bg-sidebar',
+              'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer bg-accent border border-transparent',
+              isActive && 'bg-black/80 text-white hover:bg-black',
             )}
             onClick={async (e) => {
               if (posts.length) {

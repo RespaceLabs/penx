@@ -23,7 +23,7 @@ export function useQueryChainSpace() {
   const { space } = useSpace()
 
   const { data, ...rest } = useReadContract({
-    address: space.spaceAddress as Address,
+    address: space?.spaceAddress as Address,
     abi: spaceAbi,
     functionName: 'getSpaceInfo',
     query: { enabled: !!space?.spaceAddress },

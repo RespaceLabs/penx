@@ -15,7 +15,10 @@ export default function Layout({ children }: PropsWithChildren) {
           <div className="font-bold" style={{ fontFamily: 'Merienda' }}>
             PenX
           </div>
-          <Badge variant="outline" className="border-black font-semibold">
+          <Badge
+            variant="outline"
+            className="border-black font-semibold hidden md:flex"
+          >
             Beta on Arbitrum sepolia
           </Badge>
         </div>

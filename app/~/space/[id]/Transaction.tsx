@@ -27,7 +27,7 @@ export function Transaction() {
   return (
     <div className="p-4 rounded-lg border border-neutral-100">
       <div className="rounded-lg">
-        <div className="flex mb-[12px]">
+        <div className="flex mb-3">
           <button
             onClick={() => onSwitch(Direction.buy)}
             className={`mr-[10px] text-[#222222] py-[6px] px-[16px] rounded-[16px] ${
