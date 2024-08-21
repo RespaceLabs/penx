@@ -31,7 +31,7 @@ export function CreateFirstPostButton() {
             const posts = await api.post.listBySpaceId.query(space.id)
             store.set(postsAtom, posts)
           }, 0)
-          push(`/~/${space.id}/post/${post.id}`)
+          push(`/~/space/${space.id}/post/${post.id}`)
         } catch (error) {
           const msg = extractErrorMessage(error)
           toast.error(msg || 'Failed to create post')

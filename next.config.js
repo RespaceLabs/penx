@@ -6,7 +6,7 @@ const { env } = require('./server/env')
 module.exports = {
   experimental: {
     serverActions: {
-      // allowedOrigins: ['app.localhost:3000'],
+      allowedOrigins: ['app.localhost:3000'],
     },
   },
 
