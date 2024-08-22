@@ -66,6 +66,8 @@ export function MemberForm({ space }: Props) {
   const times = form.watch('times')
 
   const getAmount = (token: string, days: string, isSubscribe: boolean) => {
+    if (!subscription?.raw) return BigInt(0)
+
     if (!days) return BigInt(0)
     if (isSubscribe) {
       if (token === 'ETH') {
@@ -79,6 +81,7 @@ export function MemberForm({ space }: Props) {
   }
 
   const cost = getAmount(token, times, isSubscribe)
+
   const unit = useMemo(() => {
     if (!isSubscribe) return space.symbolName
     return token == 'ETH' ? 'ETH' : space.symbolName

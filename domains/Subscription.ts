@@ -33,6 +33,7 @@ export class Subscription {
   }
 
   get remainAmount() {
+    if (this.duration === BigInt(0)) return BigInt(0)
     return (this.amount * this.remainDuration) / this.duration
   }
 
@@ -67,7 +68,7 @@ export class Subscription {
     const seconds = BigInt(
       parseInt((Number(days) * SECONDS_PER_DAY).toString()),
     )
+    if (this.remainDuration === BigInt(0)) return BigInt(0)
     return (this.remainAmount * seconds) / this.remainDuration
-    //
   }
 }
