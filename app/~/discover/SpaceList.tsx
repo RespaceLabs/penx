@@ -3,16 +3,33 @@
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { UserAvatar } from '@/components/UserAvatar'
-import { spaceAtom } from '@/hooks/useSpace'
+import { Space, spaceAtom } from '@/hooks/useSpace'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import { store } from '@/store'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { api } from '@/lib/trpc'
+import { postsAtom } from '@/hooks/usePosts'
+import { SELECTED_SPACE } from '@/lib/constants'
+import { channelsAtom } from '@/hooks/useChannels'
 
 export function SpaceList() {
   const { push } = useRouter()
   const { data = [], isLoading } = trpc.space.discoverSpaces.useQuery()
+
+  async function selectSpace(space: Space) {
+    push(`/~/space/${space.id}`)
+    const [posts, channels] = await Promise.all([
+      api.post.listBySpaceId.query(space.id),
+      api.channel.listBySpaceId.query(space.id),
+    ])
+
+    localStorage.setItem(SELECTED_SPACE, space.id)
+    store.set(postsAtom, posts)
+    store.set(channelsAtom, channels)
+    store.set(spaceAtom, { space, isLoading: false })
+  }
 
   if (isLoading) {
     return (
@@ -32,10 +49,8 @@ export function SpaceList() {
         <div
           key={space.id}
           className="flex items-center justify-between rounded-lg p-5 gap-3 cursor-pointer"
-          onClick={() => {
-            store.set(spaceAtom, { space, isLoading: false })
-            push(`/~/space/${space.id}`)
-          }}
+          onClick={() => selectSpace(space)
+          }
         >
           <div className="flex items-center gap-2">
             <Image
