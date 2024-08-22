@@ -18,9 +18,10 @@ import { TooltipPortal } from '@radix-ui/react-tooltip'
 import { FeatherIcon, Home, MessageCircleMore } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { useMembers } from '@/hooks/useMembers'
+import { useAddress } from '@/hooks/useAddress'
 
 export function SidebarSpaceNav() {
   const pathname = usePathname()
@@ -28,6 +29,9 @@ export function SidebarSpaceNav() {
   const { data: session } = useSession()
   const { channels } = useChannels()
   const { posts } = usePosts()
+  const { members } = useMembers(space.id)
+  const address = useAddress()
+  const router = useRouter()
 
   const tabs = useMemo(() => {
     const list = [
@@ -74,47 +78,45 @@ export function SidebarSpaceNav() {
     return list
   }, [pathname, space, channels, posts])
 
+  const isMember = useMemo<boolean>(() => {
+    if (space.userId === session?.userId) {
+
+      return true // own
+    } else {
+      const exists = members.some((item) => item?.user?.address === address);
+      if (exists) {
+
+        return true
+      }
+
+      return false
+    }
+  }, [members, address])
+
   return (
     <div className="grid gap-1 items-center justify-center">
       {tabs.map(({ name, href, isActive, icon, memberOnly }) => {
-        const isForbidden = memberOnly && space.userId !== session?.userId
-        if (isForbidden) {
-          return (
-            <div
-              key={name}
-              className={cn(
-                'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer bg-accent',
-                isActive && 'bg-sidebar',
-              )}
-              onClick={() => {
-                toast.info(
-                  'You must be a member of this space to access this feature.',
-                )
-                return
-              }}
-            >
-              <Content icon={icon} name={name} />
-            </div>
-          )
-        }
-        return (
-          <Link
-            key={name}
-            href={href}
-            className={cn(
-              'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer bg-accent border border-transparent',
-              isActive && 'bg-black/80 text-white hover:bg-black',
-            )}
-            onClick={async (e) => {
-              if (posts.length) {
-                const post = await api.post.byId.query(posts[0].id)
-                store.set(postAtom, post)
-              }
-            }}
-          >
-            <Content icon={icon} name={name} />
-          </Link>
-        )
+        return <div key={name}
+          className={cn(
+            'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer bg-accent border border-transparent',
+            isActive && (memberOnly && !isMember ? 'bg-sidebar' : 'bg-black/80 text-white hover:bg-black')
+          )}
+          onClick={async (e) => {
+            if (memberOnly && !isMember) {
+              toast.info('You must be a member of this space to access this feature.')
+              return
+            }
+
+            if (posts.length) {
+              const post = await api.post.byId.query(posts[0].id)
+              store.set(postAtom, post)
+            }
+
+            router.push(href)
+          }}
+        >
+          <Content icon={icon} name={name} />
+        </div>
       })}
     </div>
   )
@@ -124,6 +126,7 @@ interface ContentProps {
   icon: React.ReactNode
   name: string
 }
+
 function Content({ icon, name }: ContentProps) {
   return (
     <TooltipProvider delayDuration={10}>
