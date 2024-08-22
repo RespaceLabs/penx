@@ -82,7 +82,7 @@ export default async function SpaceLayout({
   return (
     <div>
       <div className="h-[56px] flex items-center justify-between px-3">
-        <div className="">
+        <div>
           <Link
             href={`/@${domain}`}
             className="flex items-center justify-center"

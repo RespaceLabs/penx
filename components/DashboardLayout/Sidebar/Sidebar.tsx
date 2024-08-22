@@ -60,7 +60,7 @@ export function Sidebar() {
                     </div>
                   </TooltipTrigger>
                   <TooltipPortal>
-                    <TooltipContent side="right" className="">
+                    <TooltipContent side="right">
                       {name}
                     </TooltipContent>
                   </TooltipPortal>

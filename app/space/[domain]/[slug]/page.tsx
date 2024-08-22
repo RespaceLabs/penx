@@ -127,7 +127,7 @@ export default async function SpacePostPage({
   return (
     <div className="pb-20 min-h-[72vh]">
       <div className="flex flex-col mx-auto w-[720px]">
-        <div className="">
+        <div>
           <h1 className="mb-10 font-title text-3xl font-bold text-stone-800 dark:text-white md:text-6xl">
             {post.title}
           </h1>
@@ -153,7 +153,7 @@ export default async function SpacePostPage({
               />
             </div>
 
-            <div className="">{post.space?.name}</div>
+            <div>{post.space?.name}</div>
 
             <div>
               <Badge variant="secondary" className="inline-flex py-1">

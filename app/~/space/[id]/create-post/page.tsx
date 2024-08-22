@@ -5,7 +5,7 @@ import { CreateFirstPostButton } from './CreateFirstPostButton'
 
 export default function Page() {
   return (
-    <div className="">
+    <div>
       <NavbarWrapper>
         <div className="text-lg font-bold">Create Fist Post</div>
       </NavbarWrapper>

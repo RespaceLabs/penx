@@ -55,8 +55,8 @@ export function SponsorList() {
         {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
         <TableHeader>
           <TableRow>
-            <TableHead className="">Sponsor</TableHead>
-            <TableHead className="">Amount</TableHead>
+            <TableHead>Sponsor</TableHead>
+            <TableHead>Amount</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Operation</TableHead>
           </TableRow>

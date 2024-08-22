@@ -107,16 +107,16 @@ export default async function SpaceLayout({
           <div className="text-4xl font-semibold mb-10">{data.name}</div>
           <div className="border-b flex items-center gap-6">
             <Link href={Paths.posts} className={linkClassName}>
-              <div className="">Posts</div>
+              <div>Posts</div>
               <ActiveLinkBorder pathname={Paths.posts} />
             </Link>
             <Link href={Paths.members} className={linkClassName}>
-              <div className="">Members</div>
+              <div>Members</div>
               <ActiveLinkBorder pathname={Paths.members} />
             </Link>
             {/* {data.sponsorCreationId && (
               <Link href={Paths.sponsors} className={linkClassName}>
-                <div className="">Sponsors</div>
+                <div>Sponsors</div>
                 <ActiveLinkBorder pathname={Paths.sponsors} />
               </Link>
             )} */}

@@ -67,7 +67,7 @@ export function SpaceMenu() {
   //           }}
   //         >
   //           <Settings size={18} className="inline-flex" />
-  //           <div className="">Space settings</div>
+  //           <div>Space settings</div>
   //         </DropdownMenuItem>
   //       </DropdownMenuContent>
   //     </DropdownMenu>

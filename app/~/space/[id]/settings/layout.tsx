@@ -13,7 +13,7 @@ export default function SiteAnalyticsLayout({ children }: PropsWithChildren) {
 
   const url = `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/@${space.subdomain}`
   return (
-    <div className="">
+    <div>
       <NavbarWrapper>
         <div className="flex items-center gap-3">
           <h1 className="font-cal text-lg font-bold ">

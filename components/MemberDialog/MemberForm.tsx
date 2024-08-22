@@ -180,7 +180,7 @@ export function MemberForm({ space }: Props) {
             control={form.control}
             name="token"
             render={({ field }) => (
-              <FormItem className="">
+              <FormItem>
                 <FormControl>
                   <TokenSelect {...field} />
                 </FormControl>

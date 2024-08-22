@@ -38,7 +38,6 @@ const Editor = ({ initialValue, onChange, editable = true }: EditorProp) => {
     <EditorRoot>
       <EditorContent
         editable={editable}
-        className=""
         {...(initialValue && { initialContent: initialValue })}
         extensions={extensions}
         editorProps={{

@@ -7,7 +7,7 @@ export default function Page() {
   const { space } = useSpace()
 
   return (
-    <div className="">
+    <div>
       <NavbarWrapper>
         <div className="text-lg font-bold">Sponsors management</div>
       </NavbarWrapper>

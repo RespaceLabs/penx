@@ -37,7 +37,7 @@ export function SidebarSpaceNav() {
         isActive: pathname === `/~/space/${space?.id}`,
         icon: (
           <div className="h-full w-full inline-flex relative items-center justify-center">
-            <Home size={20} className="" />
+            <Home size={20} />
             <Image
               src={
                 space.logo! ||
@@ -134,7 +134,7 @@ function Content({ icon, name }: ContentProps) {
           </div>
         </TooltipTrigger>
         <TooltipPortal>
-          <TooltipContent side="right" className="">
+          <TooltipContent side="right">
             {name}
           </TooltipContent>
         </TooltipPortal>

@@ -70,7 +70,7 @@ export function SpaceList() {
               </div>
             </div>
           </div>
-          <Button size="sm" className="">
+          <Button size="sm">
             Visit space
           </Button>
         </div>

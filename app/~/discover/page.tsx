@@ -5,7 +5,7 @@ import { SpaceList } from './SpaceList'
 
 export default function Page() {
   return (
-    <div className="">
+    <div>
       <NavbarWrapper>
         <div className="text-lg font-bold">Discover</div>
       </NavbarWrapper>

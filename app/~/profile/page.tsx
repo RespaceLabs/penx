@@ -7,7 +7,7 @@ import { SpaceInfo } from '../space/[id]/Space/SpaceInfo'
 export default function Page() {
   const { space } = useSpace()
   return (
-    <div className="">
+    <div>
       <NavbarWrapper>
         <div className="text-lg font-bold">Overview</div>
       </NavbarWrapper>

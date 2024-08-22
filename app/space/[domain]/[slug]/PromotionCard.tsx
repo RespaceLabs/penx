@@ -24,7 +24,7 @@ export function PromotionCard({ space }: Props) {
   if (isLoading || !data) return null
 
   return (
-    <div className="">
+    <div>
       {/* <Separator className="my-20"></Separator> */}
       <div
         className="flex items-center justify-between text-neutral-600 text-sm border border-slate-200/60 rounded-2xl p-4 cursor-pointer"
