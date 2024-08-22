@@ -17,7 +17,7 @@ export const precision = {
     if (isInt(value)) {
       return BigInt(Math.pow(10, decimal)) * BigInt(value)
     }
-    return BigInt(times(Math.pow(10, decimal), value))
+    return BigInt(times(Math.pow(10, decimal).toFixed(0), value))
   },
 
   rate(value: number | string, decimal = Decimals.RATE) {
