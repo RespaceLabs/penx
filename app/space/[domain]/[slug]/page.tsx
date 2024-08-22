@@ -148,6 +148,7 @@ export default async function SpacePostPage({
                   'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
                 }
                 layout="responsive"
+                className="rounded-full"
                 height={40}
                 width={40}
               />

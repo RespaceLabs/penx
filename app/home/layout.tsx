@@ -12,14 +12,14 @@ export default function Layout({ children }: PropsWithChildren) {
       <div className="z-10  py-3 relative flex justify-between container">
         <div className="flex items-center gap-2 text-xl">
           <Logo className="w-7 h-7" />
-          <div className="font-bold" style={{ fontFamily: 'Merienda' }}>
+          <div className="font-bold">
             PenX
           </div>
           <Badge
             variant="outline"
             className="border-black font-semibold hidden md:flex"
           >
-            Beta on Arbitrum sepolia
+            Beta on Base sepolia
           </Badge>
         </div>
 

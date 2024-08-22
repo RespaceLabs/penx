@@ -29,3 +29,11 @@ export enum GateType {
   FREE = 'FREE',
   KEY_HOLDER = 'KEY_HOLDER',
 }
+
+export enum NetworkNames {
+  MAINNET = 'MAINNET',
+  DEVELOP = 'DEVELOP',
+  SEPOLIA = 'SEPOLIA',
+  ARB_SEPOLIA = 'ARB_SEPOLIA',
+  BASE_SEPOLIA = 'BASE_SEPOLIA',
+}

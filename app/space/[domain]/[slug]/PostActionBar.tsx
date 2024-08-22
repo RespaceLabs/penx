@@ -20,7 +20,7 @@ export function PostActionBar({ post }: Props) {
           }}
         >
           <span className="inline-flex i-[ph--hands-clapping-light] w-5 h-5"></span>
-          <span className="inline-flex -mb-[2px]">10</span>
+          <span className="inline-flex -mb-[2px]">1623</span>
         </div>
       </div>
       <div

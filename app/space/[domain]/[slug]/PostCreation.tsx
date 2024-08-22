@@ -33,7 +33,7 @@ export function PostCreation({ canRead, post }: Props) {
 
       <div className="grid gap-4 mt-8">
         {post.space.sponsorCount > 0 && <PromotionCard space={post.space} />}
-        <CurationCard space={post.space} />
+        {/* <CurationCard space={post.space} /> */}
       </div>
     </div>
   )
