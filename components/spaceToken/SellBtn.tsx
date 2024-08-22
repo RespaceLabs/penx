@@ -88,7 +88,7 @@ export const SellBtn = ({
     <>
       {isConnected ? (
         <Button
-          className="w-full h-[50px]"
+          className="w-full h-[50px] rounded-full"
           disabled={!isAmountValid || isInsufficientBalance || loading}
           onClick={() => onSell()}
         >
@@ -103,7 +103,7 @@ export const SellBtn = ({
           )}
         </Button>
       ) : (
-        <WalletConnectButton className="w-full h-[50px]">
+        <WalletConnectButton className="w-full h-[50px] rounded-full">
           Connect wallet
         </WalletConnectButton>
       )}

@@ -43,7 +43,7 @@ export function ClaimShareRewards({}: Props) {
       <div className="flex items-center gap-2">
         <Button
           variant="default"
-          className="rounded-full w-24"
+          className="rounded-xl w-24"
           onClick={async () => {
             try {
               const hash = await writeContractAsync({

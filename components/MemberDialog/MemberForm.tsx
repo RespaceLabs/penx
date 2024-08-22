@@ -45,10 +45,9 @@ const FormSchema = z.object({
 })
 
 export function MemberForm({ space }: Props) {
-  const { setIsOpen } = useMemberDialog()
   const [loading, setLoading] = useState(false)
   useQueryEthBalance()
-  const trade = useSubscribe(space)
+  const subscribe = useSubscribe(space)
   const { space: chainSpace } = useChainSpace()
   const { subscription } = useSubscription()
   const { data: tokenBalance } = useTokenBalance()
@@ -100,9 +99,8 @@ export function MemberForm({ space }: Props) {
     }
 
     const duration = Number(data.times) * Number(SECONDS_PER_DAY)
-    await trade(data.token, amount, isSubscribe, duration)
+    await subscribe(data.token, amount, isSubscribe, duration)
     setLoading(false)
-    setIsOpen(false)
   }
 
   return (

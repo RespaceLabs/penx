@@ -12,7 +12,7 @@ interface Props {}
 
 export function TradeList({}: Props) {
   const { space } = useSpace()
-  const { records: trades, isLoading } = useTrades()
+  const { trades: trades, isLoading } = useTrades()
 
   if (isLoading) {
     return (
@@ -24,6 +24,10 @@ export function TradeList({}: Props) {
           ))}
       </div>
     )
+  }
+
+  if (!trades?.length) {
+    return <div className="text-neutral-500">No trades yet!</div>
   }
 
   return (

@@ -9,6 +9,7 @@ import { useChainSpace } from '@/hooks/useChainSpace'
 import { useEthPrice } from '@/hooks/useEthPrice'
 import { useMembers } from '@/hooks/useMembers'
 import { useSpace } from '@/hooks/useSpace'
+import { cn } from '@/lib/utils'
 import { PencilLine } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { toast } from 'sonner'
@@ -20,7 +21,11 @@ export function MemberButton({}: Props) {
   const { isConnected } = useAccount()
 
   if (!isConnected) {
-    return <WalletConnectButton>Become a member</WalletConnectButton>
+    return (
+      <WalletConnectButton size="lg" className="rounded-lg">
+        Become a member
+      </WalletConnectButton>
+    )
   }
   return (
     <div className="flex flex-col gap-1">
@@ -40,7 +45,10 @@ function ConnectedButton() {
   return (
     <Button
       size="lg"
-      className="flex items-center gap-2 rounded-2xl"
+      className={cn(
+        'flex items-center gap-2 rounded-xl',
+        isMember && 'border-2 border-yellow-500',
+      )}
       onClick={() => {
         setIsOpen(true)
       }}
@@ -75,7 +83,7 @@ export function SubscriptionPrice() {
       <Button
         variant="ghost"
         size="xs"
-        className="h-7 w-7 p-1"
+        className="h-7 w-7 p-1 rounded"
         onClick={() => {
           if (space?.userId !== data?.userId) {
             toast.error('Only the owner can update the subscription price.')

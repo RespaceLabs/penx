@@ -9,5 +9,5 @@ export function useTrades() {
       enabled: !!space?.id,
     },
   )
-  return { records: trades, ...rest }
+  return { trades, ...rest }
 }

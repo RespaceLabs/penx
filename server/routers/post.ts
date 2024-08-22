@@ -27,6 +27,10 @@ export const postRouter = router({
       return [] as Post[]
     }),
 
+  publishedPosts: publicProcedure.input(z.string()).query(async ({ input }) => {
+    return [] as Post[]
+  }),
+
   byId: protectedProcedure.input(z.string()).query(async ({ input }) => {
     return {} as Post & {
       space: {

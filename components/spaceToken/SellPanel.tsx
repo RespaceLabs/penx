@@ -6,9 +6,7 @@ import { Space } from '@prisma/client'
 import { Button } from '../ui/button'
 import { AmountInput } from './AmountInput'
 import { EthBalance } from './EthBalance'
-import {
-  useSpaceTokenBalance,
-} from './hooks/useSpaceTokenBalance'
+import { useSpaceTokenBalance } from './hooks/useSpaceTokenBalance'
 import { SellBtn } from './SellBtn'
 import { SpaceTokenBalance } from './SpaceTokenBalance'
 
@@ -68,7 +66,7 @@ export const SellPanel = ({ space, isConnected }: Props) => {
             <img
               src={space.logo || ''}
               alt={space.symbolName}
-              className="w-5 h-auto rounded-2xl"
+              className="w-5 h-auto rounded-full"
             />
           }
           value={tokenAmount}
@@ -96,7 +94,9 @@ export const SellPanel = ({ space, isConnected }: Props) => {
         <AmountInput
           symbolName="ETH"
           disabled
-          icon={<img src="/eth.png" alt="ETH" className="w-5 h-auto rounded-2xl" />}
+          icon={
+            <img src="/eth.png" alt="ETH" className="w-5 h-auto rounded-full" />
+          }
           value={ethAmount}
           onChange={(value) => handleEthAmount(value)}
         />

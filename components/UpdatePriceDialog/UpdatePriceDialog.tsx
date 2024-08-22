@@ -18,7 +18,7 @@ export function UpdatePriceDialog() {
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create Channel</DialogTitle>
+          <DialogTitle>Update price</DialogTitle>
         </DialogHeader>
         <UpdatePriceForm />
       </DialogContent>

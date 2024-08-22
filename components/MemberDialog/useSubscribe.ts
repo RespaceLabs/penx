@@ -2,7 +2,7 @@ import { useAddress } from '@/hooks/useAddress'
 import { useMembers } from '@/hooks/useMembers'
 import { refetchSpaces } from '@/hooks/useSpaces'
 import { useSubscription } from '@/hooks/useSubscription'
-import { spaceAbi } from '@/lib/abi'
+import { erc20Abi, spaceAbi } from '@/lib/abi'
 import { SubscriptionType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api } from '@/lib/trpc'
@@ -16,12 +16,14 @@ import {
 import { toast } from 'sonner'
 import { Address } from 'viem'
 import { useWriteContract } from 'wagmi'
+import { useMemberDialog } from './useMemberDialog'
 
 export function useSubscribe(space: RouterOutputs['space']['byId']) {
   const members = useMembers(space.id)
   const { writeContractAsync } = useWriteContract()
   const address = useAddress()
   const subscription = useSubscription()
+  const { setIsOpen } = useMemberDialog()
 
   return async (
     token: string,
@@ -32,6 +34,8 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
     const subscriptionType = isSubscribe
       ? SubscriptionType.SUBSCRIBE
       : SubscriptionType.UNSUBSCRIBE
+
+    const spaceAddress = space.spaceAddress as Address
     try {
       if (isSubscribe) {
         console.log(
@@ -41,17 +45,37 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
           space.spaceAddress,
         )
 
-        const hash = await writeContractAsync({
-          address: space.spaceAddress as Address,
-          abi: spaceAbi,
-          functionName: 'subscribeByEth',
-          value: amount,
-        })
+        let hash: any = ''
+
+        if (token === 'ETH') {
+          hash = await writeContractAsync({
+            address: spaceAddress,
+            abi: spaceAbi,
+            functionName: 'subscribeByEth',
+            value: amount,
+          })
+        } else {
+          const approveTx = await writeContractAsync({
+            address: spaceAddress,
+            abi: erc20Abi,
+            functionName: 'approve',
+            args: [spaceAddress, amount],
+          })
+
+          await waitForTransactionReceipt(wagmiConfig, { hash: approveTx })
+
+          hash = await writeContractAsync({
+            address: spaceAddress,
+            abi: spaceAbi,
+            functionName: 'subscribeByToken',
+            args: [amount],
+          })
+        }
 
         await waitForTransactionReceipt(wagmiConfig, { hash })
       } else {
         const hash = await writeContractAsync({
-          address: space.spaceAddress as Address,
+          address: spaceAddress,
           abi: spaceAbi,
           functionName: 'unsubscribeByToken',
           args: [amount],
@@ -88,8 +112,9 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
       ])
 
       toast.success('Subscribe successful!')
+      setIsOpen(false)
     } catch (error) {
-      console.log('=======>>>>error:', JSON.stringify(error))
+      console.log('=======>>>>error:', error)
       const msg = extractErrorMessage(error)
       toast.error(msg)
     } finally {

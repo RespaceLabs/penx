@@ -12,8 +12,11 @@ interface Props {
 
 export function PostList({ space }: Props) {
   const params = useParams() as Record<string, string>
-  const { data: posts = [], isLoading } = trpc.post.listBySpaceId.useQuery(
+  const { data: posts = [], isLoading } = trpc.post.publishedPosts.useQuery(
     params.id,
+    {
+      enabled: !!params?.id,
+    },
   )
 
   if (isLoading) {
