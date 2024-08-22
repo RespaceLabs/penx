@@ -20,7 +20,7 @@ const fontSans = FontSans({
 
 const title = 'PenX: the space for web3 creator'
 const description =
-  'PenX is the the space for web3 creator, find 1000 true fans in PenX'
+  'PenX is the space for web3 creator, find 1000 true fans in PenX'
 const image = 'https://vercel.pub/thumbnail.png'
 
 export const metadata: Metadata = {
@@ -67,10 +67,19 @@ export default async function RootLayout({
       },
     )
   }
-  // console.log('======token:', token)
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {process.env.NEXT_PUBLIC_UMAMIC_WEBSITE_ID && (
+          <script
+            async
+            defer
+            src="https://umamic.penx.io/script.js"
+            data-website-id={process.env.NEXT_PUBLIC_UMAMIC_WEBSITE_ID}
+          ></script>
+        )}
+      </head>
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',

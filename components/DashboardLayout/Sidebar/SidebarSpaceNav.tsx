@@ -7,7 +7,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { useAddress } from '@/hooks/useAddress'
 import { useChannels } from '@/hooks/useChannels'
+import { useMembers } from '@/hooks/useMembers'
 import { postAtom } from '@/hooks/usePost'
 import { usePosts } from '@/hooks/usePosts'
 import { useSpace } from '@/hooks/useSpace'
@@ -20,8 +22,6 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { useMembers } from '@/hooks/useMembers'
-import { useAddress } from '@/hooks/useAddress'
 
 export function SidebarSpaceNav() {
   const pathname = usePathname()
@@ -29,11 +29,12 @@ export function SidebarSpaceNav() {
   const { data: session } = useSession()
   const { channels } = useChannels()
   const { posts } = usePosts()
-  const { members } = useMembers(space.id)
+  const { members } = useMembers(space?.id)
   const address = useAddress()
   const router = useRouter()
 
   const tabs = useMemo(() => {
+    if (!space) return []
     const list = [
       {
         name: `${space?.name} | $${space?.symbolName}` || '',
@@ -44,7 +45,7 @@ export function SidebarSpaceNav() {
             <Home size={20} />
             <Image
               src={
-                space.logo! ||
+                space?.logo! ||
                 'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
               }
               alt=""
@@ -59,18 +60,18 @@ export function SidebarSpaceNav() {
         name: 'Posts',
         memberOnly: true,
         href: posts.length
-          ? `/~/space/${space.id}/post/${posts[0].id}`
-          : `/~/space/${space.id}/create-post`,
+          ? `/~/space/${space?.id}/post/${posts[0].id}`
+          : `/~/space/${space?.id}/create-post`,
         isActive:
-          pathname.startsWith(`/~/space/${space.id}/post/`) ||
-          pathname === `/~/space/${space.id}/create-post`,
+          pathname.startsWith(`/~/space/${space?.id}/post/`) ||
+          pathname === `/~/space/${space?.id}/create-post`,
         icon: <FeatherIcon width={20} />,
       },
       {
         name: 'Chat',
         memberOnly: true,
-        href: `/~/space/${space.id}/channel/${channels?.[0]?.id}`,
-        isActive: pathname.startsWith(`/~/space/${space.id}/channel/`),
+        href: `/~/space/${space?.id}/channel/${channels?.[0]?.id}`,
+        isActive: pathname.startsWith(`/~/space/${space?.id}/channel/`),
         icon: <MessageCircleMore width={20} />,
       },
     ]
@@ -79,44 +80,50 @@ export function SidebarSpaceNav() {
   }, [pathname, space, channels, posts])
 
   const isMember = useMemo<boolean>(() => {
-    if (space.userId === session?.userId) {
-
+    if (space?.userId === session?.userId) {
       return true // own
     } else {
-      const exists = members.some((item) => item?.user?.address === address);
+      const exists = members.some((item) => item?.user?.address === address)
       if (exists) {
-
         return true
       }
 
       return false
     }
-  }, [members, address])
+  }, [members, address, session?.userId, space])
 
   return (
     <div className="grid gap-1 items-center justify-center">
       {tabs.map(({ name, href, isActive, icon, memberOnly }) => {
-        return <div key={name}
-          className={cn(
-            'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer bg-accent border border-transparent',
-            isActive && (memberOnly && !isMember ? 'bg-sidebar' : 'bg-black/80 text-white hover:bg-black')
-          )}
-          onClick={async (e) => {
-            if (memberOnly && !isMember) {
-              toast.info('You must be a member of this space to access this feature.')
-              return
-            }
+        return (
+          <div
+            key={name}
+            className={cn(
+              'flex hover:bg-sidebar h-10 w-10 rounded-full cursor-pointer bg-accent border border-transparent',
+              isActive &&
+                (memberOnly && !isMember
+                  ? 'bg-sidebar'
+                  : 'bg-black/80 text-white hover:bg-black'),
+            )}
+            onClick={async (e) => {
+              if (memberOnly && !isMember) {
+                toast.info(
+                  'You must be a member of this space to access this feature.',
+                )
+                return
+              }
 
-            if (posts.length) {
-              const post = await api.post.byId.query(posts[0].id)
-              store.set(postAtom, post)
-            }
+              if (posts.length) {
+                const post = await api.post.byId.query(posts[0].id)
+                store.set(postAtom, post)
+              }
 
-            router.push(href)
-          }}
-        >
-          <Content icon={icon} name={name} />
-        </div>
+              router.push(href)
+            }}
+          >
+            <Content icon={icon} name={name} />
+          </div>
+        )
       })}
     </div>
   )
@@ -137,9 +144,7 @@ function Content({ icon, name }: ContentProps) {
           </div>
         </TooltipTrigger>
         <TooltipPortal>
-          <TooltipContent side="right">
-            {name}
-          </TooltipContent>
+          <TooltipContent side="right">{name}</TooltipContent>
         </TooltipPortal>
       </Tooltip>
     </TooltipProvider>
