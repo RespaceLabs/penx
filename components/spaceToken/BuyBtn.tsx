@@ -45,7 +45,7 @@ export const BuyBtn = ({
   const onBuy = async () => {
     setLoading(true)
     try {
-      const value = precision.token(ethAmount, 18)
+      const value = precision.token(ethAmount)
       const hash = await writeContractAsync({
         address: space.spaceAddress as Address,
         abi: spaceAbi,
@@ -67,7 +67,7 @@ export const BuyBtn = ({
 
       trade.refetch()
       afterSwap()
-      toast.success(`${space?.name} bought successfully!`)
+      toast.success(`Bought ${space?.symbolName} successfully!`)
     } catch (error) {
       const msg = extractErrorMessage(error)
       toast.error(msg)

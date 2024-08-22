@@ -24,7 +24,6 @@ const metadata = {
 }
 
 const NETWORK = process.env.NEXT_PUBLIC_NETWORK as NetworkNames
-console.log('=====NETWORK:', NETWORK)
 
 function getChain() {
   if (NETWORK === NetworkNames.ARB_SEPOLIA) {

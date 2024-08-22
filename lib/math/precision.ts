@@ -17,6 +17,7 @@ export const precision = {
     if (isInt(value)) {
       return BigInt(Math.pow(10, decimal)) * BigInt(value)
     }
+
     return BigInt(times(Math.pow(10, decimal), value).toFixed(0))
   },
 
@@ -24,7 +25,7 @@ export const precision = {
     if (isInt(value)) {
       return BigInt(Math.pow(10, decimal)) * BigInt(value)
     }
-    return BigInt(times(Math.pow(10, decimal), value))
+    return BigInt(times(Math.pow(10, decimal), value).toFixed(0))
   },
 
   price(value: number | string, decimal = Decimals.PRICE) {
@@ -39,10 +40,11 @@ export const precision = {
     decimals: number = Decimals.TOKEN,
   ) {
     if (!value) return 0
-    return div(value.toString(), Math.pow(10, decimals))
+    return div(value.toString(), Math.pow(10, decimals)).toNumber()
   },
+
   toRateDecimal(value: bigint) {
-    return div(value.toString(), Math.pow(10, Decimals.RATE))
+    return div(value.toString(), Math.pow(10, Decimals.RATE)).toNumber()
   },
 
   // Maintaining Numeric Precision

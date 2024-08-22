@@ -77,7 +77,7 @@ export const SellBtn = ({
       ])
       trade.refetch()
       handleSwap()
-      toast.success(`${space?.name} sell successfully!`)
+      toast.success(`Sold ${space?.symbolName} successfully!`)
     } catch (error) {
       toast.error(extractErrorMessage(error) || 'sell error')
     }

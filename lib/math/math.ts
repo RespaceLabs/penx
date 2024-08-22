@@ -6,7 +6,7 @@ export function plus(...args: Big.BigSource[]) {
   for (const item of rest) {
     big = big.plus(item)
   }
-  return big.toNumber()
+  return big
 }
 
 export function minus(value: Big.BigSource, ...args: Big.BigSource[]) {
@@ -14,7 +14,7 @@ export function minus(value: Big.BigSource, ...args: Big.BigSource[]) {
   for (const item of args) {
     big = big.minus(item)
   }
-  return big.toNumber()
+  return big
 }
 
 export function times(value: Big.BigSource, ...args: Big.BigSource[]) {
@@ -22,7 +22,7 @@ export function times(value: Big.BigSource, ...args: Big.BigSource[]) {
   for (const item of args) {
     big = big.times(item)
   }
-  return big.toNumber()
+  return big
 }
 
 export function div(value: Big.BigSource, ...args: Big.BigSource[]) {
@@ -30,5 +30,5 @@ export function div(value: Big.BigSource, ...args: Big.BigSource[]) {
   for (const item of args) {
     big = big.div(item)
   }
-  return big.toNumber()
+  return big
 }
