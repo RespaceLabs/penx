@@ -17,6 +17,7 @@ import { useEthPrice } from '@/hooks/useEthPrice'
 import { useSpace } from '@/hooks/useSpace'
 import { spaceAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
+import { checkChain } from '@/lib/checkChain'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { wagmiConfig } from '@/lib/wagmi'
@@ -64,6 +65,7 @@ export function UpdatePriceForm() {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
+      await checkChain()
       const hash = await writeContractAsync({
         address: space.spaceAddress as Address,
         abi: spaceAbi,

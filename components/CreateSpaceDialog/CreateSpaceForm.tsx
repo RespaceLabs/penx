@@ -21,6 +21,7 @@ import { spaceIdAtom } from '@/hooks/useSpaceId'
 import { spacesAtom } from '@/hooks/useSpaces'
 import { spaceAbi, spaceFactoryAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
+import { checkChain } from '@/lib/checkChain'
 import { SELECTED_SPACE } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { revalidateMetadata } from '@/lib/revalidateTag'
@@ -126,6 +127,7 @@ export function CreateSpaceForm() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true)
     try {
+      await checkChain()
       const hash = await writeContractAsync({
         address: addressMap.SpaceFactory,
         abi: spaceFactoryAbi,

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useEthBalance, useQueryEthBalance } from '@/hooks/useEthBalance'
 import { useTrades } from '@/hooks/useTrades'
 import { erc20Abi, spaceAbi } from '@/lib/abi'
+import { checkChain } from '@/lib/checkChain'
 import { TradeType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
@@ -45,6 +46,7 @@ export const SellBtn = ({
   const onSell = async () => {
     setLoading(true)
     try {
+      await checkChain()
       const value = precision.toExactDecimalBigint(tokenAmount)
       const contractAddress = space.spaceAddress as Address
       const approveTx = await writeContractAsync({

@@ -25,7 +25,7 @@ const metadata = {
 
 const NETWORK = process.env.NEXT_PUBLIC_NETWORK as NetworkNames
 
-function getChain() {
+export function getChain() {
   if (NETWORK === NetworkNames.ARB_SEPOLIA) {
     return {
       ...arbitrumSepolia,

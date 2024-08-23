@@ -6,6 +6,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useAddress } from '@/hooks/useAddress'
 import { useSpace } from '@/hooks/useSpace'
 import { spaceAbi } from '@/lib/abi'
+import { checkChain } from '@/lib/checkChain'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { wagmiConfig } from '@/lib/wagmi'
@@ -46,6 +47,7 @@ export function ClaimShareRewards({}: Props) {
           className="rounded-xl w-24"
           onClick={async () => {
             try {
+              await checkChain()
               const hash = await writeContractAsync({
                 address: space.spaceAddress as Address,
                 abi: spaceAbi,

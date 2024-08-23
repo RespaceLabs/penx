@@ -3,6 +3,7 @@ import { useMembers } from '@/hooks/useMembers'
 import { refetchSpaces } from '@/hooks/useSpaces'
 import { useSubscription } from '@/hooks/useSubscription'
 import { erc20Abi, spaceAbi } from '@/lib/abi'
+import { checkChain } from '@/lib/checkChain'
 import { SubscriptionType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api } from '@/lib/trpc'
@@ -37,14 +38,8 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
 
     const spaceAddress = space.spaceAddress as Address
     try {
+      await checkChain()
       if (isSubscribe) {
-        console.log(
-          '=====amount:',
-          amount,
-          'space.spaceAddress:',
-          space.spaceAddress,
-        )
-
         let hash: any = ''
 
         if (token === 'ETH') {
