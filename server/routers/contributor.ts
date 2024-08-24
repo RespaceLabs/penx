@@ -32,11 +32,13 @@ export const contributorRouter = router({
       return {} as Contributor
     }),
 
-  update: protectedProcedure
+  transferShares: protectedProcedure
     .input(
       z.object({
-        id: z.string(),
-        share: z.string(),
+        toId: z.string(),
+        fromId: z.string(),
+        fromShares: z.string(),
+        toShares: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {

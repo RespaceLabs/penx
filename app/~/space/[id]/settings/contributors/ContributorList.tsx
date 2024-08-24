@@ -1,16 +1,20 @@
 'use client'
 
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { UserAvatar } from '@/components/UserAvatar'
 import { useContributors } from '@/hooks/useContributors'
 import { useSpace } from '@/hooks/useSpace'
-import { trpc } from '@/lib/trpc'
 import { cn, shortenAddress } from '@/lib/utils'
+import { useSession } from 'next-auth/react'
+import { useGiveShareDialog } from './GiveShareDialog/useGiveShareDialog'
 
 export function ContributorList() {
   const { space } = useSpace()
   const { contributors = [], isLoading } = useContributors()
+  const { setState } = useGiveShareDialog()
+  const { data: session } = useSession()
 
   if (isLoading) {
     return (
@@ -49,8 +53,19 @@ export function ContributorList() {
               <Badge variant="outline">Shareholder</Badge>
             )}
           </div>
-          <div>
+          <div className="flex gap-2 items-center">
             <span className="font-bold">{item.shares}</span> shares
+            <Button
+              size="sm"
+              variant="outline"
+              className="rounded-xl"
+              disabled={item.user.id === session?.userId}
+              onClick={() => {
+                setState({ isOpen: true, contributor: item })
+              }}
+            >
+              Give shares
+            </Button>
           </div>
         </div>
       ))}
