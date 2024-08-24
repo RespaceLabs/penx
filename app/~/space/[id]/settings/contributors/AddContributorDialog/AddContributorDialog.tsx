@@ -17,7 +17,9 @@ export function AddContributorDialog() {
   return (
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
       <DialogTrigger asChild>
-        <Button onClick={() => setIsOpen(true)}>Add Contributor</Button>
+        <Button className="rounded-xl" onClick={() => setIsOpen(true)}>
+          Add Contributor
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

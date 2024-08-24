@@ -8,6 +8,7 @@ export const contributorRouter = router({
     .query(async ({ input }) => {
       return [] as (Contributor & {
         user: {
+          id: string
           name: string | null
           ensName: string | null
           email: string | null
@@ -25,7 +26,6 @@ export const contributorRouter = router({
       z.object({
         spaceId: z.string(),
         address: z.string(),
-        share: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
