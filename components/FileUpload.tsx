@@ -40,7 +40,7 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
 
   return (
     <div ref={ref}>
-      <div className="w-20 h-20 rounded-2xl bg-accent relative cursor-pointer flex items-center justify-center">
+      <div className="w-20 h-20 rounded-2xl bg-accent relative cursor-pointer flex items-center justify-center overflow-hidden">
         {value && (
           <Image
             src={value || ''}
@@ -58,7 +58,7 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
         />
         {loading && <LoadingDots />}
         <div
-          className="rounded-full h-6 w-6 border flex items-center justify-center bg-white absolute top-2 right-2"
+          className="rounded-full h-6 w-6 border flex items-center justify-center bg-white absolute top-1 right-1"
           onClick={() => {
             inputRef.current?.click()
           }}

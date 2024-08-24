@@ -6,7 +6,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { UserAvatar } from '@/components/UserAvatar'
 import { useContributors } from '@/hooks/useContributors'
 import { useSpace } from '@/hooks/useSpace'
-import { cn, shortenAddress } from '@/lib/utils'
+import { shortenAddress } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
 import { useGiveShareDialog } from './GiveShareDialog/useGiveShareDialog'
 
@@ -55,6 +55,7 @@ export function ContributorList() {
           </div>
           <div className="flex gap-2 items-center">
             <span className="font-bold">{item.shares}</span> shares
+            <div>{getPercent(item.shares)}</div>
             <Button
               size="sm"
               variant="outline"
@@ -69,6 +70,14 @@ export function ContributorList() {
           </div>
         </div>
       ))}
+    </div>
+  )
+}
+
+function getPercent(shares: number) {
+  return (
+    <div className="text-sm text-neutral-500">
+      ({(shares / 1_000_000) * 100}%)
     </div>
   )
 }

@@ -102,7 +102,7 @@ export function SpaceInfo({}: Props) {
         </div>
       </div>
 
-      {session?.userId === space.userId && <ClaimShareRewards />}
+      <ClaimShareRewards />
 
       <div className="border-b">
         <Link href={Paths.posts} className={linkClassName(Paths.posts)}>
