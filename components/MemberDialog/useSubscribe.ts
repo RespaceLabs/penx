@@ -47,6 +47,7 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
             address: spaceAddress,
             abi: spaceAbi,
             functionName: 'subscribeByEth',
+            args: [0],
             value: amount,
           })
         } else {
@@ -62,8 +63,8 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
           hash = await writeContractAsync({
             address: spaceAddress,
             abi: spaceAbi,
-            functionName: 'subscribeByToken',
-            args: [amount],
+            functionName: 'subscribe',
+            args: [0, amount],
           })
         }
 
@@ -72,8 +73,8 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
         const hash = await writeContractAsync({
           address: spaceAddress,
           abi: spaceAbi,
-          functionName: 'unsubscribeByToken',
-          args: [amount],
+          functionName: 'unsubscribe',
+          args: [0, amount],
         })
 
         console.log('========amount:', amount)
@@ -85,7 +86,7 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
         address: space.spaceAddress as Address,
         abi: spaceAbi,
         functionName: 'getSubscription',
-        args: [address],
+        args: [0, address],
       })
 
       await api.subscriptionRecord.upsertSubscription.mutate({

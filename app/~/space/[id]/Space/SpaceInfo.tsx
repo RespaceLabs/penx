@@ -7,7 +7,6 @@ import { UpdatePriceDialog } from '@/components/UpdatePriceDialog/UpdatePriceDia
 import { useSpace } from '@/hooks/useSpace'
 import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ClaimShareRewards } from './ClaimShareRewards'
@@ -23,7 +22,6 @@ export function SpaceInfo({}: Props) {
   const pathname = usePathname()
   const { data: session } = useSession()
   const { isLoading, space } = useSpace()
-  const isOwner = session?.userId === space?.userId
 
   if (isLoading) {
     return (
@@ -71,7 +69,7 @@ export function SpaceInfo({}: Props) {
           <SpaceBasicInfo />
           <div className="flex gap-2">
             <SpaceHomeLink subdomain={space.subdomain!} />
-            <SpaceTheme />
+            {session && <SpaceTheme />}
             <SpaceAddress />
           </div>
         </div>
@@ -83,7 +81,7 @@ export function SpaceInfo({}: Props) {
         </div>
       </div>
 
-      <ClaimShareRewards />
+      {session && <ClaimShareRewards />}
 
       <div className="border-b">
         <Link href={Paths.posts} className={linkClassName(Paths.posts)}>

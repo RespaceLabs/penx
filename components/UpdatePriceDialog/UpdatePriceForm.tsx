@@ -69,8 +69,8 @@ export function UpdatePriceForm() {
       const hash = await writeContractAsync({
         address: space.spaceAddress as Address,
         abi: spaceAbi,
-        functionName: 'setSubscriptionPrice',
-        args: [precision.token(Number(data.price) / ethPrice)],
+        functionName: 'setPlanPrice',
+        args: [0, precision.token(Number(data.price) / ethPrice)],
       })
 
       await waitForTransactionReceipt(wagmiConfig, { hash })

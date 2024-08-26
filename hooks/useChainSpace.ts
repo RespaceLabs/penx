@@ -6,7 +6,7 @@ import { spaceAbi } from '@/lib/abi'
 import { store } from '@/store'
 import { atom, useAtom } from 'jotai'
 import { Address } from 'viem'
-import { useReadContract } from 'wagmi'
+import { useReadContract, useReadContracts } from 'wagmi'
 import { useSpace } from './useSpace'
 
 export const chainSpaceAtom = atom<Space>({} as Space)
@@ -29,12 +29,32 @@ export function useQueryChainSpace() {
     query: { enabled: !!space?.spaceAddress },
   })
 
+  const { data: res } = useReadContracts({
+    contracts: [
+      {
+        address: space?.spaceAddress as Address,
+        abi: spaceAbi,
+        functionName: 'getSpaceInfo',
+      },
+      {
+        address: space?.spaceAddress as Address,
+        abi: spaceAbi,
+        functionName: 'getPlan',
+        args: [0],
+      },
+    ],
+    query: { enabled: !!space?.spaceAddress },
+  })
+
   useEffect(() => {
-    if (typeof data === 'undefined') return
-    if (data) {
-      store.set(chainSpaceAtom, new Space(data))
+    if (typeof res === 'undefined' || !Array.isArray(res)) return
+    if (res) {
+      store.set(
+        chainSpaceAtom,
+        new Space(res[0].result as any, res[1].result as any),
+      )
     }
-  }, [data])
+  }, [res])
 
   return { data, ...rest }
 }

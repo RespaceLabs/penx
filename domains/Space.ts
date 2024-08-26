@@ -1,5 +1,4 @@
 import { precision } from '@/lib/math'
-import { toFloorFixed } from '@/lib/utils'
 import { Address } from 'viem'
 import { bigint } from 'zod'
 
@@ -14,7 +13,6 @@ export type SpaceRaw = {
   insuranceTokenAmount: bigint
   daoFee: bigint
   stakingFee: bigint
-  subscriptionPrice: bigint
   subscriptionIncome: bigint
   totalStaked: bigint
   accumulatedRewardsPerToken: bigint
@@ -22,35 +20,46 @@ export type SpaceRaw = {
   accumulatedRewardsPerShare: bigint
 }
 
+export type PlanRaw = {
+  uri: string
+  price: bigint
+  isActive: boolean
+}
+
 export const FEE_RATE = BigInt(1) // 1%
 export const SECONDS_PER_MONTH = BigInt(24 * 60 * 60 * 30) // 30 days
 export const SECONDS_PER_DAY = BigInt(24 * 60 * 60) // 1 days
 
 export class Space {
-  constructor(public raw: SpaceRaw) {}
+  constructor(
+    public spaceRaw: SpaceRaw,
+    public planRaw: PlanRaw,
+  ) {}
 
   get x() {
-    return this.raw.x
+    return this.spaceRaw.x
   }
 
   get y() {
-    return this.raw.y
+    return this.spaceRaw.y
   }
 
   get k() {
-    return this.raw.k
+    return this.spaceRaw.k
   }
 
   get subscriptionPrice() {
-    return this.raw.subscriptionPrice
+    console.log('====this.planRaw.price:', this.planRaw, this.planRaw.price)
+
+    return this.planRaw.price
   }
 
   get subscriptionPriceDecimal() {
-    return precision.toDecimal(this.raw.subscriptionPrice)
+    return precision.toDecimal(this.subscriptionPrice)
   }
 
   get symbolName() {
-    return this.raw.symbol
+    return this.spaceRaw.symbol
   }
 
   getUsdPrice(ethPrice: number) {
@@ -77,6 +86,8 @@ export class Space {
   }
 
   getEthPricePerSecond() {
+    console.log('========this.subscriptionPrice:', this.subscriptionPrice)
+
     const ethPricePerSecond = this.subscriptionPrice / SECONDS_PER_MONTH
     return ethPricePerSecond
   }

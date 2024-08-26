@@ -12,7 +12,7 @@ export function useSubscription() {
     address: space.spaceAddress as Address,
     abi: spaceAbi,
     functionName: 'getSubscription',
-    args: [address],
+    args: [0, address],
   })
 
   return {
