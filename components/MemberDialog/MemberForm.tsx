@@ -29,7 +29,6 @@ import LoadingDots from '../icons/loading-dots'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
 import { AmountInput } from './AmountInput'
 import { TokenSelect } from './TokenSelect'
-import { useMemberDialog } from './useMemberDialog'
 import { useSubscribe } from './useSubscribe'
 
 interface Props {
@@ -214,6 +213,7 @@ export function MemberForm({ space }: Props) {
 
 function TokenBalance() {
   const { data, isLoading } = useSubscription()
+
   if (isLoading) return null
   const subscription = new Subscription(data!)
 

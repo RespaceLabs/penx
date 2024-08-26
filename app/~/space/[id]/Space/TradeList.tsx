@@ -49,7 +49,7 @@ export function TradeList({}: Props) {
                 item.type === TradeType.SELL && 'text-red-500',
               )}
             >
-              {item.type === TradeType.BUY ? 'Bought' : 'sold'}
+              {item.type === TradeType.BUY ? 'bought' : 'sold'}
             </div>
           </div>
           <div>

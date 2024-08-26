@@ -106,7 +106,10 @@ export function useSubscribe(space: RouterOutputs['space']['byId']) {
         refetchSpaces(),
       ])
 
-      toast.success('Subscribe successful!')
+      if (isSubscribe) {
+      } else {
+        toast.success('Unsubscribe successful!')
+      }
       setIsOpen(false)
     } catch (error) {
       console.log('=======>>>>error:', error)

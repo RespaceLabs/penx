@@ -58,7 +58,7 @@ export class Subscription {
     if (seconds < secondsInADay) {
       const hours = seconds / secondsInAnHour
       return `${toFloorFixed(hours, 2)} hours`
-    } else if (seconds < secondsInAMonth) {
+    } else {
       const days = seconds / secondsInADay
       return `${toFloorFixed(days, 2)} days`
     }
