@@ -2,10 +2,10 @@ import { HTMLAttributes, Suspense } from 'react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
-import { Space } from '@prisma/client'
+import { Space } from '@/theme-helper/types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { CurationCard } from '../../[slug]/CurationCard'
+import { CurationCard } from './CurationCard'
 import { MemberAvatarList } from './MemberAvatarList'
 
 interface Props extends HTMLAttributes<any> {
@@ -37,7 +37,7 @@ export function SpaceSidebar({ space, className }: Props) {
           <Link href={`/~/space/${space.id}`}>Become a member</Link>
         </Button>
 
-        <CurationCard space={space} />
+        {/* <CurationCard space={space} /> */}
 
         <div className="grid gap-5 mt-5">
           <MemberAvatarList spaceId={space.id} />

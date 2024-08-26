@@ -1,19 +1,10 @@
-import BlurImage from '@/components/blur-image'
-import { Badge } from '@/components/ui/badge'
 import { PostWithSpace } from '@/hooks/usePost'
 import { getSession } from '@/lib/auth'
-import { GateType, PostType } from '@/lib/constants'
+import { GateType } from '@/lib/constants'
 import { getPostData, getSpaceData } from '@/lib/fetchers'
 import prisma from '@/lib/prisma'
-import { toDateString } from '@/lib/utils'
-import { TipTapNode, TipTapRender } from '@troop.com/tiptap-react-render'
 import { notFound } from 'next/navigation'
-import { GateCover } from './GateCover'
-import { handlers } from './handlers'
-import { ImageCreation } from './ImageCreation'
-import { PostActionBar } from './PostActionBar'
-import { PostCreation } from './PostCreation'
-import { PromotionCard } from './PromotionCard'
+import { getTheme } from '../getTheme'
 
 export const dynamic = 'force-dynamic'
 // export const dynamic = 'force-static'
@@ -124,58 +115,8 @@ export default async function SpacePostPage({
 
   const canRead = await checkCanRead(post)
 
-  return (
-    <div className="pb-20 min-h-[72vh]">
-      <div className="flex flex-col mx-auto w-[720px]">
-        <div>
-          <h1 className="mb-10 font-title text-3xl font-bold text-stone-800 dark:text-white md:text-6xl">
-            {post.title}
-          </h1>
-          {post.description && (
-            <p className="text-md m-auto w-10/12 text-stone-600 dark:text-stone-400 md:text-lg">
-              {post.description}
-            </p>
-          )}
-        </div>
+  const { Post } = getTheme(post.space.themeName)
 
-        <div className="flex justify-between items-center">
-          <div className="flex gap-2 items-center font-semibold">
-            <div className="h-10 w-10 rounded-full inline-flex">
-              <BlurImage
-                alt={post.space!.name ?? 'User Avatar'}
-                src={
-                  post.space!.logo ||
-                  'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
-                }
-                layout="responsive"
-                className="rounded-full"
-                height={40}
-                width={40}
-              />
-            </div>
-
-            <div>{post.space?.name}</div>
-
-            <div>
-              <Badge variant="secondary" className="inline-flex py-1">
-                {toDateString(post.createdAt)}
-              </Badge>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            {/* <PostTradeModal space={post.space} post={post} /> */}
-          </div>
-        </div>
-
-        {post.type === PostType.ARTICLE && (
-          <PostCreation canRead={canRead} post={post} />
-        )}
-
-        {post.type === PostType.IMAGE && (
-          <ImageCreation canRead={canRead} post={post} />
-        )}
-      </div>
-    </div>
-  )
+  if (!Post) return null
+  return <Post post={post} isGated={!canRead} />
 }

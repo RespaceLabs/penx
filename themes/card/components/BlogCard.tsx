@@ -1,13 +1,10 @@
 import BlurImage from '@/components/blur-image'
 import { placeholderBlurhash, toDateString } from '@/lib/utils'
-import type { Post } from '@prisma/client'
+import { Post } from '@/theme-helper/types'
 import Link from 'next/link'
 
 interface BlogCardProps {
-  data: Pick<
-    Post,
-    'slug' | 'image' | 'imageBlurhash' | 'title' | 'description' | 'createdAt'
-  >
+  data: Post
   domain: string
 }
 

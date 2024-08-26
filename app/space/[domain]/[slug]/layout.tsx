@@ -1,11 +1,8 @@
 import { ReactNode } from 'react'
-import { Profile } from '@/components/Profile/Profile'
-import { SpaceFooter } from '@/components/SpaceFooter'
 import { getSpaceData } from '@/lib/fetchers'
 import { Metadata } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
+import { getTheme } from '../getTheme'
 
 export async function generateMetadata({
   params,
@@ -64,52 +61,22 @@ export default async function SpaceLayout({
   children: ReactNode
 }) {
   const domain = decodeURIComponent(params.domain).replace(/^@/, '')
-  const data = await getSpaceData(domain)
+  const space = await getSpaceData(domain)
 
-  if (!data) {
+  if (!space) {
     notFound()
   }
 
   // Optional: Redirect to custom domain if it exists
   if (
     domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
-    data.customDomain &&
+    space.customDomain &&
     process.env.REDIRECT_TO_CUSTOM_DOMAIN_IF_EXISTS === 'true'
   ) {
-    return redirect(`https://${data.customDomain}`)
+    return redirect(`https://${space.customDomain}`)
   }
 
-  return (
-    <div>
-      <div className="h-[56px] flex items-center justify-between px-3">
-        <div>
-          <Link
-            href={`/@${domain}`}
-            className="flex items-center justify-center"
-          >
-            <div className="inline-flex h-8 w-8 rounded-full align-middle">
-              <Image
-                alt={data.name || ''}
-                layout="responsive"
-                height={40}
-                width={40}
-                src={
-                  data.logo ||
-                  'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
-                }
-              />
-            </div>
-            <span className="ml-3 inline-block truncate font-title font-medium text-foreground">
-              {data.name}
-            </span>
-          </Link>
-        </div>
-        <Profile />
-      </div>
-
-      <div className="mt-20">{children}</div>
-
-      <SpaceFooter />
-    </div>
-  )
+  const { PostLayout } = getTheme(space.themeName)
+  if (!PostLayout) return <>{children}</>
+  return <PostLayout space={space}>{children}</PostLayout>
 }

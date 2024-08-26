@@ -12,6 +12,10 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ClaimShareRewards } from './ClaimShareRewards'
 import { MemberButton } from './MemberButton'
+import { SpaceAddress } from './SpaceAddress'
+import { SpaceBasicInfo } from './SpaceBasicInfo'
+import { SpaceHomeLink } from './SpaceHomeLink'
+import { SpaceTheme } from './SpaceTheme'
 
 interface Props {}
 
@@ -60,38 +64,15 @@ export function SpaceInfo({}: Props) {
       path === pathname && 'border-black',
     )
 
-  const url = `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/@${space.subdomain}`
   return (
     <div className="grid gap-6">
       <div className="flex md:flex-row flex-col justify-between w-full gap-y-2">
-        <div className="flex items-center gap-2">
-          <Image
-            alt={space.name || ''}
-            className=" w-20 h-20 rounded-full"
-            height={80}
-            width={80}
-            src={
-              space.logo ||
-              'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
-            }
-          />
-
-          <div className="grid gap-1">
-            <div className="flex items-center gap-2">
-              <div className="font-semibold text-lg">{space.name}</div>
-              <Badge variant="secondary">{isOwner ? 'Owner' : 'Member'}</Badge>
-              <a
-                href={`/@${space.subdomain}`}
-                target="_blank"
-                rel="noreferrer"
-                className="truncate rounded-md bg-stone-100 px-2 py-1 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-200 hidden md:block"
-              >
-                {url} ↗
-              </a>
-            </div>
-            <div className="text-sm text-secondary-foreground">
-              {space.description || 'No description yet.'}
-            </div>
+        <div className="flex flex-col gap-2">
+          <SpaceBasicInfo />
+          <div className="flex gap-2">
+            <SpaceHomeLink subdomain={space.subdomain!} />
+            <SpaceTheme />
+            <SpaceAddress />
           </div>
         </div>
 

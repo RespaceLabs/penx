@@ -11,6 +11,7 @@ import { postRouter } from './routers/post'
 import { spaceRouter } from './routers/space'
 import { sponsorRouter } from './routers/sponsor'
 import { subscriptionRecordRouter } from './routers/subscriptionRecord'
+import { themeRouter } from './routers/theme'
 import { tradeRouter } from './routers/trade'
 import { userRouter } from './routers/user'
 import { createCallerFactory, publicProcedure, router } from './trpc'
@@ -22,6 +23,7 @@ export const appRouter = router({
   post: postRouter,
   space: spaceRouter,
   channel: channelRouter,
+  theme: themeRouter,
   member: memberRouter,
   message: messageRouter,
   trade: tradeRouter,

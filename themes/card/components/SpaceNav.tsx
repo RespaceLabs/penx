@@ -1,6 +1,6 @@
 import { Logo } from '@/components/Logo'
 import { Profile } from '@/components/Profile/Profile'
-import { Space } from '@prisma/client'
+import { Space } from '@/theme-helper/types'
 import Link from 'next/link'
 
 interface Props {

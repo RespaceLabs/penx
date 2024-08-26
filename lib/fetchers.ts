@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma'
 import { unstable_cache } from 'next/cache'
 
+
 export async function getSpaceData(domain: string) {
   return await unstable_cache(
     async () => {

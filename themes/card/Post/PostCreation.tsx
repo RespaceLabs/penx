@@ -1,6 +1,5 @@
-import { Post, Space } from '@prisma/client'
+import { Post } from '@/theme-helper/types'
 import { TipTapNode, TipTapRender } from '@troop.com/tiptap-react-render'
-import { CurationCard } from './CurationCard'
 import { GateCover } from './GateCover'
 import { handlers } from './handlers'
 import { PostActionBar } from './PostActionBar'
@@ -8,9 +7,7 @@ import { PromotionCard } from './PromotionCard'
 
 interface Props {
   canRead: boolean
-  post: Post & {
-    space: Space
-  }
+  post: Post
 }
 
 export function PostCreation({ canRead, post }: Props) {

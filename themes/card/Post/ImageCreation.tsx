@@ -1,11 +1,9 @@
-import { Post, Space } from '@prisma/client'
+import { Post } from '@/theme-helper/types'
 import Image from 'next/image'
 
 interface Props {
   canRead: boolean
-  post: Post & {
-    space: Space
-  }
+  post: Post
 }
 
 export function ImageCreation({ post }: Props) {

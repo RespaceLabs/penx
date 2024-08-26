@@ -37,7 +37,7 @@ export function PublishPopover({ onPublish, post, isPending }: Props) {
           Publish
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-[400px] flex flex-col gap-5">
+      <PopoverContent align="end" className="w-[460px] flex flex-col gap-5">
         <div className="text-center text-xl font-semibold">
           Publish your post
         </div>
@@ -71,11 +71,7 @@ export function PublishPopover({ onPublish, post, isPending }: Props) {
               setOpen(false)
             }}
           >
-            {isPending ? (
-              <LoadingDots color="#808080" />
-            ) : (
-              <div>Sign and Publish</div>
-            )}
+            {isPending ? <LoadingDots color="#808080" /> : <div>Publish</div>}
           </Button>
         </div>
       </PopoverContent>
@@ -91,20 +87,18 @@ interface GateTypeSelectProps {
 function GateTypeSelect({ value, onSelect }: GateTypeSelectProps) {
   return (
     <div className="flex gap-2">
-      <div className="flex gap-2">
-        <GateTypeItem
-          selected={value === GateType.FREE}
-          title="Free"
-          description="Any one can read this post"
-          onClick={() => onSelect(GateType.FREE)}
-        />
-        <GateTypeItem
-          selected={value === GateType.KEY_HOLDER}
-          title="Member only"
-          description="Only member can read this post"
-          onClick={() => onSelect(GateType.KEY_HOLDER)}
-        />
-      </div>
+      <GateTypeItem
+        selected={value === GateType.FREE}
+        title="Free"
+        description="Any one can read this post"
+        onClick={() => onSelect(GateType.FREE)}
+      />
+      <GateTypeItem
+        selected={value === GateType.MEMBER_ONLY}
+        title="Member only"
+        description="Only member can read this post"
+        onClick={() => onSelect(GateType.MEMBER_ONLY)}
+      />
     </div>
   )
 }

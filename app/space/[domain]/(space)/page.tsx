@@ -1,7 +1,7 @@
 import { getPostsForSpace, getSpaceData } from '@/lib/fetchers'
 import prisma from '@/lib/prisma'
 import { notFound } from 'next/navigation'
-import BlogCard from './SpaceHome/BlogCard'
+import { getTheme } from '../getTheme'
 
 // export const dynamic = 'force-static'
 export const dynamic = 'force-dynamic'
@@ -39,22 +39,16 @@ export default async function SpaceHomePage({
 }) {
   const domain = decodeURIComponent(params.domain).replace(/^@/, '')
 
-  const [data, posts] = await Promise.all([
+  const [space, posts] = await Promise.all([
     getSpaceData(domain),
     getPostsForSpace(domain),
   ])
 
-  if (!data) {
+  if (!space) {
     notFound()
   }
 
-  return (
-    <div className="grid w-full grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-2">
-      {!posts.length && <div className="text-neutral-500">No posts yet!</div>}
-
-      {posts.map((metadata, index: number) => (
-        <BlogCard key={index} data={metadata} domain={data.subdomain!} />
-      ))}
-    </div>
-  )
+  const { Home } = getTheme(space.themeName)
+  if (!Home) return null
+  return <Home space={space} posts={posts as any[]}></Home>
 }

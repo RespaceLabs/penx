@@ -1,7 +1,6 @@
 'use client'
 
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
   HoverCard,
   HoverCardContent,
@@ -9,7 +8,7 @@ import {
 } from '@/components/ui/hover-card'
 import { Separator } from '@/components/ui/separator'
 import { trpc } from '@/lib/trpc'
-import { Space } from '@prisma/client'
+import { Space } from '@/theme-helper/types'
 import Image from 'next/image'
 
 interface Props {

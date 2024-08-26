@@ -13,7 +13,7 @@ enum PostType {
 
 enum GateType {
   FREE = 'FREE',
-  KEY_HOLDER = 'KEY_HOLDER',
+  MEMBER_ONLY = 'MEMBER_ONLY',
 }
 
 export const postRouter = router({
@@ -92,7 +92,7 @@ export const postRouter = router({
     .input(
       z.object({
         id: z.string(),
-        gateType: z.enum([GateType.FREE, GateType.KEY_HOLDER]),
+        gateType: z.enum([GateType.FREE, GateType.MEMBER_ONLY]),
       }),
     )
     .mutation(async ({ ctx, input }) => {

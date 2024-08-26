@@ -44,6 +44,7 @@ export const spaceRouter = router({
         description: z.string().optional(),
         subdomain: z.string().optional(),
         logo: z.string().optional(),
+        themeName: z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {

@@ -27,7 +27,7 @@ export enum PostType {
 
 export enum GateType {
   FREE = 'FREE',
-  KEY_HOLDER = 'KEY_HOLDER',
+  MEMBER_ONLY = 'MEMBER_ONLY',
 }
 
 export enum NetworkNames {

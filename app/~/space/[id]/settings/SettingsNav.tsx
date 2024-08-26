@@ -15,11 +15,15 @@ export function SettingsNav() {
       href: `/~/space/${space.id}/settings`,
       segment: null,
     },
-
     {
       name: 'Contributors',
       href: `/~/space/${space.id}/settings/contributors`,
       segment: 'contributors',
+    },
+    {
+      name: 'Themes',
+      href: `/~/space/${space.id}/settings/themes`,
+      segment: 'themes',
     },
     {
       name: 'Domain',
