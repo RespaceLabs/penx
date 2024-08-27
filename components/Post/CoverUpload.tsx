@@ -11,7 +11,6 @@ interface Props {
 
 export const CoverUpload = forwardRef<HTMLDivElement, Props>(
   function CoverUpload({ post }, ref) {
-
     const [value, setValue] = useState(post.image || '')
     const inputRef = useRef<HTMLInputElement>(null)
     const [loading, setLoading] = useState(false)
@@ -32,7 +31,7 @@ export const CoverUpload = forwardRef<HTMLDivElement, Props>(
 
         if (res.ok) {
           const data = await res.json()
-          console.log('=====data:', data)
+          console.log('=====data:', data, 'url:', data.url)
 
           await api.post.updateCover.mutate({
             id: post.id,
@@ -59,8 +58,8 @@ export const CoverUpload = forwardRef<HTMLDivElement, Props>(
         <div className="w-full h-[360px] relative">
           <Image
             src={value || ''}
-            width={80}
-            height={80}
+            width={800}
+            height={800}
             className="absolute left-0 top-0 w-full h-[360px] cursor-pointer"
             alt=""
           />

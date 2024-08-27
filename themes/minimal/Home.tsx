@@ -13,14 +13,15 @@ export function Home({ space, posts }: HomeProps) {
       {posts.map((post) => (
         <Link
           key={post.id}
-          className="flex gap-8"
+          className="flex gap-4 items-center"
           href={`/@${space.subdomain}/${post.slug}`}
         >
-          {/* <div className="font-light text-neutral-600">
-            {new Date(post.createdAt).toLocaleDateString()}
-          </div> */}
           <div className="text-black font-medium hover:underline hover:text-neutral-950 transition-all">
             {post.title}
+          </div>
+
+          <div className="font-light text-neutral-400 text-sm">
+            {new Date(post.createdAt).toLocaleDateString()}
           </div>
         </Link>
       ))}

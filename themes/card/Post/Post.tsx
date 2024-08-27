@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { PostType } from '@/lib/constants'
 import { toDateString } from '@/lib/utils'
 import { PostProps } from '@/theme-helper/types'
+import Image from 'next/image'
 import { ImageCreation } from './ImageCreation'
 import { PostCreation } from './PostCreation'
 
@@ -10,6 +11,16 @@ export function Post({ post, isGated }: PostProps) {
   return (
     <div className="pb-20 min-h-[72vh]">
       <div className="flex flex-col mx-auto w-[720px]">
+        {post.image && (
+          <Image
+            src={post.image}
+            width={800}
+            height={800}
+            className="w-full h-[360px] mb-10 rounded-xl"
+            alt=""
+          />
+        )}
+
         <div>
           <h1 className="mb-10 font-title text-3xl font-bold text-stone-800 dark:text-white md:text-6xl">
             {post.title}

@@ -41,7 +41,7 @@ export function PostLayout({
         <Profile />
       </div>
 
-      <div className="mt-20">{children}</div>
+      <div className="mt-10">{children}</div>
 
       <SpaceFooter />
     </div>

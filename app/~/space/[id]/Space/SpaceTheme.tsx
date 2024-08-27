@@ -23,7 +23,7 @@ export function SpaceTheme() {
           size="sm"
           className="text-sm rounded-md gap-1 cursor-pointer hover:bg-neutral-200"
         >
-          <div>theme: {space?.themeName || 'minimal'}</div>
+          <div>theme: {space?.themeName || 'card'}</div>
           <ChevronDown size={16} />
         </Badge>
       </PopoverTrigger>

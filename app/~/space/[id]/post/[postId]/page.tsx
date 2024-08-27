@@ -11,7 +11,7 @@ export default function PostPage() {
   const { post } = usePost()
   const { isPostLoading } = usePostLoading()
 
-  if (isPostLoading)
+  if (isPostLoading || !post)
     return (
       <div className="h-[80vh] flex items-center justify-center">
         <LoadingDots />

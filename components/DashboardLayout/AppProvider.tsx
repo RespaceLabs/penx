@@ -24,6 +24,7 @@ export function AppProvider({ children }: PropsWithChildren) {
     appRef.current
       .init({
         spaceId: params?.id,
+        postId: params?.postId,
         authenticated: status === 'authenticated',
       })
       .then((path) => {

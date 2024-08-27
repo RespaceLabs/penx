@@ -49,8 +49,6 @@ export class Space {
   }
 
   get subscriptionPrice() {
-    console.log('====this.planRaw.price:', this.planRaw, this.planRaw.price)
-
     return this.planRaw.price
   }
 
