@@ -21,7 +21,7 @@ const fontSans = FontSans({
 const title = 'PenX: the space for web3 creator'
 const description =
   'PenX is the space for web3 creator, find 1000 true fans in PenX'
-const image = 'https://vercel.pub/thumbnail.png'
+// const image = 'https://vercel.pub/thumbnail.png'
 
 export const metadata: Metadata = {
   title,
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    images: [image],
+    // images: [image],
   },
   twitter: {
     card: 'summary_large_image',
     title,
     description,
-    images: [image],
+    // images: [image],
     creator: '@penx',
   },
   metadataBase: new URL('https://penx.io'),
