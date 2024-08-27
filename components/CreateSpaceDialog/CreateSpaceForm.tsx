@@ -16,6 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { useAddress } from '@/hooks/useAddress'
 import { channelsAtom } from '@/hooks/useChannels'
+import { postsAtom } from '@/hooks/usePosts'
 import { spaceAtom } from '@/hooks/useSpace'
 import { spaceIdAtom } from '@/hooks/useSpaceId'
 import { spacesAtom } from '@/hooks/useSpaces'
@@ -157,13 +158,15 @@ export function CreateSpaceForm() {
         spaceAddress: spaceAddress,
       })
 
-      const [spaces, channels] = await Promise.all([
+      const [spaces, channels, posts] = await Promise.all([
         api.space.mySpaces.query(),
         api.channel.listBySpaceId.query(space.id),
+        api.post.listBySpaceId.query(space.id),
       ])
       store.set(spaceAtom, { space, isLoading: false })
       store.set(spacesAtom, spaces)
       store.set(channelsAtom, channels)
+      store.set(postsAtom, posts)
       store.set(spaceIdAtom, space.id)
 
       toast.success('Space created successfully!')
