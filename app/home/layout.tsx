@@ -8,13 +8,11 @@ import { Nav } from './Nav'
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-    <div className="min-h-screen flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <div className="z-10  py-3 relative flex justify-between container">
         <div className="flex items-center gap-2 text-xl">
           <Logo className="w-7 h-7" />
-          <div className="font-bold">
-            PenX
-          </div>
+          <div className="font-bold">PenX</div>
           <Badge
             variant="outline"
             className="border-black font-semibold hidden md:flex"
@@ -33,7 +31,7 @@ export default function Layout({ children }: PropsWithChildren) {
 
       <div className="container relative">
         <div
-          className="absolute left-40 top-[400px] z-1 w-[800px] h-[800px] opacity-30"
+          className="fixed left-40 top-[400px] z-1 w-[800px] h-[800px] opacity-30"
           style={{
             filter: 'blur(150px) saturate(150%)',
             transform: 'translateZ(0)',
