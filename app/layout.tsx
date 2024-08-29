@@ -70,16 +70,6 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        {process.env.NEXT_PUBLIC_UMAMIC_WEBSITE_ID && (
-          <script
-            async
-            defer
-            src="https://umamic.penx.io/script.js"
-            data-website-id={process.env.NEXT_PUBLIC_UMAMIC_WEBSITE_ID}
-          ></script>
-        )}
-      </head>
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
@@ -111,6 +101,15 @@ export default async function RootLayout({
             </TokenProvider>
           </Providers>
         </ThemeProvider>
+
+        {process.env.NEXT_PUBLIC_UMAMIC_WEBSITE_ID && (
+          <script
+            async
+            defer
+            src="https://umamic.penx.io/script.js"
+            data-website-id={process.env.NEXT_PUBLIC_UMAMIC_WEBSITE_ID}
+          ></script>
+        )}
       </body>
     </html>
   )
