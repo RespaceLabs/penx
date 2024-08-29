@@ -42,6 +42,7 @@ model Space {
   id            String   @id @default(uuid())
   name          String
   description   String   @default("") @db.Text
+  about         String   @default("") @db.Text
   logo          String?  @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png") @db.Text
   font          String   @default("font-cal")
   image         String?  @default("") @db.Text
