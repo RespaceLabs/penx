@@ -65,6 +65,7 @@ export default async function SpaceLayout({
   const domain = decodeURIComponent(params.domain).replace(/^@/, '')
   const space = await getSpaceData(domain)
   const headerList = headers()
+  const path = headerList.get('x-current-path') || ''
 
   if (!space) {
     notFound()
@@ -79,7 +80,11 @@ export default async function SpaceLayout({
     return redirect(`https://${space.customDomain}`)
   }
 
-  const { HomeLayout: SpaceLayout } = getTheme(space.themeName)
-  if (!SpaceLayout) return <>{children}</>
-  return <SpaceLayout space={space}>{children}</SpaceLayout>
+  const { HomeLayout } = getTheme(space.themeName)
+  if (!HomeLayout) return <>{children}</>
+  return (
+    <HomeLayout space={space} path={path}>
+      {children}
+    </HomeLayout>
+  )
 }

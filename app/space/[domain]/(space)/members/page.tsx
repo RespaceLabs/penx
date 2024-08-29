@@ -1,5 +1,6 @@
 import { Badge } from '@/components/ui/badge'
 import { UserAvatar } from '@/components/UserAvatar'
+import { Subscription } from '@/domains/Subscription'
 import {
   getPostsForSpace,
   getSpaceData,
@@ -9,6 +10,7 @@ import { precision } from '@/lib/math'
 import prisma from '@/lib/prisma'
 import { shortenAddress } from '@/lib/utils'
 import { notFound } from 'next/navigation'
+import { getTheme } from '../../getTheme'
 
 // export const dynamic = 'force-static'
 export const dynamic = 'force-dynamic'
@@ -53,29 +55,46 @@ export default async function SpaceHomePage({
 
   const { members } = space
 
+  const { Members } = getTheme(space.themeName)
+  if (Members) {
+    return <Members space={space as any} members={members} />
+  }
+
   return (
     <div className="grid gap-2">
-      {members.map((member) => (
-        <div key={member.id} className="flex justify-between">
-          <div className="flex gap-2 items-center">
-            <UserAvatar user={member.user as any} />
+      {members.map((member) => {
+        const subscription = new Subscription({
+          amount: BigInt(member.amount),
+          checkpoint: BigInt(member.checkpoint),
+          duration: BigInt(member.duration),
+          consumed: BigInt(member.consumed),
+          start: BigInt(member.start),
+        })
 
-            {member.user.ensName ? (
-              <>
-                {member.user.ensName}
-                <Badge variant="secondary">
-                  {shortenAddress(member.user.address)}
-                </Badge>
-              </>
-            ) : (
-              <div>{shortenAddress(member.user.address)}</div>
-            )}
+        return (
+          <div key={member.id} className="flex justify-between">
+            <div className="flex gap-2 items-center">
+              <UserAvatar user={member.user as any} />
+
+              {member.user.ensName ? (
+                <>
+                  {member.user.ensName}
+                  <Badge variant="secondary">
+                    {shortenAddress(member.user.address)}
+                  </Badge>
+                </>
+              ) : (
+                <div>{shortenAddress(member.user.address)}</div>
+              )}
+            </div>
+
+            <div>
+              <span className="font-bold">{subscription.daysFormatted}</span>{' '}
+              days
+            </div>
           </div>
-          <div>
-            has <span className="font-bold">{member.amount}</span> Keys
-          </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

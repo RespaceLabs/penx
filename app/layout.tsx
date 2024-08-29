@@ -49,7 +49,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const headerList = headers()
-  const url = headerList.get('x-current-url') || ''
+  const url = headerList.get('x-current-path') || ''
 
   const session: any = await getSession()
   // console.log('====session:', session)

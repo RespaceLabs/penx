@@ -51,7 +51,7 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.rewrite(
       new URL(`/home${path === '/' ? '' : path}`, req.url),
       {
-        headers: { 'x-current-url': path },
+        headers: { 'x-current-path': path },
       },
     )
   }
@@ -66,7 +66,7 @@ export default async function middleware(req: NextRequest) {
 
   if (path.startsWith('/@')) {
     return NextResponse.rewrite(new URL(`/space${path}`, req.url), {
-      headers: { 'x-current-url': path },
+      headers: { 'x-current-path': path },
     })
   }
 

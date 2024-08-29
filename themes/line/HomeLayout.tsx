@@ -1,26 +1,23 @@
 import { PropsWithChildren } from 'react'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
 import { fontMapper } from '@/styles/fonts'
-import { Space } from '@/theme-helper/types'
-import { Home } from 'lucide-react'
+import { HomeLayoutProps } from '@/theme-helper/types'
 import Image from 'next/image'
 import Link from 'next/link'
+import { NavName } from './components/NavName'
 import { SpaceNav } from './components/SpaceNav'
-
-interface HomeLayoutProps {
-  space: Space
-}
 
 export function HomeLayout({
   children,
   space,
+  path,
 }: PropsWithChildren<HomeLayoutProps>) {
   const domain = space.subdomain
   const Paths = {
-    posts: `/@${domain}`,
+    home: `/@${domain}`,
+    posts: `/@${domain}/posts`,
     members: `/@${domain}/members`,
-    sponsors: `/@${domain}/sponsors`,
+    about: `/@${domain}/about`,
   }
 
   return (
@@ -36,9 +33,15 @@ export function HomeLayout({
             >
               <span className="i-[tabler--home-filled] rounded-full text-neutral-400 h-5 w-5"></span>
             </Link>
-            <Link href={`/@${domain}`}>Posts</Link>
-            <Link href={`/@${domain}/members`}>Members</Link>
-            <Link href={`/@${domain}/about`}>About</Link>
+            <Link href={`/@${domain}`}>
+              <NavName pathname={Paths.home}>Posts</NavName>
+            </Link>
+            <Link href={Paths.members}>
+              <NavName pathname={Paths.members}>Members</NavName>
+            </Link>
+            <Link href={Paths.about}>
+              <NavName pathname={Paths.about}>About</NavName>
+            </Link>
           </div>
           <Button
             asChild

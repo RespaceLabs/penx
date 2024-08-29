@@ -21,7 +21,7 @@ export function PostLayout({
             href={`/@${space.subdomain}`}
             className="flex items-center justify-center"
           >
-            <div className="inline-flex h-8 w-8 rounded-full align-middle">
+            <div className="inline-flex h-8 w-8 rounded-full align-middle overflow-hidden">
               <Image
                 alt={space.name || ''}
                 layout="responsive"

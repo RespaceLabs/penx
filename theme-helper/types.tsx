@@ -1,4 +1,5 @@
 import { PropsWithChildren } from 'react'
+import { Member } from '@prisma/client'
 
 export type Space = {
   id: string
@@ -54,6 +55,7 @@ export type Post = {
 
 export interface HomeLayoutProps {
   space: Space
+  path: string
 }
 
 export interface PostLayoutProps {
@@ -62,6 +64,20 @@ export interface PostLayoutProps {
 
 export interface HomeProps {
   posts: Post[]
+  space: Space
+}
+
+export interface MembersProps {
+  members: (Member & {
+    user: {
+      address: string
+      ensName: string | null
+    }
+  })[]
+  space: Space
+}
+
+export interface AboutProps {
   space: Space
 }
 
@@ -81,6 +97,6 @@ export type Theme = {
   }: PropsWithChildren<PostLayoutProps>) => JSX.Element
   Home?: ({ space, posts }: HomeProps) => JSX.Element
   Post?: ({ post, isGated }: PostProps) => JSX.Element
-  About?: () => JSX.Element
-  Members?: () => JSX.Element
+  Members?: ({ space, members }: MembersProps) => JSX.Element
+  About?: ({ space }: AboutProps) => JSX.Element
 }
