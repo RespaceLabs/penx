@@ -68,7 +68,7 @@ export const wagmiConfig = defaultWagmiConfig({
   projectId,
   metadata,
   auth: {
-    email: true,
+    // email: true,
     // socials: ['google', 'github', 'farcaster', 'x'],
     // socials: ['farcaster', 'google'],
     // showWallets: true,
