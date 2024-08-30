@@ -54,6 +54,7 @@ export function SpaceInfo({}: Props) {
     members: `/~/space/${space.id}/members`,
     sponsors: `/~/space/${space.id}/sponsors`,
     trades: `/~/space/${space.id}/trades`,
+    about: `/~/space/${space.id}/about`,
   }
 
   const linkClassName = (path: string) =>
@@ -97,6 +98,10 @@ export function SpaceInfo({}: Props) {
 
         <Link href={Paths.trades} className={linkClassName(Paths.trades)}>
           Activities
+        </Link>
+
+        <Link href={Paths.about} className={linkClassName(Paths.about)}>
+          About
         </Link>
       </div>
     </div>

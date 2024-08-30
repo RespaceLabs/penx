@@ -90,7 +90,7 @@ export const SellBtn = ({
     <>
       {isConnected ? (
         <Button
-          className="w-full h-[50px] rounded-full"
+          className="w-full h-[50px] rounded-xl"
           disabled={!isAmountValid || isInsufficientBalance || loading}
           onClick={() => onSell()}
         >
