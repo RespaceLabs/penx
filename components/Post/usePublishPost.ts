@@ -1,16 +1,14 @@
 import { useState } from 'react'
+import { store } from '@/store'
 import { useAddress } from '@/hooks/useAddress'
 import { PostWithSpace } from '@/hooks/usePost'
 import { useSpace } from '@/hooks/useSpace'
 import { GateType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
-import { precision } from '@/lib/math'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api } from '@/lib/trpc'
-import { wagmiConfig } from '@/lib/wagmi'
-import { readContract, waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
-import { useWriteContract } from 'wagmi'
+import { postsAtom } from '@/hooks/usePosts'
 
 export function usePublishPost() {
   const [isLoading, setLoading] = useState(false)
@@ -28,6 +26,12 @@ export function usePublishPost() {
           gateType,
         })
 
+        // update post published 
+        if (!post.published) {
+          const posts = await api.post.listBySpaceId.query(post.spaceId)
+          store.set(postsAtom, posts)
+        }
+
         setLoading(false)
 
         revalidateMetadata(`${space.subdomain}-metadata`)
@@ -35,8 +39,6 @@ export function usePublishPost() {
         revalidateMetadata(`${space.subdomain}-${post.slug}`)
         toast.success('Post published successfully!')
         return
-
-        toast.success('Post published successfully!')
       } catch (error) {
         console.log('========error:', error)
         const msg = extractErrorMessage(error)
