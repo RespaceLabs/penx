@@ -7,9 +7,7 @@ import { UserProfile } from './UserProfile'
 
 export function ConnectButton() {
   const { open, close } = useAppKit()
-  const { disconnect } = useDisconnect()
   const { address, isConnected, isConnecting, isDisconnected } = useAccount()
-  console.log('======address:', address)
 
   // if (isConnecting) return <div>Connecting…</div>
   if (isConnected) {
