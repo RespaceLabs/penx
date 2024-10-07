@@ -49,7 +49,7 @@ async function main() {
     await client.key.gen(key)
     console.log('key', key)
   } catch (error) {
-    console.log('===error:', error)
+    // console.log('===error:', error)
   }
 
   console.log('current=====key:', key)
