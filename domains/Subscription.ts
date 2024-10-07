@@ -1,15 +1,4 @@
-/**
- * toFloorFixed(1.26, 1) -> 1.2
- * toFloorFixed(1.24899, 2) -> 1.24
- * @param input
- * @param precision
- * @returns
- */
-export function toFloorFixed(input: number, precision: number): number {
-  const p = Number('1' + Array(precision).fill(0).join(''))
-  const str = (Math.floor(input * p) / p).toFixed(precision)
-  return Number(str)
-}
+import { toFloorFixed } from '@/lib/utils'
 
 export type SubscriptionRaw = {
   planId: number
@@ -56,7 +45,7 @@ export class Subscription {
   }
 
   get daysFormatted() {
-    return (Number(this.remainDuration) / SECONDS_PER_DAY).toFixed(2)
+    return toFloorFixed(Number(this.remainDuration) / SECONDS_PER_DAY, 2)
   }
 
   get timeFormatted() {
@@ -64,6 +53,10 @@ export class Subscription {
     const seconds = Number(this.remainDuration)
     const secondsInAnHour = 3600
     const secondsInADay = SECONDS_PER_DAY
+    const secondsInAMonth = 2592000
+
+    const days = seconds / secondsInADay
+    // return `${toFloorFixed(days, 2)} days`
 
     if (seconds < secondsInADay) {
       const hours = seconds / secondsInAnHour

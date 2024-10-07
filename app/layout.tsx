@@ -8,11 +8,11 @@ import { SearchProvider, SearchConfig } from 'pliny/search'
 import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
-import siteMetadata from '@/data/siteMetadata'
+import siteMetadata from '@/content/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
-import { ContextProvider } from '../common/ContextProvider'
-import { cn } from '@/common/utils'
+import { ContextProvider } from '@/lib/ContextProvider'
+import { cn } from '@/lib/utils'
 
 // const space_grotesk = Space_Grotesk({
 //   subsets: ['latin'],

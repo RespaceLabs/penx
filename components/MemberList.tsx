@@ -1,10 +1,10 @@
 'use client'
 
-import { spaceAbi } from '@/common/abi'
-import { Subscription } from '@/common/Subscription'
+import { spaceAbi } from '@/lib/abi'
 import { Address } from 'viem'
 import { useReadContract } from 'wagmi'
 import { UserAvatar } from './UserAvatar'
+import { Subscription } from '@/domains/Subscription'
 
 export function MemberList() {
   const { data = [], isLoading } = useReadContract({
@@ -12,8 +12,6 @@ export function MemberList() {
     address: process.env.NEXT_PUBLIC_SPACE_ID as Address,
     functionName: 'getSubscriptions',
   })
-
-  console.log('======data:', data)
 
   if (isLoading) return <div>Loading...</div>
 

@@ -4,8 +4,8 @@ import type { Address } from 'viem'
 import { PropsWithChildren } from 'react'
 import { useAccount, useReadContract } from 'wagmi'
 import { useAppKit } from '@reown/appkit/react'
-import { spaceAbi } from '@/common/abi'
-import { SPACE_ID } from '@/common/constants'
+import { spaceAbi } from '@/lib/abi'
+import { SPACE_ID } from '@/lib/constants'
 
 export function Gate(props: PropsWithChildren) {
   const { isConnected } = useAccount()
@@ -18,7 +18,7 @@ export function MemberGate() {
   return (
     <div className="space-y-2 rounded-2xl border p-4 text-center">
       <button
-        className="ring-offset-background focus-visible:ring-ring inline-flex h-10 items-center justify-center whitespace-nowrap rounded-xl bg-black px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-black/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+        className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-xl bg-black px-4 py-2 text-sm font-medium text-white ring-offset-background transition-colors hover:bg-black/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
         onClick={() => {
           open()
         }}

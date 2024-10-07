@@ -10,8 +10,6 @@ async function main() {
 
   let distCID = ''
 
-  console.log('IPFS_UPLOADING')
-
   for await (const file of client.addAll(
     globSource('./', 'out/**/*', {
       // preserveMode: true,
@@ -19,6 +17,7 @@ async function main() {
     }),
     { pin: true }
   )) {
+    console.log(file, file.cid.toString())
     if (file.path.endsWith('.html')) {
       // console.log(file, file.cid.toString())
     }
@@ -77,6 +76,26 @@ async function main() {
     console.log('res>>>>>>>>>>>>', res)
   } catch (error) {
     //
+  }
+
+  if (pkg.spaceAddress) {
+    try {
+      const res = await fetch('https://www.plantree.xyz/api/domain', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          spaceAddress: pkg.spaceAddress,
+          cid: distCID,
+          ipns: ipns.name,
+        }),
+      }).then((response) => response.json())
+
+      console.log('res>>>>>>>>>>>>', res)
+    } catch (error) {
+      //
+    }
   }
 
   fs.writeFileSync(

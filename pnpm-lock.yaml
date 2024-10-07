@@ -35,6 +35,9 @@ dependencies:
   autoprefixer:
     specifier: ^10.4.13
     version: 10.4.20(postcss@8.4.47)
+  big.js:
+    specifier: ^6.2.2
+    version: 6.2.2
   body-scroll-lock:
     specifier: ^4.0.0-beta.0
     version: 4.0.0-beta.0
@@ -65,6 +68,9 @@ dependencies:
   image-size:
     specifier: 1.0.0
     version: 1.0.0
+  ky:
+    specifier: ^1.7.2
+    version: 1.7.2
   lucide-react:
     specifier: ^0.447.0
     version: 0.447.0(react@18.3.1)
@@ -145,6 +151,9 @@ devDependencies:
   '@svgr/webpack':
     specifier: ^8.0.1
     version: 8.1.0(typescript@5.6.2)
+  '@types/big.js':
+    specifier: ^6.2.2
+    version: 6.2.2
   '@types/mdx':
     specifier: ^2.0.12
     version: 2.0.13
@@ -5148,6 +5157,10 @@ packages:
       '@types/estree': 1.0.6
     dev: false
 
+  /@types/big.js@6.2.2:
+    resolution: {integrity: sha512-e2cOW9YlVzFY2iScnGBBkplKsrn2CsObHQ2Hiw4V1sSyiGbgWL8IyqE3zFi1Pt5o1pdAtYkDAIsF3KKUPjdzaA==}
+    dev: true
+
   /@types/debug@4.1.12:
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
     dependencies:
@@ -6484,6 +6497,10 @@ packages:
       is-alphabetical: 2.0.1
       is-alphanumerical: 2.0.1
       is-decimal: 2.0.1
+    dev: false
+
+  /big.js@6.2.2:
+    resolution: {integrity: sha512-y/ie+Faknx7sZA5MfGA2xKlu0GDv8RWrXGsmlteyJQ2lvoKv9GBK/fpRMc2qlSoBAgNxrixICFCBefIq8WCQpQ==}
     dev: false
 
   /bignumber.js@9.1.2:
@@ -10289,6 +10306,11 @@ packages:
     transitivePeerDependencies:
       - undici
     dev: true
+
+  /ky@1.7.2:
+    resolution: {integrity: sha512-OzIvbHKKDpi60TnF9t7UUVAF1B4mcqc02z5PIvrm08Wyb+yOcz63GRvEuVxNT18a9E1SrNouhB4W2NNLeD7Ykg==}
+    engines: {node: '>=18'}
+    dev: false
 
   /language-subtag-registry@0.3.23:
     resolution: {integrity: sha512-0K65Lea881pHotoGEa5gDlMxt3pctLi2RplBb7Ezh4rRdLEOtgi7n4EwK9lamnUCkKBqaeKRVebTq6BAxSkpXQ==}
