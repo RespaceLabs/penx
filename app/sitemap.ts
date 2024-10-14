@@ -1,21 +1,24 @@
-import { MetadataRoute } from 'next'
-import { allBlogs } from 'contentlayer/generated'
-import siteMetadata from '@/content/siteMetadata'
+import { getPosts } from '@/lib/fetchers'
+import { headers } from 'next/headers'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = siteMetadata.siteUrl
+export default async function Sitemap() {
+  const headersList = headers()
+  const domain =
+    headersList
+      .get('host')
+      ?.replace('.localhost:3000', `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) ??
+    'vercel.pub'
 
-  const blogRoutes = allBlogs
-    .filter((post) => !post.draft)
-    .map((post) => ({
-      url: `${siteUrl}/${post.path}`,
-      lastModified: post.lastmod || post.date,
-    }))
+  const posts = await getPosts()
 
-  const routes = ['', 'blog', 'projects', 'tags'].map((route) => ({
-    url: `${siteUrl}/${route}`,
-    lastModified: new Date().toISOString().split('T')[0],
-  }))
-
-  return [...routes, ...blogRoutes]
+  return [
+    {
+      url: `https://${domain}`,
+      lastModified: new Date(),
+    },
+    ...posts.map(({ slug }) => ({
+      url: `https://${domain}/${slug}`,
+      lastModified: new Date(),
+    })),
+  ]
 }

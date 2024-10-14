@@ -1,3 +1,7 @@
+import { useMemo } from 'react'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { cn, getEnsAvatar } from '@/lib/utils'
+
 function hashCode(str: string) {
   let hash = 0
   for (let i = 0; i < str.length; i++) {
@@ -61,6 +65,13 @@ interface UserAvatarProps {
   address?: string
 }
 
-export function UserAvatar({ address = '' }: UserAvatarProps) {
-  return <div className={'h-8 w-8 rounded-full ' + generateGradient(address)}></div>
+export function UserAvatar({ address = '', className }: UserAvatarProps) {
+  return (
+    <Avatar className={cn('h-8 w-8', className)}>
+      {/* <AvatarImage src={src} alt="" /> */}
+      <AvatarFallback
+        className={cn('text-white text-xs', generateGradient(address))}
+      ></AvatarFallback>
+    </Avatar>
+  )
 }

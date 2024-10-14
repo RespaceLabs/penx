@@ -1,11 +1,11 @@
 import { toFloorFixed } from '@/lib/utils'
 
 export type SubscriptionRaw = {
-  planId: number
-  account: string
-  startTime: bigint
-  duration: bigint
   amount: bigint
+  checkpoint: bigint
+  duration: bigint
+  consumed: bigint
+  start: bigint
 }
 
 const SECONDS_PER_DAY = 86400
@@ -13,12 +13,8 @@ const SECONDS_PER_DAY = 86400
 export class Subscription {
   constructor(public raw: SubscriptionRaw) {}
 
-  get planId() {
-    return this.raw.planId
-  }
-
   get start() {
-    return this.raw.startTime
+    return this.raw.start
   }
 
   get duration() {
@@ -31,7 +27,8 @@ export class Subscription {
 
   get remainDuration() {
     if (this.duration === BigInt(0)) return BigInt(0)
-    const remain = this.start + this.duration - BigInt(Math.floor(Date.now() / 1000))
+    const remain =
+      this.start + this.duration - BigInt(Math.floor(Date.now() / 1000))
     return remain >= 0 ? remain : BigInt(0)
   }
 
@@ -68,7 +65,9 @@ export class Subscription {
   }
 
   getAmountByDays(days: number | string) {
-    const seconds = BigInt(parseInt((Number(days) * SECONDS_PER_DAY).toString()))
+    const seconds = BigInt(
+      parseInt((Number(days) * SECONDS_PER_DAY).toString()),
+    )
     if (this.remainDuration === BigInt(0)) return BigInt(0)
     return (this.remainAmount * seconds) / this.remainDuration
   }

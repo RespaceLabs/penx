@@ -1,115 +1,115 @@
-import 'css/tailwind.css'
-import 'pliny/search/algolia.css'
-import 'remark-github-blockquote-alert/alert.css'
-
-// import { Space_Grotesk } from 'next/font/google'
-import { Analytics, AnalyticsConfig } from 'pliny/analytics'
-import { SearchProvider, SearchConfig } from 'pliny/search'
-import Header from '@/components/Header'
-import SectionContainer from '@/components/SectionContainer'
-import Footer from '@/components/Footer'
-import siteMetadata from '@/content/siteMetadata'
-import { ThemeProviders } from './theme-providers'
-import { Metadata } from 'next'
-import { ContextProvider } from '@/lib/ContextProvider'
+import '@/styles/globals.css'
+import '@/styles/prosemirror.css'
+import { ThemeProvider } from '@/components/ThemeProvider'
+import { TokenProvider } from '@/components/TokenContext'
+import { getSession } from '@/lib/auth'
 import { cn } from '@/lib/utils'
+import { cal, inter } from '@/styles/fonts'
+import { Analytics } from '@vercel/analytics/react'
+import jwt from 'jsonwebtoken'
+import { Metadata } from 'next'
+import { Inter as FontSans } from 'next/font/google'
+import { headers } from 'next/headers'
+import NextTopLoader from 'nextjs-toploader'
+import { Providers } from './providers'
 
-// const space_grotesk = Space_Grotesk({
-//   subsets: ['latin'],
-//   display: 'swap',
-//   variable: '--font-space-grotesk',
-// })
+const fontSans = FontSans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+})
+
+const title = 'PenX: the space for web3 creator'
+const description =
+  'PenX is the space for web3 creator, find 1000 true fans in PenX'
+// const image = 'https://vercel.pub/thumbnail.png'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteMetadata.siteUrl),
-  title: {
-    default: siteMetadata.title,
-    template: `%s | ${siteMetadata.title}`,
-  },
-  description: siteMetadata.description,
+  title,
+  description,
+
+  icons: ['https://penx.io/favicon.ico'],
   openGraph: {
-    title: siteMetadata.title,
-    description: siteMetadata.description,
-    url: './',
-    siteName: siteMetadata.title,
-    images: [siteMetadata.socialBanner],
-    locale: 'en_US',
-    type: 'website',
-  },
-  alternates: {
-    canonical: './',
-    types: {
-      'application/rss+xml': `${siteMetadata.siteUrl}/feed.xml`,
-    },
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+    title,
+    description,
+    // images: [image],
   },
   twitter: {
-    title: siteMetadata.title,
     card: 'summary_large_image',
-    images: [siteMetadata.socialBanner],
+    title,
+    description,
+    // images: [image],
+    creator: '@penx',
   },
+  metadataBase: new URL('https://penx.io'),
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const basePath = process.env.BASE_PATH || ''
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const headerList = headers()
+  const url = headerList.get('x-current-path') || ''
+
+  const session: any = await getSession()
+  // console.log('====session:', session)
+  let token = ''
+
+  if (session) {
+    token = jwt.sign(
+      {
+        userId: session?.userId,
+        address: session?.address,
+      },
+      process.env.NEXTAUTH_SECRET!,
+      {
+        expiresIn: '30d',
+      },
+    )
+  }
 
   return (
-    <html
-      lang={siteMetadata.language}
-      // className={`${space_grotesk.variable} scroll-smooth`}
-      className={cn('scroll-smooth')}
-      suppressHydrationWarning
-    >
-      <link
-        rel="apple-touch-icon"
-        sizes="76x76"
-        href={`${basePath}/static/favicons/apple-touch-icon.png`}
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="32x32"
-        href={`${basePath}/static/favicons/favicon-32x32.png`}
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="16x16"
-        href={`${basePath}/static/favicons/favicon-16x16.png`}
-      />
-      <link rel="manifest" href={`${basePath}/static/favicons/site.webmanifest`} />
-      <link
-        rel="mask-icon"
-        href={`${basePath}/static/favicons/safari-pinned-tab.svg`}
-        color="#5bbad5"
-      />
-      <meta name="msapplication-TileColor" content="#000000" />
-      <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
-      <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
-      <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
-      <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
-        <ThemeProviders>
-          <ContextProvider>
-            <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
-            <SectionContainer>
-              <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-                <Header />
-                <main className="mb-auto">{children}</main>
-              </SearchProvider>
-              <Footer />
-            </SectionContainer>
-          </ContextProvider>
-        </ThemeProviders>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          'min-h-screen bg-background font-sans antialiased',
+          cal.variable,
+          inter.variable,
+          fontSans.variable,
+          'bg-white',
+          // url === '/' && 'bg-zinc-100',
+        )}
+      >
+        <NextTopLoader
+          color="#000"
+          // crawlSpeed={0.08}
+          height={2}
+          showSpinner={false}
+          template='<div class="bar" role="bar"><div class="peg"></div></div>'
+        />
+        <ThemeProvider
+          attribute="class"
+          // defaultTheme="system"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Providers>
+            <TokenProvider token={token}>
+              {children}
+              <Analytics />
+            </TokenProvider>
+          </Providers>
+        </ThemeProvider>
+
+        {process.env.NEXT_PUBLIC_UMAMIC_WEBSITE_ID && (
+          <script
+            async
+            defer
+            src="https://umamic.penx.io/script.js"
+            data-website-id={process.env.NEXT_PUBLIC_UMAMIC_WEBSITE_ID}
+          ></script>
+        )}
       </body>
     </html>
   )
