@@ -1,21 +1,21 @@
 <div align="center">
 
-<a href="https://www.penx.io" alt="PenX Logo">
-    <img src="https://www.penx.io/images/logo-512.png" height="120"/></a>
+<a href="https://www.plantree.xyz" alt="PenX Logo">
+    <img src="https://www.plantree.xyz/images/logo-512.png" height="120"/></a>
 
 <h1 style="border-bottom: none">
-    <b>PenX</b><br />
-      The space for web3 creators
+    <b>Plantree</b><br />
+      The best way to build web3 independent blog.
     <br>
 </h1>
 
-[Discord](https://discord.gg/nyVpH9njDu) | [Website](https://www.penx.io/) | [Issues](https://github.com/0xzio/penx/issues)
+[Discord](https://discord.gg/nyVpH9njDu) | [Website](https://www.plantree.xyz) | [Issues](https://github.com/plantree-xyz/plantree/issues)
 
 </div>
 
 ## Introduction
 
-PenX is the space for web3 creators, find 1000 true fans in PenX.
+The best way to build web3 independent blog.
 
 ## Development
 

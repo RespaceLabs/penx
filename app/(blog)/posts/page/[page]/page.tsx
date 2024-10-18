@@ -1,4 +1,5 @@
 import { getPosts } from '@/lib/fetchers'
+import { loadTheme } from '@/lib/loadTheme'
 
 const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
 
@@ -25,11 +26,7 @@ export default async function Page({ params }: { params: { page: string } }) {
     totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
   }
 
-  if (!process.env.NEXT_PUBLIC_THEME) {
-    return <div>Theme not found</div>
-  }
-
-  const { BlogPage } = await import(process.env.NEXT_PUBLIC_THEME!)
+  const { BlogPage } = await loadTheme()
 
   if (!BlogPage) {
     return <div>Theme not found</div>

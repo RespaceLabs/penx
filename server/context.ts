@@ -9,6 +9,7 @@ interface CreateContextOptions {
 type Token = {
   name: string
   uid: string
+  role: string
   address: string
   email: string
   sub: string

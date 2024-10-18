@@ -1,5 +1,12 @@
 import { Address } from 'viem'
 
+export const isServer = typeof window === 'undefined'
+export const isBrowser = typeof window !== 'undefined'
+export const isProd = process.env.NODE_ENV === 'production'
+
+export const PROJECT_ID =
+  process.env.NEXT_PUBLIC_PROJECT_ID || '3d31c4aa12acd88d0b8cad38b0a5686a'
+
 export enum TradeType {
   BUY = 'BUY',
   SELL = 'SELL',
@@ -46,6 +53,13 @@ export enum NetworkNames {
   BASE_SEPOLIA = 'BASE_SEPOLIA',
 }
 
+export enum WorkerEvents {
+  START_POLLING,
+}
+
 export const SPACE_ID = process.env.NEXT_PUBLIC_SPACE_ID as Address
 
-export const RESPACE_BASE_URI = process.env.NEXT_PUBLIC_RESPACE_BASE_URI!
+export const RESPACE_BASE_URI = 'https://www.respace.one'
+
+export const SUBGRAPH_URL =
+  'https://api.studio.thegraph.com/query/88544/respace-base-sepolia/version/latest'

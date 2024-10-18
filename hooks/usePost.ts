@@ -1,6 +1,7 @@
 'use client'
 
 import { PostStatus } from '@/lib/constants'
+import { revalidateMetadata } from '@/lib/revalidateTag'
 import { RouterOutputs } from '@/server/_app'
 import { store } from '@/store'
 import { PostTag } from '@prisma/client'
@@ -30,6 +31,7 @@ export function addPostTag(postTag: any) {
     ...post,
     postTags: [...post.postTags, postTag],
   })
+  revalidateMetadata(`posts`)
 }
 
 export function removePostTag(id: string) {
@@ -39,4 +41,5 @@ export function removePostTag(id: string) {
     ...post,
     postTags: newTags,
   })
+  revalidateMetadata(`posts`)
 }

@@ -18,7 +18,13 @@ module.exports = {
   publicRuntimeConfig: {
     NODE_ENV: env.NODE_ENV,
   },
-  transpilePackages: ['react-tweet'],
+  transpilePackages: [
+    'react-tweet',
+    // 'plantree-theme-simple',
+    // 'plantree-theme-micro',
+    'plantree-theme-card',
+    // 'plantree-theme-minimal',
+  ],
 
   images: {
     remotePatterns: [

@@ -31,7 +31,7 @@ export function SpaceBasicInfo({}: Props) {
           target="_blank"
         >
           <span>See in</span>
-          <span className="text-primary-500">respace.one</span>
+          <span className="text-brand-500">respace.one</span>
           <svg
             width="12"
             height="12"

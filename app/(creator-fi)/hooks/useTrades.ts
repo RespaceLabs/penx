@@ -1,3 +1,4 @@
+import { SUBGRAPH_URL } from '@/lib/constants'
 import { Trade } from '@/lib/types'
 import { useQuery } from '@tanstack/react-query'
 import { gql, request } from 'graphql-request'
@@ -35,7 +36,7 @@ export function useTrades() {
     queryKey: ['trades', space.address],
     async queryFn() {
       return request({
-        url: process.env.NEXT_PUBLIC_SUBGRAPH_URL!,
+        url: SUBGRAPH_URL,
         document: query,
         variables: {
           spaceAddress: space.address!?.toLowerCase(),

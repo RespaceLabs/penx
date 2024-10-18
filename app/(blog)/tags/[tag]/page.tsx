@@ -1,4 +1,5 @@
 import { getTags } from '@/lib/fetchers'
+import { loadTheme } from '@/lib/loadTheme'
 import prisma from '@/lib/prisma'
 
 export default async function TagPage({ params }: { params: { tag: string } }) {
@@ -14,6 +15,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
 
   const posts = tag?.postTags.map((postTag) => postTag.post) || []
 
-  const { TagDetailPage } = await import(process.env.NEXT_PUBLIC_THEME!)
+  const { TagDetailPage } = await loadTheme()
+
   return <TagDetailPage posts={posts} tags={tags} />
 }

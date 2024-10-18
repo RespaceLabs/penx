@@ -26,12 +26,18 @@ const trpcClient = trpc.createClient({
   ],
 })
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({
+  children,
+  cookies,
+}: {
+  children: React.ReactNode
+  cookies: string | null
+}) {
   return (
     <SessionProvider>
       <Toaster className="dark:hidden" />
       <Toaster theme="dark" className="hidden dark:block" />
-      <WalletConnectProvider>
+      <WalletConnectProvider cookies={cookies}>
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>
             <StoreProvider>{children}</StoreProvider>

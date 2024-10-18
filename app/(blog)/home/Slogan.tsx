@@ -15,7 +15,7 @@ export function Slogan() {
         <span className="text-black font-bold">mirror.xyz</span>, check out the
         source code on{' '}
         <a
-          href="https://github.com/0xzio/penx"
+          href="https://github.com/plantree-xyz/plantree"
           target="_blank"
           className="underline decoration-pink-500 text-pink-500"
         >

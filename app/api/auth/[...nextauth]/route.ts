@@ -8,6 +8,7 @@ declare module 'next-auth' {
     chainId: number | string
     userId: string
     ensName: string | null
+    role: string
   }
 }
 

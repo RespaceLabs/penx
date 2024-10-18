@@ -1,5 +1,6 @@
 import { dynamicIconsPlugin, iconsPlugin } from '@egoist/tailwindcss-icons'
 import type { Config } from 'tailwindcss'
+import colors from 'tailwindcss/colors'
 import { fontFamily } from 'tailwindcss/defaultTheme'
 
 const config = {
@@ -10,6 +11,8 @@ const config = {
     './app/**/*.{ts,tsx}',
     './lib/**/*.{js,ts,jsx,tsx}',
     './node_modules/plantree-theme-minimal/src/**/*.{js,tsx,ts}',
+    './node_modules/plantree-theme-micro/src/**/*.{js,tsx,ts}',
+    './node_modules/plantree-theme-card/src/**/*.{js,tsx,ts}',
     './src/**/*.{ts,tsx}',
   ],
   prefix: '',
@@ -34,6 +37,7 @@ const config = {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },
       colors: {
+        brand: colors.pink,
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

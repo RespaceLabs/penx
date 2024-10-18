@@ -4,8 +4,10 @@ import React, { HTMLAttributes, PropsWithChildren, useMemo } from 'react'
 import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
 import { Merienda } from 'next/font/google'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ProfilePopover } from '../Profile/ProfilePopover'
+import { useSiteContext } from '../SiteContext'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { NewButton } from './NewButton'
 
@@ -20,9 +22,10 @@ export function NavbarWrapper({
   children,
   ...rest
 }: PropsWithChildren & Props) {
-  const pathname = usePathname()
+  const pathname = usePathname()!
   const { data: session } = useSession()
   const isPost = pathname.startsWith(`/~/post/`)
+  const site = useSiteContext()
 
   const topRightJSX = useMemo(() => {
     if (isPost) return null
@@ -43,7 +46,9 @@ export function NavbarWrapper({
       )}
     >
       <div>
-        <div className={cn('font-bold text-3xl', merienda.className)}>Leen</div>
+        <Link href="/" className={cn('font-bold text-2xl', merienda.className)}>
+          {site.name}
+        </Link>
       </div>
       <div className="flex-1"></div>
 

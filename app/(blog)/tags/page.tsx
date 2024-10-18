@@ -1,13 +1,9 @@
 import { getTags } from '@/lib/fetchers'
+import { loadTheme } from '@/lib/loadTheme'
 
 export default async function Page() {
   const tags = await getTags()
-
-  if (!process.env.NEXT_PUBLIC_THEME) {
-    return <div>Theme not found</div>
-  }
-
-  const { TagListPage } = await import(process.env.NEXT_PUBLIC_THEME!)
+  const { TagListPage } = await loadTheme()
 
   if (!TagListPage) {
     return <div>Theme not found</div>

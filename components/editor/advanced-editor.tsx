@@ -44,6 +44,7 @@ const Editor = ({
   return (
     <EditorRoot>
       <EditorContent
+        immediatelyRender={false}
         className={cn('editor h-full', className)}
         editable={editable}
         {...(initialValue && { initialContent: initialValue })}

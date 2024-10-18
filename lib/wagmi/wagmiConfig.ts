@@ -1,11 +1,7 @@
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { AppKitNetwork, baseSepolia } from '@reown/appkit/networks'
-import { cookieStorage, createStorage, http } from '@wagmi/core'
-
-// Get projectId from https://cloud.walletconnect.com
-export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID
-
-if (!projectId) throw new Error('Project ID is not defined')
+import { cookieStorage, createStorage } from '@wagmi/core'
+import { PROJECT_ID } from '../constants'
 
 export const networks: [AppKitNetwork, ...AppKitNetwork[]] = [baseSepolia]
 
@@ -15,7 +11,7 @@ export const wagmiAdapter = new WagmiAdapter({
     storage: cookieStorage,
   }),
   ssr: true,
-  projectId,
+  projectId: PROJECT_ID,
   networks,
 })
 

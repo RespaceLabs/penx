@@ -1,23 +1,24 @@
 'use client'
 
 import React, { ReactNode } from 'react'
+import { PROJECT_ID } from '@/lib/constants'
+import { siweConfig } from '@/lib/wagmi/siweConfig'
 import { networks, wagmiAdapter, wagmiConfig } from '@/lib/wagmi/wagmiConfig'
 import { createAppKit } from '@reown/appkit/react'
 import { Config, cookieToInitialState, State, WagmiProvider } from 'wagmi'
 
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string
-
 const metadata = {
-  name: 'Respace',
-  description: 'Building Space On-Chain',
-  url: 'https://www.respace.one', // origin must match your domain & subdomain
+  name: 'Plantree',
+  description: 'The best way to build web3 independent blog.',
+  url: 'https://plantree.xyz', // origin must match your domain & subdomain
   icons: ['https://avatars.githubusercontent.com/u/179229932'],
 }
 
 // Create the modal
 const modal = createAppKit({
+  siweConfig: siweConfig,
   adapters: [wagmiAdapter],
-  projectId,
+  projectId: PROJECT_ID,
   networks: networks,
   defaultNetwork: networks[0],
   metadata: metadata,

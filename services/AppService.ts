@@ -5,7 +5,6 @@ import { api } from '@/lib/trpc'
 import { store } from '@/store'
 
 interface Options {
-  authenticated: boolean
   postId?: string
 }
 export class AppService {
@@ -13,13 +12,7 @@ export class AppService {
 
   init = async (opt: Options) => {
     store.set(appLoading, true)
-
     let postId = opt.postId || ''
-
-    if (!opt.authenticated) {
-      store.set(appLoading, false)
-      return
-    }
 
     const [posts] = await Promise.all([api.post.list.query()])
 

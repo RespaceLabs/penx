@@ -11,14 +11,13 @@ export async function getPosts() {
   return await unstable_cache(
     async () => {
       return prisma.post.findMany({
+        include: {
+          postTags: { include: { tag: true } },
+        },
         where: {
           postStatus: PostStatus.PUBLISHED,
         },
-        orderBy: [
-          {
-            createdAt: 'desc',
-          },
-        ],
+        orderBy: [{ createdAt: 'desc' }],
       })
     },
     [`posts`],

@@ -20,14 +20,15 @@ import { GateType } from '@/lib/constants'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import {
-  Cloud,
+  DatabaseBackup,
   Gauge,
-  LifeBuoy,
+  KeySquare,
   LogOut,
   Settings,
-  UserRoundPen,
+  UserCog,
+  UserRound,
 } from 'lucide-react'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { ProfileAvatar } from './ProfileAvatar'
 import { useProfileDialog } from './ProfileDialog/useProfileDialog'
@@ -44,8 +45,12 @@ export function ProfilePopover({
   showEnsName,
   className = '',
 }: Props) {
+  const { data } = useSession()
   const { push } = useRouter()
   const { setIsOpen } = useProfileDialog()
+
+  if (!data) return null
+  const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
 
   return (
     <DropdownMenu>
@@ -63,25 +68,59 @@ export function ProfilePopover({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem
-            className="cursor-pointer"
-            onClick={() => {
-              push('/~/posts')
-            }}
-          >
-            <Gauge className="mr-2 h-4 w-4" />
-            <span>Posts</span>
-          </DropdownMenuItem>
+          {isEditor && (
+            <>
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => {
+                  push('/~/posts')
+                }}
+              >
+                <Gauge className="mr-2 h-4 w-4" />
+                <span>Posts</span>
+              </DropdownMenuItem>
 
-          <DropdownMenuItem
-            className="cursor-pointer"
-            onClick={() => {
-              push('/~/settings')
-            }}
-          >
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-          </DropdownMenuItem>
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => {
+                  push('/~/settings')
+                }}
+              >
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Settings</span>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => {
+                  push('/~/role')
+                }}
+              >
+                <UserCog className="mr-2 h-4 w-4" />
+                <span>Role</span>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => {
+                  push('/~/accesstoken')
+                }}
+              >
+                <KeySquare className="mr-2 h-4 w-4" />
+                <span>Access Token</span>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => {
+                  push('/~/backup')
+                }}
+              >
+                <DatabaseBackup className="mr-2 h-4 w-4" />
+                <span>Backup</span>
+              </DropdownMenuItem>
+            </>
+          )}
 
           <DropdownMenuItem
             className="cursor-pointer"
@@ -89,11 +128,10 @@ export function ProfilePopover({
               setIsOpen(true)
             }}
           >
-            <UserRoundPen className="mr-2 h-4 w-4" />
+            <UserRound className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
           <LogOut className="mr-2 h-4 w-4" />

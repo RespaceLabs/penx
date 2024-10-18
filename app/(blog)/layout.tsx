@@ -1,16 +1,18 @@
 import { Profile } from '@/components/Profile/Profile'
-import { WalletConnectButton } from '@/components/WalletConnectButton'
+import { getSite } from '@/lib/fetchers'
+import { loadTheme } from '@/lib/loadTheme'
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const { SiteLayout } = await import(process.env.NEXT_PUBLIC_THEME!)
+  const site = await getSite()
+  const { SiteLayout } = await loadTheme()
 
   return (
     <SiteLayout
-      siteMetadata={null}
+      site={site}
       Logo={null}
       ThemeSwitch={null}
       MobileNav={null}

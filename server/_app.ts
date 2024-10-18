@@ -2,6 +2,8 @@
  * This file contains the root router of your tRPC-backend
  */
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
+import { accessTokenRouter } from './routers/accesstoken'
+import { googleRouter } from './routers/google'
 import { postRouter } from './routers/post'
 import { siteRouter } from './routers/site'
 import { tagRouter } from './routers/tag'
@@ -14,6 +16,8 @@ export const appRouter = router({
   user: userRouter,
   post: postRouter,
   tag: tagRouter,
+  google: googleRouter,
+  accessToken: accessTokenRouter,
 })
 
 export const createCaller = createCallerFactory(appRouter)

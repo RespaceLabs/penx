@@ -15,7 +15,7 @@ export const CoverUpload = forwardRef<HTMLDivElement, Props>(
     const inputRef = useRef<HTMLInputElement>(null)
     const [loading, setLoading] = useState(false)
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log('====e.target.files:', e.target.files)
+      // console.log('====e.target.files:', e.target.files)
 
       if (e.target.files?.length) {
         setLoading(true)
@@ -58,9 +58,9 @@ export const CoverUpload = forwardRef<HTMLDivElement, Props>(
         <div className="w-full h-[360px] relative">
           <Image
             src={value || ''}
-            width={800}
-            height={800}
-            className="absolute left-0 top-0 w-full h-[360px] cursor-pointer"
+            width={1000}
+            height={1000}
+            className="absolute left-0 top-0 w-full h-[360px] cursor-pointer object-cover"
             alt=""
           />
 

@@ -2,6 +2,7 @@
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
+import { useAddress } from '@/hooks/useAddress'
 import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
 import { ProfileDialog } from './ProfileDialog/ProfileDialog'
@@ -11,6 +12,8 @@ interface Props {}
 
 export function Profile({}: Props) {
   const { status } = useSession()
+  const {} = useAddress()
+
   if (status === 'loading') return <Skeleton className="h-10 w-[100px]" />
   const authenticated = status === 'authenticated'
   return (

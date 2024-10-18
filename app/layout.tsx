@@ -18,16 +18,17 @@ const fontSans = FontSans({
   variable: '--font-sans',
 })
 
-const title = 'PenX: the space for web3 creator'
+const title = 'Plantree: The best way to build web3 independent blog.'
 const description =
-  'PenX is the space for web3 creator, find 1000 true fans in PenX'
+  'Plantree is open-source, modern tool for building web3 independent blog.'
+
 // const image = 'https://vercel.pub/thumbnail.png'
 
 export const metadata: Metadata = {
   title,
   description,
 
-  icons: ['https://penx.io/favicon.ico'],
+  icons: ['https://plantree.xyz/favicon.ico'],
   openGraph: {
     title,
     description,
@@ -38,9 +39,9 @@ export const metadata: Metadata = {
     title,
     description,
     // images: [image],
-    creator: '@penx',
+    creator: '@plantree',
   },
-  metadataBase: new URL('https://penx.io'),
+  metadataBase: new URL('https://plantree.xyz'),
 }
 
 export default async function RootLayout({
@@ -49,6 +50,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const headerList = headers()
+  const cookies = headers().get('cookie')
   const url = headerList.get('x-current-path') || ''
 
   const session: any = await getSession()
@@ -94,7 +96,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Providers>
+          <Providers cookies={cookies}>
             <TokenProvider token={token}>
               {children}
               <Analytics />
