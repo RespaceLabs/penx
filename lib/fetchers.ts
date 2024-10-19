@@ -56,8 +56,24 @@ export async function getTags() {
     },
     [`tags`],
     {
-      revalidate: 5,
+      revalidate: 900,
       tags: [`tags`],
+    },
+  )()
+}
+
+export async function getTagWithPost(name: string) {
+  return await unstable_cache(
+    async () => {
+      return prisma.tag.findFirst({
+        include: { postTags: { include: { post: true } } },
+        where: { name },
+      })
+    },
+    [`tags-${name}`],
+    {
+      revalidate: 900,
+      tags: [`tags-${name}`],
     },
   )()
 }

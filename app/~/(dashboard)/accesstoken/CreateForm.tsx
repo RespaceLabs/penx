@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
@@ -42,7 +44,7 @@ export default function AccessTokenCreateForm({ refetch }: Props) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [generatedToken, setGeneratedToken] = useState('')
 
-  const { mutateAsync } = trpc.accesstoken.create.useMutation()
+  const { mutateAsync } = trpc.accessToken.create.useMutation()
 
   const now = new Date()
   const form = useForm<z.infer<typeof FormSchema>>({

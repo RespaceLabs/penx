@@ -2,11 +2,8 @@ import { prisma } from '@/lib/prisma'
 import { redisKeys } from '@/lib/redisKeys'
 import { TRPCError } from '@trpc/server'
 import { slug } from 'github-slugger'
-import Redis from 'ioredis'
 import { z } from 'zod'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
-
-// const redis = new Redis(process.env.REDIS_URL!)
 
 export const tagRouter = router({
   list: publicProcedure.query(async () => {

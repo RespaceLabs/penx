@@ -1,11 +1,5 @@
-'use client'
-
 import { GoogleBackup } from './GoogleBackup/GoogleBackup'
 
-export default function Page() {
-  return (
-    <div>
-      <GoogleBackup />
-    </div>
-  )
+export default async function Page() {
+  return <GoogleBackup />
 }

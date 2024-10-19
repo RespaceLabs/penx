@@ -1,13 +1,9 @@
 import { PostStatus } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
-import { redisKeys } from '@/lib/redisKeys'
 import { Post } from '@prisma/client'
-import Redis from 'ioredis'
 import { z } from 'zod'
 import { syncToGoogleDrive } from '../lib/syncToGoogleDrive'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
-
-const redis = new Redis(process.env.REDIS_URL!)
 
 enum PostType {
   ARTICLE = 'ARTICLE',
@@ -25,15 +21,6 @@ enum GateType {
 
 export const postRouter = router({
   list: protectedProcedure.query(async ({ ctx, input }) => {
-    const key = redisKeys.posts()
-
-    const postsStr = await redis.get(key)
-
-    if (postsStr) {
-      // const res = JSON.parse(postsStr) as Post[]
-      // if (Array.isArray(res)) return res
-    }
-
     const posts = await prisma.post.findMany({
       include: {
         postTags: { include: { tag: true } },
@@ -41,25 +28,13 @@ export const postRouter = router({
       orderBy: { updatedAt: 'desc' },
     })
 
-    await redis.set(key, JSON.stringify(posts), 'EX', 60 * 60 * 24)
     return posts
   }),
 
   publishedPosts: publicProcedure.query(async ({ ctx, input }) => {
-    const key = redisKeys.publishedPosts()
-
-    const postsStr = await redis.get(key)
-
-    if (postsStr) {
-      const res = JSON.parse(postsStr) as Post[]
-      if (Array.isArray(res)) return res
-    }
-
     const posts = await prisma.post.findMany({
       where: { postStatus: PostStatus.PUBLISHED },
     })
-
-    await redis.set(key, JSON.stringify(posts), 'EX', 60 * 60 * 24)
     return posts
   }),
 
@@ -98,11 +73,6 @@ export const postRouter = router({
         },
       })
 
-      await Promise.all([
-        redis.del(redisKeys.posts()),
-        redis.del(redisKeys.publishedPosts()),
-      ])
-
       return prisma.post.findUniqueOrThrow({
         where: { id: newPost.id },
       })
@@ -126,12 +96,7 @@ export const postRouter = router({
         },
       })
 
-      await Promise.all([
-        redis.del(redisKeys.posts()),
-        redis.del(redisKeys.publishedPosts()),
-      ])
-
-      return true
+      return post
     }),
 
   updateCover: protectedProcedure
@@ -148,11 +113,7 @@ export const postRouter = router({
         data: { image },
       })
 
-      await Promise.all([
-        redis.del(redisKeys.posts()),
-        redis.del(redisKeys.publishedPosts()),
-      ])
-      return true
+      return post
     }),
 
   publish: protectedProcedure
@@ -172,11 +133,6 @@ export const postRouter = router({
           gateType,
         },
       })
-
-      await Promise.all([
-        redis.del(redisKeys.posts()),
-        redis.del(redisKeys.publishedPosts()),
-      ])
 
       return post
     }),

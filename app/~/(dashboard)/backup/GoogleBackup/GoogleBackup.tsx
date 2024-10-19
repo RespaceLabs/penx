@@ -1,3 +1,5 @@
+'use client'
+
 import { Suspense } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { trpc } from '@/lib/trpc'

@@ -1,11 +1,7 @@
 import { prisma } from '@/lib/prisma'
-import { redisKeys } from '@/lib/redisKeys'
-import Redis from 'ioredis'
 import { z } from 'zod'
 import { getSite } from '../lib/getSite'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
-
-const redis = new Redis(process.env.REDIS_URL!)
 
 export const siteRouter = router({
   getSite: publicProcedure.query(async () => {

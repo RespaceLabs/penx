@@ -68,7 +68,7 @@ export function Tags() {
             className="rounded-full relative gap-1 text-xs"
             onClick={async () => {
               try {
-                removePostTag(item.id)
+                removePostTag(item)
                 await deletePostTag(item.id)
               } catch (error) {
                 toast.error(extractErrorMessage(error))

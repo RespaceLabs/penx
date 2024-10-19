@@ -1,19 +1,23 @@
-import { getTags } from '@/lib/fetchers'
+import { getTags, getTagWithPost } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
-import prisma from '@/lib/prisma'
+
+export const generateStaticParams = async () => {
+  const tags = await getTags()
+  const paths = tags.map((tag) => ({
+    tag: encodeURI(tag.name),
+  }))
+  return paths
+}
 
 export default async function TagPage({ params }: { params: { tag: string } }) {
   const tagName = decodeURI(params.tag)
 
-  const [tag, tags] = await Promise.all([
-    prisma.tag.findFirst({
-      include: { postTags: { include: { post: true } } },
-      where: { name: tagName },
-    }),
+  const [tagWithPosts, tags] = await Promise.all([
+    getTagWithPost(tagName),
     getTags(),
   ])
 
-  const posts = tag?.postTags.map((postTag) => postTag.post) || []
+  const posts = tagWithPosts?.postTags.map((postTag) => postTag.post) || []
 
   const { TagDetailPage } = await loadTheme()
 

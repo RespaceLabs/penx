@@ -5,7 +5,7 @@ import AccessTokenCreateForm from './CreateForm'
 import AccessTokenList from './TokenList'
 
 export default function Page() {
-  const { isLoading, data, refetch } = trpc.accesstoken.list.useQuery()
+  const { isLoading, data, refetch } = trpc.accessToken.list.useQuery()
 
   return (
     <div className="flex flex-col justify-between space-y-8">

@@ -1,3 +1,5 @@
+'use client'
+
 import { DeleteConfirmDialog } from '@/components/DeleteConfirmDialog/DeleteConfirmDialog'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Separator } from '@/components/ui/separator'
@@ -19,7 +21,7 @@ export default function AccessTokenList({
   tokenList,
   refetch,
 }: Props) {
-  const { mutateAsync } = trpc.accesstoken.delete.useMutation()
+  const { mutateAsync } = trpc.accessToken.delete.useMutation()
 
   if (isLoading) {
     return <LoadingDots />

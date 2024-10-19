@@ -1,10 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { GoogleInfo } from '@/lib/types'
 import { google } from 'googleapis'
-import Redis from 'ioredis'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
-
-// const redis = new Redis(process.env.REDIS_URL!)
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET!

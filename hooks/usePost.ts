@@ -4,10 +4,12 @@ import { PostStatus } from '@/lib/constants'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { RouterOutputs } from '@/server/_app'
 import { store } from '@/store'
-import { PostTag } from '@prisma/client'
+import { PostTag, Tag } from '@prisma/client'
 import { atom, useAtom } from 'jotai'
 
 export type Post = RouterOutputs['post']['list']['0']
+
+export type PostTagWithTag = PostTag & { tag: Tag }
 
 export const postAtom = atom<Post>(null as any as Post)
 
@@ -25,21 +27,23 @@ export function updatePostPublishStatus() {
   })
 }
 
-export function addPostTag(postTag: any) {
+export function addPostTag(postTag: PostTagWithTag) {
   const post = store.get(postAtom)
   store.set(postAtom, {
     ...post,
-    postTags: [...post.postTags, postTag],
+    postTags: [...post.postTags, postTag as any],
   })
   revalidateMetadata(`posts`)
+  revalidateMetadata(`tag-${postTag.tag.name}`)
 }
 
-export function removePostTag(id: string) {
+export function removePostTag(postTag: PostTagWithTag) {
   const post = store.get(postAtom)
-  const newTags = post.postTags.filter((tag) => tag.id !== id)
+  const newTags = post.postTags.filter((tag) => tag.id !== postTag.id)
   store.set(postAtom, {
     ...post,
     postTags: newTags,
   })
   revalidateMetadata(`posts`)
+  revalidateMetadata(`tag-${postTag.tag.name}`)
 }

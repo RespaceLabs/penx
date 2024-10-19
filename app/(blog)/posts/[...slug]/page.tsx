@@ -3,10 +3,13 @@ import { loadTheme } from '@/lib/loadTheme'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 
+export async function generateStaticParams() {
+  const posts = await getPosts()
+  return posts.map((post) => ({ slug: [post.slug] }))
+}
+
 export default async function Page({ params }: { params: { slug: string[] } }) {
   const slug = decodeURI(params.slug.join('/'))
-
-  // TODO: improve performance
   const [post, posts] = await Promise.all([getPost(slug), getPosts()])
 
   const postIndex = posts.findIndex((p) => p.slug === slug)
