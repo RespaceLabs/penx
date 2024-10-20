@@ -92,7 +92,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
           prev={prev}
         />
         <div className="mx-auto relative">
-          <GateCover />
+          <GateCover slug={post.slug} />
         </div>
       </div>
     )
@@ -115,7 +115,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
       />
       {!hasMembership && (
         <div className="mx-auto relative">
-          <GateCover />
+          <GateCover slug={post.slug} />
         </div>
       )}
     </div>

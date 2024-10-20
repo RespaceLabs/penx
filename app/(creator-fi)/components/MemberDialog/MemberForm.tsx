@@ -21,6 +21,8 @@ import {
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { precision } from '@/lib/math'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSession } from 'next-auth/react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { AmountInput } from './AmountInput'
@@ -97,6 +99,7 @@ export function MemberForm({ space }: Props) {
     }
 
     await subscribe(data.token, amount, isSubscribe)
+
     setLoading(false)
   }
 
@@ -208,6 +211,7 @@ export function MemberForm({ space }: Props) {
 
 function TokenBalance() {
   const { subscription } = useMemberDialog()
+
   return (
     <div className="flex items-center gap-1">
       <div className="font-bold">{subscription?.timeFormatted}</div>

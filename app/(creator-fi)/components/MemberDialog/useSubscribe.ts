@@ -7,7 +7,13 @@ import { erc20Abi, spaceAbi } from '@/lib/abi'
 import { checkChain } from '@/lib/checkChain'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { wagmiConfig } from '@/lib/wagmi'
-import { readContract, waitForTransactionReceipt, writeContract } from '@wagmi/core'
+import {
+  readContract,
+  waitForTransactionReceipt,
+  writeContract,
+} from '@wagmi/core'
+import { useSession } from 'next-auth/react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { Address } from 'viem'
 import { useWriteContract } from 'wagmi'
@@ -19,6 +25,10 @@ export function useSubscribe(space: Space) {
   const address = useAddress()
   const subscription = useSubscriptions()
   const { setIsOpen, plan } = useMemberDialog()
+  const { push } = useRouter()
+  const params = useSearchParams()
+  const postSlug = params.get('post_slug')
+  const { update } = useSession()
 
   return async (token: string, amount: bigint, isSubscribe: boolean) => {
     const spaceAddress = space.address as Address
@@ -83,15 +93,27 @@ export function useSubscribe(space: Space) {
         args: [],
       })
 
-      const info = subscriptions.find((sub) => sub.planId === plan.id && sub.account === address)!
+      const info = subscriptions.find(
+        (sub) => sub.planId === plan.id && sub.account === address,
+      )!
 
-      await Promise.all([subscription.refetch(), members.refetch(), refetchSpaces()])
+      await Promise.all([
+        subscription.refetch(),
+        members.refetch(),
+        refetchSpaces(),
+      ])
+
+      if (postSlug) {
+        await update({ address })
+        push(`/posts/${postSlug}`)
+      }
 
       if (isSubscribe) {
         toast.success('Subscribe successful!')
       } else {
         toast.success('Unsubscribe successful!')
       }
+
       setIsOpen(false)
     } catch (error) {
       console.log('=======>>>>error:', error)

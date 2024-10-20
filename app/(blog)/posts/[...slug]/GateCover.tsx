@@ -2,13 +2,17 @@
 
 import { Button } from '@/components/ui/button'
 import { useAppKit } from '@reown/appkit/react'
+import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
 
-interface Props {}
+interface Props {
+  slug: string
+}
 
-export function GateCover({}: Props) {
+export function GateCover({ slug }: Props) {
   const { open } = useAppKit()
   const { isConnected } = useAccount()
+  const { data } = useSession()
   return (
     <div className="h-80 absolute bottom-0 w-full bg-gradient-to-t from-white from-50% via-white/80 via-90% to-95% to-white/0 flex flex-col justify-center gap-6 -mt-16 dark:from-transparent dark:bg-transparent">
       <div className="text-center font-semibold text-2xl">
@@ -22,7 +26,9 @@ export function GateCover({}: Props) {
             if (!isConnected) {
               open()
             }
-            location.href = '/creator-fi/plans'
+            if (data) {
+              location.href = `/creator-fi/plans?post_slug=${slug}`
+            }
           }}
         >
           Become a member
