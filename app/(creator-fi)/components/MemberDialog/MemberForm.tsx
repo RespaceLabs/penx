@@ -2,6 +2,12 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { SubscriptionType } from '@/app/(creator-fi)/constants'
+import { Space } from '@/app/(creator-fi)/domains/Space'
+import { useQueryEthBalance } from '@/app/(creator-fi)/hooks/useEthBalance'
+import { useTokenBalance } from '@/app/(creator-fi)/hooks/useTokenBalance'
+import LoadingDots from '@/components/icons/loading-dots'
+import { ProfileAvatar } from '@/components/Profile/ProfileAvatar'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -13,20 +19,14 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-import { Space } from '@/app/(creator-fi)/domains/Space'
-import { useQueryEthBalance } from '@/app/(creator-fi)/hooks/useEthBalance'
-import { useTokenBalance } from '@/app/(creator-fi)/hooks/useTokenBalance'
 import { precision } from '@/lib/math'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 import { z } from 'zod'
-import { ProfileAvatar } from '@/components/Profile/ProfileAvatar'
 import { AmountInput } from './AmountInput'
 import { TokenSelect } from './TokenSelect'
 import { useMemberDialog } from './useMemberDialog'
 import { useSubscribe } from './useSubscribe'
-import LoadingDots from '@/app/(creator-fi)/loading/loading-dots'
-import { SubscriptionType } from '@/app/(creator-fi)/constants'
 
 interface Props {
   space: Space
@@ -102,7 +102,10 @@ export function MemberForm({ space }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 sm:max-w-[425px]">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="grid gap-4 sm:max-w-[425px]"
+      >
         <FormField
           control={form.control}
           name="type"
@@ -183,13 +186,19 @@ export function MemberForm({ space }: Props) {
         )}
 
         <div className="flex h-6 items-center justify-between">
-          <div className="text-sm text-neutral-500">Total {isSubscribe ? 'cost' : 'refund'}</div>
+          <div className="text-sm text-neutral-500">
+            Total {isSubscribe ? 'cost' : 'refund'}
+          </div>
           <div className="text-sm">
             {precision.toDecimal(cost).toFixed(6)} {unit}
           </div>
         </div>
 
-        <Button type="submit" size="lg" disabled={loading || !form.formState.isValid}>
+        <Button
+          type="submit"
+          size="lg"
+          disabled={loading || !form.formState.isValid}
+        >
           {loading ? <LoadingDots color="white" /> : 'Confirm'}
         </Button>
       </form>

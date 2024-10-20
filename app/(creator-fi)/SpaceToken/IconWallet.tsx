@@ -5,7 +5,7 @@ export const IconWallet = () => {
       width="1em"
       height="1em"
       viewBox="0 0 24 24"
-      className="h-5 w-5 dark:text-zinc-500"
+      className="h-5 w-5 text-zinc-400 dark:text-zinc-500"
     >
       <g fill="currentColor" fillRule="evenodd" clipRule="evenodd">
         <path d="M21.1 8.004q-.085-.005-.181-.004h-2.525c-2.068 0-3.837 1.628-3.837 3.75s1.77 3.75 3.837 3.75h2.525q.096.001.182-.004a1.755 1.755 0 0 0 1.645-1.628c.004-.06.004-.125.004-.185V9.817c0-.06 0-.125-.004-.185a1.755 1.755 0 0 0-1.645-1.628m-2.928 4.746c.532 0 .963-.448.963-1s-.431-1-.963-1c-.533 0-.964.448-.964 1s.431 1 .964 1"></path>

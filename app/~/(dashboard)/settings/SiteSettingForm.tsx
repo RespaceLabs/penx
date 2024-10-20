@@ -1,13 +1,12 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { editorDefaultValue } from '@/app/(creator-fi)/constants'
 import Editor from '@/components/editor/advanced-editor'
 import { FileUpload } from '@/components/FileUpload'
 import LoadingDots from '@/components/icons/loading-dots'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -20,13 +19,11 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
-import { api, trpc } from '@/lib/trpc'
-import { store } from '@/store'
+import { trpc } from '@/lib/trpc'
+import { Socials } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Site } from '@prisma/client'
-import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
-import { useAccount, useWriteContract } from 'wagmi'
 import { z } from 'zod'
 
 const FormSchema = z.object({
@@ -36,6 +33,16 @@ const FormSchema = z.object({
   }),
   description: z.string(),
   about: z.string(),
+  farcaster: z.string().optional(),
+  x: z.string().optional(),
+  mastodon: z.string().optional(),
+  github: z.string().optional(),
+  facebook: z.string().optional(),
+  youtube: z.string().optional(),
+  linkedin: z.string().optional(),
+  threads: z.string().optional(),
+  instagram: z.string().optional(),
+  medium: z.string().optional(),
 })
 
 interface Props {
@@ -46,6 +53,8 @@ export function SiteSettingForm({ site }: Props) {
   const { data, refetch } = trpc.site.getSite.useQuery()
   const { isPending, mutateAsync } = trpc.site.updateSite.useMutation()
 
+  const social = (site.socials || {}) as Socials
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -53,6 +62,16 @@ export function SiteSettingForm({ site }: Props) {
       name: site.name || '',
       description: site.description || '',
       about: site.about || '',
+      farcaster: social.farcaster || '',
+      x: social.x || '',
+      mastodon: social.mastodon || '',
+      github: social.github || '',
+      facebook: social.facebook || '',
+      youtube: social.youtube || '',
+      linkedin: social.linkedin || '',
+      threads: social.threads || '',
+      instagram: social.instagram || '',
+      medium: social.medium || '',
     },
   })
 
@@ -60,7 +79,22 @@ export function SiteSettingForm({ site }: Props) {
     try {
       await mutateAsync({
         id: site.id,
-        ...data,
+        logo: data.logo,
+        name: data.name,
+        description: data.description,
+        about: data.about,
+        socials: {
+          farcaster: data.farcaster,
+          x: data.x,
+          mastodon: data.mastodon,
+          github: data.github,
+          facebook: data.facebook,
+          youtube: data.youtube,
+          linkedin: data.linkedin,
+          threads: data.threads,
+          instagram: data.instagram,
+          medium: data.medium,
+        },
       })
       refetch()
       toast.success('Site updated successfully!')
@@ -138,8 +172,136 @@ export function SiteSettingForm({ site }: Props) {
           )}
         />
 
+        <Card className="p-4 space-y-4">
+          <FormField
+            control={form.control}
+            name="warpcast"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Farcaster</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://..."
+                    {...field}
+                    className="w-full"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="x"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>X</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://..."
+                    {...field}
+                    className="w-full"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="facebook"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Facebook</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://..."
+                    {...field}
+                    className="w-full"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="youtube"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Youtube</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://..."
+                    {...field}
+                    className="w-full"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="instagram"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Instagram</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://..."
+                    {...field}
+                    className="w-full"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="linkedin"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>linkedin</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://..."
+                    {...field}
+                    className="w-full"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="github"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>GitHub</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="https://..."
+                    {...field}
+                    className="w-full"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </Card>
+
         <div>
-          <Button size="lg" type="submit" className="w-full">
+          <Button size="lg" type="submit" className="w-20">
             {isPending ? <LoadingDots color="#808080" /> : <p>Save</p>}
           </Button>
         </div>

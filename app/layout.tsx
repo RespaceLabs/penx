@@ -74,11 +74,10 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          'min-h-screen bg-background text-foreground font-sans antialiased',
           cal.variable,
           inter.variable,
           fontSans.variable,
-          'bg-white',
           // url === '/' && 'bg-zinc-100',
         )}
       >

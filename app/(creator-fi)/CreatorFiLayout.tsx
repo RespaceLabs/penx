@@ -4,12 +4,12 @@ import { PropsWithChildren, Suspense } from 'react'
 import { useQueryEthBalance } from '@/app/(creator-fi)/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { useQuerySpace, useSpace } from '@/app/(creator-fi)/hooks/useSpace'
-import { LoadingCircle } from './loading/loading-circle'
-import { WalletConnectButton } from '@/components/WalletConnectButton'
+import { ClientOnly } from '@/components/ClientOnly'
+import LoadingCircle from '@/components/icons/loading-circle'
+import { Profile } from '@/components/Profile/Profile'
 import Link from 'next/link'
 import { SpaceBasicInfo } from './Space/SpaceBasicInfo'
 import { SpaceNav } from './Space/SpaceNav'
-import { ClientOnly } from '@/components/ClientOnly'
 
 interface HeaderProps {
   isLoading: boolean
@@ -41,11 +41,7 @@ function Header({ isLoading }: HeaderProps) {
       </div>
       <SpaceNav></SpaceNav>
       <div className="flex flex-1 justify-end">
-        <Suspense fallback={<div>loading...</div>}>
-          <ClientOnly>
-            <WalletConnectButton />
-          </ClientOnly>
-        </Suspense>
+        <Profile />
       </div>
     </header>
   )

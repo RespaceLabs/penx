@@ -112,3 +112,31 @@ export type GoogleInfo = {
   email: string
   picture: string
 }
+
+export type Socials = {
+  farcaster: string
+  x: string
+  mastodon: string
+  github: string
+  facebook: string
+  youtube: string
+  linkedin: string
+  threads: string
+  instagram: string
+  medium: string
+}
+
+export type SubscriptionRaw = {
+  planId: number
+  account: string
+  startTime: bigint
+  duration: bigint
+  amount: bigint
+  uri: string
+}
+
+export type SubscriptionInSession = {
+  planId: number
+  startTime: number
+  duration: number
+}

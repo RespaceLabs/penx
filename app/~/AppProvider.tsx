@@ -14,13 +14,14 @@ export function AppProvider({ children }: PropsWithChildren) {
   const params = useParams() as Record<string, string>
 
   useEffect(() => {
+    if (!params?.postId) return
     if (initedRef.current) return
     initedRef.current = true
 
     appRef.current.init({
       postId: params?.postId,
     })
-  }, [])
+  }, [params?.postId])
 
   if (loading) {
     return (

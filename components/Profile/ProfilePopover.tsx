@@ -121,16 +121,6 @@ export function ProfilePopover({
               </DropdownMenuItem>
             </>
           )}
-
-          <DropdownMenuItem
-            className="cursor-pointer"
-            onClick={() => {
-              setIsOpen(true)
-            }}
-          >
-            <UserRound className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>

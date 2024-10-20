@@ -1,4 +1,5 @@
 import { authOptions } from '@/lib/auth'
+import { SubscriptionInSession } from '@/lib/types'
 import { type SIWESession } from '@reown/appkit-siwe'
 import NextAuth from 'next-auth'
 
@@ -9,6 +10,7 @@ declare module 'next-auth' {
     userId: string
     ensName: string | null
     role: string
+    subscriptions: SubscriptionInSession[]
   }
 }
 

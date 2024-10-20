@@ -6,11 +6,15 @@ import {
   verifySignature,
   type SIWESession,
 } from '@reown/appkit-siwe'
+import { readContract } from '@wagmi/core'
 import NextAuth, { getServerSession, type NextAuthOptions } from 'next-auth'
 import credentialsProvider from 'next-auth/providers/credentials'
 import { Address, createPublicClient, http } from 'viem'
 import { mainnet } from 'viem/chains'
-import { PROJECT_ID } from './constants'
+import { spaceAbi } from './abi'
+import { PROJECT_ID, SPACE_ID } from './constants'
+import { SubscriptionInSession } from './types'
+import { wagmiConfig } from './wagmi'
 
 const nextAuthSecret = process.env.NEXTAUTH_SECRET
 if (!nextAuthSecret) {
@@ -58,6 +62,7 @@ export const authOptions: NextAuthOptions = {
 
           if (isValid) {
             const user = await createUser(address)
+            updateSubscriptions(user)
             return { chainId, ...user }
           }
 
@@ -83,6 +88,14 @@ export const authOptions: NextAuthOptions = {
         token.chainId = sessionUser.chainId
         token.ensName = (sessionUser.ensName as string) || null
         token.role = (sessionUser.role as string) || null
+
+        token.subscriptions = Array.isArray(sessionUser.subscriptions)
+          ? sessionUser.subscriptions.map((i: any) => ({
+              planId: i.planId,
+              startTime: i.startTime,
+              duration: i.duration,
+            }))
+          : []
       }
 
       // console.log('jwt token========:', token)
@@ -95,6 +108,7 @@ export const authOptions: NextAuthOptions = {
       session.chainId = token.chainId as string
       session.ensName = token.ensName as string
       session.role = token.role as string
+      session.subscriptions = token.subscriptions as any
 
       return session
     },
@@ -110,6 +124,12 @@ export function getSession() {
       email: string
       image: string
     }
+    userId: string
+    address: string
+    chainId: string
+    ensName: string
+    role: UserRole
+    subscriptions: SubscriptionInSession[]
   } | null>
 }
 
@@ -136,4 +156,31 @@ async function createUser(address: any) {
   }
 
   return { ...user, ensName }
+}
+
+async function updateSubscriptions(user: User) {
+  try {
+    const subscription = await readContract(wagmiConfig, {
+      abi: spaceAbi,
+      address: SPACE_ID as Address,
+      functionName: 'getSubscription',
+      args: [0, user?.address as Address],
+    })
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        subscriptions: [
+          {
+            ...subscription,
+            startTime: Number(subscription.startTime),
+            duration: Number(subscription.duration),
+            amount: subscription.amount.toString(),
+          },
+        ],
+      },
+    })
+  } catch (error) {
+    // console.log('=====error:', error)
+  }
 }

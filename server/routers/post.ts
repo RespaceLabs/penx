@@ -1,4 +1,4 @@
-import { PostStatus } from '@/lib/constants'
+import { GateType, PostStatus } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { Post } from '@prisma/client'
 import { z } from 'zod'
@@ -14,18 +14,13 @@ enum PostType {
   FIGMA = 'FIGMA',
 }
 
-enum GateType {
-  FREE = 'FREE',
-  MEMBER_ONLY = 'MEMBER_ONLY',
-}
-
 export const postRouter = router({
   list: protectedProcedure.query(async ({ ctx, input }) => {
     const posts = await prisma.post.findMany({
       include: {
         postTags: { include: { tag: true } },
       },
-      orderBy: { updatedAt: 'desc' },
+      orderBy: { createdAt: 'desc' },
     })
 
     return posts
@@ -120,7 +115,7 @@ export const postRouter = router({
     .input(
       z.object({
         id: z.string(),
-        gateType: z.enum([GateType.FREE, GateType.MEMBER_ONLY]),
+        gateType: z.enum([GateType.FREE, GateType.PAID]),
       }),
     )
     .mutation(async ({ ctx, input }) => {

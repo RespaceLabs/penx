@@ -1,6 +1,7 @@
 'use client'
 
 import { ReactNode } from 'react'
+import { PostHeader } from '@/components/Post/PostHeader'
 import { AppProvider } from '../../../AppProvider'
 
 export default function Layout({ children }: { children: ReactNode }) {

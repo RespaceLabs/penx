@@ -37,7 +37,7 @@ export function PublishPopover({ onPublish, post, isPending }: Props) {
           Publish
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-[460px] flex flex-col gap-5">
+      <PopoverContent align="end" className="w-[520px] flex flex-col gap-5">
         <div className="text-center text-xl font-semibold">
           Publish your post
         </div>
@@ -94,10 +94,10 @@ function GateTypeSelect({ value, onSelect }: GateTypeSelectProps) {
         onClick={() => onSelect(GateType.FREE)}
       />
       <GateTypeItem
-        selected={value === GateType.MEMBER_ONLY}
-        title="Member only"
-        description="Only member can read this post"
-        onClick={() => onSelect(GateType.MEMBER_ONLY)}
+        selected={value === GateType.PAID}
+        title="Paid"
+        description="member or minter can read this post"
+        onClick={() => onSelect(GateType.PAID)}
       />
     </div>
   )

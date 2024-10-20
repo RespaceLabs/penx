@@ -8,7 +8,7 @@ import { PlanStatus } from '@/app/(creator-fi)/domains/Plan'
 import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { usePlans } from '@/app/(creator-fi)/hooks/usePlans'
 import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
-import LoadingDots from '@/app/(creator-fi)/loading/loading-dots'
+import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
   Form,

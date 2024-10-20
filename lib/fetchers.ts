@@ -39,7 +39,7 @@ export async function getPost(slug: string) {
 
       if (!data) return null
 
-      return { ...data }
+      return data
     },
     [`post-${slug}`],
     {

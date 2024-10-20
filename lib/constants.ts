@@ -36,7 +36,7 @@ export enum PostType {
 
 export enum GateType {
   FREE = 'FREE',
-  MEMBER_ONLY = 'MEMBER_ONLY',
+  PAID = 'PAID',
 }
 
 export enum PostStatus {

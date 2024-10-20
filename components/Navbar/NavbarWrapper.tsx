@@ -41,7 +41,7 @@ export function NavbarWrapper({
   return (
     <div
       className={cn(
-        'h-14 flex items-center justify-between sticky top-0 bg-white px-3 border-b',
+        'h-14 flex items-center justify-between sticky top-0 px-3 border-b',
         rest.className,
       )}
     >

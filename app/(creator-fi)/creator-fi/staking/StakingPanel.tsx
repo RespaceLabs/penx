@@ -1,20 +1,20 @@
 import { useMemo, useState } from 'react'
-import { StakingInput } from './StakingInput'
-import { toFloorFixed } from '@/lib/utils'
-import { precision } from '@/lib/math'
-import { Button } from '@/components/ui/button'
 import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
-import { useAccount, useWriteContract } from 'wagmi'
+import LoadingDots from '@/components/icons/loading-dots'
+import { Button } from '@/components/ui/button'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
-import { checkChain } from '@/lib/checkChain'
-import { Address } from 'viem'
 import { erc20Abi, spaceAbi } from '@/lib/abi'
+import { checkChain } from '@/lib/checkChain'
+import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { precision } from '@/lib/math'
+import { toFloorFixed } from '@/lib/utils'
 import { wagmiConfig } from '@/lib/wagmi'
 import { waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
-import { extractErrorMessage } from '@/lib/extractErrorMessage'
-import LoadingDots from '../../loading/loading-dots'
+import { Address } from 'viem'
+import { useAccount, useWriteContract } from 'wagmi'
 import { useSpaceTokenBalance } from '../../SpaceToken/hooks/useSpaceTokenBalance'
+import { StakingInput } from './StakingInput'
 
 export enum StakingDirection {
   Unstaking = 1,
@@ -29,7 +29,7 @@ export const StakingPanel = () => {
   const { isConnected } = useAccount()
   const [loading, setLoading] = useState(false)
   const [stakingDirection, setStakingDirection] = useState<StakingDirection>(
-    StakingDirection.Staking
+    StakingDirection.Staking,
   )
 
   const isInsufficientBalance = useMemo(() => {
@@ -63,7 +63,9 @@ export const StakingPanel = () => {
   const handleMax = () => {
     if (!tokenBalance) return
 
-    setTokenAmount(toFloorFixed(precision.toDecimal(tokenBalance), 4).toString())
+    setTokenAmount(
+      toFloorFixed(precision.toDecimal(tokenBalance), 4).toString(),
+    )
   }
 
   const onStaking = async (stakingDirection: StakingDirection) => {
@@ -164,12 +166,18 @@ export const StakingPanel = () => {
           <img src={space.logo} alt="ETH" className="h-auto w-5 rounded-full" />
           <div className="ml-2">
             <span className="text-sm">{space.symbolName}</span>
-            <StakingInput value={tokenAmount} onChange={(value) => handleTokenChange(value)} />
+            <StakingInput
+              value={tokenAmount}
+              onChange={(value) => handleTokenChange(value)}
+            />
           </div>
 
           <Button
             onClick={handleMax}
-            disabled={typeof tokenBalance === undefined || precision.toDecimal(tokenBalance!) <= 0}
+            disabled={
+              typeof tokenBalance === undefined ||
+              precision.toDecimal(tokenBalance!) <= 0
+            }
             className="h-6 cursor-pointer rounded-md px-2 text-xs text-white"
           >
             Max
@@ -181,7 +189,10 @@ export const StakingPanel = () => {
             <Button
               onClick={() => onStaking(stakingDirection)}
               disabled={
-                !isAmountValid || isInsufficientBalance || isInsufficientBalanceUnstake || loading
+                !isAmountValid ||
+                isInsufficientBalance ||
+                isInsufficientBalanceUnstake ||
+                loading
               }
               className="h-full w-full cursor-pointer rounded-md"
             >

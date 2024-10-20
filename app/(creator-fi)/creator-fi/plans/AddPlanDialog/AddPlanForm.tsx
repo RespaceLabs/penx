@@ -3,6 +3,10 @@
 import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { NumberInput } from '@/app/(creator-fi)/components/NumberInput'
+import { editorDefaultValue } from '@/app/(creator-fi)/constants'
+import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
+import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
+import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -13,8 +17,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { spaceAbi } from '@/lib/abi'
 import { addToIpfs } from '@/lib/addToIpfs'
 import { checkChain } from '@/lib/checkChain'
@@ -27,8 +29,6 @@ import { toast } from 'sonner'
 import { Address } from 'viem'
 import { z } from 'zod'
 import { useAddPlanDialog } from './useAddPlanDialog'
-import LoadingDots from '@/app/(creator-fi)/loading/loading-dots'
-import { editorDefaultValue } from '@/app/(creator-fi)/constants'
 
 const FormSchema = z.object({
   name: z.string().min(1, { message: 'Plan name is required' }),
@@ -64,7 +64,7 @@ export function AddPlanForm() {
         JSON.stringify({
           name: data.name,
           benefits: JSON.stringify(editorDefaultValue),
-        })
+        }),
       )
 
       const price = precision.token(Number(data.price) / ethPrice)
@@ -109,17 +109,27 @@ export function AddPlanForm() {
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel>
-                Subscription price (${price || '0'}/month) ={priceBuyPrice.toFixed(5)} ETH
+                Subscription price (${price || '0'}/month) =
+                {priceBuyPrice.toFixed(5)} ETH
               </FormLabel>
               <FormControl>
-                <NumberInput placeholder="" precision={2} {...field} className="w-full" />
+                <NumberInput
+                  placeholder=""
+                  precision={2}
+                  {...field}
+                  className="w-full"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={isLoading || !form.formState.isValid}>
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={isLoading || !form.formState.isValid}
+        >
           {isLoading ? <LoadingDots color="#808080" /> : <p>Add</p>}
         </Button>
       </form>

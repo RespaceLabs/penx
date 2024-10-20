@@ -1,8 +1,8 @@
 'use client'
 
+import { StoreProvider } from '@/store'
 import { Toaster } from 'sonner'
 import { CreatorFiLayout } from './CreatorFiLayout'
-import { StoreProvider } from '@/store'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

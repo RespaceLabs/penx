@@ -8,7 +8,7 @@ export async function getSite() {
     return {
       name: 'Site Name',
       description: 'Description of your site',
-      about: '',
+      about: {},
       logo: 'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png',
       font: '',
       image: '',
@@ -17,5 +17,8 @@ export async function getSite() {
     } as Site
   }
 
-  return site
+  return {
+    ...site,
+    about: JSON.parse(site.about || '{}'),
+  }
 }

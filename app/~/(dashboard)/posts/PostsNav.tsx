@@ -22,7 +22,7 @@ export function PostsNav({}: Props) {
     )
 
   return (
-    <div className="flex border-b gap-8 text-zinc-600">
+    <div className="flex border-b gap-8">
       <Link href={Paths.published} className={linkClassName(Paths.published)}>
         Published
       </Link>

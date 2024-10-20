@@ -20,12 +20,12 @@ export function PostHeader({ post, setData, isSaving }: PostHeaderProps) {
     <div className="flex items-center space-x-3 justify-between fixed right-0 left-0 top-1 h-12 px-2">
       <Link
         href="/~/posts"
-        className="inline-flex w-8 h-8 items-center justify-center bg-zinc-200 rounded-xl cursor-pointer"
+        className="inline-flex w-8 h-8 text-foreground items-center justify-center bg-accent rounded-xl cursor-pointer"
       >
         <ChevronLeft size={20} />
       </Link>
       <div className="flex items-center gap-2">
-        <div className="rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400 dark:bg-stone-800 dark:text-stone-500">
+        <div className="rounded-lg bg-accent px-2 py-1 text-sm text-stone-400  dark:text-stone-500">
           {isSaving ? 'Saving...' : 'Saved'}
         </div>
         <PublishPopover
