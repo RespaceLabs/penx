@@ -12,6 +12,7 @@ import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 import { Address } from 'viem'
 import { GateCover } from './GateCover'
+import { MintPost } from './MintPost/MintPost'
 
 async function checkReadable(post: Post) {
   const session = await getSession()
@@ -70,6 +71,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
           content: getContent(post),
           readingTime: readingTime(post?.content || ''),
         }}
+        // MintPost={MintPost}
         readable
         next={next}
         prev={prev}
@@ -88,6 +90,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             readingTime: readingTime(post?.content || ''),
           }}
           readable={false}
+          // MintPost={MintPost}
           next={next}
           prev={prev}
         />
@@ -110,6 +113,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
           readingTime: readingTime(post?.content || ''),
         }}
         readable={hasMembership}
+        // MintPost={MintPost}
         next={next}
         prev={prev}
       />

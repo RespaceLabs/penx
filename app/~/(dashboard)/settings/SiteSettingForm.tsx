@@ -175,7 +175,7 @@ export function SiteSettingForm({ site }: Props) {
         <Card className="p-4 space-y-4">
           <FormField
             control={form.control}
-            name="warpcast"
+            name="farcaster"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Farcaster</FormLabel>
