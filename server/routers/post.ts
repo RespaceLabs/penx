@@ -1,6 +1,7 @@
 import { GateType, PostStatus } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { Post } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { syncToGoogleDrive } from '../lib/syncToGoogleDrive'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
@@ -30,6 +31,7 @@ export const postRouter = router({
     const posts = await prisma.post.findMany({
       where: { postStatus: PostStatus.PUBLISHED },
     })
+
     return posts
   }),
 
@@ -128,6 +130,12 @@ export const postRouter = router({
           gateType,
         },
       })
+
+      revalidatePath('/', 'layout')
+      // revalidatePath('/(blog)/(home)', 'page')
+      revalidatePath('/(blog)/posts', 'page')
+      revalidatePath('/(blog)/posts/[...slug]', 'page')
+      revalidatePath('/(blog)/posts/page/[page]', 'page')
 
       return post
     }),

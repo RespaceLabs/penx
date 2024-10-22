@@ -1,11 +1,13 @@
 import { prisma } from '@/lib/prisma'
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { getSite } from '../lib/getSite'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 export const siteRouter = router({
   getSite: publicProcedure.query(async () => {
-    return getSite()
+    const site = await getSite()
+    return site
   }),
 
   updateSite: protectedProcedure
@@ -35,6 +37,12 @@ export const siteRouter = router({
       const site = await prisma.site.findFirst({
         where: { id },
       })
+      const revalidate = () => {
+        revalidatePath('/', 'layout')
+        revalidatePath('/', 'page')
+        revalidatePath('/about/page', 'page')
+        revalidatePath('/~', 'layout')
+      }
       if (!site) {
         const newSite = await prisma.site.create({
           data: {
@@ -44,12 +52,14 @@ export const siteRouter = router({
             name: data.name || '',
           },
         })
+        revalidate()
         return newSite
       } else {
         const newSite = await prisma.site.update({
           where: { id },
           data,
         })
+        revalidate()
         return newSite
       }
     }),

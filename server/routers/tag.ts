@@ -2,8 +2,14 @@ import { prisma } from '@/lib/prisma'
 import { redisKeys } from '@/lib/redisKeys'
 import { TRPCError } from '@trpc/server'
 import { slug } from 'github-slugger'
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
+
+function revalidate() {
+  revalidatePath('/tags')
+  revalidatePath('/(blogs)/tags/[tag]', 'page')
+}
 
 export const tagRouter = router({
   list: publicProcedure.query(async () => {
@@ -49,6 +55,7 @@ export const tagRouter = router({
               tagId: tag.id,
             },
           })
+          revalidate()
 
           return tx.postTag.findUniqueOrThrow({
             include: { tag: true },
@@ -74,6 +81,8 @@ export const tagRouter = router({
         data: { ...input },
       })
 
+      revalidate()
+
       return prisma.postTag.findUniqueOrThrow({
         include: { tag: true },
         where: { id: postTag.id },
@@ -86,6 +95,8 @@ export const tagRouter = router({
       const post = await prisma.postTag.delete({
         where: { id: input },
       })
+
+      revalidate()
       return post
     }),
 })

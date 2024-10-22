@@ -3,6 +3,8 @@ import { loadTheme } from '@/lib/loadTheme'
 
 const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
 
+export const dynamic = 'force-static'
+
 export const generateStaticParams = async () => {
   const posts = await getPosts()
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)

@@ -117,7 +117,7 @@ model Post {
 model Comment {
   id        String   @id @default(uuid())
   content   String   @default("")
-  parenttId String?
+  parentId  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)

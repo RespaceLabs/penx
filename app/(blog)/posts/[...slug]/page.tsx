@@ -41,6 +41,9 @@ function getContent(post: Post, isGated = false) {
   return node
 }
 
+export const dynamic = 'force-static'
+export const revalidate = 3600 * 24
+
 export async function generateStaticParams() {
   const posts = await getPosts()
   return posts.map((post) => ({ slug: [post.slug] }))
