@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { Post } from '@/hooks/usePost'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { Post, updatePostPublishStatus, usePost } from '@/hooks/usePost'
 import { GateType } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { PopoverClose } from '@radix-ui/react-popover'
@@ -9,21 +9,16 @@ import LoadingDots from '../icons/loading-dots'
 import { Button } from '../ui/button'
 import { Label } from '../ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
+import { usePublishPost } from './usePublishPost'
 
 interface PublishConfig {
   gateType: GateType
 }
 
-interface Props {
-  isPending: boolean
-  post: Post
-  onPublish: (config: PublishConfig) => Promise<void>
-}
+interface Props {}
 
-export function PublishPopover({ onPublish, post, isPending }: Props) {
-  const [gateType, setGateType] = useState<GateType>(
-    (post.gateType as GateType) || GateType.FREE,
-  )
+export function PublishPopover({}: Props) {
+  const { post } = usePost()
   const [isOpen, setOpen] = useState(false)
   return (
     <Popover
@@ -37,45 +32,57 @@ export function PublishPopover({ onPublish, post, isPending }: Props) {
           Publish
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-[520px] flex flex-col gap-5">
-        <div className="text-center text-xl font-semibold">
-          Publish your post
-        </div>
-
-        <div>
-          <div className="font-semibold">Access control</div>
-          <div className="text-sm leading-tight">
-            Gate this post, config who can read this post.
-          </div>
-        </div>
-
-        <GateTypeSelect
-          value={gateType}
-          onSelect={(value) => {
-            console.log('===value:', value)
-            setGateType(value)
-          }}
-        />
-        <div className="flex gap-2 justify-center">
-          <PopoverClose asChild>
-            <Button variant="secondary" className="w-full">
-              Cancel
-            </Button>
-          </PopoverClose>
-          <Button
-            className="w-full"
-            onClick={async () => {
-              await onPublish({
-                gateType,
-              })
-              setOpen(false)
-            }}
-          >
-            {isPending ? <LoadingDots color="#808080" /> : <div>Publish</div>}
-          </Button>
-        </div>
-      </PopoverContent>
+      {post ? <PublishPopoverContent setOpen={setOpen} /> : <PopoverContent />}
     </Popover>
+  )
+}
+
+interface PublishPopoverContentProps {
+  setOpen: Dispatch<SetStateAction<boolean>>
+}
+
+function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
+  const { post } = usePost()
+  const [gateType, setGateType] = useState<GateType>(
+    (post.gateType as GateType) || GateType.FREE,
+  )
+  const { isLoading, publishPost } = usePublishPost()
+  return (
+    <PopoverContent align="end" className="w-[520px] flex flex-col gap-5">
+      <div className="text-center text-xl font-semibold">Publish your post</div>
+
+      <div>
+        <div className="font-semibold">Access control</div>
+        <div className="text-sm leading-tight">
+          Gate this post, config who can read this post.
+        </div>
+      </div>
+
+      <GateTypeSelect
+        value={gateType}
+        onSelect={(value) => {
+          console.log('===value:', value)
+          setGateType(value)
+        }}
+      />
+      <div className="flex gap-2 justify-center">
+        <PopoverClose asChild>
+          <Button variant="secondary" className="w-full">
+            Cancel
+          </Button>
+        </PopoverClose>
+        <Button
+          className="w-full"
+          onClick={async () => {
+            await publishPost(post, gateType)
+            updatePostPublishStatus()
+            setOpen(false)
+          }}
+        >
+          {isLoading ? <LoadingDots /> : <div>Publish</div>}
+        </Button>
+      </div>
+    </PopoverContent>
   )
 }
 

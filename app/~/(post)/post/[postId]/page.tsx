@@ -7,10 +7,11 @@ import { Post } from '@/components/Post/Post'
 import { usePost } from '@/hooks/usePost'
 import { usePostLoading } from '@/hooks/usePostLoading'
 import { PostType } from '@/lib/constants'
+import { PostProvider } from './PostProvider'
 
 export const dynamic = 'force-static'
 
-export default function PostPage() {
+function PostContent() {
   const { post } = usePost()
   const { isPostLoading } = usePostLoading()
 
@@ -22,8 +23,16 @@ export default function PostPage() {
     )
 
   if (post.type === PostType.IMAGE) {
-    return <ImageCreation post={post} isPostLoading={isPostLoading} />
+    return <ImageCreation post={post} />
   }
 
-  return <Post post={post} isPostLoading={isPostLoading} />
+  return <Post post={post} />
+}
+
+export default function PostPage() {
+  return (
+    <PostProvider>
+      <PostContent />
+    </PostProvider>
+  )
 }

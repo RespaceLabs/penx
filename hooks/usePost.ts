@@ -1,7 +1,9 @@
 'use client'
 
+import { useEffect } from 'react'
 import { PostStatus } from '@/lib/constants'
 import { revalidateMetadata } from '@/lib/revalidateTag'
+import { trpc } from '@/lib/trpc'
 import { RouterOutputs } from '@/server/_app'
 import { store } from '@/store'
 import { PostTag, Tag } from '@prisma/client'
@@ -46,4 +48,22 @@ export function removePostTag(postTag: PostTagWithTag) {
   })
   revalidateMetadata(`posts`)
   revalidateMetadata(`tag-${postTag.tag.name}`)
+}
+
+export function useQueryPost(postId = '') {
+  const { data, ...rest } = trpc.post.byId.useQuery(postId, {
+    enabled: !!postId,
+  })
+
+  useEffect(() => {
+    if (data) {
+      store.set(postAtom, data)
+    }
+  }, [data])
+
+  //
+  return {
+    data,
+    ...rest,
+  }
 }

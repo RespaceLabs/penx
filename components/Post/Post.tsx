@@ -3,28 +3,24 @@
 import { useEffect, useState } from 'react'
 import Editor from '@/components/editor/advanced-editor'
 import { Post as PostType } from '@/hooks/usePost'
+import { usePostSaving } from '@/hooks/usePostSaving'
 import { trpc } from '@/lib/trpc'
-import { useSession } from 'next-auth/react'
 import { useDebouncedCallback } from 'use-debounce'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
 import { CoverUpload } from './CoverUpload'
 import { defaultValue } from './default-value'
-import { PostHeader } from './PostHeader'
 import { Tags } from './Tags'
 
-export function Post({
-  post,
-  isPostLoading,
-}: {
-  post: PostType
-  isPostLoading: boolean
-}) {
+export function Post({ post }: { post: PostType }) {
   const [data, setData] = useState<PostType>(post)
-  const { isPending, mutateAsync } = trpc.post.update.useMutation()
+  const { mutateAsync } = trpc.post.update.useMutation()
+  const { setPostSaving } = usePostSaving()
 
   const debounced = useDebouncedCallback(
     async (value: PostType) => {
       if (data.content !== post.content || data.title !== post.title) {
+        setPostSaving(true)
+
         try {
           await mutateAsync({
             id: post.id,
@@ -33,6 +29,7 @@ export function Post({
             description: value.description,
           })
         } catch (error) {}
+        setPostSaving(false)
       }
     },
     // delay in ms
@@ -45,7 +42,6 @@ export function Post({
 
   return (
     <div className="w-full">
-      <PostHeader post={data} setData={setData} isSaving={isPending} />
       <div className="relative min-h-[500px] max-w-screen-lg p-12 px-8 mx-auto z-0 md:w-[800px] sm:w-full">
         <div className="mb-5 flex flex-col space-y-3 ">
           <CoverUpload post={data} />

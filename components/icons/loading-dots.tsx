@@ -14,15 +14,15 @@ export const LoadingDots = ({
     <span className={styles.loading}>
       <span
         // style={{ backgroundColor: color }}
-        className={cn('bg-background', className)}
+        className={cn('bg-zinc-500', className)}
       />
       <span
         // style={{ backgroundColor: color }}
-        className={cn('bg-background', className)}
+        className={cn('bg-zinc-500', className)}
       />
       <span
         // style={{ backgroundColor: color }}
-        className={cn('bg-background', className)}
+        className={cn('bg-zinc-500', className)}
       />
     </span>
   )

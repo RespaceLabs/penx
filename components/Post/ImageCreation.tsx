@@ -8,15 +8,8 @@ import { useSession } from 'next-auth/react'
 import { useDebouncedCallback } from 'use-debounce'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
 import { ImageCreationUpload } from './ImageCreationUpload'
-import { PostHeader } from './PostHeader'
 
-export function ImageCreation({
-  post,
-  isPostLoading,
-}: {
-  post: Post
-  isPostLoading: boolean
-}) {
+export function ImageCreation({ post }: { post: Post }) {
   const [data, setData] = useState<Post>(post)
   const { isPending, mutateAsync } = trpc.post.update.useMutation()
   const { data: session } = useSession()
@@ -44,7 +37,6 @@ export function ImageCreation({
 
   return (
     <div className="w-full">
-      <PostHeader post={data} setData={setData} isSaving={isPending} />
       <div className="relative min-h-[500px] max-w-screen-lg p-12 px-8 mx-auto z-0 md:w-[800px] sm:w-full">
         <div className="mb-5 flex flex-col space-y-3 pb-5">
           <input
