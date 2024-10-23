@@ -17,9 +17,6 @@ const ReownConnectButton = (props: Props) => {
 
   function onClick() {
     onOpen()
-    // if (!isConnected) {
-    //   onOpen()
-    // }
   }
 
   return (

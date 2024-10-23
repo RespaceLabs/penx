@@ -105,6 +105,7 @@ export const authOptions: NextAuthOptions = {
             updateSubscriptions(address as Address)
             return user
           } catch (error) {
+            console.log('====authorize=error:', error)
             return null
           }
         } catch (e) {

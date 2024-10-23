@@ -10,11 +10,11 @@ import { ProfilePopover } from './ProfilePopover'
 interface Props {}
 
 export function Profile({}: Props) {
-  const { data } = useSession()
+  const { data, status } = useSession()
+
+  if (status == 'loading') return <Skeleton className="h-10 w-[100px]" />
 
   const authenticated = !!data
-
-  // if (!authenticated) return <Skeleton className="h-10 w-[100px]" />
 
   return (
     <>

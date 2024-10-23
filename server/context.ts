@@ -40,5 +40,6 @@ export async function createContext(opts: FetchCreateContextFnOptions) {
   // for API-response caching see https://trpc.io/docs/v11/caching
   const { req } = opts
   let token = (await getToken({ req: req as any })) as any
+  // console.log('========token:', token)
   return { token }
 }

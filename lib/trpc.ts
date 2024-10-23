@@ -11,11 +11,11 @@ const link = httpBatchLink({
   url: `/api/trpc`,
   transformer: superjson,
   async headers() {
-    const token = isPrivy ? await getAccessToken() : (window as any).__TOKEN__
-
-    return {
-      authorization: `Bearer privy_${token}`,
-    }
+    // const token = isPrivy ? await getAccessToken() : (window as any).__TOKEN__
+    // return {
+    //   authorization: `Bearer privy_${token}`,
+    // }
+    return {}
   },
 })
 
