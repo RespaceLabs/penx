@@ -23,7 +23,6 @@ interface Props {
   handleSwap: () => void
   isInsufficientBalance: boolean
   isAmountValid: boolean
-  isConnected: boolean
   space: Space
 }
 
@@ -33,7 +32,6 @@ export const SellBtn = ({
   isInsufficientBalance,
   isAmountValid,
   handleSwap,
-  isConnected,
   space,
 }: Props) => {
   const [loading, setLoading] = useState(false)
@@ -79,7 +77,7 @@ export const SellBtn = ({
 
   return (
     <>
-      {isConnected ? (
+      {address ? (
         <Button
           className="h-[50px] w-full rounded-xl"
           disabled={!isAmountValid || isInsufficientBalance || loading}

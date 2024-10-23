@@ -16,9 +16,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAddress } from '@/hooks/useAddress'
-import { GateType } from '@/lib/constants'
+import { GateType, isPrivy } from '@/lib/constants'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
+import { usePrivy } from '@privy-io/react-auth'
 import {
   DatabaseBackup,
   Gauge,
@@ -28,10 +29,10 @@ import {
   UserCog,
   UserRound,
 } from 'lucide-react'
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { ProfileAvatar } from './ProfileAvatar'
-import { useProfileDialog } from './ProfileDialog/useProfileDialog'
 import { WalletInfo } from './WalletInfo'
 
 interface Props {
@@ -47,10 +48,12 @@ export function ProfilePopover({
 }: Props) {
   const { data } = useSession()
   const { push } = useRouter()
-  const { setIsOpen } = useProfileDialog()
+  const { authenticated, user, logout } = usePrivy()
 
   if (!data) return null
-  const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
+  // TODO:
+  // const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
+  const isEditor = true
 
   return (
     <DropdownMenu>
@@ -100,7 +103,7 @@ export function ProfilePopover({
                 <span>Role</span>
               </DropdownMenuItem>
 
-              <DropdownMenuItem
+              {/* <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
                   push('/~/access-token')
@@ -108,7 +111,7 @@ export function ProfilePopover({
               >
                 <KeySquare className="mr-2 h-4 w-4" />
                 <span>Access Token</span>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
 
               <DropdownMenuItem
                 className="cursor-pointer"
@@ -123,7 +126,16 @@ export function ProfilePopover({
           )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => {
+            if (isPrivy) {
+              logout()
+            }
+
+            signOut()
+          }}
+        >
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>

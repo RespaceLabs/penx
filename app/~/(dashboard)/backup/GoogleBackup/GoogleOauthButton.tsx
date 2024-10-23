@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { IconGoogle } from '@/components/icons/IconGoogle'
 import LoadingDots from '@/components/icons/loading-dots'
-import { Button } from '@/components/ui/button'
 import { useSession } from 'next-auth/react'
+import { Button } from '@/components/ui/button'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -45,7 +45,7 @@ export function GoogleOauthButton({}: Props) {
 
         const googleAuthUrl =
           `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=${redirectUri}` +
-          `&scope=${scope}&client_id=${googleClientId}&state=${data.userId}&access_type=offline&prompt=consent`
+          `&scope=${scope}&client_id=${googleClientId}&state=${data.address}&access_type=offline&prompt=consent`
         // &prompt=consent
 
         location.href = googleAuthUrl

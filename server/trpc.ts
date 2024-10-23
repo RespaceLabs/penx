@@ -54,7 +54,7 @@ export const createCallerFactory = t.createCallerFactory
 // procedure that asserts that the user is logged in
 export const protectedProcedure = t.procedure.use(
   async ({ ctx, next, path, ...rest }) => {
-    if (!ctx.token?.uid) {
+    if (!ctx.token) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',
         message: 'user not found',
@@ -68,10 +68,6 @@ export const protectedProcedure = t.procedure.use(
         message: 'No permission',
       })
     }
-
-    // if (['spae.update'].includes(path)) {
-    //   checkSpacePermission(ctx.token.uid, rest.input.id)
-    // }
 
     return next({
       ctx: { token: ctx.token },

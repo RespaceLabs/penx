@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { Post } from '@/hooks/usePost'
 import { trpc } from '@/lib/trpc'
-import { useSession } from 'next-auth/react'
 import { useDebouncedCallback } from 'use-debounce'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
 import { ImageCreationUpload } from './ImageCreationUpload'
@@ -12,7 +11,6 @@ import { ImageCreationUpload } from './ImageCreationUpload'
 export function ImageCreation({ post }: { post: Post }) {
   const [data, setData] = useState<Post>(post)
   const { isPending, mutateAsync } = trpc.post.update.useMutation()
-  const { data: session } = useSession()
 
   const debounced = useDebouncedCallback(
     async (value: Post) => {
@@ -21,7 +19,7 @@ export function ImageCreation({ post }: { post: Post }) {
           await mutateAsync({
             id: post.id,
             title: value.title,
-            content: value.content,
+            content: value.content as any,
             description: value.description,
           })
         } catch (error) {}

@@ -19,6 +19,6 @@ export async function getSite() {
 
   return {
     ...site,
-    about: JSON.parse(site.about || '{}'),
+    about: site.about,
   }
 }

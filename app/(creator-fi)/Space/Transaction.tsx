@@ -1,11 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
-import { useAccount } from 'wagmi'
+import { cn } from '@/lib/utils'
 import { BuyPanel } from '../SpaceToken/BuyPanel'
 import { SellPanel } from '../SpaceToken/SellPanel'
-import { cn } from '@/lib/utils'
 
 enum Direction {
   buy = 1,
@@ -13,7 +11,6 @@ enum Direction {
 }
 
 export function Transaction() {
-  const { isConnected } = useAccount()
   const [direction, setDirection] = useState<Direction>(Direction.buy)
 
   const onSwitch = (direction: Direction) => {
@@ -28,7 +25,7 @@ export function Transaction() {
             onClick={() => onSwitch(Direction.buy)}
             className={cn(
               'mr-2 rounded-full px-4 py-[6px]',
-              direction === Direction.buy && 'bg-gray-100 dark:bg-zinc-800'
+              direction === Direction.buy && 'bg-gray-100 dark:bg-zinc-800',
             )}
           >
             Buy
@@ -37,7 +34,7 @@ export function Transaction() {
             onClick={() => onSwitch(Direction.sell)}
             className={cn(
               'dark: mr-2 rounded-full px-4 py-[6px]',
-              direction === Direction.sell && 'bg-gray-100 dark:bg-zinc-800'
+              direction === Direction.sell && 'bg-gray-100 dark:bg-zinc-800',
             )}
           >
             Sell
@@ -49,7 +46,7 @@ export function Transaction() {
             display: direction === Direction.buy ? 'block' : 'none',
           }}
         >
-          <BuyPanel isConnected={isConnected} />
+          <BuyPanel />
         </div>
 
         <div
@@ -57,7 +54,7 @@ export function Transaction() {
             display: direction === Direction.sell ? 'block' : 'none',
           }}
         >
-          <SellPanel isConnected={isConnected} />
+          <SellPanel />
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { useTrades } from '@/app/(creator-fi)/hooks/useTrades'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
+import { useAddress } from '@/hooks/useAddress'
 import { spaceAbi } from '@/lib/abi'
 import { checkChain } from '@/lib/checkChain'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
@@ -22,7 +23,6 @@ interface Props {
   afterSwap: () => void
   isInsufficientBalance: boolean
   isAmountValid: boolean
-  isConnected: boolean
 }
 
 export const BuyBtn = ({
@@ -31,12 +31,12 @@ export const BuyBtn = ({
   isInsufficientBalance,
   isAmountValid,
   afterSwap,
-  isConnected,
 }: Props) => {
   const [loading, setLoading] = useState(false)
   const { writeContractAsync } = useWriteContract()
   const balance = useSpaceTokenBalance()
   const { refetch: refetchEth } = useQueryEthBalance()
+  const address = useAddress()
   const { space } = useSpace()
   const trade = useTrades()
 
@@ -46,7 +46,6 @@ export const BuyBtn = ({
       await checkChain()
 
       const value = precision.token(ethAmount)
-      console.log('=======value:', value, 'ethAmount:', ethAmount)
 
       const hash = await writeContractAsync({
         address: space.address as Address,
@@ -71,29 +70,27 @@ export const BuyBtn = ({
     setLoading(false)
   }
 
+  if (!address)
+    return (
+      <WalletConnectButton className="h-[50px] w-full rounded-xl">
+        Connect wallet
+      </WalletConnectButton>
+    )
   return (
-    <>
-      {isConnected ? (
-        <Button
-          className="h-[50px] w-full rounded-xl"
-          disabled={!isAmountValid || isInsufficientBalance || loading}
-          onClick={() => onBuy()}
-        >
-          {loading ? (
-            <LoadingDots color="white" />
-          ) : isInsufficientBalance ? (
-            'Insufficient ETH balance'
-          ) : isAmountValid ? (
-            'Buy'
-          ) : (
-            'Enter an amount'
-          )}
-        </Button>
+    <Button
+      className="h-[50px] w-full rounded-xl"
+      disabled={!isAmountValid || isInsufficientBalance || loading}
+      onClick={() => onBuy()}
+    >
+      {loading ? (
+        <LoadingDots color="white" />
+      ) : isInsufficientBalance ? (
+        'Insufficient ETH balance'
+      ) : isAmountValid ? (
+        'Buy'
       ) : (
-        <WalletConnectButton className="h-[50px] w-full rounded-xl">
-          Connect wallet
-        </WalletConnectButton>
+        'Enter an amount'
       )}
-    </>
+    </Button>
   )
 }

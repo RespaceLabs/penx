@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import { UserRole } from '@prisma/client'
 import ky from 'ky'
 import { z } from 'zod'
 import { protectedProcedure, publicProcedure, router } from '../trpc'

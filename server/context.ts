@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { AuthTokenClaims, PrivyClient } from '@privy-io/server-auth'
+import { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch'
 import type * as trpcNext from '@trpc/server/adapters/next'
+import { getToken } from 'next-auth/jwt'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface CreateContextOptions {
   // session: Session | null
 }
@@ -35,10 +36,9 @@ export type Context = Awaited<ReturnType<typeof createContextInner>> & {
  * Creates context for an incoming request
  * @link https://trpc.io/docs/v11/context
  */
-export async function createContext(
-  opts: trpcNext.CreateNextContextOptions,
-): Promise<Context> {
+export async function createContext(opts: FetchCreateContextFnOptions) {
   // for API-response caching see https://trpc.io/docs/v11/caching
-
-  return createContextInner({}) as any
+  const { req } = opts
+  let token = (await getToken({ req: req as any })) as any
+  return { token }
 }

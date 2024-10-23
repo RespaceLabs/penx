@@ -8,10 +8,10 @@ const clientSecret = process.env.GOOGLE_CLIENT_SECRET!
 export async function GET(req: NextRequest) {
   const url = new URL(req.url)
   const code = url.searchParams.get('code')
-  const userId = url.searchParams.get('state')
+  const address = url.searchParams.get('state')
   const redirectUri = `${url.protocol}//${url.host}/api/google-oauth`
 
-  if (!code || !userId) {
+  if (!code || !address) {
     return NextResponse.redirect('/error') // Handle error accordingly
   }
 
@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
   const userInfo = await oauth2.userinfo.get()
 
   await prisma.user.update({
-    where: { id: userId },
+    where: { address },
     data: {
       google: {
         ...tokens,

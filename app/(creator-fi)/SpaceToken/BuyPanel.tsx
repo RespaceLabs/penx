@@ -1,19 +1,15 @@
 import { useState } from 'react'
 import { useEthBalance } from '@/app/(creator-fi)/hooks/useEthBalance'
 import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
+import { Button } from '@/components/ui/button'
 import { precision } from '@/lib/math'
 import { toFloorFixed } from '@/lib/utils'
 import { AmountInput } from './AmountInput'
 import { BuyBtn } from './BuyBtn'
 import { EthBalance } from './EthBalance'
 import { SpaceTokenBalance } from './SpaceTokenBalance'
-import { Button } from '@/components/ui/button'
 
-interface Props {
-  isConnected: boolean
-}
-
-export const BuyPanel = ({ isConnected }: Props) => {
+export const BuyPanel = () => {
   const [ethAmount, setEthAmount] = useState<string>('')
   const [tokenAmount, setTokenAmount] = useState<string>('')
   const { ethBalance } = useEthBalance()
@@ -29,7 +25,9 @@ export const BuyPanel = ({ isConnected }: Props) => {
       return setTokenAmount('')
     }
 
-    const tokenAmountDecimal = precision.toDecimal(space.getTokenAmount(precision.token(value)))
+    const tokenAmountDecimal = precision.toDecimal(
+      space.getTokenAmount(precision.token(value)),
+    )
     setTokenAmount(toFloorFixed(tokenAmountDecimal, 4).toString())
   }
 
@@ -38,7 +36,9 @@ export const BuyPanel = ({ isConnected }: Props) => {
   const handleMax = () => {
     setEthAmount(toFloorFixed(ethBalance.valueDecimal, 6).toString())
 
-    const tokenAmountDecimal = precision.toDecimal(space.getTokenAmount(ethBalance.value))
+    const tokenAmountDecimal = precision.toDecimal(
+      space.getTokenAmount(ethBalance.value),
+    )
     setTokenAmount(toFloorFixed(tokenAmountDecimal, 4).toString())
   }
 
@@ -48,7 +48,9 @@ export const BuyPanel = ({ isConnected }: Props) => {
         <div className="text-sm">Sell</div>
         <AmountInput
           symbolName="ETH"
-          icon={<img src="/eth.png" alt="ETH" className="h-auto w-5 rounded-full" />}
+          icon={
+            <img src="/eth.png" alt="ETH" className="h-auto w-5 rounded-full" />
+          }
           value={ethAmount}
           onChange={(value) => handleEthChange(value)}
         />
@@ -71,7 +73,11 @@ export const BuyPanel = ({ isConnected }: Props) => {
           disabled
           icon={
             space.logo && (
-              <img src={space.logo} alt={space.symbolName} className="h-auto w-5 rounded-2xl" />
+              <img
+                src={space.logo}
+                alt={space.symbolName}
+                className="h-auto w-5 rounded-2xl"
+              />
             )
           }
           value={tokenAmount}
@@ -85,7 +91,6 @@ export const BuyPanel = ({ isConnected }: Props) => {
       <BuyBtn
         ethAmount={ethAmount}
         tokenAmount={tokenAmount}
-        isConnected={isConnected}
         afterSwap={() => {
           setEthAmount('')
           setTokenAmount('')

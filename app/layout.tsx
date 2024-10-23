@@ -1,12 +1,9 @@
 import '@/styles/globals.css'
 import '@/styles/prosemirror.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
-import { TokenProvider } from '@/components/TokenContext'
-import { getSession } from '@/lib/auth'
 import { cn } from '@/lib/utils'
 import { cal, inter } from '@/styles/fonts'
 import { Analytics } from '@vercel/analytics/react'
-import jwt from 'jsonwebtoken'
 import { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 import { headers } from 'next/headers'
@@ -53,23 +50,6 @@ export default async function RootLayout({
   const cookies = headers().get('cookie')
   const url = headerList.get('x-current-path') || ''
 
-  const session: any = await getSession()
-  // console.log('====session:', session)
-  let token = ''
-
-  if (session) {
-    token = jwt.sign(
-      {
-        userId: session?.userId,
-        address: session?.address,
-      },
-      process.env.NEXTAUTH_SECRET!,
-      {
-        expiresIn: '30d',
-      },
-    )
-  }
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -96,10 +76,8 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <Providers cookies={cookies}>
-            <TokenProvider token={token}>
-              {children}
-              <Analytics />
-            </TokenProvider>
+            {children}
+            <Analytics />
           </Providers>
         </ThemeProvider>
 

@@ -61,7 +61,7 @@ export function SiteSettingForm({ site }: Props) {
       logo: site.logo || '',
       name: site.name || '',
       description: site.description || '',
-      about: site.about || '',
+      about: site.about as any,
       farcaster: social.farcaster || '',
       x: social.x || '',
       mastodon: social.mastodon || '',

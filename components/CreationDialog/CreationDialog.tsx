@@ -21,9 +21,6 @@ import {
   Mic,
   Video,
 } from 'lucide-react'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
 import { useCreationDialog } from './useCreationDialog'
 
 interface Props {}
@@ -53,12 +50,13 @@ export function CreationDialog({}: Props) {
             <div>Article</div>
           </Item>
           <Item
-            isLoading={isPending && type == PostType.IMAGE}
-            onClick={async () => {
-              setType(PostType.IMAGE)
-              await createPost(PostType.IMAGE)
-              setIsOpen(false)
-            }}
+            disabled
+            // isLoading={isPending && type == PostType.IMAGE}
+            // onClick={async () => {
+            //   setType(PostType.IMAGE)
+            //   await createPost(PostType.IMAGE)
+            //   setIsOpen(false)
+            // }}
           >
             <ImageIcon />
             <div>Image</div>

@@ -11,7 +11,7 @@ interface Props {
 
 export const ImageCreationUpload = forwardRef<HTMLDivElement, Props>(
   function ImageCreationUpload({ post }, ref) {
-    const [value, setValue] = useState(post.content || '')
+    const [value, setValue] = useState((post.content as string) || '')
     const inputRef = useRef<HTMLInputElement>(null)
     const [loading, setLoading] = useState(false)
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

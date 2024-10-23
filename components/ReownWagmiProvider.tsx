@@ -31,7 +31,7 @@ const modal = createAppKit({
   },
 })
 
-export function WalletConnectProvider({
+export function ReownWagmiProvider({
   children,
   cookies,
 }: {

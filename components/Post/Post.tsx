@@ -25,7 +25,7 @@ export function Post({ post }: { post: PostType }) {
           await mutateAsync({
             id: post.id,
             title: value.title,
-            content: value.content,
+            content: value.content as any,
             description: value.description,
           })
         } catch (error) {}
@@ -69,7 +69,7 @@ export function Post({ post }: { post: PostType }) {
         </div>
 
         <Editor
-          initialValue={data.content ? JSON.parse(data.content) : defaultValue}
+          initialValue={data.content ? (data.content as any) : defaultValue}
           onChange={(v) => {
             setData({ ...data, content: JSON.stringify(v) })
           }}

@@ -1,25 +1,27 @@
 import { prisma } from '@/lib/prisma'
 import { User, UserRole } from '@prisma/client'
+import { AuthTokenClaims, PrivyClient } from '@privy-io/server-auth'
 import {
   getAddressFromMessage,
   getChainIdFromMessage,
   verifySignature,
   type SIWESession,
 } from '@reown/appkit-siwe'
-import { readContract } from '@wagmi/core'
-import NextAuth, { getServerSession, type NextAuthOptions } from 'next-auth'
+import { type NextAuthOptions } from 'next-auth'
 import credentialsProvider from 'next-auth/providers/credentials'
 import { Address, createPublicClient, http } from 'viem'
-import { mainnet } from 'viem/chains'
+import { baseSepolia, mainnet } from 'viem/chains'
 import { spaceAbi } from './abi'
 import { PROJECT_ID, SPACE_ID } from './constants'
-import { SubscriptionInSession } from './types'
-import { wagmiConfig } from './wagmi'
 
 const nextAuthSecret = process.env.NEXTAUTH_SECRET
 if (!nextAuthSecret) {
   throw new Error('NEXTAUTH_SECRET is not set')
 }
+
+const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID
+const PRIVY_APP_SECRET = process.env.PRIVY_APP_SECRET
+const privy = new PrivyClient(PRIVY_APP_ID!, PRIVY_APP_SECRET!)
 
 const publicClient = createPublicClient({
   chain: mainnet,
@@ -67,6 +69,44 @@ export const authOptions: NextAuthOptions = {
           }
 
           return null
+        } catch (e) {
+          return null
+        }
+      },
+    }),
+    credentialsProvider({
+      id: 'privy',
+      name: 'Privy',
+      credentials: {
+        token: {
+          label: 'Token',
+          type: 'text',
+          placeholder: '',
+        },
+        address: {
+          label: 'Address',
+          type: 'text',
+          placeholder: '',
+        },
+      },
+      async authorize(credentials) {
+        try {
+          if (!credentials?.token || !credentials?.address) {
+            throw new Error('Token is undefined')
+          }
+
+          const { token, address } = credentials
+          // console.log('====== token, address:', token, address)
+
+          try {
+            await privy.verifyAuthToken(token)
+            const user = await createUser(address)
+            // console.log('=====user:', user)
+            updateSubscriptions(address as Address)
+            return user
+          } catch (error) {
+            return null
+          }
         } catch (e) {
           return null
         }
@@ -126,24 +166,6 @@ export const authOptions: NextAuthOptions = {
   },
 }
 
-export function getSession() {
-  return getServerSession(authOptions) as Promise<{
-    user: {
-      id: string
-      name: string
-      username: string
-      email: string
-      image: string
-    }
-    userId: string
-    address: string
-    chainId: string
-    ensName: string
-    role: UserRole
-    subscriptions: SubscriptionInSession[]
-  } | null>
-}
-
 async function createUser(address: any) {
   let user = await prisma.user.findUnique({ where: { address } })
 
@@ -171,7 +193,11 @@ async function createUser(address: any) {
 
 async function updateSubscriptions(address: Address) {
   try {
-    const subscription = await readContract(wagmiConfig, {
+    const publicClient = createPublicClient({
+      chain: baseSepolia,
+      transport: http(),
+    })
+    const subscription = await publicClient.readContract({
       abi: spaceAbi,
       address: SPACE_ID as Address,
       functionName: 'getSubscription',
@@ -193,7 +219,7 @@ async function updateSubscriptions(address: Address) {
     })
     return [subscription]
   } catch (error) {
-    console.log('=====error:', error)
+    console.log('====== updateSubscriptions=error:', error)
     return []
   }
 }

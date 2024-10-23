@@ -6,8 +6,8 @@ import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import { Copy } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { toast } from 'sonner'
+import { useSession } from 'next-auth/react'
 import { UserAvatar } from '../UserAvatar'
 
 interface Props extends HTMLAttributes<any> {
@@ -34,10 +34,10 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
     const { data: session } = useSession()
     const shortAddress = address.slice(0, 6) + '...' + address.slice(-4)
     const { data } = trpc.user.me.useQuery(undefined, {
-      enabled: !!session?.user,
+      enabled: !!session,
     })
     const { copy } = useCopyToClipboard()
-    const ensName = data?.name || session?.ensName
+    const ensName = data?.name
 
     return (
       <div

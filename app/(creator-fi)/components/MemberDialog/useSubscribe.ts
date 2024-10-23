@@ -104,7 +104,9 @@ export function useSubscribe(space: Space) {
       ])
 
       if (postSlug) {
-        await update({ address })
+        if (typeof update === 'function') {
+          await update({ address })
+        }
         push(`/posts/${postSlug}`)
       }
 
