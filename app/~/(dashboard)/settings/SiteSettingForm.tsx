@@ -151,25 +151,35 @@ export function SiteSettingForm({ site }: Props) {
         <FormField
           control={form.control}
           name="about"
-          render={({ field }) => (
-            <FormItem className="w-full h-full">
-              <FormLabel>About</FormLabel>
-              <FormControl>
-                <div className="h-[360px]  border border-neutral-200 rounded-lg overflow-auto prose-neutral prose-p:leading-none">
-                  <Editor
-                    className="p-3 break-all plan-editor h-full"
-                    initialValue={
-                      field.value ? JSON.parse(field.value) : editorDefaultValue
-                    }
-                    onChange={(v) => {
-                      field.onChange(JSON.stringify(v))
-                    }}
-                  />
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => {
+            function getValue() {
+              if (typeof field.value === 'object') return field.value
+              try {
+                return field.value
+                  ? JSON.parse(field.value)
+                  : editorDefaultValue
+              } catch (error) {
+                return editorDefaultValue
+              }
+            }
+            return (
+              <FormItem className="w-full h-full">
+                <FormLabel>About</FormLabel>
+                <FormControl>
+                  <div className="h-[360px]  border border-neutral-200 rounded-lg overflow-auto prose-neutral prose-p:leading-none">
+                    <Editor
+                      className="p-3 break-all plan-editor h-full"
+                      initialValue={getValue()}
+                      onChange={(v) => {
+                        field.onChange(JSON.stringify(v))
+                      }}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
         />
 
         <Card className="p-4 space-y-4">

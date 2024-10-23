@@ -16,19 +16,19 @@ import { Copy } from 'lucide-react'
 import { toast } from 'sonner'
 
 interface Props {
-  accesstoken: string
+  accessToken: string
   isOpen: boolean
   onOpenChange: any
 }
 
 export default function AccessTokenShowDialog({
-  accesstoken,
+  accessToken,
   isOpen,
   onOpenChange,
 }: Props) {
   const handleCopy = () => {
     navigator.clipboard
-      .writeText(accesstoken)
+      .writeText(accessToken)
       .then(() => {
         toast.success('Copied to clipboard.')
       })
@@ -51,7 +51,7 @@ export default function AccessTokenShowDialog({
             <Label htmlFor="link" className="sr-only">
               Link
             </Label>
-            <Input id="link" defaultValue={accesstoken} readOnly />
+            <Input id="link" defaultValue={accessToken} readOnly />
           </div>
           <Button type="submit" size="sm" className="px-3" onClick={handleCopy}>
             <span className="sr-only">Copy</span>

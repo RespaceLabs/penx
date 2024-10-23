@@ -2,7 +2,7 @@
  * This file contains the root router of your tRPC-backend
  */
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
-import { accessTokenRouter } from './routers/accesstoken'
+import { accessTokenRouter } from './routers/access-token'
 import { googleRouter } from './routers/google'
 import { postRouter } from './routers/post'
 import { siteRouter } from './routers/site'

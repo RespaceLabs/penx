@@ -25,6 +25,21 @@ module.exports = {
     'plantree-theme-minimal',
   ],
 
+  images: {
+    remotePatterns: [
+      { hostname: 'public.blob.vercel-storage.com' },
+      { hostname: '2cil7amusloluyl8.public.blob.vercel-storage.com' },
+      { hostname: '*.public.blob.vercel-storage.com' },
+      { hostname: 'res.cloudinary.com' },
+      { hostname: 'abs.twimg.com' },
+      { hostname: 'pbs.twimg.com' },
+      { hostname: 'avatar.vercel.sh' },
+      { hostname: 'avatars.githubusercontent.com' },
+      { hostname: 'www.google.com' },
+      { hostname: 'flag.vercel.app' },
+    ],
+  },
+
   webpack: (config, { isServer }) => {
     // https://stackoverflow.com/questions/64926174/module-not-found-cant-resolve-fs-in-next-js-application
     config.resolve.fallback = {

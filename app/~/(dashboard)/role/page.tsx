@@ -5,6 +5,8 @@ import { trpc } from '@/lib/trpc'
 import { toast } from 'sonner'
 import RoleSection from './RoleSection'
 
+export const dynamic = 'force-static'
+
 export default function Page() {
   const {
     isLoading: isAdminListLoading,

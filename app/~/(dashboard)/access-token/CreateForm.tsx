@@ -164,7 +164,7 @@ export default function AccessTokenCreateForm({ refetch }: Props) {
       </Card>
 
       <AccessTokenShowDialog
-        accesstoken={generatedToken}
+        accessToken={generatedToken}
         isOpen={isDialogOpen}
         onOpenChange={setIsDialogOpen}
       />

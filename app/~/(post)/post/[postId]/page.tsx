@@ -8,6 +8,8 @@ import { usePost } from '@/hooks/usePost'
 import { usePostLoading } from '@/hooks/usePostLoading'
 import { PostType } from '@/lib/constants'
 
+export const dynamic = 'force-static'
+
 export default function PostPage() {
   const { post } = usePost()
   const { isPostLoading } = usePostLoading()

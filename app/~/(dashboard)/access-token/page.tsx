@@ -4,6 +4,8 @@ import { trpc } from '@/lib/trpc'
 import AccessTokenCreateForm from './CreateForm'
 import AccessTokenList from './TokenList'
 
+export const dynamic = 'force-static'
+
 export default function Page() {
   const { isLoading, data, refetch } = trpc.accessToken.list.useQuery()
 

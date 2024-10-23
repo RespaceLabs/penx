@@ -103,7 +103,7 @@ export function ProfilePopover({
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
-                  push('/~/accesstoken')
+                  push('/~/access-token')
                 }}
               >
                 <KeySquare className="mr-2 h-4 w-4" />
