@@ -6,8 +6,6 @@ import { loadTheme } from '@/lib/loadTheme'
 import { SubscriptionInSession } from '@/lib/types'
 import { TipTapNode } from '@plantreexyz/types'
 import { Post } from '@prisma/client'
-import { getServerSession } from 'next-auth'
-import { cookies, headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 import { GateCover } from './GateCover'
@@ -23,14 +21,14 @@ function checkMembership(subscriptions: SubscriptionInSession[]) {
 }
 
 function getContent(post: Post, isGated = false) {
-  const node: TipTapNode = post.content as any
+  const node: TipTapNode = JSON.parse(post.content || '{}')
   if (!isGated) return node
   const len = node.content?.length || 0
   node.content = node.content?.slice(1, parseInt((len * 0.4) as any)) || []
   return node
 }
 
-// export const dynamic = 'force-static'
+export const dynamic = 'force-static'
 export const revalidate = 3600 * 24
 
 export async function generateStaticParams() {
@@ -61,7 +59,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
         post={{
           ...post,
           content: getContent(post),
-          readingTime: readingTime(JSON.stringify(post?.content)),
+          readingTime: readingTime(post.content),
         }}
         // MintPost={MintPost}
         readable
@@ -79,7 +77,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
           post={{
             ...post,
             content: getContent(post, true),
-            readingTime: readingTime(JSON.stringify(post?.content)),
+            readingTime: readingTime(post.content),
           }}
           readable={false}
           // MintPost={MintPost}
@@ -102,7 +100,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
         post={{
           ...post,
           content: hasMembership ? getContent(post) : getContent(post, true),
-          readingTime: readingTime(JSON.stringify(post?.content)),
+          readingTime: readingTime(post.content),
         }}
         readable={hasMembership}
         // MintPost={MintPost}

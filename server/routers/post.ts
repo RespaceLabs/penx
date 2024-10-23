@@ -91,7 +91,7 @@ export const postRouter = router({
         where: { id },
         data: {
           ...data,
-          content: content ? JSON.parse(content || '{}') : null,
+          content: content || '',
         },
       })
 

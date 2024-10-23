@@ -29,9 +29,8 @@ import {
   UserCog,
   UserRound,
 } from 'lucide-react'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 import { ProfileAvatar } from './ProfileAvatar'
 import { WalletInfo } from './WalletInfo'
 
@@ -51,9 +50,7 @@ export function ProfilePopover({
   const { authenticated, user, logout } = usePrivy()
 
   if (!data) return null
-  // TODO:
-  // const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
-  const isEditor = true
+  const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
 
   return (
     <DropdownMenu>

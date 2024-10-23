@@ -99,8 +99,13 @@ export const authOptions: NextAuthOptions = {
           // console.log('====== token, address:', token, address)
 
           try {
+            const t0 = Date.now()
             await privy.verifyAuthToken(token)
+            const t1 = Date.now()
+            console.log('t1-t0=======>', t1 - t0)
             const user = await createUser(address)
+            const t2 = Date.now()
+            console.log('t2-t1=======>', t2 - t1)
             // console.log('=====user:', user)
             updateSubscriptions(address as Address)
             return user
@@ -169,27 +174,16 @@ export const authOptions: NextAuthOptions = {
 
 async function createUser(address: any) {
   let user = await prisma.user.findUnique({ where: { address } })
-
-  let ensName: string | null = ''
-  try {
-    ensName = await publicClient.getEnsName({ address })
-  } catch (error) {}
-
   const isAdmin = address === process.env.DEFAULT_ADMIN_ADDRESS
   const role = isAdmin ? UserRole.ADMIN : UserRole.AUTHOR
 
   if (!user) {
     user = await prisma.user.create({
-      data: { address, ensName, role },
-    })
-  } else {
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { ensName: ensName, role },
+      data: { address, role },
     })
   }
 
-  return { ...user, ensName }
+  return { ...user }
 }
 
 async function updateSubscriptions(address: Address) {

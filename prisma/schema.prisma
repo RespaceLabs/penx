@@ -14,7 +14,7 @@ model Site {
   id           String   @id @default(uuid())
   name         String
   description  String   @default("") @db.Text
-  about        Json?
+  about        String   @default("") @db.Text
   logo         String?  @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png") @db.Text
   font         String   @default("font-cal")
   image        String?  @default("") @db.Text
@@ -97,7 +97,7 @@ model Post {
   slug          String        @default(uuid())
   title         String        @default("") @db.Text
   description   String        @default("") @db.Text
-  content       Json?
+  content       String        @default("") @db.Text
   cid           String        @default("")
   type          PostType      @default(ARTICLE)
   gateType      GateType      @default(FREE)
