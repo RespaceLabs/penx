@@ -22,7 +22,7 @@ import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
 import { Socials } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Site } from '@prisma/client'
+import { Site } from '@plantreexyz/types'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -50,7 +50,7 @@ interface Props {
 }
 
 export function SiteSettingForm({ site }: Props) {
-  const { data, refetch } = trpc.site.getSite.useQuery()
+  const { refetch } = trpc.site.getSite.useQuery()
   const { isPending, mutateAsync } = trpc.site.updateSite.useMutation()
 
   const social = (site.socials || {}) as Socials
@@ -61,7 +61,7 @@ export function SiteSettingForm({ site }: Props) {
       logo: site.logo || '',
       name: site.name || '',
       description: site.description || '',
-      about: site.about,
+      about: JSON.stringify(site.about),
       farcaster: social.farcaster || '',
       x: social.x || '',
       mastodon: social.mastodon || '',
@@ -152,16 +152,6 @@ export function SiteSettingForm({ site }: Props) {
           control={form.control}
           name="about"
           render={({ field }) => {
-            function getValue() {
-              if (typeof field.value === 'object') return field.value
-              try {
-                return field.value
-                  ? JSON.parse(field.value)
-                  : editorDefaultValue
-              } catch (error) {
-                return editorDefaultValue
-              }
-            }
             return (
               <FormItem className="w-full h-full">
                 <FormLabel>About</FormLabel>
@@ -169,7 +159,7 @@ export function SiteSettingForm({ site }: Props) {
                   <div className="h-[360px]  border border-neutral-200 rounded-lg overflow-auto prose-neutral prose-p:leading-none">
                     <Editor
                       className="p-3 break-all plan-editor h-full"
-                      initialValue={getValue()}
+                      initialValue={JSON.parse(field.value)}
                       onChange={(v) => {
                         field.onChange(JSON.stringify(v))
                       }}

@@ -4,7 +4,16 @@ import { unstable_cache } from 'next/cache'
 import { PostStatus } from './constants'
 
 export async function getSite() {
-  return getSiteInfo()
+  return await unstable_cache(
+    async () => {
+      return getSiteInfo()
+    },
+    [`site`],
+    {
+      revalidate: 3600,
+      tags: [`site`],
+    },
+  )()
 }
 
 export async function getPosts() {
@@ -22,7 +31,7 @@ export async function getPosts() {
     },
     [`posts`],
     {
-      revalidate: 900,
+      revalidate: 3600,
       tags: [`posts`],
     },
   )()
@@ -43,7 +52,7 @@ export async function getPost(slug: string) {
     },
     [`post-${slug}`],
     {
-      revalidate: 900, // 15 minutes
+      revalidate: 3600, // 15 minutes
       tags: [`posts-${slug}`],
     },
   )()
@@ -56,7 +65,7 @@ export async function getTags() {
     },
     [`tags`],
     {
-      revalidate: 900,
+      revalidate: 3600,
       tags: [`tags`],
     },
   )()
@@ -72,7 +81,7 @@ export async function getTagWithPost(name: string) {
     },
     [`tags-${name}`],
     {
-      revalidate: 900,
+      revalidate: 3600,
       tags: [`tags-${name}`],
     },
   )()
@@ -85,7 +94,7 @@ export async function getTagWithPost(name: string) {
 //     },
 //     [`tags-posts`],
 //     {
-//       revalidate: 900,
+//       revalidate: 3600,
 //       tags: [`tags-post`],
 //     },
 //   )()
