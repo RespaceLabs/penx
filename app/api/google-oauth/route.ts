@@ -1,40 +1,35 @@
 import { prisma } from '@/lib/prisma'
-import { google } from 'googleapis'
 import { NextRequest, NextResponse } from 'next/server'
-
-const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
-const clientSecret = process.env.GOOGLE_CLIENT_SECRET!
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url)
-  const code = url.searchParams.get('code')
-  const address = url.searchParams.get('state')
-  const redirectUri = `${url.protocol}//${url.host}/api/google-oauth`
+  const access_token = url.searchParams.get('access_token')
+  const refresh_token = url.searchParams.get('refresh_token')
+  const expiry_date = url.searchParams.get('expiry_date')
+  const address = url.searchParams.get('address')
 
-  if (!code || !address) {
+  console.log(
+    '>>>>>>>>>====accessToken:',
+    access_token,
+    'refreshToken:',
+    refresh_token,
+    'expiryDate:',
+    expiry_date,
+    'address:',
+    address,
+  )
+
+  if (!access_token || !refresh_token || !expiry_date || !address) {
     return NextResponse.redirect('/error') // Handle error accordingly
   }
-
-  const auth = new google.auth.OAuth2(clientId, clientSecret, redirectUri)
-
-  const { tokens } = await auth.getToken(code)
-
-  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret)
-  oauth2Client.setCredentials(tokens)
-
-  const oauth2 = google.oauth2({
-    auth: oauth2Client,
-    version: 'v2',
-  })
-
-  const userInfo = await oauth2.userinfo.get()
 
   await prisma.user.update({
     where: { address },
     data: {
       google: {
-        ...tokens,
-        ...userInfo.data,
+        access_token,
+        refresh_token,
+        expiry_date,
       },
     },
   })

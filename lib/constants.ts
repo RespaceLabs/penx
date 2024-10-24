@@ -6,6 +6,16 @@ export const isProd = process.env.NODE_ENV === 'production'
 
 export const isPrivy = process.env.NEXT_PUBLIC_LOGIN_TYPE === 'PRIVY'
 
+export const GOOGLE_OAUTH_REDIRECT_URI =
+  'https://www.plantree.xyz/api/google-drive-oauth'
+// 'http://localhost:4000/api/google-drive-oauth'
+
+export const REFRESH_GOOGLE_OAUTH_TOKEN_URL =
+  'https://www.plantree.xyz/api/refresh-google-drive-token'
+
+export const GOOGLE_CLIENT_ID =
+  '864679274232-niev1df1dak216q5natclfvg5fhtp7fg.apps.googleusercontent.com'
+
 export const PROJECT_ID =
   process.env.NEXT_PUBLIC_PROJECT_ID || '3d31c4aa12acd88d0b8cad38b0a5686a'
 

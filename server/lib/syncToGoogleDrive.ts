@@ -1,11 +1,9 @@
+import { REFRESH_GOOGLE_OAUTH_TOKEN_URL } from '@/lib/constants'
 import { GoogleDrive } from '@/lib/google-drive'
 import { prisma } from '@/lib/prisma'
 import { GoogleInfo } from '@/lib/types'
 import { Post, Site, User } from '@prisma/client'
-import { google } from 'googleapis'
-
-const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
-const clientSecret = process.env.GOOGLE_CLIENT_SECRET!
+import ky from 'ky'
 
 const folderName = `plantree-${process.env.NEXT_PUBLIC_SPACE_ID}`
 
@@ -44,30 +42,17 @@ async function getAccessToken(user: User) {
     return googleInfo.access_token
   }
 
-  const oauth2Client = new google.auth.OAuth2(clientId, clientSecret)
-  oauth2Client.setCredentials({
-    refresh_token: googleInfo.refresh_token,
+  const tokenInfo = await ky
+    .get(
+      REFRESH_GOOGLE_OAUTH_TOKEN_URL +
+        `?refresh_token=${googleInfo.refresh_token}`,
+    )
+    .json<GoogleInfo>()
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { google: tokenInfo },
   })
 
-  const accessToken = await oauth2Client.getAccessToken()
-
-  if (accessToken.token && accessToken.res?.data) {
-    const oauth2 = google.oauth2({
-      auth: oauth2Client,
-      version: 'v2',
-    })
-
-    const userInfo = await oauth2.userinfo.get()
-    const newData = {
-      ...accessToken.res?.data,
-      ...userInfo.data,
-    } as GoogleInfo
-
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { google: newData },
-    })
-  }
-
-  return accessToken.token as string
+  return tokenInfo.access_token as string
 }

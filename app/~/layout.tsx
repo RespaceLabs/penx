@@ -10,8 +10,6 @@ export default async function RootLayout({
 }) {
   const session = await getSession()
 
-  console.log('>>>>xx=======session:', session)
-
   if (!session) {
     redirect('/')
   }

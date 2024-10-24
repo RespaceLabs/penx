@@ -1,10 +1,8 @@
+import { REFRESH_GOOGLE_OAUTH_TOKEN_URL } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { GoogleInfo } from '@/lib/types'
-import { google } from 'googleapis'
+import ky from 'ky'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
-
-const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!
-const clientSecret = process.env.GOOGLE_CLIENT_SECRET!
 
 export const googleRouter = router({
   googleDriveToken: publicProcedure.query(async ({ ctx, input }) => {
@@ -18,14 +16,7 @@ export const googleRouter = router({
 
     const isExpired = googleInfo.expiry_date < Date.now()
 
-    // console.log(
-    //   '=========isExpired:',
-    //   isExpired,
-    //   'googleInfo.expiry_date:',
-    //   googleInfo.expiry_date,
-    //   'googleInfo:',
-    //   googleInfo,
-    // )
+    console.log('=========isExpired:', isExpired)
 
     if (!isExpired) {
       return googleInfo
@@ -34,38 +25,18 @@ export const googleRouter = router({
     if (!googleInfo.refresh_token) return null
 
     try {
-      const oauth2Client = new google.auth.OAuth2(clientId, clientSecret)
+      const tokenInfo = await ky
+        .get(
+          REFRESH_GOOGLE_OAUTH_TOKEN_URL +
+            `?refresh_token=${googleInfo.refresh_token}`,
+        )
+        .json<any>()
 
-      oauth2Client.setCredentials({
-        refresh_token: googleInfo.refresh_token,
+      await prisma.user.update({
+        where: { id: userId },
+        data: { google: tokenInfo },
       })
-
-      const accessToken = await oauth2Client.getAccessToken()
-
-      // console.log('======accessToken:', accessToken)
-
-      const oauth2 = google.oauth2({
-        auth: oauth2Client,
-        version: 'v2',
-      })
-
-      const userInfo = await oauth2.userinfo.get()
-
-      if (accessToken.token && accessToken.res?.data) {
-        const newData = {
-          ...accessToken.res?.data,
-          ...userInfo.data,
-        } as GoogleInfo
-
-        await prisma.user.update({
-          where: { id: userId },
-          data: { google: newData },
-        })
-
-        return newData
-      }
-
-      return null
+      return tokenInfo
     } catch (error) {
       console.log('error=============:', error)
       return null
@@ -77,6 +48,5 @@ export const googleRouter = router({
       where: { id: ctx.token.uid },
       data: { google: {} },
     })
-    return true
   }),
 })

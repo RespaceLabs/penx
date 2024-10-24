@@ -16,7 +16,7 @@ function Content() {
     return <Skeleton className="h-14 w-64 rounded-2xl"></Skeleton>
   }
 
-  // console.log('=========token:', token)
+  console.log('=========token:', token)
 
   if (!token?.access_token) {
     return (

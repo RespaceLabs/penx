@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
-    "@plantreexyz/types": "0.0.3",
+    "@plantreexyz/types": "0.0.4",
     "@prisma/client": "^5.21.1",
     "@privy-io/react-auth": "^1.92.2",
     "@privy-io/server-auth": "^1.15.0",
@@ -59,7 +59,6 @@
     "focus-trap-react": "^10.2.3",
     "framer-motion": "^10.16.4",
     "github-slugger": "^2.0.0",
-    "googleapis": "^144.0.0",
     "graphql-request": "^6.1.0",
     "gray-matter": "^4.0.3",
     "ioredis": "^5.4.1",
@@ -81,9 +80,9 @@
     "nextjs-toploader": "^1.6.12",
     "novel": "^0.5.0",
     "openai-edge": "^1.2.2",
-    "plantree-theme-card": "0.0.3",
-    "plantree-theme-micro": "0.0.3",
-    "plantree-theme-minimal": "0.0.3",
+    "plantree-theme-card": "0.0.4",
+    "plantree-theme-micro": "0.0.4",
+    "plantree-theme-minimal": "0.0.4",
     "prisma-extension-pagination": "^0.7.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -136,5 +135,5 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.2.2"
   },
-  "packageManager": "pnpm@8.15.9+sha512.499434c9d8fdd1a2794ebf4552b3b25c0a633abcee5bb15e7b5de90f32f47b513aca98cd5cfd001c31f0db454bc3804edccd578501e4ca293a6816166bbd9f81"
+  "packageManager": "pnpm@9.12.2"
 }

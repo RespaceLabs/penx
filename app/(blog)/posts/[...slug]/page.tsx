@@ -9,6 +9,7 @@ import { Post } from '@prisma/client'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 import { GateCover } from './GateCover'
+import { PaidContent } from './PaidContent'
 
 function checkMembership(subscriptions: SubscriptionInSession[]) {
   if (!Array.isArray(subscriptions)) return false
@@ -68,6 +69,14 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
       />
     )
   }
+
+  // return (
+  //   <PaidContent>
+  //     {(content) => {
+  //       return <div>{content}</div>
+  //     }}
+  //   </PaidContent>
+  // )
 
   /** gated but not login */
   if (!session) {

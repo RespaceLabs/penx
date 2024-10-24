@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { IconGoogle } from '@/components/icons/IconGoogle'
 import LoadingDots from '@/components/icons/loading-dots'
-import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
+import { GOOGLE_CLIENT_ID, GOOGLE_OAUTH_REDIRECT_URI } from '@/lib/constants'
+import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -15,8 +16,6 @@ export function GoogleOauthButton({}: Props) {
   // Get error message added by next/auth in URL.
   const searchParams = useSearchParams()
   const error = searchParams?.get('error')
-
-  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
 
   useEffect(() => {
     const errorMessage = Array.isArray(error) ? error.pop() : error
@@ -31,21 +30,20 @@ export function GoogleOauthButton({}: Props) {
       disabled={loading}
       onClick={() => {
         setLoading(true)
-        const redirectUri = `${location.protocol}//${location.host}/api/google-oauth`
-
-        const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+        const redirectUri = GOOGLE_OAUTH_REDIRECT_URI
 
         // const scope = 'https://www.googleapis.com/auth/drive'
         // const scope = 'email https://www.googleapis.com/auth/drive.file'
 
         // const scope = 'openid'
 
-        const scope =
-          'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/drive.file'
+        const state = `${location.protocol}//${location.host}____${data.address}`
+
+        const scope = 'openid https://www.googleapis.com/auth/drive.file'
 
         const googleAuthUrl =
           `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=${redirectUri}` +
-          `&scope=${scope}&client_id=${googleClientId}&state=${data.address}&access_type=offline&prompt=consent`
+          `&scope=${scope}&client_id=${GOOGLE_CLIENT_ID}&state=${state}&access_type=offline&prompt=consent`
         // &prompt=consent
 
         location.href = googleAuthUrl
