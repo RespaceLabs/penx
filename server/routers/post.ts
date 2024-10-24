@@ -36,7 +36,7 @@ export const postRouter = router({
   }),
 
   byId: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
-    const post = await prisma.post.findUnique({
+    const post = await prisma.post.findUniqueOrThrow({
       include: {
         postTags: { include: { tag: true } },
       },
@@ -138,6 +138,18 @@ export const postRouter = router({
       revalidatePath('/(blog)/posts', 'page')
       revalidatePath('/(blog)/posts/[...slug]', 'page')
       revalidatePath('/(blog)/posts/page/[page]', 'page')
+
+      // sync
+      {
+        prisma.post
+          .findUnique({
+            include: { postTags: { include: { tag: true } } },
+            where: { id: post.id },
+          })
+          .then((post) => {
+            syncToGoogleDrive(ctx.token.uid, post as any)
+          })
+      }
 
       return post
     }),

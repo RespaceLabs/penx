@@ -23,7 +23,7 @@ export function Post({ post }: { post: PostType }) {
 
         try {
           await mutateAsync({
-            id: post.id,
+            id: data.id,
             title: value.title,
             content: value.content,
             description: value.description,
@@ -48,7 +48,7 @@ export function Post({ post }: { post: PostType }) {
           <input
             type="text"
             placeholder="Title"
-            defaultValue={post?.title || ''}
+            defaultValue={data?.title || ''}
             autoFocus
             onChange={(e) => {
               setData({ ...data, title: e.target.value })

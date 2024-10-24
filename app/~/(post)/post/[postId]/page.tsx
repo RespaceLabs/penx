@@ -13,14 +13,6 @@ export const dynamic = 'force-static'
 
 function PostContent() {
   const { post } = usePost()
-  const { isPostLoading } = usePostLoading()
-
-  if (isPostLoading || !post)
-    return (
-      <div className="h-[80vh] flex items-center justify-center">
-        <LoadingDots />
-      </div>
-    )
 
   if (post.type === PostType.IMAGE) {
     return <ImageCreation post={post} />

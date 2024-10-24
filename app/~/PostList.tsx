@@ -2,11 +2,13 @@
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Post } from '@/hooks/usePost'
+import { loadPost, Post, postAtom } from '@/hooks/usePost'
+import { postLoadingAtom } from '@/hooks/usePostLoading'
 import { usePosts } from '@/hooks/usePosts'
 import { PostStatus } from '@/lib/constants'
 import { api } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
+import { store } from '@/store'
 import { format } from 'date-fns'
 import { Edit3Icon, Trash2 } from 'lucide-react'
 import Link from 'next/link'
@@ -20,8 +22,11 @@ export function PostItem({ post }: PostItemProps) {
   const { push } = useRouter()
   const { refetch } = usePosts()
 
-  async function toPost() {
-    push(`/~/post/${post.id}`)
+  async function toPost(needRoute = true) {
+    loadPost(post.id)
+    if (needRoute) {
+      push(`/~/post/${post.id}`)
+    }
   }
 
   return (
@@ -30,6 +35,9 @@ export function PostItem({ post }: PostItemProps) {
         <Link
           href={`/~/post/${post.id}`}
           className="inline-flex items-center hover:scale-105 transition-transform"
+          onClick={() => {
+            toPost(false)
+          }}
         >
           <div className="text-base font-bold">{post.title || 'Untitled'}</div>
         </Link>
@@ -46,16 +54,13 @@ export function PostItem({ post }: PostItemProps) {
           <div>{format(new Date(post.updatedAt), 'yyyy-MM-dd')}</div>
         </div>
         <Button
-          asChild
           size="xs"
           variant="ghost"
           className="rounded-full text-xs h-7 gap-1 opacity-50"
-          onClick={toPost}
+          onClick={() => toPost()}
         >
-          <Link href={`/~/post/${post.id}`}>
-            <Edit3Icon size={14}></Edit3Icon>
-            <div>Edit</div>
-          </Link>
+          <Edit3Icon size={14}></Edit3Icon>
+          <div>Edit</div>
         </Button>
 
         <Button

@@ -3,13 +3,14 @@
 import { useEffect } from 'react'
 import { PostStatus } from '@/lib/constants'
 import { revalidateMetadata } from '@/lib/revalidateTag'
-import { trpc } from '@/lib/trpc'
+import { api, trpc } from '@/lib/trpc'
 import { RouterOutputs } from '@/server/_app'
 import { store } from '@/store'
 import { PostTag, Tag } from '@prisma/client'
 import { atom, useAtom } from 'jotai'
+import { postLoadingAtom } from './usePostLoading'
 
-export type Post = RouterOutputs['post']['list']['0']
+export type Post = RouterOutputs['post']['byId']
 
 export type PostTagWithTag = PostTag & { tag: Tag }
 
@@ -50,20 +51,9 @@ export function removePostTag(postTag: PostTagWithTag) {
   revalidateMetadata(`tag-${postTag.tag.name}`)
 }
 
-export function useQueryPost(postId = '') {
-  const { data, ...rest } = trpc.post.byId.useQuery(postId, {
-    enabled: !!postId,
-  })
-
-  useEffect(() => {
-    if (data) {
-      store.set(postAtom, data)
-    }
-  }, [data])
-
-  //
-  return {
-    data,
-    ...rest,
-  }
+export async function loadPost(postId: string) {
+  store.set(postLoadingAtom, true)
+  const post = await api.post.byId.query(postId)
+  store.set(postAtom, post)
+  store.set(postLoadingAtom, false)
 }
