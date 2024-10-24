@@ -1,5 +1,6 @@
 import { forwardRef, useRef, useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
+import { uploadFile } from '@/lib/uploadFile'
 import { Edit3 } from 'lucide-react'
 import Image from 'next/image'
 
@@ -21,19 +22,13 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
       const src = URL.createObjectURL(file)
       onChange?.(src)
 
-      const res = await fetch(`/api/upload?filename=${file.name}`, {
-        method: 'POST',
-        body: file,
-      })
-
-      if (res.ok) {
-        const data = await res.json()
-        console.log('=======data.url:', data.url)
-
+      try {
+        const data = await uploadFile(file)
         onChange?.(data.url)
-      } else {
-        console.log('Failed to upload file')
+      } catch (error) {
+        console.log('Failed to upload file:', error)
       }
+
       setLoading(false)
     }
   }
@@ -69,3 +64,7 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
     </div>
   )
 })
+
+function uploadFileToGoogleDrive(file: File) {
+  //
+}

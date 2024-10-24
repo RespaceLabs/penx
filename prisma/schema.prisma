@@ -165,6 +165,14 @@ model PostTag {
   @@map("post_tag")
 }
 
+model Asset {
+  id   String  @id @default(uuid())
+  url  String  @default("")
+  type String?
+
+  @@map("asset")
+}
+
 model AccessToken {
   id         String    @id @default(uuid())
   token      String    @default("")

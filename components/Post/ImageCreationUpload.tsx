@@ -2,6 +2,7 @@ import { forwardRef, useRef, useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Post } from '@/hooks/usePost'
 import { api } from '@/lib/trpc'
+import { uploadFile } from '@/lib/uploadFile'
 import { ImageIcon, X } from 'lucide-react'
 import Image from 'next/image'
 
@@ -21,24 +22,17 @@ export const ImageCreationUpload = forwardRef<HTMLDivElement, Props>(
         const src = URL.createObjectURL(file)
         setValue(src)
 
-        const res = await fetch(`/api/upload?filename=${file.name}`, {
-          method: 'POST',
-          body: file,
-        })
-
-        if (res.ok) {
-          const data = await res.json()
-
-          console.log('=====data.url:', data.url)
-
+        try {
+          const data = await uploadFile(file)
           await api.post.update.mutate({
             id: post.id,
             content: data.url,
           })
           setValue(data.url)
-        } else {
-          console.log('Failed to upload file')
+        } catch (error) {
+          console.log('Failed to upload file:', error)
         }
+
         setLoading(false)
       }
     }

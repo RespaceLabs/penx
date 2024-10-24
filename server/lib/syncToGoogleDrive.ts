@@ -1,11 +1,12 @@
-import { REFRESH_GOOGLE_OAUTH_TOKEN_URL } from '@/lib/constants'
+import {
+  GOOGLE_DRIVE_FOLDER_PREFIX,
+  REFRESH_GOOGLE_OAUTH_TOKEN_URL,
+} from '@/lib/constants'
 import { GoogleDrive } from '@/lib/google-drive'
 import { prisma } from '@/lib/prisma'
 import { GoogleInfo } from '@/lib/types'
-import { Post, Site, User } from '@prisma/client'
+import { Post, User } from '@prisma/client'
 import ky from 'ky'
-
-const folderName = `plantree-${process.env.NEXT_PUBLIC_SPACE_ID}`
 
 export async function syncToGoogleDrive(
   userId: string,
@@ -18,7 +19,9 @@ export async function syncToGoogleDrive(
   console.log('====token:', token)
   const drive = new GoogleDrive(token)
 
-  const baseFolderId = await drive.getOrCreateFolder(folderName)
+  const baseFolderId = await drive.getOrCreateFolder(
+    GOOGLE_DRIVE_FOLDER_PREFIX + '-raws',
+  )
 
   const fileName = `post-${post.id}.json`
 

@@ -7,12 +7,12 @@ import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { useMembers } from '@/app/(creator-fi)/hooks/useMembers'
 import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { useSubscriptions } from '@/app/(creator-fi)/hooks/useSubscriptions'
+import Editor from '@/components/editor/advanced-editor'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useAppKit } from '@reown/appkit/react'
 import { EditIcon } from 'lucide-react'
 import { useAccount } from 'wagmi'
-import Editor from '../../components/editor/advanced-editor'
 import { useUpdatePlanDialog } from './UpdatePlanDialog/useUpdatePlanDialog'
 
 interface Props {

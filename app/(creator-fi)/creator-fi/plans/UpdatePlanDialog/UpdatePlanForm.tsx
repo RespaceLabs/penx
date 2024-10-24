@@ -2,12 +2,12 @@
 
 import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import Editor from '@/app/(creator-fi)/components/editor/advanced-editor'
 import { NumberInput } from '@/app/(creator-fi)/components/NumberInput'
 import { PlanStatus } from '@/app/(creator-fi)/domains/Plan'
 import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { usePlans } from '@/app/(creator-fi)/hooks/usePlans'
 import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
+import Editor from '@/components/editor/advanced-editor'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {

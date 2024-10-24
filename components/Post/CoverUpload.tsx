@@ -2,6 +2,7 @@ import { forwardRef, useRef, useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Post } from '@/hooks/usePost'
 import { api, trpc } from '@/lib/trpc'
+import { uploadFile } from '@/lib/uploadFile'
 import { Edit3, ImageIcon, X } from 'lucide-react'
 import Image from 'next/image'
 
@@ -21,26 +22,20 @@ export const CoverUpload = forwardRef<HTMLDivElement, Props>(
         setLoading(true)
         const file = e.target.files[0]
         const src = URL.createObjectURL(file)
-        console.log('src====')
         setValue(src)
 
-        const res = await fetch(`/api/upload?filename=${file.name}`, {
-          method: 'POST',
-          body: file,
-        })
-
-        if (res.ok) {
-          const data = await res.json()
-          console.log('=====data:', data, 'url:', data.url)
+        try {
+          const data = await uploadFile(file)
 
           await api.post.updateCover.mutate({
             id: post.id,
             image: data.url,
           })
           setValue(data.url)
-        } else {
-          console.log('Failed to upload file')
+        } catch (error) {
+          console.log('Failed to upload file:', error)
         }
+
         setLoading(false)
       }
     }
