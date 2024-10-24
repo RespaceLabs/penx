@@ -1,7 +1,6 @@
 import { ModeToggle } from '@/components/ModeToggle'
 import { Profile } from '@/components/Profile/Profile'
 import { getSite } from '@/lib/fetchers'
-import { getSession } from '@/lib/getSession'
 import { loadTheme } from '@/lib/loadTheme'
 
 export const dynamic = 'force-static'

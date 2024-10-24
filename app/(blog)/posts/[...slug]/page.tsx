@@ -1,6 +1,5 @@
 import { GateType } from '@/lib/constants'
 import { getPost, getPosts } from '@/lib/fetchers'
-import { getSession } from '@/lib/getSession'
 import { loadTheme } from '@/lib/loadTheme'
 import { TipTapNode } from '@plantreexyz/types'
 import { Post } from '@prisma/client'
@@ -27,8 +26,6 @@ export async function generateStaticParams() {
 export default async function Page({ params }: { params: { slug: string[] } }) {
   const slug = decodeURI(params.slug.join('/'))
   const [post, posts] = await Promise.all([getPost(slug), getPosts()])
-
-  const session = await getSession()
 
   const postIndex = posts.findIndex((p) => p.slug === slug)
   if (postIndex === -1 || !post) {
