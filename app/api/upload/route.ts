@@ -39,8 +39,6 @@ export async function POST(req: Request) {
     addRandomSuffix: false,
   })
 
-  console.log('======result:', result)
-
   await prisma.asset.create({
     data: {
       url: result.url,
