@@ -1,25 +1,12 @@
-import { authOptions } from '@/lib/auth'
 import { GateType } from '@/lib/constants'
 import { getPost, getPosts } from '@/lib/fetchers'
 import { getSession } from '@/lib/getSession'
 import { loadTheme } from '@/lib/loadTheme'
-import { SubscriptionInSession } from '@/lib/types'
 import { TipTapNode } from '@plantreexyz/types'
 import { Post } from '@prisma/client'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
-import { GateCover } from './GateCover'
 import { PaidContent } from './PaidContent'
-
-function checkMembership(subscriptions: SubscriptionInSession[]) {
-  if (!Array.isArray(subscriptions)) return false
-  if (!subscriptions.length) return false
-  const subscription = subscriptions[0]
-  if (Date.now() / 1000 < subscription.startTime + subscription.duration) {
-    return true
-  }
-  return false
-}
 
 function getContent(post: Post, isGated = false) {
   const node: TipTapNode = JSON.parse(post.content || '{}')

@@ -17,8 +17,17 @@ export async function getSite() {
     } as Site
   }
 
+  function getAbout() {
+    if (!site?.about) return ''
+    try {
+      return JSON.parse(site.about)
+    } catch (error) {
+      return ''
+    }
+  }
+
   return {
     ...site,
-    about: site.about ? JSON.parse(site.about) : '',
+    about: getAbout(),
   }
 }
