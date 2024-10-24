@@ -2,6 +2,8 @@ import { ReactNode } from 'react'
 import { NewButton } from '@/components/Navbar/NewButton'
 import { PostsNav } from './PostsNav'
 
+export const dynamic = 'force-static'
+
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="flex flex-col gap-8">

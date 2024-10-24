@@ -4,6 +4,7 @@ import { loadTheme } from '@/lib/loadTheme'
 const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
 
 export const dynamic = 'force-static'
+export const revalidate = 3600 * 24
 
 export const generateStaticParams = async () => {
   const posts = await getPosts()

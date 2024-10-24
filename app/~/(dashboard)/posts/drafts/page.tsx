@@ -1,5 +1,3 @@
-'use client'
-
 import { PostList } from '@/app/~/PostList'
 import { PostStatus } from '@/lib/constants'
 

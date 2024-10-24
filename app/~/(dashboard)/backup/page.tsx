@@ -1,5 +1,3 @@
-'use client'
-
 import { GoogleBackup } from './GoogleBackup/GoogleBackup'
 
 export const dynamic = 'force-static'

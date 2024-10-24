@@ -1,13 +1,15 @@
 'use client'
 
 import { ReactNode, useState } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 enum TabTypes {
   Holders = 'Holders',
   Trades = 'Trades',
 }
+
+export const dynamic = 'force-static'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { space } = useSpace()

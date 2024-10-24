@@ -1,6 +1,5 @@
 import { GateType, PostStatus } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
-import { Post } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { syncToGoogleDrive } from '../lib/syncToGoogleDrive'

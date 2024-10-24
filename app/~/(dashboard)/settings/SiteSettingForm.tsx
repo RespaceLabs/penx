@@ -1,7 +1,6 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { editorDefaultValue } from '@/app/(creator-fi)/constants'
 import Editor from '@/components/editor/advanced-editor'
 import { FileUpload } from '@/components/FileUpload'
 import LoadingDots from '@/components/icons/loading-dots'

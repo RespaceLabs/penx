@@ -1,6 +1,8 @@
 'use client'
 
-import { StakingPanel } from "./StakingPanel"
+import { StakingPanel } from './StakingPanel'
+
+export const dynamic = 'force-static'
 
 export default function Page() {
   return (

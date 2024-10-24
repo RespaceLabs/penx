@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
 import { ImageCreation } from '@/components/Post/ImageCreation'
 import { Post } from '@/components/Post/Post'

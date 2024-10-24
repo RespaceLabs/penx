@@ -2,6 +2,8 @@
 
 import { PlanList } from './PlanList'
 
+export const dynamic = 'force-static'
+
 export default function Page() {
   return (
     <div className="space-y-10 pt-20">
