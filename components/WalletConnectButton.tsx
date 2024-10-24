@@ -35,16 +35,15 @@ const PrivyConnectButton = (props: Props) => {
       loginMethod,
       linkedAccount,
     ) => {
-      console.log(
-        '>>>>>>>>>>>>>>===privy user logged in',
-        user,
-        isNewUser,
-        wasAlreadyAuthenticated,
-        loginMethod,
-        linkedAccount,
-      )
+      // console.log(
+      //   '>>>>>>>>>>>>>>===privy user logged in',
+      //   user,
+      //   isNewUser,
+      //   wasAlreadyAuthenticated,
+      //   loginMethod,
+      //   linkedAccount,
+      // )
       const token = await getAccessToken()
-      console.log('token===:', token)
 
       await signIn('privy', {
         address: user.wallet?.address || '',

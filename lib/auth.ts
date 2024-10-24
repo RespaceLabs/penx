@@ -23,11 +23,6 @@ const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID
 const PRIVY_APP_SECRET = process.env.PRIVY_APP_SECRET
 const privy = new PrivyClient(PRIVY_APP_ID!, PRIVY_APP_SECRET!)
 
-const publicClient = createPublicClient({
-  chain: mainnet,
-  transport: http(),
-})
-
 export const authOptions: NextAuthOptions = {
   secret: nextAuthSecret,
   providers: [
@@ -175,7 +170,7 @@ export const authOptions: NextAuthOptions = {
 async function createUser(address: any) {
   let user = await prisma.user.findUnique({ where: { address } })
   const isAdmin = address === process.env.DEFAULT_ADMIN_ADDRESS
-  const role = isAdmin ? UserRole.ADMIN : UserRole.AUTHOR
+  const role = isAdmin ? UserRole.ADMIN : UserRole.READER
 
   if (!user) {
     user = await prisma.user.create({

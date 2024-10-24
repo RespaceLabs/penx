@@ -62,6 +62,7 @@ export const protectedProcedure = t.procedure.use(
     }
 
     const role = ctx.token.role as any
+
     if (![UserRole.ADMIN, UserRole.AUTHOR].includes(role)) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',

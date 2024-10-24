@@ -25,7 +25,7 @@ function getContent(post: Post, isGated = false) {
   const node: TipTapNode = JSON.parse(post.content || '{}')
   if (!isGated) return node
   const len = node.content?.length || 0
-  node.content = node.content?.slice(1, parseInt((len * 0.4) as any)) || []
+  node.content = node.content?.slice(1, parseInt((len * 0.3) as any)) || []
   return node
 }
 
@@ -42,6 +42,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   const [post, posts] = await Promise.all([getPost(slug), getPosts()])
 
   const session = await getSession()
+
   const postIndex = posts.findIndex((p) => p.slug === slug)
   if (postIndex === -1 || !post) {
     return notFound()
@@ -70,57 +71,5 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     )
   }
 
-  // return (
-  //   <PaidContent>
-  //     {(content) => {
-  //       return <div>{content}</div>
-  //     }}
-  //   </PaidContent>
-  // )
-
-  /** gated but not login */
-  if (!session) {
-    return (
-      <div className="">
-        <PostDetail
-          post={{
-            ...post,
-            content: getContent(post, true),
-            readingTime: readingTime(post.content),
-          }}
-          readable={false}
-          // MintPost={MintPost}
-          next={next}
-          prev={prev}
-        />
-        <div className="mx-auto relative">
-          <GateCover slug={post.slug} />
-        </div>
-      </div>
-    )
-  }
-
-  const hasMembership = checkMembership(session.subscriptions)
-
-  /** gated and login */
-  return (
-    <div className="">
-      <PostDetail
-        post={{
-          ...post,
-          content: hasMembership ? getContent(post) : getContent(post, true),
-          readingTime: readingTime(post.content),
-        }}
-        readable={hasMembership}
-        // MintPost={MintPost}
-        next={next}
-        prev={prev}
-      />
-      {!hasMembership && (
-        <div className="mx-auto relative">
-          <GateCover slug={post.slug} />
-        </div>
-      )}
-    </div>
-  )
+  return <PaidContent postId={post.id} post={post} next={next} prev={prev} />
 }
