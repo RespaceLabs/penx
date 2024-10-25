@@ -169,6 +169,7 @@ model PostTag {
 model Asset {
   id   String  @id @default(uuid())
   url  String  @default("")
+  cid  String  @default("")
   type String?
 
   @@map("asset")

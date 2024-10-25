@@ -63,7 +63,10 @@ export const protectedProcedure = t.procedure.use(
 
     const role = ctx.token.role as any
 
-    if (![UserRole.ADMIN, UserRole.AUTHOR].includes(role)) {
+    if (
+      ![UserRole.ADMIN, UserRole.AUTHOR].includes(role) &&
+      path !== 'user.me'
+    ) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',
         message: 'No permission',
