@@ -41,9 +41,7 @@ export async function getPost(slug: string) {
   return await unstable_cache(
     async () => {
       const data = await prisma.post.findFirst({
-        where: {
-          slug,
-        },
+        where: { slug },
       })
 
       if (!data) return null

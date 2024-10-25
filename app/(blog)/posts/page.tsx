@@ -1,10 +1,19 @@
-import { getPosts } from '@/lib/fetchers'
+import { getPosts, getSite } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
+import { Metadata } from 'next'
 
 const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 20)
 
 export const dynamic = 'force-static'
 export const revalidate = 3600 * 24
+
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite()
+  return {
+    title: `Blog | ${site.name}`,
+    description: site.description,
+  }
+}
 
 export default async function Page() {
   const posts = await getPosts()

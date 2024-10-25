@@ -1,8 +1,17 @@
-import { getTags, getTagWithPost } from '@/lib/fetchers'
+import { getSite, getTags, getTagWithPost } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-static'
 export const revalidate = 3600 * 24
+
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite()
+  return {
+    title: `Tags | ${site.name}`,
+    description: site.description,
+  }
+}
 
 export const generateStaticParams = async () => {
   const tags = await getTags()

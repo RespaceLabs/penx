@@ -3,6 +3,7 @@ import { getPost, getPosts } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
 import { TipTapNode } from '@plantreexyz/types'
 import { Post } from '@prisma/client'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 import { PaidContent } from './PaidContent'
@@ -17,6 +18,20 @@ function getContent(post: Post, isGated = false) {
 
 export const dynamic = 'force-static'
 export const revalidate = 3600 * 24
+
+export async function generateMetadata({
+  params,
+}: {
+  params: any
+}): Promise<Metadata> {
+  const slug = decodeURI(params.slug.join('/'))
+  const post = await getPost(slug)
+
+  return {
+    title: post?.title,
+    description: post?.description,
+  }
+}
 
 export async function generateStaticParams() {
   const posts = await getPosts()

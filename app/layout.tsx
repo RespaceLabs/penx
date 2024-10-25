@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 import '@/styles/prosemirror.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import { getSite } from '@/lib/fetchers'
 import { cn } from '@/lib/utils'
 import { cal, inter } from '@/styles/fonts'
 import { Analytics } from '@vercel/analytics/react'
@@ -15,30 +16,27 @@ const fontSans = FontSans({
   variable: '--font-sans',
 })
 
-const title = 'Plantree: The best way to build web3 independent blog.'
-const description =
-  'Plantree is open-source, modern tool for building web3 independent blog.'
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite()
 
-// const image = 'https://vercel.pub/thumbnail.png'
-
-export const metadata: Metadata = {
-  title,
-  description,
-
-  icons: ['https://plantree.xyz/favicon.ico'],
-  openGraph: {
-    title,
-    description,
-    // images: [image],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title,
-    description,
-    // images: [image],
-    creator: '@plantree',
-  },
-  metadataBase: new URL('https://plantree.xyz'),
+  return {
+    title: site.name,
+    description: site.description,
+    // icons: ['https://plantree.xyz/favicon.ico'],
+    openGraph: {
+      title: site.name,
+      description: site.description,
+      images: site.image ? [site.image] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: site.name,
+      description: site.description,
+      images: site.image ? [site.image] : undefined,
+      creator: site.name,
+    },
+    metadataBase: new URL('https://plantree.xyz'),
+  }
 }
 
 export default async function RootLayout({

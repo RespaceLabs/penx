@@ -11,6 +11,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   const site = await getSite()
   const { SiteLayout } = await loadTheme()
 
