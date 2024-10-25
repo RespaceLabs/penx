@@ -7,7 +7,8 @@ export const isProd = process.env.NODE_ENV === 'production'
 // GOOGLE|REOWN|PRIVY
 export const AUTH_TYPE = process.env.NEXT_PUBLIC_AUTH_TYPE! || 'GOOGLE'
 
-export const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID!
+export const PRIVY_APP_ID =
+  process.env.NEXT_PUBLIC_PRIVY_APP_ID || 'cm2m05e510d9rexwjez8j66gv'
 export const PRIVY_APP_SECRET = process.env.PRIVY_APP_SECRET!
 
 export const isPrivy = AUTH_TYPE === 'PRIVY'
@@ -86,6 +87,8 @@ export enum NetworkNames {
   ARB_SEPOLIA = 'ARB_SEPOLIA',
   BASE_SEPOLIA = 'BASE_SEPOLIA',
 }
+
+export const NETWORK = process.env.NEXT_PUBLIC_NETWORK as NetworkNames
 
 export enum WorkerEvents {
   START_POLLING,

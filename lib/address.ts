@@ -1,6 +1,4 @@
-import { NetworkNames } from './constants'
-
-const NETWORK = process.env.NEXT_PUBLIC_NETWORK as NetworkNames
+import { NETWORK, NetworkNames } from './constants'
 
 const developAddress = {
   SpaceFactory: '0xBB49C3C9a9d34FcaDC6Bcc7EffFC1d6592e8473a',
