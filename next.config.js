@@ -30,6 +30,7 @@ module.exports = {
       { hostname: 'public.blob.vercel-storage.com' },
       { hostname: '2cil7amusloluyl8.public.blob.vercel-storage.com' },
       { hostname: '*.public.blob.vercel-storage.com' },
+      { hostname: '*.spaceprotocol.xyz' },
       { hostname: 'res.cloudinary.com' },
       { hostname: 'abs.twimg.com' },
       { hostname: 'pbs.twimg.com' },

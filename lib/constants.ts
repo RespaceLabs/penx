@@ -16,6 +16,11 @@ export const isGoogleOauth = AUTH_TYPE === 'GOOGLE'
 export const GOOGLE_OAUTH_REDIRECT_URI =
   'https://www.plantree.xyz/api/google-oauth'
 
+export const UPLOAD_PROVIDER = process.env.NEXT_PUBLIC_UPLOAD_PROVIDER || 'IPFS'
+
+export const IPFS_UPLOAD_URL = 'https://www.plantree.xyz/api/ipfs-upload'
+export const IPFS_GATEWAY = 'https://ipfs-gateway.spaceprotocol.xyz'
+
 export const GOOGLE_DRIVE_OAUTH_REDIRECT_URI =
   'https://www.plantree.xyz/api/google-drive-oauth'
 
@@ -29,6 +34,12 @@ export const PROJECT_ID =
   process.env.NEXT_PUBLIC_PROJECT_ID || '3d31c4aa12acd88d0b8cad38b0a5686a'
 
 export const GOOGLE_DRIVE_FOLDER_PREFIX = `plantree-${process.env.NEXT_PUBLIC_SPACE_ID}`
+
+export enum UploadProvider {
+  IPFS = 'IPFS',
+  VERCEL_BLOB = 'VERCEL_BLOB',
+  SUPABASE_STORAGE = 'SUPABASE_STORAGE',
+}
 
 export enum TradeType {
   BUY = 'BUY',

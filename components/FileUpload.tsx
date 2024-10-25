@@ -24,7 +24,7 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
 
       try {
         const data = await uploadFile(file)
-        onChange?.(data.url)
+        onChange?.(data.url!)
       } catch (error) {
         console.log('Failed to upload file:', error)
       }

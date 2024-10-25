@@ -37,6 +37,7 @@ export async function syncToGoogleDrive(
 
 async function getAccessToken(user: User) {
   const googleInfo = user.google as GoogleInfo
+  if (!googleInfo) return null
   // console.log('========googleInfo:', googleInfo)
   const isExpired = googleInfo.expiry_date < Date.now()
   console.log('======isExpired:', isExpired)

@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { IPFS_GATEWAY } from './constants'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -99,4 +100,8 @@ export function isIPFSCID(str = '') {
   const v0Regex = /^([0-9A-F]{46})$/i
 
   return v1Regex.test(str) || v0Regex.test(str)
+}
+
+export function getUrl(str = '') {
+  return isIPFSCID(str) ? `${IPFS_GATEWAY}/ipfs/${str}` : str
 }

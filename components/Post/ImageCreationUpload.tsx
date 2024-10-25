@@ -28,7 +28,7 @@ export const ImageCreationUpload = forwardRef<HTMLDivElement, Props>(
             id: post.id,
             content: data.url,
           })
-          setValue(data.url)
+          setValue(data.url!)
         } catch (error) {
           console.log('Failed to upload file:', error)
         }

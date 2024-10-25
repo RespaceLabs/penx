@@ -4,6 +4,8 @@ import { api } from './trpc'
 
 export async function uploadToGoogleDrive(fileHash: string, file: File) {
   const token = await api.google.googleDriveToken.query()
+  if (!token?.access_token) return
+
   const drive = new GoogleDrive(token?.access_token!)
 
   const baseFolderId = await drive.getOrCreateFolder(

@@ -1,4 +1,9 @@
 import { calculateSHA256FromFile } from '@/lib/calculateSHA256FromFile'
+import {
+  IPFS_UPLOAD_URL,
+  UPLOAD_PROVIDER,
+  UploadProvider,
+} from '@/lib/constants'
 import { uploadToGoogleDrive } from '@/lib/uploadToGoogleDrive'
 import { createImageUpload } from 'novel/plugins'
 import { toast } from 'sonner'
@@ -6,14 +11,23 @@ import { toast } from 'sonner'
 const onUpload = async (file: File) => {
   const fileHash = await calculateSHA256FromFile(file)
 
-  const promise = fetch(`/api/upload?fileHash=${fileHash}`, {
-    method: 'POST',
-    headers: {
-      'content-type': file?.type || 'application/octet-stream',
-      'x-vercel-filename': file?.name || 'image.png',
-    },
-    body: file,
-  })
+  let promise: Promise<Response>
+
+  if (UPLOAD_PROVIDER === UploadProvider.VERCEL_BLOB) {
+    promise = fetch(`/api/upload?fileHash=${fileHash}`, {
+      method: 'POST',
+      headers: {
+        'content-type': file?.type || 'application/octet-stream',
+        'x-vercel-filename': file?.name || 'image.png',
+      },
+      body: file,
+    })
+  } else {
+    promise = fetch(IPFS_UPLOAD_URL, {
+      method: 'POST',
+      body: file,
+    })
+  }
 
   return new Promise((resolve) => {
     toast.promise(

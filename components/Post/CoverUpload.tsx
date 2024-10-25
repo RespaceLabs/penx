@@ -3,6 +3,7 @@ import LoadingDots from '@/components/icons/loading-dots'
 import { Post } from '@/hooks/usePost'
 import { api, trpc } from '@/lib/trpc'
 import { uploadFile } from '@/lib/uploadFile'
+import { getUrl, isIPFSCID } from '@/lib/utils'
 import { Edit3, ImageIcon, X } from 'lucide-react'
 import Image from 'next/image'
 
@@ -27,11 +28,16 @@ export const CoverUpload = forwardRef<HTMLDivElement, Props>(
         try {
           const data = await uploadFile(file)
 
+          const uri = data.url || data.cid || ''
           await api.post.updateCover.mutate({
             id: post.id,
-            image: data.url,
+            image: uri,
           })
-          setValue(data.url)
+          setValue(
+            isIPFSCID(uri)
+              ? `https://ipfs-gateway.spaceprotocol.xyz/ipfs/${uri}`
+              : uri,
+          )
         } catch (error) {
           console.log('Failed to upload file:', error)
         }
@@ -52,7 +58,7 @@ export const CoverUpload = forwardRef<HTMLDivElement, Props>(
       return (
         <div className="w-full h-[360px] relative">
           <Image
-            src={value || ''}
+            src={getUrl(value)}
             width={1000}
             height={1000}
             className="absolute left-0 top-0 w-full h-[360px] cursor-pointer object-cover"
