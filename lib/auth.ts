@@ -12,15 +12,18 @@ import credentialsProvider from 'next-auth/providers/credentials'
 import { Address, createPublicClient, http } from 'viem'
 import { baseSepolia, mainnet } from 'viem/chains'
 import { spaceAbi } from './abi'
-import { PROJECT_ID, SPACE_ID } from './constants'
+import {
+  PRIVY_APP_ID,
+  PRIVY_APP_SECRET,
+  PROJECT_ID,
+  SPACE_ID,
+} from './constants'
 
 const nextAuthSecret = process.env.NEXTAUTH_SECRET
 if (!nextAuthSecret) {
   throw new Error('NEXTAUTH_SECRET is not set')
 }
 
-const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID
-const PRIVY_APP_SECRET = process.env.PRIVY_APP_SECRET
 const privy = new PrivyClient(PRIVY_APP_ID!, PRIVY_APP_SECRET!)
 
 export const authOptions: NextAuthOptions = {
@@ -169,10 +172,10 @@ export const authOptions: NextAuthOptions = {
 
 async function createUser(address: any) {
   let user = await prisma.user.findUnique({ where: { address } })
-  const isAdmin = address === process.env.DEFAULT_ADMIN_ADDRESS
-  const role = isAdmin ? UserRole.ADMIN : UserRole.READER
-
   if (!user) {
+    const count = await prisma.user.count()
+    const role = count === 0 ? UserRole.ADMIN : UserRole.READER
+
     user = await prisma.user.create({
       data: { address, role },
     })

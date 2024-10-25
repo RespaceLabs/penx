@@ -2,7 +2,6 @@
 
 import { Button, ButtonProps } from '@/components/ui/button'
 import { isPrivy } from '@/lib/constants'
-import { api } from '@/lib/trpc'
 import { getAccessToken, useLogin } from '@privy-io/react-auth'
 import { useAppKit } from '@reown/appkit/react'
 import { signIn } from 'next-auth/react'

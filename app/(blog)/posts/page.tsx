@@ -1,7 +1,7 @@
 import { getPosts } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
 
-const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
+const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 20)
 
 export const dynamic = 'force-static'
 export const revalidate = 3600 * 24

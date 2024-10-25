@@ -2,7 +2,7 @@
 
 import { PrivyWagmiProvider } from '@/components/PrivyWagmiProvider'
 import { ReownWagmiProvider } from '@/components/ReownWagmiProvider'
-import { isPrivy } from '@/lib/constants'
+import { isPrivy, PRIVY_APP_ID } from '@/lib/constants'
 import { trpc, trpcClient } from '@/lib/trpc'
 import { StoreProvider } from '@/store'
 import { PrivyProvider } from '@privy-io/react-auth'
@@ -23,7 +23,7 @@ export function Providers({
 
   return (
     <PrivyProvider
-      appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID!}
+      appId={PRIVY_APP_ID}
       config={{
         // Customize Privy's appearance in your app
         appearance: {
