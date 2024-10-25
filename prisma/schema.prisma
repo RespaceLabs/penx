@@ -43,7 +43,8 @@ enum UserRole {
 
 model User {
   id            String        @id @default(uuid())
-  address       String        @unique
+  address       String?       @unique
+  openid        String?       @unique
   name          String?
   ensName       String?
   role          UserRole      @default(READER)

@@ -1,4 +1,4 @@
-import { REFRESH_GOOGLE_OAUTH_TOKEN_URL } from '@/lib/constants'
+import { REFRESH_GOOGLE_DRIVE_OAUTH_TOKEN_URL } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { GoogleInfo } from '@/lib/types'
 import ky from 'ky'
@@ -27,7 +27,7 @@ export const googleRouter = router({
     try {
       const tokenInfo = await ky
         .get(
-          REFRESH_GOOGLE_OAUTH_TOKEN_URL +
+          REFRESH_GOOGLE_DRIVE_OAUTH_TOKEN_URL +
             `?refresh_token=${googleInfo.refresh_token}`,
         )
         .json<any>()

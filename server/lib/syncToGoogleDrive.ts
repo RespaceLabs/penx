@@ -1,6 +1,6 @@
 import {
   GOOGLE_DRIVE_FOLDER_PREFIX,
-  REFRESH_GOOGLE_OAUTH_TOKEN_URL,
+  REFRESH_GOOGLE_DRIVE_OAUTH_TOKEN_URL,
 } from '@/lib/constants'
 import { GoogleDrive } from '@/lib/google-drive'
 import { prisma } from '@/lib/prisma'
@@ -47,7 +47,7 @@ async function getAccessToken(user: User) {
 
   const tokenInfo = await ky
     .get(
-      REFRESH_GOOGLE_OAUTH_TOKEN_URL +
+      REFRESH_GOOGLE_DRIVE_OAUTH_TOKEN_URL +
         `?refresh_token=${googleInfo.refresh_token}`,
     )
     .json<GoogleInfo>()

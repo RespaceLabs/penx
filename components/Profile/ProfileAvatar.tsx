@@ -6,14 +6,15 @@ import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import { Copy } from 'lucide-react'
-import { toast } from 'sonner'
 import { useSession } from 'next-auth/react'
+import { toast } from 'sonner'
 import { UserAvatar } from '../UserAvatar'
 
 interface Props extends HTMLAttributes<any> {
   className?: string
   showEnsName?: boolean
   showAddress?: boolean
+  image?: string
   showFullAddress?: boolean
   showCopy?: boolean
 }
@@ -26,6 +27,7 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
       showAddress,
       showFullAddress,
       showCopy,
+      image,
       ...rest
     },
     ref,
@@ -45,7 +47,7 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
         className={cn('flex items-center gap-2', className)}
         {...rest}
       >
-        <UserAvatar address={address} />
+        <UserAvatar address={address} image={image} />
         {(showEnsName || showAddress) && (
           <div>
             {showEnsName && ensName && (

@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react'
 import { IconGoogle } from '@/components/icons/IconGoogle'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
-import { GOOGLE_CLIENT_ID, GOOGLE_OAUTH_REDIRECT_URI } from '@/lib/constants'
+import {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_DRIVE_OAUTH_REDIRECT_URI,
+  GOOGLE_OAUTH_REDIRECT_URI,
+} from '@/lib/constants'
 import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
@@ -11,8 +15,6 @@ interface Props {}
 
 export function GoogleOauthButton({}: Props) {
   const [loading, setLoading] = useState(false)
-
-  const { data } = useSession()
   // Get error message added by next/auth in URL.
   const searchParams = useSearchParams()
   const error = searchParams?.get('error')
@@ -22,28 +24,19 @@ export function GoogleOauthButton({}: Props) {
     errorMessage && toast.error(errorMessage)
   }, [error])
 
-  if (!data) return null
-
   return (
     <Button
-      className="h-14 w-64 rounded-2xl gap-2"
+      className="rounded-xl gap-2 text-sm w-24"
       disabled={loading}
       onClick={() => {
         setLoading(true)
         const redirectUri = GOOGLE_OAUTH_REDIRECT_URI
 
-        // const scope = 'https://www.googleapis.com/auth/drive'
-        // const scope = 'email https://www.googleapis.com/auth/drive.file'
-
-        // const scope = 'openid'
-
-        const state = `${location.protocol}//${location.host}____${data.address}`
-
-        const scope = 'openid https://www.googleapis.com/auth/drive.file'
-
+        const state = `${location.protocol}//${location.host}`
+        const scope = 'openid email profile'
         const googleAuthUrl =
           `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=${redirectUri}` +
-          `&scope=${scope}&client_id=${GOOGLE_CLIENT_ID}&state=${state}&access_type=offline&prompt=consent`
+          `&scope=${scope}&client_id=${GOOGLE_CLIENT_ID}&state=${state}&access_type=offline`
         // &prompt=consent
 
         location.href = googleAuthUrl
@@ -52,15 +45,8 @@ export function GoogleOauthButton({}: Props) {
       {loading && <LoadingDots color="white" />}
       {!loading && (
         <>
-          <IconGoogle className="w-6 h-6" />
-          <div className="grid gap-[2px]">
-            <div className="text-base font-semibold">
-              Backup to google drive
-            </div>
-            <div className="text-zinc-100 text-xs font-light">
-              Connect to Google drive
-            </div>
-          </div>
+          <IconGoogle className="w-4 h-4" />
+          <div className="">Login</div>
         </>
       )}
     </Button>

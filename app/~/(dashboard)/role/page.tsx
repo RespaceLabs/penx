@@ -20,11 +20,11 @@ export default function Page() {
     refetch: refetchAuthorList,
   } = trpc.user.listAuthorUsers.useQuery()
 
-  const { mutateAsync: adminSetmutateAsync } =
+  const { mutateAsync: adminSetMutateAsync } =
     trpc.user.setRoleToAdmin.useMutation()
-  const { mutateAsync: authorSetmutateAsync } =
+  const { mutateAsync: authorSetMutateAsync } =
     trpc.user.setRoleToAuthor.useMutation()
-  const { mutateAsync: readerSetmutateAsync } =
+  const { mutateAsync: readerSetMutateAsync } =
     trpc.user.setRoleToReader.useMutation()
 
   const inviteUserToRole = async (
@@ -50,10 +50,10 @@ export default function Page() {
         users={adminList}
         isLoading={isAdminListLoading}
         onInvite={(address) =>
-          inviteUserToRole(adminSetmutateAsync, address, 'admin')
+          inviteUserToRole(adminSetMutateAsync, address, 'admin')
         }
         onRemove={(address) =>
-          inviteUserToRole(readerSetmutateAsync, address, 'reader')
+          inviteUserToRole(readerSetMutateAsync, address, 'reader')
         }
       />
 
@@ -62,10 +62,10 @@ export default function Page() {
         users={authorList}
         isLoading={isAuthorListLoading}
         onInvite={(address) =>
-          inviteUserToRole(authorSetmutateAsync, address, 'author')
+          inviteUserToRole(authorSetMutateAsync, address, 'author')
         }
         onRemove={(address) =>
-          inviteUserToRole(readerSetmutateAsync, address, 'reader')
+          inviteUserToRole(readerSetMutateAsync, address, 'reader')
         }
       />
     </div>

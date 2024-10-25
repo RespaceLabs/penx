@@ -63,12 +63,17 @@ function generateGradient(walletAddress: string) {
 interface UserAvatarProps {
   className?: string
   address?: string
+  image?: string
 }
 
-export function UserAvatar({ address = '', className }: UserAvatarProps) {
+export function UserAvatar({
+  address = '',
+  image,
+  className,
+}: UserAvatarProps) {
   return (
     <Avatar className={cn('h-8 w-8', className)}>
-      {/* <AvatarImage src={src} alt="" /> */}
+      {image && <AvatarImage src={image} alt="" />}
       <AvatarFallback
         className={cn('text-white text-xs', generateGradient(address))}
       ></AvatarFallback>

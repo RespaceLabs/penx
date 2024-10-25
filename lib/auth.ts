@@ -10,7 +10,7 @@ import {
 import { type NextAuthOptions } from 'next-auth'
 import credentialsProvider from 'next-auth/providers/credentials'
 import { Address, createPublicClient, http } from 'viem'
-import { baseSepolia, mainnet } from 'viem/chains'
+import { baseSepolia } from 'viem/chains'
 import { spaceAbi } from './abi'
 import {
   PRIVY_APP_ID,
@@ -18,6 +18,13 @@ import {
   PROJECT_ID,
   SPACE_ID,
 } from './constants'
+
+type GoogleLoginInfo = {
+  email: string
+  openid: string
+  picture: string
+  name: string
+}
 
 const nextAuthSecret = process.env.NEXTAUTH_SECRET
 if (!nextAuthSecret) {
@@ -61,7 +68,7 @@ export const authOptions: NextAuthOptions = {
           })
 
           if (isValid) {
-            const user = await createUser(address)
+            const user = await createUserByAddress(address)
             updateSubscriptions(address as Address)
             return { chainId, ...user }
           }
@@ -101,7 +108,7 @@ export const authOptions: NextAuthOptions = {
             await privy.verifyAuthToken(token)
             const t1 = Date.now()
             console.log('t1-t0=======>', t1 - t0)
-            const user = await createUser(address)
+            const user = await createUserByAddress(address)
             const t2 = Date.now()
             console.log('t2-t1=======>', t2 - t1)
             // console.log('=====user:', user)
@@ -111,6 +118,45 @@ export const authOptions: NextAuthOptions = {
             console.log('====authorize=error:', error)
             return null
           }
+        } catch (e) {
+          return null
+        }
+      },
+    }),
+
+    credentialsProvider({
+      id: 'plantree-google',
+      name: 'Plantree',
+      credentials: {
+        email: {
+          label: 'Email',
+          type: 'text',
+          placeholder: '',
+        },
+        openid: {
+          label: 'OpenID',
+          type: 'text',
+          placeholder: '',
+        },
+        picture: {
+          label: 'Picture',
+          type: 'text',
+          placeholder: '',
+        },
+        name: {
+          label: 'Picture',
+          type: 'text',
+          placeholder: '',
+        },
+      },
+      async authorize(credentials) {
+        try {
+          if (!credentials?.email || !credentials?.openid) {
+            throw new Error('Login fail')
+          }
+
+          const user = await createUserByGoogleInfo(credentials)
+          return user
         } catch (e) {
           return null
         }
@@ -130,8 +176,9 @@ export const authOptions: NextAuthOptions = {
         token.uid = sessionUser.id
         token.address = sessionUser.address as string
         token.chainId = sessionUser.chainId
-        token.ensName = (sessionUser.ensName as string) || null
-        token.role = (sessionUser.role as string) || null
+        token.ensName = sessionUser.ensName as string
+        token.name = sessionUser.name as string
+        token.role = sessionUser.role as string
 
         token.subscriptions = Array.isArray(sessionUser.subscriptions)
           ? sessionUser.subscriptions.map((i: any) => ({
@@ -160,6 +207,7 @@ export const authOptions: NextAuthOptions = {
     session({ session, token, user, trigger, newSession }) {
       session.userId = token.uid as string
       session.address = token.address as string
+      session.name = token.name as string
       session.chainId = token.chainId as string
       session.ensName = token.ensName as string
       session.role = token.role as string
@@ -170,7 +218,7 @@ export const authOptions: NextAuthOptions = {
   },
 }
 
-async function createUser(address: any) {
+async function createUserByAddress(address: any) {
   let user = await prisma.user.findUnique({ where: { address } })
   if (!user) {
     const count = await prisma.user.count()
@@ -181,7 +229,27 @@ async function createUser(address: any) {
     })
   }
 
-  return { ...user }
+  return user
+}
+
+async function createUserByGoogleInfo(info: GoogleLoginInfo) {
+  let user = await prisma.user.findUnique({ where: { openid: info.openid } })
+  if (!user) {
+    const count = await prisma.user.count()
+    const role = count === 0 ? UserRole.ADMIN : UserRole.READER
+
+    user = await prisma.user.create({
+      data: {
+        role,
+        name: info.name,
+        email: info.email,
+        openid: info.openid,
+        image: info.picture,
+      },
+    })
+  }
+
+  return user
 }
 
 async function updateSubscriptions(address: Address) {

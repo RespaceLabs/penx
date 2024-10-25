@@ -4,16 +4,22 @@ export const isServer = typeof window === 'undefined'
 export const isBrowser = typeof window !== 'undefined'
 export const isProd = process.env.NODE_ENV === 'production'
 
+// GOOGLE|REOWN|PRIVY
+export const AUTH_TYPE = process.env.NEXT_PUBLIC_AUTH_TYPE! || 'GOOGLE'
+
 export const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID!
 export const PRIVY_APP_SECRET = process.env.PRIVY_APP_SECRET!
 
-export const isPrivy =
-  process.env.NEXT_PUBLIC_CONNECT_TYPE === 'PRIVY' || !!PRIVY_APP_ID
+export const isPrivy = AUTH_TYPE === 'PRIVY'
+export const isGoogleOauth = AUTH_TYPE === 'GOOGLE'
 
 export const GOOGLE_OAUTH_REDIRECT_URI =
+  'https://www.plantree.xyz/api/google-oauth'
+
+export const GOOGLE_DRIVE_OAUTH_REDIRECT_URI =
   'https://www.plantree.xyz/api/google-drive-oauth'
 
-export const REFRESH_GOOGLE_OAUTH_TOKEN_URL =
+export const REFRESH_GOOGLE_DRIVE_OAUTH_TOKEN_URL =
   'https://www.plantree.xyz/api/refresh-google-drive-token'
 
 export const GOOGLE_CLIENT_ID =

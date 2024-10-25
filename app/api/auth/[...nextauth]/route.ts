@@ -6,6 +6,7 @@ import NextAuth from 'next-auth'
 declare module 'next-auth' {
   interface Session extends SIWESession {
     address: string
+    name: string
     chainId: number | string
     userId: string
     ensName: string | null

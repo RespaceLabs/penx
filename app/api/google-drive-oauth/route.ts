@@ -8,17 +8,6 @@ export async function GET(req: NextRequest) {
   const expiry_date = url.searchParams.get('expiry_date')
   const address = url.searchParams.get('address')
 
-  console.log(
-    '>>>>>>>>>====accessToken:',
-    access_token,
-    'refreshToken:',
-    refresh_token,
-    'expiryDate:',
-    expiry_date,
-    'address:',
-    address,
-  )
-
   if (!access_token || !refresh_token || !expiry_date || !address) {
     return NextResponse.redirect('/error') // Handle error accordingly
   }

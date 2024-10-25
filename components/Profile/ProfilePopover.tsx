@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAddress } from '@/hooks/useAddress'
-import { GateType, isPrivy } from '@/lib/constants'
+import { GateType, isGoogleOauth, isPrivy } from '@/lib/constants'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import { usePrivy } from '@privy-io/react-auth'
@@ -47,7 +47,7 @@ export function ProfilePopover({
 }: Props) {
   const { data } = useSession()
   const { push } = useRouter()
-  const { authenticated, user, logout } = usePrivy()
+  const { logout } = usePrivy()
 
   if (!data) return null
   const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
@@ -58,13 +58,24 @@ export function ProfilePopover({
         <ProfileAvatar
           showAddress={showAddress}
           showEnsName={showEnsName}
+          image={data.user?.image || ''}
           className={cn('cursor-pointer', className)}
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="grid gap-2">
-          <ProfileAvatar showAddress showEnsName showCopy />
-          <WalletInfo />
+          {isGoogleOauth && (
+            <div>
+              <div>{data.user?.name || data.user?.email}</div>
+            </div>
+          )}
+
+          {!isGoogleOauth && (
+            <>
+              <ProfileAvatar showAddress showEnsName showCopy />
+              <WalletInfo />
+            </>
+          )}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
@@ -122,7 +133,7 @@ export function ProfilePopover({
             </>
           )}
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
+        {isEditor && <DropdownMenuSeparator />}
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={() => {

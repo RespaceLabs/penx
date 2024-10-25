@@ -81,7 +81,8 @@ export default function RoleSection({
                   <DeleteConfirmDialog
                     title="Delete Confirmation"
                     content="Are you sure you want to delete this item? This action cannot be undone."
-                    onConfirm={() => onRemove(user.address)}
+                    // TODO: Handle Google login
+                    onConfirm={() => onRemove(user.address!)}
                     tooltipContent={
                       title === 'Author role'
                         ? 'remove author role'

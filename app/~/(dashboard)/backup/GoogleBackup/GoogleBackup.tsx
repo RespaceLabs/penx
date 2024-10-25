@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { trpc } from '@/lib/trpc'
 import { GoogleBackupConnected } from './GoogleBackupConnected'
-import { GoogleOauthButton } from './GoogleOauthButton'
+import { GoogleDriveOauthButton } from './GoogleDriveOauthButton'
 
 function Content() {
   const {
@@ -16,13 +16,13 @@ function Content() {
     return <Skeleton className="h-14 w-64 rounded-2xl"></Skeleton>
   }
 
-  console.log('=========token:', token)
+  // console.log('=========token:', token)
 
   if (!token?.access_token) {
     return (
       <Suspense fallback={<Skeleton></Skeleton>}>
         <div>
-          <GoogleOauthButton />
+          <GoogleDriveOauthButton />
         </div>
       </Suspense>
     )
