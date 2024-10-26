@@ -24,6 +24,8 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
 
       try {
         const data = await uploadFile(file)
+        console.log('===upload==data:', data)
+
         onChange?.(data.url!)
       } catch (error) {
         console.log('Failed to upload file:', error)
@@ -37,7 +39,7 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
     <div ref={ref}>
       <div className="w-20 h-20 rounded-2xl bg-accent relative cursor-pointer flex items-center justify-center overflow-hidden">
         {value && (
-          <Image
+          <img
             src={value || ''}
             width={80}
             height={80}
@@ -64,7 +66,3 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
     </div>
   )
 })
-
-function uploadFileToGoogleDrive(file: File) {
-  //
-}

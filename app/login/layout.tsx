@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 
 export default function Layout({ children }: PropsWithChildren) {
   const { data, status } = useSession()
-  console.log('========data:', data)
   const { push } = useRouter()
 
   useEffect(() => {

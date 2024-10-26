@@ -1,6 +1,7 @@
 import { editorDefaultValue } from '@/app/(creator-fi)/constants'
 import { prisma } from '@/lib/prisma'
 import { Site } from '@plantreexyz/types'
+import { AuthType, StorageProvider } from '@prisma/client'
 
 export async function getSite() {
   const site = await prisma.site.findFirst()
@@ -15,7 +16,9 @@ export async function getSite() {
       image: '',
       socials: {},
       config: {},
-    } as Site
+      authType: AuthType.GOOGLE,
+      storageProvider: StorageProvider.IPFS,
+    } as any as Site
   }
 
   function getAbout() {

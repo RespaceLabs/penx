@@ -1,10 +1,8 @@
 'use client'
 
-import LoadingDots from '@/components/icons/loading-dots'
 import { ImageCreation } from '@/components/Post/ImageCreation'
 import { Post } from '@/components/Post/Post'
 import { usePost } from '@/hooks/usePost'
-import { usePostLoading } from '@/hooks/usePostLoading'
 import { PostType } from '@/lib/constants'
 import { PostProvider } from './PostProvider'
 
