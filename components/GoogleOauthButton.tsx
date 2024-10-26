@@ -1,19 +1,28 @@
-import { useEffect, useState } from 'react'
+'use client'
+
+import { PropsWithChildren, useEffect, useState } from 'react'
 import { IconGoogle } from '@/components/icons/IconGoogle'
 import LoadingDots from '@/components/icons/loading-dots'
-import { Button } from '@/components/ui/button'
+import { Button, ButtonProps } from '@/components/ui/button'
 import {
   GOOGLE_CLIENT_ID,
   GOOGLE_DRIVE_OAUTH_REDIRECT_URI,
   GOOGLE_OAUTH_REDIRECT_URI,
 } from '@/lib/constants'
+import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 
-interface Props {}
+interface Props extends ButtonProps {
+  className?: string
+}
 
-export function GoogleOauthButton({}: Props) {
+export function GoogleOauthButton({
+  children,
+  className,
+  ...rest
+}: PropsWithChildren<Props>) {
   const [loading, setLoading] = useState(false)
   // Get error message added by next/auth in URL.
   const searchParams = useSearchParams()
@@ -26,7 +35,7 @@ export function GoogleOauthButton({}: Props) {
 
   return (
     <Button
-      className="rounded-xl gap-2 text-sm w-24"
+      className={cn('rounded-lg gap-2 text-sm w-24', className)}
       disabled={loading}
       onClick={() => {
         setLoading(true)
@@ -41,12 +50,13 @@ export function GoogleOauthButton({}: Props) {
 
         location.href = googleAuthUrl
       }}
+      {...rest}
     >
       {loading && <LoadingDots color="white" />}
       {!loading && (
         <>
           <IconGoogle className="w-4 h-4" />
-          <div className="">Login</div>
+          <div className="">{children || 'Login'}</div>
         </>
       )}
     </Button>

@@ -6,7 +6,9 @@ import { getAccessToken, useLogin } from '@privy-io/react-auth'
 import { useAppKit } from '@reown/appkit/react'
 import { signIn } from 'next-auth/react'
 
-interface Props extends ButtonProps {}
+interface Props extends ButtonProps {
+  authType?: 'privy' | 'reown'
+}
 
 const ReownConnectButton = (props: Props) => {
   const { open } = useAppKit()
@@ -72,6 +74,9 @@ const PrivyConnectButton = (props: Props) => {
 }
 
 export const WalletConnectButton = (props: Props) => {
+  if (props.authType === 'privy') return <PrivyConnectButton {...props} />
+  if (props.authType === 'reown') return <ReownConnectButton {...props} />
+
   if (isPrivy) return <PrivyConnectButton {...props} />
   return <ReownConnectButton {...props} />
 }
