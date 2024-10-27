@@ -16,7 +16,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { AuthType, Site } from '@prisma/client'
+import { Site } from '@plantreexyz/types'
+import { AuthType } from '@prisma/client'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -68,7 +69,7 @@ export function AuthTypeSettingForm({ site }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="authType"
@@ -115,6 +116,9 @@ export function AuthTypeSettingForm({ site }: Props) {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Privy App ID</FormLabel>
+                <FormDescription>
+                  Get App ID in https://dashboard.privy.io
+                </FormDescription>
                 <FormControl>
                   <Input placeholder="" {...field} className="w-full" />
                 </FormControl>

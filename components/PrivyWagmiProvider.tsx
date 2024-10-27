@@ -1,9 +1,9 @@
 'use client'
 
 import React, { ReactNode } from 'react'
-import { wagmiConfig } from '@/lib/wagmi/wagmiConfig'
+import { privyWagmiConfig } from '@/lib/wagmi'
 import { WagmiProvider } from '@privy-io/wagmi'
-import { Config, cookieToInitialState, State } from 'wagmi'
+import { cookieToInitialState } from 'wagmi'
 
 const metadata = {
   name: 'Plantree',
@@ -21,10 +21,10 @@ export function PrivyWagmiProvider({
   children: ReactNode
   cookies: string | null
 }) {
-  const initialState = cookieToInitialState(wagmiConfig, cookies)
+  const initialState = cookieToInitialState(privyWagmiConfig, cookies)
 
   return (
-    <WagmiProvider config={wagmiConfig} initialState={initialState}>
+    <WagmiProvider config={privyWagmiConfig} initialState={initialState}>
       {children}
     </WagmiProvider>
   )

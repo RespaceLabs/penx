@@ -3,7 +3,11 @@
 import React, { ReactNode } from 'react'
 import { PROJECT_ID } from '@/lib/constants'
 import { siweConfig } from '@/lib/wagmi/siweConfig'
-import { networks, wagmiAdapter, wagmiConfig } from '@/lib/wagmi/wagmiConfig'
+import {
+  networks,
+  reownWagmiConfig,
+  wagmiAdapter,
+} from '@/lib/wagmi/wagmiConfig'
 import { createAppKit } from '@reown/appkit/react'
 import { Config, cookieToInitialState, State, WagmiProvider } from 'wagmi'
 
@@ -44,7 +48,7 @@ export function ReownWagmiProvider({
   )
 
   return (
-    <WagmiProvider config={wagmiConfig} initialState={initialState}>
+    <WagmiProvider config={reownWagmiConfig} initialState={initialState}>
       {children}
     </WagmiProvider>
   )

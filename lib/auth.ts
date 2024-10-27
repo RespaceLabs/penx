@@ -12,12 +12,7 @@ import credentialsProvider from 'next-auth/providers/credentials'
 import { Address, createPublicClient, http } from 'viem'
 import { baseSepolia } from 'viem/chains'
 import { spaceAbi } from './abi'
-import {
-  PRIVY_APP_ID,
-  PRIVY_APP_SECRET,
-  PROJECT_ID,
-  SPACE_ID,
-} from './constants'
+import { PROJECT_ID, SPACE_ID } from './constants'
 
 type GoogleLoginInfo = {
   email: string
@@ -30,8 +25,6 @@ const nextAuthSecret = process.env.NEXTAUTH_SECRET
 if (!nextAuthSecret) {
   throw new Error('NEXTAUTH_SECRET is not set')
 }
-
-const privy = new PrivyClient(PRIVY_APP_ID!, PRIVY_APP_SECRET!)
 
 export const authOptions: NextAuthOptions = {
   secret: nextAuthSecret,
@@ -102,6 +95,14 @@ export const authOptions: NextAuthOptions = {
 
           const { token, address } = credentials
           // console.log('====== token, address:', token, address)
+          const site = await prisma.site.findFirst()
+          if (!site) return null
+
+          const authConfig = site.authConfig as any
+          const privy = new PrivyClient(
+            authConfig.privyAppId,
+            authConfig.privyAppSecret,
+          )
 
           try {
             const t0 = Date.now()

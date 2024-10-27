@@ -3,15 +3,11 @@ import { useAddress } from '@/app/(creator-fi)/hooks/useAddress'
 import { useMembers } from '@/app/(creator-fi)/hooks/useMembers'
 import { refetchSpaces } from '@/app/(creator-fi)/hooks/useSpaces'
 import { useSubscriptions } from '@/app/(creator-fi)/hooks/useSubscriptions'
+import { useCheckChain } from '@/hooks/useCheckChain'
+import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { erc20Abi, spaceAbi } from '@/lib/abi'
-import { checkChain } from '@/lib/checkChain'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
-import { wagmiConfig } from '@/lib/wagmi'
-import {
-  readContract,
-  waitForTransactionReceipt,
-  writeContract,
-} from '@wagmi/core'
+import { readContract, waitForTransactionReceipt } from '@wagmi/core'
 import { useSession } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
@@ -29,6 +25,8 @@ export function useSubscribe(space: Space) {
   const params = useSearchParams()
   const postSlug = params.get('post_slug')
   const { update } = useSession()
+  const wagmiConfig = useWagmiConfig()
+  const checkChain = useCheckChain()
 
   return async (token: string, amount: bigint, isSubscribe: boolean) => {
     const spaceAddress = space.address as Address

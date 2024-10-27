@@ -2,9 +2,11 @@
 
 import { PrivyWagmiProvider } from '@/components/PrivyWagmiProvider'
 import { ReownWagmiProvider } from '@/components/ReownWagmiProvider'
-import { isPrivy, PRIVY_APP_ID } from '@/lib/constants'
+import { SiteProvider } from '@/components/SiteContext'
 import { trpc, trpcClient } from '@/lib/trpc'
 import { StoreProvider } from '@/store'
+import { Site } from '@plantreexyz/types'
+import { AuthType } from '@prisma/client'
 import { PrivyProvider } from '@privy-io/react-auth'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { SessionProvider } from 'next-auth/react'
@@ -15,15 +17,19 @@ const queryClient = new QueryClient()
 export function Providers({
   children,
   cookies,
+  site,
 }: {
   children: React.ReactNode
   cookies: string | null
+  site: Site
 }) {
-  const WagmiProvider = isPrivy ? PrivyWagmiProvider : ReownWagmiProvider
+  const WagmiProvider =
+    site.authType === AuthType.PRIVY ? PrivyWagmiProvider : ReownWagmiProvider
 
+  const authConfig = site.authConfig as any
   return (
     <PrivyProvider
-      appId={PRIVY_APP_ID}
+      appId={authConfig?.privyAppId || 'cm2m05e510d9rexwjez8j66gv'}
       config={{
         // Customize Privy's appearance in your app
         appearance: {
@@ -38,15 +44,17 @@ export function Providers({
       }}
     >
       <SessionProvider>
-        <Toaster className="dark:hidden" />
-        <Toaster theme="dark" className="hidden dark:block" />
-        <trpc.Provider client={trpcClient} queryClient={queryClient}>
-          <QueryClientProvider client={queryClient}>
-            <WagmiProvider cookies={cookies}>
-              <StoreProvider>{children}</StoreProvider>
-            </WagmiProvider>
-          </QueryClientProvider>
-        </trpc.Provider>
+        <SiteProvider site={site}>
+          <Toaster className="dark:hidden" />
+          <Toaster theme="dark" className="hidden dark:block" />
+          <trpc.Provider client={trpcClient} queryClient={queryClient}>
+            <QueryClientProvider client={queryClient}>
+              <WagmiProvider cookies={cookies}>
+                <StoreProvider>{children}</StoreProvider>
+              </WagmiProvider>
+            </QueryClientProvider>
+          </trpc.Provider>
+        </SiteProvider>
       </SessionProvider>
     </PrivyProvider>
   )

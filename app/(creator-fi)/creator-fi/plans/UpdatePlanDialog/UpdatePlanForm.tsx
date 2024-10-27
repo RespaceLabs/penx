@@ -20,12 +20,12 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { useCheckChain } from '@/hooks/useCheckChain'
+import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { spaceAbi } from '@/lib/abi'
 import { addToIpfs } from '@/lib/addToIpfs'
-import { checkChain } from '@/lib/checkChain'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
-import { wagmiConfig } from '@/lib/wagmi'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { waitForTransactionReceipt, writeContract } from '@wagmi/core'
 import { toast } from 'sonner'
@@ -42,11 +42,13 @@ const FormSchema = z.object({
 
 export function UpdatePlanForm() {
   const [isLoading, setLoading] = useState(false)
+  const wagmiConfig = useWagmiConfig()
   const { setIsOpen } = useUpdatePlanDialog()
   const { space } = useSpace()
   const { ethPrice } = useEthPrice()
   const { plan } = useUpdatePlanDialog()
   const { refetch } = usePlans()
+  const checkChain = useCheckChain()
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

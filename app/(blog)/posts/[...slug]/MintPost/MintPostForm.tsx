@@ -17,16 +17,17 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useCheckChain } from '@/hooks/useCheckChain'
+import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { spaceAbi } from '@/lib/abi'
 import { addToIpfs } from '@/lib/addToIpfs'
-import { checkChain } from '@/lib/checkChain'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
-import { wagmiConfig } from '@/lib/wagmi'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { waitForTransactionReceipt, writeContract } from '@wagmi/core'
 import { toast } from 'sonner'
 import { Address } from 'viem'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { z } from 'zod'
 import { useMintPostDialog } from './useMintPostDialog'
 
@@ -40,6 +41,9 @@ export function MintPostForm() {
   const { setIsOpen } = useMintPostDialog()
   const { space } = useSpace()
   const { ethPrice } = useEthPrice()
+  const { writeContractAsync } = useWriteContract()
+  const wagmiConfig = useWagmiConfig()
+  const checkChain = useCheckChain()
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -68,7 +72,7 @@ export function MintPostForm() {
       )
 
       const price = precision.token(Number(data.price) / ethPrice)
-      const hash = await writeContract(wagmiConfig, {
+      const hash = await writeContractAsync({
         address: space.address as Address,
         abi: spaceAbi,
         functionName: 'createPlan',

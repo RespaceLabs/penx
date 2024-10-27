@@ -21,35 +21,33 @@ enum StorageProvider {
   R2
   VERCEL_BLOB
   SUPABASE_STORAGE
-
-  @@map("StorageType")
 }
 
 model Site {
-  id              String           @id @default(uuid())
+  id              String          @id @default(uuid())
   name            String
-  description     String           @default("") @db.Text
-  about           String           @default("") @db.Text
-  logo            String?          @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png") @db.Text
-  font            String           @default("font-cal")
-  image           String?          @default("") @db.Text
+  description     String          @default("") @db.Text
+  about           String          @default("") @db.Text
+  logo            String?         @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png") @db.Text
+  font            String          @default("font-cal")
+  image           String?         @default("") @db.Text
   email           String?
-  authType        AuthType?        @default(GOOGLE)
+  authType        AuthType        @default(GOOGLE)
   authConfig      Json?
-  storageProvider StorageProvider? @default(IPFS)
+  storageProvider StorageProvider @default(IPFS)
   storageConfig   Json?
   socials         Json?
   config          Json?
-  subdomain       String?          @unique
-  customDomain    String?          @unique
-  memberCount     Int              @default(0)
-  postCount       Int              @default(0)
-  message404      String?          @default("Blimey! You've found a page that doesn't exist.") @db.Text
-  themeName       String           @default("")
-  symbolName      String?          @unique
-  spaceAddress    String?          @unique // space on chain address
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  subdomain       String?         @unique
+  customDomain    String?         @unique
+  memberCount     Int             @default(0)
+  postCount       Int             @default(0)
+  message404      String?         @default("Blimey! You've found a page that doesn't exist.") @db.Text
+  themeName       String          @default("")
+  symbolName      String?         @unique
+  spaceAddress    String?         @unique // space on chain address
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
 
   @@map("site")
 }

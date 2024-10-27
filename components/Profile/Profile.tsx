@@ -1,12 +1,16 @@
 'use client'
 
 import { Skeleton } from '@/components/ui/skeleton'
-import { WalletConnectButton } from '@/components/WalletConnectButton'
-import { isGoogleOauth } from '@/lib/constants'
+import {
+  PrivyConnectButton,
+  ReownConnectButton,
+  WalletConnectButton,
+} from '@/components/WalletConnectButton'
 import { cn } from '@/lib/utils'
+import { AuthType } from '@prisma/client'
 import { useSession } from 'next-auth/react'
-import { Button } from '../ui/button'
 import { GoogleOauthButton } from '../GoogleOauthButton'
+import { useSiteContext } from '../SiteContext'
 import { GoogleOauthDialog } from './GoogleOauthDialog/GoogleOauthDialog'
 import { ProfileDialog } from './ProfileDialog/ProfileDialog'
 import { ProfilePopover } from './ProfilePopover'
@@ -15,10 +19,12 @@ interface Props {}
 
 export function Profile({}: Props) {
   const { data, status } = useSession()
+  const site = useSiteContext()
 
   if (status == 'loading') return <Skeleton className="h-10 w-[100px]" />
 
   const authenticated = !!data
+  const isGoogleOauth = site.authType === AuthType.GOOGLE
 
   return (
     <>
@@ -28,9 +34,8 @@ export function Profile({}: Props) {
       {!authenticated && (
         <>
           {isGoogleOauth && <GoogleOauthButton />}
-          {!isGoogleOauth && (
-            <WalletConnectButton className={cn('rounded-xl')} />
-          )}
+          {site.authType === AuthType.REOWN && <ReownConnectButton />}
+          {site.authType === AuthType.PRIVY && <PrivyConnectButton />}
         </>
       )}
 

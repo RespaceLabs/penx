@@ -2,7 +2,6 @@
 
 import { createContext, PropsWithChildren, useContext } from 'react'
 import { isServer } from '@/lib/constants'
-import { runWorker } from '@/lib/worker'
 import { Site } from '@plantreexyz/types'
 
 let inited = false
@@ -18,7 +17,7 @@ if (!isServer) {
 export const SiteContext = createContext({} as Site)
 
 interface Props {
-  site: Site;
+  site: Site
 }
 
 export const SiteProvider = ({ site, children }: PropsWithChildren<Props>) => {

@@ -5,7 +5,7 @@ import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { AppKitNetwork, baseSepolia } from '@reown/appkit/networks'
 import { cookieStorage, createStorage, http } from '@wagmi/core'
 import { baseSepolia as viemBaseSepolia } from 'viem/chains'
-import { isPrivy, PROJECT_ID } from '../constants'
+import { PROJECT_ID } from '../constants'
 
 export const networks: [AppKitNetwork, ...AppKitNetwork[]] = [baseSepolia]
 
@@ -26,4 +26,8 @@ export const privyWagmiConfig = createConfig({
   },
 })
 
-export const wagmiConfig = isPrivy ? privyWagmiConfig : wagmiAdapter.wagmiConfig
+export const reownWagmiConfig = wagmiAdapter.wagmiConfig
+
+export function getWagmiConfig(isPrivy: boolean) {
+  return isPrivy ? privyWagmiConfig : reownWagmiConfig
+}

@@ -6,11 +6,11 @@ import { useTrades } from '@/app/(creator-fi)/hooks/useTrades'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
+import { useCheckChain } from '@/hooks/useCheckChain'
+import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { erc20Abi, spaceAbi } from '@/lib/abi'
-import { checkChain } from '@/lib/checkChain'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
-import { wagmiConfig } from '@/lib/wagmi'
 import { waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
 import { Address } from 'viem'
@@ -38,6 +38,8 @@ export const SellBtn = ({
   const { writeContractAsync } = useWriteContract()
   const balance = useSpaceTokenBalance()
   const address = useAddress()
+  const wagmiConfig = useWagmiConfig()
+  const checkChain = useCheckChain()
   const { refetch: refetchEth } = useQueryEthBalance()
   const trade = useTrades()
 

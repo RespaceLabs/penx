@@ -17,12 +17,12 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useCheckChain } from '@/hooks/useCheckChain'
+import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { spaceAbi } from '@/lib/abi'
 import { addToIpfs } from '@/lib/addToIpfs'
-import { checkChain } from '@/lib/checkChain'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
-import { wagmiConfig } from '@/lib/wagmi'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { waitForTransactionReceipt, writeContract } from '@wagmi/core'
 import { toast } from 'sonner'
@@ -40,6 +40,8 @@ export function AddPlanForm() {
   const { setIsOpen } = useAddPlanDialog()
   const { space } = useSpace()
   const { ethPrice } = useEthPrice()
+  const wagmiConfig = useWagmiConfig()
+  const checkChain = useCheckChain()
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

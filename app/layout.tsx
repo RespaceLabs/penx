@@ -47,6 +47,7 @@ export default async function RootLayout({
   const headerList = headers()
   const cookies = headers().get('cookie')
   const url = headerList.get('x-current-path') || ''
+  const site = await getSite()
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -73,7 +74,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Providers cookies={cookies}>
+          <Providers cookies={cookies} site={site}>
             {children}
             <Analytics />
           </Providers>

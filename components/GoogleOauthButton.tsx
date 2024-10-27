@@ -36,6 +36,7 @@ export function GoogleOauthButton({
   return (
     <Button
       className={cn('rounded-lg gap-2 text-sm w-24', className)}
+      variant="secondary"
       disabled={loading}
       onClick={() => {
         setLoading(true)

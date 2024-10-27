@@ -1,7 +1,7 @@
 import { Plan, PlanInfo } from '@/app/(creator-fi)/domains/Plan'
+import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { spaceAbi } from '@/lib/abi'
 import { isIPFSCID } from '@/lib/utils'
-import { wagmiConfig } from '@/lib/wagmi'
 import { useQuery } from '@tanstack/react-query'
 import { readContracts } from '@wagmi/core'
 import ky from 'ky'
@@ -10,6 +10,7 @@ import { useSpace } from './useSpace'
 
 export function usePlans() {
   const { space } = useSpace()
+  const wagmiConfig = useWagmiConfig()
   const { data: plans = [], ...rest } = useQuery({
     queryKey: ['plans', space.address],
     queryFn: async () => {

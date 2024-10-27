@@ -3,12 +3,12 @@ import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
+import { useCheckChain } from '@/hooks/useCheckChain'
+import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { erc20Abi, spaceAbi } from '@/lib/abi'
-import { checkChain } from '@/lib/checkChain'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { toFloorFixed } from '@/lib/utils'
-import { wagmiConfig } from '@/lib/wagmi'
 import { waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
 import { Address } from 'viem'
@@ -27,6 +27,8 @@ export const StakingPanel = () => {
   const { data: tokenBalance } = useSpaceTokenBalance()
   const { space } = useSpace()
   const { isConnected } = useAccount()
+  const wagmiConfig = useWagmiConfig()
+  const checkChain = useCheckChain()
   const [loading, setLoading] = useState(false)
   const [stakingDirection, setStakingDirection] = useState<StakingDirection>(
     StakingDirection.Staking,
