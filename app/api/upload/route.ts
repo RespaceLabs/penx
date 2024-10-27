@@ -7,19 +7,21 @@ import { NextResponse } from 'next/server'
 // export const runtime = 'edge'
 
 export async function POST(req: Request) {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+  const session = await getSession()
+
+  if (!session) {
+    throw new Error('Session not found')
+  }
+  const site = await prisma.site.findFirst()
+
+  const storageConfig = site?.storageConfig as any
+  if (!storageConfig?.vercelBlobToken) {
     return new Response(
       "Missing BLOB_READ_WRITE_TOKEN. Don't forget to add that to your .env file.",
       {
         status: 401,
       },
     )
-  }
-
-  const session = await getSession()
-
-  if (!session) {
-    throw new Error('Session not found')
   }
 
   const url = new URL(req.url)
@@ -37,6 +39,7 @@ export async function POST(req: Request) {
     contentType,
     access: 'public',
     addRandomSuffix: false,
+    token: storageConfig.vercelBlobToken,
   })
 
   await prisma.asset.create({

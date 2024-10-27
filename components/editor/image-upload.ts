@@ -1,19 +1,17 @@
 import { calculateSHA256FromFile } from '@/lib/calculateSHA256FromFile'
-import {
-  IPFS_UPLOAD_URL,
-  UPLOAD_PROVIDER,
-  UploadProvider,
-} from '@/lib/constants'
+import { IPFS_UPLOAD_URL } from '@/lib/constants'
 import { uploadToGoogleDrive } from '@/lib/uploadToGoogleDrive'
+import { StorageProvider } from '@prisma/client'
 import { createImageUpload } from 'novel/plugins'
 import { toast } from 'sonner'
 
 const onUpload = async (file: File) => {
   const fileHash = await calculateSHA256FromFile(file)
+  const site = (window as any).__SITE__
 
   let promise: Promise<Response>
 
-  if (UPLOAD_PROVIDER === UploadProvider.VERCEL_BLOB) {
+  if (site.storageProvider === StorageProvider.VERCEL_BLOB) {
     promise = fetch(`/api/upload?fileHash=${fileHash}`, {
       method: 'POST',
       headers: {
