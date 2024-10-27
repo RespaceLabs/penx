@@ -3,13 +3,14 @@
 import { useAddress } from '@/app/(creator-fi)/hooks/useAddress'
 import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { Button } from '@/components/ui/button'
-import { SPACE_ID } from '@/lib/constants'
+import { getSpaceId } from '@/lib/getSpaceId'
 
 interface Props {}
 
 export function SpaceBasicInfo({}: Props) {
   const address = useAddress()
   const { space } = useSpace()
+  const spaceId = getSpaceId()
 
   return (
     <div className="flex items-center gap-2">
@@ -26,7 +27,7 @@ export function SpaceBasicInfo({}: Props) {
       {/* <SpaceAddress /> */}
       <Button size="sm" variant="secondary" className="rounded-full">
         <a
-          href={`https://www.respace.one/space/${SPACE_ID}`}
+          href={`https://www.respace.one/space/${spaceId}`}
           className="flex items-center gap-1"
           target="_blank"
         >

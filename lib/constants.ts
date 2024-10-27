@@ -4,9 +4,6 @@ export const isServer = typeof window === 'undefined'
 export const isBrowser = typeof window !== 'undefined'
 export const isProd = process.env.NODE_ENV === 'production'
 
-// GOOGLE|REOWN|PRIVY
-export const AUTH_TYPE = process.env.NEXT_PUBLIC_AUTH_TYPE! || 'GOOGLE'
-
 export const GOOGLE_OAUTH_REDIRECT_URI =
   'https://www.plantree.xyz/api/google-oauth'
 
@@ -26,7 +23,7 @@ export const GOOGLE_CLIENT_ID =
 export const PROJECT_ID =
   process.env.NEXT_PUBLIC_PROJECT_ID || '3d31c4aa12acd88d0b8cad38b0a5686a'
 
-export const GOOGLE_DRIVE_FOLDER_PREFIX = `plantree-${process.env.NEXT_PUBLIC_SPACE_ID}`
+export const GOOGLE_DRIVE_FOLDER_PREFIX = `plantree-`
 
 export enum TradeType {
   BUY = 'BUY',
@@ -79,8 +76,6 @@ export const NETWORK = process.env.NEXT_PUBLIC_NETWORK as NetworkNames
 export enum WorkerEvents {
   START_POLLING,
 }
-
-export const SPACE_ID = process.env.NEXT_PUBLIC_SPACE_ID as Address
 
 export const RESPACE_BASE_URI = 'https://www.respace.one'
 

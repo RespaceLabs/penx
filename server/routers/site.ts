@@ -19,6 +19,7 @@ export const siteRouter = router({
         name: z.string().optional(),
         description: z.string().optional(),
         about: z.string().optional(),
+        spaceId: z.string().optional(),
         socials: z
           .object({
             farcaster: z.string().optional(),

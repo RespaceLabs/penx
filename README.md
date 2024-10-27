@@ -21,7 +21,7 @@ The best way to build web3 independent blog.
 
 Click the button to clone this repository and deploy it on Vercel:
 
-[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2F0xjojo1%2Fplantree&project-name=plantree&repository-name=plantree&env=NEXTAUTH_SECRET,NEXT_PUBLIC_THEME,DATABASE_URL,NEXT_PUBLIC_SPACE_ID,NEXT_PUBLIC_PROJECT_ID,NEXT_PUBLIC_NETWORK,NEXT_PUBLIC_CONNECT_TYPE,NEXT_PUBLIC_POSTS_PAGE_SIZE,&envDescription=Please%20provide%20the%20following%20environment%20variables&envLink=https%3A%2F%2Fgithub.com%2F0xjojo1%2Fplantree%2Fblob%2Fmain%2FREADME.md)
+[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2F0xjojo1%2Fplantree&project-name=plantree&repository-name=plantree&env=NEXTAUTH_SECRET,NEXT_PUBLIC_THEME,DATABASE_URL,NEXT_PUBLIC_PROJECT_ID,NEXT_PUBLIC_NETWORK,NEXT_PUBLIC_CONNECT_TYPE,NEXT_PUBLIC_POSTS_PAGE_SIZE,&envDescription=Please%20provide%20the%20following%20environment%20variables&envLink=https%3A%2F%2Fgithub.com%2F0xjojo1%2Fplantree%2Fblob%2Fmain%2FREADME.md)
 
 ## web
 

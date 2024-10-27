@@ -28,6 +28,7 @@ model Site {
   name            String
   description     String          @default("") @db.Text
   about           String          @default("") @db.Text
+  spaceId         String?
   logo            String?         @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png") @db.Text
   font            String          @default("font-cal")
   image           String?         @default("") @db.Text

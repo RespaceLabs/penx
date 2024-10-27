@@ -12,7 +12,7 @@ import credentialsProvider from 'next-auth/providers/credentials'
 import { Address, createPublicClient, http } from 'viem'
 import { baseSepolia } from 'viem/chains'
 import { spaceAbi } from './abi'
-import { PROJECT_ID, SPACE_ID } from './constants'
+import { PROJECT_ID } from './constants'
 
 type GoogleLoginInfo = {
   email: string
@@ -254,6 +254,8 @@ async function createUserByGoogleInfo(info: GoogleLoginInfo) {
 }
 
 async function updateSubscriptions(address: Address) {
+  const site = await prisma.site.findFirst()
+  if (!site?.spaceId) return []
   try {
     const publicClient = createPublicClient({
       chain: baseSepolia,
@@ -261,7 +263,7 @@ async function updateSubscriptions(address: Address) {
     })
     const subscription = await publicClient.readContract({
       abi: spaceAbi,
-      address: SPACE_ID as Address,
+      address: site?.spaceId as Address,
       functionName: 'getSubscription',
       args: [0, address],
     })

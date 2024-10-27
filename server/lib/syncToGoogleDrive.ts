@@ -12,17 +12,18 @@ export async function syncToGoogleDrive(
   userId: string,
   post: Post,
 ): Promise<void> {
-  const user = await prisma.user.findUnique({ where: { id: userId } })
-  if (!user) return
+  const [site, user] = await Promise.all([
+    prisma.site.findFirst(),
+    prisma.user.findUnique({ where: { id: userId } }),
+  ])
+  if (!user || !site?.spaceId) return
   const token = await getAccessToken(user)
   if (!token) return
-  console.log('====token:', token)
   const drive = new GoogleDrive(token)
 
   const baseFolderId = await drive.getOrCreateFolder(
-    GOOGLE_DRIVE_FOLDER_PREFIX + '-raws',
+    GOOGLE_DRIVE_FOLDER_PREFIX + site.spaceId + '-raws',
   )
-
   const fileName = `post-${post.id}.json`
 
   let files = await drive.searchFilesByPath(baseFolderId, fileName)
