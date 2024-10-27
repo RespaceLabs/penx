@@ -26,6 +26,7 @@ import {
   Settings,
   UserCog,
   UserRound,
+  Wallet,
 } from 'lucide-react'
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
@@ -79,7 +80,18 @@ export function ProfilePopover({
           )}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+
         <DropdownMenuGroup>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => {
+              push('/wallet')
+            }}
+          >
+            <Wallet className="mr-2 h-4 w-4" />
+            <span>Wallet</span>
+          </DropdownMenuItem>
+
           {isEditor && (
             <>
               <DropdownMenuItem

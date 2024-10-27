@@ -49,9 +49,11 @@ export function Providers({
           <Toaster theme="dark" className="hidden dark:block" />
           <trpc.Provider client={trpcClient} queryClient={queryClient}>
             <QueryClientProvider client={queryClient}>
-              <WagmiProvider cookies={cookies}>
-                <StoreProvider>{children}</StoreProvider>
-              </WagmiProvider>
+              <ReownWagmiProvider cookies={cookies}>
+                <PrivyWagmiProvider cookies={cookies}>
+                  <StoreProvider>{children}</StoreProvider>
+                </PrivyWagmiProvider>
+              </ReownWagmiProvider>
             </QueryClientProvider>
           </trpc.Provider>
         </SiteProvider>

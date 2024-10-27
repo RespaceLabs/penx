@@ -33,7 +33,7 @@ model Site {
   font            String          @default("font-cal")
   image           String?         @default("") @db.Text
   email           String?
-  authType        AuthType        @default(GOOGLE)
+  authType        AuthType        @default(REOWN)
   authConfig      Json?
   storageProvider StorageProvider @default(IPFS)
   storageConfig   Json?

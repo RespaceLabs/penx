@@ -5,6 +5,7 @@ import { AuthType } from '@prisma/client'
 import { getAccessToken, useLogin } from '@privy-io/react-auth'
 import { useAppKit } from '@reown/appkit/react'
 import { signIn } from 'next-auth/react'
+import { useSiteContext } from './SiteContext'
 
 interface Props extends ButtonProps {
   authType?: AuthType
@@ -28,6 +29,8 @@ export const ReownConnectButton = (props: Props) => {
 }
 
 export const PrivyConnectButton = (props: Props) => {
+  const site = useSiteContext()
+
   const { login } = useLogin({
     onComplete: async (
       user,
@@ -63,6 +66,7 @@ export const PrivyConnectButton = (props: Props) => {
 
   return (
     <Button
+      disabled={!site.authConfig?.privyAppId}
       onClick={() => {
         login()
       }}

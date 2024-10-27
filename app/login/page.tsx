@@ -1,4 +1,5 @@
 import { GoogleOauthButton } from '@/components/GoogleOauthButton'
+import { useSiteContext } from '@/components/SiteContext'
 import {
   Card,
   CardContent,
@@ -7,7 +8,11 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import { WalletConnectButton } from '@/components/WalletConnectButton'
+import {
+  PrivyConnectButton,
+  ReownConnectButton,
+  WalletConnectButton,
+} from '@/components/WalletConnectButton'
 import { AuthType } from '@prisma/client'
 
 export const dynamic = 'force-static'
@@ -24,22 +29,14 @@ export default function HomePage() {
         <CardContent className="space-y-6">
           <div className="space-y-1">
             <div className="text-foreground/40">Wallet login</div>
-            <WalletConnectButton
-              authType={AuthType.REOWN}
-              size="lg"
-              className="w-full"
-            >
+            <ReownConnectButton size="lg" className="w-full">
               <span className="i-[token--ethm] w-6 h-5"></span>
               Login with Reown
-            </WalletConnectButton>
-            <WalletConnectButton
-              authType={AuthType.PRIVY}
-              size="lg"
-              className="w-full"
-            >
+            </ReownConnectButton>
+            <PrivyConnectButton size="lg" className="w-full">
               <span className="i-[token--ethm] w-6 h-5"></span>
               Login with Privy
-            </WalletConnectButton>
+            </PrivyConnectButton>
           </div>
           <Separator />
           <div className="space-y-1">

@@ -16,7 +16,7 @@ export async function getSite() {
       image: '',
       socials: {},
       config: {},
-      authType: AuthType.GOOGLE,
+      authType: AuthType.REOWN,
       storageProvider: StorageProvider.IPFS,
     } as any as Site
   }
