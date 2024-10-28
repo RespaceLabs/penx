@@ -48,16 +48,16 @@ export function SocialSettingForm({ site }: Props) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      farcaster: social.farcaster || '',
-      x: social.x || '',
-      mastodon: social.mastodon || '',
-      github: social.github || '',
-      facebook: social.facebook || '',
-      youtube: social.youtube || '',
-      linkedin: social.linkedin || '',
-      threads: social.threads || '',
-      instagram: social.instagram || '',
-      medium: social.medium || '',
+      farcaster: social?.farcaster || '',
+      x: social?.x || '',
+      mastodon: social?.mastodon || '',
+      github: social?.github || '',
+      facebook: social?.facebook || '',
+      youtube: social?.youtube || '',
+      linkedin: social?.linkedin || '',
+      threads: social?.threads || '',
+      instagram: social?.instagram || '',
+      medium: social?.medium || '',
     },
   })
 

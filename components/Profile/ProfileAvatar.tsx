@@ -53,7 +53,7 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
             {showEnsName && ensName && (
               <div className="text-base">{ensName}</div>
             )}
-            {showAddress && (
+            {showAddress && address && (
               <div className="flex gap-2 items-center">
                 <div
                   className={cn(

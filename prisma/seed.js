@@ -10,14 +10,15 @@ function genSecret(size = 32) {
 async function main() {
   const site = await prisma.site.findFirst()
   const secret = genSecret()
-  console.log('=========>>>>>>>>secret:', secret, secret.length)
 
-  // console.log('site>>>>>:', site)
   if (!site) {
     return await prisma.site.create({
       data: {
-        title: 'My first site',
+        name: 'My first site',
         description: 'This is my first site',
+        authSecret: secret,
+        socials: {},
+        config: {},
         logo: 'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png',
       },
     })

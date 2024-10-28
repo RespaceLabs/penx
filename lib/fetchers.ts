@@ -10,7 +10,8 @@ export async function getSite() {
     },
     [`site`],
     {
-      revalidate: 3600,
+      // revalidate: 3600 * 24,
+      revalidate: 10,
       tags: [`site`],
     },
   )()
