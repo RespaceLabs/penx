@@ -2,12 +2,30 @@
 
 import { createConfig } from '@privy-io/wagmi'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
-import { AppKitNetwork, baseSepolia } from '@reown/appkit/networks'
+import {
+  AppKitNetwork,
+  base as reownBase,
+  baseSepolia as reownBaseSepolia,
+} from '@reown/appkit/networks'
 import { cookieStorage, createStorage, http } from '@wagmi/core'
-import { baseSepolia as viemBaseSepolia } from 'viem/chains'
-import { PROJECT_ID } from '../constants'
+import { base, baseSepolia } from 'viem/chains'
+import { NETWORK, NetworkNames, PROJECT_ID } from '../constants'
 
-export const networks: [AppKitNetwork, ...AppKitNetwork[]] = [baseSepolia]
+export function getReownChain() {
+  if (NETWORK === NetworkNames.BASE_SEPOLIA) {
+    return reownBaseSepolia
+  }
+  return reownBase
+}
+
+export function getChain() {
+  if (NETWORK === NetworkNames.BASE_SEPOLIA) {
+    return baseSepolia
+  }
+  return base
+}
+
+export const networks: [AppKitNetwork, ...AppKitNetwork[]] = [getReownChain()]
 
 //Set up the Wagmi Adapter (Config)
 export const wagmiAdapter = new WagmiAdapter({
@@ -20,10 +38,10 @@ export const wagmiAdapter = new WagmiAdapter({
 })
 
 export const privyWagmiConfig = createConfig({
-  chains: [baseSepolia], // Pass your required chains as an array
+  chains: [getChain()],
   transports: {
-    [viemBaseSepolia.id]: http(),
-  },
+    [getChain().id]: http(),
+  } as any,
 })
 
 export const reownWagmiConfig = wagmiAdapter.wagmiConfig

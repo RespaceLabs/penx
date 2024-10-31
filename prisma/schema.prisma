@@ -46,7 +46,6 @@ model Site {
   postCount       Int             @default(0)
   message404      String?         @default("Blimey! You've found a page that doesn't exist.") @db.Text
   symbolName      String?         @unique
-  spaceAddress    String?         @unique // space on chain address
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 

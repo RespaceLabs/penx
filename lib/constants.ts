@@ -1,5 +1,3 @@
-import { Address } from 'viem'
-
 export const isServer = typeof window === 'undefined'
 export const isBrowser = typeof window !== 'undefined'
 export const isProd = process.env.NODE_ENV === 'production'
@@ -8,7 +6,6 @@ export const GOOGLE_OAUTH_REDIRECT_URI =
   'https://www.plantree.xyz/api/google-oauth'
 
 export const IPFS_UPLOAD_URL = 'https://www.plantree.xyz/api/ipfs-upload'
-// export const IPFS_UPLOAD_URL = 'http://localhost:4000/api/ipfs-upload'
 export const IPFS_GATEWAY = 'https://ipfs-gateway.spaceprotocol.xyz'
 
 export const GOOGLE_DRIVE_OAUTH_REDIRECT_URI =
@@ -64,14 +61,13 @@ export enum PostStatus {
 }
 
 export enum NetworkNames {
-  MAINNET = 'MAINNET',
-  DEVELOP = 'DEVELOP',
-  SEPOLIA = 'SEPOLIA',
   ARB_SEPOLIA = 'ARB_SEPOLIA',
   BASE_SEPOLIA = 'BASE_SEPOLIA',
+  BASE = 'BASE',
 }
 
-export const NETWORK = process.env.NEXT_PUBLIC_NETWORK as NetworkNames
+export const NETWORK =
+  (process.env.NEXT_PUBLIC_NETWORK as NetworkNames) || NetworkNames.BASE
 
 export enum WorkerEvents {
   START_POLLING,
@@ -80,4 +76,6 @@ export enum WorkerEvents {
 export const RESPACE_BASE_URI = 'https://www.respace.one'
 
 export const SUBGRAPH_URL =
-  'https://api.studio.thegraph.com/query/88544/respace-base-sepolia/version/latest'
+  NETWORK === NetworkNames.BASE
+    ? 'https://gateway.thegraph.com/api/c2921e95d896043ce3602d19cbbedcd2/subgraphs/id/CU3uKSKPmb5UP2imvySrJSHpU5DDnfpV5TdjWqbeZ85M'
+    : 'https://api.studio.thegraph.com/query/88544/respace-base-sepolia/version/latest'

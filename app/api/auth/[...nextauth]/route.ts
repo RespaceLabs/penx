@@ -2,6 +2,7 @@ import { spaceAbi } from '@/lib/abi'
 import { PROJECT_ID } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { SubscriptionInSession } from '@/lib/types'
+import { getChain } from '@/lib/wagmi'
 import { User, UserRole } from '@prisma/client'
 import { AuthTokenClaims, PrivyClient } from '@privy-io/server-auth'
 import {
@@ -10,12 +11,9 @@ import {
   verifySignature,
   type SIWESession,
 } from '@reown/appkit-siwe'
-import { NextApiRequest, NextApiResponse } from 'next'
 import NextAuth, { type NextAuthOptions } from 'next-auth'
 import credentialsProvider from 'next-auth/providers/credentials'
-import { NextRequest, NextResponse } from 'next/server'
 import { Address, createPublicClient, http } from 'viem'
-import { baseSepolia } from 'viem/chains'
 
 type GoogleLoginInfo = {
   email: string
@@ -279,7 +277,7 @@ async function updateSubscriptions(address: Address) {
   if (!site?.spaceId) return []
   try {
     const publicClient = createPublicClient({
-      chain: baseSepolia,
+      chain: getChain(),
       transport: http(),
     })
     const subscription = await publicClient.readContract({

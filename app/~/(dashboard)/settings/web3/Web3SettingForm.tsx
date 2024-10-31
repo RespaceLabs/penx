@@ -62,9 +62,9 @@ export function Web3SettingForm({ site }: Props) {
           name="spaceId"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Tree ID</FormLabel>
+              <FormLabel>Space ID</FormLabel>
               <FormDescription>
-                Create a tree to get a Tree ID in: https://www.plantree.xyz
+                Create a space to get a Space ID in: https://www.plantree.xyz
               </FormDescription>
               <FormControl>
                 <Input placeholder="" {...field} className="w-full" />

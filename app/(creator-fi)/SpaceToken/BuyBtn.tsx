@@ -85,7 +85,7 @@ export const BuyBtn = ({
       onClick={() => onBuy()}
     >
       {loading ? (
-        <LoadingDots color="white" />
+        <LoadingDots  />
       ) : isInsufficientBalance ? (
         'Insufficient ETH balance'
       ) : isAmountValid ? (

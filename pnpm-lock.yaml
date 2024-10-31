@@ -12,8 +12,8 @@ importers:
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.1(react@18.2.0))
       '@plantreexyz/types':
-        specifier: 0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       '@prisma/client':
         specifier: ^5.21.1
         version: 5.21.1(prisma@5.21.1)
@@ -81,14 +81,14 @@ importers:
         specifier: ^1.1.2
         version: 1.1.3(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@reown/appkit':
-        specifier: ^1.1.8
-        version: 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+        specifier: ^1.2.0
+        version: 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
       '@reown/appkit-adapter-wagmi':
-        specifier: ^1.1.8
-        version: 1.1.8(3od2dknphanf5ic2rz6kcp2uke)
+        specifier: ^1.2.0
+        version: 1.2.0(3od2dknphanf5ic2rz6kcp2uke)
       '@reown/appkit-siwe':
-        specifier: ^1.1.8
-        version: 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+        specifier: ^1.2.0
+        version: 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
       '@tanstack/react-query':
         specifier: ^5.59.15
         version: 5.59.16(react@18.2.0)
@@ -215,15 +215,18 @@ importers:
       openai-edge:
         specifier: ^1.2.2
         version: 1.2.2
+      p-retry:
+        specifier: ^6.2.0
+        version: 6.2.0
       plantree-theme-card:
-        specifier: 0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       plantree-theme-micro:
-        specifier: 0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       plantree-theme-minimal:
-        specifier: 0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       prisma-extension-pagination:
         specifier: ^0.7.4
         version: 0.7.4(@prisma/client@5.21.1(prisma@5.21.1))
@@ -1772,11 +1775,11 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@plantreexyz/types@0.0.6':
-    resolution: {integrity: sha512-4Bm2dQKyInVzDeKIMm8qkRo1uASJnrTwraysgF20Jag9uOaM6cGI1Gd+alvFF/BOvLEwGS+5dcfOdRrkReidvw==}
+  '@plantreexyz/types@0.0.7':
+    resolution: {integrity: sha512-m5HaObp6XmEBsWhMSMWWYg8QkNmu6/eOT9BAjifL0dy0/+SVuC+BUIzd4gOllqTsbyw2b80vdQeRb+u9E1PpNA==}
 
-  '@plantreexyz/utils@0.0.6':
-    resolution: {integrity: sha512-u4eBUpRWhIqtF8UEV5EulgpkabVml70DQ99YOKo8IBSj6m2zE/nZgYCtf3f6kd7hjWdItTyzH2XNkFi123lbqA==}
+  '@plantreexyz/utils@0.0.7':
+    resolution: {integrity: sha512-0cnBKj0wZLMVoiTQgiVkifA7uNu/8vAmLtBpu7SPpygFc1/EBtZPYbz5iogwZumEP27i5kHKiPi+LdSu10J/HQ==}
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
@@ -2502,8 +2505,8 @@ packages:
   '@remirror/core-constants@3.0.0':
     resolution: {integrity: sha512-42aWfPrimMfDKDi4YegyS7x+/0tlzaqwPQCULLanv3DMIlu96KTJR0fM5isWX2UViOqlGnX6YFgqWepcX+XMNg==}
 
-  '@reown/appkit-adapter-wagmi@1.1.8':
-    resolution: {integrity: sha512-n4emPUIX2Mv9uxW4nGhTa4FrCAmiUx3G0fkhHnvN4Mwu6KGPKe2grl4q9LbYPkFxQWssy1JfATwpiS1PoeNnBA==}
+  '@reown/appkit-adapter-wagmi@1.2.0':
+    resolution: {integrity: sha512-NozYLFgALElwIzSH/rbvUJxcvWSUcu+J/rIFOlfv5xatqMIpl3DqKU1PmpdBa/EBB7MoNOj/BD0aJjETZQGknQ==}
     peerDependencies:
       '@coinbase/wallet-sdk': 4.0.3
       '@wagmi/connectors': '>=5.1'
@@ -2514,31 +2517,37 @@ packages:
   '@reown/appkit-common@1.1.8':
     resolution: {integrity: sha512-UmYMnnU3GMyvi4yFyAwGUkt/js8dqqtkSfqzMX25LCLFWw+tLuO0zSSwwniqRsrFmFyiFVxuO8dOYUPc4QvuWg==}
 
-  '@reown/appkit-core@1.1.8':
-    resolution: {integrity: sha512-4YfjPhPI+Gg/jePHEZQFsv1OTSn3+8L2lmLHQLpJ2NKWsChtgMNPcETg0F0Azre8N6NsfQsI9GC3sQfyYxIWaA==}
+  '@reown/appkit-common@1.2.0':
+    resolution: {integrity: sha512-bpME6iptMw4k5F4ZnMtbj2Ms1GcLJ8ji0DGyxTp3mCz/6LK0EYuMHLyD1pgu2ncpI45nGRkW3UObF9lBfPe1oA==}
+
+  '@reown/appkit-core@1.2.0':
+    resolution: {integrity: sha512-8i3XG2P/oze29R5Bpf3dEb/LTHe4KFITj0s0ng7It4gDJwwVCIJmEFq+D4gov3XCnb4rY8Y3iOeYxkU0nmda1A==}
 
   '@reown/appkit-polyfills@1.1.8':
     resolution: {integrity: sha512-r/9yI3PvAHGfPn3Iey/oRDarC9mHc5pxuEd6Z8G/d095nhowm9snB7t1jJk42isV6/Y2qOLARnfO1eauI/MxSQ==}
 
-  '@reown/appkit-scaffold-ui@1.1.8':
-    resolution: {integrity: sha512-9PDye1GSzWNsH6H4QWc28NcuDFtEl/uv2jCjrfNNMDHkdD0gqbg2TaWHlao014EC8KnSfOn0zc7gxrY1+ACOvQ==}
+  '@reown/appkit-polyfills@1.2.0':
+    resolution: {integrity: sha512-6S4JeMoaJg4ry/p0jNEREdcwJkf5sMUcWIyWvMc593kcmCo3XrSfPXIwBDjX/BQwML4AmiZV+aIBsb0iHVzOJw==}
 
-  '@reown/appkit-siwe@1.1.8':
-    resolution: {integrity: sha512-unYgiPEhXoK0h7h9g0ch5s+pl1hCMV1Naf/bynNcLWQo3chcw9bWByLlDpxQKLtamDLZme/QLxYFismo1Uyfrg==}
+  '@reown/appkit-scaffold-ui@1.2.0':
+    resolution: {integrity: sha512-LCABoGvozz4Xa6jujMhPPfAGEJ39dsJCtkJ8vyCdv0BuI0wnroOSUCjVeDiTmVWyN4cl0u1oqQ4XHbqejl1jUg==}
 
-  '@reown/appkit-ui@1.1.8':
-    resolution: {integrity: sha512-WA5wmDPw/CCqU1RHVTKAtfYTvHFTrpI1Ngo5bjAQx4IZCNVkZhe9opaP8OxTomixGpiNNrgd+g9XcFa34K/v2g==}
+  '@reown/appkit-siwe@1.2.0':
+    resolution: {integrity: sha512-pIYSTpg8Ogne5d+duEEFA2AFZd6SBj5Gd+j7wphVZA0syCl5rfpJVBKgEqOn/Ap+yYbBJCmqzwxxp7DzN8J4lw==}
 
-  '@reown/appkit-utils@1.1.8':
-    resolution: {integrity: sha512-GJXvkgTsx/Sk29yYmZ3gmF1mTA9o0jDB7/gLKqXNEM1dxCi4YmZ1/CoVw3J+ily1wRJDkrcuB5fLZpEI3u0/zQ==}
+  '@reown/appkit-ui@1.2.0':
+    resolution: {integrity: sha512-Yp217NjWG7XWz3/q34kedWefiqThymStN4fPvrwQPlHXcKoStSXEXvWgiHcsetbU9twd7hEQXFnPtV3K/lF0ng==}
+
+  '@reown/appkit-utils@1.2.0':
+    resolution: {integrity: sha512-PzcCUjIUKiD2PHEypF62KObjYmBVno7ge1cNs8xDaSBPfwFypS6oUSRN1iH0MGtX22z1t0+Xtu2iXcKyNtulKA==}
     peerDependencies:
       valtio: 1.11.2
 
   '@reown/appkit-wallet@1.2.0':
     resolution: {integrity: sha512-0Xvfvp5LL7KvcaPl0GmxmIMIbM4bG3CMA8G6xmHx2rheFF0KMf9pvdM7CVJM+nC9dDdgLdetn/fL6uLJ8sIt+A==}
 
-  '@reown/appkit@1.1.8':
-    resolution: {integrity: sha512-SDOlTmHMplzEW2pJYBBylBtxaPO672W6xZ+ERdkUbtQbHtFa3JxoovomdEeLltm5C/jvVGMdcI8sbh80Tu5v1g==}
+  '@reown/appkit@1.2.0':
+    resolution: {integrity: sha512-1K/nbNguA1Jv37MnxuRcE62AL5f32rtnz81XSegd0uws4wBC1v0+iqVmL0zqQbptWYGdeDXun5BfAYLQcHde8Q==}
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -3120,6 +3129,9 @@ packages:
 
   '@types/react@18.3.12':
     resolution: {integrity: sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==}
+
+  '@types/retry@0.12.2':
+    resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
@@ -5431,6 +5443,10 @@ packages:
     resolution: {integrity: sha512-5KoIu2Ngpyek75jXodFvnafB6DJgr3u8uuK0LEZJjrU19DrMD3EVERaR8sjz8CCGgpZvxPl9SuE1GMVPFHx1mw==}
     engines: {node: '>= 0.4'}
 
+  is-network-error@1.1.0:
+    resolution: {integrity: sha512-tUdRRAnhT+OtCZR/LxZelH/C7QtjtFrTu5tXCA8pl55eTUElUHT+GPYV8MBMBvea/j+NxQqVt3LbWMRir7Gx9g==}
+    engines: {node: '>=16'}
+
   is-number-object@1.0.7:
     resolution: {integrity: sha512-k1U0IRzLMo7ZlYIfzRu23Oh6MiIFasgpb9X76eqfFZAqwH44UI4KTBvBYIZ1dSL9ZzChTB9ShHfLkR4pdW5krQ==}
     engines: {node: '>= 0.4'}
@@ -6646,6 +6662,10 @@ packages:
     resolution: {integrity: sha512-NXzu9aQJTAzbBqOt2hwsR63ea7yvxJc0PwN/zobNAudYfb1B7R08SzB4TsLeSbUCuG467NhnoT0oO6w1qRO+BA==}
     engines: {node: '>=18'}
 
+  p-retry@6.2.0:
+    resolution: {integrity: sha512-JA6nkq6hKyWLLasXQXUrO4z8BUZGUt/LjlJxx8Gb2+2ntodU/SS63YZ8b0LUTbQ8ZB9iwOfhEPhg4ykKnn2KsA==}
+    engines: {node: '>=16.17'}
+
   p-timeout@6.1.3:
     resolution: {integrity: sha512-UJUyfKbwvr/uZSV6btANfb+0t/mOhKV/KXcCUTp8FcQI+v/0d+wXqH4htrW0E4rR6WiEO/EPvUFiV9D5OI4vlw==}
     engines: {node: '>=14.16'}
@@ -6781,14 +6801,14 @@ packages:
   pkg-types@1.2.1:
     resolution: {integrity: sha512-sQoqa8alT3nHjGuTjuKgOnvjo4cljkufdtLMnO2LBP/wRwuDlo1tkaEdMxCRhyGRPacv/ztlZgDPm2b7FAmEvw==}
 
-  plantree-theme-card@0.0.6:
-    resolution: {integrity: sha512-PeXYn3Z/kqLl9sLSnCLJVKB3sCpyuYyzGxnXmrcIkRYbGdXoiEwESM7ocGMMmsJUfz5BEJaAUw0XNL67j5XjNg==}
+  plantree-theme-card@0.0.7:
+    resolution: {integrity: sha512-uF3y4BQku2jCh8agrpCwSG1JLxqbW/Q0QVXE/lYjdGnOBk5WeozUg9GIJFfDOfBRuHcG+52k5jWsL10txz5Bpg==}
 
-  plantree-theme-micro@0.0.6:
-    resolution: {integrity: sha512-Z1SiZ08wbuHbfRUOe2WRuICbGYub7gpk4NkuJIYSYMmgL8gy/TqEBFb8dwzQ04IXKtIHgmbQNgKPRcUP/hqg6w==}
+  plantree-theme-micro@0.0.7:
+    resolution: {integrity: sha512-3AKDDy4+ztQEt8173hUVQ2/X1Tm2w6h+Qtw/9jHrOi6C+9+Tq0SbL5QpgxeF8ySxW7dUKrU0LkKfe+INwwkuug==}
 
-  plantree-theme-minimal@0.0.6:
-    resolution: {integrity: sha512-QBkR0o4e/2V8w/SOrHKLr2x9+llYec5iZAGnXb45xfYZsvtNjoolLml/y3gtCgY5glllLjUu8gN2y0+EfNOyHw==}
+  plantree-theme-minimal@0.0.7:
+    resolution: {integrity: sha512-Bhbcgu6fX9Aa9ld5eebiK0SEltVz19x9Fs7dScm78ni34ZbyaWKb1QL6niYEZibIFbR0c896s+WRo9IiGMDsVQ==}
 
   pngjs@5.0.0:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
@@ -7437,6 +7457,10 @@ packages:
   resolve@2.0.0-next.5:
     resolution: {integrity: sha512-U7WjGVG9sH8tvjW5SmGbQuui75FiyjAX72HX15DwBBwF9dNiQZRQAg9nnPhYy+TUnE0+VcrttuvNI8oSxZcocA==}
     hasBin: true
+
+  retry@0.13.1:
+    resolution: {integrity: sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg==}
+    engines: {node: '>= 4'}
 
   reusify@1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
@@ -10744,9 +10768,9 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@plantreexyz/types@0.0.6': {}
+  '@plantreexyz/types@0.0.7': {}
 
-  '@plantreexyz/utils@0.0.6':
+  '@plantreexyz/utils@0.0.7':
     dependencies:
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
@@ -11704,17 +11728,17 @@ snapshots:
 
   '@remirror/core-constants@3.0.0': {}
 
-  '@reown/appkit-adapter-wagmi@1.1.8(3od2dknphanf5ic2rz6kcp2uke)':
+  '@reown/appkit-adapter-wagmi@1.2.0(3od2dknphanf5ic2rz6kcp2uke)':
     dependencies:
       '@coinbase/wallet-sdk': 4.1.0
-      '@reown/appkit': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-common': 1.1.8(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-core': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-polyfills': 1.1.8
-      '@reown/appkit-scaffold-ui': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
-      '@reown/appkit-siwe': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-ui': 1.1.8
-      '@reown/appkit-utils': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
+      '@reown/appkit': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-common': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-core': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-polyfills': 1.2.0
+      '@reown/appkit-scaffold-ui': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
+      '@reown/appkit-siwe': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-ui': 1.2.0
+      '@reown/appkit-utils': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
       '@reown/appkit-wallet': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)
       '@wagmi/connectors': 5.3.3(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(@wagmi/core@2.14.1(@tanstack/query-core@5.59.16)(@types/react@18.3.12)(react@18.2.0)(typescript@5.6.3)(use-sync-external-store@1.2.2(react@18.2.0))(viem@2.21.34(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)))(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.76.0(@babel/core@7.25.9)(@babel/preset-env@7.25.9(@babel/core@7.25.9))(@types/react@18.3.12)(bufferutil@4.0.8)(encoding@0.1.13)(react@18.2.0)(utf-8-validate@6.0.3))(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(viem@2.21.34(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8))(zod@3.23.8)
       '@wagmi/core': 2.14.1(@tanstack/query-core@5.59.16)(@types/react@18.3.12)(react@18.2.0)(typescript@5.6.3)(use-sync-external-store@1.2.2(react@18.2.0))(viem@2.21.34(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8))
@@ -11756,7 +11780,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@reown/appkit-common@1.1.8(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)':
+  '@reown/appkit-common@1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)':
     dependencies:
       bignumber.js: 9.1.2
       dayjs: 1.11.10
@@ -11767,9 +11791,9 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@reown/appkit-core@1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)':
+  '@reown/appkit-core@1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)':
     dependencies:
-      '@reown/appkit-common': 1.1.8(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-common': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
       '@reown/appkit-wallet': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)
       '@walletconnect/universal-provider': 2.17.0(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(utf-8-validate@6.0.3)
       valtio: 1.11.2(@types/react@18.3.12)(react@18.2.0)
@@ -11800,13 +11824,17 @@ snapshots:
     dependencies:
       buffer: 6.0.3
 
-  '@reown/appkit-scaffold-ui@1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)':
+  '@reown/appkit-polyfills@1.2.0':
     dependencies:
-      '@reown/appkit-common': 1.1.8(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-core': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-siwe': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-ui': 1.1.8
-      '@reown/appkit-utils': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
+      buffer: 6.0.3
+
+  '@reown/appkit-scaffold-ui@1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)':
+    dependencies:
+      '@reown/appkit-common': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-core': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-siwe': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-ui': 1.2.0
+      '@reown/appkit-utils': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
       '@reown/appkit-wallet': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)
       lit: 3.1.0
     transitivePeerDependencies:
@@ -11832,12 +11860,12 @@ snapshots:
       - valtio
       - zod
 
-  '@reown/appkit-siwe@1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)':
+  '@reown/appkit-siwe@1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)':
     dependencies:
-      '@reown/appkit-common': 1.1.8(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-core': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-ui': 1.1.8
-      '@reown/appkit-utils': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
+      '@reown/appkit-common': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-core': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-ui': 1.2.0
+      '@reown/appkit-utils': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
       '@reown/appkit-wallet': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)
       '@walletconnect/utils': 2.17.0(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(ioredis@5.4.1)
       lit: 3.1.0
@@ -11864,16 +11892,16 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@reown/appkit-ui@1.1.8':
+  '@reown/appkit-ui@1.2.0':
     dependencies:
       lit: 3.1.0
       qrcode: 1.5.3
 
-  '@reown/appkit-utils@1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)':
+  '@reown/appkit-utils@1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)':
     dependencies:
-      '@reown/appkit-common': 1.1.8(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-core': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-polyfills': 1.1.8
+      '@reown/appkit-common': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-core': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-polyfills': 1.2.0
       '@reown/appkit-wallet': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)
       '@walletconnect/logger': 2.1.2
       '@walletconnect/universal-provider': 2.17.0(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(utf-8-validate@6.0.3)
@@ -11912,15 +11940,15 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@reown/appkit@1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)':
+  '@reown/appkit@1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)':
     dependencies:
-      '@reown/appkit-common': 1.1.8(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-core': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-polyfills': 1.1.8
-      '@reown/appkit-scaffold-ui': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
-      '@reown/appkit-siwe': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
-      '@reown/appkit-ui': 1.1.8
-      '@reown/appkit-utils': 1.1.8(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
+      '@reown/appkit-common': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-core': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-polyfills': 1.2.0
+      '@reown/appkit-scaffold-ui': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
+      '@reown/appkit-siwe': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
+      '@reown/appkit-ui': 1.2.0
+      '@reown/appkit-utils': 1.2.0(@types/react@18.3.12)(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(react@18.2.0)(typescript@5.6.3)(utf-8-validate@6.0.3)(valtio@1.11.2(@types/react@18.3.12)(react@18.2.0))(zod@3.23.8)
       '@reown/appkit-wallet': 1.2.0(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)
       '@walletconnect/types': 2.17.0(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(ioredis@5.4.1)
       '@walletconnect/universal-provider': 2.17.0(@upstash/redis@1.34.3)(@vercel/kv@1.0.1)(bufferutil@4.0.8)(encoding@0.1.13)(ioredis@5.4.1)(utf-8-validate@6.0.3)
@@ -12633,6 +12661,8 @@ snapshots:
     dependencies:
       '@types/prop-types': 15.7.13
       csstype: 3.1.3
+
+  '@types/retry@0.12.2': {}
 
   '@types/stack-utils@2.0.3': {}
 
@@ -15766,6 +15796,8 @@ snapshots:
 
   is-negative-zero@2.0.3: {}
 
+  is-network-error@1.1.0: {}
+
   is-number-object@1.0.7:
     dependencies:
       has-tostringtag: 1.0.2
@@ -17415,6 +17447,12 @@ snapshots:
       eventemitter3: 5.0.1
       p-timeout: 6.1.3
 
+  p-retry@6.2.0:
+    dependencies:
+      '@types/retry': 0.12.2
+      is-network-error: 1.1.0
+      retry: 0.13.1
+
   p-timeout@6.1.3: {}
 
   p-try@2.2.0: {}
@@ -17559,28 +17597,28 @@ snapshots:
       mlly: 1.7.2
       pathe: 1.1.2
 
-  plantree-theme-card@0.0.6:
+  plantree-theme-card@0.0.7:
     dependencies:
-      '@plantreexyz/types': 0.0.6
-      '@plantreexyz/utils': 0.0.6
+      '@plantreexyz/types': 0.0.7
+      '@plantreexyz/utils': 0.0.7
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  plantree-theme-micro@0.0.6:
+  plantree-theme-micro@0.0.7:
     dependencies:
-      '@plantreexyz/types': 0.0.6
-      '@plantreexyz/utils': 0.0.6
+      '@plantreexyz/types': 0.0.7
+      '@plantreexyz/utils': 0.0.7
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  plantree-theme-minimal@0.0.6:
+  plantree-theme-minimal@0.0.7:
     dependencies:
-      '@plantreexyz/types': 0.0.6
-      '@plantreexyz/utils': 0.0.6
+      '@plantreexyz/types': 0.0.7
+      '@plantreexyz/utils': 0.0.7
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0
@@ -18346,6 +18384,8 @@ snapshots:
       is-core-module: 2.15.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
+
+  retry@0.13.1: {}
 
   reusify@1.0.4: {}
 

@@ -86,7 +86,7 @@ export const SellBtn = ({
           onClick={() => onSell()}
         >
           {loading ? (
-            <LoadingDots color="white" />
+            <LoadingDots  />
           ) : isInsufficientBalance ? (
             `Insufficient ${space.symbolName} balance`
           ) : isAmountValid ? (

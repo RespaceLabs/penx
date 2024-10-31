@@ -62,6 +62,16 @@ export const userRouter = router({
     return prisma.user.findUnique({ where: { id: ctx.token.uid } })
   }),
 
+  getAddressByUserId: publicProcedure
+    .input(z.string())
+    .query(async ({ input }) => {
+      const { address = '' } = await prisma.user.findUniqueOrThrow({
+        where: { id: input },
+        select: { address: true },
+      })
+      return address
+    }),
+
   updateProfile: protectedProcedure
     .input(
       z.object({

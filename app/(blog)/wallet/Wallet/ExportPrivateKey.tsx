@@ -7,6 +7,7 @@ import {
 
 export function ExportPrivateKey() {
   const { ready, authenticated, user, exportWallet } = usePrivy()
+
   const { setWalletPassword } = useSetWalletPassword()
 
   // Check that your user is authenticated

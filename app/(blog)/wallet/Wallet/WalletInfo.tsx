@@ -1,7 +1,6 @@
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { useQueryEthBalance } from '@/hooks/useEthBalance'
-import { precision } from '@/lib/math'
-import { Copy, Wallet } from 'lucide-react'
+import { Copy } from 'lucide-react'
 import { toast } from 'sonner'
 import { useAccount } from 'wagmi'
 
@@ -15,13 +14,11 @@ export function WalletInfo() {
   return (
     <div className="space-y-4">
       <div>
-        <div className="flex items-center gap-1 font-bold text-lg">
-          {/* <Wallet size={20} /> */}
-          <div>Wallet</div>
-        </div>
-        <div className="flex items-center gap-1">
+        <div className="text-foreground/60">Wallet</div>
+        <div className="flex items-center gap-1 font-bold">
           <div>{address}</div>
           <div
+            className="cursor-pointer inline-flex"
             onClick={() => {
               copy(address)
               toast.success('Copied to clipboard')
@@ -29,15 +26,6 @@ export function WalletInfo() {
           >
             <Copy size={16} />
           </div>
-        </div>
-      </div>
-
-      <div className="font-bold text-lg">
-        <div className="">Balance</div>
-        <div className="text-2xl font-bold">
-          ETH{' '}
-          {typeof data !== 'undefined' &&
-            `${precision.toDecimal(data.value).toFixed(5)}`}
         </div>
       </div>
     </div>

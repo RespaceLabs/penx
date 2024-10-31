@@ -53,7 +53,7 @@ export function GoogleOauthButton({
       }}
       {...rest}
     >
-      {loading && <LoadingDots color="white" />}
+      {loading && <LoadingDots  />}
       {!loading && (
         <>
           <IconGoogle className="w-4 h-4" />

@@ -119,7 +119,7 @@ export function ProfileDialogForm() {
         />
 
         <Button size="lg" type="submit" className="w-full">
-          {isPending ? <LoadingDots color="#808080" /> : <p>Save</p>}
+          {isPending ? <LoadingDots /> : <p>Save</p>}
         </Button>
       </form>
     </Form>

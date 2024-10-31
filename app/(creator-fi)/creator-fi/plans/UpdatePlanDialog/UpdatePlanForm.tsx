@@ -213,7 +213,7 @@ export function UpdatePlanForm() {
             type="submit"
             disabled={isLoading || !form.formState.isValid}
           >
-            {isLoading ? <LoadingDots color="#808080" /> : <p>Update</p>}
+            {isLoading ? <LoadingDots /> : <p>Update</p>}
           </Button>
         </div>
       </form>

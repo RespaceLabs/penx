@@ -49,7 +49,7 @@ export function GoogleDriveOauthButton({}: Props) {
         location.href = googleAuthUrl
       }}
     >
-      {loading && <LoadingDots color="white" />}
+      {loading && <LoadingDots  />}
       {!loading && (
         <>
           <IconGoogle className="w-6 h-6" />

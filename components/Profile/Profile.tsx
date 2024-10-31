@@ -9,6 +9,7 @@ import {
 import { cn } from '@/lib/utils'
 import { AuthType } from '@prisma/client'
 import { useSession } from 'next-auth/react'
+import { useAccount } from 'wagmi'
 import { GoogleOauthButton } from '../GoogleOauthButton'
 import { useSiteContext } from '../SiteContext'
 import { GoogleOauthDialog } from './GoogleOauthDialog/GoogleOauthDialog'
@@ -19,11 +20,12 @@ interface Props {}
 
 export function Profile({}: Props) {
   const { data, status } = useSession()
+  const { address = '' } = useAccount()
   const site = useSiteContext()
 
-  if (status == 'loading') return <Skeleton className="h-10 w-[100px]" />
+  if (status === 'loading') return <Skeleton className="h-10 w-[100px]" />
 
-  const authenticated = !!data
+  const authenticated = !!data && address
   const isGoogleOauth = site.authType === AuthType.GOOGLE
 
   return (

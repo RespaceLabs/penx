@@ -200,7 +200,7 @@ export function MemberForm({ space }: Props) {
           size="lg"
           disabled={loading || !form.formState.isValid}
         >
-          {loading ? <LoadingDots color="white" /> : 'Confirm'}
+          {loading ? <LoadingDots  /> : 'Confirm'}
         </Button>
       </form>
     </Form>
