@@ -24,28 +24,26 @@ enum StorageProvider {
 }
 
 model Site {
-  id              String          @id @default(uuid())
-  name            String
-  description     String          @default("") @db.Text
+  id              String          @id @default(uuid()) @db.Uuid
+  name            String          @db.VarChar(100)
+  description     String          @default("") @db.VarChar(500)
   about           String          @default("") @db.Text
-  spaceId         String?
-  logo            String?         @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png") @db.Text
-  font            String          @default("font-cal")
-  image           String?         @default("") @db.Text
-  email           String?
-  authSecret      String?
+  spaceId         String?         @db.VarChar(50)
+  logo            String?         @default("") @db.VarChar(2183)
+  font            String          @default("font-cal") @db.VarChar(50)
+  image           String?         @default("") @db.VarChar(2183)
+  email           String?         @unique @db.VarChar(255)
+  authSecret      String?         @unique @db.VarChar(255)
   authType        AuthType        @default(REOWN)
   authConfig      Json?
   storageProvider StorageProvider @default(IPFS)
   storageConfig   Json?
   socials         Json?
   config          Json?
-  subdomain       String?         @unique
-  customDomain    String?         @unique
+  subdomain       String?         @unique @db.VarChar(255)
+  customDomain    String?         @unique @db.VarChar(255)
   memberCount     Int             @default(0)
   postCount       Int             @default(0)
-  message404      String?         @default("Blimey! You've found a page that doesn't exist.") @db.Text
-  symbolName      String?         @unique
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 
@@ -59,16 +57,17 @@ enum UserRole {
 }
 
 model User {
-  id            String        @id @default(uuid())
-  address       String?       @unique
-  openid        String?       @unique
-  name          String?
-  ensName       String?
+  id            String        @id @default(uuid()) @db.Uuid
+  address       String?       @unique @db.VarChar(50)
+  openid        String?       @unique @db.VarChar(255)
+  name          String?       @db.VarChar(255)
+  ensName       String?       @db.VarChar(255)
   role          UserRole      @default(READER)
-  email         String?       @unique
+  email         String?       @unique @db.VarChar(255)
   emailVerified DateTime?
-  image         String?
-  bio           String        @default("")
+  image         String?       @db.VarChar(2183)
+  bio           String        @default("") @db.VarChar(5000)
+  about         String        @default("")
   subscriptions Json?
   github        Json? // github oauth info
   google        Json? // google oauth info
@@ -111,41 +110,46 @@ enum CommentStatus {
 }
 
 model Post {
-  id            String        @id @default(uuid())
-  slug          String        @default(uuid())
-  title         String        @default("") @db.Text
-  description   String        @default("") @db.Text
+  id            String        @id @default(uuid()) @db.Uuid
+  slug          String        @unique @default(uuid())
+  title         String        @default("") @db.VarChar(500)
+  description   String        @default("") @db.VarChar(1000)
   content       String        @default("") @db.Text
-  cid           String        @default("")
+  cid           String        @default("") @db.VarChar(100)
   type          PostType      @default(ARTICLE)
   gateType      GateType      @default(FREE)
   postStatus    PostStatus    @default(DRAFT)
   commentStatus CommentStatus @default(OPEN)
-  image         String?       @default("") @db.Text
+  image         String?       @default("") @db.VarChar(2183)
   featured      Boolean       @default(false)
-  publishedAt   DateTime      @default(now())
-  archivedAt    DateTime      @default(now())
+  publishedAt   DateTime?
+  archivedAt    DateTime?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   user          User          @relation(fields: [userId], references: [id])
-  userId        String
+  userId        String        @db.Uuid
   comments      Comment[]
   postTags      PostTag[]
 
   @@index([userId])
+  @@index([postStatus])
+  @@index([type])
+  @@index([gateType])
+  @@index([userId, postStatus])
+  @@index([userId, type])
   @@map("post")
 }
 
 model Comment {
-  id        String   @id @default(uuid())
+  id        String   @id @default(uuid()) @db.Uuid
   content   String   @default("") @db.Text
-  parentId  String?
+  parentId  String?  @db.Uuid
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   post      Post     @relation(fields: [postId], references: [id])
-  postId    String
+  postId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  userId    String   @db.Uuid
 
   @@unique([userId, postId])
   @@index([postId])
@@ -154,54 +158,55 @@ model Comment {
 }
 
 model Tag {
-  id        String   @id @default(uuid())
-  name      String   @default("")
-  color     String   @default("")
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @default("") @db.VarChar(50)
+  color     String   @default("") @db.VarChar(50)
   postCount Int      @default(0)
   hidden    Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   User     User?     @relation(fields: [userId], references: [id])
-  userId   String?
+  userId   String?   @db.Uuid
   postTags PostTag[]
 
   @@index(name)
+  @@index(hidden)
   @@map("tag")
 }
 
 model PostTag {
-  id        String   @id @default(uuid())
+  id        String   @id @default(uuid()) @db.Uuid
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   post      Post     @relation(fields: [postId], references: [id])
-  postId    String
+  postId    String   @db.Uuid
   tag       Tag      @relation(fields: [tagId], references: [id])
-  tagId     String
+  tagId     String   @db.Uuid
 
   @@index([postId])
   @@map("post_tag")
 }
 
 model Asset {
-  id   String  @id @default(uuid())
-  url  String  @default("")
-  cid  String  @default("")
-  type String?
+  id   String  @id @default(uuid()) @db.Uuid
+  url  String  @default("") @db.VarChar(2183)
+  cid  String  @default("") @db.VarChar(100)
+  type String? @db.VarChar(20)
 
   @@map("asset")
 }
 
 model AccessToken {
-  id         String    @id @default(uuid())
-  token      String    @default("")
-  alias      String?
+  id         String    @id @default(uuid()) @db.Uuid
+  token      String    @default("") @db.VarChar(255)
+  alias      String?   @db.VarChar(50)
   expiredAt  DateTime?
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   lastUsedAt DateTime?
   user       User      @relation(fields: [userId], references: [id])
-  userId     String
+  userId     String    @db.Uuid
 
   @@index([userId])
   @@map("access_token")
