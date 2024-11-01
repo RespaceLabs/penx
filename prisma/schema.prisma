@@ -40,6 +40,7 @@ model Site {
   storageConfig   Json?
   socials         Json?
   config          Json?
+  themeConfig     Json?
   subdomain       String?         @unique @db.VarChar(255)
   customDomain    String?         @unique @db.VarChar(255)
   memberCount     Int             @default(0)
