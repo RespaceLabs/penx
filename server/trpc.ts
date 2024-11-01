@@ -8,7 +8,6 @@
  * @link https://trpc.io/docs/v11/procedures
  */
 
-import { prisma } from '@/lib/prisma'
 import { UserRole } from '@prisma/client'
 import { initTRPC, TRPCError } from '@trpc/server'
 import superjson from 'superjson'
