@@ -91,6 +91,7 @@ enum PostType {
   AUDIO
   NFT
   FIGMA
+  NOTE
 }
 
 enum GateType {

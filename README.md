@@ -21,7 +21,7 @@ The best way to build web3 independent blog.
 
 Click the button to clone this repository and deploy it on Vercel:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fplantree-xyz%2Fplantree&env=DATABASE_URL&envDescription=Your+Personal+Database+Url&envLink=https%3A%2F%2Fdocs.plantree.xyz%2Fguides%2Fenvironment-variables%23database_url&project-name=plantree&repository-name=plantree&fork=true)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fplantree-xyz%2Fplantree&env=DATABASE_URL&envDescription=Your+Personal+Database+Url&envLink=https%3A%2F%2Fdocs.plantree.xyz%2Fguides%2Fenvironment-variables%23database_url&project-name=my-plantree-blog&repository-name=my-plantree-blog&fork=true)
 
 
 https://docs.plantree.xyz/deployment/vercel
