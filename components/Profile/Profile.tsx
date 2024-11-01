@@ -23,6 +23,8 @@ export function Profile({}: Props) {
   const { address = '' } = useAccount()
   const site = useSiteContext()
 
+  console.log('====address:', address, 'data:', data, 'status:', status)
+
   if (status === 'loading') return <Skeleton className="h-10 w-[100px]" />
 
   const authenticated = !!data && address

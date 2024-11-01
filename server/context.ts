@@ -1,3 +1,4 @@
+import { prisma } from '@/lib/prisma'
 import { AuthTokenClaims, PrivyClient } from '@privy-io/server-auth'
 import { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch'
 import type * as trpcNext from '@trpc/server/adapters/next'
@@ -20,6 +21,22 @@ type Token = {
   accessToken: string
 }
 
+let secret = ''
+
+async function getAuthSecret() {
+  let nextAuthSecret = process.env.NEXTAUTH_SECRET
+  if (nextAuthSecret) return nextAuthSecret
+  if (secret) return secret
+
+  const site = await prisma.site.findFirst({
+    select: {
+      authSecret: true,
+    },
+  })
+  secret = site?.authSecret || ''
+  return site?.authSecret || ''
+}
+
 /**
  * Inner function for `createContext` where we create the context.
  * This is useful for testing when we don't want to mock Next.js' request/response
@@ -39,7 +56,13 @@ export type Context = Awaited<ReturnType<typeof createContextInner>> & {
 export async function createContext(opts: FetchCreateContextFnOptions) {
   // for API-response caching see https://trpc.io/docs/v11/caching
   const { req } = opts
-  let token = (await getToken({ req: req as any })) as any
-  // console.log('========token:', token)
+
+  const nextAuthSecret = await getAuthSecret()
+
+  let token = (await getToken({
+    req: req as any,
+    secret: nextAuthSecret,
+  })) as any
+  console.log('========>>token:', token, req)
   return { token }
 }
