@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma'
-import { UserRole } from '@prisma/client'
 import ky from 'ky'
 import { z } from 'zod'
+import { getEthPrice } from '../lib/getEthPrice'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 interface EthPriceResponse {
@@ -89,21 +89,8 @@ export const userRouter = router({
       })
     }),
 
-  ethPrice: publicProcedure.query(async ({ ctx }) => {
-    const cacheKey = 'ETHUSDT_PRICE'
-    const cacheTTL = 30 //  30s
-    try {
-      const response = await ky
-        .get('https://cache.bodhi.wtf/etherprice')
-        .json<EthPriceResponse>()
-
-      const ethPrice = response.price
-
-      return ethPrice
-    } catch (error) {
-      console.error('Error fetching ETH price:', error)
-      throw new Error('Failed to fetch ETH price')
-    }
+  ethPrice: publicProcedure.query(({ ctx }) => {
+    return getEthPrice()
   }),
 
   setRoleToAdmin: protectedProcedure
