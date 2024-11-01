@@ -36,7 +36,8 @@ export async function uploadFile(
       data = await res.json()
       data = {
         ...data,
-        url: `${IPFS_GATEWAY}/ipfs/${data.cid}`,
+        // url: `${IPFS_GATEWAY}/ipfs/${data.cid}`,
+        url: data.cid,
       }
     } else {
       throw new Error('Failed to upload file')

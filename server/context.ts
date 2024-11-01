@@ -63,6 +63,5 @@ export async function createContext(opts: FetchCreateContextFnOptions) {
     req: req as any,
     secret: nextAuthSecret,
   })) as any
-  console.log('========>>token:', token, req)
   return { token }
 }

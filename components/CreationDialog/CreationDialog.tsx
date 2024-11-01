@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
-import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -27,8 +26,8 @@ interface Props {}
 
 export function CreationDialog({}: Props) {
   const { isOpen, setIsOpen } = useCreationDialog()
-  const { createPost, isPending } = useCreatePost()
-  const [type, setType] = useState<PostType>('' as any)
+  const { createPost } = useCreatePost()
+  const [isLoading, setLoading] = useState(false)
 
   return (
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
@@ -39,11 +38,14 @@ export function CreationDialog({}: Props) {
 
         <div className="grid grid-cols-3 gap-2">
           <Item
-            isLoading={isPending && type == PostType.ARTICLE}
+            isLoading={isLoading}
             onClick={async () => {
-              setType(PostType.ARTICLE)
+              setLoading(true)
               await createPost(PostType.ARTICLE)
-              setIsOpen(false)
+              setTimeout(() => {
+                setIsOpen(false)
+                setLoading(false)
+              }, 0)
             }}
           >
             <CaseSensitive></CaseSensitive>
@@ -102,7 +104,7 @@ function Item({ children, isLoading, onClick, disabled }: ItemProps) {
         onClick?.()
       }}
     >
-      {isLoading ? <LoadingDots /> : children}
+      {isLoading ? <LoadingDots className="bg-foreground/60" /> : children}
     </div>
   )
 }

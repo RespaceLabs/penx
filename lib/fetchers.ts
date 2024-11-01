@@ -2,6 +2,7 @@ import prisma from '@/lib/prisma'
 import { getSite as getSiteInfo } from '@/server/lib/getSite'
 import { unstable_cache } from 'next/cache'
 import { PostStatus } from './constants'
+import { getUrl } from './utils'
 
 export async function getSite() {
   return await unstable_cache(
@@ -19,7 +20,7 @@ export async function getSite() {
 export async function getPosts() {
   return await unstable_cache(
     async () => {
-      return prisma.post.findMany({
+      const posts = await prisma.post.findMany({
         include: {
           postTags: { include: { tag: true } },
         },
@@ -28,6 +29,10 @@ export async function getPosts() {
         },
         orderBy: [{ createdAt: 'desc' }],
       })
+      return posts.map((post) => ({
+        ...post,
+        image: getUrl(post.image || ''),
+      }))
     },
     [`posts`],
     {
@@ -40,13 +45,16 @@ export async function getPosts() {
 export async function getPost(slug: string) {
   return await unstable_cache(
     async () => {
-      const data = await prisma.post.findFirst({
+      const post = await prisma.post.findFirst({
         where: { slug },
       })
 
-      if (!data) return null
+      if (!post) return null
 
-      return data
+      return {
+        ...post,
+        image: getUrl(post.image || ''),
+      }
     },
     [`post-${slug}`],
     {

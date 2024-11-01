@@ -1,5 +1,6 @@
 import { editorDefaultValue } from '@/app/(creator-fi)/constants'
 import { prisma } from '@/lib/prisma'
+import { getUrl } from '@/lib/utils'
 import { Site } from '@plantreexyz/types'
 import { AuthType, StorageProvider } from '@prisma/client'
 
@@ -32,6 +33,8 @@ export async function getSite() {
 
   return {
     ...site,
+    logo: getUrl(site.logo || ''),
+    image: getUrl(site.image || ''),
     about: getAbout(),
   } as any as Site
 }

@@ -11,6 +11,8 @@ const onUpload = async (file: File) => {
 
   let promise: Promise<Response>
 
+  const isIpfs = site.storageProvider === StorageProvider.IPFS
+
   if (site.storageProvider === StorageProvider.VERCEL_BLOB) {
     promise = fetch(`/api/upload?fileHash=${fileHash}`, {
       method: 'POST',
@@ -32,12 +34,13 @@ const onUpload = async (file: File) => {
       promise.then(async (res) => {
         // Successfully uploaded image
         if (res.status === 200) {
-          const { url } = (await res.json()) as any
+          const { url, cid = '' } = (await res.json()) as any
           // preload the image
           let image = new Image()
-          image.src = url
+          const src = isIpfs && cid ? `/api/ipfs-image?cid=${cid}` : url
+          image.src = src
           image.onload = () => {
-            resolve(url)
+            resolve(src)
           }
 
           uploadToGoogleDrive(fileHash, file)

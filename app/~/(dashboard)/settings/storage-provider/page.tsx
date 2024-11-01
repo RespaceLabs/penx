@@ -12,7 +12,7 @@ export default function Page() {
   if (isLoading) {
     return (
       <div>
-        <LoadingDots />
+        <LoadingDots className="bg-foreground/60" />
       </div>
     )
   }

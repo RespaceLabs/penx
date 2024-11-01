@@ -93,7 +93,6 @@ export function AuthTypeSettingForm({ site }: Props) {
                       <RadioGroupItem value={AuthType.PRIVY} />
                     </FormControl>
                     <FormLabel className="font-normal">Privy</FormLabel>
-                    <FormDescription>(Recommended)</FormDescription>
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>

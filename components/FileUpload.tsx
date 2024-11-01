@@ -1,8 +1,10 @@
 import { forwardRef, useRef, useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
 import { uploadFile } from '@/lib/uploadFile'
+import { getUrl } from '@/lib/utils'
 import { Edit3 } from 'lucide-react'
 import Image from 'next/image'
+import { toast } from 'sonner'
 
 interface Props {
   value?: string
@@ -24,8 +26,7 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
 
       try {
         const data = await uploadFile(file)
-        console.log('===upload==data:', data)
-
+        toast.success('Image uploaded successfully!')
         onChange?.(data.url!)
       } catch (error) {
         console.log('Failed to upload file:', error)
@@ -39,8 +40,8 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
     <div ref={ref}>
       <div className="w-20 h-20 rounded-2xl bg-accent relative cursor-pointer flex items-center justify-center overflow-hidden">
         {value && (
-          <img
-            src={value || ''}
+          <Image
+            src={getUrl(value)}
             width={80}
             height={80}
             className="absolute left-0 top-0 w-full h-full cursor-pointer"

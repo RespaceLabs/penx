@@ -22,7 +22,7 @@ export function useCreatePost() {
         store.set(postsAtom, posts)
       }, 0)
       await refetch()
-      revalidateMetadata('posts')
+      // revalidateMetadata('posts')
       push(`/~/post/${post.id}`)
     } catch (error) {
       const msg = extractErrorMessage(error)

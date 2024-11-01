@@ -102,6 +102,7 @@ export function isIPFSCID(str = '') {
   return v1Regex.test(str) || v0Regex.test(str)
 }
 
-export function getUrl(str = '') {
-  return isIPFSCID(str) ? `${IPFS_GATEWAY}/ipfs/${str}` : str
+export function getUrl(value = '') {
+  // return isIPFSCID(str) ? `${IPFS_GATEWAY}/ipfs/${str}` : str
+  return isIPFSCID(value) ? `/api/ipfs-image?cid=${value}` : value
 }
