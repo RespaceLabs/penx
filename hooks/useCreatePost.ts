@@ -1,12 +1,12 @@
-import { PostType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api, trpc } from '@/lib/trpc'
 import { store } from '@/store'
+import { PostType } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { postAtom } from './usePost'
-import { postsAtom, usePosts } from './usePosts'
+import { usePosts } from './usePosts'
 
 export function useCreatePost() {
   const { push } = useRouter()
@@ -17,10 +17,6 @@ export function useCreatePost() {
     try {
       const post = await mutateAsync({ type })
       store.set(postAtom, post as any)
-      setTimeout(async () => {
-        const posts = await api.post.list.query()
-        store.set(postsAtom, posts)
-      }, 0)
       await refetch()
       // revalidateMetadata('posts')
       push(`/~/post/${post.id}`)

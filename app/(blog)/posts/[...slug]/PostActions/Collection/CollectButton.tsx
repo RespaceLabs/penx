@@ -3,19 +3,20 @@
 import { useSiteContext } from '@/components/SiteContext'
 import { Button } from '@/components/ui/button'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
+import { cn } from '@/lib/utils'
 import { Post } from '@plantreexyz/types'
 import { AuthType } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
-import { TipTokenDialog } from './TipTokenDialog'
+import { CollectDialog } from './CollectDialog'
 import { useTipTokenDialog } from './useTipTokenDialog'
-import { useWatchTipEvent } from './useWatchTipEvent'
 
 interface Props {
   post: Post
+  className?: string
 }
 
-export function TipTokenButton({ post }: Props) {
+export function CollectButton({ post, className }: Props) {
   const { setIsOpen } = useTipTokenDialog()
   const site = useSiteContext()
   const { data, status } = useSession()
@@ -27,26 +28,26 @@ export function TipTokenButton({ post }: Props) {
 
   return (
     <>
-      <TipTokenDialog post={post} />
+      <CollectDialog post={post} />
       {authenticated ? (
         <Button
           size="sm"
-          variant="secondary"
-          className="rounded-xl text-sm"
+          variant="brand"
+          className={cn('rounded-xl text-sm', className)}
           onClick={() => {
             setIsOpen(true)
           }}
         >
-          Tip $TREE
+          Collect
         </Button>
       ) : (
         <WalletConnectButton
           size="sm"
-          variant="secondary"
-          className="rounded-xl text-sm"
+          variant="brand"
+          className={cn('rounded-xl text-sm', className)}
           authType={site.authType}
         >
-          Tip $TREE
+          Collect
         </WalletConnectButton>
       )}
     </>

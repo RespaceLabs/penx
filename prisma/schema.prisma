@@ -43,8 +43,8 @@ model Site {
   themeConfig     Json?
   subdomain       String?         @unique @db.VarChar(255)
   customDomain    String?         @unique @db.VarChar(255)
-  memberCount     Int             @default(0)
-  postCount       Int             @default(0)
+  memberCount     Int             @default(0) @db.Integer
+  postCount       Int             @default(0) @db.Integer
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 
@@ -118,12 +118,14 @@ model Post {
   description   String        @default("") @db.VarChar(1000)
   content       String        @default("") @db.Text
   cid           String        @default("") @db.VarChar(100)
+  creationId    Int?          @db.Integer
   type          PostType      @default(ARTICLE)
   gateType      GateType      @default(FREE)
   postStatus    PostStatus    @default(DRAFT)
   commentStatus CommentStatus @default(OPEN)
   image         String?       @default("") @db.VarChar(2183)
   featured      Boolean       @default(false)
+  collectable   Boolean       @default(false)
   publishedAt   DateTime?
   archivedAt    DateTime?
   createdAt     DateTime      @default(now())
@@ -163,7 +165,7 @@ model Tag {
   id        String   @id @default(uuid()) @db.Uuid
   name      String   @default("") @db.VarChar(50)
   color     String   @default("") @db.VarChar(50)
-  postCount Int      @default(0)
+  postCount Int      @default(0) @db.Integer
   hidden    Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

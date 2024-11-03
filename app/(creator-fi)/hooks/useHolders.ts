@@ -1,4 +1,4 @@
-import { SUBGRAPH_URL } from '@/lib/constants'
+import { RESPACE_SUBGRAPH_URL } from '@/lib/constants'
 import { Holder } from '@/lib/types'
 import { useQuery } from '@tanstack/react-query'
 import { gql, request } from 'graphql-request'
@@ -28,7 +28,7 @@ export function useHolders() {
     queryKey: ['holders', space.address],
     async queryFn() {
       return request({
-        url: SUBGRAPH_URL,
+        url: RESPACE_SUBGRAPH_URL,
         document: query,
         variables: {
           spaceAddress: space.address!?.toLowerCase(),

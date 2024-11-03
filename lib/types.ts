@@ -101,6 +101,23 @@ export type SubscriptionRecord = {
   }
 }
 
+export type Creation = {
+  id: string
+  creationId: string
+  creator: Address
+  space: Address
+  mintedAmount: string
+}
+
+export type MintRecord = {
+  id: string
+  creationId: string
+  minter: Address
+  curator: Address
+  amount: string
+  price: string
+}
+
 export type GoogleInfo = {
   access_token: string
   scope: string

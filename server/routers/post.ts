@@ -1,19 +1,10 @@
-import { GateType, IPFS_ADD_URL, PostStatus } from '@/lib/constants'
+import { IPFS_ADD_URL, PostStatus } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
-import { Prisma } from '@prisma/client'
+import { GateType, PostType, Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { syncToGoogleDrive } from '../lib/syncToGoogleDrive'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
-
-enum PostType {
-  ARTICLE = 'ARTICLE',
-  IMAGE = 'IMAGE',
-  VIDEO = 'VIDEO',
-  AUDIO = 'AUDIO',
-  NFT = 'NFT',
-  FIGMA = 'FIGMA',
-}
 
 export const postRouter = router({
   list: protectedProcedure.query(async ({ ctx, input }) => {
@@ -51,14 +42,7 @@ export const postRouter = router({
   create: protectedProcedure
     .input(
       z.object({
-        type: z.enum([
-          PostType.ARTICLE,
-          PostType.IMAGE,
-          PostType.VIDEO,
-          PostType.AUDIO,
-          PostType.NFT,
-          PostType.FIGMA,
-        ]),
+        type: z.nativeEnum(PostType),
         title: z.string().optional(),
       }),
     )
@@ -119,11 +103,13 @@ export const postRouter = router({
     .input(
       z.object({
         id: z.string(),
-        gateType: z.enum([GateType.FREE, GateType.PAID]),
+        gateType: z.nativeEnum(GateType),
+        collectable: z.boolean(),
+        creationId: z.number().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { id, gateType } = input
+      const { id, gateType, collectable, creationId } = input
       const post = await prisma.post.findUnique({
         include: { postTags: { include: { tag: true } } },
         where: { id },
@@ -134,6 +120,8 @@ export const postRouter = router({
         body: JSON.stringify({
           ...post,
           postStatus: PostStatus.PUBLISHED,
+          collectable,
+          creationId,
         }),
         headers: { 'Content-Type': 'application/json' },
       }).then((d) => d.json())
@@ -142,6 +130,8 @@ export const postRouter = router({
         where: { id },
         data: {
           postStatus: PostStatus.PUBLISHED,
+          collectable,
+          creationId,
           cid: res.cid,
           publishedAt: new Date(),
           gateType,
@@ -158,6 +148,8 @@ export const postRouter = router({
       syncToGoogleDrive(ctx.token.uid, {
         ...post,
         postStatus: PostStatus.PUBLISHED,
+        collectable,
+        creationId,
         cid: res.cid,
         gateType,
       } as any)

@@ -9,8 +9,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useCreatePost } from '@/hooks/useCreatePost'
-import { PostType } from '@/lib/constants'
 import { cn } from '@/lib/utils'
+import { PostType } from '@prisma/client'
 import {
   CaseSensitive,
   Cat,

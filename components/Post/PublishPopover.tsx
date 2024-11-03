@@ -2,18 +2,16 @@
 
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Post, updatePostPublishStatus, usePost } from '@/hooks/usePost'
-import { GateType } from '@/lib/constants'
 import { cn } from '@/lib/utils'
+import { GateType } from '@prisma/client'
 import { PopoverClose } from '@radix-ui/react-popover'
 import LoadingDots from '../icons/loading-dots'
+import { useSiteContext } from '../SiteContext'
 import { Button } from '../ui/button'
 import { Label } from '../ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
+import { Switch } from '../ui/switch'
 import { usePublishPost } from './usePublishPost'
-
-interface PublishConfig {
-  gateType: GateType
-}
 
 interface Props {}
 
@@ -42,13 +40,16 @@ interface PublishPopoverContentProps {
 }
 
 function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
+  const { spaceId } = useSiteContext()
   const { post } = usePost()
   const [gateType, setGateType] = useState<GateType>(
     (post.gateType as GateType) || GateType.FREE,
   )
+  const [collectable, setCollectable] = useState(post.collectable || false)
+
   const { isLoading, publishPost } = usePublishPost()
   return (
-    <PopoverContent align="end" className="w-[520px] flex flex-col gap-5">
+    <PopoverContent align="end" className="w-[360px] flex flex-col gap-5">
       <div className="text-center text-xl font-semibold">Publish your post</div>
 
       <div>
@@ -61,10 +62,26 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
       <GateTypeSelect
         value={gateType}
         onSelect={(value) => {
-          console.log('===value:', value)
           setGateType(value)
         }}
       />
+      <div>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="post-collectable">Collectable</Label>
+          <Switch
+            id="post-collectable"
+            checked={collectable}
+            disabled={!spaceId}
+            onCheckedChange={(value) => {
+              setCollectable(value)
+            }}
+          />
+        </div>
+        <div className="text-foreground/60 text-xs">
+          Bind a space ID to enable collection.
+        </div>
+      </div>
+
       <div className="flex gap-2 justify-center">
         <PopoverClose asChild>
           <Button variant="secondary" className="w-full">
@@ -74,7 +91,7 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
         <Button
           className="w-full"
           onClick={async () => {
-            await publishPost(post, gateType)
+            await publishPost(post, gateType, collectable)
             updatePostPublishStatus()
             setOpen(false)
           }}
@@ -103,7 +120,7 @@ function GateTypeSelect({ value, onSelect }: GateTypeSelectProps) {
       <GateTypeItem
         selected={value === GateType.PAID}
         title="Paid"
-        description="member or minter can read this post"
+        description="Member or collector can read this post"
         onClick={() => onSelect(GateType.PAID)}
       />
     </div>
@@ -126,13 +143,13 @@ function GateTypeItem({
   return (
     <div
       className={cn(
-        'rounded-xl border-2 p-2 flex-1 cursor-pointer',
+        'rounded-xl border-2 p-3 flex-1 cursor-pointer',
         selected ? 'border-primary' : 'border-secondary',
       )}
       onClick={() => onClick?.()}
     >
       <div className="font-medium text-base">{title}</div>
-      <div className="text-xs">{description}</div>
+      <div className="text-xs text-foreground/60">{description}</div>
     </div>
   )
 }

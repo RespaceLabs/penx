@@ -10,15 +10,20 @@ export function extractErrorMessage(error: any) {
     return `User rejected the request`
   }
 
-  // if (Array.isArray(error.metaMessages) && error.metaMessages.length > 0) {
-  //   let errorName: string = error.metaMessages[0] || ''
-  //   errorName = errorName
-  //     .replace(/^Error: /, '')
-  //     .replace(/\(\)$/, '')
-  //     .trim()
+  if (shortMessage.includes('reverted with the following reason:')) {
+    return shortMessage.split('reverted with the following reason:')[1]
+  }
 
-  //   return errorName || `Unknown error`
-  // }
+  if (Array.isArray(error.metaMessages) && error.metaMessages.length > 0) {
+    let errorName: string = error.metaMessages[0] || ''
+
+    errorName = errorName
+      .replace(/^Error: /, '')
+      .replace(/\(.*\)$/, '')
+      .trim()
+
+    return errorName || `Unknown error`
+  }
 
   return shortMessage || error.message || `Unknown error`
 }

@@ -42,20 +42,6 @@ export enum TradeSource {
 
 export const SELECTED_SPACE = 'SELECTED_SPACE'
 
-export enum PostType {
-  ARTICLE = 'ARTICLE',
-  IMAGE = 'IMAGE',
-  VIDEO = 'VIDEO',
-  AUDIO = 'AUDIO',
-  NFT = 'NFT',
-  FIGMA = 'FIGMA',
-}
-
-export enum GateType {
-  FREE = 'FREE',
-  PAID = 'PAID',
-}
-
 export enum PostStatus {
   PUBLISHED = 'PUBLISHED',
   DRAFT = 'DRAFT',
@@ -77,7 +63,12 @@ export enum WorkerEvents {
 
 export const RESPACE_BASE_URI = 'https://www.respace.one'
 
-export const SUBGRAPH_URL =
+export const RESPACE_SUBGRAPH_URL =
   NETWORK === NetworkNames.BASE
     ? 'https://gateway.thegraph.com/api/c2921e95d896043ce3602d19cbbedcd2/subgraphs/id/CU3uKSKPmb5UP2imvySrJSHpU5DDnfpV5TdjWqbeZ85M'
     : 'https://api.studio.thegraph.com/query/88544/respace-base-sepolia/version/latest'
+
+export const CREATION_SUBGRAPH_URL =
+  NETWORK === NetworkNames.BASE
+    ? 'https://api.studio.thegraph.com/query/88544/creation-sepolia/version/latest'
+    : 'https://api.studio.thegraph.com/query/88544/creation-sepolia/version/latest'

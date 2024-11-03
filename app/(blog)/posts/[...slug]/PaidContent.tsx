@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react'
 import dynamic from 'next/dynamic'
 import readingTime from 'reading-time'
 import { GateCover } from './GateCover'
-import { TipTokenButton } from './TipToken/TipTokenButton'
+import { PostActions } from './PostActions/PostActions'
 
 const PostDetail: any = dynamic(
   () => import(process.env.NEXT_PUBLIC_THEME!).then((mod) => mod.PostDetail),
@@ -55,10 +55,9 @@ export function PaidContent({ postId, post, next, prev }: Props) {
             readingTime: readingTime(post.content),
           }}
           readable={false}
-          // MintPost={MintPost}
           next={next}
           prev={prev}
-          TipTokenButton={TipTokenButton}
+          PostActions={PostActions}
         />
         <div className="mx-auto relative">
           <GateCover slug={post.slug} />
@@ -78,10 +77,9 @@ export function PaidContent({ postId, post, next, prev }: Props) {
           readingTime: readingTime(post.content),
         }}
         readable={hasMembership}
-        // MintPost={MintPost}
         next={next}
         prev={prev}
-        TipTokenButton={TipTokenButton}
+        PostActions={PostActions}
       />
       {!hasMembership && (
         <div className="mx-auto relative">

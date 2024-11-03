@@ -1,13 +1,12 @@
-import { GateType } from '@/lib/constants'
 import { getPost, getPosts } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
 import { TipTapNode } from '@plantreexyz/types'
-import { Post } from '@prisma/client'
+import { GateType, Post } from '@prisma/client'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 import { PaidContent } from './PaidContent'
-import { TipTokenButton } from './TipToken/TipTokenButton'
+import { PostActions } from './PostActions/PostActions'
 
 function getContent(post: Post, isGated = false) {
   const node: TipTapNode = JSON.parse(post.content || '{}')
@@ -63,11 +62,10 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
           content: getContent(post),
           readingTime: readingTime(post.content),
         }}
-        // MintPost={MintPost}
         readable
         next={next}
         prev={prev}
-        TipTokenButton={TipTokenButton}
+        PostActions={PostActions}
       />
     )
   }
