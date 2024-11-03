@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Post } from '@/hooks/usePost'
 import { postsAtom } from '@/hooks/usePosts'
-import { GateType, PostStatus } from '@/lib/constants'
+import { GateType, IPFS_ADD_URL, PostStatus } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api } from '@/lib/trpc'

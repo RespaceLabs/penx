@@ -27,6 +27,7 @@ module.exports = {
 
   images: {
     dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
     remotePatterns: [
       { hostname: 'public.blob.vercel-storage.com' },
       { hostname: '2cil7amusloluyl8.public.blob.vercel-storage.com' },

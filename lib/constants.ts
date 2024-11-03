@@ -6,6 +6,8 @@ export const GOOGLE_OAUTH_REDIRECT_URI =
   'https://www.plantree.xyz/api/google-oauth'
 
 export const IPFS_UPLOAD_URL = 'https://www.plantree.xyz/api/ipfs-upload'
+export const IPFS_ADD_URL = 'https://www.plantree.xyz/api/ipfs-add'
+// export const IPFS_ADD_URL = 'http://localhost:4000/api/ipfs-add'
 export const IPFS_GATEWAY = 'https://ipfs-gateway.spaceprotocol.xyz'
 
 export const GOOGLE_DRIVE_OAUTH_REDIRECT_URI =

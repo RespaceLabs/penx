@@ -1,5 +1,6 @@
-import { GateType, PostStatus } from '@/lib/constants'
+import { GateType, IPFS_ADD_URL, PostStatus } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
+import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { syncToGoogleDrive } from '../lib/syncToGoogleDrive'
@@ -123,10 +124,25 @@ export const postRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const { id, gateType } = input
-      const post = await prisma.post.update({
+      const post = await prisma.post.findUnique({
+        include: { postTags: { include: { tag: true } } },
+        where: { id },
+      })
+
+      const res = await fetch(IPFS_ADD_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          ...post,
+          postStatus: PostStatus.PUBLISHED,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      }).then((d) => d.json())
+
+      await prisma.post.update({
         where: { id },
         data: {
           postStatus: PostStatus.PUBLISHED,
+          cid: res.cid,
           publishedAt: new Date(),
           gateType,
         },
@@ -138,17 +154,13 @@ export const postRouter = router({
       revalidatePath('/(blog)/posts/[...slug]', 'page')
       revalidatePath('/(blog)/posts/page/[page]', 'page')
 
-      // sync
-      {
-        prisma.post
-          .findUnique({
-            include: { postTags: { include: { tag: true } } },
-            where: { id: post.id },
-          })
-          .then((post) => {
-            syncToGoogleDrive(ctx.token.uid, post as any)
-          })
-      }
+      // sync google
+      syncToGoogleDrive(ctx.token.uid, {
+        ...post,
+        postStatus: PostStatus.PUBLISHED,
+        cid: res.cid,
+        gateType,
+      } as any)
 
       return post
     }),
