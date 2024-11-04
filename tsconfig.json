@@ -1,16 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
     "noEmit": true,
     "esModuleInterop": true,
+    "declarationMap": false,
     "module": "esnext",
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
+    "downlevelIteration": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
@@ -23,6 +26,12 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "prisma/seed.js"
+  ],
   "exclude": ["node_modules"]
 }

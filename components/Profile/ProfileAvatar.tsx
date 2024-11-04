@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react'
 import { toast } from 'sonner'
 import { UserAvatar } from '../UserAvatar'
 
-interface Props extends HTMLAttributes<any> {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string
   showEnsName?: boolean
   showAddress?: boolean

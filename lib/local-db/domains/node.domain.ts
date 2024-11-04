@@ -8,7 +8,7 @@ import { plantreeDB } from '../plantree-db'
 export class NodeDomain {
   constructor(private node: Table<INode, string>) {}
 
-  listNodesBySpaceId = (userId: string) => {
+  listNodesByUserId = (userId = (window as any).__USER_ID__) => {
     return this.node.where({ userId }).toArray()
   }
 
@@ -182,7 +182,7 @@ export class NodeDomain {
     const subNode = await this.createNode(getCommonNode({ userId }))
 
     const newNode = await this.createNode({
-      ...getNewNode({ userId: node.userId! }),
+      ...getNewNode({ userId }),
       ...node,
       children: [subNode.id],
     })

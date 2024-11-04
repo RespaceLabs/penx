@@ -3,7 +3,7 @@ import { IColumnNode } from '@/lib/model'
 export type ColumnSchema = Partial<IColumnNode['props']>
 
 export interface createDatabaseOptions {
-  userId: string
+  userId?: string
 
   name: string
 

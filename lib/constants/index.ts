@@ -3,6 +3,7 @@ export * from './element-type'
 export const isServer = typeof window === 'undefined'
 export const isBrowser = typeof window !== 'undefined'
 export const isProd = process.env.NODE_ENV === 'production'
+export const isNavigator = typeof navigator !== 'undefined'
 
 export const GOOGLE_OAUTH_REDIRECT_URI =
   'https://www.plantree.xyz/api/google-oauth'
@@ -87,3 +88,9 @@ export enum EditorMode {
   OUTLINER = 'OUTLINER',
   BLOCK = 'BLOCK',
 }
+
+export const WORKBENCH_NAV_HEIGHT = 48
+
+export const DATABASE_TOOLBAR_HEIGHT = 42
+
+export const SIDEBAR_WIDTH = 220

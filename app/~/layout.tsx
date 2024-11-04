@@ -1,3 +1,4 @@
+import { NodesProvider } from '@/components/NodesProvider'
 import { SiteProvider } from '@/components/SiteContext'
 import { getSite } from '@/lib/fetchers'
 
@@ -10,5 +11,9 @@ export default async function DashboardRootLayout({
 }) {
   const site = await getSite()
 
-  return <SiteProvider site={site}>{children}</SiteProvider>
+  return (
+    <SiteProvider site={site}>
+      <NodesProvider>{children}</NodesProvider>
+    </SiteProvider>
+  )
 }

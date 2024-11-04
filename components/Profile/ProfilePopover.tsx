@@ -97,6 +97,15 @@ export function ProfilePopover({
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
+                  push('/~/node')
+                }}
+              >
+                <Gauge className="mr-2 h-4 w-4" />
+                <span>Pages</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => {
                   push('/~/posts')
                 }}
               >

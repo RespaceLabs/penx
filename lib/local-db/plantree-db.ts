@@ -1,5 +1,6 @@
-import { INode } from '@/lib/model'
+import { INode, NodeType } from '@/lib/model'
 import Dexie, { Table } from 'dexie'
+import { getCommonNode } from './libs/getCommonNode'
 
 export class PlantreeDB extends Dexie {
   node!: Table<INode, string>

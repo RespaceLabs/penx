@@ -17,7 +17,7 @@ const merienda = Merienda({
   display: 'swap',
 })
 
-interface Props extends HTMLAttributes<any> {}
+interface Props extends HTMLAttributes<HTMLDivElement> {}
 export function NavbarWrapper({
   children,
   ...rest

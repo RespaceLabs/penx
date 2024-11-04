@@ -6,7 +6,7 @@ export function getColorNames(postfix = '500') {
   // )
 
   // return keys
-  return 'red-500'
+  return []
 }
 
 export function getRandomColor(postfix = '500'): string {
