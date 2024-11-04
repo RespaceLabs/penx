@@ -12,8 +12,8 @@ importers:
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.1(react@18.2.0))
       '@plantreexyz/types':
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.0.9
+        version: 0.0.9
       '@prisma/client':
         specifier: ^5.21.1
         version: 5.21.1(prisma@5.21.1)
@@ -219,14 +219,14 @@ importers:
         specifier: ^6.2.0
         version: 6.2.0
       plantree-theme-card:
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.0.9
+        version: 0.0.9
       plantree-theme-micro:
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.0.9
+        version: 0.0.9
       plantree-theme-minimal:
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.0.9
+        version: 0.0.9
       prisma-extension-pagination:
         specifier: ^0.7.4
         version: 0.7.4(@prisma/client@5.21.1(prisma@5.21.1))
@@ -1775,11 +1775,11 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@plantreexyz/types@0.0.7':
-    resolution: {integrity: sha512-m5HaObp6XmEBsWhMSMWWYg8QkNmu6/eOT9BAjifL0dy0/+SVuC+BUIzd4gOllqTsbyw2b80vdQeRb+u9E1PpNA==}
+  '@plantreexyz/types@0.0.9':
+    resolution: {integrity: sha512-GSDTKSoQt9mlAn5kRAUKEKDXZM4EQfgRvwpqMkzIdI9C+FeN+/lsadrrQEGtkiiAmlNkzBJjfuizPsIW2RfQlg==}
 
-  '@plantreexyz/utils@0.0.7':
-    resolution: {integrity: sha512-0cnBKj0wZLMVoiTQgiVkifA7uNu/8vAmLtBpu7SPpygFc1/EBtZPYbz5iogwZumEP27i5kHKiPi+LdSu10J/HQ==}
+  '@plantreexyz/utils@0.0.9':
+    resolution: {integrity: sha512-0fE/Ji00pS2vLLdigJ2nqEAof2IaLY8eKSxWfV8YJIbNl0s/ZLdxGjOuzoQnqOri5IoJglkdg1OSfWPwmrNslw==}
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
@@ -6801,14 +6801,14 @@ packages:
   pkg-types@1.2.1:
     resolution: {integrity: sha512-sQoqa8alT3nHjGuTjuKgOnvjo4cljkufdtLMnO2LBP/wRwuDlo1tkaEdMxCRhyGRPacv/ztlZgDPm2b7FAmEvw==}
 
-  plantree-theme-card@0.0.7:
-    resolution: {integrity: sha512-uF3y4BQku2jCh8agrpCwSG1JLxqbW/Q0QVXE/lYjdGnOBk5WeozUg9GIJFfDOfBRuHcG+52k5jWsL10txz5Bpg==}
+  plantree-theme-card@0.0.9:
+    resolution: {integrity: sha512-7FDObLsbsAO8f7hxVh5NWjlRA40FMBRTbIyeO1xRftUD8bSpgTIRM/EUldAwiJ6Iha7FMNiV1yWF9q1U4C04qQ==}
 
-  plantree-theme-micro@0.0.7:
-    resolution: {integrity: sha512-3AKDDy4+ztQEt8173hUVQ2/X1Tm2w6h+Qtw/9jHrOi6C+9+Tq0SbL5QpgxeF8ySxW7dUKrU0LkKfe+INwwkuug==}
+  plantree-theme-micro@0.0.9:
+    resolution: {integrity: sha512-/L4X36oSsOWgt50gA/Aas9SJqpUfkl/32VN+CQQH6cwBJa93CC2Ig6oTbzjdThjT+iOprUl78uBTMwME9Nuy8w==}
 
-  plantree-theme-minimal@0.0.7:
-    resolution: {integrity: sha512-Bhbcgu6fX9Aa9ld5eebiK0SEltVz19x9Fs7dScm78ni34ZbyaWKb1QL6niYEZibIFbR0c896s+WRo9IiGMDsVQ==}
+  plantree-theme-minimal@0.0.9:
+    resolution: {integrity: sha512-fgTX4clNfy9Bmy2DMXtnIU+V1zJZgJ767Kh5LwY5//8ZquVj4dcbvIqg5B3Xw/vt+0PgtKTqOYzrLBTrgQbMlw==}
 
   pngjs@5.0.0:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
@@ -10768,9 +10768,9 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@plantreexyz/types@0.0.7': {}
+  '@plantreexyz/types@0.0.9': {}
 
-  '@plantreexyz/utils@0.0.7':
+  '@plantreexyz/utils@0.0.9':
     dependencies:
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
@@ -17597,28 +17597,28 @@ snapshots:
       mlly: 1.7.2
       pathe: 1.1.2
 
-  plantree-theme-card@0.0.7:
+  plantree-theme-card@0.0.9:
     dependencies:
-      '@plantreexyz/types': 0.0.7
-      '@plantreexyz/utils': 0.0.7
+      '@plantreexyz/types': 0.0.9
+      '@plantreexyz/utils': 0.0.9
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  plantree-theme-micro@0.0.7:
+  plantree-theme-micro@0.0.9:
     dependencies:
-      '@plantreexyz/types': 0.0.7
-      '@plantreexyz/utils': 0.0.7
+      '@plantreexyz/types': 0.0.9
+      '@plantreexyz/utils': 0.0.9
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  plantree-theme-minimal@0.0.7:
+  plantree-theme-minimal@0.0.9:
     dependencies:
-      '@plantreexyz/types': 0.0.7
-      '@plantreexyz/utils': 0.0.7
+      '@plantreexyz/types': 0.0.9
+      '@plantreexyz/utils': 0.0.9
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0

@@ -1,4 +1,4 @@
-import { CREATION_SUBGRAPH_URL } from '@/lib/constants'
+import { PLANTREE_SUBGRAPH_URL } from '@/lib/constants'
 import { Creation } from '@/lib/types'
 import { useQuery } from '@tanstack/react-query'
 import { gql, request } from 'graphql-request'
@@ -16,13 +16,11 @@ export function useCreation(creationId: string) {
     }
   `
 
-  const { data, ...rest } = useQuery<{
-    creation: Creation
-  }>({
+  const { data, ...rest } = useQuery<{ creation: Creation }>({
     queryKey: ['creation', creationId],
     async queryFn() {
       return request({
-        url: CREATION_SUBGRAPH_URL,
+        url: PLANTREE_SUBGRAPH_URL,
         document: query,
         variables: {
           creationId: creationId,

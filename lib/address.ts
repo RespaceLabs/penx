@@ -4,7 +4,7 @@ const baseSepoliaAddress = {
   SpaceFactory: '0x6A96100F5e5231c3e838e1150eEF9255062895Ee',
   CreationFactory: '0x2037A850dFFd3850297608244d2f07668fDAb018',
   TreeToken: '0xEF4C961dA2C72B883E4755DA5c4b3b773227B734',
-  Tip: '0xe6fe2b08d8b547C5Ea4293252ee2F82a22c358D1',
+  Tip: '0x0708eA842bd28c8C1eAD1Ca3c1a62e83EE433cd7',
 }
 
 const baseAddress = {

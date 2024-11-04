@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { useAllocationCap } from '@/hooks/useAllocationCap'
 import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { tipAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
@@ -36,6 +37,8 @@ export function TipTokenDialog({ post }: Props) {
     abi: tipAbi,
     functionName: 'executionFee',
   })
+  const { data: cap } = useAllocationCap()
+  console.log('=======>>cap:', cap)
 
   const { writeContractAsync } = useWriteContract()
   const wagmiConfig = useWagmiConfig()
@@ -75,7 +78,7 @@ export function TipTokenDialog({ post }: Props) {
         address: addressMap.Tip,
         abi: tipAbi,
         functionName: 'createTipRequest',
-        args: [address as Address, precision.token(10)],
+        args: [address as Address, precision.token(10), post.id],
         value: executionFee,
       })
 
