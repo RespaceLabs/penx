@@ -16,7 +16,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePage() {
   const [posts, site] = await Promise.all([getPosts(), getSite()])
-  console.log('======>>>>>>>>', 'site', site)
 
   const { HomePage } = await loadTheme()
 

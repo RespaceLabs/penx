@@ -1,3 +1,5 @@
+export * from './element-type'
+
 export const isServer = typeof window === 'undefined'
 export const isBrowser = typeof window !== 'undefined'
 export const isProd = process.env.NODE_ENV === 'production'
@@ -11,6 +13,8 @@ export const IPFS_ADD_URL = 'https://www.plantree.xyz/api/ipfs-add'
 export const IPFS_GATEWAY = 'https://ipfs-gateway.spaceprotocol.xyz'
 
 export const ALLOCATION_CAP_URL = 'https://www.plantree.xyz/api/allocation-cap'
+
+export const ELECTRIC_BASE_URL = 'http://43.154.135.183:3000'
 
 export const GOOGLE_DRIVE_OAUTH_REDIRECT_URI =
   'https://www.plantree.xyz/api/google-drive-oauth'
@@ -74,3 +78,12 @@ export const PLANTREE_SUBGRAPH_URL =
   NETWORK === NetworkNames.BASE
     ? 'https://api.studio.thegraph.com/query/88544/creation-sepolia/version/latest'
     : 'https://api.studio.thegraph.com/query/88544/creation-sepolia/version/latest'
+
+export const TODO_DATABASE_NAME = '__TODO__'
+
+export const FILE_DATABASE_NAME = '__FILE__'
+
+export enum EditorMode {
+  OUTLINER = 'OUTLINER',
+  BLOCK = 'BLOCK',
+}

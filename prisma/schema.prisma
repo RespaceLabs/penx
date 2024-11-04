@@ -84,6 +84,25 @@ model User {
   @@map("user")
 }
 
+model Node {
+  id         String  @id @default(uuid()) @db.Uuid
+  userId     String?
+  parentId   String?
+  databaseId String?
+  type       String
+  element    Json
+  props      Json?
+  collapsed  Boolean @default(false)
+  folded     Boolean @default(true)
+  children   Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([type])
+  @@map("node")
+}
+
 enum PostType {
   ARTICLE
   IMAGE

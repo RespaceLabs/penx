@@ -8,6 +8,21 @@ importers:
 
   .:
     dependencies:
+      '@electric-sql/client':
+        specifier: ^0.6.5
+        version: 0.6.5
+      '@electric-sql/pglite':
+        specifier: ^0.2.12
+        version: 0.2.12
+      '@electric-sql/pglite-react':
+        specifier: ^0.2.12
+        version: 0.2.12(@electric-sql/pglite@0.2.12)(react@18.2.0)
+      '@electric-sql/pglite-sync':
+        specifier: ^0.2.13
+        version: 0.2.13(@electric-sql/pglite@0.2.12)
+      '@electric-sql/react':
+        specifier: ^0.4.7
+        version: 0.4.7(react@18.2.0)
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.1(react@18.2.0))
@@ -128,6 +143,9 @@ importers:
       ai:
         specifier: ^2.2.22
         version: 2.2.37(react@18.2.0)(solid-js@1.9.3)(svelte@4.2.19)(vue@3.5.12(typescript@5.6.3))
+      array-move:
+        specifier: ^4.0.0
+        version: 4.0.0
       big.js:
         specifier: ^6.2.1
         version: 6.2.2
@@ -137,9 +155,15 @@ importers:
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
+      crypto-js:
+        specifier: ^4.2.0
+        version: 4.2.0
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
+      dexie:
+        specifier: ^4.0.9
+        version: 4.0.9
       focus-trap-react:
         specifier: ^10.2.3
         version: 10.3.0(prop-types@15.8.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -293,6 +317,9 @@ importers:
       use-debounce:
         specifier: ^10.0.0
         version: 10.0.4(react@18.2.0)
+      uuid:
+        specifier: ^11.0.2
+        version: 11.0.2
       viem:
         specifier: ^2.21.32
         version: 2.21.34(bufferutil@4.0.8)(typescript@5.6.3)(utf-8-validate@6.0.3)(zod@3.23.8)
@@ -324,6 +351,9 @@ importers:
       '@types/big.js':
         specifier: ^6.2.2
         version: 6.2.2
+      '@types/crypto-js':
+        specifier: ^4.2.2
+        version: 4.2.2
       '@types/js-cookie':
         specifier: ^3.0.6
         version: 3.0.6
@@ -1118,6 +1148,31 @@ packages:
     resolution: {integrity: sha512-hqZeASrhT6BOeaBHYDPB0yBH/zgMKqmm7y2Rsq0c4iRnNVv1RWEiXMBMJB38JsDMTHME450FKa/wvdaIhED+Iw==}
     peerDependencies:
       tailwindcss: '*'
+
+  '@electric-sql/client@0.6.5':
+    resolution: {integrity: sha512-0fCudhoNoryFRoIR2WU79gfSabrTeZvHVT7tfZAy/CzBk4TdWGRPJsYaEqd9IclCnRipoGO+5hUFYSBHdHqlBA==}
+
+  '@electric-sql/pglite-react@0.2.12':
+    resolution: {integrity: sha512-j489fJeCZ1jw6S88L9hPoBxEkqaOhd/U1bi/AomXa2tDv/E36eNK2ZCTYVrb1TAoaAZgYf92dBv+m4VrDb8RDA==}
+    peerDependencies:
+      '@electric-sql/pglite': ^0.2.12
+      react: ^18.0.0
+
+  '@electric-sql/pglite-sync@0.2.13':
+    resolution: {integrity: sha512-c+CQkr0mhDRV78x+M87h/UsNl/IHF7Nvpjd1540xozkY2D2PGEhDMIhUX6Frw5IrNN7NWw9C8NsBFHEPRWs3MQ==}
+    peerDependencies:
+      '@electric-sql/pglite': ^0.2.12
+
+  '@electric-sql/pglite@0.2.12':
+    resolution: {integrity: sha512-J/X42ujcoFEbOkgRyoNqZB5qcqrnJRWVlwpH3fKYoJkTz49N91uAK/rDSSG/85WRas9nC9mdV4FnMTxnQWE/rw==}
+
+  '@electric-sql/react@0.4.7':
+    resolution: {integrity: sha512-TTlAd2dV9tgeeXW41B5GFK3oKRudvlD2+n/m+wqqqPVg54HlxFs0F2HwSpjbwgKYu88z7Ejwq3yluFb3Ixc3kg==}
+    peerDependencies:
+      react: ^18.3.1
+    peerDependenciesMeta:
+      react:
+        optional: true
 
   '@emotion/is-prop-valid@0.8.8':
     resolution: {integrity: sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==}
@@ -2549,6 +2604,11 @@ packages:
   '@reown/appkit@1.2.0':
     resolution: {integrity: sha512-1K/nbNguA1Jv37MnxuRcE62AL5f32rtnz81XSegd0uws4wBC1v0+iqVmL0zqQbptWYGdeDXun5BfAYLQcHde8Q==}
 
+  '@rollup/rollup-darwin-arm64@4.24.3':
+    resolution: {integrity: sha512-QPW2YmkWLlvqmOa2OwrfqLJqkHm7kJCIMq9kOz40Zo9Ipi40kf9ONG5Sz76zszrmIZZ4hgRIkez69YnTHgEz1w==}
+    cpu: [arm64]
+    os: [darwin]
+
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
@@ -3003,6 +3063,9 @@ packages:
 
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
+
+  '@types/crypto-js@4.2.2':
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
 
   '@types/d3-array@3.2.1':
     resolution: {integrity: sha512-Y2Jn2idRrLzUfAKV2LyRImR+y4oa2AntrgID95SHJxuMUrkNXmanDSed71sRNZysveJVt1hLLemQZIady0FpEg==}
@@ -3638,6 +3701,10 @@ packages:
   array-includes@3.1.8:
     resolution: {integrity: sha512-itaWrbYbqpGXkGhZPGUulwnhVf5Hpy1xiCFsGqyIGglbBxmG5vSjxQen3/WGOjPpNEv1RtBLKxbmVXm8HpJStQ==}
     engines: {node: '>= 0.4'}
+
+  array-move@4.0.0:
+    resolution: {integrity: sha512-+RY54S8OuVvg94THpneQvFRmqWdAHeqtMzgMW6JNurHxe8rsS07cHQdfGkXnTUXiBcyZ0j3SiDIxxj0RPiqCkQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   array.prototype.findlast@1.2.5:
     resolution: {integrity: sha512-CVvd6FHg1Z3POpBLxO6E6zr+rSKEQ9L6rZHAaY7lLfhKsWYUBBOuMs0e9o24oopj6H+geRCX0YJ+TJLBK2eHyQ==}
@@ -4396,6 +4463,9 @@ packages:
 
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
+
+  dexie@4.0.9:
+    resolution: {integrity: sha512-VQG1huEVSAdDZssb9Bb9mFy+d3jAE0PT4d1nIRYlT46ip1fzbs1tXi0SlUayRDgV3tTbJG8ZRqAo2um49gtynA==}
 
   didyoumean@1.2.2:
     resolution: {integrity: sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==}
@@ -8416,6 +8486,10 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
+  uuid@11.0.2:
+    resolution: {integrity: sha512-14FfcOJmqdjbBPdDjFQyk/SdT4NySW4eM0zcG+HqbHP5jzuH56xO3J1DGhgs/cEMCfwYi3HQI1gnTO62iaG+tQ==}
+    hasBin: true
+
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
@@ -9773,6 +9847,29 @@ snapshots:
       tailwindcss: 3.4.14
     transitivePeerDependencies:
       - supports-color
+
+  '@electric-sql/client@0.6.5':
+    optionalDependencies:
+      '@rollup/rollup-darwin-arm64': 4.24.3
+
+  '@electric-sql/pglite-react@0.2.12(@electric-sql/pglite@0.2.12)(react@18.2.0)':
+    dependencies:
+      '@electric-sql/pglite': 0.2.12
+      react: 18.2.0
+
+  '@electric-sql/pglite-sync@0.2.13(@electric-sql/pglite@0.2.12)':
+    dependencies:
+      '@electric-sql/client': 0.6.5
+      '@electric-sql/pglite': 0.2.12
+
+  '@electric-sql/pglite@0.2.12': {}
+
+  '@electric-sql/react@0.4.7(react@18.2.0)':
+    dependencies:
+      '@electric-sql/client': 0.6.5
+      use-sync-external-store: 1.2.2(react@18.2.0)
+    optionalDependencies:
+      react: 18.2.0
 
   '@emotion/is-prop-valid@0.8.8':
     dependencies:
@@ -11977,6 +12074,9 @@ snapshots:
       - utf-8-validate
       - zod
 
+  '@rollup/rollup-darwin-arm64@4.24.3':
+    optional: true
+
   '@rtsao/scc@1.1.0': {}
 
   '@rushstack/eslint-patch@1.10.4': {}
@@ -12528,6 +12628,8 @@ snapshots:
   '@types/connect@3.4.38':
     dependencies:
       '@types/node': 20.17.0
+
+  '@types/crypto-js@4.2.2': {}
 
   '@types/d3-array@3.2.1': {}
 
@@ -13680,6 +13782,8 @@ snapshots:
       get-intrinsic: 1.2.4
       is-string: 1.0.7
 
+  array-move@4.0.0: {}
+
   array.prototype.findlast@1.2.5:
     dependencies:
       call-bind: 1.0.7
@@ -14477,6 +14581,8 @@ snapshots:
   devlop@1.1.0:
     dependencies:
       dequal: 2.0.3
+
+  dexie@4.0.9: {}
 
   didyoumean@1.2.2: {}
 
@@ -19419,6 +19525,8 @@ snapshots:
       which-typed-array: 1.1.15
 
   utils-merge@1.0.1: {}
+
+  uuid@11.0.2: {}
 
   uuid@8.3.2: {}
 

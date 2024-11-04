@@ -9,5 +9,6 @@ export default async function DashboardRootLayout({
   children: React.ReactNode
 }) {
   const site = await getSite()
+
   return <SiteProvider site={site}>{children}</SiteProvider>
 }
