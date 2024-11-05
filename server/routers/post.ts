@@ -2,6 +2,7 @@ import { IPFS_ADD_URL, PostStatus } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { GateType, PostType, Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import { Node as SlateNode } from 'slate'
 import { z } from 'zod'
 import { syncToGoogleDrive } from '../lib/syncToGoogleDrive'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
@@ -102,17 +103,48 @@ export const postRouter = router({
   publish: protectedProcedure
     .input(
       z.object({
-        id: z.string(),
+        nodeId: z.string(),
+        creationId: z.number().optional(),
+        type: z.nativeEnum(PostType),
         gateType: z.nativeEnum(GateType),
         collectable: z.boolean(),
-        creationId: z.number().optional(),
+        content: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { id, gateType, collectable, creationId } = input
+      const userId = ctx.token.uid
+      const { nodeId, gateType, collectable, creationId } = input
+
+      const node = await prisma.node.findUniqueOrThrow({
+        where: { id: nodeId },
+      })
+
+      console.log('=====>>>node:', node)
+      const p = await prisma.post.findFirst({
+        where: { nodeId },
+      })
+      const [title, ...nodes] = JSON.parse(input.content)
+
+      if (!p) {
+        await prisma.post.create({
+          data: {
+            userId,
+            title: SlateNode.string(title),
+            type: input.type,
+            nodeId: input.nodeId,
+            postStatus: PostStatus.PUBLISHED,
+            gateType: input.gateType,
+            collectable: input.collectable,
+            content: JSON.stringify(nodes),
+          },
+        })
+      }
+
+      return
+
       const post = await prisma.post.findUnique({
         include: { postTags: { include: { tag: true } } },
-        where: { id },
+        where: { id: nodeId },
       })
 
       const res = await fetch(IPFS_ADD_URL, {
@@ -127,7 +159,7 @@ export const postRouter = router({
       }).then((d) => d.json())
 
       await prisma.post.update({
-        where: { id },
+        where: { id: nodeId },
         data: {
           postStatus: PostStatus.PUBLISHED,
           collectable,

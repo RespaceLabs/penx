@@ -35,7 +35,7 @@ export const DailyShortcut = forwardRef<HTMLDivElement, Props>(
             <ChevronLeft size={16} />
           </div>
           <div
-            className="bg-foreground/10 w-5 h-5 rounded-full hover:bg-foreground/20 transition-all cursor-pointer"
+            className="bg-foreground/10 w-5 h-5 rounded-full hover:bg-foreground/20 transition-all cursor-pointer flex items-center justify-center"
             onClick={() => {
               store.node.selectDailyNote(addDays(currentDate, 1))
             }}

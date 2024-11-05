@@ -95,7 +95,7 @@ export const BlockSelector = ({
             boxShadow:
               '0 0 0 1px rgba(0,0,0,.08),0px 1px 1px rgba(0,0,0,.02),0px 4px 8px -4px rgba(0,0,0,.04),0px 16px 24px -8px rgba(0,0,0,.06)',
           }}
-          className="w-[280px] max-h-[300px] overflow-y-auto-auto rounded z-50 bg-background outline-none"
+          className="w-[280px] max-h-[360px] overflow-y-auto rounded-xl z-[10000] bg-background outline-none"
           {...getFloatingProps({})}
         >
           <BlockSelectorContent

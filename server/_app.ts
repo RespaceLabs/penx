@@ -4,6 +4,7 @@
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
 import { accessTokenRouter } from './routers/access-token'
 import { googleRouter } from './routers/google'
+import { nodeRouter } from './routers/node'
 import { postRouter } from './routers/post'
 import { siteRouter } from './routers/site'
 import { tagRouter } from './routers/tag'
@@ -15,6 +16,7 @@ export const appRouter = router({
   site: siteRouter,
   user: userRouter,
   post: postRouter,
+  node: nodeRouter,
   tag: tagRouter,
   google: googleRouter,
   accessToken: accessTokenRouter,

@@ -7,6 +7,7 @@ export async function GET(req: Request) {
   const url = new URL(req.url)
   const cid = url.searchParams.get('cid')
   const imageURL = IPFS_GATEWAY + '/ipfs/' + cid
+
   const response = await fetch(imageURL)
 
   if (!response.ok) {
@@ -18,7 +19,6 @@ export async function GET(req: Request) {
 
   return new NextResponse(imageBlob, {
     headers: {
-      'Content-Type': 'image/svg+xml',
       'Cache-Control': 'public, max-age=31536000',
     },
   })

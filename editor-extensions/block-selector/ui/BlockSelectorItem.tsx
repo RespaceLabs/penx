@@ -39,15 +39,15 @@ export function BlockSelectorItem({
       onClick={onClick}
       className={cn(
         'p-3 cursor-pointer gap-x-2 flex items-center leading-none hover:bg-foreground/5',
-        isActive && 'bg-foreground/10',
+        isActive && 'bg-foreground/5',
       )}
     >
       <div className="flex items-center justify-center">
         {Icon && <Icon size={20} />}
       </div>
-      <div className="flex flex-col gap-1">
-        <div className="text-sm text-foreground">{name}</div>
-        <div className="text-sm text-foreground/500">{description}</div>
+      <div className="flex flex-col gap-[2px]">
+        <div className="text-sm font-semibold text-foreground">{name}</div>
+        <div className="text-sm text-foreground/50">{description}</div>
       </div>
     </div>
   )

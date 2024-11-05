@@ -1,3 +1,4 @@
+import 'react-datepicker/dist/react-datepicker.css'
 import { NodesProvider } from '@/components/NodesProvider'
 import { SiteProvider } from '@/components/SiteContext'
 import { getSite } from '@/lib/fetchers'

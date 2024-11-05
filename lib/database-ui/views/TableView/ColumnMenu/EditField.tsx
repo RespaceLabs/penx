@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useDatabaseContext } from '@/lib/database-context'
 import { FieldType, IColumnNode, IOptionNode } from '@/lib/model'
-
 import { ChevronDown, X } from 'lucide-react'
 import { FieldSelectPopover } from '../FieldSelectPopover'
 import { Option, useEditFieldForm } from '../useEditFieldForm'
@@ -98,10 +97,10 @@ const OptionListField = forwardRef<HTMLDivElement, OptionListFieldProps>(
               <ChevronDown size={16} />
             </div>
             <Input
-              flex-1
               size="sm"
               placeholder=""
               value={item.name}
+              className="flex-1"
               onChange={(e) => {
                 const newOptions = [...value]
                 newOptions[index].name = e.target.value

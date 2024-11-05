@@ -14,6 +14,7 @@ type Element = {
   id: string
   type: string
   name?: string
+  props?: any
   children: Array<{ text: string }>
 }
 
@@ -31,7 +32,10 @@ export class Node {
   constructor(public raw: INode) {
     this.parentId = this.raw?.parentId || ''
 
-    this.props = this.raw?.props || {}
+    this.props = {
+      ...this.raw?.props,
+      date: raw?.date,
+    } as any
   }
 
   get id(): string {
@@ -77,9 +81,11 @@ export class Node {
 
     // return this.raw.element
     // TODO:
-    return Array.isArray(this.raw.element)
+    const element = Array.isArray(this.raw.element)
       ? this.raw.element
       : [this.raw.element]
+
+    return element
   }
 
   get title(): string {

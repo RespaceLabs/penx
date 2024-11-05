@@ -7,9 +7,12 @@ import { creationFactoryAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
+import { INode } from '@/lib/model'
 import { revalidateMetadata } from '@/lib/revalidateTag'
+import { nodeToSlate } from '@/lib/serializer'
 import { api } from '@/lib/trpc'
-import { GateType } from '@prisma/client'
+import { store } from '@/store'
+import { GateType, PostType } from '@prisma/client'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
 import { Address } from 'viem'
@@ -28,39 +31,52 @@ export function usePublishPost() {
   return {
     isLoading,
     publishPost: async (
-      post: Post,
+      post: INode,
       gateType: GateType,
       collectable: boolean,
     ) => {
       setLoading(true)
+      console.log('====Post:', post)
+
+      const nodes = store.node.getNodes()
+      const content = nodeToSlate({
+        node: post,
+        nodes,
+        isOutliner: false,
+        isOutlinerSpace: false,
+      })
+
+      console.log('======>>>>>content:', content)
 
       let creationId: number | undefined
       try {
-        if (spaceId && typeof post.creationId !== 'number' && collectable) {
-          await checkChain()
-          const hash = await writeContractAsync({
-            address: addressMap.CreationFactory,
-            abi: creationFactoryAbi,
-            functionName: 'create',
-            args: [post.slug, precision.token(0.0001024), spaceId as Address],
-          })
+        // if (spaceId && typeof post.creationId !== 'number' && collectable) {
+        //   await checkChain()
+        //   const hash = await writeContractAsync({
+        //     address: addressMap.CreationFactory,
+        //     abi: creationFactoryAbi,
+        //     functionName: 'create',
+        //     args: [post.slug, precision.token(0.0001024), spaceId as Address],
+        //   })
 
-          await waitForTransactionReceipt(wagmiConfig, { hash })
+        //   await waitForTransactionReceipt(wagmiConfig, { hash })
 
-          const creation = await readContract(wagmiConfig, {
-            address: addressMap.CreationFactory,
-            abi: creationFactoryAbi,
-            functionName: 'getUserLatestCreation',
-            args: [address!],
-          })
-          creationId = Number(creation.id)
-        }
+        //   const creation = await readContract(wagmiConfig, {
+        //     address: addressMap.CreationFactory,
+        //     abi: creationFactoryAbi,
+        //     functionName: 'getUserLatestCreation',
+        //     args: [address!],
+        //   })
+        //   creationId = Number(creation.id)
+        // }
 
         await api.post.publish.mutate({
-          id: post.id,
+          type: PostType.ARTICLE,
+          nodeId: post.id,
           gateType,
           collectable,
           creationId,
+          content: JSON.stringify(content),
         })
 
         await refetch()
@@ -68,7 +84,7 @@ export function usePublishPost() {
         setLoading(false)
 
         revalidateMetadata(`posts`)
-        revalidateMetadata(`posts-${post.slug}`)
+        // revalidateMetadata(`posts-${post.slug}`)
         toast.success('Post published successfully!')
         return
       } catch (error) {

@@ -1,6 +1,7 @@
 'use client'
 
 import { Dispatch, SetStateAction, useState } from 'react'
+import { useActiveNode } from '@/hooks'
 import { Post, updatePostPublishStatus, usePost } from '@/hooks/usePost'
 import { cn } from '@/lib/utils'
 import { GateType } from '@prisma/client'
@@ -16,7 +17,6 @@ import { usePublishPost } from './usePublishPost'
 interface Props {}
 
 export function PublishPopover({}: Props) {
-  const { post } = usePost()
   const [isOpen, setOpen] = useState(false)
   return (
     <Popover
@@ -30,7 +30,7 @@ export function PublishPopover({}: Props) {
           Publish
         </Button>
       </PopoverTrigger>
-      {post ? <PublishPopoverContent setOpen={setOpen} /> : <PopoverContent />}
+      <PublishPopoverContent setOpen={setOpen} />
     </Popover>
   )
 }
@@ -41,12 +41,12 @@ interface PublishPopoverContentProps {
 
 function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
   const { spaceId } = useSiteContext()
-  const { post } = usePost()
+  const { activeNode } = useActiveNode()
   const [gateType, setGateType] = useState<GateType>(
-    (post.gateType as GateType) || GateType.FREE,
+    // (post.gateType as GateType) || GateType.FREE,
+    GateType.FREE,
   )
-  const [collectable, setCollectable] = useState(post.collectable || false)
-
+  const [collectable, setCollectable] = useState(false)
   const { isLoading, publishPost } = usePublishPost()
   return (
     <PopoverContent align="end" className="w-[360px] flex flex-col gap-5">
@@ -91,9 +91,9 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
         <Button
           className="w-full"
           onClick={async () => {
-            await publishPost(post, gateType, collectable)
-            updatePostPublishStatus()
-            setOpen(false)
+            await publishPost(activeNode, gateType, collectable)
+            // updatePostPublishStatus()
+            // setOpen(false)
           }}
         >
           {isLoading ? <LoadingDots /> : <div>Publish</div>}

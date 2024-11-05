@@ -1,7 +1,8 @@
 import { forwardRef, useState } from 'react'
 import DatePicker from 'react-datepicker'
+import { DailyShortcut } from '@/lib/widget'
 import { store } from '@/store'
-import { Calendar } from 'lucide-react'
+import { Calendar, CalendarDays } from 'lucide-react'
 
 export const DailyNoteNav = ({ date }: { date?: string }) => {
   const currentDate = new Date(date ?? Date.now())
@@ -11,6 +12,7 @@ export const DailyNoteNav = ({ date }: { date?: string }) => {
       contentEditable={false}
       className="text-xs font-normal flex items-center gap-4 text-foreground/600"
     >
+      <DailyShortcut date={date} />
       <GoToDay date={currentDate}></GoToDay>
     </div>
   )
@@ -23,10 +25,10 @@ const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
   return (
     <div
       ref={ref}
-      className="inline-flex items-center justify-center text-foreground/50 cursor-pointer ml-2"
+      className="inline-flex items-center justify-center text-foreground/50 cursor-pointer ml-2 m-0 p-0 h-full"
       onClick={onClick}
     >
-      <Calendar size={20} stroke="gray500" />
+      <CalendarDays size={20} />
     </div>
   )
 })

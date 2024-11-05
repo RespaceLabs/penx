@@ -13,7 +13,8 @@ export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
   const isFavorite = nodeList.isFavorite(node.id)
   return (
     <Button
-      size="sm"
+      size="icon"
+      variant="ghost"
       onClick={() => {
         if (isFavorite) {
           nodeList.removeFromFavorites(node)
@@ -22,7 +23,7 @@ export const FavoriteButton: FC<PropsWithChildren<Props>> = () => {
         }
       }}
     >
-      {isFavorite ? <Star /> : <StarOffIcon />}
+      {isFavorite ? <Star size={20} /> : <StarOffIcon size={20} />}
     </Button>
   )
 }

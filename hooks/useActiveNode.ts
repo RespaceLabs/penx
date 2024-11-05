@@ -1,6 +1,6 @@
 import {
   activeNodeAtom,
-  getDefaultActiveNode as getDefaultActiveNode,
+  getLocalActiveNode as getLocalActiveNode,
 } from '@/store'
 import { useAtomValue } from 'jotai'
 

@@ -7,7 +7,10 @@ export const Divider = ({ attributes, children }: ElementProps) => {
   const active = selected
 
   return (
-    <div {...attributes} className="cursor-pointer items-center h-8 w-full">
+    <div
+      {...attributes}
+      className="cursor-pointer flex items-center h-8 w-full"
+    >
       <div
         className={cn('flex-1', active ? 'bg-brand-500' : 'bg-foreground/15')}
         style={{ height: active ? 2 : 1 }}

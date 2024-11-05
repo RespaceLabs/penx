@@ -114,6 +114,7 @@ export interface ElementProps<E = Element>
     className: string
     placeholder?: string
     flex?: string | number
+    before?: string
   }
 }
 

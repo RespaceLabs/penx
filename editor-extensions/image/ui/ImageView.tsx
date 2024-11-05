@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { useEditor, useEditorStatic } from '@/lib/editor-common'
 import { setNodes } from '@/lib/editor-transforms'
 import { ElementProps } from '@/lib/extension-typings'
-import { cn } from '@/lib/utils'
+import { cn, getUrl } from '@/lib/utils'
 import { Resizable } from 're-resizable'
 import { Transforms } from 'slate'
 import {
@@ -11,7 +11,6 @@ import {
   useSelected,
   useSlateStatic,
 } from 'slate-react'
-import { useGoogleDriveFile } from '../hooks/useGoogleDriveFile'
 import { ImageElement } from '../types'
 
 export const ImageView = (props: ElementProps<ImageElement>) => {
@@ -36,8 +35,6 @@ export const ImageView = (props: ElementProps<ImageElement>) => {
     [editor, nodeWidth, path],
   )
 
-  const result = useGoogleDriveFile(element.googleDriveFileId!)
-
   return (
     <div className="flex" {...attributes} contentEditable={false}>
       {children}
@@ -49,7 +46,7 @@ export const ImageView = (props: ElementProps<ImageElement>) => {
       >
         <img
           className={cn('cursor-pointer w-full h-auto', active && 'opacity-80')}
-          src={result.url}
+          src={getUrl(element.url)}
         />
       </Resizable>
     </div>

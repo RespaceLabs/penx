@@ -10,10 +10,13 @@ import {
 import { useEditor, useEditorStatic } from '@/lib/editor-common'
 import { useCompositionData } from '@/lib/editor-composition'
 import { ElementProps } from '@/lib/extension-typings'
+import { cn } from '@/lib/utils'
 import { Node } from 'slate'
+import { useFocusTitle } from '../../hooks/useFocusTitle'
 import { TitleElement } from '../../types'
 
 export const CommonTitle = ({
+  attributes,
   element,
   children,
 }: ElementProps<TitleElement>) => {
@@ -33,23 +36,11 @@ export const CommonTitle = ({
 
   return (
     <div
-      className="leading-none"
-      // css={{
-      //   '::before': {
-      //     content: `"Untitled"`,
-      //     gray200: true,
-      //     breakNormal: true,
-      //     display: isPlaceholderShow ? 'block' : 'none',
-      //     absolute: true,
-      //     h: '1.5em',
-      //     leading: '1.5em',
-      //     top: 0,
-      //     // top: '50%',
-      //     // transform: 'translate(0, -50%)',
-      //     whiteSpace: 'nowrap',
-      //     cursorText: true,
-      //   },
-      // }}
+      {...attributes}
+      className={cn(
+        "leading-none before:content-['Untitled'] before:text-foreground/20 before:break-normal before:absolute before:h-16 before:leading-loose before:top-0 before:cursor-text w-full before:text-4xl before:font-bold",
+        isPlaceholderShow ? 'before:block' : 'before:hidden',
+      )}
     >
       {children}
     </div>

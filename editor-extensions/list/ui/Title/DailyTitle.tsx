@@ -11,7 +11,7 @@ export const DailyTitle = ({
   const todayStr = format(new Date(), 'yyyy-MM-dd')
   const isToday = element.props.date === todayStr
 
-  const date = element.date
+  const date = element.props.date
 
   return (
     <div className="flex items-center gap-2">

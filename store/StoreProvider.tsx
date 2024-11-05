@@ -9,7 +9,6 @@ import { store } from './store'
 export function StoreProvider(props: PropsWithChildren) {
   const { data } = useSession()
   useEffect(() => {
-    console.log('data=', data)
     if (data) {
       ;(window as any).__USER_ID__ = data.userId
     } else {

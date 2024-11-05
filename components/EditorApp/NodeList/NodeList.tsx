@@ -11,8 +11,8 @@ export function NodeList({ node }: Props) {
   const nodeService = new NodeService(node, nodes)
 
   return (
-    <div className="mx-auto md:max-w-xl pt-20 space-y-4">
-      <div className="text-2xl font-bold">All pages</div>
+    <div className="mx-auto md:max-w-xl space-y-4 pt-16">
+      <div className="text-2xl font-bold">All notes</div>
       <div className="flex flex-col gap-2">
         {nodeService.childrenNodes.map((node) => (
           <div key={node.id} className="font-semibold flex justify-between">

@@ -7,6 +7,7 @@ import { calculateSHA256FromFile } from '@/lib/encryption'
 import { ElementProps } from '@/lib/extension-typings'
 import { GoogleDrive } from '@/lib/google-drive'
 import { db } from '@/lib/local-db'
+import { uploadFile } from '@/lib/uploadFile'
 import { cn } from '@/lib/utils'
 import { ImageIcon } from 'lucide-react'
 import { Editor, insertNodes, Path, Transforms } from 'slate'
@@ -29,6 +30,7 @@ export const UploadBox = ({
 
   function setFileNode(data: Partial<ImageElement>, file: File) {
     setNodes<ImageElement>(editor, data, { at: path })
+    console.log('======data:', data)
 
     const captionPath = Path.next(path)
 
@@ -50,6 +52,16 @@ export const UploadBox = ({
     setUploading(true)
 
     try {
+      const data = await uploadFile(file)
+      setFileNode(
+        {
+          mime: file.type,
+          url: data.url,
+        },
+        file,
+      )
+
+      toast.success('Image uploaded successfully!')
     } catch (error) {
       setUploading(false)
       toast.error('Upload image failed')
@@ -61,12 +73,12 @@ export const UploadBox = ({
     <div
       {...attributes}
       className={cn(
-        'relative rounded-xl bg-foreground/10 overflow-hidden active:bg-foreground/15',
+        'relative rounded-xl bg-foreground/5 overflow-hidden active:bg-foreground/10',
       )}
       contentEditable={false}
     >
       <div>{children}</div>
-      <div className="p-4 cursor-pointer flex items-center justify-self-center bg-foreground/40 gap-2">
+      <div className="p-4 cursor-pointer flex items-center justify-center text-foreground/40 gap-2">
         {/* <ImageIcon size={20} /> */}
 
         {/* <Input
@@ -83,7 +95,7 @@ export const UploadBox = ({
         /> */}
 
         <UploadButton
-          flex-1
+          className="flex-1"
           uploading={uploading}
           handleFile={async (file) => {
             await handleUpload(file)

@@ -85,18 +85,19 @@ model User {
 }
 
 model Node {
-  id         String  @id @default(uuid()) @db.Uuid
+  id         String   @id @default(uuid()) @db.Uuid
   userId     String?
   parentId   String?
   databaseId String?
   type       String
-  element    Json
+  element    Json?
   props      Json?
-  collapsed  Boolean @default(false)
-  folded     Boolean @default(true)
+  collapsed  Boolean  @default(false)
+  folded     Boolean  @default(true)
   children   Json?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  date       String?  @db.VarChar(20)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@index([userId])
   @@index([type])
@@ -137,6 +138,7 @@ model Post {
   description   String        @default("") @db.VarChar(1000)
   content       String        @default("") @db.Text
   cid           String        @default("") @db.VarChar(100)
+  nodeId        String?       @unique @db.Uuid
   creationId    Int?          @db.Integer
   type          PostType      @default(ARTICLE)
   gateType      GateType      @default(FREE)

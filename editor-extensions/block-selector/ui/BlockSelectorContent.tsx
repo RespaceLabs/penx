@@ -5,7 +5,6 @@ import { selectEditor } from '@/lib/editor-transforms'
 import { extensionStore } from '@/lib/extension-store'
 import { INode, NodeType } from '@/lib/model'
 import { ListsEditor } from '@/lib/slate-lists'
-
 import { Editor, Element, Node, Path, Transforms } from 'slate'
 import { isBlockSelector } from '../isBlockSelector'
 import { useKeyDownList } from '../useKeyDownList'

@@ -23,8 +23,9 @@ export const Paragraph = ({
       {...attributes}
       {...(nodeProps || {})}
       className={cn(
-        'leading-normal relative py-[20px]',
-        !isInTitle && 'text-lg',
+        'leading-normal relative py-[2px]',
+        !isInTitle && 'text-base',
+        isInTitle && 'text-4xl font-bold',
         nodeProps?.className,
       )}
     >

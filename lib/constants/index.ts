@@ -89,8 +89,8 @@ export enum EditorMode {
   BLOCK = 'BLOCK',
 }
 
-export const WORKBENCH_NAV_HEIGHT = 48
+export const WORKBENCH_NAV_HEIGHT = 54
 
 export const DATABASE_TOOLBAR_HEIGHT = 42
 
-export const SIDEBAR_WIDTH = 220
+export const SIDEBAR_WIDTH = 240

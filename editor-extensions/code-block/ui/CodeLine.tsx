@@ -50,9 +50,8 @@ export const CodeLine = ({
         <Checkbox
           checked={checked}
           contentEditable={false}
-          onChange={(v) => {
-            // const { checked } = v.target
-            // select(checked)
+          onCheckedChange={(checked) => {
+            select(checked as boolean)
           }}
         />
       )}

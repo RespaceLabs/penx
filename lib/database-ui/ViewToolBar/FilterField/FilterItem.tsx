@@ -1,7 +1,6 @@
 import { ChangeEvent } from 'react'
 import { Input } from '@/components/ui/input'
 import { Filter, IColumnNode, IViewNode } from '@/lib/model'
-
 import { FieldSelect } from './FieldSelect'
 import { OperatorSelect } from './OperatorSelect'
 
@@ -33,8 +32,8 @@ export const FilterItem = ({
       <OperatorSelect filter={filter} updateFilter={updateFilter} />
       <Input
         size="sm"
-        flex-1
         value={filter?.value}
+        className="flex-1"
         onChange={(e) => onChangeValue(e, filter.columnId)}
       />
       {/* <CloseButton size={20} onClick={() => deleteFilter(filter.columnId)} /> */}

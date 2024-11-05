@@ -9,16 +9,16 @@ import { User } from '@prisma/client'
 
 export const dynamic = 'force-static'
 
-const stream = new ShapeStream({
-  url: `${ELECTRIC_BASE_URL}/v1/shape/site`,
-})
+// const stream = new ShapeStream({
+//   url: `${ELECTRIC_BASE_URL}/v1/shape/site`,
+// })
 
-stream.subscribe((messages) => {
-  console.log('=======messages:', messages)
-  //
-})
+// stream.subscribe((messages) => {
+//   console.log('=======messages:', messages)
+//   //
+// })
 
-const shape = new Shape(stream)
+// const shape = new Shape(stream)
 
 // shape.subscribe((data) => {
 //   console.log('rows=data========:', data)

@@ -1,31 +1,14 @@
-'use client'
+'use client';
 
-import isEqual from 'react-fast-compare'
-import {
-  EditorMode,
-  ELEMENT_TODO,
-  isServer,
-  TODO_DATABASE_NAME,
-} from '@/lib/constants'
-import { ArraySorter, db } from '@/lib/local-db'
-import {
-  ICellNode,
-  IColumnNode,
-  IDatabaseNode,
-  IDatabaseRootNode,
-  INode,
-  IOptionNode,
-  IRootNode,
-  IRowNode,
-  IViewNode,
-  Node,
-  NodeType,
-  ViewType,
-} from '@/lib/model'
-import { format } from 'date-fns'
-import { atom } from 'jotai'
-import { atomWithStorage } from 'jotai/utils'
-import { StoreType } from '../store-types'
+import isEqual from 'react-fast-compare';
+import { EditorMode, ELEMENT_TODO, isServer, TODO_DATABASE_NAME } from '@/lib/constants';
+import { ArraySorter, db } from '@/lib/local-db';
+import { ICellNode, IColumnNode, IDatabaseNode, IDatabaseRootNode, INode, IOptionNode, IRootNode, IRowNode, IViewNode, Node, NodeType, ViewType } from '@/lib/model';
+import { format } from 'date-fns';
+import { atom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
+import { StoreType } from '../store-types';
+
 
 type FindOptions<T = INode> = {
   where?: Partial<T>
@@ -40,7 +23,7 @@ export type TodoRecord = {
   todoNode: Node
 }
 
-export function getDefaultActiveNode() {
+export function getLocalActiveNode() {
   if (isServer) return []
   const activeNode = window.localStorage.getItem('ACTIVE_NODE')
   if (!activeNode) return undefined
@@ -53,9 +36,7 @@ export function getDefaultActiveNode() {
 
 export const nodesAtom = atom<INode[]>([])
 
-export const activeNodeAtom = atom<INode>(
-  getDefaultActiveNode() as any as INode,
-)
+export const activeNodeAtom = atom<INode>(getLocalActiveNode() as any as INode)
 
 export class NodeStore {
   constructor(private store: StoreType) {}

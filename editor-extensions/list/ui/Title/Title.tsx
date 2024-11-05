@@ -10,7 +10,7 @@ import { DailyTitle } from './DailyTitle'
 import { TagMenu } from './TagMenu'
 
 export const Title = (props: ElementProps<TitleElement>) => {
-  const { element, attributes, children } = props
+  const { element, attributes, children, nodeProps } = props
   const editor = useEditor()
 
   const disabled = [
@@ -23,19 +23,20 @@ export const Title = (props: ElementProps<TitleElement>) => {
   const isDatabase = element.nodeType === NodeType.DATABASE
   const isDailyRoot = element.nodeType === NodeType.DAILY_ROOT
 
-  useFocusTitle(element)
+  // useFocusTitle(element)
 
   return (
     <div
+      {...attributes}
+      {...nodeProps}
       className={cn(
         'font-medium text-foreground/80 relative mb-4 flex items-center gap-2 pr-2',
         isDaily && isMobile ? 'hidden' : 'flex',
         editor.isOutliner && 'pl-5',
         isDatabase && 'pl-9',
         isDailyRoot && !editor.isOutliner && 'pl-4',
+        nodeProps?.className,
       )}
-      {...attributes}
-      // {...nodeProps}
     >
       {isDatabase && <TagMenu element={element} />}
       {!isDaily && <CommonTitle {...props} />}

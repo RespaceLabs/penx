@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
 import { isCodeBlock } from '@/editor-extensions/code-block'
+import { isTitle } from '@/editor-extensions/list'
 import { isTable, isTableCell } from '@/editor-extensions/table'
 import { useCompositionData } from '@/lib/editor-composition'
 import { isCollapsed } from '@/lib/editor-queries'
+import { cn } from '@/lib/utils'
 import { Editor, Element } from 'slate'
 import { useSelected, useSlateStatic } from 'slate-react'
 
@@ -35,9 +37,9 @@ export function usePlaceholder(
     })
     if (cell) return false
 
-    // in codeblock
+    // should not show
     const match = Editor.above(editor, {
-      match: (n) => isTable(n) || isCodeBlock(n),
+      match: (n) => isTable(n) || isCodeBlock(n) || isTitle(n),
     })
 
     if (match?.[0]) {
@@ -47,23 +49,26 @@ export function usePlaceholder(
     return true
   })()
 
-  const className = ''
-  // const className = useMemo(
-  //   () =>
-  //     css({
-  //       '::before': {
-  //         content: `"${placeholder}"`,
-  //         gray200: true,
-  //         breakNormal: true,
-  //         display: isShow ? 'block' : 'none',
-  //         absolute: true,
-  //         top: '50%',
-  //         transform: 'translate(0, -50%)',
-  //         whiteSpace: 'nowrap',
-  //         cursorText: true,
-  //       },
-  //     }),
-  //   [isShow, placeholder],
-  // )
-  return { className, isShow }
+  const type = element.type
+
+  function getContent() {
+    if (type === 'h1') return `Heading 1`
+    if (type === 'h2') return `Heading 2`
+    if (type === 'h3') return `Heading 3`
+    if (type === 'h4') return `Heading 4`
+    if (type === 'h5') return `Heading 5`
+    return `Type '/' to browse options`
+  }
+
+  const className = useMemo(() => {
+    return cn(
+      `before:content-[attr(before)] before:text-foreground/15 before:break-normal before:absolute before:left-0 before:top-1/2 before:cursor-text before:whitespace-nowrap before:-translate-y-1/2`,
+      isShow ? 'before:block' : 'before:hidden',
+    )
+  }, [isShow, placeholder])
+  return {
+    className,
+    isShow,
+    before: getContent(),
+  }
 }

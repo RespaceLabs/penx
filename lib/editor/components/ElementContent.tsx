@@ -18,13 +18,13 @@ export const ElementContent = memo(
     const { component: Element = Paragraph, placeholder } =
       extensionStore.elementMaps[type] || {}
 
-    const { className, isShow } = usePlaceholder(element, placeholder)
+    const { className, isShow, before } = usePlaceholder(element, placeholder)
 
     return (
       <Element
         {...props}
         attributes={attributes}
-        nodeProps={{ className: isMobile ? '' : className }}
+        nodeProps={{ className: isMobile ? '' : className, before }}
       />
     )
   },

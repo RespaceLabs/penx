@@ -1,13 +1,4 @@
 import {
-  Heading1,
-  Heading2,
-  Heading3,
-  Heading4,
-  Heading5,
-  HeadingIcon,
-} from 'lucide-react'
-import { Node } from 'slate'
-import {
   ELEMENT_H1,
   ELEMENT_H2,
   ELEMENT_H3,
@@ -16,6 +7,15 @@ import {
   ELEMENT_H6,
 } from '@/lib/constants'
 import { BlockElement, ExtensionContext } from '@/lib/extension-typings'
+import {
+  Heading1,
+  Heading2,
+  Heading3,
+  Heading4,
+  Heading5,
+  HeadingIcon,
+} from 'lucide-react'
+import { Node } from 'slate'
 import { Heading } from './Heading'
 import { HeadingElement } from './types'
 import { withHeading } from './withHeading'
@@ -38,14 +38,14 @@ export function activate(ctx: ExtensionContext) {
         component: Heading,
         placeholder: `Heading`,
       }
-      if (item === 'h1') {
+      if (['h1', 'h2', 'h3'].includes(item)) {
         element.slashCommand = {
-          in: ['OUTLINER'],
-          // name: `Heading ${index + 1}`,
-          name: `Heading`,
-          icon: HeadingIcon,
+          in: ['OUTLINER', 'BLOCK'],
+          name: `Heading ${index + 1}`,
+          icon: icons[index],
         }
       }
+
       return element
     }),
     autoformatRules: [

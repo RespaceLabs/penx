@@ -97,7 +97,7 @@ export function ProfilePopover({
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
-                  push('/~/node')
+                  push('/~/notes')
                 }}
               >
                 <Gauge className="mr-2 h-4 w-4" />
@@ -158,12 +158,13 @@ export function ProfilePopover({
         {isEditor && <DropdownMenuSeparator />}
         <DropdownMenuItem
           className="cursor-pointer"
-          onClick={() => {
+          onClick={async () => {
             if (authType === AuthType.PRIVY) {
               logout()
             }
 
-            signOut()
+            await signOut()
+            push('/')
           }}
         >
           <LogOut className="mr-2 h-4 w-4" />

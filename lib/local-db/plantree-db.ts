@@ -7,7 +7,7 @@ export class PlantreeDB extends Dexie {
 
   constructor() {
     super('plantree')
-    this.version(1).stores({
+    this.version(2).stores({
       // Primary key and indexed props
       node: 'id, userId, databaseId, type, date, [type+userId+databaseId], [type+userId], [type+databaseId]',
     })

@@ -17,19 +17,18 @@ export const CheckListItem = ({
   return (
     <div
       data-key={id}
-      className="flex items-center flex-1 leading-normal py1"
+      className="flex items-center flex-1 leading-normal py1 gap-1"
       {...attributes}
-      // h="1.5em"
     >
       <Checkbox
         contentEditable={false}
         checked={checked || false}
-        onChange={(event) => {
+        onCheckedChange={(value) => {
           const path = ReactEditor.findPath(editor, element as any)
           Transforms.setNodes(
             editor,
             {
-              // checked: event.target.checked,
+              checked: value,
             } as CheckListItemElement,
             {
               at: path,

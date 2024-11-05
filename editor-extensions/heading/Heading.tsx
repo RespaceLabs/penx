@@ -9,8 +9,7 @@ export const Heading = ({
   nodeProps,
 }: ElementProps<HeadingElement>) => {
   const { type } = element
-
-  // console.log('===nodeProps:', nodeProps.)
+  console.log('=====nodeProps?.className:', nodeProps?.className)
 
   if (type === 'h1') {
     return (
@@ -18,7 +17,7 @@ export const Heading = ({
         {...attributes}
         {...nodeProps}
         className={cn(
-          'leading-tight text-[28px] mb-0.5 font-bold',
+          'relative leading-tight text-[28px] mt-[1em] mb-[0.5em] font-bold',
           nodeProps?.className,
         )}
       >
@@ -33,7 +32,7 @@ export const Heading = ({
         {...attributes}
         {...nodeProps}
         className={cn(
-          'leading-tight text-[24px] mb-0.5 font-bold',
+          'relative leading-tight text-[24px] mt-[1em] mb-[0.5em] font-bold',
           nodeProps?.className,
         )}
       >
@@ -48,7 +47,7 @@ export const Heading = ({
         {...attributes}
         {...nodeProps}
         className={cn(
-          'leading-tight text-[20px] mb-0.5 font-bold',
+          'relative leading-tight text-[20px] mt-[1em] mb-[0.5em] font-bold',
           nodeProps?.className,
         )}
       >
@@ -63,7 +62,7 @@ export const Heading = ({
         {...attributes}
         {...nodeProps}
         className={cn(
-          'leading-tight text-[18px] mb-0.5 font-bold',
+          'relative leading-tight text-[18px] mt-[1em] mb-[0.5em] font-bold',
           nodeProps?.className,
         )}
       >
@@ -78,7 +77,7 @@ export const Heading = ({
         {...attributes}
         {...nodeProps}
         className={cn(
-          'leading-tight text-[16px] mb-0.5 font-bold',
+          'relative leading-tight text-[16px] mt-[1em] mb-[0.5em] font-bold',
           nodeProps?.className,
         )}
       >
@@ -92,7 +91,7 @@ export const Heading = ({
       {...attributes}
       {...nodeProps}
       className={cn(
-        'leading-tight text-[16px] mb-0.5 font-bold',
+        'relative leading-tight text-[16px] mt-[1em] mb-[0.5em] font-bold',
         nodeProps?.className,
       )}
     >

@@ -82,7 +82,6 @@ if (!isServer) {
   //   runWorker()
   // }, 2000)
 
-  console.log('name.......xxx')
   runPG()
 }
 

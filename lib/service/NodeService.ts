@@ -14,6 +14,7 @@ import { INode, Node, NodeType } from '@/lib/model'
 import { store } from '@/store'
 import _ from 'lodash'
 import { createEditor, Editor, Node as SlateNode, Transforms } from 'slate'
+import { api } from '../trpc'
 
 export class NodeService {
   nodeMap = new Map<string, INode>()
@@ -120,7 +121,13 @@ export class NodeService {
     const newHash = new Node({ ...node, element: title.children }).toHash()
 
     if (oldHash !== newHash) {
-      console.log('==title==oldHash:', oldHash)
+      console.log(
+        '==title==oldHash:',
+        oldHash,
+        'newHash:',
+        newHash,
+        title.children,
+      )
 
       node = await this.updateNode(node.id, { element: title.children })
     }
@@ -143,6 +150,9 @@ export class NodeService {
     const nodes = await db.listNodesByUserId(this.userId)
 
     store.node.setNodes(nodes)
+    await api.node.sync.mutate({
+      nodes: JSON.stringify(nodes),
+    })
   }
 
   saveOutlinerEditor = async (

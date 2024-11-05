@@ -1,3 +1,4 @@
+import 'react-datepicker/dist/react-datepicker.css'
 import '@/styles/globals.css'
 import '@/styles/prosemirror.css'
 import { ThemeProvider } from '@/components/ThemeProvider'

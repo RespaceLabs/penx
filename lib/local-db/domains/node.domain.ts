@@ -157,7 +157,9 @@ export class NodeDomain {
     }
 
     await this.node.update(nodeId, newData)
-    return this.node.get(nodeId) as any as Promise<T>
+    const newNode = (await this.node.get(nodeId)) as any as Promise<T>
+
+    return newNode
   }
 
   updateNodeProps = async (nodeId: string, props: Partial<INode['props']>) => {
