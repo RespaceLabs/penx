@@ -1,5 +1,5 @@
 import React from 'react'
-import classNames from 'classnames'
+import { cn } from '@/lib/utils'
 import styles from './Wrapper.module.css'
 
 interface Props {
@@ -10,10 +10,7 @@ interface Props {
 
 export function Wrapper({ children, center, style }: Props) {
   return (
-    <div
-      className={classNames(styles.Wrapper, center && styles.center)}
-      style={style}
-    >
+    <div className={cn(styles.Wrapper, center && styles.center)} style={style}>
       {children}
     </div>
   )

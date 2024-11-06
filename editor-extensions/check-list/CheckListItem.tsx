@@ -24,7 +24,7 @@ export const CheckListItem = ({
         contentEditable={false}
         checked={checked || false}
         onCheckedChange={(value) => {
-          const path = ReactEditor.findPath(editor, element as any)
+          const path = ReactEditor.findPath(editor, element)
           Transforms.setNodes(
             editor,
             {

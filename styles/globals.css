@@ -119,3 +119,7 @@
 .react-datepicker__input-container {
   display: flex;
 }
+
+.prose li > p {
+  margin: 0;
+}

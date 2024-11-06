@@ -1,5 +1,6 @@
 'use client'
 
+import { memo } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -40,7 +41,7 @@ interface Props {
   showEnsName?: boolean
 }
 
-export function ProfilePopover({
+export const ProfilePopover = memo(function ProfilePopover({
   showAddress,
   showEnsName,
   className = '',
@@ -173,4 +174,4 @@ export function ProfilePopover({
       </DropdownMenuContent>
     </DropdownMenu>
   )
-}
+})

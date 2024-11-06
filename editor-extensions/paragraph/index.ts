@@ -1,6 +1,6 @@
-import { Text } from 'lucide-react'
 import { ELEMENT_P } from '@/lib/constants'
 import { ExtensionContext } from '@/lib/extension-typings'
+import { Text } from 'lucide-react'
 import { getEmptyParagraph } from './getEmptyParagraph'
 import { insertEmptyParagraph } from './insertEmptyParagraph'
 import { Paragraph } from './Paragraph'

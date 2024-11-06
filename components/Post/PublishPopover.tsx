@@ -1,11 +1,12 @@
 'use client'
 
 import { Dispatch, SetStateAction, useState } from 'react'
-import { useActiveNode } from '@/hooks'
 import { Post, updatePostPublishStatus, usePost } from '@/hooks/usePost'
+import { useNodes } from '@/lib/node-hooks'
 import { cn } from '@/lib/utils'
 import { GateType } from '@prisma/client'
 import { PopoverClose } from '@radix-ui/react-popover'
+import { useParams } from 'next/navigation'
 import LoadingDots from '../icons/loading-dots'
 import { useSiteContext } from '../SiteContext'
 import { Button } from '../ui/button'
@@ -41,7 +42,9 @@ interface PublishPopoverContentProps {
 
 function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
   const { spaceId } = useSiteContext()
-  const { activeNode } = useActiveNode()
+  const { nodeId } = useParams()
+  const { nodes } = useNodes()
+  const activeNode = nodes.find((n) => n.id === nodeId)!
   const [gateType, setGateType] = useState<GateType>(
     // (post.gateType as GateType) || GateType.FREE,
     GateType.FREE,
@@ -91,9 +94,9 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
         <Button
           className="w-full"
           onClick={async () => {
-            await publishPost(activeNode, gateType, collectable)
+            await publishPost(activeNode.raw, gateType, collectable)
             // updatePostPublishStatus()
-            // setOpen(false)
+            setOpen(false)
           }}
         >
           {isLoading ? <LoadingDots /> : <div>Publish</div>}

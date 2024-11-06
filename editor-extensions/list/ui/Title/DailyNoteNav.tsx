@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker'
 import { DailyShortcut } from '@/lib/widget'
 import { store } from '@/store'
 import { Calendar, CalendarDays } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export const DailyNoteNav = ({ date }: { date?: string }) => {
   const currentDate = new Date(date ?? Date.now())
@@ -34,14 +35,16 @@ const CustomInput = forwardRef<HTMLDivElement, any>(function CustomInput(
 })
 
 function GoToDay({ date }: { date: Date }) {
+  const { push } = useRouter()
   const [startDate, setStartDate] = useState(date || new Date())
   return (
     <DatePicker
       selected={startDate}
-      onChange={(date) => {
+      onChange={async (date) => {
         setStartDate(date!)
         if (date) {
-          store.node.selectDailyNote(date)
+          const node = await store.node.selectDailyNote(date, false)
+          push(`/~/notes/${node.id}`)
         }
       }}
       customInput={<CustomInput />}

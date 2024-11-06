@@ -2,10 +2,14 @@
 
 import { EditorApp } from '@/components/EditorApp/EditorApp'
 import { ELECTRIC_BASE_URL } from '@/lib/constants'
+import { db } from '@/lib/local-db'
+import { Node } from '@/lib/model'
+import { store } from '@/store'
 import { Shape, ShapeStream } from '@electric-sql/client'
 import { useLiveQuery } from '@electric-sql/pglite-react'
 import { useShape } from '@electric-sql/react'
-import { User } from '@prisma/client'
+import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'next/navigation'
 
 export const dynamic = 'force-static'
 
@@ -26,5 +30,19 @@ export const dynamic = 'force-static'
 // })
 
 export default function Page() {
-  return <EditorApp />
+  const params = useParams()
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['note', params?.nodeId],
+    queryFn: async () => {
+      // return store.node.getNode(params.nodeId as string)
+      return db.getNode(params.nodeId as string)
+    },
+    enabled: !!params?.nodeId,
+  })
+
+  if (isLoading) return null
+
+  const node = new Node(data!)
+  return <EditorApp node={node}></EditorApp>
 }

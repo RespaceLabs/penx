@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import { ICellNode } from '@/lib/model'
 import { useNodes } from '@/lib/node-hooks'
+import { cn } from '@/lib/utils'
 import type { DraggableSyntheticListeners } from '@dnd-kit/core'
 import type { Transform } from '@dnd-kit/utilities'
-
-import classNames from 'classnames'
 import { Node } from 'slate'
 import { Handle, Remove } from './components'
 import styles from './Item.module.scss'
@@ -75,7 +74,7 @@ export const Item = React.memo(
       return (
         <div
           ref={ref as any}
-          className={classNames(
+          className={cn(
             styles.Wrapper,
             fadeIn && styles.fadeIn,
             sorting && styles.sorting,
@@ -105,7 +104,7 @@ export const Item = React.memo(
           }
         >
           <div
-            className={classNames(
+            className={cn(
               styles.Item,
               dragging && styles.dragging,
               handle && styles.withHandle,

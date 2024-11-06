@@ -24,23 +24,21 @@ export function usePublishPost() {
   const { refetch } = usePosts()
   const [isLoading, setLoading] = useState(false)
   const checkChain = useCheckChain()
-  const { spaceId } = useSiteContext()
   const { writeContractAsync } = useWriteContract()
   const wagmiConfig = useWagmiConfig()
 
   return {
     isLoading,
     publishPost: async (
-      post: INode,
+      node: INode,
       gateType: GateType,
       collectable: boolean,
     ) => {
       setLoading(true)
-      console.log('====Post:', post)
 
       const nodes = store.node.getNodes()
       const content = nodeToSlate({
-        node: post,
+        node: node,
         nodes,
         isOutliner: false,
         isOutlinerSpace: false,
@@ -72,10 +70,11 @@ export function usePublishPost() {
 
         await api.post.publish.mutate({
           type: PostType.ARTICLE,
-          nodeId: post.id,
+          nodeId: node.id,
           gateType,
           collectable,
           creationId,
+          image: node.props.image,
           content: JSON.stringify(content),
         })
 

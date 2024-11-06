@@ -48,8 +48,8 @@ importers:
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.1(react@18.2.0))
       '@plantreexyz/types':
-        specifier: ^0.0.9
-        version: 0.0.9
+        specifier: ^0.0.10
+        version: 0.0.10
       '@prisma/client':
         specifier: ^5.21.1
         version: 5.21.1(prisma@5.21.1)
@@ -149,9 +149,6 @@ importers:
       '@upstash/ratelimit':
         specifier: ^0.4.4
         version: 0.4.4
-      '@vercel/analytics':
-        specifier: ^1.3.1
-        version: 1.3.1(next@14.2.16(@babel/core@7.25.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
       '@vercel/blob':
         specifier: ^0.15.0
         version: 0.15.1(bufferutil@4.0.8)(utf-8-validate@6.0.3)
@@ -176,9 +173,6 @@ importers:
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
-      classnames:
-        specifier: ^2.5.1
-        version: 2.5.1
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -291,14 +285,14 @@ importers:
         specifier: ^6.2.0
         version: 6.2.0
       plantree-theme-card:
-        specifier: ^0.0.9
-        version: 0.0.9
+        specifier: ^0.0.10
+        version: 0.0.10
       plantree-theme-micro:
-        specifier: ^0.0.9
-        version: 0.0.9
+        specifier: ^0.0.10
+        version: 0.0.10
       plantree-theme-minimal:
-        specifier: ^0.0.9
-        version: 0.0.9
+        specifier: ^0.0.10
+        version: 0.0.10
       prisma-extension-pagination:
         specifier: ^0.7.4
         version: 0.7.4(@prisma/client@5.21.1(prisma@5.21.1))
@@ -2133,11 +2127,11 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@plantreexyz/types@0.0.9':
-    resolution: {integrity: sha512-GSDTKSoQt9mlAn5kRAUKEKDXZM4EQfgRvwpqMkzIdI9C+FeN+/lsadrrQEGtkiiAmlNkzBJjfuizPsIW2RfQlg==}
+  '@plantreexyz/types@0.0.10':
+    resolution: {integrity: sha512-2qzgM+po62b2nwdGY/L31mLXLCVOgubJGdkWnw6z5iBcZWDVLd9VC391ZD1Eptvd5cMYT4JF6XvvzHbxXOvqnA==}
 
-  '@plantreexyz/utils@0.0.9':
-    resolution: {integrity: sha512-0fE/Ji00pS2vLLdigJ2nqEAof2IaLY8eKSxWfV8YJIbNl0s/ZLdxGjOuzoQnqOri5IoJglkdg1OSfWPwmrNslw==}
+  '@plantreexyz/utils@0.0.10':
+    resolution: {integrity: sha512-j+ZV1surU+cdwSQ+8mA6bQkYj4/hlt48nIdY37E+DKZFuCiF5iqR9WFIBBOSxhtG+ehScK5QjqmdJOIkMP1m7g==}
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
@@ -3697,17 +3691,6 @@ packages:
 
   '@upstash/redis@1.34.3':
     resolution: {integrity: sha512-VT25TyODGy/8ljl7GADnJoMmtmJ1F8d84UXfGonRRF8fWYJz7+2J6GzW+a6ETGtk4OyuRTt7FRSvFG5GvrfSdQ==}
-
-  '@vercel/analytics@1.3.1':
-    resolution: {integrity: sha512-xhSlYgAuJ6Q4WQGkzYTLmXwhYl39sWjoMA3nHxfkvG+WdBT25c563a7QhwwKivEOZtPJXifYHR1m2ihoisbWyA==}
-    peerDependencies:
-      next: '>= 13'
-      react: ^18 || ^19
-    peerDependenciesMeta:
-      next:
-        optional: true
-      react:
-        optional: true
 
   '@vercel/blob@0.15.1':
     resolution: {integrity: sha512-Wo7VU9/tM8kkv7krvxGoDeu/Li0h7PYR/TB1TEiyJZzACruA0jWqj44OGokJQCYN3ZvV5tXHpTAN6pImIBCrUw==}
@@ -7441,14 +7424,14 @@ packages:
   pkg-types@1.2.1:
     resolution: {integrity: sha512-sQoqa8alT3nHjGuTjuKgOnvjo4cljkufdtLMnO2LBP/wRwuDlo1tkaEdMxCRhyGRPacv/ztlZgDPm2b7FAmEvw==}
 
-  plantree-theme-card@0.0.9:
-    resolution: {integrity: sha512-7FDObLsbsAO8f7hxVh5NWjlRA40FMBRTbIyeO1xRftUD8bSpgTIRM/EUldAwiJ6Iha7FMNiV1yWF9q1U4C04qQ==}
+  plantree-theme-card@0.0.10:
+    resolution: {integrity: sha512-klsXGZ1DMRy7Yug6LfVvD/dWbVLrs1c9wPeuLFUHUxA83+4lbSQ+nxcG5qIA/FivzqOq3Q2N2ol8aOd6eIEB3A==}
 
-  plantree-theme-micro@0.0.9:
-    resolution: {integrity: sha512-/L4X36oSsOWgt50gA/Aas9SJqpUfkl/32VN+CQQH6cwBJa93CC2Ig6oTbzjdThjT+iOprUl78uBTMwME9Nuy8w==}
+  plantree-theme-micro@0.0.10:
+    resolution: {integrity: sha512-HyXKV0HsHZtfuC0y5ZHc56Sm4jLkRirTS1o3s5lfSTwgHhSVRJV/pDjqmLOazaLUcS6F+Ez4/sUMg5xELpwvZw==}
 
-  plantree-theme-minimal@0.0.9:
-    resolution: {integrity: sha512-fgTX4clNfy9Bmy2DMXtnIU+V1zJZgJ767Kh5LwY5//8ZquVj4dcbvIqg5B3Xw/vt+0PgtKTqOYzrLBTrgQbMlw==}
+  plantree-theme-minimal@0.0.10:
+    resolution: {integrity: sha512-CMdLgxF+I+qFQ7iaSf3vZd6tytkGGRh5kT4+KTDcFLa+OCi6KgftazDpK62+5O1TbxlyUccA5uiM/QbCflEWIw==}
 
   pngjs@5.0.0:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
@@ -8330,9 +8313,6 @@ packages:
   serve-static@1.16.2:
     resolution: {integrity: sha512-VqpjJZKadQB/PEbEwvFdO43Ax5dFBZ2UECszz8bQ7pi7wt//PWe1P6MN7eCnjsatYtBT6EuiClbjSWP2WrIoTw==}
     engines: {node: '>= 0.8.0'}
-
-  server-only@0.0.1:
-    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
 
   set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
@@ -11904,9 +11884,9 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@plantreexyz/types@0.0.9': {}
+  '@plantreexyz/types@0.0.10': {}
 
-  '@plantreexyz/utils@0.0.9':
+  '@plantreexyz/utils@0.0.10':
     dependencies:
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
@@ -14092,13 +14072,6 @@ snapshots:
   '@upstash/redis@1.34.3':
     dependencies:
       crypto-js: 4.2.0
-
-  '@vercel/analytics@1.3.1(next@14.2.16(@babel/core@7.25.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      server-only: 0.0.1
-    optionalDependencies:
-      next: 14.2.16(@babel/core@7.25.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      react: 18.2.0
 
   '@vercel/blob@0.15.1(bufferutil@4.0.8)(utf-8-validate@6.0.3)':
     dependencies:
@@ -19133,28 +19106,28 @@ snapshots:
       mlly: 1.7.2
       pathe: 1.1.2
 
-  plantree-theme-card@0.0.9:
+  plantree-theme-card@0.0.10:
     dependencies:
-      '@plantreexyz/types': 0.0.9
-      '@plantreexyz/utils': 0.0.9
+      '@plantreexyz/types': 0.0.10
+      '@plantreexyz/utils': 0.0.10
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  plantree-theme-micro@0.0.9:
+  plantree-theme-micro@0.0.10:
     dependencies:
-      '@plantreexyz/types': 0.0.9
-      '@plantreexyz/utils': 0.0.9
+      '@plantreexyz/types': 0.0.10
+      '@plantreexyz/utils': 0.0.10
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  plantree-theme-minimal@0.0.9:
+  plantree-theme-minimal@0.0.10:
     dependencies:
-      '@plantreexyz/types': 0.0.9
-      '@plantreexyz/utils': 0.0.9
+      '@plantreexyz/types': 0.0.10
+      '@plantreexyz/utils': 0.0.10
       '@troop.com/tiptap-react-render': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0
@@ -20187,8 +20160,6 @@ snapshots:
       send: 0.19.0
     transitivePeerDependencies:
       - supports-color
-
-  server-only@0.0.1: {}
 
   set-blocking@2.0.0: {}
 

@@ -3,9 +3,11 @@ import { useEditor } from '@/lib/editor-common'
 import { ElementProps } from '@/lib/extension-typings'
 import { NodeType } from '@/lib/model'
 import { cn } from '@/lib/utils'
+import { Node } from 'slate'
 import { useFocusTitle } from '../../hooks/useFocusTitle'
 import { TitleElement } from '../../types'
 import { CommonTitle } from './CommonTitle'
+import { CoverUpload } from './CoverUpload'
 import { DailyTitle } from './DailyTitle'
 import { TagMenu } from './TagMenu'
 
@@ -30,7 +32,7 @@ export const Title = (props: ElementProps<TitleElement>) => {
       {...attributes}
       {...nodeProps}
       className={cn(
-        'font-medium text-foreground/80 relative mb-4 flex items-center gap-2 pr-2',
+        'font-medium text-foreground/80 relative mb-4 flex flex-col gap-0 pr-2',
         isDaily && isMobile ? 'hidden' : 'flex',
         editor.isOutliner && 'pl-5',
         isDatabase && 'pl-9',
@@ -38,6 +40,7 @@ export const Title = (props: ElementProps<TitleElement>) => {
         nodeProps?.className,
       )}
     >
+      {Node.string(element).length > 0 && <CoverUpload {...props} />}
       {isDatabase && <TagMenu element={element} />}
       {!isDaily && <CommonTitle {...props} />}
       {isDaily && <DailyTitle {...props} />}

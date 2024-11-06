@@ -1,4 +1,3 @@
-import { BaseElement } from 'slate'
 import {
   ELEMENT_LI,
   ELEMENT_LIC,
@@ -7,6 +6,7 @@ import {
   ELEMENT_UL,
 } from '@/lib/constants'
 import { NodeType } from '@/lib/model'
+import { BaseElement } from 'slate'
 
 export interface TitleElement extends BaseElement {
   id?: string
@@ -16,6 +16,7 @@ export interface TitleElement extends BaseElement {
   props: {
     date: string
     color: string
+    image: string
   }
 }
 

@@ -19,25 +19,15 @@ interface PostItemProps {
 }
 
 export function PostItem({ post }: PostItemProps) {
-  const { push } = useRouter()
   const { refetch } = usePosts()
-
-  async function toPost(needRoute = true) {
-    loadPost(post.id)
-    if (needRoute) {
-      push(`/~/post/${post.id}`)
-    }
-  }
 
   return (
     <div className={cn('flex flex-col gap-2 py-[6px]')}>
       <div>
         <Link
-          href={`/~/post/${post.id}`}
+          target="_blank"
+          href={`/posts/${post.slug}`}
           className="inline-flex items-center hover:scale-105 transition-transform"
-          onClick={() => {
-            toPost(false)
-          }}
         >
           <div className="text-base font-bold">{post.title || 'Untitled'}</div>
         </Link>
@@ -53,22 +43,23 @@ export function PostItem({ post }: PostItemProps) {
         <div className="text-sm text-zinc-500">
           <div>{format(new Date(post.updatedAt), 'yyyy-MM-dd')}</div>
         </div>
-        <Button
-          size="xs"
-          variant="ghost"
-          className="rounded-full text-xs h-7 gap-1 opacity-50"
-          onClick={() => toPost()}
-        >
-          <Edit3Icon size={14}></Edit3Icon>
-          <div>Edit</div>
-        </Button>
+        <Link href={`/~/notes/${post.nodeId}`}>
+          <Button
+            size="xs"
+            variant="ghost"
+            className="rounded-full text-xs h-7 gap-1 opacity-50"
+          >
+            <Edit3Icon size={14}></Edit3Icon>
+            <div>Edit</div>
+          </Button>
+        </Link>
 
         <Button
           size="xs"
           variant="ghost"
           className="rounded-full text-xs h-7 text-red-500 gap-1 opacity-60"
           onClick={async () => {
-            await api.post.delete.mutate(post.id)
+            await api.post.archive.mutate(post.id)
             refetch()
           }}
         >

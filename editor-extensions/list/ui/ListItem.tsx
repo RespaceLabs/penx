@@ -22,7 +22,7 @@ export const ListItem = ({
       className={cn(
         'py-0 m-0 relative',
         nodeProps?.className,
-        path.length > 2 && 'p-10',
+        path.length > 2 && 'p-0',
       )}
     >
       {path.length > 2 && <GuideLine />}

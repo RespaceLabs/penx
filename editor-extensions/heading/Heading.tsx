@@ -9,7 +9,6 @@ export const Heading = ({
   nodeProps,
 }: ElementProps<HeadingElement>) => {
   const { type } = element
-  console.log('=====nodeProps?.className:', nodeProps?.className)
 
   if (type === 'h1') {
     return (

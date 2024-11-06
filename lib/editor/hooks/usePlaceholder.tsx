@@ -61,14 +61,14 @@ export function usePlaceholder(
   }
 
   const className = useMemo(() => {
+    if (!isShow) return ''
     return cn(
-      `before:content-[attr(before)] before:text-foreground/15 before:break-normal before:absolute before:left-0 before:top-1/2 before:cursor-text before:whitespace-nowrap before:-translate-y-1/2`,
-      isShow ? 'before:block' : 'before:hidden',
+      `before:content-[attr(before)] before:text-foreground/15 before:break-normal before:absolute before:left-0 before:top-1/2 before:cursor-text before:whitespace-nowrap before:-translate-y-1/2 before:block`,
     )
   }, [isShow, placeholder])
   return {
     className,
     isShow,
-    before: getContent(),
+    before: isShow ? getContent() : undefined,
   }
 }

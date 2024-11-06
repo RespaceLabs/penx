@@ -16,7 +16,7 @@ export const PCNav = () => {
     <div
       data-tauri-drag-region
       style={{ height: WORKBENCH_NAV_HEIGHT }}
-      className="sticky top-0 items-center justify-between hidden sm:inline-flex w-full z-10"
+      className="sticky top-0 items-center justify-between hidden sm:inline-flex w-full z-10 bg-background"
     >
       <div className="pl-4">
         {node && <Breadcrumb />}

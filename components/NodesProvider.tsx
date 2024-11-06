@@ -9,6 +9,7 @@ import { useNodes } from '@/lib/node-hooks'
 import { commandsAtom, getLocalActiveNode, store } from '@/store'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
+import { useParams } from 'next/navigation'
 import LoadingDots from './icons/loading-dots'
 
 export const extensionContext: ExtensionContext = {
@@ -43,9 +44,9 @@ export const extensionContext: ExtensionContext = {
 
 export const NodesProvider = ({ children }: PropsWithChildren) => {
   const { data: session } = useSession()
+
   const { data = [], isLoading } = useQuery({
     queryKey: ['nodes'],
-
     queryFn: async () => {
       const t0 = Date.now()
       let node = await db.getRootNode(session?.userId!)
@@ -54,15 +55,6 @@ export const NodesProvider = ({ children }: PropsWithChildren) => {
       }
       const userId = session?.userId!
       const nodes = await db.listNodesByUserId(userId)
-      const localNode = getLocalActiveNode()
-      const activeNode = nodes.find((n) => n.id === localNode?.id)
-
-      if (!activeNode) {
-        const todayNode = await db.getOrCreateTodayNode(userId)
-        store.node.selectNode(todayNode)
-      } else {
-        store.node.selectNode(activeNode)
-      }
 
       for (const item of extensionList) {
         const ctx = Object.create(extensionContext, {
@@ -83,6 +75,7 @@ export const NodesProvider = ({ children }: PropsWithChildren) => {
     },
     enabled: !!session?.userId,
   })
+
   const { nodes } = useNodes()
 
   useEffect(() => {

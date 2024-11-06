@@ -118,18 +118,23 @@ export class NodeService {
     }
 
     const oldHash = new Node(node).toHash()
-    const newHash = new Node({ ...node, element: title.children }).toHash()
+    const newHash = new Node({
+      ...node,
+      element: title.children,
+      props: title.props,
+    }).toHash()
 
     if (oldHash !== newHash) {
-      console.log(
-        '==title==oldHash:',
-        oldHash,
-        'newHash:',
-        newHash,
-        title.children,
-      )
+      console.log('==title==oldHash:', oldHash, 'newHash:', newHash)
 
-      node = await this.updateNode(node.id, { element: title.children })
+      node = await this.updateNode(node.id, {
+        element: title.children,
+        props: {
+          ...node.props,
+          ...title.props,
+          image: title.props.image,
+        },
+      })
     }
   }
 
@@ -150,9 +155,18 @@ export class NodeService {
     const nodes = await db.listNodesByUserId(this.userId)
 
     store.node.setNodes(nodes)
-    await api.node.sync.mutate({
-      nodes: JSON.stringify(nodes),
-    })
+
+    try {
+      if ((window as any).__SYNCING__) return
+      ;(window as any).__SYNCING__ = true
+      await api.node.sync.mutate({
+        nodes: JSON.stringify(nodes),
+      })
+      ;(window as any).__SYNCING__ = false
+    } catch (error) {
+      ;(window as any).__SYNCING__ = false
+      console.log('error syncing nodes:', error)
+    }
   }
 
   saveOutlinerEditor = async (

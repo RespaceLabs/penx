@@ -108,6 +108,7 @@ export const postRouter = router({
         type: z.nativeEnum(PostType),
         gateType: z.nativeEnum(GateType),
         collectable: z.boolean(),
+        image: z.string().optional(),
         content: z.string(),
       }),
     )
@@ -115,23 +116,32 @@ export const postRouter = router({
       const userId = ctx.token.uid
       const { nodeId, gateType, collectable, creationId } = input
 
-      const node = await prisma.node.findUniqueOrThrow({
-        where: { id: nodeId },
-      })
-
-      console.log('=====>>>node:', node)
-      const p = await prisma.post.findFirst({
+      let post = await prisma.post.findFirst({
         where: { nodeId },
       })
       const [title, ...nodes] = JSON.parse(input.content)
 
-      if (!p) {
-        await prisma.post.create({
+      if (!post) {
+        post = await prisma.post.create({
           data: {
             userId,
             title: SlateNode.string(title),
             type: input.type,
             nodeId: input.nodeId,
+            postStatus: PostStatus.PUBLISHED,
+            image: input.image,
+            gateType: input.gateType,
+            collectable: input.collectable,
+            content: JSON.stringify(nodes),
+          },
+        })
+      } else {
+        post = await prisma.post.update({
+          where: { id: post.id },
+          data: {
+            title: SlateNode.string(title),
+            type: input.type,
+            image: input.image,
             postStatus: PostStatus.PUBLISHED,
             gateType: input.gateType,
             collectable: input.collectable,
@@ -140,17 +150,15 @@ export const postRouter = router({
         })
       }
 
-      return
-
-      const post = await prisma.post.findUnique({
+      const newPost = await prisma.post.findUnique({
         include: { postTags: { include: { tag: true } } },
-        where: { id: nodeId },
+        where: { id: post.id },
       })
 
       const res = await fetch(IPFS_ADD_URL, {
         method: 'POST',
         body: JSON.stringify({
-          ...post,
+          ...newPost,
           postStatus: PostStatus.PUBLISHED,
           collectable,
           creationId,
@@ -159,7 +167,7 @@ export const postRouter = router({
       }).then((d) => d.json())
 
       await prisma.post.update({
-        where: { id: nodeId },
+        where: { id: post.id },
         data: {
           postStatus: PostStatus.PUBLISHED,
           collectable,
@@ -178,13 +186,24 @@ export const postRouter = router({
 
       // sync google
       syncToGoogleDrive(ctx.token.uid, {
-        ...post,
+        ...newPost,
         postStatus: PostStatus.PUBLISHED,
         collectable,
         creationId,
         cid: res.cid,
         gateType,
       } as any)
+
+      return newPost
+    }),
+
+  archive: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const post = await prisma.post.update({
+        where: { id: input },
+        data: { postStatus: PostStatus.ARCHIVED },
+      })
 
       return post
     }),

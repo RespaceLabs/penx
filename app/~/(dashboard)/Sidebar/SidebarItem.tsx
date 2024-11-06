@@ -6,7 +6,7 @@ interface SidebarItemProps {
   icon: ReactNode
   isActive?: boolean
   children?: ReactNode
-  onClick: () => void
+  onClick?: () => void
 }
 
 export const SidebarItem = ({
@@ -24,7 +24,7 @@ export const SidebarItem = ({
         isActive && 'text-brand-500',
       )}
       {...rest}
-      onClick={onClick}
+      onClick={() => onClick && onClick()}
     >
       <div className="flex items-center gap-2">
         <div className="">{icon}</div>

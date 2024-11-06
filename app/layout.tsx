@@ -5,7 +5,6 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { getSite } from '@/lib/fetchers'
 import { cn } from '@/lib/utils'
 import { cal, inter } from '@/styles/fonts'
-import { Analytics } from '@vercel/analytics/react'
 import { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 import { headers } from 'next/headers'
@@ -77,7 +76,6 @@ export default async function RootLayout({
         >
           <Providers cookies={cookies} site={site}>
             {children}
-            <Analytics />
           </Providers>
         </ThemeProvider>
 

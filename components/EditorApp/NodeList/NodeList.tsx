@@ -1,7 +1,8 @@
 import { Node } from '@/lib/model'
 import { useNodes } from '@/lib/node-hooks'
 import { NodeService } from '@/lib/service'
-import { store } from '@/store'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 interface Props {
   node: Node
@@ -16,14 +17,12 @@ export function NodeList({ node }: Props) {
       <div className="flex flex-col gap-2">
         {nodeService.childrenNodes.map((node) => (
           <div key={node.id} className="font-semibold flex justify-between">
-            <div
+            <Link
+              href={`/~/notes/${node.id}`}
               className="text-foreground/80 hover:block cursor-pointer hover:scale-105 transition-all"
-              onClick={() => {
-                store.node.selectNode(node.raw)
-              }}
             >
               {node.title || 'Untitled'}
-            </div>
+            </Link>
             <div className="text-sm text-foreground/60">
               {node.updatedAtFormatted}
             </div>
