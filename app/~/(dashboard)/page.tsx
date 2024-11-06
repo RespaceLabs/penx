@@ -1,7 +1,7 @@
 'use client'
 
 import { PostStatus } from '@/lib/constants'
-import { PostList } from '../PostList'
+import { PostList } from '../../../components/PostList'
 
 export const dynamic = 'force-static'
 

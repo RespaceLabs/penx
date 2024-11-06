@@ -21,6 +21,7 @@ import { AuthType } from '@prisma/client'
 import { usePrivy } from '@privy-io/react-auth'
 import {
   DatabaseBackup,
+  FileText,
   Gauge,
   KeySquare,
   LogOut,
@@ -32,6 +33,7 @@ import {
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useSiteContext } from '../SiteContext'
+import { Skeleton } from '../ui/skeleton'
 import { ProfileAvatar } from './ProfileAvatar'
 import { WalletInfo } from './WalletInfo'
 
@@ -52,7 +54,7 @@ export const ProfilePopover = memo(function ProfilePopover({
   const { authType } = useSiteContext()
   const isGoogleOauth = authType === AuthType.GOOGLE
 
-  if (!data) return null
+  if (!data) return <div></div>
   const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
 
   return (
@@ -101,8 +103,8 @@ export const ProfilePopover = memo(function ProfilePopover({
                   push('/~/notes')
                 }}
               >
-                <Gauge className="mr-2 h-4 w-4" />
-                <span>Pages</span>
+                <FileText className="mr-2 h-4 w-4" />
+                <span>Notes</span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 className="cursor-pointer"
@@ -144,7 +146,7 @@ export const ProfilePopover = memo(function ProfilePopover({
                 <span>Access Token</span>
               </DropdownMenuItem> */}
 
-              <DropdownMenuItem
+              {/* <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
                   push('/~/backup')
@@ -152,7 +154,7 @@ export const ProfilePopover = memo(function ProfilePopover({
               >
                 <DatabaseBackup className="mr-2 h-4 w-4" />
                 <span>Backup</span>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </>
           )}
         </DropdownMenuGroup>

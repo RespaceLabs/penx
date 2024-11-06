@@ -40,6 +40,13 @@ export const postRouter = router({
     return post
   }),
 
+  bySlug: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
+    const post = await prisma.post.findUnique({
+      where: { slug: input },
+    })
+    return post
+  }),
+
   create: protectedProcedure
     .input(
       z.object({
@@ -125,6 +132,7 @@ export const postRouter = router({
         post = await prisma.post.create({
           data: {
             userId,
+            slug: input.nodeId,
             title: SlateNode.string(title),
             type: input.type,
             nodeId: input.nodeId,

@@ -20,6 +20,7 @@ import { useAccount, useWriteContract } from 'wagmi'
 import { useSiteContext } from '../SiteContext'
 
 export function usePublishPost() {
+  const { spaceId } = useSiteContext()
   const { address } = useAccount()
   const { refetch } = usePosts()
   const [isLoading, setLoading] = useState(false)
@@ -45,28 +46,29 @@ export function usePublishPost() {
       })
 
       console.log('======>>>>>content:', content)
+      const post = await api.post.bySlug.query(node.id)
 
       let creationId: number | undefined
       try {
-        // if (spaceId && typeof post.creationId !== 'number' && collectable) {
-        //   await checkChain()
-        //   const hash = await writeContractAsync({
-        //     address: addressMap.CreationFactory,
-        //     abi: creationFactoryAbi,
-        //     functionName: 'create',
-        //     args: [post.slug, precision.token(0.0001024), spaceId as Address],
-        //   })
+        if (spaceId && typeof post?.creationId !== 'number' && collectable) {
+          await checkChain()
+          const hash = await writeContractAsync({
+            address: addressMap.CreationFactory,
+            abi: creationFactoryAbi,
+            functionName: 'create',
+            args: [node.id, precision.token(0.0001024), spaceId as Address],
+          })
 
-        //   await waitForTransactionReceipt(wagmiConfig, { hash })
+          await waitForTransactionReceipt(wagmiConfig, { hash })
 
-        //   const creation = await readContract(wagmiConfig, {
-        //     address: addressMap.CreationFactory,
-        //     abi: creationFactoryAbi,
-        //     functionName: 'getUserLatestCreation',
-        //     args: [address!],
-        //   })
-        //   creationId = Number(creation.id)
-        // }
+          const creation = await readContract(wagmiConfig, {
+            address: addressMap.CreationFactory,
+            abi: creationFactoryAbi,
+            functionName: 'getUserLatestCreation',
+            args: [address!],
+          })
+          creationId = Number(creation.id)
+        }
 
         await api.post.publish.mutate({
           type: PostType.ARTICLE,

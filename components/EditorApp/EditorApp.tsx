@@ -5,6 +5,7 @@ import { Node } from '@/lib/model'
 import dynamic from 'next/dynamic'
 import LoadingDots from '../icons/loading-dots'
 import { Skeleton } from '../ui/skeleton'
+import NodeEditorApp from './NodeEditorApp'
 
 const DynamicNodeEditorApp = dynamic(() => import('./NodeEditorApp'), {
   ssr: false,
@@ -30,5 +31,6 @@ interface EditorAppProps {
   node: Node
 }
 export function EditorApp({ node }: EditorAppProps) {
-  return <DynamicNodeEditorApp node={node} />
+  // return <DynamicNodeEditorApp node={node} />
+  return <NodeEditorApp node={node}></NodeEditorApp>
 }

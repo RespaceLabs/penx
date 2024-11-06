@@ -7,7 +7,6 @@ import { useTipInfo } from '@/hooks/useTipInfo'
 import { precision } from '@/lib/math'
 import { Post } from '@plantreexyz/types'
 import { Bookmark, TreeDeciduousIcon } from 'lucide-react'
-import { useCollectorsDialog } from './CollectorsDialog/useCollectorsDialog'
 
 interface Props {
   post: Post
@@ -16,7 +15,8 @@ interface Props {
 export function TippedAmount({ post }: Props) {
   // const { setIsOpen } = useCollectorsDialog()
   const { data, isLoading } = useTipInfo(post.id)
-  if (isLoading || !data) return <Skeleton />
+
+  if (isLoading) return <Skeleton />
 
   return (
     <div
@@ -26,7 +26,7 @@ export function TippedAmount({ post }: Props) {
       }}
     >
       <TreeDeciduousIcon size={20} />
-      <div>{precision.toDecimal(data?.totalAmount)}</div>
+      <div> {!data ? '0' : precision.toDecimal(data?.totalAmount)}</div>
     </div>
   )
 }

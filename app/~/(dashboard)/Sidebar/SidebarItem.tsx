@@ -20,14 +20,14 @@ export const SidebarItem = ({
   return (
     <div
       className={cn(
-        'flex items-center justify-between gap-2 rounded px-2 text-foreground hover:bg-foreground/5 h-8 transition-all cursor-pointer',
-        isActive && 'text-brand-500',
+        'flex items-center justify-between gap-2 rounded px-2 text-foreground/80 hover:bg-foreground/5 h-8 transition-all cursor-pointer text-balance',
+        isActive && 'text-foreground bg-foreground/5',
       )}
       {...rest}
       onClick={() => onClick && onClick()}
     >
       <div className="flex items-center gap-2">
-        <div className="">{icon}</div>
+        <div className="text-foreground/50">{icon}</div>
         <div>{label}</div>
       </div>
       {children}

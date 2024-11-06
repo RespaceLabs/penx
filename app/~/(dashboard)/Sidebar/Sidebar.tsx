@@ -1,6 +1,8 @@
 import { ProfileAvatar } from '@/components/Profile/ProfileAvatar'
 import { ProfilePopover } from '@/components/Profile/ProfilePopover'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { store } from '@/store'
 import { Calendar, Feather, FileText, Hash, Settings } from 'lucide-react'
@@ -8,7 +10,6 @@ import { useSession } from 'next-auth/react'
 import { Merienda } from 'next/font/google'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { FavoriteBox } from './FavoriteBox/FavoriteBox'
 import { SidebarItem } from './SidebarItem'
 
 const merienda = Merienda({
@@ -18,35 +19,31 @@ const merienda = Merienda({
 })
 
 export const Sidebar = () => {
-  const { data: session } = useSession()
-  // const pathname = usePathname()
   const { push } = useRouter()
+  const pathname = usePathname()
 
   return (
     <div className="flex-col flex-1 hidden md:flex bg-sidebar/70 gap-3 h-screen border-r border-r-sidebar">
-      <div className="px-4 py-3">
+      <div className="px-4 flex items-center h-16">
         <ProfilePopover
           showAddress
-          className="px-2 py-2 -mx-2 rounded-lg hover:bg-foreground/5 transition-colors"
+          className="px-2 py-2 flex-1 -mx-2 rounded-lg hover:bg-foreground/5 transition-colors"
         />
       </div>
 
       <div className="flex flex-col gap-1 flex-1 px-2">
         <Link href="/~/journals">
           <SidebarItem
-            icon={<Calendar size={20} />}
+            isActive={pathname === '/~/journals'}
+            icon={<Calendar size={18} />}
             label="Journals"
-            onClick={async () => {
-              const node = await store.node.selectDailyNote()
-              push(`/~/notes/${node.id}`)
-            }}
           />
         </Link>
 
         {/* <SidebarItem
               icon={
                 <CircleCheck
-                  size={20}
+                  size={18}
                   stroke={isTodosActive ? 'brand500' : 'gray500'}
                 />
               }
@@ -60,7 +57,7 @@ export const Sidebar = () => {
         {/* <SidebarItem
             icon={
               <div gray500 inlineFlex brand500={isTagsActive}>
-                <Hash size={20} strokeWidth={1.5} />
+                <Hash size={18} strokeWidth={1.5} />
               </div>
             }
             label="Tags"
@@ -71,15 +68,41 @@ export const Sidebar = () => {
           /> */}
 
         <Link href="/~/notes">
-          <SidebarItem icon={<FileText size={18} />} label="Notes" />
+          <SidebarItem
+            isActive={pathname === '/~/notes'}
+            icon={<FileText size={18} />}
+            label="Notes"
+          >
+            <Badge
+              className="text-xs font-semibold h-6 bg-amber-500/20 text-amber-500"
+              variant="secondary"
+            >
+              Draft
+            </Badge>
+          </SidebarItem>
         </Link>
 
         <Link href="/~/posts">
-          <SidebarItem icon={<Feather size={20} />} label="Posts" />
+          <SidebarItem
+            isActive={pathname === '/~/posts'}
+            icon={<Feather size={18} />}
+            label="Posts"
+          >
+            <Badge
+              className="text-xs font-semibold h-6 bg-green-500/20 text-green-500"
+              variant="secondary"
+            >
+              Published
+            </Badge>
+          </SidebarItem>
         </Link>
 
         <Link href="/~/settings">
-          <SidebarItem icon={<Settings size={18} />} label="Settings" />
+          <SidebarItem
+            isActive={pathname === '/~/settings'}
+            icon={<Settings size={18} />}
+            label="Settings"
+          />
         </Link>
       </div>
 

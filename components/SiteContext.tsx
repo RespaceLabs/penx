@@ -3,7 +3,6 @@
 import { createContext, PropsWithChildren, useContext, useEffect } from 'react'
 import { ELECTRIC_BASE_URL, isServer } from '@/lib/constants'
 import { PGlite } from '@electric-sql/pglite'
-import { useLiveQuery } from '@electric-sql/pglite-react'
 import { electricSync } from '@electric-sql/pglite-sync'
 import { live } from '@electric-sql/pglite/live'
 import { Site } from '@plantreexyz/types'
@@ -95,6 +94,7 @@ export const SiteProvider = ({ site, children }: PropsWithChildren<Props>) => {
   useEffect(() => {
     ;(window as any).__SITE__ = site
   }, [site])
+
   return <SiteContext.Provider value={site}>{children}</SiteContext.Provider>
 }
 
