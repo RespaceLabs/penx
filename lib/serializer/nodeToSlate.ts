@@ -397,7 +397,7 @@ function getDailyRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
       children: [
         {
           type: 'p',
-          children: [{ text: 'Daily notes' }],
+          children: [{ text: 'Journals' }],
         },
       ],
     },

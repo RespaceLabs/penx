@@ -1,5 +1,4 @@
 import { Node } from 'slate'
-import { ElementType } from '@/lib/editor-shared'
 
 // import { CustomElement, LinkElement, ListElement } from '@/lib/editor-types'
 

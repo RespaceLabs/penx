@@ -10,7 +10,6 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './lib/**/*.{js,ts,jsx,tsx}',
-    './editor-extensions/**/*.{js,ts,jsx,tsx}',
     './node_modules/plantree-theme-minimal/src/**/*.{js,tsx,ts}',
     './node_modules/plantree-theme-micro/src/**/*.{js,tsx,ts}',
     './node_modules/plantree-theme-card/src/**/*.{js,tsx,ts}',

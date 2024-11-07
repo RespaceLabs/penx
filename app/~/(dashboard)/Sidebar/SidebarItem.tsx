@@ -20,7 +20,7 @@ export const SidebarItem = ({
   return (
     <div
       className={cn(
-        'flex items-center justify-between gap-2 rounded px-2 text-foreground/80 hover:bg-foreground/5 h-8 transition-all cursor-pointer text-balance',
+        'flex items-center justify-between gap-2 rounded px-2 text-foreground/80 hover:bg-foreground/5 h-8 transition-all cursor-pointer text-sm font-semibold',
         isActive && 'text-foreground bg-foreground/5',
       )}
       {...rest}

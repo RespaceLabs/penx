@@ -20,6 +20,8 @@ export function useSpace() {
 
 export function useQuerySpace() {
   const spaceId = getSpaceId()
+  console.log('=========spaceId:', spaceId)
+
   const { data, ...rest } = useQuery({
     queryKey: ['space'],
     queryFn: async () => {
@@ -28,6 +30,7 @@ export function useQuerySpace() {
         .json<SpaceType>()
       return response
     },
+    enabled: !!spaceId,
   })
 
   useEffect(() => {

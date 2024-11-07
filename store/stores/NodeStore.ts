@@ -11,6 +11,7 @@ import { ArraySorter, db } from '@/lib/local-db'
 import {
   ICellNode,
   IColumnNode,
+  IDailyRootNode,
   IDatabaseNode,
   IDatabaseRootNode,
   INode,
@@ -80,6 +81,12 @@ export class NodeStore {
     let nodes = this.getNodes()
     const node = nodes.find((node) => node.type === NodeType.ROOT)!
     return node as IRootNode
+  }
+
+  getDailyRootNode = () => {
+    let nodes = this.getNodes()
+    const node = nodes.find((node) => node.type === NodeType.DAILY_ROOT)!
+    return node as IDailyRootNode
   }
 
   getDatabaseRootNode = () => {

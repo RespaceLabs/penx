@@ -100,7 +100,7 @@ export class Node {
     if (this.isInbox) return 'Inbox'
     if (this.isTrash) return 'Trash'
     if (this.isDatabaseRoot) return 'Databases'
-    if (this.isDailyRoot) return 'Daily notes'
+    if (this.isDailyRoot) return 'Journals'
     if (this.isDatabase) {
       if (this.isTodoDatabase) return 'PenX todos'
       if (this.isFileDatabase) return 'PenX files'

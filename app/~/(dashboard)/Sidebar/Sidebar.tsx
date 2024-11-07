@@ -5,6 +5,7 @@ import { store } from '@/store'
 import { Calendar, Feather, FileText, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { NodesBox } from './NodesBox'
 import { SidebarItem } from './SidebarItem'
 
 export const Sidebar = () => {
@@ -20,12 +21,12 @@ export const Sidebar = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-1 flex-1 px-2">
-        <Link href="/~/journals">
+      <div className="flex flex-col gap-1 px-2">
+        <Link href="/~/today">
           <SidebarItem
-            isActive={pathname === '/~/journals'}
+            isActive={pathname === '/~/today'}
             icon={<Calendar size={18} />}
-            label="Journals"
+            label="Today"
           />
         </Link>
 
@@ -56,21 +57,6 @@ export const Sidebar = () => {
             }}
           /> */}
 
-        <Link href="/~/notes">
-          <SidebarItem
-            isActive={pathname === '/~/notes'}
-            icon={<FileText size={18} />}
-            label="Notes"
-          >
-            <Badge
-              className="text-xs font-semibold h-6 bg-amber-500/20 text-amber-500"
-              variant="secondary"
-            >
-              Draft
-            </Badge>
-          </SidebarItem>
-        </Link>
-
         <Link href="/~/posts">
           <SidebarItem
             isActive={pathname === '/~/posts'}
@@ -78,7 +64,7 @@ export const Sidebar = () => {
             label="Posts"
           >
             <Badge
-              className="text-xs font-semibold h-6 bg-green-500/20 text-green-500"
+              className="text-xs font-normal h-6 bg-green-500/20 text-green-500"
               variant="secondary"
             >
               Published
@@ -97,18 +83,7 @@ export const Sidebar = () => {
 
       <div className="flex-1 z-10 overflow-auto px-2">
         {/* <FavoriteBox nodeList={nodeList} /> */}
-      </div>
-
-      <div className="p-2">
-        <Button
-          className="w-full"
-          onClick={async () => {
-            const node = await store.node.createPageNode()
-            push(`/~/notes/${node.id}`)
-          }}
-        >
-          Create note
-        </Button>
+        <NodesBox />
       </div>
     </div>
   )

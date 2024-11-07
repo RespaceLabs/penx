@@ -1,19 +1,11 @@
 import isEqual from 'react-fast-compare'
-import {
-  isListContentElement,
-  isListElement,
-  isListItemElement,
-  ListItemElement,
-  TitleElement,
-  UnorderedListElement,
-} from '@/editor-extensions/list'
-import { extractTags } from '@/lib/editor-common'
-import { getNodeByPath } from '@/lib/editor-queries'
+import { ITitleElement } from '@/components/editor/plugins/title-plugin'
 import { db, emitter } from '@/lib/local-db'
 import { INode, Node, NodeType } from '@/lib/model'
 import { store } from '@/store'
 import _ from 'lodash'
-import { createEditor, Editor, Node as SlateNode, Transforms } from 'slate'
+import { Node as SlateNode, Transforms } from 'slate'
+import { extractTags } from '../extractTags'
 import { api } from '../trpc'
 
 export class NodeService {
@@ -102,7 +94,7 @@ export class NodeService {
     store.node.setNodes(nodes)
   }
 
-  private async saveTitle(node: INode, title: TitleElement) {
+  private async saveTitle(node: INode, title: ITitleElement) {
     if (!title) return
 
     if (this.node.isDatabase) {
@@ -132,7 +124,7 @@ export class NodeService {
         props: {
           ...node.props,
           ...title.props,
-          image: title.props.image,
+          image: title?.props?.image,
         },
       })
     }
@@ -169,23 +161,6 @@ export class NodeService {
     }
   }
 
-  saveOutlinerEditor = async (
-    node: INode,
-    title: TitleElement,
-    ul?: UnorderedListElement,
-    isInReference = false,
-  ) => {
-    await this.saveTitle(node, title)
-
-    if (ul && !this.node.isDatabase && !this.node.isDatabaseRoot) {
-      await this.saveOutlinerNodes(node.id, ul)
-    }
-
-    const nodes = await db.listNodesByUserId(this.userId)
-
-    store.node.setNodes(nodes)
-  }
-
   saveBlockNodes = async (parentId: string, elements: any[]) => {
     const userId = (window as any).__USER_ID__
     const nodeChildren = elements.map((n) => n.id)
@@ -197,10 +172,7 @@ export class NodeService {
 
     for (const item of elements) {
       const node = await db.getNode(item.id)
-
       const tags = extractTags([item])
-
-      const isList = isListElement(item)
 
       if (node) {
         const oldHash = new Node(node).toHash()
@@ -243,30 +215,15 @@ export class NodeService {
             emitter.emit('REF_NODE_UPDATED', newNode)
           }
         }
-
-        if (isList) {
-          await this.saveOutlinerNodes(item.id, item as any, false)
-        }
       } else {
         let newNode: INode
-        if (isList) {
-          newNode = await this.createNode({
-            id: item.id,
-            parentId,
-            type: NodeType.LIST,
-            element: [item],
-            children: [], // TODO:
-          })
 
-          await this.saveOutlinerNodes(item.id, item as any, false)
-        } else {
-          newNode = await this.createNode({
-            id: item.id,
-            parentId,
-            element: [item],
-            children: [], // TODO:
-          })
-        }
+        newNode = await this.createNode({
+          id: item.id,
+          parentId,
+          element: [item],
+          children: [], // TODO:
+        })
 
         const node = new Node(newNode)
 
@@ -297,167 +254,6 @@ export class NodeService {
 
         for (const tagName of tags) {
           await db.createTagRow(userId, tagName, newNode.id)
-        }
-      }
-    }
-  }
-
-  saveOutlinerNodes = async (
-    parentId: string,
-    ul: UnorderedListElement,
-    isOutliner = true,
-  ) => {
-    const userId = (window as any).__USER_ID__
-    const editor = createEditor()
-    Transforms.insertNodes(editor, ul)
-
-    const childrenForCurrentNode = ul.children.map((listItem) => {
-      return listItem.children[0].id
-    })
-
-    const parentNode = await db.getNode(parentId)
-    if (!isEqual(parentNode?.children, childrenForCurrentNode)) {
-      // update root node's children
-      await this.updateNode(parentId, { children: childrenForCurrentNode })
-    }
-
-    const listContents = Editor.nodes(editor, {
-      at: [],
-      match: isListContentElement,
-    })
-
-    for (const [item, path] of listContents) {
-      const parent = getNodeByPath(
-        editor,
-        path.slice(0, -1),
-      ) as any as ListItemElement
-
-      // get node children
-      let children: string[] = []
-
-      if (parent.children.length > 1) {
-        const listItems = parent.children[1]
-          .children as any as ListItemElement[]
-
-        children = listItems.map((item) => item.children[0].id)
-      }
-
-      // node parentId
-      const grandparent = getNodeByPath(editor, path.slice(0, -3))!
-
-      let newParentId = parentId
-
-      if (isListItemElement(grandparent)) {
-        newParentId = grandparent.children[0].id
-      }
-
-      const key = [...path.slice(1)].reduce(
-        (acc, cur) => [...acc, 'children', cur],
-        [] as any[],
-      )
-
-      const element = _.get(ul, [...key, 'children'])
-
-      const node = await db.getNode(item.id)
-
-      const tags = extractTags(element)
-
-      // console.log('=======tags:', tags, element)
-
-      if (node) {
-        const oldHash = new Node(node).toHash()
-        const newHash = new Node({
-          ...node,
-          parentId: newParentId,
-          element,
-          collapsed: !!item.collapsed,
-          children,
-        }).toHash()
-
-        if (oldHash !== newHash) {
-          const updateData: Partial<INode> = {
-            // type: isOutliner ? NodeType.COMMON : NodeType.LIST_ITEM,
-            parentId: newParentId,
-            element,
-            collapsed: !!item.collapsed,
-            children,
-          }
-
-          const newNode = await this.updateNode(item.id, updateData)
-
-          const node = new Node(newNode)
-
-          if (node.isTodoElement) {
-            const nodeService = new NodeService(node, this.allNodes)
-
-            let sourceId = '' // DailyNode or depth 1 node from rootNode
-            const parentNodes = nodeService.getParentNodes()
-            if (parentNodes.length) {
-              if (parentNodes[0].isDailyRoot) {
-                sourceId = parentNodes[1].id
-              } else {
-                sourceId = parentNodes[0].id
-              }
-            }
-
-            await db.createTodoRow(userId, node.id, sourceId)
-          }
-
-          if (node.isFileElement) {
-            // console.log('update node=========:l', node)
-            await db.createFileRow({
-              userId,
-              ref: node.id,
-              fileHash: node.fileHash,
-              googleDriveFileId: node.googleDriveFileId,
-            })
-          }
-
-          for (const tagName of tags) {
-            await db.createTagRow(userId, tagName, newNode.id)
-          }
-
-          if (tags.length) {
-            emitter.emit('REF_NODE_UPDATED', newNode)
-          }
-        }
-      } else {
-        let newNode = await this.createNode({
-          id: item.id,
-          type: isOutliner ? NodeType.COMMON : NodeType.LIST_ITEM,
-          parentId: newParentId,
-          collapsed: !!item.collapsed,
-          element,
-          children,
-        })
-
-        const node = new Node(newNode)
-
-        if (node.isTodoElement) {
-          const nodeService = new NodeService(node, this.allNodes)
-          const parentNodes = nodeService.getParentNodes()
-
-          let sourceId = ''
-          if (parentNodes.length) {
-            if (parentNodes[0].isDailyRoot) {
-              sourceId = parentNodes[1].id
-            } else {
-              sourceId = parentNodes[0].id
-            }
-          }
-
-          await db.createTodoRow(userId, node.id, sourceId)
-        }
-
-        if (node.isFileElement) {
-          // console.log('new node=========:l', node)
-
-          await db.createFileRow({
-            userId,
-            ref: node.id,
-            fileHash: node.fileHash,
-            googleDriveFileId: node.googleDriveFileId,
-          })
         }
       }
     }

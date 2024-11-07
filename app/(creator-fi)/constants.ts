@@ -13,17 +13,9 @@ export enum SubscriptionType {
   UNSUBSCRIBE = 'UNSUBSCRIBE',
 }
 
-export const editorDefaultValue = {
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        {
-          type: 'text',
-          text: '',
-        },
-      ],
-    },
-  ],
-}
+export const editorDefaultValue = [
+  {
+    type: 'p',
+    children: [{ text: '' }],
+  },
+]

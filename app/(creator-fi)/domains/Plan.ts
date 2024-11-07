@@ -1,6 +1,6 @@
 import { precision } from '@/lib/math'
-import { FEE_RATE } from './Space'
 import { editorDefaultValue, SECONDS_PER_DAY } from '../constants'
+import { FEE_RATE } from './Space'
 
 export const SECONDS_PER_MONTH = BigInt(24 * 60 * 60 * 30) // 30 days
 
@@ -28,7 +28,7 @@ export class Plan {
     public raw: PlanType,
     private x: bigint,
     private y: bigint,
-    private k: bigint
+    private k: bigint,
   ) {}
 
   get uri() {
@@ -48,7 +48,12 @@ export class Plan {
     }
   }
   get benefitsJson() {
-    return JSON.parse(this.raw.benefits)
+    try {
+      JSON.parse(this.raw.benefits)
+      return this.raw.benefits
+    } catch (error) {
+      return JSON.stringify(editorDefaultValue)
+    }
   }
 
   get isActive() {
@@ -82,7 +87,9 @@ export class Plan {
    * @returns
    */
   calEthByDuration(days: number | string) {
-    const duration = BigInt(parseInt((Number(days) * Number(SECONDS_PER_DAY)).toString()))
+    const duration = BigInt(
+      parseInt((Number(days) * Number(SECONDS_PER_DAY)).toString()),
+    )
     const tokenPricePerSecond = this.getEthPricePerSecond()
     return duration * tokenPricePerSecond
   }

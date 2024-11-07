@@ -21,8 +21,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
   const { status, data: session } = useSession()
 
   const pathname = usePathname()
-  const isNote =
-    pathname.includes('/~/journals') || pathname.includes('/~/notes')
+  const isNote = pathname.includes('/~/today') || pathname.includes('/~/notes')
 
   useEffect(() => {
     if (status === 'loading') return

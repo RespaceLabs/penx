@@ -1,7 +1,7 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import Editor from '@/components/editor/advanced-editor'
+import { PlateEditor } from '@/components/editor/plate-editor'
 import { FileUpload } from '@/components/FileUpload'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
@@ -120,9 +120,8 @@ export function SiteSettingForm({ site }: Props) {
                 <FormLabel>About</FormLabel>
                 <FormControl>
                   <div className="h-[360px]  border border-neutral-200 rounded-lg overflow-auto prose-neutral prose-p:leading-none">
-                    <Editor
-                      className="p-3 break-all plan-editor h-full"
-                      initialValue={JSON.parse(field.value)}
+                    <PlateEditor
+                      value={JSON.parse(field.value)}
                       onChange={(v) => {
                         field.onChange(JSON.stringify(v))
                       }}

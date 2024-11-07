@@ -1,6 +1,6 @@
 'use client'
 
-import { EditorApp } from '@/components/EditorApp/EditorApp'
+import { NodeEditorApp } from '@/components/EditorApp/NodeEditorApp'
 import { ELECTRIC_BASE_URL } from '@/lib/constants'
 import { db } from '@/lib/local-db'
 import { Node } from '@/lib/model'
@@ -44,5 +44,5 @@ export default function Page() {
   if (isLoading) return null
 
   const node = new Node(data!)
-  return <EditorApp node={node}></EditorApp>
+  return <NodeEditorApp node={node}></NodeEditorApp>
 }

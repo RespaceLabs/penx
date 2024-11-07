@@ -7,7 +7,7 @@ import { PlanStatus } from '@/app/(creator-fi)/domains/Plan'
 import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { usePlans } from '@/app/(creator-fi)/hooks/usePlans'
 import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
-import Editor from '@/components/editor/advanced-editor'
+import { PlateEditor } from '@/components/editor/plate-editor'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
@@ -191,9 +191,8 @@ export function UpdatePlanForm() {
                   <FormLabel>Benefits</FormLabel>
                   <FormControl>
                     <div className="h-[360px]  overflow-auto rounded-lg border border-neutral-200">
-                      <Editor
-                        className="plan-editor break-all p-3"
-                        initialValue={JSON.parse(field.value)}
+                      <PlateEditor
+                        value={JSON.parse(field.value)}
                         onChange={(v) => {
                           field.onChange(JSON.stringify(v))
                         }}

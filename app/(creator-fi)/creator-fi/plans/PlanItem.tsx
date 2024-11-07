@@ -7,7 +7,7 @@ import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { useMembers } from '@/app/(creator-fi)/hooks/useMembers'
 import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { useSubscriptions } from '@/app/(creator-fi)/hooks/useSubscriptions'
-import Editor from '@/components/editor/advanced-editor'
+import { PlateEditor } from '@/components/editor/plate-editor'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useAppKit } from '@reown/appkit/react'
@@ -59,12 +59,7 @@ export function PlanItem({ plan }: Props) {
       </div>
 
       <div className="prose-xl prose-neutral flex-1 prose-p:m-4 prose-p:leading-none">
-        <Editor
-          className="break-all"
-          initialValue={plan.benefitsJson}
-          editable={false}
-          onChange={(v) => {}}
-        />
+        <PlateEditor value={plan.benefitsJson} readonly />
       </div>
 
       <Button
