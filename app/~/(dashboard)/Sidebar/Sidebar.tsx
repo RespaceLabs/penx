@@ -1,29 +1,18 @@
-import { ProfileAvatar } from '@/components/Profile/ProfileAvatar'
 import { ProfilePopover } from '@/components/Profile/ProfilePopover'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Skeleton } from '@/components/ui/skeleton'
-import { cn } from '@/lib/utils'
 import { store } from '@/store'
-import { Calendar, Feather, FileText, Hash, Settings } from 'lucide-react'
-import { useSession } from 'next-auth/react'
-import { Merienda } from 'next/font/google'
+import { Calendar, Feather, FileText, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { SidebarItem } from './SidebarItem'
-
-const merienda = Merienda({
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-})
 
 export const Sidebar = () => {
   const { push } = useRouter()
   const pathname = usePathname()
 
   return (
-    <div className="flex-col flex-1 hidden md:flex bg-sidebar/70 gap-3 h-screen border-r border-r-sidebar">
+    <div className="flex-col flex-1 hidden md:flex gap-3 h-screen border-r border-r-sidebar">
       <div className="px-4 flex items-center h-16">
         <ProfilePopover
           showAddress
