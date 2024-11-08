@@ -8,6 +8,13 @@ import { z } from 'zod'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 export const nodeRouter = router({
+  myNodes: protectedProcedure.query(async ({ ctx, input }) => {
+    const nodes = await prisma.node.findMany({
+      where: { userId: ctx.token.uid },
+    })
+    return nodes
+  }),
+
   sync: protectedProcedure
     .input(
       z.object({

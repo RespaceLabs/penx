@@ -20,7 +20,7 @@ export class NodeDomain {
     return this.node.where('id').anyOf(nodeIds).delete()
   }
 
-  deleteNodeBySpaceId = (userId: string) => {
+  deleteNodeByUserId = (userId = (window as any).__USER_ID__) => {
     return this.node.where({ userId }).delete()
   }
 

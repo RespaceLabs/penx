@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { NodesBox } from './NodesBox'
 import { SidebarItem } from './SidebarItem'
+import { SyncBar } from './SyncBar/SyncBar'
 
 export const Sidebar = () => {
   const { push } = useRouter()
@@ -85,6 +86,7 @@ export const Sidebar = () => {
         {/* <FavoriteBox nodeList={nodeList} /> */}
         <NodesBox />
       </div>
+      <SyncBar />
     </div>
   )
 }

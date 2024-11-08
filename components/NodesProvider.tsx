@@ -2,7 +2,9 @@
 
 import { PropsWithChildren, useEffect } from 'react'
 import { db } from '@/lib/local-db'
+import { INode } from '@/lib/model'
 import { useNodes } from '@/lib/node-hooks'
+import { api } from '@/lib/trpc'
 import { store } from '@/store'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
@@ -16,12 +18,20 @@ export const NodesProvider = ({ children }: PropsWithChildren) => {
     queryKey: ['nodes'],
     queryFn: async () => {
       const t0 = Date.now()
-      let node = await db.getRootNode(session?.userId!)
-      if (!node) {
-        await db.initNodes(session?.userId!)
+      let nodes = await db.listNodesByUserId(session?.userId!)
+      if (!nodes?.length) {
+        const remoteNodes = await api.node.myNodes.query()
+        if (remoteNodes.length) {
+          await db.deleteNodeByUserId()
+          for (const node of remoteNodes) {
+            await db.createNode(node as INode)
+          }
+        } else {
+          await db.initNodes(session?.userId!)
+        }
       }
       const userId = session?.userId!
-      const nodes = await db.listNodesByUserId(userId)
+      nodes = await db.listNodesByUserId(userId)
 
       const t1 = Date.now()
 
