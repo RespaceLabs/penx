@@ -1,59 +1,19 @@
 import { prisma } from '@/lib/prisma'
-import ky from 'ky'
+import { UserRole } from '@prisma/client'
+import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import { getEthPrice } from '../lib/getEthPrice'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
-
-interface EthPriceResponse {
-  price: number
-}
-
-// Helper function to set role
-async function setRole(address: string, role: 'ADMIN' | 'AUTHOR' | 'READER') {
-  if (!address) {
-    throw new Error('Address cannot be empty')
-  }
-
-  const existingUser = await prisma.user.findUnique({
-    where: { address },
-  })
-
-  if (existingUser) {
-    return prisma.user.update({
-      where: { address },
-      data: { role },
-    })
-  } else {
-    return prisma.user.create({
-      data: {
-        address,
-        role,
-      },
-    })
-  }
-}
 
 export const userRouter = router({
   list: publicProcedure.query(async ({ ctx, input }) => {
     return prisma.user.findMany({ take: 20 })
   }),
 
-  listAdminUsers: publicProcedure.query(async ({ ctx }) => {
+  contributors: publicProcedure.query(async ({ ctx }) => {
     return prisma.user.findMany({
       where: {
-        AND: {
-          role: 'ADMIN',
-        },
-      },
-    })
-  }),
-
-  listAuthorUsers: publicProcedure.query(async ({ ctx }) => {
-    return prisma.user.findMany({
-      where: {
-        AND: {
-          role: 'AUTHOR',
-        },
+        OR: [{ role: UserRole.ADMIN }, { role: UserRole.AUTHOR }],
       },
     })
   }),
@@ -89,31 +49,101 @@ export const userRouter = router({
       })
     }),
 
+  addContributor: protectedProcedure
+    .input(
+      z.object({
+        q: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const admin = await prisma.user.findFirstOrThrow({
+        where: { id: ctx.token.uid },
+      })
+      if (admin.role !== UserRole.ADMIN) {
+        throw new TRPCError({
+          code: 'BAD_GATEWAY',
+          message: 'Only admin can update contributor',
+        })
+      }
+
+      const user = await prisma.user.findFirst({
+        where: {
+          OR: [{ address: input.q }, { email: input.q }],
+        },
+      })
+      if (!user) {
+        throw new TRPCError({
+          code: 'BAD_GATEWAY',
+          message: 'User not found, please check the address or email',
+        })
+      }
+      if (user.role !== UserRole.READER) {
+        throw new TRPCError({
+          code: 'BAD_GATEWAY',
+          message: 'User is a contributor already!',
+        })
+      }
+      return prisma.user.update({
+        where: { id: user.id },
+        data: { role: UserRole.AUTHOR },
+      })
+    }),
+
+  updateContributor: protectedProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+        role: z.nativeEnum(UserRole),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = await prisma.user.findFirstOrThrow({
+        where: { id: ctx.token.uid },
+      })
+      if (user.role !== UserRole.ADMIN) {
+        throw new TRPCError({
+          code: 'BAD_GATEWAY',
+          message: 'Only admin can update contributor',
+        })
+      }
+
+      return prisma.user.update({
+        where: { id: input.userId },
+        data: { role: input.role },
+      })
+    }),
+
+  deleteContributor: protectedProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = await prisma.user.findFirstOrThrow({
+        where: { id: ctx.token.uid },
+      })
+      if (user.role !== UserRole.ADMIN) {
+        throw new TRPCError({
+          code: 'BAD_GATEWAY',
+          message: 'Only admin can remove contributor',
+        })
+      }
+
+      if (ctx.token.uid === input.userId) {
+        throw new TRPCError({
+          code: 'BAD_GATEWAY',
+          message: 'Cannot remove yourself',
+        })
+      }
+
+      return prisma.user.update({
+        where: { id: input.userId },
+        data: { role: UserRole.READER },
+      })
+    }),
+
   ethPrice: publicProcedure.query(({ ctx }) => {
     return getEthPrice()
   }),
-
-  setRoleToAdmin: protectedProcedure
-    .input(
-      z.object({
-        address: z.string(),
-      }),
-    )
-    .mutation(({ input }) => setRole(input.address, 'ADMIN')),
-
-  setRoleToAuthor: protectedProcedure
-    .input(
-      z.object({
-        address: z.string(),
-      }),
-    )
-    .mutation(({ input }) => setRole(input.address, 'AUTHOR')),
-
-  setRoleToReader: protectedProcedure
-    .input(
-      z.object({
-        address: z.string(),
-      }),
-    )
-    .mutation(({ input }) => setRole(input.address, 'READER')),
 })

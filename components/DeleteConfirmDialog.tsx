@@ -18,13 +18,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { Trash2 } from 'lucide-react'
-import { useDeleteConfirmDialog } from './useDeleteConfirmDialog'
+import { toast } from 'sonner'
+import LoadingDots from './icons/loading-dots'
+import { Button } from './ui/button'
 
 interface Props {
   title: string
   content: string
-  onConfirm: () => void
+  onConfirm: () => Promise<any>
   tooltipContent?: string
 }
 
@@ -34,7 +37,8 @@ export function DeleteConfirmDialog({
   onConfirm,
   tooltipContent,
 }: Props) {
-  const { isOpen, setIsOpen } = useDeleteConfirmDialog()
+  const [isOpen, setIsOpen] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
 
   return (
     <AlertDialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
@@ -59,10 +63,25 @@ export function DeleteConfirmDialog({
           <AlertDialogDescription>{content}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={() => setIsOpen(false)}>
+          <AlertDialogCancel className="w-24" onClick={() => setIsOpen(false)}>
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>Continue</AlertDialogAction>
+          <Button
+            disabled={isLoading}
+            className="w-24"
+            onClick={async () => {
+              setIsLoading(true)
+              try {
+                await onConfirm()
+                setIsOpen(false)
+              } catch (error) {
+                toast.error(extractErrorMessage(error) || 'Failed to delete')
+              }
+              setIsLoading(false)
+            }}
+          >
+            {isLoading ? <LoadingDots /> : 'Continue'}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

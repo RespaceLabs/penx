@@ -14,7 +14,7 @@ export function SettingNav({}: Props) {
     socials: '/~/settings/socials',
     authType: '/~/settings/auth-type',
     web3: '/~/settings/web3',
-    role: '/~/settings/role',
+    contributors: '/~/settings/contributors',
     storageProvider: '/~/settings/storage-provider',
   }
 
@@ -44,8 +44,11 @@ export function SettingNav({}: Props) {
       <Link href={Paths.socials} className={linkClassName(Paths.socials)}>
         Socials
       </Link>
-      <Link href={Paths.role} className={linkClassName(Paths.role)}>
-        Role
+      <Link
+        href={Paths.contributors}
+        className={linkClassName(Paths.contributors)}
+      >
+        Contributors
       </Link>
     </div>
   )

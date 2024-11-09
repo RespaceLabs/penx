@@ -71,6 +71,8 @@ export function UserAvatar({
   image,
   className,
 }: UserAvatarProps) {
+  console.log('address>>>>>>>>>>>>>>>>>>:', address)
+
   return (
     <Avatar className={cn('h-8 w-8', className)}>
       {image && <AvatarImage src={image} alt="" />}

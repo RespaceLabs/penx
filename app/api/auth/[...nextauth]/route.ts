@@ -1,8 +1,7 @@
 import { spaceAbi } from '@/lib/abi'
-import { PROJECT_ID } from '@/lib/constants'
+import { NETWORK, NetworkNames, PROJECT_ID } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { SubscriptionInSession } from '@/lib/types'
-import { getChain } from '@/lib/wagmi'
 import { User, UserRole } from '@prisma/client'
 import { AuthTokenClaims, PrivyClient } from '@privy-io/server-auth'
 import {
@@ -14,6 +13,7 @@ import {
 import NextAuth, { type NextAuthOptions } from 'next-auth'
 import credentialsProvider from 'next-auth/providers/credentials'
 import { Address, createPublicClient, http } from 'viem'
+import { base, baseSepolia } from 'viem/chains'
 
 type GoogleLoginInfo = {
   email: string
@@ -321,4 +321,11 @@ async function getAuthSecret() {
   })
   secret = site?.authSecret || ''
   return site?.authSecret || ''
+}
+
+export function getChain() {
+  if (NETWORK === NetworkNames.BASE_SEPOLIA) {
+    return baseSepolia
+  }
+  return base
 }

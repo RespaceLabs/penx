@@ -54,7 +54,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   const { PostDetail } = await loadTheme()
   if (!PostDetail) throw new Error('Missing PostDetail component')
 
-  console.log('=====post:', post)
+  // console.log('=====post:', post)
 
   /** No gated */
   if (post?.gateType == GateType.FREE) {
