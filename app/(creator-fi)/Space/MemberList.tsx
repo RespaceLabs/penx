@@ -17,7 +17,7 @@ export function MemberList({ space }: Props) {
   if (isLoading) return null
 
   if (!members?.length) {
-    return <div className="text-neutral-500">No members yet!</div>
+    return <div className="text-foreground/60">No members yet!</div>
   }
 
   return (

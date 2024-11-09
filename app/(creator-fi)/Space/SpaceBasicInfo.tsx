@@ -16,7 +16,7 @@ export function SpaceBasicInfo({}: Props) {
     <div className="flex items-center gap-2">
       <img
         alt={space.name || ''}
-        className="h-9 w-9 rounded-lg bg-white dark:bg-zinc-800 shadow-sm"
+        className="h-9 w-9 rounded-lg bg-foreground shadow-sm"
         src={
           space.logo ||
           'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'

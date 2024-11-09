@@ -123,7 +123,7 @@ export function MemberForm({ space }: Props) {
                   type="single"
                 >
                   <ToggleGroupItem
-                    className="h-full flex-1 bg-accent text-sm font-semibold ring-black data-[state=on]:bg-white dark:data-[state=on]:bg-zinc-700"
+                    className="h-full flex-1 bg-accent text-sm font-semibold ring-black data-[state=on]:bg-background dark:data-[state=on]:bg-foreground/60"
                     value={SubscriptionType.SUBSCRIBE}
                   >
                     Subscribe
@@ -131,7 +131,7 @@ export function MemberForm({ space }: Props) {
 
                   <ToggleGroupItem
                     value={SubscriptionType.UNSUBSCRIBE}
-                    className="h-full flex-1 bg-accent text-sm font-semibold ring-black data-[state=on]:bg-white dark:data-[state=on]:bg-zinc-700"
+                    className="h-full flex-1 bg-accent text-sm font-semibold ring-black data-[state=on]:bg-background dark:data-[state=on]:bg-foreground/60"
                   >
                     Unsubscribe
                   </ToggleGroupItem>
@@ -187,7 +187,7 @@ export function MemberForm({ space }: Props) {
         )}
 
         <div className="flex h-6 items-center justify-between">
-          <div className="text-sm text-neutral-500">
+          <div className="text-sm text-foreground/60">
             Total {isSubscribe ? 'cost' : 'refund'}
           </div>
           <div className="text-sm">
@@ -200,7 +200,7 @@ export function MemberForm({ space }: Props) {
           size="lg"
           disabled={loading || !form.formState.isValid}
         >
-          {loading ? <LoadingDots  /> : 'Confirm'}
+          {loading ? <LoadingDots /> : 'Confirm'}
         </Button>
       </form>
     </Form>

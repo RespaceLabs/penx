@@ -57,7 +57,7 @@ export const ImageCreationUpload = forwardRef<HTMLDivElement, Props>(
           />
 
           <X
-            className="absolute top-1 right-1 bg-neutral-100 rounded-full p-1 text-neutral-800 w-8 h-8 cursor-pointer"
+            className="absolute top-1 right-1 bg-foreground/5 rounded-full p-1 text-foreground/80 w-8 h-8 cursor-pointer"
             onClick={removeImage}
           />
         </div>
@@ -67,7 +67,7 @@ export const ImageCreationUpload = forwardRef<HTMLDivElement, Props>(
     return (
       <div ref={ref}>
         <div className="w-full h-[560px] rounded-2xl bg-accent relative cursor-pointer flex items-center justify-center">
-          <div className="absolute left-0 top-0 w-full h-full cursor-pointer z-1 flex items-center justify-center gap-1 text-neutral-400 text-sm">
+          <div className="absolute left-0 top-0 w-full h-full cursor-pointer z-1 flex items-center justify-center gap-1 text-foreground/50 text-sm">
             <ImageIcon size={18} />
             <div>Select image</div>
           </div>

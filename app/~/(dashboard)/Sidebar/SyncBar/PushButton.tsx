@@ -26,7 +26,7 @@ export function PushButton({}: Props) {
   return (
     <Popover open={isOpen} onOpenChange={(v) => setOpen(v)}>
       <PopoverTrigger asChild>
-        <div className="flex-1 flex items-center justify-center gap-1 cursor-pointer hover:bg-foreground/5 transition-all border-x">
+        <div className="flex-1 flex items-center justify-center gap-1 cursor-pointer hover:bg-foreground/5 transition-all">
           <ArrowUp size={16}></ArrowUp>
           <div>Push</div>
         </div>

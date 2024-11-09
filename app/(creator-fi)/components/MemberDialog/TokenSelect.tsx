@@ -49,13 +49,13 @@ export const TokenSelect = forwardRef<HTMLDivElement, Props>(
         </div>
 
         {isEth && (
-          <div className="text-xs text-neutral-500">
+          <div className="text-xs text-foreground/60">
             {ethBalance.valueDecimal.toFixed(5)} ETH
           </div>
         )}
 
         {typeof data !== 'undefined' && !isEth && (
-          <div className="text-xs text-neutral-500">
+          <div className="text-xs text-foreground/60">
             {precision.toDecimal(data).toFixed(2)} {space.symbolName}
           </div>
         )}

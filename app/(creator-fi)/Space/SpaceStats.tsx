@@ -22,7 +22,7 @@ export function SpaceStats({}: Props) {
         value={
           <div className="relative">
             <div>{space.getUsdVolume(ethPrice).usdVolumeFormatted}</div>
-            <div className="absolute -bottom-4 flex shrink-0 gap-1 text-xs text-neutral-400 ">
+            <div className="absolute -bottom-4 flex shrink-0 gap-1 text-xs text-foreground/50 ">
               <div>{space.ethVolumeFormatted}</div>
               <div>ETH</div>
             </div>
@@ -42,7 +42,7 @@ interface StatsItemProps {
 function StatsItem({ title, value }: StatsItemProps) {
   return (
     <div className="flex flex-col gap-2">
-      <div className="text-xs text-neutral-500">{title}</div>
+      <div className="text-xs text-foreground/60">{title}</div>
       <div className="text-2xl font-semibold">{value}</div>
     </div>
   )
@@ -57,7 +57,7 @@ function MarketCap() {
   return (
     <div className="relative">
       <div>${tvl.toFixed(2)}</div>
-      <div className="absolute -bottom-4 flex shrink-0 gap-1 text-xs text-neutral-400">
+      <div className="absolute -bottom-4 flex shrink-0 gap-1 text-xs text-foreground/50">
         <div>{precision.toDecimal(data.value).toFixed(5)} </div>
         <div>ETH</div>
       </div>

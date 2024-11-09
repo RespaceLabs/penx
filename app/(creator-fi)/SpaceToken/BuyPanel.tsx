@@ -44,7 +44,7 @@ export const BuyPanel = () => {
 
   return (
     <>
-      <div className="mb-2 rounded-xl bg-gray-100 p-4 dark:bg-zinc-900">
+      <div className="mb-2 rounded-xl bg-foreground/5 p-4">
         <div className="text-sm">Sell</div>
         <AmountInput
           symbolName="ETH"
@@ -59,7 +59,7 @@ export const BuyPanel = () => {
           <Button
             onClick={handleMax}
             disabled={!ethBalance}
-            className="h-6 cursor-pointer rounded-md px-2 text-xs text-white dark:bg-zinc-800"
+            className="h-6 cursor-pointer rounded-md px-2 text-xs text-foreground dark:bg-zinc-800"
           >
             Max
           </Button>

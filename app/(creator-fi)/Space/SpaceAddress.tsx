@@ -16,7 +16,7 @@ export function SpaceAddress() {
 
       <Copy
         size={14}
-        className="ml-1 cursor-pointer text-neutral-500 hover:text-neutral-800"
+        className="ml-1 cursor-pointer text-foreground/60 hover:text-foreground/80"
         onClick={() => {
           copy(address!)
           toast.success('Space contract address copied to clipboard')

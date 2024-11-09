@@ -11,7 +11,7 @@ export const DailyNoteNav = ({ date }: { date?: string }) => {
   return (
     <div
       contentEditable={false}
-      className="text-xs font-normal flex items-center gap-4 text-foreground/600"
+      className="text-xs font-normal flex items-center gap-4 text-foreground/60"
     >
       <DailyShortcut date={date} />
       <GoToDay date={currentDate}></GoToDay>

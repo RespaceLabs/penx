@@ -12,7 +12,7 @@ export const SpaceTokenBalance = () => {
   return (
     <div className="flex items-center gap-1">
       <IconWallet />
-      <div className="text-sm text-neutral-500">{precision.toDecimal(data!).toFixed(4)}</div>
+      <div className="text-sm text-foreground/60">{precision.toDecimal(data!).toFixed(4)}</div>
     </div>
   )
 }

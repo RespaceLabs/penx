@@ -1,10 +1,10 @@
 'use client'
 
 import { PropsWithChildren, useEffect, useState } from 'react'
-import { Input } from '@/components/ui/input'
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Subscription } from '@/app/(creator-fi)/domains/Subscription'
 import { useSubscriptions } from '@/app/(creator-fi)/hooks/useSubscriptions'
+import { Input } from '@/components/ui/input'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { matchNumber, toFloorFixed } from '@/lib/utils'
 
 interface Props {
@@ -105,7 +105,7 @@ function ToggleItem({ value, children }: PropsWithChildren<{ value: string }>) {
   return (
     <ToggleGroupItem
       value={value}
-      className="h-8 w-12 rounded-full bg-accent text-xs font-semibold hover:bg-neutral-200 data-[state=on]:bg-black data-[state=on]:text-white"
+      className="h-8 w-12 rounded-full text-xs font-semibold bg-foreground/10 hover:bg-foreground/20 data-[state=on]:bg-black data-[state=on]:text-foreground"
     >
       {children}
     </ToggleGroupItem>

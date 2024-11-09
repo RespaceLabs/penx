@@ -10,7 +10,7 @@ export const EthBalance = () => {
   return (
     <div className="flex items-center gap-1">
       <IconWallet />
-      <div className="text-sm text-neutral-500">{ethBalance.valueFormatted}</div>
+      <div className="text-sm text-foreground/60">{ethBalance.valueFormatted}</div>
     </div>
   )
 }

@@ -20,7 +20,7 @@ function Header({ isLoading }: HeaderProps) {
       <div className="flex flex-1 items-center gap-2 ">
         <Link
           href="/"
-          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg bg-neutral-100 dark:bg-zinc-800/80"
+          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg bg-foreground/5"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

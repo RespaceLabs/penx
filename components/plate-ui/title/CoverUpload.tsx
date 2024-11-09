@@ -74,7 +74,7 @@ export function CoverUpload({ element }: any) {
         />
 
         <X
-          className="absolute top-1 right-1 bg-neutral-100 rounded-full p-1 text-neutral-800 w-8 h-8 cursor-pointer"
+          className="absolute top-1 right-1 bg-foreground/5 rounded-full p-1 text-foreground/80 w-8 h-8 cursor-pointer"
           onClick={removeCover}
         />
       </div>

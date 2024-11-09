@@ -15,10 +15,10 @@ export function PlanList({}: Props) {
   const { space } = useSpace()
   const address = useAddress()
 
-  if (isLoading) return <div className="text-neutral-500">Loading...</div>
+  if (isLoading) return <div className="text-foreground/60">Loading...</div>
 
   if (!plans.length) {
-    return <div className="text-neutral-500">No plans yet!</div>
+    return <div className="text-foreground/60">No plans yet!</div>
   }
 
   return (

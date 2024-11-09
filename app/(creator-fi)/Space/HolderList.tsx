@@ -26,7 +26,7 @@ export function HolderList({}: Props) {
   }
 
   if (!holders?.length) {
-    return <div className="text-neutral-500">No trades yet!</div>
+    return <div className="text-foreground/60">No trades yet!</div>
   }
 
   return (

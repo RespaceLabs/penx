@@ -20,12 +20,12 @@ export function Transaction() {
   return (
     <div className="rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-950/50">
       <div className="rounded-lg">
-        <div className="mb-3 flex  text-neutral-800 dark:text-zinc-100">
+        <div className="mb-3 flex text-foreground/80">
           <button
             onClick={() => onSwitch(Direction.buy)}
             className={cn(
               'mr-2 rounded-full px-4 py-[6px]',
-              direction === Direction.buy && 'bg-gray-100 dark:bg-zinc-800',
+              direction === Direction.buy && 'bg-foreground/5',
             )}
           >
             Buy
@@ -34,7 +34,7 @@ export function Transaction() {
             onClick={() => onSwitch(Direction.sell)}
             className={cn(
               'dark: mr-2 rounded-full px-4 py-[6px]',
-              direction === Direction.sell && 'bg-gray-100 dark:bg-zinc-800',
+              direction === Direction.sell && 'bg-foreground/5',
             )}
           >
             Sell

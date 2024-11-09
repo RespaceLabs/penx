@@ -5,7 +5,7 @@ import { useAddress } from '@/hooks/useAddress'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
-import { Copy } from 'lucide-react'
+import { ChevronDown, Copy } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { toast } from 'sonner'
 import { UserAvatar } from '../UserAvatar'
@@ -49,33 +49,37 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
       >
         <UserAvatar address={address} image={image} />
         {(showEnsName || showAddress) && (
-          <div>
-            {showEnsName && ensName && (
-              <div className="text-base">{ensName}</div>
-            )}
-            {showAddress && address && (
-              <div className="flex gap-2 items-center">
-                <div
-                  className={cn(
-                    'text-sm',
-                    showEnsName && ensName && 'text-xs text-neutral-500',
+          <>
+            <div>
+              {showEnsName && ensName && (
+                <div className="text-base">{ensName}</div>
+              )}
+              {showAddress && address && (
+                <div className="flex gap-2 items-center">
+                  <div
+                    className={cn(
+                      'text-sm',
+                      showEnsName && ensName && 'text-xs text-foreground/60',
+                    )}
+                  >
+                    {shortAddress}
+                  </div>
+                  {showCopy && (
+                    <Copy
+                      size={14}
+                      className="text-foreground/60 cursor-pointer hover:text-foreground/80"
+                      onClick={() => {
+                        copy(address)
+                        toast.success('Address copied to clipboard')
+                      }}
+                    ></Copy>
                   )}
-                >
-                  {shortAddress}
                 </div>
-                {showCopy && (
-                  <Copy
-                    size={14}
-                    className="text-neutral-500 cursor-pointer hover:text-neutral-800"
-                    onClick={() => {
-                      copy(address)
-                      toast.success('Address copied to clipboard')
-                    }}
-                  ></Copy>
-                )}
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+
+            <ChevronDown size={14} />
+          </>
         )}
       </div>
     )
