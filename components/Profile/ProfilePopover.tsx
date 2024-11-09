@@ -100,20 +100,11 @@ export const ProfilePopover = memo(function ProfilePopover({
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
-                  push('/~/notes')
-                }}
-              >
-                <FileText className="mr-2 h-4 w-4" />
-                <span>Notes</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="cursor-pointer"
-                onClick={() => {
-                  push('/~/posts')
+                  push('/~/today')
                 }}
               >
                 <Gauge className="mr-2 h-4 w-4" />
-                <span>Posts</span>
+                <span>Dashboard</span>
               </DropdownMenuItem>
 
               <DropdownMenuItem
@@ -126,16 +117,6 @@ export const ProfilePopover = memo(function ProfilePopover({
                 <span>Settings</span>
               </DropdownMenuItem>
 
-              <DropdownMenuItem
-                className="cursor-pointer"
-                onClick={() => {
-                  push('/~/role')
-                }}
-              >
-                <UserCog className="mr-2 h-4 w-4" />
-                <span>Role</span>
-              </DropdownMenuItem>
-
               {/* <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
@@ -144,16 +125,6 @@ export const ProfilePopover = memo(function ProfilePopover({
               >
                 <KeySquare className="mr-2 h-4 w-4" />
                 <span>Access Token</span>
-              </DropdownMenuItem> */}
-
-              {/* <DropdownMenuItem
-                className="cursor-pointer"
-                onClick={() => {
-                  push('/~/backup')
-                }}
-              >
-                <DatabaseBackup className="mr-2 h-4 w-4" />
-                <span>Backup</span>
               </DropdownMenuItem> */}
             </>
           )}
