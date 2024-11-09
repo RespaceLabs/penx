@@ -8,7 +8,7 @@ import { plantreeDB } from '../plantree-db'
 export class NodeDomain {
   constructor(private node: Table<INode, string>) {}
 
-  listNodesByUserId = (userId = (window as any).__USER_ID__) => {
+  listNodesByUserId = (userId = window.__USER_ID__) => {
     return this.node.where({ userId }).toArray()
   }
 
@@ -20,7 +20,7 @@ export class NodeDomain {
     return this.node.where('id').anyOf(nodeIds).delete()
   }
 
-  deleteNodeByUserId = (userId = (window as any).__USER_ID__) => {
+  deleteNodeByUserId = (userId = window.__USER_ID__) => {
     return this.node.where({ userId }).delete()
   }
 

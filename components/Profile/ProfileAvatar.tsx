@@ -14,6 +14,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string
   showEnsName?: boolean
   showAddress?: boolean
+  showDropIcon?: boolean
   image?: string
   showFullAddress?: boolean
   showCopy?: boolean
@@ -27,6 +28,7 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
       showAddress,
       showFullAddress,
       showCopy,
+      showDropIcon,
       image,
       ...rest
     },
@@ -77,10 +79,10 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
                 </div>
               )}
             </div>
-
-            <ChevronDown size={14} />
           </>
         )}
+
+        {showDropIcon && <ChevronDown size={14} />}
       </div>
     )
   },

@@ -66,8 +66,6 @@ const TitlePlugin = createPlatePlugin({
           return event.preventDefault()
         }
 
-        console.log('=======event.key:', event.key)
-
         if (event.key === 'Backspace' && Node.string(titleNode).length === 0) {
           return event.preventDefault()
         }

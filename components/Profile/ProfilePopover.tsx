@@ -41,11 +41,13 @@ interface Props {
   className?: string
   showAddress?: boolean
   showEnsName?: boolean
+  showDropIcon?: boolean
 }
 
 export const ProfilePopover = memo(function ProfilePopover({
   showAddress,
   showEnsName,
+  showDropIcon = false,
   className = '',
 }: Props) {
   const { data } = useSession()
@@ -63,6 +65,7 @@ export const ProfilePopover = memo(function ProfilePopover({
         <ProfileAvatar
           showAddress={showAddress}
           showEnsName={showEnsName}
+          showDropIcon={showDropIcon}
           image={data.user?.image || ''}
           className={cn('cursor-pointer', className)}
         />

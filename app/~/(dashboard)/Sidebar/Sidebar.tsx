@@ -18,6 +18,7 @@ export const Sidebar = () => {
       <div className="px-4 flex items-center h-16">
         <ProfilePopover
           showAddress
+          showDropIcon
           className="px-2 py-2 flex-1 -mx-2 rounded-lg hover:bg-foreground/5 transition-colors"
         />
       </div>

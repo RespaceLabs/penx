@@ -92,7 +92,7 @@ interface Props {
 
 export const SiteProvider = ({ site, children }: PropsWithChildren<Props>) => {
   useEffect(() => {
-    ;(window as any).__SITE__ = site
+    window.__SITE__ = site
   }, [site])
 
   return <SiteContext.Provider value={site}>{children}</SiteContext.Provider>

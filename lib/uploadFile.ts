@@ -17,7 +17,7 @@ export async function uploadFile(
 ) {
   const fileHash = await calculateSHA256FromFile(file)
   let data: UploadReturn = {}
-  const site = (window as any).__SITE__
+  const site = window.__SITE__
 
   if (site.storageProvider === StorageProvider.VERCEL_BLOB) {
     data = await fetch(`/api/upload?fileHash=${fileHash}`, {

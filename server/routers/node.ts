@@ -2,6 +2,7 @@ import { IPFS_ADD_URL, PostStatus } from '@/lib/constants'
 import { INode, NodeType } from '@/lib/model'
 import { prisma } from '@/lib/prisma'
 import { GateType, Node, PostType, Prisma } from '@prisma/client'
+import { TRPCError } from '@trpc/server'
 import { format } from 'date-fns'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
@@ -98,6 +99,62 @@ export const nodeRouter = router({
 
           // TODO: should clean no used nodes
           nodes = await tx.node.findMany({
+            where: { userId },
+          })
+
+          await cleanDeletedNodes(nodes as any, async (id) => {
+            tx.node.delete({
+              where: { id },
+            })
+          })
+
+          return true
+        },
+        {
+          maxWait: 1000 * 60, // default: 2000
+          timeout: 1000 * 60, // default: 5000
+        },
+      )
+    }),
+
+  syncPartial: protectedProcedure
+    .input(
+      z.object({
+        added: z.string(),
+        updated: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const addNodes: INode[] = JSON.parse(input.added) || []
+      const updatedNodes: INode[] = JSON.parse(input.updated) || []
+
+      return prisma.$transaction(
+        async (tx) => {
+          const userId = ctx.token.uid
+
+          const rootNode = await tx.node.findFirst({
+            where: { userId, type: NodeType.ROOT },
+          })
+
+          if (!rootNode) {
+            await tx.node.deleteMany({ where: { userId } })
+            throw new TRPCError({
+              code: 'BAD_REQUEST',
+              message: 'Root node not found',
+              cause: 'ROOT_NODE_NOT_FOUND',
+            })
+          }
+
+          await tx.node.createMany({ data: addNodes })
+
+          const promises = updatedNodes.map((n) => {
+            return tx.node.update({ where: { id: n.id }, data: n })
+          })
+
+          await Promise.all(promises)
+
+          // TODO: should clean no used nodes
+          const nodes = await tx.node.findMany({
             where: { userId },
           })
 

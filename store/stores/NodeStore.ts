@@ -246,7 +246,7 @@ export class NodeStore {
   async selectDailyNote(date: Date = new Date(), isSelectNode = true) {
     const dateStr = format(date, 'yyyy-MM-dd')
 
-    const userId = (window as any).__USER_ID__
+    const userId = window.__USER_ID__
     const newNodes = await db.listNodesByUserId(userId)
 
     let dateNode = newNodes.find(
@@ -272,7 +272,7 @@ export class NodeStore {
   async addNodesToToday(nodes: INode[]) {}
 
   async createPageNode(input: Partial<INode> = {}) {
-    const userId = (window as any).__USER_ID__
+    const userId = window.__USER_ID__
     const node = await db.createPageNode(
       {
         collapsed: true,

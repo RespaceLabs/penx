@@ -103,7 +103,7 @@ export function slateToNodes(
     } else {
       nodes.push({
         id: item?.id || uniqueId(),
-        userId: (window as any).__USER_ID__,
+        userId: window.__USER_ID__,
         parentId: newParentId,
         type: NodeType.COMMON,
         element,

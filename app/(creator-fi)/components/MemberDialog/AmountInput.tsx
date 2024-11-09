@@ -105,7 +105,7 @@ function ToggleItem({ value, children }: PropsWithChildren<{ value: string }>) {
   return (
     <ToggleGroupItem
       value={value}
-      className="h-8 w-12 rounded-full text-xs font-semibold bg-foreground/10 hover:bg-foreground/20 data-[state=on]:bg-black data-[state=on]:text-foreground"
+      className="h-8 w-12 rounded-full text-xs font-semibold bg-foreground/10 hover:bg-foreground/20 data-[state=on]:bg-black data-[state=on]:text-background"
     >
       {children}
     </ToggleGroupItem>

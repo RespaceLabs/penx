@@ -13,9 +13,9 @@ export function StoreProvider(props: PropsWithChildren) {
   const { disconnect } = useDisconnect()
   useEffect(() => {
     if (session) {
-      ;(window as any).__USER_ID__ = session.userId
+      window.__USER_ID__ = session.userId
     } else {
-      ;(window as any).__USER_ID__ = undefined
+      window.__USER_ID__ = undefined as any
     }
   }, [session])
 

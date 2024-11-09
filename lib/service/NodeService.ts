@@ -3,10 +3,17 @@ import { ITitleElement } from '@/components/editor/plugins/title-plugin'
 import { db, emitter } from '@/lib/local-db'
 import { INode, Node, NodeType } from '@/lib/model'
 import { store } from '@/store'
+import { TRPCClientError } from '@trpc/client'
 import _ from 'lodash'
 import { Node as SlateNode, Transforms } from 'slate'
 import { extractTags } from '../extractTags'
+import { slateToNodes } from '../serializer'
 import { api } from '../trpc'
+
+interface NodesUpdatedInfo {
+  updated: INode[]
+  added: INode[]
+}
 
 export class NodeService {
   nodeMap = new Map<string, INode>()
@@ -38,7 +45,7 @@ export class NodeService {
   }
 
   get userId() {
-    return (window as any).__USER_ID__
+    return window.__USER_ID__
   }
 
   get markdownContent() {
@@ -117,7 +124,7 @@ export class NodeService {
     }).toHash()
 
     if (oldHash !== newHash) {
-      console.log('==title==oldHash:', oldHash, 'newHash:', newHash)
+      // console.log('==title==oldHash:', oldHash, 'newHash:', newHash)
 
       node = await this.updateNode(node.id, {
         element: title.children,
@@ -142,32 +149,49 @@ export class NodeService {
       return
     }
 
-    await this.saveBlockNodes(node.id, elements)
-
+    const info = await this.saveBlockNodes(node.id, elements)
     const nodes = await db.listNodesByUserId(this.userId)
 
     store.node.setNodes(nodes)
 
     try {
-      if ((window as any).__SYNCING__) return
-      ;(window as any).__SYNCING__ = true
-      await api.node.sync.mutate({
-        nodes: JSON.stringify(nodes),
+      if (window.__SYNCING__) return
+      window.__SYNCING__ = true
+      await api.node.syncPartial.mutate({
+        added: JSON.stringify(info.added),
+        updated: JSON.stringify(info.updated),
       })
-      ;(window as any).__SYNCING__ = false
     } catch (error) {
-      ;(window as any).__SYNCING__ = false
-      console.log('error syncing nodes:', error)
+      if (error instanceof TRPCClientError) {
+        if (error.message === 'Root node not found') {
+          /** sync all nodes */
+          try {
+            await api.node.sync.mutate({
+              nodes: JSON.stringify(nodes),
+            })
+          } catch (error) {}
+        }
+      }
     }
+    window.__SYNCING__ = false
   }
 
-  saveBlockNodes = async (parentId: string, elements: any[]) => {
-    const userId = (window as any).__USER_ID__
+  saveBlockNodes = async (
+    parentId: string,
+    elements: any[],
+  ): Promise<NodesUpdatedInfo> => {
+    const userId = window.__USER_ID__
     const nodeChildren = elements.map((n) => n.id)
+    const nodeUpdatedInfo: NodesUpdatedInfo = {
+      added: [],
+      updated: [],
+    }
+
     if (!isEqual(this.node.children, nodeChildren)) {
-      await this.updateNode(this.node.id, {
+      const updatedNode = await this.updateNode(this.node.id, {
         children: nodeChildren,
       })
+      nodeUpdatedInfo.updated.push(updatedNode)
     }
 
     for (const item of elements) {
@@ -181,13 +205,15 @@ export class NodeService {
           element: [item],
         }).toHash()
 
-        const userId = (window as any).__USER_ID__
+        const userId = window.__USER_ID__
 
         if (oldHash !== newHash) {
           const newNode = await this.updateNode(item.id, {
             element: [item],
             children: [], // TODO:
           })
+
+          nodeUpdatedInfo.updated.push(newNode)
 
           const node = new Node(newNode)
           if (node.isTodoElement) {
@@ -225,6 +251,8 @@ export class NodeService {
           children: [], // TODO:
         })
 
+        nodeUpdatedInfo.added.push(newNode)
+
         const node = new Node(newNode)
 
         if (node.isTodoElement) {
@@ -257,6 +285,8 @@ export class NodeService {
         }
       }
     }
+
+    return nodeUpdatedInfo
   }
 
   private createNode<T extends INode>(data: Partial<T>) {

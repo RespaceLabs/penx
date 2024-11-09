@@ -2,13 +2,17 @@ import { forwardRef, useRef, useState } from 'react'
 import { ITitleElement } from '@/components/editor/plugins/title-plugin'
 import LoadingDots from '@/components/icons/loading-dots'
 import { uploadFile } from '@/lib/uploadFile'
-import { getUrl, isIPFSCID } from '@/lib/utils'
+import { cn, getUrl, isIPFSCID } from '@/lib/utils'
 import { ImageIcon, X } from 'lucide-react'
 import Image from 'next/image'
 import { Transforms } from 'slate'
 import { ReactEditor, useSlate } from 'slate-react'
 
-export function CoverUpload({ element }: any) {
+interface Props {
+  className?: string
+  element: ITitleElement
+}
+export function CoverUpload({ element, className }: Props) {
   const [value, setValue] = useState(element?.props?.image || '')
   const editor = useSlate()
   const path = ReactEditor.findPath(editor as any, element)
@@ -82,24 +86,22 @@ export function CoverUpload({ element }: any) {
   }
 
   return (
-    <div className="flex">
-      <div
-        className="w-24 h-8 flex relative cursor-pointer items-center"
-        contentEditable={false}
-      >
-        <div className="absolute left-0 top-0 w-full h-full cursor-pointer z-1 flex items-center justify-center gap-1 text-foreground/30 hover:text-foreground/50 text-xs font-normal">
-          <ImageIcon size={16} />
-          <div>Add cover</div>
-        </div>
-
-        <input
-          ref={inputRef}
-          type="file"
-          onChange={handleFileChange}
-          className="absolute left-0 top-0 opacity-0 w-full h-full cursor-pointer z-10"
-        />
-        {loading && <LoadingDots />}
+    <div
+      className="w-24 h-8 flex cursor-pointer items-center absolute -top-8"
+      contentEditable={false}
+    >
+      <div className="absolute left-0 top-0 w-full h-full cursor-pointer z-1 flex items-center justify-center gap-1 text-foreground/30 hover:text-foreground/50 text-xs font-normal bgab">
+        <ImageIcon size={16} className="-ml-3" />
+        <div>Add cover</div>
       </div>
+
+      <input
+        ref={inputRef}
+        type="file"
+        onChange={handleFileChange}
+        className="absolute left-0 top-0 opacity-0 w-full h-full cursor-pointer z-10"
+      />
+      {loading && <LoadingDots />}
     </div>
   )
 }
