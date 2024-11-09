@@ -1,6 +1,7 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
+import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -80,20 +81,20 @@ export function AuthTypeSettingForm({ site }: Props) {
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  className="flex items-center justify-between"
+                  className="flex items-center gap-10"
                 >
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
                       <RadioGroupItem value={AuthType.REOWN} />
                     </FormControl>
-                    <FormLabel className="font-normal">Reown</FormLabel>
+                    <FormLabel className="font-normal">Wallet (web3)</FormLabel>
                   </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
+                  {/* <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
                       <RadioGroupItem value={AuthType.PRIVY} />
                     </FormControl>
                     <FormLabel className="font-normal">Privy</FormLabel>
-                  </FormItem>
+                  </FormItem> */}
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
                       <RadioGroupItem value={AuthType.GOOGLE} />
@@ -143,7 +144,9 @@ export function AuthTypeSettingForm({ site }: Props) {
           />
         )}
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="w-24" disabled={isPending}>
+          {isPending ? <LoadingDots /> : 'Submit'}
+        </Button>
       </form>
     </Form>
   )

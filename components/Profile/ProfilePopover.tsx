@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 import { AuthType } from '@prisma/client'
-import { usePrivy } from '@privy-io/react-auth'
+import { useDisconnect } from '@reown/appkit/react'
 import {
   DatabaseBackup,
   FileText,
@@ -50,8 +50,8 @@ export const ProfilePopover = memo(function ProfilePopover({
 }: Props) {
   const { data } = useSession()
   const { push } = useRouter()
-  const { logout } = usePrivy()
   const { authType } = useSiteContext()
+  const { disconnect } = useDisconnect()
   const isGoogleOauth = authType === AuthType.GOOGLE
 
   if (!data) return <div></div>
@@ -133,11 +133,8 @@ export const ProfilePopover = memo(function ProfilePopover({
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={async () => {
-            if (authType === AuthType.PRIVY) {
-              logout()
-            }
-
             await signOut()
+            await disconnect()
             push('/')
           }}
         >

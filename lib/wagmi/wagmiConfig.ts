@@ -1,6 +1,5 @@
 'use client'
 
-import { createConfig } from '@privy-io/wagmi'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import {
   AppKitNetwork,
@@ -37,15 +36,8 @@ export const wagmiAdapter = new WagmiAdapter({
   networks,
 })
 
-export const privyWagmiConfig = createConfig({
-  chains: [getChain()],
-  transports: {
-    [getChain().id]: http(),
-  } as any,
-})
-
 export const reownWagmiConfig = wagmiAdapter.wagmiConfig
 
 export function getWagmiConfig(isPrivy: boolean) {
-  return isPrivy ? privyWagmiConfig : reownWagmiConfig
+  return reownWagmiConfig
 }

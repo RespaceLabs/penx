@@ -2,7 +2,6 @@
 
 import { Skeleton } from '@/components/ui/skeleton'
 import {
-  PrivyConnectButton,
   ReownConnectButton,
   WalletConnectButton,
 } from '@/components/WalletConnectButton'
@@ -46,7 +45,6 @@ export function Profile({}: Props) {
         <>
           {isGoogleOauth && <GoogleOauthButton />}
           {site.authType === AuthType.REOWN && <ReownConnectButton />}
-          {site.authType === AuthType.PRIVY && <PrivyConnectButton />}
         </>
       )}
 

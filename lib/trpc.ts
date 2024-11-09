@@ -1,7 +1,6 @@
 'use client'
 
 import { AppRouter } from '@/server/_app'
-import { getAccessToken } from '@privy-io/react-auth'
 import { createTRPCClient, httpBatchLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
 import superjson from 'superjson'

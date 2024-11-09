@@ -323,7 +323,7 @@ async function getAuthSecret() {
   return site?.authSecret || ''
 }
 
-export function getChain() {
+function getChain() {
   if (NETWORK === NetworkNames.BASE_SEPOLIA) {
     return baseSepolia
   }

@@ -1,9 +1,7 @@
 'use client'
 
 import { useSiteContext } from '@/components/SiteContext'
-import { AuthType } from '@prisma/client'
 import { EthBalance } from './EthBalance'
-import { ExportPrivateKey } from './ExportPrivateKey'
 import { TreeBalance } from './TreeBalance'
 import { WalletInfo } from './WalletInfo'
 
@@ -14,7 +12,7 @@ export function Wallet() {
       <WalletInfo />
       <EthBalance />
       <TreeBalance />
-      {authType === AuthType.PRIVY && <ExportPrivateKey />}
+      {/* {authType === AuthType.PRIVY && <ExportPrivateKey />} */}
     </div>
   )
 }

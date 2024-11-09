@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import {
-  PrivyConnectButton,
   ReownConnectButton,
   WalletConnectButton,
 } from '@/components/WalletConnectButton'
@@ -31,12 +30,8 @@ export default function HomePage() {
             <div className="text-foreground/40">Wallet login</div>
             <ReownConnectButton size="lg" className="w-full">
               <span className="i-[token--ethm] w-6 h-5"></span>
-              Login with Reown
+              Login with Wallet
             </ReownConnectButton>
-            <PrivyConnectButton size="lg" className="w-full">
-              <span className="i-[token--ethm] w-6 h-5"></span>
-              Login with Privy
-            </PrivyConnectButton>
           </div>
           <Separator />
           <div className="space-y-1">
