@@ -52,7 +52,7 @@ export function PullButton({}: Props) {
             </Button>
           </PopoverClose>
 
-          <Button className="flex-1 gap-1" onClick={pull}>
+          <Button className="flex-1 flex gap-1" onClick={pull}>
             {isLoading ? (
               <>
                 <div>Sync</div>

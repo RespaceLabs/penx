@@ -14,7 +14,7 @@ enum TabTypes {
   Journals = 'Journals',
 }
 export function NodesBox() {
-  const [type, setType] = useState(TabTypes.Journals)
+  const [type, setType] = useState(TabTypes.Notes)
   const { push } = useRouter()
   return (
     <Tabs

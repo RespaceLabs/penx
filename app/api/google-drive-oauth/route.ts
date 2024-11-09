@@ -7,6 +7,9 @@ export async function GET(req: NextRequest) {
   const refresh_token = url.searchParams.get('refresh_token')
   const expiry_date = url.searchParams.get('expiry_date')
   const address = url.searchParams.get('address')
+  const name = url.searchParams.get('name')
+  const picture = url.searchParams.get('picture')
+  const email = url.searchParams.get('email')
 
   if (!access_token || !refresh_token || !expiry_date || !address) {
     return NextResponse.redirect('/error') // Handle error accordingly
@@ -16,6 +19,9 @@ export async function GET(req: NextRequest) {
     where: { address },
     data: {
       google: {
+        name,
+        email,
+        picture,
         access_token,
         refresh_token,
         expiry_date,

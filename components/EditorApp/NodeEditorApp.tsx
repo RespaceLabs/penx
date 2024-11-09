@@ -27,8 +27,6 @@ export function NodeEditorApp({ node }: Props) {
     isOutlinerSpace: false,
   })
 
-  console.log('--------==>>>content:', content)
-
   const debouncedSaveNodes = useDebouncedCallback(async (value: any[]) => {
     await nodeService.saveBlockEditor(node.raw, value)
   }, 300)

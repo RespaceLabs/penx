@@ -6,7 +6,7 @@ import { trpc } from '@/lib/trpc'
 import { GoogleBackupConnected } from './GoogleBackupConnected'
 import { GoogleDriveOauthButton } from './GoogleDriveOauthButton'
 
-function Content() {
+export function GoogleBackup() {
   const {
     data: token,
     isLoading,
@@ -21,25 +21,10 @@ function Content() {
   if (!token?.access_token) {
     return (
       <Suspense fallback={<Skeleton></Skeleton>}>
-        <div>
-          <GoogleDriveOauthButton />
-        </div>
+        <GoogleDriveOauthButton />
       </Suspense>
     )
   }
 
   return <GoogleBackupConnected data={token} refetch={refetch} />
-}
-
-export function GoogleBackup() {
-  return (
-    <div className="relative flex flex-col gap-6">
-      <div>
-        <div className="text-zinc-600 mb-1 text-sm">
-          Use Google Drive to backup your data.
-        </div>
-      </div>
-      <Content />
-    </div>
-  )
 }

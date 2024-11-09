@@ -44,10 +44,10 @@ export function PushButton({}: Props) {
             </Button>
           </PopoverClose>
 
-          <Button className="flex-1 gap-1" onClick={push}>
+          <Button className="flex-1 flex gap-1" onClick={push}>
             {isPending ? (
               <>
-                <div>Sync</div>
+                <div>Syncing</div>
                 <LoadingDots></LoadingDots>
               </>
             ) : (
