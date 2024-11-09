@@ -76,7 +76,7 @@ export const SellPanel = () => {
               typeof tokenBalance === undefined ||
               precision.toDecimal(tokenBalance!) <= 0
             }
-            className="h-6 cursor-pointer rounded-md px-2 text-xs text-white"
+            className="h-6 cursor-pointer rounded-md px-2 text-xs"
           >
             Max
           </Button>

@@ -59,7 +59,7 @@ export const BuyPanel = () => {
           <Button
             onClick={handleMax}
             disabled={!ethBalance}
-            className="h-6 cursor-pointer rounded-md px-2 text-xs text-foreground dark:bg-zinc-800"
+            className="h-6 cursor-pointer rounded-md px-2 text-xs"
           >
             Max
           </Button>

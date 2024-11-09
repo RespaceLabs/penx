@@ -72,8 +72,8 @@ export enum WorkerEvents {
 export const RESPACE_BASE_URI =
   NETWORK === NetworkNames.BASE
     ? 'https://www.respace.one'
-    : 'http://localhost:5000'
-// : 'https://sepolia.respace.one'
+    : // : 'http://localhost:5000'
+      'https://sepolia.respace.one'
 
 export const RESPACE_SUBGRAPH_URL =
   NETWORK === NetworkNames.BASE

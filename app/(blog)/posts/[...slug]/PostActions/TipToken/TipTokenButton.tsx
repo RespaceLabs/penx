@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
 import { Post } from '@plantreexyz/types'
 import { AuthType } from '@prisma/client'
+import { useAppKit } from '@reown/appkit/react'
 import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
 import { TipTokenDialog } from './TipTokenDialog'
@@ -19,10 +20,10 @@ export function TipTokenButton({ post }: Props) {
   const site = useSiteContext()
   const { data, status } = useSession()
   const { address = '' } = useAccount()
-  // useWatchTipEvent()
+  const { open } = useAppKit()
   if (site.authType === AuthType.GOOGLE) return null
 
-  const authenticated = !!data && address
+  const authenticated = !!data
 
   return (
     <>
@@ -33,6 +34,7 @@ export function TipTokenButton({ post }: Props) {
           variant="outline"
           className="rounded-xl text-sm"
           onClick={() => {
+            if (!address) return open()
             setIsOpen(true)
           }}
         >

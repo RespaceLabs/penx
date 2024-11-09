@@ -123,7 +123,7 @@ export const StakingPanel = () => {
 
   const renderButtonContent = () => {
     if (loading) {
-      return <LoadingDots  />
+      return <LoadingDots />
     }
 
     if (!isAmountValid) {
@@ -180,7 +180,7 @@ export const StakingPanel = () => {
               typeof tokenBalance === undefined ||
               precision.toDecimal(tokenBalance!) <= 0
             }
-            className="h-6 cursor-pointer rounded-md px-2 text-xs text-white"
+            className="h-6 cursor-pointer rounded-md px-2 text-xs"
           >
             Max
           </Button>

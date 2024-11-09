@@ -18,8 +18,6 @@ export function NodeEditorApp({ node }: Props) {
 
   const [saving, setSaving] = useState(false)
 
-  console.log('=======node:', node)
-
   const isOutliner = false
 
   const content = nodeToSlate({

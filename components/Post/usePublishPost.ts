@@ -22,7 +22,6 @@ import { useSiteContext } from '../SiteContext'
 export function usePublishPost() {
   const { spaceId } = useSiteContext()
   const { address } = useAccount()
-  const { refetch } = usePosts()
   const [isLoading, setLoading] = useState(false)
   const checkChain = useCheckChain()
   const { writeContractAsync } = useWriteContract()
@@ -80,10 +79,7 @@ export function usePublishPost() {
           content: JSON.stringify(content),
         })
 
-        await refetch()
-
         setLoading(false)
-
         revalidateMetadata(`posts`)
         // revalidateMetadata(`posts-${post.slug}`)
         toast.success('Post published successfully!')
