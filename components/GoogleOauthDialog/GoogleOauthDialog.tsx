@@ -14,6 +14,7 @@ import { getGoogleUserInfo } from '@/lib/getGoogleUserInfo'
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
+import { ClientOnly } from '../ClientOnly'
 import { useGoogleOauthDialog } from './useGoogleOauthDialog'
 
 export function GoogleOauthDialog() {
@@ -59,11 +60,11 @@ export function GoogleOauthDialog() {
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
       <DialogContent
         closable={false}
-        className="h-64 flex items-center justify-center"
+        className="h-64 flex items-center justify-center w-[96%] sm:max-w-[425px] rounded-xl focus-visible:outline-none"
       >
         <IconGoogle className="w-6 h-6" />
         <div className="text-lg">Logging in</div>
-        {/* <LoadingCircle dimensions="h-20 w-20" /> */} <LoadingDots />
+        <LoadingDots className="bg-foreground/60" />
       </DialogContent>
     </Dialog>
   )

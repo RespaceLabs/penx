@@ -40,7 +40,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="h-screen flex fixed top-0 left-0 bottom-0 right-0">
       <div
-        className={cn('h-screen sticky top-0 left-0')}
+        className={cn('h-screen sticky top-0 left-0 hidden md:flex')}
         style={{ width: SIDEBAR_WIDTH }}
       >
         <Sidebar />

@@ -34,7 +34,6 @@ export default function HomePage() {
           {/* <Separator /> */}
           <div className="space-y-1">
             {/* <div className="text-foreground/40">Web2 login</div> */}
-            <GoogleOauthDialog />
             <GoogleOauthButton
               variant="secondary"
               size="lg"

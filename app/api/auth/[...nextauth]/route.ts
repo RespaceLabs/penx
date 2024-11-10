@@ -191,7 +191,7 @@ async function handler(req: Request, res: Response) {
         },
         async authorize(credentials) {
           try {
-            console.log('googo..............')
+            console.log('>>>>> gogle auth..............')
 
             if (!credentials?.email || !credentials?.openid) {
               throw new Error('Login fail')

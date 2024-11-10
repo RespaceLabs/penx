@@ -14,7 +14,7 @@ export const Sidebar = () => {
   const pathname = usePathname()
 
   return (
-    <div className="flex-col flex-1 hidden md:flex gap-3 h-screen border-r border-r-sidebar">
+    <div className="flex-col flex-1 flex gap-3 h-screen border-r border-r-sidebar">
       <div className="px-4 flex items-center h-16">
         <ProfilePopover
           showAddress

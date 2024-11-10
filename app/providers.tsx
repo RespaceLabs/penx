@@ -1,5 +1,7 @@
 'use client'
 
+import { Suspense } from 'react'
+import { GoogleOauthDialog } from '@/components/GoogleOauthDialog/GoogleOauthDialog'
 import { SiteProvider } from '@/components/SiteContext'
 import { trpc, trpcClient } from '@/lib/trpc'
 import { config } from '@/lib/wagmi/wagmiConfig'
@@ -35,6 +37,9 @@ export function Providers({
       <SiteProvider site={site}>
         <Toaster className="dark:hidden" />
         <Toaster theme="dark" className="hidden dark:block" />
+        <Suspense>
+          <GoogleOauthDialog />
+        </Suspense>
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <WagmiProvider config={config}>
             <QueryClientProvider client={queryClient}>
