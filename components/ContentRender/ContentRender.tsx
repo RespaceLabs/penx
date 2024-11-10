@@ -1,19 +1,18 @@
 'use client'
 
-import { Post } from '@plantreexyz/types'
 import { createEditor } from 'slate'
 import { Slate, withReact } from 'slate-react'
 import { SlateContent } from './SlateContent'
 
 interface Props {
-  post: Post
+  content: any
 }
 
-export function PostRender({ post }: Props) {
+export function ContentRender({ content }: Props) {
   const editor = withReact(createEditor())
 
   return (
-    <Slate editor={editor} initialValue={post.content}>
+    <Slate editor={editor} initialValue={content}>
       <SlateContent />
     </Slate>
   )

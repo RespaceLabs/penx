@@ -29,9 +29,9 @@ export function SettingNav({}: Props) {
       <Link href={Paths.general} className={linkClassName(Paths.general)}>
         General
       </Link>
-      <Link href={Paths.authType} className={linkClassName(Paths.authType)}>
+      {/* <Link href={Paths.authType} className={linkClassName(Paths.authType)}>
         Auth type
-      </Link>
+      </Link> */}
       <Link href={Paths.web3} className={linkClassName(Paths.web3)}>
         Web3
       </Link>

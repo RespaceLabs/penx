@@ -13,6 +13,7 @@ generator client {
 enum AuthType {
   GOOGLE
   REOWN
+  RAINBOW_KIT
   PRIVY
 }
 
@@ -34,7 +35,7 @@ model Site {
   image           String?         @default("") @db.VarChar(2183)
   email           String?         @unique @db.VarChar(255)
   authSecret      String?         @unique @db.VarChar(255)
-  authType        AuthType        @default(REOWN)
+  authType        AuthType        @default(RAINBOW_KIT)
   authConfig      Json?
   storageProvider StorageProvider @default(IPFS)
   storageConfig   Json?

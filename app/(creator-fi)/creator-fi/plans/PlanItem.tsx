@@ -10,7 +10,7 @@ import { useSubscriptions } from '@/app/(creator-fi)/hooks/useSubscriptions'
 import { PlateEditor } from '@/components/editor/plate-editor'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { useAppKit } from '@reown/appkit/react'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { EditIcon } from 'lucide-react'
 import { useAccount } from 'wagmi'
 import { useUpdatePlanDialog } from './UpdatePlanDialog/useUpdatePlanDialog'
@@ -25,7 +25,7 @@ export function PlanItem({ plan }: Props) {
   const { setState } = useUpdatePlanDialog()
   const { space } = useSpace()
   const { isConnected } = useAccount()
-  const { open } = useAppKit()
+  const { openConnectModal } = useConnectModal()
   const { subscriptions } = useSubscriptions()
   const { setState: setMemberState } = useMemberDialog()
   const subscription = subscriptions.find((s) => s.planId === plan.id)!
@@ -65,7 +65,7 @@ export function PlanItem({ plan }: Props) {
       <Button
         // variant="outline"
         onClick={() => {
-          if (!isConnected) return open()
+          if (!isConnected) return openConnectModal?.()
           setMemberState({
             isOpen: true,
             plan,

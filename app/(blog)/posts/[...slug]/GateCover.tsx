@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { useAppKit } from '@reown/appkit/react'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
 
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function GateCover({ slug }: Props) {
-  const { open } = useAppKit()
+  const { openConnectModal } = useConnectModal()
   const { isConnected } = useAccount()
   const { data } = useSession()
   return (
@@ -24,7 +24,7 @@ export function GateCover({ slug }: Props) {
           className="w-48 rounded-xl"
           onClick={() => {
             if (!isConnected) {
-              open()
+              openConnectModal?.()
             }
             if (data) {
               location.href = `/creator-fi/plans?post_slug=${slug}`

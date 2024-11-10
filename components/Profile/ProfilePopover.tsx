@@ -18,7 +18,6 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 import { AuthType } from '@prisma/client'
-import { useDisconnect } from '@reown/appkit/react'
 import {
   DatabaseBackup,
   FileText,
@@ -53,7 +52,6 @@ export const ProfilePopover = memo(function ProfilePopover({
   const { data } = useSession()
   const { push } = useRouter()
   const { authType } = useSiteContext()
-  const { disconnect } = useDisconnect()
   const isGoogleOauth = authType === AuthType.GOOGLE
 
   if (!data) return <div></div>
@@ -136,9 +134,10 @@ export const ProfilePopover = memo(function ProfilePopover({
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={async () => {
-            await signOut()
-            await disconnect()
-            push('/')
+            try {
+              await signOut()
+              push('/')
+            } catch (error) {}
           }}
         >
           <LogOut className="mr-2 h-4 w-4" />

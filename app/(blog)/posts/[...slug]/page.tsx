@@ -1,3 +1,4 @@
+import { ContentRender } from '@/components/ContentRender/ContentRender'
 import { getPost, getPosts } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
 import { TipTapNode } from '@plantreexyz/types'
@@ -7,7 +8,6 @@ import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 import { PaidContent } from './PaidContent'
 import { PostActions } from './PostActions/PostActions'
-import { PostRender } from './PostRender/PostRender'
 
 function getContent(post: Post, isGated = false) {
   const node: TipTapNode = JSON.parse(post.content || '{}')
@@ -69,7 +69,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
         next={next}
         prev={prev}
         PostActions={PostActions}
-        PostRender={PostRender}
+        ContentRender={ContentRender}
       />
     )
   }

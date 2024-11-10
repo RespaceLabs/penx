@@ -26,13 +26,6 @@ export function StoreProvider(props: PropsWithChildren) {
 
   useEffect(() => {
     if (status === 'loading') return
-    if (status == 'unauthenticated' && address) {
-      disconnect()
-    }
-  }, [status, address, disconnect])
-
-  useEffect(() => {
-    if (status === 'loading') return
 
     if (status == 'authenticated') {
       if (
@@ -42,7 +35,7 @@ export function StoreProvider(props: PropsWithChildren) {
         push('/~/today')
       }
     }
-  }, [status, session, address, disconnect, push, pathname])
+  }, [status, session, push, pathname])
 
   return (
     <Provider store={store}>

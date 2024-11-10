@@ -4,16 +4,15 @@ import { prisma } from '@/lib/prisma'
 import { SubscriptionInSession } from '@/lib/types'
 import { User, UserRole } from '@prisma/client'
 import { AuthTokenClaims, PrivyClient } from '@privy-io/server-auth'
-import {
-  getAddressFromMessage,
-  getChainIdFromMessage,
-  verifySignature,
-  type SIWESession,
-} from '@reown/appkit-siwe'
 import NextAuth, { type NextAuthOptions } from 'next-auth'
 import credentialsProvider from 'next-auth/providers/credentials'
 import { Address, createPublicClient, http } from 'viem'
 import { base, baseSepolia } from 'viem/chains'
+import {
+  parseSiweMessage,
+  validateSiweMessage,
+  type SiweMessage,
+} from 'viem/siwe'
 
 type GoogleLoginInfo = {
   email: string
@@ -23,7 +22,7 @@ type GoogleLoginInfo = {
 }
 
 declare module 'next-auth' {
-  interface Session extends SIWESession {
+  interface Session {
     address: string
     name: string
     chainId: number | string
@@ -50,39 +49,63 @@ async function handler(req: Request, res: Response) {
         credentials: {
           message: {
             label: 'Message',
-            type: 'text',
             placeholder: '0x0',
+            type: 'text',
           },
           signature: {
             label: 'Signature',
-            type: 'text',
             placeholder: '0x0',
+            type: 'text',
           },
         },
-        async authorize(credentials) {
+        async authorize(credentials: any) {
           try {
-            if (!credentials?.message) {
-              throw new Error('SiweMessage is undefined')
-            }
-            const { message, signature } = credentials
-            const address = getAddressFromMessage(message)
-            const chainId = getChainIdFromMessage(message)
+            const siweMessage = parseSiweMessage(
+              credentials?.message,
+            ) as SiweMessage
 
-            const isValid = await verifySignature({
-              address,
-              message,
-              signature,
-              chainId,
-              projectId: PROJECT_ID,
+            if (
+              !validateSiweMessage({
+                address: siweMessage?.address,
+                message: siweMessage,
+              })
+            ) {
+              return null
+            }
+
+            const nextAuthUrl =
+              process.env.NEXTAUTH_URL ||
+              (process.env.VERCEL_URL
+                ? `https://${process.env.VERCEL_URL}`
+                : null)
+            if (!nextAuthUrl) {
+              return null
+            }
+
+            const nextAuthHost = new URL(nextAuthUrl).host
+            if (siweMessage.domain !== nextAuthHost) {
+              return null
+            }
+
+            const publicClient = createPublicClient({
+              chain: getChain(),
+              transport: http(),
             })
 
-            if (isValid) {
-              const user = await createUserByAddress(address)
-              updateSubscriptions(address as Address)
-              return { chainId, ...user }
-            }
+            const valid = await publicClient.verifyMessage({
+              address: siweMessage?.address,
+              message: credentials?.message,
+              signature: credentials?.signature,
+            })
 
-            return null
+            if (!valid) {
+              return null
+            }
+            const address = siweMessage.address
+
+            const user = await createUserByAddress(address)
+            updateSubscriptions(address as Address)
+            return { ...user }
           } catch (e) {
             return null
           }
@@ -168,6 +191,8 @@ async function handler(req: Request, res: Response) {
         },
         async authorize(credentials) {
           try {
+            console.log('googo..............')
+
             if (!credentials?.email || !credentials?.openid) {
               throw new Error('Login fail')
             }

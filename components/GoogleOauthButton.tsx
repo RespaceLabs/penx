@@ -53,11 +53,11 @@ export function GoogleOauthButton({
       }}
       {...rest}
     >
-      {loading && <LoadingDots  />}
+      {loading && <LoadingDots className="bg-foreground/50" />}
       {!loading && (
         <>
           <IconGoogle className="w-4 h-4" />
-          <div className="">{children || 'Login'}</div>
+          <div className="">{children || 'Google login (web2)'}</div>
         </>
       )}
     </Button>

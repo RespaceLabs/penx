@@ -3,44 +3,36 @@
 import { Button, ButtonProps } from '@/components/ui/button'
 import { useAddress } from '@/hooks/useAddress'
 import { AuthType } from '@prisma/client'
-import { useAppKit } from '@reown/appkit/react'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { signIn } from 'next-auth/react'
 import { useSiteContext } from './SiteContext'
 import { Avatar, AvatarFallback } from './ui/avatar'
 
-interface Props extends ButtonProps {
-  authType?: AuthType
-}
+interface Props extends ButtonProps {}
 
-export const ReownConnectButton = (props: Props) => {
+export const WalletConnectButton = (props: Props) => {
+  const { openConnectModal } = useConnectModal()
   const address = useAddress()
-  const { open } = useAppKit()
+
   async function onOpen() {
-    await open()
+    openConnectModal?.()
   }
 
   function onClick() {
     onOpen()
   }
 
-  if (address) {
-    return (
-      <Avatar className="h-8 w-8">
-        <AvatarFallback></AvatarFallback>
-      </Avatar>
-    )
-  }
+  // if (address) {
+  //   return (
+  //     <Avatar className="h-8 w-8">
+  //       <AvatarFallback></AvatarFallback>
+  //     </Avatar>
+  //   )
+  // }
 
   return (
     <Button onClick={onClick} {...props}>
       {props.children ? props.children : 'Connect'}
     </Button>
   )
-}
-
-export const WalletConnectButton = (props: Props) => {
-  const { authType, ...rest } = props
-  if (props.authType === AuthType.REOWN) return <ReownConnectButton {...rest} />
-
-  return <ReownConnectButton {...rest} />
 }

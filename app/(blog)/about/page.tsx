@@ -1,3 +1,4 @@
+import { ContentRender } from '@/components/ContentRender/ContentRender'
 import { getSite } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
 
@@ -12,5 +13,5 @@ export default async function HomePage() {
     return <div>Theme not found</div>
   }
 
-  return <AboutPage site={site} />
+  return <AboutPage site={site} ContentRender={ContentRender} />
 }

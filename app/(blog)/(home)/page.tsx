@@ -1,3 +1,4 @@
+import { ContentRender } from '@/components/ContentRender/ContentRender'
 import { getPosts, getSite } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
 import { Metadata, ResolvingMetadata } from 'next'
@@ -23,5 +24,12 @@ export default async function HomePage() {
     return <div>Theme not found</div>
   }
 
-  return <HomePage posts={posts} authors={[]} site={site} />
+  return (
+    <HomePage
+      posts={posts}
+      authors={[]}
+      site={site}
+      ContentRender={ContentRender}
+    />
+  )
 }

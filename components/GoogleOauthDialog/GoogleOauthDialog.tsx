@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback, useEffect, useState } from 'react'
 import { IconGoogle } from '@/components/icons/IconGoogle'
 import LoadingCircle from '@/components/icons/loading-circle'

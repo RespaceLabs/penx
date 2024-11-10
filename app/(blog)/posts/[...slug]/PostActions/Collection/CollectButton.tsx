@@ -6,7 +6,7 @@ import { WalletConnectButton } from '@/components/WalletConnectButton'
 import { cn } from '@/lib/utils'
 import { Post } from '@plantreexyz/types'
 import { AuthType } from '@prisma/client'
-import { useAppKit } from '@reown/appkit/react'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
 import { CollectDialog } from './CollectDialog'
@@ -22,7 +22,7 @@ export function CollectButton({ post, className }: Props) {
   const site = useSiteContext()
   const { data, status } = useSession()
   const { address = '' } = useAccount()
-  const { open } = useAppKit()
+  const { openConnectModal } = useConnectModal()
   if (site.authType === AuthType.GOOGLE) return null
 
   const authenticated = !!data
@@ -36,7 +36,9 @@ export function CollectButton({ post, className }: Props) {
           variant="brand"
           className={cn('rounded-xl text-sm', className)}
           onClick={() => {
-            if (!address) return open()
+            if (!address) {
+              return openConnectModal?.()
+            }
             setIsOpen(true)
           }}
         >
@@ -47,7 +49,6 @@ export function CollectButton({ post, className }: Props) {
           size="sm"
           variant="brand"
           className={cn('rounded-xl text-sm', className)}
-          authType={site.authType}
         >
           Collect
         </WalletConnectButton>

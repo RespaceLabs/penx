@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
 import { Post } from '@plantreexyz/types'
 import { AuthType } from '@prisma/client'
-import { useAppKit } from '@reown/appkit/react'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
 import { TipTokenDialog } from './TipTokenDialog'
@@ -20,7 +20,7 @@ export function TipTokenButton({ post }: Props) {
   const site = useSiteContext()
   const { data, status } = useSession()
   const { address = '' } = useAccount()
-  const { open } = useAppKit()
+  const { openConnectModal } = useConnectModal()
   if (site.authType === AuthType.GOOGLE) return null
 
   const authenticated = !!data
@@ -34,7 +34,10 @@ export function TipTokenButton({ post }: Props) {
           variant="outline"
           className="rounded-xl text-sm"
           onClick={() => {
-            if (!address) return open()
+            if (!address) {
+              return openConnectModal?.()
+            }
+
             setIsOpen(true)
           }}
         >
@@ -45,7 +48,6 @@ export function TipTokenButton({ post }: Props) {
           size="sm"
           variant="outline"
           className="rounded-xl text-sm"
-          authType={site.authType}
         >
           Tip $TREE
         </WalletConnectButton>
