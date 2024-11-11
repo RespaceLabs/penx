@@ -13,7 +13,7 @@ export function getChain() {
 }
 
 export const config = getDefaultConfig({
-  appName: 'Plantree',
+  appName: 'PenX',
   projectId: PROJECT_ID,
   chains: [getChain()],
   ssr: true,

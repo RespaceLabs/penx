@@ -1,7 +1,7 @@
 import { HTTPError } from 'ky'
 import { sleep } from '../utils'
 
-const GOOGLE_DRIVE_FOLDER_NAME = 'plantree-'
+const GOOGLE_DRIVE_FOLDER_NAME = 'penx-'
 
 const timeMap: Record<string, number> = {
   '10m': 10 * 60 * 1000,

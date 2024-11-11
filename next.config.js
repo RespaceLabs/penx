@@ -20,9 +20,9 @@ module.exports = {
   },
   transpilePackages: [
     'react-tweet',
-    'plantree-theme-micro',
-    'plantree-theme-card',
-    'plantree-theme-minimal',
+    'penx-theme-micro',
+    'penx-theme-card',
+    'penx-theme-minimal',
   ],
 
   images: {

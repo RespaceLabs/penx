@@ -10,7 +10,7 @@ import {
 import { UserAvatar } from '@/components/UserAvatar'
 import { useCollectRecords } from '@/hooks/useCollectRecords'
 import { shortenAddress } from '@/lib/utils'
-import { Post } from '@plantreexyz/types'
+import { Post } from '@penxio/types'
 import { useCollectorsDialog } from './useCollectorsDialog'
 
 interface Props {

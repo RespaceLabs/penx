@@ -1,6 +1,6 @@
 'use client'
 
-import { Post } from '@plantreexyz/types'
+import { Post } from '@penxio/types'
 import { CollectButton } from './Collection/CollectButton'
 import { CollectorsDialog } from './CollectorsDialog/CollectorsDialog'
 import { MintedAmount } from './MintedAmount'

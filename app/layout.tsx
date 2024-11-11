@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: site.name,
     description: site.description,
-    // icons: ['https://plantree.xyz/favicon.ico'],
+    // icons: ['https://penx.io/favicon.ico'],
     openGraph: {
       title: site.name,
       description: site.description,
@@ -40,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
       images: site.image ? [site.image] : undefined,
       creator: site.name,
     },
-    metadataBase: new URL('https://plantree.xyz'),
+    metadataBase: new URL('https://penx.io'),
   }
 }
 

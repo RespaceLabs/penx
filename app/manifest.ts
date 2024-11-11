@@ -5,8 +5,8 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
   // if (process.env.NODE_ENV === 'development') return {}
   const site = await getSite()
   return {
-    name: site.name || 'Plantree',
-    short_name: site.name || 'Plantree',
+    name: site.name || 'PenX',
+    short_name: site.name || 'PenX',
     description: site.description || '',
     start_url: '/',
     display: 'standalone',

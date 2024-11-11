@@ -6,7 +6,7 @@ import { SiteProvider } from '@/components/SiteContext'
 import { trpc, trpcClient } from '@/lib/trpc'
 import { config } from '@/lib/wagmi/wagmiConfig'
 import { StoreProvider } from '@/store'
-import { Site } from '@plantreexyz/types'
+import { Site } from '@penxio/types'
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import {
   GetSiweMessageOptions,

@@ -165,8 +165,8 @@ async function handler(req: Request, res: Response) {
       }),
 
       credentialsProvider({
-        id: 'plantree-google',
-        name: 'Plantree',
+        id: 'penx-google',
+        name: 'PenX',
         credentials: {
           email: {
             label: 'Email',

@@ -19,7 +19,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Site } from '@plantreexyz/types'
+import { Site } from '@penxio/types'
 import { toast } from 'sonner'
 import { z } from 'zod'
 

@@ -21,7 +21,7 @@ import { uniqueId } from '@/lib/unique-id'
 import { arrayMoveImmutable } from 'array-move'
 import { formatTagName } from '../libs/formatTagName'
 import { getRandomColor } from '../libs/getRandomColor'
-import { PlantreeDB, plantreeDB } from '../plantree-db'
+import { PenxDB, penxDB } from '../penx-db'
 import {
   AddRowByFieldNameOptions,
   AddRowOptions,
@@ -33,7 +33,7 @@ import { NodeDomain, nodeDomain } from './node.domain'
 
 export class DatabaseDomain {
   constructor(
-    private penx: PlantreeDB,
+    private penx: PenxDB,
     private node: NodeDomain,
   ) {}
 
@@ -1335,4 +1335,4 @@ export class DatabaseDomain {
   }
 }
 
-export const databaseDomain = new DatabaseDomain(plantreeDB, nodeDomain)
+export const databaseDomain = new DatabaseDomain(penxDB, nodeDomain)

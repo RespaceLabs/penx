@@ -29,7 +29,7 @@ export function GoogleOauthDialog() {
         const info = await getGoogleUserInfo(accessToken)
         console.log('=====info:', info)
 
-        const result = await signIn('plantree-google', {
+        const result = await signIn('penx-google', {
           email: info.email,
           openid: info.sub,
           picture: info.picture,

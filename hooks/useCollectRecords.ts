@@ -1,4 +1,4 @@
-import { PLANTREE_SUBGRAPH_URL } from '@/lib/constants'
+import { PENX_SUBGRAPH_URL } from '@/lib/constants'
 import { MintRecord } from '@/lib/types'
 import { useQuery } from '@tanstack/react-query'
 import { gql, request } from 'graphql-request'
@@ -21,7 +21,7 @@ export function useCollectRecords(creationId: string) {
     queryKey: ['mintRecords', creationId],
     async queryFn() {
       return request({
-        url: PLANTREE_SUBGRAPH_URL,
+        url: PENX_SUBGRAPH_URL,
         document: query,
         variables: {
           creationId: creationId,

@@ -1,4 +1,4 @@
-import { Site } from '@plantreexyz/types'
+import { Site } from '@penxio/types'
 
 declare global {
   interface Window {

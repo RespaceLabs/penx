@@ -1,7 +1,7 @@
 import { editorDefaultValue } from '@/app/(creator-fi)/constants'
 import { prisma } from '@/lib/prisma'
 import { getUrl } from '@/lib/utils'
-import { Site } from '@plantreexyz/types'
+import { Site } from '@penxio/types'
 import { AuthType, StorageProvider } from '@prisma/client'
 
 export async function getSite() {

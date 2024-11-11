@@ -1,4 +1,4 @@
-import { PLANTREE_SUBGRAPH_URL } from '@/lib/constants'
+import { PENX_SUBGRAPH_URL } from '@/lib/constants'
 import { useQuery } from '@tanstack/react-query'
 import { gql, request } from 'graphql-request'
 
@@ -23,7 +23,7 @@ export function useTipInfo(postId: string) {
     queryKey: ['creation', postId],
     async queryFn() {
       return request({
-        url: PLANTREE_SUBGRAPH_URL,
+        url: PENX_SUBGRAPH_URL,
         document: query,
         variables: {
           postId: postId,

@@ -16,7 +16,7 @@ import { addressMap } from '@/lib/address'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { api } from '@/lib/trpc'
-import { Post } from '@plantreexyz/types'
+import { Post } from '@penxio/types'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
 import pRetry, { AbortError } from 'p-retry'
 import { toast } from 'sonner'
@@ -138,7 +138,7 @@ export function TipTokenDialog({ post }: Props) {
             <li>
               Linking your socials account to{' '}
               <a className="text-brand-500" href="https://farcaster.xyz">
-                plantree.xyz
+                penx.io
               </a>
               .
             </li>

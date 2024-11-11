@@ -1,7 +1,7 @@
 import { ContentRender } from '@/components/ContentRender/ContentRender'
 import { getPost, getPosts } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
-import { TipTapNode } from '@plantreexyz/types'
+import { TipTapNode } from '@penxio/types'
 import { GateType, Post } from '@prisma/client'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'

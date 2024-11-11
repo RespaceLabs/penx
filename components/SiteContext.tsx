@@ -5,7 +5,7 @@ import { ELECTRIC_BASE_URL, isServer } from '@/lib/constants'
 import { PGlite } from '@electric-sql/pglite'
 import { electricSync } from '@electric-sql/pglite-sync'
 import { live } from '@electric-sql/pglite/live'
-import { Site } from '@plantreexyz/types'
+import { Site } from '@penxio/types'
 
 let inited = false
 
@@ -13,7 +13,7 @@ async function runPG() {
   console.log('init.........')
 
   const db = await PGlite.create({
-    dataDir: 'idb://plantree',
+    dataDir: 'idb://penx',
     extensions: {
       electric: electricSync({ debug: true }),
       live,

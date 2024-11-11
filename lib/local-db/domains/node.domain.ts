@@ -3,7 +3,7 @@ import { Table } from 'dexie'
 import { formatToDate } from '../libs/formatToDate'
 import { getCommonNode } from '../libs/getCommonNode'
 import { getNewNode } from '../libs/getNewNode'
-import { plantreeDB } from '../plantree-db'
+import { penxDB } from '../penx-db'
 
 export class NodeDomain {
   constructor(private node: Table<INode, string>) {}
@@ -245,4 +245,4 @@ export class NodeDomain {
   }
 }
 
-export const nodeDomain = new NodeDomain(plantreeDB.node)
+export const nodeDomain = new NodeDomain(penxDB.node)

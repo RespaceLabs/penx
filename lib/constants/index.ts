@@ -5,23 +5,22 @@ export const isBrowser = typeof window !== 'undefined'
 export const isProd = process.env.NODE_ENV === 'production'
 export const isNavigator = typeof navigator !== 'undefined'
 
-export const GOOGLE_OAUTH_REDIRECT_URI =
-  'https://www.plantree.xyz/api/google-oauth'
+export const GOOGLE_OAUTH_REDIRECT_URI = 'https://www.penx.io/api/google-oauth'
 
-export const IPFS_UPLOAD_URL = 'https://www.plantree.xyz/api/ipfs-upload'
-export const IPFS_ADD_URL = 'https://www.plantree.xyz/api/ipfs-add'
+export const IPFS_UPLOAD_URL = 'https://www.penx.io/api/ipfs-upload'
+export const IPFS_ADD_URL = 'https://www.penx.io/api/ipfs-add'
 // export const IPFS_ADD_URL = 'http://localhost:4000/api/ipfs-add'
 export const IPFS_GATEWAY = 'https://ipfs-gateway.spaceprotocol.xyz'
 
-export const ALLOCATION_CAP_URL = 'https://www.plantree.xyz/api/allocation-cap'
+export const ALLOCATION_CAP_URL = 'https://www.penx.io/api/allocation-cap'
 
 export const ELECTRIC_BASE_URL = 'http://43.154.135.183:3000'
 
 export const GOOGLE_DRIVE_OAUTH_REDIRECT_URI =
-  'https://www.plantree.xyz/api/google-drive-oauth'
+  'https://www.penx.io/api/google-drive-oauth'
 
 export const REFRESH_GOOGLE_DRIVE_OAUTH_TOKEN_URL =
-  'https://www.plantree.xyz/api/refresh-google-drive-token'
+  'https://www.penx.io/api/refresh-google-drive-token'
 
 export const GOOGLE_CLIENT_ID =
   '864679274232-niev1df1dak216q5natclfvg5fhtp7fg.apps.googleusercontent.com'
@@ -29,8 +28,8 @@ export const GOOGLE_CLIENT_ID =
 export const PROJECT_ID =
   process.env.NEXT_PUBLIC_PROJECT_ID || '3d31c4aa12acd88d0b8cad38b0a5686a'
 
-export const GOOGLE_DRIVE_FOLDER_PREFIX = `plantree-`
-export const GOOGLE_DRIVE_FOLDER = 'plantree'
+export const GOOGLE_DRIVE_FOLDER_PREFIX = `penx-`
+export const GOOGLE_DRIVE_FOLDER = 'penx'
 
 export enum TradeType {
   BUY = 'BUY',
@@ -80,7 +79,7 @@ export const RESPACE_SUBGRAPH_URL =
     ? 'https://gateway.thegraph.com/api/c2921e95d896043ce3602d19cbbedcd2/subgraphs/id/CU3uKSKPmb5UP2imvySrJSHpU5DDnfpV5TdjWqbeZ85M'
     : 'https://api.studio.thegraph.com/query/88544/respace-base-sepolia/version/latest'
 
-export const PLANTREE_SUBGRAPH_URL =
+export const PENX_SUBGRAPH_URL =
   NETWORK === NetworkNames.BASE
     ? 'https://api.studio.thegraph.com/query/88544/creation-sepolia/version/latest'
     : 'https://api.studio.thegraph.com/query/88544/creation-sepolia/version/latest'

@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useCreation } from '@/hooks/useCreation'
 import { useTipInfo } from '@/hooks/useTipInfo'
 import { precision } from '@/lib/math'
-import { Post } from '@plantreexyz/types'
+import { Post } from '@penxio/types'
 import { Bookmark, TreeDeciduousIcon } from 'lucide-react'
 
 interface Props {

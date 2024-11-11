@@ -1,12 +1,12 @@
 import { databaseDomain } from './domains/database.domain'
 import { initDomain } from './domains/init.domain'
 import { nodeDomain } from './domains/node.domain'
-import { plantreeDB } from './plantree-db'
+import { penxDB } from './penx-db'
 
 export const db = {
-  ...plantreeDB,
+  ...penxDB,
   ...initDomain,
   ...nodeDomain,
   ...databaseDomain,
-  plantreeDB,
+  penxDB,
 }

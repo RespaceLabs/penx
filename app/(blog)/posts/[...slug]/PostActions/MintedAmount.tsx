@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useCreation } from '@/hooks/useCreation'
-import { Post } from '@plantreexyz/types'
+import { Post } from '@penxio/types'
 import { Bookmark } from 'lucide-react'
 import { useCollectorsDialog } from './CollectorsDialog/useCollectorsDialog'
 

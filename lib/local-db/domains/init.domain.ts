@@ -3,13 +3,13 @@ import { NodeType } from '@/lib/model'
 import { formatToDate } from '../libs/formatToDate'
 import { getCommonNode } from '../libs/getCommonNode'
 import { getNewNode } from '../libs/getNewNode'
-import { plantreeDB, PlantreeDB } from '../plantree-db'
+import { penxDB, PenxDB } from '../penx-db'
 import { databaseDomain, DatabaseDomain } from './database.domain'
 import { nodeDomain, NodeDomain } from './node.domain'
 
 export class InitDomain {
   constructor(
-    private penx: PlantreeDB,
+    private penx: PenxDB,
     private node: NodeDomain,
     private database: DatabaseDomain,
   ) {}
@@ -81,4 +81,4 @@ export class InitDomain {
   }
 }
 
-export const initDomain = new InitDomain(plantreeDB, nodeDomain, databaseDomain)
+export const initDomain = new InitDomain(penxDB, nodeDomain, databaseDomain)

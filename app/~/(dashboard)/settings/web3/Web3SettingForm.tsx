@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Site } from '@plantreexyz/types'
+import { Site } from '@penxio/types'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -66,7 +66,7 @@ export function Web3SettingForm({ site }: Props) {
             <FormItem className="w-full">
               <FormLabel>Space ID</FormLabel>
               <FormDescription>
-                Create a space to get a Space ID in: https://www.plantree.xyz
+                Create a space to get a Space ID in: https://www.penx.io
               </FormDescription>
               <FormControl>
                 <Input placeholder="" {...field} className="w-full" />

@@ -1,7 +1,7 @@
 'use client'
 
 import { SubscriptionInSession } from '@/lib/types'
-import { TipTapNode } from '@plantreexyz/types'
+import { TipTapNode } from '@penxio/types'
 import { Post } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import dynamic from 'next/dynamic'
