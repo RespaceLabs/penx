@@ -64,6 +64,8 @@ async function handler(req: Request, res: Response) {
               credentials?.message,
             ) as SiweMessage
 
+            console.log('111111111111111')
+
             if (
               !validateSiweMessage({
                 address: siweMessage?.address,
@@ -72,20 +74,23 @@ async function handler(req: Request, res: Response) {
             ) {
               return null
             }
+            console.log('2222222222222222222')
 
-            const nextAuthUrl =
-              process.env.NEXTAUTH_URL ||
-              (process.env.VERCEL_URL
-                ? `https://${process.env.VERCEL_URL}`
-                : null)
-            if (!nextAuthUrl) {
-              return null
-            }
+            // const nextAuthUrl =
+            //   process.env.NEXTAUTH_URL ||
+            //   (process.env.VERCEL_URL
+            //     ? `https://${process.env.VERCEL_URL}`
+            //     : null)
+            // if (!nextAuthUrl) {
+            //   return null
+            // }
 
-            const nextAuthHost = new URL(nextAuthUrl).host
-            if (siweMessage.domain !== nextAuthHost) {
-              return null
-            }
+            // const nextAuthHost = new URL(nextAuthUrl).host
+            // if (siweMessage.domain !== nextAuthHost) {
+            //   return null
+            // }
+
+            console.log('33333333333333333333')
 
             const publicClient = createPublicClient({
               chain: getChain(),
@@ -97,6 +102,7 @@ async function handler(req: Request, res: Response) {
               message: credentials?.message,
               signature: credentials?.signature,
             })
+            console.log('44444444444444:', valid)
 
             if (!valid) {
               return null
