@@ -37,7 +37,7 @@ export function PlateEditor({ onChange, value, readonly = false }: Props) {
         </FixedToolbar> */}
 
         <EditorContainer id="scroll_container" ref={containerRef}>
-          <Editor variant="default" readOnly />
+          <Editor variant="default" readOnly={readonly} />
 
           <FloatingToolbar>
             <FloatingToolbarButtons />

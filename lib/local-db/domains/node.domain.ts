@@ -175,8 +175,8 @@ export class NodeDomain {
   }
 
   getUserRootNode = async (userId: string) => {
-    const spaceNodes = await this.node.where({ type: NodeType.ROOT }).toArray()
-    const spaceNode = spaceNodes.find((node) => node.userId === userId)
+    const userNodes = await this.node.where({ type: NodeType.ROOT }).toArray()
+    const spaceNode = userNodes.find((node) => node.userId === userId)
     return spaceNode!
   }
 

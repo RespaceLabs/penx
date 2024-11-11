@@ -2,11 +2,13 @@
 
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Post, updatePostPublishStatus, usePost } from '@/hooks/usePost'
+import { Node } from '@/lib/model'
 import { useNodes } from '@/lib/node-hooks'
 import { cn } from '@/lib/utils'
+import { store } from '@/store'
 import { GateType } from '@prisma/client'
 import { PopoverClose } from '@radix-ui/react-popover'
-import { useParams } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import LoadingDots from '../icons/loading-dots'
 import { useSiteContext } from '../SiteContext'
 import { Button } from '../ui/button'
@@ -44,7 +46,13 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
   const { spaceId } = useSiteContext()
   const { nodeId } = useParams()
   const { nodes } = useNodes()
-  const activeNode = nodes.find((n) => n.id === nodeId)!
+  const pathname = usePathname()
+  const isToday = pathname.startsWith('/~/today')
+
+  const activeNode = isToday
+    ? new Node(store.node.getTodayNode())
+    : nodes.find((n) => n.id === nodeId)!
+
   const [gateType, setGateType] = useState<GateType>(
     // (post.gateType as GateType) || GateType.FREE,
     GateType.FREE,

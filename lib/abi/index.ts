@@ -1,2 +1,2 @@
 export * from './space'
-export { treeTokenAbi, tipAbi, creationFactoryAbi } from './penx'
+export { penTokenAbi, tipAbi, creationFactoryAbi } from './penx'

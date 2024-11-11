@@ -2,6 +2,7 @@ import { IPFS_ADD_URL, PostStatus } from '@/lib/constants'
 import { INode, NodeType } from '@/lib/model'
 import { prisma } from '@/lib/prisma'
 import { GateType, Node, PostType, Prisma } from '@prisma/client'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { TRPCError } from '@trpc/server'
 import { format } from 'date-fns'
 import { revalidatePath } from 'next/cache'
@@ -147,11 +148,18 @@ export const nodeRouter = router({
 
           await tx.node.createMany({ data: addNodes })
 
-          const promises = updatedNodes.map((n) => {
-            return tx.node.update({ where: { id: n.id }, data: n })
-          })
-
-          await Promise.all(promises)
+          // try to update, if not found, create
+          for (const n of updatedNodes) {
+            try {
+              await tx.node.update({ where: { id: n.id }, data: n })
+            } catch (error) {
+              if (error instanceof PrismaClientKnownRequestError) {
+                if (error.code === 'P2025') {
+                  await tx.node.create({ data: n })
+                }
+              }
+            }
+          }
 
           // TODO: should clean no used nodes
           const nodes = await tx.node.findMany({

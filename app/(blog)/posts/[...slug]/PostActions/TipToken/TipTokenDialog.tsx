@@ -95,7 +95,7 @@ export function TipTokenDialog({ post }: Props) {
         isLoading: false,
         isOpen: false,
       })
-      toast.success('Tip $TREE successfully')
+      toast.success('Tip $PEN successfully')
     } catch (error) {
       console.log('====error>>>:', error)
       setIsLoading(false)
@@ -109,9 +109,9 @@ export function TipTokenDialog({ post }: Props) {
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
       <DialogContent className="sm:max-w-[460px] grid gap-4">
         <DialogHeader>
-          <DialogTitle className="">Tip $TREE to creator</DialogTitle>
+          <DialogTitle className="">Tip $PEN to creator</DialogTitle>
           <DialogDescription>
-            Your have 40000 $TREE Allocation to tip creator today.
+            Your have 40000 $PEN Allocation to tip creator today.
           </DialogDescription>
         </DialogHeader>
 
@@ -157,7 +157,7 @@ export function TipTokenDialog({ post }: Props) {
                 <LoadingDots />
               </>
             ) : (
-              'Tip $TREE'
+              'Tip $PEN'
             )}
           </Button>
         </div>

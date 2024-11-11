@@ -25,7 +25,7 @@ export function TippedAmount({ post }: Props) {
         // setIsOpen(true)
       }}
     >
-      <TreeDeciduousIcon size={20} />
+      <span className="i-[ri--quill-pen-ai-fill]"></span>
       <div> {!data ? '0' : precision.toDecimal(data?.totalAmount)}</div>
     </div>
   )

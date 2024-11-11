@@ -57,8 +57,8 @@ importers:
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.1(react@18.2.0))
       '@penxio/types':
-        specifier: ^0.0.1
-        version: 0.0.1
+        specifier: ^0.0.2
+        version: 0.0.2
       '@prisma/client':
         specifier: ^5.21.1
         version: 5.21.1(prisma@5.21.1)
@@ -420,14 +420,14 @@ importers:
         specifier: ^6.2.0
         version: 6.2.0
       penx-theme-card:
-        specifier: ^0.0.1
-        version: 0.0.1
+        specifier: ^0.0.2
+        version: 0.0.2
       penx-theme-micro:
-        specifier: ^0.0.1
-        version: 0.0.1
+        specifier: ^0.0.2
+        version: 0.0.2
       penx-theme-minimal:
-        specifier: ^0.0.1
-        version: 0.0.1
+        specifier: ^0.0.2
+        version: 0.0.2
       prisma-extension-pagination:
         specifier: ^0.7.4
         version: 0.7.4(@prisma/client@5.21.1(prisma@5.21.1))
@@ -2228,11 +2228,11 @@ packages:
     resolution: {integrity: sha512-HNjmfLQEVRZmHRET336f20H/8kOozUGwk7yajvsonjNxbj2wBTK1WsQuHkD5yYh9RxFGL2EyDHryOihOwUoKDA==}
     engines: {node: '>= 10.0.0'}
 
-  '@penxio/types@0.0.1':
-    resolution: {integrity: sha512-4/BIil6+zUFmHBjscZk+EP0TEesZ2wKH5mgqSDEzuEWWR/odZuPeWoFXHr3l+FBaCKwZocpEQcCKNlU60CEvAw==}
+  '@penxio/types@0.0.2':
+    resolution: {integrity: sha512-Ssn4BNmufCi/QYGyvSc7MC5xPXuMFs+Hrft0WbmnxNI+aFueKsf1XNg2+ru1mDQEQaECr4TMbk40DzwiHTiQPQ==}
 
-  '@penxio/utils@0.0.1':
-    resolution: {integrity: sha512-kiyfQxo6J0z3nyc1E6Pjcq5gxVWZBEoXl05pUDEdajx4UYPl137Uole0+KWKXgU0AoGvaqMfs4/YHDAl6xMQlQ==}
+  '@penxio/utils@0.0.2':
+    resolution: {integrity: sha512-Nc/uORz3MDUKMCrB7yK35vt0bMVpMBzL7/aSwrCvQi4XLQierDau+6i/82ak77hQXkCz1Tmc3T9lTSBjKu+e/Q==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -7411,14 +7411,14 @@ packages:
   pathe@1.1.2:
     resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
 
-  penx-theme-card@0.0.1:
-    resolution: {integrity: sha512-xkMlaWVxgTv32UhiwG8pteIAVSYekck+PE39+rNSZZM5vlO2WoRmqW4w8rYokWzphq78AB2VLqTnBaV+VHVWdQ==}
+  penx-theme-card@0.0.2:
+    resolution: {integrity: sha512-aMvhcge7dE6rdA75aG3CuZoQUFtU7fClRb/21C0cQs6bqaSNZh6Acd6UN2JuK+vLHr/QjtU1MklhvAvPR5osuQ==}
 
-  penx-theme-micro@0.0.1:
-    resolution: {integrity: sha512-pXOTGYSC4KnE7FoKuuMLT7s8rz0vBdPBLfE4FV24nAoEgqRSs/GEekYFxXKsCud9g8/KHGXEfZBbVfpkPxo6LQ==}
+  penx-theme-micro@0.0.2:
+    resolution: {integrity: sha512-JxVx0+roRMVybmIr3kXuWAAAWpLsHV1Qv4B655xkjZ8onZ0tWDeBGLv00UrK5nThXl4B1gfJAXlqtusZc1yFpw==}
 
-  penx-theme-minimal@0.0.1:
-    resolution: {integrity: sha512-OXvqAbmiZ9Fl/IBwCvGacXXNqbEZj5i+ORnK1LCp7dTNhozIEtri/NgljAeUM8M4LN5e6VsKKgJdx5gP7QcYSQ==}
+  penx-theme-minimal@0.0.2:
+    resolution: {integrity: sha512-jReT4EUhyzaxfLYlNyf6WKkSS9iAesr6aLvQmYJMANaKGYL1tTgzpqgO4tcwqCPK4/rSMNHNtO5xqRQXplNtJg==}
 
   performance-now@2.1.0:
     resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
@@ -11477,9 +11477,9 @@ snapshots:
       '@parcel/watcher-win32-ia32': 2.4.1
       '@parcel/watcher-win32-x64': 2.4.1
 
-  '@penxio/types@0.0.1': {}
+  '@penxio/types@0.0.2': {}
 
-  '@penxio/utils@0.0.1':
+  '@penxio/utils@0.0.2':
     dependencies:
       clsx: 2.1.1
       tailwind-merge: 2.5.4
@@ -17982,26 +17982,26 @@ snapshots:
 
   pathe@1.1.2: {}
 
-  penx-theme-card@0.0.1:
+  penx-theme-card@0.0.2:
     dependencies:
-      '@penxio/types': 0.0.1
-      '@penxio/utils': 0.0.1
+      '@penxio/types': 0.0.2
+      '@penxio/utils': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  penx-theme-micro@0.0.1:
+  penx-theme-micro@0.0.2:
     dependencies:
-      '@penxio/types': 0.0.1
-      '@penxio/utils': 0.0.1
+      '@penxio/types': 0.0.2
+      '@penxio/utils': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  penx-theme-minimal@0.0.1:
+  penx-theme-minimal@0.0.2:
     dependencies:
-      '@penxio/types': 0.0.1
-      '@penxio/utils': 0.0.1
+      '@penxio/types': 0.0.2
+      '@penxio/utils': 0.0.2
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4

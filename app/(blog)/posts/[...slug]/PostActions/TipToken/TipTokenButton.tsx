@@ -41,7 +41,7 @@ export function TipTokenButton({ post }: Props) {
             setIsOpen(true)
           }}
         >
-          Tip $TREE
+          Tip $PEN
         </Button>
       ) : (
         <WalletConnectButton
@@ -49,7 +49,7 @@ export function TipTokenButton({ post }: Props) {
           variant="outline"
           className="rounded-xl text-sm"
         >
-          Tip $TREE
+          Tip $PEN
         </WalletConnectButton>
       )}
     </>

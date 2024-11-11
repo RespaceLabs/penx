@@ -20,7 +20,7 @@ import { WagmiProvider } from 'wagmi'
 const queryClient = new QueryClient()
 
 const getSiweMessageOptions: GetSiweMessageOptions = () => ({
-  statement: 'Sign in to the RainbowKit + SIWE example app',
+  statement: 'Sign in with ethereum',
 })
 
 export function Providers({

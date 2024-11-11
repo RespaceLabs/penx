@@ -46,7 +46,7 @@ export function NodeEditorApp({ node }: Props) {
             node={node}
             isOutliner={isOutliner}
             onChange={async (value, editor) => {
-              console.log('editor content change.....', value)
+              // console.log('editor content change.....', value)
 
               // if (saving) return
               // setSaving(true)
