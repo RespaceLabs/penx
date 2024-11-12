@@ -23,6 +23,7 @@ import {
   NodeType,
   ViewType,
 } from '@/lib/model'
+import { syncLatestNodes } from '@/lib/syncLatestNodes'
 import { format } from 'date-fns'
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
@@ -258,6 +259,8 @@ export class NodeStore {
         userId,
         date: dateStr,
       })
+
+      await syncLatestNodes()
     }
 
     this.setNodes(newNodes)
