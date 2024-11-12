@@ -1,26 +1,19 @@
-'use client'
+'use client';
 
-import { useForm } from 'react-hook-form'
-import LoadingDots from '@/components/icons/loading-dots'
-import { Button } from '@/components/ui/button'
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { extractErrorMessage } from '@/lib/extractErrorMessage'
-import { trpc } from '@/lib/trpc'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Site } from '@penxio/types'
-import { AuthType } from '@prisma/client'
-import { toast } from 'sonner'
-import { z } from 'zod'
+import { useForm } from 'react-hook-form';
+import LoadingDots from '@/components/icons/loading-dots';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { extractErrorMessage } from '@/lib/extractErrorMessage';
+import { trpc } from '@/lib/trpc';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Site } from '@penxio/types';
+import { AuthType } from '@prisma/client';
+import { toast } from 'sonner';
+import { z } from 'zod';
+
 
 const FormSchema = z.object({
   authType: z.nativeEnum(AuthType),

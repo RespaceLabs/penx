@@ -11,6 +11,7 @@ export function SettingNav({}: Props) {
 
   const Paths = {
     general: '/~/settings',
+    appearance: '/~/settings/appearance',
     socials: '/~/settings/socials',
     authType: '/~/settings/auth-type',
     web3: '/~/settings/web3',
@@ -28,6 +29,9 @@ export function SettingNav({}: Props) {
     <div className="flex border-b gap-8">
       <Link href={Paths.general} className={linkClassName(Paths.general)}>
         General
+      </Link>
+      <Link href={Paths.appearance} className={linkClassName(Paths.appearance)}>
+        Appearance
       </Link>
       {/* <Link href={Paths.authType} className={linkClassName(Paths.authType)}>
         Auth type
