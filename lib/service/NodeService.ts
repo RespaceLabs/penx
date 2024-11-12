@@ -30,9 +30,11 @@ export class NodeService {
       this.nodeMap.set(item.id, item.raw)
     }
 
-    this.childrenNodes = node.raw.children.map((id) => {
-      return new Node(this.nodeMap.get(id)!)
-    })
+    this.childrenNodes = node.raw.children
+      .filter((id) => !!this.nodeMap.get(id)!)
+      .map((id) => {
+        return new Node(this.nodeMap.get(id)!)
+      })
 
     const parentNodes = this.getParentNodes()
 

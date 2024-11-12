@@ -21,7 +21,7 @@ export const TitleElement = withRef(
     const isDailyRoot = element.nodeType === NodeType.DAILY_ROOT
     const editor = useSlate()
 
-    console.log('======element:', element)
+    // console.log('======element:', element)
 
     function setObjectType(type: any) {
       const path = ReactEditor.findPath(editor as any, element)
@@ -45,7 +45,7 @@ export const TitleElement = withRef(
       >
         {isDaily && <DailyTitle {...props} />}
 
-        {objectType === ObjectType.ARTICLE && (
+        {objectType === ObjectType.ARTICLE && !isDaily && (
           <>
             <CoverUpload {...props} />
             <CommonTitle {...props} />

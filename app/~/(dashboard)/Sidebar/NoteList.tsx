@@ -15,9 +15,9 @@ export function NoteList({}: Props) {
 
   return (
     <div className="flex flex-col gap-[1px] mt-2">
-      {nodeService.childrenNodes.reverse().map((node) => (
-        <NodeItem key={node.id} node={node} />
-      ))}
+      {nodeService.childrenNodes.reverse().map((node) => {
+        return <NodeItem key={node.id} node={node} />
+      })}
     </div>
   )
 }

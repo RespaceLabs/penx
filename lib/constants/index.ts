@@ -8,11 +8,10 @@ export const isNavigator = typeof navigator !== 'undefined'
 export const GOOGLE_OAUTH_REDIRECT_URI = 'https://www.penx.io/api/google-oauth'
 
 export const IPFS_UPLOAD_URL = 'https://penx.io/api/ipfs-upload'
-export const IPFS_ADD_URL = 'https://www.penx.io/api/ipfs-add'
+export const IPFS_ADD_URL = 'https://penx.io/api/ipfs-add'
 // export const IPFS_ADD_URL = 'http://localhost:4000/api/ipfs-add'
 export const IPFS_GATEWAY = 'https://ipfs-gateway.spaceprotocol.xyz'
 
-export const ALLOCATION_CAP_URL = 'https://www.penx.io/api/allocation-cap'
 
 export const ELECTRIC_BASE_URL = 'http://43.154.135.183:3000'
 
@@ -98,3 +97,6 @@ export const WORKBENCH_NAV_HEIGHT = 54
 export const DATABASE_TOOLBAR_HEIGHT = 42
 
 export const SIDEBAR_WIDTH = 240
+
+
+export const ALLOCATION_CAP_URL  = NETWORK === NetworkNames.BASE? 'https://penx.io/api/allocation-cap': 'https://sepolia.penx.io/api/allocation-cap'
