@@ -12,12 +12,13 @@ interface Props {
   className?: string
   element: ITitleElement
 }
-export function CoverUpload({ element, className }: Props) {
+export function ImageObject({ element, className }: Props) {
   const [value, setValue] = useState(element?.props?.imageUrl || '')
   const editor = useSlate()
   const path = ReactEditor.findPath(editor as any, element)
   const inputRef = useRef<HTMLInputElement>(null)
   const [loading, setLoading] = useState(false)
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log('====e.target.files:', e.target.files)
 
@@ -53,7 +54,7 @@ export function CoverUpload({ element, className }: Props) {
     }
   }
 
-  async function removeCover() {
+  async function removeImage() {
     setValue('')
 
     Transforms.setNodes(
@@ -67,18 +68,18 @@ export function CoverUpload({ element, className }: Props) {
 
   if (value) {
     return (
-      <div className="w-full h-[360px] relative" contentEditable={false}>
+      <div className="w-full h-[360px] relative mt-8" contentEditable={false}>
         <Image
           src={getUrl(value)}
           width={1000}
           height={1000}
-          className="absolute left-0 top-0 w-full h-[360px] cursor-pointer object-cover"
+          className="absolute left-0 top-0 w-full h-[360px] cursor-pointer object-cover z-1"
           alt=""
         />
 
         <X
-          className="absolute top-1 right-1 bg-foreground/5 rounded-full p-1 text-foreground/80 w-8 h-8 cursor-pointer"
-          onClick={removeCover}
+          className="absolute top-1 right-1 bg-background rounded-full p-1 text-foreground/80 w-8 h-8 cursor-pointer z-10"
+          onClick={removeImage}
         />
       </div>
     )
@@ -86,12 +87,12 @@ export function CoverUpload({ element, className }: Props) {
 
   return (
     <div
-      className="w-24 h-8 flex cursor-pointer items-center absolute -top-8"
+      className="relative rounded-xl bg-foreground/5 overflow-hidden active:bg-foreground/10 p-5 h-96 flex items-center justify-center mt-8"
       contentEditable={false}
     >
-      <div className="absolute left-0 top-0 w-full h-full cursor-pointer z-1 flex items-center justify-center gap-1 text-foreground/30 hover:text-foreground/50 text-xs font-normal bgab">
+      <div className="text-foreground/50 bg-transparent flex items-center gap-2 text-sm hover:text-brand-500">
         <ImageIcon size={16} className="-ml-3" />
-        <div>Add cover</div>
+        <div>Upload a image</div>
       </div>
 
       <input

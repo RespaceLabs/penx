@@ -57,7 +57,10 @@ export function NodeEditor({
           className="relative flex-col min-h-[60vh]"
         >
           <Editor variant="default" />
-          {(node.isCommon || node.isRootNode || node.isDaily) && (
+          {(node.isCommon ||
+            node.isObject ||
+            node.isRootNode ||
+            node.isDaily) && (
             <div className="px-4">
               <AddNodeBtn editor={editor} />
             </div>

@@ -116,6 +116,10 @@ export class Node {
     return this.type === NodeType.COMMON
   }
 
+  get isObject() {
+    return this.type === NodeType.OBJECT
+  }
+
   get isList() {
     return this.type === NodeType.LIST
   }

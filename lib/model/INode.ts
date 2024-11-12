@@ -8,6 +8,8 @@ export enum NodeType {
 
   DAILY_ROOT = 'DAILY_ROOT',
 
+  OBJECT = 'OBJECT',
+
   // Database
   DATABASE_ROOT = 'DATABASE_ROOT',
 
@@ -98,6 +100,24 @@ export interface IRootNode extends INode {
 
 export interface IDailyRootNode extends INode {
   type: NodeType.DAILY_ROOT
+}
+
+export enum ObjectType {
+  ARTICLE = 'ARTICLE',
+  NOTE = 'NOTE',
+  IMAGE = 'IMAGE',
+  VIDEO = 'VIDEO',
+  AUDIO = 'AUDIO',
+}
+
+export interface IObjectNode extends INode {
+  type: NodeType.OBJECT
+  props: {
+    objectType?: ObjectType
+    color?: string
+    imageUrl?: string
+    coverUrl?: string
+  }
 }
 
 export interface IDatabaseRootNode extends INode {
@@ -271,4 +291,3 @@ export interface IOptionNode extends INode {
     color: string
   }
 }
-

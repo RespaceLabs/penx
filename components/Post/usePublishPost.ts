@@ -7,7 +7,7 @@ import { creationFactoryAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
-import { INode } from '@/lib/model'
+import { INode, IObjectNode } from '@/lib/model'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { nodeToSlate } from '@/lib/serializer'
 import { api } from '@/lib/trpc'
@@ -30,7 +30,7 @@ export function usePublishPost() {
   return {
     isLoading,
     publishPost: async (
-      node: INode,
+      node: IObjectNode,
       gateType: GateType,
       collectable: boolean,
     ) => {
@@ -44,7 +44,8 @@ export function usePublishPost() {
         isOutlinerSpace: false,
       })
 
-      console.log('======>>>>>content:', content)
+      // console.log('======>>>>>content:', content)
+      // console.log('======>>>>>node:', node)
       const post = await api.post.bySlug.query(node.id)
 
       let creationId: number | undefined
@@ -70,12 +71,12 @@ export function usePublishPost() {
         }
 
         await api.post.publish.mutate({
-          type: PostType.ARTICLE,
+          type: node.props?.objectType || PostType.ARTICLE,
           nodeId: node.id,
           gateType,
           collectable,
           creationId,
-          image: node.props.image,
+          image: node.props?.imageUrl,
           content: JSON.stringify(content),
         })
 

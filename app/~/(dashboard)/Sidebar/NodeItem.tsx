@@ -12,7 +12,7 @@ export function NodeItem({ node }: Props) {
   return (
     <Link
       key={node.id}
-      href={`/~/notes/${node.id}`}
+      href={`/~/objects/${node.id}`}
       className={cn(
         'flex items-center justify-between gap-2 rounded px-2 text-foreground/70 hover:bg-foreground/5 py-1 transition-all cursor-pointer w-full text-sm',
         params.nodeId === node.id && 'bg-foreground/5',

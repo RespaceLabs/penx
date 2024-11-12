@@ -1,4 +1,10 @@
-import { IDailyRootNode, INode, IRootNode, NodeType } from '@/lib/model'
+import {
+  IDailyRootNode,
+  INode,
+  IObjectNode,
+  IRootNode,
+  NodeType,
+} from '@/lib/model'
 import { Table } from 'dexie'
 import { formatToDate } from '../libs/formatToDate'
 import { getCommonNode } from '../libs/getCommonNode'
@@ -180,7 +186,7 @@ export class NodeDomain {
     return spaceNode!
   }
 
-  createPageNode = async (node: Partial<INode>, userId: string) => {
+  createPageNode = async (node: Partial<IObjectNode>, userId: string) => {
     const subNode = await this.createNode(getCommonNode({ userId }))
 
     const newNode = await this.createNode({

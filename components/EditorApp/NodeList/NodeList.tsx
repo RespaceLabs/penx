@@ -18,7 +18,7 @@ export function NodeList({ node }: Props) {
         {nodeService.childrenNodes.map((node) => (
           <div key={node.id} className="font-semibold flex justify-between">
             <Link
-              href={`/~/notes/${node.id}`}
+              href={`/~/objects/${node.id}`}
               className="text-foreground/80 hover:block cursor-pointer hover:scale-105 transition-all"
             >
               {node.title || 'Untitled'}

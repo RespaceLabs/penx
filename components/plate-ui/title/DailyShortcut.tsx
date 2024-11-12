@@ -23,7 +23,7 @@ export const DailyShortcut = forwardRef<HTMLDivElement, Props>(
           className="cursor-pointer bg-foreground/5 px-2 py-[6px] rounded-full hover:bg-foreground/15 transition-colors"
           onClick={async () => {
             const node = await store.node.selectDailyNote(new Date(), false)
-            push(`/~/notes/${node.id}`)
+            push(`/~/objects/${node.id}`)
           }}
         >
           Today
@@ -36,7 +36,7 @@ export const DailyShortcut = forwardRef<HTMLDivElement, Props>(
                 subDays(currentDate, 1),
                 false,
               )
-              push(`/~/notes/${node.id}`)
+              push(`/~/objects/${node.id}`)
             }}
           >
             <ChevronLeft size={16} />
@@ -48,7 +48,7 @@ export const DailyShortcut = forwardRef<HTMLDivElement, Props>(
                 addDays(currentDate, 1),
                 false,
               )
-              push(`/~/notes/${node.id}`)
+              push(`/~/objects/${node.id}`)
             }}
           >
             <ChevronRight size={16} />

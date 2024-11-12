@@ -1,7 +1,7 @@
 'use client'
 
 import { ELEMENT_TITLE } from '@/lib/constants'
-import { NodeType } from '@/lib/model'
+import { NodeType, ObjectType } from '@/lib/model'
 import { TElement } from '@udecode/plate-common'
 import { createPlatePlugin } from '@udecode/plate-common/react'
 import { Editor, Element, Node, Path } from 'slate'
@@ -13,9 +13,11 @@ export interface ITitleElement extends TElement {
   nodeType?: NodeType
   date?: string
   props: {
+    objectType: ObjectType
     date: string
     color: string
-    image: string
+    imageUrl: string
+    coverUrl: string
   }
 }
 

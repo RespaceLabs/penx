@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Post, updatePostPublishStatus, usePost } from '@/hooks/usePost'
-import { Node } from '@/lib/model'
+import { IObjectNode, Node } from '@/lib/model'
 import { useNodes } from '@/lib/node-hooks'
 import { cn } from '@/lib/utils'
 import { store } from '@/store'
@@ -102,7 +102,11 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
         <Button
           className="w-full"
           onClick={async () => {
-            await publishPost(activeNode.raw, gateType, collectable)
+            await publishPost(
+              activeNode.raw as IObjectNode,
+              gateType,
+              collectable,
+            )
             // updatePostPublishStatus()
             setOpen(false)
           }}

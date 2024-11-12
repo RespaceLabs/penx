@@ -4,7 +4,6 @@ import { ReactNode, useEffect, useState } from 'react'
 import { Sidebar } from '@/app/~/(dashboard)/Sidebar/Sidebar'
 import { CreationDialog } from '@/components/CreationDialog/CreationDialog'
 import LoadingDots from '@/components/icons/loading-dots'
-import { NavbarWrapper } from '@/components/Navbar/NavbarWrapper'
 import { NodesProvider } from '@/components/NodesProvider'
 import { useQueryEthBalance } from '@/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/hooks/useEthPrice'
@@ -21,7 +20,8 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
   const { status, data: session } = useSession()
 
   const pathname = usePathname()
-  const isNote = pathname.includes('/~/today') || pathname.includes('/~/notes')
+  const isNode =
+    pathname.includes('/~/today') || pathname.includes('/~/objects')
 
   useEffect(() => {
     if (status === 'loading') return
@@ -51,8 +51,8 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
           <CreationDialog />
           <div
             className={cn(
-              !isNote && 'mx-auto md:max-w-2xl pt-16 pb-20',
-              isNote,
+              !isNode && 'mx-auto md:max-w-2xl pt-16 pb-20',
+              isNode,
             )}
           >
             {children}

@@ -131,7 +131,7 @@ export class NodeService {
         props: {
           ...node.props,
           ...title.props,
-          image: title?.props?.image,
+          image: title?.props?.imageUrl,
         },
       })
       return node

@@ -44,7 +44,7 @@ function GoToDay({ date }: { date: Date }) {
         setStartDate(date!)
         if (date) {
           const node = await store.node.selectDailyNote(date, false)
-          push(`/~/notes/${node.id}`)
+          push(`/~/objects/${node.id}`)
         }
       }}
       customInput={<CustomInput />}

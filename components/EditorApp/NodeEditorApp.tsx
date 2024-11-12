@@ -15,7 +15,6 @@ interface Props {
 export function NodeEditorApp({ node }: Props) {
   const { nodes, nodeList } = useNodes()
   const nodeService = new NodeService(node, nodes)
-
   const [saving, setSaving] = useState(false)
 
   const isOutliner = false
@@ -36,7 +35,7 @@ export function NodeEditorApp({ node }: Props) {
       <div className="relative h-screen flex-1 px-2 md:px-0 py-2 md:py-0">
         <PCNav></PCNav>
         <div
-          className="mx-auto md:max-w-4xl pt-14 pl-0 sm:pl-10 pr-0 sm:pr-1 break-words pb-20"
+          className="mx-auto md:max-w-[750px] pt-14 pl-0 sm:pl-10 pr-0 sm:pr-1 break-words pb-20"
           style={{
             minHeight: `calc(100vh - ${WORKBENCH_NAV_HEIGHT}px)`,
           }}

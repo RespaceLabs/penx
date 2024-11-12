@@ -43,7 +43,7 @@ export function PostItem({ post }: PostItemProps) {
         <div className="text-sm text-zinc-500">
           <div>{format(new Date(post.updatedAt), 'yyyy-MM-dd')}</div>
         </div>
-        <Link href={`/~/notes/${post.nodeId}`}>
+        <Link href={`/~/objects/${post.nodeId}`}>
           <Button
             size="xs"
             variant="ghost"
