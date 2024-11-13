@@ -1,4 +1,4 @@
-import { PublishPopover } from '@/components/Post/PublishPopover'
+import { PublishPopover } from '@/components/PublishPopover'
 import { useRouterName } from '@/hooks'
 import { WORKBENCH_NAV_HEIGHT } from '@/lib/constants'
 import { useNodeContext } from '@/lib/node-hooks'

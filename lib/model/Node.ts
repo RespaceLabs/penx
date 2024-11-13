@@ -223,6 +223,14 @@ export class Node {
     return this.raw.props.color || ''
   }
 
+  get gateType(): any {
+    return this.raw.props.gateType || ''
+  }
+
+  get collectable(): boolean {
+    return this.raw.props.collectable || false
+  }
+
   get children() {
     return this.raw.children
   }

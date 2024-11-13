@@ -9,13 +9,13 @@ import { store } from '@/store'
 import { GateType } from '@prisma/client'
 import { PopoverClose } from '@radix-ui/react-popover'
 import { useParams, usePathname } from 'next/navigation'
-import LoadingDots from '../icons/loading-dots'
-import { useSiteContext } from '../SiteContext'
-import { Button } from '../ui/button'
-import { Label } from '../ui/label'
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
-import { Switch } from '../ui/switch'
-import { usePublishPost } from './usePublishPost'
+import { usePublishPost } from '../hooks/usePublishPost'
+import LoadingDots from './icons/loading-dots'
+import { useSiteContext } from './SiteContext'
+import { Button } from './ui/button'
+import { Label } from './ui/label'
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
+import { Switch } from './ui/switch'
 
 interface Props {}
 
@@ -54,10 +54,11 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
     : nodes.find((n) => n.id === nodeId)!
 
   const [gateType, setGateType] = useState<GateType>(
-    // (post.gateType as GateType) || GateType.FREE,
-    GateType.FREE,
+    activeNode.props?.gateType || GateType.FREE,
   )
-  const [collectable, setCollectable] = useState(false)
+  const [collectable, setCollectable] = useState(
+    activeNode.props?.collectable || false,
+  )
   const { isLoading, publishPost } = usePublishPost()
   return (
     <PopoverContent align="end" className="w-[360px] flex flex-col gap-5">

@@ -1,3 +1,5 @@
+import { GateType } from '@prisma/client'
+
 export enum NodeType {
   ROOT = 'ROOT',
 
@@ -117,6 +119,8 @@ export interface IObjectNode extends INode {
     color?: string
     imageUrl?: string
     coverUrl?: string
+    gateType?: GateType
+    collectable?: boolean
   }
 }
 

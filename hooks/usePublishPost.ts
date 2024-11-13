@@ -17,7 +17,7 @@ import { readContract, waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
 import { Address } from 'viem'
 import { useAccount, useWriteContract } from 'wagmi'
-import { useSiteContext } from '../SiteContext'
+import { useSiteContext } from '../components/SiteContext'
 
 export function usePublishPost() {
   const { spaceId } = useSiteContext()
@@ -80,11 +80,18 @@ export function usePublishPost() {
           content: JSON.stringify(content),
         })
 
+        await store.node.updateNode(node.id, {
+          props: {
+            ...node.props,
+            gateType,
+            collectable,
+          },
+        } as IObjectNode)
+
         setLoading(false)
         revalidateMetadata(`posts`)
         // revalidateMetadata(`posts-${post.slug}`)
         toast.success('Post published successfully!')
-        return
       } catch (error) {
         console.log('========error:', error)
         const msg = extractErrorMessage(error)

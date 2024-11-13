@@ -238,7 +238,28 @@ export class NodeStore {
     return node
   }
 
-  async deleteNode(id: string) {}
+  async updateNode(id: string, data: Partial<INode>) {
+    await db.updateNode(id, data)
+    const nodes = await db.listNodesByUserId()
+    this.setNodes(nodes)
+  }
+
+  async deleteNode(id: string) {
+    const node = this.store.node.getNode(id)
+    await db.deleteNode(id)
+    if (node.parentId) {
+      // update parentNode children
+      const parentNode = this.store.node.getNode(node.parentId)
+      await db.updateNode(node.parentId, {
+        children: parentNode.children.filter(
+          (childId) => childId !== id && this.store.node.getNode(childId),
+        ),
+      })
+    }
+
+    const nodes = await db.listNodesByUserId()
+    this.setNodes(nodes)
+  }
 
   async addTodo(text: string, isInTodoPage = false) {}
 

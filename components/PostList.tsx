@@ -2,17 +2,15 @@
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { loadPost, Post, postAtom } from '@/hooks/usePost'
-import { postLoadingAtom } from '@/hooks/usePostLoading'
+import { Post } from '@/hooks/usePost'
 import { usePosts } from '@/hooks/usePosts'
 import { PostStatus } from '@/lib/constants'
 import { api } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import { store } from '@/store'
 import { format } from 'date-fns'
-import { Edit3Icon, Trash2 } from 'lucide-react'
+import { Archive, Edit3Icon, Trash2 } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 interface PostItemProps {
   post: Post
@@ -63,8 +61,8 @@ export function PostItem({ post }: PostItemProps) {
             refetch()
           }}
         >
-          <Trash2 size={14}></Trash2>
-          <div>Delete</div>
+          <Archive size={14}></Archive>
+          <div>Archive</div>
         </Button>
       </div>
     </div>

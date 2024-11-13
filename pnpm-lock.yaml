@@ -360,8 +360,8 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0
       jotai:
-        specifier: ^2.9.0
-        version: 2.10.1(@types/react@18.3.12)(react@18.2.0)
+        specifier: ^2.10.2
+        version: 2.10.2(@types/react@18.3.12)(react@18.2.0)
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -6299,8 +6299,8 @@ packages:
       react:
         optional: true
 
-  jotai@2.10.1:
-    resolution: {integrity: sha512-4FycO+BOTl2auLyF2Chvi6KTDqdsdDDtpaL/WHQMs8f3KS1E3loiUShQzAzFA/sMU5cJ0hz/RT1xum9YbG/zaA==}
+  jotai@2.10.2:
+    resolution: {integrity: sha512-DqsBTlRglIBviuJLfK6JxZzpd6vKfbuJ4IqRCz70RFEDeZf46Fcteb/FXxNr1UnoxR5oUy3oq7IE8BrEq0G5DQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -16428,7 +16428,7 @@ snapshots:
       '@types/react': 18.3.12
       react: 18.2.0
 
-  jotai@2.10.1(@types/react@18.3.12)(react@18.2.0):
+  jotai@2.10.2(@types/react@18.3.12)(react@18.2.0):
     optionalDependencies:
       '@types/react': 18.3.12
       react: 18.2.0

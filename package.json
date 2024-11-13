@@ -130,7 +130,7 @@
     "immer": "^10.1.1",
     "ioredis": "^5.4.1",
     "is-hotkey": "^0.2.0",
-    "jotai": "^2.9.0",
+    "jotai": "^2.10.2",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "kubo-rpc-client": "^5.0.1",
