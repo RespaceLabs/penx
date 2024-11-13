@@ -6,7 +6,12 @@ import { gql, request } from 'graphql-request'
 export function useCollectRecords(creationId: string) {
   const query = gql`
     query getMintRecords($creationId: String!) {
-      mintRecords(first: 100, where: { creationId: $creationId }) {
+      mintRecords(
+        first: 100
+        orderBy: "timestamp"
+        orderDirection: "desc"
+        where: { creationId: $creationId }
+      ) {
         id
         creationId
         minter

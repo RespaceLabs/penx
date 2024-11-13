@@ -35,7 +35,7 @@ export function PlanItem({ plan }: Props) {
   )
 
   return (
-    <Card className="relative flex min-h-[520px] flex-col justify-between gap-4 rounded-xl p-4 shadow-none bg-foreground">
+    <Card className="relative flex min-h-[520px] flex-col justify-between gap-4 rounded-xl p-4 shadow-none bg-background">
       {space.isFounder(address) && (
         <Button
           variant="ghost"

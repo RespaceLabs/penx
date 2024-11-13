@@ -4,7 +4,7 @@ import { precision } from '@/lib/math'
 import { Address } from 'viem'
 import { useAccount, useReadContract } from 'wagmi'
 
-export function TreeBalance() {
+export function PenBalance() {
   const { address = '' } = useAccount()
   const { data } = useReadContract({
     address: addressMap.PenToken,
@@ -12,8 +12,6 @@ export function TreeBalance() {
     functionName: 'balanceOf',
     args: [address as Address],
   })
-
-  console.log('tree data:', data)
 
   if (!data) return null
 

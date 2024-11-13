@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useCreation } from '@/hooks/useCreation'
 import { Post } from '@penxio/types'
@@ -14,7 +13,7 @@ interface Props {
 export function MintedAmount({ post }: Props) {
   const { setIsOpen } = useCollectorsDialog()
   const { creation, isLoading } = useCreation(post.creationId.toString())
-  if (isLoading) return <Skeleton />
+  if (isLoading) return <Skeleton className="h-6 w-12" />
 
   return (
     <div

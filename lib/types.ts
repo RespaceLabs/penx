@@ -118,6 +118,15 @@ export type MintRecord = {
   price: string
 }
 
+export type TipRecord = {
+  id: string
+  tipper: Address
+  receiver: Address
+  amount: string
+  uri: string
+  tipperRewardPercent: string
+}
+
 export type GoogleInfo = {
   access_token: string
   scope: string

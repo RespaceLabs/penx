@@ -10,7 +10,7 @@ interface Props {
   onChange: (value: string) => void
 }
 
-export function AmountInput({ value, onChange }: Props) {
+export function CollectionAmountInput({ value, onChange }: Props) {
   const [index, setIndex] = useState('1')
 
   return (

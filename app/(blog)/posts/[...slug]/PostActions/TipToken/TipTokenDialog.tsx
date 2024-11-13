@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
@@ -10,18 +11,21 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useAllocationCap } from '@/hooks/useAllocationCap'
+import { useTipInfo } from '@/hooks/useTipInfo'
 import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { tipAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
 import { api } from '@/lib/trpc'
+import { toFloorFixed } from '@/lib/utils'
 import { Post } from '@penxio/types'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
 import pRetry, { AbortError } from 'p-retry'
 import { toast } from 'sonner'
 import { Address } from 'viem'
 import { useAccount, useReadContract, useWriteContract } from 'wagmi'
+import { TipAmountInput } from './TipAmountInput'
 import { useTipTokenDialog } from './useTipTokenDialog'
 
 interface Props {
@@ -29,6 +33,8 @@ interface Props {
 }
 
 export function TipTokenDialog({ post }: Props) {
+  const [amount, setAmount] = useState('1')
+
   const { isOpen, isLoading, setIsOpen, setIsLoading, setState } =
     useTipTokenDialog()
   const { address = '' } = useAccount()
@@ -37,11 +43,17 @@ export function TipTokenDialog({ post }: Props) {
     abi: tipAbi,
     functionName: 'executionFee',
   })
-  const { data: cap } = useAllocationCap()
-  console.log('=======>>cap:', cap)
+
+  const { refetch: refetchTipInfo } = useTipInfo(post.id)
+  const { data: data, isLoading: isLoadingCap, refetch } = useAllocationCap()
 
   const { writeContractAsync } = useWriteContract()
   const wagmiConfig = useWagmiConfig()
+
+  useEffect(() => {
+    if (!data) return
+    setAmount(toFloorFixed(data.cap * 0.1, 2).toString())
+  }, [data])
 
   async function checkTipSuccess() {
     const requests = await readContract(wagmiConfig, {
@@ -78,7 +90,7 @@ export function TipTokenDialog({ post }: Props) {
         address: addressMap.Tip,
         abi: tipAbi,
         functionName: 'createTipRequest',
-        args: [address as Address, precision.token(10), post.id],
+        args: [address as Address, precision.token(amount), post.id],
         value: executionFee,
       })
 
@@ -96,6 +108,10 @@ export function TipTokenDialog({ post }: Props) {
         isOpen: false,
       })
       toast.success('Tip $PEN successfully')
+      await refetch()
+      setTimeout(() => {
+        refetchTipInfo()
+      }, 4000)
     } catch (error) {
       console.log('====error>>>:', error)
       setIsLoading(false)
@@ -111,11 +127,12 @@ export function TipTokenDialog({ post }: Props) {
         <DialogHeader>
           <DialogTitle className="">Tip $PEN to creator</DialogTitle>
           <DialogDescription>
-            Your have 40000 $PEN Allocation to tip creator today.
+            Your have {data?.dayCap || '-'} $PEN Allocation to tip creator
+            everyday.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="bg-muted rounded-xl p-3 grid gap-1">
+        {/* <div className="bg-muted rounded-xl p-3 grid gap-1">
           <div className="font-semibold">Who will get tips allocation?</div>
           <DialogDescription>
             You will get tips allocation if you:
@@ -143,12 +160,46 @@ export function TipTokenDialog({ post }: Props) {
               .
             </li>
           </ul>
+        </div> */}
+
+        {!isLoadingCap && data?.cap && (
+          <div className="flex items-center justify-between">
+            <div className="text-foreground/50 text-sm">Available to tip</div>
+            <div>{toFloorFixed(data.cap, 2)} $PEN</div>
+          </div>
+        )}
+
+        {data && (
+          <TipAmountInput
+            cap={data.cap}
+            value={amount}
+            onChange={(value) => {
+              setAmount(value)
+            }}
+          />
+        )}
+
+        <div className="space-y-1">
+          <div className="flex items-center justify-between text-sm">
+            <div className="text-foreground/50">Creator rewards</div>
+            <div>
+              {amount ? `${(Number(amount) * 0.8).toFixed(2)} $PEN` : '-'}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-sm">
+            <div className="text-foreground/50">Your rewards</div>
+            <div>
+              {amount ? `${(Number(amount) * 0.2).toFixed(2)} $PEN` : '-'}
+            </div>
+          </div>
         </div>
+
         <div className="flex justify-center">
           <Button
             size="lg"
             className="w-full flex gap-1"
-            disabled={isLoading}
+            disabled={isLoading || !amount}
             onClick={tipTokens}
           >
             {isLoading ? (

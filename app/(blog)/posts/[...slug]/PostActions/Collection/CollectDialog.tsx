@@ -15,12 +15,13 @@ import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { creationFactoryAbi, tipAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { precision } from '@/lib/math'
 import { Post } from '@penxio/types'
 import { waitForTransactionReceipt } from '@wagmi/core'
 import { toast } from 'sonner'
 import { zeroAddress } from 'viem'
 import { useAccount, useReadContract, useWriteContract } from 'wagmi'
-import { AmountInput } from './AmountInput'
+import { CollectionAmountInput } from './CollectionAmountInput'
 import { useTipTokenDialog } from './useTipTokenDialog'
 
 interface Props {
@@ -59,7 +60,7 @@ export function CollectDialog({ post }: Props) {
 
       setTimeout(() => {
         refetch()
-      }, 100)
+      }, 4000)
       setState({
         isLoading: false,
         isOpen: false,
@@ -85,12 +86,24 @@ export function CollectDialog({ post }: Props) {
           </DialogDescription>
         </DialogHeader>
 
-        <AmountInput
+        <CollectionAmountInput
           value={amount}
           onChange={(value) => {
             setAmount(value)
           }}
         />
+
+        <div className="flex h-6 items-center justify-between -my-3">
+          <div className="text-sm text-foreground/60">Total cost</div>
+          {!creation && <div className="text-sm">-</div>}
+          {creation && (
+            <div className="text-sm">
+              {precision.toDecimal(BigInt(amount) * creation!.price).toFixed(6)}{' '}
+              ETH
+            </div>
+          )}
+        </div>
+
         <div className="flex justify-center">
           <Button
             variant="brand"

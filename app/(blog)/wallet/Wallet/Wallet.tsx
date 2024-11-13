@@ -2,7 +2,7 @@
 
 import { useSiteContext } from '@/components/SiteContext'
 import { EthBalance } from './EthBalance'
-import { TreeBalance } from './TreeBalance'
+import { PenBalance } from './PenBalance'
 import { WalletInfo } from './WalletInfo'
 
 export function Wallet() {
@@ -11,7 +11,7 @@ export function Wallet() {
     <div className="space-y-5">
       <WalletInfo />
       <EthBalance />
-      <TreeBalance />
+      <PenBalance />
       {/* {authType === AuthType.PRIVY && <ExportPrivateKey />} */}
     </div>
   )
