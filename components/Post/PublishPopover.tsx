@@ -47,7 +47,7 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
   const { nodeId } = useParams()
   const { nodes } = useNodes()
   const pathname = usePathname()
-  const isToday = pathname.startsWith('/~/today')
+  const isToday = pathname.startsWith('/~/objects/today')
 
   const activeNode = isToday
     ? new Node(store.node.getTodayNode())

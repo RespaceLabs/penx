@@ -1,8 +1,6 @@
 import { ProfilePopover } from '@/components/Profile/ProfilePopover'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { store } from '@/store'
-import { Calendar, Feather, FileText, Settings } from 'lucide-react'
+import { Calendar, Feather, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { NodesBox } from './NodesBox'
@@ -10,7 +8,6 @@ import { SidebarItem } from './SidebarItem'
 import { SyncBar } from './SyncBar/SyncBar'
 
 export const Sidebar = () => {
-  const { push } = useRouter()
   const pathname = usePathname()
 
   return (
@@ -24,9 +21,9 @@ export const Sidebar = () => {
       </div>
 
       <div className="flex flex-col gap-1 px-2">
-        <Link href="/~/today">
+        <Link href="/~/objects/today">
           <SidebarItem
-            isActive={pathname === '/~/today'}
+            isActive={pathname === '/~/objects/today'}
             icon={<Calendar size={18} />}
             label="Today"
           />

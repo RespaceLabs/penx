@@ -32,7 +32,7 @@ export function StoreProvider(props: PropsWithChildren) {
         pathname === '/' &&
         [UserRole.ADMIN, UserRole.AUTHOR].includes(session.role as any)
       ) {
-        push('/~/today')
+        push('/~/objects/today')
       }
     }
   }, [status, session, push, pathname])

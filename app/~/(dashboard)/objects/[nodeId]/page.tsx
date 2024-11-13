@@ -35,6 +35,9 @@ export default function Page() {
   const { data, isLoading } = useQuery({
     queryKey: ['note', params?.nodeId],
     queryFn: async () => {
+      if (params.nodeId === 'today') {
+        return store.node.selectDailyNote(new Date(), false)
+      }
       // return store.node.getNode(params.nodeId as string)
       return db.getNode(params.nodeId as string)
     },

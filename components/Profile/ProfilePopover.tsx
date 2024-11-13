@@ -101,7 +101,7 @@ export const ProfilePopover = memo(function ProfilePopover({
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
-                  push('/~/today')
+                  push('/~/objects/today')
                 }}
               >
                 <Gauge className="mr-2 h-4 w-4" />
