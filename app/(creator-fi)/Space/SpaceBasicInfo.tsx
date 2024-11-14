@@ -1,33 +1,27 @@
 'use client'
 
-import { useAddress } from '@/app/(creator-fi)/hooks/useAddress'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { Button } from '@/components/ui/button'
-import { getSpaceId } from '@/lib/getSpaceId'
+import { SpaceType } from '@/lib/types'
+import { getUrl } from '@/lib/utils'
 
-interface Props {}
+interface Props {
+  space: SpaceType
+}
 
-export function SpaceBasicInfo({}: Props) {
-  const address = useAddress()
-  const { space } = useSpace()
-  const spaceId = getSpaceId()
-
+export function SpaceBasicInfo({ space }: Props) {
   return (
     <div className="flex items-center gap-2">
       <img
         alt={space.name || ''}
         className="h-9 w-9 rounded-lg bg-foreground shadow-sm"
-        src={
-          space.logo ||
-          'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png'
-        }
+        src={getUrl(space.logo)}
       />
 
       <div className="text-lg font-bold">{space.name}</div>
       {/* <SpaceAddress /> */}
       <Button size="sm" variant="secondary" className="rounded-full">
         <a
-          href={`https://www.respace.one/space/${spaceId}`}
+          href={`https://www.respace.one/space/${space.address}`}
           className="flex items-center gap-1"
           target="_blank"
         >

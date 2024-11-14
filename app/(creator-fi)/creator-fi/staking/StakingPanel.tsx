@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import LoadingDots from '@/components/icons/loading-dots'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
 import { useCheckChain } from '@/hooks/useCheckChain'
@@ -25,7 +25,7 @@ export const StakingPanel = () => {
   const { writeContractAsync } = useWriteContract()
   const [tokenAmount, setTokenAmount] = useState<string>('')
   const { data: tokenBalance } = useSpaceTokenBalance()
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const { isConnected } = useAccount()
   const wagmiConfig = useWagmiConfig()
   const checkChain = useCheckChain()

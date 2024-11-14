@@ -2,12 +2,12 @@
 
 import { Badge } from '@/components/ui/badge'
 import { useCopyToClipboard } from '@/app/(creator-fi)/hooks/useCopyToClipboard'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { Copy } from 'lucide-react'
 import { toast } from 'sonner'
+import { useSpaceContext } from '@/components/SpaceContext'
 
 export function SpaceAddress() {
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const { address = '' } = space
   const { copy } = useCopyToClipboard()
   return (

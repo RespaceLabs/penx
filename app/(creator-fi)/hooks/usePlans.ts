@@ -1,4 +1,5 @@
 import { Plan, PlanInfo } from '@/app/(creator-fi)/domains/Plan'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { spaceAbi } from '@/lib/abi'
 import { isIPFSCID } from '@/lib/utils'
@@ -9,7 +10,7 @@ import { IPFS_GATEWAY } from '../constants'
 import { useSpace } from './useSpace'
 
 export function usePlans() {
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const wagmiConfig = useWagmiConfig()
   const { data: plans = [], ...rest } = useQuery({
     queryKey: ['plans', space.address],

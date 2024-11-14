@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useQueryEthBalance } from '@/app/(creator-fi)/hooks/useEthBalance'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { useTrades } from '@/app/(creator-fi)/hooks/useTrades'
 import LoadingDots from '@/components/icons/loading-dots'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
 import { useAddress } from '@/hooks/useAddress'
@@ -37,7 +37,7 @@ export const BuyBtn = ({
   const balance = useSpaceTokenBalance()
   const { refetch: refetchEth } = useQueryEthBalance()
   const address = useAddress()
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const trade = useTrades()
   const wagmiConfig = useWagmiConfig()
   const checkChain = useCheckChain()
@@ -80,12 +80,13 @@ export const BuyBtn = ({
     )
   return (
     <Button
+      variant="brand"
       className="h-[50px] w-full rounded-xl"
       disabled={!isAmountValid || isInsufficientBalance || loading}
       onClick={() => onBuy()}
     >
       {loading ? (
-        <LoadingDots  />
+        <LoadingDots />
       ) : isInsufficientBalance ? (
         'Insufficient ETH balance'
       ) : isAmountValid ? (

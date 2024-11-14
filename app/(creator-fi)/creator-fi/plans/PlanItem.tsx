@@ -5,9 +5,9 @@ import { Plan } from '@/app/(creator-fi)/domains/Plan'
 import { useAddress } from '@/app/(creator-fi)/hooks/useAddress'
 import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { useMembers } from '@/app/(creator-fi)/hooks/useMembers'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { useSubscriptions } from '@/app/(creator-fi)/hooks/useSubscriptions'
 import { PlateEditor } from '@/components/editor/plate-editor'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
@@ -23,7 +23,7 @@ export function PlanItem({ plan }: Props) {
   const address = useAddress()
   const { ethPrice } = useEthPrice()
   const { setState } = useUpdatePlanDialog()
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const { isConnected } = useAccount()
   const { openConnectModal } = useConnectModal()
   const { subscriptions } = useSubscriptions()

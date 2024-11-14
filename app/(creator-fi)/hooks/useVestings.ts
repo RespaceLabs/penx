@@ -1,3 +1,4 @@
+import { useSpaceContext } from '@/components/SpaceContext'
 import { spaceAbi } from '@/lib/abi'
 import { Address } from 'viem'
 import { useReadContract } from 'wagmi'
@@ -13,7 +14,7 @@ export type Vesting = {
 }
 
 export function useVestings() {
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const { data: vestings = [], ...rest } = useReadContract({
     address: space.address as Address,
     abi: spaceAbi,

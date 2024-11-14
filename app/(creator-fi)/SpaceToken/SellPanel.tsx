@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
 import { precision } from '@/lib/math'
 import { toFloorFixed } from '@/lib/utils'
@@ -12,7 +12,7 @@ import { SpaceTokenBalance } from './SpaceTokenBalance'
 export const SellPanel = () => {
   const [ethAmount, setEthAmount] = useState<string>('')
   const [tokenAmount, setTokenAmount] = useState<string>('')
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const { data: tokenBalance } = useSpaceTokenBalance()
 
   const isAmountValid = parseFloat(tokenAmount) > 0
@@ -50,7 +50,7 @@ export const SellPanel = () => {
 
   return (
     <>
-      <div className="mb-2 rounded-xl bg-gray-100 p-4 dark:bg-zinc-900">
+      <div className="mb-2 rounded-xl bg-foreground/5 p-4">
         <div className="text-sm">Sell</div>
 
         <AmountInput
@@ -83,7 +83,7 @@ export const SellPanel = () => {
         </div>
       </div>
 
-      <div className="mb-4 rounded-xl bg-gray-100 p-4 dark:bg-zinc-900">
+      <div className="mb-4 rounded-xl bg-foreground/5 p-4">
         <div className="text-sm">Buy</div>
 
         <AmountInput

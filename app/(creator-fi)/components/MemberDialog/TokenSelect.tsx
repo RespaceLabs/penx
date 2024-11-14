@@ -1,10 +1,10 @@
 'use client'
 
 import { forwardRef } from 'react'
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useEthBalance } from '@/app/(creator-fi)/hooks/useEthBalance'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { useTokenBalance } from '@/app/(creator-fi)/hooks/useTokenBalance'
+import { useSpaceContext } from '@/components/SpaceContext'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { precision } from '@/lib/math'
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 export const TokenSelect = forwardRef<HTMLDivElement, Props>(
   function TokenSelect({ value, onChange }, ref) {
-    const { space } = useSpace()
+    const space = useSpaceContext()
     const { ethBalance } = useEthBalance()
     const { data } = useTokenBalance()
     const isEth = value === 'ETH'

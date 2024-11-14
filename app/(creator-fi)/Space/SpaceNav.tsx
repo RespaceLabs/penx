@@ -1,6 +1,5 @@
 'use client'
 
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -9,9 +8,6 @@ interface Props {}
 
 export function SpaceNav({}: Props) {
   const pathname = usePathname()
-  const { space } = useSpace()
-
-  if (!space) return null
 
   const Paths = {
     about: `/creator-fi`,
@@ -27,7 +23,7 @@ export function SpaceNav({}: Props) {
   const linkClassName = (path: string) =>
     cn(
       'inline-flex item-center justify-center py-1.5 border-b-2 px-3 -mb-[1px] border-transparent',
-      path === pathname && 'border-black border-zinc-400'
+      path === pathname && 'border-black border-zinc-400',
     )
 
   return (

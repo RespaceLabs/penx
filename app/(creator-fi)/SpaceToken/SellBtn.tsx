@@ -81,12 +81,13 @@ export const SellBtn = ({
     <>
       {address ? (
         <Button
+          variant="brand"
           className="h-[50px] w-full rounded-xl"
           disabled={!isAmountValid || isInsufficientBalance || loading}
           onClick={() => onSell()}
         >
           {loading ? (
-            <LoadingDots  />
+            <LoadingDots />
           ) : isInsufficientBalance ? (
             `Insufficient ${space.symbolName} balance`
           ) : isAmountValid ? (

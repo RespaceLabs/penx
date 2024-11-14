@@ -11,6 +11,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useAllocationCap } from '@/hooks/useAllocationCap'
+import { useTipInfo } from '@/hooks/useTipInfo'
 import { useTipStats } from '@/hooks/useTipStats'
 import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { tipAbi } from '@/lib/abi'
@@ -22,6 +23,7 @@ import { toFloorFixed } from '@/lib/utils'
 import { Post } from '@penxio/types'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
 import { SetStateAction } from 'jotai'
+import { useParams } from 'next/navigation'
 import pRetry, { AbortError } from 'p-retry'
 import { toast } from 'sonner'
 import { Address } from 'viem'
@@ -49,6 +51,7 @@ export function TipTokenDialog({
   receivers,
 }: Props) {
   const [amount, setAmount] = useState('1')
+  const params = useParams()
   const { address = '' } = useAccount()
   let { data: executionFee } = useReadContract({
     address: addressMap.Tip,
@@ -56,7 +59,8 @@ export function TipTokenDialog({
     functionName: 'executionFee',
   })
 
-  const { refetch: refetchTipInfo } = useTipStats(receivers)
+  const { refetch: refetchTipStats } = useTipStats(receivers)
+  const { refetch: refetchTipInfo } = useTipInfo(post.id)
   const { data: data, isLoading: isLoadingCap, refetch } = useAllocationCap()
 
   const { writeContractAsync } = useWriteContract()
@@ -122,7 +126,11 @@ export function TipTokenDialog({
       toast.success('Tip $PEN successfully')
       await refetch()
       setTimeout(() => {
-        refetchTipInfo()
+        if (params?.slug) {
+          refetchTipInfo()
+        } else {
+          refetchTipStats()
+        }
       }, 4000)
     } catch (error) {
       console.log('====error>>>:', error)

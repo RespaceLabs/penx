@@ -1,16 +1,16 @@
 'use client'
 
+import { useHolders } from '@/app/(creator-fi)/hooks/useHolders'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { Skeleton } from '@/components/ui/skeleton'
 import { UserAvatar } from '@/components/UserAvatar'
-import { useHolders } from '@/app/(creator-fi)/hooks/useHolders'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { precision } from '@/lib/math'
 import { cn, shortenAddress } from '@/lib/utils'
 
 interface Props {}
 
 export function HolderList({}: Props) {
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const { holders, isLoading } = useHolders()
 
   if (isLoading) {
@@ -38,7 +38,9 @@ export function HolderList({}: Props) {
             <div className="text-sm">{shortenAddress(item.account)}</div>
           </div>
           <div className="flex gap-1">
-            <span className="font-bold">{precision.toDecimal(item.balance).toFixed(2)}</span>
+            <span className="font-bold">
+              {precision.toDecimal(item.balance).toFixed(2)}
+            </span>
             {space.symbolName}
           </div>
         </div>

@@ -1,11 +1,11 @@
+import { useSpaceContext } from '@/components/SpaceContext'
 import { RESPACE_SUBGRAPH_URL } from '@/lib/constants'
 import { Trade } from '@/lib/types'
 import { useQuery } from '@tanstack/react-query'
 import { gql, request } from 'graphql-request'
-import { useSpace } from './useSpace'
 
 export function useTrades() {
-  const { space } = useSpace()
+  const space = useSpaceContext()
 
   const query = gql`
     query getTrades($spaceAddress: String!) {

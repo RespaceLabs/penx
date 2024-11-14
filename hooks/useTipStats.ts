@@ -8,7 +8,7 @@ type TipInfo = {
   uri: string
 }
 
-export function useTipStats(receivers: string[]) {
+export function useTipStats(receivers: string[] = []) {
   const query = gql`
     query geTips($receivers: [Bytes]) {
       tips(where: { receiver_in: $receivers }) {
@@ -30,7 +30,7 @@ export function useTipStats(receivers: string[]) {
         },
       })
     },
-    enabled: !!receivers,
+    enabled: receivers.length > 0,
   })
 
   return {

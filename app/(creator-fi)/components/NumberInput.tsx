@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 import { matchNumber } from '@/lib/utils'
-import { Input } from '../../../components/ui/input'
+import { Input } from '@/components/ui/input'
 
 export interface NumberInputProps
   extends Omit<

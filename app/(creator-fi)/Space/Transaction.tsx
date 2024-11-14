@@ -18,7 +18,7 @@ export function Transaction() {
   }
 
   return (
-    <div className="rounded-2xl bg-white p-4 shadow-sm dark:bg-zinc-950/50">
+    <div className="rounded-2xl bg-background p-4 shadow-sm">
       <div className="rounded-lg">
         <div className="mb-3 flex text-foreground/80">
           <button

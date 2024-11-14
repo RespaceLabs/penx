@@ -1,5 +1,5 @@
 import { useAddress } from '@/app/(creator-fi)/hooks/useAddress'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { spaceAbi } from '@/lib/abi'
 import { Address } from 'viem'
 import { useReadContract } from 'wagmi'
@@ -11,7 +11,7 @@ export const formatAmount = (value: string): string => {
 
 export function useSpaceTokenBalance() {
   const address = useAddress()
-  const { space } = useSpace()
+  const space = useSpaceContext()
   return useReadContract({
     address: space.address as Address,
     abi: spaceAbi,

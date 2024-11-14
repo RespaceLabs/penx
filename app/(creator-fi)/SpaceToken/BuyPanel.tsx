@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useEthBalance } from '@/app/(creator-fi)/hooks/useEthBalance'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
 import { precision } from '@/lib/math'
 import { toFloorFixed } from '@/lib/utils'
@@ -13,7 +13,7 @@ export const BuyPanel = () => {
   const [ethAmount, setEthAmount] = useState<string>('')
   const [tokenAmount, setTokenAmount] = useState<string>('')
   const { ethBalance } = useEthBalance()
-  const { space } = useSpace()
+  const space = useSpaceContext()
 
   const isAmountValid = parseFloat(ethAmount) > 0 && parseFloat(tokenAmount) > 0
 
@@ -66,7 +66,7 @@ export const BuyPanel = () => {
         </div>
       </div>
 
-      <div className="mb-4 rounded-xl bg-gray-100 p-4 dark:bg-zinc-900">
+      <div className="mb-4 rounded-xl bg-foreground/5 p-4">
         <div className="text-sm">Buy</div>
         <AmountInput
           symbolName={space.symbolName}

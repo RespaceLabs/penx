@@ -20,7 +20,6 @@ export function useSpace() {
 
 export function useQuerySpace() {
   const spaceId = getSpaceId()
-  console.log('=========spaceId:', spaceId)
 
   const { data, ...rest } = useQuery({
     queryKey: ['space'],

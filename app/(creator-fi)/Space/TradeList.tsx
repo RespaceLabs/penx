@@ -2,16 +2,16 @@
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { UserAvatar } from '@/components/UserAvatar'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { useTrades } from '@/app/(creator-fi)/hooks/useTrades'
 import { precision } from '@/lib/math'
 import { cn, shortenAddress } from '@/lib/utils'
 import { TradeType } from '../constants'
+import { useSpaceContext } from '@/components/SpaceContext'
 
 interface Props {}
 
 export function TradeList({}: Props) {
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const { trades, isLoading } = useTrades()
 
   if (isLoading) {

@@ -3,14 +3,14 @@
 import { ReactNode } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { precision } from '@/lib/math'
 import { useBalance } from 'wagmi'
+import { useSpaceContext } from '@/components/SpaceContext'
 
 interface Props {}
 
 export function SpaceStats({}: Props) {
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const { ethPrice } = useEthPrice()
 
   return (
@@ -49,7 +49,7 @@ function StatsItem({ title, value }: StatsItemProps) {
 }
 
 function MarketCap() {
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const { data, isLoading } = useBalance({ address: space.address })
   const { ethPrice } = useEthPrice()
   if (isLoading || !data) return <Skeleton className="h-8"></Skeleton>

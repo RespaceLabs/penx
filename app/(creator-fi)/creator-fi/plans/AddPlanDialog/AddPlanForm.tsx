@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form'
 import { NumberInput } from '@/app/(creator-fi)/components/NumberInput'
 import { editorDefaultValue } from '@/app/(creator-fi)/constants'
 import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import LoadingDots from '@/components/icons/loading-dots'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -38,7 +38,7 @@ const FormSchema = z.object({
 export function AddPlanForm() {
   const [isLoading, setLoading] = useState(false)
   const { setIsOpen } = useAddPlanDialog()
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const { ethPrice } = useEthPrice()
   const wagmiConfig = useWagmiConfig()
   const checkChain = useCheckChain()

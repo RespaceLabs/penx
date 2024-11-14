@@ -1,7 +1,9 @@
 import prisma from '@/lib/prisma'
 import { getSite as getSiteInfo } from '@/server/lib/getSite'
+import ky from 'ky'
 import { unstable_cache } from 'next/cache'
-import { PostStatus } from './constants'
+import { PostStatus, RESPACE_BASE_URI } from './constants'
+import { SpaceType } from './types'
 import { getUrl } from './utils'
 
 export async function getSite() {
@@ -113,3 +115,19 @@ export async function getTagWithPost(name: string) {
 //     },
 //   )()
 // }
+
+export async function getSpace(spaceId: string) {
+  return await unstable_cache(
+    async () => {
+      const response = await ky
+        .get(RESPACE_BASE_URI + `/api/get-space?address=${spaceId}`)
+        .json<SpaceType>()
+      return response
+    },
+    [`space-${spaceId}`],
+    {
+      revalidate: 10,
+      tags: [`space-${spaceId}`],
+    },
+  )()
+}

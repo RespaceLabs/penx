@@ -23,8 +23,8 @@ module.exports = {
     'penx-theme-micro',
     'penx-theme-card',
     'penx-theme-minimal',
-    'penx-theme-photo',
     'penx-theme-garden',
+    'penx-theme-photo',
   ],
 
   images: {

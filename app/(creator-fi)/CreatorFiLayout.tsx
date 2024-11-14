@@ -3,18 +3,18 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { useQueryEthBalance } from '@/app/(creator-fi)/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
-import { useQuerySpace, useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { ClientOnly } from '@/components/ClientOnly'
 import LoadingCircle from '@/components/icons/loading-circle'
 import { Profile } from '@/components/Profile/Profile'
+import { SpaceType } from '@/lib/types'
 import Link from 'next/link'
 import { SpaceBasicInfo } from './Space/SpaceBasicInfo'
 import { SpaceNav } from './Space/SpaceNav'
 
 interface HeaderProps {
-  isLoading: boolean
+  space: SpaceType
 }
-function Header({ isLoading }: HeaderProps) {
+function Header({ space }: HeaderProps) {
   return (
     <header className="flex h-16 items-center justify-between px-4">
       <div className="flex flex-1 items-center gap-2 ">
@@ -36,10 +36,9 @@ function Header({ isLoading }: HeaderProps) {
             ></path>
           </svg>
         </Link>
-        {isLoading && <div>Loading..</div>}
-        {!isLoading && <SpaceBasicInfo />}
+        <SpaceBasicInfo space={space} />
       </div>
-      <SpaceNav></SpaceNav>
+      <SpaceNav />
       <div className="flex flex-1 justify-end">
         <Profile />
       </div>
@@ -47,26 +46,17 @@ function Header({ isLoading }: HeaderProps) {
   )
 }
 
-export function CreatorFiLayout({ children }: PropsWithChildren) {
+interface Props {
+  space: SpaceType
+}
+
+export function CreatorFiLayout({ children, space }: PropsWithChildren<Props>) {
   useQueryEthPrice()
   useQueryEthBalance()
-  useQuerySpace()
-  const { space } = useSpace()
-
-  if (!space?.address) {
-    return (
-      <>
-        <Header isLoading />
-        <div className="flex h-[80vh] items-center justify-center">
-          <LoadingCircle />
-        </div>
-      </>
-    )
-  }
 
   return (
     <>
-      <Header isLoading={false} />
+      <Header space={space} />
       {children}
     </>
   )

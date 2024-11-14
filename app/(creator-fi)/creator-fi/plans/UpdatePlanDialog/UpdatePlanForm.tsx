@@ -6,9 +6,9 @@ import { NumberInput } from '@/app/(creator-fi)/components/NumberInput'
 import { PlanStatus } from '@/app/(creator-fi)/domains/Plan'
 import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { usePlans } from '@/app/(creator-fi)/hooks/usePlans'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { PlateEditor } from '@/components/editor/plate-editor'
 import LoadingDots from '@/components/icons/loading-dots'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -44,7 +44,7 @@ export function UpdatePlanForm() {
   const [isLoading, setLoading] = useState(false)
   const wagmiConfig = useWagmiConfig()
   const { setIsOpen } = useUpdatePlanDialog()
-  const { space } = useSpace()
+  const space = useSpaceContext()
   const { ethPrice } = useEthPrice()
   const { plan } = useUpdatePlanDialog()
   const { refetch } = usePlans()

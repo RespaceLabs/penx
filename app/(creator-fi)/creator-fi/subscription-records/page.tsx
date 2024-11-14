@@ -1,12 +1,11 @@
 'use client'
 
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { SubscriptionRecordList } from '../../Space/SubscriptionRecordList'
 
 export const dynamic = 'force-static'
 
 export default function Page() {
-  const { space } = useSpace()
-  if (!space) return
+  const space = useSpaceContext()
   return <SubscriptionRecordList space={space} />
 }

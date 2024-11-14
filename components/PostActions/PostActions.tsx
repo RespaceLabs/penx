@@ -25,8 +25,8 @@ export function PostActions({ post, receivers }: Props) {
         <TippersDialog post={post} receivers={receivers} />
       </div>
       <div className="flex items-center gap-1">
-        {typeof post.creationId === 'number' && <CollectButton post={post} />}
         <TipTokenButton post={post} receivers={receivers} />
+        {typeof post.creationId === 'number' && <CollectButton post={post} />}
       </div>
     </div>
   )
