@@ -7,7 +7,7 @@ import { creationFactoryAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { precision } from '@/lib/math'
-import { INode, IObjectNode } from '@/lib/model'
+import { INode, IObjectNode, ObjectType } from '@/lib/model'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { nodeToSlate } from '@/lib/serializer'
 import { api } from '@/lib/trpc'
@@ -76,7 +76,10 @@ export function usePublishPost() {
           gateType,
           collectable,
           creationId,
-          image: node.props?.imageUrl,
+          image:
+            node.props.objectType === ObjectType.IMAGE
+              ? node.props?.imageUrl
+              : node.props.coverUrl,
           content: JSON.stringify(content),
         })
 

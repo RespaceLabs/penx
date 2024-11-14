@@ -1,5 +1,7 @@
 'use client'
 
+import { useTipRecords } from '@/hooks/useTipRecords'
+import { useTipStats } from '@/hooks/useTipStats'
 import { Post } from '@penxio/types'
 import { CollectButton } from './Collection/CollectButton'
 import { CollectorsDialog } from './CollectorsDialog/CollectorsDialog'
@@ -10,20 +12,21 @@ import { TipTokenButton } from './TipToken/TipTokenButton'
 
 interface Props {
   post: Post
+  receivers: string[]
 }
 
-export function PostActions({ post }: Props) {
+export function PostActions({ post, receivers }: Props) {
+  const { data } = useTipStats(receivers)
+
   return (
     <div className="flex items-center justify-between">
-      <CollectorsDialog post={post} />
-      <TippersDialog post={post} />
       <div className="flex items-end gap-4">
-        {typeof post.creationId === 'number' && <MintedAmount post={post} />}
-        <TippedAmount post={post} />
+        <CollectorsDialog post={post} />
+        <TippersDialog post={post} receivers={receivers} />
       </div>
       <div className="flex items-center gap-1">
         {typeof post.creationId === 'number' && <CollectButton post={post} />}
-        <TipTokenButton post={post} />
+        <TipTokenButton post={post} receivers={receivers} />
       </div>
     </div>
   )

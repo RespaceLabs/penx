@@ -11,6 +11,7 @@ import { CommonTitle } from './CommonTitle'
 import { CoverUpload } from './CoverUpload'
 import { DailyTitle } from './DailyTitle'
 import { ImageObject } from './ImageObject'
+import { Note } from './Note'
 
 export const TitleElement = withRef(
   (props: PlateElementProps<ITitleElement>, ref) => {
@@ -19,6 +20,7 @@ export const TitleElement = withRef(
     const isDaily = element.nodeType === NodeType.DAILY
     const isDatabase = element.nodeType === NodeType.DATABASE
     const isDailyRoot = element.nodeType === NodeType.DAILY_ROOT
+    const isNote = objectType === ObjectType.NOTE
     const editor = useSlate()
 
     // console.log('======element:', element)
@@ -38,9 +40,10 @@ export const TitleElement = withRef(
       <div
         {...props.attributes}
         className={cn(
-          'text-foreground/80 relative mb-4 flex flex-col gap-0 pr-2 text-4xl font-bold',
+          'text-foreground/80 relative flex flex-col gap-0 pr-2',
           isDatabase && 'pl-9',
           isDailyRoot && 'pl-4',
+          !isNote && 'mb-4',
         )}
       >
         {isDaily && <DailyTitle {...props} />}
@@ -48,16 +51,20 @@ export const TitleElement = withRef(
         {objectType === ObjectType.ARTICLE && !isDaily && (
           <>
             <CoverUpload {...props} />
-            <CommonTitle {...props} />
           </>
         )}
+
+        {[ObjectType.ARTICLE, ObjectType.IMAGE, ObjectType.VIDEO].includes(
+          objectType,
+        ) && <CommonTitle {...props} />}
 
         {!isDaily && (
           <div
             contentEditable={false}
-            className="flex items-center gap-2 text-xs font-normal mt-2 text-foreground/40"
+            className="flex items-center gap-2 text-xs font-normal pt-2 text-foreground/40 z-50"
           >
             <div
+              contentEditable={false}
               className={getObjectItemClassName(
                 objectType == ObjectType.ARTICLE,
               )}
@@ -94,6 +101,7 @@ export const TitleElement = withRef(
             <ImageObject {...props} />
           </>
         )}
+        {objectType === ObjectType.NOTE && <Note {...props} />}
       </div>
     )
   },

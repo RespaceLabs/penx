@@ -1,5 +1,6 @@
 'use client'
 
+import { PostActions } from '@/components/PostActions/PostActions'
 import { SubscriptionInSession } from '@/lib/types'
 import { TipTapNode } from '@penxio/types'
 import { Post } from '@prisma/client'
@@ -7,7 +8,6 @@ import { useSession } from 'next-auth/react'
 import dynamic from 'next/dynamic'
 import readingTime from 'reading-time'
 import { GateCover } from './GateCover'
-import { PostActions } from './PostActions/PostActions'
 
 const PostDetail: any = dynamic(
   () => import(process.env.NEXT_PUBLIC_THEME!).then((mod) => mod.PostDetail),

@@ -23,6 +23,14 @@ export async function getPosts() {
       const posts = await prisma.post.findMany({
         include: {
           postTags: { include: { tag: true } },
+          user: {
+            select: {
+              address: true,
+              email: true,
+              name: true,
+              image: true,
+            },
+          },
         },
         where: {
           postStatus: PostStatus.PUBLISHED,
@@ -36,7 +44,7 @@ export async function getPosts() {
     },
     [`posts`],
     {
-      revalidate: 3600,
+      revalidate: 10,
       tags: [`posts`],
     },
   )()

@@ -26,7 +26,11 @@ export function SlateContent() {
         // console.log('=====element:', element)
         switch (element.type) {
           case ELEMENT_P:
-            return <p {...attributes}>{children}</p>
+            return (
+              <div className="mb-4" {...attributes}>
+                {children}
+              </div>
+            )
           case ELEMENT_H1:
             return <h1 {...attributes}>{children}</h1>
           case ELEMENT_H2:

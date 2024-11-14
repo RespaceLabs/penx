@@ -13,6 +13,8 @@ const config = {
     './node_modules/penx-theme-minimal/src/**/*.{js,tsx,ts}',
     './node_modules/penx-theme-micro/src/**/*.{js,tsx,ts}',
     './node_modules/penx-theme-card/src/**/*.{js,tsx,ts}',
+    './node_modules/penx-theme-photo/src/**/*.{js,tsx,ts}',
+    './node_modules/penx-theme-garden/src/**/*.{js,tsx,ts}',
     './src/**/*.{ts,tsx}',
   ],
   prefix: '',

@@ -1,4 +1,5 @@
 import { ContentRender } from '@/components/ContentRender/ContentRender'
+import { PostActions } from '@/components/PostActions/PostActions'
 import { getPost, getPosts } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
 import { TipTapNode } from '@penxio/types'
@@ -7,7 +8,6 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 import { PaidContent } from './PaidContent'
-import { PostActions } from './PostActions/PostActions'
 
 function getContent(post: Post, isGated = false) {
   const node: TipTapNode = JSON.parse(post.content || '{}')

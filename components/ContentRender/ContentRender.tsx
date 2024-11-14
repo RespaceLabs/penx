@@ -12,7 +12,10 @@ export function ContentRender({ content }: Props) {
   const editor = withReact(createEditor())
 
   return (
-    <Slate editor={editor} initialValue={content}>
+    <Slate
+      editor={editor}
+      initialValue={Array.isArray(content) ? content : JSON.parse(content)}
+    >
       <SlateContent />
     </Slate>
   )

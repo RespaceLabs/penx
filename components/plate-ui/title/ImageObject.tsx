@@ -3,16 +3,16 @@ import { ITitleElement } from '@/components/editor/plugins/title-plugin'
 import LoadingDots from '@/components/icons/loading-dots'
 import { uploadFile } from '@/lib/uploadFile'
 import { cn, getUrl, isIPFSCID } from '@/lib/utils'
+import { PlateElementProps } from '@udecode/plate-common/react'
 import { ImageIcon, X } from 'lucide-react'
 import Image from 'next/image'
 import { Transforms } from 'slate'
 import { ReactEditor, useSlate } from 'slate-react'
 
-interface Props {
-  className?: string
-  element: ITitleElement
-}
-export function ImageObject({ element, className }: Props) {
+export function ImageObject({
+  element,
+  children,
+}: PlateElementProps<ITitleElement>) {
   const [value, setValue] = useState(element?.props?.imageUrl || '')
   const editor = useSlate()
   const path = ReactEditor.findPath(editor as any, element)

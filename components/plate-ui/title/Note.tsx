@@ -15,7 +15,7 @@ import { PlateElementProps } from '@udecode/plate-common/react'
 import { Node } from 'slate'
 import { PlateElement } from '../plate-element'
 
-export const CommonTitle = ({
+export const Note = ({
   attributes,
   element,
   children,
@@ -33,15 +33,14 @@ export const CommonTitle = ({
 
   const { compositionData } = useCompositionData(element.id)
   const isPlaceholderShow = !titleStr?.length && !compositionData && !isHeading
-  const objectType = element.props?.objectType || ObjectType.ARTICLE
 
   return (
     <div
       // {...attributes}
+      {...{ before: 'Write some note here...' }}
       className={cn(
-        "leading-none font-bold text-4xl w-full z-10 before:content-['Untitled'] before:text-foreground/20 before:break-normal before:absolute before:h-16 before:leading-loose before:top-0 before:cursor-text before:text-4xl before:font-bold",
-        isPlaceholderShow ? 'before:block' : 'before:hidden',
-        objectType === ObjectType.NOTE && 'hidden',
+        'leading-none  mt-4 w-full font-normal relative text-base z-10 before:content-[attr(before)] before:text-foreground/30 before:break-normal before:absolute before:bottom-0 before:top-0 before:cursor-text before:items-center before:text-base before:font-normal',
+        isPlaceholderShow ? 'before:flex' : 'before:hidden',
       )}
     >
       {children}

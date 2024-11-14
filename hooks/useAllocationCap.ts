@@ -27,8 +27,6 @@ export function useAllocationCap() {
         }),
       ])
 
-      console.log('=====tipper:', tipper)
-
       if (Number(tipper.allocatedTime) === 0) {
         return { cap: allocationCap.cap, dayCap: allocationCap.cap }
       } else {

@@ -9,6 +9,7 @@ interface Props {
 
 export function NodeItem({ node }: Props) {
   const params = useParams()
+  const { title = '' } = node
   return (
     <Link
       key={node.id}
@@ -18,7 +19,7 @@ export function NodeItem({ node }: Props) {
         params.nodeId === node.id && 'bg-foreground/5',
       )}
     >
-      {node.title || 'Untitled'}
+      {title.length > 40 ? title?.slice(0, 40) + '...' : title || 'Untitled'}
     </Link>
   )
 }

@@ -1,4 +1,5 @@
 import { ContentRender } from '@/components/ContentRender/ContentRender'
+import { PostActions } from '@/components/PostActions/PostActions'
 import { getPosts, getSite } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
 import { Metadata, ResolvingMetadata } from 'next'
@@ -30,6 +31,7 @@ export default async function HomePage() {
       authors={[]}
       site={site}
       ContentRender={ContentRender}
+      PostActions={PostActions}
     />
   )
 }

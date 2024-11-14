@@ -1,55 +1,69 @@
 'use client'
 
+import { useState } from 'react'
 import { useSiteContext } from '@/components/SiteContext'
 import { Button } from '@/components/ui/button'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
+import { cn } from '@/lib/utils'
 import { Post } from '@penxio/types'
 import { AuthType } from '@prisma/client'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
-import { TipTokenDialog } from './TipTokenDialog'
-import { useTipTokenDialog } from './useTipTokenDialog'
+import { CollectDialog } from './CollectDialog'
+
+interface State {
+  isLoading: boolean
+  isOpen: boolean
+}
 
 interface Props {
   post: Post
+  className?: string
 }
 
-export function TipTokenButton({ post }: Props) {
-  const { setIsOpen } = useTipTokenDialog()
+export function CollectButton({ post, className }: Props) {
   const site = useSiteContext()
   const { data, status } = useSession()
   const { address = '' } = useAccount()
   const { openConnectModal } = useConnectModal()
+  const [state, setState] = useState<State>({
+    isLoading: false,
+    isOpen: false,
+  })
   if (site.authType === AuthType.GOOGLE) return null
 
   const authenticated = !!data
 
   return (
     <>
-      <TipTokenDialog post={post} />
+      <CollectDialog
+        post={post}
+        isLoading={state.isLoading}
+        isOpen={state.isOpen}
+        setState={setState}
+      />
       {authenticated ? (
         <Button
           size="sm"
-          variant="outline"
-          className="rounded-xl text-sm"
+          variant="brand"
+          className={cn('rounded-xl text-sm', className)}
           onClick={() => {
             if (!address) {
               return openConnectModal?.()
             }
-
-            setIsOpen(true)
+            setState((prev) => ({ ...prev, isOpen: true }))
           }}
         >
-          Tip $PEN
+          Collect
         </Button>
       ) : (
         <WalletConnectButton
           size="sm"
-          variant="outline"
-          className="rounded-xl text-sm"
+          variant="brand"
+          className={cn('rounded-xl text-sm', className)}
         >
-          Tip $PEN
+          Collect
         </WalletConnectButton>
       )}
     </>

@@ -3,11 +3,11 @@ import { MintRecord } from '@/lib/types'
 import { useQuery } from '@tanstack/react-query'
 import { gql, request } from 'graphql-request'
 
-export function useCollectRecords(creationId: string) {
+export function useCollectRecords(creationId: string, enabled: boolean) {
   const query = gql`
     query getMintRecords($creationId: String!) {
       mintRecords(
-        first: 100
+        first: 1000
         orderBy: "timestamp"
         orderDirection: "desc"
         where: { creationId: $creationId }
@@ -33,6 +33,7 @@ export function useCollectRecords(creationId: string) {
         },
       })
     },
+    enabled,
   })
 
   const records: MintRecord[] = data?.mintRecords || []

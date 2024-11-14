@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useAllocationCap } from '@/hooks/useAllocationCap'
-import { useTipInfo } from '@/hooks/useTipInfo'
+import { useTipStats } from '@/hooks/useTipStats'
 import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { tipAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
@@ -21,22 +21,34 @@ import { api } from '@/lib/trpc'
 import { toFloorFixed } from '@/lib/utils'
 import { Post } from '@penxio/types'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
+import { SetStateAction } from 'jotai'
 import pRetry, { AbortError } from 'p-retry'
 import { toast } from 'sonner'
 import { Address } from 'viem'
 import { useAccount, useReadContract, useWriteContract } from 'wagmi'
 import { TipAmountInput } from './TipAmountInput'
-import { useTipTokenDialog } from './useTipTokenDialog'
 
 interface Props {
+  isLoading: boolean
+  isOpen: boolean
+  setState: Dispatch<
+    SetStateAction<{
+      isLoading: boolean
+      isOpen: boolean
+    }>
+  >
   post: Post
+  receivers: string[]
 }
 
-export function TipTokenDialog({ post }: Props) {
+export function TipTokenDialog({
+  isLoading,
+  isOpen,
+  setState,
+  post,
+  receivers,
+}: Props) {
   const [amount, setAmount] = useState('1')
-
-  const { isOpen, isLoading, setIsOpen, setIsLoading, setState } =
-    useTipTokenDialog()
   const { address = '' } = useAccount()
   let { data: executionFee } = useReadContract({
     address: addressMap.Tip,
@@ -44,7 +56,7 @@ export function TipTokenDialog({ post }: Props) {
     functionName: 'executionFee',
   })
 
-  const { refetch: refetchTipInfo } = useTipInfo(post.id)
+  const { refetch: refetchTipInfo } = useTipStats(receivers)
   const { data: data, isLoading: isLoadingCap, refetch } = useAllocationCap()
 
   const { writeContractAsync } = useWriteContract()
@@ -74,7 +86,7 @@ export function TipTokenDialog({ post }: Props) {
   }
 
   async function tipTokens() {
-    setIsLoading(true)
+    setState((prev) => ({ ...prev, isLoading: true }))
     try {
       const address = await api.user.getAddressByUserId.query(post.userId)
 
@@ -97,7 +109,7 @@ export function TipTokenDialog({ post }: Props) {
       await waitForTransactionReceipt(wagmiConfig, { hash })
       await pRetry(checkTipSuccess, {
         retries: 20,
-        minTimeout: 500,
+        minTimeout: 1000,
         onFailedAttempt(error) {
           console.log('=====error:', error.attemptNumber, error.name)
         },
@@ -114,7 +126,7 @@ export function TipTokenDialog({ post }: Props) {
       }, 4000)
     } catch (error) {
       console.log('====error>>>:', error)
-      setIsLoading(false)
+      setState((prev) => ({ ...prev, isLoading: false }))
 
       const msg = extractErrorMessage(error)
       toast.error(msg)
@@ -122,7 +134,12 @@ export function TipTokenDialog({ post }: Props) {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(v) => {
+        setState((prev) => ({ ...prev, isOpen: v }))
+      }}
+    >
       <DialogContent className="sm:max-w-[460px] grid gap-4">
         <DialogHeader>
           <DialogTitle className="">Tip $PEN to creator</DialogTitle>

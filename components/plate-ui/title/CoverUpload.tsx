@@ -13,7 +13,7 @@ interface Props {
   element: ITitleElement
 }
 export function CoverUpload({ element, className }: Props) {
-  const [value, setValue] = useState(element?.props?.imageUrl || '')
+  const [value, setValue] = useState(element?.props?.coverUrl || '')
   const editor = useSlate()
   const path = ReactEditor.findPath(editor as any, element)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -35,7 +35,7 @@ export function CoverUpload({ element, className }: Props) {
         Transforms.setNodes(
           editor,
           {
-            props: { ...element?.props, imageUrl: uri },
+            props: { ...element?.props, coverUrl: uri },
           } as ITitleElement,
           { at: path },
         )
@@ -59,7 +59,7 @@ export function CoverUpload({ element, className }: Props) {
     Transforms.setNodes(
       editor,
       {
-        props: { ...element?.props, imageUrl: '' },
+        props: { ...element?.props, coverUrl: '' },
       } as ITitleElement,
       { at: path },
     )

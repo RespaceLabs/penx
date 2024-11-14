@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
+import { useSiteContext } from '@/components/SiteContext'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -10,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { useCreation } from '@/hooks/useCreation'
+import { useCreations } from '@/hooks/useCreations'
 import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { creationFactoryAbi, tipAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
@@ -22,17 +23,23 @@ import { toast } from 'sonner'
 import { zeroAddress } from 'viem'
 import { useAccount, useReadContract, useWriteContract } from 'wagmi'
 import { CollectionAmountInput } from './CollectionAmountInput'
-import { useTipTokenDialog } from './useTipTokenDialog'
 
 interface Props {
+  isLoading: boolean
+  isOpen: boolean
+  setState: Dispatch<
+    SetStateAction<{
+      isLoading: boolean
+      isOpen: boolean
+    }>
+  >
   post: Post
 }
 
-export function CollectDialog({ post }: Props) {
+export function CollectDialog({ isLoading, isOpen, setState, post }: Props) {
   const [amount, setAmount] = useState('1')
-  const { isOpen, isLoading, setIsOpen, setIsLoading, setState } =
-    useTipTokenDialog()
-  const { refetch } = useCreation(post.creationId.toString())
+  const { spaceId } = useSiteContext()
+  const { refetch } = useCreations(spaceId!)
 
   let { data: creation } = useReadContract({
     address: addressMap.CreationFactory,
@@ -45,7 +52,7 @@ export function CollectDialog({ post }: Props) {
   const wagmiConfig = useWagmiConfig()
 
   async function collect() {
-    setIsLoading(true)
+    setState((prev) => ({ ...prev, isLoading: true }))
 
     try {
       const hash = await writeContractAsync({
@@ -68,7 +75,7 @@ export function CollectDialog({ post }: Props) {
       toast.success('Collect successfully')
     } catch (error) {
       console.log('====error>>>:', error)
-      setIsLoading(false)
+      setState((prev) => ({ ...prev, isLoading: false }))
 
       const msg = extractErrorMessage(error)
       toast.error(msg)
@@ -76,7 +83,12 @@ export function CollectDialog({ post }: Props) {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(v) => {
+        setState((prev) => ({ ...prev, isOpen: v }))
+      }}
+    >
       <DialogContent className="sm:max-w-[400px] grid gap-6">
         <DialogHeader>
           <DialogTitle className="">Collect this post</DialogTitle>

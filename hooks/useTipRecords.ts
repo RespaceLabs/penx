@@ -3,7 +3,7 @@ import { TipRecord } from '@/lib/types'
 import { useQuery } from '@tanstack/react-query'
 import { gql, request } from 'graphql-request'
 
-export function useTipRecords(uri: string) {
+export function useTipRecords(uri: string, enabled: boolean) {
   const query = gql`
     query getTipRecords($uri: String!) {
       tipRecords(
@@ -34,6 +34,7 @@ export function useTipRecords(uri: string) {
         },
       })
     },
+    enabled,
   })
 
   const records: TipRecord[] = data?.tipRecords || []
