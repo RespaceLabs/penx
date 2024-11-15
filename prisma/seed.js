@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
+const crypto = require('crypto');
 
 function genSecret(size = 32) {
   const bytes = crypto.getRandomValues(new Uint8Array(size))

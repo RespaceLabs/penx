@@ -178,7 +178,7 @@ model Comment {
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @db.Uuid
 
-  @@unique([userId, postId])
+  @@index([userId, postId])
   @@index([postId])
   @@index([userId])
   @@map("comment")

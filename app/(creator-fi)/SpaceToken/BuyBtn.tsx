@@ -74,7 +74,10 @@ export const BuyBtn = ({
 
   if (!address)
     return (
-      <WalletConnectButton className="h-[50px] w-full rounded-xl">
+      <WalletConnectButton
+        variant="brand"
+        className="h-[50px] w-full rounded-xl"
+      >
         Connect wallet
       </WalletConnectButton>
     )

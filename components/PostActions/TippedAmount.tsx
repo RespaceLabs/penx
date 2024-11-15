@@ -26,7 +26,8 @@ export function TippedAmount(props: Props) {
 }
 
 export function TippedAmountInPostDetail({ post, setIsOpen }: Props) {
-  const { data, isLoading } = useTipInfo(post.id)
+  const { data, isLoading } = useTipInfo(post.id, true)
+
   if (isLoading) return <Skeleton className="h-6 w-12" />
   return (
     <div

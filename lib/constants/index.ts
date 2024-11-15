@@ -12,7 +12,6 @@ export const IPFS_ADD_URL = 'https://penx.io/api/ipfs-add'
 // export const IPFS_ADD_URL = 'http://localhost:4000/api/ipfs-add'
 export const IPFS_GATEWAY = 'https://ipfs-gateway.spaceprotocol.xyz'
 
-
 export const ELECTRIC_BASE_URL = 'http://43.154.135.183:3000'
 
 export const GOOGLE_DRIVE_OAUTH_REDIRECT_URI =
@@ -98,5 +97,12 @@ export const DATABASE_TOOLBAR_HEIGHT = 42
 
 export const SIDEBAR_WIDTH = 240
 
+export const ALLOCATION_CAP_URL =
+  NETWORK === NetworkNames.BASE
+    ? 'https://penx.io/api/allocation-cap'
+    : 'https://sepolia.penx.io/api/allocation-cap'
 
-export const ALLOCATION_CAP_URL  = NETWORK === NetworkNames.BASE? 'https://penx.io/api/allocation-cap': 'https://sepolia.penx.io/api/allocation-cap'
+export const DAILY_CLAIM_CAP_URL =
+  NETWORK === NetworkNames.BASE
+    ? 'https://penx.io/api/daily-claim-cap'
+    : 'https://sepolia.penx.io/api/daily-claim-cap'

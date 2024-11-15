@@ -60,7 +60,7 @@ export function TipTokenDialog({
   })
 
   const { refetch: refetchTipStats } = useTipStats(receivers)
-  const { refetch: refetchTipInfo } = useTipInfo(post.id)
+  const { refetch: refetchTipInfo } = useTipInfo(post.id, !!params.slug)
   const { data: data, isLoading: isLoadingCap, refetch } = useAllocationCap()
 
   const { writeContractAsync } = useWriteContract()

@@ -97,7 +97,10 @@ export const SellBtn = ({
           )}
         </Button>
       ) : (
-        <WalletConnectButton className="h-[50px] w-full rounded-full">
+        <WalletConnectButton
+          variant="brand"
+          className="h-[50px] w-full rounded-full"
+        >
           Connect wallet
         </WalletConnectButton>
       )}

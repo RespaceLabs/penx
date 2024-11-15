@@ -8,7 +8,7 @@ type TipInfo = {
   uri: string
 }
 
-export function useTipInfo(postId: string) {
+export function useTipInfo(postId: string, enabled: boolean) {
   const query = gql`
     query geTip($postId: String!) {
       tip(id: $postId) {
@@ -30,7 +30,7 @@ export function useTipInfo(postId: string) {
         },
       })
     },
-    enabled: !!postId,
+    enabled: !!postId && enabled,
   })
 
   return {

@@ -5,6 +5,7 @@ const baseSepoliaAddress = {
   CreationFactory: '0xB2ebC5f85E0DA834CB71884150d2Fd738fEf918B',
   PenToken: '0xd8501D1063Db721512572738e53775F11C05Df10',
   Tip: '0xe31E51b20C1a054Fa46Dacd31C8a45ce3C97C834',
+  DailyClaim: '0xfa68A007EF07d55218d4d1f5910A3A526850d001',
 }
 
 const baseAddress = {
@@ -12,6 +13,7 @@ const baseAddress = {
   CreationFactory: '0xB9563EBeDE644956FB4d8EFE40440bAeA8da342D',
   PenToken: '0xadA2eA2D7e2AbB724F860ED8d08F85B25a4cB90d',
   Tip: '0xD1B9751cdb3A6599f47eb3581446750c949c5f51',
+  DailyClaim: '0x7BdD1C56363B5D2480f3CC1Cd3b0A250d07DB288',
 }
 
 export const addressMap: Record<keyof typeof baseSepoliaAddress, any> =
