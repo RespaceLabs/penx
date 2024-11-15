@@ -8,6 +8,7 @@ import { useSession } from 'next-auth/react'
 import dynamic from 'next/dynamic'
 import readingTime from 'reading-time'
 import { GateCover } from './GateCover'
+import { Comments } from './Comments'
 
 const PostDetail: any = dynamic(
   () => import(process.env.NEXT_PUBLIC_THEME!).then((mod) => mod.PostDetail),
@@ -47,7 +48,7 @@ export function PaidContent({ postId, post, next, prev }: Props) {
   /**  not login */
   if (!session) {
     return (
-      <div className="">
+      <div>
         <PostDetail
           post={{
             ...post,
