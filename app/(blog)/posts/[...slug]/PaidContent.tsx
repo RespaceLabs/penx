@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react'
 import dynamic from 'next/dynamic'
 import readingTime from 'reading-time'
 import { GateCover } from './GateCover'
-import { Comments } from './Comments'
+import { CommentContent } from '../../../../components/PostActions/Comment/CommentContent'
 
 const PostDetail: any = dynamic(
   () => import(process.env.NEXT_PUBLIC_THEME!).then((mod) => mod.PostDetail),

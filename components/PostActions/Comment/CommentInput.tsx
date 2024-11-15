@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from '@/components/ui/button'
-import LoadingDots from '@/components/icons/loading-dots'
 import { useAddress } from '@/app/(creator-fi)/hooks/useAddress'
-import { toast } from 'sonner'
-import { trpc } from '@/lib/trpc'
-import { z } from 'zod'
-import { useSession } from "next-auth/react"
+import LoadingDots from '@/components/icons/loading-dots'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
+import { trpc } from '@/lib/trpc'
+import { useSession } from 'next-auth/react'
+import { toast } from 'sonner'
+import { z } from 'zod'
 
 const CommentSchema = z.object({
   content: z.string().min(1, {
@@ -63,14 +63,16 @@ export function CommentInput({ postId, refetchComments }: Props) {
         onChange={(e) => setContent(e.target.value)}
         className="w-full"
       />
-      <div>
-
-        {!authenticated ? <WalletConnectButton className="w-30">
-          Log in to comment
-        </WalletConnectButton> : <Button size="lg" onClick={handleSubmit} className="w-25">
-          {isPending ? <LoadingDots /> : <p>Leave a Comment</p>}
-        </Button>
-        }
+      <div className="flex justify-end">
+        {!authenticated ? (
+          <WalletConnectButton className="w-30">
+            Log in to comment
+          </WalletConnectButton>
+        ) : (
+          <Button onClick={handleSubmit} className="w-25">
+            {isPending ? <LoadingDots /> : <p>Comment</p>}
+          </Button>
+        )}
       </div>
     </div>
   )

@@ -14,7 +14,7 @@ import { useCollectRecords } from '@/hooks/useCollectRecords'
 import { shortenAddress } from '@/lib/utils'
 import { Post } from '@penxio/types'
 import { Bookmark } from 'lucide-react'
-import { MintedAmount } from '../MintedAmount'
+import { MintedAmount } from './MintedAmount'
 
 interface Props {
   post: Post

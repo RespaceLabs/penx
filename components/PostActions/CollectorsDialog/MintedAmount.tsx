@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useCreations } from '@/hooks/useCreations'
 import { Post } from '@penxio/types'
 import { Bookmark } from 'lucide-react'
-import { useSiteContext } from '../SiteContext'
+import { useSiteContext } from '../../SiteContext'
 
 interface Props {
   post: Post

@@ -8,7 +8,6 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 import { PaidContent } from './PaidContent'
-import { Comments } from './Comments'
 
 function getContent(post: Post, isGated = false) {
   const node: TipTapNode = JSON.parse(post.content || '{}')
@@ -73,8 +72,6 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
           PostActions={PostActions}
           ContentRender={ContentRender}
         />
-
-        <Comments postId={post.id} />
       </>
     )
   }
