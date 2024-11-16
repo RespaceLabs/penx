@@ -56,8 +56,8 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
   const [gateType, setGateType] = useState<GateType>(
     activeNode.props?.gateType || GateType.FREE,
   )
-  const [collectable, setCollectable] = useState(
-    activeNode.props?.collectable || false,
+  const [collectible, setCollectible] = useState(
+    activeNode.props?.collectible || false,
   )
   const { isLoading, publishPost } = usePublishPost()
   return (
@@ -79,13 +79,13 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
       />
       <div>
         <div className="flex items-center justify-between">
-          <Label htmlFor="post-collectable">Collectable</Label>
+          <Label htmlFor="post-collectible">Collectible</Label>
           <Switch
-            id="post-collectable"
-            checked={collectable}
+            id="post-collectible"
+            checked={collectible}
             disabled={!spaceId}
             onCheckedChange={(value) => {
-              setCollectable(value)
+              setCollectible(value)
             }}
           />
         </div>
@@ -106,7 +106,7 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
             await publishPost(
               activeNode.raw as IObjectNode,
               gateType,
-              collectable,
+              collectible,
             )
             // updatePostPublishStatus()
             setOpen(false)

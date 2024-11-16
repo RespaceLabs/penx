@@ -32,7 +32,7 @@ export function usePublishPost() {
     publishPost: async (
       node: IObjectNode,
       gateType: GateType,
-      collectable: boolean,
+      collectible: boolean,
     ) => {
       setLoading(true)
 
@@ -50,7 +50,7 @@ export function usePublishPost() {
 
       let creationId: number | undefined
       try {
-        if (spaceId && typeof post?.creationId !== 'number' && collectable) {
+        if (spaceId && typeof post?.creationId !== 'number' && collectible) {
           await checkChain()
           const hash = await writeContractAsync({
             address: addressMap.CreationFactory,
@@ -74,7 +74,7 @@ export function usePublishPost() {
           type: node.props?.objectType || PostType.ARTICLE,
           nodeId: node.id,
           gateType,
-          collectable,
+          collectible,
           creationId,
           image:
             node.props.objectType === ObjectType.IMAGE
@@ -87,7 +87,7 @@ export function usePublishPost() {
           props: {
             ...node.props,
             gateType,
-            collectable,
+            collectible,
           },
         } as IObjectNode)
 

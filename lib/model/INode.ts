@@ -120,7 +120,7 @@ export interface IObjectNode extends INode {
     imageUrl?: string
     coverUrl?: string
     gateType?: GateType
-    collectable?: boolean
+    collectible?: boolean
   }
 }
 

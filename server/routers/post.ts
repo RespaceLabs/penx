@@ -114,14 +114,14 @@ export const postRouter = router({
         creationId: z.number().optional(),
         type: z.nativeEnum(PostType),
         gateType: z.nativeEnum(GateType),
-        collectable: z.boolean(),
+        collectible: z.boolean(),
         image: z.string().optional(),
         content: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.token.uid
-      const { nodeId, gateType, collectable, creationId } = input
+      const { nodeId, gateType, collectible, creationId } = input
 
       let post = await prisma.post.findFirst({
         where: { nodeId },
@@ -139,7 +139,7 @@ export const postRouter = router({
             postStatus: PostStatus.PUBLISHED,
             image: input.image,
             gateType: input.gateType,
-            collectable: input.collectable,
+            collectible: input.collectible,
             content: JSON.stringify(nodes),
           },
         })
@@ -152,7 +152,7 @@ export const postRouter = router({
             image: input.image,
             postStatus: PostStatus.PUBLISHED,
             gateType: input.gateType,
-            collectable: input.collectable,
+            collectible: input.collectible,
             content: JSON.stringify(nodes),
           },
         })
@@ -168,7 +168,7 @@ export const postRouter = router({
         body: JSON.stringify({
           ...newPost,
           postStatus: PostStatus.PUBLISHED,
-          collectable,
+          collectible,
           creationId,
         }),
         headers: { 'Content-Type': 'application/json' },
@@ -178,7 +178,7 @@ export const postRouter = router({
         where: { id: post.id },
         data: {
           postStatus: PostStatus.PUBLISHED,
-          collectable,
+          collectible,
           creationId,
           cid: res.cid,
           publishedAt: new Date(),
@@ -196,7 +196,7 @@ export const postRouter = router({
       syncToGoogleDrive(ctx.token.uid, {
         ...newPost,
         postStatus: PostStatus.PUBLISHED,
-        collectable,
+        collectible,
         creationId,
         cid: res.cid,
         gateType,

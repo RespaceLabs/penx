@@ -2,7 +2,6 @@
 
 import { ReactNode, useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { useSpaceContext } from '../../../components/SpaceContext'
 
 enum TabTypes {
   Holders = 'Holders',
