@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
-const crypto = require('crypto');
+const crypto = require('crypto')
 
 function genSecret(size = 32) {
   const bytes = crypto.getRandomValues(new Uint8Array(size))
@@ -20,7 +20,7 @@ async function main() {
         authSecret: secret,
         socials: {},
         config: {},
-        logo: 'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png',
+        logo: 'https://penx.io/logo.png',
       },
     })
   }

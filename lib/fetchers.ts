@@ -46,7 +46,7 @@ export async function getPosts() {
     },
     [`posts`],
     {
-      revalidate: 10,
+      revalidate: 3600 * 24,
       tags: [`posts`],
     },
   )()
@@ -126,7 +126,7 @@ export async function getSpace(spaceId: string) {
     },
     [`space-${spaceId}`],
     {
-      revalidate: 10,
+      revalidate: 3600 * 24,
       tags: [`space-${spaceId}`],
     },
   )()

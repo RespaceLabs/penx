@@ -12,7 +12,7 @@ export async function getSite() {
       name: 'Site Name',
       description: 'Description of your site',
       about: editorDefaultValue,
-      logo: 'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png',
+      logo: 'https://penx.io/logo.png',
       font: '',
       image: '',
       socials: {},
