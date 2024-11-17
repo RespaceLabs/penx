@@ -146,6 +146,7 @@ model Post {
   gateType      GateType      @default(FREE)
   postStatus    PostStatus    @default(DRAFT)
   commentStatus CommentStatus @default(OPEN)
+  commentCount  Int           @default(0) @db.Integer
   image         String?       @default("") @db.VarChar(2183)
   featured      Boolean       @default(false)
   collectible   Boolean       @default(false)
