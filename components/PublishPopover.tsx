@@ -60,7 +60,7 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
     activeNode?.props?.collectible || false,
   )
   const { isLoading, publishPost } = usePublishPost()
-  if (activeNode) return null
+  if (!activeNode) return null
 
   return (
     <PopoverContent align="end" className="w-[360px] flex flex-col gap-5">

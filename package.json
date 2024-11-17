@@ -3,9 +3,9 @@
   "private": true,
   "scripts": {
     "dev": "prisma generate && next dev",
-    "build": "npm run db-push && next build",
+    "build": "npm run db-build && next build",
     "db-generate": "prisma generate",
-    "db-push": "prisma generate && prisma db push && npm run db-seed",
+    "db-build": "prisma generate && node prisma/push.js && npm run db-seed",
     "db-seed": "node prisma/seed.js",
     "format:write": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\"",
     "format": "prettier \"**/*.{css,js,json,jsx,ts,tsx}\"",

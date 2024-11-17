@@ -9,6 +9,10 @@ function genSecret(size = 32) {
 }
 
 async function main() {
+  const DATABASE_URL = process.env.DATABASE_URL
+
+  if (!DATABASE_URL) return
+
   const site = await prisma.site.findFirst()
   const secret = genSecret()
 
