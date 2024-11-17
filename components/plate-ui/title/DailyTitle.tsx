@@ -14,7 +14,7 @@ export const DailyTitle = ({
   const date = element.props.date
 
   return (
-    <div className="leading-none flex flex-col gap-2">
+    <div className="leading-none flex flex-col gap-2 font-bold text-4xl">
       <div className="flex items-center gap-2">
         <div>{children}</div>
         {isToday && <Badge contentEditable={false}>Today</Badge>}

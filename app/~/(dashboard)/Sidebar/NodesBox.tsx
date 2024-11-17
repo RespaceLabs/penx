@@ -41,8 +41,11 @@ export function NodesBox() {
           variant="ghost"
           onClick={async () => {
             const node = await store.node.createPageNode()
-            await syncLatestNodes()
             push(`/~/objects/${node.id}`)
+
+            setTimeout(async () => {
+              await syncLatestNodes()
+            }, 500)
           }}
         >
           <Plus size={16}></Plus>

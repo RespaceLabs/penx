@@ -12,6 +12,7 @@ import { CoverUpload } from './CoverUpload'
 import { DailyTitle } from './DailyTitle'
 import { ImageObject } from './ImageObject'
 import { Note } from './Note'
+import { useFocusTitle } from './useFocusTitle'
 
 export const TitleElement = withRef(
   (props: PlateElementProps<ITitleElement>, ref) => {
@@ -23,8 +24,6 @@ export const TitleElement = withRef(
     const isNote = objectType === ObjectType.NOTE
     const editor = useSlate()
 
-    // console.log('======element:', element)
-
     function setObjectType(type: any) {
       const path = ReactEditor.findPath(editor as any, element)
       Transforms.setNodes(
@@ -35,6 +34,8 @@ export const TitleElement = withRef(
         { at: path },
       )
     }
+
+    useFocusTitle(props.element)
 
     return (
       <div
@@ -54,9 +55,10 @@ export const TitleElement = withRef(
           </>
         )}
 
-        {[ObjectType.ARTICLE, ObjectType.IMAGE, ObjectType.VIDEO].includes(
-          objectType,
-        ) && <CommonTitle {...props} />}
+        {!isDaily &&
+          [ObjectType.ARTICLE, ObjectType.IMAGE, ObjectType.VIDEO].includes(
+            objectType,
+          ) && <CommonTitle {...props} />}
 
         {!isDaily && (
           <div
