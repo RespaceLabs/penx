@@ -10,6 +10,8 @@ module.exports = {
     },
   },
 
+  
+
   /**
    * Dynamic configuration available for the browser and server.
    * Note: requires `ssr: true` or a `getInitialProps` in `_app.tsx`
@@ -18,6 +20,7 @@ module.exports = {
   publicRuntimeConfig: {
     NODE_ENV: env.NODE_ENV,
   },
+  output: 'standalone',
   transpilePackages: [
     'react-tweet',
     'penx-theme-micro',
