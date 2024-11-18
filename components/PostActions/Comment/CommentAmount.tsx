@@ -12,13 +12,14 @@ interface Props {
 }
 
 export function CommentAmount({ post, setIsOpen }: Props) {
+
   return (
     <div
       className="flex items-center justify-between text-foreground gap-1 cursor-pointer opacity-70 hover:opacity-100"
       onClick={() => setIsOpen(true)}
     >
       <MessageCircle size={20} />
-      <div>{80}</div>
+      <div>{post.commentCount}</div>
     </div>
   )
 }

@@ -8,11 +8,13 @@ import { trpc } from '@/lib/trpc'
 import { useSession } from 'next-auth/react'
 import { toast } from 'sonner'
 import { z } from 'zod'
+import { revalidatePath } from 'next/cache'
 
 const CommentSchema = z.object({
-  content: z.string().min(1, {
-    message: 'Comment cannot be empty.',
-  }),
+  content: z
+    .string()
+    .min(1, { message: 'Comment cannot be empty.' })
+    .max(1000, { message: 'Comment cannot exceed 1000 characters.' }),
 })
 
 interface Props {
@@ -20,10 +22,14 @@ interface Props {
   refetchComments: () => void
 }
 
+const maxCharacters = 1000
+
 export function CommentInput({ postId, refetchComments }: Props) {
   const userID = useAddress()
   const [content, setContent] = useState('')
   const { isPending, mutateAsync } = trpc.comment.create.useMutation()
+
+  const { mutateAsync: incrementCommentCount } = trpc.post.incrementCommentCount.useMutation();
 
   const { data: session } = useSession()
   const authenticated = !!session
@@ -47,10 +53,14 @@ export function CommentInput({ postId, refetchComments }: Props) {
         userId: userID as string,
         content,
       })
+
+      const postRes = await incrementCommentCount(postId);
+
       setContent('')
       refetchComments()
       toast.success('Comment submitted successfully!')
     } catch (error) {
+      console.log('Failed to submit comment.','color:red',error)
       toast.error('Failed to submit comment.')
     }
   }
@@ -61,8 +71,14 @@ export function CommentInput({ postId, refetchComments }: Props) {
         placeholder="Write your comment..."
         value={content}
         onChange={(e) => setContent(e.target.value)}
+        maxLength={maxCharacters}
         className="w-full"
       />
+      <div className="text-sm text-gray-500 flex justify-between">
+        <span>
+          {content.length}/{maxCharacters} characters
+        </span>
+      </div>
       <div className="flex justify-end">
         {!authenticated ? (
           <WalletConnectButton className="w-30">
