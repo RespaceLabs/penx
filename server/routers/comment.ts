@@ -1,7 +1,8 @@
 import { prisma } from '@/lib/prisma'
+import { revalidateMetadata } from '@/lib/revalidateTag'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { z } from 'zod'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
-import { revalidatePath } from 'next/cache';
 
 export const commentRouter = router({
   // Fetch comments by postId
@@ -14,8 +15,8 @@ export const commentRouter = router({
           user: true, // Assuming you want to include user details in comments
         },
         orderBy: { createdAt: 'asc' },
-      });
-      return comments;
+      })
+      return comments
     }),
 
   // Create a new comment
@@ -26,7 +27,7 @@ export const commentRouter = router({
         content: z.string(),
         userId: z.string(),
         parentId: z.string().nullable().optional(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const newComment = await prisma.comment.create({
@@ -36,20 +37,20 @@ export const commentRouter = router({
           userId: ctx.token.uid,
           parentId: input.parentId || null,
         },
-      });
+      })
 
-      const res = await prisma.post.update({
+      const updatedPost = await prisma.post.update({
         where: { id: input.postId },
         data: {
           commentCount: { increment: 1 },
         },
-      });
+      })
 
       revalidatePath('/(blog)/(home)', 'page')
       revalidatePath('/(blog)/posts', 'page')
-      revalidatePath(`/posts/${input.postId}`, 'page')
+      revalidatePath(`/posts/${updatedPost.slug}`)
 
-      return newComment;
+      return newComment
     }),
 
   // Update an existing comment
@@ -58,7 +59,7 @@ export const commentRouter = router({
       z.object({
         commentId: z.string(),
         content: z.string(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const updatedComment = await prisma.comment.update({
@@ -67,8 +68,8 @@ export const commentRouter = router({
           content: input.content,
           updatedAt: new Date(),
         },
-      });
-      return updatedComment;
+      })
+      return updatedComment
     }),
 
   // Delete a comment
@@ -77,7 +78,7 @@ export const commentRouter = router({
     .mutation(async ({ ctx, input: commentId }) => {
       const deletedComment = await prisma.comment.delete({
         where: { id: commentId },
-      });
-      return deletedComment;
+      })
+      return deletedComment
     }),
-});
+})
