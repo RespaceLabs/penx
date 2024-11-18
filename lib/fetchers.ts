@@ -68,7 +68,7 @@ export async function getPost(slug: string) {
     },
     [`post-${slug}`],
     {
-      revalidate: 3600, // 15 minutes
+      revalidate: 3600 * 24, // 15 minutes
       tags: [`posts-${slug}`],
     },
   )()

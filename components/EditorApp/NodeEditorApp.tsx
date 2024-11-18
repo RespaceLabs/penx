@@ -16,7 +16,7 @@ export function NodeEditorApp({ node }: Props) {
   const { nodes, nodeList } = useNodes()
   const nodeService = new NodeService(node, nodes)
   const [saving, setSaving] = useState(false)
-  console.log('node=======:', node)
+  // console.log('node=======:', node)
 
   const isOutliner = false
 

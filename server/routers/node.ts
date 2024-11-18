@@ -5,7 +5,6 @@ import { GateType, Node, PostType, Prisma } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { TRPCError } from '@trpc/server'
 import { format } from 'date-fns'
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
@@ -271,7 +270,7 @@ async function cleanDeletedNodes(
     const children = (parentNode?.children || []) as string[]
 
     if (!children.includes(node.id)) {
-      // console.log('=======clear node!!!!', node, JSON.stringify(node.element))
+      console.log('=======clear node!!!!', node, JSON.stringify(node.element))
       await deleteNode(node.id)
     }
   }

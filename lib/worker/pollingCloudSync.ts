@@ -11,8 +11,6 @@ const timeMap: Record<string, number> = {
   '4h': 4 * 60 * 60 * 1000,
 }
 
-const GOOGLE_DRIVE_BACKUP_INTERVAL = timeMap['10']
-
 export async function pollingCloudSync() {
   let pollingInterval = 10 * 1000
 
@@ -33,28 +31,27 @@ export async function pollingCloudSync() {
 }
 
 async function sync() {
-  console.log('Could sync....')
   const localLastUpdatedAt = await db.getLastUpdatedAt()
   const remoteLastUpdatedAt = await api.node.lastUpdatedAt.query()
-  console.log(
-    '=====remoteLastUpdatedAt:',
-    remoteLastUpdatedAt,
-    localLastUpdatedAt,
-  )
+  // console.log(
+  //   '=====remoteLastUpdatedAt:',
+  //   remoteLastUpdatedAt,
+  //   localLastUpdatedAt,
+  // )
 
   if (localLastUpdatedAt === 0) return
 
   if (localLastUpdatedAt === remoteLastUpdatedAt) {
-    console.log('No need to sync')
+    // console.log('No need to sync')
     return
   }
 
   if (localLastUpdatedAt > remoteLastUpdatedAt) {
     // push to server
-    console.log('=====push to server....')
+    // console.log('=====push to server....')
     await pushToServer(remoteLastUpdatedAt)
   } else {
-    console.log('>>>>>pull to local....')
+    // console.log('>>>>>pull to local....')
     // pull to server
     await pullFromServer(localLastUpdatedAt)
   }
