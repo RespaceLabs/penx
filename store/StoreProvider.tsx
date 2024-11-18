@@ -1,6 +1,7 @@
 'use client'
 
 import { PropsWithChildren, useEffect } from 'react'
+import { setLocalSession } from '@/lib/local-session'
 import { UserRole } from '@prisma/client'
 import { Provider } from 'jotai'
 import { useSession } from 'next-auth/react'
@@ -22,6 +23,10 @@ export function StoreProvider(props: PropsWithChildren) {
     } else {
       window.__USER_ID__ = undefined as any
     }
+  }, [session])
+
+  useEffect(() => {
+    setLocalSession(session as any)
   }, [session])
 
   // useEffect(() => {

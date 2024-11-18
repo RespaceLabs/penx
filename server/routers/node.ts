@@ -17,6 +17,33 @@ export const nodeRouter = router({
     return nodes
   }),
 
+  lastUpdatedAt: protectedProcedure.query(async ({ ctx }) => {
+    const item = await prisma.node.findFirst({
+      where: { userId: ctx.token.uid },
+      orderBy: { updatedAt: 'desc' },
+      select: { updatedAt: true },
+    })
+    return item?.updatedAt ? item.updatedAt.valueOf() : 0
+  }),
+
+  pulledNodes: protectedProcedure
+    .input(
+      z.object({
+        localLastUpdatedAt: z.number(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const nodes = await prisma.node.findMany({
+        where: {
+          userId: ctx.token.uid,
+          updatedAt: {
+            gte: new Date(input.localLastUpdatedAt),
+          },
+        },
+      })
+      return nodes
+    }),
+
   sync: protectedProcedure
     .input(
       z.object({

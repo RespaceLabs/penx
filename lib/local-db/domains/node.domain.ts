@@ -1,3 +1,4 @@
+import { getLocalSession } from '@/lib/local-session'
 import {
   IDailyRootNode,
   INode,
@@ -11,10 +12,18 @@ import { getCommonNode } from '../libs/getCommonNode'
 import { getNewNode } from '../libs/getNewNode'
 import { penxDB } from '../penx-db'
 
+async function getUserId() {
+  // if (typeof window === 'undefined') return ''
+  const session = await getLocalSession()
+  // console.log('=====session:', session)
+  return session?.userId || ''
+}
+
 export class NodeDomain {
   constructor(private node: Table<INode, string>) {}
 
-  listNodesByUserId = (userId = window.__USER_ID__) => {
+  listNodesByUserId = async (_userId = '') => {
+    const userId = _userId || (await getUserId())
     return this.node.where({ userId }).toArray()
   }
 
@@ -26,8 +35,17 @@ export class NodeDomain {
     return this.node.where('id').anyOf(nodeIds).delete()
   }
 
-  deleteNodeByUserId = (userId = window.__USER_ID__) => {
+  deleteNodeByUserId = async (_userId = '') => {
+    const userId = _userId || (await getUserId())
     return this.node.where({ userId }).delete()
+  }
+
+  getLastUpdatedAt = async (): Promise<number> => {
+    const nodes = await this.listNodesByUserId()
+    if (!nodes.length) return 0
+
+    const at = Math.max(...nodes.map((n) => new Date(n.updatedAt).getTime()))
+    return at
   }
 
   createInboxNode = async (userId: string) => {
@@ -188,17 +206,17 @@ export class NodeDomain {
 
   createPageNode = async (node: Partial<IObjectNode>, userId: string) => {
     const subNode = await this.createNode(getCommonNode({ userId }))
+    const rootNode = await this.getUserRootNode(userId)
 
     const newNode = await this.createNode({
       ...getNewNode({ userId }),
+      parentId: rootNode.id,
       ...node,
       children: [subNode.id],
     })
 
-    const spaceNode = await this.getUserRootNode(userId)
-
-    await this.updateNode(spaceNode.id, {
-      children: [...(spaceNode.children || []), newNode.id],
+    await this.updateNode(rootNode.id, {
+      children: [...(rootNode.children || []), newNode.id],
     })
 
     return newNode

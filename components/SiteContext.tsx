@@ -2,12 +2,11 @@
 
 import { createContext, PropsWithChildren, useContext, useEffect } from 'react'
 import { ELECTRIC_BASE_URL, isServer } from '@/lib/constants'
+import { runWorker } from '@/lib/worker'
 import { PGlite } from '@electric-sql/pglite'
 import { electricSync } from '@electric-sql/pglite-sync'
 import { live } from '@electric-sql/pglite/live'
 import { Site } from '@penxio/types'
-
-let inited = false
 
 async function runPG() {
   console.log('init.........')
@@ -74,14 +73,15 @@ async function runPG() {
   console.log('=====ret:', ret)
 }
 
+let inited = false
 if (!isServer) {
-  // setTimeout(() => {
-  //   if (inited) return
-  //   inited = true
-  //   runWorker()
-  // }, 2000)
+  setTimeout(() => {
+    if (inited) return
+    inited = true
+    runWorker()
+  }, 2000)
 
-  runPG()
+  // runPG()
 }
 
 export const SiteContext = createContext({} as Site)

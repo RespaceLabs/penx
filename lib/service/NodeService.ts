@@ -158,27 +158,6 @@ export class NodeService {
     store.node.setNodes(nodes)
 
     if (titleNode) info.updated.push(titleNode)
-
-    try {
-      if (window.__SYNCING__) return
-      window.__SYNCING__ = true
-      await api.node.syncPartial.mutate({
-        added: JSON.stringify(info.added),
-        updated: JSON.stringify(info.updated),
-      })
-    } catch (error) {
-      if (error instanceof TRPCClientError) {
-        if (error.message === 'Root node not found') {
-          /** sync all nodes */
-          try {
-            await api.node.sync.mutate({
-              nodes: JSON.stringify(nodes),
-            })
-          } catch (error) {}
-        }
-      }
-    }
-    window.__SYNCING__ = false
   }
 
   saveBlockNodes = async (

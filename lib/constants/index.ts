@@ -64,6 +64,10 @@ export const NETWORK =
 
 export enum WorkerEvents {
   START_POLLING,
+
+  START_PULL,
+  PULL_SUCCEEDED,
+  PULL_FAILED,
 }
 
 export const RESPACE_BASE_URI =

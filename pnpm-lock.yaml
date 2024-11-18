@@ -350,6 +350,9 @@ importers:
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
+      idb-keyval:
+        specifier: ^6.2.1
+        version: 6.2.1
       immer:
         specifier: ^10.1.1
         version: 10.1.1

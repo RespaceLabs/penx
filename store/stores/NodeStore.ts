@@ -25,7 +25,6 @@ import {
   ObjectType,
   ViewType,
 } from '@/lib/model'
-import { syncLatestNodes } from '@/lib/syncLatestNodes'
 import { format } from 'date-fns'
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
@@ -247,6 +246,8 @@ export class NodeStore {
   async deleteNode(id: string) {
     const node = this.store.node.getNode(id)
     await db.deleteNode(id)
+    console.log('===========node.parentId:', node.parentId)
+
     if (node.parentId) {
       // update parentNode children
       const parentNode = this.store.node.getNode(node.parentId)
@@ -282,8 +283,6 @@ export class NodeStore {
         userId,
         date: dateStr,
       })
-
-      await syncLatestNodes()
     }
 
     this.setNodes(newNodes)

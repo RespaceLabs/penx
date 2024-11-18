@@ -1,4 +1,6 @@
+import { store } from '@/store'
 import { WorkerEvents } from '../constants'
+import { db } from '../local-db'
 
 export function runWorker() {
   console.log('init web worker...')
@@ -11,6 +13,14 @@ export function runWorker() {
     // console.log(`WebWorker Response => ${event.data}`)
     // if (event.data === WorkerEvents.PUSH_FAILED) {
     // }
+
+    if (event.data === WorkerEvents.PULL_SUCCEEDED) {
+      const nodes = await db.listNodesByUserId()
+      store.node.setNodes(nodes)
+
+      // TODO: need to improvement the logic
+      window.location.reload()
+    }
   }
 
   worker.postMessage(WorkerEvents.START_POLLING)

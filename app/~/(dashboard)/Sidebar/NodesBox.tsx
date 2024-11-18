@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { syncLatestNodes } from '@/lib/syncLatestNodes'
 import { store } from '@/store'
 import { Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -42,10 +41,6 @@ export function NodesBox() {
           onClick={async () => {
             const node = await store.node.createPageNode()
             push(`/~/objects/${node.id}`)
-
-            setTimeout(async () => {
-              await syncLatestNodes()
-            }, 500)
           }}
         >
           <Plus size={16}></Plus>
