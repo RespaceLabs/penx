@@ -90,23 +90,6 @@ export const postRouter = router({
       return post
     }),
 
-  incrementCommentCount: protectedProcedure
-    .input(z.string())
-    .mutation(async ({ ctx, input }) => {
-      const updatedPost = await prisma.post.update({
-        where: { id: input },
-        data: {
-          commentCount: { increment: 1 },
-        },
-      })
-
-      revalidatePath('/(blog)/(home)', 'page')
-      revalidatePath('/(blog)/posts', 'page')
-      revalidatePath(`/posts/${input}`, 'page')
-
-      return updatedPost
-    }),
-
   updateCover: protectedProcedure
     .input(
       z.object({

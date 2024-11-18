@@ -29,9 +29,6 @@ export function CommentInput({ postId, refetchComments }: Props) {
   const [content, setContent] = useState('')
   const { isPending, mutateAsync } = trpc.comment.create.useMutation()
 
-  const { mutateAsync: incrementCommentCount } =
-    trpc.post.incrementCommentCount.useMutation()
-
   const { data: session } = useSession()
   const authenticated = !!session
 
@@ -54,8 +51,6 @@ export function CommentInput({ postId, refetchComments }: Props) {
         userId: userID as string,
         content,
       })
-
-      const postRes = await incrementCommentCount(postId)
 
       setContent('')
       refetchComments()

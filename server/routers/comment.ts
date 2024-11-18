@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
+import { revalidatePath } from 'next/cache';
 
 export const commentRouter = router({
   // Fetch comments by postId
@@ -36,6 +37,18 @@ export const commentRouter = router({
           parentId: input.parentId || null,
         },
       });
+
+      const res = await prisma.post.update({
+        where: { id: input.postId },
+        data: {
+          commentCount: { increment: 1 },
+        },
+      });
+
+      revalidatePath('/(blog)/(home)', 'page')
+      revalidatePath('/(blog)/posts', 'page')
+      revalidatePath(`/posts/${input.postId}`, 'page')
+
       return newComment;
     }),
 
