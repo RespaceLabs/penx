@@ -6,9 +6,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
 import { trpc } from '@/lib/trpc'
 import { useSession } from 'next-auth/react'
+import { revalidatePath } from 'next/cache'
 import { toast } from 'sonner'
 import { z } from 'zod'
-import { revalidatePath } from 'next/cache'
 
 const CommentSchema = z.object({
   content: z
@@ -29,7 +29,8 @@ export function CommentInput({ postId, refetchComments }: Props) {
   const [content, setContent] = useState('')
   const { isPending, mutateAsync } = trpc.comment.create.useMutation()
 
-  const { mutateAsync: incrementCommentCount } = trpc.post.incrementCommentCount.useMutation();
+  const { mutateAsync: incrementCommentCount } =
+    trpc.post.incrementCommentCount.useMutation()
 
   const { data: session } = useSession()
   const authenticated = !!session
@@ -54,13 +55,13 @@ export function CommentInput({ postId, refetchComments }: Props) {
         content,
       })
 
-      const postRes = await incrementCommentCount(postId);
+      const postRes = await incrementCommentCount(postId)
 
       setContent('')
       refetchComments()
       toast.success('Comment submitted successfully!')
     } catch (error) {
-      console.log('Failed to submit comment.','color:red',error)
+      console.log('Failed to submit comment.', 'color:red', error)
       toast.error('Failed to submit comment.')
     }
   }

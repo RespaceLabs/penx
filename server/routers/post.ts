@@ -98,9 +98,13 @@ export const postRouter = router({
         data: {
           commentCount: { increment: 1 },
         },
-      });
+      })
 
-      return updatedPost;
+      revalidatePath('/(blog)/(home)', 'page')
+      revalidatePath('/(blog)/posts', 'page')
+      revalidatePath(`/posts/${input}`, 'page')
+
+      return updatedPost
     }),
 
   updateCover: protectedProcedure

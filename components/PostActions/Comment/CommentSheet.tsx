@@ -24,7 +24,7 @@ export function CommentSheet({ post }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <CommentAmount post={post} setIsOpen={setIsOpen} />
+      <CommentAmount post={post as any} setIsOpen={setIsOpen} />
       <Sheet open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
         <SheetContent className="flex flex-col gap-6">
           <SheetHeader>
