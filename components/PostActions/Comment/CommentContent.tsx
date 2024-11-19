@@ -39,7 +39,17 @@ export function CommentContent({ postId }: Props) {
   const [showReplies, setShowReplies] = useState<string>('');
   const [replies, setReplies] = useState<IReply[]>([]);
 
-  const onReplies = async (commentId: string) => {
+  const onReplies = async (commentId: string, replyCount: number, showReplies: string) => {
+    if (!replyCount) {
+      return
+    }
+
+    if (showReplies) {
+      setShowReplies('')
+
+      return
+    }
+
     try {
       const data = await listRepliesByCommentId(commentId);
       setShowReplies(commentId)
@@ -67,15 +77,15 @@ export function CommentContent({ postId }: Props) {
                     className="h-8 w-8"
                   />
                   <p className="ml-1 text-sm text-gray-600">
-                    {comment.user?.address}
+                    {comment.user?.address && comment.user?.address.slice(0, 16)}...
                   </p>
                 </div>
                 <p className="mt-2 ml-1">{comment.content}</p>
                 <div className="flex justify-between mb-1 ml-1">
-                  <button className="cursor-pointer text-xs hover:underline" onClick={() => onReplies(comment.id)}>
-                    1 reply
+                  <button className="cursor-pointer text-xs hover:underline" onClick={() => onReplies(comment.id, comment.replyCount, showReplies)}>
+                    {showReplies === comment.id ? 'Hide replies' : comment.replyCount + (comment.replyCount > 1 ? ' replies' : ' reply')}
                   </button>
-                  <button className="cursor-pointer text-xs hover:underline" onClick={() => setShowReplyInput(comment.id)}>
+                  <button className="cursor-pointer text-xs hover:underline" onClick={() => setShowReplyInput(showReplyInput ? '' : comment.id)}>
                     Reply
                   </button>
                 </div>
@@ -83,8 +93,7 @@ export function CommentContent({ postId }: Props) {
                 {showReplyInput === comment.id && (
                   <CommentInput postId={comment.postId} refetchComments={refetch} parentId={comment.id} onCancel={() => {
                     setShowReplyInput('')
-                  }}
-                  />
+                  }} />
                 )}
 
                 {(replies.length > 0 && showReplies === comment.id) && (
@@ -101,7 +110,7 @@ export function CommentContent({ postId }: Props) {
                           </p>
                           {reply.parent?.user && (
                             <p className="ml-2 text-sm text-gray-400">
-                              replied to{' '}
+                              replied to &nbsp;
                               <span className="font-bold text-gray-500">
                                 {reply.user?.address ? `${reply.user.address.slice(0, 10)}...` : ''}
                               </span>
@@ -111,7 +120,7 @@ export function CommentContent({ postId }: Props) {
                         <p className="ml-2 text-gray-700">{reply.content}</p>
 
                         <div className="flex justify-end">
-                          <button className="cursor-pointer text-xs hover:underline" onClick={() => setShowReplyInput(reply.id)}>
+                          <button className="cursor-pointer text-xs hover:underline" onClick={() => setShowReplyInput(showReplyInput ? '' : reply.id)}>
                             Reply
                           </button>
                         </div>

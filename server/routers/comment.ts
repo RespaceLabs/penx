@@ -39,7 +39,7 @@ export const commentRouter = router({
       })
 
       if (input.parentId) {
-        const updatedComment = await prisma.comment.update({
+        await prisma.comment.update({
           where: { id: input.parentId },
           data: {
             replyCount: { increment: 1 },

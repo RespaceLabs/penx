@@ -56,6 +56,7 @@ export function CommentInput({ postId, parentId, refetchComments, onCancel }: Pr
       })
 
       setContent('')
+      onCancel && onCancel()
       refetchComments()
       toast.success('Comment submitted successfully!')
     } catch (error) {

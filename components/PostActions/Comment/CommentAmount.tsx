@@ -1,11 +1,8 @@
 'use client'
 
 import { Dispatch, SetStateAction } from 'react'
-import { Skeleton } from '@/components/ui/skeleton'
-import { useCreations } from '@/hooks/useCreations'
 import { Post } from '@prisma/client'
-// import { Post } from '@penxio/types'
-import { Bookmark, MessageCircle } from 'lucide-react'
+import { MessageCircle } from 'lucide-react'
 
 interface Props {
   post: Post
