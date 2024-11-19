@@ -3,9 +3,7 @@ import LoadingDots from '@/components/icons/loading-dots'
 import { PopoverContent } from '@/components/plate-ui/popover'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverTrigger } from '@/components/ui/popover'
-import { db } from '@/lib/local-db'
 import { sync } from '@/lib/sync'
-import { trpc } from '@/lib/trpc'
 import { PopoverClose } from '@radix-ui/react-popover'
 import { useMutation } from '@tanstack/react-query'
 import { ArrowUp, RefreshCcw } from 'lucide-react'
@@ -21,11 +19,11 @@ export function SyncButton({}: Props) {
   })
 
   async function syncNotes() {
-    const nodes = await db.listNodesByUserId()
     await mutateAsync()
     setOpen(false)
     toast.success('Sync successfully!')
   }
+
   return (
     <Popover open={isOpen} onOpenChange={(v) => setOpen(v)}>
       <PopoverTrigger asChild>
@@ -35,9 +33,9 @@ export function SyncButton({}: Props) {
         </div>
       </PopoverTrigger>
       <PopoverContent align="start" alignOffset={8} className="space-y-1 w-72">
-        <div className="text-lg font-bold">Sync notes to server</div>
+        <div className="text-lg font-bold">Sync notes</div>
         <div className="text-sm text-foreground/60">
-          Sync all your notes to server.
+          Sync changes to server or pull changes from server.
         </div>
         <div className="flex gap-2 pt-2">
           <PopoverClose asChild>

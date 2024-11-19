@@ -1,5 +1,7 @@
 FROM node:20-alpine AS builder
 
+RUN apk add --no-cache libc6-compat
+
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
@@ -17,6 +19,7 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 
 COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./
 
@@ -26,5 +29,9 @@ ENV PORT 3000
 EXPOSE 3000
 
 ARG DATABASE_URL
+ARG NEXT_PUBLIC_THEME
+ARG NEXTAUTH_SECRET
+ARG NEXTAUTH_URL
+ARG NEXT_PUBLIC_POSTS_PAGE_SIZE
 
 CMD ["node", "server.js"]
