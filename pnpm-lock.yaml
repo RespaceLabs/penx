@@ -23,33 +23,12 @@ importers:
       '@dnd-kit/utilities':
         specifier: ^3.2.2
         version: 3.2.2(react@18.2.0)
-      '@electric-sql/client':
-        specifier: ^0.6.5
-        version: 0.6.5
-      '@electric-sql/pglite':
-        specifier: ^0.2.12
-        version: 0.2.12
-      '@electric-sql/pglite-react':
-        specifier: ^0.2.12
-        version: 0.2.12(@electric-sql/pglite@0.2.12)(react@18.2.0)
-      '@electric-sql/pglite-sync':
-        specifier: ^0.2.13
-        version: 0.2.13(@electric-sql/pglite@0.2.12)
-      '@electric-sql/react':
-        specifier: ^0.4.7
-        version: 0.4.7(react@18.2.0)
       '@faker-js/faker':
         specifier: ^9.2.0
         version: 9.2.0
       '@floating-ui/react':
         specifier: ^0.25.4
         version: 0.25.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@fower/color-helper':
-        specifier: ^2.1.1
-        version: 2.1.1
-      '@fower/utils':
-        specifier: ^2.1.1
-        version: 2.1.1
       '@glideapps/glide-data-grid':
         specifier: ^6.0.3
         version: 6.0.3(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0(react@18.2.0))(react-responsive-carousel@3.2.23)(react@18.2.0)
@@ -1512,31 +1491,6 @@ packages:
     peerDependencies:
       tailwindcss: '*'
 
-  '@electric-sql/client@0.6.5':
-    resolution: {integrity: sha512-0fCudhoNoryFRoIR2WU79gfSabrTeZvHVT7tfZAy/CzBk4TdWGRPJsYaEqd9IclCnRipoGO+5hUFYSBHdHqlBA==}
-
-  '@electric-sql/pglite-react@0.2.12':
-    resolution: {integrity: sha512-j489fJeCZ1jw6S88L9hPoBxEkqaOhd/U1bi/AomXa2tDv/E36eNK2ZCTYVrb1TAoaAZgYf92dBv+m4VrDb8RDA==}
-    peerDependencies:
-      '@electric-sql/pglite': ^0.2.12
-      react: ^18.0.0
-
-  '@electric-sql/pglite-sync@0.2.13':
-    resolution: {integrity: sha512-c+CQkr0mhDRV78x+M87h/UsNl/IHF7Nvpjd1540xozkY2D2PGEhDMIhUX6Frw5IrNN7NWw9C8NsBFHEPRWs3MQ==}
-    peerDependencies:
-      '@electric-sql/pglite': ^0.2.12
-
-  '@electric-sql/pglite@0.2.12':
-    resolution: {integrity: sha512-J/X42ujcoFEbOkgRyoNqZB5qcqrnJRWVlwpH3fKYoJkTz49N91uAK/rDSSG/85WRas9nC9mdV4FnMTxnQWE/rw==}
-
-  '@electric-sql/react@0.4.7':
-    resolution: {integrity: sha512-TTlAd2dV9tgeeXW41B5GFK3oKRudvlD2+n/m+wqqqPVg54HlxFs0F2HwSpjbwgKYu88z7Ejwq3yluFb3Ixc3kg==}
-    peerDependencies:
-      react: ^18.3.1
-    peerDependenciesMeta:
-      react:
-        optional: true
-
   '@emoji-mart/data@1.2.1':
     resolution: {integrity: sha512-no2pQMWiBy6gpBEiqGeU77/bFejDqUTRY7KX+0+iur13op3bqUsXdnwoZs6Xb1zbv0gAj5VvS1PWoUUckSr5Dw==}
 
@@ -1632,14 +1586,6 @@ packages:
 
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
-
-  '@fower/color-helper@2.1.1':
-    resolution: {integrity: sha512-yj60kBVxcpxW4FaCNu+tYZ24p8Zo4OnN535aHM2469CLuOZ9szXYFiaim5L1VTzTaWOLA+QkXaMJyK7BTPme5g==}
-    engines: {node: '>=10'}
-
-  '@fower/utils@2.1.1':
-    resolution: {integrity: sha512-27G/xCd910KGdgBOaVAhRvJjkncrCBOWC2OzvIY5Hd1tvOFym2ZNJcf7WU1Xj17gpqOgxCXbfgohhlAwXlckMQ==}
-    engines: {node: '>=10'}
 
   '@glideapps/glide-data-grid@6.0.3':
     resolution: {integrity: sha512-YXKggiNOaEemf0jP0jORq2EQKz+zXms+6mGzZc+q0mLMjmgzzoGLOQC1uYcynXSj1R61bd27JcPFsoH+Gj37Vg==}
@@ -2917,11 +2863,6 @@ packages:
       '@types/react':
         optional: true
 
-  '@rollup/rollup-darwin-arm64@4.24.3':
-    resolution: {integrity: sha512-QPW2YmkWLlvqmOa2OwrfqLJqkHm7kJCIMq9kOz40Zo9Ipi40kf9ONG5Sz76zszrmIZZ4hgRIkez69YnTHgEz1w==}
-    cpu: [arm64]
-    os: [darwin]
-
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
@@ -3248,9 +3189,6 @@ packages:
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
-
-  '@types/string-hash@1.1.3':
-    resolution: {integrity: sha512-p6skq756fJWiA59g2Uss+cMl6tpoDGuCBuxG0SI1t0NwJmYOU66LAMS6QiCgu7cUh3/hYCaMl5phcCW1JP5wOA==}
 
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
@@ -8532,9 +8470,6 @@ packages:
     resolution: {integrity: sha512-QwiXZgpRcKkhTj2Scnn++4PKtWsH0kpzZ62L2R6c/LUVYv7hVnZqcg2+sMuT6R7Jusu1vviK/MFsu6kNJfWlEQ==}
     engines: {node: '>=4'}
 
-  string-hash@1.1.3:
-    resolution: {integrity: sha512-kJUvRUFK49aub+a7T1nNE66EJbZBMnBgoC1UbCZ5n6bsZKBRga4KgBRTMn/pFkeCZSYtNeSyMxPDM0AXWELk2A==}
-
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
     engines: {node: '>=8'}
@@ -10601,29 +10536,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@electric-sql/client@0.6.5':
-    optionalDependencies:
-      '@rollup/rollup-darwin-arm64': 4.24.3
-
-  '@electric-sql/pglite-react@0.2.12(@electric-sql/pglite@0.2.12)(react@18.2.0)':
-    dependencies:
-      '@electric-sql/pglite': 0.2.12
-      react: 18.2.0
-
-  '@electric-sql/pglite-sync@0.2.13(@electric-sql/pglite@0.2.12)':
-    dependencies:
-      '@electric-sql/client': 0.6.5
-      '@electric-sql/pglite': 0.2.12
-
-  '@electric-sql/pglite@0.2.12': {}
-
-  '@electric-sql/react@0.4.7(react@18.2.0)':
-    dependencies:
-      '@electric-sql/client': 0.6.5
-      use-sync-external-store: 1.2.2(react@18.2.0)
-    optionalDependencies:
-      react: 18.2.0
-
   '@emoji-mart/data@1.2.1': {}
 
   '@emotion/hash@0.9.2': {}
@@ -10728,13 +10640,6 @@ snapshots:
   '@floating-ui/utils@0.1.6': {}
 
   '@floating-ui/utils@0.2.8': {}
-
-  '@fower/color-helper@2.1.1': {}
-
-  '@fower/utils@2.1.1':
-    dependencies:
-      '@types/string-hash': 1.1.3
-      string-hash: 1.1.3
 
   '@glideapps/glide-data-grid@6.0.3(lodash@4.17.21)(marked@4.3.0)(react-dom@18.2.0(react@18.2.0))(react-responsive-carousel@3.2.23)(react@18.2.0)':
     dependencies:
@@ -12348,9 +12253,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.12
 
-  '@rollup/rollup-darwin-arm64@4.24.3':
-    optional: true
-
   '@rtsao/scc@1.1.0': {}
 
   '@rushstack/eslint-patch@1.10.4': {}
@@ -12727,8 +12629,6 @@ snapshots:
   '@types/retry@0.12.2': {}
 
   '@types/stack-utils@2.0.3': {}
-
-  '@types/string-hash@1.1.3': {}
 
   '@types/tough-cookie@4.0.5': {}
 
@@ -19277,8 +19177,6 @@ snapshots:
       bare-events: 2.5.0
 
   strict-uri-encode@2.0.0: {}
-
-  string-hash@1.1.3: {}
 
   string-width@4.2.3:
     dependencies:

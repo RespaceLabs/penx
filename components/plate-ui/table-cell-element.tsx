@@ -139,3 +139,4 @@ TableCellElement.displayName = 'TableCellElement';
 export const TableCellHeaderElement = withProps(TableCellElement, {
   isHeader: true,
 });
+

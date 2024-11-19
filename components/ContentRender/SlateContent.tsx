@@ -22,10 +22,17 @@ import { Editable } from 'slate-react'
 export function SlateContent() {
   return (
     <Editable
+      className="mt-4"
       renderElement={({ attributes, children, element }) => {
-        // console.log('=====element:', element)
         switch (element.type) {
           case ELEMENT_P:
+            if (element.listStyleType == 'disc') {
+              return (
+                <ul className="my-[1px]" {...attributes}>
+                  <li>{children}</li>
+                </ul>
+              )
+            }
             return (
               <div className="mb-4" {...attributes}>
                 {children}

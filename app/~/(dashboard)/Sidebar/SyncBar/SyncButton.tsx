@@ -29,7 +29,7 @@ export function SyncButton({}: Props) {
       <PopoverTrigger asChild>
         <div className="flex-1 flex items-center justify-center gap-1 cursor-pointer hover:bg-foreground/5 transition-all border-x">
           <RefreshCcw size={16}></RefreshCcw>
-          <div>Push</div>
+          <div>Sync</div>
         </div>
       </PopoverTrigger>
       <PopoverContent align="start" alignOffset={8} className="space-y-1 w-72">
