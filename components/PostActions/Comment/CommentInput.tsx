@@ -6,7 +6,6 @@ import { Textarea } from '@/components/ui/textarea'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
 import { trpc } from '@/lib/trpc'
 import { useSession } from 'next-auth/react'
-import { revalidatePath } from 'next/cache'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -19,12 +18,15 @@ const CommentSchema = z.object({
 
 interface Props {
   postId: string
+  // For reply
+  parentId?: string;
   refetchComments: () => void
+  onCancel?: () => void
 }
 
 const maxCharacters = 1000
 
-export function CommentInput({ postId, refetchComments }: Props) {
+export function CommentInput({ postId, parentId, refetchComments, onCancel }: Props) {
   const userID = useAddress()
   const [content, setContent] = useState('')
   const { isPending, mutateAsync } = trpc.comment.create.useMutation()
@@ -50,6 +52,7 @@ export function CommentInput({ postId, refetchComments }: Props) {
         postId,
         userId: userID as string,
         content,
+        parentId
       })
 
       setContent('')
@@ -62,7 +65,7 @@ export function CommentInput({ postId, refetchComments }: Props) {
   }
 
   return (
-    <div className="space-y-4">
+    <div>
       <Textarea
         placeholder="Write your comment..."
         value={content}
@@ -70,21 +73,35 @@ export function CommentInput({ postId, refetchComments }: Props) {
         maxLength={maxCharacters}
         className="w-full"
       />
-      <div className="text-sm text-gray-500 flex justify-between">
-        <span>
-          {content.length}/{maxCharacters} characters
-        </span>
-      </div>
-      <div className="flex justify-end">
-        {!authenticated ? (
-          <WalletConnectButton className="w-30">
-            Log in to comment
-          </WalletConnectButton>
-        ) : (
-          <Button onClick={handleSubmit} className="w-25">
-            {isPending ? <LoadingDots /> : <p>Comment</p>}
-          </Button>
-        )}
+      <div className="flex items-center justify-between text-sm mt-2 text-gray-500">
+        <div>
+          <span>
+            {content.length}/{maxCharacters} characters
+          </span>
+        </div>
+
+        <div className="flex justify-end">
+          {
+            parentId && <Button
+              onClick={() => {
+                setContent('')
+                onCancel && onCancel()
+              }}
+              className="w-20 text-xs h-8 mr-1">
+              <p>Cancel</p>
+            </Button>
+          }
+
+          {!authenticated ? (
+            <WalletConnectButton className="w-30 text-xs h-8">
+              Log in to comment
+            </WalletConnectButton>
+          ) : (
+            <Button onClick={handleSubmit} className="w-20 text-xs h-8">
+              {isPending ? <LoadingDots /> : <p>Comment</p>}
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   )

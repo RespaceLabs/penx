@@ -4,6 +4,24 @@ import LoadingDots from '@/components/icons/loading-dots'
 import { UserAvatar } from '@/components/UserAvatar'
 import { trpc } from '@/lib/trpc'
 import { CommentInput } from './CommentInput'
+import { useState } from 'react'
+import { User } from '@prisma/client'
+
+interface IParent extends Comment {
+  user: User
+}
+
+interface IReply {
+  id: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  user: User;
+  parent?: IParent;
+  parentId: string;
+  postId: string;
+}
 
 interface Props {
   postId: string
@@ -15,6 +33,21 @@ export function CommentContent({ postId }: Props) {
     isLoading,
     refetch,
   } = trpc.comment.listByPostId.useQuery(postId)
+
+  const { isPending, mutateAsync: listRepliesByCommentId } = trpc.comment.listRepliesByCommentId.useMutation()
+  const [showReplyInput, setShowReplyInput] = useState<string>('');
+  const [showReplies, setShowReplies] = useState<string>('');
+  const [replies, setReplies] = useState<IReply[]>([]);
+
+  const onReplies = async (commentId: string) => {
+    try {
+      const data = await listRepliesByCommentId(commentId);
+      setShowReplies(commentId)
+      setReplies(data as unknown as IReply[]);
+    } catch (error) {
+      console.error('Error fetching replies:', error);
+    }
+  }
 
   return (
     <div className="flex-col">
@@ -34,11 +67,65 @@ export function CommentContent({ postId }: Props) {
                     className="h-8 w-8"
                   />
                   <p className="ml-1 text-sm text-gray-600">
-                    {' '}
-                    {comment.user?.address}{' '}
+                    {comment.user?.address}
                   </p>
                 </div>
                 <p className="mt-2 ml-1">{comment.content}</p>
+                <div className="flex justify-between mb-1 ml-1">
+                  <button className="cursor-pointer text-xs hover:underline" onClick={() => onReplies(comment.id)}>
+                    1 reply
+                  </button>
+                  <button className="cursor-pointer text-xs hover:underline" onClick={() => setShowReplyInput(comment.id)}>
+                    Reply
+                  </button>
+                </div>
+
+                {showReplyInput === comment.id && (
+                  <CommentInput postId={comment.postId} refetchComments={refetch} parentId={comment.id} onCancel={() => {
+                    setShowReplyInput('')
+                  }}
+                  />
+                )}
+
+                {(replies.length > 0 && showReplies === comment.id) && (
+                  <div className="ml-6 mt-4 border-l border-gray-200 pl-4">
+                    {replies.map((reply) => (
+                      <div key={reply.id} className="mb-3">
+                        <div className="flex items-center mb-1">
+                          <UserAvatar
+                            address={reply.user.address as string}
+                            className="h-6 w-6"
+                          />
+                          <p className="ml-2 text-sm text-gray-600 font-bold">
+                            {reply.user?.address ? `${reply.user.address.slice(0, 10)}...` : ''}
+                          </p>
+                          {reply.parent?.user && (
+                            <p className="ml-2 text-sm text-gray-400">
+                              replied to{' '}
+                              <span className="font-bold text-gray-500">
+                                {reply.user?.address ? `${reply.user.address.slice(0, 10)}...` : ''}
+                              </span>
+                            </p>
+                          )}
+                        </div>
+                        <p className="ml-2 text-gray-700">{reply.content}</p>
+
+                        <div className="flex justify-end">
+                          <button className="cursor-pointer text-xs hover:underline" onClick={() => setShowReplyInput(reply.id)}>
+                            Reply
+                          </button>
+                        </div>
+
+                        {showReplyInput === reply.id && (
+                          <CommentInput postId={comment.postId} refetchComments={refetch} parentId={reply.id} onCancel={() => {
+                            setShowReplyInput('')
+                          }}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ))
           ) : (

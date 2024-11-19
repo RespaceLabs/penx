@@ -171,15 +171,20 @@ model Post {
 model Comment {
   id        String   @id @default(uuid()) @db.Uuid
   content   String   @default("") @db.Text
-  parentId  String?  @db.Uuid
+  // Points to the ID of the parent comment, null for the root comment
+  parentId  String?  @db.Uuid 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   post      Post     @relation(fields: [postId], references: [id])
   postId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @db.Uuid
+  replyCount Int    @default(0) @db.Integer
 
-  @@index([userId, postId])
+  parent    Comment?  @relation("ReplyRelation", fields: [parentId], references: [id]) // parent comments
+  replies   Comment[] @relation("ReplyRelation") // sub comments
+
+  @@index([parentId, postId])
   @@index([postId])
   @@index([userId])
   @@map("comment")

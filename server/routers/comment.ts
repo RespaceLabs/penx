@@ -1,6 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { revalidateMetadata } from '@/lib/revalidateTag'
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
@@ -10,7 +9,7 @@ export const commentRouter = router({
     .input(z.string())
     .query(async ({ ctx, input: postId }) => {
       const comments = await prisma.comment.findMany({
-        where: { postId },
+        where: { postId, parentId: null }, // Only top-level comments (parentId === null) need to be queried
         include: {
           user: true, // Assuming you want to include user details in comments
         },
@@ -39,19 +38,48 @@ export const commentRouter = router({
         },
       })
 
-      const updatedPost = await prisma.post.update({
-        where: { id: input.postId },
-        data: {
-          commentCount: { increment: 1 },
-        },
-      })
+      if (input.parentId) {
+        const updatedComment = await prisma.comment.update({
+          where: { id: input.parentId },
+          data: {
+            replyCount: { increment: 1 },
+          },
+        })
+      } else {
+        const updatedPost = await prisma.post.update({
+          where: { id: input.postId },
+          data: {
+            commentCount: { increment: 1 },
+          },
+        })
 
-      revalidatePath('/(blog)/(home)', 'page')
-      revalidatePath('/(blog)/posts', 'page')
-      revalidatePath(`/posts/${updatedPost.slug}`)
+        revalidatePath('/(blog)/(home)', 'page')
+        revalidatePath('/(blog)/posts', 'page')
+        revalidatePath(`/posts/${updatedPost.slug}`)
+      }
 
       return newComment
     }),
+
+  listRepliesByCommentId: publicProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input: commentId }) => {
+      const replies = await prisma.comment.findMany({
+        where: { parentId: commentId },
+        include: {
+          user: true,
+          parent: {
+            include: {
+              user: true,
+            },
+          },
+        },
+        orderBy: { createdAt: 'asc' },
+      });
+
+      return replies;
+    }),
+
 
   // Update an existing comment
   update: protectedProcedure

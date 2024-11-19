@@ -26,7 +26,7 @@ export function CommentSheet({ post }: Props) {
     <>
       <CommentAmount post={post as any} setIsOpen={setIsOpen} />
       <Sheet open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
-        <SheetContent className="flex flex-col gap-6">
+        <SheetContent className="flex flex-col gap-6 overflow-y-auto">
           <SheetHeader>
             <SheetTitle>Comments</SheetTitle>
           </SheetHeader>
