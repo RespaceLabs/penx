@@ -41,6 +41,12 @@ async function handler(req: Request, res: Response) {
     throw new Error('NEXTAUTH_SECRET is not set')
   }
 
+  const host = req.headers.get('host')
+
+  process.env.NEXTAUTH_URL =
+    process.env.NEXTAUTH_URL ||
+    (/localhost/.test(host || '') ? `http://${host}` : `https://${host}`)
+
   return await NextAuth(req as any, res as any, {
     secret: nextAuthSecret,
     providers: [
