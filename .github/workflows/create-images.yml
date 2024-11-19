@@ -17,7 +17,7 @@ jobs:
         name: Build & push Docker image to docker.io
         with:
           image: penxio/penx
-          tags: penx-latest
+          tags: latest
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -26,7 +26,7 @@ jobs:
         name: Build & push Docker image to ghcr.io 
         with:
           image: penx
-          tags: penx-latest
+          tags: latest
           registry: ghcr.io
           multiPlatform: true
           platform: linux/amd64,linux/arm64
