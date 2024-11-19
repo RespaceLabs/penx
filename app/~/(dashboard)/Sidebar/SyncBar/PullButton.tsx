@@ -35,13 +35,13 @@ export function PullButton({}: Props) {
   return (
     <Popover open={isOpen} onOpenChange={(v) => setOpen(v)}>
       <PopoverTrigger asChild>
-        <div className="flex-1 flex items-center justify-center gap-1 cursor-pointer hover:bg-foreground/5 transition-all border-x">
+        <div className="flex-1 flex items-center justify-center gap-1 cursor-pointer hover:bg-foreground/5 transition-all border-x border-foreground/10">
           <ArrowDown size={16}></ArrowDown>
           <div>Pull</div>
         </div>
       </PopoverTrigger>
       <PopoverContent align="start" className="space-y-1 w-72">
-        <div className="text-lg font-bold">Sync notes to locol</div>
+        <div className="text-lg font-bold">Sync notes to local</div>
         <div className="text-sm text-foreground/60">
           Sync all your remote notes to local. It will override the local notes.
         </div>
