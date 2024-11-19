@@ -5,7 +5,7 @@
 
 <h1 style="border-bottom: none">
     <b>PenX</b><br />
-      The best way to build web3 independent blog.
+      The best way to build individual blog.
     <br>
 </h1>
 
@@ -15,28 +15,29 @@
 
 ## Introduction
 
-The best way to build web3 independent blog.
+The best way to build individual blog.
 
-## Development
+PenX is an open-source platform designed to create self-hosted Web3 blogs within the Ethereum ecosystem. When you build a blog site on PenX, you'll have access to a wide range of exciting features and opportunities.
 
-Click the button to clone this repository and deploy it on Vercel:
+## Deploy your own
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fpenx-lab%2Fpenx&env=DATABASE_URL&envDescription=Your+Personal+Database+Url&envLink=https%3A%2F%2Fdocs.penx.io%2Fguides%2Fenvironment-variables%23database_url&project-name=my-penx-blog&repository-name=my-penx-blog&fork=true)
+Deploy your blog in **10 minutes**!
+
+- [Deploy to Vercel](/deployment/vercel)
+- [Deploy to Fly.io](deployment/flyio)
+- [Deploy to Railway](deployment/railway)
+- [Deploy with Docker ](/deployment/docker)
+- [Deploy with Docker Compose](/deployment/docker-compose)
 
 
-https://docs.penx.io/deployment/vercel
+## Examples
 
-## web
+- https://demo1.penx.io
+- https://demo2.penx.io
+- https://demo3.penx.io
+- https://demo4.penx.io
+- https://penx.fly.dev
+- https://penx.up.railway.app
 
-After clone the repo, in the root dir:
-
-```bash
-# Install the dependencies
-pnpm install
-
-copy .env .env.local
-
-pnpm dev
-```
 
 ## ⚖️ License

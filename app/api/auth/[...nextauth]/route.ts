@@ -43,18 +43,9 @@ async function handler(req: Request, res: Response) {
 
   const host = req.headers.get('host')
 
-  console.log(
-    '========host:',
-    host,
-    'process.env.NEXTAUTH_URL:',
-    process.env.NEXTAUTH_URL,
-  )
-
   process.env.NEXTAUTH_URL =
     process.env.NEXTAUTH_URL ||
     (/localhost/.test(host || '') ? `http://${host}` : `https://${host}`)
-
-  console.log('===========process.env.NEXTAUTH_URL:', process.env.NEXTAUTH_URL)
 
   return await NextAuth(req as any, res as any, {
     secret: nextAuthSecret,
