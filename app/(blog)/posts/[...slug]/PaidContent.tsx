@@ -1,14 +1,14 @@
 'use client'
 
+import { ContentRender } from '@/components/ContentRender/ContentRender'
 import { PostActions } from '@/components/PostActions/PostActions'
 import { SubscriptionInSession } from '@/lib/types'
-import { TipTapNode } from '@penxio/types'
+import { cn } from '@/lib/utils'
 import { Post } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import dynamic from 'next/dynamic'
 import readingTime from 'reading-time'
 import { GateCover } from './GateCover'
-import { CommentContent } from '../../../../components/PostActions/Comment/CommentContent'
 
 const PostDetail: any = dynamic(
   () => import(process.env.NEXT_PUBLIC_THEME!).then((mod) => mod.PostDetail),
@@ -16,11 +16,12 @@ const PostDetail: any = dynamic(
 )
 
 function getContent(post: Post, isGated = false) {
-  const node: TipTapNode = JSON.parse(post.content || '{}')
-  if (!isGated) return node
-  const len = node.content?.length || 0
-  node.content = node.content?.slice(1, parseInt((len * 0.3) as any)) || []
-  return node
+  let content = JSON.parse(post.content || '{}')
+  if (!isGated) return content
+  const len = content?.length || 0
+  const index = len < 6 ? 2 : 4
+  content = content?.slice(0, index) || []
+  return content
 }
 
 function checkMembership(subscriptions: SubscriptionInSession[]) {
@@ -59,7 +60,10 @@ export function PaidContent({ postId, post, next, prev }: Props) {
           next={next}
           prev={prev}
           PostActions={PostActions}
+          ContentRender={ContentRender}
+          className="min-h-[auto]"
         />
+
         <div className="mx-auto relative">
           <GateCover slug={post.slug} />
         </div>
@@ -81,6 +85,8 @@ export function PaidContent({ postId, post, next, prev }: Props) {
         next={next}
         prev={prev}
         PostActions={PostActions}
+        ContentRender={ContentRender}
+        className={cn(!hasMembership && 'min-h-[auto]')}
       />
       {!hasMembership && (
         <div className="mx-auto relative">

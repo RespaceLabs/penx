@@ -2,19 +2,15 @@ import { ContentRender } from '@/components/ContentRender/ContentRender'
 import { PostActions } from '@/components/PostActions/PostActions'
 import { getPost, getPosts } from '@/lib/fetchers'
 import { loadTheme } from '@/lib/loadTheme'
-import { TipTapNode } from '@penxio/types'
 import { GateType, Post } from '@prisma/client'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 import { PaidContent } from './PaidContent'
 
-function getContent(post: Post, isGated = false) {
-  const node: TipTapNode = JSON.parse(post.content || '{}')
-  if (!isGated) return node
-  const len = node.content?.length || 0
-  node.content = node.content?.slice(1, parseInt((len * 0.3) as any)) || []
-  return node
+function getContent(post: Post) {
+  const content = JSON.parse(post.content || '[]')
+  return content
 }
 
 export const dynamic = 'force-static'

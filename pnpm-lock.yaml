@@ -36,8 +36,8 @@ importers:
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.1(react@18.2.0))
       '@penxio/types':
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       '@prisma/client':
         specifier: ^5.21.1
         version: 5.21.1(prisma@5.21.1)
@@ -402,20 +402,20 @@ importers:
         specifier: ^6.2.0
         version: 6.2.0
       penx-theme-card:
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       penx-theme-garden:
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       penx-theme-micro:
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       penx-theme-minimal:
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       penx-theme-photo:
-        specifier: ^0.0.5
-        version: 0.0.5
+        specifier: ^0.0.6
+        version: 0.0.6
       prisma-extension-pagination:
         specifier: ^0.7.4
         version: 0.7.4(@prisma/client@5.21.1(prisma@5.21.1))
@@ -2190,11 +2190,11 @@ packages:
     resolution: {integrity: sha512-HNjmfLQEVRZmHRET336f20H/8kOozUGwk7yajvsonjNxbj2wBTK1WsQuHkD5yYh9RxFGL2EyDHryOihOwUoKDA==}
     engines: {node: '>= 10.0.0'}
 
-  '@penxio/types@0.0.5':
-    resolution: {integrity: sha512-kpFqjSrXGFig8WNAOtKo2zAha/iQfc5qOKc7/OCj3WYM3fA1dtIInqRwX93d73V5+xRh5/IKSYRs3hn7XDWAng==}
+  '@penxio/types@0.0.6':
+    resolution: {integrity: sha512-yXxRUtJ16XgNX3br7qsxCgX3zhunEsQKWs0iEewmbuwj8AZ+QyK4tDg7Qa69nHdtGdl7l3I7ms/+sL0kOfW3mw==}
 
-  '@penxio/utils@0.0.5':
-    resolution: {integrity: sha512-pxUlPheoucdXAp2ToW+JPPduPNy4R6P7Dd0/HR8C9jQ5u9U0xkuLk3y7+Qlt3Yth5NXXZxL7oUGfoKl+8xiALA==}
+  '@penxio/utils@0.0.6':
+    resolution: {integrity: sha512-sZJpENSP2LMiVrbSVte5UJPI0MdY5/+yKrK2HewpO3djB2931o+4GUoDe+H64R5fgbW4JufazhCCCszfsOyxzQ==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -7390,20 +7390,20 @@ packages:
   pathe@1.1.2:
     resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
 
-  penx-theme-card@0.0.5:
-    resolution: {integrity: sha512-xuRiW3lVkjBOHh+4bB5W+44NMik/aWRKekTj+6aef5Ej1Td155joRbPdjE8H/sK4lQRBU+iR1M7oqaO9ZYK8Iw==}
+  penx-theme-card@0.0.6:
+    resolution: {integrity: sha512-rYnddosdT9itz6lK2I61El6+K1Lq6k52KTGSofKLL7fRIBAtFqY52UmjFVxMcHkGgnkbvclE2WIofsaxgH8ScA==}
 
-  penx-theme-garden@0.0.5:
-    resolution: {integrity: sha512-NP75Fgj+z7w7RDmb0w+M4QCQaLPsx4i+jvbAko5cOX7kAAX6hnT10bV4GbdlTlPQR3ekxmE3jAYbtwEYP/NjLA==}
+  penx-theme-garden@0.0.6:
+    resolution: {integrity: sha512-xuem+96PV5ya5ja2npxRntG5nFtODikXWlc/k0lGtlzgdYCjTVLnyMfnCLysLDec8Ju2EHgmm5E9d5HmQhe8xA==}
 
-  penx-theme-micro@0.0.5:
-    resolution: {integrity: sha512-KheqvsPgA4ProFJmq9jff1hpGuSxtSLcKXlfu7XH+RlqaIOyXp+H7DmSJbXzvtR164Pxs407RDAfzXi5rjXBwg==}
+  penx-theme-micro@0.0.6:
+    resolution: {integrity: sha512-Mw0245JA5Ke3MggKsG3LQuYS8mi0eF0Qi8zkNP85eV9FKsA75g97VpN4yusuhU5nXNdWgvZdQsyoKuyiv9IRdQ==}
 
-  penx-theme-minimal@0.0.5:
-    resolution: {integrity: sha512-gC0n969yj7WDTbyy+/5LNi0uK7jZZAw9y2T4Zp9OcUFB2aJyAYafVMS2WgHakfe0BiPlp5i2TyNvvLi09KgKQQ==}
+  penx-theme-minimal@0.0.6:
+    resolution: {integrity: sha512-fSJY8akN504BNuF5+MeclVGq/vUxfAkCka5FcHh3d3h1Um85msJhK2MykM9jmGDTQh0w5wf5SZK/WUdKrLiemA==}
 
-  penx-theme-photo@0.0.5:
-    resolution: {integrity: sha512-hlbS7yWdfZKMCl1xpedQz7GxC9nos6tbCix/y+arczHweZpvkL8WHpJ0KLYa19otDOu1RUcLGusq1gICGNJKJQ==}
+  penx-theme-photo@0.0.6:
+    resolution: {integrity: sha512-CMtDXKnS2WNBQeROWDP/fCQuIy3gHWayjpnp1Wj6CdOxbhlpTEAPNdyCHBigLuZriCMSVyuyxfeYI8ErDykSSQ==}
 
   performance-now@2.1.0:
     resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
@@ -11465,9 +11465,9 @@ snapshots:
       '@parcel/watcher-win32-ia32': 2.4.1
       '@parcel/watcher-win32-x64': 2.4.1
 
-  '@penxio/types@0.0.5': {}
+  '@penxio/types@0.0.6': {}
 
-  '@penxio/utils@0.0.5':
+  '@penxio/utils@0.0.6':
     dependencies:
       clsx: 2.1.1
       tailwind-merge: 2.5.4
@@ -17989,42 +17989,42 @@ snapshots:
 
   pathe@1.1.2: {}
 
-  penx-theme-card@0.0.5:
+  penx-theme-card@0.0.6:
     dependencies:
-      '@penxio/types': 0.0.5
-      '@penxio/utils': 0.0.5
+      '@penxio/types': 0.0.6
+      '@penxio/utils': 0.0.6
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  penx-theme-garden@0.0.5:
+  penx-theme-garden@0.0.6:
     dependencies:
-      '@penxio/types': 0.0.5
-      '@penxio/utils': 0.0.5
+      '@penxio/types': 0.0.6
+      '@penxio/utils': 0.0.6
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  penx-theme-micro@0.0.5:
+  penx-theme-micro@0.0.6:
     dependencies:
-      '@penxio/types': 0.0.5
-      '@penxio/utils': 0.0.5
+      '@penxio/types': 0.0.6
+      '@penxio/utils': 0.0.6
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  penx-theme-minimal@0.0.5:
+  penx-theme-minimal@0.0.6:
     dependencies:
-      '@penxio/types': 0.0.5
-      '@penxio/utils': 0.0.5
+      '@penxio/types': 0.0.6
+      '@penxio/utils': 0.0.6
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
 
-  penx-theme-photo@0.0.5:
+  penx-theme-photo@0.0.6:
     dependencies:
-      '@penxio/types': 0.0.5
-      '@penxio/utils': 0.0.5
+      '@penxio/types': 0.0.6
+      '@penxio/utils': 0.0.6
       clsx: 2.1.1
       github-slugger: 2.0.0
       tailwind-merge: 2.5.4
