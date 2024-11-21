@@ -39,6 +39,7 @@ const config = {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },
       colors: {
+        // brand: process.env.BRAND_COLOR ? colors.green : colors.pink,
         brand: colors.pink,
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

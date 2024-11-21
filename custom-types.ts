@@ -17,6 +17,7 @@ declare module 'slate' {
       id?: string
       nodeType?: string
       listStyleType?: string
+      indent?: number
     }
   }
 }

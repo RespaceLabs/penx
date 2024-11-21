@@ -10,7 +10,7 @@ export async function pollingCloudSync() {
   while (true) {
     try {
       const session = await getLocalSession()
-      if (session?.userId) {
+      if (session?.userId && session?.role === 'ADMIN') {
         await sync(true)
       }
     } catch (error) {

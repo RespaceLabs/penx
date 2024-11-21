@@ -29,7 +29,7 @@ export function SpaceNav({}: Props) {
   return (
     <div className="flex justify-center">
       <Link href={Paths.plans} className={linkClassName(Paths.plans)}>
-        subscription
+        Membership
       </Link>
 
       <Link href={Paths.trade} className={linkClassName(Paths.trade)}>

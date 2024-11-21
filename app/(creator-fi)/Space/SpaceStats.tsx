@@ -1,11 +1,11 @@
 'use client'
 
 import { ReactNode } from 'react'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
+import { useEthPrice } from '@/hooks/useEthPrice'
 import { precision } from '@/lib/math'
 import { useBalance } from 'wagmi'
-import { useSpaceContext } from '@/components/SpaceContext'
 
 interface Props {}
 

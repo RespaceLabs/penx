@@ -22,12 +22,16 @@ export function PlanList({}: Props) {
   }
 
   return (
-    <div className="w-full">
-      {space.isFounder(address) && <AddPlanDialog />}
+    <div className="w-full flex flex-col gap-6">
+      {space.isFounder(address) && (
+        <div className="flex justify-center">
+          <AddPlanDialog />
+        </div>
+      )}
 
       <UpdatePlanDialog />
       <MemberDialog />
-      <div className="mt-4 grid grid-cols-1 justify-center gap-4 sm:grid-cols-2 md:grid-cols-2  lg:grid-cols-3">
+      <div className="mt-4 flex items-center justify-center gap-4 flex-wrap">
         {plans.map((item, index) => {
           return <PlanItem key={index} plan={item} />
         })}

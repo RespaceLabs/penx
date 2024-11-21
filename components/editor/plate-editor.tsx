@@ -12,15 +12,22 @@ import { FixedToolbar } from '@/components/plate-ui/fixed-toolbar'
 import { FixedToolbarButtons } from '@/components/plate-ui/fixed-toolbar-buttons'
 import { FloatingToolbar } from '@/components/plate-ui/floating-toolbar'
 import { FloatingToolbarButtons } from '@/components/plate-ui/floating-toolbar-buttons'
+import { cn } from '@/lib/utils'
 import { Plate } from '@udecode/plate-common/react'
 
 interface Props {
   readonly?: boolean
   value: any
+  className?: string
   onChange?: (value: any) => void
 }
 
-export function PlateEditor({ onChange, value, readonly = false }: Props) {
+export function PlateEditor({
+  onChange,
+  value,
+  className,
+  readonly = false,
+}: Props) {
   const containerRef = useRef(null)
   const editor = useCreateEditor(value)
 
@@ -36,14 +43,18 @@ export function PlateEditor({ onChange, value, readonly = false }: Props) {
           <FixedToolbarButtons />
         </FixedToolbar> */}
 
-        <EditorContainer id="scroll_container" ref={containerRef}>
-          <Editor variant="default" readOnly={readonly} />
+        <Editor
+          variant="default"
+          readOnly={readonly}
+          className={cn(className)}
+        />
 
+        <EditorContainer id="scroll_container" ref={containerRef}>
           <FloatingToolbar>
             <FloatingToolbarButtons />
           </FloatingToolbar>
 
-          <CommentsPopover />
+          {/* <CommentsPopover /> */}
 
           <CursorOverlay containerRef={containerRef} />
         </EditorContainer>

@@ -6,6 +6,7 @@ export interface Session {
   userId: string
   address: string
   email: string
+  role: string
   user: {
     name: string
     email: string

@@ -2,7 +2,6 @@
 
 import { PropsWithChildren, Suspense } from 'react'
 import { useQueryEthBalance } from '@/app/(creator-fi)/hooks/useEthBalance'
-import { useQueryEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { ClientOnly } from '@/components/ClientOnly'
 import LoadingCircle from '@/components/icons/loading-circle'
 import { Profile } from '@/components/Profile/Profile'
@@ -51,7 +50,6 @@ interface Props {
 }
 
 export function CreatorFiLayout({ children, space }: PropsWithChildren<Props>) {
-  useQueryEthPrice()
   useQueryEthBalance()
 
   return (

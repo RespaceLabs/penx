@@ -40,14 +40,13 @@ export class Plan {
   }
 
   get benefits() {
-    try {
-      JSON.parse(this.raw.benefits)
-      return this.raw.benefits
-    } catch (error) {
-      return JSON.stringify(editorDefaultValue)
+    if (Array.isArray(this.raw?.benefits)) {
+      return JSON.stringify(this.raw.benefits)
     }
+    return JSON.stringify(editorDefaultValue)
   }
   get benefitsJson() {
+    if (Array.isArray(this.raw.benefits)) return this.raw.benefits
     try {
       JSON.parse(this.raw.benefits)
       return this.raw.benefits

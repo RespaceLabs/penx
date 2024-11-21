@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { NumberInput } from '@/app/(creator-fi)/components/NumberInput'
 import { editorDefaultValue } from '@/app/(creator-fi)/constants'
-import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
+import { usePlans } from '@/app/(creator-fi)/hooks/usePlans'
 import LoadingDots from '@/components/icons/loading-dots'
 import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useCheckChain } from '@/hooks/useCheckChain'
+import { useEthPrice } from '@/hooks/useEthPrice'
 import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { spaceAbi } from '@/lib/abi'
 import { addToIpfs } from '@/lib/addToIpfs'
@@ -42,6 +43,7 @@ export function AddPlanForm() {
   const { ethPrice } = useEthPrice()
   const wagmiConfig = useWagmiConfig()
   const checkChain = useCheckChain()
+  const { refetch } = usePlans()
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -65,9 +67,11 @@ export function AddPlanForm() {
       const cid = await addToIpfs(
         JSON.stringify({
           name: data.name,
-          benefits: JSON.stringify(editorDefaultValue),
+          benefits: editorDefaultValue,
         }),
       )
+
+      // console.log('=======cid:', cid, 'ethPrice:', ethPrice)
 
       const price = precision.token(Number(data.price) / ethPrice)
       const hash = await writeContract(wagmiConfig, {
@@ -80,6 +84,9 @@ export function AddPlanForm() {
       await waitForTransactionReceipt(wagmiConfig, { hash })
 
       setIsOpen(false)
+      setTimeout(() => {
+        refetch()
+      }, 1500)
       toast.success('Add Plan successfully!')
     } catch (error) {
       const msg = extractErrorMessage(error)
@@ -130,7 +137,7 @@ export function AddPlanForm() {
         <Button
           type="submit"
           className="w-full"
-          disabled={isLoading || !form.formState.isValid}
+          disabled={isLoading || !form.formState.isValid || !ethPrice}
         >
           {isLoading ? <LoadingDots /> : <p>Add</p>}
         </Button>

@@ -18,17 +18,27 @@ import {
 } from '@/lib/constants'
 import { cn, getUrl } from '@/lib/utils'
 import { Editable } from 'slate-react'
+import { Leaf } from './Leaf'
 
 export function SlateContent() {
   return (
     <Editable
       className="mt-4"
+      renderLeaf={(props) => <Leaf {...props} />}
       renderElement={({ attributes, children, element }) => {
         switch (element.type) {
           case ELEMENT_P:
             if (element.listStyleType == 'disc') {
+              // console.log('=====element:', element)
+              const { indent = 1 } = element
               return (
-                <ul className="my-[1px]" {...attributes}>
+                <ul
+                  className="my-[1px]"
+                  style={{
+                    marginLeft: indent === 1 ? 0 : `${indent}em`,
+                  }}
+                  {...attributes}
+                >
                   <li>{children}</li>
                 </ul>
               )

@@ -13,7 +13,7 @@ export async function getSite() {
     },
     [`site`],
     {
-      revalidate: 3600 * 24,
+      revalidate: isProd ? 3600 * 24 : 10,
       tags: [`site`],
     },
   )()
@@ -126,7 +126,7 @@ export async function getSpace(spaceId: string) {
     },
     [`space-${spaceId}`],
     {
-      revalidate: 3600 * 24,
+      revalidate: isProd ? 3600 : 10,
       tags: [`space-${spaceId}`],
     },
   )()

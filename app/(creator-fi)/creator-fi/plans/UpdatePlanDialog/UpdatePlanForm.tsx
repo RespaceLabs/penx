@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { NumberInput } from '@/app/(creator-fi)/components/NumberInput'
 import { PlanStatus } from '@/app/(creator-fi)/domains/Plan'
-import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { usePlans } from '@/app/(creator-fi)/hooks/usePlans'
 import { PlateEditor } from '@/components/editor/plate-editor'
 import LoadingDots from '@/components/icons/loading-dots'
@@ -21,6 +20,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useCheckChain } from '@/hooks/useCheckChain'
+import { useEthPrice } from '@/hooks/useEthPrice'
 import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { spaceAbi } from '@/lib/abi'
 import { addToIpfs } from '@/lib/addToIpfs'
@@ -54,8 +54,8 @@ export function UpdatePlanForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       status: plan.status,
-      name: plan.name,
-      price: plan.getUsdPrice(ethPrice).toFixed(2),
+      name: plan.name || '',
+      price: plan.getUsdPrice(ethPrice).toFixed(2) || '',
       benefits: plan.benefits,
     },
   })
@@ -74,9 +74,11 @@ export function UpdatePlanForm() {
       const cid = await addToIpfs(
         JSON.stringify({
           name: data.name,
-          benefits: data.benefits,
+          benefits: JSON.parse(data.benefits),
         }),
       )
+
+      // console.log('cid=======:', cid)
 
       const price = precision.token(Number(data.price) / ethPrice)
       const hash = await writeContract(wagmiConfig, {
@@ -135,7 +137,7 @@ export function UpdatePlanForm() {
                   <FormControl>
                     <NumberInput
                       placeholder=""
-                      precision={2}
+                      precision={6}
                       {...field}
                       className="w-full"
                     />

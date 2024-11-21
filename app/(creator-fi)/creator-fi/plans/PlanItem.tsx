@@ -3,13 +3,13 @@
 import { useMemberDialog } from '@/app/(creator-fi)/components/MemberDialog/useMemberDialog'
 import { Plan } from '@/app/(creator-fi)/domains/Plan'
 import { useAddress } from '@/app/(creator-fi)/hooks/useAddress'
-import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { useMembers } from '@/app/(creator-fi)/hooks/useMembers'
 import { useSubscriptions } from '@/app/(creator-fi)/hooks/useSubscriptions'
 import { PlateEditor } from '@/components/editor/plate-editor'
 import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { useEthPrice } from '@/hooks/useEthPrice'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { EditIcon } from 'lucide-react'
 import { useAccount } from 'wagmi'
@@ -35,7 +35,7 @@ export function PlanItem({ plan }: Props) {
   )
 
   return (
-    <Card className="relative flex min-h-[520px] flex-col justify-between gap-4 rounded-xl p-4 shadow-none bg-background">
+    <Card className="relative flex min-h-[520px] flex-col justify-between gap-4 rounded-xl p-4 shadow-none bg-background w-[300px]">
       {space.isFounder(address) && (
         <Button
           variant="ghost"
@@ -46,7 +46,7 @@ export function PlanItem({ plan }: Props) {
           <EditIcon size={20} className="text-foreground/50" />
         </Button>
       )}
-      <div>
+      <div className="space-y-1">
         <div className="flex">
           <div>{plan.name}</div>
         </div>
@@ -58,8 +58,8 @@ export function PlanItem({ plan }: Props) {
         </div>
       </div>
 
-      <div className="prose-xl prose-neutral flex-1 prose-p:m-4 prose-p:leading-none">
-        <PlateEditor value={plan.benefitsJson} readonly />
+      <div className="flex-1">
+        <PlateEditor value={plan.benefitsJson} readonly className="p-0" />
       </div>
 
       <Button
