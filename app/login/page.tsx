@@ -1,6 +1,4 @@
 import { GoogleOauthButton } from '@/components/GoogleOauthButton'
-import { GoogleOauthDialog } from '@/components/GoogleOauthDialog/GoogleOauthDialog'
-import { useSiteContext } from '@/components/SiteContext'
 import {
   Card,
   CardContent,
@@ -8,11 +6,17 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
 import { getSite } from '@/lib/fetchers'
-import { AuthType } from '@prisma/client'
+import { cn } from '@/lib/utils'
+import { Lobster } from 'next/font/google'
 import Link from 'next/link'
+
+const lobster = Lobster({
+  weight: ['400'],
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const dynamic = 'force-static'
 export const revalidate = 3600 * 24
@@ -21,14 +25,17 @@ export default async function Page() {
   const site = await getSite()
 
   return (
-    <div className="h-screen flex flex-col items-center justify-between">
+    <div className="h-screen flex flex-col items-center justify-between relative">
       <Link
         href="/"
-        className="text-xl font-bold text-foreground/60 hover:text-foreground py-4 cursor-pointer"
+        className={cn(
+          'text-xl font-bold text-foreground/60 hover:text-foreground py-4 cursor-pointer z-20',
+          lobster.className,
+        )}
       >
         {site.name}
       </Link>
-      <div className="flex-1 flex items-center justify-center w-full -mt-20">
+      <div className="flex-1 flex items-center justify-center w-full -mt-20 z-10">
         <Card className="flex flex-col sm:w-96">
           <CardHeader>
             <CardTitle>Login</CardTitle>

@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode, useEffect, useState } from 'react'
-import { Sidebar } from '@/app/~/(dashboard)/Sidebar/Sidebar'
+import { Sidebar } from '@/app/(dashboard)/~/Sidebar/Sidebar'
 import { CreationDialog } from '@/components/CreationDialog/CreationDialog'
 import LoadingDots from '@/components/icons/loading-dots'
 import { NodesProvider } from '@/components/NodesProvider'

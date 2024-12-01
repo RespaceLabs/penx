@@ -14,3 +14,5 @@ export default function Layout({ children }: { children: ReactNode }) {
     </div>
   )
 }
+
+// DATABASE_URL="postgresql://user:penx@43.154.135.183:5433/penx"

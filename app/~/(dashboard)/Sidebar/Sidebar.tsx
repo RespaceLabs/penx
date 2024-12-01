@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { Calendar, Feather, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { EnableWeb3Entry } from './EnableWeb3Entry'
 import { NodesBox } from './NodesBox'
 import { SidebarItem } from './SidebarItem'
 import { SyncBar } from './SyncBar/SyncBar'
@@ -78,6 +79,7 @@ export const Sidebar = () => {
             label="Settings"
           />
         </Link>
+        <EnableWeb3Entry />
       </div>
 
       <div className="flex-1 z-10 overflow-auto px-2">
