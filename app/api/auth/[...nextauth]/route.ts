@@ -6,7 +6,7 @@ import {
   PROJECT_ID,
 } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
-import { SubscriptionInSession } from '@/lib/types'
+import { AccountWithUser, SubscriptionInSession } from '@/lib/types'
 import {
   PostStatus,
   PostType,
@@ -36,7 +36,6 @@ declare module 'next-auth' {
   interface Session {
     address: string
     name: string
-    chainId: number | string
     userId: string
     ensName: string | null
     role: string
@@ -231,16 +230,15 @@ async function handler(req: Request, res: Response) {
     callbacks: {
       async jwt({ token, account, user, profile, trigger, session }) {
         if (user) {
-          const sessionUser = user as User & { chainId: string }
-          token.uid = sessionUser.id
-          token.address = sessionUser.address as string
-          token.chainId = sessionUser.chainId
-          token.ensName = sessionUser.ensName as string
-          token.name = sessionUser.name as string
-          token.role = sessionUser.role as string
+          const sessionAccount = user as AccountWithUser
+          token.uid = sessionAccount.id
+          token.address = getAddress(sessionAccount)
+          token.ensName = sessionAccount.user?.ensName as string
+          token.name = sessionAccount.user.name as string
+          token.role = sessionAccount.user.role as string
 
-          token.subscriptions = Array.isArray(sessionUser.subscriptions)
-            ? sessionUser.subscriptions.map((i: any) => ({
+          token.subscriptions = Array.isArray(sessionAccount.user.subscriptions)
+            ? sessionAccount.user.subscriptions.map((i: any) => ({
                 planId: i.planId,
                 startTime: i.startTime,
                 duration: i.duration,
@@ -269,8 +267,6 @@ async function handler(req: Request, res: Response) {
         session.userId = token.uid as string
         session.address = token.address as string
         session.name = token.name as string
-        session.chainId = token.chainId as string
-        session.ensName = token.ensName as string
         session.role = token.role as string
         session.subscriptions = token.subscriptions as any
 
@@ -441,4 +437,9 @@ function getChain() {
     return baseSepolia
   }
   return base
+}
+
+export function getAddress(account: AccountWithUser) {
+  if (account.providerType !== ProviderType.WALLET) return ''
+  return account.providerAccountId || ''
 }

@@ -1,7 +1,6 @@
 'use client'
 
 import { ReactNode, useEffect, useState } from 'react'
-import { Sidebar } from '@/app/(dashboard)/~/Sidebar/Sidebar'
 import { CreationDialog } from '@/components/CreationDialog/CreationDialog'
 import LoadingDots from '@/components/icons/loading-dots'
 import { NodesProvider } from '@/components/NodesProvider'
@@ -11,6 +10,7 @@ import { SIDEBAR_WIDTH } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
 import { usePathname, useRouter } from 'next/navigation'
+import { Sidebar } from './Sidebar/Sidebar'
 
 export function DashboardLayout({ children }: { children: ReactNode }) {
   const { push } = useRouter()
