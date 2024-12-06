@@ -1,8 +1,19 @@
 import { spaceAbi } from '@/lib/abi'
-import { NETWORK, NetworkNames, PROJECT_ID } from '@/lib/constants'
+import {
+  defaultPostContent,
+  NETWORK,
+  NetworkNames,
+  PROJECT_ID,
+} from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { SubscriptionInSession } from '@/lib/types'
-import { User, UserRole } from '@prisma/client'
+import {
+  PostStatus,
+  PostType,
+  ProviderType,
+  User,
+  UserRole,
+} from '@prisma/client'
 import { AuthTokenClaims, PrivyClient } from '@privy-io/server-auth'
 import NextAuth, { type NextAuthOptions } from 'next-auth'
 import credentialsProvider from 'next-auth/providers/credentials'
@@ -270,37 +281,108 @@ async function handler(req: Request, res: Response) {
 }
 
 async function createUserByAddress(address: any) {
-  let user = await prisma.user.findUnique({ where: { address } })
-  if (!user) {
-    const count = await prisma.user.count()
-    const role = count === 0 ? UserRole.ADMIN : UserRole.READER
+  return prisma.$transaction(
+    async (tx) => {
+      const account = await tx.account.findUnique({
+        where: { providerAccountId: address },
+        include: {
+          user: true,
+        },
+      })
 
-    user = await prisma.user.create({
-      data: { address, role },
-    })
-  }
+      if (account) return account
 
-  return user
+      let newUser = await tx.user.create({
+        data: {
+          name: address,
+          displayName: address,
+          accounts: {
+            create: [
+              {
+                providerType: ProviderType.WALLET,
+                providerAccountId: address,
+              },
+            ],
+          },
+        },
+      })
+
+      await tx.post.create({
+        data: {
+          userId: newUser.id,
+          type: PostType.ARTICLE,
+          title: 'Welcome to PenX!',
+          content: JSON.stringify(defaultPostContent),
+          postStatus: PostStatus.PUBLISHED,
+        },
+      })
+
+      return tx.account.findUniqueOrThrow({
+        where: { providerAccountId: address },
+        include: {
+          user: true,
+        },
+      })
+    },
+    {
+      maxWait: 5000, // default: 2000
+      timeout: 10000, // default: 5000
+    },
+  )
 }
 
 async function createUserByGoogleInfo(info: GoogleLoginInfo) {
-  let user = await prisma.user.findUnique({ where: { openid: info.openid } })
-  if (!user) {
-    const count = await prisma.user.count()
-    const role = count === 0 ? UserRole.ADMIN : UserRole.READER
+  return prisma.$transaction(
+    async (tx) => {
+      const account = await tx.account.findUnique({
+        where: { providerAccountId: info.openid },
+        include: {
+          user: true,
+        },
+      })
 
-    user = await prisma.user.create({
-      data: {
-        role,
-        name: info.name,
-        email: info.email,
-        openid: info.openid,
-        image: info.picture,
-      },
-    })
-  }
+      if (account) return account
 
-  return user
+      let newUser = await tx.user.create({
+        data: {
+          name: info.name,
+          displayName: info.name,
+          email: info.email,
+          image: info.picture,
+          accounts: {
+            create: [
+              {
+                providerType: ProviderType.GOOGLE,
+                providerAccountId: info.openid,
+                providerInfo: info,
+              },
+            ],
+          },
+        },
+      })
+
+      await tx.post.create({
+        data: {
+          userId: newUser.id,
+          type: PostType.ARTICLE,
+          title: 'Welcome to PenX!',
+          content: JSON.stringify(defaultPostContent),
+          postStatus: PostStatus.PUBLISHED,
+        },
+      })
+
+      return tx.account.findUniqueOrThrow({
+        where: { providerAccountId: info.openid },
+        include: {
+          user: true,
+        },
+      })
+    },
+    {
+      maxWait: 5000, // default: 2000
+      timeout: 10000, // default: 5000
+    },
+  )
 }
 
 async function updateSubscriptions(address: Address) {
@@ -318,19 +400,19 @@ async function updateSubscriptions(address: Address) {
       args: [0, address],
     })
 
-    await prisma.user.update({
-      where: { address },
-      data: {
-        subscriptions: [
-          {
-            ...subscription,
-            startTime: Number(subscription.startTime),
-            duration: Number(subscription.duration),
-            amount: subscription.amount.toString(),
-          },
-        ],
-      },
-    })
+    // await prisma.user.update({
+    //   where: { address },
+    //   data: {
+    //     subscriptions: [
+    //       {
+    //         ...subscription,
+    //         startTime: Number(subscription.startTime),
+    //         duration: Number(subscription.duration),
+    //         amount: subscription.amount.toString(),
+    //       },
+    //     ],
+    //   },
+    // })
     return [subscription]
   } catch (error) {
     console.log('====== updateSubscriptions=error:', error)

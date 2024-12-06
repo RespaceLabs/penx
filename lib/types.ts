@@ -1,3 +1,4 @@
+import { Account, Site, User } from '@prisma/client'
 import { Address } from 'viem'
 
 export type App = {
@@ -165,4 +166,8 @@ export type SubscriptionInSession = {
   planId: number
   startTime: number
   duration: number
+}
+
+export type AccountWithUser = Account & {
+  user: User
 }
