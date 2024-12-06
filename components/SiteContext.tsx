@@ -9,6 +9,7 @@ let inited = false
 if (!isServer) {
   setTimeout(() => {
     if (inited) return
+
     inited = true
     runWorker()
   }, 2000)

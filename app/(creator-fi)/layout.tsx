@@ -16,11 +16,7 @@ export default async function Layout({
   return (
     <div className="min-h-screen bg-foreground/5">
       <SpaceProvider space={space}>
-        <StoreProvider>
-          <Toaster className="dark:hidden" />
-          <Toaster theme="dark" className="hidden dark:block" />
-          <CreatorFiLayout space={space}>{children}</CreatorFiLayout>
-        </StoreProvider>
+        <CreatorFiLayout space={space}>{children}</CreatorFiLayout>
       </SpaceProvider>
     </div>
   )

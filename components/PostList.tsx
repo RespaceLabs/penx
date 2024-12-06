@@ -10,20 +10,23 @@ import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
 import { Archive, Edit3Icon, Trash2 } from 'lucide-react'
 import Link from 'next/link'
+import { toast } from 'sonner'
 
 interface PostItemProps {
+  status: PostStatus
   post: Post
 }
 
-export function PostItem({ post }: PostItemProps) {
+export function PostItem({ post, status }: PostItemProps) {
   const { refetch } = usePosts()
+  const isPublished = post.postStatus === PostStatus.PUBLISHED
 
   return (
     <div className={cn('flex flex-col gap-2 py-[6px]')}>
       <div>
         <Link
-          target="_blank"
-          href={`/posts/${post.slug}`}
+          target={isPublished ? '_blank' : '_self'}
+          href={isPublished ? `/posts/${post.slug}` : `/~/post/${post.id}`}
           className="inline-flex items-center hover:scale-105 transition-transform"
         >
           <div className="text-base font-bold">{post.title || 'Untitled'}</div>
@@ -40,7 +43,7 @@ export function PostItem({ post }: PostItemProps) {
         <div className="text-sm text-zinc-500">
           <div>{format(new Date(post.updatedAt), 'yyyy-MM-dd')}</div>
         </div>
-        <Link href={`/~/objects/${post.nodeId}`}>
+        <Link href={`/~/post/${post.id}`}>
           <Button
             size="xs"
             variant="ghost"
@@ -51,18 +54,57 @@ export function PostItem({ post }: PostItemProps) {
           </Button>
         </Link>
 
-        <Button
-          size="xs"
-          variant="ghost"
-          className="rounded-full text-xs h-7 text-red-500 gap-1 opacity-60"
-          onClick={async () => {
-            await api.post.archive.mutate(post.id)
-            refetch()
-          }}
-        >
-          <Archive size={14}></Archive>
-          <div>Archive</div>
-        </Button>
+        {status !== PostStatus.ARCHIVED && (
+          <Button
+            size="xs"
+            variant="ghost"
+            className="rounded-full text-xs h-7 gap-1 opacity-60"
+            onClick={async () => {
+              toast.promise(
+                async () => {
+                  await api.post.archive.mutate(post.id)
+                  await refetch()
+                },
+                {
+                  loading: 'Archive...',
+                  success: (data) => {
+                    return 'Post archived successfully.'
+                  },
+                  error: 'Post archived failed.',
+                },
+              )
+            }}
+          >
+            <Archive size={14}></Archive>
+            <div>Archive</div>
+          </Button>
+        )}
+
+        {status === PostStatus.ARCHIVED && (
+          <Button
+            size="xs"
+            variant="ghost"
+            className="rounded-full text-xs h-7 text-red-500 gap-1 opacity-60"
+            onClick={async () => {
+              toast.promise(
+                async () => {
+                  await api.post.delete.mutate(post.id)
+                  await refetch()
+                },
+                {
+                  loading: 'Delete...',
+                  success: (data) => {
+                    return 'Post deleted successfully.'
+                  },
+                  error: 'Post deleted failed.',
+                },
+              )
+            }}
+          >
+            <Trash2 size={14}></Trash2>
+            <div>Delete</div>
+          </Button>
+        )}
       </div>
     </div>
   )
@@ -85,7 +127,7 @@ export function PostList({ status }: PostListProps) {
   return (
     <div className="grid gap-4">
       {posts.map((post) => {
-        return <PostItem key={post.id} post={post} />
+        return <PostItem key={post.id} post={post} status={status} />
       })}
     </div>
   )

@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import { AuthType } from '@prisma/client'
+import { AuthType, SiteMode } from '@prisma/client'
 import {
   DatabaseBackup,
   FileText,
@@ -53,6 +53,7 @@ export const ProfilePopover = memo(function ProfilePopover({
   const { push } = useRouter()
   const { authType } = useSiteContext()
   const isGoogleOauth = authType === AuthType.GOOGLE
+  const site = useSiteContext()
 
   if (!data) return <div></div>
   const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
@@ -101,7 +102,11 @@ export const ProfilePopover = memo(function ProfilePopover({
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
-                  push('/~/objects/today')
+                  const path =
+                    (site as any)?.mode === SiteMode.BASIC
+                      ? '/~/posts'
+                      : '/~/objects/today'
+                  push(path)
                 }}
               >
                 <Gauge className="mr-2 h-4 w-4" />

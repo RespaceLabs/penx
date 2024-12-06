@@ -10,8 +10,6 @@ module.exports = {
     },
   },
 
-  
-
   /**
    * Dynamic configuration available for the browser and server.
    * Note: requires `ssr: true` or a `getInitialProps` in `_app.tsx`
@@ -38,6 +36,8 @@ module.exports = {
       { hostname: '2cil7amusloluyl8.public.blob.vercel-storage.com' },
       { hostname: '*.public.blob.vercel-storage.com' },
       { hostname: '*.spaceprotocol.xyz' },
+      { hostname: '*.penx.io' },
+      { hostname: 'penx.io' },
       { hostname: 'res.cloudinary.com' },
       { hostname: 'abs.twimg.com' },
       { hostname: 'pbs.twimg.com' },

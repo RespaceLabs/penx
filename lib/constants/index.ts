@@ -102,6 +102,13 @@ export const DATABASE_TOOLBAR_HEIGHT = 42
 
 export const SIDEBAR_WIDTH = 240
 
+export const editorDefaultValue = [
+  {
+    type: 'p',
+    children: [{ text: '' }],
+  },
+]
+
 export const ALLOCATION_CAP_URL =
   NETWORK === NetworkNames.BASE
     ? 'https://penx.io/api/allocation-cap'

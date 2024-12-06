@@ -57,3 +57,11 @@ export async function loadPost(postId: string) {
   store.set(postAtom, post)
   store.set(postLoadingAtom, false)
 }
+
+export function updatePost(data: Partial<Post>) {
+  const post = store.get(postAtom)
+  store.set(postAtom, {
+    ...post,
+    ...data,
+  })
+}

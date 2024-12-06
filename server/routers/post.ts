@@ -52,18 +52,17 @@ export const postRouter = router({
       z.object({
         type: z.nativeEnum(PostType),
         title: z.string().optional(),
+        content: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const newPost = await prisma.post.create({
+      console.log('==========>>>>>ctx.token.uid,:', ctx.token.uid)
+
+      return prisma.post.create({
         data: {
           userId: ctx.token.uid,
-          type: input.type,
+          ...input,
         },
-      })
-
-      return prisma.post.findUniqueOrThrow({
-        where: { id: newPost.id },
       })
     }),
 
@@ -212,6 +211,9 @@ export const postRouter = router({
         where: { id: input },
         data: { postStatus: PostStatus.ARCHIVED },
       })
+
+      // revalidateTag(`posts-${post.slug}`)
+      // revalidatePath(`/posts/${post.slug}`)
 
       return post
     }),

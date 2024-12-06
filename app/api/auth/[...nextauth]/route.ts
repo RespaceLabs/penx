@@ -231,7 +231,7 @@ async function handler(req: Request, res: Response) {
       async jwt({ token, account, user, profile, trigger, session }) {
         if (user) {
           const sessionAccount = user as AccountWithUser
-          token.uid = sessionAccount.id
+          token.uid = sessionAccount.user.id
           token.address = getAddress(sessionAccount)
           token.ensName = sessionAccount.user?.ensName as string
           token.name = sessionAccount.user.name as string
