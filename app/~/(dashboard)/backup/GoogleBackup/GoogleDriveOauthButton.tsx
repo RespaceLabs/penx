@@ -14,7 +14,6 @@ interface Props {}
 
 export function GoogleDriveOauthButton({}: Props) {
   const [loading, setLoading] = useState(false)
-
   const { data } = useSession()
   // Get error message added by next/auth in URL.
   const searchParams = useSearchParams()
@@ -35,7 +34,7 @@ export function GoogleDriveOauthButton({}: Props) {
         setLoading(true)
         const redirectUri = GOOGLE_DRIVE_OAUTH_REDIRECT_URI
 
-        const state = `${location.protocol}//${location.host}____${data.address}`
+        const state = `${location.protocol}//${location.host}____${data.userId}`
 
         const scope = 'openid email https://www.googleapis.com/auth/drive.file'
 

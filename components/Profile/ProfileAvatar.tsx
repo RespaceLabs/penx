@@ -12,7 +12,6 @@ import { UserAvatar } from '../UserAvatar'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string
-  showEnsName?: boolean
   showAddress?: boolean
   showDropIcon?: boolean
   image?: string
@@ -24,7 +23,6 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
   function ProfileAvatar(
     {
       className = '',
-      showEnsName,
       showAddress,
       showFullAddress,
       showCopy,
@@ -41,7 +39,7 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
       enabled: !!session,
     })
     const { copy } = useCopyToClipboard()
-    const ensName = data?.name
+    const name = data?.name
 
     return (
       <div
@@ -50,18 +48,16 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
         {...rest}
       >
         <UserAvatar address={address} image={image} />
-        {(showEnsName || showAddress) && (
+        {showAddress && (
           <>
             <div>
-              {showEnsName && ensName && (
-                <div className="text-base">{ensName}</div>
-              )}
+              {name && <div className="text-base">{name}</div>}
               {showAddress && address && (
                 <div className="flex gap-2 items-center">
                   <div
                     className={cn(
                       'text-sm',
-                      showEnsName && ensName && 'text-xs text-foreground/60',
+                      name && 'text-xs text-foreground/60',
                     )}
                   >
                     {shortAddress}

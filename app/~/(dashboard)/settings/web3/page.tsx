@@ -8,7 +8,6 @@ export const dynamic = 'force-static'
 
 export default function Page() {
   const { isLoading, data } = trpc.site.getSite.useQuery()
-
   if (isLoading) {
     return (
       <div>

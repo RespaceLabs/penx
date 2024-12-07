@@ -70,12 +70,13 @@ export function Post({ post }: { post: PostType }) {
           />
         </div>
         <div className="mb-8 space-y-2">
-          <ProfileAvatar showEnsName showAddress />
+          <ProfileAvatar showAddress />
           {/* <Tags /> */}
         </div>
 
         <PlateEditor
           className="w-full -mx-6"
+          showAddButton
           value={post.content ? JSON.parse(post.content) : editorDefaultValue}
           onChange={(v) => {
             setData({ ...data, content: JSON.stringify(v) })

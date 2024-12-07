@@ -11,6 +11,7 @@ export function SettingNav({}: Props) {
 
   const Paths = {
     general: '/~/settings',
+    linkAccounts: '/~/settings/link-accounts',
     appearance: '/~/settings/appearance',
     socials: '/~/settings/socials',
     authType: '/~/settings/auth-type',
@@ -36,6 +37,13 @@ export function SettingNav({}: Props) {
       {/* <Link href={Paths.authType} className={linkClassName(Paths.authType)}>
         Auth type
       </Link> */}
+
+      <Link
+        href={Paths.linkAccounts}
+        className={linkClassName(Paths.linkAccounts)}
+      >
+        Link Accounts
+      </Link>
       <Link href={Paths.web3} className={linkClassName(Paths.web3)}>
         Web3
       </Link>

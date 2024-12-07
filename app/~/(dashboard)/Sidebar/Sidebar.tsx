@@ -2,10 +2,13 @@ import { ProfilePopover } from '@/components/Profile/ProfilePopover'
 import { useSiteContext } from '@/components/SiteContext'
 import { Badge } from '@/components/ui/badge'
 import { SiteMode } from '@prisma/client'
-import { Calendar, Feather, Settings } from 'lucide-react'
+import { Calendar, Feather, Link2Icon, Settings } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { EnableWeb3Entry } from './EnableWeb3Entry'
+import { LinkGoogleEntry } from './LinkGoogleEntry'
+import { LinkWalletEntry } from './LinkWalletEntry'
 import { NodesBox } from './NodesBox'
 import { SidebarItem } from './SidebarItem'
 import { SyncBar } from './SyncBar/SyncBar'
@@ -13,6 +16,7 @@ import { SyncBar } from './SyncBar/SyncBar'
 export const Sidebar = () => {
   const pathname = usePathname()
   const site = useSiteContext()
+  const { data: session } = useSession()
   const { spaceId } = site
   const isBasicMode = (site as any)?.mode === SiteMode.BASIC
 
@@ -80,6 +84,8 @@ export const Sidebar = () => {
           />
         </Link>
         <EnableWeb3Entry />
+        <LinkGoogleEntry />
+        <LinkWalletEntry />
       </div>
 
       <div className="flex-1 z-10 overflow-auto px-2">

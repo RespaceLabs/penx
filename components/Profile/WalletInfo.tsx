@@ -22,6 +22,8 @@ export function WalletInfo() {
     },
   })
 
+  if (!address) return null
+
   if (isLoading) {
     return (
       <div className="flex flex-col justify-center gap-1 h-12">

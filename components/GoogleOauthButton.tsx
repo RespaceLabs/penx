@@ -4,11 +4,7 @@ import { PropsWithChildren, useEffect, useState } from 'react'
 import { IconGoogle } from '@/components/icons/IconGoogle'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button, ButtonProps } from '@/components/ui/button'
-import {
-  GOOGLE_CLIENT_ID,
-  GOOGLE_DRIVE_OAUTH_REDIRECT_URI,
-  GOOGLE_OAUTH_REDIRECT_URI,
-} from '@/lib/constants'
+import { GOOGLE_CLIENT_ID, GOOGLE_OAUTH_REDIRECT_URI } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
@@ -57,7 +53,7 @@ export function GoogleOauthButton({
       {!loading && (
         <>
           <IconGoogle className="w-4 h-4" />
-          <div className="">{children || 'Google login (web2)'}</div>
+          <div className="">{children || 'Google login'}</div>
         </>
       )}
     </Button>

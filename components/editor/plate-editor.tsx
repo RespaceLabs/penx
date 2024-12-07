@@ -20,6 +20,7 @@ interface Props {
   readonly?: boolean
   value: any
   className?: string
+  showAddButton?: boolean
   onChange?: (value: any) => void
 }
 
@@ -27,6 +28,7 @@ export function PlateEditor({
   onChange,
   value,
   className,
+  showAddButton = false,
   readonly = false,
 }: Props) {
   const containerRef = useRef(null)
@@ -56,7 +58,7 @@ export function PlateEditor({
           </FloatingToolbar>
 
           {/* <CommentsPopover /> */}
-          <AddNodeBtn editor={editor} />
+          {showAddButton && <AddNodeBtn editor={editor} />}
 
           <CursorOverlay containerRef={containerRef} />
         </EditorContainer>

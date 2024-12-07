@@ -6,20 +6,17 @@ export async function GET(req: NextRequest) {
   const access_token = url.searchParams.get('access_token')
   const refresh_token = url.searchParams.get('refresh_token')
   const expiry_date = url.searchParams.get('expiry_date')
-  const address = url.searchParams.get('address')
+  const userId = url.searchParams.get('uid')
   const name = url.searchParams.get('name')
   const picture = url.searchParams.get('picture')
   const email = url.searchParams.get('email')
 
-  if (!access_token || !refresh_token || !expiry_date || !address) {
+  if (!access_token || !refresh_token || !expiry_date || !userId) {
     return NextResponse.redirect('/error') // Handle error accordingly
   }
 
-  const account = await prisma.account.findUniqueOrThrow({
-    where: { providerAccountId: address },
-  })
   await prisma.user.update({
-    where: { id: account.userId },
+    where: { id: userId },
     data: {
       google: {
         name,

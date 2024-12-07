@@ -12,8 +12,6 @@ interface Props {}
 
 export function Profile({}: Props) {
   const { data, status } = useSession()
-  const { address = '' } = useAccount()
-  const site = useSiteContext()
 
   if (status === 'loading')
     return (

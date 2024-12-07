@@ -37,6 +37,7 @@ declare module 'next-auth' {
   interface Session {
     address: string
     name: string
+    picture: string
     userId: string
     ensName: string | null
     role: string
@@ -208,7 +209,7 @@ async function handler(req: Request, res: Response) {
         },
         async authorize(credentials) {
           try {
-            console.log('>>>>> gogle auth..............')
+            console.log('>>>>> gogle auth..............:', credentials)
 
             if (!credentials?.email || !credentials?.openid) {
               throw new Error('Login fail')
@@ -217,6 +218,8 @@ async function handler(req: Request, res: Response) {
             const user = await createUserByGoogleInfo(credentials)
             return user
           } catch (e) {
+            console.log('error=====:', e)
+
             return null
           }
         },
@@ -236,6 +239,7 @@ async function handler(req: Request, res: Response) {
           token.address = getAccountAddress(sessionAccount)
           token.ensName = sessionAccount.user?.ensName as string
           token.name = sessionAccount.user.name as string
+          token.picture = sessionAccount.user.image as string
           token.role = sessionAccount.user.role as string
 
           token.subscriptions = Array.isArray(sessionAccount.user.subscriptions)
@@ -268,6 +272,7 @@ async function handler(req: Request, res: Response) {
         session.userId = token.uid as string
         session.address = token.address as string
         session.name = token.name as string
+        session.picture = token.picture as string
         session.role = token.role as string
         session.subscriptions = token.subscriptions as any
 
@@ -289,10 +294,13 @@ async function createUserByAddress(address: any) {
 
       if (account) return account
 
+      const count = await tx.user.count()
+
       let newUser = await tx.user.create({
         data: {
           name: address,
           displayName: address,
+          role: count === 0 ? UserRole.ADMIN : UserRole.READER,
           accounts: {
             create: [
               {
@@ -340,12 +348,15 @@ async function createUserByGoogleInfo(info: GoogleLoginInfo) {
 
       if (account) return account
 
+      const count = await tx.user.count()
+
       let newUser = await tx.user.create({
         data: {
           name: info.name,
           displayName: info.name,
           email: info.email,
           image: info.picture,
+          role: count === 0 ? UserRole.ADMIN : UserRole.READER,
           accounts: {
             create: [
               {
