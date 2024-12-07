@@ -75,7 +75,7 @@ export const editorPlugins = [
 
   // Functionality
   autoformatPlugin,
-  // ...blockMenuPlugins,
+  ...blockMenuPlugins,
   ...dndPlugins,
   EmojiPlugin,
   exitBreakPlugin,

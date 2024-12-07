@@ -84,7 +84,7 @@ export const useCreateEditor = (value: any = []) => {
     override: {
       components: withDraggables(
         withPlaceholders({
-          [AIPlugin.key]: AILeaf,
+          // [AIPlugin.key]: AILeaf,
           [BlockquotePlugin.key]: BlockquoteElement,
           [BoldPlugin.key]: withProps(PlateLeaf, { as: 'strong' }),
           [CodeBlockPlugin.key]: CodeBlockElement,
@@ -128,7 +128,8 @@ export const useCreateEditor = (value: any = []) => {
         }),
       ),
     },
-    plugins: [...copilotPlugins, ...editorPlugins],
+    // plugins: [...copilotPlugins, ...editorPlugins],
+    plugins: [...editorPlugins],
 
     value: Array.isArray(value) ? value : [getEmptyElement()],
   })

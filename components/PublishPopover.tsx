@@ -1,7 +1,8 @@
 'use client'
 
 import { Dispatch, SetStateAction, useState } from 'react'
-import { Post, updatePostPublishStatus, usePost } from '@/hooks/usePost'
+import { usePost } from '@/hooks/usePost'
+import { usePublishPost } from '@/hooks/usePublishPost'
 import { IObjectNode, Node } from '@/lib/model'
 import { useNodes } from '@/lib/node-hooks'
 import { cn } from '@/lib/utils'
@@ -9,7 +10,6 @@ import { store } from '@/store'
 import { GateType } from '@prisma/client'
 import { PopoverClose } from '@radix-ui/react-popover'
 import { useParams, usePathname } from 'next/navigation'
-import { usePublishPost } from '../hooks/usePublishPost'
 import LoadingDots from './icons/loading-dots'
 import { useSiteContext } from './SiteContext'
 import { Button } from './ui/button'
@@ -17,10 +17,13 @@ import { Label } from './ui/label'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { Switch } from './ui/switch'
 
-interface Props {}
+interface Props {
+  className?: string
+}
 
-export function PublishPopover({}: Props) {
+export function PublishPopover({ className }: Props) {
   const [isOpen, setOpen] = useState(false)
+
   return (
     <Popover
       open={isOpen}
@@ -29,7 +32,12 @@ export function PublishPopover({}: Props) {
       }}
     >
       <PopoverTrigger asChild>
-        <Button className="w-24" onClick={() => setOpen(true)}>
+        <Button
+          className={cn('w-24', className)}
+          onClick={() => {
+            setOpen(true)
+          }}
+        >
           Publish
         </Button>
       </PopoverTrigger>
@@ -43,11 +51,12 @@ interface PublishPopoverContentProps {
 }
 
 function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
+  const { post } = usePost()
   const { spaceId } = useSiteContext()
-  const { nodeId } = useParams()
+  const { nodeId } = useParams()!
   const { nodes } = useNodes()
   const pathname = usePathname()
-  const isToday = pathname.startsWith('/~/objects/today')
+  const isToday = pathname?.startsWith('/~/objects/today')
 
   const activeNode = isToday
     ? new Node(store.node.getTodayNode())
@@ -57,10 +66,11 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
     activeNode?.props?.gateType || GateType.FREE,
   )
   const [collectible, setCollectible] = useState(
-    activeNode?.props?.collectible || false,
+    post?.collectible || activeNode?.props?.collectible || false,
   )
   const { isLoading, publishPost } = usePublishPost()
-  if (!activeNode) return null
+
+  if (!activeNode && !post) return null
 
   return (
     <PopoverContent align="end" className="w-[360px] flex flex-col gap-5">
@@ -106,7 +116,7 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
           className="w-full"
           onClick={async () => {
             await publishPost(
-              activeNode.raw as IObjectNode,
+              activeNode ? (activeNode.raw as IObjectNode) : (null as any),
               gateType,
               collectible,
             )

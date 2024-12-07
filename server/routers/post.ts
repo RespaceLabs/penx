@@ -109,7 +109,8 @@ export const postRouter = router({
   publish: protectedProcedure
     .input(
       z.object({
-        nodeId: z.string(),
+        postId: z.string().optional(),
+        nodeId: z.string().optional(),
         creationId: z.number().optional(),
         type: z.nativeEnum(PostType),
         gateType: z.nativeEnum(GateType),
@@ -123,36 +124,49 @@ export const postRouter = router({
       const { nodeId, gateType, collectible, creationId } = input
 
       let post = await prisma.post.findFirst({
-        where: { nodeId },
+        where: { OR: [{ nodeId }, { id: input.postId }] },
       })
-      const [title, ...nodes] = JSON.parse(input.content)
+
+      function getPostInfo() {
+        if (input.postId) {
+          return { title: post?.title, content: input.content }
+        }
+
+        const [title, ...nodes] = JSON.parse(input.content)
+
+        return {
+          title: SlateNode.string(title),
+          content: JSON.stringify(nodes),
+        }
+      }
+      const info = getPostInfo()
 
       if (!post) {
         post = await prisma.post.create({
           data: {
             userId,
             slug: input.nodeId,
-            title: SlateNode.string(title),
+            title: info.title,
             type: input.type,
             nodeId: input.nodeId,
             postStatus: PostStatus.PUBLISHED,
             image: input.image,
             gateType: input.gateType,
             collectible: input.collectible,
-            content: JSON.stringify(nodes),
+            content: info.content,
           },
         })
       } else {
         post = await prisma.post.update({
           where: { id: post.id },
           data: {
-            title: SlateNode.string(title),
+            title: info.title,
             type: input.type,
             image: input.image,
             postStatus: PostStatus.PUBLISHED,
             gateType: input.gateType,
             collectible: input.collectible,
-            content: JSON.stringify(nodes),
+            content: info.content,
           },
         })
       }
@@ -192,14 +206,16 @@ export const postRouter = router({
       revalidatePath('/(blog)/posts/page/[page]', 'page')
 
       // sync google
-      syncToGoogleDrive(ctx.token.uid, {
-        ...newPost,
-        postStatus: PostStatus.PUBLISHED,
-        collectible,
-        creationId,
-        cid: res.cid,
-        gateType,
-      } as any)
+      // syncToGoogleDrive(ctx.token.uid, {
+      //   ...newPost,
+      //   postStatus: PostStatus.PUBLISHED,
+      //   collectible,
+      //   creationId,
+      //   cid: res.cid,
+      //   gateType,
+      // } as any)
+
+      return newPost
 
       return newPost
     }),

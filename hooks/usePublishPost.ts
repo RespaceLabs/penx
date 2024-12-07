@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useCheckChain } from '@/hooks/useCheckChain'
-import { Post } from '@/hooks/usePost'
-import { usePosts } from '@/hooks/usePosts'
+import { Post, usePost } from '@/hooks/usePost'
 import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { creationFactoryAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
@@ -20,12 +19,33 @@ import { useAccount, useWriteContract } from 'wagmi'
 import { useSiteContext } from '../components/SiteContext'
 
 export function usePublishPost() {
-  const { spaceId } = useSiteContext()
+  const { spaceId, id } = useSiteContext()
   const { address } = useAccount()
   const [isLoading, setLoading] = useState(false)
   const checkChain = useCheckChain()
   const { writeContractAsync } = useWriteContract()
   const wagmiConfig = useWagmiConfig()
+  const { post: currentPost } = usePost()
+
+  function getContent(node: IObjectNode) {
+    if (currentPost) return currentPost.content
+
+    const nodes = store.node.getNodes()
+    const content = nodeToSlate({
+      node: node,
+      nodes,
+      isOutliner: false,
+      isOutlinerSpace: false,
+    })
+    return JSON.stringify(content)
+  }
+
+  function getImage(node: IObjectNode) {
+    if (!node) return ''
+    return node.props.objectType === ObjectType.IMAGE
+      ? node.props?.imageUrl
+      : node.props.coverUrl
+  }
 
   return {
     isLoading,
@@ -36,17 +56,11 @@ export function usePublishPost() {
     ) => {
       setLoading(true)
 
-      const nodes = store.node.getNodes()
-      const content = nodeToSlate({
-        node: node,
-        nodes,
-        isOutliner: false,
-        isOutlinerSpace: false,
-      })
+      const content = getContent(node)
 
       // console.log('======>>>>>content:', content)
       // console.log('======>>>>>node:', node)
-      const post = await api.post.bySlug.query(node.id)
+      const post = currentPost || (await api.post.bySlug.query(node.id))
 
       let creationId: number | undefined
       try {
@@ -56,7 +70,11 @@ export function usePublishPost() {
             address: addressMap.CreationFactory,
             abi: creationFactoryAbi,
             functionName: 'create',
-            args: [node.id, precision.token(0.0001024), spaceId as Address],
+            args: [
+              post?.slug || node?.id,
+              precision.token(0.0001024),
+              spaceId as Address,
+            ],
           })
 
           await waitForTransactionReceipt(wagmiConfig, { hash })
@@ -71,25 +89,25 @@ export function usePublishPost() {
         }
 
         await api.post.publish.mutate({
-          type: node.props?.objectType || PostType.ARTICLE,
-          nodeId: node.id,
+          type: post?.type || node.props?.objectType || PostType.ARTICLE,
+          postId: post?.id,
+          nodeId: node?.id,
           gateType,
           collectible,
           creationId,
-          image:
-            node.props.objectType === ObjectType.IMAGE
-              ? node.props?.imageUrl
-              : node.props.coverUrl,
-          content: JSON.stringify(content),
+          image: getImage(node),
+          content: content,
         })
 
-        await store.node.updateNode(node.id, {
-          props: {
-            ...node.props,
-            gateType,
-            collectible,
-          },
-        } as IObjectNode)
+        if (node) {
+          await store.node.updateNode(node.id, {
+            props: {
+              ...node.props,
+              gateType,
+              collectible,
+            },
+          } as IObjectNode)
+        }
 
         setLoading(false)
         revalidateMetadata(`posts`)
