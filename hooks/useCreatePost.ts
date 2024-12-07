@@ -1,6 +1,6 @@
+import { useSiteContext } from '@/components/SiteContext'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
-import { revalidateMetadata } from '@/lib/revalidateTag'
-import { api, trpc } from '@/lib/trpc'
+import { trpc } from '@/lib/trpc'
 import { store } from '@/store'
 import { PostType } from '@prisma/client'
 import { useRouter } from 'next/navigation'
@@ -11,11 +11,16 @@ import { usePosts } from './usePosts'
 export function useCreatePost() {
   const { push } = useRouter()
   const { refetch } = usePosts()
+  const { id } = useSiteContext()
   const { isPending, mutateAsync } = trpc.post.create.useMutation()
 
   const createPost = async (type: PostType) => {
     try {
-      const post = await mutateAsync({ type })
+      const post = await mutateAsync({
+        type,
+        title: '',
+        content: '',
+      })
       store.set(postAtom, post as any)
       await refetch()
       // revalidateMetadata('posts')

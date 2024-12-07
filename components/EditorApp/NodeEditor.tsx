@@ -15,7 +15,7 @@ import { store } from '@/store'
 import { Plate } from '@udecode/plate-common/react'
 import { Descendant, Path, Transforms } from 'slate'
 import { EditableProps } from 'slate-react/dist/components/editable'
-import { AddNodeBtn } from './AddNodeBtn'
+import { AddNodeBtn } from '../AddNodeBtn'
 
 interface Props {
   index?: number

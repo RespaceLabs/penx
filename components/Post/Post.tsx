@@ -75,7 +75,7 @@ export function Post({ post }: { post: PostType }) {
         </div>
 
         <PlateEditor
-          className="min-h-[400px] w-full -mx-6"
+          className="w-full -mx-6"
           value={post.content ? JSON.parse(post.content) : editorDefaultValue}
           onChange={(v) => {
             setData({ ...data, content: JSON.stringify(v) })

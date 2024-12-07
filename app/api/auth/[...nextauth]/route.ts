@@ -7,6 +7,7 @@ import {
 } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { AccountWithUser, SubscriptionInSession } from '@/lib/types'
+import { getAccountAddress } from '@/lib/utils'
 import {
   PostStatus,
   PostType,
@@ -232,7 +233,7 @@ async function handler(req: Request, res: Response) {
         if (user) {
           const sessionAccount = user as AccountWithUser
           token.uid = sessionAccount.user.id
-          token.address = getAddress(sessionAccount)
+          token.address = getAccountAddress(sessionAccount)
           token.ensName = sessionAccount.user?.ensName as string
           token.name = sessionAccount.user.name as string
           token.role = sessionAccount.user.role as string
@@ -437,9 +438,4 @@ function getChain() {
     return baseSepolia
   }
   return base
-}
-
-export function getAddress(account: AccountWithUser) {
-  if (account.providerType !== ProviderType.WALLET) return ''
-  return account.providerAccountId || ''
 }

@@ -1,8 +1,8 @@
 import { findNodePath, selectEditor } from '@udecode/plate-common/react'
 import { PlusIcon } from 'lucide-react'
 import { Editor, Path, Transforms } from 'slate'
-import { insertEmptyParagraph } from '../editor/lib/insertEmptyParagraph'
-import { useCreateEditor } from '../editor/use-create-editor'
+import { insertEmptyParagraph } from './editor/lib/insertEmptyParagraph'
+import { useCreateEditor } from './editor/use-create-editor'
 
 interface Props {
   editor: ReturnType<typeof useCreateEditor>

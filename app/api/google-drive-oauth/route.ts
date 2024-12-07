@@ -15,8 +15,11 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect('/error') // Handle error accordingly
   }
 
+  const account = await prisma.account.findUniqueOrThrow({
+    where: { providerAccountId: address },
+  })
   await prisma.user.update({
-    where: { address },
+    where: { id: account.userId },
     data: {
       google: {
         name,

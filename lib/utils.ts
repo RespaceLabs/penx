@@ -1,5 +1,7 @@
+import { ProviderType } from '@prisma/client'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { AccountWithUser } from './types'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -110,4 +112,9 @@ export function isValidUUIDv4(uuid = ''): boolean {
   const regex =
     /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
   return regex.test(uuid)
+}
+
+export function getAccountAddress(account: AccountWithUser) {
+  if (account.providerType !== ProviderType.WALLET) return ''
+  return account.providerAccountId || ''
 }

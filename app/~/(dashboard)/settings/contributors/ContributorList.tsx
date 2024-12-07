@@ -18,8 +18,16 @@ import {
 } from '@/components/ui/table'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api, trpc } from '@/lib/trpc'
-import { User, UserRole } from '@prisma/client'
+import { getAccountAddress } from '@/lib/utils'
+import { Account, ProviderType, User, UserRole } from '@prisma/client'
 import { toast } from 'sonner'
+
+function getAddressInAccounts(accounts: Account[]) {
+  const find = accounts.find(
+    (account) => account.providerType === ProviderType.WALLET,
+  )
+  return find?.providerAccountId || ''
+}
 
 interface Props {}
 
@@ -52,7 +60,9 @@ export default function ContributorList({}: Props) {
           {!isLoading &&
             users?.map((user) => (
               <TableRow key={user.id} className="text-muted-foreground">
-                <TableCell className="pl-0">{user.address}</TableCell>
+                <TableCell className="pl-0">
+                  {getAddressInAccounts(user.accounts)}
+                </TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>
                   <SelectRole user={user} />
