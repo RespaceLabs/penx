@@ -64,7 +64,7 @@ export const protectedProcedure = t.procedure.use(
 
     if (
       ![UserRole.ADMIN, UserRole.AUTHOR].includes(role) &&
-      path !== 'user.me'
+      !['user.me', 'comment.create'].includes(path)
     ) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',

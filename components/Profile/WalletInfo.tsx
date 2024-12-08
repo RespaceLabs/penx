@@ -22,7 +22,7 @@ export function WalletInfo() {
     },
   })
 
-  if (!address) return null
+  if (!address || !data || !penBalance) return null
 
   if (isLoading) {
     return (
@@ -39,7 +39,7 @@ export function WalletInfo() {
         <div className="text-sm text-foreground/60">$ETH</div>
         <div>
           {typeof data !== 'undefined' &&
-            `${precision.toDecimal(data.value).toFixed(5)}`}
+            `${precision.toDecimal(data.value).toFixed(5) || '0'}`}
         </div>
       </div>
 

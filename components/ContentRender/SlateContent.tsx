@@ -39,7 +39,7 @@ export function SlateContent() {
                   }}
                   {...attributes}
                 >
-                  <li>{children}</li>
+                  <li className="[&>*]:inline-flex">{children}</li>
                 </ul>
               )
             }
