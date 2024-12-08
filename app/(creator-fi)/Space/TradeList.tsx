@@ -1,12 +1,12 @@
 'use client'
 
+import { useTrades } from '@/app/(creator-fi)/hooks/useTrades'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { Skeleton } from '@/components/ui/skeleton'
 import { UserAvatar } from '@/components/UserAvatar'
-import { useTrades } from '@/app/(creator-fi)/hooks/useTrades'
 import { precision } from '@/lib/math'
 import { cn, shortenAddress } from '@/lib/utils'
 import { TradeType } from '../constants'
-import { useSpaceContext } from '@/components/SpaceContext'
 
 interface Props {}
 
@@ -42,7 +42,7 @@ export function TradeList({}: Props) {
             <div
               className={cn(
                 item.type === TradeType.BUY && 'text-green-500',
-                item.type === TradeType.SELL && 'text-red-500'
+                item.type === TradeType.SELL && 'text-red-500',
               )}
             >
               {item.type === TradeType.BUY ? 'bought' : 'sold'}
@@ -50,9 +50,7 @@ export function TradeList({}: Props) {
           </div>
           <div>
             <span className="font-bold">
-              {precision
-                .toDecimal(item.type === TradeType.BUY ? item.tokenAmount : item.ethAmount)
-                .toFixed(2)}{' '}
+              {precision.toDecimal(item.tokenAmount).toFixed(2)}
             </span>
             <span>{space.symbolName}</span>
           </div>
