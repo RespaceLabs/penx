@@ -5,7 +5,7 @@
 
 <h1 style="border-bottom: none">
     <b>PenX</b><br />
-      The best way to build individual blog.
+    Next generation blogging tools
     <br>
 </h1>
 
@@ -14,8 +14,6 @@
 </div>
 
 ## Introduction
-
-The best way to build individual blog.
 
 PenX is an open-source platform designed to create self-hosted Web3 blogs within the Ethereum ecosystem. When you build a blog site on PenX, you'll have access to a wide range of exciting features and opportunities.
 
