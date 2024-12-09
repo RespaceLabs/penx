@@ -1,10 +1,14 @@
 'use client'
 
 import { ArrowRight, Bitcoin } from 'lucide-react'
+import Link from 'next/link'
 
 export function EnableWeb3Entry() {
   return (
-    <div className="mt-2 p-3 rounded-lg bg-foreground/5 hover:bg-foreground/10 flex items-center justify-between cursor-pointer transition-all">
+    <Link
+      href="/~/create-space"
+      className="mt-2 p-3 rounded-lg bg-foreground/5 hover:bg-foreground/10 flex items-center justify-between cursor-pointer transition-all"
+    >
       <div className="space-y-1 text-foreground/80 flex-1">
         <div className="flex items-center gap-2">
           <div className="font-bold text-base">Enable Web3</div>
@@ -16,6 +20,6 @@ export function EnableWeb3Entry() {
         </ul>
       </div>
       <ArrowRight size={20} className="text-foreground/50 flex-shrink-0" />
-    </div>
+    </Link>
   )
 }
