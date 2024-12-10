@@ -2,7 +2,7 @@ FROM node:20-alpine AS builder
 
 RUN apk add --no-cache libc6-compat
 RUN apk update
-RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
+RUN apk add --update python3 make g++ openssl && rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
