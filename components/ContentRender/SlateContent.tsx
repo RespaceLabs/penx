@@ -1,5 +1,8 @@
 import { Checkbox } from '@/components/ui/checkbox'
 import {
+  ELEMENT_A,
+  ELEMENT_CODE_BLOCK,
+  ELEMENT_CODE_LINE,
   ELEMENT_FILE_CAPTION,
   ELEMENT_H1,
   ELEMENT_H2,
@@ -26,6 +29,8 @@ export function SlateContent() {
       className="mt-4"
       renderLeaf={(props) => <Leaf {...props} />}
       renderElement={({ attributes, children, element }) => {
+        // console.log('=======element.type:', element.type)
+
         switch (element.type) {
           case ELEMENT_P:
             if (element.listStyleType == 'disc') {
@@ -99,8 +104,36 @@ export function SlateContent() {
               ></img>
             )
           case ELEMENT_FILE_CAPTION:
-            console.log('element.url:', element)
             return null as any
+
+          case ELEMENT_A:
+            return (
+              <a
+                href={(element as any).url}
+                target="_blank"
+                className="text-brand-500 no-underline hover:underline decoration-brand-500 underline-offset-4 cursor-pointer"
+                {...attributes}
+              >
+                {children}
+              </a>
+            )
+
+          case ELEMENT_CODE_BLOCK:
+            return (
+              <pre
+                className="overflow-x-auto rounded-md bg-muted px-6 py-8 font-mono text-sm leading-[normal] [tab-size:2]"
+                {...attributes}
+              >
+                <code>{children}</code>
+              </pre>
+            )
+
+          case ELEMENT_CODE_LINE:
+            return (
+              <div className="text-foreground" {...attributes}>
+                {children}
+              </div>
+            )
           default:
             return <div {...attributes}>{children}</div>
         }
