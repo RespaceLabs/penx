@@ -1,4 +1,4 @@
-const { env } = require('./server/env')
+const { env } = require('./src/server/env')
 
 /**
  * @type {import('next').NextConfig}
