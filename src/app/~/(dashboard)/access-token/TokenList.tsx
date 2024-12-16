@@ -5,7 +5,7 @@ import LoadingDots from '@/components/icons/loading-dots'
 import { Separator } from '@/components/ui/separator'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
-import { AccessToken } from '@prisma/client'
+import { AccessToken } from '@/server/db/schema'
 import { format } from 'date-fns'
 import { KeySquare } from 'lucide-react'
 import { toast } from 'sonner'
@@ -61,8 +61,8 @@ export default function AccessTokenList({
                 <Separator orientation="vertical" />
                 <a>
                   expiredAt:{' '}
-                  {token.expiredAt
-                    ? format(new Date(token.expiredAt), 'yyyy-MM-dd')
+                  {token.expiresAt
+                    ? format(new Date(token.expiresAt), 'yyyy-MM-dd')
                     : 'Never exp'}
                 </a>
                 <Separator orientation="vertical" />

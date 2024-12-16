@@ -34,6 +34,7 @@ export class Space {
   constructor(
     public spaceRaw: SpaceRaw,
     public planRaw: PlanRaw,
+    
   ) {}
 
   get x() {

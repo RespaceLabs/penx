@@ -1,7 +1,7 @@
 'use client'
 
 import { Dispatch, SetStateAction } from 'react'
-import { Post } from '@prisma/client'
+import { Post } from '@/server/db/schema'
 import { MessageCircle } from 'lucide-react'
 
 interface Props {

@@ -9,8 +9,8 @@ import {
   GOOGLE_OAUTH_REDIRECT_URI,
   LINK_GOOGLE_ACCOUNT_REDIRECT_URI,
 } from '@/lib/constants'
+import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
-import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 

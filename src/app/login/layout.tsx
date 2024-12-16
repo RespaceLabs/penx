@@ -1,8 +1,10 @@
 'use client'
 
 import { PropsWithChildren, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import useSession from '@/lib/useSession'
 import { useRouter } from 'next/navigation'
+
+// export const runtime = 'edge'
 
 export default function Layout({ children }: PropsWithChildren) {
   const { data, status } = useSession()

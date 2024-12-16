@@ -1,7 +1,9 @@
-import { prisma } from '@/lib/prisma'
-import { AuthType, StorageProvider } from '@prisma/client'
+import { AuthType, StorageProvider } from '@/lib/types'
+import { eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
+import { db } from '../db'
+import { sites } from '../db/schema'
 import { getSite } from '../lib/getSite'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
@@ -14,7 +16,7 @@ export const siteRouter = router({
   updateSite: protectedProcedure
     .input(
       z.object({
-        id: z.string().optional(),
+        id: z.string(),
         logo: z.string().optional(),
         name: z.string().optional(),
         description: z.string().optional(),
@@ -35,25 +37,12 @@ export const siteRouter = router({
             medium: z.string().optional(),
           })
           .optional(),
-        authType: z.nativeEnum(AuthType).optional(),
-        authConfig: z
-          .object({
-            privyAppId: z.string().optional(),
-            privyAppSecret: z.string().optional(),
-          })
-          .optional(),
-        storageProvider: z.nativeEnum(StorageProvider).optional(),
-        storageConfig: z
-          .object({
-            vercelBlobToken: z.string().optional(),
-          })
-          .optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input
-      const site = await prisma.site.findFirst({
-        where: { id },
+      const site = await db.query.sites.findFirst({
+        where: eq(sites.id, id),
       })
       const revalidate = () => {
         revalidatePath('/', 'layout')
@@ -62,21 +51,26 @@ export const siteRouter = router({
         revalidatePath('/~', 'layout')
       }
       if (!site) {
-        const newSite = await prisma.site.create({
-          data: {
+        const newSite = await db
+          .insert(sites)
+          .values({
             ...data,
-            socials: {},
-            config: {},
+            socials: JSON.stringify({}),
+            config: JSON.stringify({}),
             name: data.name || '',
-          },
-        })
+          } as any)
+          .returning()
+
         revalidate()
         return newSite
       } else {
-        const newSite = await prisma.site.update({
-          where: { id },
-          data,
-        })
+        const newSite = await db
+          .update(sites)
+          .set({
+            ...data,
+            socials: JSON.stringify(data.socials || {}),
+          })
+          .where(eq(sites.id, id))
         revalidate()
         return newSite
       }

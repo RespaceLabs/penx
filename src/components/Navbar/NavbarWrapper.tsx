@@ -1,8 +1,8 @@
 'use client'
 
 import React, { HTMLAttributes, PropsWithChildren, useMemo } from 'react'
+import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
-import { useSession } from 'next-auth/react'
 import { Merienda } from 'next/font/google'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'

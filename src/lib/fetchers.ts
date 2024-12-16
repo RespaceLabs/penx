@@ -1,5 +1,7 @@
-import prisma from '@/lib/prisma'
+import { db } from '@/server/db'
+import { posts, tags, users } from '@/server/db/schema'
 import { getSite as getSiteInfo } from '@/server/lib/getSite'
+import { desc, eq } from 'drizzle-orm'
 import ky from 'ky'
 import { unstable_cache } from 'next/cache'
 import { isProd, PostStatus, RESPACE_BASE_URI } from './constants'
@@ -22,24 +24,24 @@ export async function getSite() {
 export async function getPosts() {
   return await unstable_cache(
     async () => {
-      const posts = await prisma.post.findMany({
-        include: {
-          postTags: { include: { tag: true } },
+      const list = await db.query.posts.findMany({
+        with: {
+          postTags: { with: { tag: true } },
           user: {
-            select: {
+            columns: {
               email: true,
               name: true,
               image: true,
+            },
+            with: {
               accounts: true,
             },
           },
         },
-        where: {
-          postStatus: PostStatus.PUBLISHED,
-        },
-        orderBy: [{ createdAt: 'desc' }],
+        orderBy: (posts, { asc }) => [desc(posts.createdAt)],
+        where: eq(posts.postStatus, PostStatus.PUBLISHED),
       })
-      return posts.map((post) => ({
+      return list.map((post) => ({
         ...post,
         image: getUrl(post.image || ''),
       }))
@@ -55,8 +57,8 @@ export async function getPosts() {
 export async function getPost(slug: string) {
   return await unstable_cache(
     async () => {
-      const post = await prisma.post.findFirst({
-        where: { slug },
+      const post = await db.query.posts.findFirst({
+        where: eq(posts.slug, slug),
       })
 
       if (!post) return null
@@ -77,7 +79,7 @@ export async function getPost(slug: string) {
 export async function getTags() {
   return await unstable_cache(
     async () => {
-      return prisma.tag.findMany()
+      return db.query.tags.findMany()
     },
     [`tags`],
     {
@@ -90,9 +92,9 @@ export async function getTags() {
 export async function getTagWithPost(name: string) {
   return await unstable_cache(
     async () => {
-      return prisma.tag.findFirst({
-        include: { postTags: { include: { post: true } } },
-        where: { name },
+      return db.query.tags.findFirst({
+        with: { postTags: { with: { post: true } } },
+        where: eq(tags.name, name),
       })
     },
     [`tags-${name}`],

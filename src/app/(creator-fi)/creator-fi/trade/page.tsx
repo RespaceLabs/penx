@@ -1,7 +1,8 @@
 import { getSite, getSpace } from '@/lib/fetchers'
 import { Transaction } from '../../Space/Transaction'
 
-export const dynamic = 'force-static'
+export const runtime = 'edge'
+// export const dynamic = 'force-static'
 export const revalidate = 3600 * 24
 
 export default async function Page() {

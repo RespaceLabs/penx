@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { useAddress } from '@/app/(creator-fi)/hooks/useAddress'
 import LoadingDots from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
+import { useAddress } from '@/hooks/useAddress'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
-import { useSession } from 'next-auth/react'
+import useSession from '@/lib/useSession'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -33,7 +33,6 @@ export function CommentInput({
   refetchComments,
   onCancel,
 }: Props) {
-  const userID = useAddress()
   const [content, setContent] = useState('')
   const { isPending, mutateAsync } = trpc.comment.create.useMutation()
 
@@ -47,16 +46,9 @@ export function CommentInput({
       return
     }
 
-    if (!authenticated) {
-      toast.error('You need to log in to comment.')
-
-      return
-    }
-
     try {
       await mutateAsync({
         postId,
-        userId: userID as string,
         content,
         parentId,
       })

@@ -1,12 +1,12 @@
-import { getPosts, getSite } from '@/lib/fetchers';
-import { loadTheme } from '@/lib/loadTheme';
-import { Metadata } from 'next';
-
+import { getPosts, getSite } from '@/lib/fetchers'
+import { loadTheme } from '@/themes/theme-loader'
+import { Metadata } from 'next'
 
 const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PAGE_SIZE || 20)
 
-export const dynamic = 'force-static'
-export const revalidate = 3600 * 24
+export const runtime = 'edge'
+// export const dynamic = 'force-static'
+// export const revalidate = 3600 * 24
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite()
@@ -16,18 +16,18 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export const generateStaticParams = async () => {
-  const posts = await getPosts()
-  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)
-  const paths = Array.from({ length: totalPages }, (_, i) => ({
-    page: (i + 1).toString(),
-  }))
+// export const generateStaticParams = async () => {
+//   const posts = await getPosts()
+//   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)
+//   const paths = Array.from({ length: totalPages }, (_, i) => ({
+//     page: (i + 1).toString(),
+//   }))
 
-  return paths
-}
+//   return paths
+// }
 
 export default async function Page({ params }: { params: { page: string } }) {
-  const posts = await getPosts()
+  const [posts, site] = await Promise.all([getPosts(), getSite()])
 
   const pageNumber = parseInt(params.page as string)
   const initialDisplayPosts = posts.slice(
@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: { page: string } }) {
     totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
   }
 
-  const { BlogPage } = await loadTheme()
+  const { BlogPage } = loadTheme(site.themeName)
 
   if (!BlogPage) {
     return <div>Theme not found</div>

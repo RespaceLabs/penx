@@ -42,6 +42,7 @@ const TitlePlugin = createPlatePlugin({
 
       if (!titleNodeEntry) return
 
+
       const titleNode = titleNodeEntry[0] as ITitleElement
 
       if (event.key === 'Enter') {

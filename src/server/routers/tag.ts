@@ -1,9 +1,11 @@
-import { prisma } from '@/lib/prisma'
 import { redisKeys } from '@/lib/redisKeys'
 import { TRPCError } from '@trpc/server'
+import { eq } from 'drizzle-orm'
 import { slug } from 'github-slugger'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
+import { db } from '../db'
+import { postTags } from '../db/schema'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 function revalidate() {
@@ -13,7 +15,7 @@ function revalidate() {
 
 export const tagRouter = router({
   list: publicProcedure.query(async () => {
-    const tags = await prisma.tag.findMany()
+    const tags = await db.query.tags.findMany()
     return tags
   }),
 
@@ -25,48 +27,37 @@ export const tagRouter = router({
       }),
     )
     .mutation(({ ctx, input }) => {
-      return prisma.$transaction(
-        async (tx) => {
-          const tagName = slug(input.name)
-          let tag = await tx.tag.findFirst({
-            where: { name: tagName },
-          })
-
-          if (!tag) {
-            tag = await tx.tag.create({
-              data: { name: tagName, userId: ctx.token.uid },
-            })
-          }
-
-          const postTag = await tx.postTag.findFirst({
-            where: { postId: input.postId, tagId: tag.id },
-          })
-
-          if (postTag) {
-            throw new TRPCError({
-              code: 'BAD_REQUEST',
-              message: 'Tag already exists',
-            })
-          }
-
-          const newPostTag = await tx.postTag.create({
-            data: {
-              postId: input.postId,
-              tagId: tag.id,
-            },
-          })
-          revalidate()
-
-          return tx.postTag.findUniqueOrThrow({
-            include: { tag: true },
-            where: { id: newPostTag.id },
-          })
-        },
-        {
-          maxWait: 5000, // default: 2000
-          timeout: 10000, // default: 5000
-        },
-      )
+      return db.transaction(async (tx) => {
+        // const tagName = slug(input.name)
+        // let tag = await tx.tag.findFirst({
+        //   where: { name: tagName },
+        // })
+        // if (!tag) {
+        //   tag = await tx.tag.create({
+        //     data: { name: tagName, userId: ctx.token.uid },
+        //   })
+        // }
+        // const postTag = await tx.postTag.findFirst({
+        //   where: { postId: input.postId, tagId: tag.id },
+        // })
+        // if (postTag) {
+        //   throw new TRPCError({
+        //     code: 'BAD_REQUEST',
+        //     message: 'Tag already exists',
+        //   })
+        // }
+        // const newPostTag = await tx.postTag.create({
+        //   data: {
+        //     postId: input.postId,
+        //     tagId: tag.id,
+        //   },
+        // })
+        // revalidate()
+        // return tx.postTag.findUniqueOrThrow({
+        //   include: { tag: true },
+        //   where: { id: newPostTag.id },
+        // })
+      })
     }),
 
   add: protectedProcedure
@@ -77,24 +68,25 @@ export const tagRouter = router({
       }),
     )
     .mutation(async ({ input }) => {
-      const postTag = await prisma.postTag.create({
-        data: { ...input },
-      })
+      const postTag = await db
+        .insert(postTags)
+        .values({
+          ...input,
+        })
+        .returning()
 
       revalidate()
 
-      return prisma.postTag.findUniqueOrThrow({
-        include: { tag: true },
-        where: { id: postTag.id },
+      return db.query.postTags.findFirst({
+        with: { tag: true },
+        where: eq(postTags.id, postTag[0].id),
       })
     }),
 
   deletePostTag: protectedProcedure
     .input(z.string())
     .mutation(async ({ input }) => {
-      const post = await prisma.postTag.delete({
-        where: { id: input },
-      })
+      const post = await db.delete(postTags).where(eq(postTags.id, input))
 
       revalidate()
       return post

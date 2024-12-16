@@ -3,7 +3,6 @@
 import { atom, createStore } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import { commands } from './constants'
-import { NodeStore } from './stores/NodeStore'
 import { RouterStore } from './stores/RouterStore'
 import { Command } from './types'
 
@@ -17,8 +16,5 @@ export const store = Object.assign(baseStore, {
 
   get router(): RouterStore {
     return new RouterStore(this)
-  },
-  get node(): NodeStore {
-    return new NodeStore(this)
   },
 })

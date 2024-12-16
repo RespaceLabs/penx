@@ -8,7 +8,8 @@ enum TabTypes {
   Trades = 'Trades',
 }
 
-export const dynamic = 'force-static'
+export const runtime = 'edge'
+// export const dynamic = 'force-static'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const [type, setType] = useState(TabTypes.Trades)

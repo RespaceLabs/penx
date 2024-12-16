@@ -3,7 +3,7 @@
 import LoadingDots from '@/components/icons/loading-dots'
 import { useMyAccounts } from '@/hooks/useMyAccounts'
 import { trpc } from '@/lib/trpc'
-import { ProviderType } from '@prisma/client'
+import { ProviderType } from '@/lib/types'
 import { AccountList } from './AccountList'
 import { LinkGoogleButton } from './LinkGoogleButton'
 import { LinkWalletButton } from './LinkWalletButton'

@@ -68,10 +68,8 @@ export function CoverUpload({ element, className }: Props) {
   if (value) {
     return (
       <div className="w-full h-[360px] relative" contentEditable={false}>
-        <Image
+        <img
           src={getUrl(value)}
-          width={1000}
-          height={1000}
           className="absolute left-0 top-0 w-full h-[360px] cursor-pointer object-cover"
           alt=""
         />

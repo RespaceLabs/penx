@@ -1,5 +1,4 @@
 import { Atom, WritableAtom } from 'jotai'
-import { NodeStore } from './stores/NodeStore'
 import { RouterStore } from './stores/RouterStore'
 
 export type StoreType = {
@@ -10,5 +9,4 @@ export type StoreType = {
   ) => Result
 
   router: RouterStore
-  node: NodeStore
 }

@@ -1,12 +1,11 @@
-import crypto from 'crypto'
-
 class AccessTokenUtils {
   /**
    * Generates a random access token.
    * @returns {string} A random access token as a hex string.
    */
   static generateToken(): string {
-    return crypto.randomBytes(20).toString('hex')
+    // return crypto.randomBytes(20).toString('hex')
+    return ''
   }
 
   /**
@@ -15,7 +14,8 @@ class AccessTokenUtils {
    * @returns {string} The hashed token as a hex string.
    */
   static hashToken(token: string): string {
-    return crypto.createHash('sha256').update(token).digest('hex')
+    // return crypto.createHash('sha256').update(token).digest('hex')
+    return ''
   }
 
   /**

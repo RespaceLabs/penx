@@ -1,7 +1,8 @@
 import { ReactNode } from 'react'
 import { SettingNav } from './SettingNav'
 
-export const dynamic = 'force-static'
+export const runtime = 'edge'
+// export const dynamic = 'force-static'
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -14,5 +15,3 @@ export default function Layout({ children }: { children: ReactNode }) {
     </div>
   )
 }
-
-// DATABASE_URL="postgresql://user:penx@43.154.135.183:5433/penx"

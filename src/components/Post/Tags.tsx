@@ -37,7 +37,7 @@ function AllTags({ post }: { post: Post }) {
                 postId: post.id,
                 tagId: item.id,
               })
-              addPostTag(postTag)
+              addPostTag(postTag!)
             } catch (error) {
               toast.error(extractErrorMessage(error))
             }
@@ -109,7 +109,7 @@ export function Tags() {
                       name: value,
                     })
 
-                    addPostTag(postTag)
+                    addPostTag(postTag!)
                   } catch (error) {
                     const msg = extractErrorMessage(error)
                     toast.error(msg || 'Error adding tag')

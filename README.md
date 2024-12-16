@@ -1,3 +1,5 @@
+# PenX
+
 <div align="center">
 
 <a href="https://www.penx.io" alt="PenX Logo">
@@ -15,29 +17,87 @@
 
 ## Introduction
 
-PenX is an open-source platform designed to create self-hosted Web3 blogs within the Ethereum ecosystem. When you build a blog site on PenX, you'll have access to a wide range of exciting features and opportunities.
+Deploy a dynamic blog using Cloudflare Pages, D1, R1, and AI.
 
-## Deploy your own
+### Deploy your own
 
-Deploy your blog in **10 minutes**!
+To deploy PenX to cloudflare, follow these steps:
 
-- [Deploy to Vercel](/deployment/vercel)
-- [Deploy to Fly.io](deployment/flyio)
-- [Deploy to Railway](deployment/railway)
-- [Deploy with Docker ](/deployment/docker)
-- [Deploy with Docker Compose](/deployment/docker-compose)
+#### 1. Clone the PenX Repository
 
+First, clone the PenX project to your local machine by executing the following command:
 
-## Examples
+```bash
+git clone https://github.com/penx-dao/penx
+```
+
+#### 2. Configure `wrangler.toml`
+
+Next, rename `wrangler.toml.example` to `wrangler.toml`.
+
+#### 3. Create a Cloudflare D1 Database
+
+Run the following command to create a Cloudflare D1 database:
+
+```bash
+npx wrangler d1 create penx-blog
+```
+
+If successful, you will see a confirmation message similar to this:
+
+```
+✅ Successfully created DB 'penx-blog' in region WNAM
+Created your new D1 database.
+
+[[d1_databases]]
+binding = "DB"
+database_name = "penx-blog"
+database_id = "00e31c14-e6ae-4612-9bc3-d25c6a1f8023d"
+```
+
+Copy the `database_id` and update it in your `wrangler.toml` file.
+
+#### 4. Create Cloudflare R2 Bucket
+
+Create a Cloudflare R2 bucket by running:
+
+```bash
+npx wrangler r2 bucket create penx-bucket
+```
+
+You should receive a message confirming the creation of the bucket:
+
+```
+✅ Created bucket 'penx-bucket' with default storage class of Standard.
+
+Configure your Worker to write objects to this bucket:
+
+[[r2_buckets]]
+bucket_name = "penx-bucket"
+binding = "penx_bucket"
+```
+
+#### 5. Configure Session Password
+
+To set up a session password, visit [this link](https://generate-secret.vercel.app/64) to generate a secure password. Replace `SESSION_PASSWORD` in your `wrangler.toml` with this value.
+
+#### 6. Deploy to Cloudflare Pages
+
+Finally, deploy your blog by running these commands:
+
+```bash
+pnpm run db:generate # Required for initial release
+pnpm run db:migrate:prod # Required for initial release
+pnpm run deploy
+```
+
+Upon successful deployment, you will receive a URL like: `https://penx-cloudflare.pages.dev`.
+
+### Examples Blogs
 
 - https://demo1.penx.io
 - https://demo2.penx.io
 - https://demo3.penx.io
 - https://demo4.penx.io
-- https://penx.fly.dev
-- https://penx.up.railway.app
-
 
 ## ⚖️ License
-
-

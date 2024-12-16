@@ -4,15 +4,15 @@ import { forwardRef, HTMLAttributes } from 'react'
 import { useAddress } from '@/hooks/useAddress'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { trpc } from '@/lib/trpc'
-import { cn } from '@/lib/utils'
+import useSession from '@/lib/useSession'
+import { cn, isAddress } from '@/lib/utils'
 import { ChevronDown, Copy } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { toast } from 'sonner'
 import { UserAvatar } from '../UserAvatar'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string
-  showAddress?: boolean
+  showName?: boolean
   showDropIcon?: boolean
   image?: string
   showFullAddress?: boolean
@@ -23,7 +23,7 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
   function ProfileAvatar(
     {
       className = '',
-      showAddress,
+      showName,
       showFullAddress,
       showCopy,
       showDropIcon,
@@ -32,14 +32,15 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
     },
     ref,
   ) {
-    const address = useAddress()
     const { data: session } = useSession()
+    const address = session?.address || ''
     const shortAddress = address.slice(0, 6) + '...' + address.slice(-4)
-    const { data } = trpc.user.me.useQuery(undefined, {
-      enabled: !!session,
-    })
     const { copy } = useCopyToClipboard()
-    const name = data?.name
+    let name = session?.name || ''
+
+    if (isAddress(name)) {
+      name = name.slice(0, 3) + '...' + name.slice(-4)
+    }
 
     return (
       <div
@@ -48,11 +49,11 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
         {...rest}
       >
         <UserAvatar address={address} image={image} />
-        {showAddress && (
+        {showName && (
           <>
             <div>
               {name && <div className="text-base">{name}</div>}
-              {showAddress && address && (
+              {showName && address && (
                 <div className="flex gap-2 items-center">
                   <div
                     className={cn(

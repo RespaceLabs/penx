@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
-import { Post as PostType, updatePost } from '@/hooks/usePost'
+import { updatePost } from '@/hooks/usePost'
 import { usePostSaving } from '@/hooks/usePostSaving'
 import { editorDefaultValue } from '@/lib/constants'
 import { trpc } from '@/lib/trpc'
+import { Post as PostType } from '@/server/db/schema'
 import { useDebouncedCallback } from 'use-debounce'
 import { PlateEditor } from '../editor/plate-editor'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
@@ -25,9 +26,9 @@ export function Post({ post }: { post: PostType }) {
         try {
           await mutateAsync({
             id: data.id,
-            title: value.title,
+            title: value.title || '',
             content: value.content,
-            description: value.description,
+            description: value.description || '',
           })
 
           updatePost({
@@ -69,8 +70,8 @@ export function Post({ post }: { post: PostType }) {
             className="dark:placeholder-text-600 w-full resize-none border-none px-0 placeholder:text-stone-400 focus:outline-none focus:ring-0 bg-transparent"
           />
         </div>
-        <div className="mb-8 space-y-2">
-          <ProfileAvatar showAddress />
+        <div className="mb-4 space-y-2">
+          <ProfileAvatar showName />
           {/* <Tags /> */}
         </div>
 

@@ -3,11 +3,10 @@
 import { ContentRender } from '@/components/ContentRender/ContentRender'
 import { PostActions } from '@/components/PostActions/PostActions'
 import { SubscriptionInSession } from '@/lib/types'
+import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
-import { Post } from '@prisma/client'
-import { useSession } from 'next-auth/react'
+import { Post } from '@/server/db/schema'
 import dynamic from 'next/dynamic'
-import readingTime from 'reading-time'
 import { GateCover } from './GateCover'
 
 const PostDetail: any = dynamic(
@@ -54,7 +53,7 @@ export function PaidContent({ postId, post, next, prev }: Props) {
           post={{
             ...post,
             content: getContent(post, true),
-            readingTime: readingTime(post.content),
+            readingTime: '',
           }}
           readable={false}
           next={next}
@@ -79,7 +78,7 @@ export function PaidContent({ postId, post, next, prev }: Props) {
         post={{
           ...post,
           content: hasMembership ? getContent(post) : getContent(post, true),
-          readingTime: readingTime(post.content),
+          readingTime: '',
         }}
         readable={hasMembership}
         next={next}

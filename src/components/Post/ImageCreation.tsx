@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
-import { Post } from '@/hooks/usePost'
 import { trpc } from '@/lib/trpc'
+import { Post } from '@/server/db/schema'
 import { useDebouncedCallback } from 'use-debounce'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
 import { ImageCreationUpload } from './ImageCreationUpload'
@@ -18,9 +18,9 @@ export function ImageCreation({ post }: { post: Post }) {
         try {
           await mutateAsync({
             id: post.id,
-            title: value.title,
+            title: value.title || '',
             content: value.content as any,
-            description: value.description,
+            description: value.description || '',
           })
         } catch (error) {}
       }
@@ -55,7 +55,7 @@ export function ImageCreation({ post }: { post: Post }) {
           />
         </div>
         <div className="mb-8">
-          <ProfileAvatar showAddress />
+          <ProfileAvatar showName />
         </div>
 
         <ImageCreationUpload post={data} />

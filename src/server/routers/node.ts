@@ -1,26 +1,25 @@
 import { IPFS_ADD_URL, PostStatus } from '@/lib/constants'
 import { INode, NodeType } from '@/lib/model'
-import { prisma } from '@/lib/prisma'
-import { GateType, Node, PostType, Prisma } from '@prisma/client'
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { TRPCError } from '@trpc/server'
 import { format } from 'date-fns'
+import { and, asc, eq, gte } from 'drizzle-orm'
 import { z } from 'zod'
+import { db } from '../db'
+import { nodes } from '../db/schema'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 export const nodeRouter = router({
   myNodes: protectedProcedure.query(async ({ ctx, input }) => {
-    const nodes = await prisma.node.findMany({
-      where: { userId: ctx.token.uid },
+    return await db.query.nodes.findMany({
+      where: eq(nodes.userId, ctx.token.uid),
     })
-    return nodes
   }),
 
   lastUpdatedAt: protectedProcedure.query(async ({ ctx }) => {
-    const item = await prisma.node.findFirst({
-      where: { userId: ctx.token.uid },
-      orderBy: { updatedAt: 'desc' },
-      select: { updatedAt: true },
+    const item = await db.query.nodes.findFirst({
+      where: eq(nodes.userId, ctx.token.uid),
+      orderBy: [asc(nodes.updatedAt)],
+      columns: { updatedAt: true },
     })
     return item?.updatedAt ? item.updatedAt.valueOf() : 0
   }),
@@ -32,15 +31,12 @@ export const nodeRouter = router({
       }),
     )
     .query(async ({ ctx, input }) => {
-      const nodes = await prisma.node.findMany({
-        where: {
-          userId: ctx.token.uid,
-          updatedAt: {
-            gte: new Date(input.localLastUpdatedAt),
-          },
-        },
+      return await db.query.nodes.findMany({
+        where: and(
+          eq(nodes.userId, ctx.token.uid),
+          gte(nodes.updatedAt, new Date(input.localLastUpdatedAt)),
+        ),
       })
-      return nodes
     }),
 
   sync: protectedProcedure
@@ -53,95 +49,97 @@ export const nodeRouter = router({
       const newNodes: INode[] = JSON.parse(input.nodes)
       if (!newNodes?.length) return null
 
-      return prisma.$transaction(
-        async (tx) => {
-          let nodes: Node[] = []
-          const userId = ctx.token.uid
+      return db.transaction(async (tx) => {
+        // let nodeList: Node[] = []
+        // const userId = ctx.token.uid
 
-          if (isAllNodes(newNodes)) {
-            // console.log('sync all===================')
-            await tx.node.deleteMany({ where: { userId } })
-            await tx.node.createMany({ data: newNodes })
-          } else {
-            // console.log('sync diff==================')
-            let todayNode: Node
+        // if (isAllNodes(newNodes)) {
+        //   // console.log('sync all===================')
+        //   await tx.delete(nodes).where(eq(nodes.userId, userId))
+        //   // TODO:
+        //   await tx.insert(nodes).values(
+        //     newNodes.map((n) => ({
+        //       ...n,
+        //       props: JSON.stringify(n.props),
+        //       children: JSON.stringify(n.children),
+        //       userId: n.userId,
+        //     })),
+        //   )
+        // } else {
+        //   // console.log('sync diff==================')
+        //   let todayNode: Node
 
-            nodes = await tx.node.findMany({ where: { userId } })
+        //   nodeList = await tx.query.nodes.findMany({ where: { userId } })
 
-            todayNode = nodes.find(
-              (n) =>
-                n.date === format(new Date(), 'yyyy-MM-dd') &&
-                n.type === NodeType.DAILY,
-            )!
+        //   todayNode = nodeList.find(
+        //     (n) =>
+        //       n.date === format(new Date(), 'yyyy-MM-dd') &&
+        //       n.type === NodeType.DAILY,
+        //   )!
 
-            if (isNodesBroken(nodes as INode[])) {
-              throw new Error('NODES_BROKEN')
-            }
+        //   if (isNodesBroken(nodeList as INode[])) {
+        //     throw new Error('NODES_BROKEN')
+        //   }
 
-            const nodeIdsSet = new Set(nodes.map((node) => node.id))
+        //   const nodeIdsSet = new Set(nodeList.map((node) => node.id))
 
-            const updatedNodes: INode[] = []
-            const addedNodes: INode[] = []
+        //   const updatedNodes: INode[] = []
+        //   const addedNodes: INode[] = []
 
-            for (const n of newNodes) {
-              if (nodeIdsSet.has(n.id)) {
-                updatedNodes.push(n)
-              } else {
-                addedNodes.push(n)
-              }
-            }
+        //   for (const n of newNodes) {
+        //     if (nodeIdsSet.has(n.id)) {
+        //       updatedNodes.push(n)
+        //     } else {
+        //       addedNodes.push(n)
+        //     }
+        //   }
 
-            // TODO:
-            const isTodayNode = false
+        //   // TODO:
+        //   const isTodayNode = false
 
-            const newAddedNodes = isTodayNode
-              ? addedNodes.map((n) => ({
-                  ...n,
-                  parentId: todayNode.id,
-                }))
-              : addedNodes
+        //   const newAddedNodes = isTodayNode
+        //     ? addedNodes.map((n) => ({
+        //         ...n,
+        //         parentId: todayNode.id,
+        //       }))
+        //     : addedNodes
 
-            await tx.node.createMany({ data: newAddedNodes })
+        //   await tx.node.createMany({ data: newAddedNodes })
 
-            if (isTodayNode) {
-              await tx.node.update({
-                where: { id: todayNode.id },
-                data: {
-                  children: [
-                    ...(todayNode.children as any),
-                    ...addedNodes.map((n) => n.id),
-                  ],
-                },
-              })
-            }
+        //   if (isTodayNode) {
+        //     await tx.node.update({
+        //       where: { id: todayNode.id },
+        //       data: {
+        //         children: [
+        //           ...(todayNode.children as any),
+        //           ...addedNodes.map((n) => n.id),
+        //         ],
+        //       },
+        //     })
+        //   }
 
-            // console.log('=============todayNode:', todayNode)
+        //   // console.log('=============todayNode:', todayNode)
 
-            const promises = updatedNodes.map((n) => {
-              return tx.node.update({ where: { id: n.id }, data: n })
-            })
+        //   const promises = updatedNodes.map((n) => {
+        //     return tx.node.update({ where: { id: n.id }, data: n })
+        //   })
 
-            await Promise.all(promises)
-          }
+        //   await Promise.all(promises)
+        // }
 
-          // TODO: should clean no used nodes
-          nodes = await tx.node.findMany({
-            where: { userId },
-          })
+        // // TODO: should clean no used nodes
+        // nodeList = await tx.node.findMany({
+        //   where: { userId },
+        // })
 
-          await cleanDeletedNodes(nodes as any, async (id) => {
-            tx.node.delete({
-              where: { id },
-            })
-          })
+        // await cleanDeletedNodes(nodeList as any, async (id) => {
+        //   tx.node.delete({
+        //     where: { id },
+        //   })
+        // })
 
-          return true
-        },
-        {
-          maxWait: 1000 * 60, // default: 2000
-          timeout: 1000 * 60, // default: 5000
-        },
-      )
+        return true
+      })
     }),
 
   syncPartial: protectedProcedure
@@ -155,56 +153,50 @@ export const nodeRouter = router({
       const addNodes: INode[] = JSON.parse(input.added) || []
       const updatedNodes: INode[] = JSON.parse(input.updated) || []
 
-      return prisma.$transaction(
-        async (tx) => {
-          const userId = ctx.token.uid
+      // return prisma.$transaction(async (tx) => {
+      //   const userId = ctx.token.uid
 
-          const rootNode = await tx.node.findFirst({
-            where: { userId, type: NodeType.ROOT },
-          })
+      //   const rootNode = await tx.node.findFirst({
+      //     where: { userId, type: NodeType.ROOT },
+      //   })
 
-          if (!rootNode) {
-            await tx.node.deleteMany({ where: { userId } })
-            throw new TRPCError({
-              code: 'BAD_REQUEST',
-              message: 'Root node not found',
-              cause: 'ROOT_NODE_NOT_FOUND',
-            })
-          }
+      //   if (!rootNode) {
+      //     await tx.node.deleteMany({ where: { userId } })
+      //     throw new TRPCError({
+      //       code: 'BAD_REQUEST',
+      //       message: 'Root node not found',
+      //       cause: 'ROOT_NODE_NOT_FOUND',
+      //     })
+      //   }
 
-          await tx.node.createMany({ data: addNodes })
+      //   await tx.node.createMany({ data: addNodes })
 
-          // try to update, if not found, create
-          for (const n of updatedNodes) {
-            try {
-              await tx.node.update({ where: { id: n.id }, data: n })
-            } catch (error) {
-              if (error instanceof PrismaClientKnownRequestError) {
-                if (error.code === 'P2025') {
-                  await tx.node.create({ data: n })
-                }
-              }
-            }
-          }
+      //   // try to update, if not found, create
+      //   for (const n of updatedNodes) {
+      //     try {
+      //       await tx.node.update({ where: { id: n.id }, data: n })
+      //     } catch (error) {
+      //       if (error instanceof PrismaClientKnownRequestError) {
+      //         if (error.code === 'P2025') {
+      //           await tx.node.create({ data: n })
+      //         }
+      //       }
+      //     }
+      //   }
 
-          // TODO: should clean no used nodes
-          const nodes = await tx.node.findMany({
-            where: { userId },
-          })
+      //   // TODO: should clean no used nodes
+      //   const nodes = await tx.node.findMany({
+      //     where: { userId },
+      //   })
 
-          await cleanDeletedNodes(nodes as any, async (id) => {
-            tx.node.delete({
-              where: { id },
-            })
-          })
+      //   await cleanDeletedNodes(nodes as any, async (id) => {
+      //     tx.node.delete({
+      //       where: { id },
+      //     })
+      //   })
 
-          return true
-        },
-        {
-          maxWait: 1000 * 60, // default: 2000
-          timeout: 1000 * 60, // default: 5000
-        },
-      )
+      //   return true
+      // })
     }),
 })
 

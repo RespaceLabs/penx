@@ -12,11 +12,11 @@ export function getChain() {
   return base
 }
 
-export const config = getDefaultConfig({
+export const wagmiConfig = getDefaultConfig({
   appName: 'PenX',
   projectId: PROJECT_ID,
   chains: [getChain()],
   ssr: true,
 })
 
-export const publicClient = config.getClient().extend(publicActions)
+export const publicClient = wagmiConfig.getClient().extend(publicActions)

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { DeleteConfirmDialog } from '@/components/DeleteConfirmDialog'
 import LoadingDots from '@/components/icons/loading-dots'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   Select,
   SelectContent,
@@ -18,8 +19,9 @@ import {
 } from '@/components/ui/table'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { api, trpc } from '@/lib/trpc'
-import { getAccountAddress } from '@/lib/utils'
-import { Account, ProviderType, User, UserRole } from '@prisma/client'
+import { ProviderType, UserRole } from '@/lib/types'
+import { getAccountAddress, isAddress, shortenAddress } from '@/lib/utils'
+import { Account, User } from '@/server/db/schema'
 import { toast } from 'sonner'
 
 function getAddressInAccounts(accounts: Account[]) {
@@ -37,13 +39,13 @@ export default function ContributorList({}: Props) {
     data: users = [],
     refetch,
   } = trpc.user.contributors.useQuery()
+
   return (
     <div className="flex flex-col">
       <Table className="">
         <TableHeader>
           <TableRow>
-            <TableHead className="text-left pl-0">Address</TableHead>
-            <TableHead>Email</TableHead>
+            <TableHead className="text-left pl-0">User</TableHead>
             <TableHead>Role</TableHead>
             <TableHead className="text-right pr-0">Operations</TableHead>
           </TableRow>
@@ -60,10 +62,25 @@ export default function ContributorList({}: Props) {
           {!isLoading &&
             users?.map((user) => (
               <TableRow key={user.id} className="text-muted-foreground">
-                <TableCell className="pl-0">
-                  {getAddressInAccounts(user.accounts)}
+                <TableCell className="flex items-center gap-2">
+                  <Avatar>
+                    <AvatarImage src={user.image!} />
+                    <AvatarFallback>{user.name?.slice(0, 1)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <div className="font-bold">
+                      {isAddress(user.name || '')
+                        ? user?.name?.slice(0, 5)
+                        : user.name}
+                    </div>
+                    <div className="text-sm text-foreground/60">
+                      {user.email && <div>{user.email}</div>}
+                      {getAddresses(user.accounts).map((address) => (
+                        <div key={address}>{address}</div>
+                      ))}
+                    </div>
+                  </div>
                 </TableCell>
-                <TableCell>{user.email}</TableCell>
                 <TableCell>
                   <SelectRole user={user} />
                 </TableCell>
@@ -128,4 +145,10 @@ function SelectRole({ user }: SelectRoleProps) {
       </SelectContent>
     </Select>
   )
+}
+
+function getAddresses(accounts: Account[] = []) {
+  return accounts
+    .filter((account) => account.providerType === ProviderType.WALLET)
+    .map((account) => account.providerAccountId)
 }

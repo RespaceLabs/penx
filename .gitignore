@@ -36,3 +36,12 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# wrangler files
+.wrangler
+.dev.vars
+wrangler.toml
+
+/migrations
+
+src/themes/theme-loader.ts

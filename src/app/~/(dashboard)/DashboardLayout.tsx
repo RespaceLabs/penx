@@ -3,12 +3,11 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { CreationDialog } from '@/components/CreationDialog/CreationDialog'
 import LoadingDots from '@/components/icons/loading-dots'
-import { NodesProvider } from '@/components/NodesProvider'
 import { useQueryEthBalance } from '@/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/hooks/useEthPrice'
 import { SIDEBAR_WIDTH } from '@/lib/constants'
+import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
-import { useSession } from 'next-auth/react'
 import { usePathname, useRouter } from 'next/navigation'
 import { Sidebar } from './Sidebar/Sidebar'
 
@@ -18,7 +17,6 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
   useQueryEthPrice()
   useQueryEthBalance()
   const { status, data: session } = useSession()
-
   const pathname = usePathname()
   const isNode = pathname?.includes('/~/objects')
   const isPost = pathname?.includes('/~/post/')
@@ -47,18 +45,15 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
         <Sidebar />
       </div>
       <div className="flex-1 pb-40 h-screen overflow-auto">
-        <NodesProvider>
-          {/* <NavbarWrapper /> */}
-          <CreationDialog />
-          <div
-            className={cn(
-              !isFullWidth && 'mx-auto md:max-w-2xl pt-16 pb-20',
-              isNode,
-            )}
-          >
-            {children}
-          </div>
-        </NodesProvider>
+        <CreationDialog />
+        <div
+          className={cn(
+            !isFullWidth && 'mx-auto md:max-w-2xl pt-16 pb-20',
+            isNode,
+          )}
+        >
+          {children}
+        </div>
       </div>
     </div>
   )

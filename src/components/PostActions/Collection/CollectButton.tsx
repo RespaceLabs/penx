@@ -4,11 +4,11 @@ import { useState } from 'react'
 import { useSiteContext } from '@/components/SiteContext'
 import { Button } from '@/components/ui/button'
 import { WalletConnectButton } from '@/components/WalletConnectButton'
+import { AuthType } from '@/lib/types'
+import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
 import { Post } from '@penxio/types'
-import { AuthType } from '@prisma/client'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
 import { CollectDialog } from './CollectDialog'
 
@@ -31,7 +31,6 @@ export function CollectButton({ post, className }: Props) {
     isLoading: false,
     isOpen: false,
   })
-  if (site.authType === AuthType.GOOGLE) return null
 
   const authenticated = !!data
 

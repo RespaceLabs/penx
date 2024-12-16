@@ -2,9 +2,7 @@
 
 import { Button, ButtonProps } from '@/components/ui/button'
 import { useAddress } from '@/hooks/useAddress'
-import { AuthType } from '@prisma/client'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { signIn } from 'next-auth/react'
 import { useSiteContext } from './SiteContext'
 import { Avatar, AvatarFallback } from './ui/avatar'
 

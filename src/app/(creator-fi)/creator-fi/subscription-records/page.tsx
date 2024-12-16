@@ -3,7 +3,8 @@
 import { useSpaceContext } from '@/components/SpaceContext'
 import { SubscriptionRecordList } from '../../Space/SubscriptionRecordList'
 
-export const dynamic = 'force-static'
+export const runtime = 'edge'
+// export const dynamic = 'force-static'
 
 export default function Page() {
   const space = useSpaceContext()

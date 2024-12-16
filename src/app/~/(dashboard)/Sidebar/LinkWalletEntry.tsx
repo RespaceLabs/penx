@@ -2,7 +2,7 @@
 
 import { IconGoogle } from '@/components/icons/IconGoogle'
 import { useMyAccounts } from '@/hooks/useMyAccounts'
-import { ProviderType } from '@prisma/client'
+import { ProviderType } from '@/lib/types'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 

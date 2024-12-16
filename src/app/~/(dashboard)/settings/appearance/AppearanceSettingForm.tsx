@@ -23,9 +23,9 @@ import {
 } from '@/components/ui/select'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
+import { themes } from '@/themes/theme-loader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Site } from '@penxio/types'
-import { AuthType } from '@prisma/client'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -79,9 +79,11 @@ export function AppearanceSettingForm({ site }: Props) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="penx-theme-minimal">Minimal</SelectItem>
-                  <SelectItem value="penx-theme-micro">Micro</SelectItem>
-                  <SelectItem value="penx-theme-card">Card</SelectItem>
+                  {themes.map((theme) => (
+                    <SelectItem key={theme} value={theme}>
+                      {theme}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />

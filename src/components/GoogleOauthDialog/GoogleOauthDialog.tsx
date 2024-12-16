@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { getGoogleUserInfo } from '@/lib/getGoogleUserInfo'
-import { signIn } from 'next-auth/react'
+import useSession from '@/lib/useSession'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { ClientOnly } from '../ClientOnly'
@@ -21,25 +21,22 @@ export function GoogleOauthDialog() {
   const { isOpen, setIsOpen } = useGoogleOauthDialog()
   const searchParams = useSearchParams()
   const authType = searchParams?.get('auth_type')
+  const { login } = useSession()
 
-  const login = useCallback(
+  const loginWithGoogle = useCallback(
     async function () {
       const accessToken = searchParams?.get('access_token')!
       try {
         const info = await getGoogleUserInfo(accessToken)
         console.log('=====info:', info)
 
-        const result = await signIn('penx-google', {
+        const result: any = await login({
+          type: 'penx-google',
           email: info.email,
           openid: info.sub,
           picture: info.picture,
           name: info.name,
-          redirect: false,
         })
-
-        if (!result?.ok) {
-          toast.error('Failed to sign in with Google. Please try again')
-        }
       } catch (error) {
         console.log('>>>>>>>>>>>>erorr:', error)
         toast.error('Failed to sign in with Google. Please try again.')
@@ -52,9 +49,9 @@ export function GoogleOauthDialog() {
   useEffect(() => {
     if (authType === 'google' && !isOpen) {
       setIsOpen(true)
-      login()
+      loginWithGoogle()
     }
-  }, [authType, isOpen, setIsOpen, searchParams, login])
+  }, [authType, isOpen, setIsOpen, searchParams, loginWithGoogle])
 
   return (
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>

@@ -11,12 +11,11 @@ export function useEthPrice() {
 }
 
 export function useQueryEthPrice() {
-  const { data, ...rest } = trpc.user.ethPrice.useQuery()
-
-  useEffect(() => {
-    if (typeof data !== 'undefined') {
-      store.set(ethPriceAtom, data)
-    }
-  }, [data])
-  return { data, ...rest }
+  // const { data, ...rest } = trpc.user.ethPrice.useQuery()
+  // useEffect(() => {
+  //   if (typeof data !== 'undefined') {
+  //     store.set(ethPriceAtom, data)
+  //   }
+  // }, [data])
+  // return { data, ...rest }
 }

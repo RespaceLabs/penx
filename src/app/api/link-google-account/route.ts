@@ -1,6 +1,10 @@
-import { prisma } from '@/lib/prisma'
-import { ProviderType } from '@prisma/client'
+import { ProviderType } from '@/lib/types'
+import { db } from '@/server/db'
+import { accounts, users } from '@/server/db/schema'
+import { and, eq } from 'drizzle-orm'
 import { NextRequest, NextResponse } from 'next/server'
+
+export const runtime = 'edge'
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url)
@@ -18,41 +22,44 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect('/error') // Handle error accordingly
   }
 
-  const account = await prisma.account.findFirst({
-    where: { userId, providerType: ProviderType.GOOGLE },
+  const account = await db.query.accounts.findFirst({
+    where: and(
+      eq(accounts.userId, userId),
+      eq(accounts.providerType, ProviderType.GOOGLE),
+    ),
   })
 
   if (!account) {
-    await prisma.account.create({
-      data: {
-        userId,
-        providerType: ProviderType.GOOGLE,
-        providerAccountId: openid!,
-        refreshToken: refresh_token,
-        accessToken: access_token,
-        expiresAt: new Date(expiry_date).valueOf(),
-        providerInfo: {
-          name,
-          picture,
-          email,
-        },
-      },
+    await db.insert(accounts).values({
+      userId,
+      providerType: ProviderType.GOOGLE,
+      providerAccountId: openid!,
+      refreshToken: refresh_token,
+      accessToken: access_token,
+      expiresAt: new Date(expiry_date),
+      providerInfo: JSON.stringify({
+        name,
+        picture,
+        email,
+      }),
     })
 
-    await prisma.user.update({
-      where: { id: userId },
-      data: {
+    await db
+      .update(users)
+      .set({
         email,
-        google: {
+        name: name || '',
+        displayName: name,
+        google: JSON.stringify({
           name,
           email,
           picture,
           access_token,
           refresh_token,
           expiry_date,
-        },
-      },
-    })
+        }),
+      })
+      .where(eq(users.id, userId))
   }
 
   return NextResponse.redirect(new URL('/~/settings/link-accounts', req.url))

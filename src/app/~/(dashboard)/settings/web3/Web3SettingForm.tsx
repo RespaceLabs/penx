@@ -32,8 +32,6 @@ export function Web3SettingForm({ site }: Props) {
   const { refetch } = trpc.site.getSite.useQuery()
   const { isPending, mutateAsync } = trpc.site.updateSite.useMutation()
 
-  console.log('====site:', site)
-
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {

@@ -12,6 +12,14 @@ import { headers } from 'next/headers'
 import NextTopLoader from 'nextjs-toploader'
 import { Providers } from './providers'
 
+declare global {
+  interface Window {
+    // __SITE__: Site
+    __SITE__: any
+    __USER_ID__: string
+  }
+}
+
 const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans',

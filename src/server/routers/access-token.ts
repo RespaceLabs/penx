@@ -1,13 +1,13 @@
-import { prisma } from '@/lib/prisma'
+import { eq } from 'drizzle-orm'
 import { z } from 'zod'
+import { db } from '../db'
+import { accessTokens } from '../db/schema'
 import { protectedProcedure, router } from '../trpc'
 
 export const accessTokenRouter = router({
   list: protectedProcedure.query(async ({ ctx, input }) => {
-    return prisma.accessToken.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
+    return db.query.accessTokens.findMany({
+      orderBy: (accessTokens, { desc }) => [desc(accessTokens.createdAt)],
     })
   }),
 
@@ -20,14 +20,15 @@ export const accessTokenRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const record = await prisma.accessToken.create({
-        data: {
+      const record = await db
+        .insert(accessTokens)
+        .values({
           token: input.token,
           alias: input.alias,
           userId: ctx.token.uid,
-          expiredAt: input.expiredAt,
-        },
-      })
+          expiresAt: input.expiredAt,
+        })
+        .returning()
       return record
     }),
 
@@ -38,11 +39,7 @@ export const accessTokenRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      await prisma.accessToken.delete({
-        where: {
-          id: input.id,
-        },
-      })
+      await db.delete(accessTokens).where(eq(accessTokens.id, input.id))
       return { success: true }
     }),
 })

@@ -1,11 +1,11 @@
 import { ContentRender } from '@/components/ContentRender/ContentRender'
 import { PostActions } from '@/components/PostActions/PostActions'
-import { getPost, getPosts } from '@/lib/fetchers'
-import { loadTheme } from '@/lib/loadTheme'
-import { GateType, Post } from '@prisma/client'
+import { getPost, getPosts, getSite } from '@/lib/fetchers'
+import { GateType } from '@/lib/types'
+import { Post } from '@/server/db/schema'
+import { loadTheme } from '@/themes/theme-loader'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import readingTime from 'reading-time'
 import { PaidContent } from './PaidContent'
 
 function getContent(post: Post) {
@@ -13,8 +13,9 @@ function getContent(post: Post) {
   return content
 }
 
-export const dynamic = 'force-static'
-export const revalidate = 3600 * 24
+export const runtime = 'edge'
+// export const dynamic = 'force-static'
+// export const revalidate = 3600 * 24
 
 export async function generateMetadata({
   params,
@@ -30,14 +31,18 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams() {
-  const posts = await getPosts()
-  return posts.map((post) => ({ slug: [post.slug] }))
-}
+// export async function generateStaticParams() {
+//   const posts = await getPosts()
+//   return posts.map((post) => ({ slug: [post.slug] }))
+// }
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
   const slug = decodeURI(params.slug.join('/'))
-  const [post, posts] = await Promise.all([getPost(slug), getPosts()])
+  const [post, posts, site] = await Promise.all([
+    getPost(slug),
+    getPosts(),
+    getSite(),
+  ])
 
   const postIndex = posts.findIndex((p) => p.slug === slug)
   if (postIndex === -1 || !post) {
@@ -47,7 +52,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   const prev = posts[postIndex + 1]
   const next = posts[postIndex - 1]
 
-  const { PostDetail } = await loadTheme()
+  const { PostDetail } = loadTheme(site.themeName)
   if (!PostDetail) throw new Error('Missing PostDetail component')
 
   // console.log('=====post:', post)
@@ -60,7 +65,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
           post={{
             ...post,
             content: getContent(post),
-            readingTime: readingTime(post.content),
+            readingTime: '',
           }}
           readable
           next={next}

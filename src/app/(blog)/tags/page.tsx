@@ -1,9 +1,10 @@
 import { getSite, getTags } from '@/lib/fetchers'
-import { loadTheme } from '@/lib/loadTheme'
+import { loadTheme } from '@/themes/theme-loader'
 import { Metadata } from 'next'
 
-export const dynamic = 'force-static'
-export const revalidate = 3600 * 24
+export const runtime = 'edge'
+// export const dynamic = 'force-static'
+// export const revalidate = 3600 * 24
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite()
@@ -14,8 +15,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const tags = await getTags()
-  const { TagListPage } = await loadTheme()
+  const [tags, site] = await Promise.all([getTags(), getSite()])
+  const { TagListPage } = loadTheme(site.themeName)
 
   if (!TagListPage) {
     return <div>Theme not found</div>

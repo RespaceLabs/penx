@@ -4,10 +4,9 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { usePost } from '@/hooks/usePost'
 import { usePublishPost } from '@/hooks/usePublishPost'
 import { IObjectNode, Node } from '@/lib/model'
-import { useNodes } from '@/lib/node-hooks'
+import { GateType } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { store } from '@/store'
-import { GateType } from '@prisma/client'
 import { PopoverClose } from '@radix-ui/react-popover'
 import { useParams, usePathname } from 'next/navigation'
 import LoadingDots from './icons/loading-dots'
@@ -54,23 +53,13 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
   const { post } = usePost()
   const { spaceId } = useSiteContext()
   const { nodeId } = useParams()!
-  const { nodes } = useNodes()
   const pathname = usePathname()
-  const isToday = pathname?.startsWith('/~/objects/today')
 
-  const activeNode = isToday
-    ? new Node(store.node.getTodayNode())
-    : nodes.find((n) => n.id === nodeId)!
-
-  const [gateType, setGateType] = useState<GateType>(
-    activeNode?.props?.gateType || GateType.FREE,
-  )
-  const [collectible, setCollectible] = useState(
-    post?.collectible || activeNode?.props?.collectible || false,
-  )
+  const [gateType, setGateType] = useState<GateType>(GateType.FREE)
+  const [collectible, setCollectible] = useState(post?.collectible || false)
   const { isLoading, publishPost } = usePublishPost()
 
-  if (!activeNode && !post) return null
+  if (!post) return null
 
   return (
     <PopoverContent align="end" className="w-[360px] flex flex-col gap-5">
@@ -115,11 +104,7 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
         <Button
           className="w-full"
           onClick={async () => {
-            await publishPost(
-              activeNode ? (activeNode.raw as IObjectNode) : (null as any),
-              gateType,
-              collectible,
-            )
+            await publishPost(null as any, gateType, collectible)
             // updatePostPublishStatus()
             setOpen(false)
           }}

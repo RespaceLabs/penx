@@ -7,8 +7,8 @@ import { useCheckChain } from '@/hooks/useCheckChain'
 import { useWagmiConfig } from '@/hooks/useWagmiConfig'
 import { erc20Abi, spaceAbi } from '@/lib/abi'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import useSession from '@/lib/useSession'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
-import { useSession } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { Address } from 'viem'
@@ -24,7 +24,8 @@ export function useSubscribe(space: Space) {
   const { push } = useRouter()
   const params = useSearchParams()
   const postSlug = params.get('post_slug')
-  const { update } = useSession()
+  // TODO:
+  // const { update } = useSession()
   const wagmiConfig = useWagmiConfig()
   const checkChain = useCheckChain()
 
@@ -102,9 +103,9 @@ export function useSubscribe(space: Space) {
       ])
 
       if (postSlug) {
-        if (typeof update === 'function') {
-          await update({ address })
-        }
+        // if (typeof update === 'function') {
+        //   await update({ address })
+        // }
         push(`/posts/${postSlug}`)
       }
 

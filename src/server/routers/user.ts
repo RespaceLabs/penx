@@ -1,38 +1,47 @@
 import { NETWORK, NetworkNames } from '@/lib/constants'
-import { prisma } from '@/lib/prisma'
-import { ProviderType, UserRole } from '@prisma/client'
+import { ProviderType, UserRole } from '@/lib/types'
 import { TRPCError } from '@trpc/server'
+import { eq, or } from 'drizzle-orm'
 import { createPublicClient, http } from 'viem'
 import { base, baseSepolia } from 'viem/chains'
 import { z } from 'zod'
+import { db } from '../db'
+import { accounts, users } from '../db/schema'
 import { getEthPrice } from '../lib/getEthPrice'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 export const userRouter = router({
   list: publicProcedure.query(async ({ ctx, input }) => {
-    return prisma.user.findMany({ take: 20 })
+    return db.query.users.findMany({ limit: 20 })
   }),
 
   contributors: publicProcedure.query(async ({ ctx }) => {
-    return prisma.user.findMany({
-      where: {
-        OR: [{ role: UserRole.ADMIN }, { role: UserRole.AUTHOR }],
-      },
-      include: { accounts: true },
+    return db.query.users.findMany({
+      where: or(
+        eq(users.role, UserRole.ADMIN),
+        eq(users.role, UserRole.AUTHOR),
+      ),
+      with: { accounts: true },
     })
   }),
 
   me: protectedProcedure.query(async ({ ctx }) => {
-    return prisma.user.findUnique({ where: { id: ctx.token.uid } })
+    return (await db.query.users.findFirst({
+      where: eq(users.id, ctx.token.uid),
+    }))!
   }),
 
   getAddressByUserId: publicProcedure
     .input(z.string())
     .query(async ({ input }) => {
-      const { accounts = [] } = await prisma.user.findUniqueOrThrow({
-        where: { id: input },
-        include: { accounts: true },
+      const user = await db.query.users.findFirst({
+        where: eq(users.id, input),
+        with: { accounts: true },
       })
+      if (!user) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'User not found' })
+      }
+      const { accounts = [] } = user
       const find = accounts.find(
         (account) => account.providerType === ProviderType.WALLET,
       )
@@ -48,12 +57,7 @@ export const userRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      return prisma.user.update({
-        where: { id: ctx.token.uid },
-        data: {
-          ...input,
-        },
-      })
+      return db.update(users).set(input).where(eq(users.id, ctx.token.uid))
     }),
 
   addContributor: protectedProcedure
@@ -63,9 +67,13 @@ export const userRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const admin = await prisma.user.findFirstOrThrow({
-        where: { id: ctx.token.uid },
+      const admin = await db.query.users.findFirst({
+        where: eq(users.id, ctx.token.uid),
       })
+
+      if (!admin) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'User not found' })
+      }
 
       if (admin.role !== UserRole.ADMIN) {
         throw new TRPCError({
@@ -74,17 +82,17 @@ export const userRouter = router({
         })
       }
 
-      let user = await prisma.user.findFirst({
-        where: {
-          OR: [{ email: input.q }],
-        },
+      let user = await db.query.users.findFirst({
+        where: eq(users.email, input.q),
       })
       if (!user) {
-        const account = await prisma.account.findFirst({
-          where: { providerAccountId: input.q },
+        const account = await db.query.accounts.findFirst({
+          where: eq(accounts.providerAccountId, input.q),
         })
         if (account) {
-          user = await prisma.user.findUnique({ where: { id: account.userId } })
+          user = await db.query.users.findFirst({
+            where: eq(users.id, account.userId),
+          })
         }
       }
 
@@ -100,10 +108,10 @@ export const userRouter = router({
           message: 'User is a contributor already!',
         })
       }
-      return prisma.user.update({
-        where: { id: user.id },
-        data: { role: UserRole.AUTHOR },
-      })
+      return db
+        .update(users)
+        .set({ role: UserRole.AUTHOR })
+        .where(eq(users.id, user.id))
     }),
 
   updateContributor: protectedProcedure
@@ -114,20 +122,21 @@ export const userRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const user = await prisma.user.findFirstOrThrow({
-        where: { id: ctx.token.uid },
+      const user = await db.query.users.findFirst({
+        where: eq(users.id, ctx.token.uid),
       })
-      if (user.role !== UserRole.ADMIN) {
+
+      if (user?.role !== UserRole.ADMIN) {
         throw new TRPCError({
           code: 'BAD_GATEWAY',
           message: 'Only admin can update contributor',
         })
       }
 
-      return prisma.user.update({
-        where: { id: input.userId },
-        data: { role: input.role },
-      })
+      return db
+        .update(users)
+        .set({ role: input.role })
+        .where(eq(users.id, input.userId))
     }),
 
   deleteContributor: protectedProcedure
@@ -137,10 +146,10 @@ export const userRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const user = await prisma.user.findFirstOrThrow({
-        where: { id: ctx.token.uid },
+      const user = await db.query.users.findFirst({
+        where: eq(users.id, ctx.token.uid),
       })
-      if (user.role !== UserRole.ADMIN) {
+      if (user?.role !== UserRole.ADMIN) {
         throw new TRPCError({
           code: 'BAD_GATEWAY',
           message: 'Only admin can remove contributor',
@@ -154,15 +163,15 @@ export const userRouter = router({
         })
       }
 
-      return prisma.user.update({
-        where: { id: input.userId },
-        data: { role: UserRole.READER },
-      })
+      return db
+        .update(users)
+        .set({ role: UserRole.READER })
+        .where(eq(users.id, input.userId))
     }),
 
-  accountsByUser: publicProcedure.query(({ ctx }) => {
-    return prisma.account.findMany({
-      where: { userId: ctx.token.uid },
+  myAccounts: publicProcedure.query(({ ctx }) => {
+    return db.query.accounts.findMany({
+      where: eq(accounts.userId, ctx.token.uid),
     })
   }),
 
@@ -193,8 +202,8 @@ export const userRouter = router({
         })
       }
 
-      const account = await prisma.account.findFirst({
-        where: { providerAccountId: input.address },
+      const account = await db.query.accounts.findFirst({
+        where: eq(accounts.providerAccountId, input.address),
       })
 
       if (account) {
@@ -204,12 +213,10 @@ export const userRouter = router({
         })
       }
 
-      await prisma.account.create({
-        data: {
-          userId: ctx.token.uid,
-          providerType: ProviderType.WALLET,
-          providerAccountId: input.address,
-        },
+      await db.insert(accounts).values({
+        userId: ctx.token.uid,
+        providerType: ProviderType.WALLET,
+        providerAccountId: input.address,
       })
     }),
 
@@ -220,31 +227,27 @@ export const userRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const accounts = await prisma.account.findMany({
-        where: { userId: ctx.token.uid },
+      const accountList = await db.query.accounts.findMany({
+        where: eq(accounts.userId, ctx.token.uid),
       })
 
-      if (accounts.length === 1) {
+      if (accountList.length === 1) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: 'Cannot disconnect the last account',
         })
       }
 
-      const account = accounts.find((a) => a.id === input.accountId)
+      const account = accountList.find((a) => a.id === input.accountId)
 
       if (account && account.providerType === ProviderType.GOOGLE) {
-        await prisma.user.update({
-          where: { id: ctx.token.uid },
-          data: {
-            email: null,
-          },
-        })
+        await db
+          .update(users)
+          .set({ email: null })
+          .where(eq(users.id, ctx.token.uid))
       }
 
-      await prisma.account.delete({
-        where: { id: input.accountId },
-      })
+      await db.delete(accounts).where(eq(accounts.id, input.accountId))
       return true
     }),
 

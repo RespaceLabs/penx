@@ -2,7 +2,8 @@ import { ReactNode } from 'react'
 import { CreatePostButton } from './CreatePostButton'
 import { PostsNav } from './PostsNav'
 
-export const dynamic = 'force-static'
+export const runtime = 'edge'
+// export const dynamic = 'force-static'
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

@@ -6,7 +6,6 @@ import LoadingDots from '@/components/icons/loading-dots'
 import { Button, ButtonProps } from '@/components/ui/button'
 import { GOOGLE_CLIENT_ID, GOOGLE_OAUTH_REDIRECT_URI } from '@/lib/constants'
 import { cn } from '@/lib/utils'
-import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 

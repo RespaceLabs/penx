@@ -40,7 +40,7 @@ export const FileUpload = forwardRef<HTMLDivElement, Props>(function FileUpload(
     <div ref={ref}>
       <div className="w-20 h-20 rounded-2xl bg-accent relative cursor-pointer flex items-center justify-center overflow-hidden">
         {value && (
-          <Image
+          <img
             src={getUrl(value)}
             width={80}
             height={80}

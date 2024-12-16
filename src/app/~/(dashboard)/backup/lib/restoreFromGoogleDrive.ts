@@ -23,7 +23,4 @@ export async function restoreFromGoogleDrive(
   for (const node of remoteNodes) {
     await db.createNode(node as INode)
   }
-
-  const nodes = await db.listNodesByUserId()
-  store.node.setNodes(nodes)
 }

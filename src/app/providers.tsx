@@ -3,25 +3,38 @@
 import { Suspense } from 'react'
 import { GoogleOauthDialog } from '@/components/GoogleOauthDialog/GoogleOauthDialog'
 import { SiteProvider } from '@/components/SiteContext'
+import { queryClient } from '@/lib/queryClient'
 import { trpc, trpcClient } from '@/lib/trpc'
-import { config } from '@/lib/wagmi/wagmiConfig'
+import useSession from '@/lib/useSession'
+import { wagmiConfig } from '@/lib/wagmi/wagmiConfig'
 import { StoreProvider } from '@/store'
 import { Site } from '@penxio/types'
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import {
-  GetSiweMessageOptions,
-  RainbowKitSiweNextAuthProvider,
-} from '@rainbow-me/rainbowkit-siwe-next-auth'
+  createAuthenticationAdapter,
+  RainbowKitAuthenticationProvider,
+  RainbowKitProvider,
+} from '@rainbow-me/rainbowkit'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { SessionProvider } from 'next-auth/react'
+import { signMessage } from '@wagmi/core'
 import { Toaster } from 'sonner'
+import { createSiweMessage } from 'viem/siwe'
 import { WagmiProvider } from 'wagmi'
+import { RainbowKitSiweProvider } from './RainbowKitSiweProvider'
 
-const queryClient = new QueryClient()
+function RainbowProvider({ children }: { children: React.ReactNode }) {
+  const { status } = useSession()
 
-const getSiweMessageOptions: GetSiweMessageOptions = () => ({
-  statement: 'Sign in with ethereum',
-})
+  return (
+    <RainbowKitSiweProvider>
+      <RainbowKitProvider>
+        <StoreProvider>
+          <GoogleOauthDialog />
+          {children}
+        </StoreProvider>
+      </RainbowKitProvider>
+    </RainbowKitSiweProvider>
+  )
+}
 
 export function Providers({
   children,
@@ -33,27 +46,16 @@ export function Providers({
   site: Site
 }) {
   return (
-    <SessionProvider refetchInterval={0}>
-      <SiteProvider site={site}>
-        <Toaster className="dark:hidden" richColors />
-        <Toaster theme="dark" className="hidden dark:block" richColors />
-        <Suspense>
-          <GoogleOauthDialog />
-        </Suspense>
-        <trpc.Provider client={trpcClient} queryClient={queryClient}>
-          <WagmiProvider config={config}>
-            <QueryClientProvider client={queryClient}>
-              <RainbowKitSiweNextAuthProvider
-                getSiweMessageOptions={getSiweMessageOptions}
-              >
-                <RainbowKitProvider>
-                  <StoreProvider>{children}</StoreProvider>
-                </RainbowKitProvider>
-              </RainbowKitSiweNextAuthProvider>
-            </QueryClientProvider>
-          </WagmiProvider>
-        </trpc.Provider>
-      </SiteProvider>
-    </SessionProvider>
+    <SiteProvider site={site}>
+      <Toaster className="dark:hidden" richColors />
+      <Toaster theme="dark" className="hidden dark:block" richColors />
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <WagmiProvider config={wagmiConfig}>
+          <QueryClientProvider client={queryClient}>
+            <RainbowProvider>{children}</RainbowProvider>
+          </QueryClientProvider>
+        </WagmiProvider>
+      </trpc.Provider>
+    </SiteProvider>
   )
 }

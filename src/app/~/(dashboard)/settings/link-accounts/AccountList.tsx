@@ -8,15 +8,16 @@ import { Button } from '@/components/ui/button'
 import { useMyAccounts } from '@/hooks/useMyAccounts'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
+import { ProviderType } from '@/lib/types'
 import { shortenAddress } from '@/lib/utils'
-import { Account, ProviderType } from '@prisma/client'
+import { Account } from '@/server/db/schema'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import { toast } from 'sonner'
 
 function AccountItem({ account }: { account: Account }) {
   const { refetch } = useMyAccounts()
   const { isPending, mutateAsync } = trpc.user.disconnectAccount.useMutation()
-  const info = account.providerInfo as any
+  const info = JSON.parse(account.providerInfo || '{}')
   const removeButton = (
     <Button
       disabled={isPending}
@@ -69,7 +70,7 @@ function AccountItem({ account }: { account: Account }) {
             <AvatarImage src={info?.picture} />
             <AvatarFallback>{info?.name?.slice(0, 1)}</AvatarFallback>
           </Avatar>
-          <div className="">{shortenAddress(account.providerAccountId)}</div>
+          <div className="">{shortenAddress(account.providerAccountId!)}</div>
         </div>
         {removeButton}
       </div>

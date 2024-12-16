@@ -1,11 +1,12 @@
 import { ContentRender } from '@/components/ContentRender/ContentRender'
 import { PostActions } from '@/components/PostActions/PostActions'
 import { getPosts, getSite } from '@/lib/fetchers'
-import { loadTheme } from '@/lib/loadTheme'
+import { loadTheme } from '@/themes/theme-loader'
 import { Metadata, ResolvingMetadata } from 'next'
 
-export const dynamic = 'force-static'
-export const revalidate = 3600 * 24
+export const runtime = 'edge'
+// export const dynamic = 'force-static'
+// export const revalidate = 3600 * 24
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite()
@@ -19,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   const [posts, site] = await Promise.all([getPosts(), getSite()])
 
-  const { HomePage } = await loadTheme()
+  const { HomePage } = loadTheme(site.themeName)
 
   if (!HomePage) {
     return <div>Theme not found</div>

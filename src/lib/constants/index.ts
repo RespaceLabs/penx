@@ -9,7 +9,7 @@ export const isNavigator = typeof navigator !== 'undefined'
 export const GOOGLE_OAUTH_REDIRECT_URI = 'https://www.penx.io/api/google-oauth'
 // export const GOOGLE_OAUTH_REDIRECT_URI = 'http://localhost:4000/api/google-oauth'
 export const LINK_GOOGLE_ACCOUNT_REDIRECT_URI =
-  'https://penx.io/api/link-google-account-oauth'
+  'https://www.penx.io/api/link-google-account-oauth'
 // 'http://localhost:4000/api/link-google-account-oauth'
 
 export const IPFS_UPLOAD_URL = 'https://penx.io/api/ipfs-upload'

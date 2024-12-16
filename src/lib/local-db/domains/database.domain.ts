@@ -67,6 +67,7 @@ export class DatabaseDomain {
   }
 
   createDatabase = async ({
+    // @ts-ignore
     userId = window.__USER_ID__,
     name,
     columnSchema = [],

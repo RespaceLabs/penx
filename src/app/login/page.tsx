@@ -18,8 +18,10 @@ const lobster = Lobster({
   display: 'swap',
 })
 
-export const dynamic = 'force-static'
-export const revalidate = 3600 * 24
+
+export const runtime = 'edge'
+// export const dynamic = 'force-static'
+// export const revalidate = 3600 * 24
 
 export default async function Page() {
   const site = await getSite()

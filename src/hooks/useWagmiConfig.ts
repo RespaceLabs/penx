@@ -1,7 +1,7 @@
 'use client'
 
-import { config } from '@/lib/wagmi'
+import { wagmiConfig } from '@/lib/wagmi'
 
 export function useWagmiConfig() {
-  return config
+  return wagmiConfig
 }

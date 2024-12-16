@@ -8,7 +8,6 @@
  * @link https://trpc.io/docs/v11/procedures
  */
 
-import { UserRole } from '@prisma/client'
 import { initTRPC, TRPCError } from '@trpc/server'
 import superjson from 'superjson'
 import type { Context } from './context'
@@ -57,18 +56,6 @@ export const protectedProcedure = t.procedure.use(
       throw new TRPCError({
         code: 'UNAUTHORIZED',
         message: 'user not found',
-      })
-    }
-
-    const role = ctx.token.role as any
-
-    if (
-      ![UserRole.ADMIN, UserRole.AUTHOR].includes(role) &&
-      !['user.me', 'comment.create'].includes(path)
-    ) {
-      throw new TRPCError({
-        code: 'UNAUTHORIZED',
-        message: 'No permission',
       })
     }
 

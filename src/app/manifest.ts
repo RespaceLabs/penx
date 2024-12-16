@@ -1,6 +1,8 @@
 import { getSite } from '@/lib/fetchers'
 import type { MetadataRoute } from 'next'
 
+export const runtime = 'edge'
+
 export default async function manifest(): Promise<MetadataRoute.Manifest> {
   // if (process.env.NODE_ENV === 'development') return {}
   const site = await getSite()

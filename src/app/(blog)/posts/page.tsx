@@ -1,11 +1,12 @@
 import { getPosts, getSite } from '@/lib/fetchers'
-import { loadTheme } from '@/lib/loadTheme'
+import { loadTheme } from '@/themes/theme-loader'
 import { Metadata } from 'next'
 
 const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PAGE_SIZE || 20)
 
-export const dynamic = 'force-static'
-export const revalidate = 3600 * 24
+export const runtime = 'edge'
+// export const dynamic = 'force-static'
+// export const revalidate = 3600 * 24
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite()
@@ -16,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const posts = await getPosts()
+  const [site, posts] = await Promise.all([getSite(), getPosts()])
 
   const pageNumber = 1
   const initialDisplayPosts = posts.slice(
@@ -28,7 +29,7 @@ export default async function Page() {
     totalPages: Math.ceil(posts.length / POSTS_PER_PAGE),
   }
 
-  const { BlogPage } = await loadTheme()
+  const { BlogPage } = loadTheme(site.themeName)
 
   if (!BlogPage) {
     return <div>Theme not found</div>

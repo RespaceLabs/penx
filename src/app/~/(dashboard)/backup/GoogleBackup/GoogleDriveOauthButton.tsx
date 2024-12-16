@@ -6,7 +6,7 @@ import {
   GOOGLE_CLIENT_ID,
   GOOGLE_DRIVE_OAUTH_REDIRECT_URI,
 } from '@/lib/constants'
-import { useSession } from 'next-auth/react'
+import useSession from '@/lib/useSession'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 

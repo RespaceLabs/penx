@@ -1,6 +1,6 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
+import useSession from '@/lib/useSession'
 import { useAccount } from 'wagmi'
 import LoginButton from '../LoginButton'
 import { useSiteContext } from '../SiteContext'

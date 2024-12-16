@@ -1,50 +1,47 @@
 import { IPFS_ADD_URL, PostStatus } from '@/lib/constants'
-import { prisma } from '@/lib/prisma'
-import { GateType, PostType, Prisma } from '@prisma/client'
+import { GateType, PostType } from '@/lib/types'
+import { desc, eq, or } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 import { Node as SlateNode } from 'slate'
 import { z } from 'zod'
+import { db } from '../db'
+import { posts } from '../db/schema'
 import { syncToGoogleDrive } from '../lib/syncToGoogleDrive'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 export const postRouter = router({
   list: protectedProcedure.query(async ({ ctx, input }) => {
-    const posts = await prisma.post.findMany({
-      include: {
-        postTags: { include: { tag: true } },
+    return await db.query.posts.findMany({
+      with: {
+        postTags: { with: { tag: true } },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: [desc(posts.createdAt)],
     })
-
-    return posts
   }),
 
   publishedPosts: publicProcedure.query(async ({ ctx, input }) => {
-    const posts = await prisma.post.findMany({
-      where: { postStatus: PostStatus.PUBLISHED },
+    return await db.query.posts.findMany({
+      where: eq(posts.postStatus, PostStatus.PUBLISHED),
     })
-
-    return posts
   }),
 
   byId: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
-    const post = await prisma.post.findUniqueOrThrow({
-      include: {
-        postTags: { include: { tag: true } },
+    const post = await db.query.posts.findFirst({
+      with: {
+        postTags: { with: { tag: true } },
       },
-      where: { id: input },
+      where: eq(posts.id, input),
     })
 
     syncToGoogleDrive(ctx.token.uid, post as any)
     // console.log('post-------xxxxxxxxxx:', post?.postTags)
-    return post
+    return post!
   }),
 
   bySlug: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
-    const post = await prisma.post.findUnique({
-      where: { slug: input },
+    return db.query.posts.findFirst({
+      where: eq(posts.slug, input),
     })
-    return post
   }),
 
   create: protectedProcedure
@@ -56,14 +53,14 @@ export const postRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      console.log('==========>>>>>ctx.token.uid,:', ctx.token.uid)
-
-      return prisma.post.create({
-        data: {
+      const post = await db
+        .insert(posts)
+        .values({
           userId: ctx.token.uid,
           ...input,
-        },
-      })
+        })
+        .returning()
+      return post[0]!
     }),
 
   update: protectedProcedure
@@ -78,13 +75,14 @@ export const postRouter = router({
     .mutation(async ({ ctx, input }) => {
       const { id, content, ...data } = input
 
-      const post = await prisma.post.update({
-        where: { id },
-        data: {
+      const post = await db
+        .update(posts)
+        .set({
           ...data,
           content: content || '',
-        },
-      })
+        })
+        .where(eq(posts.id, id))
+        .returning()
 
       return post
     }),
@@ -98,10 +96,11 @@ export const postRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const { id, image } = input
-      const post = await prisma.post.update({
-        where: { id },
-        data: { image },
-      })
+      const post = await db
+        .update(posts)
+        .set({ image })
+        .where(eq(posts.id, id))
+        .returning()
 
       return post
     }),
@@ -109,74 +108,32 @@ export const postRouter = router({
   publish: protectedProcedure
     .input(
       z.object({
-        postId: z.string().optional(),
-        nodeId: z.string().optional(),
-        creationId: z.number().optional(),
-        type: z.nativeEnum(PostType),
+        postId: z.string(),
+        creationId: z.number().nullable().optional(),
         gateType: z.nativeEnum(GateType),
         collectible: z.boolean(),
-        image: z.string().optional(),
-        content: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      console.log('========>input:', input, ctx.token)
       const userId = ctx.token.uid
-      const { nodeId, gateType, collectible, creationId } = input
+      const { gateType, collectible, creationId } = input
 
-      let post = await prisma.post.findFirst({
-        where: { OR: [{ nodeId }, { id: input.postId }] },
+      await db
+        .update(posts)
+        .set({
+          postStatus: PostStatus.PUBLISHED,
+          gateType: input.gateType,
+          collectible: input.collectible,
+        })
+        .where(eq(posts.id, input.postId))
+
+      const newPost = await db.query.posts.findFirst({
+        with: { postTags: { with: { tag: true } } },
+        where: eq(posts.id, input.postId),
       })
 
-      function getPostInfo() {
-        if (input.postId) {
-          return { title: post?.title, content: input.content }
-        }
-
-        const [title, ...nodes] = JSON.parse(input.content)
-
-        return {
-          title: SlateNode.string(title),
-          content: JSON.stringify(nodes),
-        }
-      }
-      const info = getPostInfo()
-
-      if (!post) {
-        post = await prisma.post.create({
-          data: {
-            userId,
-            slug: input.nodeId,
-            title: info.title,
-            type: input.type,
-            nodeId: input.nodeId,
-            postStatus: PostStatus.PUBLISHED,
-            image: input.image,
-            gateType: input.gateType,
-            collectible: input.collectible,
-            content: info.content,
-          },
-        })
-      } else {
-        post = await prisma.post.update({
-          where: { id: post.id },
-          data: {
-            title: info.title,
-            type: input.type,
-            image: input.image,
-            postStatus: PostStatus.PUBLISHED,
-            gateType: input.gateType,
-            collectible: input.collectible,
-            content: info.content,
-          },
-        })
-      }
-
-      const newPost = await prisma.post.findUnique({
-        include: { postTags: { include: { tag: true } } },
-        where: { id: post.id },
-      })
-
-      const res = await fetch(IPFS_ADD_URL, {
+      const res: any = await fetch(IPFS_ADD_URL, {
         method: 'POST',
         body: JSON.stringify({
           ...newPost,
@@ -187,23 +144,25 @@ export const postRouter = router({
         headers: { 'Content-Type': 'application/json' },
       }).then((d) => d.json())
 
-      await prisma.post.update({
-        where: { id: post.id },
-        data: {
+      await db
+        .update(posts)
+        .set({
           postStatus: PostStatus.PUBLISHED,
           collectible,
           creationId,
           cid: res.cid,
           publishedAt: new Date(),
           gateType,
-        },
-      })
+        })
+        .where(eq(posts.id, input.postId))
 
-      revalidatePath('/', 'layout')
-      // revalidatePath('/(blog)/(home)', 'page')
-      revalidatePath('/(blog)/posts', 'page')
-      revalidatePath('/(blog)/posts/[...slug]', 'page')
-      revalidatePath('/(blog)/posts/page/[page]', 'page')
+      try {
+        revalidatePath('/', 'layout')
+        // revalidatePath('/(blog)/(home)', 'page')
+        revalidatePath('/(blog)/posts', 'page')
+        revalidatePath('/(blog)/posts/[...slug]', 'page')
+        revalidatePath('/(blog)/posts/page/[page]', 'page')
+      } catch (error) {}
 
       // sync google
       // syncToGoogleDrive(ctx.token.uid, {
@@ -216,17 +175,17 @@ export const postRouter = router({
       // } as any)
 
       return newPost
-
-      return newPost
     }),
 
   archive: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      const post = await prisma.post.update({
-        where: { id: input },
-        data: { postStatus: PostStatus.ARCHIVED },
-      })
+      const post = await db
+        .update(posts)
+        .set({
+          postStatus: PostStatus.ARCHIVED,
+        })
+        .where(eq(posts.id, input))
 
       // revalidateTag(`posts-${post.slug}`)
       // revalidatePath(`/posts/${post.slug}`)
@@ -237,9 +196,7 @@ export const postRouter = router({
   delete: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      const post = await prisma.post.delete({
-        where: { id: input },
-      })
+      const post = await db.delete(posts).where(eq(posts.id, input))
 
       return post
     }),

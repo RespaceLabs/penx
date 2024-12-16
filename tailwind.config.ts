@@ -6,6 +6,7 @@ import { fontFamily } from 'tailwindcss/defaultTheme'
 const config = {
   darkMode: ['class'],
   content: [
+    './src/**/*.{ts,tsx}',
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',

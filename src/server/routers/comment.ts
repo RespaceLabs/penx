@@ -1,6 +1,8 @@
-import { prisma } from '@/lib/prisma'
+import { and, eq, isNull, sql } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
+import { db } from '../db'
+import { comments, posts } from '../db/schema'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 export const commentRouter = router({
@@ -8,12 +10,33 @@ export const commentRouter = router({
   listByPostId: publicProcedure
     .input(z.string())
     .query(async ({ ctx, input: postId }) => {
-      const comments = await prisma.comment.findMany({
-        where: { postId, parentId: null }, // Only top-level comments (parentId === null) need to be queried
-        include: {
-          user: true, // Assuming you want to include user details in comments
+      const comments = await db.query.comments.findMany({
+        where: (comments, { eq }) => and(eq(comments.postId, postId)),
+        with: {
+          user: {
+            columns: {
+              id: true,
+              name: true,
+              displayName: true,
+              email: true,
+              image: true,
+            },
+          },
+          parent: {
+            with: {
+              user: {
+                columns: {
+                  id: true,
+                  name: true,
+                  displayName: true,
+                  email: true,
+                  image: true,
+                },
+              },
+            },
+          },
         },
-        orderBy: { createdAt: 'asc' },
+        orderBy: (comments, { asc }) => [asc(comments.createdAt)],
       })
       return comments
     }),
@@ -24,39 +47,38 @@ export const commentRouter = router({
       z.object({
         postId: z.string(),
         content: z.string(),
-        userId: z.string(),
         parentId: z.string().nullable().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const newComment = await prisma.comment.create({
-        data: {
+      const newComment = await db
+        .insert(comments)
+        .values({
           content: input.content,
           postId: input.postId,
           userId: ctx.token.uid,
           parentId: input.parentId || null,
-        },
-      })
+        })
+        .returning()
 
       if (input.parentId) {
-        await prisma.comment.update({
-          where: { id: input.parentId },
-          data: {
-            replyCount: { increment: 1 },
-          },
-        })
-      } else {
-        const updatedPost = await prisma.post.update({
-          where: { id: input.postId },
-          data: {
-            commentCount: { increment: 1 },
-          },
-        })
-
-        revalidatePath('/(blog)/(home)', 'page')
-        revalidatePath('/(blog)/posts', 'page')
-        revalidatePath(`/posts/${updatedPost.slug}`)
+        await db
+          .update(comments)
+          .set({
+            replyCount: sql`replyCount + 1`,
+          })
+          .where(eq(comments.id, input.parentId))
       }
+
+      const updatedPost = await db
+        .update(posts)
+        .set({ commentCount: sql`commentCount + 1` })
+        .where(eq(posts.id, input.postId))
+        .returning()
+
+      revalidatePath('/(blog)/(home)', 'page')
+      revalidatePath('/(blog)/posts', 'page')
+      revalidatePath(`/posts/${updatedPost[0]?.slug}`)
 
       return newComment
     }),
@@ -64,22 +86,21 @@ export const commentRouter = router({
   listRepliesByCommentId: publicProcedure
     .input(z.string())
     .mutation(async ({ ctx, input: commentId }) => {
-      const replies = await prisma.comment.findMany({
-        where: { parentId: commentId },
-        include: {
+      const replies = await db.query.comments.findMany({
+        where: eq(comments.parentId, commentId),
+        with: {
           user: true,
           parent: {
-            include: {
+            with: {
               user: true,
             },
           },
         },
-        orderBy: { createdAt: 'asc' },
-      });
+        orderBy: (comments, { asc }) => [asc(comments.createdAt)],
+      })
 
-      return replies;
+      return replies
     }),
-
 
   // Update an existing comment
   update: protectedProcedure
@@ -90,13 +111,13 @@ export const commentRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const updatedComment = await prisma.comment.update({
-        where: { id: input.commentId },
-        data: {
+      const updatedComment = await db
+        .update(comments)
+        .set({
           content: input.content,
           updatedAt: new Date(),
-        },
-      })
+        })
+        .where(eq(comments.id, input.commentId))
       return updatedComment
     }),
 
@@ -104,9 +125,9 @@ export const commentRouter = router({
   delete: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input: commentId }) => {
-      const deletedComment = await prisma.comment.delete({
-        where: { id: commentId },
-      })
+      const deletedComment = await db
+        .delete(comments)
+        .where(eq(comments.id, commentId))
       return deletedComment
     }),
 })

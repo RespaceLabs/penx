@@ -1,8 +1,8 @@
 import { forwardRef, useRef, useState } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
-import { Post } from '@/hooks/usePost'
 import { api } from '@/lib/trpc'
 import { uploadFile } from '@/lib/uploadFile'
+import { Post } from '@/server/db/schema'
 import { ImageIcon, X } from 'lucide-react'
 import Image from 'next/image'
 
@@ -48,10 +48,8 @@ export const ImageCreationUpload = forwardRef<HTMLDivElement, Props>(
     if (value) {
       return (
         <div className="w-full h-auto relative">
-          <Image
+          <img
             src={value || ''}
-            width={80}
-            height={80}
             className="absolute left-0 top-0 w-full h-auto cursor-pointer"
             alt=""
           />
