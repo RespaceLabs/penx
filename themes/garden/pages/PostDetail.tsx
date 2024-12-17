@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { ContentRender } from '@/components/ContentRender'
+import { ContentRender } from '@/components/plate-ui/ContentRender'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
 import { PostActions } from '@/components/theme-ui/PostActions'
 import { cn, formatDate } from '@/lib/utils'

@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { camelCase, kebabCase } from 'case-anything'
 
 export function withTheme(nextConfig = {}) {
   const __filename = fileURLToPath(import.meta.url)
@@ -15,10 +16,10 @@ export function withTheme(nextConfig = {}) {
   const themesText = `export const themes = [${dir.map((t) => '"' + t + '"').join(', ')}]`
 
   const importList = dir
-    .map((t) => `import * as ${t} from './${t}';`)
+    .map((t) => `import * as ${camelCase(t)} from './${t}';`)
     .join('\n')
 
-  const mapText = `const map: Record<string, any> = {${dir.map((t) => t).join(', ')}}`
+  const mapText = `const map: Record<string, any> = {${dir.map((t) => `"${t}": ${camelCase(t)}`).join(', ')}}`
 
   return {
     ...nextConfig,

@@ -47,7 +47,6 @@ export const Header = ({ site }: Props) => {
             )
           })}
         </div>
-        {/* {MobileNav && <MobileNav />} */}
       </div>
       <div className="flex item-center gap-2">
         <div className="flex items-center">

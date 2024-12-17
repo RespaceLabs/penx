@@ -97,6 +97,7 @@
     "ai": "^4.0.18",
     "array-move": "^4.0.0",
     "big.js": "^6.2.2",
+    "case-anything": "^3.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.4",
@@ -126,7 +127,6 @@
     "penx-theme-photo": "^0.0.10",
     "prismjs": "^1.29.0",
     "react": "^19.0.0",
-
     "react-datepicker": "^7.5.0",
     "react-day-picker": "^9.4.3",
     "react-dnd": "^16.0.1",

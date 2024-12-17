@@ -1,4 +1,4 @@
-import { ContentRender } from '@/components/ContentRender'
+import { ContentRender } from '@/components/plate-ui/ContentRender'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
 import { Post, Site } from '@penxio/types'
 import Link from 'next/link'

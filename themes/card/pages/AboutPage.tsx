@@ -1,4 +1,4 @@
-import { ContentRender } from '@/components/ContentRender'
+import { ContentRender } from '@/components/plate-ui/ContentRender'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
 import { Site } from '@penxio/types'
 
@@ -24,12 +24,6 @@ export function AboutPage({ site }: Props) {
               {site.name}
             </h3>
             <div className="text-foreground/60">{site.description}</div>
-            {/* <div className="flex space-x-3 pt-6">
-              <SocialIcon kind="mail" href={`mailto:${email}`} />
-              <SocialIcon kind="github" href={github} />
-              <SocialIcon kind="linkedin" href={linkedin} />
-              <SocialIcon kind="x" href={twitter} />
-            </div> */}
           </div>
           <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2 mx-auto lg:max-w-3xl">
             <ContentRender content={site.about} />
