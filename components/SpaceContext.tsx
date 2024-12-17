@@ -1,10 +1,17 @@
 'use client'
 
 import { createContext, PropsWithChildren, useContext } from 'react'
+import {
+  editorDefaultValue,
+  IPFS_GATEWAY,
+  RESPACE_BASE_URI,
+} from '@/lib/constants'
 import { useQueryEthPrice } from '@/lib/hooks/useEthPrice'
-import { editorDefaultValue, IPFS_GATEWAY } from '@/lib/constants'
 import { precision } from '@/lib/math'
+import { api } from '@/lib/trpc'
 import { SpaceType } from '@/lib/types'
+import { useQuery } from '@tanstack/react-query'
+import ky from 'ky'
 import { Address } from 'viem'
 
 export const FEE_RATE = BigInt(1) // 1%
@@ -146,17 +153,23 @@ export class Space {
 
 export const SpaceContext = createContext({} as Space)
 
-interface Props {
-  space: SpaceType
-}
+interface Props {}
 
-export const SpaceProvider = ({
-  space,
-  children,
-}: PropsWithChildren<Props>) => {
+export const SpaceProvider = ({ children }: PropsWithChildren<Props>) => {
   useQueryEthPrice()
+  const { data: space, isLoading } = useQuery({
+    queryKey: ['space'],
+    queryFn: async () => {
+      const site = await api.site.getSite.query()
+      const response = await ky
+        .get(RESPACE_BASE_URI + `/api/get-space?address=${site.id}`)
+        .json<SpaceType>()
+      return
+      return response
+    },
+  })
   return (
-    <SpaceContext.Provider value={new Space(space)}>
+    <SpaceContext.Provider value={new Space(space!)}>
       {children}
     </SpaceContext.Provider>
   )

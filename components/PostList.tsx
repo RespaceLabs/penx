@@ -2,9 +2,9 @@
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { PostStatus } from '@/lib/constants'
 import { Post } from '@/lib/hooks/usePost'
 import { usePosts } from '@/lib/hooks/usePosts'
-import { PostStatus } from '@/lib/constants'
 import { api } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
@@ -26,7 +26,7 @@ export function PostItem({ post, status }: PostItemProps) {
       <div>
         <Link
           target={isPublished ? '_blank' : '_self'}
-          href={isPublished ? `/posts/${post.slug}` : `/~/post/${post.id}`}
+          href={isPublished ? `/posts/${post.slug}` : `/~/post?id=${post.id}`}
           className="inline-flex items-center hover:scale-105 transition-transform"
         >
           <div className="text-base font-bold">{post.title || 'Untitled'}</div>
@@ -43,7 +43,7 @@ export function PostItem({ post, status }: PostItemProps) {
         <div className="text-sm text-zinc-500">
           <div>{format(new Date(post.updatedAt), 'yyyy-MM-dd')}</div>
         </div>
-        <Link href={`/~/post/${post.id}`}>
+        <Link href={`/~/post?id=${post.id}`}>
           <Button
             size="xs"
             variant="ghost"

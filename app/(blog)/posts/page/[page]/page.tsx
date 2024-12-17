@@ -26,10 +26,14 @@ export async function generateMetadata(): Promise<Metadata> {
 //   return paths
 // }
 
-export default async function Page({ params }: { params: { page: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ page: string }>
+}) {
   const [posts, site] = await Promise.all([getPosts(), getSite()])
 
-  const pageNumber = parseInt(params.page as string)
+  const pageNumber = parseInt((await params).page as string)
   const initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
     POSTS_PER_PAGE * pageNumber,

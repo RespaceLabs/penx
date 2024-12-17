@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { useQuerySite } from '@/lib/hooks/useQuerySite'
 import { trpc } from '@/lib/trpc'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Site } from '@penxio/types'
@@ -24,12 +25,10 @@ const FormSchema = z.object({
   spaceId: z.string().optional(),
 })
 
-interface Props {
-  site: Site
-}
+interface Props {}
 
-export function Web3SettingForm({ site }: Props) {
-  const { refetch } = trpc.site.getSite.useQuery()
+export function Web3SettingForm({}: Props) {
+  const { refetch, site } = useQuerySite()
   const { isPending, mutateAsync } = trpc.site.updateSite.useMutation()
 
   const form = useForm<z.infer<typeof FormSchema>>({

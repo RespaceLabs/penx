@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { useQuerySite } from '@/lib/hooks/useQuerySite'
 import { trpc } from '@/lib/trpc'
 import { Socials } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -35,12 +36,10 @@ const FormSchema = z.object({
   medium: z.string().optional(),
 })
 
-interface Props {
-  site: Site
-}
+interface Props {}
 
-export function SocialSettingForm({ site }: Props) {
-  const { refetch } = trpc.site.getSite.useQuery()
+export function SocialSettingForm({}: Props) {
+  const { refetch, site } = useQuerySite()
   const { isPending, mutateAsync } = trpc.site.updateSite.useMutation()
 
   const social = (site.socials || {}) as Socials

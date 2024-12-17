@@ -22,8 +22,12 @@ export async function generateMetadata(): Promise<Metadata> {
 //   return paths
 // }
 
-export default async function TagPage({ params }: { params: { tag: string } }) {
-  const tagName = decodeURI(params.tag)
+export default async function TagPage({
+  params,
+}: {
+  params: Promise<{ tag: string }>
+}) {
+  const tagName = decodeURI((await params).tag)
 
   const [tagWithPosts, tags, site] = await Promise.all([
     getTagWithPost(tagName),

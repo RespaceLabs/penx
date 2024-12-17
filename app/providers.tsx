@@ -4,11 +4,10 @@ import { Suspense } from 'react'
 import { GoogleOauthDialog } from '@/components/GoogleOauthDialog/GoogleOauthDialog'
 import { SiteProvider } from '@/components/SiteContext'
 import { queryClient } from '@/lib/queryClient'
+import { StoreProvider } from '@/lib/store'
 import { trpc, trpcClient } from '@/lib/trpc'
 import useSession from '@/lib/useSession'
 import { wagmiConfig } from '@/lib/wagmi/wagmiConfig'
-import { StoreProvider } from '@/lib/store'
-import { Site } from '@penxio/types'
 import {
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,
@@ -39,14 +38,12 @@ function RainbowProvider({ children }: { children: React.ReactNode }) {
 export function Providers({
   children,
   cookies,
-  site,
 }: {
   children: React.ReactNode
-  cookies: string | null
-  site: Site
+  cookies?: string | null
 }) {
   return (
-    <SiteProvider site={site}>
+    <>
       <Toaster className="dark:hidden" richColors />
       <Toaster theme="dark" className="hidden dark:block" richColors />
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
@@ -56,6 +53,6 @@ export function Providers({
           </QueryClientProvider>
         </WagmiProvider>
       </trpc.Provider>
-    </SiteProvider>
+    </>
   )
 }

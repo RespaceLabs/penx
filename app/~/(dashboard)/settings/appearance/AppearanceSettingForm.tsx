@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { useQuerySite } from '@/lib/hooks/useQuerySite'
 import { trpc } from '@/lib/trpc'
 import { themes } from '@/themes/theme-loader'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -33,12 +34,10 @@ const FormSchema = z.object({
   themeName: z.string().optional(),
 })
 
-interface Props {
-  site: Site
-}
+interface Props {}
 
-export function AppearanceSettingForm({ site }: Props) {
-  const { refetch } = trpc.site.getSite.useQuery()
+export function AppearanceSettingForm({}: Props) {
+  const { refetch, site } = useQuerySite()
   const { isPending, mutateAsync } = trpc.site.updateSite.useMutation()
 
   const form = useForm<z.infer<typeof FormSchema>>({

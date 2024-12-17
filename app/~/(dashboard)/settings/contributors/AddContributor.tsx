@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'

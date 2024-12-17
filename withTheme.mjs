@@ -22,7 +22,7 @@ export function withTheme(nextConfig = {}) {
 
   return {
     ...nextConfig,
-    webpack(config, options) {
+    webpack(config) {
       const themeFilePath = path.join(__dirname, 'themes', 'theme-loader.ts')
       const themeContent = `
 ${importList}

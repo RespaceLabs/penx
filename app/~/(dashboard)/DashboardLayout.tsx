@@ -3,12 +3,12 @@
 import { ReactNode, useEffect, useState } from 'react'
 import { CreationDialog } from '@/components/CreationDialog/CreationDialog'
 import { LoadingDots } from '@/components/icons/loading-dots'
+import { SIDEBAR_WIDTH } from '@/lib/constants'
 import { useQueryEthBalance } from '@/lib/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/lib/hooks/useEthPrice'
-import { SIDEBAR_WIDTH } from '@/lib/constants'
 import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { Sidebar } from './Sidebar/Sidebar'
 
 export function DashboardLayout({ children }: { children: ReactNode }) {
@@ -20,7 +20,8 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const isNode = pathname?.includes('/~/objects')
   const isPost = pathname?.includes('/~/post/')
-  const isFullWidth = isNode || isPost
+  const params = useSearchParams()
+  const isFullWidth = isNode || isPost || !!params.get('id')
 
   useEffect(() => {
     if (status === 'loading') return

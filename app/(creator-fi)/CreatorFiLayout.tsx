@@ -5,15 +5,14 @@ import { useQueryEthBalance } from '@/app/(creator-fi)/hooks/useEthBalance'
 import { ClientOnly } from '@/components/ClientOnly'
 import LoadingCircle from '@/components/icons/loading-circle'
 import { Profile } from '@/components/Profile/Profile'
+import { useSpaceContext } from '@/components/SpaceContext'
 import { SpaceType } from '@/lib/types'
 import Link from 'next/link'
 import { SpaceBasicInfo } from './Space/SpaceBasicInfo'
 import { SpaceNav } from './Space/SpaceNav'
 
-interface HeaderProps {
-  space: SpaceType
-}
-function Header({ space }: HeaderProps) {
+interface HeaderProps {}
+function Header({}: HeaderProps) {
   return (
     <header className="flex h-16 items-center justify-between px-4">
       <div className="flex flex-1 items-center gap-2 ">
@@ -35,7 +34,7 @@ function Header({ space }: HeaderProps) {
             ></path>
           </svg>
         </Link>
-        <SpaceBasicInfo space={space} />
+        <SpaceBasicInfo />
       </div>
       <SpaceNav />
       <div className="flex flex-1 justify-end">
@@ -45,16 +44,14 @@ function Header({ space }: HeaderProps) {
   )
 }
 
-interface Props {
-  space: SpaceType
-}
+interface Props {}
 
-export function CreatorFiLayout({ children, space }: PropsWithChildren<Props>) {
+export function CreatorFiLayout({ children }: PropsWithChildren<Props>) {
   useQueryEthBalance()
 
   return (
     <>
-      <Header space={space} />
+      <Header />
       {children}
     </>
   )

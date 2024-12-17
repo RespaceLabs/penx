@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { getSite } from '@/lib/fetchers'
 import { loadTheme } from '@/themes/theme-loader'
+import { Providers } from '../providers'
 
 export const runtime = 'edge'
 // export const dynamic = 'force-static'
@@ -13,5 +14,9 @@ export default async function RootLayout({
 }) {
   const site = await getSite()
   const { SiteLayout } = loadTheme(site.themeName)
-  return <SiteLayout site={site}>{children}</SiteLayout>
+  return (
+    <Providers>
+      <SiteLayout site={site}>{children}</SiteLayout>
+    </Providers>
+  )
 }

@@ -1,14 +1,14 @@
 'use client'
 
+import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
 import { SpaceType } from '@/lib/types'
 import { getUrl } from '@/lib/utils'
 
-interface Props {
-  space: SpaceType
-}
+interface Props {}
 
-export function SpaceBasicInfo({ space }: Props) {
+export function SpaceBasicInfo({}: Props) {
+  const space = useSpaceContext()
   return (
     <div className="flex items-center gap-2">
       <img

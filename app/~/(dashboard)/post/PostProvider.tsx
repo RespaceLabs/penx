@@ -5,20 +5,21 @@ import { LoadingDots } from '@/components/icons/loading-dots'
 import { loadPost, postAtom, usePost } from '@/lib/hooks/usePost'
 import { usePostLoading } from '@/lib/hooks/usePostLoading'
 import { store } from '@/lib/store'
-import { useParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 export function PostProvider({ children }: PropsWithChildren) {
-  const params = useParams() as Record<string, string>
+  const params = useSearchParams()
+  const postId = params?.get('id')
   const { post } = usePost()
   const { isPostLoading } = usePostLoading()
 
   useEffect(() => {
-    if (!params?.postId) return
+    if (!postId) return
 
-    if (params?.postId && store.get(postAtom)?.id !== params?.postId) {
-      loadPost(params?.postId)
+    if (postId && store.get(postAtom)?.id !== postId) {
+      loadPost(postId)
     }
-  }, [params?.postId])
+  }, [postId])
 
   if (isPostLoading || !post) {
     return (

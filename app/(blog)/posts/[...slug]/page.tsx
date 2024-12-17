@@ -4,7 +4,7 @@ import { Post } from '@/server/db/schema'
 import { loadTheme } from '@/themes/theme-loader'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { PaidContent } from './PaidContent'
+// import { PaidContent } from './PaidContent'
 
 function getContent(post: Post) {
   const content = JSON.parse(post.content || '[]')
@@ -20,7 +20,7 @@ export async function generateMetadata({
 }: {
   params: any
 }): Promise<Metadata> {
-  const slug = decodeURI(params.slug.join('/'))
+  const slug = decodeURI((await params).slug.join('/'))
   const post = await getPost(slug)
 
   return {
@@ -34,8 +34,12 @@ export async function generateMetadata({
 //   return posts.map((post) => ({ slug: [post.slug] }))
 // }
 
-export default async function Page({ params }: { params: { slug: string[] } }) {
-  const slug = decodeURI(params.slug.join('/'))
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string[] }>
+}) {
+  const slug = decodeURI((await params).slug.join('/'))
   const [post, posts, site] = await Promise.all([
     getPost(slug),
     getPosts(),
@@ -54,24 +58,36 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   if (!PostDetail) throw new Error('Missing PostDetail component')
 
   // console.log('=====post:', post)
+  return (
+    <PostDetail
+      post={{
+        ...post,
+        content: getContent(post),
+        readingTime: '',
+      }}
+      readable
+      next={next}
+      prev={prev}
+    />
+  )
 
   /** No gated */
-  if (post?.gateType == GateType.FREE) {
-    return (
-      <>
-        <PostDetail
-          post={{
-            ...post,
-            content: getContent(post),
-            readingTime: '',
-          }}
-          readable
-          next={next}
-          prev={prev}
-        />
-      </>
-    )
-  }
+  // if (post?.gateType == GateType.FREE) {
+  //   return (
+  //     <>
+  //       <PostDetail
+  //         post={{
+  //           ...post,
+  //           content: getContent(post),
+  //           readingTime: '',
+  //         }}
+  //         readable
+  //         next={next}
+  //         prev={prev}
+  //       />
+  //     </>
+  //   )
+  // }
 
-  return <PaidContent postId={post.id} post={post} next={next} prev={prev} />
+  // return <PaidContent postId={post.id} post={post} next={next} prev={prev} />
 }

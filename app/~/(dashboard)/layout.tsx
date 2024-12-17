@@ -1,16 +1,17 @@
-import { ReactNode } from 'react'
-import { SiteProvider } from '@/components/SiteContext'
-import { getSite } from '@/lib/fetchers'
+import { ReactNode, Suspense } from 'react'
+import { DashboardProviders } from '@/app/DashboardProviders'
 import { DashboardLayout } from './DashboardLayout'
 
-export const runtime = 'edge'
+// export const runtime = 'edge'
 // export const dynamic = 'force-static'
+// export const revalidate = 3600 * 24
 
-export default async function Layout({ children }: { children: ReactNode }) {
-  const site = await getSite()
+export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <SiteProvider site={site}>
-      <DashboardLayout>{children}</DashboardLayout>
-    </SiteProvider>
+    <Suspense fallback={<div></div>}>
+      <DashboardProviders>
+        <DashboardLayout>{children}</DashboardLayout>
+      </DashboardProviders>
+    </Suspense>
   )
 }

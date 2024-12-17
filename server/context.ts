@@ -38,7 +38,7 @@ export async function createContext(opts: FetchCreateContextFnOptions) {
 
   const sessionOptions = getSessionOptions()
   const session = (await getIronSession(
-    cookies(),
+    await cookies(),
     sessionOptions,
   )) as SessionData
 

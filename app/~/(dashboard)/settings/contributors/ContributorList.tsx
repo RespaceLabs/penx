@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { DeleteConfirmDialog } from '@/components/DeleteConfirmDialog'
 import { LoadingDots } from '@/components/icons/loading-dots'

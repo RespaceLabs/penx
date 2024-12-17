@@ -4,7 +4,7 @@ import { trpc } from '@/lib/trpc'
 import AccessTokenCreateForm from './CreateForm'
 import AccessTokenList from './TokenList'
 
-export const runtime = 'edge'
+// export const runtime = 'edge'
 // export const dynamic = 'force-static'
 
 export default function Page() {

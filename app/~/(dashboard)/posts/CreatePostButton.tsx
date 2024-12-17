@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { editorDefaultValue } from '@/app/(creator-fi)/constants'
 import LoadingCircle from '@/components/icons/loading-circle'
 import { useSiteContext } from '@/components/SiteContext'
 import { Button } from '@/components/ui/button'
+import { editorDefaultValue } from '@/lib/constants'
 import { loadPost } from '@/lib/hooks/usePost'
 import { api } from '@/lib/trpc'
 import { PostType } from '@/lib/types'
@@ -24,7 +24,7 @@ export function CreatePostButton() {
         content: JSON.stringify(editorDefaultValue),
       })
       await loadPost(post.id)
-      push(`/~/post/${post.id}`)
+      push(`/~/post?id=${post.id}`)
     } catch (error) {
       toast.error('Failed to create post')
     }

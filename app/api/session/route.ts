@@ -23,7 +23,7 @@ export const runtime = 'edge'
 // login
 export async function POST(request: NextRequest) {
   const session = await getIronSession<SessionData>(
-    cookies(),
+    await cookies(),
     getSessionOptions(),
   )
   const json = await request.json()
@@ -110,7 +110,10 @@ export async function POST(request: NextRequest) {
 
 export async function PATCH() {
   const sessionOptions = getSessionOptions()
-  const session = await getIronSession<SessionData>(cookies(), sessionOptions)
+  const session = await getIronSession<SessionData>(
+    await cookies(),
+    sessionOptions,
+  )
 
   session.updateConfig({
     ...sessionOptions,
@@ -128,7 +131,10 @@ export async function PATCH() {
 // read session
 export async function GET() {
   const sessionOptions = getSessionOptions()
-  const session = await getIronSession<SessionData>(cookies(), sessionOptions)
+  const session = await getIronSession<SessionData>(
+    await cookies(),
+    sessionOptions,
+  )
 
   if (session?.isLoggedIn !== true) {
     return Response.json({})
@@ -140,7 +146,10 @@ export async function GET() {
 // logout
 export async function DELETE() {
   const sessionOptions = getSessionOptions()
-  const session = await getIronSession<SessionData>(cookies(), sessionOptions)
+  const session = await getIronSession<SessionData>(
+    await cookies(),
+    sessionOptions,
+  )
   session.destroy()
   return Response.json({ isLoggedIn: false })
 }
