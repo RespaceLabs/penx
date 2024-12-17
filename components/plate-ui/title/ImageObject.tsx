@@ -1,6 +1,6 @@
 import { forwardRef, useRef, useState } from 'react'
 import { ITitleElement } from '@/components/editor/plugins/title-plugin'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { uploadFile } from '@/lib/uploadFile'
 import { cn, getUrl, isIPFSCID } from '@/lib/utils'
 import { PlateElementProps } from '@udecode/plate-common/react'

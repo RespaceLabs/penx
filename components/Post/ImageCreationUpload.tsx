@@ -1,5 +1,5 @@
 import { forwardRef, useRef, useState } from 'react'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { api } from '@/lib/trpc'
 import { uploadFile } from '@/lib/uploadFile'
 import { Post } from '@/server/db/schema'

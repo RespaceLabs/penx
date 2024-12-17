@@ -1,7 +1,7 @@
 'use client'
 
 import { DeleteConfirmDialog } from '@/components/DeleteConfirmDialog'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { Separator } from '@/components/ui/separator'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'

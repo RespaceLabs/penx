@@ -1,9 +1,11 @@
 import { ReactNode } from 'react'
-import { ExternalLink } from 'lucide-react'
-import { Post } from '@penxio/types'
+import { ContentRender } from '@/components/ContentRender'
+import { PageTitle } from '@/components/theme-ui/PageTitle'
+import { PostActions } from '@/components/theme-ui/PostActions'
 import { cn, formatDate } from '@/lib/utils'
-import Link from '../components/Link'
-import PageTitle from '../components/PageTitle'
+import { Post } from '@penxio/types'
+import { ExternalLink } from 'lucide-react'
+import Link from 'next/link'
 
 interface LayoutProps {
   post: Post
@@ -11,18 +13,9 @@ interface LayoutProps {
   className?: string
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
-  PostActions?: (props: { post: Post; className?: string }) => JSX.Element
-  ContentRender?: (props: { content: any; className?: string }) => JSX.Element
 }
 
-export function PostDetail({
-  post,
-  next,
-  prev,
-  className,
-  PostActions,
-  ContentRender,
-}: LayoutProps) {
+export function PostDetail({ post, next, prev, className }: LayoutProps) {
   return (
     <div className={cn(className)}>
       <header className="space-y-4 pb-4">
@@ -40,11 +33,11 @@ export function PostDetail({
           </dl>
         </div>
 
-        {PostActions && <PostActions post={post} />}
+        <PostActions post={post} />
       </header>
       <div className="grid-rows-[auto_1fr]">
         <div className="prose max-w-none pb-8 dark:prose-invert">
-          {ContentRender && <ContentRender content={post.content} />}
+          <ContentRender content={post.content} />
         </div>
         {post.cid && (
           <div className="text-foreground/60 text-xs rounded-md py-2 md:flex items-center gap-2 hidden">

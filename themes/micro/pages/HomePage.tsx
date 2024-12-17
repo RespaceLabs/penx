@@ -1,6 +1,7 @@
+import { ContentRender } from '@/components/ContentRender'
+import { PageTitle } from '@/components/theme-ui/PageTitle'
 import { Post, Site } from '@penxio/types'
-import Link from '../components/Link'
-import PageTitle from '../components/PageTitle'
+import Link from 'next/link'
 import { PostItem } from '../components/PostItem'
 
 const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
@@ -8,10 +9,9 @@ const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
 interface Props {
   site: Site
   posts: Post[]
-  ContentRender: (props: { content: any[]; className?: string }) => JSX.Element
 }
 
-export function HomePage({ posts = [], site, ContentRender }: Props) {
+export function HomePage({ posts = [], site }: Props) {
   return (
     <div className="">
       <div className="prose max-w-none mb-10 text-foreground/70">

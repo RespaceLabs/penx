@@ -1,5 +1,3 @@
-import { ContentRender } from '@/components/ContentRender/ContentRender'
-import { PostActions } from '@/components/PostActions/PostActions'
 import { getPosts, getSite } from '@/lib/fetchers'
 import { loadTheme } from '@/themes/theme-loader'
 import { Metadata, ResolvingMetadata } from 'next'
@@ -26,13 +24,5 @@ export default async function HomePage() {
     return <div>Theme not found</div>
   }
 
-  return (
-    <HomePage
-      posts={posts}
-      authors={[]}
-      site={site}
-      ContentRender={ContentRender}
-      PostActions={PostActions}
-    />
-  )
+  return <HomePage posts={posts} authors={[]} site={site} />
 }

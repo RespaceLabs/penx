@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithChildren, useEffect } from 'react'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { loadPost, postAtom, usePost } from '@/lib/hooks/usePost'
 import { usePostLoading } from '@/lib/hooks/usePostLoading'
 import { store } from '@/lib/store'

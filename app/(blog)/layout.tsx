@@ -1,7 +1,4 @@
 import { ReactNode } from 'react'
-import { Airdrop } from '@/components/Airdrop/Airdrop'
-import { ModeToggle } from '@/components/ModeToggle'
-import { Profile } from '@/components/Profile/Profile'
 import { getSite } from '@/lib/fetchers'
 import { loadTheme } from '@/themes/theme-loader'
 
@@ -16,17 +13,5 @@ export default async function RootLayout({
 }) {
   const site = await getSite()
   const { SiteLayout } = loadTheme(site.themeName)
-
-  return (
-    <SiteLayout
-      site={site}
-      Logo={null}
-      ModeToggle={ModeToggle}
-      MobileNav={null}
-      ConnectButton={Profile}
-      Airdrop={Airdrop}
-    >
-      {children}
-    </SiteLayout>
-  )
+  return <SiteLayout site={site}>{children}</SiteLayout>
 }

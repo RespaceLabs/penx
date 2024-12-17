@@ -1,7 +1,5 @@
 'use client'
 
-import { ContentRender } from '@/components/ContentRender/ContentRender'
-import { PostActions } from '@/components/PostActions/PostActions'
 import { SubscriptionInSession } from '@/lib/types'
 import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
@@ -58,8 +56,6 @@ export function PaidContent({ postId, post, next, prev }: Props) {
           readable={false}
           next={next}
           prev={prev}
-          PostActions={PostActions}
-          ContentRender={ContentRender}
           className="min-h-[auto]"
         />
 
@@ -83,8 +79,6 @@ export function PaidContent({ postId, post, next, prev }: Props) {
         readable={hasMembership}
         next={next}
         prev={prev}
-        PostActions={PostActions}
-        ContentRender={ContentRender}
         className={cn(!hasMembership && 'min-h-[auto]')}
       />
       {!hasMembership && (

@@ -1,6 +1,6 @@
 'use client'
 
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { trpc } from '@/lib/trpc'
 import { SiteSettingForm } from './SiteSettingForm'
 

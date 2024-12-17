@@ -1,6 +1,6 @@
+import { ContentRender } from '@/components/ContentRender'
 import { Post, Site } from '@penxio/types'
-import Image from '../components/Image'
-import Link from '../components/Link'
+import Link from 'next/link'
 import { PostItem } from '../components/PostItem'
 
 const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
@@ -8,20 +8,17 @@ const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
 interface Props {
   site: Site
   posts: Post[]
-  ContentRender: (props: { content: any[]; className?: string }) => JSX.Element
 }
 
-export function HomePage({ posts = [], site, ContentRender }: Props) {
+export function HomePage({ posts = [], site }: Props) {
   return (
     <div className="mt-12">
       <div className="max-w-none mb-10 hover:text-foreground text-foreground/80">
         <div className="flex flex-col items-center flex-shrink-0">
           {site.logo && (
-            <Image
+            <img
               src={site.logo}
               alt="avatar"
-              width={192}
-              height={192}
               className="h-48 w-48 rounded-full"
             />
           )}

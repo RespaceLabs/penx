@@ -1,10 +1,11 @@
 import { ReactNode } from 'react'
+import { ContentRender } from '@/components/ContentRender'
+import { PageTitle } from '@/components/theme-ui/PageTitle'
+import { PostActions } from '@/components/theme-ui/PostActions'
 import { formatDate } from '@/lib/utils'
 import { Post } from '@penxio/types'
 import { ExternalLink } from 'lucide-react'
-import Image from '../components/Image'
-import Link from '../components/Link'
-import PageTitle from '../components/PageTitle'
+import Link from 'next/link'
 import SectionContainer from '../components/SectionContainer'
 
 interface LayoutProps {
@@ -13,18 +14,9 @@ interface LayoutProps {
   className?: string
   next?: Post
   prev?: Post
-  PostActions?: (props: { post: Post; className?: string }) => JSX.Element
-  ContentRender?: (props: { content: any; className?: string }) => JSX.Element
 }
 
-export function PostDetail({
-  post,
-  PostActions,
-  className,
-  ContentRender,
-  next,
-  prev,
-}: LayoutProps) {
+export function PostDetail({ post, className, next, prev }: LayoutProps) {
   return (
     <SectionContainer className={className}>
       <article className="mt-20 mx-auto w-full lg:max-w-3xl">
@@ -42,22 +34,20 @@ export function PostDetail({
             </dl>
           </div>
 
-          {PostActions && <PostActions post={post} />}
+          <PostActions post={post} />
         </header>
 
         {!!post.image && (
-          <Image
+          <img
             src={post.image || ''}
             alt=""
-            width={1000}
-            height={800}
             className="object-cover w-full max-h-96 rounded-2xl"
           />
         )}
 
         <div className="grid-rows-[auto_1fr]">
           <div className="prose max-w-none pb-8 dark:prose-invert">
-            {ContentRender && <ContentRender content={post.content} />}
+            <ContentRender content={post.content} />
           </div>
 
           {post.cid && (

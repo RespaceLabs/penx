@@ -1,5 +1,3 @@
-import { ContentRender } from '@/components/ContentRender/ContentRender'
-import { PostActions } from '@/components/PostActions/PostActions'
 import { getPost, getPosts, getSite } from '@/lib/fetchers'
 import { GateType } from '@/lib/types'
 import { Post } from '@/server/db/schema'
@@ -70,8 +68,6 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
           readable
           next={next}
           prev={prev}
-          PostActions={PostActions}
-          ContentRender={ContentRender}
         />
       </>
     )

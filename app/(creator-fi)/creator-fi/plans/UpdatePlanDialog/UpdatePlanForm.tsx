@@ -6,7 +6,7 @@ import { NumberInput } from '@/app/(creator-fi)/components/NumberInput'
 import { PlanStatus } from '@/app/(creator-fi)/domains/Plan'
 import { usePlans } from '@/app/(creator-fi)/hooks/usePlans'
 import { PlateEditor } from '@/components/editor/plate-editor'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
 import {

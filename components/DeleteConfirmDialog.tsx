@@ -21,7 +21,7 @@ import {
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
-import LoadingDots from './icons/loading-dots'
+import { LoadingDots } from './icons/loading-dots'
 import { Button } from './ui/button'
 
 interface Props {

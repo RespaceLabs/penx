@@ -6,7 +6,7 @@ import { SubscriptionType } from '@/app/(creator-fi)/constants'
 import { Space } from '@/app/(creator-fi)/domains/Space'
 import { useQueryEthBalance } from '@/app/(creator-fi)/hooks/useEthBalance'
 import { useTokenBalance } from '@/app/(creator-fi)/hooks/useTokenBalance'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { ProfileAvatar } from '@/components/Profile/ProfileAvatar'
 import { Button } from '@/components/ui/button'
 import {

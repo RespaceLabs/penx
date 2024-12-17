@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'

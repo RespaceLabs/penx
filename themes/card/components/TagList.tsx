@@ -2,8 +2,8 @@
 
 import { Tag } from '@penxio/types'
 import { slug } from 'github-slugger'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import Link from './Link'
 
 interface PostListWithTagProps {
   tags: Tag[]

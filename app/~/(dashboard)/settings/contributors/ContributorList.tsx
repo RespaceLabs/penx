@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { DeleteConfirmDialog } from '@/components/DeleteConfirmDialog'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   Select,

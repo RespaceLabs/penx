@@ -1,13 +1,12 @@
+import { ContentRender } from '@/components/ContentRender'
+import { PageTitle } from '@/components/theme-ui/PageTitle'
 import { Site } from '@penxio/types'
-import Image from '../components/Image'
-import PageTitle from '../components/PageTitle'
 
 interface Props {
   site: Site
-  ContentRender: (props: { content: any[]; className?: string }) => JSX.Element
 }
 
-export function AboutPage({ site, ContentRender }: Props) {
+export function AboutPage({ site }: Props) {
   return (
     <>
       <div className="">
@@ -15,11 +14,9 @@ export function AboutPage({ site, ContentRender }: Props) {
         <div className="">
           <div className="flex flex-col items-center space-x-2 pt-8">
             {site.logo && (
-              <Image
+              <img
                 src={site.logo}
                 alt="avatar"
-                width={192}
-                height={192}
                 className="h-48 w-48 rounded-full"
               />
             )}

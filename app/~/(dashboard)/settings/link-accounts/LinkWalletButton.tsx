@@ -1,6 +1,6 @@
 'use client'
 
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import { useMyAccounts } from '@/lib/hooks/useMyAccounts'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'

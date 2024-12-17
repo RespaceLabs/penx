@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { NumberInput } from '@/app/(creator-fi)/components/NumberInput'
 import { editorDefaultValue } from '@/app/(creator-fi)/constants'
 import { usePlans } from '@/app/(creator-fi)/hooks/usePlans'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { useSpaceContext } from '@/components/SpaceContext'
 import { Button } from '@/components/ui/button'
 import {

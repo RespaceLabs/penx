@@ -1,7 +1,6 @@
 import { formatDate } from '@/lib/utils'
 import { Post } from '@penxio/types'
-import Image from './Image'
-import Link from './Link'
+import Link from 'next/link'
 import Tag from './Tag'
 
 interface PostItemProps {
@@ -18,11 +17,9 @@ export function PostItem({ post }: PostItemProps) {
         className="object-cover w-full h-52 bg-foreground/10 rounded-lg overflow-hidden hover:scale-105 transition-all"
       >
         {!!post?.image && (
-          <Image
+          <img
             src={post.image || ''}
             alt=""
-            width={400}
-            height={400}
             className="object-cover w-full h-52"
           />
         )}

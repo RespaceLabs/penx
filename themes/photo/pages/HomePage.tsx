@@ -1,5 +1,5 @@
-import { Post, PostType, Site } from '@penxio/types'
 import { cn } from '@/lib/utils'
+import { Post, PostType, Site } from '@penxio/types'
 import { Lobster, Merienda } from 'next/font/google'
 import { PostItem } from '../components/PostItem'
 
@@ -12,11 +12,9 @@ const merienda = Lobster({
 interface Props {
   site: Site
   posts: Post[]
-  ContentRender: (props: { content: any[]; className?: string }) => JSX.Element
-  PostActions?: (props: { post: Post; className?: string }) => JSX.Element
 }
 
-export function HomePage({ posts = [], site, PostActions }: Props) {
+export function HomePage({ posts = [], site }: Props) {
   const creations = posts.filter((post) => post.type === PostType.IMAGE)
 
   const addresses = posts.reduce((acc, { user }) => {
@@ -40,14 +38,7 @@ export function HomePage({ posts = [], site, PostActions }: Props) {
       </div>
       <div className="flex flex-col gap-12">
         {creations.map((post) => {
-          return (
-            <PostItem
-              key={post.slug}
-              post={post}
-              PostActions={PostActions}
-              receivers={receivers}
-            />
-          )
+          return <PostItem key={post.slug} post={post} receivers={receivers} />
         })}
       </div>
     </div>

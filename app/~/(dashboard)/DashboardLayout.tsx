@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useState } from 'react'
 import { CreationDialog } from '@/components/CreationDialog/CreationDialog'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { useQueryEthBalance } from '@/lib/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/lib/hooks/useEthPrice'
 import { SIDEBAR_WIDTH } from '@/lib/constants'

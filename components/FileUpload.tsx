@@ -1,5 +1,5 @@
 import { forwardRef, useRef, useState } from 'react'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { uploadFile } from '@/lib/uploadFile'
 import { getUrl } from '@/lib/utils'
 import { Edit3 } from 'lucide-react'

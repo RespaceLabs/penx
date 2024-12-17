@@ -14,5 +14,3 @@ export const LoadingDots = ({ className }: LoadingDotsProps) => {
     </span>
   )
 }
-
-export default LoadingDots

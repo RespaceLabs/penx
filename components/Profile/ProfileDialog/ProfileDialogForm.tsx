@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { FileUpload } from '@/components/FileUpload'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {

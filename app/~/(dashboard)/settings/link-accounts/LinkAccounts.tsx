@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { useMyAccounts } from '@/lib/hooks/useMyAccounts'
 import { trpc } from '@/lib/trpc'
 import { ProviderType } from '@/lib/types'

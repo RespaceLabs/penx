@@ -1,6 +1,6 @@
-import { Post } from '@penxio/types'
 import { formatDate } from '@/lib/utils'
-import Link from './Link'
+import { Post } from '@penxio/types'
+import Link from 'next/link'
 
 interface PostItemProps {
   post: Post

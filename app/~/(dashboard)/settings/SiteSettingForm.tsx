@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form'
 import { PlateEditor } from '@/components/editor/plate-editor'
 import { FileUpload } from '@/components/FileUpload'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
   Form,

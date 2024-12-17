@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { IconGoogle } from '@/components/icons/IconGoogle'
 import LoadingCircle from '@/components/icons/loading-circle'
-import LoadingDots from '@/components/icons/loading-dots'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import {
   Dialog,
   DialogContent,

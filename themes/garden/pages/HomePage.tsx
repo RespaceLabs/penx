@@ -11,16 +11,9 @@ const lobster = Lobster({
 interface Props {
   site: Site
   posts: Post[]
-  ContentRender: (props: { content: any[]; className?: string }) => JSX.Element
-  PostActions?: (props: { post: Post; className?: string }) => JSX.Element
 }
 
-export function HomePage({
-  posts = [],
-  site,
-  PostActions,
-  ContentRender,
-}: Props) {
+export function HomePage({ posts = [], site }: Props) {
   const addresses = posts.reduce((acc, { user }) => {
     const { accounts = [] } = user
     for (const a of accounts) {
@@ -34,15 +27,7 @@ export function HomePage({
     <div className="mx-auto sm:max-w-xl flex flex-col gap-10 mt-4">
       <div className="flex flex-col divide-y divide-foreground/5">
         {posts.map((post) => {
-          return (
-            <PostItem
-              key={post.slug}
-              post={post}
-              PostActions={PostActions}
-              ContentRender={ContentRender}
-              receivers={receivers}
-            />
-          )
+          return <PostItem key={post.slug} post={post} receivers={receivers} />
         })}
       </div>
     </div>
