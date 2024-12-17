@@ -28,7 +28,7 @@ To deploy PenX to cloudflare, follow these steps:
 First, clone the PenX project to your local machine by executing the following command:
 
 ```bash
-git clone https://github.com/penx-dao/penx
+git clone https://github.com/penx-labs/penx
 ```
 
 #### 2. Configure `wrangler.toml`
@@ -58,6 +58,8 @@ database_id = "00e31c14-e6ae-4612-9bc3-d25c6a1f8023d"
 Copy the `database_id` and update it in your `wrangler.toml` file.
 
 #### 4. Create Cloudflare R2 Bucket
+
+> Before create R2 Bucket, you need to bind a credit card to Cloudflare.
 
 Create a Cloudflare R2 bucket by running:
 
@@ -91,7 +93,7 @@ pnpm run db:migrate:prod # Required for initial release
 pnpm run deploy
 ```
 
-Upon successful deployment, you will receive a URL like: `https://penx-cloudflare.pages.dev`.
+Upon successful deployment, you will receive a URL like: https://penx-cloudflare.pages.dev.
 
 ### Examples Blogs
 

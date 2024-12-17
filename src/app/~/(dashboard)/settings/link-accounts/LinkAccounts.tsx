@@ -1,14 +1,27 @@
 'use client'
 
+import { useEffect } from 'react'
 import LoadingDots from '@/components/icons/loading-dots'
 import { useMyAccounts } from '@/hooks/useMyAccounts'
 import { trpc } from '@/lib/trpc'
 import { ProviderType } from '@/lib/types'
+import { useSearchParams } from 'next/navigation'
+import { toast } from 'sonner'
 import { AccountList } from './AccountList'
 import { LinkGoogleButton } from './LinkGoogleButton'
 import { LinkWalletButton } from './LinkWalletButton'
 
 export function LinkAccounts() {
+  const searchParams = useSearchParams()
+  const error = searchParams?.get('error')
+
+  useEffect(() => {
+    const errorMessage = Array.isArray(error) ? error.pop() : error
+    if (errorMessage === 'account_linked') {
+      toast.error('This google is already linked')
+    }
+  }, [error])
+
   const { isLoading, data: accounts = [] } = useMyAccounts()
 
   const hasGoogleAccount = accounts.some(

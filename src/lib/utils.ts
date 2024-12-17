@@ -119,7 +119,8 @@ export function getAccountAddress(account: AccountWithUser) {
 }
 
 export function getUserName(user: User) {
-  const { displayName = '', name = '' } = user
+  const { displayName = '' } = user
+  const name = user.name || ''
 
   if (displayName) {
     if (isAddress(displayName)) {

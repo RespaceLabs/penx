@@ -26,7 +26,6 @@ export async function POST(request: NextRequest) {
     cookies(),
     getSessionOptions(),
   )
-
   const json = await request.json()
 
   if (isGoogleLogin(json)) {
