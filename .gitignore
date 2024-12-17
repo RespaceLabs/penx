@@ -44,4 +44,4 @@ wrangler.toml
 
 /migrations
 
-src/themes/theme-loader.ts
+themes/theme-loader.ts

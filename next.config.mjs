@@ -10,14 +10,7 @@ if (process.env.NODE_ENV === 'development') {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: [
-    'react-tweet',
-    'penx-theme-micro',
-    'penx-theme-card',
-    'penx-theme-minimal',
-    'penx-theme-garden',
-    'penx-theme-photo',
-  ],
+  transpilePackages: ['react-tweet'],
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',

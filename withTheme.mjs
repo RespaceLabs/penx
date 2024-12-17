@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url'
 export function withTheme(nextConfig = {}) {
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = path.dirname(__filename)
-  const themesDir = path.join(__dirname, 'src', 'themes')
+  const themesDir = path.join(__dirname, 'themes')
 
   const dir = fs.readdirSync(themesDir).filter((f) => {
     const fullPath = path.join(themesDir, f)
@@ -23,12 +23,7 @@ export function withTheme(nextConfig = {}) {
   return {
     ...nextConfig,
     webpack(config, options) {
-      const themeFilePath = path.join(
-        __dirname,
-        'src',
-        'themes',
-        'theme-loader.ts',
-      )
+      const themeFilePath = path.join(__dirname, 'themes', 'theme-loader.ts')
       const themeContent = `
 ${importList}
 ${themesText}

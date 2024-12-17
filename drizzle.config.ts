@@ -1,4 +1,4 @@
-import { env } from '@/env'
+import { env } from '@/server/env'
 import { defineConfig } from 'drizzle-kit'
 
 /*
@@ -8,14 +8,14 @@ import { defineConfig } from 'drizzle-kit'
  */
 export default env.DB_LOCAL_PATH
   ? defineConfig({
-      schema: './src/server/db/schema.ts',
+      schema: './server/db/schema.ts',
       dialect: 'sqlite',
       dbCredentials: {
         url: env.DB_LOCAL_PATH as string,
       },
     })
   : defineConfig({
-      schema: './src/server/db/schema.ts',
+      schema: './server/db/schema.ts',
       out: './migrations',
       driver: 'd1-http',
       dialect: 'sqlite',
