@@ -1,68 +1,106 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`c3`](https://developers.cloudflare.com/pages/get-started/c3).
+# PenX
 
-## Getting Started
+<div align="center">
 
-First, run the development server:
+<a href="https://www.penx.io" alt="PenX Logo">
+    <img src="https://www.penx.io/images/logo-512.png" height="120"/></a>
+
+<h1 style="border-bottom: none">
+    <b>PenX</b><br />
+    Next generation blogging tools
+    <br>
+</h1>
+
+[Discord](https://discord.gg/nyVpH9njDu) | [Website](https://www.penx.io) | [Issues](https://github.com/penx-lab/penx/issues)
+
+</div>
+
+## Introduction
+
+Deploy a dynamic blog using Cloudflare Pages, D1, R1, and AI.
+
+### Deploy your own
+
+To deploy PenX to cloudflare, follow these steps:
+
+#### 1. Clone the PenX Repository
+
+First, clone the PenX project to your local machine by executing the following command:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/penx-labs/penx
+pnpm install # 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### 2. Configure `wrangler.toml`
 
-## Cloudflare integration
+Next, rename `wrangler.toml.example` to `wrangler.toml`.
 
-Besides the `dev` script mentioned above `c3` has added a few extra scripts that allow you to integrate the application with the [Cloudflare Pages](https://pages.cloudflare.com/) environment, these are:
-  - `pages:build` to build the application for Pages using the [`@cloudflare/next-on-pages`](https://github.com/cloudflare/next-on-pages) CLI
-  - `preview` to locally preview your Pages application using the [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI
-  - `deploy` to deploy your Pages application using the [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI
+#### 3. Create a Cloudflare D1 Database
 
-> __Note:__ while the `dev` script is optimal for local development you should preview your Pages application as well (periodically or before deployments) in order to make sure that it can properly work in the Pages environment (for more details see the [`@cloudflare/next-on-pages` recommended workflow](https://github.com/cloudflare/next-on-pages/blob/main/internal-packages/next-dev/README.md#recommended-development-workflow))
+Run the following command to create a Cloudflare D1 database:
 
-### Bindings
+```bash
+npx wrangler d1 create penx-blog
+```
 
-Cloudflare [Bindings](https://developers.cloudflare.com/pages/functions/bindings/) are what allows you to interact with resources available in the Cloudflare Platform.
+If successful, you will see a confirmation message similar to this:
 
-You can use bindings during development, when previewing locally your application and of course in the deployed application:
+```
+✅ Successfully created DB 'penx-blog' in region WNAM
+Created your new D1 database.
 
-- To use bindings in dev mode you need to define them in the `next.config.js` file under `setupDevBindings`, this mode uses the `next-dev` `@cloudflare/next-on-pages` submodule. For more details see its [documentation](https://github.com/cloudflare/next-on-pages/blob/05b6256/internal-packages/next-dev/README.md).
+[[d1_databases]]
+binding = "DB"
+database_name = "penx-blog"
+database_id = "00e31c14-e6ae-4612-9bc3-d25c6a1f8023d"
+```
 
-- To use bindings in the preview mode you need to add them to the `pages:preview` script accordingly to the `wrangler pages dev` command. For more details see its [documentation](https://developers.cloudflare.com/workers/wrangler/commands/#dev-1) or the [Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/).
+Copy the `database_id` and update it in your `wrangler.toml` file.
 
-- To use bindings in the deployed application you will need to configure them in the Cloudflare [dashboard](https://dash.cloudflare.com/). For more details see the  [Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/).
+#### 4. Create Cloudflare R2 Bucket
 
-#### KV Example
+> Before create R2 Bucket, you need to bind a credit card to Cloudflare.
 
-`c3` has added for you an example showing how you can use a KV binding.
+Create a Cloudflare R2 bucket by running:
 
-In order to enable the example:
-- Search for javascript/typescript lines containing the following comment:
-  ```ts
-  // KV Example:
-  ```
-  and uncomment the commented lines below it (also uncomment the relevant imports).
-- Do the same in the `wrangler.toml` file, where
-  the comment is:
-  ```
-  # KV Example:
-  ```
-- If you're using TypeScript run the `cf-typegen` script to update the `env.d.ts` file:
-  ```bash
-  npm run cf-typegen
-  # or
-  yarn cf-typegen
-  # or
-  pnpm cf-typegen
-  # or
-  bun cf-typegen
-  ```
+```bash
+npx wrangler r2 bucket create penx-bucket
+```
 
-After doing this you can run the `dev` or `preview` script and visit the `/api/hello` route to see the example in action.
+You should receive a message confirming the creation of the bucket:
 
-Finally, if you also want to see the example work in the deployed application make sure to add a `MY_KV_NAMESPACE` binding to your Pages application in its [dashboard kv bindings settings section](https://dash.cloudflare.com/?to=/:account/pages/view/:pages-project/settings/functions#kv_namespace_bindings_section). After having configured it make sure to re-deploy your application.
+```
+✅ Created bucket 'penx-bucket' with default storage class of Standard.
+
+Configure your Worker to write objects to this bucket:
+
+[[r2_buckets]]
+bucket_name = "penx-bucket"
+binding = "penx_bucket"
+```
+
+#### 5. Configure Session Password
+
+To set up a session password, visit [this link](https://generate-secret.vercel.app/64) to generate a secure password. Replace `SESSION_PASSWORD` in your `wrangler.toml` with this value.
+
+#### 6. Deploy to Cloudflare Pages
+
+Finally, deploy your blog by running these commands:
+
+```bash
+pnpm run db:generate # Required for initial release
+pnpm run db:migrate:prod # Required for initial release
+pnpm run deploy
+```
+
+Upon successful deployment, you will receive a URL like: https://penx-cloudflare.pages.dev.
+
+### Examples Blogs
+
+- https://demo1.penx.io
+- https://demo2.penx.io
+- https://demo3.penx.io
+- https://demo4.penx.io
+
+## ⚖️ License
