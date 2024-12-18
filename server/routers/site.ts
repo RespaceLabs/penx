@@ -1,4 +1,3 @@
-import { AuthType, StorageProvider } from '@/lib/types'
 import { eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'

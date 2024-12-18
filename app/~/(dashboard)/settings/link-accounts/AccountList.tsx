@@ -1,18 +1,19 @@
 'use client'
 
+import { KeyIcon } from 'lucide-react'
+import { toast } from 'sonner'
 import { IconGoogle } from '@/components/icons/IconGoogle'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { useMyAccounts } from '@/lib/hooks/useMyAccounts'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { useMyAccounts } from '@/lib/hooks/useMyAccounts'
 import { trpc } from '@/lib/trpc'
 import { ProviderType } from '@/lib/types'
 import { shortenAddress } from '@/lib/utils'
 import { Account } from '@/server/db/schema'
 import { AvatarImage } from '@radix-ui/react-avatar'
-import { toast } from 'sonner'
 
 function AccountItem({ account }: { account: Account }) {
   const { refetch } = useMyAccounts()
@@ -71,6 +72,27 @@ function AccountItem({ account }: { account: Account }) {
             <AvatarFallback>{info?.name?.slice(0, 1)}</AvatarFallback>
           </Avatar>
           <div className="">{shortenAddress(account.providerAccountId!)}</div>
+        </div>
+        {removeButton}
+      </div>
+    )
+  }
+
+  if (account.providerType === ProviderType.PASSWORD) {
+    return (
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Badge variant="secondary" className="gap-1">
+            <KeyIcon size={14} />
+            <span>Password</span>
+          </Badge>
+          <Avatar className="w-6 h-6">
+            <AvatarImage src={info?.picture} />
+            <AvatarFallback>
+              {account.providerAccountId?.slice(0, 1)}
+            </AvatarFallback>
+          </Avatar>
+          <div className="">{account.providerAccountId}/---</div>
         </div>
         {removeButton}
       </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
-import { GoogleLoginData, SessionData } from '@/lib/session'
+import { GoogleLoginData, LoginData, SessionData } from '@/lib/session'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { queryClient } from './queryClient'
 
@@ -20,19 +20,6 @@ async function fetchJson<JSON = unknown>(
   }).then((res) => res.json())
 }
 
-function doLogin(url: string, { arg }: { arg: string }) {
-  return fetchJson<SessionData>(url, {
-    method: 'POST',
-    body: JSON.stringify({ username: arg }),
-  })
-}
-
-function doLogout(url: string) {
-  return fetchJson<SessionData>(url, {
-    method: 'DELETE',
-  })
-}
-
 export default function useSession() {
   const { isPending, data: session } = useQuery({
     queryKey: ['session'],
@@ -47,13 +34,14 @@ export default function useSession() {
   // const { trigger: logout } = useSWRMutation(sessionApiRoute, doLogout)
   // const { trigger: increment } = useSWRMutation(sessionApiRoute, doIncrement)
 
-  async function login(data: GoogleLoginData) {
+  async function login(data: LoginData) {
     const res = await fetchJson<SessionData>(sessionApiRoute, {
       body: JSON.stringify(data),
       method: 'POST',
     })
 
     queryClient.setQueriesData({ queryKey: ['session'] }, res)
+    return res
   }
 
   async function logout() {

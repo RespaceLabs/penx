@@ -1,7 +1,11 @@
 'use client'
 
 import { Suspense } from 'react'
+import { Toaster } from 'sonner'
+import { createSiweMessage } from 'viem/siwe'
+import { WagmiProvider } from 'wagmi'
 import { GoogleOauthDialog } from '@/components/GoogleOauthDialog/GoogleOauthDialog'
+import { LoginDialog } from '@/components/LoginDialog/LoginDialog'
 import { SiteProvider } from '@/components/SiteContext'
 import { queryClient } from '@/lib/queryClient'
 import { StoreProvider } from '@/lib/store'
@@ -15,18 +19,14 @@ import {
 } from '@rainbow-me/rainbowkit'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { signMessage } from '@wagmi/core'
-import { Toaster } from 'sonner'
-import { createSiweMessage } from 'viem/siwe'
-import { WagmiProvider } from 'wagmi'
 import { RainbowKitSiweProvider } from './RainbowKitSiweProvider'
 
 function RainbowProvider({ children }: { children: React.ReactNode }) {
-  const { status } = useSession()
-
   return (
     <RainbowKitSiweProvider>
       <RainbowKitProvider>
         <StoreProvider>
+          <LoginDialog />
           <GoogleOauthDialog />
           {children}
         </StoreProvider>

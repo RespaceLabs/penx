@@ -1,5 +1,4 @@
 import { editorDefaultValue } from '@/lib/constants'
-import { AuthType, StorageProvider } from '@/lib/types'
 import { getUrl } from '@/lib/utils'
 import { Site } from '@penxio/types'
 import { db } from '../db'

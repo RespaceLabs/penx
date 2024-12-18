@@ -2,13 +2,11 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import {
-  AuthType,
   CommentStatus,
   GateType,
   PostStatus,
   PostType,
   SiteMode,
-  StorageProvider,
   UserRole,
 } from '@/lib/types'
 import { relations } from 'drizzle-orm'
@@ -98,8 +96,8 @@ export const accounts = table(
       .default(''),
     providerInfo: text('providerInfo'),
     email: text('email', { length: 255 }),
-    refreshToken: text('refreshToken', { length: 255 }),
     accessToken: text('accessToken', { length: 255 }),
+    refreshToken: text('refreshToken', { length: 255 }),
     expiresAt: integer('expiresAt', { mode: 'timestamp' }),
     userId: text('userId').notNull(),
     createdAt: integer('createdAt', { mode: 'timestamp' })

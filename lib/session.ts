@@ -1,9 +1,10 @@
+import { compareSync } from 'bcrypt-edge'
+import { and, eq } from 'drizzle-orm'
+import { getIronSession, SessionOptions } from 'iron-session'
+import { cookies } from 'next/headers'
 import { db } from '@/server/db'
 import { accounts, posts, sites, users } from '@/server/db/schema'
 import { getRequestContext } from '@cloudflare/next-on-pages'
-import { eq } from 'drizzle-orm'
-import { getIronSession, SessionOptions } from 'iron-session'
-import { cookies } from 'next/headers'
 import { defaultPostContent } from './constants'
 import { PostStatus, PostType, ProviderType, UserRole } from './types'
 
@@ -22,6 +23,7 @@ export interface SessionData {
   ensName: string | null
   role: string
   subscriptions: SubscriptionInSession[]
+  message: string
 }
 
 export type GoogleLoginInfo = {
@@ -30,6 +32,8 @@ export type GoogleLoginInfo = {
   picture: string
   name: string
 }
+
+export type LoginData = GoogleLoginData | WalletLoginData | PasswordLoginData
 
 export type GoogleLoginData = GoogleLoginInfo & {
   type: 'penx-google'
@@ -41,12 +45,22 @@ export type WalletLoginData = {
   signature: string
 }
 
+export type PasswordLoginData = {
+  type: 'password'
+  username: string
+  password: string
+}
+
 export function isGoogleLogin(value: any): value is GoogleLoginData {
   return typeof value === 'object' && value?.type === 'penx-google'
 }
 
 export function isWalletLogin(value: any): value is WalletLoginData {
   return typeof value === 'object' && value?.type === 'wallet'
+}
+
+export function isPasswordLogin(value: any): value is PasswordLoginData {
+  return typeof value === 'object' && value?.type === 'password'
 }
 
 export function getSessionOptions() {
@@ -70,6 +84,7 @@ export async function getServerSession() {
     await cookies(),
     sessionOptions,
   )) as SessionData
+
   return session
 }
 
@@ -148,6 +163,24 @@ export async function createUserByAddress(address: any) {
       user: true,
     },
   })
+}
+
+export async function loginByPassword(username: string, password: string) {
+  const account = await db.query.accounts.findFirst({
+    where: and(
+      eq(accounts.providerType, ProviderType.PASSWORD),
+      eq(accounts.providerAccountId, username),
+    ),
+    with: { user: true },
+  })
+
+  if (!account) {
+    throw new Error('INVALID_USERNAME')
+  }
+
+  const match = compareSync(password, account.accessToken || '')
+  if (!match) throw new Error('INVALID_PASSWORD')
+  return account
 }
 
 async function initSite(userId: string) {

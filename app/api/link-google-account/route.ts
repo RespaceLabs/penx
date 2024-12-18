@@ -55,6 +55,7 @@ export async function GET(req: NextRequest) {
       email,
       name: name || '',
       displayName: name,
+      image: picture,
       google: JSON.stringify({
         name,
         email,

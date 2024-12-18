@@ -96,6 +96,7 @@
     "@wagmi/core": "^2.16.0",
     "ai": "^4.0.18",
     "array-move": "^4.0.0",
+    "bcrypt-edge": "^0.1.0",
     "big.js": "^6.2.2",
     "case-anything": "^3.1.0",
     "class-variance-authority": "^0.7.1",

@@ -1,17 +1,3 @@
-export enum AuthType {
-  GOOGLE = 'GOOGLE',
-  REOWN = 'REOWN',
-  RAINBOW_KIT = 'RAINBOW_KIT',
-  PRIVY = 'PRIVY',
-}
-
-export enum StorageProvider {
-  IPFS = 'IPFS',
-  R2 = 'R2',
-  VERCEL_BLOB = 'VERCEL_BLOB',
-  SUPABASE_STORAGE = 'SUPABASE_STORAGE',
-}
-
 export enum SiteMode {
   BASIC = 'BASIC',
   NOTE_TAKING = 'NOTE_TAKING',
@@ -55,4 +41,5 @@ export enum ProviderType {
   GITHUB = 'GITHUB',
   WALLET = 'WALLET',
   FARCASTER = 'FARCASTER',
+  PASSWORD = 'PASSWORD',
 }

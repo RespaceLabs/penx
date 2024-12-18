@@ -1,14 +1,14 @@
 'use client'
 
+import { toast } from 'sonner'
+import { useAccount, useSignMessage } from 'wagmi'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
-import { useMyAccounts } from '@/lib/hooks/useMyAccounts'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { useMyAccounts } from '@/lib/hooks/useMyAccounts'
 import { api } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { toast } from 'sonner'
-import { useAccount, useSignMessage } from 'wagmi'
 
 export function LinkWalletButton() {
   const { signMessageAsync } = useSignMessage()
@@ -20,6 +20,7 @@ export function LinkWalletButton() {
     <div>
       <Button
         size="lg"
+        variant="outline"
         className={cn('rounded-lg gap-2 w-full')}
         disabled={isLoading}
         onClick={async () => {

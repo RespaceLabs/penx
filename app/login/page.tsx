@@ -40,7 +40,7 @@ export default async function Page() {
         <Card className="flex flex-col sm:w-96">
           <CardHeader>
             <CardTitle>Login</CardTitle>
-            <CardDescription>Login with Google or Web3 Wallets</CardDescription>
+            <CardDescription>Login to write</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-1">

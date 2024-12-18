@@ -8,16 +8,15 @@ import { Avatar, AvatarFallback } from './ui/avatar'
 
 interface Props extends ButtonProps {}
 
-export const WalletConnectButton = (props: Props) => {
+export const WalletConnectButton = ({ onClick, ...props }: Props) => {
   const { openConnectModal } = useConnectModal()
   const address = useAddress()
 
-  async function onOpen() {
+  async function onOpen(e: any) {
     openConnectModal?.()
-  }
-
-  function onClick() {
-    onOpen()
+    setTimeout(() => {
+      onClick?.(e)
+    }, 10)
   }
 
   // if (address) {
@@ -29,7 +28,7 @@ export const WalletConnectButton = (props: Props) => {
   // }
 
   return (
-    <Button onClick={onClick} {...props}>
+    <Button onClick={onOpen} {...props}>
       {props.children ? props.children : 'Connect'}
     </Button>
   )

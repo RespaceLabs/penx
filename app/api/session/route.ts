@@ -1,14 +1,3 @@
-import { NETWORK } from '@/lib/constants'
-import { getBasePublicClient } from '@/lib/getBasePublicClient'
-import {
-  createUserByAddress,
-  createUserByGoogleInfo,
-  getSessionOptions,
-  isGoogleLogin,
-  isWalletLogin,
-  SessionData,
-} from '@/lib/session'
-import { getAccountAddress } from '@/lib/utils'
 import { getIronSession } from 'iron-session'
 import { cookies } from 'next/headers'
 import { NextRequest } from 'next/server'
@@ -17,6 +6,20 @@ import {
   validateSiweMessage,
   type SiweMessage,
 } from 'viem/siwe'
+import { NETWORK } from '@/lib/constants'
+import { getBasePublicClient } from '@/lib/getBasePublicClient'
+import {
+  createUserByAddress,
+  createUserByGoogleInfo,
+  getServerSession,
+  getSessionOptions,
+  isGoogleLogin,
+  isPasswordLogin,
+  isWalletLogin,
+  loginByPassword,
+  SessionData,
+} from '@/lib/session'
+import { getAccountAddress } from '@/lib/utils'
 
 export const runtime = 'edge'
 
@@ -30,12 +33,14 @@ export async function POST(request: NextRequest) {
 
   if (isGoogleLogin(json)) {
     const account = (await createUserByGoogleInfo(json))!
+
     session.isLoggedIn = true
     session.userId = account.userId
     session.address = getAccountAddress(account)
     session.name = account.user.name as string
     session.image = account.user.image as string
     session.role = account.user.role as string
+    session.message = ''
     session.subscriptions = Array.isArray(account.user.subscriptions)
       ? account.user.subscriptions.map((i: any) => ({
           planId: i.planId,
@@ -81,6 +86,7 @@ export async function POST(request: NextRequest) {
       const account = (await createUserByAddress(address.toLowerCase()))!
 
       session.isLoggedIn = true
+      session.message = ''
       session.userId = account.userId
       session.address = address
       session.name = account.user.name as string
@@ -101,7 +107,42 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  console.log('======json============', json)
+  if (isPasswordLogin(json)) {
+    try {
+      const account = (await loginByPassword(json.username, json.password))!
+      session.isLoggedIn = true
+      session.message = ''
+      session.userId = account.userId
+      session.address = getAccountAddress(account)
+      session.name = account.user.name as string
+      session.image = account.user.image as string
+      session.role = account.user.role as string
+      session.subscriptions = Array.isArray(account.user.subscriptions)
+        ? account.user.subscriptions.map((i: any) => ({
+            planId: i.planId,
+            startTime: i.startTime,
+            duration: i.duration,
+          }))
+        : []
+
+      await session.save()
+      return Response.json(session)
+    } catch (error: any) {
+      console.log('error.mess==:', error.message)
+
+      if (error.message === 'INVALID_USERNAME') {
+        session.message = 'Invalid username'
+      }
+
+      if (error.message === 'INVALID_PASSWORD') {
+        session.message = 'Invalid password'
+      }
+
+      session.isLoggedIn = false
+      await session.save()
+      return Response.json(session)
+    }
+  }
 
   session.isLoggedIn = false
   await session.save()
@@ -130,11 +171,7 @@ export async function PATCH() {
 
 // read session
 export async function GET() {
-  const sessionOptions = getSessionOptions()
-  const session = await getIronSession<SessionData>(
-    await cookies(),
-    sessionOptions,
-  )
+  const session = await getServerSession()
 
   if (session?.isLoggedIn !== true) {
     return Response.json({})
@@ -150,6 +187,7 @@ export async function DELETE() {
     await cookies(),
     sessionOptions,
   )
+
   session.destroy()
   return Response.json({ isLoggedIn: false })
 }

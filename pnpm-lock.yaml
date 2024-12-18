@@ -245,6 +245,9 @@ importers:
       array-move:
         specifier: ^4.0.0
         version: 4.0.0
+      bcrypt-edge:
+        specifier: ^0.1.0
+        version: 0.1.0
       big.js:
         specifier: ^6.2.2
         version: 6.2.2
@@ -3545,6 +3548,9 @@ packages:
 
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
+
+  bcrypt-edge@0.1.0:
+    resolution: {integrity: sha512-kTmsr8pHBxW6PwTc+jjAXw6eaHnxWaG5m058bYNftGZQEpG3ZwQrRip9f9RSFvUqLs50unwXdr/YrBIc1jbQsA==}
 
   better-sqlite3@11.7.0:
     resolution: {integrity: sha512-mXpa5jnIKKHeoGzBrUJrc65cXFKcILGZpU3FXR0pradUEm9MA7UZz02qfEejaMcm9iXrSOCenwwYMJ/tZ1y5Ig==}
@@ -10966,6 +10972,8 @@ snapshots:
   balanced-match@1.0.2: {}
 
   base64-js@1.5.1: {}
+
+  bcrypt-edge@0.1.0: {}
 
   better-sqlite3@11.7.0:
     dependencies:

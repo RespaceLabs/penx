@@ -1,10 +1,11 @@
-import { NETWORK, NetworkNames } from '@/lib/constants'
-import { ProviderType, UserRole } from '@/lib/types'
-import { TRPCError } from '@trpc/server'
+import { genSaltSync, hashSync } from 'bcrypt-edge'
 import { eq, or } from 'drizzle-orm'
 import { createPublicClient, http } from 'viem'
 import { base, baseSepolia } from 'viem/chains'
 import { z } from 'zod'
+import { NETWORK, NetworkNames } from '@/lib/constants'
+import { ProviderType, UserRole } from '@/lib/types'
+import { TRPCError } from '@trpc/server'
 import { db } from '../db'
 import { accounts, users } from '../db/schema'
 import { getEthPrice } from '../lib/getEthPrice'
@@ -169,13 +170,13 @@ export const userRouter = router({
         .where(eq(users.id, input.userId))
     }),
 
-  myAccounts: publicProcedure.query(({ ctx }) => {
+  myAccounts: protectedProcedure.query(({ ctx }) => {
     return db.query.accounts.findMany({
       where: eq(accounts.userId, ctx.token.uid),
     })
   }),
 
-  linkWallet: publicProcedure
+  linkWallet: protectedProcedure
     .input(
       z.object({
         signature: z.string(),
@@ -220,6 +221,33 @@ export const userRouter = router({
       })
     }),
 
+  linkPassword: publicProcedure
+    .input(
+      z.object({
+        username: z.string(),
+        password: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const account = await db.query.accounts.findFirst({
+        where: eq(accounts.providerAccountId, input.username),
+      })
+
+      if (account) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'This username already existed',
+        })
+      }
+
+      await db.insert(accounts).values({
+        userId: ctx.token.uid,
+        providerType: ProviderType.PASSWORD,
+        providerAccountId: input.username,
+        accessToken: await hashPassword(input.password),
+      })
+    }),
+
   disconnectAccount: publicProcedure
     .input(
       z.object({
@@ -255,3 +283,8 @@ export const userRouter = router({
     return getEthPrice()
   }),
 })
+
+async function hashPassword(password: string) {
+  const salt = genSaltSync(10)
+  return hashSync(password, salt)
+}

@@ -1,6 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { toast } from 'sonner'
 import { IconGoogle } from '@/components/icons/IconGoogle'
 import LoadingCircle from '@/components/icons/loading-circle'
 import { LoadingDots } from '@/components/icons/loading-dots'
@@ -12,8 +14,6 @@ import {
 } from '@/components/ui/dialog'
 import { getGoogleUserInfo } from '@/lib/getGoogleUserInfo'
 import useSession from '@/lib/useSession'
-import { useSearchParams } from 'next/navigation'
-import { toast } from 'sonner'
 import { ClientOnly } from '../ClientOnly'
 import { useGoogleOauthDialog } from './useGoogleOauthDialog'
 
@@ -43,7 +43,7 @@ export function GoogleOauthDialog() {
       }
       location.href = `${location.origin}/${location.pathname}`
     },
-    [searchParams],
+    [searchParams, login],
   )
 
   useEffect(() => {
@@ -59,6 +59,7 @@ export function GoogleOauthDialog() {
         closable={false}
         className="h-64 flex items-center justify-center w-[96%] sm:max-w-[425px] rounded-xl focus-visible:outline-none"
       >
+        <DialogTitle className="hidden"></DialogTitle>
         <IconGoogle className="w-6 h-6" />
         <div className="text-lg">Logging in</div>
         <LoadingDots className="bg-foreground/60" />

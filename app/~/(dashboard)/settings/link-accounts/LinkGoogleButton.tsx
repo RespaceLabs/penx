@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { toast } from 'sonner'
 import { IconGoogle } from '@/components/icons/IconGoogle'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
@@ -11,8 +13,6 @@ import {
 } from '@/lib/constants'
 import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
-import { useSearchParams } from 'next/navigation'
-import { toast } from 'sonner'
 
 export function LinkGoogleButton() {
   const [loading, setLoading] = useState(false)
@@ -29,6 +29,7 @@ export function LinkGoogleButton() {
     <div>
       <Button
         size="lg"
+        variant="outline"
         className={cn('rounded-lg gap-2 w-full')}
         disabled={loading}
         onClick={() => {
