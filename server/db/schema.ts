@@ -1,14 +1,6 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import {
-  CommentStatus,
-  GateType,
-  PostStatus,
-  PostType,
-  SiteMode,
-  UserRole,
-} from '@/lib/types'
 import { relations } from 'drizzle-orm'
 import {
   index,
@@ -21,6 +13,14 @@ import {
 } from 'drizzle-orm/sqlite-core'
 import * as t from 'drizzle-orm/sqlite-core'
 import { v4 } from 'uuid'
+import {
+  CommentStatus,
+  GateType,
+  PostStatus,
+  PostType,
+  SiteMode,
+  UserRole,
+} from '@/lib/types'
 
 export const sites = table('site', {
   id: text('id')
@@ -340,6 +340,168 @@ export const accessTokensRelations = relations(
   }),
 )
 
+export const assets = table(
+  'asset',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    url: text('url').unique().notNull(),
+    filename: text('title', { length: 1000 }).default(''),
+    title: text('title', { length: 1000 }).default(''),
+    description: text('description').default(''),
+    contentType: text('contentType').notNull(),
+    isPublic: integer('isPublic', { mode: 'boolean' }).default(false),
+    size: integer('size').default(0),
+    userId: text('userId').notNull(),
+    sharingConfig: text('sharingConfig'),
+    props: text('props'),
+    createdAt: integer('createdAt', { mode: 'timestamp' }),
+    uploadedAt: integer('uploadedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer('updatedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date())
+      .$onUpdate(() => new Date()),
+  },
+  (table) => {
+    return {
+      userIdIndex: t.index('assets_user_id_idx').on(table.userId),
+      contentTypeIndex: t
+        .index('assets_content_type_idx')
+        .on(table.contentType),
+    }
+  },
+)
+
+export const labels = table(
+  'label',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    name: text('name', { length: 50 }).notNull().default(''),
+    color: text('color', { length: 50 }).default(''),
+    assetCount: integer('assetCount').default(0),
+    userId: text('userId').notNull(),
+    createdAt: integer('createdAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer('updatedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date())
+      .$onUpdate(() => new Date()),
+  },
+  (table) => {
+    return {
+      nameIndex: t.index('labels_name_idx').on(table.name),
+    }
+  },
+)
+
+export const labelsRelations = relations(labels, ({ one, many }) => ({
+  user: one(users, { references: [users.id], fields: [labels.userId] }),
+  assetLabels: many(assetLabels),
+}))
+
+export const assetLabels = table(
+  'asset_label',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    assetId: text('assetId').notNull(),
+    labelId: text('labelId').notNull(),
+    createdAt: integer('createdAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer('updatedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date())
+      .$onUpdate(() => new Date()),
+  },
+  (table) => {
+    return {
+      assetIdIndex: t.index('assetLabels_asset_id_idx').on(table.assetId),
+    }
+  },
+)
+
+export const assetLabelsRelations = relations(assetLabels, ({ one, many }) => ({
+  asset: one(assets, {
+    references: [assets.id],
+    fields: [assetLabels.assetId],
+  }),
+  label: one(labels, {
+    references: [labels.id],
+    fields: [assetLabels.assetId],
+  }),
+}))
+
+export const albums = table(
+  'album',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    name: text('name', { length: 100 }).notNull().default(''),
+    assetCount: integer('assetCount').default(0),
+    userId: text('userId').notNull(),
+    createdAt: integer('createdAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer('updatedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date())
+      .$onUpdate(() => new Date()),
+  },
+  (table) => {
+    return {
+      nameIndex: t.index('labels_name_idx').on(table.name),
+    }
+  },
+)
+
+export const albumsRelations = relations(albums, ({ one, many }) => ({
+  user: one(users, { references: [users.id], fields: [albums.userId] }),
+  assetAlbums: many(assetAlbums),
+}))
+
+export const assetAlbums = table(
+  'asset_album',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    assetId: text('assetId').notNull(),
+    albumsId: text('labelId').notNull(),
+    createdAt: integer('createdAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer('updatedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date())
+      .$onUpdate(() => new Date()),
+  },
+  (table) => {
+    return {
+      assetIdIndex: t.index('assetLabels_asset_id_idx').on(table.assetId),
+    }
+  },
+)
+
+export const assetAlbumsRelations = relations(assetLabels, ({ one, many }) => ({
+  asset: one(assets, {
+    references: [assets.id],
+    fields: [assetLabels.assetId],
+  }),
+  album: one(albums, {
+    references: [albums.id],
+    fields: [assetLabels.assetId],
+  }),
+}))
+
 export type Site = typeof sites.$inferSelect
 export type Post = typeof posts.$inferSelect
 export type User = typeof users.$inferSelect
@@ -348,3 +510,8 @@ export type Comment = typeof comments.$inferSelect
 export type Tag = typeof tags.$inferSelect
 export type PostTag = typeof postTags.$inferSelect
 export type AccessToken = typeof accessTokens.$inferSelect
+export type Assets = typeof assets.$inferSelect
+export type Label = typeof labels.$inferSelect
+export type Album = typeof albums.$inferSelect
+export type AssetLabel = typeof assetLabels.$inferSelect
+export type AssetAlbum = typeof assetAlbums.$inferSelect

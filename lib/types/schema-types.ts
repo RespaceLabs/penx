@@ -43,3 +43,12 @@ export enum ProviderType {
   FARCASTER = 'FARCASTER',
   PASSWORD = 'PASSWORD',
 }
+
+export enum AssetType {
+  IMAGE = 'IMAGE',
+  FILE = 'FILE',
+  AUDIO = 'AUDIO',
+  VIDEO = 'VIDEO',
+  ZIP = 'ZIP',
+  PDF = 'PDF',
+}
