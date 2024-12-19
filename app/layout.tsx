@@ -2,13 +2,13 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '@/styles/globals.css'
 import '@/styles/prosemirror.css'
 import '@rainbow-me/rainbowkit/styles.css'
-import { ThemeProvider } from '@/components/ThemeProvider'
-import { getSite } from '@/lib/fetchers'
-import { cn } from '@/lib/utils'
-import { cal, inter } from '@/styles/fonts'
 import { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 import NextTopLoader from 'nextjs-toploader'
+import { ThemeProvider } from '@/components/ThemeProvider'
+import { getSite } from '@/lib/fetchers'
+import { cn } from '@/lib/utils'
+import { inter } from '@/styles/fonts'
 import { Providers } from './providers'
 
 declare global {
@@ -24,19 +24,16 @@ const fontSans = FontSans({
   variable: '--font-sans',
 })
 
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           'min-h-screen bg-background text-foreground font-sans antialiased',
-          cal.variable,
           inter.variable,
           fontSans.variable,
         )}
