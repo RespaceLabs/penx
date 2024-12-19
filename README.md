@@ -1,4 +1,4 @@
-# PenX
+G# PenX
 
 <div align="center">
 
@@ -17,7 +17,7 @@
 
 ## Introduction
 
-Deploy a dynamic blog using Cloudflare Pages, D1, R1, and AI.
+Deploy a dynamic blog using Cloudflare Pages, D1, R2, and AI.
 
 ### Deploy your own
 
@@ -29,7 +29,6 @@ First, clone the PenX project to your local machine by executing the following c
 
 ```bash
 git clone https://github.com/penx-labs/penx
-pnpm install # 
 ```
 
 #### 2. Configure `wrangler.toml`
@@ -89,6 +88,7 @@ To set up a session password, visit [this link](https://generate-secret.vercel.a
 Finally, deploy your blog by running these commands:
 
 ```bash
+pnpm install
 pnpm run db:generate # Required for initial release
 pnpm run db:migrate:prod # Required for initial release
 pnpm run deploy
@@ -98,6 +98,7 @@ Upon successful deployment, you will receive a URL like: https://penx-cloudflare
 
 ### Examples Blogs
 
+- https://my-penx-blog.pages.dev
 - https://demo1.penx.io
 - https://demo2.penx.io
 - https://demo3.penx.io
