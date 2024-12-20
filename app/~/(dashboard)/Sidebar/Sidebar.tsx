@@ -1,10 +1,8 @@
+import { Calendar, Feather, ImageIcon, Link2Icon, Settings } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { ProfilePopover } from '@/components/Profile/ProfilePopover'
 import { useSiteContext } from '@/components/SiteContext'
-import { Badge } from '@/components/ui/badge'
-import useSession from '@/lib/useSession'
-import { Calendar, Feather, Link2Icon, Settings } from 'lucide-react'
-import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
 import { EnableWeb3Entry } from './EnableWeb3Entry'
 import { LinkGoogleEntry } from './LinkGoogleEntry'
 import { LinkWalletEntry } from './LinkWalletEntry'
@@ -13,7 +11,6 @@ import { SidebarItem } from './SidebarItem'
 export const Sidebar = () => {
   const pathname = usePathname()
   const site = useSiteContext()
-  const { data: session } = useSession()
   const { spaceId } = site
 
   return (
@@ -59,6 +56,14 @@ export const Sidebar = () => {
             isActive={pathname.startsWith('/~/posts')}
             icon={<Feather size={18} />}
             label="Posts"
+          ></SidebarItem>
+        </Link>
+
+        <Link href="/~/assets">
+          <SidebarItem
+            isActive={pathname.startsWith('/~/assets')}
+            icon={<ImageIcon size={18} />}
+            label="Gallery"
           ></SidebarItem>
         </Link>
 

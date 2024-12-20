@@ -1,8 +1,6 @@
-import { NETWORK } from '@/lib/constants'
-import { getBasePublicClient } from '@/lib/getBasePublicClient'
+import { NextRequest } from 'next/server'
 import { getServerSession } from '@/lib/session'
 import { getRequestContext } from '@cloudflare/next-on-pages'
-import { NextRequest } from 'next/server'
 
 export const runtime = 'edge'
 

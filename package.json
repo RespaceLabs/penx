@@ -18,8 +18,10 @@
   },
   "dependencies": {
     "@ariakit/react": "^0.4.15",
+    "@cf-wasm/photon": "^0.1.28",
     "@faker-js/faker": "^9.3.0",
     "@farcaster/auth-kit": "^0.6.0",
+    "@glideapps/glide-data-grid": "^6.0.3",
     "@hookform/resolvers": "^3.9.1",
     "@penxio/types": "^0.0.10",
     "@radix-ui/react-accordion": "^1.2.2",

@@ -1,4 +1,5 @@
 import 'react-datepicker/dist/react-datepicker.css'
+import '@glideapps/glide-data-grid/dist/index.css'
 import '@/styles/globals.css'
 import '@/styles/prosemirror.css'
 import '@rainbow-me/rainbowkit/styles.css'

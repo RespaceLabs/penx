@@ -1,4 +1,4 @@
-import { calculateSHA256FromFile } from './calculateSHA256FromFile'
+import { calculateSHA256FromFile } from './encryption'
 
 type UploadReturn = {
   contentDisposition?: string

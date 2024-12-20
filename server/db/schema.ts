@@ -352,6 +352,7 @@ export const assets = table(
     description: text('description').default(''),
     contentType: text('contentType').notNull(),
     isPublic: integer('isPublic', { mode: 'boolean' }).default(false),
+    isTrashed: integer('isPublic', { mode: 'boolean' }).default(false),
     size: integer('size').default(0),
     userId: text('userId').notNull(),
     sharingConfig: text('sharingConfig'),
@@ -374,6 +375,12 @@ export const assets = table(
     }
   },
 )
+
+export const assetsRelations = relations(assets, ({ one, many }) => ({
+  user: one(users, { references: [users.id], fields: [assets.userId] }),
+  assetLabels: many(assetLabels),
+  assetAlbums: many(assetAlbums),
+}))
 
 export const labels = table(
   'label',
@@ -435,7 +442,7 @@ export const assetLabelsRelations = relations(assetLabels, ({ one, many }) => ({
   }),
   label: one(labels, {
     references: [labels.id],
-    fields: [assetLabels.assetId],
+    fields: [assetLabels.labelId],
   }),
 }))
 
@@ -458,7 +465,7 @@ export const albums = table(
   },
   (table) => {
     return {
-      nameIndex: t.index('labels_name_idx').on(table.name),
+      nameIndex: t.index('albums_name_idx').on(table.name),
     }
   },
 )
@@ -486,19 +493,19 @@ export const assetAlbums = table(
   },
   (table) => {
     return {
-      assetIdIndex: t.index('assetLabels_asset_id_idx').on(table.assetId),
+      assetIdIndex: t.index('assetAlbums_asset_id_idx').on(table.assetId),
     }
   },
 )
 
-export const assetAlbumsRelations = relations(assetLabels, ({ one, many }) => ({
+export const assetAlbumsRelations = relations(assetAlbums, ({ one, many }) => ({
   asset: one(assets, {
     references: [assets.id],
-    fields: [assetLabels.assetId],
+    fields: [assetAlbums.assetId],
   }),
   album: one(albums, {
     references: [albums.id],
-    fields: [assetLabels.assetId],
+    fields: [assetAlbums.assetId],
   }),
 }))
 
