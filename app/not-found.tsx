@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 export default function NotFound() {
   return (
     <>
@@ -20,39 +18,39 @@ export default function NotFound() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
 const styles = {
   error: {
     fontFamily:
       'system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"',
-    height: "100vh",
-    textAlign: "center",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    height: '100vh',
+    textAlign: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   desc: {
-    display: "inline-block",
+    display: 'inline-block',
   },
 
   h1: {
-    display: "inline-block",
-    margin: "0 20px 0 0",
-    padding: "0 23px 0 0",
+    display: 'inline-block',
+    margin: '0 20px 0 0',
+    padding: '0 23px 0 0',
     fontSize: 24,
     fontWeight: 500,
-    verticalAlign: "top",
-    lineHeight: "49px",
+    verticalAlign: 'top',
+    lineHeight: '49px',
   },
 
   h2: {
     fontSize: 14,
     fontWeight: 400,
-    lineHeight: "49px",
+    lineHeight: '49px',
     margin: 0,
   },
-} as const;
+} as const
