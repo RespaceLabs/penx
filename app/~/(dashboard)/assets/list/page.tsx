@@ -1,5 +1,5 @@
-import { Suspense } from 'react'
+import { ListPage } from './ListPage'
 
-export default function PostPage() {
-  return <div>List</div>
+export default function Page() {
+  return <ListPage></ListPage>
 }

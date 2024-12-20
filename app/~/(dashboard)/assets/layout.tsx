@@ -5,7 +5,7 @@ import { AssetsNav } from './AssetsNav'
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
-    <div className="">
+    <div className="h-screen">
       <AssetsNav />
       {children}
     </div>

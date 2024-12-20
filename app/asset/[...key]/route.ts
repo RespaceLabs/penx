@@ -37,7 +37,8 @@ export async function PUT(request: NextRequest) {
         createdAt: file.lastModified ? new Date(file.lastModified) : new Date(),
       })
     } catch (error: any) {
-      // console.log('=======error:', error.message)
+      console.log('=======error:', error, 'key:', key)
+// 8c9d32527900c4e2016f002b2a8c0c7c3a3389990a955d790b7c207d3d61ebad
     }
 
     return Response.json({

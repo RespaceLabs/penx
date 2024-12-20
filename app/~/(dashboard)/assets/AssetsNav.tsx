@@ -1,52 +1,73 @@
 'use client'
 
-import { useState } from 'react'
-import { toast } from 'sonner'
-import { calculateSHA256FromFile } from '@/lib/encryption'
-import { trpc } from '@/lib/trpc'
-import { UploadButton } from './UploadButton'
+import { useMemo, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Separator } from '@/components/ui/separator'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { UploadAssetButton } from './UploadAssetButton'
+
+enum DisplayMode {
+  GALLERY = 'GALLERY',
+  LIST = 'LIST',
+  TRASH = 'TRASH',
+}
 
 export function AssetsNav() {
-  const [uploading, setUploading] = useState(false)
-  const { refetch } = trpc.asset.list.useQuery({
-    pageSize: 10000,
-  })
-  async function handleUpload(file: File) {
-    setUploading(true)
-    const fileHash = await calculateSHA256FromFile(file)
+  const pathname = usePathname()!
 
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('from', 'ASSET')
+  const initialMode = useMemo(() => {
+    if (pathname === '/~/assets/list') return DisplayMode.LIST
+    return pathname === '/~/assets/trash'
+      ? DisplayMode.TRASH
+      : DisplayMode.GALLERY
+  }, [pathname])
 
-    const res = await fetch(`/asset/${fileHash}`, {
-      method: 'PUT',
-      headers: {
-        // contentType: 'multipart/form-data',
-      },
-      body: formData,
-    })
-
-    if (res.ok) {
-      const data = await res.json()
-      toast.success('Image uploaded successfully!')
-      await refetch()
-    } else {
-      toast.error('Upload image failed')
-    }
-
-    setUploading(false)
-  }
-
+  const [mode, setMode] = useState(initialMode)
   return (
-    <div className="flex items-center justify-between px-4 py-3">
-      <div></div>
-      <UploadButton
-        uploading={uploading}
-        handleFile={(file) => {
-          handleUpload(file)
-        }}
-      />
+    <div className="flex h-[56px] items-center justify-between px-4 py-3">
+      <div>
+        <ToggleGroup
+          className="h-10 gap-3 rounded-lg bg-accent p-1"
+          value={mode}
+          onValueChange={(v) => {
+            if (v !== mode) {
+              setMode(v as DisplayMode)
+            }
+          }}
+          type="single"
+        >
+          <ToggleGroupItem
+            className="h-full flex-1 bg-accent text-sm font-semibold ring-foreground data-[state=on]:bg-background"
+            value={DisplayMode.GALLERY}
+            asChild
+          >
+            <Link href="/~/assets">Gallery</Link>
+          </ToggleGroupItem>
+
+          <ToggleGroupItem
+            asChild
+            value={DisplayMode.LIST}
+            className="h-full flex-1 bg-accent text-sm font-semibold ring-foreground data-[state=on]:bg-background"
+          >
+            <Link href="/~/assets/list">List</Link>
+          </ToggleGroupItem>
+
+          <Separator
+            className="h-4 bg-background"
+            orientation="vertical"
+          ></Separator>
+
+          <ToggleGroupItem
+            asChild
+            value={DisplayMode.TRASH}
+            className="h-full flex-1 bg-accent text-sm font-semibold ring-foreground data-[state=on]:bg-background"
+          >
+            <Link href="/~/assets/trash">Trash</Link>
+          </ToggleGroupItem>
+        </ToggleGroup>
+      </div>
+      <UploadAssetButton />
     </div>
   )
 }

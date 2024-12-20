@@ -12,16 +12,20 @@ export async function uploadFile(file: File) {
   const fileHash = await calculateSHA256FromFile(file)
   let data: UploadReturn = {}
 
-  const res = await fetch(`/static/images/${fileHash}`, {
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('from', 'POST')
+
+  const res = await fetch(`/asset/${fileHash}`, {
     method: 'PUT',
-    body: file,
+    body: formData,
   })
 
   if (res.ok) {
     data = await res.json()
     data = {
       ...data,
-      url: `/static/images/${fileHash}`,
+      url: `/asset/${fileHash}`,
     }
   } else {
     throw new Error('Failed to upload file')

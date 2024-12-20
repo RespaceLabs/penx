@@ -3,6 +3,7 @@
 import { ExternalLink, Trash2, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -11,7 +12,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { Switch } from '@/components/ui/switch'
 import { isProd, placeholderBlurhash } from '@/lib/constants'
+import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import { useAssetDialog } from './useAssetDialog'
@@ -24,7 +27,9 @@ export function AssetDialog({}: Props) {
     pageSize: 10000,
   })
 
-  const { mutateAsync, isPending } = trpc.asset.trash.useMutation()
+  const { mutateAsync: trash, isPending } = trpc.asset.trash.useMutation()
+  const { mutateAsync: updatePublicStatus } =
+    trpc.asset.updatePublicStatus.useMutation()
 
   if (!asset) return null
 
@@ -42,6 +47,27 @@ export function AssetDialog({}: Props) {
             <DialogDescription className="hidden"></DialogDescription>
           </div>
           <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              <div className="text-sm">Public visit</div>
+              <Switch
+                defaultChecked={!!asset.isPublic}
+                onCheckedChange={async (value) => {
+                  try {
+                    await updatePublicStatus({
+                      assetId: asset.id,
+                      isPublic: value,
+                    })
+                    refetch()
+                    toast.success('Image public status updated successfully!')
+                  } catch (error) {
+                    toast.error(
+                      extractErrorMessage(error) ||
+                        'Failed to update public status!',
+                    )
+                  }
+                }}
+              />
+            </div>
             <a href={url} target="_blank">
               <Button size="icon" variant="secondary" className="">
                 <ExternalLink size={20} className="" />
@@ -53,7 +79,7 @@ export function AssetDialog({}: Props) {
               disabled={isPending}
               className=""
               onClick={async () => {
-                await mutateAsync({ assetId: asset.id })
+                await trash({ assetId: asset.id })
                 refetch()
                 setIsOpen(false)
               }}

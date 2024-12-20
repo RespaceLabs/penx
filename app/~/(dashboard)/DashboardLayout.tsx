@@ -46,7 +46,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
       >
         <Sidebar />
       </div>
-      <div className="flex-1 pb-40 h-screen overflow-auto">
+      <div className="flex-1 h-screen overflow-auto">
         <CreationDialog />
         <div
           className={cn(

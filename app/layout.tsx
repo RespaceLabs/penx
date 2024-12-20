@@ -54,6 +54,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <div id="portal" />
         </ThemeProvider>
 
         {process.env.NEXT_PUBLIC_UMAMIC_WEBSITE_ID && (

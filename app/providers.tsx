@@ -44,8 +44,8 @@ export function Providers({
 }) {
   return (
     <>
-      <Toaster className="dark:hidden" richColors />
-      <Toaster theme="dark" className="hidden dark:block" richColors />
+      <Toaster className="dark:hidden z-[1000]" richColors />
+      <Toaster theme="dark" className="hidden dark:block z-[1000]" richColors />
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <WagmiProvider config={wagmiConfig}>
           <QueryClientProvider client={queryClient}>

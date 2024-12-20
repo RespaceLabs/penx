@@ -16,8 +16,29 @@ export const assetRouter = router({
       const { pageNum, pageSize } = input
       const offset = (pageNum - 1) * pageSize
 
-      return await db.query.assets.findMany({
+      return db.query.assets.findMany({
         where: eq(assets.isTrashed, false),
+        with: {
+          assetLabels: { with: { label: true } },
+        },
+        orderBy: [desc(posts.createdAt)],
+        limit: pageSize,
+        offset: offset,
+      })
+    }),
+
+  trashedAssets: protectedProcedure
+    .input(
+      z.object({
+        pageNum: z.number().optional().default(1),
+        pageSize: z.number().optional().default(100),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { pageNum, pageSize } = input
+      const offset = (pageNum - 1) * pageSize
+      return db.query.assets.findMany({
+        where: eq(assets.isTrashed, true),
         with: {
           assetLabels: { with: { label: true } },
         },
@@ -37,6 +58,21 @@ export const assetRouter = router({
       await db
         .update(assets)
         .set({ isTrashed: true })
+        .where(eq(assets.id, input.assetId))
+      return true
+    }),
+
+  updatePublicStatus: protectedProcedure
+    .input(
+      z.object({
+        assetId: z.string(),
+        isPublic: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await db
+        .update(assets)
+        .set({ isPublic: input.isPublic })
         .where(eq(assets.id, input.assetId))
       return true
     }),

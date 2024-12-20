@@ -352,7 +352,7 @@ export const assets = table(
     description: text('description').default(''),
     contentType: text('contentType').notNull(),
     isPublic: integer('isPublic', { mode: 'boolean' }).default(false),
-    isTrashed: integer('isPublic', { mode: 'boolean' }).default(false),
+    isTrashed: integer('isTrashed', { mode: 'boolean' }).default(false),
     size: integer('size').default(0),
     userId: text('userId').notNull(),
     sharingConfig: text('sharingConfig'),
