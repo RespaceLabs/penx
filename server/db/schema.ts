@@ -82,6 +82,7 @@ export const usersRelations = relations(users, ({ many }) => ({
   comments: many(comments),
   tags: many(tags),
   accessTokens: many(accessTokens),
+  pages: many(pages),
 }))
 
 export const accounts = table(
@@ -509,6 +510,220 @@ export const assetAlbumsRelations = relations(assetAlbums, ({ one, many }) => ({
   }),
 }))
 
+export const pages = table(
+  'page',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    userId: text('userId').notNull(),
+    parentId: text('parentId'),
+    parentType: text('parentType'),
+    cover: text('cover', { length: 2183 }).default(''),
+    icon: text('icon'),
+    trashed: integer('trashed', { mode: 'boolean' }).default(false),
+    isJournal: integer('isJournal', { mode: 'boolean' }).default(false),
+    children: text('children'),
+    props: text('props'),
+    date: text('date', { length: 20 }),
+    createdAt: integer('createdAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer('updatedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date())
+      .$onUpdate(() => new Date()),
+  },
+  (table) => {
+    return {
+      userIdIndex: t.index('pages_user_id_idx').on(table.userId),
+      isJournalIndex: t.index('pages_is_journal_idx').on(table.isJournal),
+    }
+  },
+)
+
+export const pagesRelations = relations(pages, ({ one, many }) => ({
+  user: one(users, { references: [users.id], fields: [pages.userId] }),
+  blocks: many(blocks),
+}))
+
+export const blocks = table(
+  'block',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    pageId: text('pageId').notNull(),
+    parentId: text('parentId'),
+    type: text('type'),
+    collapsed: integer('collapsed', { mode: 'boolean' }).default(false),
+    trashed: integer('trashed', { mode: 'boolean' }).default(false),
+    content: text('content'),
+    children: text('children'),
+    props: text('props'),
+    createdAt: integer('createdAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer('updatedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date())
+      .$onUpdate(() => new Date()),
+  },
+  (table) => {
+    return {
+      pageIdIndex: t.index('blocks_page_id_idx').on(table.pageId),
+      typeIndex: t.index('blocks_type_idx').on(table.type),
+      trashedIndex: t.index('blocks_trashed_idx').on(table.trashed),
+    }
+  },
+)
+
+export const blocksRelations = relations(blocks, ({ one }) => ({
+  page: one(pages, { references: [pages.id], fields: [blocks.pageId] }),
+}))
+
+export const databases = table(
+  'database',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    userId: text('userId').notNull(),
+    parentId: text('parentId'),
+    parentType: text('parentType'),
+    activeViewId: text('activeViewId'),
+    cover: text('cover', { length: 2183 }).default(''),
+    icon: text('icon'),
+    trashed: integer('trashed', { mode: 'boolean' }).default(false),
+    props: text('props'),
+    createdAt: integer('createdAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer('updatedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date())
+      .$onUpdate(() => new Date()),
+  },
+  (table) => {
+    return {
+      userIdIndex: t.index('databases_user_id_idx').on(table.userId),
+    }
+  },
+)
+
+export const databasesRelations = relations(databases, ({ one, many }) => ({
+  user: one(users, { references: [users.id], fields: [databases.userId] }),
+  views: many(views),
+  fields: many(fields),
+  records: many(records),
+}))
+
+export const fields = table(
+  'field',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    databaseId: text('databaseId').notNull(),
+    name: text('name'),
+    displayName: text('displayName'),
+    description: text('description'),
+    fieldType: text('fieldType'),
+    config: text('config'),
+    options: text('options'),
+    createdAt: integer('createdAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer('updatedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date())
+      .$onUpdate(() => new Date()),
+  },
+  (table) => {
+    return {
+      databaseIdIndex: t.index('fields_database_id_idx').on(table.databaseId),
+      fieldTypeIndex: t.index('fields_field_type_idx').on(table.fieldType),
+    }
+  },
+)
+
+export const fieldsRelations = relations(fields, ({ one }) => ({
+  database: one(databases, {
+    references: [databases.id],
+    fields: [fields.databaseId],
+  }),
+}))
+
+export const records = table(
+  'record',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    databaseId: text('databaseId').notNull(),
+    sort: integer('sort').default(0),
+    fields: text('fields'),
+    deletedAt: integer('deletedAt', { mode: 'timestamp' }),
+    createdAt: integer('createdAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer('updatedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date())
+      .$onUpdate(() => new Date()),
+  },
+  (table) => {
+    return {
+      databaseIdIndex: t.index('records_database_id_idx').on(table.databaseId),
+    }
+  },
+)
+
+export const recordsRelations = relations(records, ({ one }) => ({
+  database: one(databases, {
+    references: [databases.id],
+    fields: [records.databaseId],
+  }),
+}))
+
+export const views = table(
+  'view',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    databaseId: text('databaseId').notNull(),
+    name: text('name'),
+    description: text('description'),
+    viewType: text('viewType'),
+    viewFields: text('viewFields'),
+    sorts: text('sorts'),
+    groups: text('groups'),
+    filters: text('filters'),
+    kanbanFieldId: text('kanbanFieldId'), // fieldId for kanban
+    kanbanOptionIds: text('kanbanOptionIds'), // for kanban sorts
+    createdAt: integer('createdAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer('updatedAt', { mode: 'timestamp' })
+      .notNull()
+      .$defaultFn(() => new Date())
+      .$onUpdate(() => new Date()),
+  },
+  (table) => {
+    return {
+      databaseIdIndex: t.index('views_database_id_idx').on(table.databaseId),
+    }
+  },
+)
+
+export const viewsRelations = relations(views, ({ one }) => ({
+  database: one(databases, {
+    references: [databases.id],
+    fields: [views.databaseId],
+  }),
+}))
+
 export type Site = typeof sites.$inferSelect
 export type Post = typeof posts.$inferSelect
 export type User = typeof users.$inferSelect
@@ -522,3 +737,10 @@ export type Label = typeof labels.$inferSelect
 export type Album = typeof albums.$inferSelect
 export type AssetLabel = typeof assetLabels.$inferSelect
 export type AssetAlbum = typeof assetAlbums.$inferSelect
+
+export type Page = typeof pages.$inferSelect
+export type Block = typeof blocks.$inferSelect
+export type Database = typeof databases.$inferSelect
+export type Field = typeof fields.$inferSelect
+export type Record = typeof records.$inferSelect
+export type View = typeof views.$inferSelect
