@@ -3,7 +3,7 @@ import { Post, Site } from '@penxio/types'
 import Link from 'next/link'
 import { PostItem } from '../components/PostItem'
 
-const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
+const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 200)
 
 interface Props {
   site: Site

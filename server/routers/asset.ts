@@ -1,5 +1,6 @@
 import { desc, eq } from 'drizzle-orm'
 import { z } from 'zod'
+import { getRequestContext } from '@cloudflare/next-on-pages'
 import { db } from '../db'
 import { assets, posts } from '../db/schema'
 import { protectedProcedure, router } from '../trpc'
@@ -59,6 +60,20 @@ export const assetRouter = router({
         .update(assets)
         .set({ isTrashed: true })
         .where(eq(assets.id, input.assetId))
+      return true
+    }),
+
+  delete: protectedProcedure
+    .input(
+      z.object({
+        assetId: z.string(),
+        key: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { env } = getRequestContext()
+      await env.penx_bucket.delete(input.key)
+      await db.delete(assets).where(eq(assets.id, input.assetId))
       return true
     }),
 

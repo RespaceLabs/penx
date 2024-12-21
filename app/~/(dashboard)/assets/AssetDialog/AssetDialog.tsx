@@ -17,6 +17,7 @@ import { isProd, placeholderBlurhash } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
+import { DeleteButton } from './DeleteButton'
 import { useAssetDialog } from './useAssetDialog'
 
 interface Props {}
@@ -73,19 +74,7 @@ export function AssetDialog({}: Props) {
                 <ExternalLink size={20} className="" />
               </Button>
             </a>
-            <Button
-              size="icon"
-              variant="secondary"
-              disabled={isPending}
-              className=""
-              onClick={async () => {
-                await trash({ assetId: asset.id })
-                refetch()
-                setIsOpen(false)
-              }}
-            >
-              <Trash2 size={20} className="" />
-            </Button>
+            <DeleteButton />
             <Button
               size="icon"
               variant="secondary"

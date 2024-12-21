@@ -207,9 +207,9 @@ export function AssetsTable({ assets }: AssetsTableProps) {
           accentFg: '#FFFFFF',
           accentLight: 'rgba(62, 116, 253, 0.1)',
 
-          textDark: '#dfdfdf',
+          textDark: isDark ? '#dfdfdf' : '#313139',
           textMedium: '#737383',
-          textLight: '#B2B2C0',
+          textLight: '#222',
           textBubble: '#313139',
 
           bgIconHeader: '#737383',
