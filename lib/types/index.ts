@@ -1,6 +1,7 @@
 import { Address } from 'viem'
 
 export * from './schema-types'
+export * from './database-types'
 
 export type App = {
   id: string
@@ -173,3 +174,4 @@ export type AccountWithUser = any
 // export type AccountWithUser = Account & {
 //   user: User
 // }
+

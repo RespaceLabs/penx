@@ -5,6 +5,7 @@ import { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
 import { accessTokenRouter } from './routers/access-token'
 import { assetRouter } from './routers/asset'
 import { commentRouter } from './routers/comment'
+import { databaseRouter } from './routers/database'
 import { googleRouter } from './routers/google'
 import { nodeRouter } from './routers/node'
 import { postRouter } from './routers/post'
@@ -24,6 +25,7 @@ export const appRouter = router({
   accessToken: accessTokenRouter,
   comment: commentRouter,
   asset: assetRouter,
+  database: databaseRouter,
 })
 
 export const createCaller = createCallerFactory(appRouter)

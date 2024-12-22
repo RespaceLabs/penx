@@ -18,7 +18,7 @@ import { AvatarImage } from '@radix-ui/react-avatar'
 function AccountItem({ account }: { account: Account }) {
   const { refetch } = useMyAccounts()
   const { isPending, mutateAsync } = trpc.user.disconnectAccount.useMutation()
-  const info = JSON.parse(account.providerInfo || '{}')
+  const info = account.providerInfo as any
   const removeButton = (
     <Button
       disabled={isPending}

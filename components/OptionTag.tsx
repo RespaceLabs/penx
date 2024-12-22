@@ -1,4 +1,6 @@
 import { X } from 'lucide-react'
+import { getBgColor } from '@/lib/color-helper'
+import { cn } from '@/lib/utils'
 
 interface IOption {
   id: string
@@ -10,32 +12,32 @@ interface Props {
   option: IOption
   showClose?: boolean
   deletable?: boolean
+  className?: string
   onDelete?: () => void
 }
 
 export function OptionTag({
   option,
+  className,
   showClose = false,
   deletable = false,
   onDelete,
-  ...rest
 }: Props) {
-  const color = option.color || 'gray600'
+  const color = option.color
+
   return (
     <div
       key={option.id}
-      className="optionTag relative inline-flex rounded-full px-2 py-1 gap-1 text-sm items-center justify-between cursor-pointer"
-      // color={color}
-      // bg--T90={color}
-      {...rest}
+      className={cn(
+        'optionTag relative inline-flex rounded-full px-2 py-1 gap-1 text-sm items-center justify-center cursor-pointer text-white',
+        getBgColor(color),
+        className,
+      )}
     >
       <div>{option ? option.name : ''}</div>
       {deletable && (
         <div
-          // inlineFlex--$optionTag--hover
-          // bg={color}
-          // bg--T30--hover={color}
-          className="remove-option text-background absolute -top-1 -right-1 flex items-center w-4 h-4 rounded-full transition-all"
+          className="remove-option absolute -top-1 -right-1 flex items-center justify-center h-4 w-4 rounded-full text-background bg-brand-500"
           onClick={(e) => {
             e.stopPropagation()
             onDelete?.()

@@ -61,7 +61,7 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-  [data-registry="plate"] {
+  [data-registry='plate'] {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -90,7 +90,7 @@
     --brand: 217.2 91.2% 59.8%;
     --highlight: 47.9 95.8% 53.1%;
   }
-  [data-registry="plate"].dark {
+  [data-registry='plate'].dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
@@ -179,4 +179,14 @@
 
 .prose li > p {
   margin: 0;
+}
+
+.gdg-style {
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1) !important;
+  border: 1px solid #ddd;
+  border-radius: 6px !important;
+
+  /* box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); */
 }

@@ -23,8 +23,6 @@ interface Props {
   site: Site
 }
 
-
-
 export const SiteProvider = ({ site, children }: PropsWithChildren<Props>) => {
   useEffect(() => {
     window.__SITE__ = site

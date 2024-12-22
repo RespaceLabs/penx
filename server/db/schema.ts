@@ -35,10 +35,10 @@ export const sites = table('site', {
   image: text('image', { length: 2183 }).default(''),
   email: text('email', { length: 255 }).unique(),
   mode: text('mode').default(SiteMode.BASIC),
-  socials: text('socials'),
-  config: text('config'),
+  socials: text('socials', { mode: 'json' }),
+  config: text('config', { mode: 'json' }),
   themeName: text('themeName', { length: 50 }),
-  themeConfig: text('themeConfig'),
+  themeConfig: text('themeConfig', { mode: 'json' }),
   memberCount: integer('memberCount').default(0),
   postCount: integer('postCount').default(0),
   createdAt: integer('createdAt', { mode: 'timestamp' })
@@ -60,8 +60,8 @@ export const users = table('user', {
   ensName: text('ensName', { length: 255 }),
   email: text('email', { length: 255 }).unique(),
   emailVerifiedAt: integer('emailVerifiedAt', { mode: 'timestamp' }),
-  github: text('github'), // GitHub OAuth info
-  google: text('google'), // Google OAuth info
+  github: text('github', { mode: 'json' }), // GitHub OAuth info
+  google: text('google', { mode: 'json' }), // Google OAuth info
   image: text('image', { length: 2183 }),
   cover: text('cover', { length: 2183 }),
   bio: text('bio', { length: 5000 }).default(''),
@@ -95,7 +95,7 @@ export const accounts = table(
     providerAccountId: text('providerAccountId', { length: 255 })
       .unique()
       .default(''),
-    providerInfo: text('providerInfo'),
+    providerInfo: text('providerInfo', { mode: 'json' }),
     email: text('email', { length: 255 }),
     accessToken: text('accessToken', { length: 255 }),
     refreshToken: text('refreshToken', { length: 255 }),
@@ -130,8 +130,8 @@ export const nodes = table(
     parentId: text('parentId'),
     databaseId: text('databaseId'),
     type: text('type'),
-    element: text('element'),
-    props: text('props'),
+    content: text('content', { mode: 'json' }),
+    props: text('props', { mode: 'json' }),
     collapsed: integer('collapsed', { mode: 'boolean' }).default(false),
     folded: integer('folded', { mode: 'boolean' }).default(true),
     children: text('children'),
@@ -356,8 +356,8 @@ export const assets = table(
     isTrashed: integer('isTrashed', { mode: 'boolean' }).default(false),
     size: integer('size').default(0),
     userId: text('userId').notNull(),
-    sharingConfig: text('sharingConfig'),
-    props: text('props'),
+    sharingConfig: text('sharingConfig', { mode: 'json' }),
+    props: text('props', { mode: 'json' }),
     createdAt: integer('createdAt', { mode: 'timestamp' }),
     uploadedAt: integer('uploadedAt', { mode: 'timestamp' })
       .notNull()
@@ -558,9 +558,9 @@ export const blocks = table(
     type: text('type'),
     collapsed: integer('collapsed', { mode: 'boolean' }).default(false),
     trashed: integer('trashed', { mode: 'boolean' }).default(false),
-    content: text('content'),
-    children: text('children'),
-    props: text('props'),
+    content: text('content', { mode: 'json' }),
+    children: text('children', { mode: 'json' }),
+    props: text('props', { mode: 'json' }),
     createdAt: integer('createdAt', { mode: 'timestamp' })
       .notNull()
       .$defaultFn(() => new Date()),
@@ -592,10 +592,13 @@ export const databases = table(
     parentId: text('parentId'),
     parentType: text('parentType'),
     activeViewId: text('activeViewId'),
+    viewIds: text('viewIds', { mode: 'json' }),
+    name: text('name'),
+    color: text('color'),
     cover: text('cover', { length: 2183 }).default(''),
     icon: text('icon'),
     trashed: integer('trashed', { mode: 'boolean' }).default(false),
-    props: text('props'),
+    props: text('props', { mode: 'json' }),
     createdAt: integer('createdAt', { mode: 'timestamp' })
       .notNull()
       .$defaultFn(() => new Date()),
@@ -625,12 +628,15 @@ export const fields = table(
       .primaryKey()
       .$defaultFn(() => v4()),
     databaseId: text('databaseId').notNull(),
-    name: text('name'),
+    isPrimary: integer('isPrimary', { mode: 'boolean' }).default(false),
+    name: text('name')
+      .notNull()
+      .$defaultFn(() => v4()),
     displayName: text('displayName'),
     description: text('description'),
     fieldType: text('fieldType'),
-    config: text('config'),
-    options: text('options'),
+    config: text('config', { mode: 'json' }),
+    options: text('options', { mode: 'json' }),
     createdAt: integer('createdAt', { mode: 'timestamp' })
       .notNull()
       .$defaultFn(() => new Date()),
@@ -662,7 +668,7 @@ export const records = table(
       .$defaultFn(() => v4()),
     databaseId: text('databaseId').notNull(),
     sort: integer('sort').default(0),
-    fields: text('fields'),
+    fields: text('fields', { mode: 'json' }),
     deletedAt: integer('deletedAt', { mode: 'timestamp' }),
     createdAt: integer('createdAt', { mode: 'timestamp' })
       .notNull()
@@ -696,12 +702,12 @@ export const views = table(
     name: text('name'),
     description: text('description'),
     viewType: text('viewType'),
-    viewFields: text('viewFields'),
-    sorts: text('sorts'),
-    groups: text('groups'),
-    filters: text('filters'),
+    viewFields: text('viewFields', { mode: 'json' }),
+    sorts: text('sorts', { mode: 'json' }),
+    groups: text('groups', { mode: 'json' }),
+    filters: text('filters', { mode: 'json' }),
     kanbanFieldId: text('kanbanFieldId'), // fieldId for kanban
-    kanbanOptionIds: text('kanbanOptionIds'), // for kanban sorts
+    kanbanOptionIds: text('kanbanOptionIds', { mode: 'json' }), // for kanban sorts
     createdAt: integer('createdAt', { mode: 'timestamp' })
       .notNull()
       .$defaultFn(() => new Date()),

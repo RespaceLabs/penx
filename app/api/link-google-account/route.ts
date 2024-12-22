@@ -42,11 +42,11 @@ export async function GET(req: NextRequest) {
     refreshToken: refresh_token,
     accessToken: access_token,
     expiresAt: new Date(expiry_date),
-    providerInfo: JSON.stringify({
+    providerInfo: {
       name,
       picture,
       email,
-    }),
+    },
   })
 
   await db
@@ -56,14 +56,14 @@ export async function GET(req: NextRequest) {
       name: name || '',
       displayName: name,
       image: picture,
-      google: JSON.stringify({
+      google: {
         name,
         email,
         picture,
         access_token,
         refresh_token,
         expiry_date,
-      }),
+      },
     })
     .where(eq(users.id, userId))
 

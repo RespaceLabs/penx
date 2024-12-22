@@ -1,7 +1,7 @@
-import { REFRESH_GOOGLE_DRIVE_OAUTH_TOKEN_URL } from '@/lib/constants'
-import { GoogleInfo } from '@/lib/types'
 import { eq } from 'drizzle-orm'
 import ky from 'ky'
+import { REFRESH_GOOGLE_DRIVE_OAUTH_TOKEN_URL } from '@/lib/constants'
+import { GoogleInfo } from '@/lib/types'
 import { db } from '../db'
 import { users } from '../db/schema'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
@@ -16,7 +16,7 @@ export const googleRouter = router({
 
     if (!user?.google) return null
 
-    const googleInfo = JSON.parse(user.google) as GoogleInfo
+    const googleInfo = user.google as GoogleInfo
 
     const isExpired = googleInfo.expiry_date < Date.now()
 

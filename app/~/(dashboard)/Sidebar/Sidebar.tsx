@@ -1,4 +1,11 @@
-import { Calendar, Feather, ImageIcon, Link2Icon, Settings } from 'lucide-react'
+import {
+  Calendar,
+  Feather,
+  ImageIcon,
+  Link2Icon,
+  Settings,
+  TableProperties,
+} from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ProfilePopover } from '@/components/Profile/ProfilePopover'
@@ -64,6 +71,14 @@ export const Sidebar = () => {
             isActive={pathname.startsWith('/~/assets')}
             icon={<ImageIcon size={18} />}
             label="Gallery"
+          ></SidebarItem>
+        </Link>
+
+        <Link href="/~/databases">
+          <SidebarItem
+            isActive={pathname.startsWith('/~/databases')}
+            icon={<TableProperties size={18} />}
+            label="Databases"
           ></SidebarItem>
         </Link>
 
