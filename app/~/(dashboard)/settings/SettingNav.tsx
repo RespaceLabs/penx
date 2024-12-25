@@ -1,8 +1,8 @@
 'use client'
 
-import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
 interface Props {}
 
@@ -20,12 +20,12 @@ export function SettingNav({}: Props) {
 
   const linkClassName = (path: string) =>
     cn(
-      'inline-flex item-center justify-center py-1.5 border-b-2 -mb-[1px] border-transparent flex-shrink-0',
+      'inline-flex item-center justify-center py-1.5 border-b-2 -mb-[1px] border-transparent flex-shrink-0 text-sm sm:text-base',
       path === pathname && 'border-black border-zinc-400',
     )
 
   return (
-    <div className="flex border-b gap-8">
+    <div className="flex border-b gap-8 overflow-x-auto overflow-y-hidden -mx-3 px-3">
       <Link href={Paths.general} className={linkClassName(Paths.general)}>
         General
       </Link>

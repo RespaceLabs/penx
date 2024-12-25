@@ -25,7 +25,7 @@ export function AssetsNav() {
 
   const [mode, setMode] = useState(initialMode)
   return (
-    <div className="flex h-[56px] items-center justify-between px-4 py-3">
+    <div className="flex flex-col-reverse sm:flex-row items-center justify-between px-4 py-3 gap-y-2">
       <div>
         <ToggleGroup
           className="h-10 gap-3 rounded-lg bg-accent p-1"
@@ -67,7 +67,9 @@ export function AssetsNav() {
           </ToggleGroupItem>
         </ToggleGroup>
       </div>
-      <UploadAssetButton />
+      <div>
+        <UploadAssetButton />
+      </div>
     </div>
   )
 }

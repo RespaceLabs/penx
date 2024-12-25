@@ -22,8 +22,10 @@ export const FullPageDatabase = () => {
             <ViewList />
             <AddViewBtn />
           </div>
-          <Separator orientation="vertical" className="h-5" />
-          <ViewToolBar />
+          <div className="hidden md:block">
+            {/* <Separator orientation="vertical" className="h-5" /> */}
+            <ViewToolBar />
+          </div>
         </div>
         <ViewRenderer />
       </div>

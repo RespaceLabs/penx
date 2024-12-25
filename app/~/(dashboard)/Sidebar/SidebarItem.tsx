@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
+import { useSidebarSheet } from './useSidebarSheet'
 
 interface SidebarItemProps {
   label: ReactNode
@@ -19,6 +20,7 @@ export const SidebarItem = ({
   className,
   ...rest
 }: SidebarItemProps) => {
+  const { setIsOpen } = useSidebarSheet()
   return (
     <div
       className={cn(
@@ -27,7 +29,10 @@ export const SidebarItem = ({
         className,
       )}
       {...rest}
-      onClick={() => onClick && onClick()}
+      onClick={() => {
+        setIsOpen(false)
+        onClick && onClick()
+      }}
     >
       <div className="flex items-center gap-2">
         <div className="text-foreground/50">{icon}</div>

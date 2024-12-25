@@ -9,7 +9,9 @@ import { useQueryEthBalance } from '@/lib/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/lib/hooks/useEthPrice'
 import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
+import { Navbar } from './Sidebar/Navbar'
 import { Sidebar } from './Sidebar/Sidebar'
+import { SidebarSheet } from './Sidebar/SidebarSheet'
 
 export function DashboardLayout({ children }: { children: ReactNode }) {
   const { push } = useRouter()
@@ -40,6 +42,9 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="h-screen flex fixed top-0 left-0 bottom-0 right-0">
+      <SidebarSheet />
+      <Navbar></Navbar>
+
       <div
         className={cn('h-screen sticky top-0 hidden md:flex')}
         style={{ width: SIDEBAR_WIDTH }}

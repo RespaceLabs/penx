@@ -47,7 +47,7 @@ function AssetListContent({ isLoading, assets }: AssetListContentProps) {
 
   return (
     <div>
-      <div className="columns-1 gap-4 sm:columns-2 md:columns-3 xl:columns-4 2xl:columns-5">
+      <div className="columns-2 gap-4 sm:columns-2 md:columns-3 xl:columns-4 2xl:columns-5">
         {assets.map((item) => (
           <div
             key={item.id}
@@ -59,12 +59,12 @@ function AssetListContent({ isLoading, assets }: AssetListContentProps) {
               })
             }}
           >
-            <Image
+            <img
               alt={item.filename || ''}
               className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
               style={{ transform: 'translate3d(0, 0, 0)' }}
-              placeholder="blur"
-              blurDataURL={placeholderBlurhash}
+              // placeholder="blur"
+              // blurDataURL={placeholderBlurhash}
               src={`/asset/${item.url}?s=400`}
               width={720}
               height={480}

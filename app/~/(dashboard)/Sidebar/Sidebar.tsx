@@ -10,18 +10,28 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ProfilePopover } from '@/components/Profile/ProfilePopover'
 import { useSiteContext } from '@/components/SiteContext'
+import { cn } from '@/lib/utils'
 import { EnableWeb3Entry } from './EnableWeb3Entry'
 import { LinkGoogleEntry } from './LinkGoogleEntry'
 import { LinkWalletEntry } from './LinkWalletEntry'
 import { SidebarItem } from './SidebarItem'
 
-export const Sidebar = () => {
+interface SidebarProps {
+  bordered?: boolean
+}
+
+export const Sidebar = ({ bordered = true }: SidebarProps) => {
   const pathname = usePathname()
   const site = useSiteContext()
   const { spaceId } = site
 
   return (
-    <div className="flex-col flex-1 flex gap-3 h-screen border-r border-r-sidebar">
+    <div
+      className={cn(
+        'flex-col flex-1 flex gap-3 h-screen border-r-sidebar',
+        bordered && 'border-r',
+      )}
+    >
       <div className="px-4 flex items-center h-16">
         <ProfilePopover
           showName

@@ -13,10 +13,9 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Switch } from '@/components/ui/switch'
-import { isProd, placeholderBlurhash } from '@/lib/constants'
+import { placeholderBlurhash } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
-import { cn } from '@/lib/utils'
 import { DeleteButton } from './DeleteButton'
 import { useAssetDialog } from './useAssetDialog'
 
@@ -44,7 +43,7 @@ export function AssetDialog({}: Props) {
       >
         <DialogHeader className="flex flex-row items-center justify-between w-full gap-3 px-3">
           <div className="flex flex-row items-center gap-3 mr-auto">
-            <DialogTitle className="">{name}</DialogTitle>
+            <DialogTitle className="hidden sm:block">{name}</DialogTitle>
             <DialogDescription className="hidden"></DialogDescription>
           </div>
           <div className="flex items-center gap-2">
