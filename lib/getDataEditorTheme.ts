@@ -11,13 +11,13 @@ export function getDataEditorTheme(isDark: boolean) {
 
     bgIconHeader: '#737383',
     fgIconHeader: '#FFFFFF',
-    textHeader: isDark ? '#dfdfdf' : '#313139',
+    textHeader: isDark ? '#dfdfdf' : '#000',
     textGroupHeader: '#313139BB',
     textHeaderSelected: '#FFFFFF',
 
     bgCell: isDark ? '#000' : '#FFFFFF',
     bgCellMedium: '#FAFAFB',
-    bgHeader: isDark ? '#111' : '#F7F7F8',
+    bgHeader: isDark ? '#111' : '#fff',
     bgHeaderHasFocus: isDark ? '#111' : '#E9E9EB',
     bgHeaderHovered: isDark ? '#111' : '#EFEFF1',
 

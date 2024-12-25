@@ -50,7 +50,7 @@ export function DeleteDatabaseDialog({}: Props) {
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter className="text-left">
+        <DialogFooter className="flex flex-row gap-2">
           <DialogClose asChild>
             <Button className="w-20" variant="outline">
               Cancel

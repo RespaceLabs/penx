@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import { isMobile } from 'react-device-detect'
 import { useTheme } from 'next-themes'
 import { cellRenderers } from '@/components/cells'
-import { SIDEBAR_WIDTH } from '@/lib/constants'
+import { DATABASE_TOOLBAR_HEIGHT, SIDEBAR_WIDTH } from '@/lib/constants'
 import { getDataEditorTheme } from '@/lib/getDataEditorTheme'
 import {
   DataEditor,
@@ -64,15 +64,22 @@ export const TableView = ({ height, width }: Props) => {
   )
 
   const isDark = theme === 'dark'
-
+  const rowHeight = 36
   return (
-    <div className="">
+    <div
+      className=""
+      style={{
+        height: (rowsNum + 2) * rowHeight + 2,
+        maxHeight: `calc(100vh - ${DATABASE_TOOLBAR_HEIGHT}px)`,
+      }}
+    >
       <DeleteFieldDialog onDeleteField={onDeleteColumn} />
       <ConfigFieldDialog />
       <DataEditor
         ref={gridRef}
-        className="shadow rounded-xl"
+        className="border-t border-foreground/10 h-full w-full p-0"
         columns={cols}
+        rowHeight={rowHeight}
         rows={rowsNum}
         freezeColumns={isMobile ? undefined : 1}
         theme={getDataEditorTheme(isDark)}
@@ -112,7 +119,7 @@ export const TableView = ({ height, width }: Props) => {
           // How to get the trailing row to look right
           sticky: true,
           tint: true,
-          hint: 'New row...',
+          hint: 'New',
         }}
         onRowAppended={onRowAppended}
       />

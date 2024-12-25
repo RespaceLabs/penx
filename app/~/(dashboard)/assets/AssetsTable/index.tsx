@@ -197,7 +197,7 @@ export function AssetsTable({ assets }: AssetsTableProps) {
       }}
     >
       <DataEditor
-        className="border border-foreground/5 rounded-lg overflow-hidden bg-transparent"
+        className="rounded-lg overflow-hidden bg-transparent"
         {...defaultProps}
         ref={ref}
         customRenderers={cellRenderers}
