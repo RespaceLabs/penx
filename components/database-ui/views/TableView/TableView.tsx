@@ -128,3 +128,4 @@ export const TableView = ({ height, width }: Props) => {
     </div>
   )
 }
+
