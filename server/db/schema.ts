@@ -134,7 +134,7 @@ export const nodes = table(
     props: text('props', { mode: 'json' }),
     collapsed: integer('collapsed', { mode: 'boolean' }).default(false),
     folded: integer('folded', { mode: 'boolean' }).default(true),
-    children: text('children'),
+    children: text('children', { mode: 'json' }),
     date: text('date', { length: 20 }),
     createdAt: integer('createdAt', { mode: 'timestamp' })
       .notNull()
@@ -523,8 +523,8 @@ export const pages = table(
     icon: text('icon'),
     trashed: integer('trashed', { mode: 'boolean' }).default(false),
     isJournal: integer('isJournal', { mode: 'boolean' }).default(false),
-    children: text('children'),
-    props: text('props'),
+    children: text('children', { mode: 'json' }),
+    props: text('props', { mode: 'json' }),
     date: text('date', { length: 20 }),
     createdAt: integer('createdAt', { mode: 'timestamp' })
       .notNull()

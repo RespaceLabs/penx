@@ -25,7 +25,7 @@ export async function PUT(request: NextRequest) {
   const { env } = getRequestContext()
 
   try {
-    const res = await env.penx_bucket.put(key, file)
+    const res = await env.BUCKET.put(key, file)
     try {
       await db.insert(assets).values({
         userId: session.userId,
@@ -38,7 +38,7 @@ export async function PUT(request: NextRequest) {
       })
     } catch (error: any) {
       console.log('=======error:', error, 'key:', key)
-// 8c9d32527900c4e2016f002b2a8c0c7c3a3389990a955d790b7c207d3d61ebad
+      // 8c9d32527900c4e2016f002b2a8c0c7c3a3389990a955d790b7c207d3d61ebad
     }
 
     return Response.json({
@@ -85,7 +85,7 @@ export async function DELETE(request: NextRequest) {
   const { env } = getRequestContext()
   const url = new URL(request.url)
   const key = url.pathname.replace(/^\/asset\//, '')
-  await env.penx_bucket.delete(key)
+  await env.BUCKET.delete(key)
   return new Response('Deleted!')
 }
 
@@ -102,7 +102,7 @@ async function renderAsset(key: string, size = '') {
       where: eq(assets.url, key),
       columns: { isPublic: true, contentType: true },
     }),
-    env.penx_bucket.get(key),
+    env.BUCKET.get(key),
   ])
 
   if (object === null) {

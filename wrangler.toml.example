@@ -30,5 +30,11 @@ database_id = "<database_id>" # replace with real database id
 # Docs: https://developers.cloudflare.com/pages/functions/bindings/#r2-buckets
 # npx wrangler r2 bucket create penx-bucket
 [[r2_buckets]]
-binding = "penx_bucket"
-bucket_name = "penx-bucket"
+binding = "BUCKET"
+bucket_name = "<bucket_name>"
+
+# Bind a KV Namespace. Use KV as persistent storage for small key-value pairs.
+# Docs: https://developers.cloudflare.com/pages/functions/bindings/#kv-namespaces
+[[kv_namespaces]]
+binding = "KV"
+id = "<kv_id>"

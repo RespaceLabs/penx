@@ -8,6 +8,7 @@ import { commentRouter } from './routers/comment'
 import { databaseRouter } from './routers/database'
 import { googleRouter } from './routers/google'
 import { nodeRouter } from './routers/node'
+import { pageRouter } from './routers/page'
 import { postRouter } from './routers/post'
 import { siteRouter } from './routers/site'
 import { tagRouter } from './routers/tag'
@@ -26,6 +27,7 @@ export const appRouter = router({
   comment: commentRouter,
   asset: assetRouter,
   database: databaseRouter,
+  page: pageRouter,
 })
 
 export const createCaller = createCallerFactory(appRouter)

@@ -5,16 +5,17 @@ import { Edit3Icon, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useDatabases } from '@/lib/hooks/useDatabases'
+import { usePages } from '@/lib/hooks/usePages'
 import { cn } from '@/lib/utils'
 import { Database } from '@/server/db/schema'
 import { DeleteDatabaseDialog } from './database-ui/DeleteDatabaseDialog/DeleteDatabaseDialog'
 import { useDeleteDatabaseDialog } from './database-ui/DeleteDatabaseDialog/useDeleteDatabaseDialog'
 
-interface DatabaseItemProps {
+interface PageItemProps {
   database: Database
 }
 
-export function DatabaseItem({ database: database }: DatabaseItemProps) {
+export function PageItem({ database: database }: PageItemProps) {
   const { setState } = useDeleteDatabaseDialog()
 
   return (
@@ -62,20 +63,22 @@ export function DatabaseItem({ database: database }: DatabaseItemProps) {
   )
 }
 
-export function DatabaseList() {
-  const { data: databases = [], isLoading } = useDatabases()
+export function PageList() {
+  const { data: pages, isLoading } = usePages()
+
+  console.log('=======pages:', pages, isLoading)
 
   if (isLoading) return <div className="text-foreground/60">Loading...</div>
 
-  if (!databases.length) {
-    return <div className="text-foreground/60">No databases yet.</div>
+  if (!pages?.length) {
+    return <div className="text-foreground/60">No page yet.</div>
   }
 
   return (
     <div className="grid gap-4">
       <DeleteDatabaseDialog />
-      {databases.map((post) => {
-        return <DatabaseItem key={post.id} database={post} />
+      {pages.map((post) => {
+        return <PageItem key={post.id} database={post} />
       })}
     </div>
   )

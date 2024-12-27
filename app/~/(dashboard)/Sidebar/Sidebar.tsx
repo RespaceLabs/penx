@@ -1,6 +1,7 @@
 import {
   Calendar,
   Feather,
+  FileText,
   ImageIcon,
   Link2Icon,
   Settings,
@@ -81,6 +82,14 @@ export const Sidebar = ({ bordered = true }: SidebarProps) => {
             isActive={pathname.startsWith('/~/assets')}
             icon={<ImageIcon size={18} />}
             label="Gallery"
+          ></SidebarItem>
+        </Link>
+
+        <Link href="/~/pages">
+          <SidebarItem
+            isActive={pathname.startsWith('/~/pages')}
+            icon={<FileText size={18} />}
+            label="pages"
           ></SidebarItem>
         </Link>
 

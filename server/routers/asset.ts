@@ -72,7 +72,7 @@ export const assetRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const { env } = getRequestContext()
-      await env.penx_bucket.delete(input.key)
+      await env.BUCKET.delete(input.key)
       await db.delete(assets).where(eq(assets.id, input.assetId))
       return true
     }),
