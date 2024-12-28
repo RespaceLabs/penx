@@ -1,9 +1,10 @@
-import { IPFS_ADD_URL, PostStatus } from '@/lib/constants'
-import { GateType, PostType } from '@/lib/types'
 import { desc, eq, or } from 'drizzle-orm'
+import ky from 'ky'
 import { revalidatePath } from 'next/cache'
 import { Node as SlateNode } from 'slate'
 import { z } from 'zod'
+import { IPFS_ADD_URL, PostStatus } from '@/lib/constants'
+import { GateType, PostType } from '@/lib/types'
 import { db } from '../db'
 import { posts } from '../db/schema'
 import { syncToGoogleDrive } from '../lib/syncToGoogleDrive'
@@ -133,16 +134,20 @@ export const postRouter = router({
         where: eq(posts.id, input.postId),
       })
 
-      const res: any = await fetch(IPFS_ADD_URL, {
-        method: 'POST',
-        body: JSON.stringify({
-          ...newPost,
-          postStatus: PostStatus.PUBLISHED,
-          collectible,
-          creationId,
-        }),
-        headers: { 'Content-Type': 'application/json' },
-      }).then((d) => d.json())
+      let cid = ''
+      try {
+        const res: any = await ky
+          .post(IPFS_ADD_URL, {
+            json: {
+              ...newPost,
+              postStatus: PostStatus.PUBLISHED,
+              collectible,
+              creationId,
+            },
+          })
+          .json()
+        cid = res.cid
+      } catch (error) {}
 
       await db
         .update(posts)
@@ -150,7 +155,7 @@ export const postRouter = router({
           postStatus: PostStatus.PUBLISHED,
           collectible,
           creationId,
-          cid: res.cid,
+          cid,
           publishedAt: new Date(),
           gateType,
         })
