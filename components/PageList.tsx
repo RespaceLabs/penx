@@ -7,34 +7,32 @@ import { Button } from '@/components/ui/button'
 import { useDatabases } from '@/lib/hooks/useDatabases'
 import { usePages } from '@/lib/hooks/usePages'
 import { cn } from '@/lib/utils'
-import { Database } from '@/server/db/schema'
+import { Database, Page } from '@/server/db/schema'
 import { DeleteDatabaseDialog } from './database-ui/DeleteDatabaseDialog/DeleteDatabaseDialog'
 import { useDeleteDatabaseDialog } from './database-ui/DeleteDatabaseDialog/useDeleteDatabaseDialog'
 
 interface PageItemProps {
-  database: Database
+  page: Page
 }
 
-export function PageItem({ database: database }: PageItemProps) {
+export function PageItem({ page }: PageItemProps) {
   const { setState } = useDeleteDatabaseDialog()
 
   return (
     <div className={cn('flex flex-col gap-2 py-[6px]')}>
       <div>
         <Link
-          href={`/~/database?id=${database.id}`}
+          href={`/~/page?id=${page.id}`}
           className="inline-flex items-center hover:scale-105 transition-transform"
         >
-          <div className="text-base font-bold">
-            {database.name || 'Untitled'}
-          </div>
+          <div className="text-base font-bold">{page.title || 'Untitled'}</div>
         </Link>
       </div>
       <div className="flex items-center gap-2">
         <div className="text-sm text-zinc-500">
-          <div>{format(new Date(database.updatedAt), 'yyyy-MM-dd')}</div>
+          <div>{format(new Date(page.updatedAt), 'yyyy-MM-dd')}</div>
         </div>
-        <Link href={`/~/database?id=${database.id}`}>
+        <Link href={`/~/page?id=${page.id}`}>
           <Button
             size="xs"
             variant="ghost"
@@ -51,7 +49,7 @@ export function PageItem({ database: database }: PageItemProps) {
           onClick={async () => {
             setState({
               isOpen: true,
-              databaseId: database.id,
+              databaseId: page.id,
             })
           }}
         >
@@ -66,8 +64,6 @@ export function PageItem({ database: database }: PageItemProps) {
 export function PageList() {
   const { data: pages, isLoading } = usePages()
 
-  console.log('=======pages:', pages, isLoading)
-
   if (isLoading) return <div className="text-foreground/60">Loading...</div>
 
   if (!pages?.length) {
@@ -77,8 +73,8 @@ export function PageList() {
   return (
     <div className="grid gap-4">
       <DeleteDatabaseDialog />
-      {pages.map((post) => {
-        return <PageItem key={post.id} database={post} />
+      {pages.map((page) => {
+        return <PageItem key={page.id} page={page} />
       })}
     </div>
   )

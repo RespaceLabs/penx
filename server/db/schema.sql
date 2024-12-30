@@ -152,6 +152,7 @@ CREATE TABLE `page` (
 	`userId` text NOT NULL,
 	`parentId` text,
 	`parentType` text,
+	`title` text,
 	`cover` text(2183) DEFAULT '',
 	`icon` text,
 	`trashed` integer DEFAULT false,

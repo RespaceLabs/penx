@@ -1,10 +1,13 @@
 import { Suspense } from 'react'
-import { FullPageDatabase } from '@/components/database-ui'
+import { Page } from '@/components/Page/Page'
+import { PageProvider } from './PageProvider'
 
-export default function Page() {
+export default function PageApp() {
   return (
     <Suspense>
-      <div>page...</div>
+      <PageProvider>
+        <Page></Page>
+      </PageProvider>
     </Suspense>
   )
 }

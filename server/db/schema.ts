@@ -519,6 +519,7 @@ export const pages = table(
     userId: text('userId').notNull(),
     parentId: text('parentId'),
     parentType: text('parentType'),
+    title: text('title'),
     cover: text('cover', { length: 2183 }).default(''),
     icon: text('icon'),
     trashed: integer('trashed', { mode: 'boolean' }).default(false),
