@@ -144,6 +144,18 @@ export const pageRouter = router({
 
       return page
     }),
+
+  delete: protectedProcedure
+    .input(
+      z.object({
+        pageId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await db.delete(blocks).where(eq(blocks.pageId, input.pageId))
+      await db.delete(pages).where(eq(pages.id, input.pageId))
+      return true
+    }),
 })
 
 async function cleanDeletedBlocks(page: Page) {

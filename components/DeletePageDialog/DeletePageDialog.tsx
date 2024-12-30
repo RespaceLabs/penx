@@ -13,44 +13,45 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { sleep } from '@/lib/utils'
-import { useMutation } from '@tanstack/react-query'
-import { useDeleteFieldDialog } from './useDeleteFieldDialog'
+import { useDatabases } from '@/lib/hooks/useDatabases'
+import { usePages } from '@/lib/hooks/usePages'
+import { api } from '@/lib/trpc'
+import { useDeletePageDialog } from './useDeleteDatabaseDialog'
 
-interface Props {
-  onDeleteField: (fieldId: string) => Promise<void>
-}
+interface Props {}
 
-export function DeleteFieldDialog({ onDeleteField }: Props) {
-  const { isOpen, setIsOpen, field } = useDeleteFieldDialog()
+export function DeletePageDialog({}: Props) {
+  const { isOpen, setIsOpen, pageId } = useDeletePageDialog()
   const [loading, setLoading] = useState(false)
+  const { refetch } = usePages()
 
   async function deleteField() {
     setLoading(true)
     try {
-      await onDeleteField(field?.id)
+      await api.page.delete.mutate({ pageId })
+      await refetch()
+      toast.success('Page deleted successfully')
       setIsOpen(false)
     } catch (error) {
       toast.error('Failed to delete')
     }
     setLoading(false)
   }
-
-  if (!field) return null
+  if (!pageId) return null
 
   return (
     <Dialog open={isOpen} onOpenChange={(v) => setIsOpen(v)}>
       <DialogContent closable={false} className="">
         <DialogHeader className="">
           <DialogTitle className="">
-            Are you sure delete it permanently?
+            Are you sure delete this page permanently?
           </DialogTitle>
           <DialogDescription>
             Once deleted, You can't undo this action.
           </DialogDescription>
         </DialogHeader>
 
-        <DialogFooter className="text-left">
+        <DialogFooter className="flex flex-row gap-2">
           <DialogClose asChild>
             <Button className="w-20" variant="outline">
               Cancel

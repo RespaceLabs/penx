@@ -32,7 +32,7 @@ export function DeleteDatabaseDialog({}: Props) {
       toast.success('Database deleted successfully')
       setIsOpen(false)
     } catch (error) {
-      toast.error('Failed to delete field')
+      toast.error('Failed to delete')
     }
     setLoading(false)
   }

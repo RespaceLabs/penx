@@ -26,7 +26,7 @@ export function ConfigFieldDialog({}: Props) {
     try {
       setIsOpen(false)
     } catch (error) {
-      toast.error('Failed to delete field')
+      toast.error('Failed to delete')
     }
     setLoading(false)
   }

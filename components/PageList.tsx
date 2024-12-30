@@ -4,19 +4,18 @@ import { format } from 'date-fns'
 import { Edit3Icon, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { useDatabases } from '@/lib/hooks/useDatabases'
 import { usePages } from '@/lib/hooks/usePages'
 import { cn } from '@/lib/utils'
-import { Database, Page } from '@/server/db/schema'
-import { DeleteDatabaseDialog } from './database-ui/DeleteDatabaseDialog/DeleteDatabaseDialog'
-import { useDeleteDatabaseDialog } from './database-ui/DeleteDatabaseDialog/useDeleteDatabaseDialog'
+import { Page } from '@/server/db/schema'
+import { DeletePageDialog } from './DeletePageDialog/DeletePageDialog'
+import { useDeletePageDialog } from './DeletePageDialog/useDeleteDatabaseDialog'
 
 interface PageItemProps {
   page: Page
 }
 
 export function PageItem({ page }: PageItemProps) {
-  const { setState } = useDeleteDatabaseDialog()
+  const { setState } = useDeletePageDialog()
 
   return (
     <div className={cn('flex flex-col gap-2 py-[6px]')}>
@@ -49,7 +48,7 @@ export function PageItem({ page }: PageItemProps) {
           onClick={async () => {
             setState({
               isOpen: true,
-              databaseId: page.id,
+              pageId: page.id,
             })
           }}
         >
@@ -72,7 +71,7 @@ export function PageList() {
 
   return (
     <div className="grid gap-4">
-      <DeleteDatabaseDialog />
+      <DeletePageDialog />
       {pages.map((page) => {
         return <PageItem key={page.id} page={page} />
       })}
