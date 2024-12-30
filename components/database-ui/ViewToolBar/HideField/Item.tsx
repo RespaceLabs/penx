@@ -68,7 +68,6 @@ export const Item = forwardRef<HTMLDivElement, Props>(
         <div className="flex items-center gap-1">
           <Switch
             disabled={index === 0}
-            mr-4
             checked={visible}
             onCheckedChange={(checked) => {
               toggleVisible(checked)

@@ -1,6 +1,6 @@
-import { findNodePath, selectEditor } from '@udecode/plate-common/react'
 import { PlusIcon } from 'lucide-react'
 import { Editor, Path, Transforms } from 'slate'
+import { findNodePath, selectEditor } from '@udecode/plate-common/react'
 import { insertEmptyParagraph } from './editor/lib/insertEmptyParagraph'
 import { useCreateEditor } from './editor/use-create-editor'
 

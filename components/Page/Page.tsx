@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useDebouncedCallback } from 'use-debounce'
+import { appEmitter } from '@/lib/app-emitter'
 import { editorDefaultValue } from '@/lib/constants'
 import { PageData, updatePage, usePage } from '@/lib/hooks/usePage'
 import { pageToSlate } from '@/lib/serializer/pageToSlate'
@@ -45,13 +46,19 @@ export function Page() {
 
   return (
     <div className="w-full h-full">
-      <div className="relative min-h-[500px] max-w-screen-lg p-12 px-8 mx-auto z-0">
-        <div className="mb-5 flex flex-col space-y-3 ">
+      <div className="relative min-h-[500px] max-w-4xl py-12 sm:py-12 px-5 sm:px-8 mx-auto z-0">
+        <div className="mb-1 flex flex-col space-y-3 ">
           {/* <CoverUpload post={data} /> */}
           <TextareaAutosize
             placeholder="Title"
             defaultValue={data?.title || ''}
             autoFocus
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                appEmitter.emit('KEY_DOWN_ENTER_ON_TITLE')
+              }
+            }}
             onChange={(e) => {
               setData({ ...data, title: e.target.value })
             }}
