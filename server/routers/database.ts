@@ -1,8 +1,8 @@
+import { FieldType, Option, ViewField, ViewType } from '@/lib/types'
+import { uniqueId } from '@/lib/unique-id'
 import { arrayMoveImmutable } from 'array-move'
 import { desc, eq, or } from 'drizzle-orm'
 import { z } from 'zod'
-import { FieldType, Option, ViewField, ViewType } from '@/lib/types'
-import { uniqueId } from '@/lib/unique-id'
 import { db } from '../db'
 import { databases, fields, posts, records, views } from '../db/schema'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
@@ -10,7 +10,7 @@ import { protectedProcedure, publicProcedure, router } from '../trpc'
 export const databaseRouter = router({
   list: protectedProcedure.query(async ({ ctx, input }) => {
     return await db.query.databases.findMany({
-      orderBy: [desc(databases.createdAt)],
+      orderBy: [desc(databases.updatedAt)],
     })
   }),
 

@@ -1,32 +1,38 @@
 import Dexie, { Table } from 'dexie'
 import { IAsset } from '../model/IAsset'
 import { IBlock } from '../model/IBlock'
+import { IDatabase } from '../model/IDatabase'
+import { IFile } from '../model/IFile'
 import { IPage } from '../model/IPage'
 import { uniqueId } from '../unique-id'
 
 class LocalDB extends Dexie {
+  file!: Table<IFile, string>
   asset!: Table<IAsset, string>
   block!: Table<IBlock, string>
   page!: Table<IPage, string>
+  database!: Table<IDatabase, string>
 
   constructor() {
     super('penx-local')
-    this.version(3).stores({
+    this.version(5).stores({
       // Primary key and indexed props
-      asset: 'id, hash',
+      file: 'id, hash',
+      asset: 'id, url, isPublic, isTrashed',
       page: 'id, userId, parentId, isJournal',
+      database: 'id, userId, parentId',
       block: 'id, userId, parentId, pageId, type',
     })
   }
 
-  async addAsset(hash: string, file: File) {
-    const asset = await this.asset.where({ hash }).first()
-    if (asset) return
-    return this.asset.add({
-      id: uniqueId(),
-      hash,
-      file,
-    })
+  async addFile(hash: string, file: File) {
+    try {
+      return this.file.add({
+        id: uniqueId(),
+        hash,
+        file,
+      })
+    } catch (error) {}
   }
 }
 

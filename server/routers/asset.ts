@@ -1,6 +1,6 @@
+import { getRequestContext } from '@cloudflare/next-on-pages'
 import { desc, eq } from 'drizzle-orm'
 import { z } from 'zod'
-import { getRequestContext } from '@cloudflare/next-on-pages'
 import { db } from '../db'
 import { assets, posts } from '../db/schema'
 import { protectedProcedure, router } from '../trpc'
@@ -17,7 +17,7 @@ export const assetRouter = router({
       const { pageNum, pageSize } = input
       const offset = (pageNum - 1) * pageSize
 
-      return db.query.assets.findMany({
+      const list = await db.query.assets.findMany({
         where: eq(assets.isTrashed, false),
         with: {
           assetLabels: { with: { label: true } },
@@ -26,6 +26,7 @@ export const assetRouter = router({
         limit: pageSize,
         offset: offset,
       })
+      return list
     }),
 
   trashedAssets: protectedProcedure

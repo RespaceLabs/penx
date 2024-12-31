@@ -5,7 +5,6 @@ import LoadingCircle from '@/components/icons/loading-circle'
 import { Button } from '@/components/ui/button'
 import { useDatabases } from '@/lib/hooks/useDatabases'
 import { api } from '@/lib/trpc'
-import useSession from '@/lib/useSession'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -28,11 +27,11 @@ export function CreatePageButton() {
   }
   return (
     <Button
-      className="w-24 flex gap-1"
+      className="w-32 flex gap-1"
       disabled={isLoading}
       onClick={createPage}
     >
-      <span>New Page</span>
+      {!isLoading && <span>New Page</span>}
       {isLoading && <LoadingCircle></LoadingCircle>}
     </Button>
   )

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { Asset } from '@/server/db/schema'
 import { useQuery } from '@tanstack/react-query'
 import { localDB } from '../local-db'
@@ -9,19 +8,24 @@ export function useLoadAsset(asset: Asset) {
   const { data, isLoading, ...rest } = useQuery({
     queryKey: ['asset', asset.url],
     queryFn: async () => {
-      let url = ''
+      let url = `/asset/${asset.url}`
 
-      const res = await localDB.asset.where({ hash }).first()
+      const res = await localDB.file.where({ hash }).first()
 
-      if (res) {
-        url = URL.createObjectURL(res?.file!)
-      } else {
-        const blob = await fetch(`/asset/${asset.url}`).then((res) =>
-          res.blob(),
-        )
-        url = URL.createObjectURL(blob)
-        const file = new File([blob], asset.filename!, { type: blob.type })
-        await localDB.addAsset(hash, file)
+      try {
+        if (res) {
+          url = URL.createObjectURL(res?.file!)
+        } else {
+          const blob = await fetch(`/asset/${asset.url}`).then((res) =>
+            res.blob(),
+          )
+          url = URL.createObjectURL(blob)
+
+          const file = new File([blob], asset.filename!, { type: blob.type })
+          await localDB.addFile(hash, file)
+        }
+      } catch (error) {
+        console.log('=======error:', error)
       }
 
       return url

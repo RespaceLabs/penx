@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
 import LoadingCircle from '@/components/icons/loading-circle'
 import { Button } from '@/components/ui/button'
 import { useDatabases } from '@/lib/hooks/useDatabases'
 import { api } from '@/lib/trpc'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 export function CreateDatabaseButton() {
   const { push } = useRouter()
@@ -27,11 +27,11 @@ export function CreateDatabaseButton() {
   }
   return (
     <Button
-      className="w-24 flex gap-1"
+      className="w-32 flex gap-1"
       disabled={isLoading}
       onClick={createDatabase}
     >
-      <span>Create</span>
+      {!isLoading && <span>New Database</span>}
       {isLoading && <LoadingCircle></LoadingCircle>}
     </Button>
   )

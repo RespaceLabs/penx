@@ -43,7 +43,7 @@ export const UploadAssetButton = ({ className, ...rest }: Props) => {
       const data = await res.json()
       toast.success('Image uploaded successfully!')
 
-      await localDB.addAsset(fileHash, file)
+      await localDB.addFile(fileHash, file)
       await refetch()
     } else {
       toast.error('Upload image failed')
@@ -56,7 +56,7 @@ export const UploadAssetButton = ({ className, ...rest }: Props) => {
     <Button variant="brand" {...rest} className={cn('p-0 w-40', className)}>
       <a
         onClick={handleClick}
-        className="bg-transparent h-full w-full flex items-center gap-2 text-sm px-3 text-center"
+        className="bg-transparent h-full w-full flex items-center gap-2 text-sm px-3 justify-center"
       >
         {!uploading && <UploadCloud size={20} />}
         {!uploading && <span>Upload a image</span>}

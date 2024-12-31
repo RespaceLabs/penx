@@ -5,7 +5,6 @@ import { placeholderBlurhash } from '@/lib/constants'
 import { Asset, useAssets } from '@/lib/hooks/useAssets'
 import { useTrashedAssets } from '@/lib/hooks/useTrashedAssets'
 import Image from 'next/image'
-import { useAssetDialog } from './AssetDialog/useAssetDialog'
 import { AssetItem } from './AssetItem'
 
 interface AssetListProps {
@@ -35,7 +34,7 @@ function AssetListContent({ isLoading, assets }: AssetListContentProps) {
   if (isLoading) {
     return (
       <div className="h-[70vh] flex items-center justify-center">
-        <LoadingDots />
+        <LoadingDots className="bg-foreground/60" />
       </div>
     )
   }
