@@ -38,6 +38,7 @@ import { resetBlockTypePlugin } from './reset-block-type-plugin'
 import { softBreakPlugin } from './soft-break-plugin'
 import { tabbablePlugin } from './tabbable-plugin'
 import { tablePlugin } from './table-plugin'
+import { tagPlugin } from './tag-plugin'
 import { titlePlugin } from './title-plugin'
 import { tocPlugin } from './toc-plugin'
 
@@ -51,6 +52,7 @@ export const editorPlugins = [
   linkPlugin,
   DatePlugin,
   mentionPlugin,
+  tagPlugin,
   SlashPlugin,
   tablePlugin,
   TogglePlugin,

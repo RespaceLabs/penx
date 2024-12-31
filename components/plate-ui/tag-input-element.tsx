@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { cn, withRef } from '@udecode/cn'
-import { getMentionOnSelectItem } from '@udecode/plate-mention'
+import { getTagOnSelectItem } from '../editor/plugins/tag-plugin/lib/getTagOnSelectItem'
 import {
   InlineCombobox,
   InlineComboboxContent,
@@ -13,9 +13,9 @@ import {
 } from './inline-combobox'
 import { PlateElement } from './plate-element'
 
-const onSelectItem = getMentionOnSelectItem()
+const onSelectItem = getTagOnSelectItem()
 
-export const MentionInputElement = withRef<typeof PlateElement>(
+export const TagInputElement = withRef<typeof PlateElement>(
   ({ className, ...props }, ref) => {
     const { children, editor, element } = props
     const [search, setSearch] = useState('')
@@ -31,8 +31,8 @@ export const MentionInputElement = withRef<typeof PlateElement>(
           value={search}
           element={element}
           setValue={setSearch}
-          showTrigger={false}
-          trigger="@"
+          showTrigger
+          trigger="#"
         >
           <span
             className={cn(

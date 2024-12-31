@@ -76,8 +76,11 @@ import {
   TableRowPlugin,
 } from '@udecode/plate-table/react'
 import { TogglePlugin } from '@udecode/plate-toggle/react'
+import { TagElement } from '../plate-ui/tag-element'
+import { TagInputElement } from '../plate-ui/tag-input-element'
 import { TitleElement } from '../plate-ui/title'
 import { getEmptyElement } from './lib/getEmptyElement'
+import { TagInputPlugin, TagPlugin } from './plugins/tag-plugin/react'
 
 export const useCreateEditor = (value: any = []) => {
   return usePlateEditor({
@@ -112,6 +115,8 @@ export const useCreateEditor = (value: any = []) => {
           [MediaEmbedPlugin.key]: MediaEmbedElement,
           [MentionInputPlugin.key]: MentionInputElement,
           [MentionPlugin.key]: MentionElement,
+          [TagInputPlugin.key]: TagInputElement,
+          [TagPlugin.key]: TagElement,
           [ParagraphPlugin.key]: ParagraphElement,
           [SlashInputPlugin.key]: SlashInputElement,
           [StrikethroughPlugin.key]: withProps(PlateLeaf, { as: 's' }),

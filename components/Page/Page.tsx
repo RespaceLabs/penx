@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
-import { useDebouncedCallback } from 'use-debounce'
 import { appEmitter } from '@/lib/app-emitter'
 import { PageData, updatePage, usePage } from '@/lib/hooks/usePage'
 import { pageToSlate } from '@/lib/serializer/pageToSlate'
 import { trpc } from '@/lib/trpc'
+import { useDebouncedCallback } from 'use-debounce'
 import { PlateEditor } from '../editor/plate-editor'
 import { CoverUpload } from './CoverUpload'
 
@@ -70,6 +70,7 @@ export function Page() {
           showAddButton
           value={content}
           onChange={(v) => {
+            console.log('v======:', v)
             setData({ ...data, blocks: v })
           }}
         />

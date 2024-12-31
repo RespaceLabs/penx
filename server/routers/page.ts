@@ -82,16 +82,12 @@ export const pageRouter = router({
       let { pageId, elements, ...data } = input
       let slateElements = JSON.parse(elements || '[]') as SlateElement[]
 
-      console.log('======>>>>elements:', slateElements)
-
       slateElements = slateElements.map((e) => ({
         ...e,
         id: e.id || uniqueId(),
       }))
 
       const children = slateElements.map((el) => el.id)
-
-      console.log('11111111111111111')
 
       const [page] = await db
         .update(pages)
@@ -102,13 +98,9 @@ export const pageRouter = router({
         .where(eq(pages.id, pageId))
         .returning()
 
-      console.log('222222222222')
-
       const pageBlocks = await db.query.blocks.findMany({
         where: eq(blocks.pageId, pageId),
       })
-
-      console.log('=33333333333333')
 
       const blockIdsSet = new Set(pageBlocks.map((b) => b.id))
 
