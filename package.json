@@ -8,12 +8,14 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
-    "db:migrate:local": "wrangler d1 migrations apply penx-blog --local",
-    "db:migrate:prod": "wrangler d1 migrations apply penx-blog --remote",
+    "db:migrate:local": "wrangler d1 migrations apply penx-zio --local",
+    "db:migrate:prod": "wrangler d1 migrations apply penx-zio --remote",
     "db:studio:local": "cross-env DB_LOCAL_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit studio",
     "db:studio:prod": "drizzle-kit studio",
     "pages:build": "pnpm next-on-pages",
+    "pages:deploy": "wrangler pages deploy",
     "deploy": "pnpm pages:build && wrangler pages deploy",
+    "debug": "npx wrangler pages dev .vercel/output/static",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts"
   },
   "dependencies": {

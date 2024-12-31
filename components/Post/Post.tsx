@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
-import { useDebouncedCallback } from 'use-debounce'
 import { appEmitter } from '@/lib/app-emitter'
-import { editorDefaultValue } from '@/lib/constants'
 import { updatePost } from '@/lib/hooks/usePost'
 import { usePostSaving } from '@/lib/hooks/usePostSaving'
 import { trpc } from '@/lib/trpc'
+import { uniqueId } from '@/lib/unique-id'
 import { Post as PostType } from '@/server/db/schema'
+import { useDebouncedCallback } from 'use-debounce'
 import { PlateEditor } from '../editor/plate-editor'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
 import { CoverUpload } from './CoverUpload'
@@ -87,7 +87,17 @@ export function Post({ post }: { post: PostType }) {
         <PlateEditor
           className="w-full -mx-6"
           showAddButton
-          value={post.content ? JSON.parse(post.content) : editorDefaultValue}
+          value={
+            post.content
+              ? JSON.parse(post.content)
+              : [
+                  {
+                    id: uniqueId(),
+                    type: 'p',
+                    children: [{ text: '' }],
+                  },
+                ]
+          }
           onChange={(v) => {
             setData({ ...data, content: JSON.stringify(v) })
           }}

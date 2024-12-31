@@ -1,5 +1,3 @@
-import { uniqueId } from '../unique-id'
-
 export * from './element-type'
 export * from './defaultPostContent'
 
@@ -110,7 +108,6 @@ export const SIDEBAR_WIDTH = 240
 
 export const editorDefaultValue = [
   {
-    id: uniqueId(),
     type: 'p',
     children: [{ text: '' }],
   },
