@@ -1,4 +1,4 @@
-export * from './db'
+export * from './local-db'
 export * from './libs/getNewNode'
 export * from './libs/getCommonNode'
 export * from './emitter'

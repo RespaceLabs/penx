@@ -1,9 +1,5 @@
 'use client'
 
-import { ExternalLink, Trash2, X } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -15,7 +11,13 @@ import {
 import { Switch } from '@/components/ui/switch'
 import { placeholderBlurhash } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { useLoadAsset } from '@/lib/hooks/useLoadAsset'
 import { trpc } from '@/lib/trpc'
+import { Asset } from '@/server/db/schema'
+import { ExternalLink, Trash2, X } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { toast } from 'sonner'
 import { DeleteButton } from './DeleteButton'
 import { useAssetDialog } from './useAssetDialog'
 
@@ -88,22 +90,33 @@ export function AssetDialog({}: Props) {
         </DialogHeader>
 
         <div className="flex items-center justify-center flex-1">
-          <img
-            alt={asset.filename || ''}
-            className="h-auto w-auto max-h-[80vh] max-w-[80vw] object-contain transition-transform"
-            style={{ transform: 'translate3d(0, 0, 0)' }}
-            // placeholder="blur"
-            // blurDataURL={placeholderBlurhash}
-            src={`/asset/${asset.url}?s=1360`}
-            width={720}
-            height={480}
-            // sizes="(max-width: 640px) 100vw,
-            //       (max-width: 1280px) 50vw,
-            //       (max-width: 1536px) 33vw,
-            //       25vw"
-          />
+          <AssetImage asset={asset} />
         </div>
       </DialogContent>
     </Dialog>
+  )
+}
+
+interface AssetImageProps {
+  asset: Asset
+}
+function AssetImage({ asset }: AssetImageProps) {
+  const { isLoading, url } = useLoadAsset(asset)
+  if (isLoading) return null
+  return (
+    <img
+      alt={asset.filename || ''}
+      className="h-auto w-auto max-h-[80vh] max-w-[80vw] object-contain transition-transform"
+      style={{ transform: 'translate3d(0, 0, 0)' }}
+      // placeholder="blur"
+      // blurDataURL={placeholderBlurhash}
+      src={url}
+      width={720}
+      height={480}
+      // sizes="(max-width: 640px) 100vw,
+      //       (max-width: 1280px) 50vw,
+      //       (max-width: 1536px) 33vw,
+      //       25vw"
+    />
   )
 }

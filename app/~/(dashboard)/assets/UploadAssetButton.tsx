@@ -1,12 +1,15 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { UploadCloud } from 'lucide-react'
-import { toast } from 'sonner'
+import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import { calculateSHA256FromFile } from '@/lib/encryption'
+import { localDB } from '@/lib/local-db'
 import { trpc } from '@/lib/trpc'
+import { uniqueId } from '@/lib/unique-id'
 import { cn } from '@/lib/utils'
+import { UploadCloud } from 'lucide-react'
+import { toast } from 'sonner'
 
 interface Props {
   className?: string
@@ -39,6 +42,8 @@ export const UploadAssetButton = ({ className, ...rest }: Props) => {
     if (res.ok) {
       const data = await res.json()
       toast.success('Image uploaded successfully!')
+
+      await localDB.addAsset(fileHash, file)
       await refetch()
     } else {
       toast.error('Upload image failed')
@@ -48,16 +53,17 @@ export const UploadAssetButton = ({ className, ...rest }: Props) => {
   }
 
   return (
-    <Button variant="brand" {...rest} className={cn(className, 'p-0')}>
+    <Button variant="brand" {...rest} className={cn('p-0 w-40', className)}>
       <a
         onClick={handleClick}
-        className="bg-transparent h-full w-full flex items-center gap-2 text-sm px-3"
+        className="bg-transparent h-full w-full flex items-center gap-2 text-sm px-3 text-center"
       >
         {!uploading && <UploadCloud size={20} />}
-        {!uploading && <div>Upload a image</div>}
+        {!uploading && <span>Upload a image</span>}
         {uploading && (
           <div className="flex items-center gap-x-2">
-            <div>Uploading...</div>
+            <span>Uploading</span>
+            <LoadingDots className="bg-white" />
           </div>
         )}
       </a>
