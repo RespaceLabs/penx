@@ -1,4 +1,4 @@
-G# PenX
+# PenX
 
 <div align="center">
 

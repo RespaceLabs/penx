@@ -82,7 +82,7 @@ export const pageRouter = router({
       let { pageId, elements, ...data } = input
       let slateElements = JSON.parse(elements || '[]') as SlateElement[]
 
-      // console.log('======>>>>elements:', slateElements)
+      console.log('======>>>>elements:', slateElements)
 
       slateElements = slateElements.map((e) => ({
         ...e,
@@ -90,6 +90,9 @@ export const pageRouter = router({
       }))
 
       const children = slateElements.map((el) => el.id)
+
+      console.log('11111111111111111')
+
       const [page] = await db
         .update(pages)
         .set({
@@ -99,9 +102,13 @@ export const pageRouter = router({
         .where(eq(pages.id, pageId))
         .returning()
 
+      console.log('222222222222')
+
       const pageBlocks = await db.query.blocks.findMany({
         where: eq(blocks.pageId, pageId),
       })
+
+      console.log('=33333333333333')
 
       const blockIdsSet = new Set(pageBlocks.map((b) => b.id))
 
@@ -119,27 +126,26 @@ export const pageRouter = router({
       }
 
       if (added.length) {
-        await db.insert(blocks).values(
-          added.map(
-            ({ id, ...content }) =>
-              ({
-                id,
-                pageId,
-                parentId: pageId,
-                type: content?.type,
-                content: content,
-                children: [],
-                props: {},
-              }) as Block,
-          ),
-        )
+        const addedPromises = added.map(({ id, ...content }) => {
+          return db.insert(blocks).values({
+            id,
+            pageId,
+            parentId: pageId,
+            type: content?.type,
+            content: content,
+            children: [],
+            props: {},
+          })
+        })
+
+        await Promise.all(addedPromises)
       }
 
-      const promises = updated.map(({ id, ...content }) => {
+      const updatedPromises = updated.map(({ id, ...content }) => {
         return db.update(blocks).set({ content }).where(eq(blocks.id, id))
       })
 
-      await Promise.all(promises)
+      await Promise.all(updatedPromises)
       await cleanDeletedBlocks(page)
 
       return page
@@ -171,5 +177,6 @@ async function cleanDeletedBlocks(page: Page) {
       promises.push(db.delete(blocks).where(eq(blocks.id, block.id)))
     }
   }
+
   if (promises.length) await Promise.all(promises)
 }
