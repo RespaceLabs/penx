@@ -1,12 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
 import LoadingCircle from '@/components/icons/loading-circle'
 import { Button } from '@/components/ui/button'
 import { useDatabases } from '@/lib/hooks/useDatabases'
 import { api } from '@/lib/trpc'
+import useSession from '@/lib/useSession'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 export function CreatePageButton() {
   const { push } = useRouter()
@@ -16,7 +17,7 @@ export function CreatePageButton() {
     setLoading(true)
     try {
       const page = await api.page.create.mutate({
-        name: '',
+        title: '',
       })
       push(`/~/page?id=${page.id}`)
       refetch()

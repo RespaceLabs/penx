@@ -1,7 +1,7 @@
-import { desc, eq, or } from 'drizzle-orm'
-import { z } from 'zod'
 import { editorDefaultValue, ELEMENT_P } from '@/lib/constants'
 import { uniqueId } from '@/lib/unique-id'
+import { desc, eq, or } from 'drizzle-orm'
+import { z } from 'zod'
 import { db } from '../db'
 import { Block, blocks, databases, Page, pages } from '../db/schema'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
@@ -14,7 +14,7 @@ interface SlateElement {
 export const pageRouter = router({
   list: protectedProcedure.query(async ({ ctx, input }) => {
     return await db.query.pages.findMany({
-      orderBy: [desc(databases.createdAt)],
+      orderBy: [desc(databases.updatedAt)],
     })
   }),
 
@@ -32,7 +32,7 @@ export const pageRouter = router({
   create: protectedProcedure
     .input(
       z.object({
-        name: z.string().optional(),
+        title: z.string().optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {

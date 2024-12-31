@@ -11,9 +11,11 @@ class LocalDB extends Dexie {
 
   constructor() {
     super('penx-local')
-    this.version(2).stores({
+    this.version(3).stores({
       // Primary key and indexed props
       asset: 'id, hash',
+      page: 'id, userId, parentId, isJournal',
+      block: 'id, userId, parentId, pageId, type',
     })
   }
 

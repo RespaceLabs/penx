@@ -1,12 +1,12 @@
 'use client'
 
-import { format } from 'date-fns'
-import { Edit3Icon, Trash2 } from 'lucide-react'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { usePages } from '@/lib/hooks/usePages'
 import { cn } from '@/lib/utils'
 import { Page } from '@/server/db/schema'
+import { format } from 'date-fns'
+import { Edit3Icon, Trash2 } from 'lucide-react'
+import Link from 'next/link'
 import { DeletePageDialog } from './DeletePageDialog/DeletePageDialog'
 import { useDeletePageDialog } from './DeletePageDialog/useDeleteDatabaseDialog'
 
@@ -68,6 +68,8 @@ export function PageList() {
   if (!pages?.length) {
     return <div className="text-foreground/60">No page yet.</div>
   }
+
+  console.log('=====pages:', pages)
 
   return (
     <div className="grid gap-4">
