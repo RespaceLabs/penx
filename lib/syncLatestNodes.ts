@@ -1,4 +1,4 @@
-import { db } from './local-db'
+import { localDB } from './local-db'
 import { api } from './trpc'
 
 export async function syncLatestNodes() {

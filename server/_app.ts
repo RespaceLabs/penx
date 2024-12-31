@@ -7,7 +7,6 @@ import { assetRouter } from './routers/asset'
 import { commentRouter } from './routers/comment'
 import { databaseRouter } from './routers/database'
 import { googleRouter } from './routers/google'
-import { nodeRouter } from './routers/node'
 import { pageRouter } from './routers/page'
 import { postRouter } from './routers/post'
 import { siteRouter } from './routers/site'
@@ -20,7 +19,6 @@ export const appRouter = router({
   site: siteRouter,
   user: userRouter,
   post: postRouter,
-  node: nodeRouter,
   tag: tagRouter,
   google: googleRouter,
   accessToken: accessTokenRouter,

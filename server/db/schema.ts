@@ -1,6 +1,14 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
+import {
+  CommentStatus,
+  GateType,
+  PostStatus,
+  PostType,
+  SiteMode,
+  UserRole,
+} from '@/lib/types'
 import { relations } from 'drizzle-orm'
 import {
   index,
@@ -13,14 +21,6 @@ import {
 } from 'drizzle-orm/sqlite-core'
 import * as t from 'drizzle-orm/sqlite-core'
 import { v4 } from 'uuid'
-import {
-  CommentStatus,
-  GateType,
-  PostStatus,
-  PostType,
-  SiteMode,
-  UserRole,
-} from '@/lib/types'
 
 export const sites = table('site', {
   id: text('id')
@@ -120,42 +120,6 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
   user: one(users, { references: [users.id], fields: [accounts.userId] }),
 }))
 
-export const nodes = table(
-  'node',
-  {
-    id: text('id')
-      .primaryKey()
-      .$defaultFn(() => v4()),
-    userId: text('userId').notNull(),
-    parentId: text('parentId'),
-    databaseId: text('databaseId'),
-    type: text('type'),
-    content: text('content', { mode: 'json' }),
-    props: text('props', { mode: 'json' }),
-    collapsed: integer('collapsed', { mode: 'boolean' }).default(false),
-    folded: integer('folded', { mode: 'boolean' }).default(true),
-    children: text('children', { mode: 'json' }),
-    date: text('date', { length: 20 }),
-    createdAt: integer('createdAt', { mode: 'timestamp' })
-      .notNull()
-      .$defaultFn(() => new Date()),
-    updatedAt: integer('updatedAt', { mode: 'timestamp' })
-      .notNull()
-      .$defaultFn(() => new Date())
-      .$onUpdate(() => new Date()),
-  },
-  (table) => {
-    return {
-      userIdIndex: t.index('nodes_user_id_idx').on(table.userId),
-      typeIndex: t.index('nodes_type_idx').on(table.type),
-    }
-  },
-)
-
-export const nodesRelations = relations(nodes, ({ one }) => ({
-  user: one(users, { references: [users.id], fields: [nodes.userId] }),
-}))
-
 export const posts = table(
   'post',
   {
@@ -170,7 +134,7 @@ export const posts = table(
     description: text('description', { length: 1000 }).default(''),
     content: text('content').notNull().default(''),
     cid: text('cid', { length: 100 }).default(''),
-    nodeId: text('nodeId').unique(),
+    pageId: text('pageId').unique(),
     creationId: integer('creationId'),
     type: text('type').default(PostType.ARTICLE),
     gateType: text('gateType').default(GateType.FREE),
