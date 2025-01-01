@@ -1,7 +1,8 @@
+import { count } from 'console'
 import { FieldType, Option, ViewField, ViewType } from '@/lib/types'
 import { uniqueId } from '@/lib/unique-id'
 import { arrayMoveImmutable } from 'array-move'
-import { desc, eq, or } from 'drizzle-orm'
+import { desc, eq, or, sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { db } from '../db'
 import { databases, fields, posts, records, views } from '../db/schema'
@@ -10,7 +11,7 @@ import { protectedProcedure, publicProcedure, router } from '../trpc'
 export const databaseRouter = router({
   list: protectedProcedure.query(async ({ ctx, input }) => {
     return await db.query.databases.findMany({
-      orderBy: [desc(databases.updatedAt)],
+      orderBy: [desc(databases.updatedAt), desc(databases.createdAt)],
     })
   }),
 
@@ -141,6 +142,48 @@ export const databaseRouter = router({
     .mutation(async ({ ctx, input }) => {
       await db.insert(records).values(input)
       return true
+    }),
+
+  addRefBlockRecord: protectedProcedure
+    .input(
+      z.object({
+        databaseId: z.string(),
+        refBlockId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const fieldList = await db.query.fields.findMany({
+        where: eq(fields.databaseId, input.databaseId),
+      })
+
+      const res = await db
+        .select({ count: sql<number>`count(*)` })
+        .from(records)
+        .where(eq(records.databaseId, input.databaseId))
+      const count = res[0].count
+
+      const newFields = fieldList.reduce(
+        (acc, field) => {
+          return {
+            ...acc,
+            [field.id]: field.isPrimary
+              ? { refType: 'BLOCK', id: input.refBlockId }
+              : '',
+          }
+        },
+        {} as Record<string, any>,
+      )
+
+      const [record] = await db
+        .insert(records)
+        .values({
+          databaseId: input.databaseId,
+          sort: count + 1,
+          fields: newFields,
+        })
+        .returning()
+
+      return record
     }),
 
   addField: protectedProcedure

@@ -1,12 +1,13 @@
 'use client'
 
-import { format } from 'date-fns'
-import { Edit3Icon, Trash2 } from 'lucide-react'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { bgColorMaps } from '@/lib/color-helper'
 import { useDatabases } from '@/lib/hooks/useDatabases'
 import { cn } from '@/lib/utils'
 import { Database } from '@/server/db/schema'
+import { format } from 'date-fns'
+import { Edit3Icon, Trash2 } from 'lucide-react'
+import Link from 'next/link'
 import { DeleteDatabaseDialog } from './database-ui/DeleteDatabaseDialog/DeleteDatabaseDialog'
 import { useDeleteDatabaseDialog } from './database-ui/DeleteDatabaseDialog/useDeleteDatabaseDialog'
 
@@ -24,14 +25,26 @@ export function DatabaseItem({ database: database }: DatabaseItemProps) {
           href={`/~/database?id=${database.id}`}
           className="inline-flex items-center hover:scale-105 transition-transform"
         >
-          <div className="text-base font-bold">
-            {database.name || 'Untitled'}
+          <div className="flex items-center gap-1">
+            <span
+              className={cn(
+                'h-5 w-5 rounded-full flex items-center justify-center text-background text-sm',
+                bgColorMaps[database.color!] || 'bg-foreground/50',
+              )}
+            >
+              #
+            </span>
+            <div className="text-base font-bold">
+              {database.name || 'Untitled'}
+            </div>
           </div>
         </Link>
       </div>
       <div className="flex items-center gap-2">
         <div className="text-sm text-zinc-500">
-          <div>{format(new Date(database.updatedAt), 'yyyy-MM-dd')}</div>
+          <div>
+            {format(new Date(database.updatedAt), 'yyyy-MM-dd hh:mm:ss')}
+          </div>
         </div>
         <Link href={`/~/database?id=${database.id}`}>
           <Button

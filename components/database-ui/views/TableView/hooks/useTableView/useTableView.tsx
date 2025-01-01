@@ -2,15 +2,14 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import isEqual from 'react-fast-compare'
-import { format } from 'date-fns'
-import { produce } from 'immer'
 import { DateCell } from '@/components/cells/date-cell'
-import { FileCell, fileCellRenderer } from '@/components/cells/file-cell'
+import { FileCell } from '@/components/cells/file-cell'
 import {
   PasswordCell,
   passwordCellRenderer,
 } from '@/components/cells/password-cell'
 import { RateCell } from '@/components/cells/rate-cell'
+import { RefCell } from '@/components/cells/ref-cell'
 import { SingleSelectCell } from '@/components/cells/single-select-cell'
 import { SystemDateCell } from '@/components/cells/system-date-cell'
 import { useDatabaseContext } from '@/components/database-ui/DatabaseProvider'
@@ -29,6 +28,9 @@ import {
   GridColumnIcon,
   Item,
 } from '@glideapps/glide-data-grid'
+import { format } from 'date-fns'
+import { produce } from 'immer'
+import { useLoadBlocks } from './useLoadBlocks'
 
 function getCols(fields: Field[], viewFields: ViewField[]) {
   const sortedFields = viewFields
@@ -74,7 +76,7 @@ export function useTableView() {
     sortedFields,
 
     // options,
-    addRow,
+    addRecord,
     updateRowsIndexes,
   } = useDatabaseContext()
   const { fields, records, views } = database
@@ -86,6 +88,8 @@ export function useTableView() {
   const [cols, setCols] = useState(getCols(fields, viewFields))
 
   const gridRef = useRef<DataEditorRef>(null)
+
+  const { cellBlockRef } = useLoadBlocks(gridRef, database)
 
   const getContent = useCallback(
     (cell: Item): GridCell => {
@@ -115,7 +119,23 @@ export function useTableView() {
 
         return maps[field.fieldType!] || GridCellKind.Text
       }
+
       const cellData = getCellData()
+
+      if (cellData?.refType) {
+        const info = cellBlockRef.current[record.id]
+
+        return {
+          kind: GridCellKind.Custom,
+          allowOverlay: true,
+          copyData: '',
+          data: {
+            kind: 'ref-cell',
+            data: cellData,
+            block: info?.block,
+          },
+        } as RefCell
+      }
 
       if (field.fieldType === FieldType.DATE) {
         return {
@@ -328,8 +348,8 @@ export function useTableView() {
   )
 
   const onRowAppended = useCallback(() => {
-    addRow()
-  }, [addRow])
+    addRecord()
+  }, [addRecord])
 
   useEffect(() => {
     const newCols = getCols(fields, viewFields)

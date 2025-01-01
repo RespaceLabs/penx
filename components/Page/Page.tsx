@@ -70,7 +70,8 @@ export function Page() {
           showAddButton
           value={content}
           onChange={(v) => {
-            console.log('v======:', v)
+            console.log('=======v:', v)
+
             setData({ ...data, blocks: v })
           }}
         />

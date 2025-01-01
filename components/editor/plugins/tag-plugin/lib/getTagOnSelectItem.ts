@@ -27,7 +27,14 @@ export const getTagOnSelectItem =
     })
     const { insertSpaceAfterMention } = getOptions()
 
-    tf.insert.tag({ key: item.key, search, value: item.text })
+    tf.insert.tag({
+      key: item.key,
+      search,
+      value: item.text,
+      color: item.color,
+      databaseId: item.databaseId,
+      element: item.element,
+    })
 
     // move the selection after the element
     moveSelection(editor, { unit: 'offset' })

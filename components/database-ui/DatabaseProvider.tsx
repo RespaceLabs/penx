@@ -10,11 +10,9 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { arrayMoveImmutable } from 'array-move'
-import { produce } from 'immer'
-import { useSearchParams } from 'next/navigation'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { getRandomColorName } from '@/lib/color-helper'
+import { useQueryDatabase } from '@/lib/hooks/useQueryDatabase'
 import { IFilterResult, IOptionNode } from '@/lib/model'
 import { queryClient } from '@/lib/queryClient'
 import { api } from '@/lib/trpc'
@@ -31,6 +29,9 @@ import { uniqueId } from '@/lib/unique-id'
 import { RouterInputs, RouterOutputs } from '@/server/_app'
 import { Field, Record as Row, View } from '@/server/db/schema'
 import { useQuery } from '@tanstack/react-query'
+import { arrayMoveImmutable } from 'array-move'
+import { produce } from 'immer'
+import { useSearchParams } from 'next/navigation'
 
 type DatabaseView = Omit<View, 'viewFields'> & {
   viewFields: ViewField[]
@@ -75,7 +76,7 @@ export interface IDatabaseContext {
 
   updateViewField(fieldId: string, props: any): Promise<void>
 
-  addRow(): Promise<void>
+  addRecord(): Promise<void>
   deleteRecord(rowId: string): Promise<void>
 
   addColumn(fieldType: FieldType): Promise<void>
@@ -118,13 +119,7 @@ export const DatabaseContext = createContext({} as IDatabaseContext)
 export function DatabaseProvider({ children }: PropsWithChildren) {
   const params = useSearchParams()
   const databaseId = params?.get('id')!
-  const { isLoading, data } = useQuery({
-    queryKey: ['database', databaseId],
-    queryFn: async () => {
-      return await api.database.byId.query(databaseId)
-    },
-    enabled: !!databaseId,
-  })
+  const { isLoading, data } = useQueryDatabase(databaseId)
 
   // console.log('=====data:', data)
 
@@ -164,6 +159,7 @@ function DatabaseContent({
   async function updateDatabase(props: UpdateDatabaseInput) {
     const newDatabase = produce(database, (draft) => {
       if (props.name) draft.name = props.name
+      if (props.color) draft.color = props.color
     })
 
     reloadDatabase(newDatabase)
@@ -206,7 +202,7 @@ function DatabaseContent({
     })
   }
 
-  async function addRow() {
+  async function addRecord() {
     const newFields = database.fields.reduce(
       (acc, field) => {
         return {
@@ -226,8 +222,7 @@ function DatabaseContent({
         fields: newFields,
         createdAt: new Date(),
         updatedAt: new Date(),
-        deletedAt: new Date(),
-      })
+      } as DatabaseRecord)
     })
 
     reloadDatabase(newDatabase)
@@ -486,7 +481,7 @@ function DatabaseContent({
         deleteView,
         updateView,
         updateViewField: updateViewField,
-        addRow,
+        addRecord,
         deleteRecord,
         addColumn,
         deleteField,

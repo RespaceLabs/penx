@@ -1,6 +1,4 @@
 import { Dispatch, SetStateAction, useState } from 'react'
-import { PenLine } from 'lucide-react'
-import { toast } from 'sonner'
 import { Input } from '@/components/ui/input'
 import { Menu, MenuItem } from '@/components/ui/menu'
 import {
@@ -9,10 +7,12 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Separator } from '@/components/ui/separator'
-import { bgColorMaps } from '@/lib/color-helper'
+import { bgColorMaps, textColorMaps } from '@/lib/color-helper'
 import { useCopyToClipboard } from '@/lib/hooks/useCopyToClipboard'
 import { cn } from '@/lib/utils'
 import { PopoverClose } from '@radix-ui/react-popover'
+import { PenLine } from 'lucide-react'
+import { toast } from 'sonner'
 import { useDatabaseContext } from './DatabaseProvider'
 
 function ColorSelector({
@@ -20,8 +20,8 @@ function ColorSelector({
 }: {
   setOpen: Dispatch<SetStateAction<boolean>>
 }) {
-  const { updateDatabase } = useDatabaseContext()
-  const colorNames: string[] = Object.values(bgColorMaps)
+  const { updateDatabase, database } = useDatabaseContext()
+  const colorEntries = Object.entries(bgColorMaps)
 
   async function selectColor(color: string) {
     updateDatabase({ color })
@@ -30,12 +30,12 @@ function ColorSelector({
 
   return (
     <div className="flex items-center flex-wrap gap-2 p-4">
-      {colorNames.map((color) => (
+      {colorEntries.map(([color, bg]) => (
         <div
           key={color}
           className={cn(
             'h-6 w-6 rounded-full cursor-pointer hover:scale-110 transition-colors',
-            color,
+            bg,
           )}
           title={color}
           onClick={() => selectColor(color)}
@@ -102,10 +102,18 @@ export const TableName = () => {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <div className="flex items-center gap-1 cursor-pointer">
-          <div className="text-base font-bold">
-            {database.name || 'Untitled'}
+          <div className="text-base font-bold flex items-center gap-1">
+            <span
+              className={cn(
+                'h-5 w-5 rounded-full flex items-center justify-center text-background text-sm',
+                bgColorMaps[database.color!] || 'bg-foreground/50',
+              )}
+            >
+              #
+            </span>
+            <span>{database.name || 'Untitled'}</span>
           </div>
-          <PenLine size={12} />
+          <PenLine size={14} />
         </div>
       </PopoverTrigger>
       <PopoverContent className="p-0 w-64">

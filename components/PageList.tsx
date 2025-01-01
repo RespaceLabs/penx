@@ -69,8 +69,6 @@ export function PageList() {
     return <div className="text-foreground/60">No page yet.</div>
   }
 
-  console.log('=====pages:', pages)
-
   return (
     <div className="grid gap-4">
       <DeletePageDialog />
