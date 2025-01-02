@@ -11,12 +11,11 @@ import {
 import { Switch } from '@/components/ui/switch'
 import { placeholderBlurhash } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { useAssets } from '@/lib/hooks/useAssets'
 import { useLoadAsset } from '@/lib/hooks/useLoadAsset'
 import { trpc } from '@/lib/trpc'
 import { Asset } from '@/server/db/schema'
 import { ExternalLink, Trash2, X } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
 import { toast } from 'sonner'
 import { DeleteButton } from './DeleteButton'
 import { useAssetDialog } from './useAssetDialog'
@@ -25,9 +24,7 @@ interface Props {}
 
 export function AssetDialog({}: Props) {
   const { isOpen, setIsOpen, asset: asset } = useAssetDialog()
-  const { refetch } = trpc.asset.list.useQuery({
-    pageSize: 10000,
-  })
+  const { refetch } = useAssets()
 
   const { mutateAsync: trash, isPending } = trpc.asset.trash.useMutation()
   const { mutateAsync: updatePublicStatus } =

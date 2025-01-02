@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import { calculateSHA256FromFile } from '@/lib/encryption'
+import { useAssets } from '@/lib/hooks/useAssets'
 import { localDB } from '@/lib/local-db'
 import { trpc } from '@/lib/trpc'
 import { uniqueId } from '@/lib/unique-id'
@@ -23,9 +24,7 @@ export const UploadAssetButton = ({ className, ...rest }: Props) => {
   }
 
   const [uploading, setUploading] = useState(false)
-  const { refetch } = trpc.asset.list.useQuery({
-    pageSize: 10000,
-  })
+  const { refetch } = useAssets()
   async function handleUpload(file: File) {
     setUploading(true)
     const fileHash = await calculateSHA256FromFile(file)

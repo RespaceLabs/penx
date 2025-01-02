@@ -2,8 +2,6 @@
 
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
-import { z } from 'zod'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
@@ -19,6 +17,8 @@ import { trpc } from '@/lib/trpc'
 import useSession from '@/lib/useSession'
 import { sleep } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
+import { z } from 'zod'
 
 const FormSchema = z.object({
   name: z.string().min(4, {
@@ -89,7 +89,12 @@ export function LoginForm({}: Props) {
           render={({ field }) => (
             <FormItem className="w-full">
               <FormControl>
-                <Input placeholder="Password" {...field} className="w-full" />
+                <Input
+                  type="password"
+                  placeholder="Password"
+                  {...field}
+                  className="w-full"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
