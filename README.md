@@ -15,137 +15,56 @@
 
 </div>
 
-## Introduction
+
+## Deploy your own
 
 Deploy a dynamic blog using Cloudflare Pages, D1, R2, and AI.
 
-## Getting Started
+There two way to deploy PenX:
+- Deploy with PenX One-click tools (recommended). [Deploy now ](https://penx.io/self-hosted)
+- Deploy with source code. [Deploy now ](https://www.0xz.io/posts/f39ff8fe-3db8-4dd9-90d3-352c289546c5)
 
-### Local Development
+## Local development
 
+To develop PenX locally, follow these steps:
+
+1.Clone the repository:
+
+```
+git clone https://github.com/penx-labs/penx
+```
+
+2.Initial setup: run the following commands for the first time:
 
 ```bash
-# Clone the repository
-git clone https://github.com/penx-labs/penx
-
-# Install dependencies
 pnpm install
-
-# Setup database
 pnpm run db:generate
-pnpm run db:migrate:local
-
-# Start development server
-pnpm run dev
+pnpm run db:migrate:prod
 ```
 
-Your local instance will be available at `http://localhost:3000`
-
-### Deploy your own
-
-To deploy PenX to Cloudflare, follow these steps:
-
-#### 1. Clone the PenX Repository
-
-First, clone the PenX project to your local machine by executing the following command:
+3.Start local server:
 
 ```bash
-git clone https://github.com/penx-labs/penx
+pnpm dev
 ```
 
-#### 2. Configure `wrangler.toml`
+Your local server will be available at `http://localhost:3000`
 
-Next, rename `wrangler.toml.example` to `wrangler.toml`.
-
-#### 3. Create a Cloudflare D1 Database
-
-Run the following command to create a Cloudflare D1 database:
+4.Preview local database:
 
 ```bash
-npx wrangler d1 create penx-blog
+pnpm run db:studio:local
 ```
 
-If successful, you will see a confirmation message similar to this:
+## Examples blogs
 
-```
-✅ Successfully created DB 'penx-blog' in region WNAM
-Created your new D1 database.
-
-[[d1_databases]]
-binding = "DB"
-database_name = "penx-blog"
-database_id = "00e31c14-e6ae-4612-9bc3-d25c6a1f8023d"
-```
-
-Copy the `database_id` and update it in your `wrangler.toml` file.
-
-#### 4. Create Cloudflare R2 Bucket
-
-> Before create R2 Bucket, you need to bind a credit card to Cloudflare.
-
-Create a Cloudflare R2 bucket by running:
-
-```bash
-npx wrangler r2 bucket create penx-bucket
-```
-
-You should receive a message confirming the creation of the bucket:
-
-```
-✅ Created bucket 'penx-bucket' with default storage class of Standard.
-
-Configure your Worker to write objects to this bucket:
-
-[[r2_buckets]]
-bucket_name = "penx-bucket"
-binding = "penx_bucket"
-```
-
-After r2 bucket created, update the `binding = "penx_bucket"` to `binding = "BUCKET"` in your `wrangler.toml` file.
-
-#### 5. Create Cloudflare KV
-
-Create a Cloudflare KV by running:
-
-```bash
-npx wrangler kv namespace create penx-kv
-```
-
-You should receive a message confirming the creation of the kv:
-
-```
-🌀 Creating namespace with title "penx-blog-penx-kv"
-✨ Success!
-Add the following to your configuration file in your kv_namespaces array:
-[[kv_namespaces]]
-binding = "penx_kv"
-id = "4e0be465e99b4803a80107f78d6d2d70"
-```
-
-After kv namespace created, update your `wrangler.toml` file:
-- Update the `binding = "penx_kv"` to `binding = "KV"`.
-- Replace the `id = "<kv_id>"` with the generated kv namespace `id`.
-
-#### 6. Configure Session Password
-
-To set up a session password, visit [this link](https://generate-secret.vercel.app/64) to generate a secure password. Replace `SESSION_PASSWORD` in your `wrangler.toml` with this value.
-
-#### 7. Deploy to Cloudflare Pages
-
-Finally, deploy your blog by running these commands:
-
-```bash
-pnpm install
-pnpm run db:generate # Required for initial release
-pnpm run db:migrate:local
-pnpm run deploy
-```
-
-Upon successful deployment, you will receive a URL like: https://penx-blog.pages.dev.
-
-### Examples Blogs
+Explore these example blogs created with PenX:
 
 - https://www.0xz.io
-- https://penx-blog.pages.dev/
+- https://penx-blog.pages.dev
 
 ## ⚖️ License
+
+This project is open-source and contributions are welcome. Join the community to help enhance PenX for writers everywhere.
+
+For any issues or suggestions, please visit our [GitHub Issues page](https://github.com/penx-labs/penx/issues).
