@@ -19,9 +19,31 @@
 
 Deploy a dynamic blog using Cloudflare Pages, D1, R2, and AI.
 
+## Getting Started
+
+### Local Development
+
+
+```bash
+# Clone the repository
+git clone https://github.com/penx-labs/penx
+
+# Install dependencies
+pnpm install
+
+# Setup database
+pnpm run db:generate
+pnpm run db:migrate:local
+
+# Start development server
+pnpm run dev
+```
+
+Your local instance will be available at `http://localhost:3000`
+
 ### Deploy your own
 
-To deploy PenX to cloudflare, follow these steps:
+To deploy PenX to Cloudflare, follow these steps:
 
 #### 1. Clone the PenX Repository
 
