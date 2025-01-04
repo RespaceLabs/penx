@@ -1,5 +1,5 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "penx-cloudflare"
+name = "penx-blog"
 compatibility_date = "2024-12-05"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"
@@ -35,6 +35,8 @@ bucket_name = "<bucket_name>"
 
 # Bind a KV Namespace. Use KV as persistent storage for small key-value pairs.
 # Docs: https://developers.cloudflare.com/pages/functions/bindings/#kv-namespaces
+
+# npx wrangler kv namespace create penx-kv
 [[kv_namespaces]]
 binding = "KV"
 id = "<kv_id>"

@@ -101,29 +101,51 @@ bucket_name = "penx-bucket"
 binding = "penx_bucket"
 ```
 
-#### 5. Configure Session Password
+After r2 bucket created, update the `binding = "penx_bucket"` to `binding = "BUCKET"` in your `wrangler.toml` file.
+
+#### 5. Create Cloudflare KV
+
+Create a Cloudflare KV by running:
+
+```bash
+npx wrangler kv namespace create penx-kv
+```
+
+You should receive a message confirming the creation of the kv:
+
+```
+🌀 Creating namespace with title "penx-blog-penx-kv"
+✨ Success!
+Add the following to your configuration file in your kv_namespaces array:
+[[kv_namespaces]]
+binding = "penx_kv"
+id = "4e0be465e99b4803a80107f78d6d2d70"
+```
+
+After kv namespace created, update your `wrangler.toml` file:
+- Update the `binding = "penx_kv"` to `binding = "KV"`.
+- Replace the `id = "<kv_id>"` with the generated kv namespace `id`.
+
+#### 6. Configure Session Password
 
 To set up a session password, visit [this link](https://generate-secret.vercel.app/64) to generate a secure password. Replace `SESSION_PASSWORD` in your `wrangler.toml` with this value.
 
-#### 6. Deploy to Cloudflare Pages
+#### 7. Deploy to Cloudflare Pages
 
 Finally, deploy your blog by running these commands:
 
 ```bash
 pnpm install
 pnpm run db:generate # Required for initial release
-pnpm run db:migrate:prod # Required for initial release
+pnpm run db:migrate:local
 pnpm run deploy
 ```
 
-Upon successful deployment, you will receive a URL like: https://penx-cloudflare.pages.dev.
+Upon successful deployment, you will receive a URL like: https://penx-blog.pages.dev.
 
 ### Examples Blogs
 
-- https://my-penx-blog.pages.dev
-- https://demo1.penx.io
-- https://demo2.penx.io
-- https://demo3.penx.io
-- https://demo4.penx.io
+- https://www.0xz.io
+- https://penx-blog.pages.dev/
 
 ## ⚖️ License
