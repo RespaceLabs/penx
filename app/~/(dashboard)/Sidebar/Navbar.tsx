@@ -8,7 +8,7 @@ export const Navbar = () => {
   return (
     <div
       className={cn(
-        'flex items-center justify-between md:hidden h-11 border-b border-foreground/5 fixed top-0 w-full px-3 z-50 bg-background',
+        'flex items-center justify-between sm:hidden h-11 border-b border-foreground/5 fixed top-0 w-full px-3 z-50 bg-background bg-amber-50',
       )}
     >
       <Menu

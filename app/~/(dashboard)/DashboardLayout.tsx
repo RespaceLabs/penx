@@ -2,9 +2,11 @@
 
 import { ReactNode, useEffect, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { CommandPanel } from '@/components/CommandPanel/CommandPanel'
 import { CreationDialog } from '@/components/CreationDialog/CreationDialog'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { SIDEBAR_WIDTH } from '@/lib/constants'
+import { useDatabases } from '@/lib/hooks/useDatabases'
 import { useQueryEthBalance } from '@/lib/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/lib/hooks/useEthPrice'
 import useSession from '@/lib/useSession'
@@ -44,6 +46,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
     <div className="h-screen flex fixed top-0 left-0 bottom-0 right-0">
       <SidebarSheet />
       <Navbar></Navbar>
+      <CommandPanel />
 
       <div
         className={cn('h-screen sticky top-0 hidden md:flex')}

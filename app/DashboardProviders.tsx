@@ -4,6 +4,7 @@ import { PropsWithChildren } from 'react'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { SiteProvider } from '@/components/SiteContext'
 import { useDatabases } from '@/lib/hooks/useDatabases'
+import { usePages } from '@/lib/hooks/usePages'
 import { trpc } from '@/lib/trpc'
 import { Providers } from './providers'
 
@@ -21,6 +22,7 @@ export function DashboardProviders({
 
 function WithDataLoader({ children }: PropsWithChildren) {
   useDatabases()
+  usePages()
   const { data } = trpc.site.getSite.useQuery()
   if (!data)
     return (
