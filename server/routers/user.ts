@@ -185,13 +185,14 @@ export const userRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const address = input.address.toLowerCase()
       const publicClient = createPublicClient({
         chain: NETWORK === NetworkNames.BASE_SEPOLIA ? baseSepolia : base,
         transport: http(),
       })
 
       const valid = await publicClient.verifyMessage({
-        address: input.address as any,
+        address: address as any,
         message: input.message,
         signature: input.signature as any,
       })
@@ -204,7 +205,7 @@ export const userRouter = router({
       }
 
       const account = await db.query.accounts.findFirst({
-        where: eq(accounts.providerAccountId, input.address),
+        where: eq(accounts.providerAccountId, address),
       })
 
       if (account) {
@@ -217,7 +218,7 @@ export const userRouter = router({
       await db.insert(accounts).values({
         userId: ctx.token.uid,
         providerType: ProviderType.WALLET,
-        providerAccountId: input.address,
+        providerAccountId: address,
       })
     }),
 

@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
         await session.save()
         return Response.json(session)
       }
-      const address = siweMessage.address
+      const address = siweMessage.address.toLowerCase()
       const account = (await createUserByAddress(address.toLowerCase()))!
 
       session.isLoggedIn = true
