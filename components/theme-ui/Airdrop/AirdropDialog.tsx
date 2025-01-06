@@ -1,6 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import pRetry, { AbortError } from 'p-retry'
+import { toast } from 'sonner'
+import { useAccount, useReadContract, useWriteContract } from 'wagmi'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
@@ -20,9 +23,6 @@ import { useDailyClaimCap } from '@/lib/hooks/useDailyClaimCap'
 import { useWagmiConfig } from '@/lib/hooks/useWagmiConfig'
 import useSession from '@/lib/useSession'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
-import pRetry, { AbortError } from 'p-retry'
-import { toast } from 'sonner'
-import { useAccount, useReadContract, useWriteContract } from 'wagmi'
 import { AirdropButton } from './AirdropButton'
 
 interface Props {}
@@ -36,6 +36,7 @@ export function AirdropDialog({}: Props) {
           <AirdropButton />
         </DialogTrigger>
         <DialogContent className="sm:max-w-[400px] min-h-96 flex flex-col gap-6">
+          <DialogDescription className="hidden"></DialogDescription>
           <DialogHeader className="text-center">
             <DialogTitle className="text-center">
               Claim $PEN everyday!
@@ -101,6 +102,8 @@ function AuthenticatedContent() {
 
   async function claim() {
     setIsClaiming(true)
+    console.log('=========addressMap.DailyClaim:', addressMap.DailyClaim)
+
     try {
       const hash = await writeContractAsync({
         abi: dailyClaimAbi,

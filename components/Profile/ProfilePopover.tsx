@@ -54,8 +54,6 @@ export const ProfilePopover = memo(function ProfilePopover({
   if (!data) return <div></div>
   const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
 
-  console.log('=======data:', data)
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

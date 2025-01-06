@@ -35,7 +35,7 @@ export function SearchDatabaseList({ heading = '', isRecent }: Props) {
 
     if (!text && !canSearchALlNodesByTag) return items
     return items
-  }, [databases, q, tag, text, q])
+  }, [databases, q, tag, text])
 
   if (isLoading) {
     return (
