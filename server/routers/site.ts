@@ -12,6 +12,10 @@ export const siteRouter = router({
     return site
   }),
 
+  getSiteVersion: publicProcedure.query(async () => {
+    return '0.1.1'
+  }),
+
   updateSite: protectedProcedure
     .input(
       z.object({

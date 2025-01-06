@@ -1,14 +1,6 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import {
-  CommentStatus,
-  GateType,
-  PostStatus,
-  PostType,
-  SiteMode,
-  UserRole,
-} from '@/lib/types'
 import { relations } from 'drizzle-orm'
 import {
   index,
@@ -21,6 +13,14 @@ import {
 } from 'drizzle-orm/sqlite-core'
 import * as t from 'drizzle-orm/sqlite-core'
 import { v4 } from 'uuid'
+import {
+  CommentStatus,
+  GateType,
+  PostStatus,
+  PostType,
+  SiteMode,
+  UserRole,
+} from '@/lib/types'
 
 export const sites = table('site', {
   id: text('id')
