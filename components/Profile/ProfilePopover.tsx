@@ -1,6 +1,18 @@
 'use client'
 
 import { memo } from 'react'
+import {
+  DatabaseBackup,
+  FileText,
+  Gauge,
+  KeySquare,
+  LogOut,
+  Settings,
+  UserCog,
+  UserRound,
+  Wallet,
+} from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -19,18 +31,6 @@ import {
 import { SiteMode } from '@/lib/types'
 import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
-import {
-  DatabaseBackup,
-  FileText,
-  Gauge,
-  KeySquare,
-  LogOut,
-  Settings,
-  UserCog,
-  UserRound,
-  Wallet,
-} from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { useSiteContext } from '../SiteContext'
 import { Skeleton } from '../ui/skeleton'
 import { ProfileAvatar } from './ProfileAvatar'
@@ -53,6 +53,8 @@ export const ProfilePopover = memo(function ProfilePopover({
 
   if (!data) return <div></div>
   const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
+
+  console.log('=======data:', data)
 
   return (
     <DropdownMenu>

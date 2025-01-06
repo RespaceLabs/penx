@@ -17,6 +17,8 @@ interface Props {
 export function SearchDatabaseList({ heading = '', isRecent }: Props) {
   const { close } = useOpen()
   const { data = [], isLoading } = useDatabases()
+  const databases = isRecent ? data.slice(0, 3) : data
+
   const { search, setSearch } = useSearch()
   const q = search.replace(/^#(\s+)?/, '') || ''
   const regex = /^(\S+)\s?(.*)?$/
@@ -25,15 +27,15 @@ export function SearchDatabaseList({ heading = '', isRecent }: Props) {
   const { push } = useRouter()
 
   const filteredItems = useMemo(() => {
-    if (!q) return data
-    const items = data.filter(({ name = '' }) => {
+    if (!q) return databases
+    const items = databases.filter(({ name = '' }) => {
       return name?.toLowerCase().includes(tag.toLowerCase())
     })
     const canSearchALlNodesByTag = /^#(\S)+\s$/.test(q)
 
     if (!text && !canSearchALlNodesByTag) return items
     return items
-  }, [data, q, tag, text, q])
+  }, [databases, q, tag, text, q])
 
   if (isLoading) {
     return (
@@ -41,6 +43,10 @@ export function SearchDatabaseList({ heading = '', isRecent }: Props) {
         <LoadingDots className="bg-foreground/60" />
       </div>
     )
+  }
+
+  if (!filteredItems.length && isRecent) {
+    return null
   }
 
   if (!filteredItems.length) {

@@ -16,19 +16,20 @@ interface Props {
 export function SearchPageList({ heading = '', isRecent = false }: Props) {
   const { close } = useOpen()
   const { data = [], isLoading } = usePages()
+  const pages = isRecent ? data.slice(0, 3) : data
   const { search, setSearch } = useSearch()
   const q = search.replace(/^@(\s+)?/, '') || ''
   const paletteDrawer = usePaletteDrawer()
   const { push } = useRouter()
 
   const filteredItems = useMemo(() => {
-    if (!q) return data
-    const items = data.filter(({ title = '' }) => {
+    if (!q) return pages
+    const items = pages.filter(({ title = '' }) => {
       return title?.toLowerCase().includes(q.toLowerCase())
     })
 
     return items
-  }, [data, q])
+  }, [pages, q])
 
   if (isLoading) {
     return (

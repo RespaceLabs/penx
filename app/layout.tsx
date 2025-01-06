@@ -10,6 +10,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { getSite } from '@/lib/fetchers'
 import { cn } from '@/lib/utils'
 import { inter } from '@/styles/fonts'
+import { setConfig } from '@fower/react'
 import { Providers } from './providers'
 
 declare global {

@@ -11,9 +11,15 @@ import { useQueryEthBalance } from '@/lib/hooks/useEthBalance'
 import { useQueryEthPrice } from '@/lib/hooks/useEthPrice'
 import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
+import { setConfig } from '@fower/react'
 import { Navbar } from './Sidebar/Navbar'
 import { Sidebar } from './Sidebar/Sidebar'
 import { SidebarSheet } from './Sidebar/SidebarSheet'
+
+setConfig({
+  inline: false,
+  prefix: 'penx-',
+})
 
 export function DashboardLayout({ children }: { children: ReactNode }) {
   const { push } = useRouter()

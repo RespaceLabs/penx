@@ -14,8 +14,8 @@ interface Props {}
 export function CommonList({}: Props) {
   return (
     <>
-      <SearchPageList heading="Recent pages" />
-      <SearchDatabaseList heading="Recent databases" />
+      <SearchPageList heading="Recent pages" isRecent />
+      <SearchDatabaseList heading="Recent databases" isRecent />
     </>
   )
 }

@@ -1,13 +1,13 @@
 'use client'
 
 import { forwardRef, HTMLAttributes } from 'react'
+import { ChevronDown, Copy } from 'lucide-react'
+import { toast } from 'sonner'
 import { useAddress } from '@/lib/hooks/useAddress'
 import { useCopyToClipboard } from '@/lib/hooks/useCopyToClipboard'
 import { trpc } from '@/lib/trpc'
 import useSession from '@/lib/useSession'
 import { cn, isAddress } from '@/lib/utils'
-import { ChevronDown, Copy } from 'lucide-react'
-import { toast } from 'sonner'
 import { UserAvatar } from '../UserAvatar'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
