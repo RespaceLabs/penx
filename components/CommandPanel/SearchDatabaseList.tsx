@@ -9,9 +9,12 @@ import { CommandGroup, CommandItem } from './command-components'
 import { useOpen } from './hooks/useOpen'
 import { useSearch } from './hooks/useSearch'
 
-interface Props {}
+interface Props {
+  heading?: string
+  isRecent?: boolean
+}
 
-export function SearchDatabaseList({}: Props) {
+export function SearchDatabaseList({ heading = '', isRecent }: Props) {
   const { close } = useOpen()
   const { data = [], isLoading } = useDatabases()
   const { search, setSearch } = useSearch()
@@ -47,8 +50,9 @@ export function SearchDatabaseList({}: Props) {
       </div>
     )
   }
+
   return (
-    <CommandGroup heading="">
+    <CommandGroup heading={heading}>
       {filteredItems.map((item) => {
         return (
           <CommandItem

@@ -8,9 +8,12 @@ import { CommandGroup, CommandItem } from './command-components'
 import { useOpen } from './hooks/useOpen'
 import { useSearch } from './hooks/useSearch'
 
-interface Props {}
+interface Props {
+  heading?: string
+  isRecent?: boolean
+}
 
-export function SearchPageList({}: Props) {
+export function SearchPageList({ heading = '', isRecent = false }: Props) {
   const { close } = useOpen()
   const { data = [], isLoading } = usePages()
   const { search, setSearch } = useSearch()
@@ -45,7 +48,7 @@ export function SearchPageList({}: Props) {
 
   return (
     <>
-      <CommandGroup heading="Recent pages">
+      <CommandGroup heading={heading}>
         {filteredItems.map((item) => {
           return (
             <CommandItem

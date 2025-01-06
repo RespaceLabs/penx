@@ -34,7 +34,7 @@ export const Sidebar = ({ bordered = true }: SidebarProps) => {
         bordered && 'border-r',
       )}
     >
-      <div className="px-4 flex items-center h-16">
+      <div className="px-4 flex items-center h-12">
         <ProfilePopover
           showName
           showDropIcon

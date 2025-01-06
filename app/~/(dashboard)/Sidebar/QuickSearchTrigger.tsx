@@ -9,7 +9,7 @@ interface Props {}
 export const QuickSearchTrigger = ({}: Props) => {
   const { setOpen } = useOpen()
   return (
-    <div className="p-4">
+    <div className="px-4">
       <div
         className="flex items-center justify-between border border-foreground/10 rounded-lg py-2 px-2 cursor-pointer hover:bg-foreground/5 transition-colors"
         onClick={() => {
