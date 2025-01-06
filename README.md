@@ -7,9 +7,11 @@
 
 <h1 style="border-bottom: none">
     <b>PenX</b><br />
-    Next generation blogging tools
+    Next generation dynamic blogging tools
     <br>
 </h1>
+
+Deploy a dynamic blog using Cloudflare Pages, D1, R2, and AI. 100% run on Cloudflare.
 
 [Discord](https://discord.gg/nyVpH9njDu) | [Website](https://www.penx.io) | [Issues](https://github.com/penx-lab/penx/issues)
 
@@ -18,11 +20,17 @@
 
 ## Deploy your own
 
-Deploy a dynamic blog using Cloudflare Pages, D1, R2, and AI.
-
 There two way to deploy PenX:
 - Deploy with PenX One-click tools (recommended). [Deploy now ](https://penx.io/self-hosted)
 - Deploy with source code. [Deploy now ](https://www.0xz.io/posts/f39ff8fe-3db8-4dd9-90d3-352c289546c5)
+
+## Technology stack
+
+- Framework: [Next.js](https://nextjs.org/)
+- UI: [Tailwindcss](https://tailwindcss.com/) && [shadcn](https://ui.shadcn.com/)
+- Database: [Cloudflare D1](https://developers.cloudflare.com/d1/)
+- Object Storage: [Cloudflare R2](https://www.cloudflare.com/pt-br/developer-platform/products/r2/)
+- Deployment: [Cloudflare Pages](https://pages.cloudflare.com/)
 
 ## Local development
 
