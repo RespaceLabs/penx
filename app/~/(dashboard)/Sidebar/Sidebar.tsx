@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils'
 import { EnableWeb3Entry } from './EnableWeb3Entry'
 import { LinkGoogleEntry } from './LinkGoogleEntry'
 import { LinkWalletEntry } from './LinkWalletEntry'
+import { QuickSearchTrigger } from './QuickSearchTrigger'
 import { SidebarItem } from './SidebarItem'
 
 interface SidebarProps {
@@ -40,6 +41,8 @@ export const Sidebar = ({ bordered = true }: SidebarProps) => {
           className="px-2 py-2 flex-1 -mx-2 rounded-lg hover:bg-foreground/5 transition-colors"
         />
       </div>
+
+      <QuickSearchTrigger />
 
       <div className="flex flex-col gap-1 px-2">
         {/* <SidebarItem
