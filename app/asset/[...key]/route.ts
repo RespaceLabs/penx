@@ -63,6 +63,11 @@ export async function GET(request: NextRequest) {
   const session = await getServerSession()
   const url = new URL(request.url)
 
+  /** hack for version */
+  if (url.pathname === '/asset/penx-version') {
+    return Response.json({ version: '0.1.1' })
+  }
+
   const size = url.searchParams.get('s') || ''
 
   const key = url.pathname.replace(/^\/asset\//, '')
