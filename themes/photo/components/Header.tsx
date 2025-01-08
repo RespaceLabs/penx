@@ -1,15 +1,15 @@
+import Link from 'next/link'
 import { Profile } from '@/components/Profile/Profile'
 import { Airdrop } from '@/components/theme-ui/Airdrop'
 import { cn } from '@/lib/utils'
 import { Site } from '@penxio/types'
-import Link from 'next/link'
 
 const headerNavLinks = [
   { href: '/', title: 'Home' },
   // { href: '/posts', title: 'Blog' },
   // { href: '/tags', title: 'Tags' },
   { href: '/about', title: 'About' },
-  { href: '/creator-fi', title: 'CreatorFi' },
+  { href: '/creator-fi/plans', title: 'CreatorFi' },
   { href: '/membership', title: 'Membership', isMembership: true },
 ]
 

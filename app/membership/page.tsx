@@ -1,5 +1,10 @@
+import { Suspense } from 'react'
 import { MembershipPage } from './MembershipPage'
 
-export default async function Page() {
-  return <MembershipPage />
+export default function Page() {
+  return (
+    <Suspense>
+      <MembershipPage />
+    </Suspense>
+  )
 }

@@ -1,10 +1,10 @@
 import { ReactNode, Suspense } from 'react'
+import { Merienda } from 'next/font/google'
+import Link from 'next/link'
 import { Profile } from '@/components/Profile/Profile'
 import { Airdrop } from '@/components/theme-ui/Airdrop'
 import { cn } from '@/lib/utils'
 import { Site } from '@penxio/types'
-import { Merienda } from 'next/font/google'
-import Link from 'next/link'
 
 const merienda = Merienda({
   weight: ['400', '500', '600', '700'],
@@ -20,7 +20,7 @@ const headerNavLinks = [
   { href: '/membership', title: 'Membership', isMembership: true },
 ]
 
-const headerNavLinksRight = [{ href: '/creator-fi', title: 'CreatorFi' }]
+const headerNavLinksRight = [{ href: '/creator-fi/plans', title: 'CreatorFi' }]
 
 interface Props {
   site: Site
