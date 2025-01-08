@@ -1,8 +1,9 @@
 'use client'
 
+import { Editor, Transforms } from 'slate'
 import { api } from '@/lib/trpc'
 import {
-  withTriggerCombobox,
+  // withTriggerCombobox,
   type TriggerComboboxPluginOptions,
 } from '@udecode/plate-combobox'
 import {
@@ -12,8 +13,8 @@ import {
   type PluginConfig,
 } from '@udecode/plate-common'
 import { findNodePath } from '@udecode/plate-common/react'
-import { Editor, Transforms } from 'slate'
 import type { TTagElement } from './types'
+import { withTriggerCombobox } from './withTriggerCombobox'
 
 export type TagConfig = PluginConfig<
   'tag',
@@ -52,7 +53,7 @@ export const BaseTagPlugin = createSlatePlugin({
       type: BaseTagInputPlugin.key,
     }),
     trigger: '#',
-    triggerPreviousCharPattern: /^\s?$/,
+    triggerPreviousCharPattern: /.*?/,
   },
   plugins: [BaseTagInputPlugin],
 }).extendEditorTransforms<TagConfig['transforms']>(({ editor, type }) => ({
