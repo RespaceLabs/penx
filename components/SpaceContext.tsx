@@ -1,6 +1,8 @@
 'use client'
 
 import { createContext, PropsWithChildren, useContext } from 'react'
+import ky from 'ky'
+import { Address } from 'viem'
 import {
   editorDefaultValue,
   IPFS_GATEWAY,
@@ -10,9 +12,9 @@ import { useQueryEthPrice } from '@/lib/hooks/useEthPrice'
 import { precision } from '@/lib/math'
 import { api } from '@/lib/trpc'
 import { SpaceType } from '@/lib/types'
+import { Site } from '@penxio/types'
 import { useQuery } from '@tanstack/react-query'
-import ky from 'ky'
-import { Address } from 'viem'
+import { LoadingDots } from './icons/loading-dots'
 
 export const FEE_RATE = BigInt(1) // 1%
 
@@ -153,24 +155,40 @@ export class Space {
 
 export const SpaceContext = createContext({} as Space)
 
-interface Props {}
+interface Props {
+  children:
+    | (({ site, space }: { site: Site; space: Space }) => React.ReactNode)
+    | React.ReactNode
+}
 
-export const SpaceProvider = ({ children }: PropsWithChildren<Props>) => {
+export const SpaceProvider = ({ children }: Props) => {
   useQueryEthPrice()
-  const { data: space, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['space'],
     queryFn: async () => {
       const site = await api.site.getSite.query()
-      const response = await ky
-        .get(RESPACE_BASE_URI + `/api/get-space?address=${site.id}`)
+      const space = await ky
+        .get(RESPACE_BASE_URI + `/api/get-space?address=${site.spaceId}`)
         .json<SpaceType>()
-      return
-      return response
+      return { space, site }
     },
   })
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center h-[80vh]">
+        <LoadingDots className="bg-foreground/60" />
+      </div>
+    )
+
   return (
-    <SpaceContext.Provider value={new Space(space!)}>
-      {children}
+    <SpaceContext.Provider value={new Space(data?.space!)}>
+      {typeof children === 'function'
+        ? children({
+            site: data?.site!,
+            space: new Space(data?.space!),
+          })
+        : children}
     </SpaceContext.Provider>
   )
 }
