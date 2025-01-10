@@ -1,9 +1,9 @@
 import { count } from 'console'
-import { FieldType, Option, ViewField, ViewType } from '@/lib/types'
-import { uniqueId } from '@/lib/unique-id'
 import { arrayMoveImmutable } from 'array-move'
 import { desc, eq, or, sql } from 'drizzle-orm'
 import { z } from 'zod'
+import { FieldType, Option, ViewField, ViewType } from '@/lib/types'
+import { uniqueId } from '@/lib/unique-id'
 import { db } from '../db'
 import { databases, fields, posts, records, views } from '../db/schema'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
@@ -100,10 +100,13 @@ export const databaseRouter = router({
         ])
         .returning()
 
-      await db.update(databases).set({
-        activeViewId: tableView.id,
-        viewIds: [tableView.id, listView.id],
-      })
+      await db
+        .update(databases)
+        .set({
+          activeViewId: tableView.id,
+          viewIds: [tableView.id, listView.id],
+        })
+        .where(eq(databases.id, newDatabase.id))
 
       const recordFields = newFields.reduce(
         (acc, field) => {
