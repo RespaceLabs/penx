@@ -45,17 +45,34 @@ export const withTriggerCombobox: ExtendEditor<
     }
     return false
   }
+  const getPreviousCharacter = (editor: any) => {
+    const { selection } = editor
+    if (selection && Range.isCollapsed(selection)) {
+      const { anchor } = selection
+      const currentNode = Editor.node(editor, anchor.path)
+      const offset = anchor.offset
+
+      if (offset > 0 && currentNode) {
+        const [node] = currentNode as any
+
+        const text = node.text
+        return text.charAt(offset - 1)
+      }
+    }
+
+    return null
+  }
 
   editor.insertText = (text) => {
     const { createComboboxInput, triggerPreviousCharPattern, triggerQuery } =
       getOptions()
-    console.log('====getOptions():', getOptions())
 
     if (
       !editor.selection ||
       !matchesTrigger(text) ||
       (triggerQuery && !triggerQuery(editor as SlateEditor)) ||
-      isAtStartOfLine(editor)
+      isAtStartOfLine(editor) ||
+      getPreviousCharacter(editor) === '#'
     ) {
       return insertText(text)
     }

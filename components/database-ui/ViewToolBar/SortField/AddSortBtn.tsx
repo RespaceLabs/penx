@@ -50,7 +50,7 @@ export const AddSortBtn = () => {
                 <MenuItem
                   key={column.id}
                   onClick={() => {
-                    close()
+                    // close()
                     selectColumn(column)
                   }}
                 >
