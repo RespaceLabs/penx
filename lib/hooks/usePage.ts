@@ -22,9 +22,9 @@ export function usePage() {
   return { page, setPage }
 }
 
-export async function loadPage(pageId: string) {
+export async function loadPage(input: { pageId?: string; date?: string }) {
   store.set(pageLoadingAtom, true)
-  const page = await api.page.byId.query(pageId)
+  const page = await api.page.getPage.query(input)
   store.set(pageAtom, page)
   store.set(pageLoadingAtom, false)
 }

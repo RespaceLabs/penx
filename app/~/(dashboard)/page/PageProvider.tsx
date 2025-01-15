@@ -1,6 +1,7 @@
 'use client'
 
 import { PropsWithChildren, useEffect } from 'react'
+import { format } from 'date-fns'
 import { useSearchParams } from 'next/navigation'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import {
@@ -10,6 +11,7 @@ import {
   usePageLoading,
 } from '@/lib/hooks/usePage'
 import { store } from '@/lib/store'
+import { isValidUUIDv4 } from '@/lib/utils'
 
 export function PageProvider({ children }: PropsWithChildren) {
   const params = useSearchParams()
@@ -23,7 +25,12 @@ export function PageProvider({ children }: PropsWithChildren) {
     // if (id && store.get(pageAtom)?.id !== id) {
     // }
 
-    loadPage(id)
+    if (!isValidUUIDv4(id)) {
+      const date = id === 'today' ? format(new Date(), 'yyyy-MM-dd') : id
+      loadPage({ date: date })
+    } else {
+      loadPage({ pageId: id })
+    }
   }, [id])
 
   if (isPageLoading || !page) {

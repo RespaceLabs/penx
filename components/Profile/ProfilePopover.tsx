@@ -87,7 +87,7 @@ export const ProfilePopover = memo(function ProfilePopover({
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
-                  const path = '/~/posts'
+                  const path = '/~/page?id=today'
                   push(path)
                 }}
               >

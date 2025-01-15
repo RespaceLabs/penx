@@ -1,9 +1,10 @@
-import { editorDefaultValue, ELEMENT_P } from '@/lib/constants'
-import { uniqueId } from '@/lib/unique-id'
 import { desc, eq, or } from 'drizzle-orm'
 import { z } from 'zod'
+import { uniqueId } from '@/lib/unique-id'
+import { TRPCError } from '@trpc/server'
 import { db } from '../db'
-import { Block, blocks, databases, Page, pages } from '../db/schema'
+import { blocks, databases, Page, pages } from '../db/schema'
+import { createPage } from '../lib/createPage'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 interface SlateElement {
@@ -36,38 +37,55 @@ export const pageRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const [newPage] = await db
-        .insert(pages)
-        .values({
+      return createPage({
+        userId: ctx.token.uid,
+        title: '',
+      })
+    }),
+
+  getPage: protectedProcedure
+    .input(
+      z.object({
+        pageId: z.string().optional(),
+        date: z.string().optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { pageId = '', date = '' } = input
+      if (!pageId && !date) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Either pageId or date is required.',
+        })
+      }
+
+      if (pageId) {
+        const page = await db.query.pages.findFirst({
+          with: { blocks: true },
+          where: eq(pages.id, pageId),
+        })
+        return page!
+      } else {
+        const page = await db.query.pages.findFirst({
+          with: { blocks: true },
+          where: eq(pages.date, date),
+        })
+
+        if (page) return page
+
+        const { id } = await createPage({
           userId: ctx.token.uid,
-          props: {},
-          children: [],
-          ...input,
+          date,
+          title: '',
+          isJournal: true,
         })
-        .returning()
 
-      const [newBlock] = await db
-        .insert(blocks)
-        .values({
-          pageId: newPage.id,
-          parentId: newPage.id,
-          content: editorDefaultValue[0],
-          type: ELEMENT_P,
-          props: {},
-          children: [],
-          ...input,
+        const newPage = await db.query.pages.findFirst({
+          with: { blocks: true },
+          where: eq(pages.id, id),
         })
-        .returning()
-
-      await db
-        .update(pages)
-        .set({
-          children: [newBlock.id],
-        })
-        .where(eq(pages.id, newPage.id))
-
-      newPage.children = [newBlock.id]
-      return newPage
+        return newPage!
+      }
     }),
 
   update: protectedProcedure

@@ -1,5 +1,7 @@
+import { useMemo } from 'react'
 import {
   Calendar,
+  CalendarDays,
   Feather,
   FileText,
   ImageIcon,
@@ -8,10 +10,10 @@ import {
   TableProperties,
 } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { ProfilePopover } from '@/components/Profile/ProfilePopover'
 import { useSiteContext } from '@/components/SiteContext'
-import { cn } from '@/lib/utils'
+import { cn, isValidUUIDv4 } from '@/lib/utils'
 import { EnableWeb3Entry } from './EnableWeb3Entry'
 import { LinkGoogleEntry } from './LinkGoogleEntry'
 import { LinkWalletEntry } from './LinkWalletEntry'
@@ -26,6 +28,14 @@ export const Sidebar = ({ bordered = true }: SidebarProps) => {
   const pathname = usePathname()
   const site = useSiteContext()
   const { spaceId } = site
+  const params = useSearchParams()
+  const id = params?.get('id') || ''
+
+  const isJournalActive = useMemo(() => {
+    if (!pathname.startsWith('/~/page')) return false
+    if (!id) return false
+    return !isValidUUIDv4(id)
+  }, [pathname, id])
 
   return (
     <div
@@ -45,32 +55,13 @@ export const Sidebar = ({ bordered = true }: SidebarProps) => {
       <QuickSearchTrigger />
 
       <div className="flex flex-col gap-1 px-2">
-        {/* <SidebarItem
-              icon={
-                <CircleCheck
-                  size={18}
-                  stroke={isTodosActive ? 'brand500' : 'gray500'}
-                />
-              }
-              label="Tasks"
-              isActive={isTodosActive}
-              onClick={() => {
-                store.router.routeTo('TODOS')
-              }}
-            /> */}
-
-        {/* <SidebarItem
-            icon={
-              <div gray500 inlineFlex brand500={isTagsActive}>
-                <Hash size={18} strokeWidth={1.5} />
-              </div>
-            }
-            label="Tags"
-            isActive={isTagsActive}
-            onClick={() => {
-              store.node.selectTagBox()
-            }}
-          /> */}
+        <Link href="/~/page?id=today">
+          <SidebarItem
+            isActive={isJournalActive}
+            icon={<CalendarDays size={18} />}
+            label="Today"
+          ></SidebarItem>
+        </Link>
 
         <Link href="/~/posts">
           <SidebarItem

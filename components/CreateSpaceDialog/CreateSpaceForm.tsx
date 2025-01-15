@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { revalidatePath } from 'next/cache'
+import { useRouter } from 'next/navigation'
+import pRetry, { AbortError } from 'p-retry'
+import { toast } from 'sonner'
+import { zeroAddress } from 'viem'
+import { useReadContract, useWriteContract } from 'wagmi'
+import { z } from 'zod'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
@@ -14,12 +21,12 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useAddress } from '@/lib/hooks/useAddress'
-import { useCheckChain } from '@/lib/hooks/useCheckChain'
 import { spaceFactoryAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
 import { IPFS_ADD_URL } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { useAddress } from '@/lib/hooks/useAddress'
+import { useCheckChain } from '@/lib/hooks/useCheckChain'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api } from '@/lib/trpc'
 import { wagmiConfig } from '@/lib/wagmi'
@@ -29,13 +36,6 @@ import {
   readContracts,
   waitForTransactionReceipt,
 } from '@wagmi/core'
-import { revalidatePath } from 'next/cache'
-import { useRouter } from 'next/navigation'
-import pRetry, { AbortError } from 'p-retry'
-import { toast } from 'sonner'
-import { zeroAddress } from 'viem'
-import { useReadContract, useWriteContract } from 'wagmi'
-import { z } from 'zod'
 import { FileUpload } from '../FileUpload'
 import { useSiteContext } from '../SiteContext'
 import { useCreateSpaceDialog } from './useCreateSpaceDialog'
@@ -190,9 +190,7 @@ export function CreateSpaceForm() {
 
       toast.success('Space created successfully!')
 
-      // push(`/~/objects/today`)
-      // push(`/~/posts`)
-      location.href = `/~/posts`
+      location.href = `/~/page?id=today`
 
       setIsOpen(false)
     } catch (error) {
