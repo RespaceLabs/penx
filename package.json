@@ -123,7 +123,7 @@
     "idb-keyval": "^6.2.1",
     "immer": "^10.1.1",
     "iron-session": "^8.0.4",
-    "jotai": "^2.10.3",
+    "jotai": "~2.8.4",
     "ky": "^1.7.3",
     "lodash": "^4.17.21",
     "lucide-react": "^0.468.0",
