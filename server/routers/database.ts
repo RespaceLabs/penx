@@ -2,6 +2,7 @@ import { count } from 'console'
 import { arrayMoveImmutable } from 'array-move'
 import { desc, eq, or, sql } from 'drizzle-orm'
 import { z } from 'zod'
+import { getRandomColorName } from '@/lib/color-helper'
 import { FieldType, Option, ViewField, ViewType } from '@/lib/types'
 import { uniqueId } from '@/lib/unique-id'
 import { db } from '../db'
@@ -39,6 +40,7 @@ export const databaseRouter = router({
         .insert(databases)
         .values({
           userId: ctx.token.uid,
+          color: getRandomColorName(),
           ...input,
         })
         .returning()
