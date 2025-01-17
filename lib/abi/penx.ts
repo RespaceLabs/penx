@@ -3307,11 +3307,21 @@ export const memberAbi = [
     inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
     name: 'AddressInsufficientBalance',
   },
+  { type: 'error', inputs: [], name: 'AmountIsZero' },
   { type: 'error', inputs: [], name: 'FailedInnerCall' },
   {
     type: 'error',
     inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
     name: 'InsufficientSubscriptionAmount',
+  },
+  { type: 'error', inputs: [], name: 'InvalidAddress' },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'requestAmount', internalType: 'uint256', type: 'uint256' },
+      { name: 'remainingAmount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'InvalidCancelAmount',
   },
   {
     type: 'error',
@@ -3341,16 +3351,16 @@ export const memberAbi = [
     inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
     name: 'OwnableUnauthorizedAccount',
   },
+  {
+    type: 'error',
+    inputs: [{ name: 'planId', internalType: 'uint8', type: 'uint8' }],
+    name: 'PlanIsNotActive',
+  },
   { type: 'error', inputs: [], name: 'ReentrancyGuardReentrantCall' },
   {
     type: 'error',
     inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
     name: 'SafeERC20FailedOperation',
-  },
-  {
-    type: 'error',
-    inputs: [{ name: 'planId', internalType: 'uint8', type: 'uint8' }],
-    name: 'UnactivatedPlan',
   },
   {
     type: 'event',
@@ -3413,6 +3423,25 @@ export const memberAbi = [
         type: 'address',
         indexed: true,
       },
+      {
+        name: 'amount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'RevenueWithdrawn',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'account',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
       { name: 'planId', internalType: 'uint8', type: 'uint8', indexed: true },
       {
         name: 'startTime',
@@ -3422,6 +3451,12 @@ export const memberAbi = [
       },
       {
         name: 'amount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'increasingDuration',
         internalType: 'uint256',
         type: 'uint256',
         indexed: false,
@@ -3447,33 +3482,7 @@ export const memberAbi = [
         indexed: false,
       },
     ],
-    name: 'SubscriptionCancelled',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: 'account',
-        internalType: 'address',
-        type: 'address',
-        indexed: true,
-      },
-      {
-        name: 'amount',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'Withdrawal',
-  },
-  {
-    type: 'function',
-    inputs: [{ name: 'planId', internalType: 'uint8', type: 'uint8' }],
-    name: 'cancelSubscription',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    name: 'Unsubscribed',
   },
   {
     type: 'function',
@@ -3487,11 +3496,18 @@ export const memberAbi = [
   },
   {
     type: 'function',
+    inputs: [],
+    name: 'distributeSubscriptions',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
     inputs: [
       { name: 'planId', internalType: 'uint8', type: 'uint8' },
       { name: 'account', internalType: 'address', type: 'address' },
     ],
-    name: 'generateSubscriberIdentifier',
+    name: 'generateSubscriptionId',
     outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
     stateMutability: 'pure',
   },
@@ -3527,11 +3543,11 @@ export const memberAbi = [
         type: 'tuple',
         components: [
           { name: 'planId', internalType: 'uint8', type: 'uint8' },
-          { name: 'planPrice', internalType: 'uint256', type: 'uint256' },
           { name: 'uri', internalType: 'string', type: 'string' },
           { name: 'account', internalType: 'address', type: 'address' },
           { name: 'startTime', internalType: 'uint256', type: 'uint256' },
-          { name: 'expireTime', internalType: 'uint256', type: 'uint256' },
+          { name: 'duration', internalType: 'uint256', type: 'uint256' },
+          { name: 'amount', internalType: 'uint256', type: 'uint256' },
         ],
       },
     ],
@@ -3548,11 +3564,11 @@ export const memberAbi = [
         type: 'tuple[]',
         components: [
           { name: 'planId', internalType: 'uint8', type: 'uint8' },
-          { name: 'planPrice', internalType: 'uint256', type: 'uint256' },
           { name: 'uri', internalType: 'string', type: 'string' },
           { name: 'account', internalType: 'address', type: 'address' },
           { name: 'startTime', internalType: 'uint256', type: 'uint256' },
-          { name: 'expireTime', internalType: 'uint256', type: 'uint256' },
+          { name: 'duration', internalType: 'uint256', type: 'uint256' },
+          { name: 'amount', internalType: 'uint256', type: 'uint256' },
         ],
       },
     ],
@@ -3581,6 +3597,13 @@ export const memberAbi = [
   },
   {
     type: 'function',
+    inputs: [],
+    name: 'revenue',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
     inputs: [
       { name: 'planId', internalType: 'uint8', type: 'uint8' },
       { name: 'tokenAmount', internalType: 'uint256', type: 'uint256' },
@@ -3600,6 +3623,16 @@ export const memberAbi = [
     type: 'function',
     inputs: [
       { name: 'planId', internalType: 'uint8', type: 'uint8' },
+      { name: 'tokenAmount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'unsubscribe',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'planId', internalType: 'uint8', type: 'uint8' },
       { name: 'uri', internalType: 'string', type: 'string' },
       { name: 'price', internalType: 'uint256', type: 'uint256' },
       { name: 'isActive', internalType: 'bool', type: 'bool' },
@@ -3610,11 +3643,8 @@ export const memberAbi = [
   },
   {
     type: 'function',
-    inputs: [
-      { name: 'account', internalType: 'address', type: 'address' },
-      { name: 'amount', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'withdraw',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'withdrawRevenue',
     outputs: [],
     stateMutability: 'nonpayable',
   },

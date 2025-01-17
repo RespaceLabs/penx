@@ -7,6 +7,7 @@ const baseSepoliaAddress = {
   Tip: '0x7928C53d2D85ac25326b54D7C0E40c7458938E33',
   DailyClaim: '0x05970db4279700106C170a8d8503c97C80e05eD6',
   TokenVesting: '0xD99DfE0013b742E4bD3dE0d6e94a9f7Eb24b93BC',
+  Member: '0x308Eb82e273938A7Af8e96b0b4A6B9013dDF1a4d',
 }
 
 const baseAddress = {
@@ -16,6 +17,7 @@ const baseAddress = {
   Tip: '0xa83D1edb468C872FF997C4C0c7F1471ad0B3526B',
   DailyClaim: '0x65DEdAb13f58EF2255aD0e6BA5FBa95f827eF955',
   TokenVesting: '0x19a957098a9d273B8EA3dF26f8f8aFF81FCfdFd2',
+  Member: '0x010b0614Fb84640618298f6246a1f1f0B588eD00',
 }
 
 export const addressMap: Record<keyof typeof baseSepoliaAddress, any> =
