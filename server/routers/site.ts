@@ -13,7 +13,7 @@ export const siteRouter = router({
   }),
 
   getSiteVersion: publicProcedure.query(async () => {
-    return '0.1.1'
+    return '0.1.2'
   }),
 
   updateSite: protectedProcedure
