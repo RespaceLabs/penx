@@ -1,11 +1,12 @@
+import ky from 'ky'
 import { Plan, PlanInfo } from '@/app/(creator-fi)/domains/Plan'
 import { useSpaceContext } from '@/components/SpaceContext'
-import { useWagmiConfig } from '@/lib/hooks/useWagmiConfig'
 import { spaceAbi } from '@/lib/abi'
+import { STATIC_URL } from '@/lib/constants'
+import { useWagmiConfig } from '@/lib/hooks/useWagmiConfig'
 import { isIPFSCID } from '@/lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { readContracts } from '@wagmi/core'
-import ky from 'ky'
 import { IPFS_GATEWAY } from '../constants'
 import { useSpace } from './useSpace'
 
@@ -31,13 +32,23 @@ export function usePlans() {
         allowFailure: false,
       })
 
-      const planInfos = await Promise.all(
-        plansRes
-          .filter((plan) => isIPFSCID(plan.uri))
-          .map((plan) =>
-            ky.get(`${IPFS_GATEWAY}/ipfs/${plan.uri}`).json<PlanInfo>(),
-          ),
-      )
+      const getPlanInfos = async () => {
+        return Promise.all(
+          plansRes.map((plan) => {
+            if (isIPFSCID(plan.uri)) {
+              // return ky.get(`${IPFS_GATEWAY}/ipfs/${plan.uri}`).json<PlanInfo>()
+              return { name: '', benefits: '' }
+            } else {
+              if (!plan.uri) {
+                return { name: '', benefits: '' }
+              }
+              return ky.get(`${STATIC_URL}/${plan.uri}`).json<PlanInfo>()
+            }
+          }),
+        )
+      }
+
+      const planInfos = await getPlanInfos()
 
       const plans: Plan[] = plansRes.map(
         (item, index) =>

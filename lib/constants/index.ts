@@ -12,6 +12,8 @@ export const LINK_GOOGLE_ACCOUNT_REDIRECT_URI =
   'https://www.penx.io/api/link-google-account-oauth'
 // 'http://localhost:4000/api/link-google-account-oauth'
 
+export const STATIC_URL = 'https://static.penx.me'
+
 export const IPFS_UPLOAD_URL = 'https://penx.io/api/ipfs-upload'
 export const IPFS_ADD_URL = 'https://penx.io/api/ipfs-add'
 // export const IPFS_ADD_URL = 'http://localhost:4000/api/ipfs-add'
