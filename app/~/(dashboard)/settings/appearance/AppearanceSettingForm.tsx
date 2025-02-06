@@ -1,6 +1,8 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
@@ -27,8 +29,6 @@ import { trpc } from '@/lib/trpc'
 import { themes } from '@/themes/theme-loader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Site } from '@penxio/types'
-import { toast } from 'sonner'
-import { z } from 'zod'
 
 const FormSchema = z.object({
   themeName: z.string().optional(),

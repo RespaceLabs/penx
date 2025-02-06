@@ -78,4 +78,33 @@ export const siteRouter = router({
         return newSite
       }
     }),
+
+  enableFeatures: protectedProcedure
+    .input(
+      z.object({
+        siteId: z.string(),
+        journal: z.boolean(),
+        gallery: z.boolean(),
+        page: z.boolean(),
+        database: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { siteId, ...features } = input
+
+      let site = (await db.query.sites.findFirst({
+        where: eq(sites.id, siteId),
+      }))!
+      await db
+        .update(sites)
+        .set({
+          config: {
+            ...(site.config as any),
+            features,
+          },
+        })
+        .where(eq(sites.id, siteId))
+
+      return true
+    }),
 })

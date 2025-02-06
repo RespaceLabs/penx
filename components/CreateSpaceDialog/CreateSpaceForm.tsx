@@ -25,6 +25,7 @@ import { spaceFactoryAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
 import { IPFS_ADD_URL } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { getDashboardPath } from '@/lib/getDashboardPath'
 import { useAddress } from '@/lib/hooks/useAddress'
 import { useCheckChain } from '@/lib/hooks/useCheckChain'
 import { revalidateMetadata } from '@/lib/revalidateTag'
@@ -190,7 +191,8 @@ export function CreateSpaceForm() {
 
       toast.success('Space created successfully!')
 
-      location.href = `/~/page?id=today`
+      // location.href = `/~/page?id=today`
+      location.href = getDashboardPath(site)
 
       setIsOpen(false)
     } catch (error) {

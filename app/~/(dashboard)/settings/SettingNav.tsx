@@ -11,6 +11,7 @@ export function SettingNav({}: Props) {
 
   const Paths = {
     general: '/~/settings',
+    features: '/~/settings/features',
     linkAccounts: '/~/settings/link-accounts',
     appearance: '/~/settings/appearance',
     socials: '/~/settings/socials',
@@ -28,6 +29,9 @@ export function SettingNav({}: Props) {
     <div className="flex border-b gap-8 overflow-x-auto overflow-y-hidden -mx-3 px-3">
       <Link href={Paths.general} className={linkClassName(Paths.general)}>
         General
+      </Link>
+      <Link href={Paths.features} className={linkClassName(Paths.features)}>
+        Features
       </Link>
       <Link href={Paths.appearance} className={linkClassName(Paths.appearance)}>
         Appearance

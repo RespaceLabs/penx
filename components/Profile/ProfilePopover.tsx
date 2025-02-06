@@ -28,6 +28,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { getDashboardPath } from '@/lib/getDashboardPath'
 import { SiteMode } from '@/lib/types'
 import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
@@ -87,7 +88,7 @@ export const ProfilePopover = memo(function ProfilePopover({
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
-                  const path = '/~/page?id=today'
+                  const path = getDashboardPath(site)
                   push(path)
                 }}
               >

@@ -20,6 +20,13 @@ import { LinkWalletEntry } from './LinkWalletEntry'
 import { QuickSearchTrigger } from './QuickSearchTrigger'
 import { SidebarItem } from './SidebarItem'
 
+interface Features {
+  journal: boolean
+  gallery: boolean
+  page: boolean
+  database: boolean
+}
+
 interface SidebarProps {
   bordered?: boolean
 }
@@ -36,6 +43,14 @@ export const Sidebar = ({ bordered = true }: SidebarProps) => {
     if (!id) return false
     return !isValidUUIDv4(id)
   }, [pathname, id])
+
+  const isFeatureActive = (feature: keyof Features) => {
+    if (!site) return false
+    const { features } = (site.config || {}) as any as {
+      features: Features
+    }
+    return features?.[feature] || false
+  }
 
   return (
     <div
@@ -55,13 +70,15 @@ export const Sidebar = ({ bordered = true }: SidebarProps) => {
       <QuickSearchTrigger />
 
       <div className="flex flex-col gap-1 px-2">
-        <Link href="/~/page?id=today">
-          <SidebarItem
-            isActive={isJournalActive}
-            icon={<CalendarDays size={18} />}
-            label="Today"
-          ></SidebarItem>
-        </Link>
+        {isFeatureActive('journal') && (
+          <Link href="/~/page?id=today">
+            <SidebarItem
+              isActive={isJournalActive}
+              icon={<CalendarDays size={18} />}
+              label="Today"
+            ></SidebarItem>
+          </Link>
+        )}
 
         <Link href="/~/posts">
           <SidebarItem
@@ -71,29 +88,35 @@ export const Sidebar = ({ bordered = true }: SidebarProps) => {
           ></SidebarItem>
         </Link>
 
-        <Link href="/~/assets">
-          <SidebarItem
-            isActive={pathname.startsWith('/~/assets')}
-            icon={<ImageIcon size={18} />}
-            label="Gallery"
-          ></SidebarItem>
-        </Link>
+        {isFeatureActive('gallery') && (
+          <Link href="/~/assets">
+            <SidebarItem
+              isActive={pathname.startsWith('/~/assets')}
+              icon={<ImageIcon size={18} />}
+              label="Gallery"
+            ></SidebarItem>
+          </Link>
+        )}
 
-        <Link href="/~/pages">
-          <SidebarItem
-            isActive={pathname.startsWith('/~/pages')}
-            icon={<FileText size={18} />}
-            label="pages"
-          ></SidebarItem>
-        </Link>
+        {isFeatureActive('page') && (
+          <Link href="/~/pages">
+            <SidebarItem
+              isActive={pathname.startsWith('/~/pages')}
+              icon={<FileText size={18} />}
+              label="pages"
+            ></SidebarItem>
+          </Link>
+        )}
 
-        <Link href="/~/databases">
-          <SidebarItem
-            isActive={pathname.startsWith('/~/databases')}
-            icon={<TableProperties size={18} />}
-            label="Databases"
-          ></SidebarItem>
-        </Link>
+        {isFeatureActive('database') && (
+          <Link href="/~/databases">
+            <SidebarItem
+              isActive={pathname.startsWith('/~/databases')}
+              icon={<TableProperties size={18} />}
+              label="Databases"
+            ></SidebarItem>
+          </Link>
+        )}
 
         <Link href="/~/settings">
           <SidebarItem
