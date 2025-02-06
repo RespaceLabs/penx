@@ -54,7 +54,7 @@ export function Post({ post }: { post: PostType }) {
     <div className="w-full h-full">
       <div className="relative min-h-[500px] max-w-4xl py-4 sm:py-12 px-5 sm:px-8 mx-auto z-0">
         <div className="mb-5 flex flex-col space-y-3 ">
-          {/* <CoverUpload post={data} /> */}
+          <CoverUpload post={data} />
           <TextareaAutosize
             placeholder="Title"
             defaultValue={data?.title || ''}
