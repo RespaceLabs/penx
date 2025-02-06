@@ -21,12 +21,13 @@ export function SettingNav({}: Props) {
 
   const linkClassName = (path: string) =>
     cn(
-      'inline-flex item-center justify-center py-1.5 border-b-2 -mb-[1px] border-transparent flex-shrink-0 text-sm sm:text-base',
-      path === pathname && 'border-black border-zinc-400',
+      'inline-flex item-center justify-center md:justify-start py-1.5 border-b-2 md:border-none -mb-[1px] border-transparent flex-shrink-0 text-foreground/60 hover:text-foreground hover:border-foreground/40',
+      path === pathname && 'border-foreground/40',
+      path === pathname && 'text-foreground font-bold',
     )
 
   return (
-    <div className="flex border-b gap-8 overflow-x-auto overflow-y-hidden -mx-3 px-3">
+    <div className="flex flex-row md:flex-col border-b md:border-none gap-x-8 overflow-x-auto overflow-y-hidden -mx-3 px-3 md:w-[240px]">
       <Link href={Paths.general} className={linkClassName(Paths.general)}>
         General
       </Link>

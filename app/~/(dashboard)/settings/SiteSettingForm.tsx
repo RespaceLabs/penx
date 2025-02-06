@@ -1,6 +1,8 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
 import { PlateEditor } from '@/components/editor/plate-editor'
 import { FileUpload } from '@/components/FileUpload'
 import { LoadingDots } from '@/components/icons/loading-dots'
@@ -21,8 +23,6 @@ import { useQuerySite } from '@/lib/hooks/useQuerySite'
 import { trpc } from '@/lib/trpc'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Site } from '@penxio/types'
-import { toast } from 'sonner'
-import { z } from 'zod'
 
 const FormSchema = z.object({
   logo: z.string(),
@@ -70,13 +70,11 @@ export function SiteSettingForm({}: Props) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="flex flex-col items-center justify-center gap-3">
-          <FormField
-            control={form.control}
-            name="logo"
-            render={({ field }) => <FileUpload {...field} />}
-          />
-        </div>
+        <FormField
+          control={form.control}
+          name="logo"
+          render={({ field }) => <FileUpload {...field} />}
+        />
 
         <FormField
           control={form.control}

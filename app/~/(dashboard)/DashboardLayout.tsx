@@ -28,11 +28,11 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
   useQueryEthBalance()
   const { status, data: session } = useSession()
   const pathname = usePathname()
-  const isNode = pathname?.includes('/~/objects')
   const isPost = pathname?.includes('/~/post/')
   const isAssets = pathname?.includes('/~/assets')
+  const isSettings = pathname?.includes('/~/settings')
   const params = useSearchParams()
-  const isFullWidth = isNode || isPost || isAssets || !!params.get('id')
+  const isFullWidth = isPost || isAssets || isSettings || !!params.get('id')
 
   useEffect(() => {
     if (status === 'loading') return
@@ -62,12 +62,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
       </div>
       <div className="flex-1 h-screen overflow-auto">
         <CreationDialog />
-        <div
-          className={cn(
-            !isFullWidth && 'mx-auto md:max-w-2xl pt-16 pb-20',
-            isNode,
-          )}
-        >
+        <div className={cn(!isFullWidth && 'mx-auto md:max-w-3xl pt-16 pb-20')}>
           {children}
         </div>
       </div>
