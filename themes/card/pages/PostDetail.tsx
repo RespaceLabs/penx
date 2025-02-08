@@ -1,11 +1,11 @@
 import { ReactNode } from 'react'
-import { ContentRender } from '@/components/plate-ui/ContentRender'
+import { ExternalLink } from 'lucide-react'
+import Link from 'next/link'
+import { ContentRender } from '@/components/theme-ui/ContentRender'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
 import { PostActions } from '@/components/theme-ui/PostActions'
 import { formatDate } from '@/lib/utils'
 import { Post } from '@penxio/types'
-import { ExternalLink } from 'lucide-react'
-import Link from 'next/link'
 import SectionContainer from '../components/SectionContainer'
 
 interface LayoutProps {
