@@ -1,9 +1,9 @@
-import { db } from '@/server/db'
-import { posts, tags, users } from '@/server/db/schema'
-import { getSite as getSiteInfo } from '@/server/lib/getSite'
 import { desc, eq } from 'drizzle-orm'
 import ky from 'ky'
 import { unstable_cache } from 'next/cache'
+import { db } from '@/server/db'
+import { pages, posts, tags, users } from '@/server/db/schema'
+import { getSite as getSiteInfo } from '@/server/lib/getSite'
 import { isProd, PostStatus, RESPACE_BASE_URI } from './constants'
 import { SpaceType } from './types'
 import { getUrl } from './utils'
@@ -71,7 +71,7 @@ export async function getPost(slug: string) {
     [`post-${slug}`],
     {
       revalidate: 3600 * 24, // 15 minutes
-      tags: [`posts-${slug}`],
+      tags: [`post-${slug}`],
     },
   )()
 }
@@ -130,6 +130,29 @@ export async function getSpace(spaceId: string) {
     {
       revalidate: isProd ? 3600 : 10,
       tags: [`space-${spaceId}`],
+    },
+  )()
+}
+
+export async function getPage(slug: string) {
+  return await unstable_cache(
+    async () => {
+      const page = await db.query.pages.findFirst({
+        where: eq(pages.slug, slug),
+        with: { blocks: true },
+      })
+
+      if (!page) return null
+
+      return {
+        ...page,
+        cover: getUrl(page.cover || ''),
+      }
+    },
+    [`page-${slug}`],
+    {
+      revalidate: 3600 * 24, // 15 minutes
+      tags: [`page-${slug}`],
     },
   )()
 }

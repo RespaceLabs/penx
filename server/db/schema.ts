@@ -16,6 +16,7 @@ import { v4 } from 'uuid'
 import {
   CommentStatus,
   GateType,
+  PageStatus,
   PostStatus,
   PostType,
   UserRole,
@@ -506,6 +507,10 @@ export const pages = table(
     id: text('id')
       .primaryKey()
       .$defaultFn(() => v4()),
+    slug: text('slug')
+      .unique()
+      .notNull()
+      .$defaultFn(() => v4()),
     userId: text('userId').notNull(),
     parentId: text('parentId'),
     parentType: text('parentType'),
@@ -514,6 +519,7 @@ export const pages = table(
     icon: text('icon'),
     trashed: integer('trashed', { mode: 'boolean' }).default(false),
     isJournal: integer('isJournal', { mode: 'boolean' }).default(false),
+    status: text('status').default(PageStatus.DRAFT),
     children: text('children', { mode: 'json' }),
     props: text('props', { mode: 'json' }),
     date: text('date', { length: 20 }),

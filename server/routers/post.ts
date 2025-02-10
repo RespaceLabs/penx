@@ -1,10 +1,10 @@
-import { editorDefaultValue, IPFS_ADD_URL, PostStatus } from '@/lib/constants'
-import { GateType, PostType } from '@/lib/types'
 import { desc, eq, or } from 'drizzle-orm'
 import ky from 'ky'
 import { revalidatePath } from 'next/cache'
 import { Node as SlateNode } from 'slate'
 import { z } from 'zod'
+import { editorDefaultValue, IPFS_ADD_URL, PostStatus } from '@/lib/constants'
+import { GateType, PostType } from '@/lib/types'
 import { db } from '../db'
 import { posts } from '../db/schema'
 import { syncToGoogleDrive } from '../lib/syncToGoogleDrive'
@@ -116,7 +116,6 @@ export const postRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      console.log('========>input:', input, ctx.token)
       const userId = ctx.token.uid
       const { gateType, collectible, creationId } = input
 
@@ -192,7 +191,7 @@ export const postRouter = router({
         })
         .where(eq(posts.id, input))
 
-      // revalidateTag(`posts-${post.slug}`)
+      // revalidateTag(`post-${post.slug}`)
       // revalidatePath(`/posts/${post.slug}`)
 
       return post

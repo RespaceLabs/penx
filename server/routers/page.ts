@@ -1,5 +1,8 @@
 import { desc, eq, or } from 'drizzle-orm'
+import { slug } from 'github-slugger'
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
+import { PageStatus } from '@/lib/types'
 import { uniqueId } from '@/lib/unique-id'
 import { TRPCError } from '@trpc/server'
 import { db } from '../db'
@@ -171,6 +174,36 @@ export const pageRouter = router({
       await db.delete(blocks).where(eq(blocks.pageId, input.pageId))
       await db.delete(pages).where(eq(pages.id, input.pageId))
       return true
+    }),
+
+  publish: protectedProcedure
+    .input(
+      z.object({
+        pageId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { pageId } = input
+
+      const page = await db.query.pages.findFirst({
+        where: eq(pages.id, input.pageId),
+      })
+
+      await db
+        .update(pages)
+        .set({
+          status: PageStatus.PUBLISHED,
+          publishedAt: new Date(),
+          slug: slug(page!.title || page!.id),
+        })
+        .where(eq(pages.id, input.pageId))
+
+      try {
+        // revalidatePath('/(blog)/(home)', 'page')
+        revalidatePath('/(blog)/p/[...slug]', 'page')
+      } catch (error) {}
+
+      return page
     }),
 })
 

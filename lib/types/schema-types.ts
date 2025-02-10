@@ -47,3 +47,9 @@ export enum AssetType {
   ZIP = 'ZIP',
   PDF = 'PDF',
 }
+
+export enum PageStatus {
+  PUBLISHED = 'PUBLISHED',
+  DRAFT = 'DRAFT',
+  ARCHIVED = 'ARCHIVED',
+}

@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
+import { Address } from 'viem'
+import { useAccount, useWriteContract } from 'wagmi'
 import { useSiteContext } from '@/components/SiteContext'
 import { creationFactoryAbi } from '@/lib/abi'
 import { addressMap } from '@/lib/address'
@@ -13,9 +16,6 @@ import { store } from '@/lib/store'
 import { api } from '@/lib/trpc'
 import { GateType, PostType } from '@/lib/types'
 import { readContract, waitForTransactionReceipt } from '@wagmi/core'
-import { toast } from 'sonner'
-import { Address } from 'viem'
-import { useAccount, useWriteContract } from 'wagmi'
 
 export function usePublishPost() {
   const { spaceId, id } = useSiteContext()
@@ -77,7 +77,7 @@ export function usePublishPost() {
 
         setLoading(false)
         revalidateMetadata(`posts`)
-        // revalidateMetadata(`posts-${post.slug}`)
+        // revalidateMetadata(`post-${post.slug}`)
         toast.success('Post published successfully!')
       } catch (error) {
         console.log('========error:', error)
