@@ -18,7 +18,6 @@ import {
   GateType,
   PostStatus,
   PostType,
-  SiteMode,
   UserRole,
 } from '@/lib/types'
 
@@ -34,13 +33,15 @@ export const sites = table('site', {
   font: text('font', { length: 50 }).default('font-cal'),
   image: text('image', { length: 2183 }).default(''),
   email: text('email', { length: 255 }).unique(),
-  mode: text('mode').default(SiteMode.BASIC),
   socials: text('socials', { mode: 'json' }),
   config: text('config', { mode: 'json' }),
+  navLinks: text('navLinks', { mode: 'json' }),
   themeName: text('themeName', { length: 50 }),
   themeConfig: text('themeConfig', { mode: 'json' }),
   memberCount: integer('memberCount').default(0),
   postCount: integer('postCount').default(0),
+  pageCount: integer('pageCount').default(0),
+  databaseCount: integer('databaseCount').default(0),
   createdAt: integer('createdAt', { mode: 'timestamp' })
     .notNull()
     .$defaultFn(() => new Date()),
@@ -144,6 +145,8 @@ export const posts = table(
     image: text('image', { length: 2183 }).default(''),
     featured: integer('featured', { mode: 'boolean' }).default(false),
     collectible: integer('collectible', { mode: 'boolean' }).default(false),
+    delivered: integer('delivered', { mode: 'boolean' }).default(false),
+    isPopular: integer('isPopular', { mode: 'boolean' }).default(false),
     publishedAt: integer('publishedAt', { mode: 'timestamp' }),
     archivedAt: integer('archivedAt', { mode: 'timestamp' }),
     userId: text('userId').notNull(),
@@ -171,7 +174,30 @@ export const posts = table(
 export const postsRelations = relations(posts, ({ one, many }) => ({
   user: one(users, { references: [users.id], fields: [posts.userId] }),
   comments: many(comments),
+  authors: many(authors),
   postTags: many(postTags),
+}))
+
+export const authors = table(
+  'author',
+  {
+    id: text('id')
+      .primaryKey()
+      .$defaultFn(() => v4()),
+    postId: text('postId').notNull(),
+    userId: text('userId').notNull(),
+  },
+  (table) => {
+    return {
+      userIdIndex: t.index('authors_user_id_idx').on(table.userId),
+      postIdIndex: t.index('authors_post_id_idx').on(table.postId),
+    }
+  },
+)
+
+export const authorsRelations = relations(authors, ({ one, many }) => ({
+  user: one(users, { references: [users.id], fields: [authors.userId] }),
+  post: one(posts, { references: [posts.id], fields: [authors.userId] }),
 }))
 
 export const comments = table(
@@ -491,6 +517,7 @@ export const pages = table(
     children: text('children', { mode: 'json' }),
     props: text('props', { mode: 'json' }),
     date: text('date', { length: 20 }),
+    publishedAt: integer('publishedAt', { mode: 'timestamp' }),
     createdAt: integer('createdAt', { mode: 'timestamp' })
       .notNull()
       .$defaultFn(() => new Date()),

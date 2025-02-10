@@ -188,8 +188,15 @@ async function initSite(userId: string) {
     db.insert(sites).values({
       name: 'My first site',
       description: 'This is my first site',
-      socials: JSON.stringify({}),
-      config: JSON.stringify({}),
+      socials: {},
+      config: {
+        features: {
+          journal: false,
+          gallery: false,
+          page: true,
+          database: false,
+        },
+      },
       logo: 'https://penx.io/logo.png',
     }),
     db.insert(posts).values({

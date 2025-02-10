@@ -1,8 +1,3 @@
-export enum SiteMode {
-  BASIC = 'BASIC',
-  NOTE_TAKING = 'NOTE_TAKING',
-}
-
 export enum UserRole {
   ADMIN = 'ADMIN',
   AUTHOR = 'AUTHOR',
