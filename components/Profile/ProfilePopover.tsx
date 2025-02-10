@@ -29,7 +29,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { getDashboardPath } from '@/lib/getDashboardPath'
-import { SiteMode } from '@/lib/types'
 import useSession from '@/lib/useSession'
 import { cn } from '@/lib/utils'
 import { useSiteContext } from '../SiteContext'
