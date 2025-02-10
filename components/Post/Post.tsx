@@ -6,6 +6,7 @@ import { useDebouncedCallback } from 'use-debounce'
 import { appEmitter } from '@/lib/app-emitter'
 import { updatePost } from '@/lib/hooks/usePost'
 import { usePostSaving } from '@/lib/hooks/usePostSaving'
+import { useSiteTags } from '@/lib/hooks/useSiteTags'
 import { trpc } from '@/lib/trpc'
 import { uniqueId } from '@/lib/unique-id'
 import { Post as PostType } from '@/server/db/schema'
@@ -18,6 +19,8 @@ export function Post({ post }: { post: PostType }) {
   const [data, setData] = useState<PostType>(post)
   const { mutateAsync } = trpc.post.update.useMutation()
   const { setPostSaving } = usePostSaving()
+
+  useSiteTags()
 
   const debounced = useDebouncedCallback(
     async (value: PostType) => {

@@ -34,7 +34,7 @@ export const postRouter = router({
       where: eq(posts.id, input),
     })
 
-    syncToGoogleDrive(ctx.token.uid, post as any)
+    // syncToGoogleDrive(ctx.token.uid, post as any)
     // console.log('post-------xxxxxxxxxx:', post?.postTags)
     return post!
   }),

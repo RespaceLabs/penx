@@ -295,7 +295,7 @@ export const postTags = table(
 
 export const postTagsRelations = relations(postTags, ({ one, many }) => ({
   post: one(posts, { references: [posts.id], fields: [postTags.postId] }),
-  tag: one(tags, { references: [tags.id], fields: [postTags.postId] }),
+  tag: one(tags, { references: [tags.id], fields: [postTags.tagId] }),
 }))
 
 export const accessTokens = table(

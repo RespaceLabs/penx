@@ -1,11 +1,11 @@
-import { redisKeys } from '@/lib/redisKeys'
-import { TRPCError } from '@trpc/server'
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { slug } from 'github-slugger'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
+import { redisKeys } from '@/lib/redisKeys'
+import { TRPCError } from '@trpc/server'
 import { db } from '../db'
-import { postTags } from '../db/schema'
+import { postTags, tags } from '../db/schema'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 function revalidate() {
@@ -26,38 +26,53 @@ export const tagRouter = router({
         name: z.string(),
       }),
     )
-    .mutation(({ ctx, input }) => {
-      return db.transaction(async (tx) => {
-        // const tagName = slug(input.name)
-        // let tag = await tx.tag.findFirst({
-        //   where: { name: tagName },
-        // })
-        // if (!tag) {
-        //   tag = await tx.tag.create({
-        //     data: { name: tagName, userId: ctx.token.uid },
-        //   })
-        // }
-        // const postTag = await tx.postTag.findFirst({
-        //   where: { postId: input.postId, tagId: tag.id },
-        // })
-        // if (postTag) {
-        //   throw new TRPCError({
-        //     code: 'BAD_REQUEST',
-        //     message: 'Tag already exists',
-        //   })
-        // }
-        // const newPostTag = await tx.postTag.create({
-        //   data: {
-        //     postId: input.postId,
-        //     tagId: tag.id,
-        //   },
-        // })
-        // revalidate()
-        // return tx.postTag.findUniqueOrThrow({
-        //   include: { tag: true },
-        //   where: { id: newPostTag.id },
-        // })
+    .mutation(async ({ ctx, input }) => {
+      const tagName = slug(input.name)
+      let tag = await db.query.tags.findFirst({
+        where: eq(tags.name, tagName),
       })
+
+      if (!tag) {
+        const newTags = await db
+          .insert(tags)
+          .values({
+            name: tagName,
+            userId: ctx.token.uid,
+          })
+          .returning()
+
+        tag = newTags[0]
+      }
+
+      const postTag = await db.query.postTags.findFirst({
+        where: and(
+          eq(postTags.postId, input.postId),
+          eq(postTags.tagId, tag.id),
+        ),
+      })
+
+      if (postTag) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Tag already exists',
+        })
+      }
+
+      const [newPostTag] = await db
+        .insert(postTags)
+        .values({
+          postId: input.postId,
+          tagId: tag.id,
+        })
+        .returning()
+
+      const res = await db.query.postTags.findFirst({
+        where: eq(postTags.id, newPostTag.id),
+        with: { tag: true },
+      })
+
+      revalidate()
+      return res!
     }),
 
   add: protectedProcedure
@@ -77,10 +92,11 @@ export const tagRouter = router({
 
       revalidate()
 
-      return db.query.postTags.findFirst({
+      const res = await db.query.postTags.findFirst({
         with: { tag: true },
         where: eq(postTags.id, postTag[0].id),
       })
+      return res!
     }),
 
   deletePostTag: protectedProcedure

@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect } from 'react'
+import { atom, useAtom } from 'jotai'
 import { PostStatus } from '@/lib/constants'
 import { revalidateMetadata } from '@/lib/revalidateTag'
+import { store } from '@/lib/store'
 import { api, trpc } from '@/lib/trpc'
 import { RouterOutputs } from '@/server/_app'
 import { PostTag, Tag } from '@/server/db/schema'
-import { store } from '@/lib/store'
-import { atom, useAtom } from 'jotai'
 import { postLoadingAtom } from './usePostLoading'
 
 export type Post = RouterOutputs['post']['byId']
