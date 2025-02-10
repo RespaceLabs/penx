@@ -1,6 +1,6 @@
 import { editorDefaultValue } from '@/lib/constants'
+import { Site } from '@/lib/theme.types'
 import { getUrl } from '@/lib/utils'
-import { Site } from '@penxio/types'
 import { db } from '../db'
 
 export async function getSite() {

@@ -28,7 +28,6 @@ import { useQuerySite } from '@/lib/hooks/useQuerySite'
 import { trpc } from '@/lib/trpc'
 import { themes } from '@/themes/theme-loader'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Site } from '@penxio/types'
 
 const FormSchema = z.object({
   themeName: z.string().optional(),
@@ -36,7 +35,7 @@ const FormSchema = z.object({
 
 interface Props {}
 
-export function AppearanceSettingForm({}: Props) {
+export function ThemeSettingForm({}: Props) {
   const { refetch, site } = useQuerySite()
   const { isPending, mutateAsync } = trpc.site.updateSite.useMutation()
 
