@@ -99,6 +99,24 @@ export const tagRouter = router({
       return res!
     }),
 
+  deleteTag: protectedProcedure
+    .input(
+      z.object({
+        tagId: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      // const tag = await db.query.tags.findFirst({
+      //   where: eq(tags.id, input.tagId),
+      // })
+
+      await db.delete(postTags).where(eq(postTags.id, input.tagId))
+      await db.delete(tags).where(eq(tags.id, input.tagId))
+
+      revalidate()
+      return true
+    }),
+
   deletePostTag: protectedProcedure
     .input(z.string())
     .mutation(async ({ input }) => {

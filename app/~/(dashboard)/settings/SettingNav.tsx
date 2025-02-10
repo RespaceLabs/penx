@@ -15,6 +15,7 @@ export function SettingNav({}: Props) {
     linkAccounts: '/~/settings/link-accounts',
     appearance: '/~/settings/appearance',
     socials: '/~/settings/socials',
+    tags: '/~/settings/tags',
     web3: '/~/settings/web3',
     contributors: '/~/settings/contributors',
   }
@@ -47,6 +48,10 @@ export function SettingNav({}: Props) {
       <Link href={Paths.web3} className={linkClassName(Paths.web3)}>
         Web3
       </Link>
+      <Link href={Paths.tags} className={linkClassName(Paths.tags)}>
+        Tags
+      </Link>
+
       <Link href={Paths.socials} className={linkClassName(Paths.socials)}>
         Socials
       </Link>
