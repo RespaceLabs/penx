@@ -2,7 +2,7 @@
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
 import { store } from '@/lib/store'
-import { PostType } from '@penxio/types'
+import { PostType } from '@/lib/theme.types'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { postAtom } from './usePost'

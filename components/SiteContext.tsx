@@ -2,8 +2,9 @@
 
 import { createContext, PropsWithChildren, useContext, useEffect } from 'react'
 import { isServer } from '@/lib/constants'
+import { Site } from '@/lib/theme.types'
+
 // import { runWorker } from '@/lib/worker'
-import { Site } from '@penxio/types'
 
 let inited = false
 if (!isServer) {

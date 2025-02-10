@@ -1,4 +1,4 @@
-import { Post, Site } from '@penxio/types'
+import { Post, Site } from '@/lib/theme.types'
 import { Lobster, Merienda } from 'next/font/google'
 import { PostItem } from '../components/PostItem'
 

@@ -12,7 +12,7 @@ import {
 import { UserAvatar } from '@/components/UserAvatar'
 import { useCollectRecords } from '@/lib/hooks/useCollectRecords'
 import { shortenAddress } from '@/lib/utils'
-import { Post } from '@penxio/types'
+import { Post } from '@/lib/theme.types'
 import { Bookmark } from 'lucide-react'
 import { MintedAmount } from './MintedAmount'
 

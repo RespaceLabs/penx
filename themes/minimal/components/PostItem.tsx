@@ -1,5 +1,5 @@
 import { formatDate } from '@/lib/utils'
-import { Post } from '@penxio/types'
+import { Post } from '@/lib/theme.types'
 import Link from 'next/link'
 
 interface PostItemProps {

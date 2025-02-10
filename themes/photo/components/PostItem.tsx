@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { isAddress } from '@/lib/utils'
-import { Post, User } from '@penxio/types'
+import { Post, User } from '@/lib/theme.types'
 import { cn, formatDate } from '@/lib/utils'
 
 interface PostItemProps {

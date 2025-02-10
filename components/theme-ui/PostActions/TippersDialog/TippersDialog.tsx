@@ -14,7 +14,7 @@ import { useCollectRecords } from '@/lib/hooks/useCollectRecords'
 import { useTipRecords } from '@/lib/hooks/useTipRecords'
 import { precision } from '@/lib/math'
 import { shortenAddress } from '@/lib/utils'
-import { Post } from '@penxio/types'
+import { Post } from '@/lib/theme.types'
 import { TippedAmount } from '../TippedAmount'
 
 interface Props {

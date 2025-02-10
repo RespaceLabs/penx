@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Footer } from '@/components/theme-ui/Footer'
-import { Site } from '@penxio/types'
+import { Site } from '@/lib/theme.types'
 import { Header } from '../components/Header'
 import SectionContainer from '../components/SectionContainer'
 

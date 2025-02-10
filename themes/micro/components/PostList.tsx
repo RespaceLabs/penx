@@ -1,5 +1,5 @@
 import { Pagination } from '@/components/theme-ui/Pagination'
-import { Post } from '@penxio/types'
+import { Post } from '@/lib/theme.types'
 import { PostItem } from './PostItem'
 
 interface PaginationProps {

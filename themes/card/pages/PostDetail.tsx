@@ -5,7 +5,7 @@ import { ContentRender } from '@/components/theme-ui/ContentRender'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
 import { PostActions } from '@/components/theme-ui/PostActions'
 import { formatDate } from '@/lib/utils'
-import { Post } from '@penxio/types'
+import { Post } from '@/lib/theme.types'
 import SectionContainer from '../components/SectionContainer'
 
 interface LayoutProps {

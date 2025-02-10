@@ -1,5 +1,3 @@
-// import { Site } from '@penxio/types'
-
 declare global {
   interface Window {
     // __SITE__: Site

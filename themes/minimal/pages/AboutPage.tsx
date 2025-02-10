@@ -1,6 +1,6 @@
 import { ContentRender } from '@/components/theme-ui/ContentRender'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
-import { Site } from '@penxio/types'
+import { Site } from '@/lib/theme.types'
 
 interface Props {
   site: Site

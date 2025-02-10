@@ -1,5 +1,5 @@
-import { Post } from '@penxio/types'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
+import { Post } from '@/lib/theme.types'
 import { PostList } from '../components/PostList'
 
 interface Props {
@@ -16,9 +16,8 @@ export function BlogPage({
   pagination,
   initialDisplayPosts,
 }: Props) {
-
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mx-auto max-w-3xl">
       <PageTitle>Blog</PageTitle>
       <PostList
         posts={posts}

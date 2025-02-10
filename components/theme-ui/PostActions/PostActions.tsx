@@ -1,7 +1,7 @@
 'use client'
 
 import { useTipStats } from '@/lib/hooks/useTipStats'
-import { Post } from '@penxio/types'
+import { Post } from '@/lib/theme.types'
 import { CollectButton } from './Collection/CollectButton'
 import { CollectorsDialog } from './CollectorsDialog/CollectorsDialog'
 import { CommentSheet } from './Comment/CommentSheet'

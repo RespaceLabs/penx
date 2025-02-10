@@ -17,11 +17,9 @@ import { useSiteTags } from '@/lib/hooks/useSiteTags'
 import { Site } from '@/lib/theme.types'
 import { api } from '@/lib/trpc'
 
-interface Props {
-  site: Site
-}
+interface Props {}
 
-export function TagList({ site }: Props) {
+export function TagList({}: Props) {
   const { data = [], isLoading, refetch } = useSiteTags()
 
   if (isLoading) {

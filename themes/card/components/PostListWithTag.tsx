@@ -1,5 +1,5 @@
 import { PageTitle } from '@/components/theme-ui/PageTitle'
-import { Post, Tag } from '@penxio/types'
+import { Post, Tag } from '@/lib/theme.types'
 import { PostList } from './PostList'
 import { TagList } from './TagList'
 

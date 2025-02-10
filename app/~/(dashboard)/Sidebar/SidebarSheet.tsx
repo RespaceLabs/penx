@@ -12,7 +12,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { Post } from '@penxio/types'
 import { Sidebar } from './Sidebar'
 import { useSidebarSheet } from './useSidebarSheet'
 

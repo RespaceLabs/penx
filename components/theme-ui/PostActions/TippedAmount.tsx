@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useTipInfo } from '@/lib/hooks/useTipInfo'
 import { useTipStats } from '@/lib/hooks/useTipStats'
 import { precision } from '@/lib/math'
-import { Post } from '@penxio/types'
+import { Post } from '@/lib/theme.types'
 import { DollarSign } from 'lucide-react'
 import { useParams } from 'next/navigation'
 

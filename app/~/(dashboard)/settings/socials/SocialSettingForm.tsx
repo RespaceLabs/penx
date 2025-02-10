@@ -1,6 +1,8 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
 import { LoadingDots } from '@/components/icons/loading-dots'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -19,9 +21,6 @@ import { useQuerySite } from '@/lib/hooks/useQuerySite'
 import { trpc } from '@/lib/trpc'
 import { Socials } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Site } from '@penxio/types'
-import { toast } from 'sonner'
-import { z } from 'zod'
 
 const FormSchema = z.object({
   farcaster: z.string().optional(),

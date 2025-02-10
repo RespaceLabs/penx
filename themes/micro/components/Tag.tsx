@@ -1,6 +1,6 @@
 import { slug } from 'github-slugger'
 import Link from 'next/link'
-import { PostTag } from '@penxio/types'
+import { PostTag } from '@/lib/theme.types'
 import { cn } from '@/lib/utils'
 
 interface Props {

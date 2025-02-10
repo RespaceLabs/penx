@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { Post, PostType, Site } from '@penxio/types'
+import { Post, PostType, Site } from '@/lib/theme.types'
 import { Lobster, Merienda } from 'next/font/google'
 import { PostItem } from '../components/PostItem'
 

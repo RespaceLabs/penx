@@ -1,5 +1,5 @@
-import { Tag } from '@penxio/types'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
+import { Tag } from '@/lib/theme.types'
 import { TagList } from '../components/TagList'
 
 interface Props {

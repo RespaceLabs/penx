@@ -1,5 +1,5 @@
 import { ContentRender } from '@/components/theme-ui/ContentRender'
-import { Post, Site } from '@penxio/types'
+import { Post, Site } from '@/lib/theme.types'
 import Link from 'next/link'
 import { PostItem } from '../components/PostItem'
 

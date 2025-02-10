@@ -1,6 +1,6 @@
 import { ModeToggle } from '@/components/ModeToggle'
 import { cn } from '@/lib/utils'
-import { Site } from '@penxio/types'
+import { Site } from '@/lib/theme.types'
 import SocialIcon from './SocialIcon'
 
 interface Props {

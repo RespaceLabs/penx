@@ -1,5 +1,5 @@
-import { Post, Tag } from '@penxio/types'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
+import { Post, Tag } from '@/lib/theme.types'
 import { PostList } from './PostList'
 import { TagList } from './TagList'
 
@@ -24,7 +24,7 @@ export function PostListWithTag({
     initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mx-auto max-w-3xl">
       <PageTitle>Tags</PageTitle>
       <TagList tags={tags} />
       <div className="mt-10">

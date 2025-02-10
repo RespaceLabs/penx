@@ -22,7 +22,6 @@ import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { useQuerySite } from '@/lib/hooks/useQuerySite'
 import { trpc } from '@/lib/trpc'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Site } from '@penxio/types'
 
 const FormSchema = z.object({
   logo: z.string(),

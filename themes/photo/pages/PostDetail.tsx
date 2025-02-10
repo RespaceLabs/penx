@@ -3,7 +3,7 @@ import { ContentRender } from '@/components/theme-ui/ContentRender'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
 import { PostActions } from '@/components/theme-ui/PostActions'
 import { cn, formatDate } from '@/lib/utils'
-import { Post } from '@penxio/types'
+import { Post } from '@/lib/theme.types'
 import { ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 

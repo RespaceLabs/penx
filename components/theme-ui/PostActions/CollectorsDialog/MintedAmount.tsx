@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { useSiteContext } from '@/components/SiteContext'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useCreations } from '@/lib/hooks/useCreations'
-import { Post } from '@penxio/types'
+import { Post } from '@/lib/theme.types'
 import { Bookmark } from 'lucide-react'
 
 interface Props {

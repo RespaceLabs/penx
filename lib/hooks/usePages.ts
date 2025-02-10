@@ -27,7 +27,7 @@ export function usePages() {
 
       setTimeout(async () => {
         const remotePages = await api.page.list.query()
-        const isEqual = equal(remotePages, localPages)
+        const isEqual = equal(remotePages, localPages as any)
         // console.log('===isEqual:', isEqual)
 
         if (isEqual) return

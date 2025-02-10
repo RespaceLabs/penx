@@ -2,7 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { isAddress } from '@/lib/utils'
-import { Post, PostType, User } from '@penxio/types'
+import { Post, PostType, User } from '@/lib/theme.types'
 import { cn, formatDate } from '@/lib/utils'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'

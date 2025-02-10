@@ -10,9 +10,9 @@ import {
 } from '@/lib/constants'
 import { useQueryEthPrice } from '@/lib/hooks/useEthPrice'
 import { precision } from '@/lib/math'
+import { Site } from '@/lib/theme.types'
 import { api } from '@/lib/trpc'
 import { SpaceType } from '@/lib/types'
-import { Site } from '@penxio/types'
 import { useQuery } from '@tanstack/react-query'
 import { LoadingDots } from './icons/loading-dots'
 

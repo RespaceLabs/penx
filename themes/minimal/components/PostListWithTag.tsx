@@ -1,4 +1,4 @@
-import { Post, Tag } from '@penxio/types'
+import { Post, Tag } from '@/lib/theme.types'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
 import { PostList } from './PostList'
 import { TagList } from './TagList'

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Profile } from '@/components/Profile/Profile'
 import { Airdrop } from '@/components/theme-ui/Airdrop'
 import { cn } from '@/lib/utils'
-import { Site } from '@penxio/types'
+import { Site } from '@/lib/theme.types'
 
 const headerNavLinks = [
   { href: '/', title: 'Home' },
