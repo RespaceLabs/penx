@@ -181,6 +181,36 @@ export const postRouter = router({
       return newPost
     }),
 
+  updatePublishedPost: protectedProcedure
+    .input(
+      z.object({
+        postId: z.string(),
+        featured: z.boolean().optional(),
+        isPopular: z.boolean().optional(),
+        publishedAt: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { postId, publishedAt, ...data } = input
+      await db
+        .update(posts)
+        .set({
+          ...data,
+          ...(publishedAt ? { publishedAt: new Date(publishedAt) } : {}),
+        })
+        .where(eq(posts.id, input.postId))
+
+      try {
+        revalidatePath('/', 'layout')
+        // revalidatePath('/(blog)/(home)', 'page')
+        revalidatePath('/(blog)/posts', 'page')
+        revalidatePath('/(blog)/posts/[...slug]', 'page')
+        revalidatePath('/(blog)/posts/page/[page]', 'page')
+      } catch (error) {}
+
+      return true
+    }),
+
   archive: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
