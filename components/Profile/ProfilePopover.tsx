@@ -72,16 +72,6 @@ export const ProfilePopover = memo(function ProfilePopover({
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem
-            className="cursor-pointer"
-            onClick={() => {
-              push('/wallet')
-            }}
-          >
-            <Wallet className="mr-2 h-4 w-4" />
-            <span>Wallet</span>
-          </DropdownMenuItem>
-
           {isEditor && (
             <>
               <DropdownMenuItem
