@@ -5,7 +5,7 @@ import { cookies } from 'next/headers'
 import { db } from '@/server/db'
 import { accounts, posts, sites, users } from '@/server/db/schema'
 import { getRequestContext } from '@cloudflare/next-on-pages'
-import { defaultPostContent } from './constants'
+import { defaultNavLinks, defaultPostContent } from './constants'
 import { PostStatus, PostType, ProviderType, UserRole } from './types'
 
 export type SubscriptionInSession = {
@@ -189,6 +189,7 @@ async function initSite(userId: string) {
       name: 'My first site',
       description: 'This is my first site',
       socials: {},
+      navLinks: defaultNavLinks,
       config: {
         features: {
           journal: false,

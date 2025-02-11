@@ -1,4 +1,4 @@
-import { editorDefaultValue } from '@/lib/constants'
+import { defaultNavLinks, editorDefaultValue } from '@/lib/constants'
 import { Site } from '@/lib/theme.types'
 import { getUrl } from '@/lib/utils'
 import { db } from '../db'
@@ -16,6 +16,7 @@ export async function getSite() {
       image: '',
       socials: {},
       config: {},
+      navLinks: defaultNavLinks,
     } as any as Site
   }
 
