@@ -1,6 +1,6 @@
 {
   "name": "penx",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "scripts": {
     "dev": "pnpm run cf-typegen && next dev",

@@ -48,7 +48,7 @@ export const ImageElement = withHOC(
                 className={mediaResizeHandleVariants({ direction: 'left' })}
                 options={{ direction: 'left' }}
               />
-              <Image
+              <img
                 className={cn(
                   'block w-full max-w-full cursor-pointer object-cover px-0',
                   'rounded-sm',

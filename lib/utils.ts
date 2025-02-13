@@ -101,6 +101,7 @@ export function isIPFSCID(str = '') {
 }
 
 export function getUrl(value = '') {
+  if (value.startsWith('http')) return value
   return isIPFSCID(value) ? `/api/ipfs-image?cid=${value}` : value
 }
 
