@@ -1,4 +1,4 @@
-import { ContentRender } from '@/components/theme-ui/ContentRender/ContentRender'
+import { ContentRender } from '@/components/theme-ui/ContentRender'
 import { getSite } from '@/lib/fetchers'
 import { loadTheme } from '@/themes/theme-loader'
 

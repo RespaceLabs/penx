@@ -1,25 +1,20 @@
 'use client'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { isAddress } from '@/lib/utils'
-import { Post, PostType, User } from '@/lib/theme.types'
-import { cn, formatDate } from '@/lib/utils'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Node } from 'slate'
+import { PlateEditor } from '@/components/editor/plate-editor'
+import { PostActions } from '@/components/theme-ui/PostActions/PostActions'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Post, PostType, User } from '@/lib/theme.types'
+import { cn, formatDate, isAddress } from '@/lib/utils'
 
 interface PostItemProps {
   post: Post
   receivers?: string[]
-  ContentRender?: (props: { content: any[]; className?: string }) => JSX.Element
-  PostActions?: (props: {
-    post: Post
-    receivers?: string[]
-    className?: string
-  }) => JSX.Element
 }
 
-export function PostItem({ post, PostActions, receivers = [] }: PostItemProps) {
+export function PostItem({ post, receivers = [] }: PostItemProps) {
   const { slug, title } = post
 
   const name = getUserName(post.user)
@@ -43,12 +38,20 @@ export function PostItem({ post, PostActions, receivers = [] }: PostItemProps) {
   const getContent = () => {
     if (post.type === PostType.IMAGE) {
       return (
-        <img src={post.image!} alt="" className="w-full h-auto rounded-lg" />
+        <img src={post.content} alt="" className="w-full h-auto rounded-lg" />
       )
     }
 
     if (post.type === PostType.NOTE) {
-      return <div className="text-foreground/80">{post.title}</div>
+      return (
+        <div className="text-foreground/80">
+          <PlateEditor
+            value={JSON.parse(post.content)}
+            readonly
+            className="px-0 py-0"
+          />
+        </div>
+      )
     }
 
     const nodes: any[] =
@@ -57,12 +60,12 @@ export function PostItem({ post, PostActions, receivers = [] }: PostItemProps) {
 
     return (
       <Link href={`/posts/${slug}`} className="space-y-2">
-        <div className="text-2xl font-bold hover:scale-105 transition-all origin-left">
+        <h2 className="text-2xl font-bold hover:scale-105 transition-all origin-left block">
           {post.title}
-        </div>
-        <div className="text-foreground/80 hover:text-foreground transition-all hover:scale-105 break-words break-all">
-          {str?.slice(0, 260)}...
-        </div>
+        </h2>
+        <p className="text-foreground/70 hover:text-foreground transition-all hover:scale-105 line-clamp-2">
+          {post.description || str?.slice(0, 200)}
+        </p>
       </Link>
     )
   }
@@ -103,7 +106,7 @@ export function PostItem({ post, PostActions, receivers = [] }: PostItemProps) {
 
       {getContent()}
 
-      {PostActions && <PostActions post={post} receivers={receivers} />}
+      <PostActions post={post} receivers={receivers} />
     </div>
   )
 }

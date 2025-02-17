@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { Analytics } from '@/components/Analytics'
 import { getSite } from '@/lib/fetchers'
 import { loadTheme } from '@/themes/theme-loader'
 import { Providers } from '../providers'
@@ -31,7 +32,7 @@ export default async function RootLayout({
       )}
 
       {site.analytics?.gaMeasurementId && (
-        <GoogleAnalytics trackPageViews gaMeasurementId="" />
+        <Analytics gaMeasurementId={site.analytics?.gaMeasurementId} />
       )}
     </>
   )

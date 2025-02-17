@@ -1,9 +1,9 @@
-import { Lobster } from 'next/font/google'
-import Link from 'next/link'
 import { Profile } from '@/components/Profile/Profile'
 import { Airdrop } from '@/components/theme-ui/Airdrop'
 import { Site } from '@/lib/theme.types'
 import { cn } from '@/lib/utils'
+import { Lobster } from 'next/font/google'
+import Link from './Link'
 import { PostTypeNav } from './PostTypeNav'
 
 const lobster = Lobster({
@@ -20,7 +20,7 @@ export const Header = ({ site }: Props) => {
   const links = [
     ...site?.navLinks,
     {
-      pathname: '/creator-fi/plans',
+      pathname: '/creator-fi',
       title: 'CreatorFi',
       visible: true,
     },
@@ -31,17 +31,18 @@ export const Header = ({ site }: Props) => {
         <div className="lg:flex items-center space-x-4 leading-5 sm:space-x-6 hidden flex-1">
           <div className="flex items-center space-x-4">
             {links.map((link) => {
-              if (link.pathname === '/creator-fi/plans' && !site.spaceId) {
+              if (link.pathname === '/creator-fi' && !site.spaceId) {
                 return null
               }
 
               if (!link.visible) return null
+
               return (
                 <Link
                   key={link.pathname}
                   href={link.pathname}
                   className={cn(
-                    'font-medium hover:text-brand-500 dark:hover:text-brand-400 text-xs text-foreground/60',
+                    'font-medium hover:text-brand-500 dark:hover:text-brand-400 text-foreground/90',
                   )}
                 >
                   {link.title}
@@ -53,7 +54,7 @@ export const Header = ({ site }: Props) => {
               <Link
                 href="/membership"
                 className={cn(
-                  'font-medium hover:text-brand-500 dark:hover:text-brand-400 text-xs text-foreground/60',
+                  'font-medium hover:text-brand-500 text-foreground/90',
                   'border border-brand-500 text-brand-500 rounded-full px-2 py-1 hover:bg-brand-500 hover:text-background text-sm',
                 )}
               >
@@ -85,10 +86,16 @@ export const Header = ({ site }: Props) => {
           </div>
         </div>
         <div className="flex item-center justify-end gap-3 flex-1">
+          <Link
+            href="/about"
+            className="font-medium flex items-center hover:text-brand-500 text-foreground/60 text-xs hover:scale-105 transition-all sm:hidden"
+          >
+            About
+          </Link>
           <div className="flex items-center">
             <Airdrop />
           </div>
-          <Profile />
+          <Profile></Profile>
         </div>
       </div>
       <PostTypeNav className="flex md:hidden" />

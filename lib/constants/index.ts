@@ -1,6 +1,7 @@
 import { NavLink, NavLinkType } from '../theme.types'
 
 export * from './element-type'
+export * from './theme.constants'
 export * from './defaultPostContent'
 
 export const isServer = typeof window === 'undefined'

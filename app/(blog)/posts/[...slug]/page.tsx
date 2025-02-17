@@ -1,9 +1,10 @@
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { getPost, getPosts, getSite } from '@/lib/fetchers'
 import { GateType } from '@/lib/types'
 import { Post } from '@/server/db/schema'
 import { loadTheme } from '@/themes/theme-loader'
-import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+
 // import { PaidContent } from './PaidContent'
 
 function getContent(post: Post) {
@@ -60,6 +61,7 @@ export default async function Page({
   // console.log('=====post:', post)
   return (
     <PostDetail
+      site={site}
       post={{
         ...post,
         content: getContent(post),

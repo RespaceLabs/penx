@@ -24,7 +24,7 @@ export function PostListWithTag({
     initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
 
   return (
-    <div className="flex flex-col mx-auto max-w-3xl">
+    <div className="flex flex-col justify-center items-center mx-auto max-w-3xl">
       <PageTitle>Tags</PageTitle>
       <TagList tags={tags} />
       <div className="mt-10">
