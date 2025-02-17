@@ -35,6 +35,7 @@ export const sites = table('site', {
   image: text('image', { length: 2183 }).default(''),
   email: text('email', { length: 255 }).unique(),
   socials: text('socials', { mode: 'json' }),
+  analytics: text('analytics', { mode: 'json' }),
   config: text('config', { mode: 'json' }),
   navLinks: text('navLinks', { mode: 'json' }),
   themeName: text('themeName', { length: 50 }),

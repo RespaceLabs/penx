@@ -50,6 +50,13 @@ export const siteRouter = router({
             medium: z.string().optional(),
           })
           .optional(),
+        analytics: z
+          .object({
+            gaMeasurementId: z.string().optional(),
+            umamiHost: z.string().optional(),
+            umamiWebsiteId: z.string().optional(),
+          })
+          .optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {

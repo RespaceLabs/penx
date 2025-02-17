@@ -18,6 +18,7 @@ export function SettingNav({}: Props) {
     tags: '/~/settings/tags',
     web3: '/~/settings/web3',
     contributors: '/~/settings/contributors',
+    analytics: '/~/settings/analytics',
   }
 
   const linkClassName = (path: string) =>
@@ -60,6 +61,10 @@ export function SettingNav({}: Props) {
         className={linkClassName(Paths.contributors)}
       >
         Contributors
+      </Link>
+
+      <Link href={Paths.analytics} className={linkClassName(Paths.analytics)}>
+        Analytics
       </Link>
     </div>
   )

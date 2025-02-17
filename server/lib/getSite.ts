@@ -16,6 +16,7 @@ export async function getSite() {
       image: '',
       socials: {},
       config: {},
+      analytics: {},
       navLinks: defaultNavLinks,
     } as any as Site
   }

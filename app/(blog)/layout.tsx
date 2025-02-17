@@ -15,8 +15,24 @@ export default async function RootLayout({
   const site = await getSite()
   const { SiteLayout } = loadTheme(site.themeName)
   return (
-    <Providers>
-      <SiteLayout site={site}>{children}</SiteLayout>
-    </Providers>
+    <>
+      <Providers>
+        <SiteLayout site={site}>{children}</SiteLayout>
+      </Providers>
+      {site.analytics?.umamiHost && site.analytics?.umamiWebsiteId && (
+        <script
+          async
+          defer
+          src={
+            `${site.analytics.umamiHost}/script.js` || 'https://cloud.umami.is'
+          }
+          data-website-id={site.analytics.umamiWebsiteId}
+        ></script>
+      )}
+
+      {site.analytics?.gaMeasurementId && (
+        <GoogleAnalytics trackPageViews gaMeasurementId="" />
+      )}
+    </>
   )
 }
