@@ -1,6 +1,6 @@
+import { Metadata, ResolvingMetadata } from 'next'
 import { getPosts, getSite } from '@/lib/fetchers'
 import { loadTheme } from '@/themes/theme-loader'
-import { Metadata, ResolvingMetadata } from 'next'
 
 export const runtime = 'edge'
 // export const dynamic = 'force-static'

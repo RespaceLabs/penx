@@ -8,10 +8,16 @@ import { ProviderType, UserRole } from '@/lib/types'
 import { TRPCError } from '@trpc/server'
 import { db } from '../db'
 import { accounts, users } from '../db/schema'
+import { generateNonce } from '../lib/generateNonce'
 import { getEthPrice } from '../lib/getEthPrice'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 export const userRouter = router({
+  getNonce: publicProcedure.query(async ({ ctx, input }) => {
+    let nonce = generateNonce()
+    return nonce
+  }),
+
   list: publicProcedure.query(async ({ ctx, input }) => {
     return db.query.users.findMany({ limit: 20 })
   }),

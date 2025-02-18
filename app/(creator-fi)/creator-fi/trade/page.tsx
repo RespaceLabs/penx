@@ -2,7 +2,7 @@ import { getSite, getSpace } from '@/lib/fetchers'
 import { Transaction } from '../../Space/Transaction'
 import { useSpaceContext } from '@/components/SpaceContext'
 
-// export const runtime = 'edge'
+
 // export const dynamic = 'force-static'
 // export const revalidate = 3600 * 24
 

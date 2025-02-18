@@ -1,11 +1,14 @@
+'use client'
+
 import React, { useMemo, type ReactNode } from 'react'
+import type { Address } from 'viem'
+import { createSiweMessage, type SiweMessage } from 'viem/siwe'
+import { api, trpc } from '@/lib/trpc'
 import useSession from '@/lib/useSession'
 import {
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,
 } from '@rainbow-me/rainbowkit'
-import type { Address } from 'viem'
-import { createSiweMessage, type SiweMessage } from 'viem/siwe'
 
 type UnconfigurableMessageOptions = {
   address: Address
@@ -67,8 +70,8 @@ export function RainbowKitSiweProvider({
         },
 
         getNonce: async () => {
-          const response = await fetch('/api/nonce')
-          return await response.text()
+          const response = await api.user.getNonce.query()
+          return response
         },
 
         signOut: async () => {

@@ -1,7 +1,6 @@
 import { ContentRender } from '@/components/theme-ui/ContentRender'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
 import { Site } from '@/lib/theme.types'
-import Image from '../components/Image'
 
 interface Props {
   site: Site
@@ -15,11 +14,9 @@ export function AboutPage({ site }: Props) {
         <div className="">
           <div className="flex flex-col items-center space-x-2 pt-8">
             {site.logo && (
-              <Image
+              <img
                 src={site.logo}
                 alt="avatar"
-                width={192}
-                height={192}
                 className="h-48 w-48 rounded-full"
               />
             )}

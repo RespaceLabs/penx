@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Analytics } from '@/components/Analytics'
+// import { Analytics } from '@/components/Analytics'
 import { getSite } from '@/lib/fetchers'
 import { loadTheme } from '@/themes/theme-loader'
 import { Providers } from '../providers'
@@ -31,9 +31,9 @@ export default async function RootLayout({
         ></script>
       )}
 
-      {site.analytics?.gaMeasurementId && (
+      {/* {site.analytics?.gaMeasurementId && (
         <Analytics gaMeasurementId={site.analytics?.gaMeasurementId} />
-      )}
+      )} */}
     </>
   )
 }

@@ -1,8 +1,6 @@
-import { Node } from 'slate'
-import { Post, PostType } from '@/lib/theme.types'
-import { cn, formatDate } from '@/lib/utils'
-import Image from './Image'
-import Link from './Link'
+import { formatDate } from '@/lib/utils'
+import { Post } from '@/lib/theme.types'
+import Link from 'next/link'
 import Tag from './Tag'
 
 interface PostItemProps {
@@ -12,71 +10,19 @@ interface PostItemProps {
 export function PostItem({ post }: PostItemProps) {
   const { slug, title } = post
 
-  function getCardContent() {
-    if (post.type === PostType.IMAGE) {
-      return (
-        <Image
-          src={post.content}
-          alt=""
-          width={400}
-          height={400}
-          className="object-cover w-full h-52"
-        />
-      )
-    }
-
-    const getTextFromChildren = (children: any[]) => {
-      return children.reduce((acc: string, child: any) => {
-        return acc + Node.string(child)
-      }, '')
-    }
-
-    const text = JSON.parse(post.content)
-      .map((element: any) => {
-        if (Array.isArray(element.children)) {
-          return getTextFromChildren(element.children)
-        } else {
-          return Node.string(element)
-        }
-      })
-      .join('')
-
-    if (post.type === PostType.NOTE) {
-      return (
-        <span className="text-foreground/80 p-4 border border-foreground/5 h-full block">
-          {text}
-        </span>
-      )
-    }
-
-    if (post?.image) {
-      return (
-        <Image
-          src={post.image || ''}
-          alt=""
-          width={400}
-          height={400}
-          className="object-cover w-full h-52"
-        />
-      )
-    }
-
-    return (
-      <span className="text-foreground/80 p-4 border border-foreground/5 h-full block">
-        {text}
-      </span>
-    )
-  }
-
   return (
     <article key={slug} className="flex flex-col space-y-5">
       <Link
         href={`/posts/${slug}`}
-        className={cn(
-          'object-cover w-full h-52 overflow-hidden hover:scale-105 transition-all',
-        )}
+        className="object-cover w-full h-52 bg-foreground/10 rounded-lg overflow-hidden hover:scale-105 transition-all"
       >
-        {getCardContent()}
+        {!!post?.image && (
+          <img
+            src={post.image || ''}
+            alt=""
+            className="object-cover w-full h-52"
+          />
+        )}
       </Link>
       <div className="space-y-3">
         <div>

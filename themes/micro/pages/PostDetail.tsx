@@ -2,15 +2,12 @@ import { ReactNode } from 'react'
 import { ContentRender } from '@/components/theme-ui/ContentRender'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
 import { PostActions } from '@/components/theme-ui/PostActions'
-import { PostSubtitle } from '@/components/theme-ui/PostSubtitle'
-import { SubscribeNewsletterCard } from '@/components/theme-ui/SubscribeNewsletter/SubscribeNewsletterCard'
-import { Post, Site } from '@/lib/theme.types'
 import { cn, formatDate } from '@/lib/utils'
+import { Post } from '@/lib/theme.types'
 import { ExternalLink } from 'lucide-react'
-import Link from '../components/Link'
+import Link from 'next/link'
 
 interface LayoutProps {
-  site: Site
   post: Post
   children: ReactNode
   className?: string
@@ -19,7 +16,6 @@ interface LayoutProps {
 }
 
 export function PostDetail({
-  site,
   post,
   next,
   prev,
@@ -29,10 +25,7 @@ export function PostDetail({
   return (
     <div className={cn(className)}>
       <header className="space-y-4 pb-4">
-        <div className="mb-4">
-          <PageTitle className="mb-2">{post.title}</PageTitle>
-          {post.description && <PostSubtitle>{post.description}</PostSubtitle>}
-        </div>
+        <PageTitle className="mb-0">{post.title}</PageTitle>
         <dl className="flex items-center gap-2">
           <dt className="sr-only">Published on</dt>
           <dd className="text-base font-medium leading-6 text-foreground/60">
@@ -48,7 +41,6 @@ export function PostDetail({
       <div className="grid-rows-[auto_1fr]">
         <div className="prose max-w-none pb-8 dark:prose-invert">
           <ContentRender content={post.content} />
-          <SubscribeNewsletterCard site={site} />
         </div>
 
         {post.cid && (

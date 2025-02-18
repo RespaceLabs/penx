@@ -1,9 +1,10 @@
 import { ContentRender } from '@/components/theme-ui/ContentRender'
 import { PageTitle } from '@/components/theme-ui/PageTitle'
-import { POSTS_PER_PAGE } from '@/lib/constants'
 import { Post, Site } from '@/lib/theme.types'
-import Link from '../components/Link'
+import Link from 'next/link'
 import { PostItem } from '../components/PostItem'
+
+const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 200)
 
 interface Props {
   site: Site

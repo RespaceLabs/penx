@@ -1,9 +1,9 @@
 import { ContentRender } from '@/components/theme-ui/ContentRender'
-import { POSTS_PER_PAGE } from '@/lib/constants'
 import { Post, Site } from '@/lib/theme.types'
-import Image from '../components/Image'
-import Link from '../components/Link'
+import Link from 'next/link'
 import { PostItem } from '../components/PostItem'
+
+const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 200)
 
 interface Props {
   site: Site
@@ -16,11 +16,9 @@ export function HomePage({ posts = [], site }: Props) {
       <div className="max-w-none mb-10 hover:text-foreground text-foreground/80">
         <div className="flex flex-col items-center flex-shrink-0">
           {site.logo && (
-            <Image
+            <img
               src={site.logo}
               alt="avatar"
-              width={192}
-              height={192}
               className="h-48 w-48 rounded-full"
             />
           )}
