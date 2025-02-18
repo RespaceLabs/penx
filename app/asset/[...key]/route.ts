@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
 
   /** hack for version */
   if (url.pathname === '/asset/penx-version') {
-    return Response.json({ version: '0.1.5' })
+    return Response.json({ version: '0.1.6' })
   }
 
   const size = url.searchParams.get('s') || ''
