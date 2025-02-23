@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { PageDefaultUI } from '@/components/theme-ui/PageDefaultUI'
 import { getPage, getPost, getPosts, getSite } from '@/lib/fetchers'
-import { pageToSlate } from '@/lib/serializer/pageToSlate'
 import { GateType } from '@/lib/types'
 import { Post } from '@/server/db/schema'
 import { loadTheme } from '@/themes/theme-loader'
@@ -34,10 +33,9 @@ export default async function Page({
   const [page, site] = await Promise.all([getPage(slug), getSite()])
 
   if (!page) return notFound()
-  const content = pageToSlate(page as any)
 
   const { PageDetail } = loadTheme(site.themeName)
-  if (!PageDetail) return <PageDefaultUI content={content} />
+  if (!PageDetail) return <PageDefaultUI content={page.content} />
 
-  return <PageDetail content={content} page={page} />
+  return <PageDetail content={page.content} page={page} />
 }

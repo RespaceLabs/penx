@@ -1,15 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import { format } from 'date-fns'
+import { CalendarDays } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { Calendar } from '@/components/ui/calendar'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { format } from 'date-fns'
-import { CalendarDays } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 
 interface Props {
   initialDate: Date

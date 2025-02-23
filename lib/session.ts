@@ -191,6 +191,7 @@ async function initSite(userId: string) {
       socials: {},
       navLinks: defaultNavLinks,
       config: {
+        locales: ['en', 'zh-CN', 'ja'],
         features: {
           journal: false,
           gallery: false,
@@ -205,7 +206,7 @@ async function initSite(userId: string) {
       type: PostType.ARTICLE,
       title: 'Welcome to PenX!',
       content: JSON.stringify(defaultPostContent),
-      postStatus: PostStatus.PUBLISHED,
+      status: PostStatus.PUBLISHED,
     }),
   ])
 }

@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import LoadingCircle from '@/components/icons/loading-circle'
 import { Button } from '@/components/ui/button'
 import { useDatabases } from '@/lib/hooks/useDatabases'
 import { api } from '@/lib/trpc'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
 
 export function CreatePageButton() {
   const { push } = useRouter()

@@ -1,108 +1,132 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
+import { format } from 'date-fns'
+import { useSearchParams } from 'next/navigation'
 import { useDebouncedCallback } from 'use-debounce'
 import { appEmitter } from '@/lib/app-emitter'
-import { updatePost } from '@/lib/hooks/usePost'
+import { editorDefaultValue } from '@/lib/constants'
+import { Post as IPost, usePost } from '@/lib/hooks/usePost'
 import { usePostSaving } from '@/lib/hooks/usePostSaving'
 import { useSiteTags } from '@/lib/hooks/useSiteTags'
 import { trpc } from '@/lib/trpc'
-import { uniqueId } from '@/lib/unique-id'
-import { Post as PostType } from '@/server/db/schema'
+import { PostType } from '@/lib/types'
+import { isValidUUIDv4 } from '@/lib/utils'
 import { PlateEditor } from '../editor/plate-editor'
-import { ProfileAvatar } from '../Profile/ProfileAvatar'
 import { CoverUpload } from './CoverUpload'
+import { JournalNav } from './JournalNav'
 import { Tags } from './Tags'
 
-export function Post({ post }: { post: PostType }) {
-  const [data, setData] = useState<PostType>(post)
+export function Post() {
+  const params = useSearchParams()
+  const id = params?.get('id') || ''
   const { mutateAsync } = trpc.post.update.useMutation()
   const { setPostSaving } = usePostSaving()
+  // console.log('post==============:', post)
+  const {
+    post,
+    title,
+    description,
+    content,
+    updateTitle,
+    updateDescription,
+    updateContent,
+  } = usePost()
 
   useSiteTags()
 
-  const debounced = useDebouncedCallback(
-    async (value: PostType) => {
-      if (data.content !== post.content || data.title !== post.title) {
-        setPostSaving(true)
+  const isJournal = useMemo(() => {
+    return !isValidUUIDv4(id)
+  }, [id])
+  const isToday = id === 'today'
 
-        try {
-          await mutateAsync({
-            id: data.id,
-            title: value.title || '',
-            content: value.content,
-            description: value.description || '',
-          })
+  const journalTitle = useMemo(() => {
+    if (!isJournal) return ''
+    if (isToday) return 'Today, ' + format(new Date(Date.now()), 'LLL do')
+    const formattedDate = format(new Date(id || Date.now()), 'LLL do')
+    return formattedDate
+  }, [isJournal, isToday, id])
 
-          updatePost({
-            id: data.id,
-            title: value.title,
-            content: value.content,
-            description: value.description,
-          })
-        } catch (error) {}
-        setPostSaving(false)
-      }
+  const debouncedUpdate = useDebouncedCallback(
+    async (value: IPost) => {
+      setPostSaving(true)
+      try {
+        await mutateAsync({
+          id: value.id,
+          title: value.title!,
+          content: value.content,
+          description: value.description!,
+        })
+      } catch (error) {}
+      setPostSaving(false)
     },
     // delay in ms
-    400,
+    200,
   )
-
-  useEffect(() => {
-    debounced(data)
-  }, [data, debounced])
 
   return (
     <div className="w-full h-full">
-      <div className="relative min-h-[500px] max-w-4xl py-4 sm:py-12 px-5 sm:px-8 mx-auto z-0">
-        <div className="mb-5 flex flex-col space-y-3 ">
-          <CoverUpload post={data} />
-          <TextareaAutosize
-            placeholder="Title"
-            defaultValue={data?.title || ''}
-            autoFocus
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault()
-                setTimeout(() => {
-                  appEmitter.emit('KEY_DOWN_ENTER_ON_TITLE')
-                }, 20)
-              }
-            }}
-            onChange={(e) => {
-              setData({ ...data, title: e.target.value })
-            }}
-            className="dark:placeholder-text-600 w-full resize-none border-none px-0 placeholder:text-foreground/40 focus:outline-none focus:ring-0 bg-transparent text-4xl font-bold"
-          />
-          <TextareaAutosize
-            placeholder="Description"
-            defaultValue={post?.description || ''}
-            onChange={(e) => setData({ ...data, description: e.target.value })}
-            className="dark:placeholder-text-600 w-full resize-none border-none px-0 placeholder:text-stone-400 focus:outline-none focus:ring-0 bg-transparent"
-          />
-        </div>
-        <div className="mb-4 space-y-2">
-          <ProfileAvatar showName />
-          <Tags />
-        </div>
+      <div className="relative min-h-[500px] max-w-screen-lg p-12 px-8 mx-auto z-0">
+        {post.type === PostType.ARTICLE && (
+          <div className="mb-5 flex flex-col space-y-3 ">
+            <CoverUpload post={post} />
+            {isJournal && (
+              <div className="flex items-center gap-4">
+                <span className="text-foreground text-4xl font-bold">
+                  {journalTitle}
+                </span>
+                <JournalNav date={post.date!} />
+              </div>
+            )}
+
+            {!isJournal && (
+              <TextareaAutosize
+                className="dark:placeholder-text-600 w-full resize-none border-none px-0 placeholder:text-foreground/40 focus:outline-none focus:ring-0 bg-transparent text-4xl font-bold"
+                placeholder="Title"
+                value={title || ''}
+                autoFocus
+                onChange={(e) => {
+                  const newPost = updateTitle(e.target.value)
+                  debouncedUpdate(newPost)
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                  }
+                }}
+              />
+            )}
+            <TextareaAutosize
+              className="dark:placeholder-text-600 w-full resize-none border-none px-0 placeholder:text-stone-400 focus:outline-none focus:ring-0 bg-transparent"
+              placeholder="Description"
+              value={description}
+              onChange={(e) => {
+                const newPost = updateDescription(e.target.value)
+                debouncedUpdate(newPost)
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                }
+              }}
+            />
+          </div>
+        )}
+
+        {!post.isPage && (
+          <div className="flex items-center justify-between">
+            <Tags />
+          </div>
+        )}
 
         <PlateEditor
           className="w-full -mx-6"
+          value={content ? JSON.parse(content) : editorDefaultValue}
           showAddButton
-          value={
-            post.content
-              ? JSON.parse(post.content)
-              : [
-                  {
-                    id: uniqueId(),
-                    type: 'p',
-                    children: [{ text: '' }],
-                  },
-                ]
-          }
           onChange={(v) => {
-            setData({ ...data, content: JSON.stringify(v) })
+            const newPost = updateContent(JSON.stringify(v))
+            debouncedUpdate(newPost)
           }}
         />
       </div>

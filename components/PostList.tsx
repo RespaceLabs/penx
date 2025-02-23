@@ -28,7 +28,7 @@ interface PostItemProps {
 
 export function PostItem({ post, status }: PostItemProps) {
   const { refetch } = usePosts()
-  const isPublished = post.postStatus === PostStatus.PUBLISHED
+  const isPublished = post.status === PostStatus.PUBLISHED
   const [date, setDate] = useState<Date>(post.publishedAt || new Date())
   const [open, setOpen] = useState(false)
 
@@ -51,7 +51,7 @@ export function PostItem({ post, status }: PostItemProps) {
         ))}
       </div>
       <div className="flex items-center gap-2 flex-wrap">
-        {post.postStatus !== PostStatus.PUBLISHED && (
+        {post.status !== PostStatus.PUBLISHED && (
           <div className="text-sm text-foreground/50">
             <div>{format(new Date(post.updatedAt), 'yyyy-MM-dd')}</div>
           </div>
@@ -215,7 +215,7 @@ export function PostList({ status }: PostListProps) {
 
   if (isLoading) return <div className="text-foreground/60">Loading...</div>
 
-  const posts = data.filter((post) => post.postStatus === status)
+  const posts = data.filter((post) => post.status === status)
 
   if (!posts.length) {
     return <div className="text-foreground/60">No posts yet.</div>

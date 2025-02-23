@@ -1,13 +1,13 @@
 import { Suspense } from 'react'
-import { Page } from '@/components/Page/Page'
-import { PageProvider } from './PageProvider'
+import { Post } from '@/components/Post/Post'
+import { PostProvider } from '@/components/Post/PostProvider'
 
 export default function PageApp() {
   return (
     <Suspense>
-      <PageProvider>
-        <Page></Page>
-      </PageProvider>
+      <PostProvider>
+        <Post />
+      </PostProvider>
     </Suspense>
   )
 }

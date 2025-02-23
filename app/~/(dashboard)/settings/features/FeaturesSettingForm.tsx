@@ -56,7 +56,7 @@ export function FeaturesSettingForm() {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
-      console.log('enable or disable features:', data)
+      console.log('enable or disable features:', data, site.id)
 
       await mutateAsync({
         siteId: site.id,

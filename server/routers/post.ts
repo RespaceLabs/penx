@@ -1,4 +1,5 @@
 import { desc, eq, or } from 'drizzle-orm'
+import { slug } from 'github-slugger'
 import ky from 'ky'
 import { revalidatePath } from 'next/cache'
 import { Node as SlateNode } from 'slate'
@@ -22,7 +23,7 @@ export const postRouter = router({
 
   publishedPosts: publicProcedure.query(async ({ ctx, input }) => {
     return await db.query.posts.findMany({
-      where: eq(posts.postStatus, PostStatus.PUBLISHED),
+      where: eq(posts.status, PostStatus.PUBLISHED),
     })
   }),
 
@@ -122,13 +123,13 @@ export const postRouter = router({
       await db
         .update(posts)
         .set({
-          postStatus: PostStatus.PUBLISHED,
+          status: PostStatus.PUBLISHED,
           gateType: input.gateType,
           collectible: input.collectible,
         })
         .where(eq(posts.id, input.postId))
 
-      const newPost = await db.query.posts.findFirst({
+      const post = await db.query.posts.findFirst({
         with: { postTags: { with: { tag: true } } },
         where: eq(posts.id, input.postId),
       })
@@ -138,8 +139,8 @@ export const postRouter = router({
         const res: any = await ky
           .post(IPFS_ADD_URL, {
             json: {
-              ...newPost,
-              postStatus: PostStatus.PUBLISHED,
+              ...post,
+              status: PostStatus.PUBLISHED,
               collectible,
               creationId,
             },
@@ -151,7 +152,8 @@ export const postRouter = router({
       await db
         .update(posts)
         .set({
-          postStatus: PostStatus.PUBLISHED,
+          status: PostStatus.PUBLISHED,
+          slug: post!.isPage ? slug(post!.title!) : post!.id,
           collectible,
           creationId,
           cid,
@@ -171,14 +173,14 @@ export const postRouter = router({
       // sync google
       // syncToGoogleDrive(ctx.token.uid, {
       //   ...newPost,
-      //   postStatus: PostStatus.PUBLISHED,
+      //   status: PostStatus.PUBLISHED,
       //   collectible,
       //   creationId,
       //   cid: res.cid,
       //   gateType,
       // } as any)
 
-      return newPost
+      return post
     }),
 
   updatePublishedPost: protectedProcedure
@@ -217,7 +219,7 @@ export const postRouter = router({
       const post = await db
         .update(posts)
         .set({
-          postStatus: PostStatus.ARCHIVED,
+          status: PostStatus.ARCHIVED,
         })
         .where(eq(posts.id, input))
 

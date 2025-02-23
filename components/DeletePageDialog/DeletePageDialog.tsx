@@ -28,7 +28,7 @@ export function DeletePageDialog({}: Props) {
   async function deleteField() {
     setLoading(true)
     try {
-      await api.page.delete.mutate({ pageId })
+      await api.post.delete.mutate(pageId)
       await refetch()
       toast.success('Page deleted successfully')
       setIsOpen(false)

@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
+import { PostProvider } from '@/components/Post/PostProvider'
 import { PostContent } from './PostContent'
-import { PostProvider } from './PostProvider'
 
 export default function PostPage() {
   return (

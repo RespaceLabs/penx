@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm'
 import { editorDefaultValue, ELEMENT_P } from '@/lib/constants'
 import { db } from '../db'
-import { blocks, pages } from '../db/schema'
+import { posts } from '../db/schema'
 
 interface Input {
   userId: string
@@ -12,34 +12,13 @@ interface Input {
 
 export async function createPage(input: Input) {
   const [newPage] = await db
-    .insert(pages)
+    .insert(posts)
     .values({
-      props: {},
-      children: [],
+      content: JSON.stringify(editorDefaultValue),
+      isPage: true,
       ...input,
     })
     .returning()
 
-  const [newBlock] = await db
-    .insert(blocks)
-    .values({
-      pageId: newPage.id,
-      parentId: newPage.id,
-      content: editorDefaultValue[0],
-      type: ELEMENT_P,
-      props: {},
-      children: [],
-      ...input,
-    })
-    .returning()
-
-  await db
-    .update(pages)
-    .set({
-      children: [newBlock.id],
-    })
-    .where(eq(pages.id, newPage.id))
-
-  newPage.children = [newBlock.id]
   return newPage
 }

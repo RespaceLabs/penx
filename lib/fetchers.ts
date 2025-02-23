@@ -2,7 +2,7 @@ import { desc, eq } from 'drizzle-orm'
 import ky from 'ky'
 import { unstable_cache } from 'next/cache'
 import { db } from '@/server/db'
-import { pages, posts, tags, users } from '@/server/db/schema'
+import { posts, tags, users } from '@/server/db/schema'
 import { getSite as getSiteInfo } from '@/server/lib/getSite'
 import { isProd, PostStatus, RESPACE_BASE_URI } from './constants'
 import { SpaceType } from './types'
@@ -39,7 +39,7 @@ export async function getPosts() {
           },
         },
         orderBy: (posts, { asc }) => [desc(posts.createdAt)],
-        where: eq(posts.postStatus, PostStatus.PUBLISHED),
+        where: eq(posts.status, PostStatus.PUBLISHED),
       })
       return list.map((post) => ({
         ...post,
@@ -137,16 +137,15 @@ export async function getSpace(spaceId: string) {
 export async function getPage(slug: string) {
   return await unstable_cache(
     async () => {
-      const page = await db.query.pages.findFirst({
-        where: eq(pages.slug, slug),
-        with: { blocks: true },
+      const page = await db.query.posts.findFirst({
+        where: eq(posts.slug, slug),
       })
 
       if (!page) return null
 
       return {
         ...page,
-        cover: getUrl(page.cover || ''),
+        image: getUrl(page.image || ''),
       }
     },
     [`page-${slug}`],

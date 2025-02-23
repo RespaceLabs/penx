@@ -16,7 +16,6 @@ import { v4 } from 'uuid'
 import {
   CommentStatus,
   GateType,
-  PageStatus,
   PostStatus,
   PostType,
   UserRole,
@@ -39,8 +38,8 @@ export const sites = table('site', {
   config: text('config', { mode: 'json' }),
   navLinks: text('navLinks', { mode: 'json' }),
   catalogue: text('catalogue', { mode: 'json' }),
-  projects: text('projects', { mode: 'json' }),
-  friends: text('friends', { mode: 'json' }),
+  newsletterConfig: text('newsletterConfig', { mode: 'json' }),
+  notificationConfig: text('notificationConfig', { mode: 'json' }),
   themeName: text('themeName', { length: 50 }),
   themeConfig: text('themeConfig', { mode: 'json' }),
   memberCount: integer('memberCount').default(0),
@@ -88,7 +87,6 @@ export const usersRelations = relations(users, ({ many }) => ({
   comments: many(comments),
   tags: many(tags),
   accessTokens: many(accessTokens),
-  pages: many(pages),
 }))
 
 export const accounts = table(
@@ -138,20 +136,24 @@ export const posts = table(
       .$defaultFn(() => v4()),
     title: text('title', { length: 500 }).default(''),
     description: text('description', { length: 1000 }).default(''),
+    icon: text('image', { length: 2183 }).default(''),
+    image: text('image', { length: 2183 }).default(''),
     content: text('content').notNull().default(''),
+    i18n: text('i18n', { mode: 'json' }),
     cid: text('cid', { length: 100 }).default(''),
-    pageId: text('pageId').unique(),
     creationId: integer('creationId'),
     type: text('type').default(PostType.ARTICLE),
     gateType: text('gateType').default(GateType.FREE),
-    postStatus: text('postStatus').default(PostStatus.DRAFT),
+    status: text('status').default(PostStatus.DRAFT),
     commentStatus: text('commentStatus').default(CommentStatus.OPEN),
     commentCount: integer('commentCount').default(0),
-    image: text('image', { length: 2183 }).default(''),
     featured: integer('featured', { mode: 'boolean' }).default(false),
     collectible: integer('collectible', { mode: 'boolean' }).default(false),
     delivered: integer('delivered', { mode: 'boolean' }).default(false),
     isPopular: integer('isPopular', { mode: 'boolean' }).default(false),
+    isJournal: integer('isJournal', { mode: 'boolean' }).default(false),
+    isPage: integer('isPage', { mode: 'boolean' }).default(false),
+    date: text('date', { length: 100 }).default(''),
     publishedAt: integer('publishedAt', { mode: 'timestamp' }),
     archivedAt: integer('archivedAt', { mode: 'timestamp' }),
     userId: text('userId').notNull(),
@@ -168,9 +170,9 @@ export const posts = table(
       userIdIndex: t.index('posts_user_id_idx').on(table.userId),
       typeIndex: t.index('posts_type_idx').on(table.type),
       getTypeIndex: t.index('posts_gate_type_idx').on(table.gateType),
-      userId_postStatus: t
+      userId_status: t
         .index('posts_user_id_post_status')
-        .on(table.userId, table.postStatus),
+        .on(table.userId, table.status),
       userId_type: t.index('posts_user_id_type').on(table.userId, table.type),
     }
   },
@@ -505,85 +507,6 @@ export const assetAlbumsRelations = relations(assetAlbums, ({ one, many }) => ({
   }),
 }))
 
-export const pages = table(
-  'page',
-  {
-    id: text('id')
-      .primaryKey()
-      .$defaultFn(() => v4()),
-    slug: text('slug')
-      .unique()
-      .notNull()
-      .$defaultFn(() => v4()),
-    userId: text('userId').notNull(),
-    parentId: text('parentId'),
-    parentType: text('parentType'),
-    title: text('title'),
-    cover: text('cover', { length: 2183 }).default(''),
-    icon: text('icon'),
-    trashed: integer('trashed', { mode: 'boolean' }).default(false),
-    isJournal: integer('isJournal', { mode: 'boolean' }).default(false),
-    status: text('status').default(PageStatus.DRAFT),
-    children: text('children', { mode: 'json' }),
-    props: text('props', { mode: 'json' }),
-    date: text('date', { length: 20 }),
-    publishedAt: integer('publishedAt', { mode: 'timestamp' }),
-    createdAt: integer('createdAt', { mode: 'timestamp' })
-      .notNull()
-      .$defaultFn(() => new Date()),
-    updatedAt: integer('updatedAt', { mode: 'timestamp' })
-      .notNull()
-      .$defaultFn(() => new Date())
-      .$onUpdate(() => new Date()),
-  },
-  (table) => {
-    return {
-      userIdIndex: t.index('pages_user_id_idx').on(table.userId),
-      isJournalIndex: t.index('pages_is_journal_idx').on(table.isJournal),
-    }
-  },
-)
-
-export const pagesRelations = relations(pages, ({ one, many }) => ({
-  user: one(users, { references: [users.id], fields: [pages.userId] }),
-  blocks: many(blocks),
-}))
-
-export const blocks = table(
-  'block',
-  {
-    id: text('id')
-      .primaryKey()
-      .$defaultFn(() => v4()),
-    pageId: text('pageId').notNull(),
-    parentId: text('parentId'),
-    type: text('type'),
-    collapsed: integer('collapsed', { mode: 'boolean' }).default(false),
-    trashed: integer('trashed', { mode: 'boolean' }).default(false),
-    content: text('content', { mode: 'json' }),
-    children: text('children', { mode: 'json' }),
-    props: text('props', { mode: 'json' }),
-    createdAt: integer('createdAt', { mode: 'timestamp' })
-      .notNull()
-      .$defaultFn(() => new Date()),
-    updatedAt: integer('updatedAt', { mode: 'timestamp' })
-      .notNull()
-      .$defaultFn(() => new Date())
-      .$onUpdate(() => new Date()),
-  },
-  (table) => {
-    return {
-      pageIdIndex: t.index('blocks_page_id_idx').on(table.pageId),
-      typeIndex: t.index('blocks_type_idx').on(table.type),
-      trashedIndex: t.index('blocks_trashed_idx').on(table.trashed),
-    }
-  },
-)
-
-export const blocksRelations = relations(blocks, ({ one }) => ({
-  page: one(pages, { references: [pages.id], fields: [blocks.pageId] }),
-}))
-
 export const databases = table(
   'database',
   {
@@ -746,8 +669,6 @@ export type Album = typeof albums.$inferSelect
 export type AssetLabel = typeof assetLabels.$inferSelect
 export type AssetAlbum = typeof assetAlbums.$inferSelect
 
-export type Page = typeof pages.$inferSelect
-export type Block = typeof blocks.$inferSelect
 export type Database = typeof databases.$inferSelect
 export type Field = typeof fields.$inferSelect
 export type Record = typeof records.$inferSelect

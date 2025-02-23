@@ -1,17 +1,17 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { usePages } from '@/lib/hooks/usePages'
-import { cn } from '@/lib/utils'
-import { Page } from '@/server/db/schema'
 import { format } from 'date-fns'
 import { Edit3Icon, Trash2 } from 'lucide-react'
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { usePages } from '@/lib/hooks/usePages'
+import { cn } from '@/lib/utils'
+import { Post } from '@/server/db/schema'
 import { DeletePageDialog } from './DeletePageDialog/DeletePageDialog'
 import { useDeletePageDialog } from './DeletePageDialog/useDeleteDatabaseDialog'
 
 interface PageItemProps {
-  page: Page
+  page: Post
 }
 
 export function PageItem({ page }: PageItemProps) {

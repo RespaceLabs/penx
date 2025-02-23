@@ -12,5 +12,5 @@ export function PostContent() {
     return <ImageCreation post={post} />
   }
 
-  return <Post post={post} />
+  return <Post />
 }

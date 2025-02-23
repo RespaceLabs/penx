@@ -183,7 +183,7 @@ CREATE TABLE `post` (
 	`creationId` integer,
 	`type` text DEFAULT 'ARTICLE',
 	`gateType` text DEFAULT 'FREE',
-	`postStatus` text DEFAULT 'DRAFT',
+	`status` text DEFAULT 'DRAFT',
 	`commentStatus` text DEFAULT 'OPEN',
 	`commentCount` integer DEFAULT 0,
 	`image` text(2183) DEFAULT '',
@@ -301,7 +301,7 @@ CREATE UNIQUE INDEX `post_nodeId_unique` ON `post` (`nodeId`);--> statement-brea
 CREATE INDEX `posts_user_id_idx` ON `post` (`userId`);--> statement-breakpoint
 CREATE INDEX `posts_type_idx` ON `post` (`type`);--> statement-breakpoint
 CREATE INDEX `posts_gate_type_idx` ON `post` (`gateType`);--> statement-breakpoint
-CREATE INDEX `posts_user_id_post_status` ON `post` (`userId`,`postStatus`);--> statement-breakpoint
+CREATE INDEX `posts_user_id_post_status` ON `post` (`userId`,`status`);--> statement-breakpoint
 CREATE INDEX `posts_user_id_type` ON `post` (`userId`,`type`);--> statement-breakpoint
 CREATE INDEX `records_database_id_idx` ON `record` (`databaseId`);--> statement-breakpoint
 CREATE UNIQUE INDEX `site_email_unique` ON `site` (`email`);--> statement-breakpoint
